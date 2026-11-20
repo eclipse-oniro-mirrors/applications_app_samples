@@ -58,7 +58,6 @@ ErrCode CalculatorProxy::Add(int32_t a, int32_t b, int32_t& result)
         parcelData.get(),
         parcelReply.get(),
         &option);
-// [StartExclude CalculatorProxy]
     if (transportErr != OH_IPC_SUCCESS) {
         return transportErr;
     }

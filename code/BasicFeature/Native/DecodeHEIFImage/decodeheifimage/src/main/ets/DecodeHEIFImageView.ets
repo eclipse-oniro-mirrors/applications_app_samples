@@ -26,7 +26,7 @@
  *  4. WaterFlow + LazyForEach加载解码后的HEIF图片数据
  */
 
-import { heifUrls, ImageInfo, WaterFlowDataSource } from './model/WaterFlowData';
+import { getHeifUrls, ImageInfo, WaterFlowDataSource } from './model/WaterFlowData';
 import { ReusableFlowItem } from './components/ReusableFlowItem';
 import { executeTasks } from './model/Taskpool';
 
@@ -37,7 +37,7 @@ export struct DecodeHEIFImageView {
 
   aboutToAppear(): void {
     // TODO：知识点：在Taskpool中执行异步并发任务（网络请求和图片软解码）
-    executeTasks(heifUrls, this.dataSource);
+    executeTasks(getHeifUrls(getContext(this).resourceManager), this.dataSource);
   }
 
   build() {

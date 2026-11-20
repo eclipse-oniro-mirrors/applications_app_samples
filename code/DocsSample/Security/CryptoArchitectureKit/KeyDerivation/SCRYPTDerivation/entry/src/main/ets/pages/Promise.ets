@@ -19,24 +19,28 @@ import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { buffer } from '@kit.ArkTS';
 
-function scryptPromise() {
-  let spec: cryptoFramework.ScryptSpec = {
-    algName: 'SCRYPT',
-    passphrase: '123456',
-    salt: new Uint8Array(16),
-    n:1024,
-    p:16,
-    r:8,
-    maxMemory:1024 * 16 * 8 * 10, //n * p * r * 10
-    keySize: 64
-  };
-  let kdf = cryptoFramework.createKdf('SCRYPT');
-  let kdfPromise = kdf.generateSecret(spec);
-  kdfPromise.then((secret) => {
+async function scryptPromise() {
+  try {
+    let spec: cryptoFramework.ScryptSpec = {
+      algName: 'SCRYPT',
+      passphrase: '123456',
+      salt: new Uint8Array(16),
+      n:1024,
+      p:16,
+      r:8,
+      maxMemory:1024 * 16 * 8 * 10, //n * p * r * 10
+      keySize: 64
+    };
+    let kdf = cryptoFramework.createKdf('SCRYPT');
+    let secret = await kdf.generateSecret(spec);
     console.info('key derivation output: ' + secret.data);
-  }).catch((error: BusinessError) => {
-    console.error(`key derivation failed: errCode: ${error.code}, message: ${error.message}`);
-  });
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`key derivation failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude use_scrypt_for_key_derivation_promise]
+    throw new Error(`key derivation failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude use_scrypt_for_key_derivation_promise]
+  }
 }
 
 // [End use_scrypt_for_key_derivation_promise]
@@ -50,9 +54,9 @@ struct Index {
       Text(this.message).fontSize(20).fontWeight(FontWeight.Bold)
       Button($r('app.string.call_promise'))
         .width('70%')
-        .onClick(() => {
+        .onClick(async () => {
           try {
-            scryptPromise();
+            await scryptPromise();
             this.message = 'Promise Success';
           } catch {
             this.message = 'Promise Fail';

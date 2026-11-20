@@ -266,10 +266,10 @@ class TsThisExample {
 }
 
 let tsThisEx: TsThisExample = new TsThisExample();
-console.info(`${tsThisEx.getName()}`);  // MyClass
+console.info(`${tsThisEx.getName()}`);  // 'MyClass'
 
 let tsThisG = tsThisEx.getName;
-tsThisG();  // 运行时错误：Cannot read property 'name' of undefined
+tsThisG();  // 运行时错误：Cannot read property name of undefined
 // [End ts_runtime_this_error]
 
 // [Start ts_constructor_signature]
@@ -389,7 +389,7 @@ function Scoped(Base: typeof TsBaseWidget) {
 
 let ScopedWidget = Scoped(TsBaseWidget);
 let tsWidget = new ScopedWidget();
-console.info(`${tsWidget.scope}`); // local
+console.info(`${tsWidget.scope}`); // 'local'
 // [End ts_mixins]
 
 // ===== ts_structural_typing =====

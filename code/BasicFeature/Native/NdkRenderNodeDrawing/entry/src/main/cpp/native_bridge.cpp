@@ -12,294 +12,359 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <cmath>
+#include <cstdint>
 #include <string>
+
 #include "napi/native_api.h"
-#include <bits/alltypes.h>
-#include <multimedia/image_framework/image_mdk_common.h>
 #include <multimedia/image_framework/image_pixel_map_mdk.h>
-#include <native_window/external_window.h>
-#include <native_drawing/drawing_bitmap.h>
-#include <native_drawing/drawing_color.h>
-#include <native_drawing/drawing_color_filter.h>
-#include <native_drawing/drawing_canvas.h>
-#include <native_drawing/drawing_pen.h>
-#include <native_drawing/drawing_pixel_map.h>
-#include <native_drawing/drawing_brush.h>
-#include <native_drawing/drawing_path.h>
-#include <native_drawing/drawing_rect.h>
-#include <native_drawing/drawing_register_font.h>
-#include <native_drawing/drawing_filter.h>
-#include <native_drawing/drawing_font.h>
-#include <native_drawing/drawing_font_collection.h>
-#include <native_drawing/drawing_sampling_options.h>
-#include <native_drawing/drawing_text_blob.h>
-#include <native_drawing/drawing_text_declaration.h>
-#include <native_drawing/drawing_text_typography.h>
-#include <native_drawing/drawing_types.h>
-#include <native_drawing/drawing_typeface.h>
+
 #include "common/log_common.h"
+#include "capability/capability_dispatch.h"
+#include "capability/capability_type.h"
+#include "drawing/drawing_effect.h"
+#include "drawing/drawing_image.h"
+#include "drawing/drawing_shape.h"
+#include "drawing/drawing_text.h"
+#include "drawing/drawing_transform.h"
+#include "drawing/scene_type.h"
 
-enum DrawType {
-    NONE,
-    PATH,
-    TEXT,
-    IMAGE
-};
+namespace {
+// nativeRenderDraw 必填参数个数：context、width、height、scene、kind。
+constexpr size_t RENDER_ARG_COUNT = 5;
+// 图片场景额外需要一个 PixelMap 参数。
+constexpr size_t IMAGE_ARG_COUNT = 6;
+constexpr size_t MEASURE_ARG_COUNT = 3;
+// nativeRenderScene 必填参数个数：context、width、height、group、scene、params。
+constexpr size_t SCENE_ARG_COUNT = 6;
+// 第 7 个参数为可选的 PixelMap，仅像素图能力域需要，缺失时对应场景降级为示意图。
+constexpr size_t SCENE_MAX_ARG_COUNT = 7;
 
-const int FONT_COUNT = 2;
-const char *TEXT_DEMO = "Hello, OpenHarmony! 你好，鸿蒙！";
-const char *g_paths[FONT_COUNT] = {"system/fonts/NotoSans_KR_Bold.otf"};
+// nativeRenderDraw 的参数顺序：context、width、height、scene、kind、pixelMap。
+constexpr size_t ARG_CONTEXT = 0;
+constexpr size_t ARG_WIDTH = 1;
+constexpr size_t ARG_HEIGHT = 2;
+constexpr size_t ARG_SCENE = 3;
+constexpr size_t ARG_KIND = 4;
+constexpr size_t ARG_PIXEL_MAP = 5;
+// nativeMeasureText 的参数顺序：text、fontSize、maxWidth。
+constexpr size_t ARG_TEXT = 0;
+constexpr size_t ARG_FONT_SIZE = 1;
+constexpr size_t ARG_MAX_WIDTH = 2;
+// nativeRenderScene 的参数顺序：context、width、height、group、scene、params、pixelMap。
+constexpr size_t ARG_GROUP = 3;
+constexpr size_t ARG_PARAMS = 5;
+constexpr size_t ARG_SCENE_PIXEL_MAP = 6;
 
-static void NativeOnDrawPath(OH_Drawing_Canvas *canvas, int32_t width, int32_t height)
+bool GetInt32Arg(napi_env env, napi_value value, int32_t &result)
 {
-    // native node draw function
-    int len = height / 4;
-    float aX = width / 2;
-    float aY = height / 6;
-    float dX = aX - len * std::sin(18.0f);
-    float dY = aY + len * std::cos(18.0f);
-    float cX = aX + len * std::sin(18.0f);
-    float cY = dY;
-    float bX = aX + (len / 2.0);
-    float bY = aY + std::sqrt((cX - dX) * (cX - dX) + (len / 2.0) * (len / 2.0));
-    float eX = aX - (len / 2.0);
-    float eY = bY;
-    // 创建一个path对象，然后使用接口连接成一个五角星形状
-    OH_Drawing_Path *cPath = OH_Drawing_PathCreate();
-    // 指定path的起始位置
-    OH_Drawing_PathMoveTo(cPath, aX, aY);
-    // 用直线连接到目标点
-    OH_Drawing_PathLineTo(cPath, bX, bY);
-    OH_Drawing_PathLineTo(cPath, cX, cY);
-    OH_Drawing_PathLineTo(cPath, dX, dY);
-    OH_Drawing_PathLineTo(cPath, eX, eY);
-    // 闭合形状，path绘制完毕
-    OH_Drawing_PathClose(cPath);
-
-    constexpr float penWidth = 10.0f; // pen width 10
-    // 创建一个画笔Pen对象，Pen对象用于形状的边框线绘制
-    OH_Drawing_Pen *cPen = OH_Drawing_PenCreate();
-    OH_Drawing_PenSetAntiAlias(cPen, true);
-    OH_Drawing_PenSetColor(cPen, OH_Drawing_ColorSetArgb(0xFF, 0xFF, 0x00, 0x00));
-    OH_Drawing_PenSetWidth(cPen, penWidth);
-    OH_Drawing_PenSetJoin(cPen, LINE_ROUND_JOIN);
-    // 将Pen画笔设置到canvas中
-    OH_Drawing_CanvasAttachPen(canvas, cPen);
-
-    // 创建一个画刷Brush对象，Brush对象用于形状的填充
-    OH_Drawing_Brush *cBrush = OH_Drawing_BrushCreate();
-    OH_Drawing_BrushSetColor(cBrush, OH_Drawing_ColorSetArgb(0xFF, 0x00, 0xFF, 0x00));
-
-    // 将Brush画刷设置到canvas中
-    OH_Drawing_CanvasAttachBrush(canvas, cBrush);
-
-    // 在画布上画path的形状，五角星的边框样式为pen设置，颜色填充为Brush设置
-    OH_Drawing_CanvasDrawPath(canvas, cPath);
-    
-    // 绘制完成后将画笔和画刷从画布上清空并销毁
-    OH_Drawing_CanvasDetachPen(canvas);
-    OH_Drawing_CanvasDetachBrush(canvas);
-    OH_Drawing_PenDestroy(cPen);
-    OH_Drawing_BrushDestroy(cBrush);
-    OH_Drawing_PathDestroy(cPath);
-}
-
-// 字体引擎提供的文字绘制能力，可指定字体，自带排版，支持字体退化
-static void NativeOnDrawText(OH_Drawing_Canvas *canvas, int32_t width, int32_t height)
-{
-    // 选择从左到右/左对齐等排版属性
-    OH_Drawing_TypographyStyle *typoStyle = OH_Drawing_CreateTypographyStyle();
-    OH_Drawing_SetTypographyTextDirection(typoStyle, TEXT_DIRECTION_LTR);
-    OH_Drawing_SetTypographyTextAlign(typoStyle, TEXT_ALIGN_JUSTIFY);
-
-    // TEXT_ALIGN_JUSTIFY
-    // 设置文字颜色，例如黑色
-    OH_Drawing_TextStyle *txtStyle = OH_Drawing_CreateTextStyle();
-    OH_Drawing_SetTextStyleColor(txtStyle, OH_Drawing_ColorSetArgb(0xFF, 0x00, 0x00, 0x00));
-    // 设置文字大小、字重等属性
-    double fontSize = width / 16;
-    OH_Drawing_SetTextStyleFontSize(txtStyle, fontSize);
-    OH_Drawing_SetTextStyleFontWeight(txtStyle, FONT_WEIGHT_400);
-    OH_Drawing_SetTextStyleBaseLine(txtStyle, TEXT_BASELINE_ALPHABETIC);
-    OH_Drawing_SetTextStyleFontHeight(txtStyle, 1);
-    // 设置字体类型等
-    for (int i = 0; i < FONT_COUNT; ++i) {
-        OH_Drawing_FontCollection *fontCollection = OH_Drawing_CreateFontCollection();
-        const char *fontFamily = "myFamilyName";
-        const char *fontPath = g_paths[i];
-        OH_Drawing_RegisterFont(fontCollection, fontFamily, fontPath);
-        const char *myFontFamilies[] = {"myFamilyName"};
-        OH_Drawing_SetTextStyleFontFamilies(txtStyle, 1, myFontFamilies);
-        OH_Drawing_SetTextStyleFontStyle(txtStyle, FONT_STYLE_NORMAL);
-        OH_Drawing_SetTextStyleLocale(txtStyle, "en");
-        OH_Drawing_TypographyCreate *handler =
-            OH_Drawing_CreateTypographyHandler(typoStyle, fontCollection);
-        OH_Drawing_TypographyHandlerPushTextStyle(handler, txtStyle);
-        // 设置文字内容
-        OH_Drawing_TypographyHandlerAddText(handler, TEXT_DEMO);
-        OH_Drawing_TypographyHandlerPopTextStyle(handler);
-        OH_Drawing_Typography *typography = OH_Drawing_CreateTypography(handler);
-        // 设置页面最大宽度
-        double maxWidth = width - 100;
-        OH_Drawing_TypographyLayout(typography, maxWidth);
-        // 设置文本在画布上绘制的起始位置
-        double position[2] = {width / 10.0, height / 5.0 + fontSize * i * 2};
-        // 将文本绘制到画布上
-        OH_Drawing_TypographyPaint(typography, canvas, position[0], position[1]);
-        // 销毁创建的资源
-        OH_Drawing_DestroyTypography(typography);
-        OH_Drawing_DestroyTypographyHandler(handler);
-        OH_Drawing_DestroyFontCollection(fontCollection);
+    napi_valuetype type = napi_undefined;
+    if (napi_typeof(env, value, &type) != napi_ok || type != napi_number) {
+        return false;
     }
-    OH_Drawing_DestroyTypographyStyle(typoStyle);
-    OH_Drawing_DestroyTextStyle(txtStyle);
+    return napi_get_value_int32(env, value, &result) == napi_ok;
 }
 
-static void NativeOnDrawTextBlob(OH_Drawing_Canvas *canvas, int32_t width, int32_t height)
+bool GetDoubleArg(napi_env env, napi_value value, double &result)
 {
-    OH_Drawing_Brush *brush = OH_Drawing_BrushCreate();
-    OH_Drawing_BrushSetColor(brush, OH_Drawing_ColorSetArgb(0xff, 0xff, 0x00, 0x00));
-    OH_Drawing_CanvasAttachBrush(canvas, brush);
-    float textSize = width / 16;
-    for (int i = 0; i < FONT_COUNT; ++i) {
-        OH_Drawing_TextBlobBuilder *builder = OH_Drawing_TextBlobBuilderCreate();
-        OH_Drawing_Font *font = OH_Drawing_FontCreate();
-        OH_Drawing_Typeface *typeface = OH_Drawing_TypefaceCreateFromFile(g_paths[i], 0);
-        OH_Drawing_FontSetTypeface(font, typeface);
-        OH_Drawing_FontSetTextSize(font, textSize);
-        int textCount = OH_Drawing_FontCountText(font, TEXT_DEMO, strlen(TEXT_DEMO), TEXT_ENCODING_UTF8);
-        uint16_t glyphs[textCount];
-        // 获取文本对应的glyphsID
-        uint32_t glyphsCount =
-            OH_Drawing_FontTextToGlyphs(font, TEXT_DEMO, strlen(TEXT_DEMO), TEXT_ENCODING_UTF8, glyphs, textCount);
-        float textWidth[glyphsCount];
-        // 获取文本中每个字符的宽度，以此来确定排版横坐标
-        OH_Drawing_FontGetWidths(font, glyphs, glyphsCount, textWidth);
-        OH_Drawing_Font_Metrics metrics;
-        OH_Drawing_FontGetMetrics(font, &metrics);
-        // 计算字体高度用于换行
-        const float textHeight = metrics.descent - metrics.ascent;
-        const OH_Drawing_RunBuffer *runBuffer =
-            OH_Drawing_TextBlobBuilderAllocRunPos(builder, font, glyphsCount, nullptr);
-        // 以下为计算每个字的坐标设置的数据，无具体含义
-        const float posX = width / 10.0;
-        const float posY = height / 2.0;
-        const float enlargeY = 1.2;
-        const int numberTwo = 2;
-        float bufferPosX = posX;
-        float bufferPosY = posY + enlargeY * textSize * i * numberTwo;
-        for (int j = 0; j < glyphsCount; ++j) {
-            runBuffer->glyphs[j] = glyphs[j];
-            // 自定义字体排版中的横坐标
-            runBuffer->pos[j * numberTwo] = bufferPosX;
-            // 自定义字体排版中的纵坐标
-            runBuffer->pos[j * numberTwo + 1] = bufferPosY;
-            bufferPosX += textWidth[j];
-            if (bufferPosX >= width) {
-                bufferPosX = posX;
-                bufferPosY += textHeight;
-            }
+    napi_valuetype type = napi_undefined;
+    if (napi_typeof(env, value, &type) != napi_ok || type != napi_number) {
+        return false;
+    }
+    return napi_get_value_double(env, value, &result) == napi_ok;
+}
+
+// 从 ArkTS 的 number[] 中提取参数，超长部分丢弃，返回值表示是否整体合法。
+bool GetDoubleArray(napi_env env, napi_value value, double *out, uint32_t capacity, uint32_t &count)
+{
+    count = 0;
+    bool isArray = false;
+    if (napi_is_array(env, value, &isArray) != napi_ok || !isArray) {
+        return false;
+    }
+    uint32_t length = 0;
+    if (napi_get_array_length(env, value, &length) != napi_ok) {
+        return false;
+    }
+    if (length > capacity) {
+        length = capacity;
+    }
+    for (uint32_t index = 0; index < length; index++) {
+        napi_value element = nullptr;
+        if (napi_get_element(env, value, index, &element) != napi_ok) {
+            return false;
         }
-        OH_Drawing_TextBlob *textBlob = OH_Drawing_TextBlobBuilderMake(builder);
-        OH_Drawing_CanvasDrawTextBlob(canvas, textBlob, 0, 0);
-        
-        // 第二种textBlob创建方式，通过字符串创建，带有基础的排版，且不支持字体退化
-        const float tempY = 1.3;
-        OH_Drawing_TextBlob *stringTextBlob =
-            OH_Drawing_TextBlobCreateFromString(TEXT_DEMO, font, TEXT_ENCODING_UTF8);
-        OH_Drawing_CanvasDrawTextBlob(canvas, stringTextBlob, posX, height / tempY + textSize * i);
-        
-        OH_Drawing_TextBlobDestroy(textBlob);
-        OH_Drawing_TextBlobBuilderDestroy(builder);
-        OH_Drawing_TextBlobDestroy(stringTextBlob);
-        OH_Drawing_TypefaceDestroy(typeface);
-        OH_Drawing_FontDestroy(font);
+        if (!GetDoubleArg(env, element, out[index])) {
+            return false;
+        }
     }
-    OH_Drawing_CanvasDetachBrush(canvas);
-    OH_Drawing_BrushDestroy(brush);
+    count = length;
+    return true;
 }
 
-static void NativeOnDrawPixelMap(OH_Drawing_Canvas *canvas, NativePixelMap *native)
+bool IsNullOrUndefined(napi_env env, napi_value value)
 {
-    OH_Drawing_CanvasSave(canvas);
-    OH_Drawing_PixelMap *pixelMap = OH_Drawing_PixelMapGetFromNativePixelMap(native);
-    OH_Drawing_SamplingOptions *sampling = OH_Drawing_SamplingOptionsCreate(FILTER_MODE_NEAREST, MIPMAP_MODE_NONE);
-    OH_Drawing_Rect *src = OH_Drawing_RectCreate(0, 0, 550, 564);
-    OH_Drawing_Rect *dst = OH_Drawing_RectCreate(25, 300, 300, 582);
-    OH_Drawing_Brush *brush = OH_Drawing_BrushCreate();
-    OH_Drawing_CanvasAttachBrush(canvas, brush);
-    OH_Drawing_CanvasDrawPixelMapRect(canvas, pixelMap, src, dst, sampling);
-    OH_Drawing_CanvasDetachBrush(canvas);
-    
-    // 设置样式，绘制时生效
-    const float array[] = {
-        1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 1, 0,
-    };
-    OH_Drawing_ColorFilter *colorFilter = OH_Drawing_ColorFilterCreateMatrix(array);
-    OH_Drawing_Filter *filter = OH_Drawing_FilterCreate();
-    OH_Drawing_FilterSetColorFilter(filter, colorFilter);
-    OH_Drawing_BrushSetFilter(brush, filter);
-    OH_Drawing_CanvasAttachBrush(canvas, brush);
-    OH_Drawing_CanvasTranslate(canvas, 300.f, 0.f);
-    OH_Drawing_CanvasDrawPixelMapRect(canvas, pixelMap, src, dst, sampling);
-    OH_Drawing_CanvasDetachBrush(canvas);
-
-    OH_Drawing_PixelMapDissolve(pixelMap);
-    OH_Drawing_BrushDestroy(brush);
-    OH_Drawing_CanvasRestore(canvas);
-    OH_Drawing_FilterDestroy(filter);
-    OH_Drawing_ColorFilterDestroy(colorFilter);
-    OH_Drawing_SamplingOptionsDestroy(sampling);
-    OH_Drawing_RectDestroy(src);
-    OH_Drawing_RectDestroy(dst);
-}
-
-// 开发者提供的native方法，入参有且仅有如下两个，开发者不需进行变更。
-// napi_env 为当前运行的上下文
-// napi_callback_info 记录了一些信息，包括从ArkTS侧传递过来参数等。
-static napi_value OnDraw(napi_env env, napi_callback_info info)
-{
-    size_t argc = 6;
-    napi_value args[6] = {nullptr};
-    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
-
-    int32_t id;
-    napi_get_value_int32(env, args[0], &id);
-    void *temp = nullptr;
-    napi_unwrap(env, args[1], &temp);
-
-    OH_Drawing_Canvas *canvas = reinterpret_cast<OH_Drawing_Canvas *>(temp);
-    int32_t width;
-    napi_get_value_int32(env, args[2], &width); // 2 means the second argument
-    int32_t height;
-    napi_get_value_int32(env, args[3], &height); // 3 means the third argument
-    int32_t drawOption;
-    napi_get_value_int32(env, args[4], &drawOption); // 4 means the forth argument
-    NativePixelMap *nativePixelMap = OH_PixelMap_InitNativePixelMap(env, args[5]); // 5 means the forth argument
-    
-    if (drawOption == PATH) {
-        NativeOnDrawPath(canvas, width, height);
-    } else if (drawOption == TEXT) {
-        NativeOnDrawText(canvas, width, height);
-        NativeOnDrawTextBlob(canvas, width, height);
-    } else if (drawOption == IMAGE) {
-        NativeOnDrawPixelMap(canvas, nativePixelMap);
+    napi_valuetype type = napi_undefined;
+    if (napi_typeof(env, value, &type) != napi_ok) {
+        return true;
     }
-    return nullptr;
+    return type == napi_undefined || type == napi_null;
 }
 
-static napi_value GetNodeDescriptors(napi_env env, napi_callback_info info) { return nullptr; }
+napi_value CreateUndefined(napi_env env)
+{
+    napi_value result = nullptr;
+    napi_get_undefined(env, &result);
+    return result;
+}
+
+const char *SceneName(int32_t scene)
+{
+    switch (scene) {
+        case ndr::SCENE_SHAPE:
+            return "shape";
+        case ndr::SCENE_EFFECT:
+            return "effect";
+        case ndr::SCENE_TRANSFORM:
+            return "transform";
+        case ndr::SCENE_IMAGE:
+            return "image";
+        case ndr::SCENE_TEXT:
+            return "text";
+        default:
+            return "unknown";
+    }
+}
+
+// 校验场景编号与场景内种类编号，避免越界取值。
+bool IsSceneParamValid(int32_t scene, int32_t kind)
+{
+    switch (scene) {
+        case ndr::SCENE_SHAPE:
+            return kind >= ndr::SHAPE_POINT && kind < ndr::SHAPE_KIND_COUNT;
+        case ndr::SCENE_EFFECT:
+            return kind >= ndr::EFFECT_FILL_STROKE && kind < ndr::EFFECT_KIND_COUNT;
+        case ndr::SCENE_TRANSFORM:
+            return kind >= ndr::TRANSFORM_CLIP_RECT && kind < ndr::TRANSFORM_KIND_COUNT;
+        case ndr::SCENE_IMAGE:
+            return kind >= ndr::IMAGE_STRETCH && kind < ndr::IMAGE_KIND_COUNT;
+        case ndr::SCENE_TEXT:
+            return kind >= ndr::TEXT_BLOB && kind < ndr::TEXT_KIND_COUNT;
+        default:
+            return false;
+    }
+}
+
+void DispatchScene(OH_Drawing_Canvas *canvas, int32_t width, int32_t height,
+    int32_t scene, int32_t kind, NativePixelMap *nativePixelMap)
+{
+    switch (scene) {
+        case ndr::SCENE_SHAPE:
+            ndr::DrawShapeScene(canvas, width, height, kind);
+            break;
+        case ndr::SCENE_EFFECT:
+            ndr::DrawEffectScene(canvas, width, height, kind);
+            break;
+        case ndr::SCENE_TRANSFORM:
+            ndr::DrawTransformScene(canvas, width, height, kind);
+            break;
+        case ndr::SCENE_IMAGE:
+            ndr::DrawImageScene(canvas, width, height, nativePixelMap, kind);
+            break;
+        case ndr::SCENE_TEXT:
+            ndr::DrawTextScene(canvas, width, height, kind);
+            break;
+        default:
+            DRAWING_LOGE("DispatchScene unsupported scene=%{public}d", scene);
+            break;
+    }
+}
+
+// 布局未就绪时上层会以 0 尺寸触发一次绘制，属正常时序，静默跳过；负数才视为参数异常。
+bool IsUsableSceneSize(int32_t width, int32_t height)
+{
+    if (width > 0 && height > 0) {
+        return true;
+    }
+    if (width < 0 || height < 0) {
+        DRAWING_LOGE("NativeRenderScene negative size, width=%{public}d height=%{public}d", width, height);
+    }
+    return false;
+}
+
+// PixelMap 参数为可选项，仅在像素图能力域读取；取失败时退化为示意图，不阻断绘制。
+void *ResolveScenePixelMap(napi_env env, size_t argc, napi_value *args, int32_t group)
+{
+    if (group != ndr::GROUP_PIXELMAP || argc <= SCENE_ARG_COUNT) {
+        return nullptr;
+    }
+    if (IsNullOrUndefined(env, args[ARG_SCENE_PIXEL_MAP])) {
+        return nullptr;
+    }
+    void *nativePixelMap = OH_PixelMap_InitNativePixelMap(env, args[ARG_SCENE_PIXEL_MAP]);
+    if (nativePixelMap == nullptr) {
+        DRAWING_LOGW("NativeRenderScene init pixel map failed, fallback to schematic scene");
+    }
+    return nativePixelMap;
+}
+} // namespace
+
+// ArkTS 侧 DrawContext.canvas 的包装对象，需与 native_bridge 中导出的方法配合使用。
+static napi_value NativeRenderDraw(napi_env env, napi_callback_info info)
+{
+    size_t argc = IMAGE_ARG_COUNT;
+    napi_value args[IMAGE_ARG_COUNT] = {nullptr};
+    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc < RENDER_ARG_COUNT) {
+        DRAWING_LOGE("NativeRenderDraw invalid argc=%{public}d", static_cast<int32_t>(argc));
+        return CreateUndefined(env);
+    }
+
+    void *context = nullptr;
+    if (napi_unwrap(env, args[ARG_CONTEXT], &context) != napi_ok || context == nullptr) {
+        DRAWING_LOGE("NativeRenderDraw unwrap canvas failed");
+        return CreateUndefined(env);
+    }
+    OH_Drawing_Canvas *canvas = reinterpret_cast<OH_Drawing_Canvas *>(context);
+
+    int32_t width = 0;
+    int32_t height = 0;
+    int32_t scene = 0;
+    int32_t kind = 0;
+    if (!GetInt32Arg(env, args[ARG_WIDTH], width) || !GetInt32Arg(env, args[ARG_HEIGHT], height) ||
+        !GetInt32Arg(env, args[ARG_SCENE], scene) || !GetInt32Arg(env, args[ARG_KIND], kind)) {
+        DRAWING_LOGE("NativeRenderDraw invalid number argument");
+        return CreateUndefined(env);
+    }
+    if (width <= 0 || height <= 0) {
+        // 布局未就绪时上层会以 0 尺寸触发一次绘制，属正常时序，静默跳过；负数才视为参数异常。
+        if (width < 0 || height < 0) {
+            DRAWING_LOGE("NativeRenderDraw negative size, width=%{public}d height=%{public}d", width, height);
+        }
+        return CreateUndefined(env);
+    }
+    if (!IsSceneParamValid(scene, kind)) {
+        DRAWING_LOGE("NativeRenderDraw invalid scene=%{public}d kind=%{public}d", scene, kind);
+        return CreateUndefined(env);
+    }
+
+    NativePixelMap *nativePixelMap = nullptr;
+    if (scene == ndr::SCENE_IMAGE) {
+        if (argc < IMAGE_ARG_COUNT || IsNullOrUndefined(env, args[ARG_PIXEL_MAP])) {
+            DRAWING_LOGE("NativeRenderDraw image scene requires pixel map");
+            return CreateUndefined(env);
+        }
+        nativePixelMap = OH_PixelMap_InitNativePixelMap(env, args[ARG_PIXEL_MAP]);
+        if (nativePixelMap == nullptr) {
+            DRAWING_LOGE("NativeRenderDraw init pixel map failed");
+            return CreateUndefined(env);
+        }
+    }
+
+    DRAWING_LOGI("NativeRenderDraw scene=%{public}s kind=%{public}d size=%{public}dx%{public}d",
+        SceneName(scene), kind, width, height);
+    DispatchScene(canvas, width, height, scene, kind, nativePixelMap);
+    return CreateUndefined(env);
+}
+
+// 测量文本占用尺寸，返回 { width, height }，单位像素。
+static napi_value NativeMeasureText(napi_env env, napi_callback_info info)
+{
+    size_t argc = MEASURE_ARG_COUNT;
+    napi_value args[MEASURE_ARG_COUNT] = {nullptr};
+    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc < MEASURE_ARG_COUNT) {
+        DRAWING_LOGE("NativeMeasureText invalid argc=%{public}d", static_cast<int32_t>(argc));
+        return CreateUndefined(env);
+    }
+
+    std::string text;
+    size_t length = 0;
+    if (napi_get_value_string_utf8(env, args[ARG_TEXT], nullptr, 0, &length) == napi_ok) {
+        text.resize(length + 1);
+        size_t copied = 0;
+        if (napi_get_value_string_utf8(env, args[ARG_TEXT], &text[0], text.size(), &copied) == napi_ok) {
+            text.resize(copied);
+        } else {
+            text.clear();
+        }
+    }
+    double fontSize = 0.0;
+    double maxWidth = 0.0;
+    if (!GetDoubleArg(env, args[ARG_FONT_SIZE], fontSize) || !GetDoubleArg(env, args[ARG_MAX_WIDTH], maxWidth)) {
+        DRAWING_LOGE("NativeMeasureText invalid number argument");
+        return CreateUndefined(env);
+    }
+
+    const ndr::TextMeasureResult measure = ndr::MeasureText(text.c_str(), fontSize, maxWidth);
+    napi_value result = nullptr;
+    napi_value widthValue = nullptr;
+    napi_value heightValue = nullptr;
+    if (napi_create_object(env, &result) != napi_ok || napi_create_double(env, measure.width, &widthValue) != napi_ok ||
+        napi_create_double(env, measure.height, &heightValue) != napi_ok) {
+        DRAWING_LOGE("NativeMeasureText create result failed");
+        return CreateUndefined(env);
+    }
+    napi_set_named_property(env, result, "width", widthValue);
+    napi_set_named_property(env, result, "height", heightValue);
+    return result;
+}
+
+// 能力域统一绘制入口：场景编号与参数数组直传 native，绘制细节由各能力域模块负责。
+static napi_value NativeRenderScene(napi_env env, napi_callback_info info)
+{
+    size_t argc = SCENE_MAX_ARG_COUNT;
+    napi_value args[SCENE_MAX_ARG_COUNT] = {nullptr};
+    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc < SCENE_ARG_COUNT) {
+        DRAWING_LOGE("NativeRenderScene invalid argc=%{public}d", static_cast<int32_t>(argc));
+        return CreateUndefined(env);
+    }
+
+    void *context = nullptr;
+    if (napi_unwrap(env, args[ARG_CONTEXT], &context) != napi_ok || context == nullptr) {
+        DRAWING_LOGE("NativeRenderScene unwrap canvas failed");
+        return CreateUndefined(env);
+    }
+    OH_Drawing_Canvas *canvas = reinterpret_cast<OH_Drawing_Canvas *>(context);
+
+    int32_t width = 0;
+    int32_t height = 0;
+    int32_t group = 0;
+    int32_t scene = 0;
+    if (!GetInt32Arg(env, args[ARG_WIDTH], width) || !GetInt32Arg(env, args[ARG_HEIGHT], height) ||
+        !GetInt32Arg(env, args[ARG_GROUP], group) || !GetInt32Arg(env, args[ARG_SCENE], scene)) {
+        DRAWING_LOGE("NativeRenderScene invalid number argument");
+        return CreateUndefined(env);
+    }
+    if (!IsUsableSceneSize(width, height)) {
+        return CreateUndefined(env);
+    }
+    if (!ndr::IsCapabilitySupported(group, scene)) {
+        DRAWING_LOGE("NativeRenderScene unsupported group=%{public}d scene=%{public}d", group, scene);
+        return CreateUndefined(env);
+    }
+
+    double values[ndr::MAX_SCENE_PARAMS] = {0.0};
+    uint32_t count = 0;
+    if (!GetDoubleArray(env, args[ARG_PARAMS], values, ndr::MAX_SCENE_PARAMS, count)) {
+        DRAWING_LOGE("NativeRenderScene invalid params array");
+        return CreateUndefined(env);
+    }
+
+    DRAWING_LOGI("NativeRenderScene group=%{public}s scene=%{public}d params=%{public}d size=%{public}dx%{public}d",
+        ndr::CapabilityGroupName(group), scene, static_cast<int32_t>(count), width, height);
+
+    void *nativePixelMap = ResolveScenePixelMap(env, argc, args, group);
+    ndr::DispatchCapability(canvas, width, height, group, scene, values, count, nativePixelMap);
+    return CreateUndefined(env);
+}
 
 EXTERN_C_START
-// Init将在exports上挂上Add/NativeCallArkTS这些native方法，此处的exports就是开发者import之后获取到的ArkTS对象。
+// Init 将在 exports 上挂载本模块的 native 方法，exports 即 ArkTS 侧 import 之后获取到的对象。
 static napi_value Init(napi_env env, napi_value exports)
 {
     napi_property_descriptor desc[] = {
-        {"nativeGetNodeDescriptors", nullptr, GetNodeDescriptors, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"nativeOnDraw", nullptr, OnDraw, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"nativeRenderDraw", nullptr, NativeRenderDraw, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"nativeRenderScene", nullptr, NativeRenderScene, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"nativeMeasureText", nullptr, NativeMeasureText, nullptr, nullptr, nullptr, napi_default, nullptr},
     };
-    // 在exports这个ArkTs对象上，挂载native方法
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
     return exports;
 }

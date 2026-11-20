@@ -18,6 +18,8 @@
 
 #include "napi/native_api.h"
 #include "filemanagement/clouddiskmanager/oh_cloud_disk_manager.h"
+// SDK 26.0.0 缺少 26.0.1/26.1.0 占位符接口声明，由本地兼容头补齐
+#include "cloud_disk_api_26_1_compat.h"
 #include <cstdint>
 #include <vector>
 #include "utils.h"

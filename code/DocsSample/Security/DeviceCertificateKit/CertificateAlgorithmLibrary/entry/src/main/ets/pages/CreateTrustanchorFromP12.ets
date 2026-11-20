@@ -18,7 +18,7 @@
 import { cert } from '@kit.DeviceCertificateKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
-function test() {
+async function test() {
   // [StartExclude trust_array_constructed_from_p12_file_during_validation]
   let p12Data =
     new Uint8Array([0x30, 0x82, 0x07, 0x5C, 0x02, 0x01, 0x03, 0x30, 0x82, 0x07, 0x12, 0x06, 0x09, 0x2A, 0x86, 0x48,
@@ -123,13 +123,14 @@ function test() {
       0x59, 0xCC, 0x42, 0x9F, 0xEF, 0xFC, 0x02, 0x02, 0x08, 0x00]);
   // [EndExclude trust_array_constructed_from_p12_file_during_validation]
   try {
-    cert.createTrustAnchorsWithKeyStore(p12Data, '123456').then((data) => {
-      console.info('createTrustAnchorsWithKeyStore result: success, the num of result is :' + data.length);
-    }).catch((err: BusinessError) => {
-      console.error(`createTrustAnchorsWithKeyStore failed, errCode: ${err.code}, message: ${err.message}`);
-    })
+    let data = await cert.createTrustAnchorsWithKeyStore(p12Data, '123456');
+    console.info('createTrustAnchorsWithKeyStore result: success, the num of result is :' + data.length);
   } catch (error) {
-    console.error(`createTrustAnchorsWithKeyStore failed, errCode: ${error.code}, message: ${error.message}`);
+    let e: BusinessError = error as BusinessError;
+    console.error(`createTrustAnchorsWithKeyStore failed, errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude trust_array_constructed_from_p12_file_during_validation]
+    throw new Error(`createTrustAnchorsWithKeyStore failed, errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude trust_array_constructed_from_p12_file_during_validation]
   }
 }
 
@@ -147,9 +148,9 @@ struct Index {
         .fontWeight(FontWeight.Bold)
       Button('Call CreateTrustanchorFromP12')
         .width('70%')
-        .onClick(() => {
+        .onClick(async () => {
           try {
-            test();
+            await test();
             this.message = 'Call Success';
           } catch {
             this.message = 'Call Fail';

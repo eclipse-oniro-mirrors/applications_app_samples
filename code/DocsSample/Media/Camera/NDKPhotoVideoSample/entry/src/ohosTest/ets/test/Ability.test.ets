@@ -69,7 +69,7 @@ export default function abilityTest() {
           if (permissionButton != null) {
             await permissionButton.click();
             console.info('  after permissionButton.click ');
-            await driver.delayMs(300); // 等待下一个权限请求弹窗出现
+            await driver.delayMs(300); // 等待下一个权限请求弹窗出现。
           }
       }
 

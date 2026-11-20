@@ -13,23 +13,43 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/entryability/EntryAbility.ets
+ * 文件职责：EntryAbility 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：EntryAbility。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { BusinessError } from '@kit.BasicServicesKit';
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 
 const TAG: string = 'EntryAbility';
+
 const DOMAIN: number = 0xFF00;
 
+/**
+ * EntryAbility：类定义，承载本文件对应的逻辑与数据。
+ */
 export default class EntryAbility extends UIAbility {
+  /**
+   * onCreate：Ability 创建时回调。
+   */
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(DOMAIN, TAG, '%{public}s', 'Ability onCreate');
   }
 
+  /**
+   * onDestroy：Ability 销毁时回调。
+   */
   onDestroy(): void {
     hilog.info(DOMAIN, TAG, '%{public}s', 'Ability onDestroy');
   }
 
+  /**
+   * onWindowStageCreate：窗口舞台创建时回调。
+   */
   onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
     hilog.info(DOMAIN, TAG, '%{public}s', 'Ability onWindowStageCreate')
@@ -71,16 +91,25 @@ export default class EntryAbility extends UIAbility {
     });
   }
 
+  /**
+   * onWindowStageDestroy：窗口舞台销毁时回调。
+   */
   onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources
     hilog.info(DOMAIN, TAG, '%{public}s', 'Ability onWindowStageDestroy');
   }
 
+  /**
+   * onForeground：应用进入前台时回调。
+   */
   onForeground(): void {
     // Ability has brought to foreground
     hilog.info(DOMAIN, TAG, '%{public}s', 'Ability onForeground');
   }
 
+  /**
+   * onBackground：应用退到后台时回调。
+   */
   onBackground(): void {
     // Ability has back to background
     hilog.info(DOMAIN, TAG, '%{public}s', 'Ability onBackground');

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Huawei Device Co., Ltd.
+* Copyright (C) 2026 Huawei Device Co., Ltd.
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
 * You may obtain a copy of the License at
@@ -17,9 +17,26 @@ import hilog from '@ohos.hilog';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import { Driver, ON } from '@ohos.UiTest';
+import { getDriver } from './Shared/SharedDriver';
 
-// 启动前需要安装手动安装HSP包再执行
+const BUNDLE_NAME: string = 'com.samples.systemrouter';
+const ENTRY_ABILITY: string = 'EntryAbility';
+const HOME_TITLE: string = 'NavIndex';
+const NAV_DELAY_MS: number = 1000;
+
 let abilityDelegatorRegistry = AbilityDelegatorRegistry.getAbilityDelegator();
+
+async function clickAndCheckTitle(driver: Driver, buttonText: string, titleText: string): Promise<boolean> {
+  let btnItem = await driver.findComponent(ON.text(buttonText));
+  if (btnItem === null) {
+    return false;
+  }
+  await btnItem.click();
+  await driver.delayMs(NAV_DELAY_MS);
+  let title = await driver.findComponent(ON.text(titleText));
+  return title !== null;
+}
+
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
     // Defines a test suite. Two parameters are supported: test suite name and test suite function.
@@ -42,15 +59,15 @@ export default function abilityTest() {
       // This API supports only one parameter: clear action function.
     })
     /**
-     * 拉起应用
+     * Launch the SystemRouter application.
      */
     it(`StartAbility_001`, 0, async (done: Function) => {
       // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
       hilog.info(0xF811, 'testTag', 'StartAbility_001 begin');
       try {
         await abilityDelegatorRegistry.startAbility({
-          bundleName: "com.samples.systemrouter",
-          abilityName: 'EntryAbility'
+          bundleName: BUNDLE_NAME,
+          abilityName: ENTRY_ABILITY
         });
         done();
       } catch (err) {
@@ -60,202 +77,70 @@ export default function abilityTest() {
       hilog.info(0xF811, 'testTag', 'StartAbility_001 end');
     })
     /**
-     * 从主页跳转到entry-pageOne
+     * Navigate from home to entry-pageOne.
+     */
+    it('TestCase_001', 0, async () => {
+      let driver = getDriver();
+      await driver.delayMs(NAV_DELAY_MS);
+      let navResult = await clickAndCheckTitle(driver, 'toEntryPageOne', 'entry-pageOne');
+      expect(navResult).assertTrue();
+      await driver.delayMs(NAV_DELAY_MS);
+    })
+    /**
+     * Navigate from entry-pageOne back to home.
      */
     it('TestCase_002', 0, async () => {
-      let driver = Driver.create();
-      await driver.delayMs(1000);
-      let btnItem = await driver.findComponent(ON.text("toEntryPageOne"));
-      await btnItem.click();
-      await driver.delayMs(1000);
-
-      // 获取标题
-      let title = await driver.findComponent(ON.text("entry-pageOne"));
-      // 检查
-      expect(title != undefined).assertTrue();
-      await driver.delayMs(1000);
+      let driver = getDriver();
+      await driver.delayMs(NAV_DELAY_MS);
+      let navResult = await clickAndCheckTitle(driver, 'toIndex', HOME_TITLE);
+      expect(navResult).assertTrue();
+      await driver.delayMs(NAV_DELAY_MS);
     })
     /**
-     * 从entry-pageOne跳转到主页
+     * Navigate from home to entry-pageTwo.
      */
     it('TestCase_003', 0, async () => {
-      let driver = Driver.create();
-      await driver.delayMs(1000);
-      let btnItem = await driver.findComponent(ON.text("toIndex"));
-      await btnItem.click();
-
-      await driver.delayMs(1000);
-      // 获取标题
-      let title = await driver.findComponent(ON.text("NavIndex"));
-      // 检查
-      expect(title != undefined).assertTrue();
-      await driver.delayMs(1000);
+      let driver = getDriver();
+      await driver.delayMs(NAV_DELAY_MS);
+      let navResult = await clickAndCheckTitle(driver, 'toEntryPageTwo', 'entry-pageTwo');
+      expect(navResult).assertTrue();
+      await driver.delayMs(NAV_DELAY_MS);
     })
-
     /**
-     * 从主页跳转到entry-pageTwo
+     * Navigate from entry-pageTwo back to home.
      */
     it('TestCase_004', 0, async () => {
-      let driver = Driver.create();
-      await driver.delayMs(1000);
-      let btnItem = await driver.findComponent(ON.text("toEntryPageTwo"));
-      await btnItem.click();
-      await driver.delayMs(1000);
-
-      // 获取标题
-      let title = await driver.findComponent(ON.text("entry-pageTwo"));
-      // 检查
-      expect(title != undefined).assertTrue();
-      await driver.delayMs(1000);
+      let driver = getDriver();
+      await driver.delayMs(NAV_DELAY_MS);
+      let navResult = await clickAndCheckTitle(driver, 'toIndex', HOME_TITLE);
+      expect(navResult).assertTrue();
+      await driver.delayMs(NAV_DELAY_MS);
     })
     /**
-     * 从entry-pageTwo跳转到主页
+     * Navigate from home to harA-pageOne.
      */
     it('TestCase_005', 0, async () => {
-      let driver = Driver.create();
-      await driver.delayMs(1000);
-      let btnItem = await driver.findComponent(ON.text("toIndex"));
-      await btnItem.click();
-
-      await driver.delayMs(1000);
-      // 获取标题
-      let title = await driver.findComponent(ON.text("NavIndex"));
-      // 检查
-      expect(title != undefined).assertTrue();
-      await driver.delayMs(1000);
-    })
-
-    /**
-     * 从主页跳转到harA-pageOne
-     */
-    it('TestCase_006', 0, async () => {
-      let driver = Driver.create();
-      await driver.delayMs(1000);
-      let btnItem = await driver.findComponent(ON.text("toHarAPageOne"));
-      await btnItem.click();
-
-      await driver.delayMs(1000);
-      // 获取标题
-      let title = await driver.findComponent(ON.text("harA-pageOne"));
-      // 检查
-      expect(title != undefined).assertTrue();
-      await driver.delayMs(1000);
+      let driver = getDriver();
+      await driver.delayMs(NAV_DELAY_MS);
+      let navResult = await clickAndCheckTitle(driver, 'toHarAPageOne', 'harA-pageOne');
+      expect(navResult).assertTrue();
+      await driver.delayMs(NAV_DELAY_MS);
     })
     /**
-     * 从harA-pageOne跳转到主页
+     * Navigate from home to harA-pageTwo.
      */
-    it('TestCase_007', 0, async () => {
-      let driver = Driver.create();
-      await driver.delayMs(1000);
-      let btnItem = await driver.findComponent(ON.text("toIndex"));
-      await btnItem.click();
-
-      await driver.delayMs(1000);
-      // 获取标题
-      let title = await driver.findComponent(ON.text("NavIndex"));
-      // 检查
-      expect(title != undefined).assertTrue();
-      await driver.delayMs(1000);
-    })
 
     /**
-     * 从主页跳转到harA-pageTwo
+     * Navigate from home to hspA-pageOne.
      */
-    it('TestCase_008', 0, async () => {
-      let driver = Driver.create();
-      await driver.delayMs(1000);
-      let btnItem = await driver.findComponent(ON.text("toHarAPageTwo"));
-      await btnItem.click();
-      await driver.delayMs(1000);
-
-      // 获取标题
-      let title = await driver.findComponent(ON.text("harA-pageTwo"));
-      // 检查
-      expect(title != undefined).assertTrue();
-      await driver.delayMs(1000);
-    })
-    /**
-     * 从harA-pageTwo跳转到主页
-     */
-    it('TestCase_009', 0, async () => {
-      let driver = Driver.create();
-      await driver.delayMs(1000);
-      let btnItem = await driver.findComponent(ON.text("toIndex"));
-      await btnItem.click();
-
-      await driver.delayMs(1000);
-      // 获取标题
-      let title = await driver.findComponent(ON.text("NavIndex"));
-      // 检查
-      expect(title != undefined).assertTrue();
-      await driver.delayMs(1000);
-    })
 
     /**
-     * 从主页跳转到hspA-pageOne
+     * Navigate from home to hspA-pageTwo.
      */
-    it('TestCase_010', 0, async () => {
-      let driver = Driver.create();
-      await driver.delayMs(1000);
-      let btnItem = await driver.findComponent(ON.text("toHspAPageOne"));
-      await btnItem.click();
-      await driver.delayMs(1000);
-
-      // 获取标题
-      let title = await driver.findComponent(ON.text("hspA-pageOne"));
-      // 检查
-      expect(title != undefined).assertTrue();
-      await driver.delayMs(1000);
-    })
-    /**
-     * 从hspA-pageOne跳转到主页
-     */
-    it('TestCase_011', 0, async () => {
-      let driver = Driver.create();
-      await driver.delayMs(1000);
-      let btnItem = await driver.findComponent(ON.text("toIndex"));
-      await btnItem.click();
-
-      await driver.delayMs(1000);
-      // 获取标题
-      let title = await driver.findComponent(ON.text("NavIndex"));
-      // 检查
-      expect(title != undefined).assertTrue();
-      await driver.delayMs(1000);
-    })
 
     /**
-     * 从主页跳转到hspA-pageTwo
+     * Navigate from hspA-pageTwo back to home.
      */
-    it('TestCase_012', 0, async () => {
-      let driver = Driver.create();
-      await driver.delayMs(1000);
-      let btnItem = await driver.findComponent(ON.text("toHspAPageTwo"));
-      await btnItem.click();
-      await driver.delayMs(1000);
 
-      // 获取标题
-      let title = await driver.findComponent(ON.text("hspA-pageTwo"));
-      // 检查
-      expect(title != undefined).assertTrue();
-      await driver.delayMs(1000);
-    })
-    /**
-     * 从hspA-pageTwo跳转到主页
-     */
-    it('TestCase_013', 0, async () => {
-      let driver = Driver.create();
-      await driver.delayMs(1000);
-      let btnItem = await driver.findComponent(ON.text("toIndex"));
-      await btnItem.click();
-
-      await driver.delayMs(1000);
-      // 获取标题
-      let title = await driver.findComponent(ON.text("NavIndex"));
-      // 检查
-      expect(title != undefined).assertTrue();
-      await driver.delayMs(1000);
-    })
   })
 }
-

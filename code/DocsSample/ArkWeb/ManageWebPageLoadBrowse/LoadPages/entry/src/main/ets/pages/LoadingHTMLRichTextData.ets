@@ -33,7 +33,7 @@ struct WebComponent {
               'UTF-8'
             );
           } catch (error) {
-            console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+            console.error(`ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
       // 组件创建时，加载www.example.com

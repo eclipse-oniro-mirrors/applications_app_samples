@@ -15,16 +15,27 @@
 
 import Logger from '../../common/Logger'
 import { startMode } from '../../common/Util'
-import { FoodInfo } from '../../model/DataModels'
+import { CategoryId, FoodInfo } from '../../model/DataModels'
 
 const TAG = '[Sample_StartMode]'
 
 @Component
 export struct FoodListItem {
-  private foodItem: FoodInfo
-  private foodItemIndex: number
-  private modeName: string
-  private foodListIndex: number
+  private foodItem: FoodInfo = {
+    id: 0,
+    letter: '',
+    name: '',
+    image: $r('app.media.tomato'),
+    categoryId: CategoryId.Vegetable,
+    calories: 0,
+    protein: 0,
+    fat: 0,
+    carbohydrates: 0,
+    vitaminC: 0
+  }
+  private foodItemIndex: number = 0
+  private modeName: string = ''
+  private foodListIndex: number = 0
 
   cateData() {
     Logger.info(TAG, 'cateData start')

@@ -36,7 +36,7 @@ let str: string = identity<string>('Hello');
 let bool: boolean = identity<boolean>(true);
 
 console.info(`${num}`);   // 42
-console.info(`${str}`);   // Hello
+console.info(`${str}`);   // 'Hello'
 console.info(`${bool}`);  // true
 // [End generics_introduction]
 
@@ -119,60 +119,58 @@ console.info(`${stringStack.pop()}`); // World
 // ===== generic_function_declarations =====
 // [Start generic_function_declarations]
 // 基本泛型函数声明
-function declarationsIdentity<T>(arg: T): T {
-  return arg;
+function wrap<T>(value: T): T[] {
+  return [value];
 }
 
 // 箭头函数形式的泛型函数
-const identityArrow = <T>(arg: T): T => arg;
+const wrapArrow = <T>(value: T): T[] => [value];
 
 // 使用类型别名的泛型函数
-type IdentityFunction = <T>(arg: T) => T;
-let identityAlias: IdentityFunction = declarationsIdentity;
+type WrapFunction = <T>(value: T) => T[];
+let wrapAlias: WrapFunction = wrap;
 
-console.info(`${declarationsIdentity<number>(42)}`);       // 42
-console.info(`${identityArrow<string>('Hello')}`); // Hello
-console.info(`${identityAlias<boolean>(true)}`);   // true
+console.info(`${wrap<number>(42)[0]}`);           // 42
+console.info(`${wrapArrow<string>('Hello')[0]}`); // 'Hello'
+console.info(`${wrapAlias<boolean>(true)[0]}`);   // true
 // [End generic_function_declarations]
 
 // ===== multi_type_parameter_class =====
 // [Start multi_type_parameter_class]
-// 使用不同命名规范的示例
-class Pair<T, U> {
-  public first: T;
-  public second: U;
-
-  constructor(first: T, second: U) {
-    this.first = first;
-    this.second = second;
-  }
+// K（Key）、V（Value）常用于键值对场景
+function getOrDefault<K, V>(source: Map<K, V>, key: K, fallback: V): V {
+  let value: V | undefined = source.get(key);
+  return value !== undefined ? value : fallback;
 }
 
-interface Person {
-  name: string;
-  age: number;
-  email: string;
-}
+let scoreByName: Map<string, number> = new Map<string, number>();
+scoreByName.set('Alice', 95);
+scoreByName.set('Bob', 88);
 
-let personInfo: Pair<string, number> = new Pair<string, number>('Alice', 25);
+let aliceScore: number = getOrDefault(scoreByName, 'Alice', 0);
+let carolScore: number = getOrDefault(scoreByName, 'Carol', 60);
 
-console.info(`${personInfo.first}`);  // Alice
-console.info(`${personInfo.second}`); // 25
+console.info(`${aliceScore}`);  // 95
+console.info(`${carolScore}`);  // 60
 // [End multi_type_parameter_class]
 
 // ===== generic_type_inference =====
 // [Start generic_type_inference]
-function genericIdentityInferred<T>(arg: T): T {
-  return arg;
+function repeatItem<T>(item: T, count: number): T[] {
+  let result: T[] = [];
+  for (let i = 0; i < count; i++) {
+    result.push(item);
+  }
+  return result;
 }
 
 // 显式指定类型参数
-let result1: string = genericIdentityInferred<string>('Hello');
-console.info(`${result1}`);
+let repeatedStrings: string[] = repeatItem<string>('Hi', 3);
+console.info(`${repeatedStrings.join(', ')}`); // 'Hi, Hi, Hi'
 
 // 类型参数自动推断
-let result2: string = genericIdentityInferred('World');
-console.info(`${result2}`);
+let repeatedNumbers: number[] = repeatItem(7, 2);
+console.info(`${repeatedNumbers.join(', ')}`); // 7, 7
 
 // 多类型参数的泛型函数
 function createPair<T, U>(first: T, second: U): [T, U] {
@@ -182,8 +180,8 @@ function createPair<T, U>(first: T, second: U): [T, U] {
 let pair1: [string, number] = createPair<string, number>('Age', 25);
 let pair2: [string, number] = createPair('Height', 180); // 自动推断为 [string, number]
 
-console.info(`${pair1[0]}: ${pair1[1]}`); // Age: 25
-console.info(`${pair2[0]}: ${pair2[1]}`); // Height: 180
+console.info(`${pair1[0]}: ${pair1[1]}`); // 'Age: 25'
+console.info(`${pair2[0]}: ${pair2[1]}`); // 'Height: 180'
 // [End generic_type_inference]
 
 // ===== multi_type_parameter_function =====
@@ -194,7 +192,7 @@ function swap<T, U>(a: T, b: U): [U, T] {
 }
 
 let swapped: [string, number] = swap(1, 'Hello');
-console.info(`${swapped[0]}, ${swapped[1]}`); // Hello, 1
+console.info(`${swapped[0]}, ${swapped[1]}`); // 'Hello, 1'
 
 // 多类型参数的复杂用法：用显式结构保存两个不同类型的值
 interface PairValue<T, U> {
@@ -239,7 +237,7 @@ console.info(`${doubled.join(', ')}`); // 2, 4, 6, 8, 10
 
 let strings: string[] = ['a', 'b', 'c'];
 let uppercased: string[] = mapArray<string, string>(strings, (s: string): string => s.toUpperCase());
-console.info(`${uppercased.join(', ')}`); // A, B, C
+console.info(`${uppercased.join(', ')}`); // 'A, B, C'
 // [End multi_type_parameter_function]
 
 // ===== generic_class_basic =====
@@ -247,29 +245,31 @@ console.info(`${uppercased.join(', ')}`); // A, B, C
 // 基本泛型类声明
 class Container<T> {
   private value: T;
-  
+
   constructor(initialValue: T) {
     this.value = initialValue;
   }
-  
+
   public getValue(): T {
     return this.value;
   }
-  
+
   public setValue(newValue: T): void {
     this.value = newValue;
   }
 }
 
+// 显式指定类型参数实例化
 let numberContainer: Container<number> = new Container<number>(42);
 console.info(`${numberContainer.getValue()}`); // 42
 numberContainer.setValue(100);
 console.info(`${numberContainer.getValue()}`); // 100
 
-let stringContainer: Container<string> = new Container<string>('Hello');
-console.info(`${stringContainer.getValue()}`); // Hello
+// 省略类型参数，由编译器根据变量类型标注和构造参数自动推断
+let stringContainer: Container<string> = new Container('Hello');
+console.info(`${stringContainer.getValue()}`); // 'Hello'
 stringContainer.setValue('World');
-console.info(`${stringContainer.getValue()}`); // World
+console.info(`${stringContainer.getValue()}`); // 'World'
 // [End generic_class_basic]
 
 // ===== generic_class_instantiation =====
@@ -391,10 +391,10 @@ class ParamPair<K, V> {
 }
 
 let paramPair1: ParamPair<string, number> = new ParamPair<string, number>('Age', 25);
-console.info(`${paramPair1.toString()}`); // (Age: 25)
+console.info(`${paramPair1.toString()}`); // '(Age: 25)'
 
 let paramPair2: ParamPair<number, string> = new ParamPair<number, string>(1, 'One');
-console.info(`${paramPair2.toString()}`); // (1: One)
+console.info(`${paramPair2.toString()}`); // '(1: One)'
 
 // 多类型参数的复杂泛型类
 class Triple<A, B, C> {
@@ -427,41 +427,41 @@ class Triple<A, B, C> {
 
 let triple: Triple<string, number, boolean> = new Triple<string, number, boolean>('Hello', 42, true);
 let tripleValues: [string, number, boolean] = triple.toArray();
-console.info(`${tripleValues[0]}, ${tripleValues[1]}, ${tripleValues[2]}`); // Hello,42,true
+console.info(`${tripleValues[0]}, ${tripleValues[1]}, ${tripleValues[2]}`); // 'Hello,42,true'
 // [End multi_type_parameter_generic_class]
 
 // ===== generic_interface_basic =====
 // [Start generic_interface_basic]
-// 基本泛型接口声明
-interface GenericIdentity {
-  invoke<T>(arg: T): T;
+// 基本泛型接口声明：接口方法使用类型参数
+interface MembershipChecker {
+  contains<T>(items: T[], value: T): boolean;
 }
 
-class GenericIdentityImpl implements GenericIdentity {
-  public invoke<T>(arg: T): T {
-    return arg;
+class ArrayMembershipChecker implements MembershipChecker {
+  public contains<T>(items: T[], value: T): boolean {
+    return items.indexOf(value) > -1;
   }
 }
 
-// 泛型接口作为函数类型
-let myIdentity: GenericIdentity = new GenericIdentityImpl();
+// 泛型接口作为变量类型
+let membershipChecker: MembershipChecker = new ArrayMembershipChecker();
 
-console.info(`${myIdentity.invoke<string>('Hello')}`); // Hello
+console.info(`${membershipChecker.contains<string>(['a', 'b', 'c'], 'b')}`); // true
 
-// 泛型参数作为接口参数
-interface GenericIdentityFunction<T> {
-  invoke(arg: T): T;
+// 类型参数作为接口参数
+interface Predicate<T> {
+  test(value: T): boolean;
 }
 
-class NumberIdentityFunction implements GenericIdentityFunction<number> {
-  public invoke(arg: number): number {
-    return arg;
+class EvenNumberPredicate implements Predicate<number> {
+  public test(value: number): boolean {
+    return value % 2 === 0;
   }
 }
 
-let myIdentityFunction: GenericIdentityFunction<number> = new NumberIdentityFunction();
+let isEven: Predicate<number> = new EvenNumberPredicate();
 
-console.info(`${myIdentityFunction.invoke(42)}`); // 42
+console.info(`${isEven.test(42)}`); // true
 // [End generic_interface_basic]
 
 // ===== generic_interface_callback =====
@@ -557,7 +557,7 @@ userRepo.save({ id: 1, name: 'Alice', email: 'alice@example.com' });
 userRepo.save({ id: 2, name: 'Bob', email: 'bob@example.com' });
 
 console.info(`${userRepo.findAll().length}`); // 2
-console.info(`${userRepo.findById(1)?.name}`); // Alice
+console.info(`${userRepo.findById(1)?.name}`); // 'Alice'
 
 userRepo.delete(1);
 console.info(`${userRepo.findAll().length}`); // 1
@@ -572,16 +572,16 @@ interface ApiResponse<T = string> {
   message: string;
 }
 
-// 使用默认类型
+// 使用默认类型：T为string
 let response1: ApiResponse = {
   data: 'OK',
   status: 200,
   message: 'Success'
 };
 
-// 指定具体类型
-let response2: ApiResponse<string> = {
-  data: 'Hello',
+// 指定具体类型：覆盖默认类型，T为number
+let response2: ApiResponse<number> = {
+  data: 42,
   status: 200,
   message: 'Success'
 };
@@ -634,9 +634,7 @@ function findByName<T extends HasName>(items: T[], name: string): T | null {
   return null;
 }
 
-interface ConstraintUser {
-  id: number;
-  name: string;
+interface ConstraintUser extends HasId, HasName {
   email: string;
 }
 
@@ -648,7 +646,7 @@ let users: ConstraintUser[] = [
 
 let userById: ConstraintUser | null = findById<ConstraintUser>(users, 1);
 let userByName: ConstraintUser | null = findByName<ConstraintUser>(users, 'Bob');
-console.info(`${userById ? userById.name : ''}`);    // Alice
+console.info(`${userById ? userById.name : ''}`);    // 'Alice'
 console.info(`${userByName ? userByName.id : 0}`); // 2
 // [End generic_constraint_property]
 
@@ -856,44 +854,6 @@ console.info(`${response3.error?.message}`);
 
 // ===== generic_data_structures =====
 // [Start generic_data_structures]
-// 通用栈数据结构
-class StructuresStack<T> {
-  private items: T[] = [];
-  
-  push(item: T): void {
-    this.items.push(item);
-  }
-  
-  pop(): T | undefined {
-    return this.items.pop();
-  }
-  
-  peek(): T | undefined {
-    return this.items[this.items.length - 1];
-  }
-  
-  isEmpty(): boolean {
-    return this.items.length === 0;
-  }
-  
-  size(): number {
-    return this.items.length;
-  }
-  
-  clear(): void {
-    this.items = [];
-  }
-}
-
-let structuresNumberStack = new StructuresStack<number>();
-structuresNumberStack.push(1);
-structuresNumberStack.push(2);
-structuresNumberStack.push(3);
-
-console.info(`${structuresNumberStack.pop()}`);    // 3
-console.info(`${structuresNumberStack.peek()}`);   // 2
-console.info(`${structuresNumberStack.size()}`);   // 2
-
 // 通用队列数据结构
 class Queue<T> {
   private items: T[] = [];
@@ -924,134 +884,9 @@ stringQueue.enqueue('First');
 stringQueue.enqueue('Second');
 stringQueue.enqueue('Third');
 
-console.info(`${stringQueue.dequeue()}`); // First
-console.info(`${stringQueue.front()}`);   // Second
+console.info(`${stringQueue.dequeue()}`); // 'First'
+console.info(`${stringQueue.front()}`);   // 'Second'
 console.info(`${stringQueue.size()}`);    // 2
-
-// 通用链表数据结构
-class LinkedListNode<T> {
-  public value: T;
-  public next: LinkedListNode<T> | null = null;
-  
-  constructor(value: T) {
-    this.value = value;
-  }
-}
-
-class LinkedList<T> {
-  private head: LinkedListNode<T> | null = null;
-  private tail: LinkedListNode<T> | null = null;
-  private length: number = 0;
-  
-  append(value: T): void {
-    let newNode = new LinkedListNode(value);
-    
-    if (!this.head) {
-      this.head = newNode;
-      this.tail = newNode;
-    } else {
-      this.tail!.next = newNode;
-      this.tail = newNode;
-    }
-    
-    this.length++;
-  }
-  
-  prepend(value: T): void {
-    let newNode = new LinkedListNode(value);
-    newNode.next = this.head;
-    this.head = newNode;
-    
-    if (!this.tail) {
-      this.tail = newNode;
-    }
-    
-    this.length++;
-  }
-  
-  insert(index: number, value: T): void {
-    if (index === 0) {
-      this.prepend(value);
-      return;
-    }
-    
-    if (index >= this.length) {
-      this.append(value);
-      return;
-    }
-    
-    let newNode = new LinkedListNode(value);
-    let prevNode = this.getNodeAt(index - 1);
-    
-    if (prevNode) {
-      newNode.next = prevNode.next;
-      prevNode.next = newNode;
-      this.length++;
-    }
-  }
-  
-  remove(index: number): T | null {
-    if (index < 0 || index >= this.length) {
-      return null;
-    }
-    
-    if (index === 0) {
-      let removedNode = this.head;
-      this.head = this.head?.next || null;
-      this.length--;
-      return removedNode?.value || null;
-    }
-    
-    let prevNode = this.getNodeAt(index - 1);
-    if (prevNode && prevNode.next) {
-      let removedNode = prevNode.next;
-      prevNode.next = removedNode.next;
-      this.length--;
-      return removedNode.value;
-    }
-    
-    return null;
-  }
-  
-  get(index: number): T | null {
-    let node = this.getNodeAt(index);
-    return node?.value || null;
-  }
-  
-  private getNodeAt(index: number): LinkedListNode<T> | null {
-    if (index < 0 || index >= this.length) {
-      return null;
-    }
-    
-    let current = this.head;
-    for (let i = 0; i < index; i++) {
-      current = current?.next || null;
-    }
-    
-    return current;
-  }
-  
-  size(): number {
-    return this.length;
-  }
-  
-  isEmpty(): boolean {
-    return this.length === 0;
-  }
-}
-
-let linkedList = new LinkedList<number>();
-linkedList.append(1);
-linkedList.append(2);
-linkedList.append(3);
-linkedList.prepend(0);
-
-console.info(`${linkedList.get(0)}`); // 0
-console.info(`${linkedList.get(2)}`); // 2
-console.info(`${linkedList.size()}`); // 4
-
-linkedList.remove(1);
-console.info(`${linkedList.size()}`); // 3
 // [End generic_data_structures]
 
 // ===== generic_array_utilities =====
@@ -1087,7 +922,7 @@ let firstResult: number | undefined = utilitiesFirst(utilitiesNumbers);
 console.info(`${firstResult}`);  // 1
 
 let lastResult: string | undefined = last(utilitiesStrings);
-console.info(`${lastResult}`);  // a
+console.info(`${lastResult}`);  // 'a'
 
 let shuffled: number[] = shuffle(utilitiesNumbers);
 console.info(`${shuffled.join(', ')}`);  // 随机打乱
@@ -1096,7 +931,7 @@ let uniqueNumbers: number[] = unique(utilitiesNumbers);
 console.info(`${uniqueNumbers.join(', ')}`);  // 1, 2, 3, 4, 5
 
 let uniqueStrings: string[] = unique(utilitiesStrings);
-console.info(`${uniqueStrings.join(', ')}`);  // a, b, c
+console.info(`${uniqueStrings.join(', ')}`);  // 'a, b, c'
 
 interface UtilitiesUser {
   id: number;
@@ -1115,9 +950,9 @@ function renameUser(target: UtilitiesUser, newName: string): void {
   target.name = newName;
 }
 
-console.info(`${utilitiesUser.name}`);  // Alice
+console.info(`${utilitiesUser.name}`);  // 'Alice'
 renameUser(utilitiesUser, 'Bob');
-console.info(`${utilitiesUser.name}`);  // Bob
+console.info(`${utilitiesUser.name}`);  // 'Bob'
 // [End generic_array_utilities]
 
 // ===== generic_ui_components =====
@@ -1285,9 +1120,9 @@ function testGenericClass(): void {
 }
 
 function testGenericFunction(): void {
-  let gfNum: number = declarationsIdentity<number>(42);
-  let gfStr: string = declarationsIdentity<string>('Hello');
-  let logMsg = 'identity<number>(42): ' + gfNum + '\nidentity<string>(Hello): ' + gfStr;
+  let gfNum: number = wrap<number>(42)[0];
+  let gfStr: string = wrap<string>('Hello')[0];
+  let logMsg = 'wrap<number>(42)[0]: ' + gfNum + '\nwrap<string>(Hello)[0]: ' + gfStr;
   if (globalLogUpdate) {
     globalLogUpdate(logMsg, false);
   }
@@ -1584,9 +1419,57 @@ awaitedMain();
 
 // ===== variance_annotations =====
 // [Start variance_annotations]
-interface VaConsumer<in T> { consume: (arg: T) => void; }
-interface VaProducer<out T> { make(): T; }
-interface VaProducerConsumer<in out T> { consume: (arg: T) => void; make(): T; }
+interface VaConsumer<in T> {
+  consume(arg: T): void;
+}
+
+interface VaProducer<out T> {
+  make(): T;
+}
+
+interface VaProducerConsumer<in out T> {
+  consume(arg: T): void;
+  make(): T;
+}
+
+class VaAnimal {
+  public name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+}
+
+class VaDog extends VaAnimal {
+  public breed: string;
+
+  constructor(name: string, breed: string) {
+    super(name);
+    this.breed = breed;
+  }
+}
+
+// 协变（out）：VaProducer<VaDog>是VaProducer<VaAnimal>的子类型
+class VaDogFactory implements VaProducer<VaDog> {
+  public make(): VaDog {
+    return new VaDog('Buddy', 'Golden Retriever');
+  }
+}
+
+let vaAnimalFactory: VaProducer<VaAnimal> = new VaDogFactory();
+console.info(`${vaAnimalFactory.make().name}`); // 'Buddy'
+
+// 逆变（in）：VaConsumer<VaAnimal>是VaConsumer<VaDog>的子类型
+class VaAnimalFeeder implements VaConsumer<VaAnimal> {
+  public consume(arg: VaAnimal): void {
+    console.info(`Feeding: ${arg.name}`);
+  }
+}
+
+let vaDogFeeder: VaConsumer<VaDog> = new VaAnimalFeeder();
+vaDogFeeder.consume(new VaDog('Max', 'Beagle')); // Feeding: Max
+
+// 不变（in out）：VaProducerConsumer<VaAnimal>与VaProducerConsumer<VaDog>互不为子类型，相互赋值会编译报错
 // [End variance_annotations]
 
 // ===== ctor_params_instance_alternative =====
@@ -1686,7 +1569,7 @@ let gacClient: ApiClient = new ApiClient('EXAMPLE_API_URL');
 async function gacFetchUser(id: number): Promise<void> {
   try {
     let response: ClientApiResponse<ClientUser> = await gacClient.get<ClientUser>(`/users/${id}`);
-    console.info(`${response.data.name}`); // Alice
+    console.info(`${response.data.name}`); // 'Alice'
   } catch (error) {
     console.error(`Error: ${(error as Error).message}`);
   }

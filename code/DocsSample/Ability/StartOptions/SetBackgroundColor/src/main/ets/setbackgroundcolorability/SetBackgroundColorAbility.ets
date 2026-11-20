@@ -52,7 +52,7 @@ export default class SetBackgroundColorAbility extends UIAbility {
   // [EndExclude startOptions_bgColor_and_windowParam]
 
   async onForeground(): Promise<void> {
-    // Ability has brought to foreground
+    // Ability切到前台
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onForeground');
 
     let want: Want = {

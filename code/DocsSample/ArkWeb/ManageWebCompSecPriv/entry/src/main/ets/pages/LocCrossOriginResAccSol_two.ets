@@ -37,7 +37,7 @@ struct WebComponent {
             this.controller.loadUrl('file://' + this.uiContext.getHostContext()!.resourceDir + '/index.html');
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as   BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as   BusinessError).message}`);
           }
         })
         .javaScriptAccess(true)

@@ -1,4 +1,3 @@
-'use static'
 
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.

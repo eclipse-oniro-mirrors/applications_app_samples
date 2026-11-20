@@ -318,9 +318,9 @@ let point1: OverloadPoint = new OverloadPoint();
 let point2: OverloadPoint = new OverloadPoint(10);
 let point3: OverloadPoint = new OverloadPoint(10, 20);
 
-console.info(`${point1.x} ${point1.y}`);  // 0, 0
-console.info(`${point2.x} ${point2.y}`);  // 10, 0
-console.info(`${point3.x} ${point3.y}`);  // 10, 20
+console.info(`${point1.x} ${point1.y}`);  // 0 0
+console.info(`${point2.x} ${point2.y}`);  // 10 0
+console.info(`${point3.x} ${point3.y}`);  // 10 20
 
 class Color {
   public red: number;

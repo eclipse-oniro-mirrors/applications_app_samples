@@ -1,0 +1,114 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description",
+      "description": "Module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description",
+      "description": "Entry ability description"
+    },
+    {
+      "name": "wireless_projection_screen",
+      "value": "Wireless projection",
+      "description": "Wireless projection entry title"
+    },
+    {
+      "name": "waiting_for_conning",
+      "value": "Waiting for connection...",
+      "description": "Waiting for connection prompt"
+    },
+    {
+      "name": "screen_projection_device_name",
+      "value": "Screen projection device name",
+      "description": "Screen projection device name title"
+    },
+    {
+      "name": "trusted_device_list",
+      "value": "Trusted device list",
+      "description": "Trusted device list title"
+    },
+    {
+      "name": "quick_screen_projection",
+      "value": "Quick screen projection",
+      "description": "Quick screen projection entry title"
+    },
+    {
+      "name": "miracast_screen_casting",
+      "value": "Miracast casting",
+      "description": "Miracast screen casting entry title"
+    },
+    {
+      "name": "projection_Settings",
+      "value": "Projection settings",
+      "description": "Projection settings entry title"
+    },
+    {
+      "name": "tip",
+      "value": "Tip",
+      "description": "Dialog title"
+    },
+    {
+      "name": "first_connect",
+      "value": "This is the first connection to the display. Trust this device and continue?",
+      "description": "First connection trust prompt"
+    },
+    {
+      "name": "permanent_trust",
+      "value": "Permanently trust",
+      "description": "Permanent trust button"
+    },
+    {
+      "name": "only_for_this_time",
+      "value": "Only this time",
+      "description": "Only this time button"
+    },
+    {
+      "name": "cancel",
+      "value": "Cancel",
+      "description": "Cancel button"
+    },
+    {
+      "name": "support_name_modification",
+      "value": "Supports device name modification",
+      "description": "Device name modification hint"
+    },
+    {
+      "name": "device_name",
+      "value": "Device name",
+      "description": "Device name input label"
+    },
+    {
+      "name": "save",
+      "value": "Save",
+      "description": "Save button"
+    },
+    {
+      "name": "device_name_empty_toast",
+      "value": "Device name cannot be empty!",
+      "description": "Empty device name toast"
+    },
+    {
+      "name": "device_name_space_toast",
+      "value": "Device name cannot contain spaces!",
+      "description": "Device name containing spaces toast"
+    },
+    {
+      "name": "view_trusted_device_list",
+      "value": "View trusted device list",
+      "description": "Empty trusted device list hint"
+    },
+    {
+      "name": "remove_trusted_device_confirm",
+      "value": "Remove this trusted device?",
+      "description": "Remove trusted device confirmation"
+    },
+    {
+      "name": "confirm",
+      "value": "Confirm",
+      "description": "Confirm button"
+    }
+  ]
+}

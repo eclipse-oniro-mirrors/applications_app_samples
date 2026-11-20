@@ -133,7 +133,7 @@ async function secondAdjustBufferSize(imgComponent: image.Component, height: num
 }
 
 export class ReceiverUtility {
-  // 获取支持的设备
+  // 获取支持的设备。
   getSupportedCameras(cameraManager: camera.CameraManager): Array<camera.CameraDevice> {
     let cameras = cameraManager.getSupportedCameras();
     if (!cameras) {
@@ -144,7 +144,7 @@ export class ReceiverUtility {
     return cameras;
   }
 
-  // 创建相机管理器
+  // 创建相机管理器。
   async initCamera(cameraManager: camera.CameraManager): Promise<camera.Profile> {
     let cameras = cameraManager.getSupportedCameras();
     if (!cameras) {
@@ -176,7 +176,7 @@ export class ReceiverUtility {
     return previewProfile;
   }
 
-  // 创建相机输入流
+  // 创建相机输入流。
   async createCameraInput(cameraManager: camera.CameraManager, cameras: Array<camera.CameraDevice>)
     : Promise<camera.CameraInput | undefined> {
     try {
@@ -194,7 +194,7 @@ export class ReceiverUtility {
     }
   }
 
-  // 创建预览输出流
+  // 创建预览输出流。
   createPreviewOutput(cameraManager: camera.CameraManager, previewProfile: camera.Profile, receiverSurfaceId: string)
     : camera.PreviewOutput | undefined {
     try {
@@ -209,7 +209,7 @@ export class ReceiverUtility {
     }
   }
 
-  // 创建会话
+  // 创建会话。
   createSession(cameraManager: camera.CameraManager, cameraInput: camera.CameraInput | undefined,
     previewOutput1: camera.PreviewOutput, previewOutput2: camera.PreviewOutput): camera.VideoSession | undefined {
     try {
@@ -243,7 +243,7 @@ export class ReceiverUtility {
     return receiver;
   }
 
-  // 获取receiver的surfaceId
+  // 获取receiver的surfaceId。
   async getReceiverSurfaceId(receiver: image.ImageReceiver | undefined): Promise<string | undefined> {
     let receiverSurfaceId: string | undefined = '';
     if (receiver) {
@@ -254,7 +254,7 @@ export class ReceiverUtility {
     return receiverSurfaceId;
   }
 
-  // 设置receiver的监听事件
+  // 设置receiver的监听事件。
   async onArrival(receiver: image.ImageReceiver) {
     onImageArrival(receiver);
   }

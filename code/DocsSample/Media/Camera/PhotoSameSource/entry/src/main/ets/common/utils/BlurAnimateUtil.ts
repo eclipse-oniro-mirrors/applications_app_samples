@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 ("the License");
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -40,9 +40,8 @@ export class BlurAnimateUtil {
   // [EndExclude blur_animate_util]
 
   /**
-   * 获取surface截图
-   * @param surfaceId
-   * @returns
+   * 获取 surface 截图，结果保存在 surfaceShot 中。
+   * @param surfaceId - surface 的 ID，为空时直接返回。
    */
   public static async doSurfaceShot(surfaceId: string) {
     Logger.info(TAG, `doSurfaceShot surfaceId:${surfaceId}.`);

@@ -3,6 +3,14 @@
     {
       "name": "start_window_background",
       "value": "#FFFFFF"
+    },
+    {
+      "name": "immersive_title_bg",
+      "value": "#FF007DFF"
+    },
+    {
+      "name": "immersive_title_font",
+      "value": "#FFFFFF"
     }
   ]
 }

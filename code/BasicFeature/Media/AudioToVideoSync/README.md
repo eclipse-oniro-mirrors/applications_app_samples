@@ -93,9 +93,9 @@
 
 1.本示例仅支持标准系统上运行,支持设备：手机。
 
-2.本示例为Stage模型，支持API12版本SDK，SDK版本号（API Version 12 Release）。
+2.本示例为Stage模型，最低支持API12版本SDK，SDK版本号（API Version 12 Release）；当前已升级至API26版本SDK，SDK版本号（API Version 26 Release）。
 
-3.本示例需要使用DevEco Studio版本号（DevEco Studio 5.0.0 Release）及以上版本才可编译运行。
+3.本示例需要使用DevEco Studio版本号（DevEco Studio 26.0.0 Release）及以上版本才可编译运行。
 
 
 ### 下载

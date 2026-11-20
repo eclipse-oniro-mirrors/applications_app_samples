@@ -1,0 +1,13 @@
+{
+  "devices": {
+    "general": ["default"],
+    "custom": []
+  },
+  "production": {
+    "addedSysCaps": [],
+    "removedSysCaps": ["SystemCapability.Startup.BoardInfo"]
+  },
+  "development": {
+    "addedSysCaps": []
+  }
+}

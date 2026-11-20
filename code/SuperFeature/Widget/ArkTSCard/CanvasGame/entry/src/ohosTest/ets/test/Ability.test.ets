@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,69 +13,64 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
-import { Driver, ON } from '@ohos.UiTest';
+import { Rect, Point, Component, Driver, ON } from '@kit.TestKit';
 import logger from '../util/Logger';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { UIAbility } from '@kit.AbilityKit';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { resourceManager } from '@kit.LocalizationKit';
 
-const TAG = '[Sample_CanvasGame]';
-const BUNDLE = 'canvasGame_';
-const DRIVER = Driver.create();
-let abilityDelegatorRegistry = AbilityDelegatorRegistry.getAbilityDelegator();
+const TAG: string = '[Sample_CanvasGame]';
+const BUNDLE: string = 'canvasGame_';
+const DRIVER: Driver = Driver.create();
+let delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
 
     /**
-     * 长按打开卡片列表
      */
     it(BUNDLE + 'OpenFormList_001', 0, async (done: Function) => {
-      let ability = await abilityDelegatorRegistry.getCurrentTopAbility();
-      let manager = ability.context.resourceManager;
+      let ability: UIAbility = await delegator.getCurrentTopAbility();
+      let manager: resourceManager.ResourceManager = ability.context.resourceManager;
       // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
       logger.info(TAG, `${BUNDLE}OpenFormList_001 begin`);
-      // 点击退出
       await DRIVER.pressBack();
       await DRIVER.delayMs(500);
-      // 检查桌面是否存在五子棋卡片应用
       await DRIVER.assertComponentExist(ON.text(await manager.getStringValue($r('app.string.EntryAbility_label'))));
-      let app = await DRIVER.findComponent(ON.text(await manager.getStringValue($r('app.string.EntryAbility_label'))));
-      // 获取文字控件边框
-      let rect = await app.getBounds();
-      // 计算文字控件高度
-      let height = rect.bottom - rect.top;
-      // 获取文字控件中心点
-      let point = await app.getBoundsCenter();
+      let app: Component = await DRIVER.findComponent(ON.text(await manager.getStringValue($r('app.string.EntryAbility_label'))));
+      let rect: Rect = await app.getBounds();
+      let height: number = rect.bottom - rect.top;
+      let point: Point = await app.getBoundsCenter();
       await DRIVER.longClick(point.x, point.y - height);
       await DRIVER.delayMs(500);
-      // 检查长按应用是否存在服务卡片弹窗
       await DRIVER.assertComponentExist(ON.text(await manager.getStringValue($r('app.string.Card_Button'))));
-      let formBtn = await DRIVER.findComponent(ON.text(await manager.getStringValue($r('app.string.Card_Button'))));
+      let formBtn: Component = await DRIVER.findComponent(ON.text(await manager.getStringValue($r('app.string.Card_Button'))));
       await formBtn.click();
       done();
       logger.info(TAG, `${BUNDLE}OpenFormList_001 end`);
-    })
+    }
+      )
 
     /**
-     * 创建卡片
      */
     it(BUNDLE + 'createForm_001', 0, async (done: Function) => {
       // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
       logger.info(TAG, `${BUNDLE}createForm_001 begin`);
-      let resourceManager = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext().resourceManager;
+      let resourceManager: resourceManager.ResourceManager = abilityDelegatorRegistry.getAbilityDelegator().getAppContext().resourceManager;
       await DRIVER.delayMs(500);
-      // 检查是否有添加到桌面按钮
       await DRIVER.assertComponentExist(ON.text(await resourceManager.getStringValue($r('app.string.AddForm'))));
-      let addToDesk = await DRIVER.findComponent(ON.text(await resourceManager.getStringValue($r('app.string.AddForm'))));
+      let addToDesk: Component = await DRIVER.findComponent(ON.text(await resourceManager.getStringValue($r('app.string.AddForm'))));
       await addToDesk.click();
       await DRIVER.delayMs(500);
-      // 检查是否桌面上是否有五子棋卡片
       await DRIVER.assertComponentExist(ON.text(await resourceManager.getStringValue($r('app.string.EntryAbility_label'))));
-      let resultArray = await DRIVER.findComponents(ON.text(await resourceManager.getStringValue($r('app.string.EntryAbility_label'))));
+      let resultArray: Component[] = await DRIVER.findComponents(ON.text(await resourceManager.getStringValue($r('app.string.EntryAbility_label'))));
       expect(resultArray.length).assertEqual(2);
       done();
       logger.info(TAG, `${BUNDLE}createForm_001 end`);
-    })
-  })
+    }
+      )
+  }
+    )
 }

@@ -13,16 +13,32 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/components/rowsAndColumns/rowSample/RowControlPanel.ets
+ * 文件职责：RowControlPanel 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ArgumentsControlPanel、PropertyControlPanel。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { CommonItemTwoRowSlider, CommonItemSelect } from '../../../../common/AttributeModificationTool';
 import { getStringArrayData } from '../../../../data/ResourceDataHandle';
 import { ROW_ALIGNITEMS_DATA, ROW_JUSTIFYCONTENT_DATA } from '../../ComponentData';
 
+/**
+ * ArgumentsControlPanel：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct ArgumentsControlPanel {
+  // @Link elementSpacing：与父组件双向绑定的状态
   @Link elementSpacing: number;
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
     Column() {
+      // CommonItemTwoRowSlider：CommonItemTwoRowSlider 自定义组件
       CommonItemTwoRowSlider(
         {
           changeValue: $elementSpacing,
@@ -31,18 +47,29 @@ export struct ArgumentsControlPanel {
           name: $r('app.string.row_element_spacing'),
           testId: `row_001`
         }
-      )
-    }
+      ).id('row_control_panel_common_item_two_row_slider_2')
+    }.id('row_control_panel_column_1')
   }
 }
 
+/**
+ * PropertyControlPanel：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct PropertyControlPanel {
+  // @Link alignItems：与父组件双向绑定的状态
   @Link alignItems: VerticalAlign;
+
+  // @Link justifyContent：与父组件双向绑定的状态
   @Link justifyContent: FlexAlign;
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
     Column() {
+      // CommonItemSelect：CommonItemSelect 自定义组件
       CommonItemSelect({
         name: $r('app.string.row_alignitems_description'),
         selects: getStringArrayData(ROW_ALIGNITEMS_DATA),
@@ -59,8 +86,9 @@ export struct PropertyControlPanel {
           }
         },
         testId: `row_002`
-      })
+      }).id('row_control_panel_common_item_select_4')
 
+      // CommonItemSelect：CommonItemSelect 自定义组件
       CommonItemSelect({
         name: $r('app.string.row_justifycontent_description'),
         selects: getStringArrayData(ROW_JUSTIFYCONTENT_DATA),
@@ -86,7 +114,7 @@ export struct PropertyControlPanel {
           }
         },
         testId:'row_003'
-      })
-    }
+      }).id('row_control_panel_common_item_select_5')
+    }.id('row_control_panel_column_3')
   }
 }

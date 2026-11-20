@@ -18,9 +18,9 @@ import { abilityAccessCtrl, AbilityConstant, common, PermissionRequestResult, Pe
 import { BusinessError } from '@kit.BasicServicesKit';
 import { calendarManager } from '@kit.CalendarKit';
 import { window } from '@kit.ArkUI';
-// [End calendarEvent_entryAbilityImport]
+// [End calendarData_entryAbilityImport]
 
-// [Start calendarEvent_entryAbility]
+// [Start calendarData_entryAbility]
 
 export let calendarMgr: calendarManager.CalendarManager | null = null;
 

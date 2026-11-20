@@ -1,4 +1,3 @@
-'use static'
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,9 +13,6 @@
  * limitations under the License.
  */
 
-import {
-  AppStorage
-} from '@kit.ArkUI';
 import deviceInfo from '@ohos.deviceInfo';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { inputMethodEngine, InputMethodExtensionContext, InputMethodSubtype } from '@kit.IMEKit';
@@ -28,14 +24,14 @@ import { StyleConfiguration } from '../../common/StyleConfiguration';
 
 
 interface DeviceSize {
-  width: int;
-  height: int;
+  width: number;
+  height: number;
 }
 
 export interface CursorInfo {
-  x: double;
-  y: double;
-  height: double
+  x: number;
+  y: number;
+  height: number
 }
 
 const previewContent: string = 'hello world';
@@ -144,7 +140,7 @@ export class InputHandler {
     this.addLog('sendKeyFunction')
     if (this.mTextInputClient && this.mEditorAttribute) {
       try {
-        this.mTextInputClient?.sendKeyFunction(this.mEditorAttribute?.enterKeyType as int).then(() => {
+        this.mTextInputClient?.sendKeyFunction(this.mEditorAttribute?.enterKeyType as number).then(() => {
           this.addLog('Succeeded in sendKeyFunction.');
         })
       } catch (err) {
@@ -165,7 +161,7 @@ export class InputHandler {
     }
   }
 
-  public deleteBackward(length: int): void {
+  public deleteBackward(length: number): void {
     if (this.mTextInputClient !== undefined) {
       try {
         this.mTextInputClient?.deleteBackward(length).then(() => {
@@ -183,7 +179,7 @@ export class InputHandler {
     }
   }
 
-  public deleteForward(length: int): void {
+  public deleteForward(length: number): void {
     if (this.mTextInputClient !== undefined) {
       try {
         this.mTextInputClient?.deleteForward(length).then(() => {
@@ -206,15 +202,15 @@ export class InputHandler {
     if (this.mTextInputClient !== undefined) {
       try {
         this.mTextInputClient?.insertTextSync(text);
-        let indexCursor: int = 0;
-        indexCursor = this.mTextInputClient?.getTextIndexAtCursorSync() as int;
+        let indexCursor: number = 0;
+        indexCursor = this.mTextInputClient?.getTextIndexAtCursorSync() as number;
         if (indexCursor >= 0) {
           this.intputText = this.mTextInputClient?.getForwardSync(indexCursor) as string;
         }
         this.intputText = this.intputText + text;
 
         //设置预上屏数据
-        let length: int = 2;
+        let length: number = 2;
         let textPre: string = this.mTextInputClient?.getForwardSync(length) as string;
         this.addLog('insertText textPre:' + textPre);
 
@@ -223,7 +219,7 @@ export class InputHandler {
         if (textPre === 'hel') {
           this.addLog('insertText hel');
           //把当前字符计算在内
-          let endRange: int = indexCursor + 1;
+          let endRange: number = indexCursor + 1;
           this.addLog('insertText start ' + (indexCursor - length).toString());
           this.addLog('insertText end ' + (indexCursor).toString());
           let range: inputMethodEngine.Range = { start: indexCursor - length, end: endRange };
@@ -233,7 +229,7 @@ export class InputHandler {
         } else if (this.intputText.length > length + 1) {
           this.addLog('insertText this.intputText ' + this.intputText);
 
-          let indexSubStrStart: int = this.intputText.lastIndexOf('hel');
+          let indexSubStrStart: number = this.intputText.lastIndexOf('hel');
           this.addLog('insertText indexSubStrStart ' + indexSubStrStart.toString());
 
           if (indexSubStrStart >= 0) {
@@ -336,14 +332,14 @@ export class InputHandler {
   public async selectToBegin(): Promise<void> {
     if (this.mTextInputClient !== undefined) {
       try {
-        let index = await this.mTextInputClient?.getTextIndexAtCursor() as int;
+        let index = await this.mTextInputClient?.getTextIndexAtCursor() as number;
         this.addLog(`selectToBegin index= ${index}, x = ${this.cursorInfo.x}`);
         if (index > 0) {
           await this.mTextInputClient?.selectByRangeSync({ start: 0, end: index } as inputMethodEngine.Range);
         } else {
           await this.mTextInputClient?.selectByRangeSync({
             start: 0,
-            end: Double.toInt(this.cursorInfo.x)
+            end: Math.trunc(this.cursorInfo.x)
           } as inputMethodEngine.Range);
         }
       } catch (err) {
@@ -358,13 +354,13 @@ export class InputHandler {
   public async selectToEnd(): Promise<void> {
     if (this.mTextInputClient !== undefined) {
       try {
-        let index = await this.mTextInputClient?.getTextIndexAtCursor() as int;
+        let index = await this.mTextInputClient?.getTextIndexAtCursor() as number;
         this.addLog(`selectToEnd index= ${index}, x = ${this.cursorInfo.x}`);
         if (index > 0) {
           await this.mTextInputClient?.selectByRange({ start: index, end: 1000 } as inputMethodEngine.Range);
         } else {
           await this.mTextInputClient?.selectByRange({
-            start: Double.toInt(this.cursorInfo.x),
+            start: Math.trunc(this.cursorInfo.x),
             end: 1000
           } as inputMethodEngine.Range);
         }
@@ -505,7 +501,7 @@ export class KeyboardController {
       navigationBar_height = 0;
       keyHeightRate = KEYBOARD_HEIGHT_RATE_BIG;
     }
-    let keyHeight = Double.toLong(dHeight * keyHeightRate);
+    let keyHeight = Math.trunc(dHeight * keyHeightRate);
     this.barPosition = dHeight - keyHeight - navigationBar_height;
     this.inputHandle.addLog(`initWindow-dWidth = ${dWidth};dHeight = ${dHeight};keyboard height = ${keyHeight};;navibar height = navigationBar_height`);
     this.inputHandle.addLog(`initWindow-deviceType = ${deviceInfo.deviceType}`);
@@ -582,7 +578,7 @@ export class KeyboardController {
     } else if (dWidth === DEVICE_BIG.height && dHeight === DEVICE_BIG.width) {
       keyHeightRate = KEYBOARD_HEIGHT_RATE_BIG;
     }
-    let keyHeight = Double.toLong(dHeight * keyHeightRate);
+    let keyHeight = Math.trunc(dHeight * keyHeightRate);
     let inputStyle = StyleConfiguration.getInputStyle(isLandscape, isRkDevice, deviceInfo.deviceType);
     AppStorage.setOrCreate('inputStyle', inputStyle);
     if (this.panel) {
@@ -601,7 +597,7 @@ export class KeyboardController {
   private registerListener(): void {
     this.inputHandle.addLog('registerListener');
     try {
-      display.onChange(() => {
+      display.on('change', () => {
         this.inputHandle.addLog('screenChangeEvent');
         this.resizePanel();
       });
@@ -609,7 +605,7 @@ export class KeyboardController {
       let error = err as BusinessError;
       Log.showError(TAG, `display on change catch error: ${error.code} ${error.message}`);
     }
-    inputMethodAbility?.onInputStart(
+    inputMethodAbility?.on('inputStart', 
       (kbController: inputMethodEngine.KeyboardController, textInputClient: inputMethodEngine.InputClient) => {
         this.inputHandle.addLog('keyboard inputStart');
         this.inputHandle.onInputStart(kbController, textInputClient);
@@ -617,7 +613,7 @@ export class KeyboardController {
 
     // [Start input_case_input_KeyboardControllersetSubtype]
     // 设置监听子类型事件，改变输入法应用界面
-    inputMethodAbility?.onSetSubtype((inputMethodSubtype: InputMethodSubtype) => {
+    inputMethodAbility?.on('setSubtype', (inputMethodSubtype: InputMethodSubtype) => {
       if (inputMethodSubtype.id === 'InputMethodExtAbility') {
         AppStorage.setOrCreate('subtypeChange', 0);
       }
@@ -627,7 +623,7 @@ export class KeyboardController {
     });
     // [End input_case_input_KeyboardControllersetSubtype]
 
-    inputMethodAbility?.onInputStop((): void => {
+    inputMethodAbility?.on('inputStop', (): void => {
       this.inputHandle.addLog('keyboard inputStop');
       this.onDestroy();
       if (this.mContext) {
@@ -637,7 +633,7 @@ export class KeyboardController {
 
     this.inputHandle.addLog('pre on privateCommand');
     try {
-      inputMethodAbility?.onPrivateCommand((record: Record<string, inputMethodEngine.CommandDataType>) => {
+      inputMethodAbility?.on('privateCommand', (record: Record<string, inputMethodEngine.CommandDataType>) => {
         this.inputHandle.addLog(`keyboard privateCommand : ${record}`);
         Object.keys(record).forEach((key: string) => {
           this.inputHandle.addLog(`onPageShow private command key: ${key}, value: ${record[key]}`);
@@ -650,7 +646,7 @@ export class KeyboardController {
 
     this.mKeyboardDelegate = inputMethodEngine.getKeyboardDelegate();
 
-    this.mKeyboardDelegate?.onKeyDown((keyEvent: inputMethodEngine.KeyEvent) => {
+    this.mKeyboardDelegate?.on('keyDown', (keyEvent: inputMethodEngine.KeyEvent) => {
       if (this.isKeyboardShow) {
         this.inputHandle.hideKeyboardSelf();
       }
@@ -660,23 +656,23 @@ export class KeyboardController {
       return result;
     });
 
-    this.mKeyboardDelegate?.onKeyUp((keyEvent: inputMethodEngine.KeyEvent) => {
+    this.mKeyboardDelegate?.on('keyUp', (keyEvent: inputMethodEngine.KeyEvent) => {
       this.inputHandle.addLog(`keyUp: code = ${keyEvent.keyCode}`);
       let result = this.onKeyUp(keyEvent);
       this.inputHandle.addLog(`keyUp: result = ${result}`);
       return result;
     });
-    this.mKeyboardDelegate?.onCursorContextChange((x: double, y: double, height: double) => {
+    this.mKeyboardDelegate?.on('cursorContextChange', (x: number, y: number, height: number) => {
       let cursorInfo: CursorInfo = { x: x, y: y, height: height };
       this.inputHandle.setCursorInfo(cursorInfo);
     });
     if (isDebug) {
-      this.mKeyboardDelegate?.onSelectionChange(
-        (oldBegin: int, oldEnd: int, newBegin: int, newEnd: int) => {
+      this.mKeyboardDelegate?.on('selectionChange', 
+        (oldBegin: number, oldEnd: number, newBegin: number, newEnd: number) => {
           this.inputHandle.setSelectInfo('selectInfo: from(' + oldBegin + ',' + oldEnd + ') to (' + newBegin + ',' +
             newEnd + ')');
         });
-      this.mKeyboardDelegate?.onTextChange((text: string) => {
+      this.mKeyboardDelegate?.on('textChange', (text: string) => {
         this.inputHandle.setTextInfo('textInfo: ' + text);
       });
     }
@@ -809,16 +805,16 @@ export class KeyboardController {
   private unRegisterListener(): void {
     this.inputHandle.addLog('unRegisterListener');
 
-    inputMethodAbility?.offInputStop(() => {
+    inputMethodAbility?.off('inputStop', () => {
       this.inputHandle.addLog('inputStop off');
     });
     if (this.mKeyboardDelegate) {
-      this.mKeyboardDelegate?.offKeyDown();
-      this.mKeyboardDelegate?.offKeyUp();
+      this.mKeyboardDelegate?.off('keyDown');
+      this.mKeyboardDelegate?.off('keyUp');
       if (isDebug) {
-        this.mKeyboardDelegate?.offCursorContextChange();
-        this.mKeyboardDelegate?.offSelectionChange();
-        this.mKeyboardDelegate?.offTextChange();
+        this.mKeyboardDelegate?.off('cursorContextChange');
+        this.mKeyboardDelegate?.off('selectionChange');
+        this.mKeyboardDelegate?.off('textChange');
       }
     }
   }

@@ -74,7 +74,7 @@ struct MenuPanel {
         }
       })
       .catch((error: BusinessError) => {
-        hilog.info(0x0000, 'SelectionExtensionAbility', `Failed to createPanel, error: [${JSON.stringify(error)}]`);
+        hilog.error(0x0000, 'SelectionExtensionAbility', `Failed to createPanel, error: [${JSON.stringify(error)}]`);
         return;
       });
   }
@@ -91,7 +91,7 @@ struct MenuPanel {
           hilog.info(0x0000, 'SelectionExtensionAbility', `startAbility success, want: ${wantAbility.abilityName}`);
         })
         .catch((error: BusinessError) => {
-          hilog.info(0x0000, 'SelectionExtensionAbility', `startAbility failed, error: ${JSON.stringify(error)}`);
+          hilog.error(0x0000, 'SelectionExtensionAbility', `startAbility failed, error: ${JSON.stringify(error)}`);
         })
     }
   }

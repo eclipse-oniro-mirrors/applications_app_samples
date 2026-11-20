@@ -1,0 +1,32 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "描述"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "FlingSpeedLimit"
+    },
+    {
+      "name": "button_speed_1000",
+      "value": "1000"
+    },
+    {
+      "name": "button_speed_5000",
+      "value": "5000"
+    },
+    {
+      "name": "button_speed_9000",
+      "value": "9000"
+    },
+    {
+      "name": "current_speed_limit",
+      "value": "当前惯性滚动速度上限: %d vp/s"
+    }
+  ]
+}

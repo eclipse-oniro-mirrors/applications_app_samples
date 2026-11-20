@@ -1,0 +1,417 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * 统计表：把账本记录按「条件组」汇总成可展示、可排序、可导出为文本的表格。
+ *
+ * 分组契约：分组键与 ExperimentLedger.digestLedger 完全一致
+ * （workloadId + mode + condition + digestBefore + beforeBytes）。这样每组的
+ * P50/P90 可以直接复用 digestLedger 的结果，不需要在新代码里复制一遍分位数算法。
+ *
+ * 样本口径：与 digestLedger 相同——
+ *   - 有效样本 = 记录 complete()（6 个阶段全部成功且结束时校验一致）且 condition 非空；
+ *   - P50/P90/均值都是「阶段耗时合计」，不是回收量；
+ *   - 没有有效样本时返回 -1 并在文本里写「不可评估」，绝不用 0 冒充。
+ *
+ * 阶段耗时表只给出 P50/均值/样本数：既有 P90 只存在于 digestLedger 内部且只对
+ * 阶段合计计算，没有导出可复用的函数，因此这里不重复实现一份百分比算法；
+ * 阶段级 P90 缺失在报告里显式说明，而不是用近似值填充。
+ */
+
+import { ExperimentRecord, ExperimentStage, WorkloadDigest, digestLedger, medianOf } from '../ExperimentLedger';
+import { FLOW_KEYS } from '../FlowMetrics';
+import { message, localize } from '../TextMessages';
+import { ConditionFields, ConditionSource, describeCondition, fieldsOfRecord, fingerprintOf,
+  missingFieldsOf } from './ConditionFingerprint';
+
+/** 排序键。 */
+export enum ReportSort {
+  SAMPLES = 'samples',
+  P50 = 'p50',
+  P90 = 'p90',
+  MEAN = 'mean',
+  FAILED = 'failed',
+  WORKLOAD = 'workload'
+}
+
+/** 排序键标签。 */
+export function reportSortLabel(key: ReportSort): string {
+  switch (key) {
+    case ReportSort.SAMPLES:
+      return message('report_samples');
+    case ReportSort.P50:
+      return message('report_p50');
+    case ReportSort.P90:
+      return message('report_p90');
+    case ReportSort.MEAN:
+      return message('report_mean');
+    case ReportSort.FAILED:
+      return message('report_failed_count');
+    default:
+      return message('report_workload');
+  }
+}
+
+/** 筛选条件：空串表示不限制。 */
+export class ReportFilter {
+  public workloadId: string = '';
+  public mode: string = '';
+  /** 只保留有有效样本的条件组。 */
+  public evaluableOnly: boolean = false;
+
+  constructor(workloadId: string = '', mode: string = '', evaluableOnly: boolean = false) {
+    this.workloadId = workloadId;
+    this.mode = mode;
+    this.evaluableOnly = evaluableOnly;
+  }
+
+  matches(group: ConditionGroup): boolean {
+    if (this.workloadId.length > 0 && group.workloadId !== this.workloadId) {
+      return false;
+    }
+    if (this.mode.length > 0 && group.mode !== this.mode) {
+      return false;
+    }
+    return !this.evaluableOnly || group.evaluable;
+  }
+
+  text(): string {
+    const workload: string = this.workloadId.length > 0 ? this.workloadId : message('report_all_workloads');
+    const mode: string = this.mode.length === 0 ? message('report_all_modes') :
+      (this.mode === 'files' ? message('report_mode_files') :
+        (this.mode === 'modules' ? message('report_mode_modules') :
+          (this.mode === 'control' ? message('report_mode_control') : localize(this.mode))));
+    return message('report_filter', [workload, mode,
+      message(this.evaluableOnly ? 'report_evaluable_only' : 'report_include_unevaluable')]);
+  }
+}
+
+/** 一个条件组内的阶段耗时行。 */
+export class StageTimingRow {
+  public stageKey: string = '';
+  public label: string = '';
+  public samples: number = 0;
+  public evaluable: boolean = false;
+  /** -1 表示不可评估。 */
+  public p50Ms: number = -1;
+  /** -1 表示不可评估。 */
+  public meanMs: number = -1;
+
+  constructor(stageKey: string = '', label: string = '', samples: number = 0,
+    evaluable: boolean = false, p50Ms: number = -1, meanMs: number = -1) {
+    this.stageKey = stageKey;
+    this.label = label;
+    this.samples = samples;
+    this.evaluable = evaluable;
+    this.p50Ms = p50Ms;
+    this.meanMs = meanMs;
+  }
+
+  p50Text(): string {
+    return this.p50Ms < 0 ? message('report_unevaluable') : message('report_milliseconds', [this.p50Ms]);
+  }
+
+  meanText(): string {
+    return this.meanMs < 0 ? message('report_unevaluable') : message('report_milliseconds', [this.meanMs]);
+  }
+
+  text(): string {
+    return message('report_stage_row', [localize(this.label), this.samples, this.p50Text(), this.meanText(),
+      this.evaluable ? '' : message('report_unevaluable_suffix')]);
+  }
+}
+
+/** 一个条件组的汇总行。 */
+export class ConditionGroup {
+  /** Stable group code; preserved when sorting or switching locale. */
+  public label: string = '';
+  public fingerprint: string = '';
+  public fields: ConditionFields = new ConditionFields();
+  public conditionText: string = '';
+  /** 不可比原因；空串表示关键字段齐全。 */
+  public unavailable: string = '';
+  public workloadId: string = '';
+  public workloadLabel: string = '';
+  public mode: string = '';
+  public samples: number = 0;
+  public validSamples: number = 0;
+  public failed: number = 0;
+  public evaluable: boolean = false;
+  /** -1 表示不可评估。 */
+  public p50Ms: number = -1;
+  public p90Ms: number = -1;
+  public meanMs: number = -1;
+  public gaps: string[] = [];
+  public stageRows: StageTimingRow[] = [];
+
+  constructor(label: string = '', fingerprint: string = '', conditionText: string = '',
+    workloadId: string = '', workloadLabel: string = '', mode: string = '') {
+    this.label = label;
+    this.fingerprint = fingerprint;
+    this.conditionText = conditionText;
+    this.workloadId = workloadId;
+    this.workloadLabel = workloadLabel;
+    this.mode = mode;
+  }
+
+  /** Resolve the display label without changing the stable group code. */
+  labelText(): string {
+    const match: RegExpMatchArray | null = this.label.match(/^condition-group-([0-9]+)$/);
+    return match === null ? localize(this.label) : message('report_group_label', [match[1]]);
+  }
+
+  modeLabel(): string {
+    if (this.mode === 'files') {
+      return message('report_mode_files');
+    }
+    if (this.mode === 'modules') {
+      return message('report_mode_modules');
+    }
+    return message(this.mode === 'control' ? 'report_mode_control' : 'report_mode_unrecorded');
+  }
+
+  p50Text(): string {
+    return this.p50Ms < 0 ? message('report_unevaluable') : message('report_milliseconds', [this.p50Ms]);
+  }
+
+  p90Text(): string {
+    return this.p90Ms < 0 ? message('report_unevaluable') : message('report_milliseconds', [this.p90Ms]);
+  }
+
+  meanText(): string {
+    return this.meanMs < 0 ? message('report_unevaluable') : message('report_milliseconds', [this.meanMs]);
+  }
+
+  /** 表格行文本：可直接复制进工单或 Markdown 代码块。 */
+  rowText(): string {
+    const workload: string = this.workloadLabel.length > 0 ?
+      message('report_workload_named', [localize(this.workloadLabel), this.workloadId]) : this.workloadId;
+    const flag: string = this.unavailable.length > 0 ?
+      message('report_status_suffix', [localize(this.unavailable)]) : '';
+    return message('report_group_row', [this.labelText(), workload, this.modeLabel(), this.samples,
+      this.validSamples, this.failed, this.p50Text(), this.p90Text(), this.meanText(), flag]);
+  }
+}
+
+/** 分组键：与 digestLedger 的分组键保持一致，才能复用它的分位数结果。 */
+export function conditionGroupKey(record: ExperimentRecord): string {
+  return JSON.stringify([record.workloadId, record.mode, record.condition, record.digestBefore,
+    record.beforeBytes]);
+}
+
+/** 有效样本判据：与 digestLedger 内部的 valid 判据一致。 */
+function validSamplesOf(records: ExperimentRecord[]): ExperimentRecord[] {
+  return records.filter((record: ExperimentRecord): boolean =>
+    record.complete() && record.condition.length > 0);
+}
+
+/** 阶段耗时合计，与 digestLedger 计算 P50/P90 的口径一致。 */
+function stageSum(record: ExperimentRecord): number {
+  return record.stages.reduce((sum: number, stage: ExperimentStage): number =>
+    sum + stage.elapsedMs, 0);
+}
+
+/** 缺失数组时返回 -1，与 medianOf 的哨兵一致。 */
+function meanOf(values: number[]): number {
+  if (values.length === 0) {
+    return -1;
+  }
+  const total: number = values.reduce((sum: number, value: number): number => sum + value, 0);
+  return Math.round(total / values.length);
+}
+
+/** 条件组内的阶段耗时行；无有效样本时仍保留 6 行并标记不可评估。 */
+function stageRowsOf(valid: ExperimentRecord[]): StageTimingRow[] {
+  return FLOW_KEYS.map((key: string): StageTimingRow => {
+    const row: StageTimingRow = new StageTimingRow();
+    row.stageKey = key;
+    const values: number[] = [];
+    let label: string = '';
+    valid.forEach((record: ExperimentRecord): void => {
+      const stage: ExperimentStage | undefined = record.stage(key);
+      if (stage === undefined) {
+        return;
+      }
+      if (label.length === 0 && stage.label.length > 0) {
+        label = stage.label;
+      }
+      if (Number.isFinite(stage.elapsedMs) && stage.elapsedMs >= 0) {
+        values.push(stage.elapsedMs);
+      }
+    });
+    row.label = label.length > 0 ? label : key;
+    row.samples = values.length;
+    row.p50Ms = medianOf(values);
+    row.meanMs = meanOf(values);
+    row.evaluable = values.length > 0 && row.p50Ms >= 0;
+    return row;
+  });
+}
+
+/** 缺口说明：登记记录自带的缺口、未参与统计的条数，以及不可比原因。 */
+function gapsOf(records: ExperimentRecord[], valid: ExperimentRecord[], group: ConditionGroup): string[] {
+  const gaps: string[] = [];
+  records.forEach((record: ExperimentRecord): void => {
+    record.missing.forEach((text: string): void => {
+      const value: string = text.trim();
+      if (value.length > 0 && gaps.indexOf(value) < 0) {
+        gaps.push(value);
+      }
+    });
+  });
+  const skipped: number = records.length - valid.length;
+  if (skipped > 0) {
+    gaps.push(message('report_skipped_records', [skipped]));
+  }
+  if (!group.evaluable) {
+    gaps.push(message('report_no_valid_samples'));
+  }
+  if (group.unavailable.length > 0) {
+    gaps.push(group.unavailable);
+  }
+  return gaps.map((text: string): string => localize(text));
+}
+
+/** 构造一个条件组。 */
+function groupOf(same: ExperimentRecord[], label: string,
+  source: ConditionSource | undefined): ConditionGroup {
+  const group: ConditionGroup = new ConditionGroup();
+  group.label = label;
+  group.workloadId = same[0].workloadId;
+  group.workloadLabel = same[0].workloadLabel;
+  group.mode = same[0].mode;
+  group.fields = fieldsOfRecord(same[0], source);
+  group.fingerprint = fingerprintOf(group.fields);
+  group.conditionText = describeCondition(group.fields);
+  const missing: string[] = missingFieldsOf(group.fields);
+  group.unavailable = missing.length > 0 ?
+    message('report_missing_fields', [missing.join(message('report_field_separator'))]) : '';
+
+  // 分组键与 digestLedger 一致，因此这里恰好得到一个汇总项。
+  const digests: WorkloadDigest[] = digestLedger(same);
+  const digest: WorkloadDigest | undefined = digests.length > 0 ? digests[0] : undefined;
+  group.samples = digest === undefined ? same.length : digest.runs;
+  group.failed = digest === undefined ? same.length : digest.failed;
+
+  const valid: ExperimentRecord[] = validSamplesOf(same);
+  group.validSamples = valid.length;
+  group.p50Ms = digest === undefined ? -1 : digest.medianDuration;
+  group.p90Ms = digest === undefined ? -1 : digest.p90Duration;
+  group.meanMs = meanOf(valid.map((record: ExperimentRecord): number => stageSum(record)));
+  group.evaluable = valid.length > 0 && group.p50Ms >= 0;
+  group.stageRows = stageRowsOf(valid);
+  group.gaps = gapsOf(same, valid, group);
+  return group;
+}
+
+/**
+ * 统计表。行由条件组构成，支持按负载/模式/可评估性筛选，按样本量或分位数排序。
+ * 注意：筛选与排序都返回新表，原表不变，避免页面持有过期引用。
+ */
+export class ReportTable {
+  public rows: ConditionGroup[] = [];
+
+  /** 从记录构建；source 缺省时从每条记录的 condition 元组还原环境。 */
+  static build(records: ExperimentRecord[],
+    source: ConditionSource | undefined = undefined): ReportTable {
+    const table: ReportTable = new ReportTable();
+    const keys: string[] = [];
+    records.forEach((record: ExperimentRecord): void => {
+      const key: string = conditionGroupKey(record);
+      if (keys.indexOf(key) < 0) {
+        keys.push(key);
+      }
+    });
+    keys.forEach((key: string, index: number): void => {
+      const same: ExperimentRecord[] = records.filter((record: ExperimentRecord): boolean =>
+        conditionGroupKey(record) === key);
+      table.rows.push(groupOf(same, `condition-group-${index + 1}`, source));
+    });
+    return table;
+  }
+
+  size(): number {
+    return this.rows.length;
+  }
+
+  /** 按负载/模式/可评估性筛选。 */
+  filter(filter: ReportFilter): ReportTable {
+    const table: ReportTable = new ReportTable();
+    table.rows = this.rows.filter((group: ConditionGroup): boolean => filter.matches(group));
+    return table;
+  }
+
+  /** 排序；无有效样本的行（值为 -1）始终排在末尾，不参与数值比较。 */
+  sortBy(key: ReportSort, descending: boolean = false): ReportTable {
+    const table: ReportTable = new ReportTable();
+    table.rows = this.rows.slice();
+    table.rows.sort((left: ConditionGroup, right: ConditionGroup): number => {
+      if (key === ReportSort.WORKLOAD) {
+        const name: number = compareText(left.workloadLabel + left.workloadId,
+          right.workloadLabel + right.workloadId);
+        return descending ? -name : name;
+      }
+      const leftValue: number = sortValueOf(left, key);
+      const rightValue: number = sortValueOf(right, key);
+      const leftMissing: boolean = leftValue < 0;
+      const rightMissing: boolean = rightValue < 0;
+      if (leftMissing !== rightMissing) {
+        return leftMissing ? 1 : -1;
+      }
+      if (leftValue === rightValue) {
+        return compareText(left.label, right.label);
+      }
+      const order: number = leftValue < rightValue ? -1 : 1;
+      return descending ? -order : order;
+    });
+    return table;
+  }
+
+  /** 表头 + 逐行文本，可直接复制。 */
+  text(): string {
+    if (this.rows.length === 0) {
+      return message('report_empty_table');
+    }
+    const lines: string[] = [message('report_table_header')];
+    this.rows.forEach((group: ConditionGroup): void => {
+      lines.push(message('report_table_row', [group.labelText(), group.workloadId, group.modeLabel(),
+        group.samples, group.validSamples, group.failed, group.p50Text(), group.p90Text(), group.meanText(),
+        group.unavailable.length > 0 ? localize(group.unavailable) : message('report_can_aggregate')]));
+    });
+    return lines.join('\n');
+  }
+}
+
+function sortValueOf(group: ConditionGroup, key: ReportSort): number {
+  switch (key) {
+    case ReportSort.P50:
+      return group.p50Ms;
+    case ReportSort.P90:
+      return group.p90Ms;
+    case ReportSort.MEAN:
+      return group.meanMs;
+    case ReportSort.FAILED:
+      return group.failed;
+    default:
+      return group.samples;
+  }
+}
+
+function compareText(left: string, right: string): number {
+  if (left === right) {
+    return 0;
+  }
+  return left < right ? -1 : 1;
+}

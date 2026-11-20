@@ -28,13 +28,18 @@ import { fileIo as fs } from '@kit.CoreFileKit';
 import { resourceManager } from '@kit.LocalizationKit';
 // [End pixelmap_import_resource_manager_modulef]
 import Logger from './Logger';
+import { resolveImageContext } from './ImageRuntimeContext';
 
-const context: Context = getContext(this);
-// 获取resourceManager资源管理
-const resourceMgr: resourceManager.ResourceManager = context.resourceManager;
+// Context and resource manager are resolved per operation, never during module import.
 // [End pixelmap_get_resource_manager]
 
 export class Decode {
+  private readonly runtimeContext: Context | undefined;
+
+  constructor(runtimeContext?: Context) {
+    this.runtimeContext = runtimeContext;
+  }
+
   /**
    *  通过沙箱路径直接获取文件资源实例
    *
@@ -43,7 +48,7 @@ export class Decode {
    **/
   public getImageSourceByFilePath(fileName: string): image.ImageSource {
     // [Start pixelmap_get_image_by_filepath]
-    const context: Context = getContext(this);
+    const context: Context = resolveImageContext(this.runtimeContext);
     // fileName可使用'/test.jpg'，也可以根据实际环境传入其他图片名
     const filePath: string = context.cacheDir + fileName;
     // [End pixelmap_get_image_by_filepath]
@@ -62,7 +67,7 @@ export class Decode {
    **/
   public getImageSourceByFd(fileName: string): image.ImageSource {
     // [Start pixelmap_get_image_by_fd]
-    const context: Context = getContext(this);
+    const context: Context = resolveImageContext(this.runtimeContext);
     // fileName可使用'/test.jpg'，也可以根据实际环境传入其他图片名
     const filePath = context.cacheDir + fileName;
     const file: fs.File = fs.openSync(filePath, fs.OpenMode.READ_WRITE);
@@ -72,6 +77,7 @@ export class Decode {
     // [Start pixelmap_create_image_source_by_fd]
     const imageSource: image.ImageSource = image.createImageSource(fd);
     // [End pixelmap_create_image_source_by_fd]
+    fs.closeSync(file);
     return imageSource;
   }
 
@@ -83,7 +89,7 @@ export class Decode {
    **/
   public getImageSourceByArrayBuffer(fileName: string): Promise<image.ImageSource> {
     // [Start pixelmap_get_resource_manager_in_arraybuffer]
-    const context: Context = getContext(this);
+    const context: Context = resolveImageContext(this.runtimeContext);
     const resourceMgr: resourceManager.ResourceManager = context.resourceManager;
     // [End pixelmap_get_resource_manager_in_arraybuffer]
     return new Promise((resolve, reject) => {
@@ -114,7 +120,7 @@ export class Decode {
   public getImageSourceByRawFileDescriptor(fileName: string): Promise<image.ImageSource> {
     // [Start pixelmap_get_resource_manager_in_raw_file_descriptor]
     // 获取resourceManager资源管理器
-    const context: Context = getContext(this);
+    const context: Context = resolveImageContext(this.runtimeContext);
     const resourceMgr: resourceManager.ResourceManager = context.resourceManager;
     // [End pixelmap_get_resource_manager_in_raw_file_descriptor]
     return new Promise((resolve, reject) => {
@@ -193,7 +199,7 @@ export class Decode {
   public async decodeByFormat(): Promise<image.PixelMap> {
     Logger.info('getPixelMap DecodeByFormat Start');
     // [Start pixelmap_decode_using_RGBA_8888_format]
-    let img = await getContext(this).resourceManager.getMediaContent($r('app.media.image'));
+    let img = await resolveImageContext(this.runtimeContext).resourceManager.getMediaContent($r('app.media.image'));
     let imageSource: image.ImageSource = image.createImageSource(img.buffer.slice(0));
     let decodingOptions: image.DecodingOptions = {
       editable: true,
@@ -222,7 +228,7 @@ export class Decode {
    **/
   public async decodeByAuto(): Promise<image.PixelMap> {
     // [Start pixelmap_decode_using_auto_format]
-    let img = await getContext(this).resourceManager.getMediaContent($r('app.media.CUVAHdr'));
+    let img = await resolveImageContext(this.runtimeContext).resourceManager.getMediaContent($r('app.media.CUVAHdr'));
     let imageSource: image.ImageSource = image.createImageSource(img.buffer.slice(0));
     let decodingOptions: image.DecodingOptions = {
       //设置为AUTO会根据图片资源格式解码，如果图片资源为HDR资源则会解码为HDR的pixelmap。
@@ -251,6 +257,7 @@ export class Decode {
    * @returns 位图操作对象。
    **/
   public decodeSample_1(): Promise<image.PixelMap> {
+    const resourceMgr = resolveImageContext(this.runtimeContext).resourceManager;
     return new Promise((resolve, reject) => {
       // [Start pixelmap_create_image_source_by_text_jpg_arraybuffer]
       resourceMgr.getRawFileContent('test.jpg').then((fileData: Uint8Array) => {
@@ -282,6 +289,7 @@ export class Decode {
    * @returns 位图操作对象。
    **/
   public decodeSample_2(): Promise<image.PixelMap> {
+    const resourceMgr = resolveImageContext(this.runtimeContext).resourceManager;
     return new Promise((resolve, reject) => {
       resourceMgr.getRawFd('test.jpg').then((rawFileDescriptor: resourceManager.RawFileDescriptor) => {
         Logger.info('decodeSample_2: ', 'Succeeded in getting RawFd');

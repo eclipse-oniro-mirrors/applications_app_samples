@@ -77,7 +77,7 @@ entry
     │       │   └── profile
     │       │       ├── backup_config.json
     │       │       ├── main_pages.json
-    │       │       └── route_map.json
+    │       │       └── router_map.json
     │       ├── dark
     │       │   └── element
     │       │       └── color.json

@@ -12,7 +12,7 @@ class SurfaceVideoSink final : public VideoSink {
 public:
     int32_t Present(const VideoPresentRequest &request) override
     {
-        return request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, request.render,
+        return request.decoder.FreeOutputBuffer(request.bufferInfo, request.render,
             request.renderTimestamp);
     }
 

@@ -36,6 +36,10 @@ struct Index {
         .onClick(() => {
           this.getUIContext().getRouter().pushUrl({ url: 'pages/ResumeDownload' });
         })
+      Button('SelectDownloadDir')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/SelectDownloadDir' });
+        })
     }.height('100%')
     .width('100%')
   }

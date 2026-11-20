@@ -264,7 +264,9 @@ export struct Timer {
       // [End timer_reminder]
       this.reminderId = await reminderAgentManager.publishReminder(timer);
       Logger.info(TAG, `publish reminder result: id is ${this.reminderId}`);
-    } catch(err) {}
+    } catch(err) {
+      Logger.error(TAG, `handleDefaultDevice error: ${JSON.stringify(err)}`)
+    }
   }
 
   async pause() {
@@ -277,7 +279,9 @@ export struct Timer {
     try {
       await reminderAgentManager.cancelReminder(this.reminderId);
       await vibrator.stopVibration(vibrator.VibratorStopMode.VIBRATOR_STOP_MODE_TIME);
-    } catch(err) {}
+    } catch(err) {
+      Logger.error(TAG, `pause error: ${JSON.stringify(err)}`)
+    }
   }
 
   async reset(isCancel?: boolean) {
@@ -302,6 +306,8 @@ export struct Timer {
         await reminderAgentManager.cancelReminder(this.reminderId);
       }
       await vibrator.stopVibration(vibrator.VibratorStopMode.VIBRATOR_STOP_MODE_TIME);
-    } catch(err) {}
+    } catch(err) {
+      Logger.error(TAG, `reset error: ${JSON.stringify(err)}`)
+    }
   }
 }

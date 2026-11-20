@@ -29,14 +29,17 @@ const DOMAIN = 0x0000
 // Backing up a relational database
 // Back up manually
 
-export async function backupManually() {
+export async function backupManually(uiContext: UIContext) {
 
   // 手动备份
   // 手动备份：通过调用[backup](../reference/apis-arkdata/arkts-apis-data-relationalStore-RdbStore.md#backup)接口实现数据库手动备份。示例如下：
 
   // [Start backupManually]
   /* context为应用的上下文信息，由调用方自行获取，此处仅为示例。 */
-  const context = new UIContext().getHostContext() as common.UIAbilityContext;
+  const context = uiContext.getHostContext();
+  if (context === undefined) {
+    return;
+  }
   let store: relationalStore.RdbStore | undefined = undefined;
   const STORE_CONFIG: relationalStore.StoreConfig = {
     name: 'RdbTest.db',
@@ -107,8 +110,11 @@ export async function backupManually() {
           if (err.code === 14800011) {
             // 执行下文的步骤，即关闭结果集之后进行数据的恢复
           }
-          hilog.info(DOMAIN, 'BackupAndRestore', JSON.stringify(err));
+          hilog.error(DOMAIN, 'BackupAndRestore', JSON.stringify(err));
         }
+      }).catch((err: Error) => {
+        let e = err as BusinessError;
+        hilog.error(DOMAIN, 'BackupAndRestore', `Failed to query. Code:${e.code}, message:${e.message}`);
       })
   }
   // [End databaseExceptionErrorCodeThrown]
@@ -122,7 +128,7 @@ export async function backupManually() {
       resultSet.close();
     } catch (e) {
       if (e.code !== 14800014) {
-        hilog.info(DOMAIN, 'BackupAndRestore', `Code:${e.code}, message:${e.message}`);
+        hilog.error(DOMAIN, 'BackupAndRestore', `Code:${e.code}, message:${e.message}`);
       }
     }
   }
@@ -132,7 +138,7 @@ export async function backupManually() {
 
 // Rebuilding a relational database abnormally
 // 关系型数据库异常重建
-export async function rebuildingRelationalDatabaseAbnormally() {
+export async function rebuildingRelationalDatabaseAbnormally(uiContext: UIContext) {
 
   // 关系型数据库异常重建
 
@@ -149,7 +155,10 @@ export async function rebuildingRelationalDatabaseAbnormally() {
   // [Start rebuildingRelationalDatabaseAbnormally]
   let store: relationalStore.RdbStore | undefined = undefined;
   /* context为应用的上下文信息，由调用方自行获取，此处仅为示例。 */
-  const context = new UIContext().getHostContext() as common.UIAbilityContext;
+  const context = uiContext.getHostContext();
+  if (context === undefined) {
+    return;
+  }
   try {
     const STORE_CONFIG: relationalStore.StoreConfig = {
       name: 'RdbTest.db',
@@ -168,12 +177,15 @@ export async function rebuildingRelationalDatabaseAbnormally() {
 
 // Restoring manual backup data
 // 调用restore接口恢复数据
-export async function restoringManualBackupData() {
+export async function restoringManualBackupData(uiContext: UIContext) {
 
   // [Start invokeTheRestoreInterfaceToRestoreData]
   let store: relationalStore.RdbStore | undefined = undefined;
   /* context为应用的上下文信息，由调用方自行获取，此处仅为示例。 */
-  const context = new UIContext().getHostContext() as common.UIAbilityContext;
+  const context = uiContext.getHostContext();
+  if (context === undefined) {
+    return;
+  }
   let STORE_CONFIG: relationalStore.StoreConfig = {
     name: 'RdbTest.db',
     securityLevel: relationalStore.SecurityLevel.S3,
@@ -193,7 +205,7 @@ export async function restoringManualBackupData() {
       return;
     }
   } catch (e) {
-    hilog.info(DOMAIN, 'BackupAndRestore', `Code:${e.code}, message:${e.message}`);
+    hilog.error(DOMAIN, 'BackupAndRestore', `Code:${e.code}, message:${e.message}`);
   }
 
   try {

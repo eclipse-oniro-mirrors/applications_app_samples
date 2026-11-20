@@ -1,0 +1,32 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "app_title",
+      "value": "IDL工具使用示例"
+    },
+    {
+      "name": "result_success",
+      "value": "成功"
+    },
+    {
+      "name": "result_success_with_value",
+      "value": "成功，返回值: %s"
+    },
+    {
+      "name": "result_failed_with_code",
+      "value": "失败，错误码: %s"
+    }
+  ]
+}

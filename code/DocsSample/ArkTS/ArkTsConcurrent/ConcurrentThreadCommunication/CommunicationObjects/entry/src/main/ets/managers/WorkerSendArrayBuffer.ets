@@ -1,0 +1,50 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// [Start worker_send]
+import { worker, MessageEvents, ErrorEvent } from '@kit.ArkTS';
+
+const workerInstance = new worker.ThreadWorker('entry/ets/workers/Worker.ets');
+
+const buffer: ArrayBuffer = new ArrayBuffer(1024 * 1024); // 1MB
+workerInstance.postMessage(buffer, [buffer]);
+// 转移后，buffer的所有权转移到Worker线程，宿主线程无法再访问buffer
+workerInstance.onmessage = (e: MessageEvents) => {
+  workerInstance.terminate();
+};
+workerInstance.onerror = (err: ErrorEvent) => {
+  console.error('worker err:' + err.message);
+};
+// [End worker_send]
+@Entry
+@Component
+struct WorkerSendArrayBuffer {
+  @State message: string = 'Hello World';
+
+  build() {
+    Row() {
+      Column() {
+        Text(this.message)
+          .fontSize(50)
+          .fontWeight(FontWeight.Bold)
+          .onClick(() => {
+            this.message = 'success';
+          })
+      }
+      .width('100%')
+    }
+    .height('100%')
+  }
+}

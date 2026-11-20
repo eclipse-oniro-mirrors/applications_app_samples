@@ -103,10 +103,16 @@ function testEccUseCommKeySpecGetSync() {
       showEccSpecDetailInfo(keyPair.pubKey, 'pubKey'); // 对公钥获取相关密钥参数属性
     } else {
       console.error('get key pair result: fail!');
+      // [StartExclude specify_parameter_generate_ecc_keypair_sync]
+      throw new Error('get key pair result: fail!');
+      // [EndExclude specify_parameter_generate_ecc_keypair_sync]
     }
   } catch (e) {
     // 逻辑错误等异常在此捕获
     console.error(`get key pair failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude specify_parameter_generate_ecc_keypair_sync]
+    throw new Error(`get key pair failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude specify_parameter_generate_ecc_keypair_sync]
   }
 }
 // [End specify_parameter_generate_ecc_keypair_sync]

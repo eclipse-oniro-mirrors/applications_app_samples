@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1280" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f2f2f2; }
+      .card { fill: #ffffff; rx: 16px; }
+      .text-title { font-family: sans-serif; fill: #111111; font-weight: bold; }
+      .text-sub { font-family: sans-serif; fill: #666666; }
+      .text-blue { font-family: sans-serif; fill: #007DFF; }
+      .btn-primary { fill: #007DFF; rx: 40px; }
+      .btn-disabled { fill: #e5e5e5; rx: 40px; }
+      .status-text { font-family: sans-serif; fill: #000; font-size: 22px; font-weight: 500; }
+    </style>
+  </defs>
+  
+  <rect width="720" height="1280" class="bg" />
+  
+  <text x="30" y="45" class="status-text">没有 SIM 卡 📶</text>
+  <text x="580" y="45" class="status-text">11% 🔋 00:20</text>
+
+  <rect x="25" y="0" width="670" height="100" class="card" />
+  <text x="55" y="40" class="text-sub" font-size="22">ALL_DATA = -1 (0xffffffff)</text>
+
+  <!-- 按钮组 -->
+  <rect x="30" y="120" width="660" height="70" class="btn-primary" />
+  <text x="360" y="165" font-family="sans-serif" fill="#ffffff" font-size="26" text-anchor="middle">查询应用密钥状态</text>
+
+  <rect x="30" y="210" width="660" height="70" class="btn-primary" />
+  <text x="360" y="255" font-family="sans-serif" fill="#ffffff" font-size="26" text-anchor="middle">申请锁屏访问权限</text>
+
+  <rect x="30" y="300" width="660" height="70" class="btn-disabled" />
+  <text x="360" y="345" class="text-blue" font-size="26" text-anchor="middle">释放锁屏访问权限</text>
+
+  <rect x="30" y="390" width="660" height="70" class="btn-disabled" />
+  <text x="360" y="435" class="text-blue" font-size="26" text-anchor="middle">查询全部状态</text>
+
+  <!-- 操作结果卡片 -->
+  <rect x="25" y="490" width="670" height="230" class="card" />
+  <text x="55" y="540" class="text-title" font-size="28">操作结果</text>
+  <text x="55" y="590" class="text-blue" font-size="24">releaseAccess: RELEASE_GRANTED (0)</text>
+  <text x="55" y="635" class="text-sub" font-size="22">结果展示返回枚举的名称和数值，或 BusinessError 的</text>
+  <text x="55" y="670" class="text-sub" font-size="22">错误码与错误信息。</text>
+
+  <!-- 配对状态卡片 -->
+  <rect x="25" y="740" width="670" height="140" class="card" />
+  <text x="55" y="790" class="text-title" font-size="28">配对状态</text>
+  <text x="55" y="840" class="text-blue" font-size="24">Acquire: 1 | Release: 1 | Pending: 0</text>
+
+  <!-- 操作历史卡片 -->
+  <rect x="25" y="900" width="670" height="250" class="card" />
+  <text x="55" y="950" class="text-title" font-size="28">操作历史</text>
+  <rect x="520" y="920" width="150" height="40" fill="#007DFF" rx="20" />
+  <text x="595" y="947" font-family="sans-serif" fill="#ffffff" font-size="20" text-anchor="middle">清除历史</text>
+  
+  <text x="55" y="1000" class="text-sub" font-size="22">[12:20:53] releaseAccess</text>
+  <text x="370" y="1000" class="text-blue" font-size="22">RELEASE_GRANTED (0)</text>
+  
+  <text x="55" y="1040" class="text-sub" font-size="22">[12:20:43] acquireAccess</text>
+  <text x="370" y="1040" class="text-blue" font-size="22">ACCESS_GRANTED (0)</text>
+  
+  <text x="55" y="1080" class="text-sub" font-size="22">[12:20:31] queryAppKeyState</text>
+  <text x="370" y="1080" class="text-blue" font-size="22">KEY_EXIST (0)</text>
+
+  <!-- 底部导航 -->
+  <rect x="0" y="1200" width="720" height="80" fill="#ffffff" />
+  <polygon points="190,1240 210,1225 210,1255" fill="none" stroke="#333" stroke-width="3"/>
+  <circle cx="360" cy="1240" r="14" fill="none" stroke="#333" stroke-width="3"/>
+  <rect x="500" y="1225" width="24" height="24" fill="none" stroke="#333" stroke-width="3" rx="2"/>
+</svg>

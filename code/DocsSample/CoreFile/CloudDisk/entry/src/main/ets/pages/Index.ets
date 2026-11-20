@@ -16,7 +16,7 @@
 import { fileShare, fileUri, picker } from '@kit.CoreFileKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
-import cloudDisk, { SyncFolder, IsPlaceholderResult, CustomInfoResult } from 'libentry.so';
+import cloudDisk, { SyncFolder, IsPlaceholderResult, PlaceholderStateResult, CustomInfoResult } from 'libentry.so';
 import { promptAction, PromptAction } from '@kit.ArkUI';
 import { common, Want } from '@kit.AbilityKit';
 import { BundleInfo, getBundleInfo } from '../common/Utils';
@@ -46,6 +46,7 @@ struct Index {
   @State placeholderAtimeMs: string = '0';
   @State placeholderMtimeMs: string = '0';
   @State placeholderLogicalSize: string = '0';
+  @State placeholderCustomInfo: string = '';
   @State isPlaceholderSyncPath: string = '';
   @State isPlaceholderFilePath: string = '';
   @State updatePlaceholderSyncPath: string = '';
@@ -53,6 +54,10 @@ struct Index {
   @State updatePlaceholderAtimeMs: string = '0';
   @State updatePlaceholderMtimeMs: string = '0';
   @State updatePlaceholderLogicalSize: string = '0';
+  @State updatePlaceholderCustomInfo: string = '';
+  @State updateOnCloudSizeChangeSize: string = '';
+  @State updateOnCloudSizeChangeAtimeMs: string = '0';
+  @State updateOnCloudSizeChangeMtimeMs: string = '0';
   @State convertPlaceholderSyncPath: string = '';
   @State convertPlaceholderFilePath: string = '';
   @State markFileSyncPath: string = '';
@@ -172,7 +177,7 @@ struct Index {
     34400018: $r('app.string.err_34400018'), 34400019: $r('app.string.err_34400019'),
     34400020: $r('app.string.err_34400020'), 34400021: $r('app.string.err_34400021'),
     34400022: $r('app.string.err_34400022'), 34400023: $r('app.string.err_34400023'),
-    34400024: $r('app.string.err_34400024'),
+    34400024: $r('app.string.err_34400024'), 34400033: $r('app.string.err_34400033'),
   };
 
   getErrorCodeMsg(code: number): string {
@@ -181,6 +186,22 @@ struct Index {
       return this.resStr(res);
     }
     return this.resStr($r('app.string.err_unknown')) + code.toString();
+  }
+
+  // 占位符水合状态枚举值与展示文案的映射（OH_CloudDisk_PlaceholderState）
+  private placeholderStateMap: Record<number, Resource> = {
+    0: $r('app.string.state_none'),
+    1: $r('app.string.state_unhydrated'),
+    2: $r('app.string.state_partially_hydrated'),
+    3: $r('app.string.state_fully_hydrated'),
+  };
+
+  getPlaceholderStateMsg(state: number): string {
+    const res = this.placeholderStateMap[state];
+    if (res) {
+      return this.resStr(res);
+    }
+    return state.toString();
   }
 
   @Builder
@@ -196,6 +217,7 @@ struct Index {
     .padding(10)
     .backgroundColor(this.phaseIndex === index ? '#4CAF50' : '#E0E0E0')
     .borderRadius(6)
+    .id(index === 0 ? 'tabSyncRoot' : 'tabPlaceholder')
   }
 
   build() {
@@ -214,15 +236,18 @@ struct Index {
                   })
                   .width('40%')
                   .margin(10)
+                  .id('syncRootPathInput')
                 Button($r('app.string.select_folder'))
                   .onClick(() => { this.onButtonClick(); })
                   .margin(10)
+                  .id('selectFolderBtn')
                 Button($r('app.string.clear_all_sync_roots'))
                   .onClick(() => {
                     cloudDisk.unRegisterAllSyncFolder();
                     this.refreshSyncFolder();
                   })
                   .margin(10)
+                  .id('clearAllSyncRootsBtn')
               }
               Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
                 Text($r('app.string.alias_label'))
@@ -230,12 +255,14 @@ struct Index {
                   .onChange((value: string) => { this.displayName = value; })
                   .width('20%')
                   .margin(10)
+                  .id('aliasInput')
                 Button($r('app.string.register_sync_root'))
                   .onClick(() => {
                     this.showResult(cloudDisk.registerSyncFolder(this.syncFolderPath, this.displayName));
                     this.refreshSyncFolder();
                   })
                   .margin(10)
+                  .id('registerSyncRootBtn')
                 Button($r('app.string.unregister_sync_root_btn'))
                   .onClick(() => {
                     this.showResult(cloudDisk.unRegisterSyncFolder(this.syncFolderPath));
@@ -245,24 +272,28 @@ struct Index {
                     this.refreshSyncFolder();
                   })
                   .margin(10)
+                  .id('unregisterSyncRootBtn')
                 Button($r('app.string.activate_sync_root'))
                   .onClick(() => {
                     this.showResult(cloudDisk.activeSyncFolder(this.syncFolderPath));
                     this.refreshSyncFolder();
                   })
                   .margin(10)
+                  .id('activateSyncRootBtn')
                 Button($r('app.string.deactivate_sync_root'))
                   .onClick(() => {
                     this.showResult(cloudDisk.deactiveSyncFolder(this.syncFolderPath));
                     this.refreshSyncFolder();
                   })
                   .margin(10)
+                  .id('deactivateSyncRootBtn')
                 Button($r('app.string.modify_alias'))
                   .onClick(() => {
                     this.showResult(cloudDisk.updateDisplayName(this.syncFolderPath, this.displayName));
                     this.refreshSyncFolder();
                   })
                   .margin(10)
+                  .id('modifyAliasBtn')
               }
               Column() {
                 Row() {
@@ -295,12 +326,13 @@ struct Index {
                   }
                 } else {
                   Row() {
-                    Text($r('app.string.no_sync_roots')).width('100%').textAlign(TextAlign.Center)
+                    Text($r('app.string.no_sync_roots')).width('100%').textAlign(TextAlign.Center).id('noSyncRootText')
                   }
                   .padding(12)
                   .border({ width: 1, color: '#ddd' })
                 }
               }
+              .id('syncRootTable')
               Divider()
               Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
                 Text($r('app.string.listen_path_label'))
@@ -308,23 +340,29 @@ struct Index {
                   .onChange((value: string) => { this.listenerFolderPath = value; })
                   .width('40%')
                   .margin(10)
+                  .id('listenerPathInput')
                 Button($r('app.string.register_listener'))
                   .onClick(() => { this.showResult(cloudDisk.registerSyncFolderChange(this.listenerFolderPath)); })
                   .margin(10)
+                  .id('registerListenerBtn')
                 Button($r('app.string.unregister_listener'))
                   .onClick(() => { this.showResult(cloudDisk.unRegisterSyncFolderChange(this.listenerFolderPath)); })
                   .margin(10)
+                  .id('unregisterListenerBtn')
               }
               Flex({ direction: FlexDirection.Row }) {
                 Button($r('app.string.read_operation_log'))
                   .onClick(() => { this.startNewPage('pages/OperationLog'); })
                   .margin(10)
+                  .id('readOperationLogBtn')
                 Button($r('app.string.set_sync_states'))
                   .onClick(() => { this.startNewPage('pages/SetFileSyncStates'); })
                   .margin(10)
+                  .id('setSyncStatesBtn')
                 Button($r('app.string.get_sync_states'))
                   .onClick(() => { this.startNewPage('pages/GetFileSyncStates'); })
                   .margin(10)
+                  .id('getSyncStatesBtn')
               }
             }
           }
@@ -347,6 +385,7 @@ struct Index {
                     .backgroundColor(this.phase2ModuleIndex === 0 ? '#4CAF50' : '#E8E8E8')
                     .borderRadius(6).margin({ bottom: 6 })
                     .onClick(() => { this.phase2ModuleIndex = 0; })
+                    .id('placeholderMenu0')
                   Text($r('app.string.is_placeholder_file_full'))
                     .fontSize(12)
                     .fontColor(this.phase2ModuleIndex === 1 ? '#FFFFFF' : '#333333')
@@ -355,6 +394,7 @@ struct Index {
                     .backgroundColor(this.phase2ModuleIndex === 1 ? '#4CAF50' : '#E8E8E8')
                     .borderRadius(6).margin({ bottom: 6 })
                     .onClick(() => { this.phase2ModuleIndex = 1; })
+                    .id('placeholderMenu1')
                   Text($r('app.string.update_placeholder_full'))
                     .fontSize(12)
                     .fontColor(this.phase2ModuleIndex === 2 ? '#FFFFFF' : '#333333')
@@ -363,6 +403,7 @@ struct Index {
                     .backgroundColor(this.phase2ModuleIndex === 2 ? '#4CAF50' : '#E8E8E8')
                     .borderRadius(6).margin({ bottom: 6 })
                     .onClick(() => { this.phase2ModuleIndex = 2; })
+                    .id('placeholderMenu2')
                   Text($r('app.string.convert_placeholder_full'))
                     .fontSize(12)
                     .fontColor(this.phase2ModuleIndex === 3 ? '#FFFFFF' : '#333333')
@@ -371,6 +412,7 @@ struct Index {
                     .backgroundColor(this.phase2ModuleIndex === 3 ? '#4CAF50' : '#E8E8E8')
                     .borderRadius(6).margin({ bottom: 6 })
                     .onClick(() => { this.phase2ModuleIndex = 3; })
+                    .id('placeholderMenu3')
                   Text($r('app.string.mark_file_full'))
                     .fontSize(12)
                     .fontColor(this.phase2ModuleIndex === 4 ? '#FFFFFF' : '#333333')
@@ -379,6 +421,7 @@ struct Index {
                     .backgroundColor(this.phase2ModuleIndex === 4 ? '#4CAF50' : '#E8E8E8')
                     .borderRadius(6).margin({ bottom: 6 })
                     .onClick(() => { this.phase2ModuleIndex = 4; })
+                    .id('placeholderMenu4')
                   Text($r('app.string.unmark_placeholder_full'))
                     .fontSize(12)
                     .fontColor(this.phase2ModuleIndex === 5 ? '#FFFFFF' : '#333333')
@@ -387,6 +430,7 @@ struct Index {
                     .backgroundColor(this.phase2ModuleIndex === 5 ? '#4CAF50' : '#E8E8E8')
                     .borderRadius(6).margin({ bottom: 6 })
                     .onClick(() => { this.phase2ModuleIndex = 5; })
+                    .id('placeholderMenu5')
                   Text($r('app.string.get_custom_info_full'))
                     .fontSize(12)
                     .fontColor(this.phase2ModuleIndex === 6 ? '#FFFFFF' : '#333333')
@@ -395,6 +439,7 @@ struct Index {
                     .backgroundColor(this.phase2ModuleIndex === 6 ? '#4CAF50' : '#E8E8E8')
                     .borderRadius(6).margin({ bottom: 6 })
                     .onClick(() => { this.phase2ModuleIndex = 6; })
+                    .id('placeholderMenu6')
                   Text($r('app.string.dehydrate_file_full'))
                     .fontSize(12)
                     .fontColor(this.phase2ModuleIndex === 7 ? '#FFFFFF' : '#333333')
@@ -403,6 +448,7 @@ struct Index {
                     .backgroundColor(this.phase2ModuleIndex === 7 ? '#4CAF50' : '#E8E8E8')
                     .borderRadius(6).margin({ bottom: 6 })
                     .onClick(() => { this.phase2ModuleIndex = 7; })
+                    .id('placeholderMenu7')
                   Text($r('app.string.hydrate_placeholder_full'))
                     .fontSize(12)
                     .fontColor(this.phase2ModuleIndex === 8 ? '#FFFFFF' : '#333333')
@@ -411,6 +457,7 @@ struct Index {
                     .backgroundColor(this.phase2ModuleIndex === 8 ? '#4CAF50' : '#E8E8E8')
                     .borderRadius(6).margin({ bottom: 6 })
                     .onClick(() => { this.phase2ModuleIndex = 8; })
+                    .id('placeholderMenu8')
                   Text($r('app.string.register_callback_full'))
                     .fontSize(12)
                     .fontColor(this.phase2ModuleIndex === 9 ? '#FFFFFF' : '#333333')
@@ -419,6 +466,7 @@ struct Index {
                     .backgroundColor(this.phase2ModuleIndex === 9 ? '#4CAF50' : '#E8E8E8')
                     .borderRadius(6).margin({ bottom: 6 })
                     .onClick(() => { this.phase2ModuleIndex = 9; })
+                    .id('placeholderMenu9')
                   Text($r('app.string.unregister_callback_full'))
                     .fontSize(12)
                     .fontColor(this.phase2ModuleIndex === 10 ? '#FFFFFF' : '#333333')
@@ -427,6 +475,7 @@ struct Index {
                     .backgroundColor(this.phase2ModuleIndex === 10 ? '#4CAF50' : '#E8E8E8')
                     .borderRadius(6).margin({ bottom: 6 })
                     .onClick(() => { this.phase2ModuleIndex = 10; })
+                    .id('placeholderMenu10')
                   Text($r('app.string.execute_full'))
                     .fontSize(12)
                     .fontColor(this.phase2ModuleIndex === 11 ? '#FFFFFF' : '#333333')
@@ -435,6 +484,7 @@ struct Index {
                     .backgroundColor(this.phase2ModuleIndex === 11 ? '#4CAF50' : '#E8E8E8')
                     .borderRadius(6).margin({ bottom: 6 })
                     .onClick(() => { this.phase2ModuleIndex = 11; })
+                    .id('placeholderMenu11')
                 }.width('100%')
               }
               .scrollBar(BarState.Auto)
@@ -449,7 +499,7 @@ struct Index {
             Scroll() {
               Column() {
                 if (this.phase2ModuleIndex === 0) {
-                  Text($r('app.string.create_placeholder_file_title')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 })
+                  Text($r('app.string.create_placeholder_file_title')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 }).id('placeholderTitle')
                   Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
                     Text($r('app.string.sync_root_path_label'))
                     TextInput({ text: this.placeholderSyncPath, placeholder: $r('app.string.registered_sync_root_path') })
@@ -479,14 +529,22 @@ struct Index {
                       .onChange((value: string) => { this.placeholderLogicalSize = value; })
                       .width('25%').margin(10)
                   }
+                  Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
+                    Text($r('app.string.custom_info_label'))
+                    TextInput({ text: this.placeholderCustomInfo, placeholder: $r('app.string.custom_info_placeholder') })
+                      .onChange((value: string) => { this.placeholderCustomInfo = value; })
+                      .width('75%').margin(10)
+                  }
                   Row() {
                     Button($r('app.string.create_placeholder_btn'))
+                      .id('createPlaceholderBtn')
                       .onClick(() => {
                         let ret: number = cloudDisk.createPlaceholderFile(
                           this.placeholderSyncPath, this.placeholderFilePath,
                           parseInt(this.placeholderAtimeMs) || 0,
                           parseInt(this.placeholderMtimeMs) || 0,
-                          parseInt(this.placeholderLogicalSize) || 0
+                          parseInt(this.placeholderLogicalSize) || 0,
+                          this.placeholderCustomInfo
                         );
                         if (ret === 0) {
                           this.promptAction.showDialog({ title: $r('app.string.create_success'), buttons: [{ text: $r('app.string.ok'), color: '#000000' }] });
@@ -534,7 +592,7 @@ struct Index {
                       })
                   }.margin(10)
                 } else if (this.phase2ModuleIndex === 1) {
-                  Text($r('app.string.is_placeholder_file_title')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 })
+                  Text($r('app.string.is_placeholder_file_title')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 }).id('placeholderTitle')
                   Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
                     Text($r('app.string.sync_root_path_label'))
                     TextInput({ text: this.isPlaceholderSyncPath, placeholder: $r('app.string.registered_sync_root_path') })
@@ -548,6 +606,7 @@ struct Index {
                       .width('75%').margin(10)
                   }
                   Button($r('app.string.judge_btn'))
+                    .id('judgePlaceholderBtn')
                     .onClick(() => {
                       let ret: IsPlaceholderResult = cloudDisk.isPlaceholderFile(this.isPlaceholderSyncPath, this.isPlaceholderFilePath);
                       if (ret.code === 0) {
@@ -593,8 +652,20 @@ struct Index {
                         buttons: [{ text: $r('app.string.ok'), color: '#000000' }]
                       });
                     })
+                  // 查询占位符文件的水合状态（非占位符/未水合/部分水合/完全水合）
+                  Button($r('app.string.get_state_btn'))
+                    .id('getStateBtn')
+                    .margin(10)
+                    .onClick(() => {
+                      let ret: PlaceholderStateResult = cloudDisk.getPlaceholderState(this.isPlaceholderSyncPath, this.isPlaceholderFilePath);
+                      if (ret.code === 0) {
+                        this.promptAction.showDialog({ title: $r('app.string.get_state_result'), message: this.getPlaceholderStateMsg(ret.state), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
+                      } else {
+                        this.promptAction.showDialog({ title: $r('app.string.get_state_failed'), message: this.resStr($r('app.string.error_code_label')) + ret.code.toString() + '\n' + this.resStr($r('app.string.reason_label')) + this.getErrorCodeMsg(ret.code), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
+                      }
+                    })
                 } else if (this.phase2ModuleIndex === 2) {
-                  Text($r('app.string.update_placeholder_metadata')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 })
+                  Text($r('app.string.update_placeholder_metadata')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 }).id('placeholderTitle')
                   Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
                     Text($r('app.string.sync_root_path_label'))
                     TextInput({ text: this.updatePlaceholderSyncPath, placeholder: $r('app.string.registered_sync_root_path') })
@@ -624,14 +695,22 @@ struct Index {
                       .onChange((value: string) => { this.updatePlaceholderLogicalSize = value; })
                       .width('25%').margin(10)
                   }
+                  Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
+                    Text($r('app.string.custom_info_label'))
+                    TextInput({ text: this.updatePlaceholderCustomInfo, placeholder: $r('app.string.custom_info_keep_placeholder') })
+                      .onChange((value: string) => { this.updatePlaceholderCustomInfo = value; })
+                      .width('75%').margin(10)
+                  }
                   Row() {
                     Button($r('app.string.update_placeholder_btn'))
+                      .id('updatePlaceholderBtn')
                       .onClick(() => {
                         let ret: number = cloudDisk.updatePlaceholder(
                           this.updatePlaceholderSyncPath, this.updatePlaceholderFilePath,
                           parseInt(this.updatePlaceholderAtimeMs) || 0,
                           parseInt(this.updatePlaceholderMtimeMs) || 0,
-                          parseInt(this.updatePlaceholderLogicalSize) || 0
+                          parseInt(this.updatePlaceholderLogicalSize) || 0,
+                          this.updatePlaceholderCustomInfo
                         );
                         if (ret === 0) {
                           this.promptAction.showDialog({ title: $r('app.string.update_success'), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
@@ -678,8 +757,69 @@ struct Index {
                         });
                       })
                   }.margin(10)
+                  // 云侧文件内容变化后按云侧最新元数据重置占位符：组合"查询占位符水合状态"与
+                  // "更新占位符元数据"两个既有接口。先确认目标文件为占位符文件（非占位符无法更新），
+                  // 更新会清空本地已水合数据，占位符回到未水合状态，后续打开文件时重新水合获取
+                  // 云侧最新内容。
+                  Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
+                    Text($r('app.string.new_cloud_size_label'))
+                    TextInput({ text: this.updateOnCloudSizeChangeSize, placeholder: $r('app.string.new_cloud_size_placeholder') })
+                      .type(InputType.Number)
+                      .onChange((value: string) => { this.updateOnCloudSizeChangeSize = value; })
+                      .width('75%').margin(10)
+                  }
+                  Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
+                    Text('atimeMs：')
+                    TextInput({ text: this.updateOnCloudSizeChangeAtimeMs, placeholder: $r('app.string.access_time_ms') })
+                      .type(InputType.Number)
+                      .onChange((value: string) => { this.updateOnCloudSizeChangeAtimeMs = value; })
+                      .width('25%').margin(10)
+                    Text('mtimeMs：')
+                    TextInput({ text: this.updateOnCloudSizeChangeMtimeMs, placeholder: $r('app.string.modify_time_ms') })
+                      .type(InputType.Number)
+                      .onChange((value: string) => { this.updateOnCloudSizeChangeMtimeMs = value; })
+                      .width('25%').margin(10)
+                  }
+                  Row() {
+                    // [Start update_on_cloud_size_change]
+                    Button($r('app.string.update_on_cloud_size_change_btn'))
+                      .id('updateOnCloudSizeChangeBtn')
+                      .onClick(() => {
+                        // 步骤1：查询占位符水合状态，确认目标文件为占位符文件
+                        // （非占位符文件无法更新占位符元数据）
+                        let stateRet: PlaceholderStateResult = cloudDisk.getPlaceholderState(
+                          this.updatePlaceholderSyncPath, this.updatePlaceholderFilePath);
+                        if (stateRet.code !== 0) {
+                          this.promptAction.showDialog({ title: $r('app.string.update_failed'), message: this.resStr($r('app.string.error_code_label')) + stateRet.code.toString() + '\n' + this.resStr($r('app.string.reason_label')) + this.getErrorCodeMsg(stateRet.code), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
+                          return;
+                        }
+                        if (stateRet.state === 0) {
+                          this.promptAction.showDialog({ title: $r('app.string.update_failed'), message: $r('app.string.not_placeholder'), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
+                          return;
+                        }
+                        // 步骤2：按云侧最新元数据（大小、时间戳从云侧元数据查询获得，此处由入参模拟；
+                        // 示例简化了输入校验，实际使用时应对非法输入做校验）
+                        // 更新占位符：本地已水合数据会被清空，占位符回到未水合状态；
+                        // 若存在水合任务会返回OH_CLOUD_DISK_HYDRATE_IN_PROGRESS，可稍后重试或者取消水合后重试。
+                        // 重置完成后，应用需再通过OH_CloudDisk_HydratePlaceholder()接口触发水合，
+                        // 并在收到水合取数回调后调用OH_CloudDisk_Execute()回传云侧最新数据，完成重新水合
+                        let ret: number = cloudDisk.updatePlaceholder(
+                          this.updatePlaceholderSyncPath, this.updatePlaceholderFilePath,
+                          parseInt(this.updateOnCloudSizeChangeAtimeMs) || 0,
+                          parseInt(this.updateOnCloudSizeChangeMtimeMs) || 0,
+                          parseInt(this.updateOnCloudSizeChangeSize) || 0
+                        );
+                        if (ret === 0) {
+                          // 重置成功：占位符已回到未水合状态，本地数据已清空，提示重置后的目标状态
+                          this.promptAction.showDialog({ title: $r('app.string.update_success'), message: $r('app.string.state_unhydrated'), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
+                        } else {
+                          this.promptAction.showDialog({ title: $r('app.string.update_failed'), message: this.resStr($r('app.string.error_code_label')) + ret.toString() + '\n' + this.resStr($r('app.string.reason_label')) + this.getErrorCodeMsg(ret), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
+                        }
+                      })
+                    // [End update_on_cloud_size_change]
+                  }.margin(10)
                 } else if (this.phase2ModuleIndex === 3) {
-                  Text($r('app.string.convert_to_regular_file')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 })
+                  Text($r('app.string.convert_to_regular_file')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 }).id('placeholderTitle')
                   Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
                     Text($r('app.string.sync_root_path_label'))
                     TextInput({ text: this.convertPlaceholderSyncPath, placeholder: $r('app.string.registered_sync_root_path') })
@@ -694,6 +834,7 @@ struct Index {
                   }
                   Row() {
                     Button($r('app.string.convert_btn'))
+                      .id('convertBtn')
                       .onClick(() => {
                         let ret: number = cloudDisk.convertPlaceholderToFile(this.convertPlaceholderSyncPath, this.convertPlaceholderFilePath);
                         if (ret === 0) {
@@ -737,7 +878,7 @@ struct Index {
                       })
                   }.margin(10)
                 } else if (this.phase2ModuleIndex === 4) {
-                  Text($r('app.string.mark_file_as_placeholder')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 })
+                  Text($r('app.string.mark_file_as_placeholder')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 }).id('placeholderTitle')
                   Text($r('app.string.mark_file_subtitle')).fontSize(12).fontColor('#888888').margin({ bottom: 10 })
                   Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
                     Text($r('app.string.sync_root_path_label'))
@@ -752,6 +893,7 @@ struct Index {
                       .width('75%').margin(10)
                   }
                   Button($r('app.string.mark_btn'))
+                    .id('markBtn')
                     .onClick(() => {
                       let ret: number = cloudDisk.markFileAsPlaceholder(this.markFileSyncPath, this.markFilePath);
                       if (ret === 0) {
@@ -762,7 +904,7 @@ struct Index {
                     })
                     .margin(10)
                 } else if (this.phase2ModuleIndex === 5) {
-                  Text($r('app.string.unmark_placeholder_title')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 })
+                  Text($r('app.string.unmark_placeholder_title')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 }).id('placeholderTitle')
                   Text($r('app.string.unmark_subtitle')).fontSize(12).fontColor('#888888').margin({ bottom: 10 })
                   Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
                     Text($r('app.string.sync_root_path_label'))
@@ -777,6 +919,7 @@ struct Index {
                       .width('75%').margin(10)
                   }
                   Button($r('app.string.unmark_btn'))
+                    .id('unmarkBtn')
                     .onClick(() => {
                       let ret: number = cloudDisk.unmarkPlaceholderFile(this.unmarkFileSyncPath, this.unmarkFilePath);
                       if (ret === 0) {
@@ -787,7 +930,7 @@ struct Index {
                     })
                     .margin(10)
                 } else if (this.phase2ModuleIndex === 6) {
-                  Text($r('app.string.get_custom_info_title')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 })
+                  Text($r('app.string.get_custom_info_title')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 }).id('placeholderTitle')
                   Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
                     Text($r('app.string.sync_root_path_label'))
                     TextInput({ text: this.getCustomInfoSyncPath, placeholder: $r('app.string.registered_sync_root_path') })
@@ -801,6 +944,7 @@ struct Index {
                       .width('75%').margin(10)
                   }
                   Button($r('app.string.get_custom_info_btn'))
+                    .id('getCustomInfoBtn')
                     .onClick(() => {
                       let ret: CustomInfoResult = cloudDisk.getPlaceholderCustomInfo(this.getCustomInfoSyncPath, this.getCustomInfoFilePath);
                       if (ret.code === 0) {
@@ -813,7 +957,7 @@ struct Index {
                     })
                     .margin(10)
                 } else if (this.phase2ModuleIndex === 7) {
-                  Text($r('app.string.dehydrate_file_title')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 })
+                  Text($r('app.string.dehydrate_file_title')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 }).id('placeholderTitle')
                   Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
                     Text($r('app.string.sync_root_path_label'))
                     TextInput({ text: this.dehydrateSyncPath, placeholder: $r('app.string.registered_sync_root_path') })
@@ -827,6 +971,7 @@ struct Index {
                       .width('75%').margin(10)
                   }
                   Button($r('app.string.dehydrate_btn'))
+                    .id('dehydrateBtn')
                     .onClick(() => {
                       let ret: number = cloudDisk.dehydrateFile(this.dehydrateSyncPath, this.dehydrateFilePath);
                       if (ret === 0) {
@@ -837,7 +982,7 @@ struct Index {
                     })
                     .margin(10)
                 } else if (this.phase2ModuleIndex === 8) {
-                  Text($r('app.string.hydrate_placeholder_title')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 })
+                  Text($r('app.string.hydrate_placeholder_title')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 }).id('placeholderTitle')
                   Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
                     Text($r('app.string.sync_root_path_label'))
                     TextInput({ text: this.hydrateSyncPath, placeholder: $r('app.string.registered_sync_root_path') })
@@ -858,6 +1003,7 @@ struct Index {
                       .width('75%').margin(10)
                   }
                   Button($r('app.string.hydrate_btn'))
+                    .id('hydrateBtn')
                     .onClick(() => {
                       console.info('hydratePlaceholder start');
                       let versionBefore: number = cloudDisk.getCallbackReqKeyVersion();
@@ -884,7 +1030,7 @@ struct Index {
                     })
                     .margin(10)
                 } else if (this.phase2ModuleIndex === 9) {
-                  Text($r('app.string.register_callback_table')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 })
+                  Text($r('app.string.register_callback_table')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 }).id('placeholderTitle')
                   Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
                     Text($r('app.string.sync_root_path_label'))
                     TextInput({ text: this.registerCbSyncPath, placeholder: $r('app.string.registered_sync_root_path') })
@@ -898,6 +1044,7 @@ struct Index {
                       .width('90%').margin(10)
                   }
                   Button($r('app.string.register_btn'))
+                    .id('registerCallbackBtn')
                     .onClick(() => {
                       let ret: number = cloudDisk.registerCallbackTable(this.registerCbSyncPath, this.registerCbFetchFilePath);
                       if (ret === 0) {
@@ -908,7 +1055,7 @@ struct Index {
                     })
                     .margin(10)
                 } else if (this.phase2ModuleIndex === 10) {
-                  Text($r('app.string.unregister_callback_table')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 })
+                  Text($r('app.string.unregister_callback_table')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 }).id('placeholderTitle')
                   Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
                     Text($r('app.string.sync_root_path_label'))
                     TextInput({ text: this.unregisterCbSyncPath, placeholder: $r('app.string.registered_sync_root_path') })
@@ -916,6 +1063,7 @@ struct Index {
                       .width('80%').margin(10)
                   }
                   Button($r('app.string.unregister_btn'))
+                    .id('unregisterCallbackBtn')
                     .onClick(() => {
                       let ret: number = cloudDisk.unregisterCallbackTable(this.unregisterCbSyncPath);
                       if (ret === 0) {
@@ -926,7 +1074,7 @@ struct Index {
                     })
                     .margin(10)
                 } else if (this.phase2ModuleIndex === 11) {
-                  Text($r('app.string.execute_title')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 })
+                  Text($r('app.string.execute_title')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 }).id('placeholderTitle')
                   Text('CloudDisk_CallbackReqHead:').fontSize(14).fontWeight(FontWeight.Bold).margin({ top: 5, bottom: 5 })
                   Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
                     Text($r('app.string.callback_type_label'))
@@ -996,6 +1144,7 @@ struct Index {
                       .margin(10)
                   }
                   Button($r('app.string.execute_btn'))
+                    .id('executeBtn')
                     .onClick(() => {
                       let ret: number = cloudDisk.execute(
                         this.executeCallbackType,

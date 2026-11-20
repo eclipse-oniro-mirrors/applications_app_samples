@@ -57,8 +57,12 @@ static void onError(struct WebSocket *wsClient, WebSocket_ErrorResult errorResul
 
 static void onClose(struct WebSocket *wsClient, WebSocket_CloseResult closeResult)
 {
-    (void)wsClient;
     OH_LOG_INFO(LOG_APP, "onClose: code: %{public}u, reason: %{public}s", closeResult.code, closeResult.reason);
+    // 收到连接关闭事件后，释放对应客户端的资源
+    if (wsClient == g_client) {
+        g_client = nullptr;
+    }
+    OH_WebSocketClient_Destroy(wsClient);
 }
 
 static napi_value ConnectWebsocket(napi_env env, napi_callback_info info)
@@ -139,14 +143,11 @@ static napi_value CloseWebsocket(napi_env env, napi_callback_info info)
         napi_create_int32(env, -1, &result);
         return result;
     }
-    // 关闭WebSocket连接
+    // 发起关闭请求，资源在onClose回调中释放
     int ret = OH_WebSocketClient_Close(g_client, {
                                                    .code = 0,
                                                    .reason = "Actively Close",
                                                });
-    // 释放WebSocket资源并置空
-    OH_WebSocketClient_Destroy(g_client);
-    g_client = nullptr;
     napi_create_int32(env, ret, &result);
     return result;
 }

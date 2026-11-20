@@ -1,0 +1,44 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "waiting_for_height",
+      "value": "等待获取..."
+    },
+    {
+      "name": "scene1_on_page_end",
+      "value": "onPageEnd 已触发，等待布局完成..."
+    },
+    {
+      "name": "get_height_failed",
+      "value": "获取失败"
+    },
+    {
+      "name": "scene3_on_page_end",
+      "value": "onPageEnd 已触发，2s 后获取..."
+    },
+    {
+      "name": "tab_scene1",
+      "value": "场景1"
+    },
+    {
+      "name": "tab_scene2",
+      "value": "场景2"
+    },
+    {
+      "name": "tab_scene3",
+      "value": "场景3"
+    }
+  ]
+}

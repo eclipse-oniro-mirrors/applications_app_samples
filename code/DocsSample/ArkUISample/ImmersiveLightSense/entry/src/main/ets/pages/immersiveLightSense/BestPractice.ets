@@ -40,17 +40,15 @@ struct BestPractise {
   @Builder
   tabExploreContent() {
     // 通过系统路由表的方式配置对应的页面跳转
-    Navigation(this.exploreStack, {name: 'explore'})
+    Navigation(this.exploreStack, { name: 'explore' })
       .hideTitleBar(true)
-      .expandSafeArea([SafeAreaType.SYSTEM])
   }
 
   @Builder
   tabGameContent() {
     // 通过系统路由表的方式配置对应的页面跳转
-    Navigation(this.gameStack, {name: 'game'})
+    Navigation(this.gameStack, { name: 'game' })
       .hideTitleBar(true)
-      .expandSafeArea([SafeAreaType.SYSTEM])
   }
 
   build() {
@@ -58,13 +56,10 @@ struct BestPractise {
       TabContent() {
         this.tabExploreContent()
       }.tabBar(this.BottomTabBarItem('探索', $r('sys.symbol.compass'), 0))
-      // 内容区延伸到状态栏区域，形成整体的交互体验
-      .expandSafeArea([SafeAreaType.SYSTEM])
 
       TabContent() {
         this.tabGameContent()
       }.tabBar(this.BottomTabBarItem('游戏', $r('sys.symbol.gamecontroller'), 1))
-      .expandSafeArea([SafeAreaType.SYSTEM])
 
       TabContent() {
       }.tabBar(this.BottomTabBarItem('应用', $r('sys.symbol.grid'), 2))
@@ -75,10 +70,9 @@ struct BestPractise {
     .barPosition(BarPosition.End)
     .barMode(BarMode.Fixed)
     .barOverlap(true)
-    .barHeight(56)
-    .barFloatingStyle({ barBottomMargin: 8, systemMaterial: new uiMaterial.ImmersiveMaterial({}) })
-    .scrollable(true)
-    .expandSafeArea([SafeAreaType.SYSTEM])
+    .barFloatingStyle({ systemMaterial: new uiMaterial.ImmersiveMaterial({ style: uiMaterial.ImmersiveStyle.THIN }) })
+    .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.BOTTOM])
+    .height(LayoutPolicy.matchParent)
     .onChange((index: number) => {
       this.currentTab = index
     })

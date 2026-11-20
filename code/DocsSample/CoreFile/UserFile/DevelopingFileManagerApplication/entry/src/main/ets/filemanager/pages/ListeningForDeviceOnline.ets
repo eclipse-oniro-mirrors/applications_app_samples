@@ -14,119 +14,122 @@
  */
 
 import { BusinessError } from '@kit.BasicServicesKit';
-import { common } from '@kit.AbilityKit';
-import { fileAccess } from '@kit.CoreFileKit';
+import { fileIo as fs, WatchEvent } from '@kit.CoreFileKit';
 import Logger from '../../common/Logger';
 
-// context 是EntryAbility 传过来的context
-let context = getContext(this) as common.UIAbilityContext;
+// watched events: IN_CREATE = 0x100，IN_DELETE = 0x200，IN_MODIFY = 0x2
+const WATCH_EVENTS: number = 0x100 | 0x200 | 0x2;
 
 @Entry
 @Component
 struct Index {
-  @State result: string = ''; // 用于显示回调信息
-  // 创建连接系统内所有文件管理服务端的helper对象
-  @State fileAccessHelperAllServer: fileAccess.FileAccessHelper = fileAccess.createFileAccessHelper(context);
+  @State result: string = ''; // used to display callback message
+  private watcher: fs.Watcher | null = null;
 
   build() {
     Column({ space: 10 }) {
       Button($r('app.string.registerToMonitorButton'))
-        .width('80%') // 按钮宽度占屏幕宽度80%
-        .height('10%') // 按钮高度占屏幕高度10%
-        .fontSize($r('app.float.size_25')) // 按钮字体大小为25
-        .borderRadius($r('app.float.size_25')) // 按钮圆角半径为25
-        .backgroundColor($r('app.color.whiteColor')) // 按钮背景颜色为白色
+        .width('80%') // button width takes 80% of screen width
+        .height('10%') // button height takes 10% of screen height
+        .fontSize($r('app.float.size_25')) // button font size is 25
+        .borderRadius($r('app.float.size_25')) // button corner radius is 25
+        .backgroundColor($r('app.color.whiteColor')) // button background color is white
         .shadow({
-          radius: $r('app.float.size_10'), // 阴影半径为10
-          color: $r('app.color.grayColor'), // 阴影颜色为灰色
-          offsetX: $r('app.float.size_15'), // 阴影水平偏移量为15
-          offsetY: $r('app.float.size_15') // 阴影垂直偏移量为15
+          radius: $r('app.float.size_10'), // shadow radius is 10
+          color: $r('app.color.grayColor'), // shadow color is gray
+          offsetX: $r('app.float.size_15'), // shadow horizontal offset is 15
+          offsetY: $r('app.float.size_15') // shadow vertical offset is 15
         })
-        .fontColor($r('app.color.blackColor')) // 按钮字体颜色为黑色
+        .fontColor($r('app.color.blackColor')) // button font color is black
         .onClick(() => {
           this.registerObserver();
         })
 
       Button($r('app.string.cancelMonitorButton'))
-        .width('80%') // 按钮宽度占屏幕宽度80%
-        .height('10%') // 按钮高度占屏幕高度10%
-        .fontSize($r('app.float.size_25')) // 按钮字体大小为25
-        .borderRadius($r('app.float.size_25')) // 按钮圆角半径为25
-        .backgroundColor($r('app.color.whiteColor')) // 按钮背景颜色为白色
+        .width('80%') // button width takes 80% of screen width
+        .height('10%') // button height takes 10% of screen height
+        .fontSize($r('app.float.size_25')) // button font size is 25
+        .borderRadius($r('app.float.size_25')) // button corner radius is 25
+        .backgroundColor($r('app.color.whiteColor')) // button background color is white
         .shadow({
-          radius: $r('app.float.size_10'), // 阴影半径为10
-          color: $r('app.color.grayColor'), // 阴影颜色为灰色
-          offsetX: $r('app.float.size_15'), // 阴影水平偏移量为15
-          offsetY: $r('app.float.size_15') // 阴影垂直偏移量为15
+          radius: $r('app.float.size_10'), // shadow radius is 10
+          color: $r('app.color.grayColor'), // shadow color is gray
+          offsetX: $r('app.float.size_15'), // shadow horizontal offset is 15
+          offsetY: $r('app.float.size_15') // shadow vertical offset is 15
         })
-        .fontColor($r('app.color.blackColor')) // 按钮字体颜色为黑色
+        .fontColor($r('app.color.blackColor')) // button font color is black
         .onClick(() => {
           this.unregisterObserver();
         })
 
       Text(this.result)
-        .fontSize($r('app.float.size_50')) // 文本字体大小为50
-        .fontWeight(FontWeight.Bold) // 文本字体加粗
-        .margin({ top: $r('app.float.size_20') }) // 文本上边距为20
+        .fontSize($r('app.float.size_50')) // text font size is 50
+        .fontWeight(FontWeight.Bold) // text font is bold
+        .margin({ top: $r('app.float.size_20') }) // text top margin is 20
     }
-    .width('100%') // 外层列布局宽度占满屏幕
-    .height('100%') // 外层列布局高度占满屏幕
-    .alignItems(HorizontalAlign.Center) // 水平居中对齐
-    .justifyContent(FlexAlign.Center) // 垂直居中对齐
-    .backgroundColor($r('app.color.lightGrayColor')) // 背景颜色为浅灰色
+    .width('100%') // outer column width fills the screen
+    .height('100%') // outer column height fills the screen
+    .alignItems(HorizontalAlign.Center) // align items horizontally centered
+    .justifyContent(FlexAlign.Center) // justify content vertically centered
+    .backgroundColor($r('app.color.lightGrayColor')) // background color is light gray
   }
 
-  // 在组件初始化时创建 fileAccessHelperAllServer 对象
-  onInit() {
-    this.createFileAccessHelper();
-  }
   // [Start monitor_equipment]
   // [Start call_bakc_dir1]
-  // 提供监听回调方法
-  callBackDir1 = (notifyMessageDir: fileAccess.NotifyMessage) => {
-    if (notifyMessageDir != undefined) {
-      Logger.info('NotifyType: ' + notifyMessageDir.type + 'NotifyUri:' + notifyMessageDir.uris[0]);
+  // provide the watch callback
+  callBackDir1 = (watchEvent: WatchEvent): void => {
+    if (watchEvent != undefined) {
+      Logger.info('NotifyType: ' + watchEvent.event + ' NotifyFile:' + watchEvent.fileName);
       // [StartExclude call_bakc_dir1]
-      this.result = 'Monitoring succeeded'; // 更新 result 状态
+      this.result = 'Monitoring succeeded'; // update the result state
       // [EndExclude call_bakc_dir1]
     } else {
-      Logger.error('notifyMessageDir is undefined');
+      Logger.error('watchEvent is undefined');
     }
   }
   // [End call_bakc_dir1]
 
-  createFileAccessHelper(): void {
+  // register directory watcher
+  registerObserver(): void {
     try {
-      this.fileAccessHelperAllServer = fileAccess.createFileAccessHelper(context);
-      if (!this.fileAccessHelperAllServer) {
-        Logger.error('createFileAccessHelper interface returns an undefined object');
+      // watch the file changes of the sandbox directory and create a demo file to trigger the callback
+      let hostContext = this.getUIContext().getHostContext();
+      if (!hostContext) {
+        return;
       }
-    } catch (err) {
-      let error: BusinessError = err as BusinessError;
-      Logger.error('createFileAccessHelper failed, errCode:' + error.code + ', errMessage:' + error.message);
-    }
-  }
-
-  // 注册监听设备
-  registerObserver() {
-    try {
-      // 使用 this.callbackDir1
-      this.fileAccessHelperAllServer.registerObserver(fileAccess.DEVICES_URI, true, this.callBackDir1);
+      let watchDir: string = hostContext.filesDir;
+      if (this.watcher != null) {
+        this.watcher.stop();
+        this.watcher = null;
+      }
+      this.watcher = fs.createWatcher(watchDir, WATCH_EVENTS, this.callBackDir1);
+      this.watcher.start();
+      let file: fs.File | null = null;
+      try {
+        file = fs.openSync(watchDir + '/monitor_demo.txt',
+          fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE | fs.OpenMode.TRUNC);
+      } finally {
+        if (file != null) {
+          fs.closeSync(file);
+        }
+      }
     } catch (err) {
       let error: BusinessError = err as BusinessError;
       Logger.error('registerObserver failed, errCode:' + error.code + ', errMessage:' + error.message);
     }
   }
 
-  // 取消设备监听
-  unregisterObserver() {
+  // unregister directory watcher
+  unregisterObserver(): void {
     try {
-      this.fileAccessHelperAllServer.unregisterObserver(fileAccess.DEVICES_URI,
-        this.callBackDir1); // 使用 this.callbackDir1
+      if (this.watcher != null) {
+        this.watcher.stop(); // stop watching
+        this.watcher = null;
+      }
     } catch (err) {
       let error: BusinessError = err as BusinessError;
       Logger.error('unregisterObserver failed, errCode:' + error.code + ', errMessage:' + error.message);
     }
   }
-  // [Start monitor_equipment]
+  // [End monitor_equipment]
 }

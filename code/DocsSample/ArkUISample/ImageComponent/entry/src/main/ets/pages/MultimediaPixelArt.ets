@@ -48,6 +48,8 @@ struct HttpExample {
           imageSource.createPixelMap(options).then((pixelMap: PixelMap) => {
             this.image = pixelMap;
             imageSource.release();
+          }).catch((error: BusinessError) => {
+            hilog.error(DOMAIN, TAG, `Failed to create pixelMap: ${error.code}, ${error.message}`);
           });
         };
       });

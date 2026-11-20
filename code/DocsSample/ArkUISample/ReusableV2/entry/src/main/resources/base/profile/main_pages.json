@@ -12,6 +12,7 @@
     "view/ComponentForEachPage",
     "view/LazyForEachPage",
     "view/UsageRestrictionsPage",
-    "view/RepeatTemplatePage"
+    "view/RepeatTemplatePage",
+    "view/DefaultReusePoolClearCache"
   ]
 }

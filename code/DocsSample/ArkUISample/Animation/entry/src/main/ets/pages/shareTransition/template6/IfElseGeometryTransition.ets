@@ -19,6 +19,8 @@ import { curves } from '@kit.ArkUI';
 @Component
 struct IfElseGeometryTransition {
   @State isShow: boolean = false;
+  // 使用状态变量管理geometryTransition的id，动画结束后置空防止误触发
+  @State geometryId: string = 'picture';
 
   build() {
     Stack({ alignContent: Alignment.Center }) {
@@ -30,7 +32,7 @@ struct IfElseGeometryTransition {
           .width(200)
           .height(200)
           .borderRadius(100)
-          .geometryTransition('picture')
+          .geometryTransition(this.geometryId)
           .transition(TransitionEffect.OPACITY)
           // 在打断场景下，即动画过程中点击页面触发下一次转场，如果不加id，则会出现重影
           // 加了id之后，新建的spring图片会复用之前的spring图片节点，不会重新创建节点，也就不会有重影问题
@@ -53,7 +55,7 @@ struct IfElseGeometryTransition {
         // 则对容器本身有圆角同步而不会操作容器内部子组件的borderRadius
         .borderRadius(50)
         .clip(true)
-        .geometryTransition('picture')
+        .geometryTransition(this.geometryId)
         // transition保证节点离场不被立即析构，设置通用转场效果
         .transition(TransitionEffect.OPACITY)
         .position({ x: 40, y: 40 })
@@ -61,8 +63,14 @@ struct IfElseGeometryTransition {
       }
     }
     .onClick(() => {
+      // 动画开始前确保id已设置
+      this.geometryId = 'picture';
       this.getUIContext()?.animateTo({
-        curve: curves.springMotion()
+        curve: curves.springMotion(),
+        onFinish: () => {
+          // 动画结束后置空id，防止误触发
+          this.geometryId = '';
+        }
       }, () => {
         this.isShow = !this.isShow;
       })

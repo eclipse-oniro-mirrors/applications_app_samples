@@ -55,7 +55,7 @@ const unsigned int VALUE_3 = 50;
                 ArkUI_NodeHandle Test_Column;
                 auto ec = OH_ArkUI_NodeUtils_GetNodeHandleByUniqueId(idl->id, &Test_Column);
                 if (ec == 0) {
-                    OH_LOG_Print(LOG_APP, LOG_WARN, LOG_PRINT, "GetNodeUniqueId", "GetNodeHandleByUniqueId success");
+                    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT, "GetNodeUniqueId", "GetNodeHandleByUniqueId success");
                 }
             }
         });

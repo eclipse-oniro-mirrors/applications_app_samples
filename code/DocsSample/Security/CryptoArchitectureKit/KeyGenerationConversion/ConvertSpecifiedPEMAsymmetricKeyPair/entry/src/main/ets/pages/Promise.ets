@@ -53,6 +53,9 @@ async function testPkcs1ToPkcs8ByPromise() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`testPkcs1ToPkcs8ByPromise failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude specify_pem_string_convert_rsa_keypair]
+    throw new Error(`testPkcs1ToPkcs8ByPromise failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude specify_pem_string_convert_rsa_keypair]
   }
 }
 // [End specify_pem_string_convert_rsa_keypair]

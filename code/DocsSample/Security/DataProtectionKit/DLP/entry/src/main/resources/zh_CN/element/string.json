@@ -63,6 +63,10 @@
     {
       "name": "authorization_reminder",
       "value": "请选择权限"
+    },
+    {
+      "name": "open_dlp_file_prompt",
+      "value": "请打开一个DLP文件! "
     }
   ]
 }

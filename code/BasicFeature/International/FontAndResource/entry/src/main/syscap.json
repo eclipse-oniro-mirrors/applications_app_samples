@@ -1,0 +1,10 @@
+{
+  "devices": {
+    "general": ["default", "tablet"],
+    "custom": []
+  },
+  "production": {
+    "removedSysCaps": [
+    ]
+  }
+}

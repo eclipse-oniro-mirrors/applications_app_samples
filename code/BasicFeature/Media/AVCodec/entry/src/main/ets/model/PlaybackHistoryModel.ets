@@ -25,6 +25,7 @@ export class PlaybackHistoryModel {
 
   async load(context: common.UIAbilityContext): Promise<void> {
     try {
+      // 历史数据读取失败时清空列表，不影响当前播放。
       this.prefs = await preferences.getPreferences(context, HISTORY_PREFERENCES);
       const value = await this.prefs.get(HISTORY_KEY, '[]');
       const parsed = JSON.parse(String(value)) as Array<PlaybackHistoryEntry>;
@@ -93,6 +94,7 @@ export class PlaybackHistoryModel {
       return;
     }
     try {
+      // 调用 flush 后断点数据才会落盘。
       await this.prefs.put(HISTORY_KEY, JSON.stringify(this.entries));
       await this.prefs.flush();
     } catch {

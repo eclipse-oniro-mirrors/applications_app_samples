@@ -1,0 +1,64 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "OE_A"
+    },
+    {
+      "name": "name",
+      "value": "format aaa"
+    },
+    {
+      "name": "description",
+      "value": "test format aaa description"
+    },
+    {
+      "name": "button_open",
+      "value": "Open"
+    },
+    {
+      "name": "button_save",
+      "value": "Save"
+    },
+    {
+      "name": "button_snapshot",
+      "value": "Snapshot"
+    },
+    {
+      "name": "button_save_as",
+      "value": "Save As"
+    },
+    {
+      "name": "button_ole_save_as",
+      "value": "OLE Save As"
+    },
+    {
+      "name": "button_ok",
+      "value": "OK"
+    },
+    {
+      "name": "dialog_save_success",
+      "value": "Save Success"
+    },
+    {
+      "name": "dialog_save_failed",
+      "value": "Save Failed"
+    },
+    {
+      "name": "dialog_write_target_failed",
+      "value": "Write target file failed"
+    },
+    {
+      "name": "dialog_error_code",
+      "value": "Error code: %d"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 780" width="100%" height="100%">
+    <defs>
+        <style>
+            .bg { fill: #f5f6f8; }
+            .card { fill: #ffffff; rx: 12; }
+            .text-main { font-family: -apple-system, sans-serif; fill: #1a1a1a; }
+            .text-sub { font-family: -apple-system, sans-serif; fill: #666666; }
+            .text-gray { font-family: -apple-system, sans-serif; fill: #999999; }
+            .btn-blue { fill: #0a59f7; rx: 20; }
+            .btn-outline { fill: none; stroke: #0a59f7; stroke-width: 1.5; rx: 20; }
+            .btn-red { fill: #f54a45; rx: 20; }
+            .btn-text-white { font-family: -apple-system, sans-serif; fill: #ffffff; font-size: 15px; font-weight: 500; text-anchor: middle; dominant-baseline: middle; }
+            .btn-text-blue { font-family: -apple-system, sans-serif; fill: #0a59f7; font-size: 15px; font-weight: 500; text-anchor: middle; dominant-baseline: middle; }
+            .tag-gray { fill: #f0f0f0; rx: 4; }
+        </style>
+    </defs>
+
+    <!-- 状态栏与背景 -->
+    <rect width="360" height="780" class="bg"/>
+    <text x="20" y="30" class="text-main" font-size="14">没有 SIM 卡 <tspan font-size="10">📶</tspan></text>
+    <text x="340" y="30" class="text-main" font-size="14" text-anchor="end">11% 🔋 19:33</text>
+
+    <!-- 标题 -->
+    <text x="180" y="85" class="text-main" font-size="20" font-weight="bold" text-anchor="middle">设置信息</text>
+
+    <!-- PIN 码设置卡片 -->
+    <rect x="15" y="110" width="330" height="150" class="card"/>
+    <text x="30" y="140" class="text-main" font-size="16" font-weight="bold">PIN 码设置</text>
+    <text x="30" y="165" class="text-gray" font-size="13">settingsLite.openPinSettingPage()</text>
+    <line x1="30" y1="180" x2="330" y2="180" stroke="#eeeeee" stroke-width="1"/>
+
+    <text x="30" y="205" class="text-sub" font-size="14">状态:</text>
+    <rect x="75" y="190" width="40" height="20" class="tag-gray"/>
+    <text x="95" y="204" class="text-gray" font-size="12" text-anchor="middle" dominant-baseline="middle">空闲</text>
+
+    <rect x="25" y="220" width="310" height="36" class="btn-blue"/>
+    <text x="180" y="238" class="btn-text-white">打开 PIN 设置页面</text>
+
+    <!-- NFC 设置卡片 -->
+    <rect x="15" y="280" width="330" height="150" class="card"/>
+    <text x="30" y="310" class="text-main" font-size="16" font-weight="bold">NFC 设置</text>
+    <text x="30" y="335" class="text-gray" font-size="13">settingsLite.openNfcSettingsPage()</text>
+    <line x1="30" y1="350" x2="330" y2="350" stroke="#eeeeee" stroke-width="1"/>
+
+    <text x="30" y="375" class="text-sub" font-size="14">状态:</text>
+    <rect x="75" y="360" width="40" height="20" class="tag-gray"/>
+    <text x="95" y="374" class="text-gray" font-size="12" text-anchor="middle" dominant-baseline="middle">空闲</text>
+
+    <rect x="25" y="390" width="310" height="36" class="btn-blue"/>
+    <text x="180" y="408" class="btn-text-white">打开 NFC 设置页面</text>
+
+    <!-- 双击设置卡片 -->
+    <rect x="15" y="450" width="330" height="220" class="card"/>
+    <text x="30" y="480" class="text-main" font-size="16" font-weight="bold">双击设置</text>
+    <text x="30" y="505" class="text-gray" font-size="13">settingsLite.openDoubleClickSettingsPage() / isDoubleClickAppForSelf()</text>
+    <line x1="30" y1="520" x2="330" y2="520" stroke="#eeeeee" stroke-width="1"/>
+
+    <text x="30" y="545" class="text-sub" font-size="14">状态:</text>
+    <rect x="75" y="530" width="40" height="20" class="tag-gray"/>
+    <text x="95" y="544" class="text-gray" font-size="12" text-anchor="middle" dominant-baseline="middle">空闲</text>
+
+    <text x="30" y="575" class="text-sub" font-size="14">查询结果:</text>
+    <text x="95" y="575" class="text-main" font-size="14" font-weight="bold">未查询</text>
+
+    <rect x="25" y="590" width="310" height="36" class="btn-blue"/>
+    <text x="180" y="608" class="btn-text-white">打开双击设置页面</text>
+
+    <rect x="25" y="635" width="310" height="36" class="btn-outline"/>
+    <text x="180" y="653" class="btn-text-blue">查询双击应用</text>
+
+    <!-- 重置按钮 -->
+    <rect x="15" y="690" width="330" height="40" class="btn-red"/>
+    <text x="180" y="710" class="btn-text-white">重置</text>
+
+    <!-- 底部导航栏 -->
+    <polygon points="110,750 120,760 100,760" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="180" cy="755" r="8" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="245" y="747" width="14" height="14" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+</svg>

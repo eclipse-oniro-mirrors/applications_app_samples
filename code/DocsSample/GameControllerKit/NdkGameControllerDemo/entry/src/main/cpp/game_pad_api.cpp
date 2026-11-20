@@ -14,7 +14,11 @@
  */
 
 #include <string>
+
+// [Start header_include_game_pad]
 #include "GameControllerKit/game_pad.h"
+// [End header_include_game_pad]
+
 #include "game_pad_api.h"
 #include "game_controller_log.h"
 #include "hilog/log.h"

@@ -34,6 +34,11 @@ public:
     static napi_value SetIsOpenROI(napi_env env, napi_callback_info info);
     static napi_value CreateRecorder(napi_env env, napi_callback_info info);
     static napi_value ReleaseRecorder(napi_env env, napi_callback_info info);
+    static napi_value StartNativeCamera(napi_env env, napi_callback_info info);
+    static napi_value StopNativeCamera(napi_env env, napi_callback_info info);
+    static napi_value RotateNativeCamera(napi_env env, napi_callback_info info);
+    static napi_value SetNativeCameraZoom(napi_env env, napi_callback_info info);
+    static napi_value GetNativeCameraZoom(napi_env env, napi_callback_info info);
 private:
     static Recorder *ParseRecorderPtr(napi_env env, napi_value arg);
     static void ParseInitArgs(napi_env env, napi_value *args, SampleInfo &sampleInfo);

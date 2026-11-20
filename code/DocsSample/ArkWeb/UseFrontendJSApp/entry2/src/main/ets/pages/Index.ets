@@ -15,15 +15,18 @@
 
 import { router } from '@kit.ArkUI';
 
+// 应用主入口页面，点击按钮跳转到对应的ArkWeb功能示例页面
 @Entry
 @Component
 struct Index {
   build() {
     Column({ space: 10 }) {
+      // 跳转到JavaScriptProxy示例：通过javaScriptProxy属性将对象注入web端，实现应用与前端页面交互
       Button('JavaScriptProxy')
         .onClick(() => {
           this.getUIContext().getRouter().pushUrl({ url: 'pages/JavaScriptProxy' });
         })
+      // 跳转到Promise示例：注册的方法返回Promise对象，异步返回结果
       Button('Promise_one')
         .onClick(() => {
           this.getUIContext().getRouter().pushUrl({ url: 'pages/Promise_one' });
@@ -32,6 +35,7 @@ struct Index {
         .onClick(() => {
           this.getUIContext().getRouter().pushUrl({ url: 'pages/Promise_two' });
         })
+      // 跳转到registerJavaScriptProxy注册示例
       Button('RegisterJavaScriptProxy')
         .onClick(() => {
           this.getUIContext().getRouter().pushUrl({ url: 'pages/RegisterJavaScriptProxy' });
@@ -44,6 +48,7 @@ struct Index {
         .onClick(() => {
           this.getUIContext().getRouter().pushUrl({ url: 'pages/RegisterJavaScriptProxyTwo' });
         })
+      // 跳转到复杂类型示例：演示应用侧与前端页面间传递数组、回调、对象等复杂类型
       Button('UsageOfComplexTypes_one')
         .onClick(() => {
           this.getUIContext().getRouter().pushUrl({ url: 'pages/UsageOfComplexTypes_one' });

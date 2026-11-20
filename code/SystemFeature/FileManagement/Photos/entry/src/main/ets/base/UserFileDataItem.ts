@@ -303,7 +303,8 @@ export class UserFileDataItem implements DateAdded {
     let status = !(await this.isFavor());
     try {
       let fileAsset = await this.loadFileAsset();
-      await fileAsset.setFavorite(status);
+      fileAsset.set(photoAccessHelper.PhotoKeys.FAVORITE, status ? '1' : '0');
+      await fileAsset.commitModify();
       this.favouriteStatus = status ? STATUS_TRUE : STATUS_FALSE;
       return true;
     } catch (err) {

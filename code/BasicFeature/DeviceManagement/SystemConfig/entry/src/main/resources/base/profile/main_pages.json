@@ -1,0 +1,8 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/customconfig/CustomConfigPage",
+    "pages/intelligentScene/IntelligentScenePage",
+    "pages/settingslite/SettingsLitePage"
+  ]
+}

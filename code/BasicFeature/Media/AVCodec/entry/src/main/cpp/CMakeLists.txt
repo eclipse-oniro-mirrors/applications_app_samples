@@ -44,6 +44,7 @@ set(BASE_LIBRARY
     libnative_media_avsource.so
     libnative_media_avmuxer.so
     libohaudio.so
+    libdl.so
 )
 add_library(player SHARED sample/player/napi/PlayerNative.cpp
                           sample/player/napi/PlayerAsyncSeek.cpp
@@ -66,6 +67,8 @@ add_library(player SHARED sample/player/napi/PlayerNative.cpp
                           sample/player/output/video/renderer/BufferRenderer.cpp
                           sample/player/output/video/renderer/HdrMetadataHelper.cpp
                           sample/player/output/video/gpu/VideoFrameConverter.cpp
+                          sample/player/output/video/gpu/VideoPresentationGeometry.cpp
+                          sample/player/output/video/gpu/VulkanVideoSurfaceOutput.cpp
                           sample/player/output/video/gpu/OpenGLVideoSink.cpp
                           sample/player/output/video/gpu/VulkanVideoSink.cpp
                           capabilities/demuxer.cpp

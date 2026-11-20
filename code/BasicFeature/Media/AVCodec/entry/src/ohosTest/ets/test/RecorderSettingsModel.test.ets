@@ -61,5 +61,66 @@ export default function recorderSettingsModelTest(): void {
         expect(cameraData.cameraWidth).assertEqual(Const.DEFAULT_WIDTH);
       });
     });
+
+    it('AVCodec_RecorderSettings_AdvancedOptions_003', 0, () => {
+      runTestCase('AVCodec_RecorderSettings_AdvancedOptions_003', () => {
+        const settings = new RecorderSettingsModel();
+        const cameraData = new CameraDataModel();
+        const applied = settings.applyPickerValues([
+          Const.OUTPUT_FORMAT[0], Const.VIDEO_MIMETYPE[1], Const.VIDEO_RESOLUTION[1],
+          Const.VIDEO_FRAMERATE[0], Const.VIDEO_DECODER_SYNC_MODE[0], Const.VIDEO_BITRATE[1],
+          Const.VIDEO_BITRATE_MODE[0], Const.VIDEO_I_FRAME_INTERVAL[0], Const.AUDIO_SAMPLE_RATE[1],
+          Const.AUDIO_CHANNEL_COUNT[1], Const.AUDIO_BITRATE[1], Const.AUDIO_CAPTURE_LATENCY_MODE[0],
+          Const.VIDEO_STABILIZATION_MODE[1], Const.VIDEO_PREPROC_MODE[1], Const.VIDEO_DROP_FRAME_RATE[1],
+          Const.DUAL_OUTPUT_MODE[1]
+        ], cameraData);
+        expect(applied).assertTrue();
+        expect(cameraData.preprocMode).assertEqual(Const.VIDEO_PREPROC_DOWNSAMPLING);
+        expect(cameraData.dropToFrameRate).assertEqual(Const.FRAMERATE_VIDEO_30FPS);
+        expect(cameraData.enableDualOutput).assertTrue();
+      });
+    });
+
+    it('AVCodec_RecorderSettings_CenterCrop_004', 0, () => {
+      runTestCase('AVCodec_RecorderSettings_CenterCrop_004', () => {
+        const settings = new RecorderSettingsModel();
+        const cameraData = new CameraDataModel();
+        const applied = settings.applyPickerValues([
+          Const.OUTPUT_FORMAT[0], Const.VIDEO_MIMETYPE[1], Const.VIDEO_RESOLUTION[1],
+          Const.VIDEO_FRAMERATE[0], Const.VIDEO_DECODER_SYNC_MODE[0], Const.VIDEO_BITRATE[1],
+          Const.VIDEO_BITRATE_MODE[0], Const.VIDEO_I_FRAME_INTERVAL[0], Const.AUDIO_SAMPLE_RATE[1],
+          Const.AUDIO_CHANNEL_COUNT[1], Const.AUDIO_BITRATE[1], Const.AUDIO_CAPTURE_LATENCY_MODE[0],
+          Const.VIDEO_STABILIZATION_MODE[1], Const.VIDEO_PREPROC_MODE[2], Const.VIDEO_DROP_FRAME_RATE[0],
+          Const.DUAL_OUTPUT_MODE[0]
+        ], cameraData);
+        expect(applied).assertTrue();
+        expect(cameraData.cropLeft % 2).assertEqual(0);
+        expect(cameraData.cropTop % 2).assertEqual(0);
+        expect((cameraData.cropRight - cameraData.cropLeft + 1) % 2).assertEqual(0);
+        expect((cameraData.cropBottom - cameraData.cropTop + 1) % 2).assertEqual(0);
+        expect(cameraData.cropLeft).assertEqual(240);
+        expect(cameraData.cropTop).assertEqual(134);
+        expect(cameraData.cropRight - cameraData.cropLeft + 1).assertEqual(1440);
+        expect(cameraData.cropBottom - cameraData.cropTop + 1).assertEqual(810);
+      });
+    });
+
+    it('AVCodec_RecorderSettings_DropFrameRateNotHigherThanSource_005', 0, () => {
+      runTestCase('AVCodec_RecorderSettings_DropFrameRateNotHigherThanSource_005', () => {
+        const settings = new RecorderSettingsModel();
+        const cameraData = new CameraDataModel();
+        const applied = settings.applyPickerValues([
+          Const.OUTPUT_FORMAT[0], Const.VIDEO_MIMETYPE[1], Const.VIDEO_RESOLUTION[1],
+          Const.VIDEO_FRAMERATE[0], Const.VIDEO_DECODER_SYNC_MODE[0], Const.VIDEO_BITRATE[1],
+          Const.VIDEO_BITRATE_MODE[0], Const.VIDEO_I_FRAME_INTERVAL[0], Const.AUDIO_SAMPLE_RATE[1],
+          Const.AUDIO_CHANNEL_COUNT[1], Const.AUDIO_BITRATE[1], Const.AUDIO_CAPTURE_LATENCY_MODE[0],
+          Const.VIDEO_STABILIZATION_MODE[1], Const.VIDEO_PREPROC_MODE[0], Const.VIDEO_DROP_FRAME_RATE[1],
+          Const.DUAL_OUTPUT_MODE[0]
+        ], cameraData);
+        expect(applied).assertTrue();
+        expect(cameraData.frameRate).assertEqual(Const.FRAMERATE_VIDEO_30FPS);
+        expect(cameraData.dropToFrameRate).assertEqual(0);
+      });
+    });
   });
 }

@@ -219,6 +219,10 @@
     {
       "name": "question_option_3_3",
       "value": "The default duration is used"
+    },
+    {
+      "name": "hardening_title",
+      "value": "Assessment hardening"
     }
   ]
 }

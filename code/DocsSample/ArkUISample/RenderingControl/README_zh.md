@@ -102,7 +102,8 @@ entry/src/main/ets/
     │   ├── ScreenFlickeringInList.ets
     │   ├── SwappingData.ets
     │   ├── UINotRerenderedWhenObjectLinkIsChanged.ets
-    │   └── UnexpectedRenderingResults.ets
+    │   ├── UnexpectedRenderingResults.ets
+    │   └── LazyForEachClearCache.ets
     ├── RenderingRepeat
     │   ├── DemoGrid.ets
     │   ├── DemoList.ets
@@ -122,7 +123,8 @@ entry/src/main/ets/
     │   ├── RepeatTemplateSingle1.ets
     │   ├── RepeatVirtualScroll2T.ets
     │   ├── RepeatVirtualScrollOnMove.ets
-    │   └── RepeatAnimation.ets
+    │   ├── RepeatAnimation.ets
+    │   └── RepeatClearCache.ets
     ├── RepeatMigration
     │   ├── ForEachToRepeatChildProperties.ets
     │   ├── LazyForEachToRepeatChildProperties.ets

@@ -67,7 +67,7 @@ static napi_value NAPI_Pasteboard_set(napi_env env, napi_callback_info info)
     // 1. 创建一个剪贴板实例
     OH_Pasteboard* pasteboard = OH_Pasteboard_Create();
     if (pasteboard == nullptr) {
-        OH_LOG_INFO(LOG_APP, "Failed to create pasteboard instance.");
+        OH_LOG_ERROR(LOG_APP, "Failed to create pasteboard instance.");
         napi_value result;
         napi_get_undefined(env, &result);
         return result;
@@ -105,7 +105,7 @@ static napi_value GetPlainTextFromPasteboard(napi_env env, OH_Pasteboard* pasteb
     int ret = 0;
     OH_UdmfData* udmfData = OH_Pasteboard_GetData(pasteboard, &ret);
     if (udmfData == nullptr) {
-        OH_LOG_INFO(LOG_APP, "Failed to get data from pasteboard.");
+        OH_LOG_ERROR(LOG_APP, "Failed to get data from pasteboard.");
         OH_Pasteboard_Destroy(pasteboard);
         napi_value result;
         napi_get_undefined(env, &result);
@@ -114,7 +114,7 @@ static napi_value GetPlainTextFromPasteboard(napi_env env, OH_Pasteboard* pasteb
     // 4. 从OH_UdmfData中获取第一个数据记录
     OH_UdmfRecord* record = OH_UdmfData_GetRecord(udmfData, 0);
     if (record == nullptr) {
-        OH_LOG_INFO(LOG_APP, "Failed to get record from udmfData.");
+        OH_LOG_ERROR(LOG_APP, "Failed to get record from udmfData.");
         OH_UdmfData_Destroy(udmfData);
         OH_Pasteboard_Destroy(pasteboard);
         napi_value result;
@@ -124,7 +124,7 @@ static napi_value GetPlainTextFromPasteboard(napi_env env, OH_Pasteboard* pasteb
     // 5. 从数据记录中获取文本数据内容
     OH_UdsPlainText* plainText = OH_UdsPlainText_Create();
     if (plainText == nullptr) {
-        OH_LOG_INFO(LOG_APP, "Failed to create plain text object.");
+        OH_LOG_ERROR(LOG_APP, "Failed to create plain text object.");
         OH_UdmfData_Destroy(udmfData);
         OH_Pasteboard_Destroy(pasteboard);
         napi_value result;
@@ -134,7 +134,7 @@ static napi_value GetPlainTextFromPasteboard(napi_env env, OH_Pasteboard* pasteb
     OH_UdmfRecord_GetPlainText(record, plainText);
     const char* content = OH_UdsPlainText_GetContent(plainText);
     if (content == nullptr) {
-        OH_LOG_INFO(LOG_APP, "Failed to get content from plain text.");
+        OH_LOG_ERROR(LOG_APP, "Failed to get content from plain text.");
         OH_UdsPlainText_Destroy(plainText);
         OH_UdmfData_Destroy(udmfData);
         OH_Pasteboard_Destroy(pasteboard);
@@ -156,7 +156,7 @@ static napi_value NAPI_Pasteboard_get(napi_env env, napi_callback_info info)
     // 1. 创建一个剪贴板实例
     OH_Pasteboard* pasteboard = OH_Pasteboard_Create();
     if (pasteboard == nullptr) {
-        OH_LOG_INFO(LOG_APP, "Failed to create pasteboard instance.");
+        OH_LOG_ERROR(LOG_APP, "Failed to create pasteboard instance.");
         napi_value result;
         napi_get_undefined(env, &result);
         return result;

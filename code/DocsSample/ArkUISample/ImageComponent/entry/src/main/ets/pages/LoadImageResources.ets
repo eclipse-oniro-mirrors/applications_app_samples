@@ -38,12 +38,12 @@ struct MediaLibraryFile {
       }).catch((err:Error) => {
         let message = (err as BusinessError).message;
         let code = (err as BusinessError).code;
-        hilog.info(DOMAIN, TAG,`PhotoViewPicker.select failed with. Code: ${code}, message: ${message}`);
+        hilog.error(DOMAIN, TAG,`PhotoViewPicker.select failed with. Code: ${code}, message: ${message}`);
       });
     } catch (err) {
       let message = (err as BusinessError).message;
       let code = (err as BusinessError).code;
-      hilog.info(DOMAIN, TAG,`PhotoViewPicker failed with. Code: ${code}, message: ${message}`);
+      hilog.error(DOMAIN, TAG,`PhotoViewPicker failed with. Code: ${code}, message: ${message}`);
     };
   };
 

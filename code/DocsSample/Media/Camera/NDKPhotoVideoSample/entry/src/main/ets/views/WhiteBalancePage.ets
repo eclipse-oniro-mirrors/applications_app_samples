@@ -1,13 +1,13 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 (the 'License');
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an 'AS IS' BASIS,
+ * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -20,12 +20,12 @@ import Logger from '../model/Logger';
 const TAG: string = 'CameraSample';
 
 interface WhiteBalance {
-  auto: string;
-  manual: string;
-  cloudy: string;
-  white: string;
-  fluorescence: string;
-  sunlight: string;
+  auto: Resource;
+  manual: Resource;
+  cloudy: Resource;
+  white: Resource;
+  fluorescence: Resource;
+  sunlight: Resource;
 }
 
 @Component
@@ -36,16 +36,16 @@ export struct WhiteBalancePage {
   // WhiteBalance mode
   @State whiteBalanceNum: number = 0;
   private whiteBalance: WhiteBalance = {
-    auto: '自动',
-    manual: '手动',
-    cloudy: '阴天',
-    white: '白炽光',
-    fluorescence: '荧光',
-    sunlight: '日光'
+    auto: $r('app.string.WHITE_BALANCE_AUTO'),
+    manual: $r('app.string.WHITE_BALANCE_MANUAL'),
+    cloudy: $r('app.string.WHITE_BALANCE_CLOUDY'),
+    white: $r('app.string.WHITE_BALANCE_INCANDESCENT'),
+    fluorescence: $r('app.string.WHITE_BALANCE_FLUORESCENT'),
+    sunlight: $r('app.string.WHITE_BALANCE_DAYLIGHT')
   };
 
   // Return to selected image
-  getTextDefault() {
+  getTextDefault(): Resource {
     if (this.whiteBalanceNum == 0) {
       return this.whiteBalance.auto;
     }
@@ -64,7 +64,7 @@ export struct WhiteBalancePage {
     if (this.whiteBalanceNum == 5) {
       return this.whiteBalance.manual;
     }
-    return;
+    return this.whiteBalance.auto;
   }
 
   // Apply white balance setting
@@ -78,9 +78,9 @@ export struct WhiteBalancePage {
 
   build() {
     Column() {
-      // 主按钮
+      // 主按钮。
       if (this.firstBol) {
-        Text('白平衡')
+        Text($r('app.string.WHITE_BALANCE'))
           .fontSize(16)
           .fontColor('#FFFFFF')
           .backgroundColor(Color.Transparent)
@@ -105,10 +105,10 @@ export struct WhiteBalancePage {
           })
       }
 
-      // 选项面板 - 垂直排列在主按钮下方
+      // 选项面板 - 垂直排列在主按钮下方。
       if (this.showOptions) {
         Column() {
-          Text('自动')
+          Text($r('app.string.WHITE_BALANCE_AUTO'))
             .fontSize(16)
             .fontColor(this.whiteBalanceNum === 0 ? '#FFFFFF' : '#CCCCCC')
             .backgroundColor(Color.Transparent)
@@ -123,7 +123,7 @@ export struct WhiteBalancePage {
             })
             .margin({ bottom: '8px' })
 
-          Text('阴天')
+          Text($r('app.string.WHITE_BALANCE_CLOUDY'))
             .fontSize(16)
             .fontColor(this.whiteBalanceNum === 1 ? '#FFFFFF' : '#CCCCCC')
             .borderRadius('20px')
@@ -136,7 +136,7 @@ export struct WhiteBalancePage {
               this.applyWhiteBalanceSetting(1);
             })
 
-          Text('白炽光')
+          Text($r('app.string.WHITE_BALANCE_INCANDESCENT'))
             .fontSize(16)
             .fontColor(this.whiteBalanceNum === 2 ? '#FFFFFF' : '#CCCCCC')
             .borderRadius('20px')
@@ -149,7 +149,7 @@ export struct WhiteBalancePage {
               this.applyWhiteBalanceSetting(2);
             })
 
-          Text('荧光')
+          Text($r('app.string.WHITE_BALANCE_FLUORESCENT'))
             .fontSize(16)
             .fontColor(this.whiteBalanceNum === 3 ? '#FFFFFF' : '#CCCCCC')
             .borderRadius('20px')
@@ -162,7 +162,7 @@ export struct WhiteBalancePage {
               this.applyWhiteBalanceSetting(3);
             })
 
-          Text('日光')
+          Text($r('app.string.WHITE_BALANCE_DAYLIGHT'))
             .fontSize(16)
             .fontColor(this.whiteBalanceNum === 4 ? '#FFFFFF' : '#CCCCCC')
             .borderRadius('20px')
@@ -175,7 +175,7 @@ export struct WhiteBalancePage {
               this.applyWhiteBalanceSetting(4);
             })
 
-          Text('手动')
+          Text($r('app.string.WHITE_BALANCE_MANUAL'))
             .fontSize(16)
             .fontColor(this.whiteBalanceNum === 5 ? '#FFFFFF' : '#CCCCCC')
             .borderRadius('20px')
@@ -191,7 +191,7 @@ export struct WhiteBalancePage {
         .backgroundColor('rgba(0,0,0,0.3)')
         .borderRadius('25px')
         .padding({ top: '12px', bottom: '12px' })
-        .margin({ top: '8px' })  // 与主按钮的间距
+        .margin({ top: '8px' })  // 与主按钮的间距。
         .width('160px')
         .height('300px')
         .alignItems(HorizontalAlign.Center)

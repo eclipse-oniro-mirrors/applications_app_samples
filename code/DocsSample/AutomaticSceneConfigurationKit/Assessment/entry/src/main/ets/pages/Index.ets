@@ -14,7 +14,9 @@
  */
 import { common } from '@kit.AbilityKit';
 import { router } from '@kit.ArkUI';
+// [Start import_module]
 import { assessment } from '@kit.AutomaticSceneConfigurationKit';
+// [End import_module]
 import { BusinessError } from '@kit.BasicServicesKit';
 import { AssessmentConstants } from '../common/constants/AssessmentConstants';
 import { AssessmentController } from '../common/controllers/AssessmentController';

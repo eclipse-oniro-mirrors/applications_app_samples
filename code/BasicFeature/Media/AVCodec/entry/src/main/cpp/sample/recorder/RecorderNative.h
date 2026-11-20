@@ -27,9 +27,13 @@
 
 class RecorderNative {
 public:
+    // 将 ArkTS 录制配置转换为 SampleInfo，并通过异步 Promise 初始化原生录制器。
     static napi_value Init(napi_env env, napi_callback_info info);
+    // 启动已经初始化完成的录制器。
     static napi_value Start(napi_env env, napi_callback_info info);
+    // 异步请求停止录制并开始排空编码器。
     static napi_value StopStart(napi_env env, napi_callback_info info);
+    // 异步等待资源释放完成，Promise 返回后可以开始下一次录制。
     static napi_value StopEnd(napi_env env, napi_callback_info info);
 };
 

@@ -1,0 +1,14 @@
+{
+  "devices": {
+    "general": [
+      "default"
+    ],
+    "custom": []
+  },
+  "development": {
+    "addedSysCaps": []
+  },
+  "production": {
+    "removedSysCaps": []
+  }
+}

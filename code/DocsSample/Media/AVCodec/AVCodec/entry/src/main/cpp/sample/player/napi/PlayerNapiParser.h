@@ -1,0 +1,36 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#ifndef VIDEO_CODEC_PLAYER_NAPI_PARSER_H
+#define VIDEO_CODEC_PLAYER_NAPI_PARSER_H
+
+#include "napi/native_api.h"
+#include "sample_config.h"
+
+namespace PlayerNapiParser {
+bool ParseLegacyPlayArguments(napi_env env, napi_callback_info info, SampleInfo &sampleInfo,
+    napi_value &callback);
+bool ParseStructuredPlayArguments(napi_env env, napi_callback_info info, SampleInfo &sampleInfo,
+    napi_value &callback);
+bool ParseSeekPosition(napi_env env, napi_callback_info info, int64_t &positionUs);
+bool ParseSpeed(napi_env env, napi_callback_info info, double &speed);
+bool ParseVolume(napi_env env, napi_callback_info info, double &volume);
+bool ParseTransform(napi_env env, napi_callback_info info, int32_t &transform);
+bool ParseEnabled(napi_env env, napi_callback_info info, bool &enabled);
+bool ParseThermalRatio(napi_env env, napi_callback_info info, double &ratio);
+bool ParseTrackIndex(napi_env env, napi_callback_info info, int32_t &index);
+} // namespace PlayerNapiParser
+
+#endif // VIDEO_CODEC_PLAYER_NAPI_PARSER_H

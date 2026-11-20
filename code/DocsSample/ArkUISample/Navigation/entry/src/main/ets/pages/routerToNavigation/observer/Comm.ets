@@ -23,9 +23,9 @@ function callbackFunc(info: uiObserver.RouterPageInfo) {
   hilog.info(DOMAIN, TAG,'RouterPageInfo is : ' + JSON.stringify(info));
 }
 
-// used in ability context.
+// 在abilityContext中使用
 uiObserver.on('routerPageUpdate', this.context, callbackFunc);
 
-// used in UIContext.
+// 在UIContext中使用
 uiObserver.on('routerPageUpdate', this.getUIContext(), callbackFunc);
 // [End observer_comm]

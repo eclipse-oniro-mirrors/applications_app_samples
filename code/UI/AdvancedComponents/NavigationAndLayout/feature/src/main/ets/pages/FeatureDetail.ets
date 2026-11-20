@@ -1,0 +1,47 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+class FeatureParam {
+  public id: number = 0;
+  public title: string = '';
+  public description: string = '';
+}
+
+@Builder
+export function FeatureDetailBuilder(name: string, param?: Object) {
+  FeatureDetail({ param: param as FeatureParam });
+}
+
+@Component
+export struct FeatureDetail {
+  param: FeatureParam = new FeatureParam();
+
+  build() {
+    NavDestination() {
+      Column({ space: 12 }) {
+        Text(this.param.title.length > 0 ? this.param.title : 'Feature detail')
+          .id('featureDetailTitle')
+          .fontSize(22)
+          .fontWeight(FontWeight.Bold)
+        Text(this.param.description)
+          .id('featureDetailDescription')
+          .fontSize(14)
+      }
+      .padding(16)
+      .width('100%')
+    }
+    .title('Feature HSP page')
+  }
+}

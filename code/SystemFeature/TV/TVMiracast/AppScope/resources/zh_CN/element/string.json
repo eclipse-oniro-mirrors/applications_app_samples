@@ -1,0 +1,9 @@
+{
+  "string": [
+    {
+      "name": "app_name",
+      "value": "Miracast投屏",
+      "description": "应用名称"
+    }
+  ]
+}

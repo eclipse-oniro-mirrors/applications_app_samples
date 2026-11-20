@@ -21,6 +21,8 @@ import { ble } from '@kit.ConnectivityKit';
 import { constant } from '@kit.ConnectivityKit';
 
 let TAG = 'bt_js '
+const GATT_CHARACTERISTIC_UUID: string = '0000bbbb-0000-1000-8000-00805f9b34fb';
+const GATT_USER_DESCRIPTION_UUID: string = '00002901-0000-1000-8000-00805f9b34fb';
 let serverDeviceId: string = ''
 let gattClient: ble.GattClientDevice
 let gattServer: ble.GattServer
@@ -54,7 +56,8 @@ struct BluetoothInteractionIndex {
       ble.on('BLEDeviceFind', (data) => {
         console.info(TAG + 'BLEScan device' + JSON.stringify(data));
         data.forEach((item, index, array) => {
-          console.log(TAG + `index: ${index}, deviceId:${item.deviceId}, rssi: ${item.rssi}, deviceName:  ${item.deviceName}`);
+          console.info(TAG + `index: ${index}, deviceId:${item.deviceId}, rssi: ${item.rssi}, ` +
+            `deviceName:  ${item.deviceName}`);
         })
         // 设置deviceId用于创建GattClientDevice
         if (data.length > 0) {
@@ -221,8 +224,8 @@ struct BluetoothInteractionIndex {
     let buf = new ArrayBuffer(1);
     let descrptor1: ble.BLEDescriptor = {
       'serviceUuid': '0000bbbb-0000-1000-8000-00805f9b34fb',
-      'characteristicUuid': '0000bbbb-0000-1000-8000-00805f9b34fb',
-      'descriptorUuid': '0000bbbb-0000-1000-8000-00805f9b34fb',
+      'characteristicUuid': GATT_CHARACTERISTIC_UUID,
+      'descriptorUuid': GATT_USER_DESCRIPTION_UUID,
       'descriptorValue': buf,
       'permissions': {
         'read': true,
@@ -237,7 +240,7 @@ struct BluetoothInteractionIndex {
     };
     let descrptor2: ble.BLEDescriptor = {
       'serviceUuid': '0000bbbb-0000-1000-8000-00805f9b34fb',
-      'characteristicUuid': '0000bbbb-0000-1000-8000-00805f9b34fb',
+      'characteristicUuid': GATT_CHARACTERISTIC_UUID,
       'descriptorUuid': '0000bbbb-0000-1000-8000-00805f9b34fb',
       'descriptorValue': string2ArrayBuffer('desc2901'),
     };
@@ -247,7 +250,7 @@ struct BluetoothInteractionIndex {
     let charateristatics: ble.BLECharacteristic[] = [];
     let charateristatic: ble.BLECharacteristic = {
       'serviceUuid': '0000bbbb-0000-1000-8000-00805f9b34fb',
-      'characteristicUuid': '0000bbbb-0000-1000-8000-00805f9b34fb',
+      'characteristicUuid': GATT_CHARACTERISTIC_UUID,
       'characteristicValue': string2ArrayBuffer('hello gatt character'),
       'descriptors': descriptors,
       'properties': {
@@ -326,7 +329,7 @@ struct BluetoothInteractionIndex {
     try {
       gattServer.on('descriptorWrite', (descriptorWriteRequest) => {
         console.info(TAG + `descriptorWrite`);
-        if (descriptorWriteRequest.descriptorUuid == '00002901-0000-1000-8000-00805f9b34fb') {
+        if (descriptorWriteRequest.descriptorUuid.toLowerCase() === GATT_USER_DESCRIPTION_UUID) {
           descValue2901 = descriptorWriteRequest.value;
           console.info(TAG + `onDescriptorWrite` + descValue2901);
         }
@@ -345,7 +348,7 @@ struct BluetoothInteractionIndex {
     try {
       gattServer.on('characteristicWrite', (characterWriteRequest) => {
         console.info(TAG + `onCharacterWriteRequest`);
-        if (characterWriteRequest.characteristicUuid == '0000BBBC-0000-1000-8000-00805F9B34FB') {
+        if (characterWriteRequest.characteristicUuid.toLowerCase() === GATT_CHARACTERISTIC_UUID) {
           characterValue = characterWriteRequest.value;
           console.info(TAG + `onCharacterWriteRequest` + characterValue);
         }

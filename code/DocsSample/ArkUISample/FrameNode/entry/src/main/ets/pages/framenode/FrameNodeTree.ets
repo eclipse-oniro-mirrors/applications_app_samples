@@ -264,7 +264,7 @@ struct Index {
               .fontSize(16)
               .width(400)
               .onClick(() => {
-                // 对BuilderNode代理节点进行进行查询。当前节点为BuilderNode中的Column节点。
+                // 对BuilderNode代理节点进行查询。当前节点为BuilderNode中的Column节点。
                 this.result =
                   this.myNodeController.testInterfaceAboutSearch(this.myNodeController?.buttonNode?.getFrameNode());
               })

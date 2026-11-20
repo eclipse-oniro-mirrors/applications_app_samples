@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog'
+import { hilog } from '@kit.PerformanceAnalysisKit'
 
 class Logger {
   private domain: number;
@@ -22,7 +22,7 @@ class Logger {
 
   constructor(prefix: string) {
     this.prefix = prefix;
-    this.domain = 0xFF00;
+    this.domain = 0xF811;
     hilog.isLoggable(this.domain, prefix, hilog.LogLevel.INFO);
     hilog.isLoggable(this.domain, prefix, hilog.LogLevel.DEBUG);
     hilog.isLoggable(this.domain, prefix, hilog.LogLevel.WARN);

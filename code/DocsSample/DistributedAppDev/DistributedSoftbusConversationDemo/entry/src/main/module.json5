@@ -20,7 +20,7 @@
     "description": "$string:module_desc",
     "mainElement": "EntryAbility",
     "deviceTypes": [
-      "phone",
+      "default",
       "tablet",
       "2in1",
       "wearable"
@@ -71,7 +71,7 @@
             "abilities": ["EntryAbility"],
             "when": "always"
           },
-        "reason": "$string:EntryAbility_desc"
+        "reason": "$string:permission_reason"
       },
       {
         "name": "ohos.permission.sec.ACCESS_UDID",
@@ -79,7 +79,7 @@
             "abilities": ["EntryAbility"],
             "when": "always"
           },
-        "reason": "$string:EntryAbility_desc"
+        "reason": "$string:permission_reason"
       }
     ]
   }

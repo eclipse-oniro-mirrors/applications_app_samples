@@ -178,8 +178,10 @@ static napi_value OhAVMetadataExtractorFetchAlbumCover(napi_env env, napi_callba
     if (!GetInputParams(env, info, offset, fileDescribe, fileSize)) {
         return nullptr;
     }
+    // [Start OH_AVMetadataExtractor_Create]
     // 创建OH_AVMetadataExtractor实例。
     OH_AVMetadataExtractor* mainExtractor = OH_AVMetadataExtractor_Create();
+    // [End OH_AVMetadataExtractor_Create]
     // 处理异常。
     if (!mainExtractor) {
         napi_throw_error(env, "EFAILED", "Create metadata extractor failed");
@@ -193,9 +195,11 @@ static napi_value OhAVMetadataExtractorFetchAlbumCover(napi_env env, napi_callba
         napi_throw_error(env, "EFAILED", "SetFDSource for metadata extractor failed");
         return nullptr;
     }
+    // [Start OH_AVMetadataExtractor_FetchAlbumCover]
     // 获取专辑封面。
     OH_PixelmapNative* pixelMap = nullptr;
     avErrCode = OH_AVMetadataExtractor_FetchAlbumCover(mainExtractor, &pixelMap);
+    // [End OH_AVMetadataExtractor_FetchAlbumCover]
     // 处理异常。
     if (avErrCode != AV_ERR_OK || !pixelMap) {
         OH_AVMetadataExtractor_Release(mainExtractor);
@@ -280,6 +284,13 @@ void GetIntValueFromAVFormat(struct OH_AVFormat *avMetadata, napi_env env, napi_
         bool hh = SetPropertyInt(env, JsMetadata, OH_AVMETADATA_EXTRACTOR_VIDEO_IS_HDR_VIVID, hdrType);
         H_LOGI("OH_AVMETADATA_EXTRACTOR_VIDEO_IS_HDR_VIVID : %{public}d hh %{public}d", hdrType, hh);
     }
+    // [Start OH_AVMetadataExtractor_AVFormat]
+    // 从OH_AVFormat对象中解析出int32_t类型的视频资源宽高信息。
+    int32_t width = 0;
+    int32_t height = 0;
+    OH_AVFormat_GetIntValue(avMetadata, OH_AVMETADATA_EXTRACTOR_VIDEO_WIDTH, &width);
+    OH_AVFormat_GetIntValue(avMetadata, OH_AVMETADATA_EXTRACTOR_VIDEO_HEIGHT, &height);
+    // [End OH_AVMetadataExtractor_AVFormat]
 }
 
 // 辅助函数：从OH_AVFormat对象中解析出float、long类型的元数据值，再保存到JS所需的AVMetadata中。
@@ -330,12 +341,16 @@ void GetOtherValueFromAVFormat(struct OH_AVFormat *avMetadata, napi_env env, nap
  */
 static napi_value OhAVMetadataExtractorFetchMetadata(napi_env env, napi_callback_info info)
 {
-    int64_t offset = 0;
-    int32_t fileDescribe = -1;
-    int64_t fileSize = 0;
+    // [Start OH_AVMetadataExtractor_SetFDSource]
+    int64_t offset = 0; // 媒体源在文件描述符中的偏移量。
+    int32_t fileDescribe = -1; // 媒体文件描述符。
+    int64_t fileSize = 0; // 媒体文件大小。
+
+    // GetInputParams为辅助函数，用于获取FetchAlbumCover、FetchMetadata的输入参数，实现见完整示例。
     if (!GetInputParams(env, info, offset, fileDescribe, fileSize)) {
         return nullptr;
     }
+    // [StartExclude OH_AVMetadataExtractor_SetFDSource]
     // 创建OH_AVMetadataExtractor实例。
     OH_AVMetadataExtractor* mainExtractor = OH_AVMetadataExtractor_Create();
     // 异常处理。
@@ -343,7 +358,8 @@ static napi_value OhAVMetadataExtractorFetchMetadata(napi_env env, napi_callback
         napi_throw_error(env, "EFAILED", "Create metadata extractor failed");
         return nullptr;
     }
-    // 设置视频资源的文件描述符。
+    // [EndExclude OH_AVMetadataExtractor_SetFDSource]
+    // 设置媒体资源的文件描述符。
     OH_AVErrCode avErrCode = OH_AVMetadataExtractor_SetFDSource(mainExtractor, fileDescribe, offset, fileSize);
     // 异常处理。
     if (avErrCode != AV_ERR_OK) {
@@ -351,6 +367,7 @@ static napi_value OhAVMetadataExtractorFetchMetadata(napi_env env, napi_callback
         napi_throw_error(env, "EFAILED", "SetFDSource for metadata extractor failed");
         return nullptr;
     }
+    // [End OH_AVMetadataExtractor_SetFDSource]
     // 创建OH_AVFormat对象。
     OH_AVFormat* avMetadata = OH_AVFormat_Create();
     // 异常处理。
@@ -359,8 +376,10 @@ static napi_value OhAVMetadataExtractorFetchMetadata(napi_env env, napi_callback
         napi_throw_error(env, "EFAILED", "Create AVFormat failed");
         return nullptr;
     }
+    // [Start OH_AVMetadataExtractor_FetchMetadata]
     // 获取元数据。
     avErrCode = OH_AVMetadataExtractor_FetchMetadata(mainExtractor, avMetadata);
+    // [End OH_AVMetadataExtractor_FetchMetadata]
     // 异常处理。
     if (avErrCode != AV_ERR_OK) {
         OH_AVFormat_Destroy(avMetadata);
@@ -383,8 +402,11 @@ static napi_value OhAVMetadataExtractorFetchMetadata(napi_env env, napi_callback
     GetOtherValueFromAVFormat(avMetadata, env, JsMetadata);
     // 释放OH_AVFormat资源。
     OH_AVFormat_Destroy(avMetadata);
+
+    // [Start OH_AVMetadataExtractor_Release]
     // 释放OH_AVMetadataExtractor资源。
     OH_AVMetadataExtractor_Release(mainExtractor);
+    // [End OH_AVMetadataExtractor_Release]
     return JsMetadata;
 }
 

@@ -10,7 +10,7 @@ export enum PlaybackMode {
   SHUFFLE = 3
 }
 
-// Called only for natural completion. Stop and error never advance the queue.
+// 仅在自然播放结束时计算下一项；用户停止和播放错误均不推进队列。
 export function nextPlaybackIndex(mode: PlaybackMode, current: number, count: number,
   random: number = Math.random()): number {
   if (count <= 0 || current < 0 || current >= count) {

@@ -52,7 +52,7 @@ export default class HideStartedUIAbilityAbility extends UIAbility {
   // [EndExclude startOptions_startupVisibility]
 
   onForeground(): void {
-    // Ability has brought to foreground
+    // Ability切到前台
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onForeground');
 
     let want: Want = {

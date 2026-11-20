@@ -99,7 +99,9 @@ struct Index {
                     let calc1: ESObject = new ns[className](); // 实例化类Calc
                     calc1[methodName](14, 15); // 调用成员函数instanceAdd()
                     ns[functionName](16, 17); // 调用全局方法addHarLibrary()
-                  })
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import harlibrary. Code: ${error.code}, message: ${error.message}`);
+                  });
                   // [End dynamic_load_har_module_reflect_call]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_HAR_name'))) {
                   // HAP常量动态import HAR模块名
@@ -107,7 +109,9 @@ struct Index {
                   // HAP's src/main/ets/pages/Index.ets
                   import('myhar').then((ns: ESObject) => {
                     console.info('DynamicImport ns.add(3, 5) = %d', ns.add(3, 5));
-                  })
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import myhar. Code: ${error.code}, message: ${error.message}`);
+                  });
                   // [End const_dynamic_import_har_name]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_HAR_path'))) {
                   // HAP常量动态import HAR模块文件路径
@@ -115,6 +119,8 @@ struct Index {
                   // HAP's src/main/ets/pages/Index.ets
                   import('myhar/Index').then((ns: ESObject) => {
                     console.info('DynamicImport ns.add(3, 5) = %d', ns.add(3, 5));
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import myhar/Index. Code: ${error.code}, message: ${error.message}`);
                   });
                   // [End const_dynamic_import_har_path]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_HSP_name'))) {
@@ -123,6 +129,8 @@ struct Index {
                   // HAP's src/main/ets/pages/Index.ets
                   import('myhsp').then((ns: ESObject) => {
                     console.info('DynamicImport ns.add(3, 5) = %d', ns.add(3, 5));
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import myhsp. Code: ${error.code}, message: ${error.message}`);
                   });
                   // [End const_dynamic_import_hsp_name]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_HSP_path'))) {
@@ -131,6 +139,8 @@ struct Index {
                   // HAP's src/main/ets/pages/Index.ets
                   import('myhsp/Index').then((ns: ESObject) => {
                     console.info('DynamicImport ns.add(3, 5) = %d', ns.add(3, 5));
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import myhsp/Index. Code: ${error.code}, message: ${error.message}`);
                   });
                   // [End const_dynamic_import_hsp_path]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_remote_HAR_name'))) {
@@ -139,6 +149,8 @@ struct Index {
                   // HAP's src/main/ets/pages/Index.ets
                   import('@ohos/crypto-js').then((ns: ESObject) => {
                     console.info('DynamicImport @ohos/crypto-js: ' + ns.CryptoJS.src);
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import @ohos/crypto-js. Code: ${error.code}, message: ${error.message}`);
                   });
                   // [End const_dynamic_import_crypto]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_ohpm'))) {
@@ -147,6 +159,8 @@ struct Index {
                   // HAP's src/main/ets/pages/Index.ets
                   import('@ohos/hypium').then((ns: ESObject) => {
                     console.info('DynamicImport @ohos/hypium: ', ns.TestType.FUNCTION.toString());
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import @ohos/hypium. Code: ${error.code}, message: ${error.message}`);
                   });
                   // [End const_dynamic_import_ohpm]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_file'))) {
@@ -155,7 +169,9 @@ struct Index {
                   // HAP's src/main/ets/pages/Index.ets
                   import('../Calc').then((ns: ESObject) => {
                     console.info('DynamicImport ns.add(3, 5) = %d', ns.add(3, 5));
-                  })
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import ../Calc. Code: ${error.code}, message: ${error.message}`);
+                  });
                   // [End hap_const_dynamic_import]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_native'))) {
                   // HAP常量动态import自己的Native库
@@ -163,6 +179,8 @@ struct Index {
                   // HAP's src/main/ets/pages/Index.ets
                   import('libentry.so').then((ns: ESObject) => {
                     console.info('DynamicImport libentry.so: ' + ns.default.add(2, 3));
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import libentry.so. Code: ${error.code}, message: ${error.message}`);
                   });
                   // [End hap_const_dynamic_import_native_index]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_system_app'))) {
@@ -171,6 +189,8 @@ struct Index {
                   // HAP's src/main/ets/pages/Index.ets
                   import('@system.app').then((ns: ESObject) => {
                     ns.default.getInfo();
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import @system.app. Code: ${error.code}, message: ${error.message}`);
                   });
                   // [StartExclude hap_const_dynamic_import_api]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_ohos_curves'))) {
@@ -178,6 +198,8 @@ struct Index {
                   // [EndExclude hap_const_dynamic_import_api]
                   import('@ohos.curves').then((ns: ESObject) => {
                     ns.default.springMotion(0.555, 0.75, 0.001).interpolate(1);
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import @ohos.curves. Code: ${error.code}, message: ${error.message}`);
                   });
                   // [StartExclude hap_const_dynamic_import_api]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_ohos_matrix4'))) {
@@ -185,6 +207,8 @@ struct Index {
                   // [EndExclude hap_const_dynamic_import_api]
                   import('@ohos.matrix4').then((ns: ESObject) => {
                     ns.default.identity().transformPoint([1, 2])[0];
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import @ohos.matrix4. Code: ${error.code}, message: ${error.message}`);
                   });
                   // [StartExclude hap_const_dynamic_import_api]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_ohos_hilog'))) {
@@ -193,6 +217,8 @@ struct Index {
                   import('@ohos.hilog').then((ns: ESObject) => {
                     ns.default.info(0x0000, 'testTag', '%{public}s', 'DynamicImport @ohos.hilog.');
                     hilog.info(0x000, 'testTag', '%{public}d', ns.default.LogLevel.DEBUG);
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import @ohos.hilog. Code: ${error.code}, message: ${error.message}`);
                   });
                   // [End hap_const_dynamic_import_api]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_module_myhar'))) {
@@ -202,6 +228,8 @@ struct Index {
                   let harName = 'myhar';
                   import(harName).then((ns: ESObject) => {
                     console.info('DynamicImport ns.add(3, 5) = %d', ns.add(3, 5));
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import ${harName}. Code: ${error.code}, message: ${error.message}`);
                   });
                   // [StartExclude variable_dynamic_import]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_module_file'))) {
@@ -211,6 +239,8 @@ struct Index {
                   let filePath = '../utils/Calc';
                   import(filePath).then((ns: ESObject) => {
                     console.info('DynamicImport ns.add(3, 5) = %d', ns.add(3, 5));
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import ${filePath}. Code: ${error.code}, message: ${error.message}`);
                   });
                   // [End variable_dynamic_import]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_HAR_name_variable'))) {
@@ -220,6 +250,8 @@ struct Index {
                   let harPackageName = 'myhar';
                   import(harPackageName).then((ns: ESObject) => {
                     console.info('DynamicImport ns.add(3, 5) = %d', ns.add(3, 5));
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import ${harPackageName}. Code: ${error.code}, message: ${error.message}`);
                   });
                   // [End hap_variable_dynamic_import_har]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_HSP_name_variable'))) {
@@ -229,6 +261,8 @@ struct Index {
                   let hspPackageName = 'myhsp';
                   import(hspPackageName).then((ns: ESObject) => {
                     console.info('DynamicImport ns.add(3, 5) = %d', ns.add(3, 5));
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import ${hspPackageName}. Code: ${error.code}, message: ${error.message}`);
                   });
                   // [End hap_variable_dynamic_import_hsp]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_remote_HAR_name_variable'))) {
@@ -238,6 +272,8 @@ struct Index {
                   let remoteHarPackageName = '@ohos/crypto-js';
                   import(remoteHarPackageName).then((ns: ESObject) => {
                     console.info('DynamicImport @ohos/crypto-js: ' + ns.CryptoJS.src);
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import ${remoteHarPackageName}. Code: ${error.code}, message: ${error.message}`);
                   });
                   // [End hap_variable_dynamic_import_har_crypto]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_ohpm_variable'))) {
@@ -247,6 +283,8 @@ struct Index {
                   let ohpmPackageName = '@ohos/hypium';
                   import(ohpmPackageName).then((ns: ESObject) => {
                     console.info('DynamicImport @ohos/hypium: ', ns.TestType.FUNCTION.toString());
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import ${ohpmPackageName}. Code: ${error.code}, message: ${error.message}`);
                   });
                   // [End hap_variable_dynamic_import_ohpm]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_file_variable'))) {
@@ -256,6 +294,8 @@ struct Index {
                   let calcFilePath = '../Calc';
                   import(calcFilePath).then((ns: ESObject) => {
                     console.info('DynamicImport ns.add(3, 5) = %d', ns.add(3, 5));
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import ${calcFilePath}. Code: ${error.code}, message: ${error.message}`);
                   });
                   // [End hap_variable_dynamic_import_calc]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_native_variable'))) {
@@ -265,6 +305,8 @@ struct Index {
                   let soName = 'libentry.so';
                   import(soName).then((ns: ESObject) => {
                     console.info('DynamicImport libentry.so: ' + ns.default.add(2, 3));
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import ${soName}. Code: ${error.code}, message: ${error.message}`);
                   });
                   // [End hap_variable_dynamic_import_native]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_system_app_variable'))) {
@@ -274,6 +316,8 @@ struct Index {
                   let packageName = '@system.app';
                   import(packageName).then((ns: ESObject) => {
                     ns.default.getInfo();
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import ${packageName}. Code: ${error.code}, message: ${error.message}`);
                   });
                   // [StartExclude hap_variable_dynamic_import_api]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_ohos_curves_variable'))) {
@@ -282,6 +326,8 @@ struct Index {
                   let packageName = '@ohos.curves';
                   import(packageName).then((ns: ESObject) => {
                     ns.default.springMotion(0.555, 0.75, 0.001).interpolate(1);
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import ${packageName}. Code: ${error.code}, message: ${error.message}`);
                   });
                   // [StartExclude hap_variable_dynamic_import_api]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_ohos_matrix4_variable'))) {
@@ -290,6 +336,8 @@ struct Index {
                   let packageName = '@ohos.matrix4';
                   import(packageName).then((ns: ESObject) => {
                     ns.default.identity().transformPoint([1, 2])[0];
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import ${packageName}. Code: ${error.code}, message: ${error.message}`);
                   });
                   // [StartExclude hap_variable_dynamic_import_api]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_ohos_hilog_variable'))) {
@@ -298,7 +346,9 @@ struct Index {
                   let packageName = '@ohos.hilog';
                   import(packageName).then((ns: ESObject) => {
                     ns.default.info(0x0000, 'testTag', '%{public}s', 'DynamicImport @ohos.hilog.');
-                  })
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import ${packageName}. Code: ${error.code}, message: ${error.message}`);
+                  });
                   // [End hap_variable_dynamic_import_api]
                 } else if (item === this.resourceToString($r('app.string.dynamic_import_HAR'))) {
                   // [Start hap_variable_dynamic_import_har1]
@@ -306,7 +356,9 @@ struct Index {
                   let harName = 'har1'
                   import(harName).then((ns: ESObject) => {
                     console.info('[DynamicImport] hap -> har1, 0 + 1 = ' + ns.ClassHar1.add(0, 1));
-                  })
+                  }).catch((error: BusinessError) => {
+                    console.error(`DynamicImport failed to import ${harName}. Code: ${error.code}, message: ${error.message}`);
+                  });
                   // [End hap_variable_dynamic_import_har1]
                 }
               })

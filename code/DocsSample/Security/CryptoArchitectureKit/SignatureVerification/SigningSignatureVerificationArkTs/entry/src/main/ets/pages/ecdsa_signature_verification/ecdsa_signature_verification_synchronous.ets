@@ -15,6 +15,7 @@
 // [Start signature_verification_with_ecdsa_key_pair_ark_sync]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 // 完整的明文被拆分为input1和input2
 let input1: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from('This is Sign test plan1', 'utf-8').buffer) };
@@ -40,15 +41,26 @@ function verifyMessageSync(signMessageBlob: cryptoFramework.DataBlob, pubKey: cr
 }
 
 function main() {
-  let keyGenAlg = 'ECC256';
-  let generator = cryptoFramework.createAsyKeyGenerator(keyGenAlg);
-  let keyPair = generator.generateKeyPairSync();
-  let signData = signMessageSync(keyPair.priKey);
-  let verifyResult = verifyMessageSync(signData, keyPair.pubKey);
-  if (verifyResult === true) {
-    console.info('verify result: success.');
-  } else {
-    console.error('verify result: failed.');
+  try {
+    let keyGenAlg = 'ECC256';
+    let generator = cryptoFramework.createAsyKeyGenerator(keyGenAlg);
+    let keyPair = generator.generateKeyPairSync();
+    let signData = signMessageSync(keyPair.priKey);
+    let verifyResult = verifyMessageSync(signData, keyPair.pubKey);
+    if (verifyResult === true) {
+      console.info('verify result: success.');
+    } else {
+      console.error('verify result: failed.');
+      // [StartExclude signature_verification_with_ecdsa_key_pair_ark_sync]
+      throw new Error('verify result: failed.');
+      // [EndExclude signature_verification_with_ecdsa_key_pair_ark_sync]
+    }
+  } catch (error) {
+    let e: BusinessError = error as BusinessError;
+    console.error(`verify failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude signature_verification_with_ecdsa_key_pair_ark_sync]
+    throw new Error(`verify failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude signature_verification_with_ecdsa_key_pair_ark_sync]
   }
 }
 

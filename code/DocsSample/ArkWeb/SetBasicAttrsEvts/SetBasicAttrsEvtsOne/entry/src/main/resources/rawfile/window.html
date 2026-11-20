@@ -13,6 +13,7 @@
 * limitations under the License.
 */-->
 
+// [Start open_new_window_html]
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,10 +26,11 @@
     function openNewWindow()
     {
         let txt = '打开的窗口';
-        let openedWindow = window.open('about:blank', '', 'location=no,status=no,scrollvars=no');
+        let openedWindow = window.open('about:blank', '', 'location=no,status=no,scrollbars=no');
         openedWindow.document.write('<p>' + '<br><br>' + txt + '</p>');
         openedWindow.focus();
     }
 </script>
 </body>
 </html>
+// [End open_new_window_html]

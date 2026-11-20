@@ -12,8 +12,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start assessment_request_permissions]
 {
   "module": {
+    // [StartExclude assessment_request_permissions]
     "name": "entry",
     "type": "entry",
     "description": "$string:module_desc",
@@ -62,13 +64,17 @@
         ]
       }
     ],
+    // [EndExclude assessment_request_permissions]
     "requestPermissions": [
-      {
-        "name": "ohos.permission.ASSESSMENT_CONFIGURATION"
-      },
+      // [StartExclude assessment_request_permissions]
       {
         "name": "ohos.permission.PRIVACY_WINDOW"
+      },
+      // [EndExclude assessment_request_permissions]
+      {
+        "name": "ohos.permission.ASSESSMENT_CONFIGURATION"
       }
     ]
   }
 }
+// [End assessment_request_permissions]

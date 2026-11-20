@@ -1,4 +1,3 @@
-'use static'
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,16 +13,6 @@
  * limitations under the License.
  */
 
-import {
-  Component,
-  StorageLink,
-  Stack,
-  Resource,
-  $r,
-  Text,
-  StateStyles,
-  ShadowOptions
-} from '@kit.ArkUI';
 import { InputHandler } from '../InputMethodExtensionAbility/model/KeyboardController';
 import { KeyStyle, StyleConfiguration } from '../common/StyleConfiguration';
 
@@ -33,6 +22,16 @@ export struct SpaceItem {
   spaceWith: Resource | undefined = undefined;
   @StorageLink('inputStyle') inputStyle: KeyStyle = StyleConfiguration.getSavedInputStyle();
 
+  @Styles
+  normalStyle(): void {
+    .backgroundColor($r('app.color.key_item_gray'))
+  }
+
+  @Styles
+  pressedStyle(): void {
+    .backgroundColor($r('app.color.key_item_gray_pressed'))
+  }
+
   build(): void {
     if (this.spaceWith) {
       Stack() {
@@ -41,6 +40,7 @@ export struct SpaceItem {
           .fontColor('black')
       }
       .backgroundColor($r('app.color.key_item_normal'))
+      .id('spaceKey')
       .width(this.spaceWith)
       .borderRadius(4)
       .height('100%')
@@ -48,14 +48,7 @@ export struct SpaceItem {
         InputHandler.getInstance().insertText(' ');
       })
       .shadow({ radius: 1, color: $r('app.color.shadow'), offsetY: 3 } as ShadowOptions)
-      .stateStyles({
-        normal: () => {
-          this.backgroundColor($r('app.color.key_item_gray'))
-        },
-        pressed: () => {
-          this.backgroundColor($r('app.color.key_item_gray_pressed'))
-        }
-      } as StateStyles)
+      .stateStyles({ normal: this.normalStyle, pressed: this.pressedStyle })
     }
   }
 }

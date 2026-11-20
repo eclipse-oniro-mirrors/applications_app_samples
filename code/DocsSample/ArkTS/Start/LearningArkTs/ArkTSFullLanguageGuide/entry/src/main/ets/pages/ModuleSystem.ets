@@ -172,15 +172,3 @@ function logConfig(): void {
 console.info('Module loaded');
 logConfig();
 // [End top_level_statements]
-
-// ===== export_import_default_class =====
-// [Start export_import_default_class]
-export default class EidcCalculator {
-  add(a: number, b: number): number {
-    return a + b;
-  }
-}
-
-let eidcCalc: EidcCalculator = new EidcCalculator();
-console.info(`${eidcCalc.add(1, 2)}`); // 3
-// [End export_import_default_class]

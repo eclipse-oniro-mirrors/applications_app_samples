@@ -60,6 +60,24 @@ export default function abilityTest() {
       let content3: string = await text.getText();
       expect(content3).assertEqual('deviceStatus unsubscribe');
 
+      const button4 = await driver.findComponent(ON.id('button4'));
+      await button4.click();
+      await driver.delayMs(1000);
+      let content4: string = await text.getText();
+      expect(content4).assertEqual('dropDetect subscribe');
+
+      const button5 = await driver.findComponent(ON.id('button5'));
+      await button5.click();
+      await driver.delayMs(1000);
+      let content5: string = await text.getText();
+      expect(content5).assertEqual('dropDetect unsubscribeAll');
+
+      const button6 = await driver.findComponent(ON.id('button6'));
+      await button6.click();
+      await driver.delayMs(1000);
+      let content6: string = await text.getText();
+      expect(content6).assertEqual('dropDetect unsubscribe');
+
       done();
       console.info('uitest: TestUiExample end');
     })

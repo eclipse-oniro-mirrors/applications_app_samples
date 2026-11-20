@@ -44,7 +44,7 @@ struct FormEditIndex {
     try {
       formProvider.updateForm(formId, obj, (error: BusinessError) => {
         if (error) {
-          console.error(TAG, `callback error, code: ${error.code}, message: ${error.message})`);
+          console.error(TAG, `callback error, code: ${error.code}, message: ${error.message}`);
           return;
         }
         console.info(TAG, `formProvider updateForm success`);

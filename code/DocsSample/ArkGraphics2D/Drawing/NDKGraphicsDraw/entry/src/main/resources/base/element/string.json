@@ -171,6 +171,30 @@
     {
       "name": "FeatureText",
       "value": "特征字体"
+    },
+    {
+      "name": "TextBlobStringFallback",
+      "value": "字体回退(字符串)"
+    },
+    {
+      "name": "TextBlobTextFallback",
+      "value": "字体回退(文本)"
+    },
+    {
+      "name": "TextBlobPosTextFallback",
+      "value": "字体回退(坐标文本)"
+    },
+    {
+      "name": "FontTextToGlyphsFallback",
+      "value": "字形转换字体回退"
+    },
+    {
+      "name": "FontMeasureTextFallback",
+      "value": "文本测量字体回退"
+    },
+    {
+      "name": "FontMeasureTextWithBrushOrPenFallback",
+      "value": "画刷测量字体回退"
     }
   ]
 }

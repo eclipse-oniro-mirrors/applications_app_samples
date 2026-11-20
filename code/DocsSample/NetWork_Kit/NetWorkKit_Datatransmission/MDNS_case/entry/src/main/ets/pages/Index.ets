@@ -243,6 +243,9 @@ struct MdnsServiceDemo {
   // [EndExclude MDNS_add_local_service]
   // [End MDNS_add_local_service]
 
+  // 复用同一DiscoveryService实例，保证on/off与startSearchingMDNS/stopSearchingMDNS在配对的实例上执行。
+  private discoveryService?: mdns.DiscoveryService;
+
   private resolveLocalService(): void {
     this.resolveServiceStatus = this.serviceOperateStatus.RESOLVING;
     let context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
@@ -292,6 +295,11 @@ struct MdnsServiceDemo {
       hilog.error(0x0000, 'testTag', 'Context is undefined or null.');
       return;
     }
+    if (this.discoveryService) {
+      // 已在发现中，不重复创建实例，避免start/stop作用在不同实例上。
+      this.discoveryStatus = this.serviceOperateStatus.DISCOVERY_STARTED;
+      return;
+    }
     // [EndExclude  create_discovery_service_object]
     // 创建DiscoveryService对象，用于发现指定服务类型的MDNS服务。
     let serviceType = '_print._tcp';
@@ -303,6 +311,8 @@ struct MdnsServiceDemo {
       hilog.error(0x0000, 'testTag', 'Failed to create discovery service.');
       return;
     }
+    // 保存实例，供stopServiceDiscovery复用（同一实例内on/off、start/stop才能正确配对）。
+    this.discoveryService = discoveryService;
 
     // [Start discovery_service_on_method]
     // 订阅MDNS服务发现相关状态变化。
@@ -339,10 +349,14 @@ struct MdnsServiceDemo {
   }
 
   private async stopServiceDiscovery(): Promise<void> {
-    let context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
+    // 复用startServiceDiscovery创建的实例，stopSearchingMDNS/off才能作用于已注册的发现任务与回调。
+    let discoveryService: mdns.DiscoveryService | undefined = this.discoveryService;
+    if (!discoveryService) {
+      this.discoveryStatus = this.serviceOperateStatus.STOP_FAIL;
+      hilog.error(0x0000, 'testTag', 'Discovery service not started.');
+      return;
+    }
     this.discoveryStatus = this.serviceOperateStatus.STOPPING;
-    let serviceType = '_print._tcp';
-    let discoveryService = mdns.createDiscoveryService(context, serviceType);
 
     try {
       // [Start stop_searching_MDNS_method]
@@ -351,27 +365,15 @@ struct MdnsServiceDemo {
       // [End stop_searching_MDNS_method]
 
       // [Start discovery_service_off_method]
-      // 取消订阅的MDNS服务。
-      discoveryService.off('discoveryStart', (data: mdns.DiscoveryEventInfo) => {
-        hilog.info(0x0000, 'testTag', JSON.stringify(data));
-      });
-      discoveryService.off('discoveryStop', (data: mdns.DiscoveryEventInfo) => {
-        hilog.info(0x0000, 'testTag', JSON.stringify(data));
-      });
-      discoveryService.off('serviceFound', (data: mdns.LocalServiceInfo) => {
-        hilog.info(0x0000, 'testTag', JSON.stringify(data));
-        // [StartExclude discovery_service_off_method]
-        this.onServiceFound(data);
-        // [EndExclude discovery_service_off_method]
-      });
-      discoveryService.off('serviceLost', (data: mdns.LocalServiceInfo) => {
-        hilog.info(0x0000, 'testTag', JSON.stringify(data));
-        // [StartExclude discovery_service_off_method]
-        this.onServiceLost(data);
-        // [EndExclude discovery_service_off_method]
-      });
+      // 取消订阅的MDNS服务。不传入callback时，取消订阅该事件的所有回调。
+      discoveryService.off('discoveryStart');
+      discoveryService.off('discoveryStop');
+      discoveryService.off('serviceFound');
+      discoveryService.off('serviceLost');
       // [End discovery_service_off_method]
 
+      // 释放实例，下次start时重新创建并注册回调。
+      this.discoveryService = undefined;
       this.discoveryStatus = this.serviceOperateStatus.STOPPED;
     } catch (err) {
       this.discoveryStatus = this.serviceOperateStatus.STOP_FAIL;

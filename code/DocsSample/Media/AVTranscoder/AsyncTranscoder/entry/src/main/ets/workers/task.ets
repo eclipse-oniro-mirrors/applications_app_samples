@@ -25,15 +25,15 @@ const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
 workerPort.onmessage = async (event: MessageEvents) => {
   console.info(`onmessage in`);
   // [Start ExecuteTranscodingLogic]
-  //worker线程接收参数
+  // worker线程接收参数。
   const sendableObject: SendableObject = event.data;
   const sendableContext: sendableContextManager.SendableContext =
     sendableObject.getSendableContext() as sendableContextManager.SendableContext;
   const context: common.Context =
     sendableContextManager.convertToContext(sendableContext) as common.Context;
-  //执行转码逻辑
+  // 执行转码逻辑。
   await doSome(context);
-  // 向主线程发送消息
+  // 向主线程发送消息。
   workerPort.postMessage('start end');
   // [End ExecuteTranscodingLogic]
 };
@@ -53,7 +53,7 @@ async function doSome(context: common.Context) {
     let transcoder = await media.createAVTranscoder();
     
     // [Start transcoderCompleteCallback]
-    // 转码完成回调函数
+    // 转码完成回调函数。
     transcoder.on('complete', async () => {
       console.info(`transcode complete`);
       await transcoder?.release()
@@ -63,12 +63,12 @@ async function doSome(context: common.Context) {
       if (transcoder.fdSrc != undefined) {
         fs.closeSync(transcoder.fdSrc.fd);
       }
-      // 向主线程发送转码结束的消息
+      // 向主线程发送转码结束的消息。
       workerPort.postMessage('complete');
     })
     // [End transcoderCompleteCallback]
 
-    // 转码错误回调函数
+    // 转码错误回调函数。
     transcoder.on('error', async (err: BusinessError) => {
       await transcoder?.release();
       if (transcoder.fdDst != undefined) {
@@ -78,16 +78,16 @@ async function doSome(context: common.Context) {
         fs.closeSync(transcoder.fdSrc.fd);
       }
     })
-    // 转码进度更新
+    // 转码进度更新回调函数。
     transcoder.on('progressUpdate', (progress: number) => {
       console.info(`AVTranscoder progressUpdate = ${progress}`);
       workerPort.postMessage(progress);
     })
 
     try {
-      // 获取输入文件fd，3.mkv为rawfile目录下的预置资源，需要开发者根据实际情况进行替换。
+      // 获取输入文件fd，H264_AAC.mp4为rawfile目录下的预置资源，需要开发者根据实际情况进行替换。
       let fileDescriptor = await context.resourceManager.getRawFd('H264_AAC.mp4');
-      transcoder.fdSrc = fileDescriptor;
+      transcoder.fdSrc = fileDescriptor; // 设置fdSrc。
     } catch (error) {
       console.error('Failed to get the file descriptor, please check the resource and path.');
     }
@@ -98,10 +98,10 @@ async function doSome(context: common.Context) {
     transcoder.fdDst = file.fd;
 
     let config: media.AVTranscoderConfig = {
-      fileFormat: media.ContainerFormatType.CFT_MPEG_4,
-      audioCodec: media.CodecMimeType.AUDIO_AAC,
-      videoCodec: media.CodecMimeType.VIDEO_AVC,
-      videoBitrate: 200000,
+      fileFormat: media.ContainerFormatType.CFT_MPEG_4, // 封装格式。
+      audioCodec: media.CodecMimeType.AUDIO_AAC, // 音频编码格式。
+      videoCodec: media.CodecMimeType.VIDEO_AVC, // 视频编码格式。
+      videoBitrate: 200000, // 视频比特率。
     }
     await transcoder?.prepare(config);
     await transcoder?.start();

@@ -35,7 +35,7 @@ struct WebComponent {
                 if (!err) {
                   console.info('make call succeeded.');
                 } else {
-                  console.info('make call fail, err is:' + JSON.stringify(err));
+                  console.error('make call fail, err is:' + JSON.stringify(err));
                 }
               });
               return true;

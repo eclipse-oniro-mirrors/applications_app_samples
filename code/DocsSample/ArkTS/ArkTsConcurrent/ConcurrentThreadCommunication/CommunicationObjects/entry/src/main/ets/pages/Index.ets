@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2025-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -50,6 +50,14 @@ struct Index {
         CommonButton({
           buttonName: resource.resourceToString($r('app.string.Container_Object').id),
           buttonUrl: 'managers/ContainerObject'
+        });
+        CommonButton({
+          buttonName: resource.resourceToString($r('app.string.Worker_Send_ArrayBuffer').id),
+          buttonUrl: 'managers/WorkerSendArrayBuffer'
+        });
+        CommonButton({
+          buttonName: resource.resourceToString($r('app.string.Worker_Send_ArrayBuffer_With_Copy').id),
+          buttonUrl: 'managers/WorkerSendArrayBufferWithCopy'
         });
       }
       .padding('20vp')

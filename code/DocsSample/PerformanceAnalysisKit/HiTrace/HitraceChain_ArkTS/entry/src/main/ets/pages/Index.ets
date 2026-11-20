@@ -44,6 +44,8 @@ function testHiTraceIdPassedAutomatically() {
   hilog.info(0x0000, 'testTag', 'record with traceId at first task');
   test(10).then(()=>{
     hilog.info(0x0000, 'testTag', 'record with traceId at then function');
+  }).catch((err: Error) => {
+    hilog.error(0x0000, 'testTag', `test failed, code: ${err.message}`);
   })
   hiTraceChain.end(traceId);
   hilog.info(0x0000, 'testTag', 'hiTraceChain end in main thread');

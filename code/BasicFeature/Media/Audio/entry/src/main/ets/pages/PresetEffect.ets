@@ -149,7 +149,7 @@ struct DetectPresetEffect {
     let index2Content = new Map([
       [0, 0], [1, 1], [2, 2], [3, 3], [4, 4], [5, 5]
     ]);
-    console.info("get content type:" + index2Content.get(index));
+    console.info('get content type:' + index2Content.get(index));
     return index2Content.get(index);
   }
 
@@ -159,7 +159,7 @@ struct DetectPresetEffect {
       [0, 0], [1, 1], [2, 1], [3, 2], [4, 3], [5, 4], [6, 5], [7, 6],
       [8, 6], [9, 7], [10, 8], [11, 10], [12, 11], [13, 12], [14, 13]
     ]);
-    console.info("get stream usage:" + index2Usage.get(index));
+    console.info('get stream usage:' + index2Usage.get(index));
     return index2Usage.get(index);
   }
 
@@ -173,7 +173,7 @@ struct DetectPresetEffect {
               }
             }
             .onStateChange(async (isActivated: boolean) => {
-              console.info("hello");
+              console.info('hello');
               await router.pushUrl({ url: 'pages/Index' });
             })
           }

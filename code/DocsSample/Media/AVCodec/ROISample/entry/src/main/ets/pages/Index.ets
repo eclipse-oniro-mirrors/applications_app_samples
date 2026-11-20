@@ -44,6 +44,7 @@ struct Player {
   @State isFold: boolean = false;
   @State isTablet: boolean = false;
   @State isToStartLiveStream: boolean = false;
+  @State useNativeCamera: boolean = false;
   @State selectedRoiPathType: number = 0;
   @StorageLink(CommonConstants.KEY_PREFIX + 'statusBarHeight') statusBarHeight: number = 48;
   @Provide('pageStack') pageStack: NavPathStack = new NavPathStack();
@@ -198,6 +199,7 @@ struct Player {
             this.cameraData.roiFd = roiFile.fd;
             this.cameraData.isOpenEchoCancel = 1;
             this.cameraData.roiPathType = this.selectedRoiPathType;
+            this.cameraData.useNativeCamera = this.useNativeCamera;
             if (this.cameraData.outputFd >= 0) {
               let context = uiContext?.getHostContext() as common.UIAbilityContext;
               this.cameraController = new CameraController(this.cameraData, context);
@@ -245,6 +247,16 @@ struct Player {
           .id('title')
         Column() {
           Column() {
+            Text($r('app.string.camera_api_label'))
+              .fontSize('16vp')
+              .margin({ bottom: '8vp' })
+            Select([{ value: 'ArkTS' }, { value: 'Native (C/C++)' }])
+              .selected(this.useNativeCamera ? 1 : 0)
+              .value(this.useNativeCamera ? 'Native (C/C++)' : 'ArkTS')
+              .onSelect((index: number) => {
+                this.useNativeCamera = index === 1;
+              })
+              .margin({ bottom: '16vp' })
             Button($r('app.string.roi_path_native_buffer'), { buttonStyle: ButtonStyleMode.NORMAL })
               .size({
                 width: this.isFold || this.isTablet ? '328vp' : '100%',
@@ -294,7 +306,7 @@ struct Player {
         })
         .padding({ left: '16vp', right: '16vp', bottom: '32vp' })
         .width('100%')
-        .height('200vp')
+        .height('280vp')
         .justifyContent(FlexAlign.End)
         .id('buttons')
       }

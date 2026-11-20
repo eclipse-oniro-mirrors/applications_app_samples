@@ -1,11 +1,10 @@
-# 管理外置存储设备（仅对系统应用开放）
+# 管理外置存储设备
 
 ### 介绍
 
-本示例主要展示了基于外置存储设备具备可插拔属性，使用卷设备管理，实现设备插拔事件的监听及挂载功能。该工程中展示的代码详细描述可查如下链接。
+本示例通过订阅卷设备广播事件，实现外置存储设备插拔和挂载状态的监听，不依赖系统卷管理接口，无需申请特殊权限。
 
-- [卷设备管理](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/reference/apis-core-file-kit/js-apis-file-volumemanager-sys.md)
-- [管理外置存储设备](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/file-management/manage-external-storage.md)
+- [管理外置存储设备](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/file-management/manage-external-storage.md)
 
 ### 效果预览
 
@@ -15,46 +14,43 @@
 
 使用说明:
 
-1. 在主界面，点击SubscribeBroadcastEvents按钮订阅广播事件。
-2. 点击ReceiveBroadcastNotifications按钮接受广播通知。
-3. 将携带的u盘插入到开发板。
-4. 切换到Deveco日志，筛选到“No filter”，查询“volumeManager getVolumeById successfully”，出现以下类似日志：
-
-```
-volumeManager getVolumeById successfully, the volume state is 2, %{public}s
-```
+1. 在主界面，点击 `SubscribeBroadcastEvents` 按钮创建广播订阅者。
+2. 点击 `ReceiveBroadcastNotifications` 按钮开始接收卷设备广播。
+3. 将 U 盘插入开发板。
+4. 在 DevEco 日志中筛选 `Volume mounted`，可看到卷设备 id、状态和路径。
 
 ### 工程目录
 
 ```
 ├──entry/src/main
-|	├──ets
-|	|	├──common
-|	|	|	└──Logger.ts 		        // 日志打印封装类
-|	|	├──entryability
-|	|	|	└──EntryAbility.ets 		// 程序入口类
-|	|	├──entrybackupability
-|	|	|	└──EntryBackupAbility.ets   
-|	|	└──pages   						// 页面文件
-|	|		└──Index.ets 				// 主界面
-|	├──resources						// 资源文件目录
+│   ├──ets
+│   │   ├──common
+│   │   │   └──Logger.ts                    // 日志打印封装
+│   │   ├──entryability
+│   │   │   └──EntryAbility.ets             // 程序入口
+│   │   ├──entrybackupability
+│   │   │   └──EntryBackupAbility.ets
+│   │   └──pages
+│   │       └──Index.ets                    // 主界面
+│   └──resources                             // 资源文件目录
+└──ohosTest.md                               // 测试说明
 ```
 
 ### 具体实现
 
-* 申请ohos.permission.STORAGE_MANAGER权限。
-  
-* 订阅广播事件。 需订阅的事件如下：
-    * 卷设备移除：“usual.event.data.VOLUME_REMOVED”
-    * 卷设备卸载：“usual.event.data.VOLUME_UNMOUNTED”
-    * 卷设备挂载：“usual.event.data.VOLUME_MOUNTED”
-    * 卷设备异常移除：“usual.event.data.VOLUME_BAD_REMOVAL”
-    * 卷设备正在弹出：“usual.event.data.VOLUME_EJECT”
-* 收到广播通知后获取卷设备信息。
+* 使用 `commonEventManager.createSubscriber` 创建广播订阅者。
+* 订阅以下卷设备事件：
+    * `usual.event.data.VOLUME_REMOVED`
+    * `usual.event.data.VOLUME_UNMOUNTED`
+    * `usual.event.data.VOLUME_MOUNTED`
+    * `usual.event.data.VOLUME_BAD_REMOVAL`
+    * `usual.event.data.VOLUME_EJECT`
+* 使用 `commonEventManager.subscribe` 接收广播。
+* 收到 `VOLUME_MOUNTED` 后从广播参数读取 `id`、`volumeState`、`path`，并更新页面状态。
 
 ### 相关权限
 
-[ohos.permission.STORAGE_MANAGER](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/security/AccessToken/permissions-for-system-apps.md#ohospermissionstorage_manager)
+本示例使用广播事件获取卷设备信息，无需申请特殊权限。
 
 ### 依赖
 
@@ -64,11 +60,13 @@ volumeManager getVolumeById successfully, the volume state is 2, %{public}s
 
 1.本示例仅支持标准系统上运行，支持设备：RK3568。
 
-2.本示例已适配API16版本SDK，版本号：5.1.0.47，镜像版本号：OpenHarmony5.1.0.47。
+2.本示例已适配API 26版本SDK，版本号（26.0.0）。
 
-3.本示例需要使用DevEco Studio （5.0.3.910）及以上版本才可编译运行。
+3.本示例需要使用DevEco Studio （26.0.0）及以上版本才可编译运行。
 
-4.本示例相关权限为system_basic级别，需要配置高权限签名，可参考[申请使用受控权限](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/security/AccessToken/declare-permissions-in-acl.md)。
+### 测试
+
+自动化测试说明见 [ohosTest.md](./ohosTest.md)。
 
 ### 下载
 
@@ -78,6 +76,6 @@ volumeManager getVolumeById successfully, the volume state is 2, %{public}s
 git init
 git config core.sparsecheckout true
 echo code/DocsSample/CoreFile/UserFile/ManagingExternalStorageDevices > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

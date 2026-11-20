@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
-import TestRunner from '@ohos.application.testRunner'
-import AbilityDelegatorRegistry from '@ohos.application.abilityDelegatorRegistry'
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { TestRunner } from '@kit.TestKit'
+import { abilityDelegatorRegistry as AbilityDelegatorRegistry } from '@kit.TestKit'
 
 var abilityDelegator = undefined
 var abilityDelegatorArguments = undefined

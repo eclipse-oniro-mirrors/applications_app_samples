@@ -14,6 +14,7 @@
  */
 // [Start hmac_spec_async]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { buffer } from '@kit.ArkTS';
 
 async function genSymKeyByData(symKeyData: Uint8Array) {
@@ -24,22 +25,30 @@ async function genSymKeyByData(symKeyData: Uint8Array) {
   return symKey;
 }
 async function doHmac() {
-  // 把字符串按utf-8编码为Uint8Array，使用固定的128位的密钥，即16字节。
-  let keyData = new Uint8Array(buffer.from('12345678abcdefgh', 'utf-8').buffer);
-  let key = await genSymKeyByData(keyData);
-  let spec: cryptoFramework.HmacSpec = {
+  try {
+    // 把字符串按utf-8编码为Uint8Array，使用固定的128位的密钥，即16字节。
+    let keyData = new Uint8Array(buffer.from('12345678abcdefgh', 'utf-8').buffer);
+    let key = await genSymKeyByData(keyData);
+    let spec: cryptoFramework.HmacSpec = {
       algName: 'HMAC',
       mdName: 'SHA256',
-  };
-  let message = 'hmacTestMessage'; // 待进行HMAC的数据。
-  let mac = cryptoFramework.createMac(spec);
-  await mac.init(key);
-  // 数据量较少时，可以只做一次update，将所有数据传入，接口不对参数长度设限。
-  await mac.update({ data: new Uint8Array(buffer.from(message, 'utf-8').buffer) });
-  let macResult = await mac.doFinal();
-  console.info('HMAC result: ' + macResult.data);
-  let macLen = mac.getMacLength();
-  console.info('HMAC len: ' + macLen);
+    };
+    let message = 'hmacTestMessage'; // 待进行HMAC的数据。
+    let mac = cryptoFramework.createMac(spec);
+    await mac.init(key);
+    // 数据量较少时，可以只做一次update，将所有数据传入，接口不对参数长度设限。
+    await mac.update({ data: new Uint8Array(buffer.from(message, 'utf-8').buffer) });
+    let macResult = await mac.doFinal();
+    console.info('HMAC result: ' + macResult.data);
+    let macLen = mac.getMacLength();
+    console.info('HMAC len: ' + macLen);
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude hmac_spec_async]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude hmac_spec_async]
+  }
 }
 
 
@@ -54,9 +63,9 @@ struct Index {
       Text(this.message).fontSize(20).fontWeight(FontWeight.Bold)
       Button($r('app.string.call_hmac_spec_async'))
         .width('70%')
-        .onClick(() => {
+        .onClick(async () => {
           try {
-            doHmac();
+            await doHmac();
             this.message = 'HMAC Spec Async Success';
           } catch {
             this.message = 'HMAC Spec Async Fail';

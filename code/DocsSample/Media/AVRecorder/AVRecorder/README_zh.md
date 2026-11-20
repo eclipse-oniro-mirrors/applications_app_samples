@@ -4,11 +4,11 @@
 
 音视频录制应用是基于AVRecorder接口开发的实现音频录制和视频录制功能的应用，音视频录制的主要工作是捕获音频信号，接收视频信号，完成音视频编码并保存到文件中，帮助开发者轻松实现音视频录制功能，包括开始录制、暂停录制、恢复录制、停止录制、释放资源等功能控制。它允许调用者指定录制的图像size、音频采样频率等参数。
 
-本示例同时提供ArkTS接口和C(NDK)接口两种实现方式：
+本示例同时提供ArkTS接口和C(Native)接口两种实现方式：
 
 - ArkTS接口实现主要使用@ohos.multimedia.media中的AVRecorder接口；通过@ohos.file.fs接口支持，完成录制文件的创建，接口使用以及权限获取详见[文件管理](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-core-file-kit/Readme-CN.md)。使用@ohos.multimedia.camera接口，实现了相机预览及出流功能，接口使用以及权限获取详见[相机管理](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-camera-kit/arkts-apis-camera.md)。
 
-- C(NDK)接口实现使用OH_AVRecorder系列C接口，通过NAPI机制将C接口封装为ArkTS可调用的模块，实现了录制器的创建、配置、录控操作等功能。相机预览及出流同样通过@ohos.multimedia.camera接口实现。
+- C(Native)接口实现使用OH_AVRecorder系列C接口，通过NAPI机制将C接口封装为ArkTS可调用的模块，实现了录制器的创建、配置、录控操作等功能。相机预览及出流同样通过@ohos.multimedia.camera接口实现。
 
 ### 效果预览
 
@@ -24,11 +24,11 @@
 2. 点击视频录制页面，进入页面呈现摄像头预览画面，用户可以通过点击左上角的设置图标进行视频分辨率参数设置，点击"开始""暂停""恢复""停止"等对应图标按钮进行视频录控相关操作。
 3. 点击音频录制页面，用户可以通过点击左上角的设置图标进行音频采样率参数设置，点击"开始""暂停""恢复""停止"等对应图标按钮进行音频录控相关操作。
 
-**C(NDK)接口：**
+**C(Native)接口：**
 
-4. 在主界面，可以点击视频录制(NDK)、音频录制(NDK)进入对应功能界面。
-5. 点击视频录制(NDK)页面，进入页面呈现摄像头预览画面，点击"开始""暂停""恢复""停止"等对应图标按钮进行视频录控相关操作。
-6. 点击音频录制(NDK)页面，点击"开始""暂停""恢复""停止"等对应图标按钮进行音频录控相关操作。
+4. 在主界面，可以点击视频录制(Native)、音频录制(Native)进入对应功能界面。
+5. 点击视频录制(Native)页面，进入页面呈现摄像头预览画面，点击"开始""暂停""恢复""停止"等对应图标按钮进行视频录控相关操作。
+6. 点击音频录制(Native)页面，点击"开始""暂停""恢复""停止"等对应图标按钮进行音频录控相关操作。
 
 7. 在RK板硬件平台上，录制功能的性能可能受限，请在多种设备上进行测试以确保兼容性。
 
@@ -41,14 +41,14 @@ entry/src/main/
 |   |   |---EntryAbility.ets                   // 能力生命周期管理
 |   |---pages
 |   |   |---AudioRecorder.ets                  // 音频录制页面（ArkTS接口）
-|   |   |---AudioRecorderNDK.ets               // 音频录制页面（NDK接口）
+|   |   |---AudioRecorderNative.ets               // 音频录制页面（Native接口）
 |   |   |---Index.ets                          // 首页，选择录制方式
 |   |   |---VideoRecorder.ets                  // 视频录制页面（ArkTS接口）
-|   |   |---VideoRecorderNDK.ets               // 视频录制页面（NDK接口）
+|   |   |---VideoRecorderNative.ets               // 视频录制页面（Native接口）
 |   |---services
 |   |   |---AVRecorderService.ets              // 音视频录制相关接口调用（ArkTS）
 |   |   |---CameraService.ets                  // 相机相关接口调用（ArkTS）
-|   |   |---CameraServiceNDK.ets               // 相机相关接口调用（NDK）
+|   |   |---CameraServiceNative.ets               // 相机相关接口调用（Native）
 |   |   |---CommonTypes.ets                    // 公共类型定义
 |   |---utils
 |   |   |---DateTimeUtil                       // 录制显示时间转换函数
@@ -57,7 +57,7 @@ entry/src/main/
 |---cpp
 |   |---types/libentry
 |   |   |---Index.d.ts                         // C++ 原生模块的 ArkTS 类型声明
-|   |---avrecorder_ndk.cpp                     // AVRecorder 的 C++ 原生接口实现
+|   |---native-cpp                     // Native C++ implementation directory
 |   |---CMakeLists.txt                         // 定义 C++ 原生模块的 CMake 构建配置
 ```
 
@@ -68,10 +68,10 @@ entry/src/main/
   * 视频录制[VideoRecorder.ets](entry/src/main/ets/pages/VideoRecorder.ets)调用Camera接口实现相机出流配合视频录制功能，相机的实现方法参考自相机接口[@ohos.multimedia.camera](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-camera-kit/arkts-apis-camera.md)
 * 调用文件基础服务接口实现创建录制文件代码在[RecorderFileUtil.ets](entry/src/main/ets/utils/RecorderFileUtil.ets)，实现方法参考[@ohos.file.fs](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-core-file-kit/Readme-CN.md)接口说明
 
-* C(NDK)接口录控功能实现参考工程目录中的NDK音频录制页面和NDK视频录制页面
+* C(Native)接口录控功能实现参考工程目录中的Native音频录制页面和Native视频录制页面
   * 通过NAPI调用OH_AVRecorder_Create()、OH_AVRecorder_Prepare()、OH_AVRecorder_GetInputSurface()、OH_AVRecorder_Start()、OH_AVRecorder_Pause()、OH_AVRecorder_Resume()、OH_AVRecorder_Stop()、OH_AVRecorder_Reset()、OH_AVRecorder_Release()等C接口实现录制器的创建、准备、录控操作、重置、销毁实例等功能；
-  * NDK录控功能C接口实现详见[avrecorder_ndk.cpp](entry/src/main/cpp/avrecorder_ndk.cpp)
-  * 视频录制[VideoRecorderNDK.ets](entry/src/main/ets/pages/VideoRecorderNDK.ets)调用Camera接口实现相机出流配合视频录制功能
+  * Native录控功能C接口实现详见[entry/src/main/cpp](entry/src/main/cpp)
+  * 视频录制[VideoRecorderNative.ets](entry/src/main/ets/pages/VideoRecorderNative.ets)调用Camera接口实现相机出流配合视频录制功能
 
 ### 相关权限
 
@@ -95,13 +95,19 @@ entry/src/main/
 
 ### 约束与限制
 
-1.本示例仅支持在标准系统上运行，支持设备：Phone。
+1.本示例仅支持在标准系统上运行，支持设备：`default`（deviceType），已在 32 位 OpenHarmony 开发板上验证。
 
-2.本示例推荐使用当前最新版本的API和SDK编译运行。
+2.本示例已适配 API version 26.0.0（`compileSdkVersion: "26.0.0"`，OpenHarmony 26.0.0.38 Release SDK），`runtimeOS` 为 `OpenHarmony`。
 
-3.本示例推荐使用当前最新版本的DevEco Studio。
+3.本示例需要使用 DevEco Studio 26.0.0 Release 及以上版本编译运行。
 
 4.相机、媒体库为系统接口，需要配置高权限签名，相关权限级别可查阅权限列表，需要配置系统应用签名，可以参考[特殊权限配置方法](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/hapsigntool-overview.md)。
+
+5.初次启动需允许相机、麦克风、媒体读写权限，否则无法录制。
+
+6.Native 原生库已包含 `armeabi-v7a`、`arm64-v8a`、`x86_64` 三个 ABI，以兼容 32 位开发板。
+
+7.已知限制：在当前 32 位开发板上，Native 视频录制能进入录制状态但编码器不产帧，输出文件仅约 0.5 KB；ArkTS 视频录制与 Native 音频录制输出正常。
 
 ### 下载
 

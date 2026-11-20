@@ -14,7 +14,57 @@
 */
 
 import abilityTest from './Ability.test';
+import hintGcGuardTest from './HintGcGuard.test';
+import cyclicReferenceMatrixTest from './CyclicReferenceMatrix.test';
+import cyclicReferenceSequenceTest from './CyclicReferenceSequence.test';
+import gcRuntimeStatTableTest from './GcRuntimeStatTable.test';
+import vmMemoryInvariantTest from './VmMemoryInvariant.test';
+import bundleConfigGuardTest from './BundleConfigGuard.test';
+import resourceGuardTest from './ResourceGuard.test';
+import gcWeakRefLifecycleTest from './GcWeakRefLifecycle.test';
+import gcFinalizationRegistryTest from './GcFinalizationRegistry.test';
+import gcObjectGraphTest from './GcObjectGraph.test';
+import gcStatSamplingTest from './GcStatSampling.test';
+import gcStatErrorMatrixTest from './GcStatErrorMatrix.test';
+import bundleSelfInfoTest from './BundleSelfInfo.test';
+import resourceStringMatrixTest from './ResourceStringMatrix.test';
+import resourceColorMatrixTest from './ResourceColorMatrix.test';
+import resourceMediaMatrixTest from './ResourceMediaMatrix.test';
+import bundleModuleMatrixTest from './BundleModuleMatrix.test';
+import bundleErrorMatrixTest from './BundleErrorMatrix.test';
+import appContextMatrixTest from './AppContextMatrix.test';
 
+import abilityLifecycleSequenceTest from './AbilityLifecycleSequence.test';
+import indexUiTest from './IndexUi.test';
+import abilityLifecycleMatrixTest from './AbilityLifecycleMatrix.test';
+import abilityWindowMatrixTest from './AbilityWindowMatrix.test';
+import runtimeIntegrationMatrixTest from './RuntimeIntegrationMatrix.test';
+import vmHeapMatrixTest from './VmHeapMatrix.test';
 export default function testsuite() {
   abilityTest();
+  hintGcGuardTest();
+  cyclicReferenceMatrixTest();
+  cyclicReferenceSequenceTest();
+  gcRuntimeStatTableTest();
+  vmMemoryInvariantTest();
+  bundleConfigGuardTest();
+  resourceGuardTest();
+  gcWeakRefLifecycleTest();
+  gcFinalizationRegistryTest();
+  gcObjectGraphTest();
+  gcStatSamplingTest();
+  gcStatErrorMatrixTest();
+  bundleSelfInfoTest();
+  resourceStringMatrixTest();
+  resourceColorMatrixTest();
+  resourceMediaMatrixTest();
+  bundleModuleMatrixTest();
+  bundleErrorMatrixTest();
+  appContextMatrixTest();
+  abilityLifecycleSequenceTest();
+  indexUiTest();
+  abilityLifecycleMatrixTest();
+  abilityWindowMatrixTest();
+  runtimeIntegrationMatrixTest();
+  vmHeapMatrixTest();
 }

@@ -16,7 +16,11 @@
 export const initNative: (fd: number, videoCodecMime: string, width: number, height: number,
   frameRate: number, isHDRVivid: number, bitRate: number, format: number, isSync: number,
   outputFormat: number, bitrateMode: number, iFrameInterval: number, audioSampleRate: number,
-  audioChannelCount: number, audioBitRate: number, audioLatencyMode: number) => Promise<Response>
+  audioChannelCount: number, audioBitRate: number, audioLatencyMode: number, secondaryFd?: number,
+  enableDualOutput?: number, preprocMode?: number, downsamplingWidth?: number,
+  downsamplingHeight?: number, dropToFrameRate?: number, cropLeft?: number, cropTop?: number,
+  cropRight?: number, cropBottom?: number, secondaryWidth?: number, secondaryHeight?: number,
+  enableVideoDump?: number, videoDumpPath?: string, secondaryVideoDumpPath?: string) => Promise<Response>
 
 export const startNative: () => void
 

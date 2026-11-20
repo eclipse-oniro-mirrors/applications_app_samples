@@ -31,7 +31,7 @@ struct WebComponent {
             // 设置为true时同时清除rom和ram中的缓存，设置为false时只清除ram中的缓存
             this.controller.removeCache(true);
           } catch (error) {
-            console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+            console.error(`ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         });
       Web({ src: 'www.example.com', controller: this.controller })

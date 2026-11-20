@@ -1,0 +1,879 @@
+{
+  "string": [
+    {
+      "name": "ns_app_title",
+      "value": "网络安全校验与网络策略",
+      "description": "页面主标题"
+    },
+    {
+      "name": "ns_app_slogan",
+      "value": "证书校验、明文 HTTP 策略与系统网络策略管理演示",
+      "description": "页面副标题"
+    },
+    {
+      "name": "ns_tab_security",
+      "value": "安全校验",
+      "description": "安全校验页签名称"
+    },
+    {
+      "name": "ns_tab_policy",
+      "value": "网络策略",
+      "description": "网络策略页签名称"
+    },
+    {
+      "name": "ns_section_log_title",
+      "value": "操作日志",
+      "description": "日志卡片标题"
+    },
+    {
+      "name": "ns_log_clear",
+      "value": "清空",
+      "description": "清空日志按钮文案"
+    },
+    {
+      "name": "ns_log_empty",
+      "value": "暂无操作记录",
+      "description": "日志为空提示"
+    },
+    {
+      "name": "ns_common_none",
+      "value": "暂无数据",
+      "description": "数据为空提示"
+    },
+    {
+      "name": "ns_common_dash",
+      "value": "—",
+      "description": "空值占位符"
+    },
+    {
+      "name": "ns_common_allowed",
+      "value": "允许",
+      "description": "允许状态"
+    },
+    {
+      "name": "ns_common_denied",
+      "value": "禁止",
+      "description": "禁止状态"
+    },
+    {
+      "name": "ns_common_supported",
+      "value": "通过",
+      "description": "自检通过状态"
+    },
+    {
+      "name": "ns_common_limited",
+      "value": "受限",
+      "description": "自检受限状态"
+    },
+    {
+      "name": "ns_common_query",
+      "value": "查询",
+      "description": "查询按钮文案"
+    },
+    {
+      "name": "ns_common_refresh",
+      "value": "刷新",
+      "description": "刷新按钮文案"
+    },
+    {
+      "name": "ns_common_uid",
+      "value": "当前 UID",
+      "description": "当前应用 UID 标签"
+    },
+    {
+      "name": "ns_common_input_host",
+      "value": "输入主机名",
+      "description": "主机名输入框提示"
+    },
+    {
+      "name": "ns_sec_intro_title",
+      "value": "安全校验说明",
+      "description": "安全校验页顶部提示卡标题"
+    },
+    {
+      "name": "ns_sec_intro_desc",
+      "value": "演示 @ohos.net.networkSecurity 的证书校验与明文 HTTP 策略查询能力",
+      "description": "安全校验页顶部提示卡副标题"
+    },
+    {
+      "name": "ns_sec_intro_detail",
+      "value": "同步、异步与证书链三种方式校验内置示例证书；HTTP 探测受 network_config.json 的 domain-config 控制，被禁止的域名会返回错误码 2300997。",
+      "description": "安全校验页顶部提示卡说明"
+    },
+    {
+      "name": "ns_sec_section_env_title",
+      "value": "运行环境",
+      "description": "运行环境卡片标题"
+    },
+    {
+      "name": "ns_sec_section_env_desc",
+      "value": "默认网络、承载类型、MTU 与明文策略状态",
+      "description": "运行环境卡片副标题"
+    },
+    {
+      "name": "ns_sec_env_hint",
+      "value": "检查项随系统网络状态变化",
+      "description": "运行环境检查提示"
+    },
+    {
+      "name": "ns_sec_env_default_net",
+      "value": "默认网络",
+      "description": "默认网络检查项标签"
+    },
+    {
+      "name": "ns_sec_env_bearer",
+      "value": "承载类型",
+      "description": "承载类型检查项标签"
+    },
+    {
+      "name": "ns_sec_env_mtu",
+      "value": "链路 MTU",
+      "description": "MTU 检查项标签"
+    },
+    {
+      "name": "ns_sec_env_dns",
+      "value": "DNS 服务器数量",
+      "description": "DNS 数量检查项标签"
+    },
+    {
+      "name": "ns_sec_env_cleartext",
+      "value": "全局明文开关",
+      "description": "全局明文开关检查项标签"
+    },
+    {
+      "name": "ns_sec_env_cleartext_api",
+      "value": "按主机名查询",
+      "description": "主机名明文查询能力标签"
+    },
+    {
+      "name": "ns_sec_section_cert_title",
+      "value": "证书文件",
+      "description": "证书文件卡片标题"
+    },
+    {
+      "name": "ns_sec_section_cert_desc",
+      "value": "选择内置证书后执行同步校验、异步校验或带主机名的证书链校验",
+      "description": "证书文件卡片副标题"
+    },
+    {
+      "name": "ns_sec_cert_ca_label",
+      "value": "根 CA 证书",
+      "description": "根证书名称"
+    },
+    {
+      "name": "ns_sec_cert_ca_detail",
+      "value": "示例根证书，作为其他证书的信任锚",
+      "description": "根证书用途说明"
+    },
+    {
+      "name": "ns_sec_cert_server_label",
+      "value": "服务器证书",
+      "description": "服务器证书名称"
+    },
+    {
+      "name": "ns_sec_cert_server_detail",
+      "value": "由根 CA 签发，SAN 包含 netsecurity.sample.com",
+      "description": "服务器证书用途说明"
+    },
+    {
+      "name": "ns_sec_cert_self_label",
+      "value": "自签名证书",
+      "description": "自签名证书名称"
+    },
+    {
+      "name": "ns_sec_cert_self_detail",
+      "value": "同主体自签名，缺少可信信任锚",
+      "description": "自签名证书用途说明"
+    },
+    {
+      "name": "ns_sec_cert_expired_label",
+      "value": "过期证书",
+      "description": "过期证书名称"
+    },
+    {
+      "name": "ns_sec_cert_expired_detail",
+      "value": "有效期已结束，校验应失败",
+      "description": "过期证书用途说明"
+    },
+    {
+      "name": "ns_sec_cert_issuer",
+      "value": "颁发者",
+      "description": "证书颁发者标签"
+    },
+    {
+      "name": "ns_sec_cert_not_before",
+      "value": "生效时间",
+      "description": "证书生效时间标签"
+    },
+    {
+      "name": "ns_sec_cert_not_after",
+      "value": "过期时间",
+      "description": "证书过期时间标签"
+    },
+    {
+      "name": "ns_sec_cert_version",
+      "value": "版本",
+      "description": "证书版本标签"
+    },
+    {
+      "name": "ns_sec_cert_serial",
+      "value": "序列号",
+      "description": "证书序列号标签"
+    },
+    {
+      "name": "ns_sec_cert_verify_sync",
+      "value": "同步校验",
+      "description": "同步校验按钮文案"
+    },
+    {
+      "name": "ns_sec_cert_verify_async",
+      "value": "异步校验",
+      "description": "异步校验按钮文案"
+    },
+    {
+      "name": "ns_sec_cert_verify_chain",
+      "value": "链校验",
+      "description": "证书链校验按钮文案"
+    },
+    {
+      "name": "ns_sec_cert_result_code",
+      "value": "返回码",
+      "description": "校验返回码标签"
+    },
+    {
+      "name": "ns_sec_cert_result_message",
+      "value": "结果说明",
+      "description": "校验结果说明标签"
+    },
+    {
+      "name": "ns_sec_cert_result_elapsed",
+      "value": "耗时",
+      "description": "校验耗时标签"
+    },
+    {
+      "name": "ns_sec_section_cleartext_title",
+      "value": "明文 HTTP 策略",
+      "description": "明文策略卡片标题"
+    },
+    {
+      "name": "ns_sec_section_cleartext_desc",
+      "value": "查询全局开关，并按主机名判断明文访问是否被允许",
+      "description": "明文策略卡片副标题"
+    },
+    {
+      "name": "ns_sec_cleartext_global_label",
+      "value": "全局明文允许",
+      "description": "全局明文策略标签"
+    },
+    {
+      "name": "ns_sec_cleartext_host_label",
+      "value": "主机明文允许",
+      "description": "主机明文策略标签"
+    },
+    {
+      "name": "ns_sec_cleartext_host_name",
+      "value": "主机名",
+      "description": "最近查询的主机名标签"
+    },
+    {
+      "name": "ns_sec_section_probe_title",
+      "value": "HTTP 探测",
+      "description": "HTTP 探测卡片标题"
+    },
+    {
+      "name": "ns_sec_section_probe_desc",
+      "value": "分别探测被允许与被禁止明文的主机，对比返回结果",
+      "description": "HTTP 探测卡片副标题"
+    },
+    {
+      "name": "ns_sec_probe_allowed_btn",
+      "value": "探测允许域名",
+      "description": "探测允许域名按钮文案"
+    },
+    {
+      "name": "ns_sec_probe_denied_btn",
+      "value": "探测禁止域名",
+      "description": "探测禁止域名按钮文案"
+    },
+    {
+      "name": "ns_sec_section_error_title",
+      "value": "错误码解读",
+      "description": "错误码解读卡片标题"
+    },
+    {
+      "name": "ns_sec_section_error_desc",
+      "value": "最近一次失败结果的错误码、原因与建议",
+      "description": "错误码解读卡片副标题"
+    },
+    {
+      "name": "ns_err_201_title",
+      "value": "权限校验失败",
+      "description": "错误码 201 标题"
+    },
+    {
+      "name": "ns_err_201_reason",
+      "value": "应用缺少所需权限，或调用方身份校验未通过。",
+      "description": "错误码 201 原因"
+    },
+    {
+      "name": "ns_err_201_suggestion",
+      "value": "确认 module.json5 已声明所需权限，并检查调用上下文。",
+      "description": "错误码 201 建议"
+    },
+    {
+      "name": "ns_err_202_title",
+      "value": "非系统应用调用",
+      "description": "错误码 202 标题"
+    },
+    {
+      "name": "ns_err_202_reason",
+      "value": "该接口仅对系统应用或系统服务开放。",
+      "description": "错误码 202 原因"
+    },
+    {
+      "name": "ns_err_202_suggestion",
+      "value": "改用公开接口，或使用系统应用签名重新安装。",
+      "description": "错误码 202 建议"
+    },
+    {
+      "name": "ns_err_401_title",
+      "value": "参数错误",
+      "description": "错误码 401 标题"
+    },
+    {
+      "name": "ns_err_401_reason",
+      "value": "传入的证书数据或主机名不合法。",
+      "description": "错误码 401 原因"
+    },
+    {
+      "name": "ns_err_401_suggestion",
+      "value": "检查 PEM 文本是否完整，主机名不能为空。",
+      "description": "错误码 401 建议"
+    },
+    {
+      "name": "ns_err_2300997_title",
+      "value": "明文流量被拦截",
+      "description": "错误码 2300997 标题"
+    },
+    {
+      "name": "ns_err_2300997_reason",
+      "value": "network_config.json 未允许该域名使用 http 明文访问。",
+      "description": "错误码 2300997 原因"
+    },
+    {
+      "name": "ns_err_2300997_suggestion",
+      "value": "改用 https，或在 domain-config 中显式允许该域名。",
+      "description": "错误码 2300997 建议"
+    },
+    {
+      "name": "ns_err_2305001_title",
+      "value": "未指定错误",
+      "description": "错误码 2305001 标题"
+    },
+    {
+      "name": "ns_err_2305001_reason",
+      "value": "证书校验过程中发生未指定的内部错误。",
+      "description": "错误码 2305001 原因"
+    },
+    {
+      "name": "ns_err_2305001_suggestion",
+      "value": "结合 hilog 日志继续排查，或更换证书后重试。",
+      "description": "错误码 2305001 建议"
+    },
+    {
+      "name": "ns_err_2305002_title",
+      "value": "无法获取签发者证书",
+      "description": "错误码 2305002 标题"
+    },
+    {
+      "name": "ns_err_2305002_reason",
+      "value": "证书链中缺少签发者证书，无法定位上一级 CA。",
+      "description": "错误码 2305002 原因"
+    },
+    {
+      "name": "ns_err_2305002_suggestion",
+      "value": "同时传入签发该证书的 CA 证书后重试。",
+      "description": "错误码 2305002 建议"
+    },
+    {
+      "name": "ns_err_2305004_title",
+      "value": "证书签名无法解密",
+      "description": "错误码 2305004 标题"
+    },
+    {
+      "name": "ns_err_2305004_reason",
+      "value": "无法使用签发者公钥解密证书签名。",
+      "description": "错误码 2305004 原因"
+    },
+    {
+      "name": "ns_err_2305004_suggestion",
+      "value": "确认证书与 CA 证书的签发关系是否匹配。",
+      "description": "错误码 2305004 建议"
+    },
+    {
+      "name": "ns_err_2305007_title",
+      "value": "证书签名校验失败",
+      "description": "错误码 2305007 标题"
+    },
+    {
+      "name": "ns_err_2305007_reason",
+      "value": "证书签名与签发者公钥验证结果不一致。",
+      "description": "错误码 2305007 原因"
+    },
+    {
+      "name": "ns_err_2305007_suggestion",
+      "value": "确认证书未被篡改，并检查与 CA 的签发关系。",
+      "description": "错误码 2305007 建议"
+    },
+    {
+      "name": "ns_err_2305009_title",
+      "value": "证书尚未生效",
+      "description": "错误码 2305009 标题"
+    },
+    {
+      "name": "ns_err_2305009_reason",
+      "value": "当前时间早于证书的生效时间。",
+      "description": "错误码 2305009 原因"
+    },
+    {
+      "name": "ns_err_2305009_suggestion",
+      "value": "检查设备系统时间，或更换已生效的证书。",
+      "description": "错误码 2305009 建议"
+    },
+    {
+      "name": "ns_err_2305010_title",
+      "value": "证书已过期",
+      "description": "错误码 2305010 标题"
+    },
+    {
+      "name": "ns_err_2305010_reason",
+      "value": "当前时间晚于证书的失效时间。",
+      "description": "错误码 2305010 原因"
+    },
+    {
+      "name": "ns_err_2305010_suggestion",
+      "value": "更换仍在有效期内的证书后重试。",
+      "description": "错误码 2305010 建议"
+    },
+    {
+      "name": "ns_err_2305011_title",
+      "value": "CRL 尚未生效",
+      "description": "错误码 2305011 标题"
+    },
+    {
+      "name": "ns_err_2305011_reason",
+      "value": "当前时间早于 CRL 的生效时间。",
+      "description": "错误码 2305011 原因"
+    },
+    {
+      "name": "ns_err_2305011_suggestion",
+      "value": "获取最新的 CRL 后重试。",
+      "description": "错误码 2305011 建议"
+    },
+    {
+      "name": "ns_err_2305012_title",
+      "value": "CRL 已过期",
+      "description": "错误码 2305012 标题"
+    },
+    {
+      "name": "ns_err_2305012_reason",
+      "value": "当前时间晚于 CRL 的失效时间。",
+      "description": "错误码 2305012 原因"
+    },
+    {
+      "name": "ns_err_2305012_suggestion",
+      "value": "更新 CRL 后重试。",
+      "description": "错误码 2305012 建议"
+    },
+    {
+      "name": "ns_err_2305018_title",
+      "value": "自签名证书",
+      "description": "错误码 2305018 标题"
+    },
+    {
+      "name": "ns_err_2305018_reason",
+      "value": "被校验证书为自签名证书，无法构建到可信信任锚的证书链。",
+      "description": "错误码 2305018 原因"
+    },
+    {
+      "name": "ns_err_2305018_suggestion",
+      "value": "自签名证书仅用于演示校验失败场景；生产环境请使用由可信 CA 签发的证书。",
+      "description": "错误码 2305018 建议"
+    },
+    {
+      "name": "ns_err_2305069_title",
+      "value": "证书校验上下文无效",
+      "description": "错误码 2305069 标题"
+    },
+    {
+      "name": "ns_err_2305069_reason",
+      "value": "verifyCertChain 传入的证书链、CA 或主机名参数不合法。",
+      "description": "错误码 2305069 原因"
+    },
+    {
+      "name": "ns_err_2305069_suggestion",
+      "value": "核对证书链顺序、CA 证书与主机名参数后重试。",
+      "description": "错误码 2305069 建议"
+    },
+    {
+      "name": "ns_err_unknown_title",
+      "value": "未知错误码",
+      "description": "未收录错误码标题"
+    },
+    {
+      "name": "ns_err_unknown_reason",
+      "value": "该错误码未包含在示例的解读范围内。",
+      "description": "未收录错误码原因"
+    },
+    {
+      "name": "ns_err_unknown_suggestion",
+      "value": "结合 hilog 日志与官方错误码文档继续排查。",
+      "description": "未收录错误码建议"
+    },
+    {
+      "name": "ns_pol_notice_title",
+      "value": "系统接口说明",
+      "description": "网络策略页顶部说明标题"
+    },
+    {
+      "name": "ns_pol_notice_desc",
+      "value": "@ohos.net.policy 中除 getNetAccessPolicy() 与 showAppNetPolicySettings() 外均为 @systemapi，需要 ohos.permission.MANAGE_NET_STRATEGY（system_basic 权限），只有使用 Full SDK 并以系统签名打包的应用才能调用。普通签名设备上调用会返回 202 或 201，本页面会捕获错误、记录日志并跳过，不会崩溃。",
+      "description": "网络策略页系统接口说明正文"
+    },
+    {
+      "name": "ns_pol_access_title",
+      "value": "应用网络访问策略",
+      "description": "公开访问策略卡片标题"
+    },
+    {
+      "name": "ns_pol_access_desc",
+      "value": "公开接口 getNetAccessPolicy()（API 26，无需权限）读取当前应用是否允许使用 Wi-Fi 与蜂窝网络。",
+      "description": "公开访问策略卡片说明"
+    },
+    {
+      "name": "ns_pol_access_wifi",
+      "value": "Wi-Fi 网络",
+      "description": "Wi-Fi 访问策略标签"
+    },
+    {
+      "name": "ns_pol_access_cellular",
+      "value": "蜂窝网络",
+      "description": "蜂窝访问策略标签"
+    },
+    {
+      "name": "ns_pol_access_unavailable",
+      "value": "公开接口读取失败，请稍后重试",
+      "description": "公开访问策略读取失败提示"
+    },
+    {
+      "name": "ns_pol_access_settings",
+      "value": "打开系统设置",
+      "description": "打开系统网络访问设置页按钮"
+    },
+    {
+      "name": "ns_pol_background_title",
+      "value": "后台联网策略",
+      "description": "后台联网策略卡片标题"
+    },
+    {
+      "name": "ns_pol_background_desc",
+      "value": "setBackgroundAllowed / isBackgroundAllowed / getBackgroundPolicyByUid 控制后台应用是否可以使用计量网络。",
+      "description": "后台联网策略卡片说明"
+    },
+    {
+      "name": "ns_pol_background_allow",
+      "value": "允许后台联网",
+      "description": "后台联网开关标签"
+    },
+    {
+      "name": "ns_pol_background_allow_desc",
+      "value": "关闭后后台应用无法使用计量网络访问网络",
+      "description": "后台联网开关说明"
+    },
+    {
+      "name": "ns_pol_background_policy",
+      "value": "当前后台策略",
+      "description": "当前后台策略标签"
+    },
+    {
+      "name": "ns_pol_uid_title",
+      "value": "UID 策略",
+      "description": "UID 策略卡片标题"
+    },
+    {
+      "name": "ns_pol_uid_desc",
+      "value": "setPolicyByUid / getPolicyByUid / isUidNetAllowed 查询与设置指定应用的联网策略，非系统应用会返回 202。",
+      "description": "UID 策略卡片说明"
+    },
+    {
+      "name": "ns_pol_uid_input",
+      "value": "输入 UID",
+      "description": "UID 输入框提示"
+    },
+    {
+      "name": "ns_pol_uid_policy",
+      "value": "UID 策略值",
+      "description": "UID 策略值标签"
+    },
+    {
+      "name": "ns_pol_uid_metered",
+      "value": "计量网络允许",
+      "description": "计量网络访问结果标签"
+    },
+    {
+      "name": "ns_pol_uid_iface",
+      "value": "指定网卡允许",
+      "description": "指定网卡访问结果标签"
+    },
+    {
+      "name": "ns_pol_uid_allow",
+      "value": "允许计量后台",
+      "description": "设置允许后台计量网络按钮"
+    },
+    {
+      "name": "ns_pol_uid_reject",
+      "value": "拒绝计量后台",
+      "description": "设置拒绝后台计量网络按钮"
+    },
+    {
+      "name": "ns_pol_uid_clear",
+      "value": "清除策略",
+      "description": "清除 UID 策略按钮"
+    },
+    {
+      "name": "ns_pol_quota_title",
+      "value": "流量配额",
+      "description": "流量配额卡片标题"
+    },
+    {
+      "name": "ns_pol_quota_desc",
+      "value": "为蜂窝网络写入演示配额：100 MB 警告、200 MB 限制、超限仅提醒（setNetQuotaPolicies）。",
+      "description": "流量配额卡片说明"
+    },
+    {
+      "name": "ns_pol_quota_apply",
+      "value": "应用演示配额",
+      "description": "应用演示配额按钮"
+    },
+    {
+      "name": "ns_pol_quota_reset",
+      "value": "重置策略",
+      "description": "重置配额策略按钮"
+    },
+    {
+      "name": "ns_pol_quota_restore",
+      "value": "恢复全部",
+      "description": "恢复全部配额策略按钮"
+    },
+    {
+      "name": "ns_pol_quota_list",
+      "value": "已配置配额",
+      "description": "已配置配额列表标题"
+    },
+    {
+      "name": "ns_pol_quota_item",
+      "value": "配额项",
+      "description": "配额列表项标题"
+    },
+    {
+      "name": "ns_pol_quota_empty",
+      "value": "当前没有配额策略",
+      "description": "配额列表为空提示"
+    },
+    {
+      "name": "ns_pol_quota_warning",
+      "value": "警告阈值",
+      "description": "配额警告阈值标签"
+    },
+    {
+      "name": "ns_pol_quota_limit",
+      "value": "限制阈值",
+      "description": "配额限制阈值标签"
+    },
+    {
+      "name": "ns_pol_quota_action",
+      "value": "超限动作",
+      "description": "配额超限动作标签"
+    },
+    {
+      "name": "ns_pol_quota_period",
+      "value": "计量周期",
+      "description": "配额计量周期标签"
+    },
+    {
+      "name": "ns_pol_quota_metered",
+      "value": "计量网络",
+      "description": "配额计量网络标签"
+    },
+    {
+      "name": "ns_pol_quota_read_failed",
+      "value": "配额策略读取失败，请稍后重试",
+      "description": "配额读取失败提示"
+    },
+    {
+      "name": "ns_pol_trustlist_title",
+      "value": "电量与休眠信任名单",
+      "description": "信任名单卡片标题"
+    },
+    {
+      "name": "ns_pol_trustlist_desc",
+      "value": "setDeviceIdleTrustlist / setPowerSaveTrustlist 把应用加入休眠与省电白名单，get 接口读取当前名单。",
+      "description": "信任名单卡片说明"
+    },
+    {
+      "name": "ns_pol_trustlist_apply",
+      "value": "加入信任名单",
+      "description": "加入信任名单按钮"
+    },
+    {
+      "name": "ns_pol_trustlist_idle",
+      "value": "休眠白名单",
+      "description": "休眠白名单标签"
+    },
+    {
+      "name": "ns_pol_trustlist_power",
+      "value": "省电白名单",
+      "description": "省电白名单标签"
+    },
+    {
+      "name": "ns_pol_trustlist_uid_label",
+      "value": "已选 UID",
+      "description": "信任名单卡已选 UID 回显标签"
+    },
+    {
+      "name": "ns_pol_event_title",
+      "value": "策略事件监听",
+      "description": "策略事件卡片标题"
+    },
+    {
+      "name": "ns_pol_event_desc",
+      "value": "订阅 netUidPolicyChange、netUidRuleChange、netMeteredIfacesChange、netQuotaPolicyChange、netBackgroundPolicyChange 五类事件。",
+      "description": "策略事件卡片说明"
+    },
+    {
+      "name": "ns_pol_event_start",
+      "value": "开始监听",
+      "description": "开始监听策略事件按钮"
+    },
+    {
+      "name": "ns_pol_event_stop",
+      "value": "停止监听",
+      "description": "停止监听策略事件按钮"
+    },
+    {
+      "name": "ns_pol_event_empty",
+      "value": "暂无策略事件",
+      "description": "策略事件列表为空提示"
+    },
+    {
+      "name": "ns_pol_restricted",
+      "value": "当前设备不具备系统权限，操作已跳过",
+      "description": "系统接口受限提示"
+    },
+    {
+      "name": "ns_pol_system_ok",
+      "value": "系统接口可用",
+      "description": "系统接口可用状态"
+    },
+    {
+      "name": "ns_pol_status",
+      "value": "系统接口状态",
+      "description": "系统接口状态标签"
+    },
+    {
+      "name": "ns_pol_bg_none",
+      "value": "未指定",
+      "description": "后台策略枚举：未指定"
+    },
+    {
+      "name": "ns_pol_bg_enable",
+      "value": "允许后台",
+      "description": "后台策略枚举：允许后台"
+    },
+    {
+      "name": "ns_pol_bg_disable",
+      "value": "禁止后台",
+      "description": "后台策略枚举：禁止后台"
+    },
+    {
+      "name": "ns_pol_bg_trustlist",
+      "value": "仅信任名单",
+      "description": "后台策略枚举：仅信任名单"
+    },
+    {
+      "name": "ns_pol_uid_policy_none",
+      "value": "默认策略",
+      "description": "UID 策略枚举：默认"
+    },
+    {
+      "name": "ns_pol_uid_policy_allow",
+      "value": "允许后台计量",
+      "description": "UID 策略枚举：允许后台计量"
+    },
+    {
+      "name": "ns_pol_uid_policy_reject",
+      "value": "拒绝后台计量",
+      "description": "UID 策略枚举：拒绝后台计量"
+    },
+    {
+      "name": "ns_pol_limit_none",
+      "value": "无动作",
+      "description": "超限动作枚举：无动作"
+    },
+    {
+      "name": "ns_pol_limit_disabled",
+      "value": "断网",
+      "description": "超限动作枚举：断网"
+    },
+    {
+      "name": "ns_pol_limit_alert",
+      "value": "仅提醒",
+      "description": "超限动作枚举：仅提醒"
+    },
+    {
+      "name": "ns_err_2100001_title",
+      "value": "参数值非法",
+      "description": "错误码 2100001 标题"
+    },
+    {
+      "name": "ns_err_2100001_reason",
+      "value": "参数取值超出网络管理服务允许的范围。",
+      "description": "错误码 2100001 原因"
+    },
+    {
+      "name": "ns_err_2100001_suggestion",
+      "value": "使用接口定义内的枚举值，例如 NetUidPolicy 与 LimitAction。",
+      "description": "错误码 2100001 建议"
+    },
+    {
+      "name": "ns_err_2100002_title",
+      "value": "连接网络服务失败",
+      "description": "错误码 2100002 标题"
+    },
+    {
+      "name": "ns_err_2100002_reason",
+      "value": "网络管理服务未就绪或连接中断。",
+      "description": "错误码 2100002 原因"
+    },
+    {
+      "name": "ns_err_2100002_suggestion",
+      "value": "稍后重试，必要时重启设备后再次调用。",
+      "description": "错误码 2100002 建议"
+    },
+    {
+      "name": "ns_err_2100003_title",
+      "value": "系统内部错误",
+      "description": "错误码 2100003 标题"
+    },
+    {
+      "name": "ns_err_2100003_reason",
+      "value": "网络管理服务处理请求时发生内部错误。",
+      "description": "错误码 2100003 原因"
+    },
+    {
+      "name": "ns_err_2100003_suggestion",
+      "value": "记录日志后重试，必要时抓取 hilog 分析。",
+      "description": "错误码 2100003 建议"
+    }
+  ]
+}

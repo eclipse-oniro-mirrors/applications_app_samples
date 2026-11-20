@@ -1,13 +1,13 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 (the 'License');
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an 'AS IS' BASIS,
+ * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -38,9 +38,9 @@ export struct SlidePage {
     const maxValue = 10;
     const percentage = (this.outSetValueOne - minValue) / (maxValue - minValue);
 
-    // 使用百分比，确保在容器内
+    // 使用百分比，确保在容器内。
     let posPercent = percentage * 100;
-    // 限制在 5% 到 85% 之间，避免边缘溢出
+    // 限制在 5% 到 85% 之间，避免边缘溢出。
     posPercent = Math.max(5, Math.min(85, posPercent));
     this.sliderTextPercent = `${posPercent}%`;
   }

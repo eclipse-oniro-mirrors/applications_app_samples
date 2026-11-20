@@ -1,0 +1,28 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "MenuUIAbilityDemo"
+    },
+    {
+      "name": "main_title",
+      "value": "UIAbility access Demo"
+    },
+    {
+      "name": "hello_world",
+      "value": "HelloWorld"
+    },
+    {
+      "name": "back_button_title",
+      "value": "click to back"
+    }
+  ]
+}

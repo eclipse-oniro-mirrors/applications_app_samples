@@ -36,3 +36,14 @@ export class Response {
   code: number
   surfaceId: string
 }
+
+export interface NativeCameraResponse extends Response {
+  cameraPosition: number;
+}
+
+export const startNativeCamera: (objAddr: bigint, surfaceId: string, width: number, height: number,
+  frameRate: number, position: number, isHdr: boolean) => Promise<NativeCameraResponse>;
+export const stopNativeCamera: (objAddr: bigint) => Promise<Response>;
+export const rotateNativeCamera: (objAddr: bigint, displayRotation: number, isDisplayLocked: boolean) => number;
+export const setNativeCameraZoom: (objAddr: bigint, zoom: number) => void;
+export const getNativeCameraZoom: (objAddr: bigint) => number;

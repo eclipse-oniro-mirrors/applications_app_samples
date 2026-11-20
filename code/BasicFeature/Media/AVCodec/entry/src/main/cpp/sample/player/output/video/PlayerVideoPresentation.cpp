@@ -46,16 +46,73 @@ std::string ToString(OH_AVPixelFormat pixelFormat)
     return ret;
 }
 
-uint8_t *GetBufferDataAddr(CodecBufferInfo &bufferInfo)
+bool IsTenBitOutput(const SampleInfo &sampleInfo, const CodecUserData *videoDecContext);
+
+bool HasBufferCapacity(const CodecBufferInfo &bufferInfo, uint64_t requiredBytes)
 {
+    if (bufferInfo.buffer == nullptr || bufferInfo.attr.offset < 0) {
+        return false;
+    }
+    const int32_t capacity = OH_AVBuffer_GetCapacity(bufferInfo.buffer);
+    if (capacity < 0) {
+        AVCODEC_SAMPLE_LOGE("Invalid buffer capacity: %{public}d", capacity);
+        return false;
+    }
+    const uint64_t offset = static_cast<uint64_t>(bufferInfo.attr.offset);
+    return offset <= static_cast<uint64_t>(capacity) &&
+        requiredBytes <= static_cast<uint64_t>(capacity) - offset;
+}
+
+bool GetDumpByteCount(const SampleInfo &sampleInfo, const CodecUserData *videoDecContext,
+    OH_AVPixelFormat pixelFormat, uint64_t &byteCount)
+{
+    if (videoDecContext == nullptr || videoDecContext->width <= 0 || videoDecContext->height <= 0 ||
+        videoDecContext->widthStride <= 0 || videoDecContext->heightStride < videoDecContext->height) {
+        return false;
+    }
+    const uint64_t height = static_cast<uint64_t>(videoDecContext->height);
+    const uint64_t heightStride = static_cast<uint64_t>(videoDecContext->heightStride);
+    const uint64_t stride = static_cast<uint64_t>(videoDecContext->widthStride);
+    const uint64_t width = static_cast<uint64_t>(videoDecContext->width) *
+        (IsTenBitOutput(sampleInfo, videoDecContext) ? TEN_BIT_OUTPUT_BYTES_PER_COMPONENT : 1);
+    if (width > stride) {
+        return false;
+    }
+    switch (pixelFormat) {
+        case AV_PIXEL_FORMAT_YUVI420:
+            if (height % YUV420_SAMPLE_RATIO != 0 || heightStride % YUV420_SAMPLE_RATIO != 0 ||
+                stride % YUV420_SAMPLE_RATIO != 0) {
+                return false;
+            }
+            byteCount = heightStride * stride + heightStride * stride / YUV420_SAMPLE_RATIO;
+            return true;
+        case AV_PIXEL_FORMAT_NV12:
+        case AV_PIXEL_FORMAT_NV21:
+            if (height % YUV420_SAMPLE_RATIO != 0) {
+                return false;
+            }
+            byteCount = heightStride * stride + height * width / YUV420_SAMPLE_RATIO;
+            return true;
+        case AV_PIXEL_FORMAT_RGBA1010102:
+        case AV_PIXEL_FORMAT_RGBA:
+            if (width * RGBA_BYTES_PER_PIXEL > stride) {
+                return false;
+            }
+            byteCount = heightStride * stride;
+            return true;
+        default:
+            return false;
+    }
+}
+
+uint8_t *GetBufferDataAddr(CodecBufferInfo &bufferInfo, uint64_t requiredBytes)
+{
+    if (!HasBufferCapacity(bufferInfo, requiredBytes)) {
+        AVCODEC_SAMPLE_LOGE("Buffer range is invalid, offset: %{public}d", bufferInfo.attr.offset);
+        return nullptr;
+    }
     uint8_t *bufferAddr = OH_AVBuffer_GetAddr(bufferInfo.buffer);
-    if (bufferAddr == nullptr) {
-        return nullptr;
-    }
-    if (bufferInfo.attr.offset < 0) {
-        AVCODEC_SAMPLE_LOGE("Invalid buffer offset: %{public}d", bufferInfo.attr.offset);
-        return nullptr;
-    }
+    CHECK_AND_RETURN_RET_LOG(bufferAddr != nullptr, nullptr, "Buffer address is null");
     return bufferAddr + bufferInfo.attr.offset;
 }
 
@@ -78,7 +135,36 @@ bool ShouldProbeHdrVividSurface(uint64_t outputFrameCount)
         (outputFrameCount > HDR_VIVID_SURFACE_PROBE_INITIAL_FRAME &&
             outputFrameCount % HDR_VIVID_SURFACE_PROBE_INTERVAL == 0);
 }
-} // namespace
+
+bool ReleaseVideoBufferAfterFailure(VideoDecoder *decoder, const CodecBufferInfo &bufferInfo,
+    const char *reason)
+{
+    if (decoder == nullptr || bufferInfo.buffer == nullptr) {
+        AVCODEC_SAMPLE_LOGE("%{public}s: decoder buffer is unavailable", reason);
+        return false;
+    }
+    if (decoder->FreeOutputBuffer(bufferInfo, false) != AVCODEC_SAMPLE_ERR_OK) {
+        AVCODEC_SAMPLE_LOGW("%{public}s: free video output buffer failed", reason);
+        return false;
+    }
+    return true;
+}
+
+bool UsesBufferMetadataPresentation(const SampleInfo &sampleInfo, const VideoSink *sink)
+{
+    if (sampleInfo.codec.codecRunMode == BUFFER) {
+        return true;
+    }
+    return (sampleInfo.codec.codecRunMode == OPENGL || sampleInfo.codec.codecRunMode == VULKAN) &&
+        sink != nullptr && !sink->UsesSurfaceDecoder();
+}
+
+bool IsVulkanSurfaceChainReady(const SampleInfo &sampleInfo, const VideoSink *sink)
+{
+    return sampleInfo.codec.codecRunMode != VULKAN ||
+        (sink != nullptr && sink->UsesSurfaceDecoder() && sampleInfo.video.window != nullptr);
+}
+} // 匿名命名空间
 
 void Player::DumpOutput(CodecBufferInfo &bufferInfo)
 {
@@ -87,6 +173,7 @@ void Player::DumpOutput(CodecBufferInfo &bufferInfo)
     if (!IsBufferBasedRunMode(info.codec.codecRunMode) || usesSurfaceDecoder || !info.output.enableVideoDump) {
         return;
     }
+    // [Start decoder_outputFile]
     const OH_AVPixelFormat pixelFormat = GetOutputPixelFormat(info, videoDecContext_.get());
     if (outputFile_ == nullptr) {
         auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
@@ -102,8 +189,12 @@ void Player::DumpOutput(CodecBufferInfo &bufferInfo)
             return;
         }
     }
+    // [End decoder_outputFile]
 
-    uint8_t *bufferAddr = GetBufferDataAddr(bufferInfo);
+    uint64_t dumpByteCount = 0;
+    CHECK_AND_RETURN_LOG(GetDumpByteCount(info, videoDecContext_.get(), pixelFormat, dumpByteCount),
+        "Invalid video output layout");
+    uint8_t *bufferAddr = GetBufferDataAddr(bufferInfo, dumpByteCount);
     CHECK_AND_RETURN_LOG(bufferAddr != nullptr, "Buffer is nullptr");
     switch (pixelFormat) {
         case AV_PIXEL_FORMAT_YUVI420:
@@ -129,10 +220,24 @@ bool Player::PresentAndReleaseVideoBuffer(CodecBufferInfo& bufferInfo, bool rend
     if (!render) {
         videoDroppedFrames_.fetch_add(1);
     }
-    ConfirmHdrVividFromBuffer(bufferInfo);
+    // Surface 解码器的 OH_AVBuffer 没有应用侧内存，调用 GetNativeBuffer 只会产生
+    // “buffer's memory is nullptr” 日志；Surface/OpenGL/Vulkan 的 HDR 状态由各自
+    // 的 NativeWindow/NativeImage 路径确认，Buffer 模式才读取 OH_AVBuffer 元数据。
+    if (UsesBufferMetadataPresentation(sampleInfo_, videoSink_.get())) {
+        ConfirmHdrVividFromBuffer(bufferInfo);
+    }
     DumpOutput(bufferInfo);
-    CHECK_AND_RETURN_RET_LOG(videoDecContext_ != nullptr, false, "Video decode context is null");
+    if (videoDecContext_ == nullptr) {
+        ReleaseVideoBufferAfterFailure(videoDecoder_.get(), bufferInfo, "Video decode context is null");
+        return false;
+    }
     if (!EnsureVideoSink()) {
+        ReleaseVideoBufferAfterFailure(videoDecoder_.get(), bufferInfo, "Video sink initialization failed");
+        return false;
+    }
+    if (!IsVulkanSurfaceChainReady(sampleInfo_, videoSink_.get())) {
+        // Vulkan 不允许退回 decoder Buffer 送显，避免切换模式后旧 BufferRenderer 继续接管画面。
+        ReleaseVideoBufferAfterFailure(videoDecoder_.get(), bufferInfo, "Invalid Vulkan Surface chain");
         return false;
     }
     const VideoPresentRequest request { *videoDecoder_, bufferInfo, sampleInfo_, *videoDecContext_, render,
@@ -159,8 +264,8 @@ bool Player::PresentAndReleaseVideoBuffer(CodecBufferInfo& bufferInfo, bool rend
 
 void Player::ConfirmHdrVividFromBuffer(const CodecBufferInfo &bufferInfo)
 {
-    // A container declaration is not proof of HDR Vivid. Confirm it only from the decoded Buffer
-    // metadata; direct Surface output is checked after it has reached the XComponent below.
+    // 容器声明不能证明码流确为 HDR Vivid。仅以解码后 Buffer 的元数据为准；
+    // 直连 Surface 输出则在下方帧已送达 XComponent 后再检查。
     if (!hdrVividConfirmed_.load() && HdrMetadataHelper::IsHdrVivid(bufferInfo.buffer)) {
         hdrVividConfirmed_.store(true);
         AVCODEC_SAMPLE_LOGI("HDR Vivid confirmed from decoded bitstream metadata");
@@ -191,6 +296,10 @@ bool Player::EnsureVideoSink()
         }
         videoSinkRunMode_ = sampleInfo_.codec.codecRunMode;
     }
+    if (sampleInfo_.codec.codecRunMode == VULKAN && !videoSink_->UsesSurfaceDecoder()) {
+        AVCODEC_SAMPLE_LOGE("Vulkan sink is not bound to a Surface decoder");
+        return false;
+    }
     return videoSink_ != nullptr;
 }
 
@@ -199,6 +308,12 @@ int32_t Player::PresentVideoBuffer(const VideoPresentRequest &request, bool meas
     const auto presentStart = measureBufferPresent ? std::chrono::steady_clock::now() :
         std::chrono::steady_clock::time_point {};
     const int32_t result = videoSink_->Present(request);
+    // UI 每 250 ms 拉取一次快照，送显线程不需要为每一帧争用诊断锁。
+    if ((videoOutputFrames_.load() & 0x7U) == 0U) {
+        const VideoSinkDiagnostics snapshot = videoSink_->GetDiagnostics();
+        std::lock_guard<std::mutex> lock(videoSinkDiagnosticsMutex_);
+        videoSinkDiagnostics_ = snapshot;
+    }
     if (measureBufferPresent) {
         RecordBufferPresentResult(result, presentStart);
     }
@@ -221,12 +336,18 @@ void Player::ProbeHdrVividFromSurface(bool render, uint64_t outputFrameCount)
 {
     if (render && !hdrVividConfirmed_.load() && ShouldProbeHdrVividSurface(outputFrameCount)) {
         auto windowLease = NativeXComponentSample::PluginManager::GetInstance()->AcquirePluginWindow();
-        // Only probe the XComponent when the decoder itself renders into it. A NativeImage producer
-        // belongs to the OpenGL path and cannot be inspected through the consumer window.
-        if (windowLease && sampleInfo_.video.window == windowLease.GetWindow() &&
-            HdrMetadataHelper::IsLastFlushedBufferHdrVivid(windowLease.GetWindow())) {
-            hdrVividConfirmed_.store(true);
-            AVCODEC_SAMPLE_LOGI("HDR Vivid confirmed from XComponent Surface metadata");
+        const bool usesVulkanSurface = sampleInfo_.codec.codecRunMode == VULKAN &&
+            videoSink_ != nullptr && videoSink_->UsesSurfaceDecoder();
+        // Vulkan 的 NativeImage 生产者不是 XComponent 窗口，但 Vulkan 会把确认后的
+        // NativeBuffer 元数据同步到最终窗口，因此应从该窗口读取最后送显的 Buffer。
+        if (windowLease) {
+            const bool usesDirectSurface = sampleInfo_.video.window == windowLease.GetWindow();
+            const bool hdrConfirmed = usesVulkanSurface ? videoSink_->IsHdrVividConfirmed() :
+                HdrMetadataHelper::IsLastFlushedBufferHdrVivid(windowLease.GetWindow());
+            if ((usesDirectSurface || usesVulkanSurface) && hdrConfirmed) {
+                hdrVividConfirmed_.store(true);
+                AVCODEC_SAMPLE_LOGI("HDR Vivid confirmed from XComponent Surface metadata");
+            }
         }
     }
 }
@@ -255,7 +376,7 @@ void Player::WriteOutputFileWithStrideYUV420P(uint8_t *bufferAddr)
         bufferAddr += uvStride;
     }
 }
-
+// [Start decoder_save_file_YUV420]
 void Player::WriteOutputFileWithStrideYUV420SP(uint8_t *bufferAddr)
 {
     CHECK_AND_RETURN_LOG(bufferAddr != nullptr, "Buffer is nullptr");
@@ -273,6 +394,7 @@ void Player::WriteOutputFileWithStrideYUV420SP(uint8_t *bufferAddr)
         bufferAddr += videoWidth;
     }
 }
+// [End decoder_save_file_YUV420]
 
 void Player::WriteOutputFileWithStrideRGBA(uint8_t *bufferAddr)
 {

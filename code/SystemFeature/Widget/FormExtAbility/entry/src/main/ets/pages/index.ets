@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/index.ets
+ * 文件职责：index 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：Index。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位。
+ */
+
 import router from '@ohos.router';
 import Logger from '../model/Logger';
 
@@ -27,22 +34,29 @@ async function routePage() {
   }
 }
 
+/**
+ * Index：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct Index {
   @State message: string = 'Hello World'
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
     Row() {
       Column() {
         Text(this.message)
+          .id('indexMessageText')
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
         Button() {
-          Text('next page')
+          Text('next page').id('index_text_3')
             .fontSize(20)
             .fontWeight(FontWeight.Bold)
-        }
+        }.id('indexNextButton')
         .type(ButtonType.Capsule)
         .margin({
           top: 20
@@ -53,9 +67,9 @@ struct Index {
         .onClick(() => {
           routePage()
         })
-      }
+      }.id('index_column_2')
       .width('100%')
-    }
+    }.id('index_row_1')
     .height('100%')
   }
 }

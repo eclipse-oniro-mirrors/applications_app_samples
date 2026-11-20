@@ -13,25 +13,47 @@
  * limitations under the License.
  */
 
+/**
+ * @file customanimationtab/src/main/ets/view/LazyDataSource.ets
+ * 文件职责：LazyDataSource 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：BasicDataSource、LazyDataSource。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 const TAG = '[BasicDataSource]';
 
+/**
+ * BasicDataSource：类定义，承载本文件对应的逻辑与数据。
+ */
 class BasicDataSource<T> implements IDataSource {
   private listeners: DataChangeListener[] = [];
 
+  /**
+   * totalCount：执行 totalCount 相关逻辑。
+   */
   public totalCount(): number {
     return 0;
   }
 
+  /**
+   * getData：执行 getData 相关逻辑。
+   */
   public getData(index: number): T | undefined {
     return undefined;
   }
 
+  /**
+   * registerDataChangeListener：执行 registerDataChangeListener 相关逻辑。
+   */
   registerDataChangeListener(listener: DataChangeListener): void {
     if (this.listeners.indexOf(listener) < 0) {
       this.listeners.push(listener);
     }
   }
 
+  /**
+   * unregisterDataChangeListener：执行 unregisterDataChangeListener 相关逻辑。
+   */
   unregisterDataChangeListener(listener: DataChangeListener): void {
     const pos = this.listeners.indexOf(listener);
     if (pos >= 0) {
@@ -39,30 +61,45 @@ class BasicDataSource<T> implements IDataSource {
     }
   }
 
+  /**
+   * notifyDataReload：执行 notifyDataReload 相关逻辑。
+   */
   notifyDataReload(): void {
     this.listeners.forEach(listener => {
       listener.onDataReloaded();
     })
   }
 
+  /**
+   * notifyDataAdd：执行 notifyDataAdd 相关逻辑。
+   */
   notifyDataAdd(index: number): void {
     this.listeners.forEach(listener => {
       listener.onDataAdd(index);
     })
   }
 
+  /**
+   * notifyDataChange：执行 notifyDataChange 相关逻辑。
+   */
   notifyDataChange(index: number): void {
     this.listeners.forEach(listener => {
       listener.onDataChange(index);
     })
   }
 
+  /**
+   * notifyDataDelete：执行 notifyDataDelete 相关逻辑。
+   */
   notifyDataDelete(index: number): void {
     this.listeners.forEach(listener => {
       listener.onDataDelete(index);
     })
   }
 
+  /**
+   * notifyDataMove：执行 notifyDataMove 相关逻辑。
+   */
   notifyDataMove(from: number, to: number): void {
     this.listeners.forEach(listener => {
       listener.onDataMove(from, to);
@@ -70,37 +107,62 @@ class BasicDataSource<T> implements IDataSource {
   }
 }
 
+// @Observed：可观察对象
+/**
+ * LazyDataSource：类定义，承载本文件对应的逻辑与数据。
+ */
 @Observed
 export default class LazyDataSource<T> extends BasicDataSource<T> {
   private dataArray: T[] = [];
 
+  /**
+   * totalCount：执行 totalCount 相关逻辑。
+   */
   public totalCount(): number {
     return this.dataArray.length;
   }
 
+  /**
+   * getData：执行 getData 相关逻辑。
+   */
   public getData(index: number): T {
     return this.dataArray[index];
   }
 
+  /**
+   * addData：执行 addData 相关逻辑。
+   */
   public addData(index: number, data: T): void {
     this.dataArray.splice(index, 0, data);
     this.notifyDataAdd(index);
   }
 
+  /**
+   * pushData：执行 pushData 相关逻辑。
+   */
   public pushData(data: T): void {
     this.dataArray.push(data);
     this.notifyDataAdd(this.dataArray.length - 1);
   }
 
+  /**
+   * deleteData：执行 deleteData 相关逻辑。
+   */
   public deleteData(index: number): void {
     this.dataArray.splice(index, 1);
     this.notifyDataDelete(index);
   }
 
+  /**
+   * clear：执行 clear 相关逻辑。
+   */
   public clear(): void {
     this.dataArray.splice(0, this.dataArray?.length);
   }
 
+  /**
+   * isEmpty：执行 isEmpty 相关逻辑。
+   */
   public isEmpty(): boolean {
     return this.dataArray.length === 0;
   }

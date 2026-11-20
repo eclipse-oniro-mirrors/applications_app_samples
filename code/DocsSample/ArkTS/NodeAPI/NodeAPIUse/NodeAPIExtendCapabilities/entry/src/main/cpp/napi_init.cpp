@@ -63,6 +63,7 @@ static napi_value CreateObjectWithProperties(napi_env env, napi_callback_info in
     if (valueType == napi_object) {
         return object;
     }
+    return nullptr;
 }
 // [End node_api_module_create_object_properties]
 // [Start node_api_module_create_object_name_properties]

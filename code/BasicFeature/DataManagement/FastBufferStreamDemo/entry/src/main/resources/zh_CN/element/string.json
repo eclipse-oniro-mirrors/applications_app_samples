@@ -1,0 +1,80 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "FastBuffer 与 Stream 演示模块"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "FastBuffer 与 Stream 演示"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "高效缓冲与流式数据"
+    },
+    {
+      "name": "page_title",
+      "value": "FastBuffer 与 Stream 流式数据处理"
+    },
+    {
+      "name": "page_subtitle",
+      "value": "FastBuffer（API 20+）高效二进制缓冲 · Stream（API 12+）分块流式读写 · 展示高效缓冲和流式数据"
+    },
+    {
+      "name": "btn_scene_1",
+      "value": "场景1：FastBuffer 基础操作（创建/读写/编码/拼接/切片）"
+    },
+    {
+      "name": "btn_scene_2",
+      "value": "场景2：FastBuffer vs Buffer 性能对比"
+    },
+    {
+      "name": "btn_scene_3",
+      "value": "场景3：Writable 流式写入（水位线背压）"
+    },
+    {
+      "name": "btn_scene_4",
+      "value": "场景4：Readable 流式读取（分块消费）"
+    },
+    {
+      "name": "btn_scene_5",
+      "value": "场景5：三流流水线 Readable→Transform→Writable"
+    },
+    {
+      "name": "btn_scene_6",
+      "value": "场景6：工具类实战（协议封包/CRC 校验/hexDump）"
+    },
+    {
+      "name": "btn_scene_7",
+      "value": "场景7：TLV 协议流解析（噪声定位/CRC 检出/截断防护）"
+    },
+    {
+      "name": "btn_scene_8",
+      "value": "场景8：pipe 一行流水线（Readable→Transform→Writable）"
+    },
+    {
+      "name": "btn_scene_9",
+      "value": "场景9：Duplex 双工流（写侧回显/读侧回送）"
+    },
+    {
+      "name": "log_title",
+      "value": "事件日志"
+    },
+    {
+      "name": "log_running",
+      "value": "（流式执行中…）"
+    },
+    {
+      "name": "breakpoint_prefix",
+      "value": "断点：%s"
+    },
+    {
+      "name": "device_prefix",
+      "value": "设备：%s"
+    },
+    {
+      "name": "api_prefix",
+      "value": "API：%d"
+    }
+  ]
+}

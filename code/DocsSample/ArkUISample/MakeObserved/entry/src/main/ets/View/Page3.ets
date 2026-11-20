@@ -48,7 +48,7 @@ struct Page3 {
         .width(300)
         .margin(10)
         .onClick(() => {
-          // ok 可以观察到属性的改变
+          // 可以观察到属性的改变
           this.send.name += '0';
         })
 

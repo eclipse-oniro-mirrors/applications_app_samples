@@ -3,9 +3,12 @@
 ### 介绍
 
 本示例主要展示了分布式软总线会话相关的功能，使用[@ohos.distributedServiceKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-distributedservice-kit/js-apis-conversation-sys.md)
-中 conversation 接口，实现了包括获取可信设备列表、注册/注销会话消息监听、跨设备发送消息等功能。效果图如下：
-![device](./screenshots/device/index.png)
+中 conversation 接口，实现了包括获取可信设备列表、注册/注销会话消息监听、跨设备发送消息等功能。
 
+
+### 效果预览
+
+![device](./screenshots/device/index.png)
 
 ### 使用说明
 
@@ -43,7 +46,6 @@ entry/src/main/ets/
 
 - 允许不同设备间的数据交换：[ohos.permission.DISTRIBUTED_DATASYNC](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all-user.md#ohospermissiondistributed_datasync)
 
-E:\lihongyi\docs\zh-cn\application-dev\
 - 允许获取设备 UDID：[ohos.permission.sec.ACCESS_UDID](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-enterprise-apps.md#ohospermissionsecaccess_udid)
 
 ### 约束与限制
@@ -52,9 +54,9 @@ E:\lihongyi\docs\zh-cn\application-dev\
 
 2. 本示例仅支持标准系统上运行，支持设备：RK3568。
 
-3. 本示例仅支持 Stage 模型，依赖 API 26.1.0 及以上版本 SDK。
+3. 本示例仅支持 Stage 模型，依赖 API 26（26.0.0 Release）及以上版本 SDK。
 
-4. 本示例需要使用 DevEco Studio 版本号(6.1.1 Release)及以上版本才可编译运行。
+4. 本示例需要使用 DevEco Studio 版本号(6.0.0 Release)及以上版本才可编译运行。
 
 5. 本示例中发送消息功能需要将 Index.ets 中的 deviceId 替换为目标设备的 networkId 或 UDID（可通过 getTrustedDevices 获取），bundleName 和 abilityName 需与接收端应用保持一致。
 

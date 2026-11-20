@@ -22,6 +22,7 @@ import { LocalExtendExtendPositiveExample } from './ExtendPositiveExample';
 import { LocalExtendUIStateVariable } from './ExtendUIStateVariable';
 import { LocalExtendUsageScenario } from './ExtendUsageScenario';
 import { LocalExtendUsageScenario2 } from './ExtendUsageScenariotwo';
+import { VersionConditionUseDemo } from './ExtendVersionCondition';
 import { LocalGlobalFunctionExtension } from './GlobalFunctionExtension';
 
 export const EXTEND: string = 'extend';
@@ -54,6 +55,10 @@ const routes: Route[] = [
   {
     name: `${EXTEND}/ExtendUsageScenariotwo`,
     title: resource.resourceToString($r('app.string.extend_usage_scenario_two')),
+  },
+  {
+    name: `${EXTEND}/ExtendVersionCondition`,
+    title: resource.resourceToString($r('app.string.extend_version_condition')),
   }
 ];
 
@@ -75,6 +80,8 @@ export function extendDestination(name: string) {
     LocalExtendUsageScenario();
   } else if (name === `${EXTEND}/ExtendUsageScenariotwo`) {
     LocalExtendUsageScenario2();
+  } else if (name === `${EXTEND}/ExtendVersionCondition`) {
+    ExtendVersionCondition();
   }
 }
 

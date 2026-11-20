@@ -66,6 +66,7 @@ struct PlaybackInfo {
     uint64_t bufferPresentFrames = 0;
     uint64_t bufferPresentFailures = 0;
     double bufferPresentAverageUs = 0.0;
+    VideoSinkDiagnostics videoSinkDiagnostics;
     PlaybackDiagnosticsInfo diagnostics;
 };
 
@@ -144,7 +145,7 @@ private:
     void ReleaseAudioDecoder();
     void PrepareForInitialization(const SampleInfo &sampleInfo);
     void ResetPlaybackState();
-    void PrepareVideoSinkForPlayback();
+    bool PrepareVideoSinkForPlayback();
     void UpdateSmartFluencyAvailability();
     void UpdateMediaInfoSnapshot();
     int32_t CreateTrackDecoders();
@@ -176,6 +177,7 @@ private:
     void RecordBufferPresentResult(int32_t result, std::chrono::steady_clock::time_point presentStart);
     void ProbeHdrVividFromSurface(bool render, uint64_t outputFrameCount);
     int32_t HandleInitError(std::unique_lock<std::mutex>& outerLock);
+    int32_t InitializePlaybackResources(std::unique_lock<std::mutex>& lock);
     int32_t StartVideoDecoder();
     int32_t StartAudioDecoder();
     int32_t StartPlaybackDecoders(bool &videoStarted);
@@ -187,6 +189,10 @@ private:
     bool ProcessVideoWithoutAudio(CodecBufferInfo& bufferInfo,
         std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
     bool ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
+        std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
+    bool GetAudioTimestampForVideo(CodecBufferInfo& bufferInfo, int64_t& framePosition, int64_t& timestamp,
+        int32_t& result);
+    bool ProcessVideoWithAudioWithoutTimestamp(CodecBufferInfo& bufferInfo,
         std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
     bool ProcessVideoAfterSeek(CodecBufferInfo& bufferInfo,
         std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
@@ -225,8 +231,8 @@ private:
     std::unique_ptr<Demuxer> demuxer_ = nullptr;
     
     mutable std::mutex mutex_;
-    // Track switching briefly releases mutex_ while joining audio workers.
-    // Serialize it with Stop() and Release() before either can destroy the pipeline.
+    // 切换音轨会暂时释放 mutex_ 并等待音频线程退出。
+    // 此锁将该操作与 Stop()、Release() 串行，禁止并发销毁流水线。
     std::mutex audioTrackOperationMutex_;
     std::atomic<bool> isStarted_ { false };
     std::atomic<bool> isReleased_ { false };
@@ -241,7 +247,7 @@ private:
     std::atomic<bool> audioDucked_ { false };
     std::atomic<bool> appBackgrounded_ { false };
     std::atomic<bool> backgroundPlaybackEnabled_ { false };
-    // True only when the player paused itself because background playback was disabled.
+    // 仅当后台播放关闭且播放器主动暂停时为 true，用于区分用户暂停与后台暂停。
     std::atomic<bool> backgroundPausedPlayback_ { false };
     std::atomic<bool> hasDecodedOutput_ { false };
     std::atomic<bool> stopRequested_ { false };
@@ -252,11 +258,9 @@ private:
     std::atomic<bool> isLoop_ { false };
     std::atomic<bool> paused_ { false };
     std::atomic<bool> audioStartPendingAfterVideoSeek_ { false };
-    // A paused seek still needs to decode and present exactly one target frame
-    // so that pause/step/seek controls update the visible picture immediately.
+    // 暂停跳转仍解码并送显目标帧，供跳转和逐帧操作更新画面。
     std::atomic<bool> renderSingleFrameAfterSeek_ { false };
-    // Audio can be rebuilt independently when the user switches tracks. This
-    // token stops only the audio workers while the video pipeline continues.
+    // 切换音轨时只停止音频线程，视频流水线继续运行。
     std::atomic<bool> audioWorkerRunning_ { false };
     std::atomic<bool> audioTrackSwitching_ { false };
     std::mutex pauseMutex_;
@@ -271,6 +275,8 @@ private:
     std::condition_variable doneCond_;
     std::mutex doneMutex;
     SampleInfo sampleInfo_;
+    // Surface 解码器配置后会持续使用该窗口；codec 销毁前保持引用，防止 XComponent 提前回收窗口。
+    NativeXComponentSample::PluginManager::PluginWindowLease decoderWindowLease_;
     MediaInfo mediaInfo_;
     std::unique_ptr<CodecUserData> videoDecContext_ = nullptr;
     std::unique_ptr<CodecUserData> audioDecContext_ = nullptr;
@@ -279,7 +285,7 @@ private:
     mutable std::mutex audioRendererMutex_;
     
 #ifdef DEBUG_DECODE
-    std::ofstream audioOutputFile_; // for debug
+    std::ofstream audioOutputFile_; // 仅用于调试导出音频数据
 #endif
     std::atomic<float> speed { 1.0f };
     std::atomic<int64_t> playbackPositionUs_ { 0 };
@@ -298,6 +304,8 @@ private:
     std::atomic<uint64_t> bufferPresentFrames_ { 0 };
     std::atomic<uint64_t> bufferPresentFailures_ { 0 };
     std::atomic<uint64_t> bufferPresentDurationNs_ { 0 };
+    mutable std::mutex videoSinkDiagnosticsMutex_;
+    VideoSinkDiagnostics videoSinkDiagnostics_;
     int32_t requestedVideoDecoderType_ = AUTO;
     int32_t activeVideoDecoderType_ = AUTO;
     std::atomic<bool> softwareDecoderFallbackUsed_ { false };

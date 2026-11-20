@@ -53,7 +53,7 @@ struct Index {
           }
           subWindowClass = data;
           if (!subWindowClass) {
-            console.error('sub_windowClass is null');
+            console.error('subWindowClass is null');
             return;
           }
           console.info('Succeeded in creating the subwindow. Data: ' + JSON.stringify(data));
@@ -67,7 +67,7 @@ struct Index {
             }
             console.info('Succeeded in moving the window.');
             if (!subWindowClass) {
-              console.error('sub_windowClass is null');
+              console.error('subWindowClass is null');
               return;
             }
             subWindowClass.resize(600, 600, (err) => {
@@ -86,7 +86,7 @@ struct Index {
             }
             console.info('Succeeded in loading the content.');
             if (!subWindowClass) {
-              console.error('sub_windowClass is null');
+              console.error('subWindowClass is null');
               return;
             }
             // 显示子窗口。
@@ -110,7 +110,7 @@ struct Index {
 
   destroySubWindow() {
     if (!subWindowClass) {
-      console.error('sub_windowClass is null');
+      console.error('subWindowClass is null');
       return;
     }
     // 4.销毁子窗口。当不再需要子窗口时，可根据具体实现逻辑，使用destroyWindow对其进行销毁。
@@ -144,7 +144,7 @@ struct Index {
         promise.then((data: window.Window | undefined) => {
           independentWindowClass = data;
           if (!independentWindowClass) {
-            console.error('independent_sub_windowClass is null');
+            console.error('independentSubWindowClass is null');
             return;
           }
           console.info(`Succeeded in creating the subwindow. Data: ${JSON.stringify(data)}`);
@@ -158,7 +158,7 @@ struct Index {
             }
             console.info('Succeeded in moving the window.');
             if (!independentWindowClass) {
-              console.error('independent_windowClass is null');
+              console.error('independentWindowClass is null');
               return;
             }
             independentWindowClass.resize(1000, 500, (err) => {
@@ -179,7 +179,7 @@ struct Index {
             }
             console.info('Succeeded in loading the content.');
             if (!independentWindowClass) {
-              console.error('independent_windowClass is null');
+              console.error('independentWindowClass is null');
               return;
             }
             // 显示子窗口。
@@ -206,7 +206,7 @@ struct Index {
 
   destroyIndependentSubWindow() {
     if (!independentWindowClass) {
-      console.error('independent_windowClass is null');
+      console.error('independentWindowClass is null');
       return;
     }
     // [Start destroy_independent_subWindow]
@@ -326,7 +326,7 @@ struct Index {
         }
         console.info('Succeeded in moving the window.');
         if (!dialogWindowClass) {
-          console.error('dialog_windowClass is null');
+          console.error('dialogWindowClass is null');
           return;
         }
         dialogWindowClass.resize(500, 500, (err) => {

@@ -14,7 +14,8 @@
  */
 
 import Logger from './Logger';
-import { Want } from '@kit.AbilityKit';
+import { Want, common } from '@kit.AbilityKit';
+import { UIContext } from '@kit.ArkUI';
 
 const TAG = '[Sample_StartMode]';
 let contextCaller: AbilityContext;
@@ -34,11 +35,9 @@ class  EventData {
   public launchWant: Want | null = null;
 }
 
-let that = this;
-
-export function getContextData(): Want {
+export function getContextData(uiContext: UIContext): Want {
   Logger.info(TAG, 'UtilPage getContextData start');
-  let context = getContext(that);
+  let context = uiContext.getHostContext() as common.UIAbilityContext;
   let data: EventData = new EventData();
   context.eventHub.emit('getAbilityData', data);
   // Obtain the global context, which is similar to globalThis.mainAbilityContext.
@@ -48,9 +47,9 @@ export function getContextData(): Want {
   return want;
 }
 
-export function startMode(wantParameters: Record<string, string|number>, abilityName: string) {
+export function startMode(uiContext: UIContext, wantParameters: Record<string, string|number>, abilityName: string) {
   Logger.info(TAG, `${abilityName} start`);
-  getContextData();
+  getContextData(uiContext);
   let want: Want = {
     bundleName: 'ohos.samples.startmode',
     abilityName: abilityName,
@@ -67,8 +66,8 @@ export function startMode(wantParameters: Record<string, string|number>, ability
   Logger.info(TAG, `${abilityName} end`);
 }
 
-export function totast() {
-  AlertDialog.show(
+export function totast(uiContext: UIContext) {
+  uiContext.showAlertDialog(
     {
       message: $r('app.string.totast'),
       secondaryButton: {

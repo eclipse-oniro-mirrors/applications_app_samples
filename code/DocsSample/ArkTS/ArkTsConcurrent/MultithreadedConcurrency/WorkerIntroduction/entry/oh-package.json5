@@ -24,6 +24,8 @@
   "dependencies": {
     // [StartExclude config_har_dependency]
     "testworkers": "file:../testworkers",
+    "businessworker": "file:../businessWorker",
+    "business": "file:../business",
     // [EndExclude config_har_dependency]
     "har": "file:../har"
   }

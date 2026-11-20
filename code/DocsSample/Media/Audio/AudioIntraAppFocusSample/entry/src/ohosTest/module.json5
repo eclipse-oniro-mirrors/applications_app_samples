@@ -14,15 +14,10 @@
   "module": {
     "name": "entry_test",
     "type": "feature",
-    "description": "$string:module_desc",
-    "mainElement": "AbilityTest",
     "deviceTypes": [
-      "phone",
-      "tablet",
-      "2in1"
+      "default"
     ],
     "deliveryWithInstall": true,
-    "installationFree": false,
-    "pages": "$profile:main_pages"
+    "installationFree": false
   }
 }

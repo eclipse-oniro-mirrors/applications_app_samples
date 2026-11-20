@@ -18,6 +18,7 @@ import router from '@ohos.router';
 import { Scene, Camera, Material, Node, Image, SceneResourceFactory, Geometry, EnvironmentBackgroundType,
   PostProcessSettings, ToneMappingType, MetallicRoughnessMaterial, Vec4 } from '@kit.ArkGraphics3D';
 import {lookAt, OrbitCameraHelper } from '../common/utils';
+import { BusinessError } from '@kit.BasicServicesKit';
 // [End pbr_clearcoat_header]
 
 const RESO: number = 255;
@@ -112,6 +113,9 @@ struct pbr_clearcoat {
           this.setClearcoat(RESO / 2);
           this.setClearcoatRoughness(RESO / 2);
           // [EndExclude pbr_clearcoat_loadScene]
+        })
+        .catch((err: BusinessError): void => {
+          console.error('Failed to load scene, code is %{public}d, message is %{public}s', err.code, err.message);
         });
     }
     // [End pbr_clearcoat_loadScene]

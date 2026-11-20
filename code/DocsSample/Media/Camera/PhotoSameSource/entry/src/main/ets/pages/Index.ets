@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 ("the License");
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -36,19 +36,19 @@ const TAG = 'Index';
 @Entry
 @Component
 struct Index {
-  // 主页面是否显示
+  // 主页面是否显示。
   @StorageLink('isShow') isShow: boolean = false;
   @StorageLink('isOpenEditPage') isOpenEditPage: boolean = false;
   // Flash Mode
   @State flashMode: camera.FlashMode = camera.FlashMode.FLASH_MODE_CLOSE;
   @State focusPointBol: boolean = false;
-  // 曝光区域手指点击坐标
+  // 曝光区域手指点击坐标。
   @State focusPointVal: Array<number> = [0, 0];
   @State xComponentAspectRatio: number = 1;
   private mXComponentController: XComponentController = new XComponentController();
   private defaultCameraDeviceIndex = 0;
   private surfaceId = '';
-  // 模糊动效
+  // 模糊动效。
   // [Start anim_states]
   @State isShowBlur: boolean = false;
   @State isShowBlack: boolean = false;
@@ -123,7 +123,7 @@ struct Index {
   }
 
   /**
-   * 显示模糊动效，模式切换触发
+   * 显示模糊动效，模式切换触发。
    */
   // [Start show_blur_anim]
   private async showBlurAnim() {
@@ -167,7 +167,7 @@ struct Index {
   // [End show_blur_anim]
 
   /**
-   * 隐藏模糊动效，预览流首帧回调触发
+   * 隐藏模糊动效，预览流首帧回调触发。
    */
   // [Start hide_blur_anim]
   private hideBlurAnim(): void {
@@ -192,7 +192,7 @@ struct Index {
 
   // [Start rotate_anim]
   /**
-   * 先向外翻转90°，前后置切换触发
+   * 先向外翻转90°，前后置切换触发。
    */
   private async rotateFirstAnim() {
     Logger.info(TAG, 'rotateFirstAnim E');
@@ -239,7 +239,7 @@ struct Index {
   }
 
   /**
-   * 再向内翻转90°
+   * 再向内翻转90°。
    */
   async rotateSecondAnim() {
     Logger.info(TAG, 'rotateSecondAnim E');
@@ -279,7 +279,7 @@ struct Index {
   }
 
   /**
-   * 向外翻转90°同时
+   * 向外翻转90°同时。
    */
   blurFirstAnim() {
     Logger.info(TAG, 'blurFirstAnim E');
@@ -306,7 +306,7 @@ struct Index {
   }
 
   /**
-   * 向内翻转90°同时
+   * 向内翻转90°同时。
    */
   blurSecondAnim() {
     Logger.info(TAG, 'blurSecondAnim E');
@@ -326,7 +326,7 @@ struct Index {
   // [End rotate_anim]
 
   /**
-   * 闪黑动效，拍照触发
+   * 闪黑动效，拍照触发。
    */
   // [Start flash_black_anim]
   private flashBlackAnim() {
@@ -435,13 +435,13 @@ struct Index {
       }
       // [End blur_component]
 
-      // 曝光框和对焦框
+      // 曝光框和对焦框。
       FocusComponent({
         focusPointBol: $focusPointBol,
         focusPointVal: $focusPointVal
       })
 
-      // 曝光对焦手指点击区域
+      // 曝光对焦手指点击区域。
       FocusAreaComponent({
         focusPointBol: $focusPointBol,
         focusPointVal: $focusPointVal,
@@ -451,11 +451,11 @@ struct Index {
 
       SlideComponent()
 
-      // 拍照
+      // 拍照。
       ModeComponent()
 
       Row({ space: Constants.ROW_SPACE_24 }) {
-        // 闪光灯
+        // 闪光灯。
         FlashingLightComponent({
           flashMode: $flashMode,
           isMovingPhotoEnable: $isMovingPhotoEnable

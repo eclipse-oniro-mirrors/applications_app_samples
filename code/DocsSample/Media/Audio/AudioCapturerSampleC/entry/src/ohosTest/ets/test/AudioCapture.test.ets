@@ -214,5 +214,73 @@ export default function AudioCaptureDemoTest() {
         done
       );
     })
+    /**
+     * @tc.number AudioCaptureDemo_QueryUltraFastSupport_0001
+     * @tc.name AudioCaptureDemo_QueryUltraFastSupport_0001
+     * @tc.desc Query whether ultra fast recording is supported on current device
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('AudioCaptureDemo_QueryUltraFastSupport_0001', Level.LEVEL1, async (done: Function) => {
+      await runTest(
+        'AudioCaptureDemo_QueryUltraFastSupport_0001',
+        '查询超低时延录制支持',
+        2000,
+        'Query_UltraFast_Recording_Support',
+        done
+      );
+    })
+    /**
+     * @tc.number AudioCaptureDemo_CreateUltraFastCapturer_0001
+     * @tc.name AudioCaptureDemo_CreateUltraFastCapturer_0001
+     * @tc.desc Create audio capturer in ultra fast latency mode
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('AudioCaptureDemo_CreateUltraFastCapturer_0001', Level.LEVEL1, async (done: Function) => {
+      await runTest(
+        'AudioCaptureDemo_CreateUltraFastCapturer_0001',
+        '创建超低时延录制流',
+        3000,
+        'Create_UltraFast_Capturer',
+        done
+      );
+    })
+    /**
+     * @tc.number AudioCaptureDemo_GetUltraFastStatus_0001
+     * @tc.name AudioCaptureDemo_GetUltraFastStatus_0001
+     * @tc.desc Query whether the capturer is working in ultra fast mode
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('AudioCaptureDemo_GetUltraFastStatus_0001', Level.LEVEL1, async (done: Function) => {
+      await runTest(
+        'AudioCaptureDemo_GetUltraFastStatus_0001',
+        '查询超低时延流状态',
+        2000,
+        'Get_UltraFast_Status',
+        done
+      );
+    })
+    /**
+     * @tc.number AudioCaptureDemo_StopUltraFastCapturer_0001
+     * @tc.name AudioCaptureDemo_StopUltraFastCapturer_0001
+     * @tc.desc Stop and release the ultra fast capturer
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('AudioCaptureDemo_StopUltraFastCapturer_0001', Level.LEVEL1, async (done: Function) => {
+      await runTest(
+        'AudioCaptureDemo_StopUltraFastCapturer_0001',
+        '停止超低时延录制流',
+        2000,
+        'Stop_UltraFast_Capturer',
+        done
+      );
+    })
   })
 }

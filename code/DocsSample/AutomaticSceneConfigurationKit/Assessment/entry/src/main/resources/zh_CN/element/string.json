@@ -219,6 +219,10 @@
     {
       "name": "question_option_3_3",
       "value": "使用系统默认时长"
+    },
+    {
+      "name": "hardening_title",
+      "value": "评估加固"
     }
   ]
 }

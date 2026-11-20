@@ -15,8 +15,8 @@ class BufferVideoSink final : public VideoSink {
 public:
     void BeginPlayback() override
     {
-        // The preceding stream can leave a different geometry or transform on the shared window.
-        // Reconfigure it from the first decoded Buffer of the new stream.
+        // 前一个流可能在共享窗口上留下不同的尺寸或变换信息。
+        // 新流的首个解码 Buffer 到达后再据此重新配置窗口。
         renderer_.Reset();
     }
 
@@ -24,7 +24,7 @@ public:
     {
         const bool rendered = !request.render || renderer_.Render(request.bufferInfo, request.sampleInfo,
             request.context, request.renderTimestamp);
-        const int32_t freeRet = request.decoder.FreeOutputBuffer(request.bufferInfo.bufferIndex, false);
+        const int32_t freeRet = request.decoder.FreeOutputBuffer(request.bufferInfo, false);
         if (!rendered) {
             AVCODEC_SAMPLE_LOGE("Buffer video presentation failed, index: %{public}u", request.bufferInfo.bufferIndex);
             return AVCODEC_SAMPLE_ERR_ERROR;

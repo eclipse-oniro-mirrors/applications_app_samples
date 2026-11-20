@@ -43,11 +43,6 @@ int64_t GetQueuedAudioDurationUs(size_t queuedBytes, const SampleInfo &sampleInf
     return static_cast<int64_t>(durationUs);
 }
 
-bool IsCallbackUnavailable(const CodecUserData *codecUserData)
-{
-    return codecUserData == nullptr || codecUserData->isDestroyed.load();
-}
-
 void SetRendererVolume(OH_AudioRenderer *renderer, float volume, const char *reason)
 {
     if (renderer == nullptr) {
@@ -61,6 +56,7 @@ void SetRendererVolume(OH_AudioRenderer *renderer, float volume, const char *rea
 
 size_t DrainRenderQueue(CodecUserData *codecUserData, uint8_t *destination, int32_t length)
 {
+    // 调用方已持有 outputMutex。destination 属于 AudioRenderer，仅在本次回调内可写。
     size_t index = 0;
     while (!codecUserData->renderQueue.empty() && index < static_cast<size_t>(length)) {
         destination[index] = codecUserData->renderQueue.front();
@@ -192,7 +188,7 @@ int32_t SampleCallback::OnRenderWriteData(OH_AudioRenderer *renderer, void *user
         return -1;
     }
 
-    if (IsCallbackUnavailable(codecUserData)) {
+    if (codecUserData->isDestroyed.load()) {
         AVCODEC_SAMPLE_LOGD("codecUserData is being destroyed, skip callback");
         return 0;
     }
@@ -201,6 +197,7 @@ int32_t SampleCallback::OnRenderWriteData(OH_AudioRenderer *renderer, void *user
         return -1;
     }
 
+    // AudioRenderer 分配 buffer 并在回调返回后回收；此处只能同步填充，不能交给其他线程或缓存其地址。
     auto *dest = static_cast<uint8_t *>(buffer);
     std::unique_lock<std::mutex> lock(codecUserData->outputMutex);
     const size_t index = DrainRenderQueue(codecUserData, dest, length);
@@ -243,7 +240,7 @@ void SampleCallback::OnRenderInterrupt(OH_AudioRenderer *renderer, void *userDat
                                        OH_AudioInterrupt_ForceType type, OH_AudioInterrupt_Hint hint)
 {
     auto *codecUserData = static_cast<CodecUserData *>(userData);
-    if (IsCallbackUnavailable(codecUserData)) {
+    if (codecUserData == nullptr || codecUserData->isDestroyed.load()) {
         return;
     }
     const bool startsInterruption = hint == AUDIOSTREAM_INTERRUPT_HINT_PAUSE ||
@@ -294,29 +291,32 @@ int32_t SampleCallback::OnRenderError(OH_AudioRenderer *renderer, void *userData
     (void)renderer;
     (void)error;
     auto *codecUserData = static_cast<CodecUserData *>(userData);
-    if (!IsCallbackUnavailable(codecUserData)) {
+    if (codecUserData != nullptr && !codecUserData->isDestroyed.load()) {
         codecUserData->SignalError();
     }
     AVCODEC_SAMPLE_LOGE("OnRenderError");
     return 0;
 }
 
+// [Start SampleCallback::OnCodecError]
 void SampleCallback::OnCodecError(OH_AVCodec *codec, int32_t errorCode, void *userData)
 {
     (void)codec;
     auto *codecUserData = static_cast<CodecUserData *>(userData);
-    if (!IsCallbackUnavailable(codecUserData)) {
+    if (codecUserData != nullptr && !codecUserData->isDestroyed.load()) {
         codecUserData->SignalError();
     }
     AVCODEC_SAMPLE_LOGE("On codec error, error code: %{public}d", errorCode);
 }
+// [End SampleCallback::OnCodecError]
 
+// [Start SampleCallback::OnCodecFormatChange]
 void SampleCallback::OnCodecFormatChange(OH_AVCodec *codec, OH_AVFormat *format, void *userData)
 {
     (void)codec;
     AVCODEC_SAMPLE_LOGI("On codec format change");
     auto *codecUserData = static_cast<CodecUserData *>(userData);
-    if (IsCallbackUnavailable(codecUserData) || format == nullptr) {
+    if (codecUserData == nullptr || codecUserData->isDestroyed.load() || format == nullptr) {
         return;
     }
     // 音频码流信息变化：采样率/声道数/采样格式。应用可据此判断变化并做对应处理。
@@ -333,6 +333,7 @@ void SampleCallback::OnCodecFormatChange(OH_AVCodec *codec, OH_AVFormat *format,
         AVCODEC_SAMPLE_LOGI("Audio sample format changed: %{public}d", sampleFormat);
     }
     std::unique_lock<std::shared_mutex> codecLock(codecUserData->codecMutex);
+    // 可通过format获取到变化后的视频宽、高、跨距等。
     UpdateVideoOutputInfo(format, codecUserData);
     const int32_t pixelFormat = static_cast<int32_t>(codecUserData->outputPixelFormat);
     AVCODEC_SAMPLE_LOGI("Format changed: %{public}d*%{public}d, stride: %{public}d*%{public}d, "
@@ -340,17 +341,25 @@ void SampleCallback::OnCodecFormatChange(OH_AVCodec *codec, OH_AVFormat *format,
         codecUserData->width, codecUserData->height,
         codecUserData->widthStride, codecUserData->heightStride, pixelFormat);
 }
+// [End SampleCallback::OnCodecFormatChange]
 
+// [Start SampleCallback::OnNeedInputBuffer]
 void SampleCallback::OnNeedInputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *buffer, void *userData)
 {
     auto *codecUserData = static_cast<CodecUserData *>(userData);
-    if (IsCallbackUnavailable(codecUserData) || buffer == nullptr) {
+    if (codecUserData == nullptr || codecUserData->isDestroyed.load()) {
+        return;
+    }
+    if (codec == nullptr || buffer == nullptr) {
+        AVCODEC_SAMPLE_LOGE("Invalid codec input callback argument");
+        codecUserData->SignalError();
         return;
     }
     UpdateEncoderFirstInputDescription(codec, codecUserData);
-    // 编解码器已准备好，将可用输入buffer入队，供驱动线程消费。
+    // 输入帧的数据buffer和对应的index送入inputBufferQueue队列。
     codecUserData->inputBufferQueue.Enqueue(std::make_shared<CodecBufferInfo>(index, buffer));
 }
+// [End SampleCallback::OnNeedInputBuffer]
 
 // [Start quick_start]
 static int32_t GetTemporalLayerID(OH_AVBuffer *buffer)
@@ -360,6 +369,7 @@ static int32_t GetTemporalLayerID(OH_AVBuffer *buffer)
     // 若编译找不到该 Key，请确认 SDK 路径并清理 CMake 缓存；兼容旧 SDK 时可在cmake中将
     // AVCODEC_SAMPLE_ENABLE_TEMPORAL_LAYER_ID 设为 OFF。
 #ifdef AVCODEC_SAMPLE_ENABLE_TEMPORAL_LAYER_ID
+    // 参数对象由接口创建，读取完时域层信息后立即销毁，不能随 Buffer 一起跨线程保存。
     OH_AVFormat *format = OH_AVBuffer_GetParameter(buffer);
     if (format != nullptr) {
         OH_AVFormat_GetIntValue(format, OH_MD_KEY_VIDEO_ENCODER_TEMPORAL_LAYER_ID, &layerID);
@@ -371,11 +381,17 @@ static int32_t GetTemporalLayerID(OH_AVBuffer *buffer)
     return layerID;
 }
 
+// [Start SampleCallback::OnNewOutputBuffer]
 void SampleCallback::OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVBuffer *buffer, void *userData)
 {
     // [StartExclude quick_start]
     auto *codecUserData = static_cast<CodecUserData *>(userData);
-    if (IsCallbackUnavailable(codecUserData) || buffer == nullptr) {
+    if (codecUserData == nullptr || codecUserData->isDestroyed.load()) {
+        return;
+    }
+    if (codec == nullptr || buffer == nullptr) {
+        AVCODEC_SAMPLE_LOGE("Invalid codec output callback argument");
+        codecUserData->SignalError();
         return;
     }
     if (codecUserData->isDecFirstFrame) {
@@ -386,6 +402,7 @@ void SampleCallback::OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
         }
         codecUserData->isDecFirstFrame = false;
     }
+    // 输出帧的数据buffer和对应的index送入outputBufferQueue队列。
     codecUserData->outputBufferQueue.Enqueue(std::make_shared<CodecBufferInfo>(index, buffer));
     // [EndExclude quick_start]
 
@@ -395,4 +412,5 @@ void SampleCallback::OnNewOutputBuffer(OH_AVCodec *codec, uint32_t index, OH_AVB
         AVCODEC_SAMPLE_LOGD("Temporal layer ID: %{public}d", layerID);
     }
 }
+// [End SampleCallback::OnNewOutputBuffer]
 // [End quick_start]

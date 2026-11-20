@@ -1,0 +1,6 @@
+{
+  "src": [
+    "pages/Index",
+    "inputmethodextensionability/pages/KeyboardPage"
+  ]
+}

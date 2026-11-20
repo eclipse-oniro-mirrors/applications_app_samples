@@ -13,14 +13,12 @@
  * limitations under the License.
  */
 
-import { fileIo } from '@kit.CoreFileKit'
-import { window } from '@kit.ArkUI'
-import PiPWindow from '@ohos.PiPWindow'
+import { fileIo, picker } from '@kit.CoreFileKit'
+import { PiPWindow, window } from '@kit.ArkUI'
 import { camera } from '@kit.CameraKit'
 import { photoAccessHelper } from '@kit.MediaLibraryKit'
 import { media } from '@kit.MediaKit'
-import { deviceInfo } from '@kit.BasicServicesKit'
-import thermal from '@ohos.thermal'
+import { deviceInfo, thermal } from '@kit.BasicServicesKit'
 import player, { MediaInfo, MediaTrackInfo } from 'libplayer.so'
 import recorder from 'librecorder.so'
 import Logger from '../common/utils/Logger'
@@ -44,13 +42,22 @@ import { SubtitleSettingsPanel } from '../components/SubtitleSettingsPanel'
 import { AvDiagnosticsPanel } from '../components/AvDiagnosticsPanel'
 import { MediaInfoPanel as MediaInfoPanelComponent } from '../components/MediaInfoPanel'
 import { PlaybackProgressPanel as PlaybackProgressPanelComponent } from '../components/PlaybackProgressPanel'
+import { RecorderPage } from './RecorderPage'
+import { MainBottomNavigation } from '../components/MainBottomNavigation'
+import { PlayerSurface } from '../components/player/PlayerSurface'
+import { PlayerGestureLayer } from '../components/player/PlayerGestureLayer'
+import { PlayerStatusOverlay } from '../components/player/PlayerStatusOverlay'
+import { PlayerControlBar as PlayerControlBarComponent } from '../components/player/PlayerControlBar'
+import { PlayerQueueSheet } from '../components/player/PlayerQueueSheet'
+import { MainTabsPage } from './MainTabsPage'
+import { PlayerPage as PlayerPageShell } from './PlayerPage'
+import { LibraryPage } from './LibraryPage'
 import { encoderProfileCameraCheck, setFirstCameraProfile } from '../common/utils/CameraCheck'
 import { requestRecordPermissions } from '../common/utils/PermissionUtil'
 import {
   getPickerSelectedIndex, isMediaFileEmpty, isPickerIndexValid
 } from '../common/utils/MediaUtils'
-import picker from '@ohos.file.picker'
-import common from '@ohos.app.ability.common'
+import { common } from '@kit.AbilityKit'
 
 const TAG: string = 'Sample_Player';
 const DATETIME: DateTimeUtil = new DateTimeUtil();
@@ -70,15 +77,18 @@ const BLACK_SYSTEM_BAR_PROPERTIES: window.SystemBarProperties = {
 @Entry
 @Component
 export struct Player {
+  @State activeMainTab: number = 0;
   @State buttonEnabled: boolean = true;
   @State isShow: boolean = false;
   @State isSmartFluencySupported: boolean = false;
+  @State isAdvancedRecorderSupported: boolean = false;
   @State thermalWarningActive: boolean = false;
   @State isStopping: boolean = false;
   @State playbackViewModel: PlaybackViewModel = new PlaybackViewModel();
   @State isPlaybackProgressVisible: boolean = false;
   @State isMediaInfoVisible: boolean = false;
   @State isPlayerSettingsVisible: boolean = false;
+  @State isAdvancedPlayerSettingsExpanded: boolean = false;
   @State isRecorderSettingsVisible: boolean = false;
   @State isQueueVisible: boolean = false;
   @State isPlaybackToolsVisible: boolean = false;
@@ -135,11 +145,15 @@ export struct Player {
   @State draftRecorderAudioBitrate: number = 0;
   @State draftRecorderAudioLatency: number = 0;
   @State draftRecorderStabilization: number = 1;
+  @State draftRecorderPreprocMode: number = 0;
+  @State draftRecorderDropFrameRate: number = 0;
+  @State draftRecorderDualOutput: number = 0;
+  @State draftRecorderVideoDump: boolean = false;
   @State mediaInfoSections: MediaInfoSection[] = [];
   private transformType: number = 0;
   private playerSettings: PlayerSettingsModel = new PlayerSettingsModel();
   private recorderSettings: RecorderSettingsModel = new RecorderSettingsModel();
-  private cameraData: CameraDataModel = new CameraDataModel();
+  @State cameraData: CameraDataModel = new CameraDataModel();
   private selectFilePath: string | null = null;
   private seekPreviewTimer: number = 0;
   private seekPreviewRequestId: number = 0;
@@ -159,17 +173,21 @@ export struct Player {
   private abLoopTimer: number = 0;
   private abLoopSeekPending: boolean = false;
   private pipController: PiPWindow.PiPController | undefined;
+  private lastPiPSyncedPlaybackState: number = -1;
+  private resumePlaybackAfterPipStart: boolean = false;
   private readonly xComponentController: XComponentController = new XComponentController();
   private sourcePath: string[] =
     [globalThis.context.resourceManager.getStringSync($r('app.string.select_from_filemanager').id),
       globalThis.context.resourceManager.getStringSync($r('app.string.select_from_album').id)];
 
-  aboutToAppear() {
+  aboutToAppear(): void {
     this.pageActive = true;
+    this.prepareVulkanShaders();
     player.setBackgroundPlaybackEnabled(this.isBackgroundPlaybackEnabled);
     player.setAppBackground(false);
     this.loadPlaybackHistory();
     this.playbackViewModel.onPlaybackPositionChanged = (positionUs: number): void => {
+      this.updatePictureInPicturePlaybackState();
       this.updateSubtitle(positionUs);
       this.checkAbLoop(positionUs);
       if (this.playbackViewModel.state === player.PlayerState.PLAYING ||
@@ -183,6 +201,7 @@ export struct Player {
     // API 26+ 设备支持智能流畅倍速解码
     const apiVersion = deviceInfo.sdkApiVersion;
     this.isSmartFluencySupported = apiVersion >= 26;
+    this.isAdvancedRecorderSupported = apiVersion >= 26;
     if (this.isSmartFluencySupported) {
       player.setSmartFluencyEnabled(true);
       // 注册温控回调，当设备过热时自动切入 UNIFORM 低比例模式降低负载
@@ -199,6 +218,45 @@ export struct Player {
       });
     }
     Logger.info(TAG, 'Smart fluency supported: ' + this.isSmartFluencySupported + ', apiVersion: ' + apiVersion);
+  }
+
+  /**
+   * 将 Vulkan 管线需要的 SPIR-V 文件写入应用沙箱。
+   * Native 层没有 ResourceManager，不能直接读取 rawfile；这里在页面初始化时把资源复制到
+   * files/rawfile，VulkanVideoSink 再从同一目录加载。每次启动都覆盖文件，避免升级后沿用旧 shader。
+   */
+  private prepareVulkanShaders(): void {
+    const hostContext: common.Context | undefined = this.getUIContext().getHostContext();
+    if (hostContext === undefined) {
+      Logger.error(TAG, 'Prepare Vulkan shaders failed: host context is unavailable');
+      return;
+    }
+    const shaderDirectory: string = `${hostContext.filesDir}/rawfile`;
+    try {
+      if (!fileIo.accessSync(shaderDirectory)) {
+        fileIo.mkdirSync(shaderDirectory, true);
+      }
+      this.copyVulkanShader(hostContext, 'shaders/vert.spv', `${shaderDirectory}/vert.spv`);
+      this.copyVulkanShader(hostContext, 'shaders/frag.spv', `${shaderDirectory}/frag.spv`);
+    } catch (error) {
+      Logger.error(TAG, 'Prepare Vulkan shader directory failed: ' + JSON.stringify(error));
+    }
+  }
+
+  private copyVulkanShader(context: common.Context, resourcePath: string, targetPath: string): void {
+    let shaderFile: fileIo.File | undefined = undefined;
+    try {
+      const shaderData: Uint8Array = context.resourceManager.getRawFileContentSync(resourcePath);
+      shaderFile = fileIo.openSync(targetPath,
+        fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE | fileIo.OpenMode.TRUNC);
+      fileIo.writeSync(shaderFile.fd, shaderData.buffer);
+    } catch (error) {
+      Logger.error(TAG, 'Copy Vulkan shader failed: ' + resourcePath + ', ' + JSON.stringify(error));
+    } finally {
+      if (shaderFile !== undefined) {
+        fileIo.closeSync(shaderFile);
+      }
+    }
   }
 
   selectFile(): void {
@@ -233,6 +291,11 @@ export struct Player {
   }
 
   aboutToDisappear(): void {
+    // 进入系统 PiP 时页面也会触发消失回调；播放器仍由小窗承载，不能按离页流程停止。
+    if (this.isPipActive || this.resumePlaybackAfterPipStart) {
+      this.persistPlaybackProgress(this.playbackViewModel.positionUs, this.playbackViewModel.durationUs, true);
+      return;
+    }
     this.pageActive = false;
     this.recovery.cancel();
     this.seekRequests.cancel();
@@ -262,6 +325,8 @@ export struct Player {
 
   private async loadPlaybackHistory(): Promise<void> {
     try {
+      // 进入页面后异步恢复最近播放列表和断点；读取失败仅影响历史展示，
+      // 不能阻断当前文件选择和播放。
       await this.playbackHistory.load(this.getUIContext().getHostContext() as common.UIAbilityContext);
       this.recentEntries = this.playbackHistory.getEntries();
     } catch (error) {
@@ -276,6 +341,8 @@ export struct Player {
     if (!force && this.lastHistoryPositionUs >= 0 && Math.abs(positionUs - this.lastHistoryPositionUs) < 2000000) {
       return;
     }
+    // 常规进度按 2 秒粒度落盘；停止和后台等收尾场景通过 force 写入最后位置，
+    // 避免高频持久化影响播放期间的界面响应。
     this.lastHistoryPositionUs = positionUs;
     await this.playbackHistory.update(this.selectFilePath, getPlaybackTitle(this.selectFilePath),
       positionUs, durationUs);
@@ -290,6 +357,33 @@ export struct Player {
       this.queuePaths.push(path);
     }
     this.queueEntries = this.queuePaths.slice();
+  }
+
+  private playQueueEntry(index: number): void {
+    if (index < 0 || index >= this.queuePaths.length) {
+      return;
+    }
+    const path: string = this.queuePaths[index];
+    if (path.length === 0) {
+      return;
+    }
+    this.activeMainTab = 0;
+    this.isQueueVisible = false;
+    if (index === this.queueIndex && !this.buttonEnabled) {
+      return;
+    }
+    if (this.buttonEnabled) {
+      this.queueIndex = index;
+      this.selectFilePath = path;
+      this.queueEntries = this.queuePaths.slice();
+      this.play(0);
+      return;
+    }
+    if (this.isStopping) {
+      return;
+    }
+    this.pendingQueueIndex = index;
+    void this.stopPlayback();
   }
 
   private async selectQueueFiles(): Promise<void> {
@@ -320,6 +414,7 @@ export struct Player {
   }
 
   private playRecentEntry(entry: PlaybackHistoryEntry): void {
+    this.activeMainTab = 0;
     this.selectFilePath = entry.uri;
     this.queuePaths = [entry.uri];
     this.queueIndex = 0;
@@ -485,8 +580,7 @@ export struct Player {
     this.playbackControlsTimer = setTimeout(() => {
       this.playbackControlsTimer = 0;
       if (this.isPlaybackToolsVisible || this.isQueueVisible || this.isMediaInfoVisible) {
-        // Keep the host controls mounted while a sheet is open; otherwise
-        // the sheet anchor would be destroyed and the sheet could close.
+        // 面板打开时保留承载控件，避免锚点销毁导致面板关闭。
         this.showPlaybackControls();
       } else if (this.playerSettings.autoHideControls && (this.isFullscreen || !this.buttonEnabled)) {
         this.isPlaybackControlsVisible = false;
@@ -580,6 +674,7 @@ export struct Player {
 
   updatePlaybackInfo(): void {
     this.playbackViewModel.update();
+    this.updatePictureInPicturePlaybackState();
     this.playbackSessionController.updateState(this.playbackViewModel.state,
       this.playbackViewModel.speed, this.playbackViewModel.positionUs,
       this.playbackViewModel.durationUs);
@@ -812,14 +907,14 @@ export struct Player {
         if (isRotatedPortrait) {
           previewRotation = normalizedRotation;
         } else if (isNativePortrait) {
-          // Use the portrait layout even when the container omits rotation.
+          // 原生竖屏视频没有旋转信息时，仍按竖屏预览。
           previewRotation = 90;
         } else if (normalizedRotation === 180) {
           previewRotation = 180;
         }
         this.playbackViewModel.seekPreviewRotation = previewRotation;
       } catch (error) {
-        // Rotation is optional for preview rendering; keep the default 0°.
+        // 预览旋转信息缺失时按 0° 生成。
         Logger.info(TAG, 'Seek preview rotation unavailable: ' + JSON.stringify(error));
         this.playbackViewModel.seekPreviewRotation = 0;
       }
@@ -835,16 +930,12 @@ export struct Player {
         this.playbackViewModel.seekPreviewRotation === 270;
       const frame: PixelMap = await imageGenerator.fetchFrameByTime(targetUs,
         media.AVImageQueryOptions.AV_IMAGE_QUERY_CLOSEST_SYNC, {
-          // Request the thumbnail in its display orientation. The generator
-          // applies container rotation, but the requested dimensions still
-          // need to be exchanged for portrait video.
+          // 竖屏预览交换请求宽高，以匹配最终显示方向。
           width: isPortraitPreview ? SEEK_PREVIEW_HEIGHT : SEEK_PREVIEW_WIDTH,
           height: isPortraitPreview ? SEEK_PREVIEW_WIDTH : SEEK_PREVIEW_HEIGHT
         });
       fetchedFrame = frame;
-      // AVImageGenerator returns a frame with the container orientation
-      // applied. Do not rotate the PixelMap again: a second rotation would
-      // turn a rotation=90 portrait frame sideways.
+      // 生成器已应用旋转，不能再次旋转 PixelMap。
       if (!this.playbackViewModel.isSeeking || generation !== this.seekPreviewGeneration) {
         frame.release((error) => {
           if (error !== undefined) {
@@ -1005,10 +1096,7 @@ export struct Player {
 
   private startAbLoopMonitor(): void {
     this.stopAbLoopMonitor();
-    // Keep A-B checking independent from the UI refresh cadence.  Audio
-    // playback can advance between view-model updates, and a 250 ms poll can
-    // otherwise miss the B boundary when the stream has a large timestamp
-    // step or is being seeked.
+    // 每 50 ms 检查 A-B 点，避免界面刷新间隔越过 B 点。
     this.abLoopTimer = setInterval(() => {
       if (this.isAbLoopEnabled) {
         this.checkAbLoop(this.currentPlaybackPositionUs());
@@ -1030,22 +1118,16 @@ export struct Player {
     if (!this.isAbLoopEnabled || this.abLoopStartUs < 0 || this.abLoopEndUs <= this.abLoopStartUs) {
       return;
     }
-    // Use the native state as the source of truth.  The view model is
-    // refreshed periodically and can briefly lag behind the decoder after a
-    // seek, which used to suppress the loop exactly at the B point.
+    // A-B 循环以 Native 状态和时钟为准，避免 ViewModel 刷新延迟漏掉 B 点。
     const info = player.getPlaybackInfo();
     if (info.state !== player.PlayerState.PLAYING) {
       return;
     }
-    // Prefer the native clock over a possibly stale callback argument.
+    // 回调位置可能过期，使用 Native 时钟。
     positionUs = Math.max(0, Math.min(info.durationUs, info.positionUs));
     const toleranceUs = 150000;
     if (this.abLoopSeekPending) {
-      // Seek completion can report a frame slightly after A (especially when
-      // the demuxer seeks to a sync frame).  Treat any position back inside
-      // the configured interval as completion; requiring an exact A-point
-      // timestamp could leave the pending flag latched forever and disable
-      // subsequent loops.
+      // 跳转可能落在同步帧后，回到 A-B 区间即清除待跳转标记。
       if (positionUs + toleranceUs < this.abLoopEndUs) {
         this.abLoopSeekPending = false;
       }
@@ -1126,31 +1208,103 @@ export struct Player {
         });
         this.pipController.on('stateChange', (state: PiPWindow.PiPState) => {
           this.isPipActive = state === PiPWindow.PiPState.STARTED;
+          if (this.isPipActive) {
+            // PiP 启动回调可能晚于 Ability 的后台回调；若这段间隙已触发后台暂停，
+            // 这里重新启用后台续播，让 Native 播放状态与小窗控件状态保持一致。
+            player.setBackgroundPlaybackEnabled(true);
+            this.resumePiPPlaybackIfNeeded();
+            this.lastPiPSyncedPlaybackState = -1;
+            this.playbackViewModel.update();
+            this.updatePictureInPicturePlaybackState();
+          }
           if (state === PiPWindow.PiPState.STOPPED) {
             this.isPipActive = false;
+            this.lastPiPSyncedPlaybackState = -1;
+            this.resumePlaybackAfterPipStart = false;
+            player.setBackgroundPlaybackEnabled(this.isBackgroundPlaybackEnabled);
           }
         });
-        this.pipController.on('controlPanelActionEvent', (event: PiPWindow.PiPActionEventType) => {
-          if (event === 'playbackStateChanged') {
-            if (player.getState() === player.PlayerState.PLAYING) {
-              player.pause();
-            } else if (player.getState() === player.PlayerState.PAUSED) {
-              player.resume();
+        this.pipController.on('controlEvent', (event: PiPWindow.ControlEventParam) => {
+          if (event.controlType === PiPWindow.PiPControlType.VIDEO_PLAY_PAUSE) {
+            const playbackState: number = player.getState();
+            // status 表示 PiP 控件请求切换到的播放状态；按目标状态执行可避免重复事件反复切换。
+            if (event.status === PiPWindow.PiPControlStatus.PLAY &&
+              playbackState === player.PlayerState.PAUSED) {
+              if (!player.resume()) {
+                Logger.warn(TAG, 'PiP resume was rejected, state: ' + playbackState);
+              }
+            } else if (event.status === PiPWindow.PiPControlStatus.PAUSE &&
+              playbackState === player.PlayerState.PLAYING) {
+              if (!player.pause()) {
+                Logger.warn(TAG, 'PiP pause was rejected, state: ' + playbackState);
+              }
             }
-          } else if (event === 'fastForward') {
+            this.playbackViewModel.update();
+            this.updatePictureInPicturePlaybackState();
+          } else if (event.controlType === PiPWindow.PiPControlType.FAST_FORWARD) {
             this.seekBySeconds(15);
-          } else if (event === 'fastBackward') {
+          } else if (event.controlType === PiPWindow.PiPControlType.FAST_BACKWARD) {
             this.seekBySeconds(-15);
           }
         });
       }
-      await this.pipController.startPiP();
+      const playbackStateBeforePip: number = player.getState();
+      this.resumePlaybackAfterPipStart = playbackStateBeforePip === player.PlayerState.PLAYING;
       this.isPipActive = true;
+      // 小窗显示期间继续保持解码；否则后台回调会暂停播放器，但 PiP 控件仍显示旧状态。
+      player.setBackgroundPlaybackEnabled(true);
+      this.lastPiPSyncedPlaybackState = -1;
+      await this.pipController.startPiP();
       this.pipController.setAutoStartEnabled(this.isBackgroundPlaybackEnabled);
+      this.resumePiPPlaybackIfNeeded();
+      this.playbackViewModel.update();
+      this.updatePictureInPicturePlaybackState();
     } catch (error) {
       this.isPipActive = false;
+      this.lastPiPSyncedPlaybackState = -1;
+      this.resumePlaybackAfterPipStart = false;
+      player.setBackgroundPlaybackEnabled(this.isBackgroundPlaybackEnabled);
       Logger.error(TAG, 'Start picture-in-picture failed: ' + JSON.stringify(error));
       this.showControlToast($r('app.string.playback_pip_failed'));
+    }
+  }
+
+  private resumePiPPlaybackIfNeeded(): void {
+    if (!this.resumePlaybackAfterPipStart) {
+      return;
+    }
+    const playbackState: number = player.getState();
+    if (playbackState === player.PlayerState.PAUSED) {
+      if (!player.resume()) {
+        Logger.warn(TAG, 'PiP startup resume was rejected, state: ' + playbackState);
+        return;
+      }
+    } else if (playbackState !== player.PlayerState.PLAYING) {
+      return;
+    }
+    this.resumePlaybackAfterPipStart = false;
+  }
+
+  private updatePictureInPicturePlaybackState(): void {
+    if (!this.isPipActive || this.pipController === undefined) {
+      return;
+    }
+    const playbackState: number = player.getState();
+    if (playbackState !== player.PlayerState.PLAYING && playbackState !== player.PlayerState.PAUSED) {
+      return;
+    }
+    if (playbackState === this.lastPiPSyncedPlaybackState) {
+      return;
+    }
+    // status 要与播放器的实际状态一致；PiP 根据它显示播放或暂停控件。
+    const pipStatus: PiPWindow.PiPControlStatus = playbackState === player.PlayerState.PLAYING
+      ? PiPWindow.PiPControlStatus.PLAY
+      : PiPWindow.PiPControlStatus.PAUSE;
+    try {
+      this.pipController.updatePiPControlStatus(PiPWindow.PiPControlType.VIDEO_PLAY_PAUSE, pipStatus);
+      this.lastPiPSyncedPlaybackState = playbackState;
+    } catch (error) {
+      Logger.warn(TAG, 'Update PiP playback status failed: ' + JSON.stringify(error));
     }
   }
 
@@ -1166,6 +1320,8 @@ export struct Player {
       Logger.error(TAG, 'Stop picture-in-picture failed: ' + JSON.stringify(error));
     }
     this.isPipActive = false;
+    this.lastPiPSyncedPlaybackState = -1;
+    player.setBackgroundPlaybackEnabled(this.isBackgroundPlaybackEnabled);
   }
 
   private async toggleBackgroundPlayback(): Promise<void> {
@@ -1175,6 +1331,7 @@ export struct Player {
       await this.togglePictureInPicture();
       if (!this.isPipActive) {
         this.isBackgroundPlaybackEnabled = false;
+        player.setBackgroundPlaybackEnabled(false);
         return;
       }
     }
@@ -1240,8 +1397,7 @@ export struct Player {
   }
 
   private startSelectedFilePlayback(selectedPath: string): void {
-    // Returning from the system picker can resize the XComponent in the same frame.  Let its
-    // Wait for the XComponent layout callback before native code creates its EGL or Vulkan output target.
+    // 等待 XComponent 布局稳定后再创建 Native 输出目标。
     setTimeout((): void => {
       if (this.selectFilePath === selectedPath) {
         this.play();
@@ -1313,7 +1469,7 @@ export struct Player {
     this.updatePlaybackInfo();
   }
 
-  setTransform(transformHint: number) {
+  setTransform(transformHint: number): void {
     if (this.rejectWhileSeeking()) {
       return;
     }
@@ -1365,8 +1521,7 @@ export struct Player {
       this.requestedSpeed = 1;
     }
     this.seekRequests.resetStatistics();
-    // A new playback task invalidates any delayed resume seek from the
-    // previous task, including when the new file has no saved position.
+    // 启动新任务前清除上个任务的断点跳转计时器。
     if (this.resumeSeekTimer !== 0) {
       clearTimeout(this.resumeSeekTimer);
       this.resumeSeekTimer = 0;
@@ -1467,8 +1622,7 @@ export struct Player {
             void this.continuePendingQueuePlayback();
             return;
           }
-          // stop() is an expected completion when changing the selected audio track.
-          // Do not report an expected user stop as a corrupt file.
+          // 切换音轨触发的 stop() 不视为播放失败。
           if (!result.success && result.reason !== 'stopped' && !failurePromptShown) {
             failurePromptShown = true;
             this.getUIContext().getPromptAction().showToast({
@@ -1487,8 +1641,7 @@ export struct Player {
             void this.playbackSessionController.stop();
           }
         });
-        // The callback owns the descriptor only after a successful start. If
-        // startup is rejected, the finally block closes it immediately.
+        // 启动成功后回调接管文件描述符；失败时由 finally 关闭。
         closeInCallback = started;
         if (!started) {
           this.buttonEnabled = true;
@@ -1512,8 +1665,7 @@ export struct Player {
           this.playbackViewModel.isSmartFluencyAvailable = player.isSmartFluencyAvailable();
           this.updateMediaInfo();
           this.startPlaybackInfoUpdates();
-          // Startup may spend several seconds configuring a decoder. Start the inactivity countdown only
-          // after playback is ready, so the controls stay visible for the full configured interval.
+          // 起播成功后才开始自动隐藏计时。
           this.showPlaybackControls();
           this.startPlaybackSession();
           const mediaDurationUs = this.currentMediaInfo?.durationUs ?? 0;
@@ -1673,6 +1825,10 @@ export struct Player {
     this.draftRecorderStabilization =
       this.cameraData.videoStabilizationMode === Const.VIDEO_STABILIZATION_DISABLED ?
       0 : 1;
+    this.draftRecorderPreprocMode = this.isAdvancedRecorderSupported ? this.cameraData.preprocMode : 0;
+    this.draftRecorderDropFrameRate = this.isAdvancedRecorderSupported && this.cameraData.dropToFrameRate > 0 ? 1 : 0;
+    this.draftRecorderDualOutput = this.isAdvancedRecorderSupported && this.cameraData.enableDualOutput ? 1 : 0;
+    this.draftRecorderVideoDump = this.cameraData.enableVideoDump;
   }
 
   private getSettingText(resource: Resource): string {
@@ -1872,6 +2028,11 @@ export struct Player {
   }
 
   private applyRecorderSettings(): void {
+    if (!this.isAdvancedRecorderSupported) {
+      this.draftRecorderPreprocMode = 0;
+      this.draftRecorderDropFrameRate = 0;
+      this.draftRecorderDualOutput = 0;
+    }
     const values: string[] = [
       Const.OUTPUT_FORMAT[this.draftRecorderOutputFormat],
       Const.VIDEO_MIMETYPE[this.draftRecorderCodec],
@@ -1885,18 +2046,22 @@ export struct Player {
       Const.AUDIO_CHANNEL_COUNT[this.draftRecorderAudioChannelCount],
       Const.AUDIO_BITRATE[this.draftRecorderAudioBitrate],
       Const.AUDIO_CAPTURE_LATENCY_MODE[this.draftRecorderAudioLatency],
-      Const.VIDEO_STABILIZATION_MODE[this.draftRecorderStabilization]
+      Const.VIDEO_STABILIZATION_MODE[this.draftRecorderStabilization],
+      Const.VIDEO_PREPROC_MODE[this.draftRecorderPreprocMode],
+      Const.VIDEO_DROP_FRAME_RATE[this.draftRecorderDropFrameRate],
+      Const.DUAL_OUTPUT_MODE[this.draftRecorderDualOutput]
     ];
     if (!this.recorderSettings.applyPickerValues(values, this.cameraData)) {
       Logger.error(TAG, 'Invalid recorder settings: ' + JSON.stringify(values));
       return;
     }
+    this.cameraData.enableVideoDump = this.draftRecorderVideoDump;
     this.isRecorderSettingsVisible = false;
     this.checkIsProfileSupport();
   }
 
   @Builder
-  SettingOptionRow(title: Resource, value: string, onClick: () => void) {
+  SettingOptionRow(title: Resource, value: string, onClick: () => void, enabled: boolean = true) {
     Row() {
       Text(title)
         .fontSize('16fp')
@@ -1917,6 +2082,8 @@ export struct Player {
       .width('100%')
       .height('56vp')
       .padding({ left: '4vp', right: '4vp' })
+      .enabled(enabled)
+      .opacity(enabled ? 1 : 0.45)
       .onClick(onClick)
   }
 
@@ -1960,7 +2127,45 @@ export struct Player {
   }
 
   @Builder
+  PlayerSettingSheetFooter(onCancel: () => void, onReset: () => void, onApply: () => void) {
+    Row({ space: '6vp' }) {
+      Button($r('app.string.setting_restore_defaults'))
+        .layoutWeight(1)
+        .height('30vp')
+        .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
+        .fontSize('10fp')
+        .backgroundColor('#E9EEF6')
+        .fontColor('#1A5FB4')
+        .onClick(onReset)
+      Button($r('app.string.setting_cancel'))
+        .layoutWeight(1)
+        .height('30vp')
+        .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
+        .fontSize('10fp')
+        .backgroundColor('#E9EEF6')
+        .fontColor('#1A5FB4')
+        .onClick(onCancel)
+      Button($r('app.string.setting_apply'))
+        .layoutWeight(1)
+        .height('30vp')
+        .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
+        .fontSize('10fp')
+        .backgroundColor('#0A59F7')
+        .fontColor(Color.White)
+        .onClick(onApply)
+    }
+      .width('100%')
+      .height('44vp')
+      .padding({ top: '8vp', bottom: '6vp' })
+  }
+
+  @Builder
   PlayerSettingsSheet() {
+    this.PlayerSettingsSheetContent()
+  }
+
+  @Builder
+  PlayerSettingsSheetContent() {
     Column() {
       Scroll() {
         Column() {
@@ -2008,88 +2213,101 @@ export struct Player {
             .width('100%').padding({ top: '8vp', bottom: '8vp' })
           Divider().color('#E5E7EB')
           Row() {
-            Text($r('app.string.setting_audio_latency'))
-              .fontSize('16fp').fontColor('#202124').layoutWeight(1)
-            Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerAudioLowLatency })
-              .onChange((isOn: boolean) => this.draftPlayerAudioLowLatency = isOn)
-          }
-            .width('100%').height('56vp').padding({ left: '4vp', right: '4vp' })
-          Divider().color('#E5E7EB')
-          Row() {
-            Text($r('app.string.setting_auto_hide_controls'))
-              .fontSize('16fp').fontColor('#202124').layoutWeight(1)
-            Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerAutoHideControls })
-              .onChange((isOn: boolean) => this.draftPlayerAutoHideControls = isOn)
-          }
-            .width('100%').height('56vp').padding({ left: '4vp', right: '4vp' })
-          Divider().color('#E5E7EB')
-          Row() {
-            Text($r('app.string.setting_retain_last_frame'))
-              .fontSize('16fp')
-              .fontColor('#202124')
+            Text($r('app.string.setting_advanced'))
+              .fontSize('14fp')
+              .fontWeight(FontWeight.Medium)
+              .fontColor('#5F6368')
               .layoutWeight(1)
-            Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerRetainLastFrame })
-              .enabled(this.draftPlayerRunMode === 0)
-              .onChange((isOn: boolean) => this.draftPlayerRetainLastFrame = isOn)
+            Text(this.isAdvancedPlayerSettingsExpanded ? '−' : '+')
+              .fontSize('20fp')
+              .fontColor('#5F6368')
           }
             .width('100%')
-            .height('56vp')
+            .height('48vp')
             .padding({ left: '4vp', right: '4vp' })
-          Divider().color('#E5E7EB')
-          Row() {
-            Text($r('app.string.setting_low_latency'))
-              .fontSize('16fp')
-              .fontColor('#202124')
-              .layoutWeight(1)
-            Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerLowLatency })
-              .onChange((isOn: boolean) => this.draftPlayerLowLatency = isOn)
-          }
-            .width('100%')
-            .height('56vp')
-            .padding({ left: '4vp', right: '4vp' })
-          Divider().color('#E5E7EB')
-          Row() {
-            Text($r('app.string.setting_decoding_order_output'))
-              .fontSize('16fp')
-              .fontColor('#202124')
-              .layoutWeight(1)
-            Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerOutputInDecodingOrder })
-              .onChange((isOn: boolean) => this.draftPlayerOutputInDecodingOrder = isOn)
-          }
-            .width('100%')
-            .height('56vp')
-            .padding({ left: '4vp', right: '4vp' })
-          Divider().color('#E5E7EB')
-          Row() {
-            Column() {
-              Text($r('app.string.setting_hdr_vivid_to_bt709'))
-                .fontSize('16fp')
-                .fontColor(this.isHdrVividToBt709Supported(this.draftPlayerRunMode) ? '#202124' : '#8A8A8A')
-              if (!this.isHdrVividToBt709Supported(this.draftPlayerRunMode)) {
-                Text($r('app.string.setting_hdr_vivid_to_bt709_gpu_unavailable'))
-                  .fontSize('12fp')
-                  .fontColor('#8A8A8A')
-                  .maxLines(1)
-                  .textOverflow({ overflow: TextOverflow.Ellipsis })
-              }
+            .onClick(() => this.isAdvancedPlayerSettingsExpanded = !this.isAdvancedPlayerSettingsExpanded)
+          if (this.isAdvancedPlayerSettingsExpanded) {
+            Row() {
+              Text($r('app.string.setting_dump'))
+                .fontSize('16fp').fontColor('#202124').layoutWeight(1)
+              Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerDump })
+                .onChange((isOn: boolean) => this.draftPlayerDump = isOn)
             }
-              .alignItems(HorizontalAlign.Start)
-              .layoutWeight(1)
-            Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerConvertHdrVividToBt709 })
-              .enabled(this.isHdrVividToBt709Supported(this.draftPlayerRunMode))
-              .onChange((isOn: boolean) => this.draftPlayerConvertHdrVividToBt709 = isOn)
+              .width('100%').height('56vp').padding({ left: '4vp', right: '4vp' })
+            Divider().color('#E5E7EB')
+            Row() {
+              Text($r('app.string.setting_audio_latency'))
+                .fontSize('16fp').fontColor('#202124').layoutWeight(1)
+              Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerAudioLowLatency })
+                .onChange((isOn: boolean) => this.draftPlayerAudioLowLatency = isOn)
+            }
+              .width('100%').height('56vp').padding({ left: '4vp', right: '4vp' })
+            Divider().color('#E5E7EB')
+            Row() {
+              Text($r('app.string.setting_auto_hide_controls'))
+                .fontSize('16fp').fontColor('#202124').layoutWeight(1)
+              Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerAutoHideControls })
+                .onChange((isOn: boolean) => this.draftPlayerAutoHideControls = isOn)
+            }
+              .width('100%').height('56vp').padding({ left: '4vp', right: '4vp' })
+            Divider().color('#E5E7EB')
+            Row() {
+              Text($r('app.string.setting_retain_last_frame'))
+                .fontSize('16fp').fontColor('#202124').layoutWeight(1)
+              Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerRetainLastFrame })
+                .enabled(this.draftPlayerRunMode === 0)
+                .onChange((isOn: boolean) => this.draftPlayerRetainLastFrame = isOn)
+            }
+              .width('100%').height('56vp').padding({ left: '4vp', right: '4vp' })
+            Divider().color('#E5E7EB')
+            Row() {
+              Text($r('app.string.setting_low_latency'))
+                .fontSize('16fp').fontColor('#202124').layoutWeight(1)
+              Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerLowLatency })
+                .onChange((isOn: boolean) => this.draftPlayerLowLatency = isOn)
+            }
+              .width('100%').height('56vp').padding({ left: '4vp', right: '4vp' })
+            Divider().color('#E5E7EB')
+            Row() {
+              Text($r('app.string.setting_decoding_order_output'))
+                .fontSize('16fp').fontColor('#202124').layoutWeight(1)
+              Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerOutputInDecodingOrder })
+                .onChange((isOn: boolean) => this.draftPlayerOutputInDecodingOrder = isOn)
+            }
+              .width('100%').height('56vp').padding({ left: '4vp', right: '4vp' })
+            Divider().color('#E5E7EB')
+            Row() {
+              Column() {
+                Text($r('app.string.setting_hdr_vivid_to_bt709'))
+                  .fontSize('16fp')
+                  .fontColor(this.isHdrVividToBt709Supported(this.draftPlayerRunMode) ? '#202124' : '#8A8A8A')
+                if (!this.isHdrVividToBt709Supported(this.draftPlayerRunMode)) {
+                  Text($r('app.string.setting_hdr_vivid_to_bt709_gpu_unavailable'))
+                    .fontSize('12fp')
+                    .fontColor('#8A8A8A')
+                    .maxLines(1)
+                    .textOverflow({ overflow: TextOverflow.Ellipsis })
+                }
+              }
+                .alignItems(HorizontalAlign.Start)
+                .layoutWeight(1)
+              Toggle({ type: ToggleType.Switch, isOn: this.draftPlayerConvertHdrVividToBt709 })
+                .enabled(this.isHdrVividToBt709Supported(this.draftPlayerRunMode))
+                .onChange((isOn: boolean) => this.draftPlayerConvertHdrVividToBt709 = isOn)
+            }
+              .width('100%')
+              .height(this.isHdrVividToBt709Supported(this.draftPlayerRunMode) ? '56vp' : '68vp')
+              .padding({ left: '4vp', right: '4vp' })
           }
-            .width('100%')
-            .height(this.isHdrVividToBt709Supported(this.draftPlayerRunMode) ? '56vp' : '68vp')
-            .padding({ left: '4vp', right: '4vp' })
         }
           .width('100%')
       }
         .layoutWeight(1)
         .scrollBar(BarState.Auto)
-      this.SettingSheetFooter(
+      this.PlayerSettingSheetFooter(
         () => this.isPlayerSettingsVisible = false,
         () => {
+          this.isAdvancedPlayerSettingsExpanded = false;
           this.draftPlayerDecoderType = 0;
           this.draftPlayerRunMode = 0;
           this.draftPlayerSyncMode = 0;
@@ -2113,10 +2331,26 @@ export struct Player {
 
   @Builder
   RecorderSettingsSheet() {
+    this.RecorderSettingsSheetContent()
+  }
+
+  @Builder
+  RecorderSettingsSheetContent() {
     Column() {
       Scroll() {
         Column() {
           this.SettingGroupHeader($r('app.string.setting_group_output'))
+          Row() {
+            Text($r('app.string.setting_recorder_dump'))
+              .fontSize('16fp')
+              .fontColor('#202124')
+              .layoutWeight(1)
+            Toggle({ type: ToggleType.Switch, isOn: this.draftRecorderVideoDump })
+              .onChange((isOn: boolean) => this.draftRecorderVideoDump = isOn)
+          }
+            .width('100%')
+            .height('52vp')
+          Divider().color('#E5E7EB')
           this.SettingOptionRow($r('app.string.setting_output_format'),
             Const.OUTPUT_FORMAT[this.draftRecorderOutputFormat], () => {
               this.showSettingPicker(Const.OUTPUT_FORMAT, this.draftRecorderOutputFormat,
@@ -2139,7 +2373,12 @@ export struct Player {
           this.SettingOptionRow($r('app.string.setting_frame_rate'),
             this.getFrameRateLabels()[this.draftRecorderFrameRate], () => {
               this.showSettingPicker(this.getFrameRateLabels(), this.draftRecorderFrameRate,
-                (index: number) => this.draftRecorderFrameRate = index);
+                (index: number) => {
+                  this.draftRecorderFrameRate = index;
+                  if (index === 0) {
+                    this.draftRecorderDropFrameRate = 0;
+                  }
+                });
             })
           Divider().color('#E5E7EB')
           this.SettingOptionRow($r('app.string.setting_video_bitrate'),
@@ -2197,6 +2436,25 @@ export struct Player {
               this.showSettingPicker(this.getRecorderStabilizationLabels(), this.draftRecorderStabilization,
                 (index: number) => this.draftRecorderStabilization = index);
             })
+          Divider().color('#E5E7EB')
+          this.SettingGroupHeader($r('app.string.setting_group_preproc'))
+          this.SettingOptionRow($r('app.string.setting_video_preproc'),
+            Const.VIDEO_PREPROC_MODE[this.draftRecorderPreprocMode], () => {
+              this.showSettingPicker(Const.VIDEO_PREPROC_MODE, this.draftRecorderPreprocMode,
+                (index: number) => this.draftRecorderPreprocMode = index);
+            }, this.isAdvancedRecorderSupported)
+          Divider().color('#E5E7EB')
+          this.SettingOptionRow($r('app.string.setting_drop_frame_rate'),
+            Const.VIDEO_DROP_FRAME_RATE[this.draftRecorderDropFrameRate], () => {
+              this.showSettingPicker(Const.VIDEO_DROP_FRAME_RATE, this.draftRecorderDropFrameRate,
+                (index: number) => this.draftRecorderDropFrameRate = index);
+            }, this.isAdvancedRecorderSupported && this.draftRecorderFrameRate > 0)
+          Divider().color('#E5E7EB')
+          this.SettingOptionRow($r('app.string.setting_dual_output'),
+            Const.DUAL_OUTPUT_MODE[this.draftRecorderDualOutput], () => {
+              this.showSettingPicker(Const.DUAL_OUTPUT_MODE, this.draftRecorderDualOutput,
+                (index: number) => this.draftRecorderDualOutput = index);
+            }, this.isAdvancedRecorderSupported)
         }
           .width('100%')
       }
@@ -2218,6 +2476,10 @@ export struct Player {
           this.draftRecorderAudioBitrate = 0;
           this.draftRecorderAudioLatency = 0;
           this.draftRecorderStabilization = 1;
+          this.draftRecorderPreprocMode = 0;
+          this.draftRecorderDropFrameRate = 0;
+          this.draftRecorderDualOutput = 0;
+          this.draftRecorderVideoDump = false;
         },
         () => this.applyRecorderSettings()
       )
@@ -2300,16 +2562,42 @@ export struct Player {
             let uri = await helper.createAsset(photoAccessHelper.PhotoType.VIDEO, fileExt, {
               title: `AVCodecVideo_${DATETIME.getDate()}_${DATETIME.getTime()}`
             });
+            let secondaryFile: fileIo.File | undefined = undefined;
+            if (this.cameraData.enableDualOutput) {
+              const secondaryUri = await helper.createAsset(photoAccessHelper.PhotoType.VIDEO, fileExt, {
+                title: `AVCodecVideoSecondary_${DATETIME.getDate()}_${DATETIME.getTime()}`
+              });
+              secondaryFile = await fileIo.open(secondaryUri, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
+            }
             await this.checkIsProfileSupport();
             let file = await fileIo.open(uri, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
             this.cameraData.outputfd = file.fd;
+            this.cameraData.secondaryOutputfd = secondaryFile === undefined ? -1 : secondaryFile.fd;
+            const dumpTimestamp: number = Date.now();
+            const dumpExtension: string = this.cameraData.videoCodecMime === Const.MIME_VIDEO_AVC ? 'h264' : 'h265';
+            const dumpDirectory: string = context === undefined ? '' : context.filesDir;
+            const primaryDumpPath: string = this.cameraData.enableVideoDump && dumpDirectory.length > 0 ?
+              `${dumpDirectory}/recording_${dumpTimestamp}_primary.${dumpExtension}` : '';
+            const secondaryDumpPath: string = this.cameraData.enableVideoDump && this.cameraData.enableDualOutput &&
+              dumpDirectory.length > 0 ?
+              `${dumpDirectory}/recording_${dumpTimestamp}_secondary.${dumpExtension}` : '';
             if (this.cameraData.outputfd !== null) {
               recorder.initNative(this.cameraData.outputfd, this.cameraData.videoCodecMime, this.cameraData.cameraWidth,
                 this.cameraData.cameraHeight, this.cameraData.frameRate, this.cameraData.isHDRVivid,
                 this.cameraData.bitRate, this.cameraData.format, this.cameraData.isSync,
                 this.cameraData.outputFormat, this.cameraData.bitrateMode, this.cameraData.iFrameInterval,
                 this.cameraData.audioSampleRate, this.cameraData.audioChannelCount,
-                this.cameraData.audioBitRate, this.cameraData.audioCaptureLatencyMode).then((data) => {
+                this.cameraData.audioBitRate, this.cameraData.audioCaptureLatencyMode,
+                this.cameraData.secondaryOutputfd, this.cameraData.enableDualOutput ? 1 : 0,
+                this.cameraData.preprocMode, this.cameraData.downsamplingWidth,
+                this.cameraData.downsamplingHeight, this.cameraData.dropToFrameRate,
+                this.cameraData.cropLeft, this.cameraData.cropTop, this.cameraData.cropRight,
+                this.cameraData.cropBottom,
+                this.cameraData.enableDualOutput && this.cameraData.cameraWidth >= Const.VIDEO_WIDTH_1080P ?
+                  Const.VIDEO_WIDTH_720P : this.cameraData.cameraWidth,
+                this.cameraData.enableDualOutput && this.cameraData.cameraHeight >= Const.VIDEO_HEIGHT_1080P ?
+                  Const.VIDEO_HEIGHT_720P : this.cameraData.cameraHeight,
+                this.cameraData.enableVideoDump ? 1 : 0, primaryDumpPath, secondaryDumpPath).then((data) => {
                 if (data.code === 0 && data.outputId !== null) {
                   this.cameraData.outputId = data.outputId;
                   this.getUIContext().getRouter().pushUrl({
@@ -2320,6 +2608,9 @@ export struct Player {
                   Logger.error(TAG, 'Recorder initialization failed, code: ' + data.code);
                   try {
                     fileIo.close(file);
+                    if (secondaryFile !== undefined) {
+                      fileIo.close(secondaryFile);
+                    }
                   } catch (error) {
                     Logger.error(TAG, 'Close unsupported recorder output failed: ' + JSON.stringify(error));
                   }
@@ -2355,110 +2646,146 @@ export struct Player {
   }
 
   @Builder
-  QueuePanel() {
-    Scroll() {
-      Column({ space: '8vp' }) {
-        Select([
-          { value: $r('app.string.playback_mode_sequential') },
-          { value: $r('app.string.playback_mode_repeat_one') },
-          { value: $r('app.string.playback_mode_repeat_all') },
-          { value: $r('app.string.playback_mode_shuffle') }
-        ]).selected(this.playbackMode)
-          .onSelect((index: number) => this.playbackMode = index)
-          .width('100%')
-        Text($r('app.string.playback_mode_hint')).fontSize('12fp').fontColor('#66000000')
-        Row() {
-          Text($r('app.string.playback_auto_recovery')).layoutWeight(1)
-          Toggle({ type: ToggleType.Switch, isOn: this.autoRecoveryEnabled })
-            .onChange((value: boolean) => this.autoRecoveryEnabled = value)
-        }.width('100%')
-        Row({ space: '8vp' }) {
-          Button($r('app.string.playback_queue_add'))
-            .layoutWeight(1)
-            .onClick(() => this.selectQueueFiles())
-          Button($r('app.string.playback_queue_clear'))
-            .layoutWeight(1)
-            .enabled(this.queuePaths.length > 0)
-            .onClick(() => {
-              this.queuePaths = [];
-              this.queueIndex = -1;
-              this.queueEntries = [];
-            })
+  MediaLibraryPage() {
+    LibraryPage({
+      recentEntries: this.recentEntries,
+      queueEntries: this.queueEntries,
+      queueIndex: this.queueIndex,
+      buttonEnabled: this.buttonEnabled,
+      recentPositionPrefix: this.getSettingText($r('app.string.playback_recent_position')),
+      recentCompletedText: this.getSettingText($r('app.string.playback_recent_completed')),
+      onOpenFiles: (): void => {
+        this.activeMainTab = 0;
+        void this.selectFile();
+      },
+      onAddQueue: (): void => {
+        void this.selectQueueFiles();
+      },
+      onClearQueue: (): void => {
+        this.queuePaths = [];
+        this.queueIndex = -1;
+        this.queueEntries = [];
+      },
+      onPlayQueueEntry: (index: number): void => this.playQueueEntry(index),
+      onPlayRecentEntry: (entry: PlaybackHistoryEntry): void => this.playRecentEntry(entry)
+    })
+  }
+
+  @Builder
+  RecorderHomePage() {
+    Stack() {
+      RecorderPage({
+        cameraWidth: this.cameraData.cameraWidth,
+        cameraHeight: this.cameraData.cameraHeight,
+        frameRate: this.cameraData.frameRate,
+        buttonEnabled: this.buttonEnabled,
+        onOpenSettings: (): void => {
+          this.prepareRecorderSettings();
+          this.isRecorderSettingsVisible = true;
+        },
+        onStartRecording: (): void => {
+          void this.prepareRecording();
         }
-        if (this.queueEntries.length > 0) {
-          Text($r('app.string.playback_queue_current'))
-            .fontSize('14fp')
-            .fontColor('#99101820')
-          ForEach(this.queueEntries, (path: string, index: number) => {
-            Row() {
-              Text((index + 1).toString() + '. ' + getPlaybackTitle(path))
-                .layoutWeight(1)
-                .maxLines(1)
-                .textOverflow({ overflow: TextOverflow.Ellipsis })
-              Text(index === this.queueIndex ? $r('app.string.playback_queue_playing') : '')
-                .fontColor('#0A59F7')
-            }
-            .width('100%')
-            .padding({ left: '8vp', right: '8vp', top: '6vp', bottom: '6vp' })
-            .backgroundColor('#0F000000')
-            .borderRadius('4vp')
-          }, (path: string) => path)
-        }
-        Text($r('app.string.playback_recent'))
-          .fontSize('14fp')
-          .fontColor('#99101820')
-        if (this.recentEntries.length === 0) {
-          Text($r('app.string.playback_recent_empty')).fontColor('#66000000')
-        } else {
-          ForEach(this.recentEntries, (entry: PlaybackHistoryEntry) => {
-            Row() {
-              Column() {
-                Text(entry.title).maxLines(1).textOverflow({ overflow: TextOverflow.Ellipsis })
-                Text(entry.positionUs > 0 ?
-                  this.getSettingText($r('app.string.playback_recent_position')) +
-                    this.formatHistoryPosition(entry.positionUs) :
-                  $r('app.string.playback_recent_completed'))
-                  .fontSize('12fp').fontColor('#66000000')
-              }.layoutWeight(1)
-              Button($r('app.string.playback_recent_play'))
-                .enabled(this.buttonEnabled)
-                .onClick(() => this.playRecentEntry(entry))
-            }
-            .width('100%')
-            .padding({ left: '8vp', right: '8vp', top: '6vp', bottom: '6vp' })
-          }, (entry: PlaybackHistoryEntry) => entry.uri)
-        }
-      }
-      .width('100%')
-      .padding('16vp')
+      })
+      Column()
+        .width(1)
+        .height(1)
+        .bindSheet($$this.isRecorderSettingsVisible, this.RecorderSettingsSheet(), {
+          height: '85%',
+          title: {
+            title: $r('app.string.recorder_settings_title'),
+            subtitle: $r('app.string.recorder_settings_subtitle')
+          }
+        })
+      Column()
+        .width(1)
+        .height(1)
+        .bindSheet($$this.isShow, this.Authorized, {
+          height: 210,
+          title: { title: $r('app.string.saveButtonTitle') }
+        })
     }
-    .scrollBar(BarState.Auto)
+    .width('100%')
+    .height('100%')
+  }
+
+  @Builder
+  BottomNavigation() {
+    MainBottomNavigation({
+      activeIndex: this.activeMainTab,
+      onTabSelected: (index: number): void => {
+        this.activeMainTab = index;
+      }
+    })
+  }
+
+  @Builder
+  QueuePanel() {
+    PlayerQueueSheet({
+      queueEntries: this.queueEntries,
+      queueIndex: this.queueIndex,
+      recentEntries: this.recentEntries,
+      playbackMode: this.playbackMode,
+      autoRecoveryEnabled: this.autoRecoveryEnabled,
+      buttonEnabled: this.buttonEnabled,
+      recentPositionPrefix: this.getSettingText($r('app.string.playback_recent_position')),
+      recentCompletedText: this.getSettingText($r('app.string.playback_recent_completed')),
+      onModeChanged: (index: number): void => { this.playbackMode = index; },
+      onRecoveryChanged: (enabled: boolean): void => { this.autoRecoveryEnabled = enabled; },
+      onAddQueue: (): void => { void this.selectQueueFiles(); },
+      onClearQueue: (): void => {
+        this.queuePaths = [];
+        this.queueIndex = -1;
+        this.queueEntries = [];
+      },
+      onPlayQueueEntry: (index: number): void => this.playQueueEntry(index),
+      onPlayRecentEntry: (entry: PlaybackHistoryEntry): void => this.playRecentEntry(entry)
+    })
   }
 
   @Builder
   PlaybackToolsPanel() {
-    Column({ space: '12vp' }) {
+    Scroll() {
+    Column({ space: '8vp' }) {
+      Text($r('app.string.playback_section_controls'))
+        .fontSize('13fp')
+        .fontWeight(FontWeight.Medium)
+        .fontColor('#667085')
       Row({ space: '8vp' }) {
         Button($r('app.string.playback_queue'))
           .layoutWeight(1)
+          .height('30vp')
+          .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
+          .fontSize('10fp')
           .onClick(() => {
             this.closePlaybackTools();
             setTimeout(() => {
               this.isQueueVisible = true;
             }, 300);
           })
-        Button(this.isDiagnosticsVisible ? $r('app.string.playback_diagnostics_close') :
-          $r('app.string.playback_diagnostics'))
-          .layoutWeight(1)
-          .onClick(() => {
-            this.isDiagnosticsVisible = !this.isDiagnosticsVisible;
-            this.closePlaybackTools();
-          })
+      }
+      .height('44vp')
+      if (!this.buttonEnabled && !this.isStopping && this.playbackViewModel.hasVideo) {
+        Row({ space: '8vp' }) {
+          Button($r('app.string.adjust_playback_speed'))
+            .layoutWeight(1)
+            .height('30vp')
+            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
+            .fontSize('10fp')
+            .onClick(() => {
+              this.closePlaybackTools();
+              this.showPlaybackSpeedPicker();
+            })
+        }
+        .height('44vp')
       }
       if (this.playbackViewModel.hasVideo) {
         Row({ space: '8vp' }) {
           Button($r('app.string.playback_display_scale'))
             .layoutWeight(1)
+            .height('30vp')
+            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
+            .fontSize('10fp')
             .onClick(() => {
               this.closePlaybackTools();
               this.selectDisplayScaleMode();
@@ -2466,6 +2793,9 @@ export struct Player {
           if (this.playbackViewModel.hasAudio) {
             Button(this.audioMuted ? $r('app.string.playback_unmute') : $r('app.string.playback_mute'))
               .layoutWeight(1)
+              .height('30vp')
+              .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
+              .fontSize('10fp')
               .onClick(() => {
                 this.toggleMute();
                 this.closePlaybackTools();
@@ -2474,21 +2804,57 @@ export struct Player {
             Blank().layoutWeight(1)
           }
         }
+        .height('44vp')
       } else if (this.playbackViewModel.hasAudio) {
         Row({ space: '8vp' }) {
           Button(this.audioMuted ? $r('app.string.playback_unmute') : $r('app.string.playback_mute'))
             .layoutWeight(1)
+            .height('30vp')
+            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
+            .fontSize('10fp')
             .onClick(() => {
               this.toggleMute();
               this.closePlaybackTools();
             })
           Blank().layoutWeight(1)
         }
+        .height('44vp')
       }
+      if (this.playbackViewModel.hasVideo) {
+        Row() {
+          Button($r('app.string.playback_transform'))
+            .width('100%')
+            .height('30vp')
+            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
+            .fontSize('10fp')
+            .onClick(() => {
+              this.getUIContext().showTextPickerDialog({
+                range: Const.getTransformTypes(),
+                canLoop: false,
+                onAccept: (value: TextPickerResult) => {
+                  const transformIndex = getPickerSelectedIndex(value.index);
+                  if (isPickerIndexValid(transformIndex, Const.TRANSFORM_TYPE_COUNT)) {
+                    this.transformType = transformIndex;
+                    this.setTransform(this.transformType);
+                  }
+                }
+              });
+            })
+        }
+        .height('44vp')
+      }
+      Divider().color('#E5E7EB')
+      Text($r('app.string.playback_section_media'))
+        .fontSize('13fp')
+        .fontWeight(FontWeight.Medium)
+        .fontColor('#667085')
       if (this.playbackViewModel.hasAudio) {
         Row({ space: '8vp' }) {
           Button($r('app.string.playback_audio_track'))
             .layoutWeight(1)
+            .height('30vp')
+            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
+            .fontSize('10fp')
             .onClick(() => {
               this.closePlaybackTools();
               this.selectAudioTrack();
@@ -2496,6 +2862,9 @@ export struct Player {
           if (this.playbackViewModel.hasVideo) {
             Button($r('app.string.playback_subtitle'))
               .layoutWeight(1)
+              .height('30vp')
+              .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
+              .fontSize('10fp')
               .onClick(() => {
                 this.closePlaybackTools();
                 this.selectSubtitleFile();
@@ -2504,38 +2873,74 @@ export struct Player {
             Blank().layoutWeight(1)
           }
         }
+        .height('44vp')
       }
       if (this.playbackViewModel.hasVideo && !this.playbackViewModel.hasAudio) {
         Row({ space: '8vp' }) {
           Button($r('app.string.playback_subtitle'))
             .layoutWeight(1)
+            .height('30vp')
+            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
+            .fontSize('10fp')
             .onClick(() => {
               this.closePlaybackTools();
               this.selectSubtitleFile();
             })
           Blank().layoutWeight(1)
         }
+        .height('44vp')
       }
       if (this.playbackViewModel.hasVideo) {
         Row({ space: '8vp' }) {
           Button($r('app.string.playback_subtitle_sync'))
             .layoutWeight(1)
+            .height('30vp')
+            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
+            .fontSize('10fp')
             .onClick(() => {
               this.closePlaybackTools();
               this.selectSubtitleDelay();
             })
           Button($r('app.string.playback_subtitle_style'))
             .layoutWeight(1)
+            .height('30vp')
+            .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
+            .fontSize('10fp')
             .onClick(() => {
               this.closePlaybackTools();
               this.selectSubtitleStyle();
             })
         }
+        .height('44vp')
       }
+      Divider().color('#E5E7EB')
+      Text($r('app.string.playback_section_pipeline'))
+        .fontSize('13fp')
+        .fontWeight(FontWeight.Medium)
+        .fontColor('#667085')
+      Row({ space: '8vp' }) {
+        Button($r('app.string.setting'))
+          .layoutWeight(1)
+          .height('30vp')
+          .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
+          .fontSize('10fp')
+          .onClick(() => {
+            this.closePlaybackTools();
+            setTimeout(() => {
+              this.preparePlayerSettings();
+              this.isPlayerSettingsVisible = true;
+            }, 300);
+          })
+          .enabled(!this.isPlayerSettingsVisible)
+      }
+      .height('44vp')
       Row({ space: '8vp' }) {
         Button(this.abLoopStartUs >= 0 ? $r('app.string.playback_ab_set_start_done') :
           $r('app.string.playback_ab_set_start'))
           .layoutWeight(1)
+          .height('30vp')
+          .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
+          .fontSize('10fp')
           .enabled(!this.buttonEnabled && !this.isStopping)
           .onClick(() => {
             this.setAbLoopStart();
@@ -2544,6 +2949,9 @@ export struct Player {
         Button(this.isAbLoopEnabled ? $r('app.string.playback_ab_set_end_done') :
           $r('app.string.playback_ab_set_end'))
           .layoutWeight(1)
+          .height('30vp')
+          .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
+          .fontSize('10fp')
           .enabled(!this.buttonEnabled && !this.isStopping && this.abLoopStartUs >= 0)
           .onClick(() => {
             this.setAbLoopEnd();
@@ -2551,16 +2959,23 @@ export struct Player {
           })
         Button($r('app.string.playback_ab_clear'))
           .layoutWeight(1)
+          .height('30vp')
+          .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
+          .fontSize('10fp')
           .enabled(this.abLoopStartUs >= 0 || this.abLoopEndUs >= 0)
           .onClick(() => {
             this.resetAbLoop();
             this.closePlaybackTools();
           })
       }
+      .height('44vp')
       Row({ space: '8vp' }) {
         Button(this.isBackgroundPlaybackEnabled ? $r('app.string.playback_background_on') :
           $r('app.string.playback_background_off'))
           .layoutWeight(1)
+          .height('30vp')
+          .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
+          .fontSize('10fp')
           .enabled(!this.buttonEnabled && !this.isStopping)
           .onClick(async () => {
             await this.toggleBackgroundPlayback();
@@ -2569,10 +2984,14 @@ export struct Player {
         Blank().layoutWeight(1)
         Blank().layoutWeight(1)
       }
+      .height('44vp')
       if (this.playbackViewModel.hasVideo) {
         Row({ space: '8vp' }) {
         Button(this.isPipActive ? $r('app.string.playback_pip_exit') : $r('app.string.playback_pip_enter'))
           .layoutWeight(1)
+          .height('30vp')
+          .responseRegion({ x: 0, y: '-7vp', width: '100%', height: '44vp' })
+          .fontSize('10fp')
           .enabled(!this.buttonEnabled && !this.isStopping)
           .onClick(async () => {
             if (this.isPipActive) {
@@ -2594,10 +3013,13 @@ export struct Player {
         }
         Blank().layoutWeight(1)
         }
+        .height('44vp')
       }
     }
     .width('100%')
-    .padding({ left: '16vp', right: '16vp', top: '8vp', bottom: '8vp' })
+    .padding({ left: '12vp', right: '12vp', top: '6vp', bottom: '6vp' })
+    }
+    .scrollBar(BarState.Auto)
   }
 
   private formatHistoryPosition(positionUs: number): string {
@@ -2605,6 +3027,37 @@ export struct Player {
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
     return (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+  }
+
+  private showPlaybackSpeedPicker(): void {
+    TextPickerDialog.show({
+      range: Const.PLAYBACK_SPEED,
+      canLoop: false,
+      onAccept: (value: TextPickerResult): void => {
+        switch (value.value) {
+          case Const.PLAYBACK_SPEED[0]:
+            this.setPlaybackSpeed(1);
+            this.getUIContext().getPromptAction().showToast({ message: 'X1' });
+            break;
+          case Const.PLAYBACK_SPEED[1]: {
+            this.setPlaybackSpeed(2);
+            const message: Resource | string = this.playbackViewModel.isSmartFluencyAvailable ?
+              $r('app.string.smart_fluency_x2') : 'X2';
+            this.getUIContext().getPromptAction().showToast({ message: message });
+            break;
+          }
+          case Const.PLAYBACK_SPEED[2]: {
+            this.setPlaybackSpeed(3);
+            const message: Resource | string = this.playbackViewModel.isSmartFluencyAvailable ?
+              $r('app.string.smart_fluency_x3') : 'X3';
+            this.getUIContext().getPromptAction().showToast({ message: message });
+            break;
+          }
+          default:
+            break;
+        }
+      }
+    });
   }
 
   @Builder
@@ -2615,7 +3068,7 @@ export struct Player {
   @Builder
   DiagnosticsPanel() {
     if (this.isDiagnosticsVisible) {
-      Column({ space: '2vp' }) {
+      Column({ space: '6vp' }) {
         Text($r('app.string.playback_diagnostics')).fontSize('13fp').fontColor('#E8FFFFFF')
         Text(this.getSettingText($r('app.string.playback_diagnostics_state')) + this.playbackViewModel.infoText)
           .fontSize('12fp').fontColor('#E8FFFFFF')
@@ -2653,6 +3106,35 @@ export struct Player {
             this.playbackViewModel.bufferPresentFailures)
             .fontSize('12fp').fontColor('#E8FFFFFF')
         }
+        if (this.playbackViewModel.hasVideo && this.playbackViewModel.sinkDiagnosticsAvailable) {
+          Text(this.getSettingText($r('app.string.playback_diagnostics_vulkan_present')) +
+            this.playbackViewModel.sinkFrames +
+            this.getSettingText($r('app.string.playback_diagnostics_vulkan_frame')) +
+            this.playbackViewModel.sinkFailures +
+            this.getSettingText($r('app.string.playback_diagnostics_vulkan_failures')) +
+            this.getSettingText($r('app.string.playback_diagnostics_average')) +
+            this.playbackViewModel.sinkAverageFrameUs.toFixed(1) + ' us')
+            .fontSize('12fp').fontColor('#E8FFFFFF')
+          Text(this.getSettingText($r('app.string.playback_diagnostics_vulkan_wait')) +
+            this.playbackViewModel.sinkAverageNativeImageWaitUs.toFixed(1) + ' us' +
+            this.getSettingText($r('app.string.playback_diagnostics_vulkan_acquire')) +
+            this.playbackViewModel.sinkAverageNativeImageAcquireUs.toFixed(1) + ' us' +
+            this.getSettingText($r('app.string.playback_diagnostics_vulkan_fence')) +
+            this.playbackViewModel.sinkAverageAcquireFenceWaitUs.toFixed(1) + ' us')
+            .fontSize('12fp').fontColor('#E8FFFFFF')
+          Text(this.getSettingText($r('app.string.playback_diagnostics_vulkan_import')) +
+            this.playbackViewModel.sinkAverageImportUs.toFixed(1) + ' us' +
+            this.getSettingText($r('app.string.playback_diagnostics_vulkan_gpu')) +
+            this.playbackViewModel.sinkAverageGpuWaitUs.toFixed(1) + ' us')
+            .fontSize('12fp').fontColor('#E8FFFFFF')
+          Text(this.getSettingText($r('app.string.playback_diagnostics_vulkan_record')) +
+            this.playbackViewModel.sinkAverageCommandRecordUs.toFixed(1) + ' us' +
+            this.getSettingText($r('app.string.playback_diagnostics_vulkan_submit')) +
+            this.playbackViewModel.sinkAverageSubmitUs.toFixed(1) + ' us' +
+            this.getSettingText($r('app.string.playback_diagnostics_vulkan_cache')) +
+            this.playbackViewModel.sinkCacheHits + '/' + this.playbackViewModel.sinkCacheMisses)
+            .fontSize('12fp').fontColor('#E8FFFFFF')
+        }
         if (this.playbackViewModel.hasVideo) {
           Text(this.getSettingText($r('app.string.playback_diagnostics_smart_fluency')) +
             (this.playbackViewModel.isSmartFluencyAvailable ?
@@ -2686,9 +3168,10 @@ export struct Player {
           .fontSize('12fp').fontColor('#E8FFFFFF')
         AvDiagnosticsPanel({ model: this.playbackViewModel })
       }
-      .padding({ left: '8vp', right: '8vp', top: '6vp', bottom: '6vp' })
+      .width('100%')
+      .padding({ left: '12vp', right: '12vp', top: '10vp', bottom: '10vp' })
       .backgroundColor('#99101820')
-      .borderRadius('4vp')
+      .borderRadius('12vp')
       .margin({ top: '48vp', left: '16vp' })
       .align(Alignment.TopStart)
       .hitTestBehavior(HitTestMode.None)
@@ -2698,76 +3181,23 @@ export struct Player {
   @Builder
   Window() {
     Stack({ alignContent: Alignment.TopEnd }) {
-      XComponent({
-        id: 'player',
-        type: XComponentType.SURFACE,
-        libraryname: 'player',
-        controller: this.xComponentController
+      PlayerSurface({
+        controller: this.xComponentController,
+        onAreaChanged: (_oldArea: Area, newArea: Area): void => this.updatePlaybackWindowWidth(newArea)
       })
-        .height(Const.FULL_SIZE)
-        .width(Const.FULL_SIZE)
-        .onAreaChange((_: Area, newArea: Area): void => this.updatePlaybackWindowWidth(newArea))
-        // XComponent does not expose objectFit. Keep scaling in the native
-        // renderer and retain the selected display mode in the UI state.
-        .gesture(
-          GestureGroup(GestureMode.Exclusive,
-            TapGesture({ count: 2, fingers: 1 })
-              .onAction((event: GestureEvent) => this.handlePlaybackWindowDoubleTap(event)),
-            TapGesture({ count: 1, fingers: 1 })
-              .onAction(() => this.handlePlaybackWindowTap()),
-            LongPressGesture({ repeat: true })// 长按动作存在会连续触发
-              .onAction(() => {
-                this.showPlaybackControls();
-                if (!this.buttonEnabled && !this.isStopping && this.playbackViewModel.hasVideo) {
-                  this.setPlaybackSpeed(2);
-                  const message = this.playbackViewModel.isSmartFluencyAvailable ?
-                    $r('app.string.smart_fluency_x2') : $r('app.string.playback_speed_x2');
-                  this.getUIContext().getPromptAction().showToast({ message: message });
-                }
-              })// 长按动作一结束触发
-              .onActionEnd(() => {
-                if (!this.buttonEnabled && !this.isStopping && this.playbackViewModel.hasVideo) {
-                  this.setPlaybackSpeed(1);
-                  this.getUIContext().getPromptAction().showToast({
-                    message: $r('app.string.playback_speed_x1')
-                  });
-                }
-              })
-          )
-        )
-
-      if (this.selectFilePath !== null && !this.playbackViewModel.hasVideo &&
-        this.playbackViewModel.hasAudio) {
-        Text($r('app.string.playback_audio_only'))
-          .fontSize('20fp')
-          .fontColor('#B3FFFFFF')
-          .align(Alignment.Center)
-          .hitTestBehavior(HitTestMode.None)
-      }
-
-      if (this.playbackViewModel.hasVideo && this.playbackViewModel.isHdrVividConfirmed) {
-        Text('HDR Vivid')
-          .fontSize('13fp')
-          .fontColor('#E8FFFFFF')
-          .backgroundColor('#4D101820')
-          .padding({ left: '10vp', right: '10vp', top: '5vp', bottom: '5vp' })
-          .borderRadius('4vp')
-          .margin({ top: '48vp', right: '16vp' })
-          .hitTestBehavior(HitTestMode.None)
-      }
+      PlayerStatusOverlay({
+        audioOnly: this.selectFilePath !== null && !this.playbackViewModel.hasVideo &&
+          this.playbackViewModel.hasAudio,
+        audioOnlyText: this.getSettingText($r('app.string.playback_audio_only')),
+        hdrVisible: this.playbackViewModel.hasVideo && this.playbackViewModel.isHdrVividConfirmed,
+        subtitleText: this.subtitleText,
+        subtitleVisible: this.subtitleStyle.visible,
+        subtitleFontSize: this.subtitleStyle.fontSize(),
+        subtitleFontColor: this.subtitleStyle.fontColor(),
+        subtitleBackgroundColor: this.subtitleStyle.backgroundColor(),
+        subtitleAtBottom: this.subtitleStyle.positionIndex === 0
+      })
       this.DiagnosticsPanel()
-      if (this.subtitleText.length > 0 && this.subtitleStyle.visible) {
-        Text(this.subtitleText)
-          .fontSize(this.subtitleStyle.fontSize())
-          .fontColor(this.subtitleStyle.fontColor())
-          .textAlign(TextAlign.Center)
-          .backgroundColor(this.subtitleStyle.backgroundColor())
-          .textShadow({ radius: 2, color: '#FF000000', offsetX: 1, offsetY: 1 })
-          .padding({ left: '12vp', right: '12vp', top: '4vp', bottom: '4vp' })
-          .margin({ left: '24vp', right: '24vp', top: '72vp', bottom: '72vp' })
-          .align(this.subtitleStyle.positionIndex === 0 ? Alignment.Bottom : Alignment.Top)
-          .hitTestBehavior(HitTestMode.None)
-      }
     }
     .width(Const.FULL_SIZE)
     .height('auto')
@@ -2776,16 +3206,45 @@ export struct Player {
   }
 
   @Builder
+  PlaybackGestureLayer() {
+    PlayerGestureLayer({
+        onDoubleTap: (event: GestureEvent): void => this.handlePlaybackWindowDoubleTap(event),
+        onTap: (): void => this.handlePlaybackWindowTap(),
+        onLongPress: (): void => {
+          this.showPlaybackControls();
+          if (!this.buttonEnabled && !this.isStopping && this.playbackViewModel.hasVideo) {
+            this.setPlaybackSpeed(2);
+            const message = this.playbackViewModel.isSmartFluencyAvailable ?
+              $r('app.string.smart_fluency_x2') : $r('app.string.playback_speed_x2');
+            this.getUIContext().getPromptAction().showToast({ message: message });
+          }
+        },
+        onLongPressEnd: (): void => {
+          if (!this.buttonEnabled && !this.isStopping && this.playbackViewModel.hasVideo) {
+            this.setPlaybackSpeed(1);
+            this.getUIContext().getPromptAction().showToast({ message: $r('app.string.playback_speed_x1') });
+          }
+        }
+    })
+  }
+
+  @Builder
   PlaybackProgressPanel() {
     PlaybackProgressPanelComponent({
       model: this.playbackViewModel,
       previewRotation: this.playbackViewModel.seekPreviewRotation,
+      diagnosticsVisible: this.isDiagnosticsVisible,
       seekEnabled: (this.playbackViewModel.state === player.PlayerState.PLAYING ||
         this.playbackViewModel.state === player.PlayerState.PAUSED || this.seekRequests.isBusy()) &&
         !this.isStopping && this.playbackViewModel.durationUs > 0,
       onShowMediaInfo: () => {
         this.handlePlaybackControlInteraction();
         this.showMediaInfo();
+      },
+      onToggleDiagnostics: () => {
+        this.handlePlaybackControlInteraction();
+        this.isDiagnosticsVisible = !this.isDiagnosticsVisible;
+        this.closePlaybackTools();
       },
       onProgressChange: (value: number, mode: SliderChangeMode) => {
         this.handlePlaybackControlInteraction();
@@ -2801,375 +3260,90 @@ export struct Player {
       })
   }
 
+  @Builder
+  PlaybackControlBar() {
+    PlayerControlBarComponent({
+      buttonEnabled: this.buttonEnabled,
+      stopping: this.isStopping,
+      hasVideo: this.playbackViewModel.hasVideo,
+      paused: this.playbackViewModel.state === player.PlayerState.PAUSED,
+      fullscreen: this.isFullscreen,
+      hasSelectedFile: this.selectFilePath !== null,
+      progressVisible: this.isPlaybackProgressVisible,
+      controlsVisible: this.isPlaybackControlsVisible,
+      autoHideControls: this.playerSettings.autoHideControls,
+      moreVisible: $isPlaybackToolsVisible,
+      settingsVisible: $isPlayerSettingsVisible,
+      progressContent: (): void => this.PlaybackProgressPanel(),
+      moreContent: (): void => this.PlaybackToolsPanel(),
+      settingsContent: (): void => this.PlayerSettingsSheet(),
+      onControlInteraction: (): void => this.handlePlaybackControlInteraction(),
+      onSeekBackward: (): void => {
+        this.seekBySeconds(-15);
+      },
+      onStepFrame: (direction: number): void => {
+        this.stepFrame(direction);
+      },
+      onTogglePause: (): void => this.togglePlaybackPause(),
+      onSeekForward: (): void => {
+        this.seekBySeconds(15);
+      },
+      onPlayOrStop: (): void => {
+        if (this.buttonEnabled) {
+          void this.selectFile();
+        } else {
+          void this.stopPlayback();
+        }
+      },
+      onToggleMore: (): void => {
+        this.isPlaybackToolsVisible = true;
+      },
+      onToggleFullscreen: (): void => this.toggleFullscreen(),
+      onReplay: (): void => {
+        this.replaySelectedFile();
+      }
+    })
+  }
+
+  // 页面插槽使用具名 Builder 方法，确保 ArkUI 按 Builder 上下文创建自定义组件。
+  @Builder
+  PlayerPageContent() {
+    PlayerPageShell({
+      surfaceContent: (): void => this.Window(),
+      gestureContent: (): void => this.PlaybackGestureLayer(),
+      controlsContent: (): void => this.PlaybackControlBar()
+    })
+  }
+
+  @Builder
+  MainNavigationContent() {
+    if (!this.isFullscreen) {
+      this.BottomNavigation()
+    }
+  }
+
   build() {
     Column() {
-      this.Window()
-
-      // Keep entry controls available before playback starts. During playback,
-      // the visibility state is shared by normal and fullscreen modes so the
-      // auto-hide preference applies consistently in both layouts.
-      if (this.buttonEnabled || this.isPlaybackControlsVisible ||
-        !this.playerSettings.autoHideControls) {
-      Column() {
-        if (this.isPlaybackProgressVisible) {
-          this.PlaybackProgressPanel()
-        }
-        if (!this.buttonEnabled && !this.isStopping) {
-          // Keep the video area large: secondary actions are available
-          // from the More sheet, and fullscreen controls auto-hide after idle.
-          Column({ space: '6vp' }) {
-            Row({ space: '4vp' }) {
-              Button($r('app.string.playback_rewind_15s'))
-                .layoutWeight(1)
-                .fontSize('9fp')
-                .height('30vp')
-                .padding({ left: '0vp', right: '0vp' })
-                .backgroundColor('#1976D2')
-                .fontColor(Color.White)
-                .onClick(() => {
-                  this.handlePlaybackControlInteraction();
-                  this.seekBySeconds(-15);
-                })
-              if (this.playbackViewModel.hasVideo) {
-                Button($r('app.string.playback_previous_frame'))
-                  .layoutWeight(1)
-                  .fontSize('9fp')
-                  .height('30vp')
-                  .padding({ left: '0vp', right: '0vp' })
-                  .backgroundColor('#1976D2')
-                  .fontColor(Color.White)
-                  .onClick(() => {
-                    this.handlePlaybackControlInteraction();
-                    this.stepFrame(-1);
-                  })
-              }
-              Button(this.playbackViewModel.state === player.PlayerState.PAUSED ?
-                $r('app.string.playback_resume') : $r('app.string.playback_pause'))
-                .layoutWeight(1)
-                .fontSize('9fp')
-                .height('30vp')
-                .padding({ left: '0vp', right: '0vp' })
-                .backgroundColor('#1976D2')
-                .fontColor(Color.White)
-                .onClick(() => {
-                  this.handlePlaybackControlInteraction();
-                  this.togglePlaybackPause();
-                })
-              if (this.playbackViewModel.hasVideo) {
-                Button($r('app.string.playback_next_frame'))
-                  .layoutWeight(1)
-                  .fontSize('9fp')
-                  .height('30vp')
-                  .padding({ left: '0vp', right: '0vp' })
-                  .backgroundColor('#1976D2')
-                  .fontColor(Color.White)
-                  .onClick(() => {
-                    this.handlePlaybackControlInteraction();
-                    this.stepFrame(1);
-                  })
-              }
-              Button($r('app.string.playback_forward_15s'))
-                .layoutWeight(1)
-                .fontSize('9fp')
-                .height('30vp')
-                .padding({ left: '0vp', right: '0vp' })
-                .backgroundColor('#1976D2')
-                .fontColor(Color.White)
-                .onClick(() => {
-                  this.handlePlaybackControlInteraction();
-                  this.seekBySeconds(15);
-                })
-            }
-            .width('100%')
-            .height('30vp')
-          }
-          .width('100%')
-          .height('30vp')
-          .margin({ bottom: '4vp' })
-        }
-        if (this.buttonEnabled && this.selectFilePath !== null && !this.isFullscreen) {
-          Button($r('app.string.playback_replay'))
-            .fontSize('12fp')
-            .width('32%')
-            .height('34vp')
-            .margin({ bottom: '4vp' })
-            .onClick(() => {
-              this.handlePlaybackControlInteraction();
-              this.replaySelectedFile();
-            })
-        }
-        if (!this.isFullscreen && (this.buttonEnabled || (!this.buttonEnabled && !this.isStopping))) {
-          Row({ space: '8vp' }) {
-            Button($r('app.string.playback_more'))
-              .layoutWeight(1)
-              .fontSize('12fp')
-              .backgroundColor('#3F51B5')
-              .fontColor(Color.White)
-              .onClick(() => {
-                this.handlePlaybackControlInteraction();
-                this.isPlaybackToolsVisible = true;
-              })
-              .bindSheet($$this.isPlaybackToolsVisible, this.PlaybackToolsPanel(), {
-                height: this.isFullscreen ? '70%' : '55%',
-                title: { title: $r('app.string.playback_more_title') }
-              })
-            if (this.playbackViewModel.hasVideo) {
-              Button($r('app.string.playback_fullscreen'))
-                .layoutWeight(1)
-                .fontSize('12fp')
-                .onClick(() => {
-                  this.handlePlaybackControlInteraction();
-                  this.toggleFullscreen();
-                })
-            }
-          }
-          .width('100%')
-          .height('32vp')
-          .margin({ bottom: '4vp' })
-        }
-        Row({ space: '4vp' }) {
-          if (this.isFullscreen && this.playbackViewModel.hasVideo) {
-            Button($r('app.string.playback_more'))
-              .width('16%')
-              .height('34vp')
-              .fontSize('10fp')
-              .backgroundColor('#3F51B5')
-              .fontColor(Color.White)
-              .onClick(() => {
-                this.handlePlaybackControlInteraction();
-                this.isPlaybackToolsVisible = true;
-              })
-              .bindSheet($$this.isPlaybackToolsVisible, this.PlaybackToolsPanel(), {
-                height: '70%',
-                title: { title: $r('app.string.playback_more_title') }
-              })
-            if (this.selectFilePath !== null) {
-              Button($r('app.string.playback_replay'))
-                .width('16%')
-                .height('34vp')
-                .fontSize('10fp')
-                .onClick(() => {
-                  this.handlePlaybackControlInteraction();
-                  this.replaySelectedFile();
-                })
-            } else {
-              Blank().width('16%').height('34vp')
-            }
-            Button('Flip')
-              .width('16%')
-              .height('34vp')
-              .fontSize('10fp')
-              .onClick(() => {
-                this.handlePlaybackControlInteraction();
-                this.getUIContext().showTextPickerDialog({
-                  range: Const.getTransformTypes(),
-                  canLoop: false,
-                  onAccept: (value: TextPickerResult) => {
-                    const transformIndex = getPickerSelectedIndex(value.index);
-                    if (isPickerIndexValid(transformIndex, Const.TRANSFORM_TYPE_COUNT)) {
-                      this.transformType = transformIndex;
-                      this.setTransform(this.transformType);
-                    }
-                  }
-                })
-              })
-          }
-          if (this.buttonEnabled && !this.isFullscreen) {
-            this.PlayerSettingButton()
-          } else if (!this.isFullscreen && this.playbackViewModel.hasVideo) {
-            Button('Flip')
-              .fontSize('12fp')
-              .size({
-                width: '18.5%',
-                height: '34vp'
-              })
-              .margin({ bottom: $r('app.float.button_margin_bottom') })
-              .enabled(!this.isStopping)
-              .onClick(() => {
-                this.handlePlaybackControlInteraction();
-                this.getUIContext().showTextPickerDialog({
-                  defaultPickerItemHeight: Const.DEFAULT_PICKER_ITEM_HEIGHT,
-                  selectedTextStyle: ({
-                    font: ({
-                      size: Const.SELECTED_TEXT_STYLE_FONT_SIZE
-                    })
-                  }),
-                  range: Const.getTransformTypes(),
-                  canLoop: false,
-                  alignment: DialogAlignment.Center,
-                  backgroundColor: Color.White,
-                  backgroundBlurStyle: BlurStyle.BACKGROUND_ULTRA_THICK,
-                  onAccept: (value: TextPickerResult) => {
-                    const transformIndex = getPickerSelectedIndex(value.index);
-                    if (isPickerIndexValid(transformIndex, Const.TRANSFORM_TYPE_COUNT)) {
-                      this.transformType = transformIndex;
-                      this.setTransform(this.transformType);
-                    }
-                  }
-                })
-              })
-          }
-
-
-          if (!this.isFullscreen) {
-            Blank(5)
-          }
-          Button(this.buttonEnabled ? $r('app.string.play') :
-            this.isStopping ? $r('app.string.stopping') : $r('app.string.stop_playback'))
-            .fontSize('12fp')
-            .onClick(() => {
-              this.handlePlaybackControlInteraction();
-              if (this.buttonEnabled) {
-                this.selectFile()
-              } else {
-                this.stopPlayback()
-              }
-            })
-            .size({
-              width: this.isFullscreen ? '16%' : '60%',
-              height: '34vp'
-            })
-            .enabled(this.buttonEnabled || !this.isStopping)
-            .margin({ bottom: $r('app.float.button_margin_bottom') })
-          if (!this.isFullscreen) {
-            Blank(5)
-            Button($r('app.string.adjust_playback_speed'))
-              .enabled(!this.buttonEnabled && !this.isStopping)
-              .fontSize('12fp')
-              .size({
-                width: '18.5%',
-                height: '34vp'
-              })
-              .margin({ bottom: $r('app.float.button_margin_bottom') })
-              .onClick(() => {
-              this.handlePlaybackControlInteraction();
-              this.getUIContext().getPromptAction().showToast({ message: $r('app.string.alert2') });
-              TextPickerDialog.show({
-                defaultPickerItemHeight: Const.DEFAULT_PICKER_ITEM_HEIGHT,
-                selectedTextStyle: ({
-                  font: ({
-                    size: Const.SELECTED_TEXT_STYLE_FONT_SIZE
-                  })
-                }),
-                range: Const.PLAYBACK_SPEED,
-                canLoop: false,
-                alignment: DialogAlignment.Center,
-                backgroundColor: Color.White,
-                backgroundBlurStyle: BlurStyle.BACKGROUND_ULTRA_THICK,
-                onAccept: (value: TextPickerResult) => {
-                  switch (value.value) {
-                    case Const.PLAYBACK_SPEED[0]: {
-                      this.setPlaybackSpeed(1);
-                      this.getUIContext().getPromptAction().showToast({ message: 'X1' });
-                      break;
-                    }
-                    case Const.PLAYBACK_SPEED[1]: {
-                      this.setPlaybackSpeed(2);
-                      const message = this.playbackViewModel.isSmartFluencyAvailable ?
-                        $r('app.string.smart_fluency_x2') : 'X2';
-                      this.getUIContext().getPromptAction().showToast({ message: message });
-                      break;
-                    }
-                    case Const.PLAYBACK_SPEED[2]: {
-                      this.setPlaybackSpeed(3);
-                      const message = this.playbackViewModel.isSmartFluencyAvailable ?
-                        $r('app.string.smart_fluency_x3') : 'X3';
-                      this.getUIContext().getPromptAction().showToast({ message: message });
-                      break;
-                    }
-                    default:
-                      break;
-                  }
-                }
-              })
-                })
-          } else {
-            Button($r('app.string.adjust_playback_speed'))
-              .enabled(!this.buttonEnabled && !this.isStopping)
-              .fontSize('10fp')
-              .width('16%')
-              .height('34vp')
-              .onClick(() => {
-                this.handlePlaybackControlInteraction();
-                TextPickerDialog.show({
-                  range: Const.PLAYBACK_SPEED,
-                  canLoop: false,
-                  onAccept: (value: TextPickerResult) => {
-                    switch (value.value) {
-                      case Const.PLAYBACK_SPEED[0]:
-                        this.setPlaybackSpeed(1);
-                        break;
-                      case Const.PLAYBACK_SPEED[1]:
-                        this.setPlaybackSpeed(2);
-                        break;
-                      case Const.PLAYBACK_SPEED[2]:
-                        this.setPlaybackSpeed(3);
-                        break;
-                      default:
-                        break;
-                    }
-                  }
-                })
-              })
-            Button($r('app.string.playback_exit_fullscreen'))
-              .fontSize('12fp')
-              .size({
-                width: '16%',
-                height: '34vp'
-              })
-              .margin({ bottom: $r('app.float.button_margin_bottom') })
-              .onClick(() => {
-                this.handlePlaybackControlInteraction();
-                this.toggleFullscreen();
-              })
-          }
-        }
-
-        if (this.buttonEnabled && !this.isFullscreen) {
-          Row() {
-          this.RecorderSettingButton()
-          Blank(5)
-          Button($r('app.string.record'))
-            .fontSize('12fp')
-            .backgroundColor('#E67E22')
-            .fontColor(Color.White)
-            .onClick(async () => {
-              await this.prepareRecording();
-            })
-            .bindSheet($$this.isShow, this.Authorized, {
-              height: 210,
-              title: {
-                title: $r('app.string.saveButtonTitle')
-              }
-            })
-            .size({
-              width: '77%',
-              height: '34vp'
-            })
-            .enabled(this.buttonEnabled)
-          }
-        }
-      }
-      .padding({ left: '16vp', right: '16vp', top: '8vp', bottom: '16vp' })
-      .width($r('app.string.full_width'))
-      .height('auto')
-      .backgroundColor(Color.Black)
-      .justifyContent(FlexAlign.End)
-      .bindSheet($$this.isQueueVisible, this.QueuePanel(), {
-        height: '75%',
-        title: { title: $r('app.string.playback_queue_sheet_title') }
+      MainTabsPage({
+        activeIndex: this.activeMainTab,
+        playerContent: (): void => this.PlayerPageContent(),
+        libraryContent: (): void => this.MediaLibraryPage(),
+        recorderContent: (): void => this.RecorderHomePage(),
+        navigationContent: (): void => this.MainNavigationContent()
       })
-      }
     }
     .width($r('app.string.full_width'))
     .height($r('app.string.full_height'))
-    // Keep the black page background under the system navigation area so the
-    // startup layout cannot expose a white strip below the controls.
+    // 黑色背景延伸到导航区域，防止退出全屏时出现白边。
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
     .backgroundColor(Color.Black)
     .bindSheet($$this.isSubtitleSettingsVisible, this.SubtitleSettings(), {
       height: '85%',
       title: { title: $r('app.string.playback_subtitle_style') }
+    })
+    .bindSheet($$this.isQueueVisible, this.QueuePanel(), {
+      height: '75%',
+      title: { title: $r('app.string.playback_queue_sheet_title') }
     })
   }
 }

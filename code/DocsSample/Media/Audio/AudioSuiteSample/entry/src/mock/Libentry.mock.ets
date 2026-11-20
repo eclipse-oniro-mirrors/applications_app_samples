@@ -17,6 +17,9 @@ const NativeMock: Record<string, Object> = {
   'add': (a: number, b: number) => {
     return a + b;
   },
+  'CheckNodeSupport': (nodeType: number) => {
+    return true;
+  },
 };
 
 export default NativeMock;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,38 +13,50 @@
  * limitations under the License.
  */
 
+import hilog from '@ohos.hilog';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = 'BrowserTestIndex';
+
+/**
+ * Placeholder page of the ohosTest ability.
+ *
+ * The real assertions run in the hypium suites; this page only proves that the
+ * test ability owns a working window stage.
+ */
 @Entry
 @Component
 struct Index {
+  @State message: string = 'Browser test runner';
+  @State detail: string = 'Executing ohosTest suites';
+
   aboutToAppear() {
-    console.info('TestAbility index aboutToAppear');
+    hilog.info(DOMAIN, TAG, '%{public}s', 'test page aboutToAppear');
   }
 
-  @State message: string = 'Hello World'
+  aboutToDisappear() {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'test page aboutToDisappear');
+  }
 
   build() {
-    Row() {
-      Column() {
-        Text(this.message)
-          .fontSize(50)
-          .fontWeight(FontWeight.Bold)
-        Button() {
-          Text('next page')
-            .fontSize(20)
-            .fontWeight(FontWeight.Bold)
-        }
-        .type(ButtonType.Capsule)
-        .margin({
-          top: 20
-        })
-        .backgroundColor('#0D9FFB')
-        .width('35%')
-        .height('5%')
-        .onClick(() => {
-        })
-      }
-      .width('100%')
+    Column() {
+      Text(this.message)
+        .fontSize(22)
+        .fontWeight(FontWeight.Bold)
+        .margin({ top: 24, bottom: 12 })
+      Text(this.detail)
+        .fontSize(16)
+        .margin({ bottom: 8 })
+      Divider()
+        .color('#c6c6c6')
+        .width('80%')
+      Text('See hilog tag BrowserTest for details')
+        .fontSize(14)
+        .margin({ top: 12 })
     }
+    .width('100%')
     .height('100%')
+    .justifyContent(FlexAlign.Start)
+    .alignItems(HorizontalAlign.Center)
   }
 }

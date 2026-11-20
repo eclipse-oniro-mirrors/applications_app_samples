@@ -63,6 +63,10 @@
     {
       "name": "init_file_name",
       "value": "xxx_contract.txt"
+    },
+    {
+      "name": "open_dlp_file_prompt",
+      "value": "Please open a DLP file! "
     }
   ]
 }

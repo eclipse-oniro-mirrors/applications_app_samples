@@ -83,7 +83,7 @@ struct Index {
           .fontSize(16)
           .width('100%')
       }
-      .id('videoRecorderNDKPage')
+      .id('videoRecorderNativePage')
       .width('96%')
       .height(48)
       .backgroundColor($r('app.color.button_background'))
@@ -91,7 +91,7 @@ struct Index {
       .align(Alignment.Start)
       .onClick(async (e: ClickEvent) => {
         this.getUIContext().getRouter().pushUrl({
-          url: 'pages/VideoRecorderNDK',
+          url: 'pages/VideoRecorderNative',
         })
       })
       .padding({ left: 12})
@@ -107,7 +107,7 @@ struct Index {
           .fontSize(16)
           .width('100%')
       }
-      .id('audioRecorderNDKPage')
+      .id('audioRecorderNativePage')
       .width('96%')
       .height(48)
       .backgroundColor($r('app.color.button_background'))
@@ -115,7 +115,7 @@ struct Index {
       .align(Alignment.Start)
       .onClick(() => {
         this.getUIContext().getRouter().pushUrl({
-          url: 'pages/AudioRecorderNDK',
+          url: 'pages/AudioRecorderNative',
         })
       })
       .padding({ left: 12})

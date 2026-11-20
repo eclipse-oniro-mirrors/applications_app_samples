@@ -16,6 +16,10 @@
 #include "napi/native_api.h"
 #include "oh_audio_playing.h"
 #include <cstdint>
+#include <atomic>
+#include <mutex>
+#include <chrono>
+#include <thread>
 
 #include <hilog/log.h>
 
@@ -31,12 +35,34 @@ constexpr size_t ARG_INDEX_SONG_FILE_SIZE = 2;
 constexpr size_t ARG_INDEX_SONG_FILE_OFFSET = 3;
 constexpr size_t ARG_COUNT_LOAD_SONG_INFO = 4;
 
+// The audio write thread posts work items to the main-thread uv loop while ReleasePlayer may tear the
+// player down on the main thread at any moment. The context is therefore reference counted: ReleasePlayer
+// only drops its own reference, and the memory is freed after the last in-flight work item completes.
 struct PlayStatusCallbackContext {
     napi_env env = nullptr;
     napi_ref callbackRef = nullptr;
     int32_t playStatus = 1;
     uv_loop_s *loop = nullptr;
+    std::atomic<int> refCount{1};
+    std::atomic<bool> released{false};
+    // Guards the check-then-add of refCount against a concurrent release owned by ReleasePlayer.
+    std::mutex refMutex;
 };
+
+static void ReleaseContextRef(PlayStatusCallbackContext *context)
+{
+    if (context == nullptr) {
+        return;
+    }
+    if (context->refCount.fetch_sub(1) == 1) {
+        if (context->callbackRef != nullptr) {
+            napi_delete_reference(context->env, context->callbackRef);
+            context->callbackRef = nullptr;
+        }
+        delete context;
+        OH_LOG_INFO(LOG_APP, "PlayStatusCallbackContext destroyed");
+    }
+}
 
 void PlayStateCallback(void *asyncContext, PlayStatus playStatus)
 {
@@ -47,32 +73,45 @@ void PlayStateCallback(void *asyncContext, PlayStatus playStatus)
         return;
     }
 
-    uv_work_t *work = new uv_work_t;
+    {
+        std::lock_guard<std::mutex> lock(context->refMutex);
+        if (context->released.load()) {
+            OH_LOG_INFO(LOG_APP, "PlayStateCallback ignored, context released");
+            return;
+        }
+        // Take a reference before queueing so ReleasePlayer cannot free the context under the work item.
+        context->refCount.fetch_add(1);
+    }
     context->playStatus = playStatus;
-    work->data = context;
 
-    uv_queue_work(
-        context->loop, work, [](uv_work_t *work) {},
-        [](uv_work_t *work, int status) {
-            PlayStatusCallbackContext *context = (PlayStatusCallbackContext *)work->data;
-
-            if (context == nullptr) {
-                OH_LOG_ERROR(LOG_APP, "Context is null in uv_work callback");
-                delete work;
-                return;
-            }
-
+    auto finishWork = [](uv_work_t *work, int status) {
+        PlayStatusCallbackContext *ctx = (PlayStatusCallbackContext *)work->data;
+        if (ctx != nullptr && status != UV_ECANCELED && !ctx->released.load()) {
             napi_handle_scope scope = nullptr;
-            napi_open_handle_scope(context->env, &scope);
+            napi_open_handle_scope(ctx->env, &scope);
             napi_value callback = nullptr;
             napi_value ms;
-            napi_create_int32(context->env, context->playStatus, &ms);
+            napi_create_int32(ctx->env, ctx->playStatus, &ms);
             napi_value args[1] = {ms};
-            napi_get_reference_value(context->env, context->callbackRef, &callback);
-            napi_call_function(context->env, nullptr, callback, 1, args, nullptr);
-            napi_close_handle_scope(context->env, scope);
-            delete work;
-        });
+            napi_get_reference_value(ctx->env, ctx->callbackRef, &callback);
+            napi_call_function(ctx->env, nullptr, callback, 1, args, nullptr);
+            napi_close_handle_scope(ctx->env, scope);
+        } else {
+            OH_LOG_INFO(LOG_APP, "Skip released play status callback, status=%{public}d", status);
+        }
+        delete work;
+        // The env is no longer touched here, so it is safe to drop the last reference.
+        ReleaseContextRef(ctx);
+    };
+
+    uv_work_t *work = new uv_work_t;
+    work->data = context;
+    int queueRet = uv_queue_work(context->loop, work, [](uv_work_t *) {}, finishWork);
+    if (queueRet != 0) {
+        OH_LOG_ERROR(LOG_APP, "uv_queue_work failed, ret=%{public}d", queueRet);
+        delete work;
+        ReleaseContextRef(context);
+    }
 }
 
 
@@ -182,10 +221,13 @@ static napi_value OnPlayStatusNDK(napi_env env, napi_callback_info info)
 
     if (OHAudioPlayer::GetInstance().playStatusCallbackContext != nullptr) {
         auto oldContext = (PlayStatusCallbackContext *)OHAudioPlayer::GetInstance().playStatusCallbackContext;
-        if (oldContext->callbackRef != nullptr) {
-            napi_delete_reference(env, oldContext->callbackRef);
+        OHAudioPlayer::GetInstance().playStatusCallbackContext = nullptr;
+        // The previous registration may still have work items queued; release only drops the owner ref.
+        {
+            std::lock_guard<std::mutex> lock(oldContext->refMutex);
+            oldContext->released.store(true);
         }
-        delete oldContext;
+        ReleaseContextRef(oldContext);
         OH_LOG_INFO(LOG_APP, "Cleaned old PlayStatusCallbackContext");
     }
 
@@ -258,14 +300,18 @@ static napi_value SetEffectModeNDK(napi_env env, napi_callback_info info)
 // Release player
 static napi_value ReleasePlayerNDK(napi_env env, napi_callback_info info)
 {
+    // Clear the function pointer first so the audio thread stops posting new work items.
+    OHAudioPlayer::GetInstance().PlayStatusCallback = nullptr;
     if (OHAudioPlayer::GetInstance().playStatusCallbackContext != nullptr) {
         auto context = (PlayStatusCallbackContext *)OHAudioPlayer::GetInstance().playStatusCallbackContext;
-        if (context->callbackRef != nullptr) {
-            napi_delete_reference(env, context->callbackRef);
-        }
-        delete context;
         OHAudioPlayer::GetInstance().playStatusCallbackContext = nullptr;
-        OHAudioPlayer::GetInstance().PlayStatusCallback = nullptr;
+        // Mark released so in-flight work items skip the JS call, then drop the owner reference.
+        // The memory is freed only when the last queued work item has finished using the env.
+        {
+            std::lock_guard<std::mutex> lock(context->refMutex);
+            context->released.store(true);
+        }
+        ReleaseContextRef(context);
         OH_LOG_INFO(LOG_APP, "Cleaned PlayStatusCallbackContext in ReleasePlayer");
     }
 
@@ -273,9 +319,6 @@ static napi_value ReleasePlayerNDK(napi_env env, napi_callback_info info)
     return nullptr;
 }
 
-static napi_value NAPI_Global_setEffectMode(napi_env env, napi_callback_info info)
-{
-}
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)
 {

@@ -30,8 +30,7 @@
 int32_t Player::CreateAudioDecoder()
 {
     if (sampleInfo_.audio.audioCodecMime.empty()) {
-        // A media source without an audio track is valid. Keep the audio
-        // context absent so Start() only launches the video pipeline.
+        // 无音轨是合法输入；音频上下文为空时 Start() 只启动视频流水线。
         audioDecoder_.reset();
         audioDecContext_.reset();
         isAudioDone.store(true);
@@ -204,13 +203,20 @@ int32_t Player::CreateVideoDecoder()
 int32_t Player::CreateVideoDecoderForType(int32_t decoderType)
 {
     ReleaseVideoDecoder();
-    // Keep the requested decoder type in sampleInfo_. A failed automatic attempt must not make the
-    // following replay start directly with the temporary software fallback.
+    // 保留用户请求的解码器类型，不把本次的软件回退带到下一次重播。
     if (sampleInfo_.codec.codecRunMode == SURFACE) {
-        sampleInfo_.video.window = NativeXComponentSample::PluginManager::GetInstance()->GetPluginWindow();
+        decoderWindowLease_ = NativeXComponentSample::PluginManager::GetInstance()->AcquirePluginWindow();
+        CHECK_AND_RETURN_RET_LOG(decoderWindowLease_, AVCODEC_SAMPLE_ERR_ERROR,
+            "Acquire XComponent window for Surface decoder failed");
+        sampleInfo_.video.window = decoderWindowLease_.GetWindow();
     }
     SampleInfo configureInfo = sampleInfo_;
     configureInfo.codec.codecType = decoderType;
+    if (sampleInfo_.codec.codecRunMode == VULKAN && videoSink_ != nullptr && videoSink_->UsesSurfaceDecoder()) {
+        // Vulkan 直接采样原始 NativeBuffer；容器旋转由纹理坐标统一完成。
+        // 保留 sampleInfo_ 中的原始角度供显示区域和媒体信息使用，避免生产端再次旋转。
+        configureInfo.video.rotation = 0;
+    }
     videoDecoder_ = std::make_unique<VideoDecoder>();
     AVCODEC_SAMPLE_LOGI("Create video decoder, mime: %{public}s, type: %{public}d",
         sampleInfo_.video.videoCodecMime.c_str(), decoderType);
@@ -285,6 +291,10 @@ void Player::ResetPlaybackState()
     bufferPresentFrames_.store(0);
     bufferPresentFailures_.store(0);
     bufferPresentDurationNs_.store(0);
+    {
+        std::lock_guard<std::mutex> diagnosticsLock(videoSinkDiagnosticsMutex_);
+        videoSinkDiagnostics_ = {};
+    }
     hasVideoTrack_.store(false);
     hasAudioTrack_.store(false);
     hdrVividConfirmed_.store(false);
@@ -303,31 +313,33 @@ void Player::ResetPlaybackState()
 void Player::PrepareForInitialization(const SampleInfo &sampleInfo)
 {
     sampleInfo_ = sampleInfo;
-    // Do not modify the XComponent NativeWindow before the Surface decoder has been configured.
-    // In particular, the HDR Vivid to BT.709 path creates its post-processing pipeline during
-    // Configure(), and a concurrent producer-state update here can leave that transaction pending.
-    // Buffer and GPU sinks configure their own presentation state when they present a frame.
+    // Surface 解码器 Configure() 前不修改 XComponent NativeWindow。
+    // HDR Vivid 转 BT.709 在 Configure() 中创建后处理链路；并发更新生产者状态会打断该过程。
     transformHint = NATIVEBUFFER_ROTATE_NONE;
     if (videoSink_ != nullptr && videoSinkRunMode_ != sampleInfo_.codec.codecRunMode) {
-        // The GPU sinks own native presentation resources. Release a sink for a previous run mode before a
-        // new decoder binds the shared XComponent window, otherwise Surface output can inherit stale geometry.
+        // 新解码器绑定共享窗口前释放上一运行模式的 GPU sink，清除旧的显示资源和几何状态。
         videoSink_->Reset();
         videoSink_.reset();
         videoSinkRunMode_ = -1;
     } else if (videoSink_ != nullptr) {
         videoSink_->BeginPlayback();
     }
-    // Demuxer::Create fills the actual video dimensions. A GPU sink needs those dimensions to
-    // allocate its NativeImage producer surface, so it must be prepared after parsing rather than
-    // here. Preparing it with the initial 0x0 values silently falls back to decoder Buffer output.
+    // Demuxer::Create 填充实际视频尺寸。GPU sink 解析后再创建 NativeImage；0x0 尺寸会回退为 Buffer 输出。
     ResetPlaybackState();
 }
 
-void Player::PrepareVideoSinkForPlayback()
+bool Player::PrepareVideoSinkForPlayback()
 {
-    if (sampleInfo_.codec.codecRunMode == SURFACE) {
-        return;
+    // 音频-only 媒体没有视频输出链路，不需要创建 GPU sink。
+    if (sampleInfo_.video.videoCodecMime.empty()) {
+        return true;
     }
+    if (sampleInfo_.codec.codecRunMode == SURFACE) {
+        return true;
+    }
+    // Surface 窗口只属于当前一次解码器配置。非 Surface 模式必须先清空旧租约留下的指针，
+    // 否则本轮 GPU 建链失败时可能把已释放的 NativeWindow 误传给新的 decoder。
+    sampleInfo_.video.window = nullptr;
     if (videoSink_ == nullptr) {
         switch (sampleInfo_.codec.codecRunMode) {
             case OPENGL:
@@ -340,16 +352,33 @@ void Player::PrepareVideoSinkForPlayback()
                 videoSink_ = std::make_unique<BufferVideoSink>();
                 break;
             default:
-                return;
+                AVCODEC_SAMPLE_LOGE("Unsupported video output run mode: %{public}d",
+                    sampleInfo_.codec.codecRunMode);
+                return false;
         }
         videoSinkRunMode_ = sampleInfo_.codec.codecRunMode;
     }
     sampleInfo_.video.window = videoSink_->PrepareForPlayback(sampleInfo_);
     if (videoSink_->UsesSurfaceDecoder()) {
-        AVCODEC_SAMPLE_LOGI("GPU sink prepared NativeImage producer surface for decoder output");
-    } else if (sampleInfo_.video.window == nullptr && sampleInfo_.codec.codecRunMode == OPENGL) {
-        AVCODEC_SAMPLE_LOGW("OpenGL NativeImage surface unavailable, using decoder Buffer output");
+        AVCODEC_SAMPLE_LOGI("GPU sink prepared Surface decoder output, run mode: %{public}d",
+            sampleInfo_.codec.codecRunMode);
+        return true;
     }
+    if (sampleInfo_.codec.codecRunMode == OPENGL) {
+        // OpenGL 保留已有的 Buffer fallback，避免 EGL/NativeImage 不可用时影响普通播放。
+        if (sampleInfo_.video.window == nullptr) {
+            AVCODEC_SAMPLE_LOGW("OpenGL NativeImage surface unavailable, using decoder Buffer output");
+        }
+        return true;
+    }
+    if (sampleInfo_.codec.codecRunMode == BUFFER) {
+        return true;
+    }
+    if (sampleInfo_.codec.codecRunMode == VULKAN) {
+        AVCODEC_SAMPLE_LOGE("Vulkan Surface initialization failed; do not fall back to decoder Buffer output");
+        return false;
+    }
+    return false;
 }
 
 void Player::UpdateSmartFluencyAvailability()
@@ -418,6 +447,50 @@ int32_t Player::CreateTrackDecoders()
     return ret;
 }
 
+int32_t Player::InitializePlaybackResources(std::unique_lock<std::mutex> &lock)
+{
+    int32_t ret = demuxer_->Create(sampleInfo_);
+    if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        AVCODEC_SAMPLE_LOGE("Create demuxer failed");
+        return HandleInitError(lock);
+    }
+    if (!PrepareVideoSinkForPlayback()) {
+        return HandleInitError(lock);
+    }
+    const bool usesSurfaceDecoder = videoSink_ != nullptr && videoSink_->UsesSurfaceDecoder();
+    if (sampleInfo_.codec.codecRunMode == VULKAN && (!usesSurfaceDecoder || sampleInfo_.video.window == nullptr)) {
+        // Vulkan 只支持 Surface -> NativeImage -> Vulkan 外部纹理链路，不回退到 decoder Buffer 输出。
+        AVCODEC_SAMPLE_LOGE("Vulkan Surface decoder is not ready, abort initialization");
+        return HandleInitError(lock);
+    }
+    if (sampleInfo_.codec.codecRunMode != SURFACE && !usesSurfaceDecoder &&
+        sampleInfo_.codec.convertHdrVividToBt709) {
+        sampleInfo_.codec.convertHdrVividToBt709 = false;
+        AVCODEC_SAMPLE_LOGW("HDR Vivid to BT.709 conversion is unavailable for decoder Buffer output");
+    }
+    isBufferMode_.store(IsBufferBasedRunMode(sampleInfo_.codec.codecRunMode) && !usesSurfaceDecoder);
+    ret = CreateTrackDecoders();
+    if (ret != AVCODEC_SAMPLE_ERR_OK) {
+        return HandleInitError(lock);
+    }
+    UpdateSmartFluencyAvailability();
+    if (audioDecContext_ == nullptr && videoDecContext_ == nullptr) {
+        AVCODEC_SAMPLE_LOGE("No supported audio or video track found");
+        return HandleInitError(lock);
+    }
+    playbackDurationUs_.store(sampleInfo_.source.durationUs);
+    hasVideoTrack_.store(videoDecContext_ != nullptr);
+    hasAudioTrack_.store(audioDecContext_ != nullptr);
+    UpdateMediaInfoSnapshot();
+    isReleased_ = false;
+    if (!stateMachine_.MarkReady()) {
+        AVCODEC_SAMPLE_LOGE("Failed to enter ready state");
+        return HandleInitError(lock);
+    }
+    AVCODEC_SAMPLE_LOGI("Succeed");
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+
 int32_t Player::Init(SampleInfo &sampleInfo)
 {
     JoinReleaseThread();
@@ -432,40 +505,7 @@ int32_t Player::Init(SampleInfo &sampleInfo)
     }
     PrepareForInitialization(sampleInfo);
     AVCODEC_SAMPLE_LOGI("Smart fluency supported: %{public}d", isSmartFluencySupported_);
-    int32_t ret = demuxer_->Create(sampleInfo_);
-    if (ret != AVCODEC_SAMPLE_ERR_OK) {
-        AVCODEC_SAMPLE_LOGE("Create demuxer failed");
-        return HandleInitError(lock);
-    }
-    PrepareVideoSinkForPlayback();
-    const bool usesSurfaceDecoder = videoSink_ != nullptr && videoSink_->UsesSurfaceDecoder();
-    if (sampleInfo_.codec.codecRunMode != SURFACE && !usesSurfaceDecoder && sampleInfo_.codec.convertHdrVividToBt709) {
-        // The conversion key is a Surface-decoder feature. Buffer and GPU paths that could not
-        // create a producer surface consume decoded Buffers instead, so this configuration would
-        // be invalid for that fallback.
-        sampleInfo_.codec.convertHdrVividToBt709 = false;
-        AVCODEC_SAMPLE_LOGW("HDR Vivid to BT.709 conversion is unavailable for decoder Buffer output");
-    }
-    isBufferMode_.store(IsBufferBasedRunMode(sampleInfo_.codec.codecRunMode) && !usesSurfaceDecoder);
-    ret = CreateTrackDecoders();
-    if (ret != AVCODEC_SAMPLE_ERR_OK) {
-        return HandleInitError(lock);
-    }
-    UpdateSmartFluencyAvailability();
-    if (audioDecContext_ == nullptr && videoDecContext_ == nullptr) {
-        AVCODEC_SAMPLE_LOGE("No supported audio or video track found");
-        return HandleInitError(lock);
-    }
-
-    playbackDurationUs_.store(sampleInfo_.source.durationUs);
-    hasVideoTrack_.store(videoDecContext_ != nullptr);
-    hasAudioTrack_.store(audioDecContext_ != nullptr);
-    UpdateMediaInfoSnapshot();
-    isReleased_ = false;
-    CHECK_AND_RETURN_RET_LOG(stateMachine_.MarkReady(), AVCODEC_SAMPLE_ERR_ERROR,
-        "Failed to enter ready state");
-    AVCODEC_SAMPLE_LOGI("Succeed");
-    return AVCODEC_SAMPLE_ERR_OK;
+    return InitializePlaybackResources(lock);
 }
 
 int32_t Player::StartVideoDecoder()

@@ -8,6 +8,7 @@
     "pages/LoadNetworkPdf",
     "pages/LoadSandboxPdf",
     "pages/LoadRawfilePdf",
-    "pages/PdfEvent"
+    "pages/PdfEvent",
+    "pages/ImmersiveWeb"
   ]
 }

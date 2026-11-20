@@ -45,13 +45,13 @@ export class PlayerSettingsModel {
   public enableLowLatency: boolean = false;
   public outputInDecodingOrder: boolean = false;
   public convertHdrVividToBt709: boolean = false;
-  /** Audio output volume as a percentage in the range [0, 100]. */
+  /** 音频输出音量百分比，取值范围为 [0, 100]。 */
   public audioVolume: number = 100;
-  /** Applies when the audio renderer is created for the next playback task. */
+  /** 仅在下一次创建音频渲染器时生效。 */
   public enableAudioLowLatency: boolean = false;
-  /** Container audio track index; -1 selects the first audio track. */
+  /** 容器内音轨索引；-1 表示选择首条音轨。 */
   public audioTrackIndex: number = -1;
-  /** Automatically hide playback controls after a period of inactivity. */
+  /** 用户一段时间未操作后自动隐藏播放控制条。 */
   public autoHideControls: boolean = true;
 
   applyPickerValues(values: string[], audioVolume: number = this.audioVolume): boolean {

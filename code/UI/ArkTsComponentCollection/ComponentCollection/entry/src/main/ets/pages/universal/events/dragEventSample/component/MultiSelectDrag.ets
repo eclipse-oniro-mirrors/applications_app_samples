@@ -13,9 +13,19 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/universal/events/dragEventSample/component/MultiSelectDrag.ets
+ * 文件职责：MultiSelectDrag 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：MultiSelectDrag。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import componentSnapshot from '@ohos.arkui.componentSnapshot';
 import image from '@ohos.multimedia.image';
 
+/**
+ * MultiSelectDrag：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct MultiSelectDrag {
   @Styles normalStyles() {
@@ -28,37 +38,71 @@ export struct MultiSelectDrag {
     .opacity(0.4)
   }
 
+  // @State number1：组件内部状态
   @State number1: number[] = [0, 1, 2, 3, 4];
+
+  // @State number2：组件内部状态
   @State number2: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+
+  // @State isSelectedGrid：组件内部状态
   @State isSelectedGrid: boolean[] = [false, false, false, false, false, false, false, false, false];
+
+  // @State colors：组件内部状态
   @State colors: Color[] =
     [Color.Red, Color.Blue, Color.Brown, Color.Gray, Color.Green, Color.Gray, Color.Orange, Color.Pink, Color.Yellow];
+
+  // @State previewData：组件内部状态
   @State previewData: DragItemInfo[] = [{}, {}, {}, {}, {}, {}, {}, {}, {}];
+
+  // @State pixmap：组件内部状态
   @State pixmap: image.PixelMap | undefined = undefined;
 
   @Builder
+  // MenuBuilder：MenuBuilder 自定义组件
+  /**
+   * MenuBuilder：执行 MenuBuilder 相关逻辑。
+   */
   MenuBuilder() {
+    // Flex：弹性布局容器
     Flex({ direction: FlexDirection.Column, alignItems: ItemAlign.Center, justifyContent: FlexAlign.Center }) {
-      Button('Test ContextMenu1')
-      Divider().strokeWidth(2).margin(5).color(Color.Black)
-      Button('Test ContextMenu2')
-      Divider().strokeWidth(2).margin(5).color(Color.Black)
-      Button('Test ContextMenu3')
-    }
+      // Button：按钮
+      // 关键属性：strokeWidth、外边距、color
+      Button('Test ContextMenu1').id('multi_select_drag_button_3')
+      // Divider：分割线
+      // 关键属性：strokeWidth、外边距、color
+      Divider().id('multi_select_drag_divider_4').strokeWidth(2).margin(5).color(Color.Black)
+      // Button：按钮
+      // 关键属性：strokeWidth、外边距、color
+      Button('Test ContextMenu2').id('multi_select_drag_button_5')
+      // Divider：分割线
+      // 关键属性：strokeWidth、外边距、color
+      Divider().id('multi_select_drag_divider_6').strokeWidth(2).margin(5).color(Color.Black)
+      // Button：按钮
+      Button('Test ContextMenu3').id('multi_select_drag_button_7')
+    }.id('multi_select_drag_flex_2')
   }
 
+  /**
+   * createGrid：执行 createGrid 相关逻辑。
+   */
   @Builder
   createGrid() {
+    // Grid：网格容器
+    // 关键属性：columnsTemplate、列间距、行间距、宽度、背景色
     Grid() {
       ForEach(this.number2, (index: number) => {
+        // GridItem：网格项
+        // 关键属性：selectable、选中状态、stateStyles
         GridItem() {
+          // Column：垂直布局容器
+          // 关键属性：背景色、宽度、高度、draggable
           Column()
             .backgroundColor(this.colors[index])
             .width('100%')
             .height(90)
             .draggable(false)
             .id(`gridItemId${index}`)
-        }
+        }.id('multi_select_drag_grid_item_9')
         .selectable(true)
         .selected(this.isSelectedGrid[index])
         .stateStyles({
@@ -85,7 +129,7 @@ export struct MultiSelectDrag {
 
         })
       }, (index: string) => index)
-    }
+    }.id('multi_select_drag_grid_8')
     .columnsTemplate('1fr 1fr 1fr')
     .columnsGap(10)
     .rowsGap(10)
@@ -93,10 +137,15 @@ export struct MultiSelectDrag {
     .backgroundColor(0xFAEEE0)
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：宽度、高度
     Column() {
       this.createGrid();
-    }
+    }.id('multi_select_drag_column_10')
     .width('100%')
     .height(290)
   }

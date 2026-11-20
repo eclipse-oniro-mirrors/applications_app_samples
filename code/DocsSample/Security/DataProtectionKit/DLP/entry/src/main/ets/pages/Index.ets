@@ -422,9 +422,9 @@ struct FilePicker {
   getDLPSupportedFileTypes() {
     if (canIUse('SystemCapability.Security.DataLossPrevention')) {
       dlpPermission.getDLPSupportedFileTypes((err, result) => {
-        console.info('getDLPSupportedFileTypes: ' + JSON.stringify(err));
+        console.error('getDLPSupportedFileTypes: ' + JSON.stringify(err));
         console.info('getDLPSupportedFileTypes: ' + JSON.stringify(result));
-        hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'getDLPSupportedFileTypes: ' + JSON.stringify(err));
+        hilog.error(HILOG_DLP_DOMAIN, HILOG_TAG, 'getDLPSupportedFileTypes: ' + JSON.stringify(err));
         hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'getDLPSupportedFileTypes: ' + JSON.stringify(result));
         this.result = 'getDLPSupportedFileTypes result: ' + JSON.stringify(result);
       });
@@ -445,7 +445,7 @@ struct FilePicker {
         if (res.valueOf()) {
           this.result = 'isDLPFile result: ' + JSON.stringify(res);
         } else {
-          this.result = '请打开一个dlp文件! ';
+          this.result = getResourceString(this.context, $r('app.string.open_dlp_file_prompt'));
         }
         console.info('res', res);
         hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'res' + res);
@@ -962,7 +962,7 @@ struct FilePicker {
         let ciphertextFd = fileIo.openSync(fileDir + '/' + fileName, fileIo.OpenMode.READ_ONLY).fd;
         this.result = await dlpPermission.queryDlpPolicy(ciphertextFd);
         console.info('res', this.result);
-        hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'getDLPSuffix result: ' + this.result);
+        hilog.info(HILOG_DLP_DOMAIN, HILOG_TAG, 'queryDlpPolicy result: ' + this.result);
       } catch (err) {
         console.error('error message', err.message);
         this.result = 'error message' + err.message;

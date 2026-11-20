@@ -118,6 +118,7 @@ export default function abilityTest() {
     beforeAll(() => {
       // Presets an action, which is performed only once before all test cases of the test suite start.
       // This API supports only one parameter: preset action function.
+      Logger.info('Sample_ComponentCollection test start');
     })
     beforeEach(() => {
       // Presets an action, which is performed before each unit test case starts.
@@ -132,14 +133,20 @@ export default function abilityTest() {
     afterAll(() => {
       // Presets a clear action, which is performed after all test cases of the test suite end.
       // This API supports only one parameter: clear action function.
+      Logger.info('Sample_ComponentCollection test end');
     })
-    it('assertContain', 0, () => {
-
-      Logger.info("Sample_ComponentCollection test start")
       /**
        * 打开应用
        */
-      it(BUNDLE + 'StartAbility_001', 0, async (done: Function) => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0001
+     * @tc.name      StartAbility_001
+     * @tc.desc      Verify legacy case StartAbility_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_StartAbility_001', 0, async (done: Function) => {
         Logger.info(BUNDLE + 'StartAbility_001 begin')
         let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
         try {
@@ -163,7 +170,15 @@ export default function abilityTest() {
        * Divider 分隔器
        */
 
-      it(BUNDLE + 'DividerFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0002
+     * @tc.name      DividerFunction_001
+     * @tc.desc      Verify legacy case DividerFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_DividerFunction_001', 0, async () => {
         let testName = 'DividerFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -230,7 +245,15 @@ export default function abilityTest() {
       /**
        * 按钮与选择
        */
-      it(BUNDLE + 'ButtonAndSelectFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0003
+     * @tc.name      ButtonAndSelectFunction_001
+     * @tc.desc      Verify legacy case ButtonAndSelectFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ButtonAndSelectFunction_001', 0, async () => {
         let testName = 'ButtonAndSelectFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -304,7 +327,15 @@ export default function abilityTest() {
       /**
        * DatePicker 时间选择器
        */
-      it(BUNDLE + 'DatePickerFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0004
+     * @tc.name      DatePickerFunction_001
+     * @tc.desc      Verify legacy case DatePickerFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_DatePickerFunction_001', 0, async () => {
         let testName = 'DatePickerFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -361,7 +392,15 @@ export default function abilityTest() {
       /**
        * Radio 单选按钮
        */
-      it(BUNDLE + 'RadioFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0005
+     * @tc.name      RadioFunction_001
+     * @tc.desc      Verify legacy case RadioFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_RadioFunction_001', 0, async () => {
         let testName = 'RadioFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -419,7 +458,15 @@ export default function abilityTest() {
       /**
        * Select 选择菜单
        */
-      it(BUNDLE + 'SelectFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0006
+     * @tc.name      SelectFunction_001
+     * @tc.desc      Verify legacy case SelectFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_SelectFunction_001', 0, async () => {
         let testName = 'SelectFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -473,7 +520,15 @@ export default function abilityTest() {
        * Slider 滑动条
        */
 
-      it(BUNDLE + 'SlideFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0007
+     * @tc.name      SlideFunction_001
+     * @tc.desc      Verify legacy case SlideFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_SlideFunction_001', 0, async () => {
         let testName = 'SlideFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -514,7 +569,15 @@ export default function abilityTest() {
       /**
        * Toggle 切换按钮
        */
-      it(BUNDLE + 'ToggleFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0008
+     * @tc.name      ToggleFunction_001
+     * @tc.desc      Verify legacy case ToggleFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ToggleFunction_001', 0, async () => {
         let testName = 'ToggleFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -564,7 +627,15 @@ export default function abilityTest() {
       /**
        * 勾选框
        */
-      it(BUNDLE + 'CheckboxFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0009
+     * @tc.name      CheckboxFunction_001
+     * @tc.desc      Verify legacy case CheckboxFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_CheckboxFunction_001', 0, async () => {
         let testName = 'CheckboxFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -595,7 +666,15 @@ export default function abilityTest() {
       /**
        * TimePicker 时间选择器
        */
-      it(BUNDLE + 'CheckboxFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0010
+     * @tc.name      CheckboxFunction_002
+     * @tc.desc      Verify legacy case CheckboxFunction_002 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_CheckboxFunction_002', 0, async () => {
         let testName = 'CheckboxFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -623,7 +702,15 @@ export default function abilityTest() {
       /**
        * Counter 计数器
        */
-      it(BUNDLE + 'CounterFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0011
+     * @tc.name      CounterFunction_001
+     * @tc.desc      Verify legacy case CounterFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_CounterFunction_001', 0, async () => {
         let testName = 'CounterFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -651,7 +738,15 @@ export default function abilityTest() {
       /**
        * Rating 评分条
        */
-      it(BUNDLE + 'RatingFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0012
+     * @tc.name      RatingFunction_001
+     * @tc.desc      Verify legacy case RatingFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_RatingFunction_001', 0, async () => {
         let testName = 'RatingFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -684,7 +779,15 @@ export default function abilityTest() {
       /**
        * Scroll 滚动
        */
-      it(BUNDLE + 'ScrollFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0013
+     * @tc.name      ScrollFunction_001
+     * @tc.desc      Verify legacy case ScrollFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ScrollFunction_001', 0, async () => {
         let testName = 'ScrollFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -725,7 +828,15 @@ export default function abilityTest() {
       /**
        * Swiper 翻页
        */
-      it(BUNDLE + 'SwiperFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0014
+     * @tc.name      SwiperFunction_001
+     * @tc.desc      Verify legacy case SwiperFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_SwiperFunction_001', 0, async () => {
         let testName = 'SwiperFunction';
         Logger.info(BUNDLE + testName + ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -777,7 +888,15 @@ export default function abilityTest() {
       /**
        * QRCode 二维码
        */
-      it(BUNDLE + 'QRCodeFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0015
+     * @tc.name      QRCodeFunction_001
+     * @tc.desc      Verify legacy case QRCodeFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_QRCodeFunction_001', 0, async () => {
         let testName = 'QRCodeFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -812,7 +931,15 @@ export default function abilityTest() {
       /**
        * LoadingProgress
        */
-      it(BUNDLE + 'LoadingProgressFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0016
+     * @tc.name      LoadingProgressFunction_001
+     * @tc.desc      Verify legacy case LoadingProgressFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_LoadingProgressFunction_001', 0, async () => {
         let testName = 'LoadingProgressFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -843,7 +970,15 @@ export default function abilityTest() {
       /**
        * Marquee 跑马灯
        */
-      it(BUNDLE + 'MarqueeFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0017
+     * @tc.name      MarqueeFunction_001
+     * @tc.desc      Verify legacy case MarqueeFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_MarqueeFunction_001', 0, async () => {
         let testName = 'MarqueeFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -876,7 +1011,15 @@ export default function abilityTest() {
       /**
        * TextTimer 文字计时器
        */
-      it(BUNDLE + 'TextTimerFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0018
+     * @tc.name      TextTimerFunction_001
+     * @tc.desc      Verify legacy case TextTimerFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_TextTimerFunction_001', 0, async () => {
         let testName = 'TextTimerFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -924,7 +1067,15 @@ export default function abilityTest() {
       /**
        * TextClock 文字时钟
        */
-      it(BUNDLE + 'TextClockFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0019
+     * @tc.name      TextClockFunction_001
+     * @tc.desc      Verify legacy case TextClockFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_TextClockFunction_001', 0, async () => {
         let testName = 'TextClockFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -975,7 +1126,15 @@ export default function abilityTest() {
       /**
        * Progress 进度条
        */
-      it(BUNDLE + 'ProgressFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0020
+     * @tc.name      ProgressFunction_001
+     * @tc.desc      Verify legacy case ProgressFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ProgressFunction_001', 0, async () => {
         let testName = 'ProgressFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -1008,7 +1167,15 @@ export default function abilityTest() {
       /**
        * Gauge 仪表盘
        */
-      it(BUNDLE + 'GaugeFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0021
+     * @tc.name      GaugeFunction_001
+     * @tc.desc      Verify legacy case GaugeFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_GaugeFunction_001', 0, async () => {
         let testName = 'GaugeFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -1043,7 +1210,15 @@ export default function abilityTest() {
       /**
        * DataPanel 数据面板
        */
-      it(BUNDLE + 'DataPanelFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0022
+     * @tc.name      DataPanelFunction_001
+     * @tc.desc      Verify legacy case DataPanelFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_DataPanelFunction_001', 0, async () => {
         let testName = 'DataPanelFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -1076,7 +1251,15 @@ export default function abilityTest() {
       /**
        * ScrollTo 动效
        */
-      it(BUNDLE + 'ScrollTo_effect_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0023
+     * @tc.name      ScrollTo_effect_001
+     * @tc.desc      Verify legacy case ScrollTo_effect_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ScrollTo_effect_001', 0, async () => {
         let testName = 'ScrollToEffect';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -1111,7 +1294,15 @@ export default function abilityTest() {
       /**
        * Tab 模糊切换
        */
-      it(BUNDLE + 'Tab_switch_effect_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0024
+     * @tc.name      Tab_switch_effect_001
+     * @tc.desc      Verify legacy case Tab_switch_effect_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_Tab_switch_effect_001', 0, async () => {
         let testName = 'TabToEffect';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -1144,7 +1335,15 @@ export default function abilityTest() {
       /**
        * ImageFit 切换
        */
-      it(BUNDLE + 'ImageFit_effect_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0025
+     * @tc.name      ImageFit_effect_001
+     * @tc.desc      Verify legacy case ImageFit_effect_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ImageFit_effect_001', 0, async () => {
         let testName = 'ImageFitEffect';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -1180,7 +1379,15 @@ export default function abilityTest() {
       /**
        * Particle 粒子效果
        */
-      it(BUNDLE + 'Particle_effect_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0026
+     * @tc.name      Particle_effect_001
+     * @tc.desc      Verify legacy case Particle_effect_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_Particle_effect_001', 0, async () => {
         let testName = 'Particle Effect';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -1209,7 +1416,15 @@ export default function abilityTest() {
       /**
        * List
        */
-      it(BUNDLE + 'ListFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0027
+     * @tc.name      ListFunction_001
+     * @tc.desc      Verify legacy case ListFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ListFunction_001', 0, async () => {
         let testName = 'ListFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -1241,7 +1456,15 @@ export default function abilityTest() {
       /**
        * ImageSpan 行内图像
        */
-      it(BUNDLE + 'ImageSpanFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0028
+     * @tc.name      ImageSpanFunction_001
+     * @tc.desc      Verify legacy case ImageSpanFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ImageSpanFunction_001', 0, async () => {
         let testName = 'ImageSpanFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -1281,7 +1504,15 @@ export default function abilityTest() {
       /**
        * Span 行内文本
        */
-      it(BUNDLE + 'SpanFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0029
+     * @tc.name      SpanFunction_001
+     * @tc.desc      Verify legacy case SpanFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_SpanFunction_001', 0, async () => {
         let testName = 'SpanFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -1326,7 +1557,15 @@ export default function abilityTest() {
       /**
        * TextInput 文本输入
        */
-      it(BUNDLE + 'TextInputFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0030
+     * @tc.name      TextInputFunction_001
+     * @tc.desc      Verify legacy case TextInputFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_TextInputFunction_001', 0, async () => {
         let testName = 'TextInputFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -1398,7 +1637,15 @@ export default function abilityTest() {
       /**
        * Text 文本
        */
-      it(BUNDLE + 'TextFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0031
+     * @tc.name      TextFunction_001
+     * @tc.desc      Verify legacy case TextFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_TextFunction_001', 0, async () => {
         let testName = 'TextFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -1460,7 +1707,15 @@ export default function abilityTest() {
       /**
        * Text 属性字符串
        */
-      it(BUNDLE + 'TextStyledStringFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0032
+     * @tc.name      TextStyledStringFunction_001
+     * @tc.desc      Verify legacy case TextStyledStringFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_TextStyledStringFunction_001', 0, async () => {
         let testName = 'TextStyledStringFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -1516,7 +1771,15 @@ export default function abilityTest() {
       /**
        * RichText 富文本
        */
-      it(BUNDLE + 'RichTextFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0033
+     * @tc.name      RichTextFunction_001
+     * @tc.desc      Verify legacy case RichTextFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_RichTextFunction_001', 0, async () => {
         let testName = 'RichTextFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -1545,7 +1808,15 @@ export default function abilityTest() {
       /**
        * RichEditorText 富文本编辑
        */
-      it(BUNDLE + 'RichEditorTextFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0034
+     * @tc.name      RichEditorTextFunction_001
+     * @tc.desc      Verify legacy case RichEditorTextFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_RichEditorTextFunction_001', 0, async () => {
         let testName = 'RichEditorTextFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -1574,7 +1845,15 @@ export default function abilityTest() {
       /**
        * Badge 标记
        */
-      it(BUNDLE + 'BadgeFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0035
+     * @tc.name      BadgeFunction_001
+     * @tc.desc      Verify legacy case BadgeFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_BadgeFunction_001', 0, async () => {
         let testName = 'BadgeFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -1600,7 +1879,15 @@ export default function abilityTest() {
       /**
        * ScrollBar 滚动条
        */
-      it(BUNDLE + 'ScrollBarFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0036
+     * @tc.name      ScrollBarFunction_001
+     * @tc.desc      Verify legacy case ScrollBarFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ScrollBarFunction_001', 0, async () => {
         let testName = 'ScrollBarFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -1640,7 +1927,15 @@ export default function abilityTest() {
       /**
        * 下拉刷新
        */
-      it(BUNDLE + 'RefreshFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0037
+     * @tc.name      RefreshFunction_001
+     * @tc.desc      Verify legacy case RefreshFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_RefreshFunction_001', 0, async () => {
         let testName = 'RefreshFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -1672,7 +1967,15 @@ export default function abilityTest() {
       /**
        * Panel 弹出面板
        */
-      it(BUNDLE + 'PanelFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0038
+     * @tc.name      PanelFunction_001
+     * @tc.desc      Verify legacy case PanelFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_PanelFunction_001', 0, async () => {
         let testName = 'PanelFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -1719,7 +2022,15 @@ export default function abilityTest() {
       /**
        * AlphabetIndexer 字母索引条
        */
-      it(BUNDLE + 'AlphabetIndexerFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0039
+     * @tc.name      AlphabetIndexerFunction_001
+     * @tc.desc      Verify legacy case AlphabetIndexerFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_AlphabetIndexerFunction_001', 0, async () => {
         let testName = 'AlphabetIndexerFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -1749,7 +2060,15 @@ export default function abilityTest() {
       /**
        * Row
        */
-      it(BUNDLE + ' RowFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0040
+     * @tc.name       RowFunction_001
+     * @tc.desc      Verify legacy case  RowFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ RowFunction_001', 0, async () => {
         let testName = 'RowFunction';
         Logger.info(BUNDLE + testName + ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -1778,7 +2097,15 @@ export default function abilityTest() {
       /**
        * RowSplit
        */
-      it(BUNDLE + 'RowSplitFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0041
+     * @tc.name      RowSplitFunction_001
+     * @tc.desc      Verify legacy case RowSplitFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_RowSplitFunction_001', 0, async () => {
         let testName = 'RowSplitFunction';
         Logger.info(BUNDLE + testName + ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -1800,7 +2127,15 @@ export default function abilityTest() {
       /**
        * Column
        */
-      it(BUNDLE + 'ColumnFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0042
+     * @tc.name      ColumnFunction_001
+     * @tc.desc      Verify legacy case ColumnFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ColumnFunction_001', 0, async () => {
         let testName = 'ColumnFunction';
         Logger.info(BUNDLE + testName + ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -1829,7 +2164,15 @@ export default function abilityTest() {
       /**
        * ColumnSplit
        */
-      it(BUNDLE + 'ColumnSplitFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0043
+     * @tc.name      ColumnSplitFunction_001
+     * @tc.desc      Verify legacy case ColumnSplitFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ColumnSplitFunction_001', 0, async () => {
         let testName = 'ColumnSplitFunction';
         Logger.info(BUNDLE + testName + ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -1852,7 +2195,15 @@ export default function abilityTest() {
       /**
        * SideBarContainer
        */
-      it(BUNDLE + 'SideBarContainerFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0044
+     * @tc.name      SideBarContainerFunction_001
+     * @tc.desc      Verify legacy case SideBarContainerFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_SideBarContainerFunction_001', 0, async () => {
         let testName = 'SideBarContainerFunction';
         Logger.info(BUNDLE + testName + ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -1889,7 +2240,15 @@ export default function abilityTest() {
       /**
        * Stack
        */
-      it(BUNDLE + 'StackFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0045
+     * @tc.name      StackFunction_001
+     * @tc.desc      Verify legacy case StackFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_StackFunction_001', 0, async () => {
         let testName = 'StackFunction';
         Logger.info(BUNDLE + testName + ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -1916,7 +2275,15 @@ export default function abilityTest() {
       /**
        * Flex
        */
-      it(BUNDLE + 'FlexFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0046
+     * @tc.name      FlexFunction_001
+     * @tc.desc      Verify legacy case FlexFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_FlexFunction_001', 0, async () => {
         let testName = 'FlexFunction';
         Logger.info(BUNDLE + testName + ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -1951,7 +2318,15 @@ export default function abilityTest() {
       /**
        * GridContainer
        */
-      it(BUNDLE + 'GridContainerFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0047
+     * @tc.name      GridContainerFunction_001
+     * @tc.desc      Verify legacy case GridContainerFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_GridContainerFunction_001', 0, async () => {
         let testName = 'GridContainerFunction';
         Logger.info(BUNDLE + testName + ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -1979,7 +2354,15 @@ export default function abilityTest() {
       /**
        * List
        */
-      it(BUNDLE + 'ListFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0048
+     * @tc.name      ListFunction_004
+     * @tc.desc      Verify legacy case ListFunction_004 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ListFunction_004', 0, async () => {
         let testName = 'ListFunction';
         Logger.info(BUNDLE + testName + ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2027,7 +2410,15 @@ export default function abilityTest() {
         Logger.info(BUNDLE + testName + ' end');
       })
 
-      it(BUNDLE + 'ListFunction_002', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0049
+     * @tc.name      ListFunction_002
+     * @tc.desc      Verify legacy case ListFunction_002 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ListFunction_002', 0, async () => {
         let testName = 'ListFunction002';
         Logger.info(BUNDLE + testName + ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2073,7 +2464,15 @@ export default function abilityTest() {
         Logger.info(BUNDLE + testName + ' end');
       })
 
-      it(BUNDLE + 'ListFunction_003', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0050
+     * @tc.name      ListFunction_003
+     * @tc.desc      Verify legacy case ListFunction_003 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ListFunction_003', 0, async () => {
         let testName = 'ListFunction003';
         Logger.info(BUNDLE + testName + ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2111,7 +2510,15 @@ export default function abilityTest() {
       /**
        * WaterFlow
        */
-      it(BUNDLE + 'WaterFlowFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0051
+     * @tc.name      WaterFlowFunction_001
+     * @tc.desc      Verify legacy case WaterFlowFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_WaterFlowFunction_001', 0, async () => {
         let testName = 'WaterFlowFunction';
         Logger.info(BUNDLE + testName + ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2160,7 +2567,15 @@ export default function abilityTest() {
       /**
        * ListItem
        */
-      it(BUNDLE + 'ListItemFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0052
+     * @tc.name      ListItemFunction_001
+     * @tc.desc      Verify legacy case ListItemFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ListItemFunction_001', 0, async () => {
         let testName = 'ListItemFunction';
         Logger.info(BUNDLE + testName + ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2185,7 +2600,15 @@ export default function abilityTest() {
       /**
        * Grid
        */
-      it(BUNDLE + 'GridFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0053
+     * @tc.name      GridFunction_001
+     * @tc.desc      Verify legacy case GridFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_GridFunction_001', 0, async () => {
         let testName = 'GridFunction';
         Logger.info(BUNDLE + testName + ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2215,7 +2638,15 @@ export default function abilityTest() {
       /**
        * GridItem
        */
-      it(BUNDLE + 'GridItemFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0054
+     * @tc.name      GridItemFunction_001
+     * @tc.desc      Verify legacy case GridItemFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_GridItemFunction_001', 0, async () => {
         let testName = 'GridItemFunction';
         Logger.info(BUNDLE + testName + ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2262,7 +2693,15 @@ export default function abilityTest() {
       /**
        * Navigation
        */
-      it(BUNDLE + 'NavigationFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0055
+     * @tc.name      NavigationFunction_001
+     * @tc.desc      Verify legacy case NavigationFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_NavigationFunction_001', 0, async () => {
         let TAG = BUNDLE + 'NavigationFunction';
         Logger.info(TAG, ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2282,7 +2721,15 @@ export default function abilityTest() {
         Logger.info(TAG, ' end');
       })
 
-      it(BUNDLE + 'NavigationFunction_002', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0056
+     * @tc.name      NavigationFunction_002
+     * @tc.desc      Verify legacy case NavigationFunction_002 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_NavigationFunction_002', 0, async () => {
         let TAG = BUNDLE + 'NavigationFunction_002';
         Logger.info(TAG, ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2300,7 +2747,15 @@ export default function abilityTest() {
         Logger.info(TAG, ' end');
       })
 
-      it(BUNDLE + 'NavigationFunction_003', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0057
+     * @tc.name      NavigationFunction_003
+     * @tc.desc      Verify legacy case NavigationFunction_003 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_NavigationFunction_003', 0, async () => {
         let TAG = BUNDLE + 'NavigationFunction_003';
         Logger.info(TAG, ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2329,7 +2784,15 @@ export default function abilityTest() {
         Logger.info(TAG, ' end');
       })
 
-      it(BUNDLE + 'NavigationFunction_004', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0058
+     * @tc.name      NavigationFunction_004
+     * @tc.desc      Verify legacy case NavigationFunction_004 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_NavigationFunction_004', 0, async () => {
         let TAG = BUNDLE + 'NavigationFunction_004';
         Logger.info(TAG, ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2357,7 +2820,15 @@ export default function abilityTest() {
         Logger.info(TAG, ' end');
       })
 
-      it(BUNDLE + 'NavigationFunction_005', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0059
+     * @tc.name      NavigationFunction_005
+     * @tc.desc      Verify legacy case NavigationFunction_005 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_NavigationFunction_005', 0, async () => {
         let TAG = BUNDLE + 'NavigationFunction_005';
         Logger.info(TAG, ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2384,7 +2855,15 @@ export default function abilityTest() {
         Logger.info(TAG, ' end');
       })
 
-      it(BUNDLE + 'NavigationFunction_006', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0060
+     * @tc.name      NavigationFunction_006
+     * @tc.desc      Verify legacy case NavigationFunction_006 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_NavigationFunction_006', 0, async () => {
         let TAG = BUNDLE + 'NavigationFunction_006';
         Logger.info(TAG, ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2409,7 +2888,15 @@ export default function abilityTest() {
         Logger.info(TAG, ' end');
       })
 
-      it(BUNDLE + 'NavigationFunction_007', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0061
+     * @tc.name      NavigationFunction_007
+     * @tc.desc      Verify legacy case NavigationFunction_007 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_NavigationFunction_007', 0, async () => {
         let TAG = BUNDLE + 'NavigationFunction_007';
         Logger.info(TAG, ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2443,7 +2930,15 @@ export default function abilityTest() {
         Logger.info(TAG, ' end');
       })
 
-      it(BUNDLE + 'NavigationFunction_008', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0062
+     * @tc.name      NavigationFunction_008
+     * @tc.desc      Verify legacy case NavigationFunction_008 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_NavigationFunction_008', 0, async () => {
         let TAG = BUNDLE + 'NavigationFunction_008';
         Logger.info(TAG, ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2466,7 +2961,15 @@ export default function abilityTest() {
         Logger.info(TAG, ' end');
       })
 
-      it(BUNDLE + 'NavigationFunction_009', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0063
+     * @tc.name      NavigationFunction_009
+     * @tc.desc      Verify legacy case NavigationFunction_009 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_NavigationFunction_009', 0, async () => {
         let TAG = BUNDLE + 'NavigationFunction_009';
         Logger.info(TAG, ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2492,7 +2995,15 @@ export default function abilityTest() {
         Logger.info(TAG, ' end');
       })
 
-      it(BUNDLE + 'NavigationFunction_010', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0064
+     * @tc.name      NavigationFunction_010
+     * @tc.desc      Verify legacy case NavigationFunction_010 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_NavigationFunction_010', 0, async () => {
         let TAG = BUNDLE + 'NavigationFunction_010';
         Logger.info(TAG, ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2525,7 +3036,15 @@ export default function abilityTest() {
         Logger.info(TAG, ' end');
       })
 
-      it(BUNDLE + 'NavigationFunction_011', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0065
+     * @tc.name      NavigationFunction_011
+     * @tc.desc      Verify legacy case NavigationFunction_011 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_NavigationFunction_011', 0, async () => {
         let TAG = BUNDLE + 'NavigationFunction_011';
         Logger.info(TAG, ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2560,7 +3079,15 @@ export default function abilityTest() {
       /**
        * Navigator
        */
-      it(BUNDLE + 'NavigatorFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0066
+     * @tc.name      NavigatorFunction_001
+     * @tc.desc      Verify legacy case NavigatorFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_NavigatorFunction_001', 0, async () => {
         let testName = 'NavigatorFunction';
         Logger.info(BUNDLE + testName + ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2583,7 +3110,15 @@ export default function abilityTest() {
       /**
        * Tabs
        */
-      it(BUNDLE + 'TabsFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0067
+     * @tc.name      TabsFunction_001
+     * @tc.desc      Verify legacy case TabsFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_TabsFunction_001', 0, async () => {
         let testName = 'TabsFunction';
         Logger.info(BUNDLE + testName + ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2619,7 +3154,15 @@ export default function abilityTest() {
       /**
        * TabContent
        */
-      it(BUNDLE + 'TabContentFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0068
+     * @tc.name      TabContentFunction_001
+     * @tc.desc      Verify legacy case TabContentFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_TabContentFunction_001', 0, async () => {
         let testName = 'TabContentFunction';
         Logger.info(BUNDLE + testName + ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2645,7 +3188,15 @@ export default function abilityTest() {
       /**
        * StepperItem
        */
-      it(BUNDLE + 'StepperFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0069
+     * @tc.name      StepperFunction_001
+     * @tc.desc      Verify legacy case StepperFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_StepperFunction_001', 0, async () => {
         let testName = 'StepperFunction';
         Logger.info(BUNDLE + testName + ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2675,7 +3226,15 @@ export default function abilityTest() {
       /**
        * NavRouter
        */
-      it(BUNDLE + 'NavRouterFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0070
+     * @tc.name      NavRouterFunction_001
+     * @tc.desc      Verify legacy case NavRouterFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_NavRouterFunction_001', 0, async () => {
         let testName = 'NavRouterFunction';
         Logger.info(BUNDLE + testName + ' begin ------------------------------');
         await driver.delayMs(DELAY_TIME);
@@ -2701,7 +3260,15 @@ export default function abilityTest() {
       /**
        *TextArea 多行文本输入框
        */
-      it(BUNDLE + 'TextareaFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0071
+     * @tc.name      TextareaFunction_001
+     * @tc.desc      Verify legacy case TextareaFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_TextareaFunction_001', 0, async () => {
         let testName = 'TextareaFunction';
         Logger.info(BUNDLE + testName + ' begin');
         await driver.delayMs(DELAY_TIME);
@@ -2762,7 +3329,15 @@ export default function abilityTest() {
       /**
        *PatternLock 图案密码锁
        */
-      it(BUNDLE + 'PatternLockFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0072
+     * @tc.name      PatternLockFunction_001
+     * @tc.desc      Verify legacy case PatternLockFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_PatternLockFunction_001', 0, async () => {
         let testName = 'PatternLockFunction';
         Logger.info(BUNDLE + testName + ' begin');
         await driver.delayMs(DELAY_TIME);
@@ -2792,7 +3367,15 @@ export default function abilityTest() {
       /**
        *Search 搜索框
        */
-      it(BUNDLE + 'SearchFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0073
+     * @tc.name      SearchFunction_001
+     * @tc.desc      Verify legacy case SearchFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_SearchFunction_001', 0, async () => {
         let testName = 'SearchFunction';
         Logger.info(BUNDLE + testName + ' begin');
         await driver.delayMs(DELAY_TIME);
@@ -2835,7 +3418,15 @@ export default function abilityTest() {
       /**
        *Image 图片
        */
-      it(BUNDLE + 'ImageFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0074
+     * @tc.name      ImageFunction_001
+     * @tc.desc      Verify legacy case ImageFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ImageFunction_001', 0, async () => {
         let testName = 'ImageFunction';
         Logger.info(BUNDLE + testName + ' begin');
         await driver.delayMs(DELAY_TIME);
@@ -2873,7 +3464,15 @@ export default function abilityTest() {
       /**
        *ImageAnimator 逐帧播放图片
        */
-      it(BUNDLE + 'ImageAnimatorFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0075
+     * @tc.name      ImageAnimatorFunction_001
+     * @tc.desc      Verify legacy case ImageAnimatorFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ImageAnimatorFunction_001', 0, async () => {
         let testName = 'ImageAnimatorFunction';
         Logger.info(BUNDLE + testName + ' begin');
         await driver.delayMs(DELAY_TIME);
@@ -2901,7 +3500,15 @@ export default function abilityTest() {
       /**
        *Video 视频
        */
-      it(BUNDLE + 'VideoFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0076
+     * @tc.name      VideoFunction_001
+     * @tc.desc      Verify legacy case VideoFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_VideoFunction_001', 0, async () => {
         let testName = 'VideoFunction';
         Logger.info(BUNDLE + testName + ' begin');
         await driver.delayMs(DELAY_TIME);
@@ -2933,7 +3540,15 @@ export default function abilityTest() {
       /**
        *XComponent 画布
        */
-      it(BUNDLE + 'XComponentFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0077
+     * @tc.name      XComponentFunction_001
+     * @tc.desc      Verify legacy case XComponentFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_XComponentFunction_001', 0, async () => {
         let testName = 'XComponentFunction';
         Logger.info(BUNDLE + testName + ' begin');
         await driver.delayMs(DELAY_TIME);
@@ -2953,7 +3568,15 @@ export default function abilityTest() {
       /**
        *PluginComponent 嵌入式显示
        */
-      it(BUNDLE + 'PluginComponent_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0078
+     * @tc.name      PluginComponent_001
+     * @tc.desc      Verify legacy case PluginComponent_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_PluginComponent_001', 0, async () => {
         let testName = 'PluginComponentFunction';
         Logger.info(BUNDLE + testName + ' begin');
         await driver.delayMs(DELAY_TIME);
@@ -2973,7 +3596,15 @@ export default function abilityTest() {
       /**
        * Canvas 画布
        */
-      it(BUNDLE + 'CanvasFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0079
+     * @tc.name      CanvasFunction_001
+     * @tc.desc      Verify legacy case CanvasFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_CanvasFunction_001', 0, async () => {
         let testName = 'CanvasFunction';
         Logger.info(BUNDLE + testName + ' begin');
         await driver.delayMs(DELAY_TIME);
@@ -2996,7 +3627,15 @@ export default function abilityTest() {
       /*
        * CircleDialog 圆形
       */
-      it(BUNDLE + 'CircleFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0080
+     * @tc.name      CircleFunction_001
+     * @tc.desc      Verify legacy case CircleFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_CircleFunction_001', 0, async () => {
         let testName = 'CircleFunction';
         Logger.info(BUNDLE + testName + ' begin');
         await driver.delayMs(DELAY_TIME);
@@ -3028,7 +3667,15 @@ export default function abilityTest() {
       /**
        *ellipse 椭圆
        */
-      it(BUNDLE + 'EllipseFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0081
+     * @tc.name      EllipseFunction_001
+     * @tc.desc      Verify legacy case EllipseFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_EllipseFunction_001', 0, async () => {
         let testName = 'EllipseFunction';
         Logger.info(BUNDLE + testName + ' begin');
         let atom = await manager.getStringValue($r('app.string.ellipse_title'));
@@ -3067,7 +3714,15 @@ export default function abilityTest() {
       /**
        *line 直线
        */
-      it(BUNDLE + 'LineFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0082
+     * @tc.name      LineFunction_001
+     * @tc.desc      Verify legacy case LineFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_LineFunction_001', 0, async () => {
         let testName = 'LineFunction';
         Logger.info(BUNDLE + testName + ' begin');
         let atom = await manager.getStringValue($r('app.string.line_title'));
@@ -3100,7 +3755,15 @@ export default function abilityTest() {
       /**
        *Path 路径
        */
-      it(BUNDLE + 'PathFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0083
+     * @tc.name      PathFunction_001
+     * @tc.desc      Verify legacy case PathFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_PathFunction_001', 0, async () => {
         let testName = 'PathFunction';
         Logger.info(BUNDLE + testName + ' begin');
         await driver.delayMs(DELAY_TIME);
@@ -3138,7 +3801,15 @@ export default function abilityTest() {
       /**
        *polygon 多边形
        */
-      it(BUNDLE + 'PolygonFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0084
+     * @tc.name      PolygonFunction_001
+     * @tc.desc      Verify legacy case PolygonFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_PolygonFunction_001', 0, async () => {
         let testName = 'PolygonFunction';
         Logger.info(BUNDLE + testName + ' begin');
         await driver.delayMs(DELAY_TIME);
@@ -3171,7 +3842,15 @@ export default function abilityTest() {
       /**
        *polyline 折线
        */
-      it(BUNDLE + 'PloylineFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0085
+     * @tc.name      PloylineFunction_001
+     * @tc.desc      Verify legacy case PloylineFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_PloylineFunction_001', 0, async () => {
         let testName = 'PloylineFunction';
         Logger.info(BUNDLE + testName + ' begin');
         await driver.delayMs(DELAY_TIME);
@@ -3208,7 +3887,15 @@ export default function abilityTest() {
       /**
        *rect 矩形
        */
-      it(BUNDLE + 'RectFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0086
+     * @tc.name      RectFunction_001
+     * @tc.desc      Verify legacy case RectFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_RectFunction_001', 0, async () => {
         let testName = 'RectFunction';
         Logger.info(BUNDLE + testName + ' begin');
         await driver.delayMs(DELAY_TIME);
@@ -3246,7 +3933,15 @@ export default function abilityTest() {
       /**
        *shape 指定图形
        */
-      it(BUNDLE + 'ShapeFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0087
+     * @tc.name      ShapeFunction_001
+     * @tc.desc      Verify legacy case ShapeFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ShapeFunction_001', 0, async () => {
         let testName = 'ShapeFunction';
         Logger.info(BUNDLE + testName + ' begin');
         await driver.delayMs(DELAY_TIME);
@@ -3279,7 +3974,15 @@ export default function abilityTest() {
       /**
        *Web 网页
        */
-      it(BUNDLE + 'WebFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0088
+     * @tc.name      WebFunction_001
+     * @tc.desc      Verify legacy case WebFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_WebFunction_001', 0, async () => {
         let testName = 'VideoFunction';
         Logger.info(BUNDLE + testName + ' begin');
         await driver.delayMs(DELAY_TIME);
@@ -3302,7 +4005,15 @@ export default function abilityTest() {
       /**
        * Canvas_Sample
        */
-      it(BUNDLE + 'CanvasFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0089
+     * @tc.name      CanvasFunction_002
+     * @tc.desc      Verify legacy case CanvasFunction_002 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_CanvasFunction_002', 0, async () => {
         let testName = 'CanvasFunction';
         // 进入Canvas画布
         await driver.delayMs(DELAY_TIME);
@@ -3485,7 +4196,15 @@ export default function abilityTest() {
       /**
        * TarBar 进入通用
        */
-      it(BUNDLE + 'TarBarGeneralFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0090
+     * @tc.name      TarBarGeneralFunction_001
+     * @tc.desc      Verify legacy case TarBarGeneralFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_TarBarGeneralFunction_001', 0, async () => {
         let testName = 'TarBarGeneralFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -3505,7 +4224,15 @@ export default function abilityTest() {
       /**
        * onClick 点击事件
        */
-      it(BUNDLE + 'OnClickFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0091
+     * @tc.name      OnClickFunction_001
+     * @tc.desc      Verify legacy case OnClickFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_OnClickFunction_001', 0, async () => {
         let testName = 'OnClickFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -3526,7 +4253,15 @@ export default function abilityTest() {
       /**
        * 触摸事件
        */
-      it(BUNDLE + 'TouchFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0092
+     * @tc.name      TouchFunction_001
+     * @tc.desc      Verify legacy case TouchFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_TouchFunction_001', 0, async () => {
         let testName = 'TouchFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -3548,7 +4283,15 @@ export default function abilityTest() {
       /**
        * 拖拽事件
        */
-      it(BUNDLE + 'DragFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0093
+     * @tc.name      DragFunction_001
+     * @tc.desc      Verify legacy case DragFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_DragFunction_001', 0, async () => {
         let testName = 'DragFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -3601,7 +4344,15 @@ export default function abilityTest() {
       /**
        * 组件区域变化事件
        */
-      it(BUNDLE + 'AreaChangeFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0094
+     * @tc.name      AreaChangeFunction_001
+     * @tc.desc      Verify legacy case AreaChangeFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_AreaChangeFunction_001', 0, async () => {
         let testName = 'AreaChangeFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -3628,7 +4379,15 @@ export default function abilityTest() {
       /**
        * 挂载卸载事件
        */
-      it(BUNDLE + 'MountUnmountEventFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0095
+     * @tc.name      MountUnmountEventFunction_001
+     * @tc.desc      Verify legacy case MountUnmountEventFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_MountUnmountEventFunction_001', 0, async () => {
         let testName = 'MountUnmountEventFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -3652,7 +4411,15 @@ export default function abilityTest() {
       /**
        * 组件可见区域变化事件
        */
-      it(BUNDLE + 'ScrollEventFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0096
+     * @tc.name      ScrollEventFunction_001
+     * @tc.desc      Verify legacy case ScrollEventFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ScrollEventFunction_001', 0, async () => {
         let testName = 'ScrollEventFunction';
         Logger.info(BUNDLE + testName + ' begin');
         // 进入页面
@@ -3670,7 +4437,15 @@ export default function abilityTest() {
       /**
        * 自定义click事件分发，点击区域内
        */
-      it(BUNDLE + 'customClickFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0097
+     * @tc.name      customClickFunction_001
+     * @tc.desc      Verify legacy case customClickFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_customClickFunction_001', 0, async () => {
         let testName = 'customClickFunction1';
         Logger.info(BUNDLE + testName + ' begin');
         // 进入自定义事件分发页面
@@ -3695,7 +4470,15 @@ export default function abilityTest() {
       /**
        * 自定义click事件分发，点击蓝色区域外
        */
-      it(BUNDLE + 'customClickFunction_002', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0098
+     * @tc.name      customClickFunction_002
+     * @tc.desc      Verify legacy case customClickFunction_002 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_customClickFunction_002', 0, async () => {
         let testName = 'customClickFunction2';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -3718,7 +4501,15 @@ export default function abilityTest() {
       /**
        * 自定义scrolling事件分发
        */
-      it(BUNDLE + 'customScrollingFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0099
+     * @tc.name      customScrollingFunction_001
+     * @tc.desc      Verify legacy case customScrollingFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_customScrollingFunction_001', 0, async () => {
         let testName = 'customScrollingFunction';
         Logger.info(BUNDLE + testName + ' begin');
         // 进入自定义scrolling事件分发页面
@@ -3743,7 +4534,15 @@ export default function abilityTest() {
       /**
        * foreground 前景
        */
-      it(BUNDLE + 'ForegroundFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0100
+     * @tc.name      ForegroundFunction_001
+     * @tc.desc      Verify legacy case ForegroundFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ForegroundFunction_001', 0, async () => {
         let testName = 'ForegroundFunction';
         Logger.info(BUNDLE + testName + ' begin');
         // 从下往上滑动列表
@@ -3765,7 +4564,15 @@ export default function abilityTest() {
       /**
        * background 背景
        */
-      it(BUNDLE + 'BackgroundFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0101
+     * @tc.name      BackgroundFunction_001
+     * @tc.desc      Verify legacy case BackgroundFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_BackgroundFunction_001', 0, async () => {
         let testName = 'BackgroundFunction';
         Logger.info(BUNDLE + testName + ' begin');
         // 进入页面
@@ -3802,7 +4609,15 @@ export default function abilityTest() {
       /**
        * border 边框
        */
-      it(BUNDLE + 'BorderFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0102
+     * @tc.name      BorderFunction_001
+     * @tc.desc      Verify legacy case BorderFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_BorderFunction_001', 0, async () => {
         let testName = 'BorderFunction';
         Logger.info(BUNDLE + testName + ' begin');
         // 进入页面
@@ -3817,7 +4632,15 @@ export default function abilityTest() {
       /**
        * outline 外边框
        */
-      it(BUNDLE + 'OutlineFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0103
+     * @tc.name      OutlineFunction_001
+     * @tc.desc      Verify legacy case OutlineFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_OutlineFunction_001', 0, async () => {
         let testName = 'OutlineFunction';
         Logger.info(BUNDLE + testName + ' begin');
         // 进入页面
@@ -3855,7 +4678,15 @@ export default function abilityTest() {
       /**
        * font 字体
        */
-      it(BUNDLE + 'FontFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0104
+     * @tc.name      FontFunction_001
+     * @tc.desc      Verify legacy case FontFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_FontFunction_001', 0, async () => {
         let testName = 'FontFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -3873,7 +4704,15 @@ export default function abilityTest() {
       /**
        * size 尺寸
        */
-      it(BUNDLE + 'SizeFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0105
+     * @tc.name      SizeFunction_001
+     * @tc.desc      Verify legacy case SizeFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_SizeFunction_001', 0, async () => {
         let testName = 'SizeFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -3891,7 +4730,15 @@ export default function abilityTest() {
       /**
        * rotate 旋转
        */
-      it(BUNDLE + 'RotateFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0106
+     * @tc.name      RotateFunction_001
+     * @tc.desc      Verify legacy case RotateFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_RotateFunction_001', 0, async () => {
         let testName = 'RotateFunction'
         Logger.info(BUNDLE + testName + ' begin')
 
@@ -3914,7 +4761,15 @@ export default function abilityTest() {
       /**
        * translate 平移
        */
-      it(BUNDLE + 'TranslateFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0107
+     * @tc.name      TranslateFunction_001
+     * @tc.desc      Verify legacy case TranslateFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_TranslateFunction_001', 0, async () => {
         let testName = 'TranslateFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -3956,7 +4811,15 @@ export default function abilityTest() {
       /**
        * scale 缩放
        */
-      it(BUNDLE + 'ScaleFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0108
+     * @tc.name      ScaleFunction_001
+     * @tc.desc      Verify legacy case ScaleFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ScaleFunction_001', 0, async () => {
         let testName = 'ScaleFunction';
         Logger.info(BUNDLE + testName + ' begin');
         let button = await driver.findComponent(ON.text(await manager.getStringValue($r('app.string.scale'))));
@@ -3994,7 +4857,15 @@ export default function abilityTest() {
       /**
        * transform 变换矩阵
        */
-      it(BUNDLE + 'TransformFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0109
+     * @tc.name      TransformFunction_001
+     * @tc.desc      Verify legacy case TransformFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_TransformFunction_001', 0, async () => {
         let testName = 'TransformFunction'
         Logger.info(BUNDLE + testName + ' begin')
 
@@ -4019,7 +4890,15 @@ export default function abilityTest() {
       /**
        * 显示
        */
-      it(BUNDLE + 'DisplayFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0110
+     * @tc.name      DisplayFunction_001
+     * @tc.desc      Verify legacy case DisplayFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_DisplayFunction_001', 0, async () => {
         let testName = 'DisplayFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -4070,7 +4949,15 @@ export default function abilityTest() {
       /**
        * 互动
        */
-      it(BUNDLE + 'InteractionFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0111
+     * @tc.name      InteractionFunction_001
+     * @tc.desc      Verify legacy case InteractionFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_InteractionFunction_001', 0, async () => {
         let testName = 'InteractionFunction';
         Logger.info(BUNDLE + testName + ' begin');
         // 进入页面
@@ -4121,7 +5008,15 @@ export default function abilityTest() {
       /**
        * 图像效果
        */
-      it(BUNDLE + 'EffectsFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0112
+     * @tc.name      EffectsFunction_001
+     * @tc.desc      Verify legacy case EffectsFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_EffectsFunction_001', 0, async () => {
         let testName = 'EffectsFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -4198,7 +5093,15 @@ export default function abilityTest() {
       /**
        * location 位置设置
        */
-      it(BUNDLE + 'LocationFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0113
+     * @tc.name      LocationFunction_001
+     * @tc.desc      Verify legacy case LocationFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_LocationFunction_001', 0, async () => {
         let testName = 'LocationFunction';
         Logger.info(BUNDLE + testName + ' begin');
         // 从下往上滑动列表
@@ -4216,7 +5119,15 @@ export default function abilityTest() {
       /**
        * 布局约束
        */
-      it(BUNDLE + 'LayoutConstraintFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0114
+     * @tc.name      LayoutConstraintFunction_001
+     * @tc.desc      Verify legacy case LayoutConstraintFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_LayoutConstraintFunction_001', 0, async () => {
         let testName = 'LayoutConstraintFunction';
         Logger.info(BUNDLE + testName + ' begin');
         // 进入页面
@@ -4236,7 +5147,15 @@ export default function abilityTest() {
       /**
        * flex布局
        */
-      it(BUNDLE + 'FlexFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0115
+     * @tc.name      FlexFunction_002
+     * @tc.desc      Verify legacy case FlexFunction_002 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_FlexFunction_002', 0, async () => {
         let testName = 'FlexFunction';
         Logger.info(BUNDLE + testName + 'begin');
         await driver.delayMs(DELAY_TIME);
@@ -4254,7 +5173,15 @@ export default function abilityTest() {
       /**
        * 图片边框设置
        */
-      it(BUNDLE + 'PictureBorderFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0116
+     * @tc.name      PictureBorderFunction_001
+     * @tc.desc      Verify legacy case PictureBorderFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_PictureBorderFunction_001', 0, async () => {
         let testName = 'PictureBorderFunction';
         Logger.info(BUNDLE + testName + 'begin');
         // 进入页面
@@ -4269,7 +5196,15 @@ export default function abilityTest() {
       /**
        * 形状裁剪
        */
-      it(BUNDLE + 'ShapeCropFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0117
+     * @tc.name      ShapeCropFunction_001
+     * @tc.desc      Verify legacy case ShapeCropFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ShapeCropFunction_001', 0, async () => {
         let testName = 'ShapeCropFunction'
         Logger.info(BUNDLE + testName + 'begin')
         // 进入页面
@@ -4284,7 +5219,15 @@ export default function abilityTest() {
       /**
        * 栅格设置
        */
-      it(BUNDLE + 'GridSettingsFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0118
+     * @tc.name      GridSettingsFunction_001
+     * @tc.desc      Verify legacy case GridSettingsFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_GridSettingsFunction_001', 0, async () => {
         let testName = 'GridSettingsFunction'
         Logger.info(BUNDLE + testName + 'begin')
         // 进入页面
@@ -4299,7 +5242,15 @@ export default function abilityTest() {
       /**
        * 焦点控制
        */
-      it(BUNDLE + 'FocusControlFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0119
+     * @tc.name      FocusControlFunction_001
+     * @tc.desc      Verify legacy case FocusControlFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_FocusControlFunction_001', 0, async () => {
         let testName = 'FocusControlFunction'
         Logger.info(BUNDLE + testName + 'begin')
         // 进入页面
@@ -4313,7 +5264,15 @@ export default function abilityTest() {
       /**
        * 组件背景模糊
        */
-      it(BUNDLE + 'ComponentBlurredFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0120
+     * @tc.name      ComponentBlurredFunction_001
+     * @tc.desc      Verify legacy case ComponentBlurredFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ComponentBlurredFunction_001', 0, async () => {
         let testName = 'ComponentBlurredFunction'
         Logger.info(BUNDLE + testName + ' begin')
         // 进入页面
@@ -4327,7 +5286,15 @@ export default function abilityTest() {
       /**
        * 分布式迁移标识
        */
-      it(BUNDLE + 'RestoreIdFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0121
+     * @tc.name      RestoreIdFunction_001
+     * @tc.desc      Verify legacy case RestoreIdFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_RestoreIdFunction_001', 0, async () => {
         let testName = 'RestoreIdFunction'
         Logger.info(BUNDLE + testName + 'begin')
         // 进入页面
@@ -4341,7 +5308,15 @@ export default function abilityTest() {
       /**
        * safeArea 安全区域
        */
-      it(BUNDLE + 'SafeAreaFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0122
+     * @tc.name      SafeAreaFunction_001
+     * @tc.desc      Verify legacy case SafeAreaFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_SafeAreaFunction_001', 0, async () => {
         let testName = 'SafeAreaFunction';
         Logger.info(BUNDLE + testName + ' begin');
         // 进入页面
@@ -4361,7 +5336,15 @@ export default function abilityTest() {
       /**
        * 动态属性设置
        */
-      it(BUNDLE + 'AttributeModifierFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0123
+     * @tc.name      AttributeModifierFunction_001
+     * @tc.desc      Verify legacy case AttributeModifierFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_AttributeModifierFunction_001', 0, async () => {
         let testName = 'AttributeModifier';
         Logger.info(BUNDLE + testName + ' begin');
         // 从下往上滑动列表
@@ -4390,7 +5373,15 @@ export default function abilityTest() {
       /**
        * 绑定手势方法
        */
-      it(BUNDLE + 'BindFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0124
+     * @tc.name      BindFunction_001
+     * @tc.desc      Verify legacy case BindFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_BindFunction_001', 0, async () => {
         // 从下往上滑动列表,需滑动两次才能到手势处理区域
         await driver.drag(200, 800, 200, 50, 1000);
         await driver.delayMs(DELAY_TIME_FiVE);
@@ -4413,7 +5404,15 @@ export default function abilityTest() {
       /**
        * TabGesture
        */
-      it(BUNDLE + 'TabGestureFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0125
+     * @tc.name      TabGestureFunction_001
+     * @tc.desc      Verify legacy case TabGestureFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_TabGestureFunction_001', 0, async () => {
         let testName = 'TabGestureFunction';
         Logger.info(BUNDLE + testName + 'begin');
         let button = await driver.findComponent(ON.text(await manager.getStringValue($r('app.string.tap_gesture'))));
@@ -4439,7 +5438,15 @@ export default function abilityTest() {
       /**
        * LongPressGesture
        */
-      it(BUNDLE + 'LongPressFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0126
+     * @tc.name      LongPressFunction_001
+     * @tc.desc      Verify legacy case LongPressFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_LongPressFunction_001', 0, async () => {
         let testName = 'LongPressFunction';
         Logger.info(BUNDLE + testName + ' begin');
         let button = await driver.findComponent(ON.text(await manager.getStringValue($r('app.string.long_press_gesture'))));
@@ -4462,7 +5469,15 @@ export default function abilityTest() {
       /**
        * PanGesture
        */
-      it(BUNDLE + 'PanGestureFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0127
+     * @tc.name      PanGestureFunction_001
+     * @tc.desc      Verify legacy case PanGestureFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_PanGestureFunction_001', 0, async () => {
         let testName = 'PanGestureFunction';
         Logger.info(BUNDLE + testName + ' begin');
         let button = await driver.findComponent(ON.text(await manager.getStringValue($r('app.string.pan_gesture'))));
@@ -4486,7 +5501,15 @@ export default function abilityTest() {
       /**
        * SwipeGesture
        */
-      it(BUNDLE + 'SwipeGestureFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0128
+     * @tc.name      SwipeGestureFunction_001
+     * @tc.desc      Verify legacy case SwipeGestureFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_SwipeGestureFunction_001', 0, async () => {
         let testName = 'SwipeGestureFunction';
         Logger.info(BUNDLE + testName + ' begin');
         let button = await driver.findComponent(ON.text(await manager.getStringValue($r('app.string.swipe_gesture'))));
@@ -4510,7 +5533,15 @@ export default function abilityTest() {
       /**
        * 自定义手势判定,长按区域进行长按
        */
-      it(BUNDLE + 'CustomGestureFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0129
+     * @tc.name      CustomGestureFunction_001
+     * @tc.desc      Verify legacy case CustomGestureFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_CustomGestureFunction_001', 0, async () => {
         let testName = 'CustomGestureFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -4530,7 +5561,15 @@ export default function abilityTest() {
       /**
        * 自定义手势判定,点击区域进行点击
        */
-      it(BUNDLE + 'CustomGestureFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0130
+     * @tc.name      CustomGestureFunction_002
+     * @tc.desc      Verify legacy case CustomGestureFunction_002 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_CustomGestureFunction_002', 0, async () => {
         let testName = 'CustomGestureFunction';
         Logger.info(BUNDLE + testName + ' begin');
         //点击点击区域
@@ -4551,7 +5590,15 @@ export default function abilityTest() {
       /**
        * TarBar 进入动画
        */
-      it(BUNDLE + 'TarBarAnimateFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0131
+     * @tc.name      TarBarAnimateFunction_001
+     * @tc.desc      Verify legacy case TarBarAnimateFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_TarBarAnimateFunction_001', 0, async () => {
         let testName = 'TarBarAnimateFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -4571,7 +5618,15 @@ export default function abilityTest() {
       /**
        * pageTransition 页面间转场
        */
-      it(BUNDLE + 'PageTransitionFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0132
+     * @tc.name      PageTransitionFunction_001
+     * @tc.desc      Verify legacy case PageTransitionFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_PageTransitionFunction_001', 0, async () => {
         let testName = 'PageTransitionFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -4621,7 +5676,15 @@ export default function abilityTest() {
       /**
        * sharedTransition 共享元素转场
        */
-      it(BUNDLE + 'SharedTransitionFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0133
+     * @tc.name      SharedTransitionFunction_001
+     * @tc.desc      Verify legacy case SharedTransitionFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_SharedTransitionFunction_001', 0, async () => {
         let testName = 'SharedTransitionFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -4652,7 +5715,15 @@ export default function abilityTest() {
       /**
        * 多任务
        */
-      it(BUNDLE + 'MultiplexFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0134
+     * @tc.name      MultiplexFunction_001
+     * @tc.desc      Verify legacy case MultiplexFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_MultiplexFunction_001', 0, async () => {
         let testName = 'MultiplexFunction';
         Logger.info(BUNDLE + testName + ' begin');
         let button = await driver.findComponent(ON.text(await manager.getStringValue($r('app.string.Multiplex_interface'))));
@@ -4678,7 +5749,15 @@ export default function abilityTest() {
       /**
        * 悬浮窗
        */
-      it(BUNDLE + 'FloatingFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0135
+     * @tc.name      FloatingFunction_001
+     * @tc.desc      Verify legacy case FloatingFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_FloatingFunction_001', 0, async () => {
         let testName = 'FloatingFunction';
         Logger.info(BUNDLE + testName + ' begin');
         let button = await driver.findComponent(ON.text(await manager.getStringValue($r('app.string.Floating_window'))));
@@ -4703,7 +5782,15 @@ export default function abilityTest() {
       /**
        * 文件夹展开
        */
-      it(BUNDLE + 'FolderFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0136
+     * @tc.name      FolderFunction_001
+     * @tc.desc      Verify legacy case FolderFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_FolderFunction_001', 0, async () => {
         let testName = 'FolderFunction';
         Logger.info(BUNDLE + testName + ' begin');
         let button = await driver.findComponent(ON.text(await manager.getStringValue($r('app.string.Folder_expansion'))));
@@ -4731,7 +5818,15 @@ export default function abilityTest() {
       /**
        * 系统图标
        */
-      it(BUNDLE + 'SystemIcons', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0137
+     * @tc.name      SystemIcons
+     * @tc.desc      Verify legacy case SystemIcons runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_SystemIcons', 0, async () => {
         let testName = 'SystemIcons';
         Logger.info(BUNDLE + testName + ' begin');
         let button = await driver.findComponent(ON.text(await manager.getStringValue($r('app.string.System_icon'))));
@@ -4759,7 +5854,15 @@ export default function abilityTest() {
       /**
        * 商店卡片展开
        */
-      it(BUNDLE + 'ShopCardFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0138
+     * @tc.name      ShopCardFunction_001
+     * @tc.desc      Verify legacy case ShopCardFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ShopCardFunction_001', 0, async () => {
         let testName = 'ShopCardFunction';
         Logger.info(BUNDLE + testName + ' begin');
         let button = await driver.findComponent(ON.text(await manager.getStringValue($r('app.string.Shop_card_expansion'))));
@@ -4787,7 +5890,15 @@ export default function abilityTest() {
       /**
        * 图片卡片展开
        */
-      it(BUNDLE + 'GalleryCardFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0139
+     * @tc.name      GalleryCardFunction_001
+     * @tc.desc      Verify legacy case GalleryCardFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_GalleryCardFunction_001', 0, async () => {
         let testName = 'GalleryCardFunction';
         Logger.info(BUNDLE + testName + ' begin');
         let button = await driver.findComponent(ON.text(await manager.getStringValue($r('app.string.Gallery_card_expansion'))));
@@ -4815,7 +5926,15 @@ export default function abilityTest() {
       /**
        * ComponentTransition 组件内转场
        */
-      it(BUNDLE + 'ComponentTransitionSampleFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0140
+     * @tc.name      ComponentTransitionSampleFunction_001
+     * @tc.desc      Verify legacy case ComponentTransitionSampleFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ComponentTransitionSampleFunction_001', 0, async () => {
         let testName = 'ComponentTransitionSampleFunction';
         Logger.info(BUNDLE + testName + ' begin');
         let button = await driver.findComponent(ON.text(await manager.getStringValue($r('app.string.component_transition'))));
@@ -4844,7 +5963,15 @@ export default function abilityTest() {
       /**
        * 布局动效
        */
-      it(BUNDLE + 'LayoutAnimationFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0141
+     * @tc.name      LayoutAnimationFunction_001
+     * @tc.desc      Verify legacy case LayoutAnimationFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_LayoutAnimationFunction_001', 0, async () => {
         let testName = 'LayoutAnimationFunction';
         Logger.info(BUNDLE + testName + ' begin');
         let button = await driver.findComponent(ON.text(await manager.getStringValue($r('app.string.layout_animation_expansion'))));
@@ -4868,7 +5995,15 @@ export default function abilityTest() {
       /**
        * 尺寸变换动效
        */
-      it(BUNDLE + 'LayoutAnimationFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0142
+     * @tc.name      LayoutAnimationFunction_002
+     * @tc.desc      Verify legacy case LayoutAnimationFunction_002 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_LayoutAnimationFunction_002', 0, async () => {
         let testName = 'LayoutAnimationFunction';
         Logger.info(BUNDLE + testName + ' begin');
         let button = await driver.findComponent(ON.text(await manager.getStringValue($r('app.string.size_transition_expansion'))));
@@ -4892,7 +6027,15 @@ export default function abilityTest() {
       /**
        * 侧边栏动效
        */
-      it(BUNDLE + 'LayoutAnimationFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0143
+     * @tc.name      LayoutAnimationFunction_003
+     * @tc.desc      Verify legacy case LayoutAnimationFunction_003 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_LayoutAnimationFunction_003', 0, async () => {
         let testName = 'LayoutAnimationFunction';
         Logger.info(BUNDLE + testName + ' begin');
         let button = await driver.findComponent(ON.text(await manager.getStringValue($r('app.string.side_bar_effects_title'))));
@@ -4929,7 +6072,15 @@ export default function abilityTest() {
       /**
        * Interpolation Calculation 插值计算
        */
-      it(BUNDLE + 'InterpolationFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0144
+     * @tc.name      InterpolationFunction_001
+     * @tc.desc      Verify legacy case InterpolationFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_InterpolationFunction_001', 0, async () => {
         let testName = 'InterpolationFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -4951,7 +6102,15 @@ export default function abilityTest() {
       /**
        * AnimateTo 显示动画
        */
-      it(BUNDLE + 'AnimateToFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0145
+     * @tc.name      AnimateToFunction_001
+     * @tc.desc      Verify legacy case AnimateToFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_AnimateToFunction_001', 0, async () => {
         let testName = 'AnimateToFunction';
         Logger.info(BUNDLE + testName + ' begin');
         // 进入页面
@@ -4968,7 +6127,15 @@ export default function abilityTest() {
       /**
        * Animation 属性动画
        */
-      it(BUNDLE + 'AnimateToFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0146
+     * @tc.name      AnimateToFunction_002
+     * @tc.desc      Verify legacy case AnimateToFunction_002 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_AnimateToFunction_002', 0, async () => {
         let testName = 'AnimateToFunction';
         Logger.info(BUNDLE + testName + ' begin');
         // 进入页面
@@ -4985,7 +6152,15 @@ export default function abilityTest() {
       /**
        * TarBar 全局方法
        */
-      it(BUNDLE + 'TarBarGlobalFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0147
+     * @tc.name      TarBarGlobalFunction_001
+     * @tc.desc      Verify legacy case TarBarGlobalFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_TarBarGlobalFunction_001', 0, async () => {
         let testName = 'TarBarGlobalFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -5006,7 +6181,15 @@ export default function abilityTest() {
       /**
        * AlertDialog 警告弹窗
        */
-      it(BUNDLE + 'AlertDialogFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0148
+     * @tc.name      AlertDialogFunction_001
+     * @tc.desc      Verify legacy case AlertDialogFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_AlertDialogFunction_001', 0, async () => {
         let testName = 'AlertDialogFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -5071,7 +6254,15 @@ export default function abilityTest() {
       /**
        * CustomDialog 自定义弹窗
        */
-      it(BUNDLE + 'CustomDialogFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0149
+     * @tc.name      CustomDialogFunction_001
+     * @tc.desc      Verify legacy case CustomDialogFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_CustomDialogFunction_001', 0, async () => {
         let testName = 'CustomDialogFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -5099,7 +6290,15 @@ export default function abilityTest() {
       /**
        * DatePickerDialog 日期选择弹窗
        */
-      it(BUNDLE + 'DatePickerDialogFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0150
+     * @tc.name      DatePickerDialogFunction_001
+     * @tc.desc      Verify legacy case DatePickerDialogFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_DatePickerDialogFunction_001', 0, async () => {
         let testName = 'DatePickerDialogFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -5143,7 +6342,15 @@ export default function abilityTest() {
       /**
        * TimePickerDialog 时间选择弹窗
        */
-      it(BUNDLE + 'TimePickerDialogFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0151
+     * @tc.name      TimePickerDialogFunction_001
+     * @tc.desc      Verify legacy case TimePickerDialogFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_TimePickerDialogFunction_001', 0, async () => {
         let testName = 'TimePickerDialogFunction';
         Logger.info(BUNDLE + testName + ' begin');
 
@@ -5186,7 +6393,15 @@ export default function abilityTest() {
       /**
        * ActionSheetDialogSample 列表选择弹窗
        */
-      it(BUNDLE + 'ActionSheetDialogSampleFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0152
+     * @tc.name      ActionSheetDialogSampleFunction_001
+     * @tc.desc      Verify legacy case ActionSheetDialogSampleFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_ActionSheetDialogSampleFunction_001', 0, async () => {
         let testName = 'ActionSheetDialogSampleFunction';
         Logger.info(BUNDLE + testName + 'begin');
 
@@ -5230,7 +6445,15 @@ export default function abilityTest() {
       /**
        * TextPickerDialog 文本滑动选择弹窗
        */
-      it(BUNDLE + 'TextPickerDialogFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0153
+     * @tc.name      TextPickerDialogFunction_001
+     * @tc.desc      Verify legacy case TextPickerDialogFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_TextPickerDialogFunction_001', 0, async () => {
         let testName = 'TextPickerDialogFunction';
         Logger.info(BUNDLE + testName + 'begin');
         await driver.delayMs(DELAY_TIME);
@@ -5253,7 +6476,15 @@ export default function abilityTest() {
       /**
        * BindContextMenuDialog 菜单弹窗
        */
-      it(BUNDLE + 'BindContextMenuDialogFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0154
+     * @tc.name      BindContextMenuDialogFunction_001
+     * @tc.desc      Verify legacy case BindContextMenuDialogFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_BindContextMenuDialogFunction_001', 0, async () => {
         let testName = 'BindContextMenuDialogFunction';
         Logger.info(BUNDLE + testName + 'begin');
         await driver.delayMs(DELAY_TIME);
@@ -5322,7 +6553,15 @@ export default function abilityTest() {
       /**
        * BindSheetDialog 半模态界面
        */
-      it(BUNDLE + 'BindSheetDialogFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0155
+     * @tc.name      BindSheetDialogFunction_001
+     * @tc.desc      Verify legacy case BindSheetDialogFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_BindSheetDialogFunction_001', 0, async () => {
         let testName = 'BindSheetDialogFunction';
         Logger.info(BUNDLE + testName + 'begin');
         await driver.delayMs(DELAY_TIME);
@@ -5361,7 +6600,15 @@ export default function abilityTest() {
       /**
        * PopupDialog Popup
        */
-      it(BUNDLE + 'PopupDialogFunction_001', 0, async () => {
+    /**
+     * @tc.number    SUB_COMPONENTCOLLECTION_LEG_0156
+     * @tc.name      PopupDialogFunction_001
+     * @tc.desc      Verify legacy case PopupDialogFunction_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it('ComponentCollection_PopupDialogFunction_001', 0, async () => {
         let testName = 'PopupDialogFunction';
         Logger.info(BUNDLE + testName + 'begin');
         await driver.delayMs(DELAY_TIME);
@@ -5414,7 +6661,5 @@ export default function abilityTest() {
         await driver.delayMs(DELAY_TIME);
         Logger.info(BUNDLE + testName + 'end');
       })
-      Logger.info("Sample_ComponentCollection test end");
-    })
   })
 }

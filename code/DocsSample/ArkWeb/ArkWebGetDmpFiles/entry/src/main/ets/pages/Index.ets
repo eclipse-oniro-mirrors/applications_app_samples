@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 // [Start web_get_dmp_files]
-import { fileIo as fs } from '@kit.CoreFileKit'
+import { fileIo } from '@kit.CoreFileKit'
 import { BusinessError } from '@kit.BasicServicesKit'
 import { webview } from '@kit.ArkWeb'
 
@@ -29,7 +29,7 @@ struct Index {
         .onClick(() => {
           let pathDir = this.uiContext.getHostContext()?.filesDir;
           console.info("pathdir=" + pathDir);
-          fs.copyDir("/data/storage/el2/log/crashpad/pending/", pathDir, 0)
+          fileIo.copyDir("/data/storage/el2/log/crashpad/pending/", pathDir, 0)
             .then(()=>{
               console.info("copy files success");
             })

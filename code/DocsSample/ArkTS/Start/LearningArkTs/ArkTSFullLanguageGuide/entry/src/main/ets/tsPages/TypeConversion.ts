@@ -367,3 +367,16 @@ let assertedString: string = runtimeTypeValue as string;
 console.info(`${typeof assertedString}`); // "number"（运行时类型仍然是number）
 assertedString.toUpperCase(); // 运行时错误：toUpperCase is not a function
 // [End ts_assertion_runtime_type]
+
+// ===== assertion_runtime_check =====
+// [Start assertion_runtime_check]
+let checkValue: Object = 'hello';
+
+// 运行时抛出ClassCastException：实际类型string与断言类型number不匹配
+// let wrong: number = checkValue as number;
+
+// 正确做法：先确认实际类型
+if (typeof checkValue === 'string') {
+  console.info(`${checkValue.length}`); // 5
+}
+// [End assertion_runtime_check]

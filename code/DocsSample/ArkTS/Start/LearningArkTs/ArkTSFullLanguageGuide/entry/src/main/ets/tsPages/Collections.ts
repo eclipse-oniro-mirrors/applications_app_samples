@@ -41,62 +41,6 @@ let readonlyPair: ReadonlyArray<number> = [1, 2];
 readonlyPair[0] = 3;  // 编译错误
 // [End ts_readonly_tuple]
 
-// [Start ts_readonly_array_usage]
-let readonlyArr: ReadonlyArray<number> = [1, 2, 3];
-
-// 不可修改
-readonlyArr.push(4);      // 编译错误
-readonlyArr[0] = 10;      // 编译错误
-readonlyArr.pop();        // 编译错误
-
-// 可以读取
-let first: number = readonlyArr[0];  // 1
-let length: number = readonlyArr.length;  // 3
-
-// 可以遍历
-for (let value of readonlyArr) {
-  console.info(`${value}`);
-}
-
-// 创建只读数组
-let mutable: number[] = [1, 2, 3];
-let readonly: ReadonlyArray<number> = mutable;  // 转为只读
-
-// 类型别名
-type ReadOnlyNumbers = ReadonlyArray<number>;
-let nums: ReadOnlyNumbers = [1, 2, 3];
-// [End ts_readonly_array_usage]
-
-// [Start ts_destructuring_alternatives]
-// 数组解构
-let [a, b] = [1, 2];
-
-// 正确做法：单独赋值
-let arr: number[] = [1, 2];
-let aVal: number = arr[0];
-let bVal: number = arr[1];
-
-// Map解构
-let map: Map<string, number> = new Map([['key', 10]]);
-let [mapKey, mapValue] = map.entries().next().value;
-
-// 正确做法：单独赋值
-let entry: [string, number] | undefined = Array.from(map.entries())[0];
-if (entry !== undefined) {
-  let entryKey: string = entry[0];
-  let entryValue: number = entry[1];
-}
-
-// Set解构
-let [setFirst, setSecond] = new Set([1, 2]);
-
-// 正确做法：单独赋值
-let set: Set<number> = new Set([1, 2]);
-let values: number[] = Array.from(set);
-let firstVal: number = values[0];
-let secondVal: number = values[1];
-// [End ts_destructuring_alternatives]
-
 // [Start ts_map_safe_access]
 let scores: Map<string, number> = new Map();
 scores.set('Alice', 95);

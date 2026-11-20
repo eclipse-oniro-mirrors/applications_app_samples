@@ -37,6 +37,9 @@ async function scryptAwait() {
   } catch(error) {
     let e: BusinessError = error as BusinessError;
     console.error('key derivation failed, errCode: ' + e.code + ', errMsg: ' + e.message);
+    // [StartExclude use_scrypt_for_key_derivation_await]
+    throw new Error('key derivation failed, errCode: ' + e.code + ', errMsg: ' + e.message);
+    // [EndExclude use_scrypt_for_key_derivation_await]
   }
 }
 // [End use_scrypt_for_key_derivation_await]

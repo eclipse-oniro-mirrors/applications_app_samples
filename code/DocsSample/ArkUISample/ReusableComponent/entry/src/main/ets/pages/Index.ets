@@ -87,6 +87,10 @@ struct Index {
     {
       name: 'ReusableForIncorrectReuseId',
       path: 'pages/ReusableForIncorrectReuseId'
+    },
+    {
+      name: 'DefaultReusePoolClearCache',
+      path: 'pages/DefaultReusePoolClearCache'
     }
   ];
 

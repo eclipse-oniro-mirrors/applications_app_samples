@@ -2,15 +2,2423 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "module description"
+      "value": "RenderNode and Native Drawing sample"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "RenderNode and Native Drawing sample"
     },
     {
       "name": "EntryAbility_label",
-      "value": "label"
+      "value": "NdkRenderNodeDrawing"
+    },
+    {
+      "name": "index_title",
+      "value": "RenderNode Drawing"
+    },
+    {
+      "name": "back",
+      "value": "Back"
+    },
+    {
+      "name": "index_subtitle",
+      "value": "RenderNode + Native Drawing capability demos"
+    },
+    {
+      "name": "draw_title",
+      "value": "Canvas Drawing"
+    },
+    {
+      "name": "draw_desc",
+      "value": "Draw path, text and image onto a RenderNode through Node-API."
+    },
+    {
+      "name": "draw_path",
+      "value": "Draw Path"
+    },
+    {
+      "name": "draw_text",
+      "value": "Draw Text"
+    },
+    {
+      "name": "draw_image",
+      "value": "Draw Image"
+    },
+    {
+      "name": "primitive_title",
+      "value": "Primitives"
+    },
+    {
+      "name": "primitive_desc",
+      "value": "Point, line, circle, oval, rect, round rect, arc, path and region."
+    },
+    {
+      "name": "effect_title",
+      "value": "Drawing Effects"
+    },
+    {
+      "name": "effect_desc",
+      "value": "Fill and stroke, blend mode, dash, gradients, color filter and mask blur."
+    },
+    {
+      "name": "transform_title",
+      "value": "Canvas Transform"
+    },
+    {
+      "name": "transform_desc",
+      "value": "Clip, translate, rotate, scale, matrix and save/restore."
+    },
+    {
+      "name": "image_title",
+      "value": "Image Drawing"
+    },
+    {
+      "name": "image_desc",
+      "value": "Draw a pixel map with different sampling modes and a scale view."
+    },
+    {
+      "name": "text_title",
+      "value": "Text Drawing"
+    },
+    {
+      "name": "text_desc",
+      "value": "TextBlob, typography layout and text measurement."
+    },
+    {
+      "name": "node_tree_title",
+      "value": "Node Tree"
+    },
+    {
+      "name": "node_tree_desc",
+      "value": "Append and remove child render nodes at runtime."
+    },
+    {
+      "name": "render_property_title",
+      "value": "Render Properties"
+    },
+    {
+      "name": "render_property_desc",
+      "value": "Toggle background color, opacity, clip, shadow, scale and rotation."
+    },
+    {
+      "name": "blur_title",
+      "value": "Blur Effects"
+    },
+    {
+      "name": "blur_desc",
+      "value": "Background, content and foreground blur supported since API 26."
+    },
+    {
+      "name": "lifecycle_title",
+      "value": "Lifecycle"
+    },
+    {
+      "name": "lifecycle_desc",
+      "value": "Set label, invalidate, dispose and recreate the render node."
+    },
+    {
+      "name": "btn_measure",
+      "value": "Measure Text"
+    },
+    {
+      "name": "btn_add_child",
+      "value": "Add Child"
+    },
+    {
+      "name": "btn_remove_child",
+      "value": "Remove Child"
+    },
+    {
+      "name": "btn_reset",
+      "value": "Reset"
+    },
+    {
+      "name": "prop_background",
+      "value": "Background"
+    },
+    {
+      "name": "prop_opacity",
+      "value": "Opacity"
+    },
+    {
+      "name": "prop_clip",
+      "value": "Clip"
+    },
+    {
+      "name": "prop_shadow",
+      "value": "Shadow"
+    },
+    {
+      "name": "prop_scale",
+      "value": "Scale"
+    },
+    {
+      "name": "prop_rotation",
+      "value": "Rotation"
+    },
+    {
+      "name": "blur_background",
+      "value": "Background"
+    },
+    {
+      "name": "blur_content",
+      "value": "Content"
+    },
+    {
+      "name": "blur_foreground",
+      "value": "Foreground"
+    },
+    {
+      "name": "blur_radius",
+      "value": "Radius"
+    },
+    {
+      "name": "lifecycle_label",
+      "value": "Set Label"
+    },
+    {
+      "name": "lifecycle_invalidate",
+      "value": "Invalidate"
+    },
+    {
+      "name": "lifecycle_dispose",
+      "value": "Dispose"
+    },
+    {
+      "name": "lifecycle_recreate",
+      "value": "Recreate"
+    },
+    {
+      "name": "state_disposed",
+      "value": "RenderNode disposed: "
+    },
+    {
+      "name": "state_child_count",
+      "value": "Child count: "
+    },
+    {
+      "name": "state_measure",
+      "value": "Measured size: "
+    },
+    {
+      "name": "image_missing",
+      "value": "Pixel map not ready"
+    },
+    {
+      "name": "capability_title",
+      "value": "Capability Matrix"
+    },
+    {
+      "name": "capability_desc",
+      "value": "Schema driven demos across 19 capability families: canvas, paint, bitmap, text, shadow, matrix, record, offscreen layer and error codes."
+    },
+    {
+      "name": "label_parameters",
+      "value": "Parameters"
+    },
+    {
+      "name": "label_reapply",
+      "value": "Re-apply"
+    },
+    {
+      "name": "label_scene_count",
+      "value": "%d scenes"
+    },
+    {
+      "name": "catalog_desc",
+      "value": "Schema driven demos: each group renders every native drawing capability of one header family."
+    },
+    {
+      "name": "topic_catalog_desc",
+      "value": "Node level topics: tree, properties, blur, animation, hit testing, performance, record and device fit."
+    },
+    {
+      "name": "topic_title",
+      "value": "RenderNode Topics"
+    },
+    {
+      "name": "topic_desc",
+      "value": "Ten node level topics: tree, properties, blur, animation, hit testing, performance, record, device fit, lifecycle and frame tick."
+    },
+    {
+      "name": "cap_bitmap_group_title",
+      "value": "Bitmap"
+    },
+    {
+      "name": "cap_bitmap_group_desc",
+      "value": "Build, draw, scale, read back, create from pixels, inspect format and tile a bitmap."
+    },
+    {
+      "name": "cap_bitmap_s00_title",
+      "value": "Build"
+    },
+    {
+      "name": "cap_bitmap_s00_desc",
+      "value": "Build an empty bitmap, bind an offscreen canvas, then blit it back."
+    },
+    {
+      "name": "cap_bitmap_s01_title",
+      "value": "Draw"
+    },
+    {
+      "name": "cap_bitmap_s01_desc",
+      "value": "DrawBitmap keeps one bitmap pixel per canvas pixel, no scaling."
+    },
+    {
+      "name": "cap_bitmap_s02_title",
+      "value": "Rect Scale"
+    },
+    {
+      "name": "cap_bitmap_s02_desc",
+      "value": "Stretch one bitmap into different target rects with sampling."
+    },
+    {
+      "name": "cap_bitmap_s03_title",
+      "value": "Read Pixels"
+    },
+    {
+      "name": "cap_bitmap_s03_desc",
+      "value": "Read the bitmap pixels back and repaint them as colour blocks."
+    },
+    {
+      "name": "cap_bitmap_s04_title",
+      "value": "From Pixels"
+    },
+    {
+      "name": "cap_bitmap_s04_desc",
+      "value": "Create a bitmap straight from memory pixels, skipping the canvas."
+    },
+    {
+      "name": "cap_bitmap_s05_title",
+      "value": "Image Info"
+    },
+    {
+      "name": "cap_bitmap_s05_desc",
+      "value": "Read width, height and format, then draw by the reported ratio."
+    },
+    {
+      "name": "cap_bitmap_s06_title",
+      "value": "Alpha Format"
+    },
+    {
+      "name": "cap_bitmap_s06_desc",
+      "value": "Premultiplied and unpremultiplied differ on translucent fills."
+    },
+    {
+      "name": "cap_bitmap_s07_title",
+      "value": "Color Format"
+    },
+    {
+      "name": "cap_bitmap_s07_desc",
+      "value": "The same memory read as RGBA or BGRA shows a channel swap."
+    },
+    {
+      "name": "cap_bitmap_s08_title",
+      "value": "Row Bytes"
+    },
+    {
+      "name": "cap_bitmap_s08_desc",
+      "value": "Row bytes set the memory stride, stripes show the format gap."
+    },
+    {
+      "name": "cap_bitmap_s09_title",
+      "value": "Tile Grid"
+    },
+    {
+      "name": "cap_bitmap_s09_desc",
+      "value": "Repeat a small bitmap across the canvas with one sampling option."
+    },
+    {
+      "name": "cap_canvas_group_title",
+      "value": "Canvas & Clip"
+    },
+    {
+      "name": "cap_canvas_group_desc",
+      "value": "Clear, batch points, save/restore, four clip modes, translate, skew and layer."
+    },
+    {
+      "name": "cap_canvas_s00_title",
+      "value": "Clear & Fill"
+    },
+    {
+      "name": "cap_canvas_s00_desc",
+      "value": "Clear the canvas then overlay a translucent block and a circle."
+    },
+    {
+      "name": "cap_canvas_s01_title",
+      "value": "Point Grid"
+    },
+    {
+      "name": "cap_canvas_s01_desc",
+      "value": "Submit a whole grid of vertices with one DrawPoints call."
+    },
+    {
+      "name": "cap_canvas_s02_title",
+      "value": "Save / Restore"
+    },
+    {
+      "name": "cap_canvas_s02_desc",
+      "value": "Rotate inside a save block and restore back to the previous state."
+    },
+    {
+      "name": "cap_canvas_s03_title",
+      "value": "Clip Rect"
+    },
+    {
+      "name": "cap_canvas_s03_desc",
+      "value": "Clip to an inset rectangle, then draw stripes across the canvas."
+    },
+    {
+      "name": "cap_canvas_s04_title",
+      "value": "Clip RoundRect"
+    },
+    {
+      "name": "cap_canvas_s04_desc",
+      "value": "Clip to a rounded rectangle before drawing rings."
+    },
+    {
+      "name": "cap_canvas_s05_title",
+      "value": "Clip Path"
+    },
+    {
+      "name": "cap_canvas_s05_desc",
+      "value": "Clip along a regular polygon path with adjustable sides."
+    },
+    {
+      "name": "cap_canvas_s06_title",
+      "value": "Clip Region"
+    },
+    {
+      "name": "cap_canvas_s06_desc",
+      "value": "Clip to the difference of two regions."
+    },
+    {
+      "name": "cap_canvas_s07_title",
+      "value": "Translate"
+    },
+    {
+      "name": "cap_canvas_s07_desc",
+      "value": "Apply the same translation three times to separate the blocks."
+    },
+    {
+      "name": "cap_canvas_s08_title",
+      "value": "Skew"
+    },
+    {
+      "name": "cap_canvas_s08_desc",
+      "value": "Skew the coordinate system by an angle, converted to tangent internally."
+    },
+    {
+      "name": "cap_canvas_s09_title",
+      "value": "SaveLayer"
+    },
+    {
+      "name": "cap_canvas_s09_desc",
+      "value": "Composite two circles in a layer, then blend the layer once."
+    },
+    {
+      "name": "cap_color_group_title",
+      "value": "Color Model"
+    },
+    {
+      "name": "cap_color_group_desc",
+      "value": "Palette, alpha ramp, channel mixing, ARGB / RGBA order, contrast, invert and gamma."
+    },
+    {
+      "name": "cap_color_s00_title",
+      "value": "Palette"
+    },
+    {
+      "name": "cap_color_s00_desc",
+      "value": "Lay out the built-in palette with the chosen count and alpha."
+    },
+    {
+      "name": "cap_color_s01_title",
+      "value": "Alpha Ramp"
+    },
+    {
+      "name": "cap_color_s01_desc",
+      "value": "One color spread across evenly spaced alpha steps."
+    },
+    {
+      "name": "cap_color_s02_title",
+      "value": "Lerp"
+    },
+    {
+      "name": "cap_color_s02_desc",
+      "value": "Interpolate between two palette colors by ratio."
+    },
+    {
+      "name": "cap_color_s03_title",
+      "value": "Order ARGB"
+    },
+    {
+      "name": "cap_color_s03_desc",
+      "value": "Unpack A / R / G / B and rebuild the color in the same order."
+    },
+    {
+      "name": "cap_color_s04_title",
+      "value": "Order RGBA"
+    },
+    {
+      "name": "cap_color_s04_desc",
+      "value": "Rebuild the color in R / G / B / A order to show channel shift."
+    },
+    {
+      "name": "cap_color_s05_title",
+      "value": "Contrast"
+    },
+    {
+      "name": "cap_color_s05_desc",
+      "value": "Scale every channel around 128, 1.0 keeps the original color."
+    },
+    {
+      "name": "cap_color_s06_title",
+      "value": "Invert"
+    },
+    {
+      "name": "cap_color_s06_desc",
+      "value": "Mix the color towards its complement by ratio."
+    },
+    {
+      "name": "cap_color_s07_title",
+      "value": "Gamma To Linear"
+    },
+    {
+      "name": "cap_color_s07_desc",
+      "value": "Exponent above 1 darkens every channel."
+    },
+    {
+      "name": "cap_color_s08_title",
+      "value": "Gamma To sRGB"
+    },
+    {
+      "name": "cap_color_s08_desc",
+      "value": "Exponent below 1 brightens every channel."
+    },
+    {
+      "name": "cap_color_filter_group_title",
+      "value": "Color Filter"
+    },
+    {
+      "name": "cap_color_filter_group_desc",
+      "value": "Blend mode filter, four color matrices, luma, compose, lighting and pen level filter."
+    },
+    {
+      "name": "cap_color_filter_s00_title",
+      "value": "Blend Mode"
+    },
+    {
+      "name": "cap_color_filter_s00_desc",
+      "value": "Blend a solid color onto the palette strip with the chosen mode."
+    },
+    {
+      "name": "cap_color_filter_s01_title",
+      "value": "Gray Matrix"
+    },
+    {
+      "name": "cap_color_filter_s01_desc",
+      "value": "Saturation matrix, 0 is fully gray and 100 keeps the color."
+    },
+    {
+      "name": "cap_color_filter_s02_title",
+      "value": "Sepia Matrix"
+    },
+    {
+      "name": "cap_color_filter_s02_desc",
+      "value": "Sepia matrix with adjustable strength."
+    },
+    {
+      "name": "cap_color_filter_s03_title",
+      "value": "Invert Matrix"
+    },
+    {
+      "name": "cap_color_filter_s03_desc",
+      "value": "Invert matrix, 100 is the full complementary color."
+    },
+    {
+      "name": "cap_color_filter_s04_title",
+      "value": "Contrast Matrix"
+    },
+    {
+      "name": "cap_color_filter_s04_desc",
+      "value": "Contrast matrix around the middle gray point."
+    },
+    {
+      "name": "cap_color_filter_s05_title",
+      "value": "Luma"
+    },
+    {
+      "name": "cap_color_filter_s05_desc",
+      "value": "Built-in luma filter compared with the unfiltered block."
+    },
+    {
+      "name": "cap_color_filter_s06_title",
+      "value": "Compose"
+    },
+    {
+      "name": "cap_color_filter_s06_desc",
+      "value": "Two filters chained, the outer one works on the inner result."
+    },
+    {
+      "name": "cap_color_filter_s07_title",
+      "value": "Lighting"
+    },
+    {
+      "name": "cap_color_filter_s07_desc",
+      "value": "Multiply and add colors decide the final brightness."
+    },
+    {
+      "name": "cap_color_filter_s08_title",
+      "value": "Filter on Pen"
+    },
+    {
+      "name": "cap_color_filter_s08_desc",
+      "value": "Unfiltered frame versus a pen carrying an invert filter."
+    },
+    {
+      "name": "cap_error_group_title",
+      "value": "Error Code"
+    },
+    {
+      "name": "cap_error_group_desc",
+      "value": "Read and reset the code after null, invalid, success and failure, plus guarded flows."
+    },
+    {
+      "name": "cap_error_s00_title",
+      "value": "Reset"
+    },
+    {
+      "name": "cap_error_s00_desc",
+      "value": "After a reset the code reads zero, a second read confirms it."
+    },
+    {
+      "name": "cap_error_s01_title",
+      "value": "Null Param"
+    },
+    {
+      "name": "cap_error_s01_desc",
+      "value": "Calling an interface with null returns the invalid parameter code."
+    },
+    {
+      "name": "cap_error_s02_title",
+      "value": "Invalid Size"
+    },
+    {
+      "name": "cap_error_s02_desc",
+      "value": "Start a recording with a negative size and read the code back."
+    },
+    {
+      "name": "cap_error_s03_title",
+      "value": "After Success"
+    },
+    {
+      "name": "cap_error_s03_desc",
+      "value": "A run of successful calls must leave the code untouched."
+    },
+    {
+      "name": "cap_error_s04_title",
+      "value": "After Fail"
+    },
+    {
+      "name": "cap_error_s04_desc",
+      "value": "The code stays until it is read or reset, success will not clear it."
+    },
+    {
+      "name": "cap_error_s05_title",
+      "value": "Recover"
+    },
+    {
+      "name": "cap_error_s05_desc",
+      "value": "Reset after a failure and normal drawing works again."
+    },
+    {
+      "name": "cap_error_s06_title",
+      "value": "Code Table"
+    },
+    {
+      "name": "cap_error_s06_desc",
+      "value": "Common codes drawn as bars, the height is scaled by the code."
+    },
+    {
+      "name": "cap_error_s07_title",
+      "value": "Guarded Rect"
+    },
+    {
+      "name": "cap_error_s07_desc",
+      "value": "Clamp the size first, only a legal rect reaches RectCreate."
+    },
+    {
+      "name": "cap_error_s08_title",
+      "value": "Guarded Matrix"
+    },
+    {
+      "name": "cap_error_s08_desc",
+      "value": "Every matrix step is checked, the first failure stops the flow."
+    },
+    {
+      "name": "cap_error_s09_title",
+      "value": "Summary"
+    },
+    {
+      "name": "cap_error_s09_desc",
+      "value": "Run a set of independent checks and show the result as a grid."
+    },
+    {
+      "name": "cap_font_group_title",
+      "value": "Font"
+    },
+    {
+      "name": "cap_font_group_desc",
+      "value": "Size, measure, metrics, skew, fake bold, scale X, hinting, edging and text outlines."
+    },
+    {
+      "name": "cap_font_s00_title",
+      "value": "Create"
+    },
+    {
+      "name": "cap_font_s00_desc",
+      "value": "Create a font, set the size and draw a baseline sample."
+    },
+    {
+      "name": "cap_font_s01_title",
+      "value": "Size Ladder"
+    },
+    {
+      "name": "cap_font_s01_desc",
+      "value": "Two sizes of the same font show the glyph and line gap change."
+    },
+    {
+      "name": "cap_font_s02_title",
+      "value": "Measure Text"
+    },
+    {
+      "name": "cap_font_s02_desc",
+      "value": "MeasureText reports the width, a box is drawn at that width."
+    },
+    {
+      "name": "cap_font_s03_title",
+      "value": "Metrics"
+    },
+    {
+      "name": "cap_font_s03_desc",
+      "value": "Draw the top, ascent, descent and bottom guides from the metrics."
+    },
+    {
+      "name": "cap_font_s04_title",
+      "value": "Skew"
+    },
+    {
+      "name": "cap_font_s04_desc",
+      "value": "SetTextSkewX slants the glyph along X, negative leans left."
+    },
+    {
+      "name": "cap_font_s05_title",
+      "value": "Fake Bold"
+    },
+    {
+      "name": "cap_font_s05_desc",
+      "value": "FakeBold thickens the glyph without loading another font file."
+    },
+    {
+      "name": "cap_font_s06_title",
+      "value": "Scale X"
+    },
+    {
+      "name": "cap_font_s06_desc",
+      "value": "SetScaleX stretches only the glyph width, the size stays."
+    },
+    {
+      "name": "cap_font_s07_title",
+      "value": "Hinting"
+    },
+    {
+      "name": "cap_font_s07_desc",
+      "value": "Higher hinting aligns small glyphs to the pixel grid."
+    },
+    {
+      "name": "cap_font_s08_title",
+      "value": "Edging"
+    },
+    {
+      "name": "cap_font_s08_desc",
+      "value": "Alias, anti alias and subpixel give different edge quality."
+    },
+    {
+      "name": "cap_font_s09_title",
+      "value": "Text Path"
+    },
+    {
+      "name": "cap_font_s09_desc",
+      "value": "GetTextPath returns the outline, filled and stroked here."
+    },
+    {
+      "name": "cap_font_s10_title",
+      "value": "Font Manager"
+    },
+    {
+      "name": "cap_font_s10_desc",
+      "value": "Count the system font families and draw the first family name."
+    },
+    {
+      "name": "cap_font_s11_title",
+      "value": "Default Typeface"
+    },
+    {
+      "name": "cap_font_s11_desc",
+      "value": "TypefaceCreateDefault attaches the default glyph family."
+    },
+    {
+      "name": "cap_geometry_group_title",
+      "value": "Geometry & Path"
+    },
+    {
+      "name": "cap_geometry_group_desc",
+      "value": "Rect, round rect, nested round rect, oval, arcs, lines, polygon, bezier and boolean ops."
+    },
+    {
+      "name": "cap_geometry_s00_title",
+      "value": "Rect"
+    },
+    {
+      "name": "cap_geometry_s00_desc",
+      "value": "Fill and stroke a rectangle sized by percentages."
+    },
+    {
+      "name": "cap_geometry_s01_title",
+      "value": "RoundRect"
+    },
+    {
+      "name": "cap_geometry_s01_desc",
+      "value": "Uniform corner radius with one corner enlarged by SetCorner."
+    },
+    {
+      "name": "cap_geometry_s02_title",
+      "value": "Nested"
+    },
+    {
+      "name": "cap_geometry_s02_desc",
+      "value": "Draw an outer and an inner rounded rectangle in one call."
+    },
+    {
+      "name": "cap_geometry_s03_title",
+      "value": "Oval"
+    },
+    {
+      "name": "cap_geometry_s03_desc",
+      "value": "Horizontal and vertical radii are controlled separately."
+    },
+    {
+      "name": "cap_geometry_s04_title",
+      "value": "Arc"
+    },
+    {
+      "name": "cap_geometry_s04_desc",
+      "value": "Stroke an arc without connecting the center."
+    },
+    {
+      "name": "cap_geometry_s05_title",
+      "value": "Arc + Center"
+    },
+    {
+      "name": "cap_geometry_s05_desc",
+      "value": "Toggle useCenter to switch between arc and pie."
+    },
+    {
+      "name": "cap_geometry_s06_title",
+      "value": "Line"
+    },
+    {
+      "name": "cap_geometry_s06_desc",
+      "value": "Three parallel lines shifted by a diagonal offset."
+    },
+    {
+      "name": "cap_geometry_s07_title",
+      "value": "Polygon"
+    },
+    {
+      "name": "cap_geometry_s07_desc",
+      "value": "Regular polygon path, closed polygons are also filled."
+    },
+    {
+      "name": "cap_geometry_s08_title",
+      "value": "Bezier"
+    },
+    {
+      "name": "cap_geometry_s08_desc",
+      "value": "Quadratic and cubic curves side by side with adjustable curvature."
+    },
+    {
+      "name": "cap_geometry_s09_title",
+      "value": "Path Op"
+    },
+    {
+      "name": "cap_geometry_s09_desc",
+      "value": "Combine two circle paths with a boolean operation."
+    },
+    {
+      "name": "cap_geometry_s10_title",
+      "value": "Region Op"
+    },
+    {
+      "name": "cap_geometry_s10_desc",
+      "value": "Combine two rect regions, then export the boundary path."
+    },
+    {
+      "name": "cap_image_filter_group_title",
+      "value": "Image Filter"
+    },
+    {
+      "name": "cap_image_filter_group_desc",
+      "value": "Blur, crop, offset, color matrix, shader wrap, lattice and three tile modes on drawn content."
+    },
+    {
+      "name": "cap_image_filter_s00_title",
+      "value": "Blur"
+    },
+    {
+      "name": "cap_image_filter_s00_desc",
+      "value": "Separate X and Y sigma, and pick how the blur extends past the edge."
+    },
+    {
+      "name": "cap_image_filter_s01_title",
+      "value": "Blur & Crop"
+    },
+    {
+      "name": "cap_image_filter_s01_desc",
+      "value": "Crop the blurred result so the glow stops at the crop rect."
+    },
+    {
+      "name": "cap_image_filter_s02_title",
+      "value": "Offset"
+    },
+    {
+      "name": "cap_image_filter_s02_desc",
+      "value": "Shift the painted content to build a drop shadow or a ghost."
+    },
+    {
+      "name": "cap_image_filter_s03_title",
+      "value": "Color Matrix"
+    },
+    {
+      "name": "cap_image_filter_s03_desc",
+      "value": "Wrap a color filter as an image filter limited to the shape."
+    },
+    {
+      "name": "cap_image_filter_s04_title",
+      "value": "Shader Wrap"
+    },
+    {
+      "name": "cap_image_filter_s04_desc",
+      "value": "Wrap a sweep gradient shader as an image filter for the shape."
+    },
+    {
+      "name": "cap_image_filter_s05_title",
+      "value": "Lattice"
+    },
+    {
+      "name": "cap_image_filter_s05_desc",
+      "value": "Create and destroy a lattice, the grid visualises the division count."
+    },
+    {
+      "name": "cap_image_filter_s06_title",
+      "value": "Tile Clamp"
+    },
+    {
+      "name": "cap_image_filter_s06_desc",
+      "value": "Clamp repeats the edge pixels beyond the source bounds."
+    },
+    {
+      "name": "cap_image_filter_s07_title",
+      "value": "Tile Repeat"
+    },
+    {
+      "name": "cap_image_filter_s07_desc",
+      "value": "Repeat wraps the source so blurred corners fold back inside."
+    },
+    {
+      "name": "cap_image_filter_s08_title",
+      "value": "Tile Mirror"
+    },
+    {
+      "name": "cap_image_filter_s08_desc",
+      "value": "Mirror folds the source back on itself at each edge."
+    },
+    {
+      "name": "cap_image_filter_s09_title",
+      "value": "On Layer"
+    },
+    {
+      "name": "cap_image_filter_s09_desc",
+      "value": "The whole layer is drawn first, then filtered as one image."
+    },
+    {
+      "name": "cap_image_io_group_title",
+      "value": "Image & Stream"
+    },
+    {
+      "name": "cap_image_io_group_desc",
+      "value": "Image creation, source rect mapping, sampling, alpha copy, and memory streams for fonts."
+    },
+    {
+      "name": "cap_image_io_s00_title",
+      "value": "Build Image"
+    },
+    {
+      "name": "cap_image_io_s00_desc",
+      "value": "Build a bitmap, wrap it as an Image, then draw it in the centre."
+    },
+    {
+      "name": "cap_image_io_s01_title",
+      "value": "Draw Image"
+    },
+    {
+      "name": "cap_image_io_s01_desc",
+      "value": "Draw the whole Image into a target rect, no source cropping."
+    },
+    {
+      "name": "cap_image_io_s02_title",
+      "value": "Source Rect"
+    },
+    {
+      "name": "cap_image_io_s02_desc",
+      "value": "Map only the middle of the source onto the target rect."
+    },
+    {
+      "name": "cap_image_io_s03_title",
+      "value": "Image Info"
+    },
+    {
+      "name": "cap_image_io_s03_desc",
+      "value": "Read width, height and alpha type, then mark the ratio."
+    },
+    {
+      "name": "cap_image_io_s04_title",
+      "value": "Nearest Sampling"
+    },
+    {
+      "name": "cap_image_io_s04_desc",
+      "value": "Magnify with nearest filtering to keep hard pixel edges."
+    },
+    {
+      "name": "cap_image_io_s05_title",
+      "value": "Linear Sampling"
+    },
+    {
+      "name": "cap_image_io_s05_desc",
+      "value": "Magnify with linear filtering for a smoother result."
+    },
+    {
+      "name": "cap_image_io_s06_title",
+      "value": "Alpha Copy"
+    },
+    {
+      "name": "cap_image_io_s06_desc",
+      "value": "Draw the image inside a translucent layer so it blends."
+    },
+    {
+      "name": "cap_image_io_s07_title",
+      "value": "Memory Stream"
+    },
+    {
+      "name": "cap_image_io_s07_desc",
+      "value": "Wrap a memory buffer as a stream, block count sets its length."
+    },
+    {
+      "name": "cap_image_io_s08_title",
+      "value": "Typeface Stream"
+    },
+    {
+      "name": "cap_image_io_s08_desc",
+      "value": "Build a typeface from font file bytes through a memory stream."
+    },
+    {
+      "name": "cap_image_io_s09_title",
+      "value": "Stream Fallback"
+    },
+    {
+      "name": "cap_image_io_s09_desc",
+      "value": "Invalid bytes fail to parse and the default glyph takes over."
+    },
+    {
+      "name": "cap_mask_filter_group_title",
+      "value": "Mask Filter"
+    },
+    {
+      "name": "cap_mask_filter_group_desc",
+      "value": "Four blur types, a sigma ladder, and the same filter attached to pen, layer and text."
+    },
+    {
+      "name": "cap_mask_filter_s00_title",
+      "value": "Gaussian Blur"
+    },
+    {
+      "name": "cap_mask_filter_s00_desc",
+      "value": "Blur both sides of the edge, the classic soft glow."
+    },
+    {
+      "name": "cap_mask_filter_s01_title",
+      "value": "Solid Blur"
+    },
+    {
+      "name": "cap_mask_filter_s01_desc",
+      "value": "Keep the fill sharp and blur only outside, a hard edged glow."
+    },
+    {
+      "name": "cap_mask_filter_s02_title",
+      "value": "Outer Blur"
+    },
+    {
+      "name": "cap_mask_filter_s02_desc",
+      "value": "Blur spreads outward only, the shape body stays transparent inside."
+    },
+    {
+      "name": "cap_mask_filter_s03_title",
+      "value": "Inner Blur"
+    },
+    {
+      "name": "cap_mask_filter_s03_desc",
+      "value": "Blur spreads inward only, the outer edge stays clean."
+    },
+    {
+      "name": "cap_mask_filter_s04_title",
+      "value": "Sigma Ladder"
+    },
+    {
+      "name": "cap_mask_filter_s04_desc",
+      "value": "Put two sigma values side by side to compare the spread."
+    },
+    {
+      "name": "cap_mask_filter_s05_title",
+      "value": "Blur On Pen"
+    },
+    {
+      "name": "cap_mask_filter_s05_desc",
+      "value": "Attach the filter to a pen and stroke a polygon path."
+    },
+    {
+      "name": "cap_mask_filter_s06_title",
+      "value": "Blur On Layer"
+    },
+    {
+      "name": "cap_mask_filter_s06_desc",
+      "value": "SaveLayer with a masked brush blurs the whole layer at once."
+    },
+    {
+      "name": "cap_mask_filter_s07_title",
+      "value": "Blur On Text"
+    },
+    {
+      "name": "cap_mask_filter_s07_desc",
+      "value": "TextBlob glyphs are blurred because the brush carries the filter."
+    },
+    {
+      "name": "cap_matrix_group_title",
+      "value": "Matrix"
+    },
+    {
+      "name": "cap_matrix_group_desc",
+      "value": "Identity, translate, scale, rotate, skew, concat, pre post order, invert, map points, poly to poly."
+    },
+    {
+      "name": "cap_matrix_s00_title",
+      "value": "Identity"
+    },
+    {
+      "name": "cap_matrix_s00_desc",
+      "value": "No transform, and the nine elements are drawn as bars."
+    },
+    {
+      "name": "cap_matrix_s01_title",
+      "value": "Translate"
+    },
+    {
+      "name": "cap_matrix_s01_desc",
+      "value": "CreateTranslation builds the shift directly, the arrow shows it."
+    },
+    {
+      "name": "cap_matrix_s02_title",
+      "value": "Scale"
+    },
+    {
+      "name": "cap_matrix_s02_desc",
+      "value": "CreateScale around a pivot so the marker never leaves the canvas."
+    },
+    {
+      "name": "cap_matrix_s03_title",
+      "value": "Rotate"
+    },
+    {
+      "name": "cap_matrix_s03_desc",
+      "value": "CreateRotation around a point, the angle may be negative."
+    },
+    {
+      "name": "cap_matrix_s04_title",
+      "value": "Skew"
+    },
+    {
+      "name": "cap_matrix_s04_desc",
+      "value": "PreSkew takes a tangent, the angle is converted first."
+    },
+    {
+      "name": "cap_matrix_s05_title",
+      "value": "Concat"
+    },
+    {
+      "name": "cap_matrix_s05_desc",
+      "value": "Two matrices merged by Concat match applying them one by one."
+    },
+    {
+      "name": "cap_matrix_s06_title",
+      "value": "Pre Post"
+    },
+    {
+      "name": "cap_matrix_s06_desc",
+      "value": "The same two steps in the other order land in a different place."
+    },
+    {
+      "name": "cap_matrix_s07_title",
+      "value": "Invert"
+    },
+    {
+      "name": "cap_matrix_s07_desc",
+      "value": "Apply a rotation then its inverse, the points come back home."
+    },
+    {
+      "name": "cap_matrix_s08_title",
+      "value": "Map Points"
+    },
+    {
+      "name": "cap_matrix_s08_desc",
+      "value": "MapPoints transforms a batch of points, lines show the shift."
+    },
+    {
+      "name": "cap_matrix_s09_title",
+      "value": "Poly To Poly"
+    },
+    {
+      "name": "cap_matrix_s09_desc",
+      "value": "SetPolyToPoly maps a rect onto an irregular quadrilateral."
+    },
+    {
+      "name": "cap_paint_group_title",
+      "value": "Pen & Brush"
+    },
+    {
+      "name": "cap_paint_group_desc",
+      "value": "Cap, join, miter limit, width, brush alpha, blend mode, path effects and shadow layer."
+    },
+    {
+      "name": "cap_paint_s00_title",
+      "value": "Pen Cap"
+    },
+    {
+      "name": "cap_paint_s00_desc",
+      "value": "flat / square / round caps on thick lines, the selected one is highlighted."
+    },
+    {
+      "name": "cap_paint_s01_title",
+      "value": "Pen Join"
+    },
+    {
+      "name": "cap_paint_s01_desc",
+      "value": "miter / round / bevel joins on the same zigzag path."
+    },
+    {
+      "name": "cap_paint_s02_title",
+      "value": "Pen Miter"
+    },
+    {
+      "name": "cap_paint_s02_desc",
+      "value": "Miter limit controls how far a sharp corner may extend."
+    },
+    {
+      "name": "cap_paint_s03_title",
+      "value": "Pen Width"
+    },
+    {
+      "name": "cap_paint_s03_desc",
+      "value": "Four lines scaled from the base width with a shared alpha."
+    },
+    {
+      "name": "cap_paint_s04_title",
+      "value": "Brush Alpha"
+    },
+    {
+      "name": "cap_paint_s04_desc",
+      "value": "Overlapping translucent blocks show how alpha accumulates."
+    },
+    {
+      "name": "cap_paint_s05_title",
+      "value": "Blend Mode"
+    },
+    {
+      "name": "cap_paint_s05_desc",
+      "value": "Blend the top block onto the base block with the selected mode."
+    },
+    {
+      "name": "cap_paint_s06_title",
+      "value": "Dash"
+    },
+    {
+      "name": "cap_paint_s06_desc",
+      "value": "Dash path effect built from alternating dash and gap lengths."
+    },
+    {
+      "name": "cap_paint_s07_title",
+      "value": "Corner Effect"
+    },
+    {
+      "name": "cap_paint_s07_desc",
+      "value": "Corner path effect rounds every joint of a polyline."
+    },
+    {
+      "name": "cap_paint_s08_title",
+      "value": "Discrete Effect"
+    },
+    {
+      "name": "cap_paint_s08_desc",
+      "value": "Discrete path effect adds jitter along the stroke."
+    },
+    {
+      "name": "cap_paint_s09_title",
+      "value": "Shadow Layer"
+    },
+    {
+      "name": "cap_paint_s09_desc",
+      "value": "Blur radius and offset of the brush shadow layer."
+    },
+    {
+      "name": "cap_pixel_map_group_title",
+      "value": "PixelMap"
+    },
+    {
+      "name": "cap_pixel_map_group_desc",
+      "value": "Draw, sample, nine patch, mesh warp, rotate, tile, fade, scale and clip a PixelMap."
+    },
+    {
+      "name": "cap_pixel_map_s00_title",
+      "value": "Draw Rect"
+    },
+    {
+      "name": "cap_pixel_map_s00_desc",
+      "value": "Blit the whole PixelMap into a centred rect with a sampling mode."
+    },
+    {
+      "name": "cap_pixel_map_s01_title",
+      "value": "Sample Nearest"
+    },
+    {
+      "name": "cap_pixel_map_s01_desc",
+      "value": "Zoom in with nearest filtering, hard pixel edges are kept."
+    },
+    {
+      "name": "cap_pixel_map_s02_title",
+      "value": "Sample Linear"
+    },
+    {
+      "name": "cap_pixel_map_s02_desc",
+      "value": "The same zoom with linear filtering shows a smooth result."
+    },
+    {
+      "name": "cap_pixel_map_s03_title",
+      "value": "Src Constraint"
+    },
+    {
+      "name": "cap_pixel_map_s03_desc",
+      "value": "Take only the middle of the source, strict rejects oversampling."
+    },
+    {
+      "name": "cap_pixel_map_s04_title",
+      "value": "Nine Patch"
+    },
+    {
+      "name": "cap_pixel_map_s04_desc",
+      "value": "The centre rect stretches while the four corners keep their pixels."
+    },
+    {
+      "name": "cap_pixel_map_s05_title",
+      "value": "Mesh Warp"
+    },
+    {
+      "name": "cap_pixel_map_s05_desc",
+      "value": "Move the middle row of a 3x3 mesh to bend the image."
+    },
+    {
+      "name": "cap_pixel_map_s06_title",
+      "value": "Rotate"
+    },
+    {
+      "name": "cap_pixel_map_s06_desc",
+      "value": "Rotate the coordinate system, then blit the original rect."
+    },
+    {
+      "name": "cap_pixel_map_s07_title",
+      "value": "Tile"
+    },
+    {
+      "name": "cap_pixel_map_s07_desc",
+      "value": "Repeat the same PixelMap across a square grid."
+    },
+    {
+      "name": "cap_pixel_map_s08_title",
+      "value": "Layer Alpha"
+    },
+    {
+      "name": "cap_pixel_map_s08_desc",
+      "value": "Fade the PixelMap through the alpha of a SaveLayer brush."
+    },
+    {
+      "name": "cap_pixel_map_s09_title",
+      "value": "Scale"
+    },
+    {
+      "name": "cap_pixel_map_s09_desc",
+      "value": "Grow the target rect to inspect sampling while scaling."
+    },
+    {
+      "name": "cap_pixel_map_s10_title",
+      "value": "Round Clip"
+    },
+    {
+      "name": "cap_pixel_map_s10_desc",
+      "value": "Clip to a rounded rect before the blit, corners are cut away."
+    },
+    {
+      "name": "cap_pixel_map_s11_title",
+      "value": "Fallback"
+    },
+    {
+      "name": "cap_pixel_map_s11_desc",
+      "value": "Placeholder drawn when no PixelMap is handed over from ArkTS."
+    },
+    {
+      "name": "cap_record_group_title",
+      "value": "Record Command"
+    },
+    {
+      "name": "cap_record_group_desc",
+      "value": "Record a command list once, then replay it as is, twice, nested, resized, layered and overlaid."
+    },
+    {
+      "name": "cap_record_s00_title",
+      "value": "Basic"
+    },
+    {
+      "name": "cap_record_s00_desc",
+      "value": "Record a group of draw commands and replay once, same as direct draw."
+    },
+    {
+      "name": "cap_record_s01_title",
+      "value": "Record Transform"
+    },
+    {
+      "name": "cap_record_s01_desc",
+      "value": "Canvas transforms applied while recording replay with the list."
+    },
+    {
+      "name": "cap_record_s02_title",
+      "value": "Replay Twice"
+    },
+    {
+      "name": "cap_record_s02_desc",
+      "value": "Replay the same list twice, the second one shifted for contrast."
+    },
+    {
+      "name": "cap_record_s03_title",
+      "value": "Nesting"
+    },
+    {
+      "name": "cap_record_s03_desc",
+      "value": "Record an inner list, then draw it into an outer recording."
+    },
+    {
+      "name": "cap_record_s04_title",
+      "value": "Resized"
+    },
+    {
+      "name": "cap_record_s04_desc",
+      "value": "Record at a smaller size and replay scaled up, the list stays neutral."
+    },
+    {
+      "name": "cap_record_s05_title",
+      "value": "Layer"
+    },
+    {
+      "name": "cap_record_s05_desc",
+      "value": "A SaveLayer inside the list keeps its alpha when replayed."
+    },
+    {
+      "name": "cap_record_s06_title",
+      "value": "Save Restore"
+    },
+    {
+      "name": "cap_record_s06_desc",
+      "value": "Many save and restore pairs are replayed in the same order."
+    },
+    {
+      "name": "cap_record_s07_title",
+      "value": "Overlay"
+    },
+    {
+      "name": "cap_record_s07_desc",
+      "value": "Replay the list at growing offsets to build a trailing ghost."
+    },
+    {
+      "name": "cap_shader_group_title",
+      "value": "Shader & Gradient"
+    },
+    {
+      "name": "cap_shader_group_desc",
+      "value": "Linear, multi stop, radial, sweep, conical, color, compose, pen shader, matrix and tiling."
+    },
+    {
+      "name": "cap_shader_s00_title",
+      "value": "Linear Two"
+    },
+    {
+      "name": "cap_shader_s00_desc",
+      "value": "Two color linear gradient with adjustable angle and alpha."
+    },
+    {
+      "name": "cap_shader_s01_title",
+      "value": "Linear Multi"
+    },
+    {
+      "name": "cap_shader_s01_desc",
+      "value": "Two to six color stops interpolated between the palette ends."
+    },
+    {
+      "name": "cap_shader_s02_title",
+      "value": "Radial"
+    },
+    {
+      "name": "cap_shader_s02_desc",
+      "value": "Radial gradient with an adjustable radius and center."
+    },
+    {
+      "name": "cap_shader_s03_title",
+      "value": "Sweep"
+    },
+    {
+      "name": "cap_shader_s03_desc",
+      "value": "Sweep gradient, the start angle rotates the color stops."
+    },
+    {
+      "name": "cap_shader_s04_title",
+      "value": "Conical"
+    },
+    {
+      "name": "cap_shader_s04_desc",
+      "value": "Two point conical gradient with an inner radius."
+    },
+    {
+      "name": "cap_shader_s05_title",
+      "value": "Color Shader"
+    },
+    {
+      "name": "cap_shader_s05_desc",
+      "value": "A solid color used as a shader effect."
+    },
+    {
+      "name": "cap_shader_s06_title",
+      "value": "Compose"
+    },
+    {
+      "name": "cap_shader_s06_desc",
+      "value": "Compose a gradient with a translucent color shader."
+    },
+    {
+      "name": "cap_shader_s07_title",
+      "value": "Shader on Pen"
+    },
+    {
+      "name": "cap_shader_s07_desc",
+      "value": "Gradient applied to the stroke geometry."
+    },
+    {
+      "name": "cap_shader_s08_title",
+      "value": "Local Matrix"
+    },
+    {
+      "name": "cap_shader_s08_desc",
+      "value": "Scale and rotate the gradient through a local matrix."
+    },
+    {
+      "name": "cap_shader_s09_title",
+      "value": "Tile Mode"
+    },
+    {
+      "name": "cap_shader_s09_desc",
+      "value": "Clamp, repeat, mirror and decal decide the area outside the gradient."
+    },
+    {
+      "name": "cap_shader_s10_title",
+      "value": "Gradient Alpha"
+    },
+    {
+      "name": "cap_shader_s10_desc",
+      "value": "Different alpha at both ends creates a fade out."
+    },
+    {
+      "name": "cap_shadow_group_title",
+      "value": "Shadow Layer"
+    },
+    {
+      "name": "cap_shadow_group_desc",
+      "value": "Blur radius, offset, colour, pen and brush shadows, stacked shadows and layer clipping."
+    },
+    {
+      "name": "cap_shadow_s00_title",
+      "value": "Blur Radius"
+    },
+    {
+      "name": "cap_shadow_s00_desc",
+      "value": "Three blur radii side by side show how far the shadow spreads."
+    },
+    {
+      "name": "cap_shadow_s01_title",
+      "value": "Offset"
+    },
+    {
+      "name": "cap_shadow_s01_desc",
+      "value": "The offset moves the shadow, negative values put it up left."
+    },
+    {
+      "name": "cap_shadow_s02_title",
+      "value": "Shadow Colour"
+    },
+    {
+      "name": "cap_shadow_s02_desc",
+      "value": "The shadow colour and alpha together set the final look."
+    },
+    {
+      "name": "cap_shadow_s03_title",
+      "value": "Shadow On Pen"
+    },
+    {
+      "name": "cap_shadow_s03_desc",
+      "value": "PenSetShadowLayer puts a shadow under stroked paths."
+    },
+    {
+      "name": "cap_shadow_s04_title",
+      "value": "Shadow On Brush"
+    },
+    {
+      "name": "cap_shadow_s04_desc",
+      "value": "BrushSetShadowLayer is the usual way to cast a drop shadow."
+    },
+    {
+      "name": "cap_shadow_s05_title",
+      "value": "Stacked Shadows"
+    },
+    {
+      "name": "cap_shadow_s05_desc",
+      "value": "Three concentric shapes carry different blur radii."
+    },
+    {
+      "name": "cap_shadow_s06_title",
+      "value": "Shadow On Text"
+    },
+    {
+      "name": "cap_shadow_s06_desc",
+      "value": "A text blob painted by a shadowed brush casts a shadow."
+    },
+    {
+      "name": "cap_shadow_s07_title",
+      "value": "Layer Clip"
+    },
+    {
+      "name": "cap_shadow_s07_desc",
+      "value": "SaveLayer clips the shadow to the layer bounds."
+    },
+    {
+      "name": "cap_offscreen_group_title",
+      "value": "Offscreen Layer"
+    },
+    {
+      "name": "cap_offscreen_group_desc",
+      "value": "Create a GPU offscreen layer, size it, fall back to a bitmap, flush, switch, clip, blend and read info."
+    },
+    {
+      "name": "cap_offscreen_s00_title",
+      "value": "Create"
+    },
+    {
+      "name": "cap_offscreen_s00_desc",
+      "value": "Create a GPU context and an offscreen layer, paint on it, then destroy both."
+    },
+    {
+      "name": "cap_offscreen_s01_title",
+      "value": "Size"
+    },
+    {
+      "name": "cap_offscreen_s01_desc",
+      "value": "The inner frame scales with the offscreen layer size so the ratio is visible."
+    },
+    {
+      "name": "cap_offscreen_s02_title",
+      "value": "Bitmap Fallback"
+    },
+    {
+      "name": "cap_offscreen_s02_desc",
+      "value": "When no GPU offscreen layer is available a bitmap plus canvas is used."
+    },
+    {
+      "name": "cap_offscreen_s03_title",
+      "value": "Flush"
+    },
+    {
+      "name": "cap_offscreen_s03_desc",
+      "value": "Paint and flush several times, the bar count follows the parameter."
+    },
+    {
+      "name": "cap_offscreen_s04_title",
+      "value": "Switch"
+    },
+    {
+      "name": "cap_offscreen_s04_desc",
+      "value": "Destroy one offscreen layer then create a smaller one to prove reuse works."
+    },
+    {
+      "name": "cap_offscreen_s05_title",
+      "value": "Clip"
+    },
+    {
+      "name": "cap_offscreen_s05_desc",
+      "value": "Clip on the offscreen layer canvas, the clip belongs to that canvas alone."
+    },
+    {
+      "name": "cap_offscreen_s06_title",
+      "value": "Blend"
+    },
+    {
+      "name": "cap_offscreen_s06_desc",
+      "value": "Overlay translucent blocks on the offscreen layer, mirrored on the main canvas."
+    },
+    {
+      "name": "cap_offscreen_s07_title",
+      "value": "Info"
+    },
+    {
+      "name": "cap_offscreen_s07_desc",
+      "value": "Read the offscreen layer canvas size and image info, drawn as bars and a block."
+    },
+    {
+      "name": "cap_text_blob_group_title",
+      "value": "TextBlob"
+    },
+    {
+      "name": "cap_text_blob_group_desc",
+      "value": "Build text blobs from strings, byte ranges, per glyph positions, a run builder and a circle."
+    },
+    {
+      "name": "cap_text_blob_s00_title",
+      "value": "From String"
+    },
+    {
+      "name": "cap_text_blob_s00_desc",
+      "value": "CreateFromString parses the UTF-8 text in one call."
+    },
+    {
+      "name": "cap_text_blob_s01_title",
+      "value": "From Text"
+    },
+    {
+      "name": "cap_text_blob_s01_desc",
+      "value": "CreateFromText takes only the leading bytes, useful for truncation."
+    },
+    {
+      "name": "cap_text_blob_s02_title",
+      "value": "Positions"
+    },
+    {
+      "name": "cap_text_blob_s02_desc",
+      "value": "Give every glyph its own position so the text follows a sine wave."
+    },
+    {
+      "name": "cap_text_blob_s03_title",
+      "value": "Run Builder"
+    },
+    {
+      "name": "cap_text_blob_s03_desc",
+      "value": "Fill a run buffer with glyphs and points, then BuilderMake."
+    },
+    {
+      "name": "cap_text_blob_s04_title",
+      "value": "Bounds"
+    },
+    {
+      "name": "cap_text_blob_s04_desc",
+      "value": "Stroke the rect returned by GetBounds to check the real extent."
+    },
+    {
+      "name": "cap_text_blob_s05_title",
+      "value": "Unique Id"
+    },
+    {
+      "name": "cap_text_blob_s05_desc",
+      "value": "UniqueID is non zero, blocks show the bits of the value."
+    },
+    {
+      "name": "cap_text_blob_s06_title",
+      "value": "Circle Text"
+    },
+    {
+      "name": "cap_text_blob_s06_desc",
+      "value": "Place each glyph on a circle to show per glyph layout."
+    },
+    {
+      "name": "cap_text_blob_s07_title",
+      "value": "Canvas Scale"
+    },
+    {
+      "name": "cap_text_blob_s07_desc",
+      "value": "Scale through the canvas, the blob stays vector sharp."
+    },
+    {
+      "name": "cap_typography_group_title",
+      "value": "Typography"
+    },
+    {
+      "name": "cap_typography_group_desc",
+      "value": "Layout, align, truncate, space, decorate, shadow, path layout, metrics and break strategy."
+    },
+    {
+      "name": "cap_typography_s00_title",
+      "value": "Basic Layout"
+    },
+    {
+      "name": "cap_typography_s00_desc",
+      "value": "Default style laid out at a fixed width, the baseline for others."
+    },
+    {
+      "name": "cap_typography_s01_title",
+      "value": "Align"
+    },
+    {
+      "name": "cap_typography_s01_desc",
+      "value": "The align field decides where each line sits inside the width."
+    },
+    {
+      "name": "cap_typography_s02_title",
+      "value": "Max Lines"
+    },
+    {
+      "name": "cap_typography_s02_desc",
+      "value": "Beyond MaxLines the rest is dropped and DidExceedMaxLines is true."
+    },
+    {
+      "name": "cap_typography_s03_title",
+      "value": "Ellipsis"
+    },
+    {
+      "name": "cap_typography_s03_desc",
+      "value": "With a max line count the overflow ends with an ellipsis."
+    },
+    {
+      "name": "cap_typography_s04_title",
+      "value": "Letter Spacing"
+    },
+    {
+      "name": "cap_typography_s04_desc",
+      "value": "Letter and word spacing change the measured line width."
+    },
+    {
+      "name": "cap_typography_s05_title",
+      "value": "Decoration"
+    },
+    {
+      "name": "cap_typography_s05_desc",
+      "value": "Underline, overline and line through combine with five styles."
+    },
+    {
+      "name": "cap_typography_s06_title",
+      "value": "Text Shadow"
+    },
+    {
+      "name": "cap_typography_s06_desc",
+      "value": "A TextShadow on the style paints under the glyphs."
+    },
+    {
+      "name": "cap_typography_s07_title",
+      "value": "On Path"
+    },
+    {
+      "name": "cap_typography_s07_desc",
+      "value": "TypographyPaintOnPath lays the text along a path."
+    },
+    {
+      "name": "cap_typography_s08_title",
+      "value": "Indents"
+    },
+    {
+      "name": "cap_typography_s08_desc",
+      "value": "Per line indents shift the first and following lines."
+    },
+    {
+      "name": "cap_typography_s09_title",
+      "value": "Line Metrics"
+    },
+    {
+      "name": "cap_typography_s09_desc",
+      "value": "Read each line height and width, then draw rects and baselines."
+    },
+    {
+      "name": "cap_typography_s10_title",
+      "value": "Break Strategy"
+    },
+    {
+      "name": "cap_typography_s10_desc",
+      "value": "Greedy fills each line, the other two balance line lengths."
+    },
+    {
+      "name": "cap_typography_s11_title",
+      "value": "Font Weight"
+    },
+    {
+      "name": "cap_typography_s11_desc",
+      "value": "The weight steps from 300 to 900, the glyph gets heavier."
+    },
+    {
+      "name": "cap_typography_s12_title",
+      "value": "Direction"
+    },
+    {
+      "name": "cap_typography_s12_desc",
+      "value": "RTL reverses the inline order, start and end align follow it."
+    },
+    {
+      "name": "cap_typography_s13_title",
+      "value": "Text Lines"
+    },
+    {
+      "name": "cap_typography_s13_desc",
+      "value": "TypographyGetTextLines hands back lines painted one by one."
+    },
+    {
+      "name": "topic_animation_group_title",
+      "value": "Animation"
+    },
+    {
+      "name": "topic_animation_group_desc",
+      "value": "Frame timer interpolation for scale, rotation and translation without framework animation APIs."
+    },
+    {
+      "name": "topic_animation_s00_title",
+      "value": "Scale Easing"
+    },
+    {
+      "name": "topic_animation_s00_desc",
+      "value": "Scale runs from 1 to the target with an ease-out curve."
+    },
+    {
+      "name": "topic_animation_s01_title",
+      "value": "Rotation Easing"
+    },
+    {
+      "name": "topic_animation_s01_desc",
+      "value": "Rotation runs from 0 to the target angle in degrees."
+    },
+    {
+      "name": "topic_animation_s02_title",
+      "value": "Translation Easing"
+    },
+    {
+      "name": "topic_animation_s02_desc",
+      "value": "Translation runs from 0 to the target offset in vp."
+    },
+    {
+      "name": "topic_animation_s03_title",
+      "value": "Frame Budget"
+    },
+    {
+      "name": "topic_animation_s03_desc",
+      "value": "A fixed target with a variable duration shows the per frame budget."
+    },
+    {
+      "name": "topic_blur_group_title",
+      "value": "Blur Layers"
+    },
+    {
+      "name": "topic_blur_group_desc",
+      "value": "Background, content and foreground blur on one canvas node, with radius control."
+    },
+    {
+      "name": "topic_blur_s00_title",
+      "value": "Background Blur"
+    },
+    {
+      "name": "topic_blur_s00_desc",
+      "value": "backgroundBlur blurs whatever sits behind the canvas."
+    },
+    {
+      "name": "topic_blur_s01_title",
+      "value": "Content Blur"
+    },
+    {
+      "name": "topic_blur_s01_desc",
+      "value": "contentBlur blurs the canvas content itself."
+    },
+    {
+      "name": "topic_blur_s02_title",
+      "value": "Foreground Blur"
+    },
+    {
+      "name": "topic_blur_s02_desc",
+      "value": "foregroundBlur blurs what overlaps the canvas front layer."
+    },
+    {
+      "name": "topic_blur_s03_title",
+      "value": "Radius Sweep"
+    },
+    {
+      "name": "topic_blur_s03_desc",
+      "value": "Sweep the radius to see where the blur saturates."
+    },
+    {
+      "name": "topic_frame_tick_group_title",
+      "value": "Frame Tick"
+    },
+    {
+      "name": "topic_frame_tick_group_desc",
+      "value": "Periodic redraw driven by a timer, plus a manual invalidate budget for comparison."
+    },
+    {
+      "name": "topic_frame_tick_s00_title",
+      "value": "Tick 16 ms"
+    },
+    {
+      "name": "topic_frame_tick_s00_desc",
+      "value": "One redraw every sixteen milliseconds approximates a sixty hertz frame."
+    },
+    {
+      "name": "topic_frame_tick_s01_title",
+      "value": "Tick 33 ms"
+    },
+    {
+      "name": "topic_frame_tick_s01_desc",
+      "value": "Thirty three milliseconds approximates a thirty hertz frame."
+    },
+    {
+      "name": "topic_frame_tick_s02_title",
+      "value": "Tick Stop"
+    },
+    {
+      "name": "topic_frame_tick_s02_desc",
+      "value": "Switch the toggle to stop the periodic timer."
+    },
+    {
+      "name": "topic_frame_tick_s03_title",
+      "value": "Draw Counter"
+    },
+    {
+      "name": "topic_frame_tick_s03_desc",
+      "value": "Manual invalidate calls give a baseline for the tick counter."
+    },
+    {
+      "name": "topic_hit_test_group_title",
+      "value": "Hit Testing"
+    },
+    {
+      "name": "topic_hit_test_group_desc",
+      "value": "Touch coordinates mapped back to the child node index under the finger."
+    },
+    {
+      "name": "topic_hit_test_s00_title",
+      "value": "Box Hit"
+    },
+    {
+      "name": "topic_hit_test_s00_desc",
+      "value": "Tap the canvas and the status bar reports which child was hit."
+    },
+    {
+      "name": "topic_hit_test_s01_title",
+      "value": "Pad Expand"
+    },
+    {
+      "name": "topic_hit_test_s01_desc",
+      "value": "Padding grows the hit area beyond the child frame."
+    },
+    {
+      "name": "topic_hit_test_s02_title",
+      "value": "Column Hit"
+    },
+    {
+      "name": "topic_hit_test_s02_desc",
+      "value": "A column layout keeps the same hit logic with vertical stacking."
+    },
+    {
+      "name": "topic_hit_test_s03_title",
+      "value": "Reset Counter"
+    },
+    {
+      "name": "topic_hit_test_s03_desc",
+      "value": "Switch the toggle to clear the accumulated touch counter."
+    },
+    {
+      "name": "topic_lifecycle_group_title",
+      "value": "Lifecycle"
+    },
+    {
+      "name": "topic_lifecycle_group_desc",
+      "value": "Rebuild the host, dispose and rebuild again, reset the counters and inspect the node label."
+    },
+    {
+      "name": "topic_lifecycle_s00_title",
+      "value": "Rebuild Host"
+    },
+    {
+      "name": "topic_lifecycle_s00_desc",
+      "value": "rebuild asks NodeContainer to call makeNode one more time."
+    },
+    {
+      "name": "topic_lifecycle_s01_title",
+      "value": "Dispose Then Rebuild"
+    },
+    {
+      "name": "topic_lifecycle_s01_desc",
+      "value": "dispose releases the render nodes, rebuild creates them again."
+    },
+    {
+      "name": "topic_lifecycle_s02_title",
+      "value": "Reset Stats"
+    },
+    {
+      "name": "topic_lifecycle_s02_desc",
+      "value": "Clear the draw and touch counters without touching the tree."
+    },
+    {
+      "name": "topic_lifecycle_s03_title",
+      "value": "Node Label"
+    },
+    {
+      "name": "topic_lifecycle_s03_desc",
+      "value": "The label string is attached to the canvas render node."
+    },
+    {
+      "name": "topic_multi_device_group_title",
+      "value": "Multi Device"
+    },
+    {
+      "name": "topic_multi_device_group_desc",
+      "value": "Row and column layouts, px versus vp length units and density scaling for different screens."
+    },
+    {
+      "name": "topic_multi_device_s00_title",
+      "value": "Compact Row"
+    },
+    {
+      "name": "topic_multi_device_s00_desc",
+      "value": "A tight row fits more children on a narrow screen."
+    },
+    {
+      "name": "topic_multi_device_s01_title",
+      "value": "Wide Column"
+    },
+    {
+      "name": "topic_multi_device_s01_desc",
+      "value": "A column stack uses the extra height of a wide screen."
+    },
+    {
+      "name": "topic_multi_device_s02_title",
+      "value": "Pixel Unit"
+    },
+    {
+      "name": "topic_multi_device_s02_desc",
+      "value": "lengthMetricsUnit switches the same numbers between vp and px."
+    },
+    {
+      "name": "topic_multi_device_s03_title",
+      "value": "Density Scale"
+    },
+    {
+      "name": "topic_multi_device_s03_desc",
+      "value": "Scale plus inset simulates a coarser screen density."
+    },
+    {
+      "name": "topic_node_tree_group_title",
+      "value": "Node Tree"
+    },
+    {
+      "name": "topic_node_tree_group_desc",
+      "value": "Append, insert, remove and re-layout child RenderNodes on one host frame node."
+    },
+    {
+      "name": "topic_node_tree_s00_title",
+      "value": "Append"
+    },
+    {
+      "name": "topic_node_tree_s00_desc",
+      "value": "rebuildBoxes appends children in one pass; gap sets the spacing between them."
+    },
+    {
+      "name": "topic_node_tree_s01_title",
+      "value": "Insert After"
+    },
+    {
+      "name": "topic_node_tree_s01_desc",
+      "value": "insertChildAfter puts a new child right after the given index."
+    },
+    {
+      "name": "topic_node_tree_s02_title",
+      "value": "Remove Child"
+    },
+    {
+      "name": "topic_node_tree_s02_desc",
+      "value": "removeChild detaches one child, clearChildren drops them all."
+    },
+    {
+      "name": "topic_node_tree_s03_title",
+      "value": "Row Or Column"
+    },
+    {
+      "name": "topic_node_tree_s03_desc",
+      "value": "The same children re-flow between a row and a column layout."
+    },
+    {
+      "name": "topic_performance_group_title",
+      "value": "Performance"
+    },
+    {
+      "name": "topic_performance_group_desc",
+      "value": "Invalidate bursts, node count cost and periodic redraw load measured from the UI thread."
+    },
+    {
+      "name": "topic_performance_s00_title",
+      "value": "Invalidate Burst"
+    },
+    {
+      "name": "topic_performance_s00_desc",
+      "value": "One burst of invalidate calls, timed from the first to the last."
+    },
+    {
+      "name": "topic_performance_s01_title",
+      "value": "Node Cost"
+    },
+    {
+      "name": "topic_performance_s01_desc",
+      "value": "The same burst over a larger node set shows the per node cost."
+    },
+    {
+      "name": "topic_performance_s02_title",
+      "value": "Tick Load"
+    },
+    {
+      "name": "topic_performance_s02_desc",
+      "value": "A periodic timer keeps redrawing while the page stays alive."
+    },
+    {
+      "name": "topic_performance_s03_title",
+      "value": "Stop Tick"
+    },
+    {
+      "name": "topic_performance_s03_desc",
+      "value": "Switch the toggle to stop the periodic timer again."
+    },
+    {
+      "name": "topic_record_group_title",
+      "value": "Record And Replay"
+    },
+    {
+      "name": "topic_record_group_desc",
+      "value": "Record an opacity ramp, then replay the recorded steps as frame by frame updates."
+    },
+    {
+      "name": "topic_record_s00_title",
+      "value": "Record Ramp"
+    },
+    {
+      "name": "topic_record_s00_desc",
+      "value": "Record between one and thirty two opacity steps into the buffer."
+    },
+    {
+      "name": "topic_record_s01_title",
+      "value": "Replay Once"
+    },
+    {
+      "name": "topic_record_s01_desc",
+      "value": "Replay the recorded buffer exactly once."
+    },
+    {
+      "name": "topic_record_s02_title",
+      "value": "Replay Loop"
+    },
+    {
+      "name": "topic_record_s02_desc",
+      "value": "Replay the recorded buffer several times in a row."
+    },
+    {
+      "name": "topic_record_s03_title",
+      "value": "Clear Record"
+    },
+    {
+      "name": "topic_record_s03_desc",
+      "value": "Switch the toggle to drop everything in the record buffer."
+    },
+    {
+      "name": "topic_render_prop_group_title",
+      "value": "Render Properties"
+    },
+    {
+      "name": "topic_render_prop_group_desc",
+      "value": "Opacity, scale, rotation, translation, shadow and border applied to every child node."
+    },
+    {
+      "name": "topic_render_prop_s00_title",
+      "value": "Opacity"
+    },
+    {
+      "name": "topic_render_prop_s00_desc",
+      "value": "Opacity is applied to each child in the same pass."
+    },
+    {
+      "name": "topic_render_prop_s01_title",
+      "value": "Scale And Rotation"
+    },
+    {
+      "name": "topic_render_prop_s01_desc",
+      "value": "Scale and rotation share one transform call on every child."
+    },
+    {
+      "name": "topic_render_prop_s02_title",
+      "value": "Translation"
+    },
+    {
+      "name": "topic_render_prop_s02_desc",
+      "value": "Translation shifts the whole child set inside the canvas."
+    },
+    {
+      "name": "topic_render_prop_s03_title",
+      "value": "Shadow And Border"
+    },
+    {
+      "name": "topic_render_prop_s03_desc",
+      "value": "Shadow radius, alpha, corner radius and border width in one scene."
+    },
+    {
+      "name": "scene_shape_point",
+      "value": "Point"
+    },
+    {
+      "name": "scene_shape_line",
+      "value": "Line"
+    },
+    {
+      "name": "scene_shape_circle",
+      "value": "Circle"
+    },
+    {
+      "name": "scene_shape_oval",
+      "value": "Oval"
+    },
+    {
+      "name": "scene_shape_rect",
+      "value": "Rect"
+    },
+    {
+      "name": "scene_shape_round_rect",
+      "value": "RoundRect"
+    },
+    {
+      "name": "scene_shape_arc",
+      "value": "Arc"
+    },
+    {
+      "name": "scene_shape_path",
+      "value": "Path"
+    },
+    {
+      "name": "scene_shape_region",
+      "value": "Region"
+    },
+    {
+      "name": "scene_effect_fill_stroke",
+      "value": "Fill/Stroke"
+    },
+    {
+      "name": "scene_effect_blend_mode",
+      "value": "BlendMode"
+    },
+    {
+      "name": "scene_effect_dash",
+      "value": "Dash"
+    },
+    {
+      "name": "scene_effect_linear",
+      "value": "Linear"
+    },
+    {
+      "name": "scene_effect_radial",
+      "value": "Radial"
+    },
+    {
+      "name": "scene_effect_sweep",
+      "value": "Sweep"
+    },
+    {
+      "name": "scene_effect_color_filter",
+      "value": "ColorFilter"
+    },
+    {
+      "name": "scene_effect_mask_blur",
+      "value": "MaskBlur"
+    },
+    {
+      "name": "scene_transform_clip_rect",
+      "value": "ClipRect"
+    },
+    {
+      "name": "scene_transform_clip_path",
+      "value": "ClipPath"
+    },
+    {
+      "name": "scene_transform_translate",
+      "value": "Translate"
+    },
+    {
+      "name": "scene_transform_rotate",
+      "value": "Rotate"
+    },
+    {
+      "name": "scene_transform_scale",
+      "value": "Scale"
+    },
+    {
+      "name": "scene_transform_matrix",
+      "value": "Matrix"
+    },
+    {
+      "name": "scene_transform_save_restore",
+      "value": "Save/Restore"
+    },
+    {
+      "name": "scene_image_stretch",
+      "value": "Stretch"
+    },
+    {
+      "name": "scene_image_nearest",
+      "value": "Nearest"
+    },
+    {
+      "name": "scene_image_linear",
+      "value": "Linear"
+    },
+    {
+      "name": "scene_image_scale_view",
+      "value": "ScaleView"
+    },
+    {
+      "name": "scene_text_blob",
+      "value": "TextBlob"
+    },
+    {
+      "name": "scene_text_typography",
+      "value": "Typography"
+    },
+    {
+      "name": "scene_text_measure",
+      "value": "Measure"
     }
   ]
 }

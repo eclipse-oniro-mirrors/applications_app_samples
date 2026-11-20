@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 ("the License");
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -59,7 +59,7 @@ export struct ModeComponent {
 
   onJumpClick(): void {
     GlobalContext.get().setObject('sceneMode', this.sceneMode);
-    // 目标url
+    // 目标url。
     this.getUIContext().getRouter().pushUrl({ url: 'pages/EditPage' }, router.RouterMode.Single, (err) => {
       if (err) {
         Logger.error(TAG, `Invoke pushUrl failed, code is ${err.code}, message is ${err.message}`);
@@ -73,7 +73,7 @@ export struct ModeComponent {
     Column() {
       Row({ space: Constants.COLUMN_SPACE_24 }) {
         Column() {
-          Text('拍照')
+          Text($r('app.string.photo_mode'))
             .fontSize(Constants.FONT_SIZE_14)
             .fontColor(Color.White)
         }
@@ -97,9 +97,9 @@ export struct ModeComponent {
           Logger.info(TAG, 'switch to photo X');
         })
 
-        // 录像
+        // 录像。
         Column() {
-          Text('录像')
+          Text($r('app.string.video_mode'))
             .fontSize(Constants.FONT_SIZE_14)
             .fontColor(Color.White)
         }
@@ -133,7 +133,7 @@ export struct ModeComponent {
         }
         .width($r('app.string.200px'))
 
-        // 拍照-录像 按键
+        // 拍照-录像 按键。
         Column() {
           if (!this.isRecording) {
             Row() {
@@ -167,7 +167,7 @@ export struct ModeComponent {
             }
           } else {
             Row() {
-              // 录像停止键
+              // 录像停止键。
               Button() {
                 Image($r('app.media.ic_camera_video_close'))
                   .size({ width: Constants.IMAGE_SIZE, height: Constants.IMAGE_SIZE })
@@ -192,7 +192,7 @@ export struct ModeComponent {
           }
         }
 
-        // 前后置摄像头切换
+        // 前后置摄像头切换。
         Column() {
           Row() {
             Button() {

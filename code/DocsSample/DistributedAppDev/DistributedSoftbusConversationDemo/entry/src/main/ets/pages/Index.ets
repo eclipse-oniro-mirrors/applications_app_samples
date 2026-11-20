@@ -21,16 +21,16 @@ import { conversation } from '@kit.DistributedServiceKit'
 import { hilog } from '@kit.PerformanceAnalysisKit'
 
 const TAG = '[ConversationTestPage]';
-const DOMAIN = 0x0000;
-const messageToSend = 'Hello from ConversationTest!';
-const bundleName = 'com.example.demo';
-const abilityName = 'EntryAbility';
-const deviceId = 'networkId_or_Udid'
+const DOMAIN = 0xF811;
+const messageToSend: string = 'Hello from ConversationTest!';
+const bundleName: string = 'com.example.distributedsoftbusconversationdemo';
+const abilityName: string = 'EntryAbility';
+const deviceId: string = 'networkId_or_Udid'
 
 // [Start data_callback]
 // 定义消息回调
 let messageCallback: conversation.DataCallback = (deviceId: string, msg: ArrayBuffer): void => {
-  hilog.info(DOMAIN, TAG, 'Received message from: %{public}s', deviceId);
+  hilog.info(DOMAIN, TAG, 'Message received');
   hilog.info(DOMAIN, TAG, 'Message length: %{public}d', msg.byteLength);
   let bufferView = new Uint8Array(msg);
   let messageStr = '';
@@ -45,7 +45,7 @@ let messageCallback: conversation.DataCallback = (deviceId: string, msg: ArrayBu
 @Component
 struct Index {
   // 权限申请
-  requesPermission(): void {
+  requestPermission(): void {
     let permissions: Permissions[] = [
       'ohos.permission.DISTRIBUTED_DATASYNC',
       'ohos.permission.sec.ACCESS_UDID'
@@ -69,7 +69,7 @@ struct Index {
 
   aboutToAppear(): void {
     hilog.info(DOMAIN, TAG, 'aboutToAppear');
-    this.requesPermission();
+    this.requestPermission();
   }
 
   // [Start get_trusted_devices]
@@ -77,16 +77,12 @@ struct Index {
   getTrustedDevices(): void {
     hilog.info(DOMAIN, TAG, 'getTrustedDevices called');
     try {
-      let devices = conversation.getTrustedDevices() as conversation.DeviceNodeInfo[];
-      if (devices && devices.length > 0) {
-        let deviceInfo = devices.map((d, idx) =>
-          `${idx + 1}. ${d.deviceName} (${d.networkId}) - Type:${d.deviceTypeId} - Nearby:${d.nearby}`
-        ).join('\n');
-        hilog.info(DOMAIN, TAG, 'Found %{public}d devices', devices.length);
-        hilog.info(DOMAIN, TAG, 'Devices list: \n %{public}s', deviceInfo);
-      } else {
-        hilog.info(DOMAIN, TAG, 'Found %{public}d devices', devices.length);
+      let devices: conversation.DeviceNodeInfo[] = conversation.getTrustedDevices();
+      if (!devices || devices.length === 0) {
+        hilog.info(DOMAIN, TAG, 'No trusted devices found');
+        return;
       }
+      hilog.info(DOMAIN, TAG, 'Found %{public}d devices', devices.length);
     } catch (err) {
       let error = err as BusinessError;
       hilog.error(DOMAIN, TAG, 'getTrustedDevices error: %{public}s - %{public}s', error.code, error.message);
@@ -135,7 +131,7 @@ struct Index {
 
       conversation.postConversationData(deviceId, bundleName, abilityName, arrayBuffer)
         .then(() => {
-          hilog.info(DOMAIN, TAG, 'Message sent successfully to %{public}s', deviceId);
+          hilog.info(DOMAIN, TAG, 'Message sent successfully');
         })
         .catch((err : BusinessError) => {
           hilog.error(DOMAIN, TAG, 'sendMessage error: %{public}s - %{public}s', err.code, err.message);
@@ -173,7 +169,7 @@ struct Index {
       .width('100%')
         .justifyContent(FlexAlign.SpaceBetween)
         .margin({ bottom: 20})
-  
+
       Button('Send Message')
         .onClick(() => this.sendMessage())
         .margin({ bottom: 20})

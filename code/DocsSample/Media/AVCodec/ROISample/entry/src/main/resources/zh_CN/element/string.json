@@ -87,6 +87,10 @@
     {
       "name": "fixed_frame_rate",
       "value": "固定帧率"
+    },
+    {
+      "name": "camera_api_label",
+      "value": "相机接口方式"
     }
   ]
 }

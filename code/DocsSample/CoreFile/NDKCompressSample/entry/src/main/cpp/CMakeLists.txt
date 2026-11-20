@@ -12,4 +12,7 @@ include_directories(${NATIVERENDER_ROOT_PATH}
                     ${NATIVERENDER_ROOT_PATH}/include)
 
 add_library(entry SHARED napi_init.cpp)
-target_link_libraries(entry PUBLIC libace_napi.z.so PUBLIC liboharchive.so)
+# [Start archive_cmake_link_libraries]
+target_link_libraries(entry PUBLIC liboharchive.so)
+# [End archive_cmake_link_libraries]
+target_link_libraries(entry PUBLIC libace_napi.z.so)

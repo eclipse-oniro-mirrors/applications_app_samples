@@ -1,0 +1,48 @@
+{
+  "float": [
+    {
+      "name": "page_text_font_size",
+      "value": "50fp"
+    },
+    {
+      "name": "pp_font_title",
+      "value": "24fp"
+    },
+    {
+      "name": "pp_font_section",
+      "value": "18fp"
+    },
+    {
+      "name": "pp_font_body",
+      "value": "15fp"
+    },
+    {
+      "name": "pp_font_caption",
+      "value": "12fp"
+    },
+    {
+      "name": "pp_space_s",
+      "value": "8vp"
+    },
+    {
+      "name": "pp_space_m",
+      "value": "12vp"
+    },
+    {
+      "name": "pp_space_l",
+      "value": "16vp"
+    },
+    {
+      "name": "pp_radius_m",
+      "value": "12vp"
+    },
+    {
+      "name": "pp_radius_s",
+      "value": "8vp"
+    },
+    {
+      "name": "pp_button_height",
+      "value": "44vp"
+    }
+  ]
+}

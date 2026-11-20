@@ -42,7 +42,22 @@ entry/src/
  └── ohosTest
      └── ets
          └── test
-             └── Ability.test.ets        // 自动化测试代码
+             ├── List.test.ets                       // 测试套件注册入口
+             ├── MotionApiContract.test.ets          // 接口与枚举契约
+             ├── MotionEnumCore.test.ets             // 枚举取值与成员集合
+             ├── MotionApiShapeCore.test.ets         // 接口形态与返回值
+             ├── MotionApiRobust.test.ets            // 运行时错误语义
+             ├── MotionApiInterleave.test.ets        // 订阅/取消交错矩阵
+             ├── MotionApiOutcomeMatrix.test.ets     // 调用结果矩阵
+             ├── MotionApiBoundary.test.ets          // 入参边界矩阵
+             ├── MotionViewContract.test.ets         // 控件与文案对应关系
+             ├── MotionUiMatrix.test.ets             // 单动作与文案映射
+             ├── MotionUiSequenceMatrix.test.ets     // 有序对/三元组序列
+             ├── MotionUiRepeat.test.ets             // 重复与交替点击
+             ├── MotionUiLabel.test.ets              // 按钮与状态文案
+             ├── MotionUiSupplement.test.ets         // 补充交互与稳定态
+             ├── MotionStateTransition.test.ets      // 状态迁移矩阵
+             └── MotionLifecycle.test.ets            // 重复拉起恢复
 ```
 
 ### 相关权限
@@ -60,9 +75,9 @@ entry/src/
 
 1.本示例仅支持标准系统上运行，支持设备：Phone;
 
-2.本示例为Stage模型，支持API15版本SDK，SDK版本号(API Version 15)。
+2.本示例为Stage模型，操作手能力最低支持API15版本SDK，SDK版本号(API Version 15)；本工程当前使用API26版本SDK编译，SDK版本号(API Version 26)。
 
-3.本示例需要使用DevEco Studio 版本号(5.0.0 Release)版本才可编译运行。
+3.本示例需要使用DevEco Studio 版本号(26.0.0 Release)版本才可编译运行。
 
 4.此功能如果设备不支持，将返回801错误码；指关节操作不属于使用手操作场景；窗口旋转场景，多指同时操作场景不支持；能力有效范围：不包含距离屏幕边缘8mm内区域。
 
@@ -70,9 +85,9 @@ entry/src/
 
 1.本示例仅支持标准系统上运行，支持设备：Phone;
 
-2.本示例为Stage模型，支持API20版本SDK，SDK版本号(API Version 20)。
+2.本示例为Stage模型，握持手能力最低支持API20版本SDK，SDK版本号(API Version 20)；本工程当前使用API26版本SDK编译，SDK版本号(API Version 26)。
 
-3.本示例需要使用DevEco Studio 版本号(6.0.0 Release)版本才可编译运行。
+3.本示例需要使用DevEco Studio 版本号(26.0.0 Release)版本才可编译运行。
 
 4.此功能当前支持部分机型，若设置菜单中存在“握姿跟随”开关（可在“设置-系统”中查看），则表明该设备支持此功能，若无此开关，将返回801错误码；设备屏幕需处于亮屏且解锁状态；设备保护壳（若有）厚度不得超过3毫米；需以五指自然握持设备，同时掌心区域接触设备（或拇指外的四指及掌心区域接触）；握持时确保每根接触手指的接触面积尽可能大（理想情况下不低于30mm²）；佩戴手套会显著降低识别准确率；竖屏握持时，摄像头需朝上；支持横屏握持，但需要注意：应用横屏时竖屏握持（握持设备短边），应用竖屏时横屏握持（握持设备长边），均属异常姿态，无法保证识别成功；握持时屏幕需朝向握持人；握持时不得同时接触其他物体（如桌面、其他身体部位等）；未握持的识别依赖设备状态，设备非静止时无法保证识别成功。
 

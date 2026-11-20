@@ -116,12 +116,12 @@ static JSVM_Value UseReference(JSVM_Env env, JSVM_CallbackInfo info)
     return object;
 }
 
-// CreateReference、UseReference、DeleteReference注册回调
+// UseReference注册回调
 static JSVM_CallbackStruct param[] = {
     {.callback = UseReference, .data = nullptr},
 };
 static JSVM_CallbackStruct *method = param;
-// CreateReference、UseReference、DeleteReference方法别名，供JS调用
+// UseReference方法别名，供JS调用
 static JSVM_PropertyDescriptor descriptor[] = {
     {"useReference", nullptr, method++, nullptr, nullptr, nullptr, JSVM_DEFAULT},
 };

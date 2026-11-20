@@ -18,7 +18,7 @@
     "name": "entry3",
     "type": "feature",
     "description": "$string:module_desc",
-    "mainElement": "Entry3Ability",
+    "mainElement": "EntryAbility",
     "deviceTypes": [
       "default",
       "tablet"
@@ -28,14 +28,24 @@
     "pages": "$profile:main_pages",
     "abilities": [
       {
-        "name": "Entry3Ability",
-        "srcEntry": "./ets/entry3ability/Entry3Ability.ets",
-        "description": "$string:Entry3Ability_desc",
+        "name": "EntryAbility",
+        "srcEntry": "./ets/entryability/EntryAbility.ets",
+        "description": "$string:EntryAbility_desc",
         "icon": "$media:layered_image",
-        "label": "$string:Entry3Ability_label",
+        "label": "$string:EntryAbility_label",
         "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background",
-        "exported": true
+        "exported": true,
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "ohos.want.action.home"
+            ]
+          }
+        ]
       }
     ],
     "requestPermissions": [

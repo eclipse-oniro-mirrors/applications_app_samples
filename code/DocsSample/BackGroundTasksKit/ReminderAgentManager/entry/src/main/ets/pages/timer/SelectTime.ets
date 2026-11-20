@@ -25,6 +25,7 @@ export struct SelectTime {
     Column({ space: 15 }) {
       Row() {
         TextPicker({ range: this.pickerArrayGen(24) })
+          .id('hourPicker')
           .width(60)
           .onChange((value: string | string[], index: number | number[]) => {
             this.hour = index as number;
@@ -35,6 +36,7 @@ export struct SelectTime {
           .fontWeight(Constant.FONT_WEIGHT)
           .margin({ left: 15, right: 15 })
         TextPicker({ range: this.pickerArrayGen(60) })
+          .id('minutePicker')
           .width(60)
           .onChange((value: string | string[], index: number | number[]) => {
             this.minute = index as number;
@@ -45,6 +47,7 @@ export struct SelectTime {
           .fontWeight(Constant.FONT_WEIGHT)
           .margin({ left: 15, right: 15 })
         TextPicker({ range: this.pickerArrayGen(60) })
+          .id('secondPicker')
           .width(60)
           .onChange((value: string | string[], index: number | number[]) => {
             this.second = index as number;

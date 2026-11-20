@@ -42,7 +42,7 @@ export default function commonConstantsTest(): void {
 
     it('AVCodec_CommonConstants_RecorderSettings_003', 0, () => {
       runTestCase('AVCodec_CommonConstants_RecorderSettings_003', () => {
-        expect(Const.RECORDER_INFO.length).assertEqual(13);
+        expect(Const.RECORDER_INFO.length).assertEqual(16);
         expect(Const.RECORDER_INFO[0]).assertDeepEquals(Const.OUTPUT_FORMAT);
         expect(Const.VIDEO_MIMETYPE).assertDeepEquals(['HDRVivid', 'H264', 'H265']);
         expect(Const.VIDEO_RESOLUTION).assertDeepEquals(['4K', '1080P', '720P']);

@@ -22,3 +22,7 @@ export const createPromise: () => boolean | undefined; // napi_resolve_deferred 
 
 export const resolveRejectDeferred: (resolve: string, reject: string, status: boolean) => Promise<string> | undefined;
 // [End napi_resolve_reject_deferred_api]
+
+// [Start napi_open_microtask_scope_api]
+export const deferredMicrotask: () => number; // napi_open_microtask_scope & napi_close_microtask_scope
+// [End napi_open_microtask_scope_api]

@@ -771,13 +771,13 @@ bool ParseSrcPortFromJson(const std::string& jsonStr, OH_TrafficFilter_RedirectR
     rule.srcPort.type = srcPortType.empty() ? OH_TRAFFICFILTER_PORT_MATCH_ANY
         : static_cast<OH_TrafficFilter_PortMatchType>(static_cast<int32_t>(std::stoul(srcPortType)));
     OH_LOG_INFO(LOG_APP,
-        "BuildRedirectRuleFromJson - src_port type: %{public}d", rule.srcPort.type);
+        "BuildRedirectRuleFromJson - srcPort type: %{public}d", rule.srcPort.type);
 
     std::string srcPortInvert = ExtractJsonValue(srcPortObj, "invert");
     rule.srcPort.invert = (srcPortInvert == "true");
 
     return ParsePortMatchValueFromJson(srcPortObj, rule.srcPort.type, rule.srcPort,
-                                       PORT_MIN_VALUE, "src_port");
+                                       PORT_MIN_VALUE, "srcPort");
 }
 
 bool ParseDstPortFromJson(const std::string& jsonStr, OH_TrafficFilter_RedirectRule& rule)
@@ -1167,7 +1167,7 @@ static std::string BuildQueryConnectionInfo(
         connectionInfo.srcIp.addr)) {
         return "ERROR: Invalid source IP address";
     }
-    connectionInfo.src_port = static_cast<uint16_t>(queryArgs.srcPort);
+    connectionInfo.srcPort = static_cast<uint16_t>(queryArgs.srcPort);
 
     connectionInfo.dstIp.family = DetectIPFamilyFromAddr(queryArgs.dstIp);
     if (!ParseIPAddressByFamily(queryArgs.dstIp, connectionInfo.dstIp.family,
@@ -1191,7 +1191,7 @@ static napi_value CreateQueryResponseNapi(
             "QueryProcessNapi - Process found: pid=%{public}u, uid=%{public}u",
             processInfo.pid, processInfo.uid);
     } else if (ret == OH_TRAFFICFILTER_ERROR_NOT_FOUND) {
-        OH_LOG_INFO(LOG_APP, "QueryProcessNapi - Process not found");
+        OH_LOG_ERROR(LOG_APP, "QueryProcessNapi - Process not found");
     } else if (ret == OH_TRAFFICFILTER_ERROR_INVALID_PARAM) {
         OH_LOG_ERROR(LOG_APP, "QueryProcessNapi - Invalid parameters");
     } else {

@@ -1,0 +1,27 @@
+{
+  "devices": {
+    "general": [
+      "default",
+      "tablet",
+      "2in1"
+    ]
+  },
+  "development": {
+    "addedSysCaps": [
+    ]
+  },
+  "production": {
+    "removedSysCaps": [
+      "SystemCapability.Multimedia.Media.AVTranscoder",
+      "SystemCapability.Communication.Bluetooth.Core",
+      "SystemCapability.DistributedDataManager.DataObject.DistributedObject",
+      "SystemCapability.ArkUi.Graphics3D",
+      "SystemCapability.DistributedHardware.DeviceManager",
+      "SystemCapability.Multimedia.AVSession.AVInputCast",
+      "SystemCapability.Communication.WiFi.P2P",
+      "SystemCapability.DistributedDataManager.KVStore.Core",
+      "SystemCapability.Multimedia.Drm.Core",
+      "SystemCapability.Customization.EnterpriseDeviceManager"
+    ]
+  }
+}

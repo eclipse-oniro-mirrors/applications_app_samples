@@ -1,0 +1,24 @@
+{
+  "string": [
+    {
+      "name": "reason_bluetooth",
+      "value": "用于打开蓝牙代理通道，与已配对设备收发数据"
+    },
+    {
+      "name": "reason_datasync",
+      "value": "用于创建增强连接的服务端与客户端，与对端设备收发数据"
+    },
+    {
+      "name": "module_test_desc",
+      "value": "测试模块"
+    },
+    {
+      "name": "TestAbility_desc",
+      "value": "测试能力"
+    },
+    {
+      "name": "TestAbility_label",
+      "value": "测试"
+    }
+  ]
+}

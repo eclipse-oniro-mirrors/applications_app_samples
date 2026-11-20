@@ -131,7 +131,7 @@ int32_t SampleGraphics::InitializeEglContext()
         return -1;
     }
 
-    SAMPLE_LOGE("Init success.");
+    SAMPLE_LOGI("Init success.");
     return 0;
 }
 

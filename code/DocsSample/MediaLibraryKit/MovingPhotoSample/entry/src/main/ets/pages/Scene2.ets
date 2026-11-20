@@ -50,7 +50,7 @@ export struct Scene2 {
 }
 async function example(phAccessHelper: photoAccessHelper.PhotoAccessHelper, context: Context): Promise<string> {
   try {
-    // Use Picker to select the URI of the moving photo.
+    // 使用选择器选择动态照片的URI。
     let photoSelectOptions = new photoAccessHelper.PhotoSelectOptions();
     photoSelectOptions.MIMEType = photoAccessHelper.PhotoViewMIMETypes.MOVING_PHOTO_IMAGE_TYPE;
     photoSelectOptions.maxSelectNumber = 9;
@@ -61,7 +61,7 @@ async function example(phAccessHelper: photoAccessHelper.PhotoAccessHelper, cont
     let resultMessage = 'Selected ' + uris.length + ' moving photo(s)\n\n';
 
     for (let i = 0; i < uris.length; i++) {
-      // Obtain the photo asset corresponding to the URI.
+      // 获取与URI对应的照片资源。
       let predicates: dataSharePredicates.DataSharePredicates = new dataSharePredicates.DataSharePredicates();
       predicates.equalTo(photoAccessHelper.PhotoKeys.URI, uris[i]);
       let fetchOption: photoAccessHelper.FetchOptions = {
@@ -73,13 +73,13 @@ async function example(phAccessHelper: photoAccessHelper.PhotoAccessHelper, cont
       let photoAsset: photoAccessHelper.PhotoAsset = await fetchResult.getFirstObject();
 
       let movingPhotoUri = await new Promise<string>((resolve) => {
-        // Obtain the moving photo object corresponding to the photo asset.
+        // 获取与照片资源对应的动态照片对象。
         photoAccessHelper.MediaAssetManager.requestMovingPhoto(context, photoAsset, {
           deliveryMode: photoAccessHelper.DeliveryMode.FAST_MODE
         }, {
           async onDataPrepared(movingPhoto: photoAccessHelper.MovingPhoto) {
             if (movingPhoto !== undefined) {
-              // Customize the logic for processing the moving photo.
+              // 自定义处理动态照片的逻辑。
               console.info('request moving photo successfully, uri: ' + movingPhoto.getUri());
               resolve(movingPhoto.getUri());
             }

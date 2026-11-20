@@ -34,6 +34,8 @@
 // [End ndk_pixelmap_js_include_module_in_pixelmap_operation]
 #include <fcntl.h>
 #include <unistd.h>
+#include <string>
+#include "application_cache.h"
 
 // [Start ndk_pixelmap_js_include_module_in_encode]
 // 引入编码器image_packer_mdk.h头文件。
@@ -397,9 +399,9 @@ napi_value Transform(napi_env env, napi_callback_info info)
     float scaleY = 0.5;
     OH_PixelMap_Scale(native, scaleX, scaleY);
 
-    // 设置偏移。
-    // translateX: 向下偏移50。
-    // translateY: 向右偏移50。
+    // 设置平移。
+    // translateX: 向右平移50像素。
+    // translateY: 向下平移50像素。
     float translateX = 50;
     float translateY = 50;
     OH_PixelMap_Translate(native, translateX, translateY);
@@ -453,6 +455,13 @@ napi_value EncodeImagesToFile(napi_env env, napi_callback_info info)
     if (source == nullptr) {
         return nullptr;
     }
+    // Resolve the actual application cache instead of assuming a module sandbox layout.
+    std::string cacheDirectory;
+    if (!SampleNdkPixelMap::GetApplicationCacheDirectory(cacheDirectory)) {
+        napi_throw_error(env, nullptr, "Failed to resolve application cache directory");
+        return nullptr;
+    }
+    const std::string outputPath = cacheDirectory + "/test.jpg";
     // [Start ndk_pixelmap_create_native_packer]
     // 使用napi_value 承接创建的编码器对象
     napi_value packer;
@@ -473,8 +482,8 @@ napi_value EncodeImagesToFile(napi_env env, napi_callback_info info)
     // 配置编码质量（必须）
     opts.quality = OPTS_QUALITY;
     // 打开需要输出的文件（请确保应用有权限访问这个路径）
-    // 修改路径为可访问的沙箱路径
-    int fd = open("/data/storage/el2/base/haps/entry/cache/test.jpg", O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+    // 使用真实应用缓存路径；调用参数和输出文件名保持不变。
+    int fd = open(outputPath.c_str(), O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
     OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "[encode]", "EncodeImagesToFile fd:%{public}d", fd);
     if (fd >= 0) {
         // 开始对输入source进行编码过程，返回result为 IMAGE_RESULT_SUCCESS则编码成功

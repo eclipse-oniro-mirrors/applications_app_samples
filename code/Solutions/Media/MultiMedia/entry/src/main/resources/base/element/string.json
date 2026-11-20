@@ -67,6 +67,14 @@
     {
       "name": "read_permission",
       "value": "Allow app to read media file information from external storage of users"
+    },
+    {
+      "name": "camera_switching",
+      "value": "Switching camera..."
+    },
+    {
+      "name": "camera_capturing",
+      "value": "Capturing photo..."
     }
   ]
 }

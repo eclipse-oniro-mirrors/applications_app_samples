@@ -13,8 +13,32 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test';
+import cloudDiskBundleInfoTest from './CloudDiskBundleInfo.test';
+import cloudDiskTest from './CloudDisk.test';
+import cloudDiskApiExtraTest from './CloudDiskApiExtra.test';
+import cloudDiskApiExtraTestPart2 from './CloudDiskApiExtraPart2.test';
+import cloudDiskContractExtraTest from './CloudDiskContractExtra.test';
+import cloudDiskApiExtra2Test from './CloudDiskApiExtra2.test';
+import cloudDiskContractExtra2Test from './CloudDiskContractExtra2.test';
+import cloudDiskApiExtra3Test from './CloudDiskApiExtra3.test';
+import cloudDiskBundleInfoResidualTest from './CloudDiskBundleInfoResidual.test';
+import cloudDiskBundleFormatResidualTest from './CloudDiskBundleFormatResidual.test';
+import cloudDiskBundleBulkResidualTest from './CloudDiskBundleBulkResidual.test';
+import cloudDiskBundleBulkResidual2Test from './CloudDiskBundleBulkResidual2.test';
+import cloudDiskBundleBulkResidual3Test from './CloudDiskBundleBulkResidual3.test';
 
 export default function testsuite() {
-  abilityTest();
+  cloudDiskBundleInfoTest();
+  cloudDiskTest();
+  cloudDiskApiExtraTest();
+  cloudDiskApiExtraTestPart2();
+  cloudDiskContractExtraTest();
+  cloudDiskApiExtra2Test();
+  cloudDiskContractExtra2Test();
+  cloudDiskApiExtra3Test();
+  cloudDiskBundleInfoResidualTest();
+  cloudDiskBundleFormatResidualTest();
+  cloudDiskBundleBulkResidualTest();
+  cloudDiskBundleBulkResidual2Test();
+  cloudDiskBundleBulkResidual3Test();
 }

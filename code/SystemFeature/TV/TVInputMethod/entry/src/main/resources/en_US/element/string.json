@@ -1,0 +1,160 @@
+{
+  "string": [
+    {
+      "name": "entry_desc",
+      "value": "kikaInput extension"
+    },
+    {
+      "name": "extension_ability_descripter",
+      "value": "soft input extension by kika"
+    },
+    {
+      "name": "MainAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "MainAbility_label",
+      "value": "kikaInput"
+    },
+    {
+      "name": "selection",
+      "value": "Selection"
+    },
+    {
+      "name": "edit",
+      "value": "Edit"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "kikaInput"
+    },
+    {
+      "name": "Private_data",
+      "value": "Private data"
+    },
+    {
+      "name": "Preview_Text",
+      "value": "Preview Text"
+    },
+    {
+      "name": "Private_tip",
+      "value": "Please input account number"
+    },
+    {
+      "name": "Preview_tip",
+      "value": "Please input preview content"
+    },
+    {
+      "name": "ZN_CN",
+      "value": "CN"
+    },
+    {
+      "name": "en",
+      "value": "EN"
+    },
+    {
+      "name": "pinyin_nine",
+      "value": "Pinyin 9-key"
+    },
+    {
+      "name": "clear_all",
+      "value": "Clear all"
+    },
+    {
+      "name": "symbol",
+      "value": "Symbols"
+    },
+    {
+      "name": "symbol_1",
+      "value": "."
+    },
+    {
+      "name": "symbol_2",
+      "value": ","
+    },
+    {
+      "name": "CN_en",
+      "value": "CN/EN"
+    },
+    {
+      "name": "text_complete",
+      "value": "Done"
+    },
+    {
+      "name": "symbol_123",
+      "value": "123"
+    },
+    {
+      "name": "symbol_3",
+      "value": "!"
+    },
+    {
+      "name": "symbol_4",
+      "value": "?"
+    },
+    {
+      "name": "string_text_space",
+      "value": "Space"
+    },
+    {
+      "name": "string_text_123",
+      "value": "?123"
+    },
+    {
+      "name": "string_text_ABC",
+      "value": "ABC"
+    },
+    {
+      "name": "string_text_inputCN",
+      "value": "The system default input method"
+    },
+    {
+      "name": "turnPage",
+      "value": "More"
+    },
+    {
+      "name": "string_text_DeleteX",
+      "value": "X"
+    },
+    {
+      "name": "string_text_Complete",
+      "value": "Done"
+    },
+    {
+      "name": "chinese_input_method",
+      "value": "Chinese Input Method"
+    },
+    {
+      "name": "input_method_manage",
+      "value": "Input method management:"
+    },
+    {
+      "name": "default_input_method",
+      "value": "Default input method"
+    },
+    {
+      "name": "select_input_method",
+      "value": "Select input method"
+    },
+    {
+      "name": "input_test",
+      "value": "Input test:"
+    },
+    {
+      "name": "input_text_hint",
+      "value": "Enter text"
+    },
+    {
+      "name": "pinyin_26",
+      "value": "Pinyin 26-key"
+    },
+    {
+      "name": "key_segmentation",
+      "value": "Segment"
+    }
+  ]
+}

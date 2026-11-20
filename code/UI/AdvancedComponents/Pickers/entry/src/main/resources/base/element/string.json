@@ -1,0 +1,27 @@
+{
+  "string": [
+    { "name": "module_desc", "value": "Calendar, date and container picker sample" },
+    { "name": "EntryAbility_desc", "value": "Picker components sample" },
+    { "name": "EntryAbility_label", "value": "Pickers" },
+    { "name": "page_title", "value": "Pickers" },
+    { "name": "breakpoint_label", "value": "Current layout" },
+    { "name": "hub_calendar_title", "value": "CalendarPicker" },
+    { "name": "hub_calendar_desc", "value": "Dropdown calendar for quick date selection" },
+    { "name": "hub_date_title", "value": "DatePickerComponent" },
+    { "name": "hub_date_desc", "value": "Date, time and date-time picker" },
+    { "name": "hub_ui_title", "value": "UIPickerComponent" },
+    { "name": "hub_ui_desc", "value": "Wheel-style single choice container" },
+    { "name": "calendar_title", "value": "CalendarPicker demo" },
+    { "name": "date_title", "value": "DatePickerComponent demo" },
+    { "name": "ui_title", "value": "UIPickerComponent demo" },
+    { "name": "back", "value": "Back" },
+    { "name": "selected_label", "value": "Selected" },
+    { "name": "today", "value": "Today" },
+    { "name": "mode_date", "value": "Date" },
+    { "name": "mode_time", "value": "Time" },
+    { "name": "mode_datetime", "value": "Date + Time" },
+    { "name": "previous", "value": "Previous" },
+    { "name": "next", "value": "Next" },
+    { "name": "ui_options", "value": "Options" }
+  ]
+}

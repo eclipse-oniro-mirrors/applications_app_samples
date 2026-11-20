@@ -18,3 +18,11 @@
 export const APP_NAME: string = 'DemoApp';
 export const version: string = '1.0';
 // [End export_constant]
+
+// ===== side_effect_import_module =====
+// [Start side_effect_import_module]
+// Config.ets：顶层代码在模块被加载时执行
+console.info('Config initialized');
+
+export const APP_LABEL: string = 'DemoApp';
+// [End side_effect_import_module]

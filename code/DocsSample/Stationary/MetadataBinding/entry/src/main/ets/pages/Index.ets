@@ -15,8 +15,7 @@
 
 // [Start import_the_metadata_binding_module]
 import { metadataBinding } from '@kit.MultimodalAwarenessKit';
-import { BusinessError } from '@kit.BasicServicesKit';
-import { Callback } from '@kit.BasicServicesKit';
+import { BusinessError, Callback } from '@kit.BasicServicesKit';
 // [End import_the_metadata_binding_module]
 
 // [Start metadata_binding_parameter]

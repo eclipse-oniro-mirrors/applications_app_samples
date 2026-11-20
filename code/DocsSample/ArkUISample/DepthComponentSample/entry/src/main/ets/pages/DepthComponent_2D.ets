@@ -23,7 +23,7 @@ struct DepthComponent2DExample {
   build() {
     Column() {
       // 请开发者替换为实际的资源文件
-      DepthComponent($r('app.media.background')) {
+      DepthComponent($r('app.media.depthcomponent_background')) {
         Text('Depth Component')
           .fontSize(100)
           .spatialEffect({

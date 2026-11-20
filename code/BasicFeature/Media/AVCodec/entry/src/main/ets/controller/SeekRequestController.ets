@@ -55,7 +55,7 @@ export class SeekRequestController {
     return result;
   }
 
-  // A running codec rebuild must finish before stop or a new playback task.
+  // 取消仅影响等待中的请求；已开始的编解码器重建会执行到结束。
   cancel(): void {
     this.generation++;
     if (this.timer !== 0) {

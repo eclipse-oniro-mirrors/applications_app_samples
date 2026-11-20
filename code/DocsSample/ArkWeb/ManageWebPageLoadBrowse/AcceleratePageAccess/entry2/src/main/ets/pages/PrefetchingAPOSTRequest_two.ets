@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [Start initialize_kernel_in_onCreate_and_pre_fetch_post_request]
+// [Start on_page_end_trigger_prefetch_post_request_access_page]
 import { webview } from '@kit.ArkWeb';
 
 @Entry
@@ -23,9 +23,9 @@ struct WebComponent {
 
   build() {
     Column() {
-      Web({ src: $r('app.string.web_path'), controller: this.webviewController})
+      Web({ src: 'https://www.example.com/', controller: this.webviewController })
         .onPageEnd(() => {
-          // 预获取时，需要將'https://www.example1.com/post?e=f&g=h'替换成真实要访问的网站地址。
+          // 预获取时，需要将'https://www.example1.com/post?e=f&g=h'替换成真实要访问的网站地址。
           webview.WebviewController.prefetchResource(
             {
               url: 'https://www.example1.com/post?e=f&g=h',
@@ -41,4 +41,4 @@ struct WebComponent {
     }
   }
 }
-// [End initialize_kernel_in_onCreate_and_pre_fetch_post_request]
+// [End on_page_end_trigger_prefetch_post_request_access_page]

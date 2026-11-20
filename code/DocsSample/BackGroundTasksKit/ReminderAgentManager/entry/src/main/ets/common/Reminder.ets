@@ -26,3 +26,7 @@ export interface Reminder {
   reminderRequestAlarm?: reminderAgentManager.ReminderRequestAlarm,
   reminderRequestCalendar?: reminderAgentManager.ReminderRequestCalendar,
 }
+
+export function getReminderNames(reminders: Reminder[]): string[] {
+  return reminders.map((reminder: Reminder) => reminder.reminderName)
+}

@@ -61,7 +61,7 @@ struct Index {
     try {
       let remoteDeviceDriver: deviceManager.RemoteDeviceDriver = await deviceManager.bindDriverWithDeviceId(deviceId,
         (err: BusinessError, id: number) => {
-          hilog.info(DOMAIN, 'testTag', `device[${id}] id disconnect, err: ${JSON.stringify(err)}`);
+          hilog.error(DOMAIN, 'testTag', `device[${id}] id disconnect, err: ${JSON.stringify(err)}`);
         });
       return remoteDeviceDriver.remote;
     } catch (error) {
@@ -89,11 +89,11 @@ struct Index {
     let data = new rpc.MessageSequence();
     let reply = new rpc.MessageSequence();
 
-    // 向驱动发送信息"Hello"
-    hilog.info(DOMAIN, 'testTag', `communicateWithRemote, message=${this.message}`);
-    data.writeString(this.message);
-
     try {
+      // 向驱动发送信息"Hello"
+      hilog.info(DOMAIN, 'testTag', `communicateWithRemote, message=${this.message}`);
+      data.writeString(this.message);
+
       await this.remote.sendMessageRequest(REQUEST_CODE, data, reply, option);
       // 获取驱动返回信息"Hello world"
       this.message = reply.readString();

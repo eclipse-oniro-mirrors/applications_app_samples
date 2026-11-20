@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/view/PicturePreviewImage.ets
+ * 文件职责：PicturePreviewImage 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：PicturePreviewImage。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { image } from '@kit.ImageKit';
 import { matrix4, window } from '@kit.ArkUI';
 import { OffsetModel } from '../model/OffsetModel';
@@ -21,7 +28,6 @@ import { runWithAnimation, simplestRotationQuarter } from '../utils/FuncUtils';
 import { windowSizeManager } from '../utils/Managers';
 import { RotateModel } from '../model/RotateModel';
 import { constrainOffsetAndAnimation, getImgSize, getMaxAllowedOffset, ImageFitType } from '../utils/Constrain';
-
 
 /**
  * PicturePreviewImage
@@ -45,55 +51,89 @@ import { constrainOffsetAndAnimation, getImgSize, getMaxAllowedOffset, ImageFitT
  * @param { (index: number) => void } [setListToIndex] - 切换图片
  *
  */
+/**
+ * PicturePreviewImage：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Reusable
 @Component
 export struct PicturePreviewImage {
   // 当前背景色
+  // @Link listBGColor：与父组件双向绑定的状态
   @Link listBGColor: Color;
+
   // 图片显示的地址
+  // @Require imageUrl：必填入参
   @Require @Prop imageUrl: string = '';
+
   // 图片滑动方向
+  // @Require listDirection：必填入参
   @Require @Prop listDirection: Axis;
+
   // 图片滑动多大距离需要切换图片
+  // @Prop togglePercent：父组件传入的属性
   @Prop togglePercent: number = 0.2;
+
   // 当前图片下标
+  // @Prop imageIndex：父组件传入的属性
   @Prop imageIndex: number = 0;
+
   // 最多几张图片
+  // @Prop imageMaxLength：父组件传入的属性
   @Prop imageMaxLength: number = 0;
+
   // 设置偏移尺寸
   setListOffset: (offset: number, animationDuration?: number) => void =
     (offset: number, animationDuration?: number) => {
     };
+
   // 切换图片
   setListToIndex: (index: number) => void = (index: number) => {
   };
+
   // 图片旋转信息
+  // @State imageRotateInfo：组件内部状态
   @State imageRotateInfo: RotateModel = new RotateModel();
+
   // 图片缩放信息
+  // @State imageScaleInfo：组件内部状态
   @State imageScaleInfo: ScaleModel = new ScaleModel(1.0, 1.0, 1.5, 0.3);
+
   // 图片默认大小 -- 是转化后的大小
+  // @State imageDefaultSize：组件内部状态
   @State imageDefaultSize: image.Size = { width: 0, height: 0 }; // 图片默认大小，即，与屏幕大小最适配的显示大小
   // 表示当前图片是根据宽度适配还是高度适配
+  // @State imageWH：组件内部状态
   @State imageWH: ImageFitType = ImageFitType.TYPE_DEFAULT;
+
   // 本模块提供矩阵变换功能，可对图形进行平移、旋转和缩放等。
+  // @State matrix：组件内部状态
   @State matrix: matrix4.Matrix4Transit = matrix4.identity().copy();
+
   // 图片偏移信息
+  // @State imageOffsetInfo：组件内部状态
   @State imageOffsetInfo: OffsetModel = new OffsetModel(0, 0);
+
   // 记录偏移时控制list的偏移量
+  // @State imageListOffset：组件内部状态
   @State imageListOffset: number = 0;
+
   // 图片原始宽高比
   private imageWHRatio: number = 0;
+
   // 保存手指移动位置 -- 减少重复触发计算
   private eventOffsetX: number = 0;
   private eventOffsetY: number = 0;
+
   // 图片恢复的动画时长
   private restImageAnimation: number = 300;
+
   /**
    * 当前是否移动交叉轴
    * - 正常拖动可以移动
    * - 当拖动时候展示出了下一张 且 展示具体 大于 isMoveMaxOffset 时固定 交叉轴，等到下次释放后再次移动
    */
   private isMoveCrossAxis: boolean = true;
+
   /**
    * 最大展示下一张图片的距离
    * - 为了控制交叉轴的移动
@@ -245,6 +285,9 @@ export struct PicturePreviewImage {
   }
 
   // 设置交叉轴位置
+  /**
+   * setCrossAxis：执行 setCrossAxis 相关逻辑。
+   */
   setCrossAxis(event: GestureEvent) {
     // list当前没有在移动 &&  交叉轴时候如果没有放大也不移动
     let isScale: boolean = this.imageScaleInfo.scaleValue !== this.imageScaleInfo.defaultScaleValue;
@@ -269,6 +312,9 @@ export struct PicturePreviewImage {
   }
 
   // 设置主轴位置
+  /**
+   * setPrincipalAxis：执行 setPrincipalAxis 相关逻辑。
+   */
   setPrincipalAxis(event: GestureEvent) {
     // 获取主轴方向
     let direction: 'X' | 'Y' = this.listDirection === Axis.Horizontal ? 'X' : 'Y';
@@ -303,7 +349,6 @@ export struct PicturePreviewImage {
       }
     }
 
-
     if ((calculatedOffset > maxAllowedOffset) && (this.imageIndex !== 0)) {
       // 右滑 -- 当前滑动超过最大值时 并且 不是第一个元素去设置list偏移量显“下一张”图片
       let listOffset: number = calculatedOffset - maxAllowedOffset;
@@ -319,6 +364,9 @@ export struct PicturePreviewImage {
   }
 
   // 设置对应轴方向的数据
+  /**
+   * setCurrentOffsetXY：执行 setCurrentOffsetXY 相关逻辑。
+   */
   setCurrentOffsetXY(direction: ImageFitType.TYPE_WIDTH | ImageFitType.TYPE_HEIGHT, offset: number) {
     if (direction === ImageFitType.TYPE_WIDTH) {
       this.imageOffsetInfo.currentX = offset;
@@ -327,9 +375,20 @@ export struct PicturePreviewImage {
     }
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Stack：层叠布局容器
+    // 关键属性：内容对齐、expandSafeArea、宽度、高度、gesture
+    // Stack：层叠布局容器
+    // 关键属性：内容对齐、expandSafeArea、宽度、高度、gesture
     Stack() {
-      Image(this.imageUrl)// TODO：知识点：宽高只根据其尺寸设置一个，通过保持宽高比来设置另一个属性
+      // Image：图片
+      // 关键属性：宽度、高度
+      // Image：图片
+      // 关键属性：宽度、高度
+      Image(this.imageUrl).id('picture_preview_image_image_1')// TODO：知识点：宽高只根据其尺寸设置一个，通过保持宽高比来设置另一个属性
         .id('scale_image')
         .width(this.imageWH === ImageFitType.TYPE_WIDTH ? $r('app.string.imageviewer_image_default_width') : undefined)
         .height(this.imageWH === ImageFitType.TYPE_HEIGHT ? $r('app.string.imageviewer_image_default_height') :
@@ -352,6 +411,7 @@ export struct PicturePreviewImage {
         })
     }
     .alignContent(Alignment.Center)
+    .id('preview_stack')
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
     .width($r('app.string.imageviewer_image_item_stack_width'))
     .height($r('app.string.imageviewer_image_item_stack_height'))

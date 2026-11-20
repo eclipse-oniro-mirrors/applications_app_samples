@@ -58,7 +58,7 @@ struct WebComponent {
             webview.WebDownloadManager.setDownloadDelegate(this.delegate);
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
       Button('startDownload')
@@ -69,7 +69,7 @@ struct WebComponent {
             this.controller.startDownload('https://www.example.com/');
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
       // 将当前的下载任务信息序列化保存，用于后续恢复下载任务。
@@ -81,7 +81,7 @@ struct WebComponent {
             DownloadUtil.saveDownloadInfo(DownloadUtil.uint8ArrayToStr(this.download.serialize()));
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
       // 从序列化的下载任务信息中，恢复下载任务。
@@ -96,7 +96,7 @@ struct WebComponent {
             webview.WebDownloadManager.resumeDownload(webDownloadItem);
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
 

@@ -59,6 +59,18 @@
     {
       "name": "flash_open",
       "value": "The flash is on"
+    },
+    {
+      "name": "photo_mode",
+      "value": "拍照"
+    },
+    {
+      "name": "video_mode",
+      "value": "录像"
+    },
+    {
+      "name": "switch_camera",
+      "value": "切换相机"
     }
   ]
 }

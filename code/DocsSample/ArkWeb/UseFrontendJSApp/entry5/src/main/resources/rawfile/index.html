@@ -63,7 +63,7 @@
         }
     });
     window.onerror = function(message, url, line, column, error) {
-      console.info('JavaScript Error: ' + message + ' on line ' + line + ' in ' + url);
+      console.error('JavaScript Error: ' + message + ' on line ' + line + ' in ' + url);
       document.getElementById('h1').innerHTML = '执行函数失败';
     };
 

@@ -46,6 +46,17 @@
             ]
           }
         ]
+      },
+      {
+        "name": "RestoreAbility",
+        "srcEntry": "./ets/entryability/RestoreAbility.ets",
+        "description": "$string:RestoreAbility_desc",
+        "icon": "$media:layered_image",
+        "label": "$string:RestoreAbility_label",
+        "startWindowIcon": "$media:startIcon",
+        "startWindowBackground": "$color:start_window_background",
+        "launchType": "singleton",
+        "exported": true
       }
     ],
     "extensionAbilities": [

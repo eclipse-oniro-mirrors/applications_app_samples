@@ -16,6 +16,7 @@
 // [Start xts_encrypt_decrypt_aes_symkey_synchronous]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function generateRandom(len: number) {
   let rand = cryptoFramework.createRandom();
@@ -61,12 +62,14 @@ export function aesXTS() : string {
     if (plainText.data.toString() === decryptText.data.toString()) {
       console.info('decrypt ok.');
       console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
+      return 'success';
     } else {
       console.error('decrypt failed.');
+       return 'fail';
     }
-    return 'success';
   } catch (error) {
-    console.error('xts decrypt failed. error: ' + error);
+    let e: BusinessError = error as BusinessError;
+    console.error(`AES XTS failed: errCode: ${e.code}, message: ${e.message}`);
     return 'fail';
   }
 }

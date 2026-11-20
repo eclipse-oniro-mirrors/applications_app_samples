@@ -118,7 +118,7 @@ void RawfileRequest::Start()
     OH_ArkWeb_CreateResponse(&response_);
     OH_ArkWebResourceRequest_GetHttpBodyStream(resourceRequest(), &stream_);
     if (stream_) {
-        OH_LOG_ERROR(LOG_APP, "have http body stream");
+        OH_LOG_INFO(LOG_APP, "have http body stream");
         OH_ArkWebHttpBodyStream_SetUserData(stream_, this);
         OH_ArkWebHttpBodyStream_SetReadCallback(stream_, ReadCallback);
         OH_ArkWebHttpBodyStream_Init(stream_, InitCallback);

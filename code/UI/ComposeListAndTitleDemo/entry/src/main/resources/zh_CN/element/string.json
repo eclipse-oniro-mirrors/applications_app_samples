@@ -1,0 +1,228 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "ComposeListItem/V2 与 ComposeTitleBar/V2 演示模块"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "列表项与标题栏高级组件演示"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "列表与标题"
+    },
+    {
+      "name": "page_title",
+      "value": "列表与标题"
+    },
+    {
+      "name": "page_subtitle",
+      "value": "ComposeListItem/V2 · ComposeTitleBar/V2"
+    },
+    {
+      "name": "titlebar_avatar",
+      "value": "头像"
+    },
+    {
+      "name": "menu_refresh",
+      "value": "刷新"
+    },
+    {
+      "name": "menu_settings",
+      "value": "设置"
+    },
+    {
+      "name": "toolbar_team_title",
+      "value": "团队通讯录"
+    },
+    {
+      "name": "toolbar_team_subtitle",
+      "value": "共 %d 人 · 在线 %d 人"
+    },
+    {
+      "name": "menu_search",
+      "value": "搜索"
+    },
+    {
+      "name": "menu_more",
+      "value": "更多"
+    },
+    {
+      "name": "section_titlebar_v2",
+      "value": "ComposeTitleBarV2（API 26 新增）"
+    },
+    {
+      "name": "section_list_v1",
+      "value": "ComposeListItem（V1，API 10+）"
+    },
+    {
+      "name": "section_list_v1_desc",
+      "value": "内容区：头像 + 主/副文本；操作区三种形态"
+    },
+    {
+      "name": "item_dnd_title",
+      "value": "消息免打扰"
+    },
+    {
+      "name": "item_dnd_desc",
+      "value": "对该联系人静音"
+    },
+    {
+      "name": "item_update_title",
+      "value": "安装更新"
+    },
+    {
+      "name": "item_update_desc",
+      "value": "版本 1.0.0 可用"
+    },
+    {
+      "name": "btn_install",
+      "value": "安装"
+    },
+    {
+      "name": "item_sync_title",
+      "value": "同步到云端"
+    },
+    {
+      "name": "item_sync_desc",
+      "value": "自动备份联系人"
+    },
+    {
+      "name": "item_ring_title",
+      "value": "默认铃声"
+    },
+    {
+      "name": "item_ring_desc",
+      "value": "来电通知音选择"
+    },
+    {
+      "name": "item_share_title",
+      "value": "收藏与分享"
+    },
+    {
+      "name": "item_share_desc",
+      "value": "右侧双图标操作"
+    },
+    {
+      "name": "item_unread_title",
+      "value": "未读消息"
+    },
+    {
+      "name": "item_unread_desc",
+      "value": "含 3 条置顶"
+    },
+    {
+      "name": "item_unread_detail",
+      "value": "长按可标记全部已读，description 支持换行显示"
+    },
+    {
+      "name": "operate_3_items",
+      "value": "3 条"
+    },
+    {
+      "name": "item_preview_title",
+      "value": "图片预览"
+    },
+    {
+      "name": "item_preview_desc",
+      "value": "PREVIEW 档位 96vp"
+    },
+    {
+      "name": "section_list_v2",
+      "value": "ComposeListItemV2（API 26 新增）"
+    },
+    {
+      "name": "section_list_v2_desc",
+      "value": "同数据 V2 版：new ContentItemV2/OperateItemV2 构造，toggle 字段替代 V1 switch"
+    },
+    {
+      "name": "item_update_v2_title",
+      "value": "系统更新"
+    },
+    {
+      "name": "item_update_v2_desc",
+      "value": "检查新版本"
+    },
+    {
+      "name": "btn_check",
+      "value": "检查"
+    },
+    {
+      "name": "item_about_title",
+      "value": "关于本机"
+    },
+    {
+      "name": "item_about_desc",
+      "value": "查看设备信息"
+    },
+    {
+      "name": "item_multi_title",
+      "value": "多选模式"
+    },
+    {
+      "name": "item_multi_desc",
+      "value": "checkbox 操作区"
+    },
+    {
+      "name": "item_v2_desc",
+      "value": "V2 版三行文本：primaryText + secondaryText + description"
+    },
+    {
+      "name": "btn_preview",
+      "value": "预览"
+    },
+    {
+      "name": "log_title",
+      "value": "事件日志"
+    },
+    {
+      "name": "breakpoint_prefix",
+      "value": "断点：%s"
+    },
+    {
+      "name": "device_prefix",
+      "value": "设备：%s"
+    },
+    {
+      "name": "api_prefix",
+      "value": "API：%d"
+    },
+    {
+      "name": "search_placeholder",
+      "value": "搜索姓名或部门"
+    },
+    {
+      "name": "contact_1_name",
+      "value": "张三"
+    },
+    {
+      "name": "contact_1_dept",
+      "value": "研发部"
+    },
+    {
+      "name": "contact_2_name",
+      "value": "李四"
+    },
+    {
+      "name": "contact_2_dept",
+      "value": "产品部"
+    },
+    {
+      "name": "contact_3_name",
+      "value": "王五"
+    },
+    {
+      "name": "contact_3_dept",
+      "value": "研发部"
+    },
+    {
+      "name": "contact_4_name",
+      "value": "赵六"
+    },
+    {
+      "name": "contact_4_dept",
+      "value": "测试部"
+    }
+  ]
+}

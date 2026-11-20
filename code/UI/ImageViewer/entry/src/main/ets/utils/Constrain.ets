@@ -13,6 +13,14 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/utils/Constrain.ets
+ * 文件职责：Constrain 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ImageFitType、ConstrainOffsetAndAnimationType、getMaxAllowedOffset、constrainOffset、isToggle、getImgSize、
+ *   constrainOffsetAndAnimation。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { image } from '@kit.ImageKit';
 import { windowSizeManager } from './Managers';
 import { OffsetModel } from '../model/OffsetModel';
@@ -27,7 +35,6 @@ export enum ImageFitType {
   TYPE_HEIGHT = 'height',
   TYPE_DEFAULT = 'default'
 }
-
 
 /**
  * 计算图片的偏移结构
@@ -59,8 +66,10 @@ export interface ConstrainOffsetAndAnimationType {
   imageListOffset: number
 }
 
-
 // 获取最大偏移量
+/**
+ * getMaxAllowedOffset：函数定义，承载本文件对应的逻辑与数据。
+ */
 export function getMaxAllowedOffset(winSize: number, imageSize: number, scale: number): number {
   const maxNum: number = Math.max(imageSize * scale, winSize);
   const minNum: number = Math.min(imageSize * scale, winSize);
@@ -78,7 +87,6 @@ function constrainOffset(offset: number, winSize: number, imageSize: number, sca
   let maxAllowedOffset: number = getMaxAllowedOffset(winSize, imageSize, scale);
   return Math.min(Math.max(offset, -maxAllowedOffset), maxAllowedOffset);
 }
-
 
 /**
  * 查询图片是否需要切换图片
@@ -100,6 +108,9 @@ function isToggle(offset: number, winSize: number, imageSize: number, scale: num
 }
 
 // 查询当前是尺寸
+/**
+ * getImgSize：函数定义，承载本文件对应的逻辑与数据。
+ */
 export function getImgSize(imageSize: image.Size, rotate: number,
   dimensionWH: ImageFitType.TYPE_WIDTH | ImageFitType.TYPE_HEIGHT): number {
   const isStandardRotation: boolean = [90, 270].includes(Math.abs(rotate % 360));
@@ -108,7 +119,6 @@ export function getImgSize(imageSize: image.Size, rotate: number,
       dimensionWH;
   return imageSize[key];
 }
-
 
 /**
  * 用来计算 图片所需要的偏移量
@@ -123,16 +133,21 @@ export function constrainOffsetAndAnimation(info: ConstrainOffsetAndAnimationTyp
     return [false, false];
   }
   const WIN_SIZE: window.Size = windowSizeManager.get();
+
   // 获取图片在指定轴上的原始尺寸
   const IMG_SIZE: number = getImgSize(info.imageDefaultSize, info.rotate, info.dimensionWH);
+
   // 获取窗口对应轴的尺寸
   const WIN_AXIS_SIZE: number = WIN_SIZE[info.dimensionWH];
+
   // 获取图片在该轴上的最后偏移量
   let currentOffset: number =
     (info.imageOffsetInfo as object)[`last${info.dimensionWH == ImageFitType.TYPE_WIDTH ? 'X' : 'Y'}`];
+
   // 最后的图片的偏移量需要加上list偏移量来计算
   currentOffset += info.imageListOffset;
   const CLAMPED_OFFSET: number = constrainOffset(currentOffset, WIN_AXIS_SIZE, IMG_SIZE, info.scaleValue);
+
   // 如果偏移量发生了变化（即需要修正）
   if (CLAMPED_OFFSET !== currentOffset) {
     let updateFn: () => void =

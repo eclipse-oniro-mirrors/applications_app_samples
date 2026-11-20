@@ -31,7 +31,7 @@ struct WebComponent {
             // 点击按钮时，通过loadUrl，跳转到local1.html
             this.controller.loadUrl($rawfile('local1.html'));
           } catch (error) {
-            console.error(`ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+            console.error(`ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
       // 组件创建时，通过$rawfile加载本地文件local.html

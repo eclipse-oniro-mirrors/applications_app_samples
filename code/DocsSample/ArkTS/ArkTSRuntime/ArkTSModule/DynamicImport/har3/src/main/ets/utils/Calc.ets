@@ -27,7 +27,9 @@ export class ClassHar3 {
       import(harName).then((ns: ESObject) => {
         ClassHar3.isImportedHar1 = true;
         console.info('[DynamicImport] har3 -> har1, 3 + 1 = ' + ns.ClassHar1.add(3, 1));
-      })
+      }).catch((error: BusinessError) => {
+        console.error(`DynamicImport failed to import ${harName}. Code: ${error.code}, message: ${error.message}`);
+      });
     }
 
     return c;

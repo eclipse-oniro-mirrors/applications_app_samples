@@ -15,9 +15,8 @@
 
 import { BusinessError, request } from '@kit.BasicServicesKit';
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
-
-import { bundleManager } from '@kit.AbilityKit';
-import { abilityAccessCtrl, Context, PermissionRequestResult, common } from '@kit.AbilityKit';
+import { abilityAccessCtrl, bundleManager } from '@kit.AbilityKit';
+import type { common, PermissionRequestResult } from '@kit.AbilityKit';
 import { logger } from '../../utils/Logger';
 
 const TAG: string = 'MediaDownload';

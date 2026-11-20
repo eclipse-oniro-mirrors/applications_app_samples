@@ -14,6 +14,7 @@
  */
 
 export default class Constant {
+  static readonly ENTRY_MODULE_NAME: string = 'entry'
   static readonly PROMPT_DURATION: number = 300
   static readonly REMINDER_DURATION: number = 30
   static readonly FONT_WEIGHT: number = 400

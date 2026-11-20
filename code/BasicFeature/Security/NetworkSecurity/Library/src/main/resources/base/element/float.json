@@ -1,0 +1,12 @@
+{
+  "float": [
+    {
+      "name": "card_radius",
+      "value": "12vp"
+    },
+    {
+      "name": "control_height",
+      "value": "40vp"
+    }
+  ]
+}

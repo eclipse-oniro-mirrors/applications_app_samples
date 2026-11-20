@@ -1,0 +1,11 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/followanchor/FollowAnchorAlertDialog",
+    "pages/followanchor/FollowAnchorSheet",
+    "pages/followgriphand/FollowGripHandAlertDialog",
+    "pages/followgriphand/FollowGripHandSheet",
+    "pages/nofollow/NoFollowAlertDialog",
+    "pages/nofollow/NoFollowSheet"
+  ]
+}

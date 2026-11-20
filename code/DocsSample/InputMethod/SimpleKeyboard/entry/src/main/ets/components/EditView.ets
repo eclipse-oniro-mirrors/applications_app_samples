@@ -1,4 +1,3 @@
-'use static'
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,31 +13,6 @@
  * limitations under the License.
  */
 
-import {
-  Component,
-  StorageLink,
-  State,
-  Column,
-  Stack,
-  Button,
-  ButtonType,
-  Text,
-  Image,
-  ImageFit,
-  $r,
-  Row,
-  HorizontalAlign,
-  Alignment,
-  Color,
-  ImageAttribute,
-  FlexAlign,
-  StackOptions,
-  SizeOptions,
-  Padding,
-  Rectangle,
-  Resource,
-  ClickEvent
-} from '@kit.ArkUI';
 import { inputMethodEngine } from '@kit.IMEKit';
 import { InputHandler } from '../InputMethodExtensionAbility/model/KeyboardController';
 import { KeyStyle, StyleConfiguration } from '../common/StyleConfiguration';
@@ -80,7 +54,7 @@ export struct EditView {
           .margin({ bottom: this.inputStyle.editSmallCircleMargin })
           .id('arrow_up')
           .onClick((e: ClickEvent) => {
-            this.moveOrSelect(inputMethodEngine.CURSOR_UP);
+            this.moveOrSelect(inputMethodEngine.Direction.CURSOR_UP);
           })
         Image($r('app.media.ic_arrow_left'))
           .size({ width: this.inputStyle.editImageSize, height: this.inputStyle.editImageSize } as SizeOptions)
@@ -97,7 +71,7 @@ export struct EditView {
           .margin({ right: this.inputStyle.editSmallCircleMargin })
           .id('arrow_left')
           .onClick(() => {
-            this.moveOrSelect(inputMethodEngine.CURSOR_LEFT);
+            this.moveOrSelect(inputMethodEngine.Direction.CURSOR_LEFT);
           })
         Image($r('app.media.ic_arrow_right'))
           .size({ width: this.inputStyle.editImageSize, height: this.inputStyle.editImageSize } as SizeOptions)
@@ -114,7 +88,7 @@ export struct EditView {
           .id('arrow_right')
           .margin({ left: this.inputStyle.editSmallCircleMargin } as Padding)
           .onClick(() => {
-            this.moveOrSelect(inputMethodEngine.CURSOR_RIGHT);
+            this.moveOrSelect(inputMethodEngine.Direction.CURSOR_RIGHT);
           })
         Image($r('app.media.ic_arrow_down'))
           .size({ width: this.inputStyle.editImageSize, height: this.inputStyle.editImageSize } as SizeOptions)
@@ -131,7 +105,7 @@ export struct EditView {
           .margin({ top: this.inputStyle.editSmallCircleMargin } as Padding)
           .id('arrow_down')
           .onClick(() => {
-            this.moveOrSelect(inputMethodEngine.CURSOR_DOWN);
+            this.moveOrSelect(inputMethodEngine.Direction.CURSOR_DOWN);
           })
       }
       .width(this.inputStyle.editCircleSize)
@@ -223,11 +197,11 @@ export struct EditView {
     .backgroundColor('#F1F3F5')
   }
 
-  moveOrSelect(direction: int): void {
+  moveOrSelect(direction: inputMethodEngine.Direction): void {
     if (this.isSelection) {
-      InputHandler.getInstance().selectByMovement(inputMethodEngine.Direction.fromValue(direction));
+      InputHandler.getInstance().selectByMovement(direction);
     } else {
-      InputHandler.getInstance().moveCursor(inputMethodEngine.Direction.fromValue(direction));
+      InputHandler.getInstance().moveCursor(direction);
     }
   }
 

@@ -13,6 +13,7 @@
 7. [选项卡 (Tabs)](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/arkts-navigation-tabs.md)。
 8. [创建懒加载布局 (LazyColumnLayout/LazyVGridLayout/LazyVWaterFlowLayout)](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/arkts-layout-development-create-lazy-layout.md)。
 9. [创建懒加载自定义布局 (LazyDynamicLayout)](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/arkts-layout-development-create-lazy-custom-layout.md)。
+10. [List常见问题](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/arkts-layout-development-list-faq.md)。
 
 ### 效果预览
 
@@ -108,6 +109,7 @@ entry/src/main/ets/
 |   |       |---ToDoListItem.ets
 |   |---scroll                              //滚动
 |   |       |---Index.ets
+|   |       |---ScrollLazyDemo
 |   |       |---ScrollModifier
 |   |       |---ScrollSnap
 |   |---swiper                              //轮播
@@ -160,7 +162,7 @@ entry/src/ohosTest/
 5. 轮播 (Swiper)：使用Swiper组件实现轮播效果，配置loop循环、autoPlay自动播放、自定义指示器样式、多页显示、自定义过渡动画、方向切换等属性。
 6. 弧形轮播 (ArcSwiper)（圆形屏幕推荐使用）：使用ArcSwiper组件实现弧形轮播，配置arcDirection样式，支持水平/垂直方向切换、侧滑手势和ArcSwiperController操作交互。
 7. 选项卡 (Tabs)：使用Tabs容器包裹多个TabContent子组件，通过barPosition设置导航栏位置，barMode设置固定或可滚动模式，支持自定义页签、页签与内容联动、切换拦截和页面缓存控制。
-8. 滚动 (Scroll)：使用Scroll组件实现通用滚动容器，包含ScrollSnap（滚动翻页对齐）和ScrollModifier（滚动修饰）两个子示例，分别展示了在List、Grid、WaterFlow、Scroll中的滚动吸附和滚动修饰效果。
+8. 滚动 (Scroll)：使用Scroll组件实现通用滚动容器，包含ScrollSnap（滚动翻页对齐）、ScrollModifier（滚动修饰）和ScrollLazyDemo（Scroll+LazyVGridLayout替代List解决抖动）三个子示例，分别展示了滚动吸附、滚动修饰效果和动态追加内容时的抖动解决方案。
 9. 懒加载布局（LazyColumnLayout/LazyVGridLayout/LazyVWaterFlowLayout）：在Scroll或List内使用LazyVGridLayout、LazyVWaterFlowLayout、LazyColumnLayout三种懒加载布局容器，配置columnsTemplate、rowsGap、columnsGap、space、alignItems、header、footer、sticky等布局属性，支持多种布局容器混合组合使用，各容器使用独立LazyForEach数据源，通过onVisibleIndexesChange回调实现触底加载更多数据。
 10. 懒加载自定义布局（LazyDynamicLayout）：使用LazyDynamicLayout组件配合自定义布局算法（LayoutAlgorithm）实现懒加载自定义布局，分别展示了自定义懒加载列布局（LazyColumnLayoutAlgorithm）、自定义懒加载网格布局（LazyGridLayoutAlgorithm）和自定义懒加载瀑布流布局（LazyWaterFlowLayoutAlgorithm）三种布局方式，通过自定义LayoutAlgorithm的measure和layout方法实现按需测量和布局，使用独立LazyForEach数据源实现按需加载。
 

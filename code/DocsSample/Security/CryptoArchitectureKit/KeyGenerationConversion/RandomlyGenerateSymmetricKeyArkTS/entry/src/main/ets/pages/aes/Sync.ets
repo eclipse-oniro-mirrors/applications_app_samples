@@ -15,15 +15,24 @@
 
 // [Start generate_aes_key_sync]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function testSyncGenerateAesKey() {
-  // 创建SymKeyGenerator实例
-  let symKeyGenerator = cryptoFramework.createSymKeyGenerator('AES256');
-  // 使用密钥生成器随机生成对称密钥
-  let symKey = symKeyGenerator.generateSymKeySync();
-  // 获取对称密钥的二进制数据，输出256位密钥。长度为32字节
-  let encodedKey = symKey.getEncoded();
-  console.info('key hex: ' + encodedKey.data);
+  try {
+    // 创建SymKeyGenerator实例
+    let symKeyGenerator = cryptoFramework.createSymKeyGenerator('AES256');
+    // 使用密钥生成器随机生成对称密钥
+    let symKey = symKeyGenerator.generateSymKeySync();
+    // 获取对称密钥的二进制数据，输出256位密钥。长度为32字节
+    let encodedKey = symKey.getEncoded();
+    console.info('key hex: ' + encodedKey.data);
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`testSyncGenerateAesKey failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude generate_aes_key_sync]
+    throw new Error(`testSyncGenerateAesKey failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude generate_aes_key_sync]
+  }
 }
 // [End generate_aes_key_sync]
 

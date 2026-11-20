@@ -45,6 +45,7 @@ public:
 private:
     bool HandleOutputBuffer(CodecBufferInfo &bufferInfo, bool dumpOutput);
     bool EnqueueOutput(CodecBufferInfo &bufferInfo);
+    bool ReleaseOutputBuffer(const CodecBufferInfo &bufferInfo, const char *reason);
     void MarkPlaybackFailed(const char *message);
 
     AudioDecoder &decoder_;

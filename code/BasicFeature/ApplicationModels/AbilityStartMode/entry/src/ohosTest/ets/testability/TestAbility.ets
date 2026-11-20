@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,49 +15,75 @@
 
 import UIAbility from '@ohos.app.ability.UIAbility';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import AbilityConstant from '@ohos.app.ability.AbilityConstant';
+import Want from '@ohos.app.ability.Want';
+import window from '@ohos.window';
 import hilog from '@ohos.hilog';
 import { Hypium } from '@ohos/hypium';
 import testsuite from '../test/List.test';
-import window from '@ohos.window';
+
+const DOMAIN: number = 0x0000;
+const TAG: string = 'StartModeTest';
+
+/** Starts the main ability of the sample so that the home page is rendered. */
+async function startMainAbility(): Promise<void> {
+  const delegator: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+  const args: AbilityDelegatorRegistry.AbilityDelegatorArgs = AbilityDelegatorRegistry.getArguments();
+  const want: Want = {
+    bundleName: args.bundleName,
+    abilityName: 'MainAbility'
+  };
+  hilog.info(DOMAIN, TAG, '%{public}s', `startMainAbility: ${JSON.stringify(want)}`);
+  await delegator.startAbility(want);
+}
 
 export default class TestAbility extends UIAbility {
-  onCreate(want, launchParam) {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onCreate');
-    hilog.info(0x0000, 'testTag', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
-    hilog.info(0x0000, 'testTag', '%{public}s', 'launchParam:' + JSON.stringify(launchParam) ?? '');
-    let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator;
-    abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    let abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs;
-    abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
-    hilog.info(0x0000, 'testTag', '%{public}s', 'start run testcase!!!');
-    Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onCreate');
+    hilog.info(DOMAIN, TAG, 'TestAbility want: %{public}s', JSON.stringify(want) ?? '');
+    hilog.info(DOMAIN, TAG, 'TestAbility launchParam: %{public}s', JSON.stringify(launchParam) ?? '');
+
+    const abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+    const abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs =
+      AbilityDelegatorRegistry.getArguments();
+
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility start run testcase');
+    setTimeout(() => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility timer fired');
+      startMainAbility().then(() => {
+        hilog.info(DOMAIN, TAG, '%{public}s', 'MainAbility launched');
+        Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+      }).catch((err: Error) => {
+        hilog.error(DOMAIN, TAG, 'Failed to launch MainAbility: %{public}s', JSON.stringify(err) ?? '');
+        Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+      });
+    }, 1000);
   }
 
   onDestroy() {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onDestroy');
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onDestroy');
   }
 
   onWindowStageCreate(windowStage: window.WindowStage) {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onWindowStageCreate');
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onWindowStageCreate');
     windowStage.loadContent('testability/pages/Index', (err, data) => {
       if (err.code) {
-        hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
+        hilog.error(DOMAIN, TAG, 'Failed to load the content: %{public}s', JSON.stringify(err) ?? '');
         return;
       }
-      hilog.info(0x0000, 'testTag', 'Succeeded in loading the content. Data: %{public}s',
-        JSON.stringify(data) ?? '');
+      hilog.info(DOMAIN, TAG, 'Succeeded in loading the content: %{public}s', JSON.stringify(data) ?? '');
     });
   }
 
   onWindowStageDestroy() {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onWindowStageDestroy');
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onWindowStageDestroy');
   }
 
   onForeground() {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onForeground');
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onForeground');
   }
 
   onBackground() {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onBackground');
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onBackground');
   }
 }

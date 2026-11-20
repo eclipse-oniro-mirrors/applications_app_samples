@@ -12,7 +12,7 @@
 - 演示复杂绘制效果，绘制经过着色器、滤波器等效果处理过后的图形。
 - 演示几何图形绘制，绘制点、圆弧、区域等多种几何形状。
 - 演示图片绘制，绘制位图。
-- 演示字块绘制，绘制多种字块类型，包括中文文字描边、主题文字、单字和特征字体等。
+- 演示字块绘制，绘制多种字块类型，包括中文文字描边、主题文字、单字和特征字体等，并演示字块创建、字形转换、文本测量等场景下的字体回退能力。
 
 ## 效果预览
 
@@ -20,8 +20,9 @@
 | --------------------------------- | ----------------------------------- | ----------------------------------- | --------------------------------- |
 | ![index](./screenshot/index.jpeg) | ![canvas](./screenshot/canvas.jpeg) | ![effect](./screenshot/effect.jpeg) | ![shape](./screenshot/shape.jpeg) |
 | 字块绘制-中文文字描边                       | 字块绘制-主题文字                            | 字块绘制-单字                               | 字块绘制-特征字体                          |
-| ![index](./screenshot/chinese_stroke.jpeg) | ![canvas](./screenshot/text_theme.jpeg) | ![effect](./screenshot/text_single.jpeg) | ![shape](./screenshot/text_feature.jpeg) |
-
+| ![index](./screenshot/chinese_stroke.jpg) | ![canvas](./screenshot/text_theme.jpg) | ![effect](./screenshot/text_single.jpg) | ![shape](./screenshot/text_feature.jpg) |
+| 字块绘制-字体回退(字符串)                     | 字块绘制-字体回退(坐标文本)                     | 字块绘制-字形转换字体回退                      |
+| ![text_fallback_string](./screenshot/text_fallback_string.jpg) | ![text_fallback_postext](./screenshot/text_fallback_postext.jpg) | ![text_fallback_glyphs](./screenshot/text_fallback_glyphs.jpg) |
 
 使用说明：
 
@@ -80,7 +81,7 @@ entry/src/ohosTest/ets/
 
 1. 本示例支持标准系统上运行，支持设备：RK3568，手机;（注意：由于底层硬件原因，RK3568设备上无法运行PixelMapDrawing.ets中的editPixel函数，对应图片绘制（ArkTS）文档的编辑PixelMap中像素部分）
 
-2. 本示例支持API20版本SDK，版本号：6.0.0.47；
+2. 本示例支持API 26.0.1版本SDK；
 
 3. 本示例已支持使DevEco Studio 6.0.0 Release (构建版本：6.0.0.858，构建 2025年10月10日)编译运行
 

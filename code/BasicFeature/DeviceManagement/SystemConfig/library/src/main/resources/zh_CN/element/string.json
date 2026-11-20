@@ -1,0 +1,688 @@
+{
+  "string": [
+    {
+      "name": "settings_status_idle",
+      "value": "空闲"
+    },
+    {
+      "name": "settings_status_opening",
+      "value": "打开页面中"
+    },
+    {
+      "name": "settings_status_querying",
+      "value": "查询中"
+    },
+    {
+      "name": "settings_status_success",
+      "value": "操作成功"
+    },
+    {
+      "name": "settings_status_failed",
+      "value": "操作失败"
+    },
+    {
+      "name": "settings_status_unknown",
+      "value": "未知状态"
+    },
+    {
+      "name": "settings_type_pin",
+      "value": "PIN 码设置"
+    },
+    {
+      "name": "settings_type_nfc",
+      "value": "NFC 设置"
+    },
+    {
+      "name": "settings_type_double_click",
+      "value": "双击设置"
+    },
+    {
+      "name": "settings_type_unknown",
+      "value": "未知设置"
+    },
+    {
+      "name": "settings_desc_open_pin",
+      "value": "打开 PIN 码设置页面"
+    },
+    {
+      "name": "settings_desc_open_nfc",
+      "value": "打开 NFC 设置页面"
+    },
+    {
+      "name": "settings_desc_open_double_click",
+      "value": "打开双击设置页面"
+    },
+    {
+      "name": "settings_result_pin_opened",
+      "value": "PIN 设置页面已打开"
+    },
+    {
+      "name": "settings_result_nfc_opened",
+      "value": "NFC 设置页面已打开"
+    },
+    {
+      "name": "settings_result_double_click_opened",
+      "value": "双击设置页面已打开"
+    },
+    {
+      "name": "perm_status_granted",
+      "value": "已授予"
+    },
+    {
+      "name": "perm_status_denied",
+      "value": "已拒绝"
+    },
+    {
+      "name": "perm_status_not_determined",
+      "value": "未决定"
+    },
+    {
+      "name": "perm_status_restricted",
+      "value": "受限"
+    },
+    {
+      "name": "perm_status_unknown",
+      "value": "未知"
+    },
+    {
+      "name": "perm_none",
+      "value": "无权限"
+    },
+    {
+      "name": "perm_dnd",
+      "value": "免打扰状态查询"
+    },
+    {
+      "name": "perm_internet",
+      "value": "网络访问"
+    },
+    {
+      "name": "perm_network_info",
+      "value": "网络信息查询"
+    },
+    {
+      "name": "perm_wifi_config",
+      "value": "Wi-Fi 配置设置"
+    },
+    {
+      "name": "perm_wifi_info",
+      "value": "Wi-Fi 信息查询"
+    },
+    {
+      "name": "perm_bluetooth_set",
+      "value": "蓝牙设置"
+    },
+    {
+      "name": "perm_bluetooth_use",
+      "value": "蓝牙使用"
+    },
+    {
+      "name": "perm_bluetooth_local_info",
+      "value": "蓝牙本地信息查询"
+    },
+    {
+      "name": "perm_camera",
+      "value": "相机使用"
+    },
+    {
+      "name": "perm_microphone",
+      "value": "麦克风使用"
+    },
+    {
+      "name": "perm_read_media",
+      "value": "媒体文件读取"
+    },
+    {
+      "name": "perm_write_media",
+      "value": "媒体文件写入"
+    },
+    {
+      "name": "perm_location",
+      "value": "位置信息"
+    },
+    {
+      "name": "perm_approx_location",
+      "value": "粗略位置信息"
+    },
+    {
+      "name": "perm_read_contacts",
+      "value": "联系人读取"
+    },
+    {
+      "name": "perm_write_contacts",
+      "value": "联系人写入"
+    },
+    {
+      "name": "perm_read_call_log",
+      "value": "通话记录读取"
+    },
+    {
+      "name": "perm_write_call_log",
+      "value": "通话记录写入"
+    },
+    {
+      "name": "perm_read_sms",
+      "value": "短信读取"
+    },
+    {
+      "name": "perm_send_sms",
+      "value": "短信发送"
+    },
+    {
+      "name": "perm_read_storage",
+      "value": "存储读取"
+    },
+    {
+      "name": "perm_write_storage",
+      "value": "存储写入"
+    },
+    {
+      "name": "perm_vibrate",
+      "value": "振动控制"
+    },
+    {
+      "name": "perm_wallpaper",
+      "value": "壁纸设置"
+    },
+    {
+      "name": "perm_agent_reminder",
+      "value": "发布代理提醒"
+    },
+    {
+      "name": "storage_level_sufficient",
+      "value": "充足"
+    },
+    {
+      "name": "storage_level_normal",
+      "value": "一般"
+    },
+    {
+      "name": "storage_level_low",
+      "value": "不足"
+    },
+    {
+      "name": "storage_level_critical",
+      "value": "危险"
+    },
+    {
+      "name": "log_level_debug",
+      "value": "调试"
+    },
+    {
+      "name": "log_level_info",
+      "value": "信息"
+    },
+    {
+      "name": "log_level_warn",
+      "value": "警告"
+    },
+    {
+      "name": "log_level_error",
+      "value": "错误"
+    },
+    {
+      "name": "log_level_fatal",
+      "value": "致命"
+    },
+    {
+      "name": "log_level_unknown",
+      "value": "未知"
+    },
+    {
+      "name": "type_param_required_empty",
+      "value": "必需参数 '%s' 不能为空"
+    },
+    {
+      "name": "file_type_image",
+      "value": "图片文件"
+    },
+    {
+      "name": "file_type_document",
+      "value": "文档文件"
+    },
+    {
+      "name": "file_type_audio",
+      "value": "音频文件"
+    },
+    {
+      "name": "file_type_video",
+      "value": "视频文件"
+    },
+    {
+      "name": "file_type_other",
+      "value": "其他文件"
+    },
+    {
+      "name": "clip_type_text",
+      "value": "纯文本"
+    },
+    {
+      "name": "clip_type_url",
+      "value": "网址链接"
+    },
+    {
+      "name": "clip_type_image",
+      "value": "图片资源"
+    },
+    {
+      "name": "clip_type_html",
+      "value": "HTML富文本"
+    },
+    {
+      "name": "clip_type_unknown",
+      "value": "未知类型"
+    },
+    {
+      "name": "clip_type_none",
+      "value": "未识别"
+    },
+    {
+      "name": "net_type_cellular",
+      "value": "蜂窝网络"
+    },
+    {
+      "name": "net_type_ethernet",
+      "value": "以太网"
+    },
+    {
+      "name": "net_type_bluetooth",
+      "value": "蓝牙"
+    },
+    {
+      "name": "net_type_unknown",
+      "value": "未知网络"
+    },
+    {
+      "name": "net_type_none",
+      "value": "未识别"
+    },
+    {
+      "name": "net_state_connected",
+      "value": "已连接"
+    },
+    {
+      "name": "net_state_disconnected",
+      "value": "已断开"
+    },
+    {
+      "name": "net_state_connecting",
+      "value": "连接中"
+    },
+    {
+      "name": "net_state_suspended",
+      "value": "已暂停"
+    },
+    {
+      "name": "net_state_unknown",
+      "value": "未知状态"
+    },
+    {
+      "name": "net_bw_gigabit",
+      "value": "千兆级带宽"
+    },
+    {
+      "name": "net_bw_megabit",
+      "value": "百兆级带宽"
+    },
+    {
+      "name": "net_bw_mobile",
+      "value": "移动网络带宽"
+    },
+    {
+      "name": "net_bw_low_power",
+      "value": "低功耗窄带"
+    },
+    {
+      "name": "net_bw_unknown",
+      "value": "未知带宽"
+    },
+    {
+      "name": "http_status_200",
+      "value": "成功"
+    },
+    {
+      "name": "http_status_201",
+      "value": "已创建"
+    },
+    {
+      "name": "http_status_204",
+      "value": "无内容"
+    },
+    {
+      "name": "http_status_301",
+      "value": "永久重定向"
+    },
+    {
+      "name": "http_status_302",
+      "value": "临时重定向"
+    },
+    {
+      "name": "http_status_400",
+      "value": "错误请求"
+    },
+    {
+      "name": "http_status_401",
+      "value": "未授权"
+    },
+    {
+      "name": "http_status_403",
+      "value": "禁止访问"
+    },
+    {
+      "name": "http_status_404",
+      "value": "未找到"
+    },
+    {
+      "name": "http_status_408",
+      "value": "请求超时"
+    },
+    {
+      "name": "http_status_500",
+      "value": "服务器内部错误"
+    },
+    {
+      "name": "http_status_502",
+      "value": "错误网关"
+    },
+    {
+      "name": "http_status_503",
+      "value": "服务不可用"
+    },
+    {
+      "name": "http_status_unknown",
+      "value": "未知状态"
+    },
+    {
+      "name": "date_week_sun",
+      "value": "星期日"
+    },
+    {
+      "name": "date_week_mon",
+      "value": "星期一"
+    },
+    {
+      "name": "date_week_tue",
+      "value": "星期二"
+    },
+    {
+      "name": "date_week_wed",
+      "value": "星期三"
+    },
+    {
+      "name": "date_week_thu",
+      "value": "星期四"
+    },
+    {
+      "name": "date_week_fri",
+      "value": "星期五"
+    },
+    {
+      "name": "date_week_sat",
+      "value": "星期六"
+    },
+    {
+      "name": "date_month_jan",
+      "value": "一月"
+    },
+    {
+      "name": "date_month_feb",
+      "value": "二月"
+    },
+    {
+      "name": "date_month_mar",
+      "value": "三月"
+    },
+    {
+      "name": "date_month_apr",
+      "value": "四月"
+    },
+    {
+      "name": "date_month_may",
+      "value": "五月"
+    },
+    {
+      "name": "date_month_jun",
+      "value": "六月"
+    },
+    {
+      "name": "date_month_jul",
+      "value": "七月"
+    },
+    {
+      "name": "date_month_aug",
+      "value": "八月"
+    },
+    {
+      "name": "date_month_sep",
+      "value": "九月"
+    },
+    {
+      "name": "date_month_oct",
+      "value": "十月"
+    },
+    {
+      "name": "date_month_nov",
+      "value": "十一月"
+    },
+    {
+      "name": "date_month_dec",
+      "value": "十二月"
+    },
+    {
+      "name": "date_just_now",
+      "value": "刚刚"
+    },
+    {
+      "name": "date_upcoming",
+      "value": "即将"
+    },
+    {
+      "name": "date_minutes_ago",
+      "value": "%d分钟前"
+    },
+    {
+      "name": "date_hours_ago",
+      "value": "%d小时前"
+    },
+    {
+      "name": "date_days_ago",
+      "value": "%d天前"
+    },
+    {
+      "name": "date_weeks_ago",
+      "value": "%d周前"
+    },
+    {
+      "name": "date_months_ago",
+      "value": "%d个月前"
+    },
+    {
+      "name": "date_years_ago",
+      "value": "%d年前"
+    },
+    {
+      "name": "validate_channel_empty",
+      "value": "渠道号不能为空"
+    },
+    {
+      "name": "validate_channel_too_long",
+      "value": "渠道号长度不能超过 %d 个字符"
+    },
+    {
+      "name": "validate_channel_pass",
+      "value": "渠道号验证通过"
+    },
+    {
+      "name": "validate_device_empty",
+      "value": "设备ID不能为空"
+    },
+    {
+      "name": "validate_device_too_short",
+      "value": "设备ID长度不能少于 %d 个字符"
+    },
+    {
+      "name": "validate_device_too_long",
+      "value": "设备ID长度不能超过 %d 个字符"
+    },
+    {
+      "name": "validate_device_format",
+      "value": "设备ID格式不正确，仅允许字母、数字和连字符，且首尾不能为连字符"
+    },
+    {
+      "name": "validate_device_pass",
+      "value": "设备ID验证通过"
+    },
+    {
+      "name": "validate_code_not_int",
+      "value": "错误码必须为整数"
+    },
+    {
+      "name": "validate_code_out_of_range",
+      "value": "错误码必须在 0 到 99999 之间"
+    },
+    {
+      "name": "validate_code_pass",
+      "value": "错误码验证通过"
+    },
+    {
+      "name": "validate_ts_invalid",
+      "value": "时间戳必须为有效数字"
+    },
+    {
+      "name": "validate_ts_negative",
+      "value": "时间戳必须为正数"
+    },
+    {
+      "name": "validate_ts_future",
+      "value": "时间戳不能晚于当前时间"
+    },
+    {
+      "name": "validate_ts_pass",
+      "value": "时间戳验证通过"
+    },
+    {
+      "name": "validate_str_empty",
+      "value": "字符串不能为空"
+    },
+    {
+      "name": "validate_str_too_short",
+      "value": "字符串长度不能少于 %d 个字符"
+    },
+    {
+      "name": "validate_str_too_long",
+      "value": "字符串长度不能超过 %d 个字符"
+    },
+    {
+      "name": "validate_str_pass",
+      "value": "字符串验证通过"
+    },
+    {
+      "name": "validate_num_invalid",
+      "value": "值必须为有效数字"
+    },
+    {
+      "name": "validate_num_out_of_range",
+      "value": "数值必须在 %1$d 到 %2$d 之间"
+    },
+    {
+      "name": "validate_num_pass",
+      "value": "数值验证通过"
+    },
+    {
+      "name": "validate_enum_empty",
+      "value": "枚举值不能为空"
+    },
+    {
+      "name": "validate_enum_list_empty",
+      "value": "枚举值列表不能为空"
+    },
+    {
+      "name": "validate_enum_not_allowed",
+      "value": "值 \"%s\" 不在允许的枚举范围内"
+    },
+    {
+      "name": "validate_enum_pass",
+      "value": "枚举值验证通过"
+    },
+    {
+      "name": "validate_array_not_array",
+      "value": "参数必须为数组"
+    },
+    {
+      "name": "validate_array_too_short",
+      "value": "数组长度不能少于 %d"
+    },
+    {
+      "name": "validate_array_pass",
+      "value": "数组验证通过"
+    },
+    {
+      "name": "page_title_index",
+      "value": "系统配置示例"
+    },
+    {
+      "name": "page_title_custom_config",
+      "value": "定制配置"
+    },
+    {
+      "name": "page_title_intelligent_scene",
+      "value": "情景模式"
+    },
+    {
+      "name": "page_title_settings_lite",
+      "value": "设置信息"
+    },
+    {
+      "name": "duration_zero",
+      "value": "0秒"
+    },
+    {
+      "name": "duration_days",
+      "value": "%d天"
+    },
+    {
+      "name": "duration_hours",
+      "value": "%d小时"
+    },
+    {
+      "name": "duration_minutes",
+      "value": "%d分"
+    },
+    {
+      "name": "duration_seconds",
+      "value": "%d秒"
+    },
+    {
+      "name": "compact_unit_wan",
+      "value": "万"
+    },
+    {
+      "name": "compact_unit_yi",
+      "value": "亿"
+    },
+    {
+      "name": "validate_field_required",
+      "value": "%1$s 为必填项"
+    },
+    {
+      "name": "validate_field_min_length",
+      "value": "%1$s 长度不能少于 %2$d个字符"
+    },
+    {
+      "name": "validate_field_max_length",
+      "value": "%1$s 长度不能超过 %2$d个字符"
+    },
+    {
+      "name": "validate_field_pattern",
+      "value": "%1$s 格式不正确"
+    },
+    {
+      "name": "date_format_locale",
+      "value": "yyyy年MM月dd日"
+    },
+    {
+      "name": "list_separator",
+      "value": "、"
+    }
+  ]
+}

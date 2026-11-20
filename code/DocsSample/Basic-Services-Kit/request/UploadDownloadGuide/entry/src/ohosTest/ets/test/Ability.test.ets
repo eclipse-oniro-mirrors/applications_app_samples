@@ -13,138 +13,254 @@
  * limitations under the License.
  */
 
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import UIAbility from '@ohos.app.ability.UIAbility';
-import Want from '@ohos.app.ability.Want';
-import resourceManager from '@ohos.resourceManager';
-import { describe, it, expect } from '@ohos/hypium';
-import { Driver, ON, MatchPattern } from '@ohos.UiTest';
+import { abilityDelegatorRegistry as AbilityDelegatorRegistry } from '@kit.TestKit';
+import { UIAbility } from '@kit.AbilityKit';
+import { Want } from '@kit.AbilityKit';
+import { resourceManager } from '@kit.LocalizationKit';
+import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { Component, Driver, ON, MatchPattern } from '@kit.TestKit';
 import { logger } from '../util/Logger';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TEST_DOMAIN: number = 0xF811;
+const TEST_TAG: string = 'SampleTest';
 
 const TAG = '[UploadAndDownloadGuide]';
-const BUNDLE = 'UploadAndDownloadGuide_';
+const BUNDLE_NAME = 'com.samples.uploaddownloadguide';
+const ABILITY_NAME = 'EntryAbility';
+
+function sleep(duration: number): Promise<void> {
+  return new Promise<void>((resolve: () => void) => {
+    setTimeout(() => {
+      resolve();
+    }, duration);
+  });
+}
 
 function getResourceString(resource: Resource) {
   let res: resourceManager.Resource = {
     bundleName: resource.bundleName,
     moduleName: resource.moduleName,
     id: resource.id
-  }
+  };
   let delegator = AbilityDelegatorRegistry.getAbilityDelegator();
   return delegator.getAppContext().resourceManager.getStringSync(res);
+}
+
+async function findId(driver: Driver, id: string): Promise<Component | null> {
+  try {
+    return await driver.findComponent(ON.id(id));
+  } catch (err) {
+    return null;
+  }
+}
+
+async function findText(driver: Driver, text: string): Promise<Component | null> {
+  try {
+    return await driver.findComponent(ON.text(text));
+  } catch (err) {
+    return null;
+  }
+}
+
+async function waitForId(driver: Driver, id: string, timeout: number): Promise<Component | null> {
+  let deadline = Date.now() + timeout;
+  while (Date.now() < deadline) {
+    let component = await findId(driver, id);
+    if (component !== null) {
+      return component;
+    }
+    await sleep(200);
+  }
+  return null;
+}
+
+async function clickAllow(driver: Driver): Promise<void> {
+  let allow = await findText(driver, getResourceString($r('app.string.allow')));
+  if (allow === null) {
+    allow = await findText(driver, getResourceString($r('app.string.allow_up')));
+  }
+  if (allow !== null) {
+    await allow.click();
+    await sleep(500);
+  }
 }
 
 export default function abilityTest() {
   let delegator = AbilityDelegatorRegistry.getAbilityDelegator();
   let driver: Driver = Driver.create();
+  let want: Want = {
+    bundleName: BUNDLE_NAME,
+    abilityName: ABILITY_NAME
+  };
 
   describe('AbilityTest', () => {
     /**
-     * 通过Want指定要启动的应用
+     * @tc.number    SUB_BASICSERVICES_REQUEST_UPLOADDOWNLOAD_ABILITY_0100
+     * @tc.name      testUploadDownloadAbility0001
+     * @tc.desc      Start the application and verify the home page.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
      */
-    it('StartAbility_001', 0, async (done: Function) => {
-      logger.info(TAG, `${BUNDLE}StartAbility_001 begin`)
-      let want: Want = {
-        bundleName: 'com.samples.uploaddownloadguide',
-        abilityName: 'EntryAbility'
-      };
-      delegator.startAbility(want, (err: Error) => {
-        logger.info(TAG, `${BUNDLE}startAbility end err ${JSON.stringify(err)}`);
-      })
-      await driver.delayMs(1000);
-      logger.info(TAG, `${BUNDLE}StartAbility_001 end`);
-      done();
-    })
+    it('testUploadDownloadAbility0001',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAbility0001');
+      try {
+        delegator.startAbility(want, (err: Error) => {
+          logger.info(TAG, `startAbility callback: ${JSON.stringify(err)}`);
+        });
+        await sleep(1500);
+        await clickAllow(driver);
+        expect(await waitForId(driver, 'btn_upload', 5000) !== null).assertTrue();
+        expect(await findId(driver, 'btn_download') !== null).assertTrue();
+      } catch (err) {
+        hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
+        expect().assertFail();
+      } finally {
+        done();
+      }
+    });
 
     /**
-     * 获取权限，并判断是否正常进入主页
+     * @tc.number    SUB_BASICSERVICES_REQUEST_UPLOADDOWNLOAD_ABILITY_0200
+     * @tc.name      testUploadDownloadAbility0002
+     * @tc.desc      Verify the notification permission flow and top ability.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
      */
-    it('RequestPermissionFunction_001', 0, async (done: Function) => {
-      logger.info(TAG, `${BUNDLE}RequestPermissionFunction_001 begin`);
-      await driver.delayMs(1000);
-      // 获取权限
-      logger.info(TAG, BUNDLE + 'RequestPermissionFunction_001 requestPermission');
-      await driver.assertComponentExist(ON.text(getResourceString($r('app.string.allow'))));
-      let btnAllow = await driver.findComponent(ON.text(getResourceString($r('app.string.allow'))));
-      if (btnAllow === undefined || btnAllow === null) {
-        btnAllow = await driver.findComponent(ON.text(getResourceString($r('app.string.allow_up'))));
+    it('testUploadDownloadAbility0002',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAbility0002');
+      try {
+        await clickAllow(driver);
+        await delegator.getCurrentTopAbility().then((ability: UIAbility) => {
+          expect(ability.context.abilityInfo.bundleName).assertEqual(BUNDLE_NAME);
+        });
+        expect(await waitForId(driver, 'btn_upload', 3000) !== null).assertTrue();
+      } catch (err) {
+        hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
+        expect().assertFail();
+      } finally {
+        done();
       }
-      if (btnAllow !== undefined && btnAllow !== null) {
-        await btnAllow.click();
+    });
+
+    /**
+     * @tc.number    SUB_BASICSERVICES_REQUEST_UPLOADDOWNLOAD_ABILITY_0300
+     * @tc.name      testUploadDownloadAbility0003
+     * @tc.desc      Verify the upload page entry and publish button.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testUploadDownloadAbility0003',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAbility0003');
+      try {
+        let btnUpload = await waitForId(driver, 'btn_upload', 3000);
+        expect(btnUpload !== null).assertTrue();
+        if (btnUpload !== null) {
+          await btnUpload.click();
+          await sleep(500);
+        }
+        expect(await waitForId(driver, 'publish1', 3000) !== null).assertTrue();
+      } catch (err) {
+        hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
+        expect().assertFail();
+      } finally {
+        done();
       }
-      await driver.delayMs(1000);
-      btnAllow = await driver.findComponent(ON.text(getResourceString($r('app.string.allow'))));
-      if (btnAllow === undefined || btnAllow === null) {
-        btnAllow = await driver.findComponent(ON.text(getResourceString($r('app.string.allow_up'))));
+    });
+
+    /**
+     * @tc.number    SUB_BASICSERVICES_REQUEST_UPLOADDOWNLOAD_ABILITY_0400
+     * @tc.name      testUploadDownloadAbility0004
+     * @tc.desc      Verify the download page and download file list.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testUploadDownloadAbility0004',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAbility0004');
+      try {
+        await driver.pressBack();
+        await sleep(500);
+        let btnDownload = await waitForId(driver, 'btn_download', 3000);
+        expect(btnDownload !== null).assertTrue();
+        if (btnDownload !== null) {
+          await btnDownload.click();
+          await sleep(500);
+        }
+        let viewDownload = await waitForId(driver, 'view_download_files', 3000);
+        expect(viewDownload !== null).assertTrue();
+        if (viewDownload !== null) {
+          await viewDownload.click();
+          await sleep(500);
+        }
+        let listItems = await driver.findComponents(ON.type('List'));
+        expect(listItems !== null && listItems.length > 0).assertTrue();
+      } catch (err) {
+        hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
+        expect().assertFail();
+      } finally {
+        done();
       }
-      if (btnAllow !== undefined && btnAllow !== null) {
-        await btnAllow.click();
+    });
+
+    /**
+     * @tc.number    SUB_BASICSERVICES_REQUEST_UPLOADDOWNLOAD_ABILITY_0500
+     * @tc.name      testUploadDownloadAbility0005
+     * @tc.desc      Verify opening a folder in the download file page.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testUploadDownloadAbility0005',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAbility0005');
+      try {
+        let listItems = await driver.findComponents(ON.type('List'));
+        expect(listItems !== null && listItems.length > 0).assertTrue();
+        if (listItems !== null && listItems.length > 0) {
+          await listItems[0].click();
+          await sleep(500);
+        }
+        let clearFolder = await driver.waitForComponent(
+          ON.text(getResourceString($r('app.string.clear_folder')), MatchPattern.CONTAINS), 3000);
+        expect(clearFolder !== null).assertTrue();
+      } catch (err) {
+        hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
+        expect().assertFail();
+      } finally {
+        done();
       }
-      await delegator.getCurrentTopAbility().then((ability: UIAbility) => {
-        logger.info(TAG, `${BUNDLE}get top ability`);
-        expect(ability.context.abilityInfo.bundleName).assertEqual('com.samples.uploaddownloadguide');
-      })
-      logger.info(TAG, `${BUNDLE}RequestPermissionFunction_001 end`);
-      done();
-    })
+    });
 
-    // 上传页面
-    it('Upload_001', 0, async (done: Function) => {
-      logger.info(TAG, `${BUNDLE}Upload_001 begin`);
-      await driver.assertComponentExist(ON.id('btn_upload'));
-      let btnUpload = await driver.findComponent(ON.id('btn_upload'));
-      await btnUpload.click();
-      await driver.delayMs(1000);
-      await driver.assertComponentExist(ON.id('publish1'));
-      logger.info(TAG, `${BUNDLE}Upload_001 end`);
-      done();
-    })
-
-    // 下载页面
-    it('Download_001', 0, async (done: Function) => {
-      logger.info(TAG, `${BUNDLE}Download_001 begin`);
-      await driver.delayMs(1000);
-      await driver.pressBack();
-      await driver.delayMs(1000);
-      await driver.assertComponentExist(ON.id('btn_download'));
-      let btnDownload = await driver.findComponent(ON.id('btn_download'));
-      await btnDownload.click();
-      await driver.delayMs(1000);
-      await driver.assertComponentExist(ON.id('view_download_files'));
-      let viewDownload = await driver.findComponent(ON.id('view_download_files'));
-      await viewDownload.click();
-      await driver.delayMs(1000);
-      let gridItems = await driver.findComponents(ON.type('List'));
-      expect(gridItems.length > 0).assertTrue();
-      logger.info(TAG, `${BUNDLE}Download_001 end`);
-      done();
-    })
-
-    // 查看下载文件页面
-    it('Download_002', 0, async (done: Function) => {
-      logger.info(TAG, `${BUNDLE}Download_002 begin`);
-      await driver.delayMs(1000);
-      let listItems = await driver.findComponents(ON.type('List'));
-      expect(listItems.length > 0).assertTrue();
-      await listItems[0].click();
-      await driver.delayMs(1000);
-      await driver.assertComponentExist(ON.text(getResourceString($r('app.string.clear_folder')),
-        MatchPattern.CONTAINS));
-      logger.info(TAG, `${BUNDLE}Download_002 end`);
-      done();
-    })
-
-    // 下载页面
-    it('Download_003', 0, async (done: Function) => {
-      logger.info(TAG, `${BUNDLE}Download_003 begin`);
-      await driver.pressBack();
-      await driver.delayMs(1000);
-      await driver.pressBack();
-      await driver.delayMs(1000);
-      await driver.assertComponentExist(ON.id('download_to'));
-      await driver.findComponent(ON.id('download_to'));
-      logger.info(TAG, `${BUNDLE}Download_003 end`);
-      done();
-    })
-  })
+    /**
+     * @tc.number    SUB_BASICSERVICES_REQUEST_UPLOADDOWNLOAD_ABILITY_0600
+     * @tc.name      testUploadDownloadAbility0006
+     * @tc.desc      Verify the download page button state after returning.
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testUploadDownloadAbility0006',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+        hilog.info(TEST_DOMAIN, TEST_TAG, 'start testUploadDownloadAbility0006');
+      try {
+        await driver.pressBack();
+        await sleep(500);
+        expect(await waitForId(driver, 'download_to', 3000) !== null).assertTrue();
+        expect(await findId(driver, 'view_download_files') !== null).assertTrue();
+      } catch (err) {
+        hilog.error(TEST_DOMAIN, TEST_TAG, 'test failed: %{public}s', String(err));
+        expect().assertFail();
+      } finally {
+        done();
+      }
+    });
+  });
 }

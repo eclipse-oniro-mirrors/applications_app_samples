@@ -776,7 +776,7 @@ void PhotoOutputOnFrameEnd(Camera_PhotoOutput *photoOutput, int32_t frameCount)
 // [Start photo_output_error_callback]
 void PhotoOutputOnError(Camera_PhotoOutput *photoOutput, Camera_ErrorCode errorCode)
 {
-    OH_LOG_INFO(LOG_APP, "PhotoOutput errorCode = %{public}d", errorCode);
+    OH_LOG_ERROR(LOG_APP, "PhotoOutput errorCode = %{public}d", errorCode);
 }
 // [End photo_output_error_callback]
 
@@ -1008,7 +1008,7 @@ void OnPhotoAvailable(Camera_PhotoOutput* photoOutput, OH_PhotoNative* photo)
     OH_PixelmapNative* mainPixelmap;
     Image_ErrorCode imageErr = OH_PictureNative_GetMainPixelmap(picture, &mainPixelmap);
     if (imageErr != IMAGE_SUCCESS || mainPixelmap == nullptr) {
-        OH_LOG_ERROR(LOG_APP, "OH_ImageNative_GetImageSize call failed, errorCode: %{public}d", imageErr);
+        OH_LOG_ERROR(LOG_APP, "OH_PictureNative_GetMainPixelmap call failed, errorCode: %{public}d", imageErr);
         return;
     }
     pixelMap = nullptr;

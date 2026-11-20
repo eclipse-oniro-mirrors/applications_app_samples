@@ -28,13 +28,17 @@ export default class DeepAbility extends UIAbility {
     let uri = want?.uri;
     if (uri) {
       // 从链接中解析query参数，拿到参数后，开发者可根据自己的业务需求进行后续的处理。
-      let urlObject = url.URL.parseURL(want?.uri);
-      let action = urlObject.params.get('action');
-      // 例如，当action为showall时，展示所有的节目。
-      if (action === 'showall') {
-        // [StartExclude deep_ability]
-        hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onCreate');
-        // [EndExclude deep_ability]
+      try {
+        let urlObject = url.URL.parseURL(want?.uri);
+        let action = urlObject.params.get('action');
+        // 例如，当action为showall时，展示所有的节目。
+        if (action === 'showall') {
+          // [StartExclude deep_ability]
+          hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onCreate');
+          // [EndExclude deep_ability]
+        }
+      } catch (error) {
+        hilog.error(DOMAIN, 'testTag', 'Failed to parse URL: %{public}s', JSON.stringify(error));
       }
     }
   }

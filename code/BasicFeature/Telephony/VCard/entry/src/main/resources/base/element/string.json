@@ -1,0 +1,29 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "vCard 联系人示例场景模块",
+      "description": "模块描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "vCard 联系人示例入口",
+      "description": "入口能力描述"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "vCard 联系人",
+      "description": "应用名称"
+    },
+    {
+      "name": "permission_read_contacts_reason",
+      "value": "读取联系人，用于展示、检索并导出为 vCard 文件",
+      "description": "读联系人权限申请理由"
+    },
+    {
+      "name": "permission_write_contacts_reason",
+      "value": "写入联系人，用于将 vCard 文件导入到本机联系人",
+      "description": "写联系人权限申请理由"
+    }
+  ]
+}

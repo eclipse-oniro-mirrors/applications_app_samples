@@ -1,0 +1,634 @@
+{
+  "string": [
+    {
+      "name": "fr_demo_title",
+      "value": "字体与资源管理",
+      "description": "页面主标题"
+    },
+    {
+      "name": "fr_demo_slogan",
+      "value": "演示系统字体接口与资源跨线程能力",
+      "description": "页面副标题"
+    },
+    {
+      "name": "fr_tab_font",
+      "value": "字体管理",
+      "description": "字体页签名称"
+    },
+    {
+      "name": "fr_tab_resource",
+      "value": "资源管理",
+      "description": "资源页签名称"
+    },
+    {
+      "name": "fr_section_check_title",
+      "value": "运行环境自检",
+      "description": "自检卡片标题"
+    },
+    {
+      "name": "fr_section_check_desc",
+      "value": "当前设备与签名环境对系统字体接口的支持情况",
+      "description": "自检卡片说明"
+    },
+    {
+      "name": "fr_check_syscap_name",
+      "value": "系统能力",
+      "description": "系统能力自检项名称"
+    },
+    {
+      "name": "fr_check_syscap_supported",
+      "value": "设备声明了字体管理能力，fontManager 接口可以调用。",
+      "description": "系统能力可用说明"
+    },
+    {
+      "name": "fr_check_syscap_unsupported",
+      "value": "设备未声明字体管理能力，调用 fontManager 会直接失败。",
+      "description": "系统能力不可用说明"
+    },
+    {
+      "name": "fr_check_permission_name",
+      "value": "权限状态",
+      "description": "权限自检项名称"
+    },
+    {
+      "name": "fr_check_permission_absent",
+      "value": "未读到 UPDATE_FONT 权限声明，应用访问不到字体服务，安装会被系统拒绝（201 或 31100106），属预期降级。",
+      "description": "未读到权限声明说明"
+    },
+    {
+      "name": "fr_check_permission_granted",
+      "value": "已获得 UPDATE_FONT 权限，可以继续尝试真实安装。",
+      "description": "权限已授权说明"
+    },
+    {
+      "name": "fr_check_permission_denied",
+      "value": "已申请 UPDATE_FONT 但当前未授权，安装请求会被系统拒绝。",
+      "description": "权限未授权说明"
+    },
+    {
+      "name": "fr_check_permission_error",
+      "value": "读取权限声明失败：%s",
+      "description": "读取权限声明失败说明"
+    },
+    {
+      "name": "fr_check_preview_name",
+      "value": "预览能力",
+      "description": "预览能力自检项名称"
+    },
+    {
+      "name": "fr_check_preview_supported",
+      "value": "支持 registerFont，可用沙箱字体做界面预览。",
+      "description": "预览能力可用说明"
+    },
+    {
+      "name": "fr_check_preview_unsupported",
+      "value": "系统版本低于 API %d，无法注册自定义字体预览。",
+      "description": "预览能力不可用说明"
+    },
+    {
+      "name": "fr_section_font_file_title",
+      "value": "字体文件准备",
+      "description": "字体文件卡片标题"
+    },
+    {
+      "name": "fr_section_font_file_desc",
+      "value": "把随包字体复制到应用沙箱，供安装与预览使用",
+      "description": "字体文件卡片说明"
+    },
+    {
+      "name": "fr_btn_prepare",
+      "value": "准备字体文件",
+      "description": "准备字体按钮文案"
+    },
+    {
+      "name": "fr_label_family",
+      "value": "字体家族名",
+      "description": "字体家族名标签"
+    },
+    {
+      "name": "fr_label_sandbox_path",
+      "value": "沙箱路径",
+      "description": "沙箱路径标签"
+    },
+    {
+      "name": "fr_label_state",
+      "value": "状态",
+      "description": "状态标签"
+    },
+    {
+      "name": "fr_state_ready",
+      "value": "已就绪",
+      "description": "字体文件已就绪状态"
+    },
+    {
+      "name": "fr_state_not_ready",
+      "value": "未准备",
+      "description": "字体文件未准备状态"
+    },
+    {
+      "name": "fr_section_font_api_title",
+      "value": "系统字体接口",
+      "description": "字体接口卡片标题"
+    },
+    {
+      "name": "fr_section_font_api_desc",
+      "value": "真实调用 fontManager，普通签名下预期返回权限错误",
+      "description": "字体接口卡片说明"
+    },
+    {
+      "name": "fr_btn_install",
+      "value": "安装字体",
+      "description": "安装字体按钮文案"
+    },
+    {
+      "name": "fr_btn_uninstall",
+      "value": "卸载字体",
+      "description": "卸载字体按钮文案"
+    },
+    {
+      "name": "fr_input_uninstall_hint",
+      "value": "输入要卸载的字体名",
+      "description": "卸载输入框提示语"
+    },
+    {
+      "name": "fr_label_last_result",
+      "value": "最近一次结果",
+      "description": "最近一次结果标签"
+    },
+    {
+      "name": "fr_label_operation",
+      "value": "操作",
+      "description": "操作标签"
+    },
+    {
+      "name": "fr_label_code",
+      "value": "返回码",
+      "description": "返回码标签"
+    },
+    {
+      "name": "fr_label_detail",
+      "value": "结果说明",
+      "description": "结果说明标签"
+    },
+    {
+      "name": "fr_section_error_title",
+      "value": "错误码说明",
+      "description": "错误码卡片标题"
+    },
+    {
+      "name": "fr_section_error_desc",
+      "value": "字体安装与卸载的错误码含义与处理建议",
+      "description": "错误码卡片说明"
+    },
+    {
+      "name": "fr_section_preview_title",
+      "value": "字体效果预览",
+      "description": "预览卡片标题"
+    },
+    {
+      "name": "fr_section_preview_desc",
+      "value": "通过 registerFont 注册沙箱字体，与系统字体对比",
+      "description": "预览卡片说明"
+    },
+    {
+      "name": "fr_toggle_preview",
+      "value": "使用自定义字体",
+      "description": "预览开关文案"
+    },
+    {
+      "name": "fr_sample_text",
+      "value": "字体与资源管理演示 Demo 2026",
+      "description": "预览示例文本"
+    },
+    {
+      "name": "fr_preview_system",
+      "value": "系统字体",
+      "description": "系统字体预览标签"
+    },
+    {
+      "name": "fr_preview_custom",
+      "value": "自定义字体",
+      "description": "自定义字体预览标签"
+    },
+    {
+      "name": "fr_supported",
+      "value": "通过",
+      "description": "自检通过状态"
+    },
+    {
+      "name": "fr_not_supported",
+      "value": "受限",
+      "description": "自检受限状态"
+    },
+    {
+      "name": "fr_section_log_title",
+      "value": "操作日志",
+      "description": "日志卡片标题"
+    },
+    {
+      "name": "fr_btn_clear",
+      "value": "清空",
+      "description": "清空日志按钮文案"
+    },
+    {
+      "name": "fr_empty_log",
+      "value": "暂无操作记录",
+      "description": "日志为空提示"
+    },
+    {
+      "name": "fr_empty_none",
+      "value": "暂无数据",
+      "description": "数据为空提示"
+    },
+    {
+      "name": "fr_empty_dash",
+      "value": "—",
+      "description": "空值占位符"
+    },
+    {
+      "name": "fr_section_resource_list_title",
+      "value": "资源清单",
+      "description": "资源清单卡片标题"
+    },
+    {
+      "name": "fr_section_resource_list_desc",
+      "value": "应用资源与可跨线程表示的字段对比",
+      "description": "资源清单卡片说明"
+    },
+    {
+      "name": "fr_button_convert_all",
+      "value": "批量转换",
+      "description": "批量转换按钮文案"
+    },
+    {
+      "name": "fr_button_convert_media",
+      "value": "转换并渲染图片",
+      "description": "图片转换按钮文案"
+    },
+    {
+      "name": "fr_button_taskpool",
+      "value": "TaskPool 往返",
+      "description": "TaskPool 往返按钮文案"
+    },
+    {
+      "name": "fr_button_worker",
+      "value": "Worker 往返",
+      "description": "Worker 往返按钮文案"
+    },
+    {
+      "name": "fr_label_path",
+      "value": "线程路径",
+      "description": "线程路径标签"
+    },
+    {
+      "name": "fr_label_cost",
+      "value": "耗时",
+      "description": "耗时标签"
+    },
+    {
+      "name": "fr_section_roundtrip_title",
+      "value": "跨线程往返",
+      "description": "跨线程往返卡片标题"
+    },
+    {
+      "name": "fr_section_roundtrip_desc",
+      "value": "把可跨线程资源交给子线程，再取回结果",
+      "description": "跨线程往返卡片说明"
+    },
+    {
+      "name": "fr_section_render_title",
+      "value": "渲染结果",
+      "description": "渲染结果卡片标题"
+    },
+    {
+      "name": "fr_section_render_desc",
+      "value": "使用往返后的资源对象直接渲染",
+      "description": "渲染结果卡片说明"
+    },
+    {
+      "name": "fr_label_bundle",
+      "value": "包名",
+      "description": "包名标签"
+    },
+    {
+      "name": "fr_label_module",
+      "value": "模块名",
+      "description": "模块名标签"
+    },
+    {
+      "name": "fr_label_resource_id",
+      "value": "资源 ID",
+      "description": "资源 ID 标签"
+    },
+    {
+      "name": "fr_label_resource_type",
+      "value": "资源类型",
+      "description": "资源类型标签"
+    },
+    {
+      "name": "fr_label_params",
+      "value": "附加参数",
+      "description": "附加参数标签"
+    },
+    {
+      "name": "fr_status_idle",
+      "value": "未转换",
+      "description": "资源未转换状态"
+    },
+    {
+      "name": "fr_status_done",
+      "value": "已转换",
+      "description": "资源已转换状态"
+    },
+    {
+      "name": "fr_status_failed",
+      "value": "失败",
+      "description": "资源转换失败状态"
+    },
+    {
+      "name": "fr_type_string",
+      "value": "字符串",
+      "description": "字符串资源类型"
+    },
+    {
+      "name": "fr_type_color",
+      "value": "颜色",
+      "description": "颜色资源类型"
+    },
+    {
+      "name": "fr_type_float",
+      "value": "数值",
+      "description": "数值资源类型"
+    },
+    {
+      "name": "fr_type_media",
+      "value": "图片",
+      "description": "图片资源类型"
+    },
+    {
+      "name": "fr_demo_color",
+      "value": "品牌主色",
+      "description": "品牌主色演示标签"
+    },
+    {
+      "name": "fr_demo_float",
+      "value": "卡片圆角",
+      "description": "卡片圆角演示标签"
+    },
+    {
+      "name": "fr_entry_app_title",
+      "value": "应用标题",
+      "description": "资源清单中的应用标题条目"
+    },
+    {
+      "name": "fr_entry_slogan",
+      "value": "演示标语",
+      "description": "资源清单中的演示标语条目"
+    },
+    {
+      "name": "fr_entry_brand_color",
+      "value": "品牌主色",
+      "description": "资源清单中的品牌主色条目"
+    },
+    {
+      "name": "fr_entry_card_radius",
+      "value": "卡片圆角",
+      "description": "资源清单中的卡片圆角条目"
+    },
+    {
+      "name": "fr_entry_media_picture",
+      "value": "演示图片",
+      "description": "资源清单中的演示图片条目"
+    },
+    {
+      "name": "fr_entry_custom_text",
+      "value": "自定义字体标签",
+      "description": "资源清单中的自定义字体标签条目"
+    },
+    {
+      "name": "fr_err_201_title",
+      "value": "权限不足",
+      "description": "错误码 201 标题"
+    },
+    {
+      "name": "fr_err_201_reason",
+      "value": "应用没有 UPDATE_FONT 权限。该权限为系统受限权限，普通应用无法通过弹窗申请。",
+      "description": "错误码 201 原因"
+    },
+    {
+      "name": "fr_err_201_suggestion",
+      "value": "使用系统签名并配置 ACL 后重试；普通应用只能演示调用链。",
+      "description": "错误码 201 处理建议"
+    },
+    {
+      "name": "fr_err_202_title",
+      "value": "非系统应用",
+      "description": "错误码 202 标题"
+    },
+    {
+      "name": "fr_err_202_reason",
+      "value": "fontManager 是系统接口，只允许系统应用调用。",
+      "description": "错误码 202 原因"
+    },
+    {
+      "name": "fr_err_202_suggestion",
+      "value": "把应用配置为系统应用，或在普通签名下接受该预期失败。",
+      "description": "错误码 202 处理建议"
+    },
+    {
+      "name": "fr_err_401_title",
+      "value": "参数错误",
+      "description": "错误码 401 标题"
+    },
+    {
+      "name": "fr_err_401_reason",
+      "value": "传入的资源对象或参数类型不合法。",
+      "description": "错误码 401 原因"
+    },
+    {
+      "name": "fr_err_401_suggestion",
+      "value": "检查传入的资源对象是否为 $r 生成的应用资源。",
+      "description": "错误码 401 处理建议"
+    },
+    {
+      "name": "fr_err_31100101_title",
+      "value": "字体不存在",
+      "description": "错误码 31100101 标题"
+    },
+    {
+      "name": "fr_err_31100101_reason",
+      "value": "指定路径下没有可安装的字体文件。",
+      "description": "错误码 31100101 原因"
+    },
+    {
+      "name": "fr_err_31100101_suggestion",
+      "value": "先完成字体文件落沙箱，再使用绝对路径安装。",
+      "description": "错误码 31100101 处理建议"
+    },
+    {
+      "name": "fr_err_31100102_title",
+      "value": "字体格式不支持",
+      "description": "错误码 31100102 标题"
+    },
+    {
+      "name": "fr_err_31100102_reason",
+      "value": "字体文件不是系统支持的 ttf 或 ttc 格式，或文件已损坏。",
+      "description": "错误码 31100102 原因"
+    },
+    {
+      "name": "fr_err_31100102_suggestion",
+      "value": "更换为标准 ttf 或 ttc 字体文件。",
+      "description": "错误码 31100102 处理建议"
+    },
+    {
+      "name": "fr_err_31100103_title",
+      "value": "字体文件复制失败",
+      "description": "错误码 31100103 标题"
+    },
+    {
+      "name": "fr_err_31100103_reason",
+      "value": "系统在安装过程中复制字体文件失败。",
+      "description": "错误码 31100103 原因"
+    },
+    {
+      "name": "fr_err_31100103_suggestion",
+      "value": "检查存储空间与文件权限后重试。",
+      "description": "错误码 31100103 处理建议"
+    },
+    {
+      "name": "fr_err_31100104_title",
+      "value": "字体已安装",
+      "description": "错误码 31100104 标题"
+    },
+    {
+      "name": "fr_err_31100104_reason",
+      "value": "同名字体已经存在于系统字体库。",
+      "description": "错误码 31100104 原因"
+    },
+    {
+      "name": "fr_err_31100104_suggestion",
+      "value": "先卸载旧字体，或直接使用已安装字体。",
+      "description": "错误码 31100104 处理建议"
+    },
+    {
+      "name": "fr_err_31100105_title",
+      "value": "安装数量超限",
+      "description": "错误码 31100105 标题"
+    },
+    {
+      "name": "fr_err_31100105_reason",
+      "value": "已安装的三方字体数量达到系统上限。",
+      "description": "错误码 31100105 原因"
+    },
+    {
+      "name": "fr_err_31100105_suggestion",
+      "value": "卸载不再使用的字体后重试。",
+      "description": "错误码 31100105 处理建议"
+    },
+    {
+      "name": "fr_err_31100106_title",
+      "value": "字体服务不可达",
+      "description": "错误码 31100106 标题"
+    },
+    {
+      "name": "fr_err_31100106_reason",
+      "value": "应用所在的 SELinux 域无权获取系统字体服务 sa_font_manager_server（SA 66262），samgr 在加载服务阶段即返回拒绝，客户端只能回退到兜底码 31100106。",
+      "description": "错误码 31100106 原因"
+    },
+    {
+      "name": "fr_err_31100106_suggestion",
+      "value": "在设备 sepolicy 中为该应用域开放 sa_font_manager_server 的 samgr_class get 权限后重试；普通签名下改用“预览”开关验证字体效果。",
+      "description": "错误码 31100106 处理建议"
+    },
+    {
+      "name": "fr_err_31100107_title",
+      "value": "字体文件不存在",
+      "description": "错误码 31100107 标题"
+    },
+    {
+      "name": "fr_err_31100107_reason",
+      "value": "要卸载的字体名在系统字体库中不存在。",
+      "description": "错误码 31100107 原因"
+    },
+    {
+      "name": "fr_err_31100107_suggestion",
+      "value": "确认字体全名大小写与已安装字体一致。",
+      "description": "错误码 31100107 处理建议"
+    },
+    {
+      "name": "fr_err_31100108_title",
+      "value": "字体删除失败",
+      "description": "错误码 31100108 标题"
+    },
+    {
+      "name": "fr_err_31100108_reason",
+      "value": "系统删除字体文件失败。",
+      "description": "错误码 31100108 原因"
+    },
+    {
+      "name": "fr_err_31100108_suggestion",
+      "value": "确认字体未被占用后重试。",
+      "description": "错误码 31100108 处理建议"
+    },
+    {
+      "name": "fr_err_31100109_title",
+      "value": "字体服务不可达",
+      "description": "错误码 31100109 标题"
+    },
+    {
+      "name": "fr_err_31100109_reason",
+      "value": "卸载同样需要连接系统字体服务；普通应用被 SELinux 拦截时返回 31100109。",
+      "description": "错误码 31100109 原因"
+    },
+    {
+      "name": "fr_err_31100109_suggestion",
+      "value": "使用系统签名并配置 ACL 后重试。",
+      "description": "错误码 31100109 处理建议"
+    },
+    {
+      "name": "fr_err_31100110_title",
+      "value": "系统错误",
+      "description": "错误码 31100110 标题"
+    },
+    {
+      "name": "fr_err_31100110_reason",
+      "value": "字体数据迁移任务因系统错误启动失败。",
+      "description": "错误码 31100110 原因"
+    },
+    {
+      "name": "fr_err_31100110_suggestion",
+      "value": "稍后重试或检查系统状态。",
+      "description": "错误码 31100110 处理建议"
+    },
+    {
+      "name": "fr_err_31100111_title",
+      "value": "迁移进行中",
+      "description": "错误码 31100111 标题"
+    },
+    {
+      "name": "fr_err_31100111_reason",
+      "value": "已有字体数据迁移任务在执行。",
+      "description": "错误码 31100111 原因"
+    },
+    {
+      "name": "fr_err_31100111_suggestion",
+      "value": "等待当前迁移结束后再发起。",
+      "description": "错误码 31100111 处理建议"
+    },
+    {
+      "name": "fr_err_unknown_title",
+      "value": "未知错误 %d",
+      "description": "未收录错误码标题"
+    },
+    {
+      "name": "fr_err_unknown_reason",
+      "value": "未收录的错误码，请结合原始错误信息排查。",
+      "description": "未收录错误码原因"
+    },
+    {
+      "name": "fr_err_unknown_suggestion",
+      "value": "保留原始错误码与 message，提交问题时一并提供。",
+      "description": "未收录错误码处理建议"
+    }
+  ]
+}

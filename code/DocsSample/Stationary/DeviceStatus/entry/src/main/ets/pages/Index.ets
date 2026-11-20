@@ -89,6 +89,74 @@ struct Index {
     // [End device_status_unsubscribe]
   }
 
+  private subscribeDropDetect() {
+    // [Start drop_detect_subscribe]
+    try {
+      deviceStatus.onDropDetect((data: deviceStatus.DropDetectionStatus) => {
+        console.info('succeed to get status, now status = ' + data);
+      });
+      // [StartExclude drop_detect_subscribe]
+      this.message = 'dropDetect subscribe';
+      // [EndExclude drop_detect_subscribe]
+    } catch (err) {
+      console.error('on failed, err = ' + err);
+      // [StartExclude drop_detect_subscribe]
+      this.message = 'dropDetect subscribe';
+      // [EndExclude drop_detect_subscribe]
+    }
+    // [End drop_detect_subscribe]
+  }
+
+  private unsubscribeAllDropDetect() {
+    // [Start drop_detect_unsubscribe_all]
+    try {
+      deviceStatus.offDropDetect();
+      // [StartExclude drop_detect_unsubscribe_all]
+      this.message = 'dropDetect unsubscribeAll';
+      // [EndExclude drop_detect_unsubscribe_all]
+    } catch (err) {
+      console.error('off failed, err = ' + err);
+      // [StartExclude drop_detect_unsubscribe_all]
+      this.message = 'dropDetect unsubscribeAll';
+      // [EndExclude drop_detect_unsubscribe_all]
+    }
+    // [End drop_detect_unsubscribe_all]
+  }
+
+  private unsubscribeDropDetect() {
+    // [Start drop_detect_unsubscribe]
+    // 定义callback变量
+    let callback: Callback<deviceStatus.DropDetectionStatus> = (data: deviceStatus.DropDetectionStatus) => {
+      console.info('succeed to get DropDetect status, now status = ' + data);
+    };
+    // 以callback为回调函数，订阅设备跌落检测事件
+    try {
+      deviceStatus.onDropDetect(callback);
+      // [StartExclude drop_detect_unsubscribe]
+      this.message = 'dropDetect subscribe';
+      // [EndExclude drop_detect_unsubscribe]
+    } catch (err) {
+      console.error('on failed, err = ' + err);
+      // [StartExclude drop_detect_unsubscribe]
+      this.message = 'dropDetect subscribe';
+      // [EndExclude drop_detect_unsubscribe]
+    }
+    // 取消该客户端订阅设备跌落检测事件的特定回调函数
+    try {
+      deviceStatus.offDropDetect(callback);
+      // [StartExclude drop_detect_unsubscribe]
+      this.message = 'dropDetect unsubscribe';
+      // [EndExclude drop_detect_unsubscribe]
+    } catch (err) {
+      console.error('off failed, err = ' + err);
+      // [StartExclude drop_detect_unsubscribe]
+      this.message = 'dropDetect unsubscribe';
+      // [EndExclude drop_detect_unsubscribe]
+    }
+    // [End drop_detect_unsubscribe]
+  }
+
+
   build() {
     Column() {
       Text(this.message)
@@ -111,6 +179,21 @@ struct Index {
         .id('button3')
         .width('30%')
         .onClick(() => this.unsubscribe())
+      Button($r('app.string.subscribeDrop'))
+        .margin(10)
+        .id('button4')
+        .width('30%')
+        .onClick(() => this.subscribeDropDetect())
+      Button($r('app.string.unSubscribeDropAll'))
+        .margin(10)
+        .id('button5')
+        .width('30%')
+        .onClick(() => this.unsubscribeAllDropDetect())
+      Button($r('app.string.unSubscribeDrop'))
+        .margin(10)
+        .id('button6')
+        .width('30%')
+        .onClick(() => this.unsubscribeDropDetect())
     }
     .height('100%')
     .width('100%')

@@ -34,6 +34,9 @@ function convertAsyKeySync() {
     }
   } catch (e) {
     console.error(`get key pair failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude bin_convert_rsa_keypair_sync]
+    throw new Error(`get key pair failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude bin_convert_rsa_keypair_sync]
   }
 }
 // [End bin_convert_rsa_keypair_sync]

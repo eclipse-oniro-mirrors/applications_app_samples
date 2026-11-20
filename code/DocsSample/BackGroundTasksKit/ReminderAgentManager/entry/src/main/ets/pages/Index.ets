@@ -83,6 +83,7 @@ struct Index {
         .margin({ bottom: 4 })
 
       Text(tabBarName)
+        .id(`tab${index}`)
         .fontSize(12)
         .fontFamily('HarmonyHeiTi-Medium')
         .fontColor(this.tabsIndex === index ? $r('app.color.tab_bar_select') : $r('app.color.tab_bar_unselect'))

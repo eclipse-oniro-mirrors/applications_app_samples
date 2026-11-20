@@ -26,7 +26,7 @@
 
 namespace {
 constexpr double NANOSECONDS_PER_MICROSECOND = 1000.0;
-} // namespace
+} // 匿名命名空间
 
 Player::~Player()
 {
@@ -76,6 +76,10 @@ PlaybackInfo Player::GetPlaybackInfo() const
     }
     info.positionUs = playbackPositionUs_.load();
     info.diagnostics = diagnostics_.Snapshot();
+    {
+        std::lock_guard<std::mutex> lock(videoSinkDiagnosticsMutex_);
+        info.videoSinkDiagnostics = videoSinkDiagnostics_;
+    }
     info.diagnostics.audioInterrupted = audioInterrupted_.load();
     info.diagnostics.audioInterruptions = audioInterruptCount_.load();
     info.diagnostics.lastAudioInterruptHint = audioInterruptHint_.load();
@@ -501,8 +505,8 @@ void Player::SetTransform(int32_t hint)
         return;
     }
     transformHint = hint;
-    OHNativeWindow *window = sampleInfo_.video.window != nullptr ? sampleInfo_.video.window :
-        NativeXComponentSample::PluginManager::GetInstance()->GetPluginWindow();
+    auto windowLease = NativeXComponentSample::PluginManager::GetInstance()->AcquirePluginWindow();
+    OHNativeWindow *window = windowLease.GetWindow();
     CHECK_AND_RETURN_LOG(window != nullptr, "Native window is null");
     OH_NativeWindow_NativeWindowHandleOpt(window, SET_TRANSFORM, transformHint);
 }

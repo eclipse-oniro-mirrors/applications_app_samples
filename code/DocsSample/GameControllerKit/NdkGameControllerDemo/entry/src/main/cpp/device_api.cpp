@@ -14,7 +14,11 @@
  */
 
 #include <string>
+
+// [Start header_include_game_device]
 #include "GameControllerKit/game_device.h"
+// [End header_include_game_device]
+
 #include "device_api.h"
 #include "game_controller_log.h"
 #include "hilog/log.h"
@@ -98,6 +102,7 @@ GameController_ErrorCode DeviceApi::DoQueryAllDeviceInfos()
 
 std::string DeviceApi::GetDeviceInfoStringForPrint(GameDevice_DeviceInfo *deviceInfo)
 {
+    // Obtain device info
     std::string log;
     char *deviceId = nullptr;
     OH_GameDevice_DeviceInfo_GetDeviceId(deviceInfo, &deviceId);

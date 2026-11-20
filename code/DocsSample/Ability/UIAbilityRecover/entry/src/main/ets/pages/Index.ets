@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+import { common, Want } from '@kit.AbilityKit';
+
 @Entry
 @Component
 struct Index {
@@ -30,6 +32,20 @@ struct Index {
         })
         .onClick(() => {
           this.message = 'Welcome';
+        })
+      Button('页面栈恢复示例')
+        .margin({ top: 24 })
+        .alignRules({
+          top: { anchor: 'HelloWorld', align: VerticalAlign.Bottom },
+          middle: { anchor: '__container__', align: HorizontalAlign.Center }
+        })
+        .onClick(() => {
+          const context = getContext(this) as common.UIAbilityContext;
+          const want: Want = {
+            bundleName: 'com.samples.myapplication',
+            abilityName: 'RestoreAbility'
+          };
+          context.startAbility(want);
         })
     }
     .height('100%')

@@ -1,0 +1,32 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "主入口"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "隐私计算"
+    },
+    {
+      "name": "title",
+      "value": "隐私计算"
+    },
+    {
+      "name": "psi_flow",
+      "value": "PSI协议验证"
+    },
+    {
+      "name": "pir_flow",
+      "value": "PIR协议验证"
+    },
+    {
+      "name": "result",
+      "value": "结果"
+    }
+  ]
+}

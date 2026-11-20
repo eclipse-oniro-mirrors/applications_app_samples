@@ -43,6 +43,10 @@
     {
       "name": "computed_property_title",
       "value": "使用@Computed计算属性"
+    },
+    {
+      "name": "computed_title_4",
+      "value": "去除@Computed同步获取计算值"
     }
   ]
 }

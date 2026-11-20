@@ -14,7 +14,7 @@
 */
 
 import { avSession } from '@kit.AVSessionKit';
-import control from '../feature/MediaController';
+import MediaController from '../feature/MediaController';
 import Log from '../common/Logger';
 
 const TAG: string = 'PresentPage';
@@ -22,7 +22,7 @@ const TAG: string = 'PresentPage';
 @Entry
 @Component
 struct PresentPage {
-  controller = new control();
+  mediaController = new MediaController();
   @State isShowQueue: boolean = false;
   @StorageLink('currentController') currentController: avSession.AVSessionController | undefined = undefined;
   @StorageLink('metaData') metaData: avSession.AVMetadata | undefined = undefined;
@@ -37,11 +37,11 @@ struct PresentPage {
   @State canPrevious: boolean = false; // 媒体会话是否支持上一首。
 
   async aboutToAppear() {
-    await this.controller.startControl();
+    await this.mediaController.startControl();
   }
 
   aboutToDisappear() {
-    this.controller.stopControl();
+    this.mediaController.stopControl();
   }
 
   // [Start commands]
@@ -284,16 +284,20 @@ struct PresentPage {
 
   getMediaCardHeight(): string {
     let mediaNum: number = 1; // only has one session
-    let mediaExtraHeight: number = ((mediaNum - 1) > 0 ? 12 : 0) + (mediaNum - 1) * 73; // 73 is the length given from UX designer
-    let height: number = 124 + (this.isLyricVisible ? 44 : 0) + mediaExtraHeight; // 124 and 44 is the size given from UX designer
+    // 73 is the length given from UX designer
+    let mediaExtraHeight: number = ((mediaNum - 1) > 0 ? 12 : 0) + (mediaNum - 1) * 73;
+    // 124 and 44 is the size given from UX designer
+    let height: number = 124 + (this.isLyricVisible ? 44 : 0) + mediaExtraHeight;
     Log.info(TAG, 'get height : ' + height);
     return String(height) + 'vp';
   }
 
   getTotalHeight(): string {
     let mediaNum: number = 1; // only has one session
-    let mediaExtraHeight: number = ((mediaNum - 1) > 0 ? 12 : 0) + (mediaNum - 1) * 73; // 73 is the length given from UX designer
-    let height: number = 124 + (this.isLyricVisible ? 44 : 0) + mediaExtraHeight; // 124 and 44 is the length given from UX designer
+    // 73 is the length given from UX designer
+    let mediaExtraHeight: number = ((mediaNum - 1) > 0 ? 12 : 0) + (mediaNum - 1) * 73;
+    // 124 and 44 is the length given from UX designer
+    let height: number = 124 + (this.isLyricVisible ? 44 : 0) + mediaExtraHeight;
     Log.info(TAG, 'get media height : ' + height);
     height += (this.isShowQueue ? 165 : 0); // 165 is the length given from UX designer
     Log.info(TAG, 'get total height : ' + height);

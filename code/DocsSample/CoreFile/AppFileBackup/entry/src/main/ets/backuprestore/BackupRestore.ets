@@ -16,8 +16,7 @@
 // [Start get_local_cap_ability]
 // [Start session_backup]
 // [Start session_restore]
-import { fileIo } from '@kit.CoreFileKit';
-import { backup } from '@kit.CoreFileKit';
+import { fileIo, backup } from '@kit.CoreFileKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 // [StartExclude session_restore]
 // [StartExclude session_backup]
@@ -31,7 +30,7 @@ const BUFFER: number = 1024; // 读写文件的缓冲区
 // [EndExclude session_backup]
 // [EndExclude session_restore]
 
-// filesDir 由调用方通过 UIAbilityContext.filesDir 获取并传入。
+// filesDir由调用方通过UIAbilityContext.filesDir获取并传入。
 
 // [StartExclude session_backup]
 // [StartExclude session_restore]
@@ -56,7 +55,7 @@ export async function getLocalCapabilities(filesDir: string): Promise<void> {
         length: arrayBuffer.byteLength
       };
       let readLen = fileIo.readSync(file.fd, arrayBuffer, readOptions);
-      // 这个 buf 对象是 arrayBuffer 中从位置 0 开始的前 readLen 字节
+      // 这个buf对象是arrayBuffer中从位置0开始的前readLen字节
       let buf = buffer.from(arrayBuffer, 0, readLen);
       console.info('the content of file: ' + buf.toString());
     } finally {
@@ -180,7 +179,7 @@ function createSessionRestore(filesDir: string): backup.SessionRestore {
       if (err) {
         console.error(`onFileReady err, code is ${err.code}, message is ${err.message}`);
       }
-      // 此处开发者请根据实际场景待恢复文件存放位置进行调整 bundlePath
+      // 此处开发者请根据实际场景待恢复文件存放位置进行调整bundlePath
       let bundlePath: string = `${filesDir}/${file.bundleName}/`;
       if (!fileIo.accessSync(bundlePath)) {
         console.error('onFileReady bundlePath err : ' + bundlePath);

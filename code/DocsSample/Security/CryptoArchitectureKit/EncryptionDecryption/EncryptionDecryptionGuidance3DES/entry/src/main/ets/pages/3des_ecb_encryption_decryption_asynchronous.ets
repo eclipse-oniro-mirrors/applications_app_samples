@@ -15,6 +15,7 @@
 
 // [Start async_symmetry_encrypt_decrypt]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { buffer } from '@kit.ArkTS';
 
 // 加密消息
@@ -42,19 +43,30 @@ async function genSymKeyByData(symKeyData: Uint8Array) {
 }
 
 async function main() {
-  let keyData =
-    new Uint8Array([238, 249, 61, 55, 128, 220, 183, 224, 139, 253, 248, 239, 239, 41, 71, 25, 235, 206, 230, 162, 249,
-      27, 234, 114]);
-  let symKey = await genSymKeyByData(keyData);
-  let message = 'This is a test';
-  let plainText: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(message, 'utf-8').buffer) };
-  let encryptText = await encryptMessagePromise(symKey, plainText);
-  let decryptText = await decryptMessagePromise(symKey, encryptText);
-  if (plainText.data.toString() === decryptText.data.toString()) {
-    console.info('decrypt ok');
-    console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
-  } else {
-    console.error('decrypt failed');
+  try {
+    let keyData =
+      new Uint8Array([238, 249, 61, 55, 128, 220, 183, 224, 139, 253, 248, 239, 239, 41, 71, 25, 235, 206, 230, 162,
+        249, 27, 234, 114]);
+    let symKey = await genSymKeyByData(keyData);
+    let message = 'This is a test';
+    let plainText: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(message, 'utf-8').buffer) };
+    let encryptText = await encryptMessagePromise(symKey, plainText);
+    let decryptText = await decryptMessagePromise(symKey, encryptText);
+    if (plainText.data.toString() === decryptText.data.toString()) {
+      console.info('decrypt ok');
+      console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
+    } else {
+      console.error('decrypt failed');
+      // [StartExclude async_symmetry_encrypt_decrypt]
+      throw new Error('decrypt failed');
+      // [EndExclude async_symmetry_encrypt_decrypt]
+    }
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude async_symmetry_encrypt_decrypt]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude async_symmetry_encrypt_decrypt]
   }
 }
 // [End async_symmetry_encrypt_decrypt]
@@ -69,9 +81,9 @@ struct Index {
       Text(this.message).fontSize(20).fontWeight(FontWeight.Bold)
       Button($r('app.string.call_3des_ecb_asynchronous'))
         .width('70%')
-        .onClick(() => {
+        .onClick(async () => {
           try {
-            main();
+            await main();
             this.message = '3DES_ECBSuccess';
           } catch {
             this.message = '3DES_ECBFail';

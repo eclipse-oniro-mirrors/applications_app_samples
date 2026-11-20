@@ -43,7 +43,7 @@ std::shared_ptr<ArkUIBaseNode> CreateGetNodeByIdExample()
     ArkUI_NumberValue value[] = {480};
     ArkUI_AttributeItem item = {value, sizeof(value) / sizeof(ArkUI_NumberValue)};
     nodeAPI->setAttribute(column, NODE_WIDTH, &item);
-    ArkUI_NumberValue column_bc[] = {{.u32 = 0xFFF00BB}};
+    ArkUI_NumberValue column_bc[] = {{.u32 = 0xFFFF00BB}};
     ArkUI_AttributeItem column_item = {column_bc, 1};
     nodeAPI->setAttribute(column, NODE_BACKGROUND_COLOR, &column_item);
     ArkUI_AttributeItem column_id = {.string = "Column_CAPI"};

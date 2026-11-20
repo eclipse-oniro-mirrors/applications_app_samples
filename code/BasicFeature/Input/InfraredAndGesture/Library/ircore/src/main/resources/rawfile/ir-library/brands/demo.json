@@ -1,0 +1,115 @@
+{
+  "brandId": "demo",
+  "codes": [
+    {
+      "deviceType": "PROJECTOR",
+      "model": "DEMO-P1",
+      "protocol": "NEC",
+      "frequencyHz": 38000,
+      "payload": "0x04FB,0x08F7",
+      "repeatCount": 1,
+      "keySemantic": "POWER_ON",
+      "source": "self-authored-demo",
+      "license": "Apache-2.0"
+    },
+    {
+      "deviceType": "PROJECTOR",
+      "model": "DEMO-P1",
+      "protocol": "NEC",
+      "frequencyHz": 38000,
+      "payload": "0x04FB,0x09F6",
+      "repeatCount": 1,
+      "keySemantic": "POWER_OFF",
+      "source": "self-authored-demo",
+      "license": "Apache-2.0"
+    },
+    {
+      "deviceType": "PROJECTOR",
+      "model": "DEMO-P1",
+      "protocol": "NEC",
+      "frequencyHz": 38000,
+      "payload": "0x04FB,0x0AF5",
+      "repeatCount": 1,
+      "keySemantic": "HDMI_1",
+      "source": "self-authored-demo",
+      "license": "Apache-2.0"
+    },
+    {
+      "deviceType": "SCREEN",
+      "model": "DEMO-S1",
+      "protocol": "NEC",
+      "frequencyHz": 38000,
+      "payload": "0x05FA,0x0BF4",
+      "repeatCount": 1,
+      "keySemantic": "SCREEN_UP",
+      "source": "self-authored-demo",
+      "license": "Apache-2.0"
+    },
+    {
+      "deviceType": "SCREEN",
+      "model": "DEMO-S1",
+      "protocol": "NEC",
+      "frequencyHz": 38000,
+      "payload": "0x05FA,0x0CF3",
+      "repeatCount": 1,
+      "keySemantic": "SCREEN_DOWN",
+      "source": "self-authored-demo",
+      "license": "Apache-2.0"
+    },
+    {
+      "deviceType": "LIGHT",
+      "model": "DEMO-L1",
+      "protocol": "NEC",
+      "frequencyHz": 38000,
+      "payload": "0x06F9,0x0DF2",
+      "repeatCount": 1,
+      "keySemantic": "POWER_ON",
+      "source": "self-authored-demo",
+      "license": "Apache-2.0"
+    },
+    {
+      "deviceType": "LIGHT",
+      "model": "DEMO-L1",
+      "protocol": "NEC",
+      "frequencyHz": 38000,
+      "payload": "0x06F9,0x0EF1",
+      "repeatCount": 1,
+      "keySemantic": "POWER_OFF",
+      "source": "self-authored-demo",
+      "license": "Apache-2.0"
+    },
+    {
+      "deviceType": "AC",
+      "model": "DEMO-A1",
+      "protocol": "NEC",
+      "frequencyHz": 38000,
+      "payload": "0x07F8,0x0FF0",
+      "repeatCount": 1,
+      "keySemantic": "POWER_ON",
+      "source": "self-authored-demo",
+      "license": "Apache-2.0"
+    },
+    {
+      "deviceType": "AC",
+      "model": "DEMO-A1",
+      "protocol": "NEC",
+      "frequencyHz": 38000,
+      "payload": "0x07F8,0x10EF",
+      "repeatCount": 1,
+      "keySemantic": "TEMP_UP",
+      "source": "self-authored-demo",
+      "license": "Apache-2.0"
+    },
+    {
+      "deviceType": "AC",
+      "model": "DEMO-A1",
+      "protocol": "NEC",
+      "frequencyHz": 38000,
+      "payload": "0x07F8,0x11EE",
+      "repeatCount": 1,
+      "keySemantic": "FAN_SPEED",
+      "source": "self-authored-demo",
+      "license": "Apache-2.0"
+    }
+  ]
+}

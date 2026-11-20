@@ -1,4 +1,3 @@
-'use static'
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +20,7 @@ import window from '@ohos.window';
 import { BusinessError } from '@ohos.base'
 import hilog from '@ohos.hilog'
 
-class EntryAbility extends UIAbility {
+export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(0x0000, 'testTag', 'EntryAbility onCreate');
   }

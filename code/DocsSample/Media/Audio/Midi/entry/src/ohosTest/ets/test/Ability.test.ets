@@ -15,9 +15,8 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
-import { Driver, ON, MatchPattern } from '@ohos.UiTest';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import display from '@ohos.display';
+import { Driver, ON, MatchPattern, abilityDelegatorRegistry as AbilityDelegatorRegistry } from '@kit.TestKit';
+import { display } from '@kit.ArkUI';
 
 const DOMAIN = 0xF811;
 const BUNDLE = 'MIDI_';

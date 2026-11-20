@@ -90,10 +90,6 @@ export default function abilityTest() {
       await driver.delayMs(1000);
       const btn = await driver.findComponent(ON.text('Get Trusted Devices'));
       hilog.info(DOMAIN, TAG, BUNDLE + 'GetTrustedDevices_001, btn found: ' + (btn !== null));
-      if (btn !== null) {
-        await btn.click();
-        await driver.delayMs(1000);
-      }
       expect(btn !== null).assertTrue();
       hilog.info(DOMAIN, TAG, BUNDLE + 'GetTrustedDevices_001, end');
       done();
@@ -108,10 +104,6 @@ export default function abilityTest() {
       await driver.delayMs(1000);
       const btn = await driver.findComponent(ON.text('Register Listener'));
       hilog.info(DOMAIN, TAG, BUNDLE + 'RegisterListener_001, btn found: ' + (btn !== null));
-      if (btn !== null) {
-        await btn.click();
-        await driver.delayMs(1000);
-      }
       expect(btn !== null).assertTrue();
       hilog.info(DOMAIN, TAG, BUNDLE + 'RegisterListener_001, end');
       done();
@@ -126,10 +118,6 @@ export default function abilityTest() {
       await driver.delayMs(1000);
       const btn = await driver.findComponent(ON.text('Unregister Listener'));
       hilog.info(DOMAIN, TAG, BUNDLE + 'UnregisterListener_001, btn found: ' + (btn !== null));
-      if (btn !== null) {
-        await btn.click();
-        await driver.delayMs(1000);
-      }
       expect(btn !== null).assertTrue();
       hilog.info(DOMAIN, TAG, BUNDLE + 'UnregisterListener_001, end');
       done();
@@ -144,10 +132,6 @@ export default function abilityTest() {
       await driver.delayMs(1000);
       const btn = await driver.findComponent(ON.text('Send Message'));
       hilog.info(DOMAIN, TAG, BUNDLE + 'SendMessage_001, btn found: ' + (btn !== null));
-      if (btn !== null) {
-        await btn.click();
-        await driver.delayMs(1000);
-      }
       expect(btn !== null).assertTrue();
       hilog.info(DOMAIN, TAG, BUNDLE + 'SendMessage_001, end');
       done();

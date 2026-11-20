@@ -14,6 +14,7 @@
  */
 
 import testNapi from 'libentry.so';
+import { application } from '@kit.AbilityKit';
 import { image } from '@kit.ImageKit';
 import { router } from '@kit.ArkUI';
 
@@ -55,7 +56,7 @@ struct EncodeImages {
   }
 
   private async getSyncPixelMap() {
-    let filePath = getContext().cacheDir + '/test.jpg';
+    const filePath = application.getApplicationContext().cacheDir + '/test.jpg';
     const imageSource: image.ImageSource = image.createImageSource(filePath);
     this.newPixelMap = await imageSource.createPixelMap();
   }

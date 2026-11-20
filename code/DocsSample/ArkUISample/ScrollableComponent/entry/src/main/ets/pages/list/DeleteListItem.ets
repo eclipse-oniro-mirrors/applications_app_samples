@@ -52,7 +52,7 @@ export struct ToDoListItem {
             if (isSelected) {
               this.selectedItems.push(new ToDo(this.toDoItem.name)); // this.selectedItems为勾选时，记录选中的列表项，可根据实际场景构造
             } else {
-              let index = this.selectedItems.indexOf(new ToDo(this.toDoItem.name));
+              let index = this.selectedItems.findIndex(selectedItem => selectedItem.name === this.toDoItem.name);
               if (index !== -1) {
                 this.selectedItems.splice(index, 1); // 取消勾选时，则将此项从selectedItems中删除
               }

@@ -1,0 +1,11 @@
+{
+  "subtypes": [
+    {
+      "icon": "$media:app_icon",
+      "id": "preview_style",
+      "label": "$string:preview_sample_name",
+      "locale": "en-US",
+      "mode": "lower"
+    }
+  ]
+}

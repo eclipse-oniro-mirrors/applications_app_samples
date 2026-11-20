@@ -18,8 +18,7 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 import { expect } from '@ohos/hypium';
 
-// Before running this test case if it does not exist already
-// you'll need to create a user album named 'test'
+// 在运行此测试用例之前，如果它不存在，您需要创建一个名为“test”的用户相册。
 
 // [Start register_listener_to_album]
 import { dataSharePredicates } from '@kit.ArkData';
@@ -98,7 +97,7 @@ export default class RegisterListenerToAlbumAbility extends UIAbility {
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
-    // Main window is created, set main page for this ability
+    // 创建主窗口，为此功能设置主页。
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
 
     windowStage.loadContent('pages/Index', (err) => {
@@ -111,18 +110,18 @@ export default class RegisterListenerToAlbumAbility extends UIAbility {
   }
 
   onWindowStageDestroy(): void {
-    // Main window is destroyed, release UI related resources
+    // 销毁主窗口，释放UI相关资源。
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
   }
 
   onForeground(): void {
-    // Ability has brought to foreground
+    // Ability 已切换至前台。
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onForeground');
     this.runExample();
   }
 
   onBackground(): void {
-    // Ability has back to background
+    // Ability 已切换至后台。
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onBackground');
   }
 }

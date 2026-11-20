@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 720" width="100%" height="100%">
+    <defs>
+        <style>
+            .bg { fill: #f5f6f8; }
+            .card { fill: #ffffff; rx: 16; }
+            .text-main { font-family: -apple-system, sans-serif; fill: #1a1a1a; }
+            .text-sub { font-family: -apple-system, sans-serif; fill: #666666; }
+            .text-blue { font-family: -apple-system, sans-serif; fill: #165dff; }
+            .btn-blue { fill: #165dff; rx: 20; }
+            .btn-light { fill: #e8f0fe; rx: 20; }
+            .btn-text-white { font-family: -apple-system, sans-serif; fill: #ffffff; font-size: 14px; font-weight: 500; text-anchor: middle; dominant-baseline: middle; }
+            .btn-text-blue { font-family: -apple-system, sans-serif; fill: #165dff; font-size: 14px; font-weight: 500; text-anchor: middle; dominant-baseline: middle; }
+        </style>
+    </defs>
+
+    <!-- 状态栏与背景 -->
+    <rect width="360" height="720" class="bg"/>
+    <text x="20" y="30" class="text-main" font-size="14">没有 SIM 卡 <tspan font-size="10">📶</tspan></text>
+    <text x="340" y="30" class="text-main" font-size="14" text-anchor="end">11% 🔋 18:36</text>
+
+    <!-- 标题 -->
+    <text x="20" y="85" class="text-main" font-size="26" font-weight="bold">注解</text>
+    <text x="20" y="110" class="text-sub" font-size="14">API 兼容性与告警抑制</text>
+
+    <!-- 选项卡 -->
+    <rect x="15" y="140" width="130" height="40" class="btn-blue"/>
+    <text x="80" y="160" class="btn-text-white">本机信息</text>
+    <rect x="155" y="140" width="130" height="40" class="btn-light"/>
+    <text x="220" y="160" class="btn-text-blue">模拟数据</text>
+    <rect x="295" y="140" width="50" height="40" class="btn-blue"/>
+    <text x="320" y="160" class="btn-text-white">刷新</text>
+
+    <!-- 运行环境卡片 -->
+    <rect x="15" y="195" width="330" height="115" class="card"/>
+    <text x="35" y="230" class="text-main" font-size="18" font-weight="bold">运行环境</text>
+    <text x="35" y="260" class="text-sub" font-size="14">当前 API: <tspan class="text-blue" font-size="16" font-weight="bold">26</tspan></text>
+    <text x="35" y="288" class="text-sub" font-size="14">数据来源: <tspan class="text-main">本机信息</tspan></text>
+
+    <!-- @Available 卡片 -->
+    <rect x="15" y="325" width="330" height="230" class="card"/>
+    <text x="35" y="360" class="text-main" font-size="20" font-weight="bold">@Available</text>
+    <text x="35" y="390" class="text-sub" font-size="14">
+        <tspan x="35" dy="0">将示例函数标记为需要 OpenHarmony 22，仅在系统版本满足要</tspan>
+        <tspan x="35" dy="20">求时通过运行时守卫调用。</tspan>
+    </text>
+    <text x="35" y="440" class="text-sub" font-size="14">最低 API: <tspan class="text-main" font-size="15">22</tspan></text>
+    <text x="35" y="475" class="text-blue" font-size="15" font-weight="bold">未运行</text>
+
+    <rect x="30" y="495" width="300" height="40" class="btn-blue"/>
+    <text x="180" y="515" class="btn-text-white">运行示例</text>
+
+    <!-- @SuppressWarnings 卡片 -->
+    <rect x="15" y="570" width="330" height="180" class="card"/>
+    <text x="35" y="605" class="text-main" font-size="20" font-weight="bold">@SuppressWarnings</text>
+    <text x="35" y="635" class="text-sub" font-size="14">
+        <tspan x="35" dy="0">抑制示例函数因标记为 API 27 而产生的兼容性告警；注解本身从</tspan>
+        <tspan x="35" dy="20">API 23 开始支持，运行时仍执行版本判断。</tspan>
+    </text>
+    <text x="35" y="680" class="text-sub" font-size="14">注解起始版本: <tspan class="text-main" font-size="15">23</tspan></text>
+    <text x="35" y="705" class="text-sub" font-size="14">示例函数 API: <tspan class="text-main" font-size="15">27</tspan></text>
+    <text x="35" y="730" class="text-sub" font-size="14">告警规则: <tspan class="text-main">compatibility, syscap, permission</tspan></text>
+
+    <!-- 底部导航栏 -->
+    <polygon points="110,695 120,705 100,705" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="180" cy="700" r="8" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="245" y="692" width="14" height="14" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+</svg>

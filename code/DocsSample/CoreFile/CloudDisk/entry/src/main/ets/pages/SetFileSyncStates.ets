@@ -102,6 +102,7 @@ struct SetFileSyncStates {
             .width('10%')
             .margin(10)
           Button($r('app.string.add_row'))
+            .id('setAddRowBtn')
             .onClick(() => {
               if (this.inputItems.length < 5) {
                 let fileState: cloudDisk.FileSyncState = {
@@ -117,6 +118,7 @@ struct SetFileSyncStates {
             })
             .margin(10)
           Button($r('app.string.submit'))
+            .id('setSubmitBtn')
             .onClick(() => {
               let syncStates: cloudDisk.FileSyncState[] =
                 this.inputItems.map((item: FormItem): cloudDisk.FileSyncState => item.data);
@@ -140,6 +142,7 @@ struct SetFileSyncStates {
     .width('100%')
     .height('100%')
     .align(Alignment.Top)
+    .id('setSyncStatesPage')
   }
 }
 

@@ -39,6 +39,10 @@
     {
       "name": "Information",
       "value": "UI主线程收到消息:"
+    },
+    {
+      "name": "Worker_send",
+      "value": "Worker复用"
     }
   ]
 }

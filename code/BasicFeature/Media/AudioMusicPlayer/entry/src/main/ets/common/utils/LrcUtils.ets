@@ -21,8 +21,9 @@ import Logger from './Logger';
  * LRC format lyrics.
  */
 const lrcLineRegex: RegExp = new RegExp('\\[\\d{2,}:\\d{2}((\\.|:)\\d{2,})\\]', 'g');
-const lrcTimeRegex1: RegExp = new RegExp('\\[\\d{2,}', 'i');
-const lrcTimeRegex2: RegExp = new RegExp('\\d{2}\\.\\d{2,}', 'i');
+// Groups: minute, second, separator and fraction digits. The fraction was previously read with a loose
+// pattern that matched inside the minute/second pair, so [00:10.50] was parsed as 00:00.10 instead of 10.5s.
+const lrcTagRegex: RegExp = new RegExp('\\[(\\d{2,}):(\\d{2})[.:](\\d{2,})\\]');
 
 /**
  * KRC format lyrics.
@@ -59,11 +60,14 @@ export function parseLrcLyric(text: string): Array<LrcEntry> {
     let lineText = lyric[i].replace(lrcLineRegex, '');
     if (lineTime && lineText) {
       for (let j = 0; j < lineTime.length; j++) {
-        let min = Number(String(lineTime[j].match(lrcTimeRegex1)).slice(1));
-        let sec = Number.parseFloat(String(lineTime[j].match(lrcTimeRegex2)));
-        let timeInSeconds = (min * 60 + sec) * 1000;
+        let tag: RegExpMatchArray | null = lineTime[j].match(lrcTagRegex);
+        if (!tag) {
+          continue;
+        }
+        let timeInMilliseconds = Number.parseInt(tag[1]) * 60 * 1000 + Number.parseInt(tag[2]) * 1000 +
+          Math.floor(Number.parseFloat(`0.${tag[3]}`) * 1000);
         lrc.push({
-          lineStartTime: timeInSeconds,
+          lineStartTime: timeInMilliseconds,
           lineDuration: 0,
           lineWords: lineText,
           words: []

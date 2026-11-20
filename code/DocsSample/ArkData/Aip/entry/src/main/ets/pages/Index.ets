@@ -25,7 +25,7 @@ let textConfig: intelligence.ModelConfig = {
   cachePath: "/data"
 }
 let textEmbedding: intelligence.TextEmbedding;
-let modelInfo:  intelligence.CloudModelInfo;
+let modelInfo: intelligence.CloudModelInfo;
 // [End aip_getTextEmbeddingModel_operating_parameter]
 
 // [Start aip_getImageEmbeddingModel_operating_parameter]
@@ -50,6 +50,12 @@ struct Index {
         if (info.length > 0) {
           modelInfo = info[0];
         }
+      })
+      .catch((err: BusinessError) => {
+        console.error('Failed to get supported model and code is ' + err.code);
+        // [StartExclude aip_getSupportedCloudModel_operating]
+        this.message = 'aip getSupportedCloudModel';
+        // [EndExclude aip_getSupportedCloudModel_operating]
       })
     // [End aip_getSupportedCloudModel_operating]
   }

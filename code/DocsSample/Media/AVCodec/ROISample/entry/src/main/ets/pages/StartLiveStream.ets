@@ -186,9 +186,10 @@ export struct StartLiveStream {
     }
     .onBackPressed(() => {
       BackgroundTaskManager.stopContinuousTask(uiContext?.getHostContext() as common.UIAbilityContext);
-      this.cameraController.release();
-      this.bgmController.release();
-      this.pageStack.pop();
+      this.cameraController.release().then(() => {
+        this.bgmController.release();
+        this.pageStack.pop();
+      });
       return true;
     })
     .onAppear(() => {
