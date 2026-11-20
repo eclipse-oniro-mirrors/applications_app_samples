@@ -14,6 +14,7 @@
  */
 
 import abilityTest from './Ability.test';
+import expandApiSmokeTest from './ExpandApiSmoke.test';
 import expandLayoutMatrix1Test from './ExpandLayoutMatrix1.test';
 import expandLayoutMatrix2Test from './ExpandLayoutMatrix2.test';
 import expandLayoutMatrix3Test from './ExpandLayoutMatrix3.test';
@@ -56,6 +57,7 @@ import expandRouteMatrix1Test from './ExpandRouteFactsMatrix1.test';
 
 export default function testsuite(): void {
   abilityTest();
+  expandApiSmokeTest();
   expandLayoutMatrix1Test();
   expandLayoutMatrix2Test();
   expandLayoutMatrix3Test();
