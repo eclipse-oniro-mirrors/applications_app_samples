@@ -1893,5 +1893,341 @@ export default function ColorContrastTest(): void {
       expect(Math.abs(13.0208 - 13.0208) < 0.0001).assertTrue();
     });
 
+    /**
+     * @tc.name ColorContrastTest_case_106
+     * @tc.desc color-contrast: ordered matrix cell textSub -> primary.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('ColorContrastTest_case_106', 0, () => {
+      const ratio: number = contrastRatio(COLORS.textSub, COLORS.primary);
+      expect(round4(ratio)).assertEqual(1.3718);
+      expect(ratio >= 1).assertTrue();
+      expect(ratio <= 21).assertTrue();
+      expect(COLORS.textSub === COLORS.primary).assertEqual(false);
+      expect(round4(contrastRatio(COLORS.primary, COLORS.textSub))).assertEqual(1.3718);
+      expect(Math.abs(1.3718 - 1.3718) < 0.0001).assertTrue();
+    });
+
+    /**
+     * @tc.name ColorContrastTest_case_107
+     * @tc.desc color-contrast: ordered matrix cell textSub -> bgPage.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('ColorContrastTest_case_107', 0, () => {
+      const ratio: number = contrastRatio(COLORS.textSub, COLORS.bgPage);
+      expect(round4(ratio)).assertEqual(2.8694);
+      expect(ratio >= 1).assertTrue();
+      expect(ratio <= 21).assertTrue();
+      expect(COLORS.textSub === COLORS.bgPage).assertEqual(false);
+      expect(round4(contrastRatio(COLORS.bgPage, COLORS.textSub))).assertEqual(2.8694);
+      expect(Math.abs(2.8694 - 2.8694) < 0.0001).assertTrue();
+    });
+
+    /**
+     * @tc.name ColorContrastTest_case_108
+     * @tc.desc color-contrast: ordered matrix cell textSub -> bgCard.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('ColorContrastTest_case_108', 0, () => {
+      const ratio: number = contrastRatio(COLORS.textSub, COLORS.bgCard);
+      expect(round4(ratio)).assertEqual(3.0795);
+      expect(ratio >= 1).assertTrue();
+      expect(ratio <= 21).assertTrue();
+      expect(COLORS.textSub === COLORS.bgCard).assertEqual(false);
+      expect(round4(contrastRatio(COLORS.bgCard, COLORS.textSub))).assertEqual(3.0795);
+      expect(Math.abs(3.0795 - 3.0795) < 0.0001).assertTrue();
+    });
+
+    /**
+     * @tc.name ColorContrastTest_case_109
+     * @tc.desc color-contrast: ordered matrix cell textSub -> textMain.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('ColorContrastTest_case_109', 0, () => {
+      const ratio: number = contrastRatio(COLORS.textSub, COLORS.textMain);
+      expect(round4(ratio)).assertEqual(4.2282);
+      expect(ratio >= 1).assertTrue();
+      expect(ratio <= 21).assertTrue();
+      expect(COLORS.textSub === COLORS.textMain).assertEqual(false);
+      expect(round4(contrastRatio(COLORS.textMain, COLORS.textSub))).assertEqual(4.2282);
+      expect(Math.abs(4.2282 - 4.2282) < 0.0001).assertTrue();
+    });
+
+    /**
+     * @tc.name ColorContrastTest_case_110
+     * @tc.desc color-contrast: ordered matrix cell textSub -> textSub.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('ColorContrastTest_case_110', 0, () => {
+      const ratio: number = contrastRatio(COLORS.textSub, COLORS.textSub);
+      expect(round4(ratio)).assertEqual(1.0000);
+      expect(ratio >= 1).assertTrue();
+      expect(ratio <= 21).assertTrue();
+      expect(COLORS.textSub === COLORS.textSub).assertEqual(true);
+      expect(round4(contrastRatio(COLORS.textSub, COLORS.textSub))).assertEqual(1.0000);
+      expect(Math.abs(1.0000 - 1.0000) < 0.0001).assertTrue();
+    });
+
+    /**
+     * @tc.name ColorContrastTest_case_111
+     * @tc.desc color-contrast: ordered matrix cell textSub -> border.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('ColorContrastTest_case_111', 0, () => {
+      const ratio: number = contrastRatio(COLORS.textSub, COLORS.border);
+      expect(round4(ratio)).assertEqual(2.4709);
+      expect(ratio >= 1).assertTrue();
+      expect(ratio <= 21).assertTrue();
+      expect(COLORS.textSub === COLORS.border).assertEqual(false);
+      expect(round4(contrastRatio(COLORS.border, COLORS.textSub))).assertEqual(2.4709);
+      expect(Math.abs(2.4709 - 2.4709) < 0.0001).assertTrue();
+    });
+
+    /**
+     * @tc.name ColorContrastTest_case_112
+     * @tc.desc color-contrast: ordered matrix cell textSub -> btnText.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('ColorContrastTest_case_112', 0, () => {
+      const ratio: number = contrastRatio(COLORS.textSub, COLORS.btnText);
+      expect(round4(ratio)).assertEqual(3.0795);
+      expect(ratio >= 1).assertTrue();
+      expect(ratio <= 21).assertTrue();
+      expect(COLORS.textSub === COLORS.btnText).assertEqual(false);
+      expect(round4(contrastRatio(COLORS.btnText, COLORS.textSub))).assertEqual(3.0795);
+      expect(Math.abs(3.0795 - 3.0795) < 0.0001).assertTrue();
+    });
+
+    /**
+     * @tc.name ColorContrastTest_case_113
+     * @tc.desc color-contrast: ordered matrix cell border -> primary.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('ColorContrastTest_case_113', 0, () => {
+      const ratio: number = contrastRatio(COLORS.border, COLORS.primary);
+      expect(round4(ratio)).assertEqual(1.8013);
+      expect(ratio >= 1).assertTrue();
+      expect(ratio <= 21).assertTrue();
+      expect(COLORS.border === COLORS.primary).assertEqual(false);
+      expect(round4(contrastRatio(COLORS.primary, COLORS.border))).assertEqual(1.8013);
+      expect(Math.abs(1.8013 - 1.8013) < 0.0001).assertTrue();
+    });
+
+    /**
+     * @tc.name ColorContrastTest_case_114
+     * @tc.desc color-contrast: ordered matrix cell border -> bgPage.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('ColorContrastTest_case_114', 0, () => {
+      const ratio: number = contrastRatio(COLORS.border, COLORS.bgPage);
+      expect(round4(ratio)).assertEqual(1.1613);
+      expect(ratio >= 1).assertTrue();
+      expect(ratio <= 21).assertTrue();
+      expect(COLORS.border === COLORS.bgPage).assertEqual(false);
+      expect(round4(contrastRatio(COLORS.bgPage, COLORS.border))).assertEqual(1.1613);
+      expect(Math.abs(1.1613 - 1.1613) < 0.0001).assertTrue();
+    });
+
+    /**
+     * @tc.name ColorContrastTest_case_115
+     * @tc.desc color-contrast: ordered matrix cell border -> bgCard.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('ColorContrastTest_case_115', 0, () => {
+      const ratio: number = contrastRatio(COLORS.border, COLORS.bgCard);
+      expect(round4(ratio)).assertEqual(1.2463);
+      expect(ratio >= 1).assertTrue();
+      expect(ratio <= 21).assertTrue();
+      expect(COLORS.border === COLORS.bgCard).assertEqual(false);
+      expect(round4(contrastRatio(COLORS.bgCard, COLORS.border))).assertEqual(1.2463);
+      expect(Math.abs(1.2463 - 1.2463) < 0.0001).assertTrue();
+    });
+
+    /**
+     * @tc.name ColorContrastTest_case_116
+     * @tc.desc color-contrast: ordered matrix cell border -> textMain.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('ColorContrastTest_case_116', 0, () => {
+      const ratio: number = contrastRatio(COLORS.border, COLORS.textMain);
+      expect(round4(ratio)).assertEqual(10.4476);
+      expect(ratio >= 1).assertTrue();
+      expect(ratio <= 21).assertTrue();
+      expect(COLORS.border === COLORS.textMain).assertEqual(false);
+      expect(round4(contrastRatio(COLORS.textMain, COLORS.border))).assertEqual(10.4476);
+      expect(Math.abs(10.4476 - 10.4476) < 0.0001).assertTrue();
+    });
+
+    /**
+     * @tc.name ColorContrastTest_case_117
+     * @tc.desc color-contrast: ordered matrix cell border -> textSub.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('ColorContrastTest_case_117', 0, () => {
+      const ratio: number = contrastRatio(COLORS.border, COLORS.textSub);
+      expect(round4(ratio)).assertEqual(2.4709);
+      expect(ratio >= 1).assertTrue();
+      expect(ratio <= 21).assertTrue();
+      expect(COLORS.border === COLORS.textSub).assertEqual(false);
+      expect(round4(contrastRatio(COLORS.textSub, COLORS.border))).assertEqual(2.4709);
+      expect(Math.abs(2.4709 - 2.4709) < 0.0001).assertTrue();
+    });
+
+    /**
+     * @tc.name ColorContrastTest_case_118
+     * @tc.desc color-contrast: ordered matrix cell border -> border.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('ColorContrastTest_case_118', 0, () => {
+      const ratio: number = contrastRatio(COLORS.border, COLORS.border);
+      expect(round4(ratio)).assertEqual(1.0000);
+      expect(ratio >= 1).assertTrue();
+      expect(ratio <= 21).assertTrue();
+      expect(COLORS.border === COLORS.border).assertEqual(true);
+      expect(round4(contrastRatio(COLORS.border, COLORS.border))).assertEqual(1.0000);
+      expect(Math.abs(1.0000 - 1.0000) < 0.0001).assertTrue();
+    });
+
+    /**
+     * @tc.name ColorContrastTest_case_119
+     * @tc.desc color-contrast: ordered matrix cell border -> btnText.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('ColorContrastTest_case_119', 0, () => {
+      const ratio: number = contrastRatio(COLORS.border, COLORS.btnText);
+      expect(round4(ratio)).assertEqual(1.2463);
+      expect(ratio >= 1).assertTrue();
+      expect(ratio <= 21).assertTrue();
+      expect(COLORS.border === COLORS.btnText).assertEqual(false);
+      expect(round4(contrastRatio(COLORS.btnText, COLORS.border))).assertEqual(1.2463);
+      expect(Math.abs(1.2463 - 1.2463) < 0.0001).assertTrue();
+    });
+
+    /**
+     * @tc.name ColorContrastTest_case_120
+     * @tc.desc color-contrast: ordered matrix cell btnText -> primary.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('ColorContrastTest_case_120', 0, () => {
+      const ratio: number = contrastRatio(COLORS.btnText, COLORS.primary);
+      expect(round4(ratio)).assertEqual(2.2449);
+      expect(ratio >= 1).assertTrue();
+      expect(ratio <= 21).assertTrue();
+      expect(COLORS.btnText === COLORS.primary).assertEqual(false);
+      expect(round4(contrastRatio(COLORS.primary, COLORS.btnText))).assertEqual(2.2449);
+      expect(Math.abs(2.2449 - 2.2449) < 0.0001).assertTrue();
+    });
+
+    /**
+     * @tc.name ColorContrastTest_case_121
+     * @tc.desc color-contrast: ordered matrix cell btnText -> bgPage.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('ColorContrastTest_case_121', 0, () => {
+      const ratio: number = contrastRatio(COLORS.btnText, COLORS.bgPage);
+      expect(round4(ratio)).assertEqual(1.0732);
+      expect(ratio >= 1).assertTrue();
+      expect(ratio <= 21).assertTrue();
+      expect(COLORS.btnText === COLORS.bgPage).assertEqual(false);
+      expect(round4(contrastRatio(COLORS.bgPage, COLORS.btnText))).assertEqual(1.0732);
+      expect(Math.abs(1.0732 - 1.0732) < 0.0001).assertTrue();
+    });
+
+    /**
+     * @tc.name ColorContrastTest_case_122
+     * @tc.desc color-contrast: ordered matrix cell btnText -> bgCard.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('ColorContrastTest_case_122', 0, () => {
+      const ratio: number = contrastRatio(COLORS.btnText, COLORS.bgCard);
+      expect(round4(ratio)).assertEqual(1.0000);
+      expect(ratio >= 1).assertTrue();
+      expect(ratio <= 21).assertTrue();
+      expect(COLORS.btnText === COLORS.bgCard).assertEqual(true);
+      expect(round4(contrastRatio(COLORS.bgCard, COLORS.btnText))).assertEqual(1.0000);
+      expect(Math.abs(1.0000 - 1.0000) < 0.0001).assertTrue();
+    });
+
+    /**
+     * @tc.name ColorContrastTest_case_123
+     * @tc.desc color-contrast: ordered matrix cell btnText -> textMain.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('ColorContrastTest_case_123', 0, () => {
+      const ratio: number = contrastRatio(COLORS.btnText, COLORS.textMain);
+      expect(round4(ratio)).assertEqual(13.0208);
+      expect(ratio >= 1).assertTrue();
+      expect(ratio <= 21).assertTrue();
+      expect(COLORS.btnText === COLORS.textMain).assertEqual(false);
+      expect(round4(contrastRatio(COLORS.textMain, COLORS.btnText))).assertEqual(13.0208);
+      expect(Math.abs(13.0208 - 13.0208) < 0.0001).assertTrue();
+    });
+
+    /**
+     * @tc.name ColorContrastTest_case_124
+     * @tc.desc color-contrast: ordered matrix cell btnText -> textSub.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('ColorContrastTest_case_124', 0, () => {
+      const ratio: number = contrastRatio(COLORS.btnText, COLORS.textSub);
+      expect(round4(ratio)).assertEqual(3.0795);
+      expect(ratio >= 1).assertTrue();
+      expect(ratio <= 21).assertTrue();
+      expect(COLORS.btnText === COLORS.textSub).assertEqual(false);
+      expect(round4(contrastRatio(COLORS.textSub, COLORS.btnText))).assertEqual(3.0795);
+      expect(Math.abs(3.0795 - 3.0795) < 0.0001).assertTrue();
+    });
+
+    /**
+     * @tc.name ColorContrastTest_case_125
+     * @tc.desc color-contrast: ordered matrix cell btnText -> border.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('ColorContrastTest_case_125', 0, () => {
+      const ratio: number = contrastRatio(COLORS.btnText, COLORS.border);
+      expect(round4(ratio)).assertEqual(1.2463);
+      expect(ratio >= 1).assertTrue();
+      expect(ratio <= 21).assertTrue();
+      expect(COLORS.btnText === COLORS.border).assertEqual(false);
+      expect(round4(contrastRatio(COLORS.border, COLORS.btnText))).assertEqual(1.2463);
+      expect(Math.abs(1.2463 - 1.2463) < 0.0001).assertTrue();
+    });
+
+    /**
+     * @tc.name ColorContrastTest_case_126
+     * @tc.desc color-contrast: ordered matrix cell btnText -> btnText.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('ColorContrastTest_case_126', 0, () => {
+      const ratio: number = contrastRatio(COLORS.btnText, COLORS.btnText);
+      expect(round4(ratio)).assertEqual(1.0000);
+      expect(ratio >= 1).assertTrue();
+      expect(ratio <= 21).assertTrue();
+      expect(COLORS.btnText === COLORS.btnText).assertEqual(true);
+      expect(round4(contrastRatio(COLORS.btnText, COLORS.btnText))).assertEqual(1.0000);
+      expect(Math.abs(1.0000 - 1.0000) < 0.0001).assertTrue();
+    });
+
   });
 }
