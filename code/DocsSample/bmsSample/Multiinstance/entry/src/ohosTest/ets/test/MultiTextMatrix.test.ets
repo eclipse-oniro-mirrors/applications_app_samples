@@ -386,3 +386,366 @@ export default function multiTextMatrixTest() {
   /**
    * @tc.number    SUB_BMS_MULTIINSTANCE_MITXT_0017
    * @tc.name      testMultiText0017
+   * @tc.desc      Instance text slice 14 rejoins
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMultiText0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMultiText0017', 'slice 14');
+    const text: string = 'multi instance guide';
+    const head: string = text.substring(0, 14);
+    const tail: string = text.substring(14);
+    expect(head.length).assertEqual(14);
+    expect(tail.length).assertEqual(6);
+    expect(head + tail).assertEqual(text);
+    expect(text.indexOf(head)).assertEqual(0);
+    expect(text.lastIndexOf(tail)).assertEqual(14);
+    expect(text.slice(14)).assertEqual(tail);
+    expect(head.charAt(head.length - 1)).assertEqual('e');
+    expect(tail.charAt(0)).assertEqual(' ');
+    expect(tail.length + head.length).assertEqual(20);
+  });
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_MITXT_0018
+   * @tc.name      testMultiText0018
+   * @tc.desc      Instance text slice 15 rejoins
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMultiText0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMultiText0018', 'slice 15');
+    const text: string = 'multi instance guide';
+    const head: string = text.substring(0, 15);
+    const tail: string = text.substring(15);
+    expect(head.length).assertEqual(15);
+    expect(tail.length).assertEqual(5);
+    expect(head + tail).assertEqual(text);
+    expect(text.indexOf(head)).assertEqual(0);
+    expect(text.lastIndexOf(tail)).assertEqual(15);
+    expect(text.slice(15)).assertEqual(tail);
+    expect(head.charAt(head.length - 1)).assertEqual(' ');
+    expect(tail.charAt(0)).assertEqual('g');
+    expect(tail.length + head.length).assertEqual(20);
+  });
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_MITXT_0019
+   * @tc.name      testMultiText0019
+   * @tc.desc      Instance text slice 16 rejoins
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMultiText0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMultiText0019', 'slice 16');
+    const text: string = 'multi instance guide';
+    const head: string = text.substring(0, 16);
+    const tail: string = text.substring(16);
+    expect(head.length).assertEqual(16);
+    expect(tail.length).assertEqual(4);
+    expect(head + tail).assertEqual(text);
+    expect(text.indexOf(head)).assertEqual(0);
+    expect(text.lastIndexOf(tail)).assertEqual(16);
+    expect(text.slice(16)).assertEqual(tail);
+    expect(head.charAt(head.length - 1)).assertEqual('g');
+    expect(tail.charAt(0)).assertEqual('u');
+    expect(tail.length + head.length).assertEqual(20);
+  });
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_MITXT_0020
+   * @tc.name      testMultiText0020
+   * @tc.desc      Instance text slice 17 rejoins
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMultiText0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMultiText0020', 'slice 17');
+    const text: string = 'multi instance guide';
+    const head: string = text.substring(0, 17);
+    const tail: string = text.substring(17);
+    expect(head.length).assertEqual(17);
+    expect(tail.length).assertEqual(3);
+    expect(head + tail).assertEqual(text);
+    expect(text.indexOf(head)).assertEqual(0);
+    expect(text.lastIndexOf(tail)).assertEqual(17);
+    expect(text.slice(17)).assertEqual(tail);
+    expect(head.charAt(head.length - 1)).assertEqual('u');
+    expect(tail.charAt(0)).assertEqual('i');
+    expect(tail.length + head.length).assertEqual(20);
+  });
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_MITXT_0021
+   * @tc.name      testMultiText0021
+   * @tc.desc      Instance text slice 18 rejoins
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMultiText0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMultiText0021', 'slice 18');
+    const text: string = 'multi instance guide';
+    const head: string = text.substring(0, 18);
+    const tail: string = text.substring(18);
+    expect(head.length).assertEqual(18);
+    expect(tail.length).assertEqual(2);
+    expect(head + tail).assertEqual(text);
+    expect(text.indexOf(head)).assertEqual(0);
+    expect(text.lastIndexOf(tail)).assertEqual(18);
+    expect(text.slice(18)).assertEqual(tail);
+    expect(head.charAt(head.length - 1)).assertEqual('i');
+    expect(tail.charAt(0)).assertEqual('d');
+    expect(tail.length + head.length).assertEqual(20);
+  });
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_MITXT_0022
+   * @tc.name      testMultiText0022
+   * @tc.desc      Instance text slice 19 rejoins
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMultiText0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMultiText0022', 'slice 19');
+    const text: string = 'multi instance guide';
+    const head: string = text.substring(0, 19);
+    const tail: string = text.substring(19);
+    expect(head.length).assertEqual(19);
+    expect(tail.length).assertEqual(1);
+    expect(head + tail).assertEqual(text);
+    expect(text.indexOf(head)).assertEqual(0);
+    expect(text.lastIndexOf(tail)).assertEqual(19);
+    expect(text.slice(19)).assertEqual(tail);
+    expect(head.charAt(head.length - 1)).assertEqual('d');
+    expect(tail.charAt(0)).assertEqual('e');
+    expect(tail.length + head.length).assertEqual(20);
+  });
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_MITXT_0023
+   * @tc.name      testMultiText0023
+   * @tc.desc      App name repeat 1 stays aligned
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMultiText0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMultiText0023', 'app name repeat 1');
+    const text: string = 'simple004_multiinstance';
+    const repeated: string = text.repeat(1);
+    expect(repeated.length).assertEqual(23);
+    expect(repeated.startsWith(text)).assertTrue();
+    expect(repeated.endsWith(text)).assertTrue();
+    expect(repeated.split(text).length).assertEqual(2);
+    expect(repeated.indexOf(text, 1)).assertEqual(23);
+    expect(repeated.lastIndexOf(text)).assertEqual(0);
+    expect(text.length).assertEqual(23);
+  });
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_MITXT_0024
+   * @tc.name      testMultiText0024
+   * @tc.desc      App name repeat 2 stays aligned
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMultiText0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMultiText0024', 'app name repeat 2');
+    const text: string = 'simple004_multiinstance';
+    const repeated: string = text.repeat(2);
+    expect(repeated.length).assertEqual(46);
+    expect(repeated.startsWith(text)).assertTrue();
+    expect(repeated.endsWith(text)).assertTrue();
+    expect(repeated.split(text).length).assertEqual(3);
+    expect(repeated.indexOf(text, 1)).assertEqual(23);
+    expect(repeated.lastIndexOf(text)).assertEqual(23);
+    expect(text.length).assertEqual(23);
+  });
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_MITXT_0025
+   * @tc.name      testMultiText0025
+   * @tc.desc      App name repeat 3 stays aligned
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMultiText0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMultiText0025', 'app name repeat 3');
+    const text: string = 'simple004_multiinstance';
+    const repeated: string = text.repeat(3);
+    expect(repeated.length).assertEqual(69);
+    expect(repeated.startsWith(text)).assertTrue();
+    expect(repeated.endsWith(text)).assertTrue();
+    expect(repeated.split(text).length).assertEqual(4);
+    expect(repeated.indexOf(text, 1)).assertEqual(23);
+    expect(repeated.lastIndexOf(text)).assertEqual(46);
+    expect(text.length).assertEqual(23);
+  });
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_MITXT_0026
+   * @tc.name      testMultiText0026
+   * @tc.desc      App name repeat 4 stays aligned
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMultiText0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMultiText0026', 'app name repeat 4');
+    const text: string = 'simple004_multiinstance';
+    const repeated: string = text.repeat(4);
+    expect(repeated.length).assertEqual(92);
+    expect(repeated.startsWith(text)).assertTrue();
+    expect(repeated.endsWith(text)).assertTrue();
+    expect(repeated.split(text).length).assertEqual(5);
+    expect(repeated.indexOf(text, 1)).assertEqual(23);
+    expect(repeated.lastIndexOf(text)).assertEqual(69);
+    expect(text.length).assertEqual(23);
+  });
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_MITXT_0027
+   * @tc.name      testMultiText0027
+   * @tc.desc      App name repeat 5 stays aligned
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMultiText0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMultiText0027', 'app name repeat 5');
+    const text: string = 'simple004_multiinstance';
+    const repeated: string = text.repeat(5);
+    expect(repeated.length).assertEqual(115);
+    expect(repeated.startsWith(text)).assertTrue();
+    expect(repeated.endsWith(text)).assertTrue();
+    expect(repeated.split(text).length).assertEqual(6);
+    expect(repeated.indexOf(text, 1)).assertEqual(23);
+    expect(repeated.lastIndexOf(text)).assertEqual(92);
+    expect(text.length).assertEqual(23);
+  });
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_MITXT_0028
+   * @tc.name      testMultiText0028
+   * @tc.desc      App name char 0 looks up
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMultiText0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMultiText0028', 'app name char 0');
+    const text: string = 'simple004_multiinstance';
+    const ch: string = text.charAt(0);
+    expect(ch).assertEqual('s');
+    expect(text.charCodeAt(0)).assertEqual(115);
+    expect(text.indexOf(ch)).assertEqual(0);
+    expect(text.substring(0, 3)).assertEqual('sim');
+    expect(text.slice(0).length).assertEqual(23);
+  });
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_MITXT_0029
+   * @tc.name      testMultiText0029
+   * @tc.desc      App name char 1 looks up
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMultiText0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMultiText0029', 'app name char 1');
+    const text: string = 'simple004_multiinstance';
+    const ch: string = text.charAt(1);
+    expect(ch).assertEqual('i');
+    expect(text.charCodeAt(1)).assertEqual(105);
+    expect(text.indexOf(ch)).assertEqual(1);
+    expect(text.substring(1, 4)).assertEqual('imp');
+    expect(text.slice(1).length).assertEqual(22);
+  });
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_MITXT_0030
+   * @tc.name      testMultiText0030
+   * @tc.desc      App name char 2 looks up
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMultiText0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMultiText0030', 'app name char 2');
+    const text: string = 'simple004_multiinstance';
+    const ch: string = text.charAt(2);
+    expect(ch).assertEqual('m');
+    expect(text.charCodeAt(2)).assertEqual(109);
+    expect(text.indexOf(ch)).assertEqual(2);
+    expect(text.substring(2, 5)).assertEqual('mpl');
+    expect(text.slice(2).length).assertEqual(21);
+  });
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_MITXT_0031
+   * @tc.name      testMultiText0031
+   * @tc.desc      App name char 3 looks up
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMultiText0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMultiText0031', 'app name char 3');
+    const text: string = 'simple004_multiinstance';
+    const ch: string = text.charAt(3);
+    expect(ch).assertEqual('p');
+    expect(text.charCodeAt(3)).assertEqual(112);
+    expect(text.indexOf(ch)).assertEqual(3);
+    expect(text.substring(3, 6)).assertEqual('ple');
+    expect(text.slice(3).length).assertEqual(20);
+  });
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_MITXT_0032
+   * @tc.name      testMultiText0032
+   * @tc.desc      App name char 4 looks up
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMultiText0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMultiText0032', 'app name char 4');
+    const text: string = 'simple004_multiinstance';
+    const ch: string = text.charAt(4);
+    expect(ch).assertEqual('l');
+    expect(text.charCodeAt(4)).assertEqual(108);
+    expect(text.indexOf(ch)).assertEqual(4);
+    expect(text.substring(4, 7)).assertEqual('le0');
+    expect(text.slice(4).length).assertEqual(19);
+  });
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_MITXT_0033
+   * @tc.name      testMultiText0033
+   * @tc.desc      App name char 5 looks up
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMultiText0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMultiText0033', 'app name char 5');
+    const text: string = 'simple004_multiinstance';
+    const ch: string = text.charAt(5);
+    expect(ch).assertEqual('e');
+    expect(text.charCodeAt(5)).assertEqual(101);
+    expect(text.indexOf(ch)).assertEqual(5);
+    expect(text.substring(5, 8)).assertEqual('e00');
+    expect(text.slice(5).length).assertEqual(18);
+  });
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_MITXT_0034
+   * @tc.name      testMultiText0034
+   * @tc.desc      App name char 6 looks up
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMultiText0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMultiText0034', 'app name char 6');
+    const text: string = 'simple004_multiinstance';
+    const ch: string = text.charAt(6);
+    expect(ch).assertEqual('0');
+    expect(text.charCodeAt(6)).assertEqual(48);
+    expect(text.indexOf(ch)).assertEqual(6);
+    expect(text.substring(6, 9)).assertEqual('004');
+    expect(text.slice(6).length).assertEqual(17);
+  });
+  });
+}
