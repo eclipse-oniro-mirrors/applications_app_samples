@@ -29,6 +29,9 @@ declare namespace ImageEffect {
   const lookupFilters: (key: String) => string;
 
   const getSurfaceId: (surfaceId: string) => string;
+
+  const TextureFilterStart: (inputPath: string, outputPath: string,
+    filterOptions: Array<Array<String|number>>) => boolean;
 }
 
 export default ImageEffect;
