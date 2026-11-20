@@ -13,113 +13,113 @@
  * limitations under the License.
  */
 
-import Logger from './Logger'
-import data from '@ohos.telephony.data'
+import Logger from './Logger';
+import data from '@ohos.telephony.data';
 
-const TAG: string = '[Sample_MobileNetwork]'
+const TAG: string = '[Sample_MobileNetwork]';
 
 export class NetworkMobile {
   async getDefaultCellularDataSlotId(): Promise<number> {
-    let slotId: number = -1
+    let slotId: number = -1;
     try {
-      slotId = await data.getDefaultCellularDataSlotId()
-      Logger.info(TAG, `getDefaultCellularDataSlotId slotId = ${slotId}`)
+      slotId = await data.getDefaultCellularDataSlotId();
+      Logger.info(TAG, `getDefaultCellularDataSlotId slotId = ${slotId}`);
     } catch (err) {
-      Logger.info(TAG, `getDefaultCellularDataSlotId failed err is ${JSON.stringify(err)}`)
+      Logger.info(TAG, `getDefaultCellularDataSlotId failed err is ${JSON.stringify(err)}`);
     }
     return slotId;
   }
 
   async isCellularDataEnabled(): Promise<boolean> {
-    let dataEnabled: boolean = false
+    let dataEnabled: boolean = false;
     try {
-      dataEnabled = await data.isCellularDataEnabled()
-      Logger.info(TAG, `isCellularDataEnabled dataEnabled = ${dataEnabled}`)
+      dataEnabled = await data.isCellularDataEnabled();
+      Logger.info(TAG, `isCellularDataEnabled dataEnabled = ${dataEnabled}`);
     } catch (err) {
-      Logger.info(TAG, `isCellularDataEnabled failed err is ${JSON.stringify(err)}`)
+      Logger.info(TAG, `isCellularDataEnabled failed err is ${JSON.stringify(err)}`);
     }
     return dataEnabled;
   }
 
   async isCellularDataRoamingEnabled(slotId: number): Promise<boolean> {
-    let dataRoamingEnabled: boolean = false
+    let dataRoamingEnabled: boolean = false;
     try {
-      dataRoamingEnabled = await data.isCellularDataRoamingEnabled(slotId)
-      Logger.info(TAG, `isCellularDataRoamingEnabled dataRoamingEnabled = ${dataRoamingEnabled}`)
+      dataRoamingEnabled = await data.isCellularDataRoamingEnabled(slotId);
+      Logger.info(TAG, `isCellularDataRoamingEnabled dataRoamingEnabled = ${dataRoamingEnabled}`);
     } catch (err) {
-      Logger.info(TAG, `isCellularDataRoamingEnabled failed err is ${JSON.stringify(err)}`)
+      Logger.info(TAG, `isCellularDataRoamingEnabled failed err is ${JSON.stringify(err)}`);
     }
     return dataRoamingEnabled;
   }
 
   getDataFlowTypeResource(dataFlow: data.DataFlowType): Resource {
-    let result: Resource = $r('app.string.none')
+    let result: Resource = $r('app.string.none');
     switch (dataFlow) {
       case data.DataFlowType.DATA_FLOW_TYPE_NONE:
-        result = $r('app.string.none')
+        result = $r('app.string.none');
         break;
       case data.DataFlowType.DATA_FLOW_TYPE_DOWN:
-        result = $r('app.string.down')
+        result = $r('app.string.down');
         break;
       case data.DataFlowType.DATA_FLOW_TYPE_UP:
-        result = $r('app.string.up')
+        result = $r('app.string.up');
         break;
       case data.DataFlowType.DATA_FLOW_TYPE_UP_DOWN:
-        result = $r('app.string.upDown')
+        result = $r('app.string.upDown');
         break;
       case data.DataFlowType.DATA_FLOW_TYPE_DORMANT:
-        result = $r('app.string.dormant')
+        result = $r('app.string.dormant');
         break;
       default:
-        result = $r('app.string.none')
+        result = $r('app.string.none');
         break;
     }
     return result;
   }
 
   getDataStateResource(state: data.DataConnectState): Resource {
-    let result: Resource = $r('app.string.unknown')
+    let result: Resource = $r('app.string.unknown');
     switch (state) {
       case data.DataConnectState.DATA_STATE_UNKNOWN:
-        result = $r('app.string.unknown')
+        result = $r('app.string.unknown');
         break;
       case data.DataConnectState.DATA_STATE_DISCONNECTED:
-        result = $r('app.string.disconnect')
+        result = $r('app.string.disconnect');
         break;
       case data.DataConnectState.DATA_STATE_CONNECTING:
-        result = $r('app.string.connecting')
+        result = $r('app.string.connecting');
         break;
       case data.DataConnectState.DATA_STATE_CONNECTED:
-        result = $r('app.string.connect')
+        result = $r('app.string.connect');
         break;
       case data.DataConnectState.DATA_STATE_SUSPENDED:
-        result = $r('app.string.suspended')
+        result = $r('app.string.suspended');
         break;
       default:
-        result = $r('app.string.unknown')
+        result = $r('app.string.unknown');
         break;
     }
     return result;
   }
 
   async getCellularDataFlowType(): Promise<Resource> {
-    let dataFlow: data.DataFlowType = data.DataFlowType.DATA_FLOW_TYPE_NONE
+    let dataFlow: data.DataFlowType = data.DataFlowType.DATA_FLOW_TYPE_NONE;
     try {
-      dataFlow = await data.getCellularDataFlowType()
-      Logger.info(TAG, `getCellularDataFlowType dataFlow = ${JSON.stringify(dataFlow)}`)
+      dataFlow = await data.getCellularDataFlowType();
+      Logger.info(TAG, `getCellularDataFlowType dataFlow = ${JSON.stringify(dataFlow)}`);
     } catch (err) {
-      Logger.info(TAG, `getCellularDataFlowType failed err is ${JSON.stringify(err)}`)
+      Logger.info(TAG, `getCellularDataFlowType failed err is ${JSON.stringify(err)}`);
     }
     return this.getDataFlowTypeResource(dataFlow);
   }
 
   async getCellularDataState(): Promise<Resource> {
-    let dataConnectState: data.DataConnectState = data.DataConnectState.DATA_STATE_UNKNOWN
+    let dataConnectState: data.DataConnectState = data.DataConnectState.DATA_STATE_UNKNOWN;
     try {
-      dataConnectState = await data.getCellularDataState()
-      Logger.info(TAG, `getCellularDataState dataConnectState = ${JSON.stringify(dataConnectState)}`)
+      dataConnectState = await data.getCellularDataState();
+      Logger.info(TAG, `getCellularDataState dataConnectState = ${JSON.stringify(dataConnectState)}`);
     } catch (err) {
-      Logger.info(TAG, `getCellularDataState failed err is ${JSON.stringify(err)}`)
+      Logger.info(TAG, `getCellularDataState failed err is ${JSON.stringify(err)}`);
     }
     return this.getDataStateResource(dataConnectState);
   }
