@@ -741,7 +741,6 @@ int32_t VideoEncoder::Configure(const SampleInfo &sampleInfo)
 // [End encoder_configure]
 
 // [Start encoder_get_surface]
-// 获取编码器Surface模式的OHNativeWindow输入，需要在调用OH_VideoEncoder_Prepare接口之前完成。
 // 通过OHNativeWindow*获取生产者待填充数据地址。
 int32_t VideoEncoder::GetSurface(SampleInfo &sampleInfo)
 {

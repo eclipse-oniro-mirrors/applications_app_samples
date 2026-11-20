@@ -221,7 +221,7 @@ void Recorder::VideoEncInputAsyncThread()
          * info.offset = 0;
          * // 注意此处和Surface模式不同，pts需要应用填充，可根据预期显示的时间进行计算写入，如：帧数 * 1000000 / frameRate。
          * info.pts = 0;
-         * // 避免flags随机初始化为AVCODEC_BUFFER_FLAGS_EOS导致使用异常，flags需要赋值如0（普通帧标识）。
+         * // 避免flags随机初始化为AVCODEC_BUFFER_FLAGS_EOS导致使用异常，flags需要赋值，如0（表示普通帧标识）。
          * info.flags = 0;
          * OH_AVErrCode setBufferRet = OH_AVBuffer_SetBufferAttr(bufferInfo->buffer, &info);
          * if (setBufferRet != AV_ERR_OK) {
