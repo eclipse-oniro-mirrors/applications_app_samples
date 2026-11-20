@@ -3247,6 +3247,1635 @@ export default function marketFocusManagerValidationSuite() {
       expect(m.searchTitle('nohit1049')).assertEqual(0);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1050
+     * @tc.name    MarketFocusManagerValidation1050
+     * @tc.desc    Market total pages formula for page size 6 probe 1050
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1050', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1050')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1051
+     * @tc.name    MarketFocusManagerValidation1051
+     * @tc.desc    Market unknown keyword search 1051 probe 1051
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1051', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1051')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1051')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1052
+     * @tc.name    MarketFocusManagerValidation1052
+     * @tc.desc    Market total pages formula for page size 8 probe 1052
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1052', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 8;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1052')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1053
+     * @tc.name    MarketFocusManagerValidation1053
+     * @tc.desc    Market unknown keyword search 1053 probe 1053
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1053', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1053')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1053')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1054
+     * @tc.name    MarketFocusManagerValidation1054
+     * @tc.desc    Market total pages formula for page size 10 probe 1054
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1054', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 10;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1054')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1055
+     * @tc.name    MarketFocusManagerValidation1055
+     * @tc.desc    Market unknown keyword search 1055 probe 1055
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1055', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1055')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1055')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1056
+     * @tc.name    MarketFocusManagerValidation1056
+     * @tc.desc    Market total pages formula for page size 1 probe 1056
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1056', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1056')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1057
+     * @tc.name    MarketFocusManagerValidation1057
+     * @tc.desc    Market unknown keyword search 1057 probe 1057
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1057', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1057')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1057')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1058
+     * @tc.name    MarketFocusManagerValidation1058
+     * @tc.desc    Market total pages formula for page size 3 probe 1058
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1058', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1058')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1059
+     * @tc.name    MarketFocusManagerValidation1059
+     * @tc.desc    Market unknown keyword search 1059 probe 1059
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1059', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1059')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1059')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1060
+     * @tc.name    MarketFocusManagerValidation1060
+     * @tc.desc    Market total pages formula for page size 5 probe 1060
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1060', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1060')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1061
+     * @tc.name    MarketFocusManagerValidation1061
+     * @tc.desc    Market unknown keyword search 1061 probe 1061
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1061', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1061')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1061')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1062
+     * @tc.name    MarketFocusManagerValidation1062
+     * @tc.desc    Market total pages formula for page size 7 probe 1062
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1062', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1062')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1063
+     * @tc.name    MarketFocusManagerValidation1063
+     * @tc.desc    Market unknown keyword search 1063 probe 1063
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1063', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1063')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1063')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1064
+     * @tc.name    MarketFocusManagerValidation1064
+     * @tc.desc    Market total pages formula for page size 9 probe 1064
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1064', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 9;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1064')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1065
+     * @tc.name    MarketFocusManagerValidation1065
+     * @tc.desc    Market unknown keyword search 1065 probe 1065
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1065', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1065')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1065')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1066
+     * @tc.name    MarketFocusManagerValidation1066
+     * @tc.desc    Market total pages formula for page size 11 probe 1066
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1066', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 11;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1066')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1067
+     * @tc.name    MarketFocusManagerValidation1067
+     * @tc.desc    Market unknown keyword search 1067 probe 1067
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1067', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1067')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1067')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1068
+     * @tc.name    MarketFocusManagerValidation1068
+     * @tc.desc    Market total pages formula for page size 2 probe 1068
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1068', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1068')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1069
+     * @tc.name    MarketFocusManagerValidation1069
+     * @tc.desc    Market unknown keyword search 1069 probe 1069
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1069', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1069')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1069')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1070
+     * @tc.name    MarketFocusManagerValidation1070
+     * @tc.desc    Market total pages formula for page size 4 probe 1070
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1070', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1070')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1071
+     * @tc.name    MarketFocusManagerValidation1071
+     * @tc.desc    Market unknown keyword search 1071 probe 1071
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1071', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1071')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1071')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1072
+     * @tc.name    MarketFocusManagerValidation1072
+     * @tc.desc    Market total pages formula for page size 6 probe 1072
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1072', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1072')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1073
+     * @tc.name    MarketFocusManagerValidation1073
+     * @tc.desc    Market unknown keyword search 1073 probe 1073
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1073', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1073')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1073')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1074
+     * @tc.name    MarketFocusManagerValidation1074
+     * @tc.desc    Market total pages formula for page size 8 probe 1074
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1074', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 8;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1074')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1075
+     * @tc.name    MarketFocusManagerValidation1075
+     * @tc.desc    Market unknown keyword search 1075 probe 1075
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1075', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1075')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1075')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1076
+     * @tc.name    MarketFocusManagerValidation1076
+     * @tc.desc    Market total pages formula for page size 10 probe 1076
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1076', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 10;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1076')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1077
+     * @tc.name    MarketFocusManagerValidation1077
+     * @tc.desc    Market unknown keyword search 1077 probe 1077
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1077', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1077')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1077')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1078
+     * @tc.name    MarketFocusManagerValidation1078
+     * @tc.desc    Market total pages formula for page size 1 probe 1078
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1078', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1078')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1079
+     * @tc.name    MarketFocusManagerValidation1079
+     * @tc.desc    Market unknown keyword search 1079 probe 1079
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1079', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1079')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1079')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1080
+     * @tc.name    MarketFocusManagerValidation1080
+     * @tc.desc    Market total pages formula for page size 3 probe 1080
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1080', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1080')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1081
+     * @tc.name    MarketFocusManagerValidation1081
+     * @tc.desc    Market unknown keyword search 1081 probe 1081
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1081', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1081')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1081')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1082
+     * @tc.name    MarketFocusManagerValidation1082
+     * @tc.desc    Market total pages formula for page size 5 probe 1082
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1082', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1082')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1083
+     * @tc.name    MarketFocusManagerValidation1083
+     * @tc.desc    Market unknown keyword search 1083 probe 1083
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1083', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1083')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1083')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1084
+     * @tc.name    MarketFocusManagerValidation1084
+     * @tc.desc    Market total pages formula for page size 7 probe 1084
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1084', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1084')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1085
+     * @tc.name    MarketFocusManagerValidation1085
+     * @tc.desc    Market unknown keyword search 1085 probe 1085
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1085', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1085')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1085')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1086
+     * @tc.name    MarketFocusManagerValidation1086
+     * @tc.desc    Market total pages formula for page size 9 probe 1086
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1086', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 9;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1086')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1087
+     * @tc.name    MarketFocusManagerValidation1087
+     * @tc.desc    Market unknown keyword search 1087 probe 1087
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1087', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1087')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1087')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1088
+     * @tc.name    MarketFocusManagerValidation1088
+     * @tc.desc    Market total pages formula for page size 11 probe 1088
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1088', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 11;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1088')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1089
+     * @tc.name    MarketFocusManagerValidation1089
+     * @tc.desc    Market unknown keyword search 1089 probe 1089
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1089', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1089')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1089')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1090
+     * @tc.name    MarketFocusManagerValidation1090
+     * @tc.desc    Market total pages formula for page size 2 probe 1090
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1090', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1090')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1091
+     * @tc.name    MarketFocusManagerValidation1091
+     * @tc.desc    Market unknown keyword search 1091 probe 1091
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1091', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1091')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1091')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1092
+     * @tc.name    MarketFocusManagerValidation1092
+     * @tc.desc    Market total pages formula for page size 4 probe 1092
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1092', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1092')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1093
+     * @tc.name    MarketFocusManagerValidation1093
+     * @tc.desc    Market unknown keyword search 1093 probe 1093
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1093', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1093')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1093')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1094
+     * @tc.name    MarketFocusManagerValidation1094
+     * @tc.desc    Market total pages formula for page size 6 probe 1094
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1094', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1094')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1095
+     * @tc.name    MarketFocusManagerValidation1095
+     * @tc.desc    Market unknown keyword search 1095 probe 1095
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1095', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1095')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1095')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1096
+     * @tc.name    MarketFocusManagerValidation1096
+     * @tc.desc    Market total pages formula for page size 8 probe 1096
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1096', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 8;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1096')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1097
+     * @tc.name    MarketFocusManagerValidation1097
+     * @tc.desc    Market unknown keyword search 1097 probe 1097
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1097', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1097')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1097')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1098
+     * @tc.name    MarketFocusManagerValidation1098
+     * @tc.desc    Market total pages formula for page size 10 probe 1098
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1098', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 10;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1098')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1099
+     * @tc.name    MarketFocusManagerValidation1099
+     * @tc.desc    Market unknown keyword search 1099 probe 1099
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1099', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1099')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1099')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1100
+     * @tc.name    MarketFocusManagerValidation1100
+     * @tc.desc    Market total pages formula for page size 1 probe 1100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1100', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1100')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1101
+     * @tc.name    MarketFocusManagerValidation1101
+     * @tc.desc    Market unknown keyword search 1101 probe 1101
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1101', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1101')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1101')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1102
+     * @tc.name    MarketFocusManagerValidation1102
+     * @tc.desc    Market total pages formula for page size 3 probe 1102
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1102', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1102')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1103
+     * @tc.name    MarketFocusManagerValidation1103
+     * @tc.desc    Market unknown keyword search 1103 probe 1103
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1103', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1103')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1103')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1104
+     * @tc.name    MarketFocusManagerValidation1104
+     * @tc.desc    Market total pages formula for page size 5 probe 1104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1104', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1104')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1105
+     * @tc.name    MarketFocusManagerValidation1105
+     * @tc.desc    Market unknown keyword search 1105 probe 1105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1105', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1105')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1105')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1106
+     * @tc.name    MarketFocusManagerValidation1106
+     * @tc.desc    Market total pages formula for page size 7 probe 1106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1106', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1106')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1107
+     * @tc.name    MarketFocusManagerValidation1107
+     * @tc.desc    Market unknown keyword search 1107 probe 1107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1107', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1107')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1107')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1108
+     * @tc.name    MarketFocusManagerValidation1108
+     * @tc.desc    Market total pages formula for page size 9 probe 1108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1108', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 9;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1108')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1109
+     * @tc.name    MarketFocusManagerValidation1109
+     * @tc.desc    Market unknown keyword search 1109 probe 1109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1109', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1109')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1109')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1110
+     * @tc.name    MarketFocusManagerValidation1110
+     * @tc.desc    Market total pages formula for page size 11 probe 1110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1110', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 11;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1110')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1111
+     * @tc.name    MarketFocusManagerValidation1111
+     * @tc.desc    Market unknown keyword search 1111 probe 1111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1111', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1111')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1111')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1112
+     * @tc.name    MarketFocusManagerValidation1112
+     * @tc.desc    Market total pages formula for page size 2 probe 1112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1112', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1112')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1113
+     * @tc.name    MarketFocusManagerValidation1113
+     * @tc.desc    Market unknown keyword search 1113 probe 1113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1113', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1113')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1113')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1114
+     * @tc.name    MarketFocusManagerValidation1114
+     * @tc.desc    Market total pages formula for page size 4 probe 1114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1114', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1114')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1115
+     * @tc.name    MarketFocusManagerValidation1115
+     * @tc.desc    Market unknown keyword search 1115 probe 1115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1115', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1115')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1115')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1116
+     * @tc.name    MarketFocusManagerValidation1116
+     * @tc.desc    Market total pages formula for page size 6 probe 1116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1116', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1116')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1117
+     * @tc.name    MarketFocusManagerValidation1117
+     * @tc.desc    Market unknown keyword search 1117 probe 1117
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1117', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1117')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1117')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1118
+     * @tc.name    MarketFocusManagerValidation1118
+     * @tc.desc    Market total pages formula for page size 8 probe 1118
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1118', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 8;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1118')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1119
+     * @tc.name    MarketFocusManagerValidation1119
+     * @tc.desc    Market unknown keyword search 1119 probe 1119
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1119', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1119')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1119')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1120
+     * @tc.name    MarketFocusManagerValidation1120
+     * @tc.desc    Market total pages formula for page size 10 probe 1120
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1120', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 10;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1120')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1121
+     * @tc.name    MarketFocusManagerValidation1121
+     * @tc.desc    Market unknown keyword search 1121 probe 1121
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1121', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1121')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1121')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1122
+     * @tc.name    MarketFocusManagerValidation1122
+     * @tc.desc    Market total pages formula for page size 1 probe 1122
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1122', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1122')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1123
+     * @tc.name    MarketFocusManagerValidation1123
+     * @tc.desc    Market unknown keyword search 1123 probe 1123
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1123', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1123')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1123')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1124
+     * @tc.name    MarketFocusManagerValidation1124
+     * @tc.desc    Market total pages formula for page size 3 probe 1124
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1124', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1124')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1125
+     * @tc.name    MarketFocusManagerValidation1125
+     * @tc.desc    Market unknown keyword search 1125 probe 1125
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1125', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1125')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1125')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1126
+     * @tc.name    MarketFocusManagerValidation1126
+     * @tc.desc    Market total pages formula for page size 5 probe 1126
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1126', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1126')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1127
+     * @tc.name    MarketFocusManagerValidation1127
+     * @tc.desc    Market unknown keyword search 1127 probe 1127
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1127', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1127')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1127')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1128
+     * @tc.name    MarketFocusManagerValidation1128
+     * @tc.desc    Market total pages formula for page size 7 probe 1128
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1128', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1128')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1129
+     * @tc.name    MarketFocusManagerValidation1129
+     * @tc.desc    Market unknown keyword search 1129 probe 1129
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1129', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1129')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1129')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1130
+     * @tc.name    MarketFocusManagerValidation1130
+     * @tc.desc    Market total pages formula for page size 9 probe 1130
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1130', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 9;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1130')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1131
+     * @tc.name    MarketFocusManagerValidation1131
+     * @tc.desc    Market unknown keyword search 1131 probe 1131
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1131', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1131')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1131')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1132
+     * @tc.name    MarketFocusManagerValidation1132
+     * @tc.desc    Market total pages formula for page size 11 probe 1132
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1132', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 11;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1132')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1133
+     * @tc.name    MarketFocusManagerValidation1133
+     * @tc.desc    Market unknown keyword search 1133 probe 1133
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1133', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1133')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1133')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1134
+     * @tc.name    MarketFocusManagerValidation1134
+     * @tc.desc    Market total pages formula for page size 2 probe 1134
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1134', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1134')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1135
+     * @tc.name    MarketFocusManagerValidation1135
+     * @tc.desc    Market unknown keyword search 1135 probe 1135
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1135', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1135')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1135')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1136
+     * @tc.name    MarketFocusManagerValidation1136
+     * @tc.desc    Market total pages formula for page size 4 probe 1136
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1136', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1136')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1137
+     * @tc.name    MarketFocusManagerValidation1137
+     * @tc.desc    Market unknown keyword search 1137 probe 1137
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1137', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1137')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1137')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1138
+     * @tc.name    MarketFocusManagerValidation1138
+     * @tc.desc    Market total pages formula for page size 6 probe 1138
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1138', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1138')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1139
+     * @tc.name    MarketFocusManagerValidation1139
+     * @tc.desc    Market unknown keyword search 1139 probe 1139
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1139', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1139')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1139')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1140
+     * @tc.name    MarketFocusManagerValidation1140
+     * @tc.desc    Market total pages formula for page size 8 probe 1140
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1140', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 8;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1140')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1141
+     * @tc.name    MarketFocusManagerValidation1141
+     * @tc.desc    Market unknown keyword search 1141 probe 1141
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1141', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.searchTitle('zzprobe1141')).assertEqual(0);
+      expect(m.searchTitle('')).assertLargerOrEqual(0);
+      expect(m.searchTitle('nohit1141')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_1142
+     * @tc.name    MarketFocusManagerValidation1142
+     * @tc.desc    Market total pages formula for page size 10 probe 1142
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketFocusManagerValidation1142', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 10;
+      expect(m.totalPages(ps)).assertEqual(Math.ceil(m.totalCount() / ps));
+      expect(m.totalPages(0)).assertEqual(0);
+      expect(m.searchTitle('nohit1142')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
   });
 }
 
