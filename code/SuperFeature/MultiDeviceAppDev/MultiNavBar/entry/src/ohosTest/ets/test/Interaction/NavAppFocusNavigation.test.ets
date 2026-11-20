@@ -1985,3 +1985,1998 @@ export default function navAppFocusNavigationSuite() {
       expect(m.getNode(1000 + 402) === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0403
+     * @tc.name    NavAppFocusNavigation403
+     * @tc.desc    NavBar visibility toggle 3 probe 403
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation403', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 403) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0404
+     * @tc.name    NavAppFocusNavigation404
+     * @tc.desc    NavBar visibility toggle 4 probe 404
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation404', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 404) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0405
+     * @tc.name    NavAppFocusNavigation405
+     * @tc.desc    NavBar visibility toggle 0 probe 405
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation405', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 405) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0406
+     * @tc.name    NavAppFocusNavigation406
+     * @tc.desc    NavBar visibility toggle 1 probe 406
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation406', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 406) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0407
+     * @tc.name    NavAppFocusNavigation407
+     * @tc.desc    NavBar visibility toggle 2 probe 407
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation407', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 407) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0408
+     * @tc.name    NavAppFocusNavigation408
+     * @tc.desc    NavBar visibility toggle 3 probe 408
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation408', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 408) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0409
+     * @tc.name    NavAppFocusNavigation409
+     * @tc.desc    NavBar visibility toggle 4 probe 409
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation409', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 409) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0410
+     * @tc.name    NavAppFocusNavigation410
+     * @tc.desc    NavBar visibility toggle 0 probe 410
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation410', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 410) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0411
+     * @tc.name    NavAppFocusNavigation411
+     * @tc.desc    NavBar visibility toggle 1 probe 411
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation411', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 411) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0412
+     * @tc.name    NavAppFocusNavigation412
+     * @tc.desc    NavBar visibility toggle 2 probe 412
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation412', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 412) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0413
+     * @tc.name    NavAppFocusNavigation413
+     * @tc.desc    NavBar visibility toggle 3 probe 413
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation413', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 413) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0414
+     * @tc.name    NavAppFocusNavigation414
+     * @tc.desc    NavBar visibility toggle 4 probe 414
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation414', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 414) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0415
+     * @tc.name    NavAppFocusNavigation415
+     * @tc.desc    NavBar visibility toggle 0 probe 415
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation415', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 415) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0416
+     * @tc.name    NavAppFocusNavigation416
+     * @tc.desc    NavBar visibility toggle 1 probe 416
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation416', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 416) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0417
+     * @tc.name    NavAppFocusNavigation417
+     * @tc.desc    NavBar visibility toggle 2 probe 417
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation417', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 417) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0418
+     * @tc.name    NavAppFocusNavigation418
+     * @tc.desc    NavBar visibility toggle 3 probe 418
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation418', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 418) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0419
+     * @tc.name    NavAppFocusNavigation419
+     * @tc.desc    NavBar visibility toggle 4 probe 419
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation419', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 419) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0420
+     * @tc.name    NavAppFocusNavigation420
+     * @tc.desc    NavBar visibility toggle 0 probe 420
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation420', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 420) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0421
+     * @tc.name    NavAppFocusNavigation421
+     * @tc.desc    NavBar visibility toggle 1 probe 421
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation421', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 421) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0422
+     * @tc.name    NavAppFocusNavigation422
+     * @tc.desc    NavBar visibility toggle 2 probe 422
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation422', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 422) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0423
+     * @tc.name    NavAppFocusNavigation423
+     * @tc.desc    NavBar visibility toggle 3 probe 423
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation423', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 423) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0424
+     * @tc.name    NavAppFocusNavigation424
+     * @tc.desc    NavBar visibility toggle 4 probe 424
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation424', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 424) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0425
+     * @tc.name    NavAppFocusNavigation425
+     * @tc.desc    NavBar visibility toggle 0 probe 425
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation425', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 425) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0426
+     * @tc.name    NavAppFocusNavigation426
+     * @tc.desc    NavBar visibility toggle 1 probe 426
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation426', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 426) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0427
+     * @tc.name    NavAppFocusNavigation427
+     * @tc.desc    NavBar visibility toggle 2 probe 427
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation427', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 427) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0428
+     * @tc.name    NavAppFocusNavigation428
+     * @tc.desc    NavBar visibility toggle 3 probe 428
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation428', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 428) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0429
+     * @tc.name    NavAppFocusNavigation429
+     * @tc.desc    NavBar visibility toggle 4 probe 429
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation429', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 429) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0430
+     * @tc.name    NavAppFocusNavigation430
+     * @tc.desc    NavBar visibility toggle 0 probe 430
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation430', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 430) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0431
+     * @tc.name    NavAppFocusNavigation431
+     * @tc.desc    NavBar visibility toggle 1 probe 431
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation431', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 431) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0432
+     * @tc.name    NavAppFocusNavigation432
+     * @tc.desc    NavBar visibility toggle 2 probe 432
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation432', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 432) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0433
+     * @tc.name    NavAppFocusNavigation433
+     * @tc.desc    NavBar visibility toggle 3 probe 433
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation433', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 433) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0434
+     * @tc.name    NavAppFocusNavigation434
+     * @tc.desc    NavBar visibility toggle 4 probe 434
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation434', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 434) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0435
+     * @tc.name    NavAppFocusNavigation435
+     * @tc.desc    NavBar visibility toggle 0 probe 435
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation435', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 435) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0436
+     * @tc.name    NavAppFocusNavigation436
+     * @tc.desc    NavBar visibility toggle 1 probe 436
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation436', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 436) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0437
+     * @tc.name    NavAppFocusNavigation437
+     * @tc.desc    NavBar visibility toggle 2 probe 437
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation437', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 437) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0438
+     * @tc.name    NavAppFocusNavigation438
+     * @tc.desc    NavBar visibility toggle 3 probe 438
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation438', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 438) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0439
+     * @tc.name    NavAppFocusNavigation439
+     * @tc.desc    NavBar visibility toggle 4 probe 439
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation439', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 439) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0440
+     * @tc.name    NavAppFocusNavigation440
+     * @tc.desc    NavBar visibility toggle 0 probe 440
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation440', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 440) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0441
+     * @tc.name    NavAppFocusNavigation441
+     * @tc.desc    NavBar visibility toggle 1 probe 441
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation441', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 441) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0442
+     * @tc.name    NavAppFocusNavigation442
+     * @tc.desc    NavBar visibility toggle 2 probe 442
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation442', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 442) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0443
+     * @tc.name    NavAppFocusNavigation443
+     * @tc.desc    NavBar visibility toggle 3 probe 443
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation443', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 443) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0444
+     * @tc.name    NavAppFocusNavigation444
+     * @tc.desc    NavBar visibility toggle 4 probe 444
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation444', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 444) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0445
+     * @tc.name    NavAppFocusNavigation445
+     * @tc.desc    NavBar visibility toggle 0 probe 445
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation445', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 445) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0446
+     * @tc.name    NavAppFocusNavigation446
+     * @tc.desc    NavBar visibility toggle 1 probe 446
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation446', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 446) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0447
+     * @tc.name    NavAppFocusNavigation447
+     * @tc.desc    NavBar visibility toggle 2 probe 447
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation447', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 447) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0448
+     * @tc.name    NavAppFocusNavigation448
+     * @tc.desc    NavBar visibility toggle 3 probe 448
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation448', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 448) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0449
+     * @tc.name    NavAppFocusNavigation449
+     * @tc.desc    NavBar visibility toggle 4 probe 449
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation449', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 449) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0450
+     * @tc.name    NavAppFocusNavigation450
+     * @tc.desc    NavBar visibility toggle 0 probe 450
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation450', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 450) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0451
+     * @tc.name    NavAppFocusNavigation451
+     * @tc.desc    NavBar visibility toggle 1 probe 451
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation451', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 451) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0452
+     * @tc.name    NavAppFocusNavigation452
+     * @tc.desc    NavBar visibility toggle 2 probe 452
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation452', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 452) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0453
+     * @tc.name    NavAppFocusNavigation453
+     * @tc.desc    NavBar visibility toggle 3 probe 453
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation453', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 453) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0454
+     * @tc.name    NavAppFocusNavigation454
+     * @tc.desc    NavBar visibility toggle 4 probe 454
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation454', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 454) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0455
+     * @tc.name    NavAppFocusNavigation455
+     * @tc.desc    NavBar visibility toggle 0 probe 455
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation455', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 455) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0456
+     * @tc.name    NavAppFocusNavigation456
+     * @tc.desc    NavBar visibility toggle 1 probe 456
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation456', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 456) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0457
+     * @tc.name    NavAppFocusNavigation457
+     * @tc.desc    NavBar visibility toggle 2 probe 457
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation457', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 457) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0458
+     * @tc.name    NavAppFocusNavigation458
+     * @tc.desc    NavBar visibility toggle 3 probe 458
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation458', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 458) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0459
+     * @tc.name    NavAppFocusNavigation459
+     * @tc.desc    NavBar visibility toggle 4 probe 459
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation459', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 459) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0460
+     * @tc.name    NavAppFocusNavigation460
+     * @tc.desc    NavBar visibility toggle 0 probe 460
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation460', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 460) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0461
+     * @tc.name    NavAppFocusNavigation461
+     * @tc.desc    NavBar visibility toggle 1 probe 461
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation461', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 461) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0462
+     * @tc.name    NavAppFocusNavigation462
+     * @tc.desc    NavBar visibility toggle 2 probe 462
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation462', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 462) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0463
+     * @tc.name    NavAppFocusNavigation463
+     * @tc.desc    NavBar visibility toggle 3 probe 463
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation463', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 463) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0464
+     * @tc.name    NavAppFocusNavigation464
+     * @tc.desc    NavBar visibility toggle 4 probe 464
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation464', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 464) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0465
+     * @tc.name    NavAppFocusNavigation465
+     * @tc.desc    NavBar visibility toggle 0 probe 465
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation465', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 465) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0466
+     * @tc.name    NavAppFocusNavigation466
+     * @tc.desc    NavBar visibility toggle 1 probe 466
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation466', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 466) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0467
+     * @tc.name    NavAppFocusNavigation467
+     * @tc.desc    NavBar visibility toggle 2 probe 467
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation467', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 467) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0468
+     * @tc.name    NavAppFocusNavigation468
+     * @tc.desc    NavBar visibility toggle 3 probe 468
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation468', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 468) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0469
+     * @tc.name    NavAppFocusNavigation469
+     * @tc.desc    NavBar visibility toggle 4 probe 469
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation469', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 469) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0470
+     * @tc.name    NavAppFocusNavigation470
+     * @tc.desc    NavBar visibility toggle 0 probe 470
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation470', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 470) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0471
+     * @tc.name    NavAppFocusNavigation471
+     * @tc.desc    NavBar visibility toggle 1 probe 471
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation471', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 471) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0472
+     * @tc.name    NavAppFocusNavigation472
+     * @tc.desc    NavBar visibility toggle 2 probe 472
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation472', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 472) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0473
+     * @tc.name    NavAppFocusNavigation473
+     * @tc.desc    NavBar visibility toggle 3 probe 473
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation473', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 473) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0474
+     * @tc.name    NavAppFocusNavigation474
+     * @tc.desc    NavBar visibility toggle 4 probe 474
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation474', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 474) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0475
+     * @tc.name    NavAppFocusNavigation475
+     * @tc.desc    NavBar visibility toggle 0 probe 475
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation475', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 475) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0476
+     * @tc.name    NavAppFocusNavigation476
+     * @tc.desc    NavBar visibility toggle 1 probe 476
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation476', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 476) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0477
+     * @tc.name    NavAppFocusNavigation477
+     * @tc.desc    NavBar visibility toggle 2 probe 477
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation477', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 477) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0478
+     * @tc.name    NavAppFocusNavigation478
+     * @tc.desc    NavBar visibility toggle 3 probe 478
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation478', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 478) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0479
+     * @tc.name    NavAppFocusNavigation479
+     * @tc.desc    NavBar visibility toggle 4 probe 479
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation479', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 479) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0480
+     * @tc.name    NavAppFocusNavigation480
+     * @tc.desc    NavBar visibility toggle 0 probe 480
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation480', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 480) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0481
+     * @tc.name    NavAppFocusNavigation481
+     * @tc.desc    NavBar visibility toggle 1 probe 481
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation481', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 481) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0482
+     * @tc.name    NavAppFocusNavigation482
+     * @tc.desc    NavBar visibility toggle 2 probe 482
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation482', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 482) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0483
+     * @tc.name    NavAppFocusNavigation483
+     * @tc.desc    NavBar visibility toggle 3 probe 483
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation483', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 483) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0484
+     * @tc.name    NavAppFocusNavigation484
+     * @tc.desc    NavBar visibility toggle 4 probe 484
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation484', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 484) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0485
+     * @tc.name    NavAppFocusNavigation485
+     * @tc.desc    NavBar visibility toggle 0 probe 485
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation485', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 485) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0486
+     * @tc.name    NavAppFocusNavigation486
+     * @tc.desc    NavBar visibility toggle 1 probe 486
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation486', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 486) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0487
+     * @tc.name    NavAppFocusNavigation487
+     * @tc.desc    NavBar visibility toggle 2 probe 487
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation487', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 487) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0488
+     * @tc.name    NavAppFocusNavigation488
+     * @tc.desc    NavBar visibility toggle 3 probe 488
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation488', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 488) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0489
+     * @tc.name    NavAppFocusNavigation489
+     * @tc.desc    NavBar visibility toggle 4 probe 489
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation489', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 489) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0490
+     * @tc.name    NavAppFocusNavigation490
+     * @tc.desc    NavBar visibility toggle 0 probe 490
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation490', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 490) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0491
+     * @tc.name    NavAppFocusNavigation491
+     * @tc.desc    NavBar visibility toggle 1 probe 491
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation491', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 491) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0492
+     * @tc.name    NavAppFocusNavigation492
+     * @tc.desc    NavBar visibility toggle 2 probe 492
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation492', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 492) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0493
+     * @tc.name    NavAppFocusNavigation493
+     * @tc.desc    NavBar visibility toggle 3 probe 493
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation493', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 493) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0494
+     * @tc.name    NavAppFocusNavigation494
+     * @tc.desc    NavBar visibility toggle 4 probe 494
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation494', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 494) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0495
+     * @tc.name    NavAppFocusNavigation495
+     * @tc.desc    NavBar visibility toggle 0 probe 495
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation495', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 495) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0496
+     * @tc.name    NavAppFocusNavigation496
+     * @tc.desc    NavBar visibility toggle 1 probe 496
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation496', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 496) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0497
+     * @tc.name    NavAppFocusNavigation497
+     * @tc.desc    NavBar visibility toggle 2 probe 497
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation497', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 497) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0498
+     * @tc.name    NavAppFocusNavigation498
+     * @tc.desc    NavBar visibility toggle 3 probe 498
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation498', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 498) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0499
+     * @tc.name    NavAppFocusNavigation499
+     * @tc.desc    NavBar visibility toggle 4 probe 499
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation499', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 499) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0500
+     * @tc.name    NavAppFocusNavigation500
+     * @tc.desc    NavBar visibility toggle 0 probe 500
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation500', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 500) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0501
+     * @tc.name    NavAppFocusNavigation501
+     * @tc.desc    NavBar visibility toggle 1 probe 501
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation501', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 501) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0502
+     * @tc.name    NavAppFocusNavigation502
+     * @tc.desc    NavBar visibility toggle 2 probe 502
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation502', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 502) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0503
+     * @tc.name    NavAppFocusNavigation503
+     * @tc.desc    NavBar visibility toggle 3 probe 503
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation503', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 503) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0504
+     * @tc.name    NavAppFocusNavigation504
+     * @tc.desc    NavBar visibility toggle 4 probe 504
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation504', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 504) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0505
+     * @tc.name    NavAppFocusNavigation505
+     * @tc.desc    NavBar visibility toggle 0 probe 505
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation505', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 505) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0506
+     * @tc.name    NavAppFocusNavigation506
+     * @tc.desc    NavBar visibility toggle 1 probe 506
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation506', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 506) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0507
+     * @tc.name    NavAppFocusNavigation507
+     * @tc.desc    NavBar visibility toggle 2 probe 507
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppFocusNavigation507', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.setVisible(idx, false)).assertEqual(true);
+      expect(m.getNode(idx)?.isVisible).assertEqual(false);
+      expect(m.setVisible(idx, true)).assertEqual(true);
+      expect(m.getNode(1000 + 507) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
