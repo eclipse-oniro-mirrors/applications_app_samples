@@ -23,13 +23,9 @@
 
 * 用户歌单
 
-| sm 设备                             | md 设备                             | lg 设备                             |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| ![](screenshots/Devices/image6.png) | ![](screenshots/Devices/image5.png) | ![](screenshots/Devices/image7.png) |
-
-窗口拖拽观察断点变化：
-
-![](screenshots/Devices/image11.png)
+| lg 设备                             |
+| ----------------------------------- |
+| ![](screenshots/Devices/image7.png) |
 
 ### 使用说明
 

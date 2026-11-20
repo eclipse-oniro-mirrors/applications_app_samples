@@ -23,13 +23,9 @@ The UI switches its layout on the window breakpoints `sm` / `md` / `lg`:
 
 * My Playlists
 
-| sm device                           | md device                           | lg device                           |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| ![](screenshots/Devices/image6.png) | ![](screenshots/Devices/image5.png) | ![](screenshots/Devices/image7.png) |
-
-Dragging the window to observe breakpoint changes:
-
-![](screenshots/Devices/image11.png)
+| lg device                           |
+| ----------------------------------- |
+| ![](screenshots/Devices/image7.png) |
 
 ### How to Use
 
