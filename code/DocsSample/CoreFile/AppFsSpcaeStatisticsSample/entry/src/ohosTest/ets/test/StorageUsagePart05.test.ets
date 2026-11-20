@@ -3870,3 +3870,240 @@ export default function storageUsagePart05Test(): void {
         expect(cSnapshot.totalBytes).assertEqual(1048576);
         logAssertion(name, `${cInput}: cSnapshot.freeBytes`, cSnapshot.freeBytes, 1048576);
         expect(cSnapshot.freeBytes).assertEqual(1048576);
+        logAssertion(name, `${cInput}: cSnapshot.usedBytes`, cSnapshot.usedBytes, 0);
+        expect(cSnapshot.usedBytes).assertEqual(0);
+        logAssertion(name, `${cInput}: cSnapshot four-field shape`,
+          Object.keys(cSnapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(cSnapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${cInput}: cSnapshot used+free conservation`,
+          cSnapshot.usedBytes + cSnapshot.freeBytes, 1048576);
+        expect(cSnapshot.usedBytes + cSnapshot.freeBytes).assertEqual(1048576);
+        const cSnapshotPercentDelta2: number = Math.abs(cSnapshot.usedPercent - 0);
+        logAssertion(name, `${cInput}: cSnapshot.usedPercent delta from 0`, cSnapshotPercentDelta2, 1e-30);
+        expect(cSnapshotPercentDelta2).assertLessOrEqual(1e-30);
+      } finally {
+        aTotal.resolve(1024);
+        aFree.resolve(0);
+        bTotal.resolve(1025);
+        bFree.resolve(1);
+        cTotal.resolve(1048576);
+        cFree.resolve(1048576);
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_042100
+     * @tc.name AppFsSpace_Usage_0421
+     * @tc.desc a=9007199254740991/9007199254740990, b=137438953472/34359738368, c=1000000000000/750000000000; start
+     * three probes concurrently and interleave completions. Verify independent wait states, all snapshot fields and
+     * no shared objects after probe/snapshot mutations.
+     */
+    it('AppFsSpace_Usage_0421', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0421';
+      logCase(name, 'begin');
+      const aTotal: DeferredBytes = new DeferredBytes();
+      const aFree: DeferredBytes = new DeferredBytes();
+      const bTotal: DeferredBytes = new DeferredBytes();
+      const bFree: DeferredBytes = new DeferredBytes();
+      const cTotal: DeferredBytes = new DeferredBytes();
+      const cFree: DeferredBytes = new DeferredBytes();
+      try {
+        const aInput: string = 'total=9007199254740991 free=9007199254740990';
+        const aProbe: StorageQueryProbe = new StorageQueryProbe();
+        aProbe.totalBytes = -1;
+        aProbe.freeBytes = -1;
+        aProbe.totalSyncBytes = -1;
+        aProbe.freeSyncBytes = Number.NaN;
+        aProbe.totalDeferred = aTotal;
+        aProbe.freeDeferred = aFree;
+        const aPending: Promise<StorageUsage> = queryStorageUsage(aProbe);
+        let aCompleted: boolean = false;
+        const aObserved: Promise<void> = aPending.then((): void => {
+          aCompleted = true;
+        }, (): void => {
+          aCompleted = true;
+        });
+        logAssertion(name, 'aProbe started independently: total/free only; no sync/bundle/fs',
+          aProbe.events.join(','), 'total,free');
+        expect(aProbe.events.join(',')).assertEqual('total,free');
+        const bInput: string = 'total=137438953472 free=34359738368';
+        const bProbe: StorageQueryProbe = new StorageQueryProbe();
+        bProbe.totalBytes = -1;
+        bProbe.freeBytes = -1;
+        bProbe.totalSyncBytes = -1;
+        bProbe.freeSyncBytes = Number.NaN;
+        bProbe.totalDeferred = bTotal;
+        bProbe.freeDeferred = bFree;
+        const bPending: Promise<StorageUsage> = queryStorageUsage(bProbe);
+        let bCompleted: boolean = false;
+        const bObserved: Promise<void> = bPending.then((): void => {
+          bCompleted = true;
+        }, (): void => {
+          bCompleted = true;
+        });
+        logAssertion(name, 'bProbe started independently: total/free only; no sync/bundle/fs',
+          bProbe.events.join(','), 'total,free');
+        expect(bProbe.events.join(',')).assertEqual('total,free');
+        const cInput: string = 'total=1000000000000 free=750000000000';
+        const cProbe: StorageQueryProbe = new StorageQueryProbe();
+        cProbe.totalBytes = -1;
+        cProbe.freeBytes = -1;
+        cProbe.totalSyncBytes = -1;
+        cProbe.freeSyncBytes = Number.NaN;
+        cProbe.totalDeferred = cTotal;
+        cProbe.freeDeferred = cFree;
+        const cPending: Promise<StorageUsage> = queryStorageUsage(cProbe);
+        let cCompleted: boolean = false;
+        const cObserved: Promise<void> = cPending.then((): void => {
+          cCompleted = true;
+        }, (): void => {
+          cCompleted = true;
+        });
+        logAssertion(name, 'cProbe started independently: total/free only; no sync/bundle/fs',
+          cProbe.events.join(','), 'total,free');
+        expect(cProbe.events.join(',')).assertEqual('total,free');
+        aTotal.resolve(9007199254740991);
+        bFree.resolve(34359738368);
+        cTotal.resolve(1000000000000);
+        await usageTurn();
+        logAssertion(name, `${aInput}: a snapshot still waits for its own second branch`, aCompleted, false);
+        expect(aCompleted).assertEqual(false);
+        logAssertion(name, `${bInput}: b snapshot still waits for its own second branch`, bCompleted, false);
+        expect(bCompleted).assertEqual(false);
+        logAssertion(name, `${cInput}: c snapshot still waits for its own second branch`, cCompleted, false);
+        expect(cCompleted).assertEqual(false);
+        bTotal.resolve(137438953472);
+        await usageTurn();
+        logAssertion(name, `${aInput}: only probe b is complete after b total resolves`, aCompleted, false);
+        expect(aCompleted).assertEqual(false);
+        logAssertion(name, `${bInput}: only probe b is complete after b total resolves`, bCompleted, true);
+        expect(bCompleted).assertEqual(true);
+        logAssertion(name, `${cInput}: only probe b is complete after b total resolves`, cCompleted, false);
+        expect(cCompleted).assertEqual(false);
+        aProbe.totalBytes = 666;
+        aProbe.freeBytes = 777;
+        cProbe.totalSyncBytes = 888;
+        cProbe.freeSyncBytes = 999;
+        cFree.resolve(750000000000);
+        aFree.resolve(9007199254740990);
+        const aSnapshot: StorageUsage = await aPending;
+        await aObserved;
+        logAssertion(name, `${aInput}: aSnapshot.totalBytes`, aSnapshot.totalBytes, 9007199254740991);
+        expect(aSnapshot.totalBytes).assertEqual(9007199254740991);
+        logAssertion(name, `${aInput}: aSnapshot.freeBytes`, aSnapshot.freeBytes, 9007199254740990);
+        expect(aSnapshot.freeBytes).assertEqual(9007199254740990);
+        logAssertion(name, `${aInput}: aSnapshot.usedBytes`, aSnapshot.usedBytes, 1);
+        expect(aSnapshot.usedBytes).assertEqual(1);
+        logAssertion(name, `${aInput}: aSnapshot four-field shape`,
+          Object.keys(aSnapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(aSnapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${aInput}: aSnapshot used+free conservation`,
+          aSnapshot.usedBytes + aSnapshot.freeBytes, 9007199254740991);
+        expect(aSnapshot.usedBytes + aSnapshot.freeBytes).assertEqual(9007199254740991);
+        const aSnapshotPercentDelta: number = Math.abs(aSnapshot.usedPercent - 1.1102230246251567e-14);
+        logAssertion(name, `${aInput}: aSnapshot.usedPercent delta from 1.1102230246251567e-14`,
+          aSnapshotPercentDelta, 9.860761315262649e-30);
+        expect(aSnapshotPercentDelta).assertLessOrEqual(9.860761315262649e-30);
+        logAssertion(name, 'aProbe independent final calls: total/free only; no sync/bundle/fs',
+          aProbe.events.join(','), 'total,free');
+        expect(aProbe.events.join(',')).assertEqual('total,free');
+        const bSnapshot: StorageUsage = await bPending;
+        await bObserved;
+        logAssertion(name, `${bInput}: bSnapshot.totalBytes`, bSnapshot.totalBytes, 137438953472);
+        expect(bSnapshot.totalBytes).assertEqual(137438953472);
+        logAssertion(name, `${bInput}: bSnapshot.freeBytes`, bSnapshot.freeBytes, 34359738368);
+        expect(bSnapshot.freeBytes).assertEqual(34359738368);
+        logAssertion(name, `${bInput}: bSnapshot.usedBytes`, bSnapshot.usedBytes, 103079215104);
+        expect(bSnapshot.usedBytes).assertEqual(103079215104);
+        logAssertion(name, `${bInput}: bSnapshot four-field shape`,
+          Object.keys(bSnapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(bSnapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${bInput}: bSnapshot used+free conservation`,
+          bSnapshot.usedBytes + bSnapshot.freeBytes, 137438953472);
+        expect(bSnapshot.usedBytes + bSnapshot.freeBytes).assertEqual(137438953472);
+        const bSnapshotPercentDelta: number = Math.abs(bSnapshot.usedPercent - 75);
+        logAssertion(name, `${bInput}: bSnapshot.usedPercent delta from 75`,
+          bSnapshotPercentDelta, 6.661338147750939e-14);
+        expect(bSnapshotPercentDelta).assertLessOrEqual(6.661338147750939e-14);
+        logAssertion(name, 'bProbe independent final calls: total/free only; no sync/bundle/fs',
+          bProbe.events.join(','), 'total,free');
+        expect(bProbe.events.join(',')).assertEqual('total,free');
+        const cSnapshot: StorageUsage = await cPending;
+        await cObserved;
+        logAssertion(name, `${cInput}: cSnapshot.totalBytes`, cSnapshot.totalBytes, 1000000000000);
+        expect(cSnapshot.totalBytes).assertEqual(1000000000000);
+        logAssertion(name, `${cInput}: cSnapshot.freeBytes`, cSnapshot.freeBytes, 750000000000);
+        expect(cSnapshot.freeBytes).assertEqual(750000000000);
+        logAssertion(name, `${cInput}: cSnapshot.usedBytes`, cSnapshot.usedBytes, 250000000000);
+        expect(cSnapshot.usedBytes).assertEqual(250000000000);
+        logAssertion(name, `${cInput}: cSnapshot four-field shape`,
+          Object.keys(cSnapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(cSnapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${cInput}: cSnapshot used+free conservation`,
+          cSnapshot.usedBytes + cSnapshot.freeBytes, 1000000000000);
+        expect(cSnapshot.usedBytes + cSnapshot.freeBytes).assertEqual(1000000000000);
+        const cSnapshotPercentDelta: number = Math.abs(cSnapshot.usedPercent - 25);
+        logAssertion(name, `${cInput}: cSnapshot.usedPercent delta from 25`,
+          cSnapshotPercentDelta, 2.220446049250313e-14);
+        expect(cSnapshotPercentDelta).assertLessOrEqual(2.220446049250313e-14);
+        logAssertion(name, 'cProbe independent final calls: total/free only; no sync/bundle/fs',
+          cProbe.events.join(','), 'total,free');
+        expect(cProbe.events.join(',')).assertEqual('total,free');
+        logAssertion(name, 'probes a/b: snapshots must not share object identity', aSnapshot === bSnapshot, false);
+        expect(aSnapshot === bSnapshot).assertEqual(false);
+        logAssertion(name, 'probes a/c: snapshots must not share object identity', aSnapshot === cSnapshot, false);
+        expect(aSnapshot === cSnapshot).assertEqual(false);
+        logAssertion(name, 'probes b/c: snapshots must not share object identity', bSnapshot === cSnapshot, false);
+        expect(bSnapshot === cSnapshot).assertEqual(false);
+        bSnapshot.totalBytes = 0;
+        bSnapshot.freeBytes = 0;
+        bSnapshot.usedBytes = 0;
+        bSnapshot.usedPercent = 0;
+        aProbe.totalBytes = -1;
+        cProbe.freeBytes = -1;
+        logAssertion(name, `${aInput}: aSnapshot.totalBytes`, aSnapshot.totalBytes, 9007199254740991);
+        expect(aSnapshot.totalBytes).assertEqual(9007199254740991);
+        logAssertion(name, `${aInput}: aSnapshot.freeBytes`, aSnapshot.freeBytes, 9007199254740990);
+        expect(aSnapshot.freeBytes).assertEqual(9007199254740990);
+        logAssertion(name, `${aInput}: aSnapshot.usedBytes`, aSnapshot.usedBytes, 1);
+        expect(aSnapshot.usedBytes).assertEqual(1);
+        logAssertion(name, `${aInput}: aSnapshot four-field shape`,
+          Object.keys(aSnapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(aSnapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${aInput}: aSnapshot used+free conservation`,
+          aSnapshot.usedBytes + aSnapshot.freeBytes, 9007199254740991);
+        expect(aSnapshot.usedBytes + aSnapshot.freeBytes).assertEqual(9007199254740991);
+        const aSnapshotPercentDelta2: number = Math.abs(aSnapshot.usedPercent - 1.1102230246251567e-14);
+        logAssertion(name, `${aInput}: aSnapshot.usedPercent delta from 1.1102230246251567e-14`,
+          aSnapshotPercentDelta2, 9.860761315262649e-30);
+        expect(aSnapshotPercentDelta2).assertLessOrEqual(9.860761315262649e-30);
+        logAssertion(name, `${cInput}: cSnapshot.totalBytes`, cSnapshot.totalBytes, 1000000000000);
+        expect(cSnapshot.totalBytes).assertEqual(1000000000000);
+        logAssertion(name, `${cInput}: cSnapshot.freeBytes`, cSnapshot.freeBytes, 750000000000);
+        expect(cSnapshot.freeBytes).assertEqual(750000000000);
+        logAssertion(name, `${cInput}: cSnapshot.usedBytes`, cSnapshot.usedBytes, 250000000000);
+        expect(cSnapshot.usedBytes).assertEqual(250000000000);
+        logAssertion(name, `${cInput}: cSnapshot four-field shape`,
+          Object.keys(cSnapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(cSnapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${cInput}: cSnapshot used+free conservation`,
+          cSnapshot.usedBytes + cSnapshot.freeBytes, 1000000000000);
+        expect(cSnapshot.usedBytes + cSnapshot.freeBytes).assertEqual(1000000000000);
+        const cSnapshotPercentDelta2: number = Math.abs(cSnapshot.usedPercent - 25);
+        logAssertion(name, `${cInput}: cSnapshot.usedPercent delta from 25`,
+          cSnapshotPercentDelta2, 2.220446049250313e-14);
+        expect(cSnapshotPercentDelta2).assertLessOrEqual(2.220446049250313e-14);
+      } finally {
+        aTotal.resolve(9007199254740991);
+        aFree.resolve(9007199254740990);
+        bTotal.resolve(137438953472);
+        bFree.resolve(34359738368);
+        cTotal.resolve(1000000000000);
+        cFree.resolve(750000000000);
+        logCase(name, 'end');
+      }
+    });
+
+  });
+}

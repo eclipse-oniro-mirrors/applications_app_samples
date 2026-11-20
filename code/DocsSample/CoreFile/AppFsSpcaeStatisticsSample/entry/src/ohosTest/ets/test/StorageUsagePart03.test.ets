@@ -1934,3 +1934,1562 @@ export default function storageUsagePart03Test(): void {
       try {
         const totalBytes: number = 1073741823;
         const freeBytes: number = 0;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1073741823);
+        expect(snapshot.totalBytes).assertEqual(1073741823);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 0);
+        expect(snapshot.freeBytes).assertEqual(0);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 1073741823);
+        expect(snapshot.usedBytes).assertEqual(1073741823);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1073741823);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1073741823);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 100);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 100`,
+          snapshotPercentDelta, 8.881784197001252e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.881784197001252e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_021900
+     * @tc.name AppFsSpace_Usage_0219
+     * @tc.desc total=1073741823, free=1; verify async fields, conserved bytes, rational percent and routing.
+     */
+    it('AppFsSpace_Usage_0219', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0219';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1073741823;
+        const freeBytes: number = 1;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1073741823);
+        expect(snapshot.totalBytes).assertEqual(1073741823);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1);
+        expect(snapshot.freeBytes).assertEqual(1);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 1073741822);
+        expect(snapshot.usedBytes).assertEqual(1073741822);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1073741823);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1073741823);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 99.99999990686774);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 99.99999990686774`,
+          snapshotPercentDelta, 8.881784188729446e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.881784188729446e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_022000
+     * @tc.name AppFsSpace_Usage_0220
+     * @tc.desc total=1073741823, free=268435455; verify async fields, conserved bytes, rational percent and routing.
+     */
+    it('AppFsSpace_Usage_0220', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0220';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1073741823;
+        const freeBytes: number = 268435455;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1073741823);
+        expect(snapshot.totalBytes).assertEqual(1073741823);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 268435455);
+        expect(snapshot.freeBytes).assertEqual(268435455);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 805306368);
+        expect(snapshot.usedBytes).assertEqual(805306368);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1073741823);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1073741823);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 75.0000000698492);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 75.0000000698492`,
+          snapshotPercentDelta, 6.661338153954794e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(6.661338153954794e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_022100
+     * @tc.name AppFsSpace_Usage_0221
+     * @tc.desc total=1073741823, free=536870911; verify async fields, conserved bytes, rational percent and routing.
+     */
+    it('AppFsSpace_Usage_0221', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0221';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1073741823;
+        const freeBytes: number = 536870911;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1073741823);
+        expect(snapshot.totalBytes).assertEqual(1073741823);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 536870911);
+        expect(snapshot.freeBytes).assertEqual(536870911);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 536870912);
+        expect(snapshot.usedBytes).assertEqual(536870912);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1073741823);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1073741823);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 50.00000004656613);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 50.00000004656613`,
+          snapshotPercentDelta, 4.440892102636529e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(4.440892102636529e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_022200
+     * @tc.name AppFsSpace_Usage_0222
+     * @tc.desc total=1073741823, free=805306367; verify async fields, conserved bytes, rational percent and routing.
+     */
+    it('AppFsSpace_Usage_0222', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0222';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1073741823;
+        const freeBytes: number = 805306367;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1073741823);
+        expect(snapshot.totalBytes).assertEqual(1073741823);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 805306367);
+        expect(snapshot.freeBytes).assertEqual(805306367);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 268435456);
+        expect(snapshot.usedBytes).assertEqual(268435456);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1073741823);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1073741823);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 25.000000023283064);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 25.000000023283064`,
+          snapshotPercentDelta, 2.2204460513182646e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(2.2204460513182646e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_022300
+     * @tc.name AppFsSpace_Usage_0223
+     * @tc.desc total=1073741823, free=1073741822; verify async fields, conserved bytes, rational percent and routing.
+     */
+    it('AppFsSpace_Usage_0223', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0223';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1073741823;
+        const freeBytes: number = 1073741822;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1073741823);
+        expect(snapshot.totalBytes).assertEqual(1073741823);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1073741822);
+        expect(snapshot.freeBytes).assertEqual(1073741822);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 1);
+        expect(snapshot.usedBytes).assertEqual(1);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1073741823);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1073741823);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 9.313225754828403e-8);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 9.313225754828403e-8`,
+          snapshotPercentDelta, 8.271806133233997e-23);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.271806133233997e-23);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_022400
+     * @tc.name AppFsSpace_Usage_0224
+     * @tc.desc total=1073741823, free=1073741823; verify async fields, conserved bytes, rational percent and routing.
+     */
+    it('AppFsSpace_Usage_0224', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0224';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1073741823;
+        const freeBytes: number = 1073741823;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1073741823);
+        expect(snapshot.totalBytes).assertEqual(1073741823);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1073741823);
+        expect(snapshot.freeBytes).assertEqual(1073741823);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 0);
+        expect(snapshot.usedBytes).assertEqual(0);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1073741823);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1073741823);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 0);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 0`, snapshotPercentDelta, 1e-30);
+        expect(snapshotPercentDelta).assertLessOrEqual(1e-30);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_022500
+     * @tc.name AppFsSpace_Usage_0225
+     * @tc.desc total=1099511627776, free=0; verify async fields, conserved bytes, rational percent and routing.
+     */
+    it('AppFsSpace_Usage_0225', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0225';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627776;
+        const freeBytes: number = 0;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1099511627776);
+        expect(snapshot.totalBytes).assertEqual(1099511627776);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 0);
+        expect(snapshot.freeBytes).assertEqual(0);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 1099511627776);
+        expect(snapshot.usedBytes).assertEqual(1099511627776);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1099511627776);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1099511627776);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 100);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 100`,
+          snapshotPercentDelta, 8.881784197001252e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.881784197001252e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_022600
+     * @tc.name AppFsSpace_Usage_0226
+     * @tc.desc total=1099511627776, free=1; verify async fields, conserved bytes, rational percent and routing.
+     */
+    it('AppFsSpace_Usage_0226', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0226';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627776;
+        const freeBytes: number = 1;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1099511627776);
+        expect(snapshot.totalBytes).assertEqual(1099511627776);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1);
+        expect(snapshot.freeBytes).assertEqual(1);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 1099511627775);
+        expect(snapshot.usedBytes).assertEqual(1099511627775);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1099511627776);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1099511627776);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 99.99999999990905);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 99.99999999990905`,
+          snapshotPercentDelta, 8.881784196993174e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.881784196993174e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_022700
+     * @tc.name AppFsSpace_Usage_0227
+     * @tc.desc total=1099511627776, free=274877906944; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0227', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0227';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627776;
+        const freeBytes: number = 274877906944;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1099511627776);
+        expect(snapshot.totalBytes).assertEqual(1099511627776);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 274877906944);
+        expect(snapshot.freeBytes).assertEqual(274877906944);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 824633720832);
+        expect(snapshot.usedBytes).assertEqual(824633720832);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1099511627776);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1099511627776);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 75);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 75`, snapshotPercentDelta, 6.661338147750939e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(6.661338147750939e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_022800
+     * @tc.name AppFsSpace_Usage_0228
+     * @tc.desc total=1099511627776, free=549755813888; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0228', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0228';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627776;
+        const freeBytes: number = 549755813888;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1099511627776);
+        expect(snapshot.totalBytes).assertEqual(1099511627776);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 549755813888);
+        expect(snapshot.freeBytes).assertEqual(549755813888);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 549755813888);
+        expect(snapshot.usedBytes).assertEqual(549755813888);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1099511627776);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1099511627776);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 50);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 50`, snapshotPercentDelta, 4.440892098500626e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(4.440892098500626e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_022900
+     * @tc.name AppFsSpace_Usage_0229
+     * @tc.desc total=1099511627776, free=824633720832; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0229', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0229';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627776;
+        const freeBytes: number = 824633720832;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1099511627776);
+        expect(snapshot.totalBytes).assertEqual(1099511627776);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 824633720832);
+        expect(snapshot.freeBytes).assertEqual(824633720832);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 274877906944);
+        expect(snapshot.usedBytes).assertEqual(274877906944);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1099511627776);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1099511627776);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 25);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 25`, snapshotPercentDelta, 2.220446049250313e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(2.220446049250313e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_023000
+     * @tc.name AppFsSpace_Usage_0230
+     * @tc.desc total=1099511627776, free=1099511627775; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0230', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0230';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627776;
+        const freeBytes: number = 1099511627775;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1099511627776);
+        expect(snapshot.totalBytes).assertEqual(1099511627776);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1099511627775);
+        expect(snapshot.freeBytes).assertEqual(1099511627775);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 1);
+        expect(snapshot.usedBytes).assertEqual(1);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1099511627776);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1099511627776);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 9.094947017729282e-11);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 9.094947017729282e-11`,
+          snapshotPercentDelta, 8.077935669463161e-26);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.077935669463161e-26);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_023100
+     * @tc.name AppFsSpace_Usage_0231
+     * @tc.desc total=1099511627776, free=1099511627776; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0231', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0231';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627776;
+        const freeBytes: number = 1099511627776;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1099511627776);
+        expect(snapshot.totalBytes).assertEqual(1099511627776);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1099511627776);
+        expect(snapshot.freeBytes).assertEqual(1099511627776);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 0);
+        expect(snapshot.usedBytes).assertEqual(0);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1099511627776);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1099511627776);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 0);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 0`, snapshotPercentDelta, 1e-30);
+        expect(snapshotPercentDelta).assertLessOrEqual(1e-30);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_023200
+     * @tc.name AppFsSpace_Usage_0232
+     * @tc.desc total=1099511627777, free=0; verify async fields, conserved bytes, rational percent and routing.
+     */
+    it('AppFsSpace_Usage_0232', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0232';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627777;
+        const freeBytes: number = 0;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1099511627777);
+        expect(snapshot.totalBytes).assertEqual(1099511627777);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 0);
+        expect(snapshot.freeBytes).assertEqual(0);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 1099511627777);
+        expect(snapshot.usedBytes).assertEqual(1099511627777);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1099511627777);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1099511627777);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 100);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 100`,
+          snapshotPercentDelta, 8.881784197001252e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.881784197001252e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_023300
+     * @tc.name AppFsSpace_Usage_0233
+     * @tc.desc total=1099511627777, free=1; verify async fields, conserved bytes, rational percent and routing.
+     */
+    it('AppFsSpace_Usage_0233', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0233';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627777;
+        const freeBytes: number = 1;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1099511627777);
+        expect(snapshot.totalBytes).assertEqual(1099511627777);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1);
+        expect(snapshot.freeBytes).assertEqual(1);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 1099511627776);
+        expect(snapshot.usedBytes).assertEqual(1099511627776);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1099511627777);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1099511627777);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 99.99999999990905);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 99.99999999990905`,
+          snapshotPercentDelta, 8.881784196993174e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.881784196993174e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_023400
+     * @tc.name AppFsSpace_Usage_0234
+     * @tc.desc total=1099511627777, free=274877906944; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0234', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0234';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627777;
+        const freeBytes: number = 274877906944;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1099511627777);
+        expect(snapshot.totalBytes).assertEqual(1099511627777);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 274877906944);
+        expect(snapshot.freeBytes).assertEqual(274877906944);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 824633720833);
+        expect(snapshot.usedBytes).assertEqual(824633720833);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1099511627777);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1099511627777);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 75.00000000002274);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 75.00000000002274`,
+          snapshotPercentDelta, 6.661338147752959e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(6.661338147752959e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_023500
+     * @tc.name AppFsSpace_Usage_0235
+     * @tc.desc total=1099511627777, free=549755813888; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0235', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0235';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627777;
+        const freeBytes: number = 549755813888;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1099511627777);
+        expect(snapshot.totalBytes).assertEqual(1099511627777);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 549755813888);
+        expect(snapshot.freeBytes).assertEqual(549755813888);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 549755813889);
+        expect(snapshot.usedBytes).assertEqual(549755813889);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1099511627777);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1099511627777);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 50.000000000045475);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 50.000000000045475`,
+          snapshotPercentDelta, 4.440892098504665e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(4.440892098504665e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_023600
+     * @tc.name AppFsSpace_Usage_0236
+     * @tc.desc total=1099511627777, free=824633720832; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0236', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0236';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627777;
+        const freeBytes: number = 824633720832;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1099511627777);
+        expect(snapshot.totalBytes).assertEqual(1099511627777);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 824633720832);
+        expect(snapshot.freeBytes).assertEqual(824633720832);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 274877906945);
+        expect(snapshot.usedBytes).assertEqual(274877906945);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1099511627777);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1099511627777);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 25.000000000068212);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 25.000000000068212`,
+          snapshotPercentDelta, 2.2204460492563715e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(2.2204460492563715e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_023700
+     * @tc.name AppFsSpace_Usage_0237
+     * @tc.desc total=1099511627777, free=1099511627776; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0237', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0237';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627777;
+        const freeBytes: number = 1099511627776;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1099511627777);
+        expect(snapshot.totalBytes).assertEqual(1099511627777);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1099511627776);
+        expect(snapshot.freeBytes).assertEqual(1099511627776);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 1);
+        expect(snapshot.usedBytes).assertEqual(1);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1099511627777);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1099511627777);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 9.09494701772101e-11);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 9.09494701772101e-11`,
+          snapshotPercentDelta, 8.077935669455814e-26);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.077935669455814e-26);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_023800
+     * @tc.name AppFsSpace_Usage_0238
+     * @tc.desc total=1099511627777, free=1099511627777; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0238', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0238';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627777;
+        const freeBytes: number = 1099511627777;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1099511627777);
+        expect(snapshot.totalBytes).assertEqual(1099511627777);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1099511627777);
+        expect(snapshot.freeBytes).assertEqual(1099511627777);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 0);
+        expect(snapshot.usedBytes).assertEqual(0);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1099511627777);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1099511627777);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 0);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 0`, snapshotPercentDelta, 1e-30);
+        expect(snapshotPercentDelta).assertLessOrEqual(1e-30);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_023900
+     * @tc.name AppFsSpace_Usage_0239
+     * @tc.desc total=1099511627775, free=0; verify async fields, conserved bytes, rational percent and routing.
+     */
+    it('AppFsSpace_Usage_0239', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0239';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627775;
+        const freeBytes: number = 0;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1099511627775);
+        expect(snapshot.totalBytes).assertEqual(1099511627775);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 0);
+        expect(snapshot.freeBytes).assertEqual(0);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 1099511627775);
+        expect(snapshot.usedBytes).assertEqual(1099511627775);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1099511627775);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1099511627775);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 100);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 100`,
+          snapshotPercentDelta, 8.881784197001252e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.881784197001252e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_024000
+     * @tc.name AppFsSpace_Usage_0240
+     * @tc.desc total=1099511627775, free=1; verify async fields, conserved bytes, rational percent and routing.
+     */
+    it('AppFsSpace_Usage_0240', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0240';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627775;
+        const freeBytes: number = 1;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1099511627775);
+        expect(snapshot.totalBytes).assertEqual(1099511627775);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1);
+        expect(snapshot.freeBytes).assertEqual(1);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 1099511627774);
+        expect(snapshot.usedBytes).assertEqual(1099511627774);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1099511627775);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1099511627775);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 99.99999999990905);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 99.99999999990905`,
+          snapshotPercentDelta, 8.881784196993174e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.881784196993174e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_024100
+     * @tc.name AppFsSpace_Usage_0241
+     * @tc.desc total=1099511627775, free=274877906943; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0241', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0241';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627775;
+        const freeBytes: number = 274877906943;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1099511627775);
+        expect(snapshot.totalBytes).assertEqual(1099511627775);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 274877906943);
+        expect(snapshot.freeBytes).assertEqual(274877906943);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 824633720832);
+        expect(snapshot.usedBytes).assertEqual(824633720832);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1099511627775);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1099511627775);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 75.00000000006821);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 75.00000000006821`,
+          snapshotPercentDelta, 6.661338147756998e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(6.661338147756998e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_024200
+     * @tc.name AppFsSpace_Usage_0242
+     * @tc.desc total=1099511627775, free=549755813887; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0242', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0242';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627775;
+        const freeBytes: number = 549755813887;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1099511627775);
+        expect(snapshot.totalBytes).assertEqual(1099511627775);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 549755813887);
+        expect(snapshot.freeBytes).assertEqual(549755813887);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 549755813888);
+        expect(snapshot.usedBytes).assertEqual(549755813888);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1099511627775);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1099511627775);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 50.000000000045475);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 50.000000000045475`,
+          snapshotPercentDelta, 4.440892098504665e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(4.440892098504665e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_024300
+     * @tc.name AppFsSpace_Usage_0243
+     * @tc.desc total=1099511627775, free=824633720831; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0243', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0243';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627775;
+        const freeBytes: number = 824633720831;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1099511627775);
+        expect(snapshot.totalBytes).assertEqual(1099511627775);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 824633720831);
+        expect(snapshot.freeBytes).assertEqual(824633720831);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 274877906944);
+        expect(snapshot.usedBytes).assertEqual(274877906944);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1099511627775);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1099511627775);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 25.000000000022737);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 25.000000000022737`,
+          snapshotPercentDelta, 2.2204460492523326e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(2.2204460492523326e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_024400
+     * @tc.name AppFsSpace_Usage_0244
+     * @tc.desc total=1099511627775, free=1099511627774; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0244', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0244';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627775;
+        const freeBytes: number = 1099511627774;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1099511627775);
+        expect(snapshot.totalBytes).assertEqual(1099511627775);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1099511627774);
+        expect(snapshot.freeBytes).assertEqual(1099511627774);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 1);
+        expect(snapshot.usedBytes).assertEqual(1);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1099511627775);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1099511627775);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 9.094947017737554e-11);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 9.094947017737554e-11`,
+          snapshotPercentDelta, 8.077935669470508e-26);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.077935669470508e-26);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_024500
+     * @tc.name AppFsSpace_Usage_0245
+     * @tc.desc total=1099511627775, free=1099511627775; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0245', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0245';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627775;
+        const freeBytes: number = 1099511627775;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1099511627775);
+        expect(snapshot.totalBytes).assertEqual(1099511627775);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1099511627775);
+        expect(snapshot.freeBytes).assertEqual(1099511627775);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 0);
+        expect(snapshot.usedBytes).assertEqual(0);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1099511627775);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1099511627775);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 0);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 0`, snapshotPercentDelta, 1e-30);
+        expect(snapshotPercentDelta).assertLessOrEqual(1e-30);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_024600
+     * @tc.name AppFsSpace_Usage_0246
+     * @tc.desc total=1125899906842624, free=0; verify async fields, conserved bytes, rational percent and routing.
+     */
+    it('AppFsSpace_Usage_0246', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0246';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1125899906842624;
+        const freeBytes: number = 0;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1125899906842624);
+        expect(snapshot.totalBytes).assertEqual(1125899906842624);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 0);
+        expect(snapshot.freeBytes).assertEqual(0);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 1125899906842624);
+        expect(snapshot.usedBytes).assertEqual(1125899906842624);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1125899906842624);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1125899906842624);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 100);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 100`,
+          snapshotPercentDelta, 8.881784197001252e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.881784197001252e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_024700
+     * @tc.name AppFsSpace_Usage_0247
+     * @tc.desc total=1125899906842624, free=1; verify async fields, conserved bytes, rational percent and routing.
+     */
+    it('AppFsSpace_Usage_0247', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0247';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1125899906842624;
+        const freeBytes: number = 1;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1125899906842624);
+        expect(snapshot.totalBytes).assertEqual(1125899906842624);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1);
+        expect(snapshot.freeBytes).assertEqual(1);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 1125899906842623);
+        expect(snapshot.usedBytes).assertEqual(1125899906842623);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1125899906842624);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1125899906842624);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 99.99999999999991);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 99.99999999999991`,
+          snapshotPercentDelta, 8.881784197001245e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.881784197001245e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_024800
+     * @tc.name AppFsSpace_Usage_0248
+     * @tc.desc total=1125899906842624, free=281474976710656; verify async fields, conserved bytes, rational percent
+     * and routing.
+     */
+    it('AppFsSpace_Usage_0248', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0248';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1125899906842624;
+        const freeBytes: number = 281474976710656;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1125899906842624);
+        expect(snapshot.totalBytes).assertEqual(1125899906842624);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 281474976710656);
+        expect(snapshot.freeBytes).assertEqual(281474976710656);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 844424930131968);
+        expect(snapshot.usedBytes).assertEqual(844424930131968);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1125899906842624);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1125899906842624);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 75);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 75`, snapshotPercentDelta, 6.661338147750939e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(6.661338147750939e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_024900
+     * @tc.name AppFsSpace_Usage_0249
+     * @tc.desc total=1125899906842624, free=562949953421312; verify async fields, conserved bytes, rational percent
+     * and routing.
+     */
+    it('AppFsSpace_Usage_0249', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0249';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1125899906842624;
+        const freeBytes: number = 562949953421312;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1125899906842624);
+        expect(snapshot.totalBytes).assertEqual(1125899906842624);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 562949953421312);
+        expect(snapshot.freeBytes).assertEqual(562949953421312);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 562949953421312);
+        expect(snapshot.usedBytes).assertEqual(562949953421312);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1125899906842624);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1125899906842624);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 50);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 50`, snapshotPercentDelta, 4.440892098500626e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(4.440892098500626e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_025000
+     * @tc.name AppFsSpace_Usage_0250
+     * @tc.desc total=1125899906842624, free=844424930131968; verify async fields, conserved bytes, rational percent
+     * and routing.
+     */
+    it('AppFsSpace_Usage_0250', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0250';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1125899906842624;
+        const freeBytes: number = 844424930131968;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1125899906842624);
+        expect(snapshot.totalBytes).assertEqual(1125899906842624);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 844424930131968);
+        expect(snapshot.freeBytes).assertEqual(844424930131968);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 281474976710656);
+        expect(snapshot.usedBytes).assertEqual(281474976710656);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1125899906842624);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1125899906842624);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 25);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 25`, snapshotPercentDelta, 2.220446049250313e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(2.220446049250313e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_025100
+     * @tc.name AppFsSpace_Usage_0251
+     * @tc.desc total=1125899906842624, free=1125899906842623; verify async fields, conserved bytes, rational percent
+     * and routing.
+     */
+    it('AppFsSpace_Usage_0251', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0251';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1125899906842624;
+        const freeBytes: number = 1125899906842623;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1125899906842624);
+        expect(snapshot.totalBytes).assertEqual(1125899906842624);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1125899906842623);
+        expect(snapshot.freeBytes).assertEqual(1125899906842623);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 1);
+        expect(snapshot.usedBytes).assertEqual(1);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1125899906842624);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1125899906842624);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 8.881784197001252e-14);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 8.881784197001252e-14`,
+          snapshotPercentDelta, 7.888609052210118e-29);
+        expect(snapshotPercentDelta).assertLessOrEqual(7.888609052210118e-29);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_025200
+     * @tc.name AppFsSpace_Usage_0252
+     * @tc.desc total=1125899906842624, free=1125899906842624; verify async fields, conserved bytes, rational percent
+     * and routing.
+     */
+    it('AppFsSpace_Usage_0252', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0252';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1125899906842624;
+        const freeBytes: number = 1125899906842624;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1125899906842624);
+        expect(snapshot.totalBytes).assertEqual(1125899906842624);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1125899906842624);
+        expect(snapshot.freeBytes).assertEqual(1125899906842624);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 0);
+        expect(snapshot.usedBytes).assertEqual(0);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1125899906842624);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1125899906842624);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 0);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 0`, snapshotPercentDelta, 1e-30);
+        expect(snapshotPercentDelta).assertLessOrEqual(1e-30);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_025300
+     * @tc.name AppFsSpace_Usage_0253
+     * @tc.desc total=1125899906842625, free=0; verify async fields, conserved bytes, rational percent and routing.
+     */
+    it('AppFsSpace_Usage_0253', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0253';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1125899906842625;
+        const freeBytes: number = 0;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1125899906842625);
+        expect(snapshot.totalBytes).assertEqual(1125899906842625);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 0);
+        expect(snapshot.freeBytes).assertEqual(0);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 1125899906842625);
+        expect(snapshot.usedBytes).assertEqual(1125899906842625);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1125899906842625);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1125899906842625);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 100);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 100`,
+          snapshotPercentDelta, 8.881784197001252e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.881784197001252e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_025400
+     * @tc.name AppFsSpace_Usage_0254
+     * @tc.desc total=1125899906842625, free=1; verify async fields, conserved bytes, rational percent and routing.
+     */
+    it('AppFsSpace_Usage_0254', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0254';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1125899906842625;
+        const freeBytes: number = 1;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1125899906842625);
+        expect(snapshot.totalBytes).assertEqual(1125899906842625);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1);
+        expect(snapshot.freeBytes).assertEqual(1);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 1125899906842624);
+        expect(snapshot.usedBytes).assertEqual(1125899906842624);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1125899906842625);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1125899906842625);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 99.99999999999991);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 99.99999999999991`,
+          snapshotPercentDelta, 8.881784197001245e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.881784197001245e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_025500
+     * @tc.name AppFsSpace_Usage_0255
+     * @tc.desc total=1125899906842625, free=281474976710656; verify async fields, conserved bytes, rational percent
+     * and routing.
+     */
+    it('AppFsSpace_Usage_0255', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0255';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1125899906842625;
+        const freeBytes: number = 281474976710656;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 1125899906842625);
+        expect(snapshot.totalBytes).assertEqual(1125899906842625);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 281474976710656);
+        expect(snapshot.freeBytes).assertEqual(281474976710656);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 844424930131969);
+        expect(snapshot.usedBytes).assertEqual(844424930131969);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 1125899906842625);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(1125899906842625);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 75.00000000000003);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 75.00000000000003`,
+          snapshotPercentDelta, 6.661338147750942e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(6.661338147750942e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+  });
+}
