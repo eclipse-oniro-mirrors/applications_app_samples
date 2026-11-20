@@ -1884,5 +1884,1900 @@ export default function BindingContractTest(): void {
       expect(seen.length).assertEqual(4);
     });
 
+    /**
+     * @tc.name BindingContractTest_case_0100
+     * @tc.desc binding-contract: mutable binding write for zwj, form 2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0100', 0, () => {
+      let source: string = '\ud83d\udc69\u200d\ud83d\udcbb';
+      let seen: string = '';
+      const binding: GetterSetterBinding = new GetterSetterBinding(
+        () => source,
+        (value: string) => { source = value; seen = value; }
+      );
+      expect(binding.read()).assertEqual('\ud83d\udc69\u200d\ud83d\udcbb');
+      binding.write('\ud83d\udc69\u200d\ud83d\udcbb');
+      expect(source).assertEqual('\ud83d\udc69\u200d\ud83d\udcbb');
+      expect(seen).assertEqual('\ud83d\udc69\u200d\ud83d\udcbb');
+      expect(binding.read().length).assertEqual(5);
+      expect(binding.read() === source).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0101
+     * @tc.desc binding-contract: one-way getter binding for long, form 1.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0101', 0, () => {
+      let source: string = 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+      const binding: GetterBinding = new GetterBinding(() => source);
+      expect(binding.read()).assertEqual('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+      source = 'NEXT';
+      expect(binding.read()).assertEqual('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual(binding.read());
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0102
+     * @tc.desc binding-contract: one-way getter binding for long, form 2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0102', 0, () => {
+      let source: string = 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+      const binding: GetterBinding = new GetterBinding(() => source);
+      expect(binding.read()).assertEqual('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+      expect(binding.read()).assertEqual(source);
+      expect(binding.read().length).assertEqual(source.length);
+      const second: GetterBinding = new GetterBinding(() => source);
+      expect(second.read()).assertEqual(binding.read());
+      expect(second === binding).assertFalse();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0103
+     * @tc.desc binding-contract: mutable binding write for long, form 1.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0103', 0, () => {
+      let source: string = 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+      let seen: string = '';
+      const binding: GetterSetterBinding = new GetterSetterBinding(
+        () => source,
+        (value: string) => { source = value; seen = value; }
+      );
+      expect(binding.read()).assertEqual('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(seen).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect(seen.length).assertEqual(4);
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0104
+     * @tc.desc binding-contract: mutable binding write for long, form 2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0104', 0, () => {
+      let source: string = 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+      let seen: string = '';
+      const binding: GetterSetterBinding = new GetterSetterBinding(
+        () => source,
+        (value: string) => { source = value; seen = value; }
+      );
+      expect(binding.read()).assertEqual('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+      binding.write('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+      expect(source).assertEqual('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+      expect(seen).assertEqual('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+      expect(binding.read().length).assertEqual(64);
+      expect(binding.read() === source).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0105
+     * @tc.desc binding-contract: one-way getter binding for minus, form 1.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0105', 0, () => {
+      let source: string = '-1';
+      const binding: GetterBinding = new GetterBinding(() => source);
+      expect(binding.read()).assertEqual('-1');
+      source = 'NEXT';
+      expect(binding.read()).assertEqual('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual(binding.read());
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0106
+     * @tc.desc binding-contract: one-way getter binding for minus, form 2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0106', 0, () => {
+      let source: string = '-1';
+      const binding: GetterBinding = new GetterBinding(() => source);
+      expect(binding.read()).assertEqual('-1');
+      expect(binding.read()).assertEqual(source);
+      expect(binding.read().length).assertEqual(source.length);
+      const second: GetterBinding = new GetterBinding(() => source);
+      expect(second.read()).assertEqual(binding.read());
+      expect(second === binding).assertFalse();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0107
+     * @tc.desc binding-contract: mutable binding write for minus, form 1.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0107', 0, () => {
+      let source: string = '-1';
+      let seen: string = '';
+      const binding: GetterSetterBinding = new GetterSetterBinding(
+        () => source,
+        (value: string) => { source = value; seen = value; }
+      );
+      expect(binding.read()).assertEqual('-1');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(seen).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect(seen.length).assertEqual(4);
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0108
+     * @tc.desc binding-contract: mutable binding write for minus, form 2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0108', 0, () => {
+      let source: string = '-1';
+      let seen: string = '';
+      const binding: GetterSetterBinding = new GetterSetterBinding(
+        () => source,
+        (value: string) => { source = value; seen = value; }
+      );
+      expect(binding.read()).assertEqual('-1');
+      binding.write('-1');
+      expect(source).assertEqual('-1');
+      expect(seen).assertEqual('-1');
+      expect(binding.read().length).assertEqual(2);
+      expect(binding.read() === source).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0109
+     * @tc.desc binding-contract: one-way getter binding for float, form 1.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0109', 0, () => {
+      let source: string = '3.14';
+      const binding: GetterBinding = new GetterBinding(() => source);
+      expect(binding.read()).assertEqual('3.14');
+      source = 'NEXT';
+      expect(binding.read()).assertEqual('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual(binding.read());
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0110
+     * @tc.desc binding-contract: one-way getter binding for float, form 2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0110', 0, () => {
+      let source: string = '3.14';
+      const binding: GetterBinding = new GetterBinding(() => source);
+      expect(binding.read()).assertEqual('3.14');
+      expect(binding.read()).assertEqual(source);
+      expect(binding.read().length).assertEqual(source.length);
+      const second: GetterBinding = new GetterBinding(() => source);
+      expect(second.read()).assertEqual(binding.read());
+      expect(second === binding).assertFalse();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0111
+     * @tc.desc binding-contract: mutable binding write for float, form 1.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0111', 0, () => {
+      let source: string = '3.14';
+      let seen: string = '';
+      const binding: GetterSetterBinding = new GetterSetterBinding(
+        () => source,
+        (value: string) => { source = value; seen = value; }
+      );
+      expect(binding.read()).assertEqual('3.14');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(seen).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect(seen.length).assertEqual(4);
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0112
+     * @tc.desc binding-contract: mutable binding write for float, form 2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0112', 0, () => {
+      let source: string = '3.14';
+      let seen: string = '';
+      const binding: GetterSetterBinding = new GetterSetterBinding(
+        () => source,
+        (value: string) => { source = value; seen = value; }
+      );
+      expect(binding.read()).assertEqual('3.14');
+      binding.write('3.14');
+      expect(source).assertEqual('3.14');
+      expect(seen).assertEqual('3.14');
+      expect(binding.read().length).assertEqual(4);
+      expect(binding.read() === source).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0113
+     * @tc.desc binding-contract: one-way getter binding for nullword, form 1.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0113', 0, () => {
+      let source: string = 'null';
+      const binding: GetterBinding = new GetterBinding(() => source);
+      expect(binding.read()).assertEqual('null');
+      source = 'NEXT';
+      expect(binding.read()).assertEqual('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual(binding.read());
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0114
+     * @tc.desc binding-contract: one-way getter binding for nullword, form 2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0114', 0, () => {
+      let source: string = 'null';
+      const binding: GetterBinding = new GetterBinding(() => source);
+      expect(binding.read()).assertEqual('null');
+      expect(binding.read()).assertEqual(source);
+      expect(binding.read().length).assertEqual(source.length);
+      const second: GetterBinding = new GetterBinding(() => source);
+      expect(second.read()).assertEqual(binding.read());
+      expect(second === binding).assertFalse();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0115
+     * @tc.desc binding-contract: mutable binding write for nullword, form 1.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0115', 0, () => {
+      let source: string = 'null';
+      let seen: string = '';
+      const binding: GetterSetterBinding = new GetterSetterBinding(
+        () => source,
+        (value: string) => { source = value; seen = value; }
+      );
+      expect(binding.read()).assertEqual('null');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(seen).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect(seen.length).assertEqual(4);
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0116
+     * @tc.desc binding-contract: mutable binding write for nullword, form 2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0116', 0, () => {
+      let source: string = 'null';
+      let seen: string = '';
+      const binding: GetterSetterBinding = new GetterSetterBinding(
+        () => source,
+        (value: string) => { source = value; seen = value; }
+      );
+      expect(binding.read()).assertEqual('null');
+      binding.write('null');
+      expect(source).assertEqual('null');
+      expect(seen).assertEqual('null');
+      expect(binding.read().length).assertEqual(4);
+      expect(binding.read() === source).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0117
+     * @tc.desc binding-contract: one-way getter binding for proto, form 1.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0117', 0, () => {
+      let source: string = '__proto__';
+      const binding: GetterBinding = new GetterBinding(() => source);
+      expect(binding.read()).assertEqual('__proto__');
+      source = 'NEXT';
+      expect(binding.read()).assertEqual('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual(binding.read());
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0118
+     * @tc.desc binding-contract: one-way getter binding for proto, form 2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0118', 0, () => {
+      let source: string = '__proto__';
+      const binding: GetterBinding = new GetterBinding(() => source);
+      expect(binding.read()).assertEqual('__proto__');
+      expect(binding.read()).assertEqual(source);
+      expect(binding.read().length).assertEqual(source.length);
+      const second: GetterBinding = new GetterBinding(() => source);
+      expect(second.read()).assertEqual(binding.read());
+      expect(second === binding).assertFalse();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0119
+     * @tc.desc binding-contract: mutable binding write for proto, form 1.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0119', 0, () => {
+      let source: string = '__proto__';
+      let seen: string = '';
+      const binding: GetterSetterBinding = new GetterSetterBinding(
+        () => source,
+        (value: string) => { source = value; seen = value; }
+      );
+      expect(binding.read()).assertEqual('__proto__');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(seen).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect(seen.length).assertEqual(4);
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0120
+     * @tc.desc binding-contract: mutable binding write for proto, form 2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0120', 0, () => {
+      let source: string = '__proto__';
+      let seen: string = '';
+      const binding: GetterSetterBinding = new GetterSetterBinding(
+        () => source,
+        (value: string) => { source = value; seen = value; }
+      );
+      expect(binding.read()).assertEqual('__proto__');
+      binding.write('__proto__');
+      expect(source).assertEqual('__proto__');
+      expect(seen).assertEqual('__proto__');
+      expect(binding.read().length).assertEqual(9);
+      expect(binding.read() === source).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0121
+     * @tc.desc binding-contract: one-way getter binding for ctor, form 1.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0121', 0, () => {
+      let source: string = 'constructor';
+      const binding: GetterBinding = new GetterBinding(() => source);
+      expect(binding.read()).assertEqual('constructor');
+      source = 'NEXT';
+      expect(binding.read()).assertEqual('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual(binding.read());
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0122
+     * @tc.desc binding-contract: one-way getter binding for ctor, form 2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0122', 0, () => {
+      let source: string = 'constructor';
+      const binding: GetterBinding = new GetterBinding(() => source);
+      expect(binding.read()).assertEqual('constructor');
+      expect(binding.read()).assertEqual(source);
+      expect(binding.read().length).assertEqual(source.length);
+      const second: GetterBinding = new GetterBinding(() => source);
+      expect(second.read()).assertEqual(binding.read());
+      expect(second === binding).assertFalse();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0123
+     * @tc.desc binding-contract: mutable binding write for ctor, form 1.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0123', 0, () => {
+      let source: string = 'constructor';
+      let seen: string = '';
+      const binding: GetterSetterBinding = new GetterSetterBinding(
+        () => source,
+        (value: string) => { source = value; seen = value; }
+      );
+      expect(binding.read()).assertEqual('constructor');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(seen).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect(seen.length).assertEqual(4);
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0124
+     * @tc.desc binding-contract: mutable binding write for ctor, form 2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0124', 0, () => {
+      let source: string = 'constructor';
+      let seen: string = '';
+      const binding: GetterSetterBinding = new GetterSetterBinding(
+        () => source,
+        (value: string) => { source = value; seen = value; }
+      );
+      expect(binding.read()).assertEqual('constructor');
+      binding.write('constructor');
+      expect(source).assertEqual('constructor');
+      expect(seen).assertEqual('constructor');
+      expect(binding.read().length).assertEqual(11);
+      expect(binding.read() === source).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0125
+     * @tc.desc binding-contract: operation sequence RWR over a mutable binding seeded with empty.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0125', 0, () => {
+      let source: string = '';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0126
+     * @tc.desc binding-contract: operation sequence WRW over a mutable binding seeded with empty.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0126', 0, () => {
+      let source: string = '';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0127
+     * @tc.desc binding-contract: operation sequence RRW over a mutable binding seeded with empty.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0127', 0, () => {
+      let source: string = '';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0128
+     * @tc.desc binding-contract: operation sequence WWR over a mutable binding seeded with empty.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0128', 0, () => {
+      let source: string = '';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0129
+     * @tc.desc binding-contract: operation sequence WWW over a mutable binding seeded with empty.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0129', 0, () => {
+      let source: string = '';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0130
+     * @tc.desc binding-contract: operation sequence RRR over a mutable binding seeded with empty.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0130', 0, () => {
+      let source: string = '';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('');
+      expect(binding.read()).assertEqual('');
+      expect((source === '')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0131
+     * @tc.desc binding-contract: operation sequence WRR over a mutable binding seeded with empty.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0131', 0, () => {
+      let source: string = '';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0132
+     * @tc.desc binding-contract: operation sequence RWW over a mutable binding seeded with empty.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0132', 0, () => {
+      let source: string = '';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0133
+     * @tc.desc binding-contract: operation sequence RWR over a mutable binding seeded with space.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0133', 0, () => {
+      let source: string = ' ';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0134
+     * @tc.desc binding-contract: operation sequence WRW over a mutable binding seeded with space.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0134', 0, () => {
+      let source: string = ' ';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0135
+     * @tc.desc binding-contract: operation sequence RRW over a mutable binding seeded with space.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0135', 0, () => {
+      let source: string = ' ';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0136
+     * @tc.desc binding-contract: operation sequence WWR over a mutable binding seeded with space.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0136', 0, () => {
+      let source: string = ' ';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0137
+     * @tc.desc binding-contract: operation sequence WWW over a mutable binding seeded with space.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0137', 0, () => {
+      let source: string = ' ';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0138
+     * @tc.desc binding-contract: operation sequence RRR over a mutable binding seeded with space.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0138', 0, () => {
+      let source: string = ' ';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual(' ');
+      expect(binding.read()).assertEqual(' ');
+      expect((source === ' ')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0139
+     * @tc.desc binding-contract: operation sequence WRR over a mutable binding seeded with space.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0139', 0, () => {
+      let source: string = ' ';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0140
+     * @tc.desc binding-contract: operation sequence RWW over a mutable binding seeded with space.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0140', 0, () => {
+      let source: string = ' ';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0141
+     * @tc.desc binding-contract: operation sequence RWR over a mutable binding seeded with ascii.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0141', 0, () => {
+      let source: string = 'A';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0142
+     * @tc.desc binding-contract: operation sequence WRW over a mutable binding seeded with ascii.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0142', 0, () => {
+      let source: string = 'A';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0143
+     * @tc.desc binding-contract: operation sequence RRW over a mutable binding seeded with ascii.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0143', 0, () => {
+      let source: string = 'A';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0144
+     * @tc.desc binding-contract: operation sequence WWR over a mutable binding seeded with ascii.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0144', 0, () => {
+      let source: string = 'A';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0145
+     * @tc.desc binding-contract: operation sequence WWW over a mutable binding seeded with ascii.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0145', 0, () => {
+      let source: string = 'A';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0146
+     * @tc.desc binding-contract: operation sequence RRR over a mutable binding seeded with ascii.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0146', 0, () => {
+      let source: string = 'A';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('A');
+      expect(binding.read()).assertEqual('A');
+      expect((source === 'A')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0147
+     * @tc.desc binding-contract: operation sequence WRR over a mutable binding seeded with ascii.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0147', 0, () => {
+      let source: string = 'A';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0148
+     * @tc.desc binding-contract: operation sequence RWW over a mutable binding seeded with ascii.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0148', 0, () => {
+      let source: string = 'A';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0149
+     * @tc.desc binding-contract: operation sequence RWR over a mutable binding seeded with word.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0149', 0, () => {
+      let source: string = 'abc';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0150
+     * @tc.desc binding-contract: operation sequence WRW over a mutable binding seeded with word.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0150', 0, () => {
+      let source: string = 'abc';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0151
+     * @tc.desc binding-contract: operation sequence RRW over a mutable binding seeded with word.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0151', 0, () => {
+      let source: string = 'abc';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0152
+     * @tc.desc binding-contract: operation sequence WWR over a mutable binding seeded with word.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0152', 0, () => {
+      let source: string = 'abc';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0153
+     * @tc.desc binding-contract: operation sequence WWW over a mutable binding seeded with word.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0153', 0, () => {
+      let source: string = 'abc';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0154
+     * @tc.desc binding-contract: operation sequence RRR over a mutable binding seeded with word.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0154', 0, () => {
+      let source: string = 'abc';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('abc');
+      expect(binding.read()).assertEqual('abc');
+      expect((source === 'abc')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0155
+     * @tc.desc binding-contract: operation sequence WRR over a mutable binding seeded with word.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0155', 0, () => {
+      let source: string = 'abc';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0156
+     * @tc.desc binding-contract: operation sequence RWW over a mutable binding seeded with word.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0156', 0, () => {
+      let source: string = 'abc';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0157
+     * @tc.desc binding-contract: operation sequence RWR over a mutable binding seeded with han.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0157', 0, () => {
+      let source: string = '\u65b0';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0158
+     * @tc.desc binding-contract: operation sequence WRW over a mutable binding seeded with han.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0158', 0, () => {
+      let source: string = '\u65b0';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0159
+     * @tc.desc binding-contract: operation sequence RRW over a mutable binding seeded with han.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0159', 0, () => {
+      let source: string = '\u65b0';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0160
+     * @tc.desc binding-contract: operation sequence WWR over a mutable binding seeded with han.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0160', 0, () => {
+      let source: string = '\u65b0';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0161
+     * @tc.desc binding-contract: operation sequence WWW over a mutable binding seeded with han.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0161', 0, () => {
+      let source: string = '\u65b0';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0162
+     * @tc.desc binding-contract: operation sequence RRR over a mutable binding seeded with han.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0162', 0, () => {
+      let source: string = '\u65b0';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('\u65b0');
+      expect(binding.read()).assertEqual('\u65b0');
+      expect((source === '\u65b0')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0163
+     * @tc.desc binding-contract: operation sequence WRR over a mutable binding seeded with han.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0163', 0, () => {
+      let source: string = '\u65b0';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0164
+     * @tc.desc binding-contract: operation sequence RWW over a mutable binding seeded with han.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0164', 0, () => {
+      let source: string = '\u65b0';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0165
+     * @tc.desc binding-contract: operation sequence RWR over a mutable binding seeded with han2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0165', 0, () => {
+      let source: string = '\u65b0\u5e74';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0166
+     * @tc.desc binding-contract: operation sequence WRW over a mutable binding seeded with han2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0166', 0, () => {
+      let source: string = '\u65b0\u5e74';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0167
+     * @tc.desc binding-contract: operation sequence RRW over a mutable binding seeded with han2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0167', 0, () => {
+      let source: string = '\u65b0\u5e74';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0168
+     * @tc.desc binding-contract: operation sequence WWR over a mutable binding seeded with han2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0168', 0, () => {
+      let source: string = '\u65b0\u5e74';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0169
+     * @tc.desc binding-contract: operation sequence WWW over a mutable binding seeded with han2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0169', 0, () => {
+      let source: string = '\u65b0\u5e74';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0170
+     * @tc.desc binding-contract: operation sequence RRR over a mutable binding seeded with han2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0170', 0, () => {
+      let source: string = '\u65b0\u5e74';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('\u65b0\u5e74');
+      expect(binding.read()).assertEqual('\u65b0\u5e74');
+      expect((source === '\u65b0\u5e74')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0171
+     * @tc.desc binding-contract: operation sequence WRR over a mutable binding seeded with han2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0171', 0, () => {
+      let source: string = '\u65b0\u5e74';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0172
+     * @tc.desc binding-contract: operation sequence RWW over a mutable binding seeded with han2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0172', 0, () => {
+      let source: string = '\u65b0\u5e74';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0173
+     * @tc.desc binding-contract: operation sequence RWR over a mutable binding seeded with wish.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0173', 0, () => {
+      let source: string = '\u65b0\u5e74\u5feb\u4e50!';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0174
+     * @tc.desc binding-contract: operation sequence WRW over a mutable binding seeded with wish.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0174', 0, () => {
+      let source: string = '\u65b0\u5e74\u5feb\u4e50!';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0175
+     * @tc.desc binding-contract: operation sequence RRW over a mutable binding seeded with wish.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0175', 0, () => {
+      let source: string = '\u65b0\u5e74\u5feb\u4e50!';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0176
+     * @tc.desc binding-contract: operation sequence WWR over a mutable binding seeded with wish.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0176', 0, () => {
+      let source: string = '\u65b0\u5e74\u5feb\u4e50!';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0177
+     * @tc.desc binding-contract: operation sequence WWW over a mutable binding seeded with wish.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0177', 0, () => {
+      let source: string = '\u65b0\u5e74\u5feb\u4e50!';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0178
+     * @tc.desc binding-contract: operation sequence RRR over a mutable binding seeded with wish.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0178', 0, () => {
+      let source: string = '\u65b0\u5e74\u5feb\u4e50!';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(binding.read()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect((source === '\u65b0\u5e74\u5feb\u4e50!')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0179
+     * @tc.desc binding-contract: operation sequence WRR over a mutable binding seeded with wish.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0179', 0, () => {
+      let source: string = '\u65b0\u5e74\u5feb\u4e50!';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0180
+     * @tc.desc binding-contract: operation sequence RWW over a mutable binding seeded with wish.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0180', 0, () => {
+      let source: string = '\u65b0\u5e74\u5feb\u4e50!';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0181
+     * @tc.desc binding-contract: operation sequence RWR over a mutable binding seeded with placeholder.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0181', 0, () => {
+      let source: string = '\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0182
+     * @tc.desc binding-contract: operation sequence WRW over a mutable binding seeded with placeholder.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0182', 0, () => {
+      let source: string = '\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0183
+     * @tc.desc binding-contract: operation sequence RRW over a mutable binding seeded with placeholder.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0183', 0, () => {
+      let source: string = '\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0184
+     * @tc.desc binding-contract: operation sequence WWR over a mutable binding seeded with placeholder.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0184', 0, () => {
+      let source: string = '\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0185
+     * @tc.desc binding-contract: operation sequence WWW over a mutable binding seeded with placeholder.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0185', 0, () => {
+      let source: string = '\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0186
+     * @tc.desc binding-contract: operation sequence RRR over a mutable binding seeded with placeholder.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0186', 0, () => {
+      let source: string = '\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(binding.read()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect((source === '\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0187
+     * @tc.desc binding-contract: operation sequence WRR over a mutable binding seeded with placeholder.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0187', 0, () => {
+      let source: string = '\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0188
+     * @tc.desc binding-contract: operation sequence RWW over a mutable binding seeded with placeholder.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0188', 0, () => {
+      let source: string = '\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0189
+     * @tc.desc binding-contract: operation sequence RWR over a mutable binding seeded with emoji.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0189', 0, () => {
+      let source: string = '\ud83c\udf88';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0190
+     * @tc.desc binding-contract: operation sequence WRW over a mutable binding seeded with emoji.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0190', 0, () => {
+      let source: string = '\ud83c\udf88';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0191
+     * @tc.desc binding-contract: operation sequence RRW over a mutable binding seeded with emoji.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0191', 0, () => {
+      let source: string = '\ud83c\udf88';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0192
+     * @tc.desc binding-contract: operation sequence WWR over a mutable binding seeded with emoji.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0192', 0, () => {
+      let source: string = '\ud83c\udf88';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0193
+     * @tc.desc binding-contract: operation sequence WWW over a mutable binding seeded with emoji.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0193', 0, () => {
+      let source: string = '\ud83c\udf88';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0194
+     * @tc.desc binding-contract: operation sequence RRR over a mutable binding seeded with emoji.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0194', 0, () => {
+      let source: string = '\ud83c\udf88';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('\ud83c\udf88');
+      expect(binding.read()).assertEqual('\ud83c\udf88');
+      expect((source === '\ud83c\udf88')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0195
+     * @tc.desc binding-contract: operation sequence WRR over a mutable binding seeded with emoji.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0195', 0, () => {
+      let source: string = '\ud83c\udf88';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0196
+     * @tc.desc binding-contract: operation sequence RWW over a mutable binding seeded with emoji.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0196', 0, () => {
+      let source: string = '\ud83c\udf88';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0197
+     * @tc.desc binding-contract: operation sequence RWR over a mutable binding seeded with emoji-han.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0197', 0, () => {
+      let source: string = '\ud83c\udf88 \u65b0\u5e74';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0198
+     * @tc.desc binding-contract: operation sequence WRW over a mutable binding seeded with emoji-han.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0198', 0, () => {
+      let source: string = '\ud83c\udf88 \u65b0\u5e74';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0199
+     * @tc.desc binding-contract: operation sequence RRW over a mutable binding seeded with emoji-han.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0199', 0, () => {
+      let source: string = '\ud83c\udf88 \u65b0\u5e74';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0200
+     * @tc.desc binding-contract: operation sequence WWR over a mutable binding seeded with emoji-han.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0200', 0, () => {
+      let source: string = '\ud83c\udf88 \u65b0\u5e74';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0201
+     * @tc.desc binding-contract: operation sequence WWW over a mutable binding seeded with emoji-han.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0201', 0, () => {
+      let source: string = '\ud83c\udf88 \u65b0\u5e74';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0202
+     * @tc.desc binding-contract: operation sequence RRR over a mutable binding seeded with emoji-han.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0202', 0, () => {
+      let source: string = '\ud83c\udf88 \u65b0\u5e74';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('\ud83c\udf88 \u65b0\u5e74');
+      expect(binding.read()).assertEqual('\ud83c\udf88 \u65b0\u5e74');
+      expect((source === '\ud83c\udf88 \u65b0\u5e74')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0203
+     * @tc.desc binding-contract: operation sequence WRR over a mutable binding seeded with emoji-han.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0203', 0, () => {
+      let source: string = '\ud83c\udf88 \u65b0\u5e74';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      binding.write('NEXT');
+      expect(binding.read() === source).assertTrue();
+      expect(binding.read() === source).assertTrue();
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0204
+     * @tc.desc binding-contract: operation sequence RWW over a mutable binding seeded with emoji-han.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0204', 0, () => {
+      let source: string = '\ud83c\udf88 \u65b0\u5e74';
+      const binding: GetterSetterBinding = new GetterSetterBinding(() => source, (value: string) => { source = value; });
+      expect(binding.read() === source).assertTrue();
+      binding.write('NEXT');
+      binding.write('NEXT');
+      expect(source).assertEqual('NEXT');
+      expect(binding.read()).assertEqual('NEXT');
+      expect((source === 'NEXT')).assertTrue();
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0205
+     * @tc.desc binding-contract: counting binding keeps read/write accounting for empty.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0205', 0, () => {
+      const binding: CountingBinding = new CountingBinding();
+      binding.write('');
+      expect(binding.read()).assertEqual('');
+      expect(binding.read()).assertEqual('');
+      expect(binding.writes).assertEqual(1);
+      expect(binding.reads).assertEqual(2);
+      expect(binding.store).assertEqual('');
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0206
+     * @tc.desc binding-contract: counting binding keeps read/write accounting for space.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0206', 0, () => {
+      const binding: CountingBinding = new CountingBinding();
+      binding.write(' ');
+      expect(binding.read()).assertEqual(' ');
+      expect(binding.read()).assertEqual(' ');
+      expect(binding.writes).assertEqual(1);
+      expect(binding.reads).assertEqual(2);
+      expect(binding.store).assertEqual(' ');
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0207
+     * @tc.desc binding-contract: counting binding keeps read/write accounting for ascii.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0207', 0, () => {
+      const binding: CountingBinding = new CountingBinding();
+      binding.write('A');
+      expect(binding.read()).assertEqual('A');
+      expect(binding.read()).assertEqual('A');
+      expect(binding.writes).assertEqual(1);
+      expect(binding.reads).assertEqual(2);
+      expect(binding.store).assertEqual('A');
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0208
+     * @tc.desc binding-contract: counting binding keeps read/write accounting for word.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0208', 0, () => {
+      const binding: CountingBinding = new CountingBinding();
+      binding.write('abc');
+      expect(binding.read()).assertEqual('abc');
+      expect(binding.read()).assertEqual('abc');
+      expect(binding.writes).assertEqual(1);
+      expect(binding.reads).assertEqual(2);
+      expect(binding.store).assertEqual('abc');
+    });
+
   });
 }
