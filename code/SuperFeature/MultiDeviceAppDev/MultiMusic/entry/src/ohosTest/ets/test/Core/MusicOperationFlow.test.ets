@@ -3987,3 +3987,247 @@ export default function musicOperationFlowSuite() {
       expect(m.getPlaylistByIndex(1000 + 314) === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0315
+     * @tc.name    MusicOperationFlow315
+     * @tc.desc    Music offset accumulation 315 probe 315
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicOperationFlow315', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(15, 115);
+      const delta = m.makeOffset(36, 16);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 315) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0316
+     * @tc.name    MusicOperationFlow316
+     * @tc.desc    Music offset accumulation 316 probe 316
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicOperationFlow316', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(16, 116);
+      const delta = m.makeOffset(37, 17);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 316) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0317
+     * @tc.name    MusicOperationFlow317
+     * @tc.desc    Music offset accumulation 317 probe 317
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicOperationFlow317', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(17, 117);
+      const delta = m.makeOffset(38, 18);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 317) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0318
+     * @tc.name    MusicOperationFlow318
+     * @tc.desc    Music offset accumulation 318 probe 318
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicOperationFlow318', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(18, 118);
+      const delta = m.makeOffset(39, 19);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 318) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0319
+     * @tc.name    MusicOperationFlow319
+     * @tc.desc    Music offset accumulation 319 probe 319
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicOperationFlow319', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(19, 119);
+      const delta = m.makeOffset(40, 20);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 319) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0320
+     * @tc.name    MusicOperationFlow320
+     * @tc.desc    Music offset accumulation 320 probe 320
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicOperationFlow320', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(20, 120);
+      const delta = m.makeOffset(1, 21);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 320) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0321
+     * @tc.name    MusicOperationFlow321
+     * @tc.desc    Music offset accumulation 321 probe 321
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicOperationFlow321', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(21, 121);
+      const delta = m.makeOffset(2, 22);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 321) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0322
+     * @tc.name    MusicOperationFlow322
+     * @tc.desc    Music offset accumulation 322 probe 322
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicOperationFlow322', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(22, 122);
+      const delta = m.makeOffset(3, 23);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 322) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0323
+     * @tc.name    MusicOperationFlow323
+     * @tc.desc    Music offset accumulation 323 probe 323
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicOperationFlow323', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(23, 123);
+      const delta = m.makeOffset(4, 24);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 323) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0324
+     * @tc.name    MusicOperationFlow324
+     * @tc.desc    Music offset accumulation 324 probe 324
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicOperationFlow324', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(24, 124);
+      const delta = m.makeOffset(5, 25);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 324) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0325
+     * @tc.name    MusicOperationFlow325
+     * @tc.desc    Music offset accumulation 325 probe 325
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicOperationFlow325', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(25, 125);
+      const delta = m.makeOffset(6, 26);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 325) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0326
+     * @tc.name    MusicOperationFlow326
+     * @tc.desc    Music offset accumulation 326 probe 326
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicOperationFlow326', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(26, 126);
+      const delta = m.makeOffset(7, 27);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 326) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
