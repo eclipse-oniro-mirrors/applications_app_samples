@@ -743,14 +743,14 @@ export default function intlTextMatrix2Test(): void {
     /**
      * @tc.number    INTL_TEXT_0124
      * @tc.name      intlTextText0124
-     * @tc.desc      文本 Ndk Native Image 在 78px 下的单行宽度估算
+     * @tc.desc      文本 Ark Native Image 在 78px 下的单行宽度估算
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
     it('intlTextText0124', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'intlTextText0124 begin');
-      const text: string = 'Ndk Native Image';
+      const text: string = 'Ark Native Image';
       const fontSize: number = 78;
       const count: number = text.length;
       const width: number = count * fontSize;
@@ -765,7 +765,7 @@ export default function intlTextMatrix2Test(): void {
     /**
      * @tc.number    INTL_TEXT_0125
      * @tc.name      intlTextText0125
-     * @tc.desc      文本 Ndk Native Image 在 936px 容器内的换行行数推算
+     * @tc.desc      文本 Ark Native Image 在 936px 容器内的换行行数推算
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
@@ -786,14 +786,14 @@ export default function intlTextMatrix2Test(): void {
     /**
      * @tc.number    INTL_TEXT_0126
      * @tc.name      intlTextText0126
-     * @tc.desc      文本 Ndk Native Image 截断到 4 字符的长度与起始一致校验
+     * @tc.desc      文本 Ark Native Image 截断到 4 字符的长度与起始一致校验
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
     it('intlTextText0126', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'intlTextText0126 begin');
-      const text: string = 'Ndk Native Image';
+      const text: string = 'Ark Native Image';
       const truncated: string = text.substring(0, 4);
       hilog.info(DOMAIN, TAG, '%{public}s', 'truncated=' + truncated.length);
       expect(truncated.length).assertEqual(4);

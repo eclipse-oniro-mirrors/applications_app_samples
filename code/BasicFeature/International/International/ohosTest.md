@@ -55,8 +55,9 @@ International 国际化能力样例的测试归档，自动化部分覆盖日期
 ```shell
 hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap --no-daemon
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc shell aa test -b ohos.samples.international -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 30000
 ```
+
+安装完成后，通过 `hdc shell` 调用测试执行器拉起 `entry_test` 模块：`-b ohos.samples.international` 指定应用包名，`-m entry_test` 指定测试模块，`-s unittest /ets/testrunner/OpenHarmonyTestRunner` 指定执行器入口（路径区分大小写），`-s timeout 30000` 指定超时时间。
 
 安装后也可在 DevEco Studio 中右键 `entry/src/ohosTest` 运行。仓库内 `build-profile.json5` 的 `signingConfigs` 为空，运行前需在 DevEco Studio 的 Signing Configs 中配置自动签名；更换证书后先 `hdc uninstall` 再安装，否则报 `install sign info inconsistent`。
 
@@ -65,6 +66,6 @@ hdc shell aa test -b ohos.samples.international -m entry_test -s unittest /ets/t
 1. hypium 把整批用例串在同一个主线程任务里执行，`await` 已完成的 Promise 只产生微任务，主线程累计占用超过 6 秒会被系统判定 `THREAD_BLOCK_6S` 并结束进程（报告表现为 `TestFinished-ResultMsg: App died`），因此每个套件必须用 `beforeEachIt` 调用 `tick()`，每 10 条用例插入一次 1ms 定时器。
 2. 用例注册放在 `TestAbility.onForeground` 之后延迟 1 秒执行：注册阶段 hypium 会同步写大量日志，接口回调整体占用主线程可能触发前台超时并回收测试进程。
 3. `-s unittest` 的入口路径必须写成小写的 `/ets/testrunner/OpenHarmonyTestRunner`，设备端大小写敏感，写成 `TestRunner` 会报 `Cannot find module`。
-4. 开发者模式未解锁屏幕时 `aa start` 返回 `10106102`，`OpenHarmonyTestRunner` 会以 -3 直接结束测试，跑测前先解锁屏幕。
+4. 开发者模式未解锁屏幕时，启动应用命令返回 `10106102`，`OpenHarmonyTestRunner` 会以 -3 直接结束测试，跑测前先解锁屏幕。
 5. hilog 的 tag 超过 31 字节会截断，所有套件只使用一个短 tag `[Sample_International]`，用例归属靠日志正文中的 `it` 名称区分。
 6. 日期时间用例以固定基线时间戳 1767225600000 加时区偏移推算，不读取设备当前时间与系统时区，换设备或改时区不会影响断言；新增 locale、样式或偏移后必须同步更新对应套件。
