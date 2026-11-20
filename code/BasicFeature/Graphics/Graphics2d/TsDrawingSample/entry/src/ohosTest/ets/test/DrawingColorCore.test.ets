@@ -1055,5 +1055,996 @@ export default function drawingColorCoreTest(): void {
       log('testDrawingColor0050 end');
     })
 
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0051
+     * @tc.name      testDrawingColor0051
+     * @tc.desc      Verify serializing opaque red yields the AARRGGBB string FFFF0000.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0051 begin');
+      const text: string = colorToHexString(makeColor(255, 255, 0, 0));
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual text=${text}, expected='FFFF0000'`);
+      expect(text).assertEqual('FFFF0000');
+      log('testDrawingColor0051 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0052
+     * @tc.name      testDrawingColor0052
+     * @tc.desc      Verify serializing opaque white yields FFFFFFFF.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0052 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual actual=${colorToHexString(makeColor(255, 255, 255, 255))}`);
+      expect(colorToHexString(makeColor(255, 255, 255, 255))).assertEqual('FFFFFFFF');
+      log('testDrawingColor0052 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0053
+     * @tc.name      testDrawingColor0053
+     * @tc.desc      Verify serializing opaque black yields FF000000.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0053 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual actual=${colorToHexString(makeColor(255, 0, 0, 0))}`);
+      expect(colorToHexString(makeColor(255, 0, 0, 0))).assertEqual('FF000000');
+      log('testDrawingColor0053 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0054
+     * @tc.name      testDrawingColor0054
+     * @tc.desc      Verify serializing semi transparent blue yields 800000FF.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0054 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual actual=${colorToHexString(makeColor(128, 0, 0, 255))}`);
+      expect(colorToHexString(makeColor(128, 0, 0, 255))).assertEqual('800000FF');
+      log('testDrawingColor0054 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0055
+     * @tc.name      testDrawingColor0055
+     * @tc.desc      Verify serializing transparent white yields 00FFFFFF.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0055 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual actual=${colorToHexString(makeColor(0, 255, 255, 255))}`);
+      expect(colorToHexString(makeColor(0, 255, 255, 255))).assertEqual('00FFFFFF');
+      log('testDrawingColor0055 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0056
+     * @tc.name      testDrawingColor0056
+     * @tc.desc      Verify serializing the sample title color yields FF4472C3.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0056 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual actual=${colorToHexString(makeColor(255, 68, 114, 195))}`);
+      expect(colorToHexString(makeColor(255, 68, 114, 195))).assertEqual('FF4472C3');
+      log('testDrawingColor0056 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0057
+     * @tc.name      testDrawingColor0057
+     * @tc.desc      Verify parse then serialize round trips #FF4472C3 unchanged.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0057 begin');
+      const color: DrawingColor4 = parseHexColor('#FF4472C3');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual colorToHexString(color)=${colorToHexString(color)}`);
+      expect(colorToHexString(color)).assertEqual('FF4472C3');
+      log('testDrawingColor0057 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0058
+     * @tc.name      testDrawingColor0058
+     * @tc.desc      Verify parse then serialize round trips 80FF0000 unchanged.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0058 begin');
+      const color: DrawingColor4 = parseHexColor('80FF0000');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual colorToHexString(color)=${colorToHexString(color)}`);
+      expect(colorToHexString(color)).assertEqual('80FF0000');
+      log('testDrawingColor0058 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0059
+     * @tc.name      testDrawingColor0059
+     * @tc.desc      Verify the serialized color string keeps the string type.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0059 begin');
+      const text: string = colorToHexString(makeColor(1, 2, 3, 4));
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual typeof text=${typeof text}, expected='string'`);
+      expect(typeof text).assertEqual('string');
+      log('testDrawingColor0059 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0060
+     * @tc.name      testDrawingColor0060
+     * @tc.desc      Verify serialized output is always eight characters long.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0060 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual actual=${colorToHexString(makeColor(1, 2, 3, 4))}`);
+      expect(colorToHexString(makeColor(1, 2, 3, 4))).assertEqual('01020304');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual actual=${colorToHexString(makeColor(1, 2, 3, 4)).length}`);
+      expect(colorToHexString(makeColor(1, 2, 3, 4)).length).assertEqual(8);
+      log('testDrawingColor0060 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0061
+     * @tc.name      testDrawingColor0061
+     * @tc.desc      Verify a Pen can be created standalone for parameter modeling.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0061 begin');
+      const pen: drawing.Pen = new drawing.Pen();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue pen !== undefined=${pen !== undefined}`);
+      expect(pen !== undefined).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue pen !== null=${pen !== null}`);
+      expect(pen !== null).assertTrue();
+      log('testDrawingColor0061 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0062
+     * @tc.name      testDrawingColor0062
+     * @tc.desc      Verify Pen setColor with the object form applies without throwing.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0062 begin');
+      const pen: drawing.Pen = new drawing.Pen();
+      const color: common2D.Color = { alpha: 255, red: 255, green: 0, blue: 0 };
+      pen.setColor(color);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue pen !== undefined=${pen !== undefined}`);
+      expect(pen !== undefined).assertTrue();
+      log('testDrawingColor0062 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0063
+     * @tc.name      testDrawingColor0063
+     * @tc.desc      Verify Pen getColor round trips the object form red color.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0063 begin');
+      const pen: drawing.Pen = new drawing.Pen();
+      const color: common2D.Color = { alpha: 255, red: 255, green: 0, blue: 0 };
+      pen.setColor(color);
+      const got: common2D.Color = pen.getColor();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.alpha=${got.alpha}, expected=255`);
+      expect(got.alpha).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.red=${got.red}, expected=255`);
+      expect(got.red).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.green=${got.green}, expected=0`);
+      expect(got.green).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.blue=${got.blue}, expected=0`);
+      expect(got.blue).assertEqual(0);
+      log('testDrawingColor0063 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0064
+     * @tc.name      testDrawingColor0064
+     * @tc.desc      Verify Pen getColor round trips the sample title color 0xFF4472C3.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0064 begin');
+      const pen: drawing.Pen = new drawing.Pen();
+      const color: common2D.Color = { alpha: 255, red: 68, green: 114, blue: 195 };
+      pen.setColor(color);
+      const got: common2D.Color = pen.getColor();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.alpha=${got.alpha}, expected=255`);
+      expect(got.alpha).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.red=${got.red}, expected=68`);
+      expect(got.red).assertEqual(68);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.green=${got.green}, expected=114`);
+      expect(got.green).assertEqual(114);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.blue=${got.blue}, expected=195`);
+      expect(got.blue).assertEqual(195);
+      log('testDrawingColor0064 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0065
+     * @tc.name      testDrawingColor0065
+     * @tc.desc      Verify Pen setColor four argument form round trips opaque blue.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0065 begin');
+      const pen: drawing.Pen = new drawing.Pen();
+      pen.setColor(255, 0, 0, 255);
+      const got: common2D.Color = pen.getColor();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.alpha=${got.alpha}, expected=255`);
+      expect(got.alpha).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.red=${got.red}, expected=0`);
+      expect(got.red).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.green=${got.green}, expected=0`);
+      expect(got.green).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.blue=${got.blue}, expected=255`);
+      expect(got.blue).assertEqual(255);
+      log('testDrawingColor0065 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0066
+     * @tc.name      testDrawingColor0066
+     * @tc.desc      Verify Pen setColor four argument form round trips the sample red.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0066 begin');
+      const pen: drawing.Pen = new drawing.Pen();
+      pen.setColor(0xFF, 0xFF, 0x00, 0x00);
+      const got: common2D.Color = pen.getColor();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.alpha=${got.alpha}, expected=255`);
+      expect(got.alpha).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.red=${got.red}, expected=255`);
+      expect(got.red).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.green=${got.green}, expected=0`);
+      expect(got.green).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.blue=${got.blue}, expected=0`);
+      expect(got.blue).assertEqual(0);
+      log('testDrawingColor0066 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0067
+     * @tc.name      testDrawingColor0067
+     * @tc.desc      Verify Pen setStrokeWidth with the sample width three applies safely.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0067 begin');
+      const pen: drawing.Pen = new drawing.Pen();
+      pen.setStrokeWidth(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue pen !== undefined=${pen !== undefined}`);
+      expect(pen !== undefined).assertTrue();
+      log('testDrawingColor0067 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0068
+     * @tc.name      testDrawingColor0068
+     * @tc.desc      Verify Pen setStrokeWidth with the sample width ten applies safely.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0068 begin');
+      const pen: drawing.Pen = new drawing.Pen();
+      pen.setStrokeWidth(10.0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue pen !== undefined=${pen !== undefined}`);
+      expect(pen !== undefined).assertTrue();
+      log('testDrawingColor0068 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0069
+     * @tc.name      testDrawingColor0069
+     * @tc.desc      Verify Pen setAntiAlias true applies safely.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0069 begin');
+      const pen: drawing.Pen = new drawing.Pen();
+      pen.setAntiAlias(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue pen !== undefined=${pen !== undefined}`);
+      expect(pen !== undefined).assertTrue();
+      log('testDrawingColor0069 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0070
+     * @tc.name      testDrawingColor0070
+     * @tc.desc      Verify combined Pen color width and anti alias settings apply safely.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0070 begin');
+      const pen: drawing.Pen = new drawing.Pen();
+      const color: common2D.Color = { alpha: 255, red: 68, green: 114, blue: 195 };
+      pen.setColor(color);
+      pen.setStrokeWidth(3);
+      pen.setAntiAlias(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue pen !== undefined=${pen !== undefined}`);
+      expect(pen !== undefined).assertTrue();
+      log('testDrawingColor0070 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0071
+     * @tc.name      testDrawingColor0071
+     * @tc.desc      Verify Pen setColor packed number form applies without throwing.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0071 begin');
+      const pen: drawing.Pen = new drawing.Pen();
+      pen.setColor(0xFF0000FF);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue pen !== undefined=${pen !== undefined}`);
+      expect(pen !== undefined).assertTrue();
+      log('testDrawingColor0071 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0072
+     * @tc.name      testDrawingColor0072
+     * @tc.desc      Verify Pen reset applies without throwing after configuration.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0072 begin');
+      const pen: drawing.Pen = new drawing.Pen();
+      pen.setColor(0xFF, 0xFF, 0x00, 0x00);
+      pen.setStrokeWidth(10);
+      pen.reset();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue pen !== undefined=${pen !== undefined}`);
+      expect(pen !== undefined).assertTrue();
+      log('testDrawingColor0072 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0073
+     * @tc.name      testDrawingColor0073
+     * @tc.desc      Verify a Brush can be created standalone for parameter modeling.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0073 begin');
+      const brush: drawing.Brush = new drawing.Brush();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue brush !== undefined=${brush !== undefined}`);
+      expect(brush !== undefined).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue brush !== null=${brush !== null}`);
+      expect(brush !== null).assertTrue();
+      log('testDrawingColor0073 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0074
+     * @tc.name      testDrawingColor0074
+     * @tc.desc      Verify Brush getColor round trips the object form blue color.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0074 begin');
+      const brush: drawing.Brush = new drawing.Brush();
+      const color: common2D.Color = { alpha: 255, red: 0, green: 0, blue: 255 };
+      brush.setColor(color);
+      const got: common2D.Color = brush.getColor();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.alpha=${got.alpha}, expected=255`);
+      expect(got.alpha).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.red=${got.red}, expected=0`);
+      expect(got.red).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.green=${got.green}, expected=0`);
+      expect(got.green).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.blue=${got.blue}, expected=255`);
+      expect(got.blue).assertEqual(255);
+      log('testDrawingColor0074 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0075
+     * @tc.name      testDrawingColor0075
+     * @tc.desc      Verify Brush getColor round trips the sample title color.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0075 begin');
+      const brush: drawing.Brush = new drawing.Brush();
+      const color: common2D.Color = { alpha: 255, red: 68, green: 114, blue: 195 };
+      brush.setColor(color);
+      const got: common2D.Color = brush.getColor();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.red=${got.red}, expected=68`);
+      expect(got.red).assertEqual(68);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.green=${got.green}, expected=114`);
+      expect(got.green).assertEqual(114);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.blue=${got.blue}, expected=195`);
+      expect(got.blue).assertEqual(195);
+      log('testDrawingColor0075 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0076
+     * @tc.name      testDrawingColor0076
+     * @tc.desc      Verify Brush setColor four argument form round trips opaque green.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0076 begin');
+      const brush: drawing.Brush = new drawing.Brush();
+      brush.setColor(255, 0, 255, 0);
+      const got: common2D.Color = brush.getColor();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.alpha=${got.alpha}, expected=255`);
+      expect(got.alpha).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.red=${got.red}, expected=0`);
+      expect(got.red).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.green=${got.green}, expected=255`);
+      expect(got.green).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.blue=${got.blue}, expected=0`);
+      expect(got.blue).assertEqual(0);
+      log('testDrawingColor0076 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0077
+     * @tc.name      testDrawingColor0077
+     * @tc.desc      Verify Brush setAntiAlias false applies safely.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0077 begin');
+      const brush: drawing.Brush = new drawing.Brush();
+      brush.setAntiAlias(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue brush !== undefined=${brush !== undefined}`);
+      expect(brush !== undefined).assertTrue();
+      log('testDrawingColor0077 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0078
+     * @tc.name      testDrawingColor0078
+     * @tc.desc      Verify Brush setColor packed number form applies without throwing.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0078 begin');
+      const brush: drawing.Brush = new drawing.Brush();
+      brush.setColor(0xFFFFFF00);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue brush !== undefined=${brush !== undefined}`);
+      expect(brush !== undefined).assertTrue();
+      log('testDrawingColor0078 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0079
+     * @tc.name      testDrawingColor0079
+     * @tc.desc      Verify Brush reset applies without throwing after configuration.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0079 begin');
+      const brush: drawing.Brush = new drawing.Brush();
+      brush.setColor(0xFF, 0x00, 0x00, 0xFF);
+      brush.reset();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue brush !== undefined=${brush !== undefined}`);
+      expect(brush !== undefined).assertTrue();
+      log('testDrawingColor0079 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0080
+     * @tc.name      testDrawingColor0080
+     * @tc.desc      Verify parsed color fields stay numbers before feeding drawing APIs.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0080 begin');
+      const color: DrawingColor4 = parseHexColor('#4472C3');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual typeof color.alpha=${typeof color.alpha}, expected='number'`);
+      expect(typeof color.alpha).assertEqual('number');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual typeof color.red=${typeof color.red}, expected='number'`);
+      expect(typeof color.red).assertEqual('number');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual typeof color.green=${typeof color.green}, expected='number'`);
+      expect(typeof color.green).assertEqual('number');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual typeof color.blue=${typeof color.blue}, expected='number'`);
+      expect(typeof color.blue).assertEqual('number');
+      log('testDrawingColor0080 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0081
+     * @tc.name      testDrawingColor0081
+     * @tc.desc      Verify alpha 00 matrix cell parses transparent red exactly.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0081 begin');
+      const color: DrawingColor4 = parseHexColor('#00FF0000');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.alpha=${color.alpha}, expected=0`);
+      expect(color.alpha).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.red=${color.red}, expected=255`);
+      expect(color.red).assertEqual(255);
+      log('testDrawingColor0081 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0082
+     * @tc.name      testDrawingColor0082
+     * @tc.desc      Verify alpha 40 matrix cell parses as sixty four.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0082 begin');
+      const color: DrawingColor4 = parseHexColor('#40FF0000');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.alpha=${color.alpha}, expected=64`);
+      expect(color.alpha).assertEqual(64);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.red=${color.red}, expected=255`);
+      expect(color.red).assertEqual(255);
+      log('testDrawingColor0082 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0083
+     * @tc.name      testDrawingColor0083
+     * @tc.desc      Verify alpha 80 matrix cell parses as one hundred twenty eight.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0083 begin');
+      const color: DrawingColor4 = parseHexColor('#80FF0000');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.alpha=${color.alpha}, expected=128`);
+      expect(color.alpha).assertEqual(128);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.red=${color.red}, expected=255`);
+      expect(color.red).assertEqual(255);
+      log('testDrawingColor0083 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0084
+     * @tc.name      testDrawingColor0084
+     * @tc.desc      Verify alpha C0 matrix cell parses as one hundred ninety two.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0084 begin');
+      const color: DrawingColor4 = parseHexColor('#C0FF0000');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.alpha=${color.alpha}, expected=192`);
+      expect(color.alpha).assertEqual(192);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.red=${color.red}, expected=255`);
+      expect(color.red).assertEqual(255);
+      log('testDrawingColor0084 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0085
+     * @tc.name      testDrawingColor0085
+     * @tc.desc      Verify alpha FF matrix cell parses as fully opaque.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0085 begin');
+      const color: DrawingColor4 = parseHexColor('#FFFF0000');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.alpha=${color.alpha}, expected=255`);
+      expect(color.alpha).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.red=${color.red}, expected=255`);
+      expect(color.red).assertEqual(255);
+      log('testDrawingColor0085 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0086
+     * @tc.name      testDrawingColor0086
+     * @tc.desc      Verify the red channel zero cell of the alpha matrix parses exactly.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0086 begin');
+      const color: DrawingColor4 = parseHexColor('#8000FF00');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.alpha=${color.alpha}, expected=128`);
+      expect(color.alpha).assertEqual(128);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.red=${color.red}, expected=0`);
+      expect(color.red).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.green=${color.green}, expected=255`);
+      expect(color.green).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.blue=${color.blue}, expected=0`);
+      expect(color.blue).assertEqual(0);
+      log('testDrawingColor0086 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0087
+     * @tc.name      testDrawingColor0087
+     * @tc.desc      Verify the blue channel cell of the alpha matrix parses exactly.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0087 begin');
+      const color: DrawingColor4 = parseHexColor('#800000FF');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.alpha=${color.alpha}, expected=128`);
+      expect(color.alpha).assertEqual(128);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.red=${color.red}, expected=0`);
+      expect(color.red).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.green=${color.green}, expected=0`);
+      expect(color.green).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.blue=${color.blue}, expected=255`);
+      expect(color.blue).assertEqual(255);
+      log('testDrawingColor0087 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0088
+     * @tc.name      testDrawingColor0088
+     * @tc.desc      Verify the white cell of the alpha matrix parses exactly.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0088 begin');
+      const color: DrawingColor4 = parseHexColor('#80FFFFFF');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.alpha=${color.alpha}, expected=128`);
+      expect(color.alpha).assertEqual(128);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.red=${color.red}, expected=255`);
+      expect(color.red).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.green=${color.green}, expected=255`);
+      expect(color.green).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.blue=${color.blue}, expected=255`);
+      expect(color.blue).assertEqual(255);
+      log('testDrawingColor0088 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0089
+     * @tc.name      testDrawingColor0089
+     * @tc.desc      Verify the black cell of the alpha matrix parses exactly.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0089 begin');
+      const color: DrawingColor4 = parseHexColor('#80000000');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.alpha=${color.alpha}, expected=128`);
+      expect(color.alpha).assertEqual(128);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.red=${color.red}, expected=0`);
+      expect(color.red).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.green=${color.green}, expected=0`);
+      expect(color.green).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.blue=${color.blue}, expected=0`);
+      expect(color.blue).assertEqual(0);
+      log('testDrawingColor0089 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0090
+     * @tc.name      testDrawingColor0090
+     * @tc.desc      Verify odd nibble alpha 1F parses as thirty one.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0090 begin');
+      const color: DrawingColor4 = parseHexColor('#1FFF0000');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.alpha=${color.alpha}, expected=31`);
+      expect(color.alpha).assertEqual(31);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.red=${color.red}, expected=255`);
+      expect(color.red).assertEqual(255);
+      log('testDrawingColor0090 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0091
+     * @tc.name      testDrawingColor0091
+     * @tc.desc      Verify sample gradient color 0xFFFFFF00 maps to opaque yellow channels.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0091 begin');
+      const packed: number = 0xFFFFFF00;
+      const color: DrawingColor4 = makeColor((packed >>> 24) & 0xFF, (packed >>> 16) & 0xFF,
+        (packed >>> 8) & 0xFF, packed & 0xFF);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.alpha=${color.alpha}, expected=255`);
+      expect(color.alpha).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.red=${color.red}, expected=255`);
+      expect(color.red).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.green=${color.green}, expected=255`);
+      expect(color.green).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.blue=${color.blue}, expected=0`);
+      expect(color.blue).assertEqual(0);
+      log('testDrawingColor0091 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0092
+     * @tc.name      testDrawingColor0092
+     * @tc.desc      Verify sample gradient color 0xFFFF0000 maps to opaque red channels.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0092 begin');
+      const packed: number = 0xFFFF0000;
+      const color: DrawingColor4 = makeColor((packed >>> 24) & 0xFF, (packed >>> 16) & 0xFF,
+        (packed >>> 8) & 0xFF, packed & 0xFF);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.alpha=${color.alpha}, expected=255`);
+      expect(color.alpha).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.red=${color.red}, expected=255`);
+      expect(color.red).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.green=${color.green}, expected=0`);
+      expect(color.green).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.blue=${color.blue}, expected=0`);
+      expect(color.blue).assertEqual(0);
+      log('testDrawingColor0092 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0093
+     * @tc.name      testDrawingColor0093
+     * @tc.desc      Verify sample gradient color 0xFF0000FF maps to opaque blue channels.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0093 begin');
+      const packed: number = 0xFF0000FF;
+      const color: DrawingColor4 = makeColor((packed >>> 24) & 0xFF, (packed >>> 16) & 0xFF,
+        (packed >>> 8) & 0xFF, packed & 0xFF);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.alpha=${color.alpha}, expected=255`);
+      expect(color.alpha).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.red=${color.red}, expected=0`);
+      expect(color.red).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.green=${color.green}, expected=0`);
+      expect(color.green).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.blue=${color.blue}, expected=255`);
+      expect(color.blue).assertEqual(255);
+      log('testDrawingColor0093 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0094
+     * @tc.name      testDrawingColor0094
+     * @tc.desc      Verify sample shader color 0xFFF8FA12 maps to exact channels.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0094 begin');
+      const packed: number = 0xFFF8FA12;
+      const color: DrawingColor4 = makeColor((packed >>> 24) & 0xFF, (packed >>> 16) & 0xFF,
+        (packed >>> 8) & 0xFF, packed & 0xFF);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.alpha=${color.alpha}, expected=255`);
+      expect(color.alpha).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.red=${color.red}, expected=248`);
+      expect(color.red).assertEqual(248);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.green=${color.green}, expected=250`);
+      expect(color.green).assertEqual(250);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.blue=${color.blue}, expected=18`);
+      expect(color.blue).assertEqual(18);
+      log('testDrawingColor0094 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0095
+     * @tc.name      testDrawingColor0095
+     * @tc.desc      Verify sample shader color 0xFFACC3DD maps to exact channels.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0095 begin');
+      const packed: number = 0xFFACC3DD;
+      const color: DrawingColor4 = makeColor((packed >>> 24) & 0xFF, (packed >>> 16) & 0xFF,
+        (packed >>> 8) & 0xFF, packed & 0xFF);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.alpha=${color.alpha}, expected=255`);
+      expect(color.alpha).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.red=${color.red}, expected=172`);
+      expect(color.red).assertEqual(172);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.green=${color.green}, expected=195`);
+      expect(color.green).assertEqual(195);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual color.blue=${color.blue}, expected=221`);
+      expect(color.blue).assertEqual(221);
+      log('testDrawingColor0095 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0096
+     * @tc.name      testDrawingColor0096
+     * @tc.desc      Verify Pen round trips the sample cat eye color 0xFFFFCC00.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0096 begin');
+      const pen: drawing.Pen = new drawing.Pen();
+      pen.setColor(0xFF, 0xFF, 0xCC, 0x00);
+      const got: common2D.Color = pen.getColor();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.alpha=${got.alpha}, expected=255`);
+      expect(got.alpha).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.red=${got.red}, expected=255`);
+      expect(got.red).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.green=${got.green}, expected=204`);
+      expect(got.green).assertEqual(204);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.blue=${got.blue}, expected=0`);
+      expect(got.blue).assertEqual(0);
+      log('testDrawingColor0096 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0097
+     * @tc.name      testDrawingColor0097
+     * @tc.desc      Verify Pen round trips the sample curve cyan color 0xFF00FFFF.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0097 begin');
+      const pen: drawing.Pen = new drawing.Pen();
+      pen.setColor(0xFF, 0x00, 0xFF, 0xFF);
+      const got: common2D.Color = pen.getColor();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.red=${got.red}, expected=0`);
+      expect(got.red).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.green=${got.green}, expected=255`);
+      expect(got.green).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.blue=${got.blue}, expected=255`);
+      expect(got.blue).assertEqual(255);
+      log('testDrawingColor0097 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0098
+     * @tc.name      testDrawingColor0098
+     * @tc.desc      Verify Brush round trips the sample background white color.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0098 begin');
+      const brush: drawing.Brush = new drawing.Brush();
+      brush.setColor(0xFF, 0xFF, 0xFF, 0xFF);
+      const got: common2D.Color = brush.getColor();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.alpha=${got.alpha}, expected=255`);
+      expect(got.alpha).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.red=${got.red}, expected=255`);
+      expect(got.red).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.green=${got.green}, expected=255`);
+      expect(got.green).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.blue=${got.blue}, expected=255`);
+      expect(got.blue).assertEqual(255);
+      log('testDrawingColor0098 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0099
+     * @tc.name      testDrawingColor0099
+     * @tc.desc      Verify Brush round trips the sample region cyan color.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0099 begin');
+      const brush: drawing.Brush = new drawing.Brush();
+      brush.setColor(0xFF, 0x00, 0xFF, 0xFF);
+      const got: common2D.Color = brush.getColor();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.red=${got.red}, expected=0`);
+      expect(got.red).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.green=${got.green}, expected=255`);
+      expect(got.green).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual got.blue=${got.blue}, expected=255`);
+      expect(got.blue).assertEqual(255);
+      log('testDrawingColor0099 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_COLOR_0100
+     * @tc.name      testDrawingColor0100
+     * @tc.desc      Verify makeColor and parseHexColor agree field by field for the title color.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingColor0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingColor0100 begin');
+      const built: DrawingColor4 = makeColor(255, 68, 114, 195);
+      const parsed: DrawingColor4 = parseHexColor('#FF4472C3');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual built.alpha=${built.alpha}, expected=parsed.alpha`);
+      expect(built.alpha).assertEqual(parsed.alpha);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual built.red=${built.red}, expected=parsed.red`);
+      expect(built.red).assertEqual(parsed.red);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual built.green=${built.green}, expected=parsed.green`);
+      expect(built.green).assertEqual(parsed.green);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual built.blue=${built.blue}, expected=parsed.blue`);
+      expect(built.blue).assertEqual(parsed.blue);
+      log('testDrawingColor0100 end');
+    })
   })
 }
