@@ -1941,3 +1941,63 @@ export default function SmsMultipartOverlapPrimaryFirstTest(): void {
       ];
       trace.verify(steps);
     });
+
+    /**
+     * @tc.name testPrimarySubmit_SecondarySubmit_SecondaryAccepted_SecondaryServiceUnavailable_PrimaryAccepted_PrimaryFirstPart_PrimarySent_PrimaryDelivered
+     * @tc.number SUB_TELEPHONY_SMS_TRACE_MULTIPART_035
+     * @tc.desc Verify sendTextSms preserves both multipart results while the other request cannot send
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL2
+     */
+    it('testPrimarySubmit_SecondarySubmit_SecondaryAccepted_SecondaryServiceUnavailable_PrimaryAccepted_PrimaryFirstPart_PrimarySent_PrimaryDelivered', CASE_TYPE, (): void => {
+      const trace = new SmsSendTrace();
+      const steps: SmsTraceStep[] = [
+        {
+          action: () => trace.submit(SmsTraceRequest.Primary),
+          dispatches: [SmsTraceRequest.Primary],
+          callbacks: [],
+        },
+        {
+          action: () => trace.submit(SmsTraceRequest.Secondary),
+          dispatches: [SmsTraceRequest.Primary, SmsTraceRequest.Secondary],
+          callbacks: [],
+        },
+        {
+          action: () => trace.accept(SmsTraceRequest.Secondary),
+          dispatches: [SmsTraceRequest.Primary, SmsTraceRequest.Secondary],
+          callbacks: ['secondary/complete/ok'],
+        },
+        {
+          action: () => trace.sendResult(SmsTraceRequest.Secondary,
+            sms.SendSmsResult.SEND_SMS_FAILURE_SERVICE_UNAVAILABLE, '', true),
+          dispatches: [SmsTraceRequest.Primary, SmsTraceRequest.Secondary],
+          callbacks: ['secondary/send/ok/3//true'],
+        },
+        {
+          action: () => trace.accept(SmsTraceRequest.Primary),
+          dispatches: [SmsTraceRequest.Primary, SmsTraceRequest.Secondary],
+          callbacks: ['primary/complete/ok'],
+        },
+        {
+          action: () => trace.sendResult(SmsTraceRequest.Primary,
+            sms.SendSmsResult.SEND_SMS_SUCCESS, 'sms://outbox/primary-first-part', false),
+          dispatches: [SmsTraceRequest.Primary, SmsTraceRequest.Secondary],
+          callbacks: ['primary/send/ok/0/sms://outbox/primary-first-part/false'],
+        },
+        {
+          action: () => trace.sendResult(SmsTraceRequest.Primary,
+            sms.SendSmsResult.SEND_SMS_SUCCESS, 'sms://outbox/primary', true),
+          dispatches: [SmsTraceRequest.Primary, SmsTraceRequest.Secondary],
+          callbacks: ['primary/send/ok/0/sms://outbox/primary/true'],
+        },
+        {
+          action: () => trace.deliver(SmsTraceRequest.Primary, [0x00, 0x81, 0xff]),
+          dispatches: [SmsTraceRequest.Primary, SmsTraceRequest.Secondary],
+          callbacks: ['primary/delivery/ok/0,129,255'],
+        },
+      ];
+      trace.verify(steps);
+    });
+  });
+}
