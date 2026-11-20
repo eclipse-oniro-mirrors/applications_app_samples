@@ -12,8 +12,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start content_embed_server_module_json]
 {
   "module": {
+    // [StartExclude content_embed_server_module_json]
     "name": "entry",
     "type": "entry",
     "description": "$string:module_desc",
@@ -63,7 +65,7 @@
         ]
       }
     ],
-    // [Start content_embed_server_module_json]
+    // [EndExclude content_embed_server_module_json]
     "extensionAbilities": [
       // [StartExclude content_embed_server_module_json]
       {
@@ -92,11 +94,13 @@
         ]
       }
     ],
-    // [end content_embed_server_module_json]
+    // [StartExclude content_embed_server_module_json]
     "requestPermissions": [
       {
         "name": "ohos.permission.REGISTER_OBJECTEDITOR_EXTENSION"
       }
     ]
+    // [EndExclude content_embed_server_module_json]
   }
 }
+// [end content_embed_server_module_json]
