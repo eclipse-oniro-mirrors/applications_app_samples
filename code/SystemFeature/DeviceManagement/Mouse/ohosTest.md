@@ -215,12 +215,14 @@
 hvigorw.bat --mode module -p product=default -p module=entry@default,entry@ohosTest assembleHap
 ```
 
-安装并运行：
+安装测试包并运行 Hypium 用例（通过 `hdc shell` 执行系统测试命令，参数如下）：
 
 ```bash
 hdc install entry\build\default\outputs\ohosTest\entry-ohosTest-signed.hap
-hdc shell aa test -b ohos.samples.multimodalinput -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 15000
+hdc shell <test-command> -b ohos.samples.multimodalinput -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 15000
 ```
+
+> `<test-command>` 指设备系统提供的测试命令（Ability Assistant 测试子命令）；不同系统版本的命令名可能不同，请以设备实际能力为准。
 
 ### 6.2 验证结果
 
