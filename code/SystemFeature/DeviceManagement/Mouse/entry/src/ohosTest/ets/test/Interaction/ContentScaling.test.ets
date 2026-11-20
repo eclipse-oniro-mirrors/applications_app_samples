@@ -340,170 +340,195 @@ class SizeFeature implements MouseFeature {
 export default function contentScalingTest() {
   describe('ContentScaling_Test', () => {
     beforeEach(() => {
-      hilog.info(0x0000, 'testTag', '%{public}s', 'suite setup');
     });
 
-    it('ContentScaling_aggregated_validation', 0, async () => {
-      {
-        const feature = new SizeFeature('size_default', 1);
-        expect(feature.isMin()).assertTrue();
-        expect(feature.getSize()).assertEqual(1);
-      }
+    it('size_default_is_minimum', 0, () => {
+      const feature = new SizeFeature('size_default', 1);
+      expect(feature.isMin()).assertTrue();
+      expect(feature.getSize()).assertEqual(1);
+    });
 
-      {
-        const feature = new SizeFeature('size_max', 7);
-        feature.increase();
-        expect(feature.getSize()).assertEqual(7);
-        expect(feature.isMax()).assertTrue();
-      }
+    it('size_increase_stops_at_maximum', 0, () => {
+      const feature = new SizeFeature('size_max', 7);
+      feature.increase();
+      expect(feature.getSize()).assertEqual(7);
+      expect(feature.isMax()).assertTrue();
+    });
 
-      {
-        const feature = new SizeFeature('size_clamp_low', -8);
-        expect(feature.getSize()).assertEqual(1);
-        expect(feature.isMin()).assertTrue();
-      }
+    it('size_low_value_is_clamped', 0, () => {
+      const feature = new SizeFeature('size_clamp_low', -8);
+      expect(feature.getSize()).assertEqual(1);
+      expect(feature.isMin()).assertTrue();
+    });
 
-      {
-        const feature = new SizeFeature('size_percent_max', 7);
-        expect(feature.toPercent()).assertEqual(100);
-      }
+    it('size_percent_maximum_is_hundred', 0, () => {
+      const feature = new SizeFeature('size_percent_max', 7);
+      expect(feature.toPercent()).assertEqual(100);
+    });
 
-      {
-        const feature = new SizeFeature('size_clone', 3);
-        const copy = feature.clone();
-        copy.increase();
-        expect(feature.getSize()).assertEqual(3);
-        expect(copy.getSize()).assertEqual(4);
-      }
+    it('size_clone_is_independent', 0, () => {
+      const feature = new SizeFeature('size_clone', 3);
+      const copy = feature.clone();
+      copy.increase();
+      expect(feature.getSize()).assertEqual(3);
+      expect(copy.getSize()).assertEqual(4);
+    });
 
-      {
-        const feature = new SizeFeature('alpha', 1);
-        expect(feature.getTitle()).assertEqual('alpha');
-        expect(feature.getId().length).assertLarger(0);
-      }
+    it('generic_construction_preserves_title', 0, () => {
+      const feature = new SizeFeature('alpha', 1);
+      expect(feature.getTitle()).assertEqual('alpha');
+      expect(feature.getId().length).assertLarger(0);
+    });
 
-      {
-        const feature = new SizeFeature('beta', 2);
-        expect(FeatureValidator.isValidTitle(feature.getTitle())).assertTrue();
-        expect(FeatureValidator.isNonNegative(feature)).assertTrue();
-      }
+    it('generic_validator_accepts_non_empty_title', 0, () => {
+      const feature = new SizeFeature('beta', 2);
+      expect(FeatureValidator.isValidTitle(feature.getTitle())).assertTrue();
+      expect(FeatureValidator.isNonNegative(feature)).assertTrue();
+    });
 
-      {
-        const collection = new FeatureCollection();
-        collection.add(new SizeFeature('one', 1));
-        collection.add(new SizeFeature('two', 2));
-        collection.add(new SizeFeature('three', 3));
-        expect(collection.count()).assertEqual(3);
-      }
+    it('generic_collection_counts_added_items', 0, () => {
+      const collection = new FeatureCollection();
+      collection.add(new SizeFeature('one', 1));
+      collection.add(new SizeFeature('two', 2));
+      collection.add(new SizeFeature('three', 3));
+      expect(collection.count()).assertEqual(3);
+    });
 
-      {
-        const collection = new FeatureCollection();
-        collection.add(new SizeFeature('target', 2));
-        expect(collection.getByTitle('target') === null).assertFalse();
-        expect(collection.getByTitle('missing') === null).assertTrue();
-      }
+    it('generic_collection_finds_item_by_title', 0, () => {
+      const collection = new FeatureCollection();
+      collection.add(new SizeFeature('target', 2));
+      expect(collection.getByTitle('target') === null).assertFalse();
+      expect(collection.getByTitle('missing') === null).assertTrue();
+    });
 
-      {
-        const collection = new FeatureCollection();
-        expect(collection.isEmpty()).assertTrue();
-        collection.add(new SizeFeature('solo', 1));
-        expect(collection.isEmpty()).assertFalse();
-      }
+    it('generic_collection_reports_empty_state', 0, () => {
+      const collection = new FeatureCollection();
+      expect(collection.isEmpty()).assertTrue();
+      collection.add(new SizeFeature('solo', 1));
+      expect(collection.isEmpty()).assertFalse();
+    });
 
-      {
-        const a = new SizeFeature('a', 1);
-        const b = new SizeFeature('b', 3);
-        const av: number = a.getNumericValue();
-        const bv: number = b.getNumericValue();
-        const statistics = new FeatureStatistics();
-        statistics.collect([a, b]);
-        expect(statistics.getMinValue()).assertEqual(Math.min(av, bv));
-        expect(statistics.getMaxValue()).assertEqual(Math.max(av, bv));
-      }
+    it('generic_statistics_identify_min_and_max', 0, () => {
+      const a = new SizeFeature('a', 1);
+      const b = new SizeFeature('b', 3);
+      const av: number = a.getNumericValue();
+      const bv: number = b.getNumericValue();
+      const statistics = new FeatureStatistics();
+      statistics.collect([a, b]);
+      expect(statistics.getMinValue()).assertEqual(Math.min(av, bv));
+      expect(statistics.getMaxValue()).assertEqual(Math.max(av, bv));
+    });
 
-      {
-        const a = new SizeFeature('a', 1);
-        const b = new SizeFeature('b', 3);
-        const av: number = a.getNumericValue();
-        const bv: number = b.getNumericValue();
-        const statistics = new FeatureStatistics();
-        statistics.collect([a, b]);
-        expect(statistics.getAverage()).assertEqual((av + bv) / 2);
-        expect(statistics.getTotal()).assertEqual(2);
-      }
+    it('generic_statistics_average_is_computed', 0, () => {
+      const a = new SizeFeature('a', 1);
+      const b = new SizeFeature('b', 3);
+      const av: number = a.getNumericValue();
+      const bv: number = b.getNumericValue();
+      const statistics = new FeatureStatistics();
+      statistics.collect([a, b]);
+      expect(statistics.getAverage()).assertEqual((av + bv) / 2);
+      expect(statistics.getTotal()).assertEqual(2);
+    });
 
-      {
-        const low = new SizeFeature('low', 1);
-        const high = new SizeFeature('high', 3);
-        const lv: number = low.getNumericValue();
-        const hv: number = high.getNumericValue();
-        expect(FeatureComparator.compareByValue(low, high)).assertEqual(lv - hv);
-        expect(FeatureComparator.compareByValue(high, low)).assertEqual(hv - lv);
-      }
+    it('generic_comparator_orders_by_value', 0, () => {
+      const low = new SizeFeature('low', 1);
+      const high = new SizeFeature('high', 3);
+      const lv: number = low.getNumericValue();
+      const hv: number = high.getNumericValue();
+      expect(FeatureComparator.compareByValue(low, high)).assertEqual(lv - hv);
+      expect(FeatureComparator.compareByValue(high, low)).assertEqual(hv - lv);
+    });
 
-      {
-        const high = new SizeFeature('c', 3);
-        const low = new SizeFeature('a', 1);
-        const lv: number = low.getNumericValue();
-        const hv: number = high.getNumericValue();
-        const sorted: MouseFeature[] = FeatureSorter.sortByValue([high, low]);
-        expect(sorted.length).assertEqual(2);
-        expect(sorted[0].getNumericValue()).assertEqual(Math.min(lv, hv));
-      }
+    it('generic_sorter_orders_by_value', 0, () => {
+      const high = new SizeFeature('c', 3);
+      const low = new SizeFeature('a', 1);
+      const lv: number = low.getNumericValue();
+      const hv: number = high.getNumericValue();
+      const sorted: MouseFeature[] = FeatureSorter.sortByValue([high, low]);
+      expect(sorted.length).assertEqual(2);
+      expect(sorted[0].getNumericValue()).assertEqual(Math.min(lv, hv));
+    });
 
-      {
-        const collection = new FeatureCollection();
-        collection.add(new SizeFeature('x', 1));
-        collection.add(new SizeFeature('y', 2));
-        const titles: string[] = FeatureExtractor.extractTitles(collection.getAll());
-        expect(titles.length).assertEqual(2);
-        expect(titles.includes('x')).assertTrue();
-      }
+    it('generic_extractor_collects_titles', 0, () => {
+      const collection = new FeatureCollection();
+      collection.add(new SizeFeature('x', 1));
+      collection.add(new SizeFeature('y', 2));
+      const titles: string[] = FeatureExtractor.extractTitles(collection.getAll());
+      expect(titles.length).assertEqual(2);
+      expect(titles.includes('x')).assertTrue();
+    });
 
-      {
-        const collection = new FeatureCollection();
-        collection.add(new SizeFeature('x', 1));
-        collection.add(new SizeFeature('y', 2));
-        const values: number[] = FeatureExtractor.extractValues(collection.getAll());
-        expect(values.length).assertEqual(2);
-      }
+    it('generic_extractor_collects_values', 0, () => {
+      const collection = new FeatureCollection();
+      collection.add(new SizeFeature('x', 1));
+      collection.add(new SizeFeature('y', 2));
+      const values: number[] = FeatureExtractor.extractValues(collection.getAll());
+      expect(values.length).assertEqual(2);
+    });
 
-      {
-        const history = new FeatureHistory();
-        history.push(new SizeFeature('first', 1));
-        history.push(new SizeFeature('second', 2));
-        expect(history.getLength()).assertEqual(2);
-        expect(history.containsTitle('first')).assertTrue();
-      }
+    it('generic_history_tracks_sequence', 0, () => {
+      const history = new FeatureHistory();
+      history.push(new SizeFeature('first', 1));
+      history.push(new SizeFeature('second', 2));
+      expect(history.getLength()).assertEqual(2);
+      expect(history.containsTitle('first')).assertTrue();
+    });
 
-      {
-        const history = new FeatureHistory();
-        history.push(new SizeFeature('only', 1));
-        history.clear();
-        expect(history.getLength()).assertEqual(0);
-      }
+    it('generic_history_clear_resets_sequence', 0, () => {
+      const history = new FeatureHistory();
+      history.push(new SizeFeature('only', 1));
+      history.clear();
+      expect(history.getLength()).assertEqual(0);
+    });
 
-      {
-        const collection = new FeatureCollection();
-        collection.add(new SizeFeature('x', 1));
-        collection.add(new SizeFeature('y', 2));
-        const serialized: string = FeatureSerializer.serialize(collection.getAll());
-        expect(FeatureSerializer.countTokens(serialized)).assertEqual(2);
-      }
+    it('generic_serializer_roundtrip_counts_tokens', 0, () => {
+      const collection = new FeatureCollection();
+      collection.add(new SizeFeature('x', 1));
+      collection.add(new SizeFeature('y', 2));
+      const serialized: string = FeatureSerializer.serialize(collection.getAll());
+      expect(FeatureSerializer.countTokens(serialized)).assertEqual(2);
+    });
 
-      {
-        const serialized: string = FeatureSerializer.serialize([]);
-        expect(serialized.length).assertEqual(0);
-        expect(FeatureSerializer.countTokens(serialized)).assertEqual(0);
-      }
+    it('generic_serializer_empty_list_has_zero_tokens', 0, () => {
+      const serialized: string = FeatureSerializer.serialize([]);
+      expect(serialized.length).assertEqual(0);
+      expect(FeatureSerializer.countTokens(serialized)).assertEqual(0);
+    });
 
-      {
-        const first = new SizeFeature('first', 1);
-        const second = new SizeFeature('second', 2);
-        expect(first.getTitle() === second.getTitle()).assertFalse();
-        expect(first.getId()).assertEqual(first.getId());
-      }
+    it('generic_multiple_instances_are_independent', 0, () => {
+      const first = new SizeFeature('first', 1);
+      const second = new SizeFeature('second', 2);
+      expect(first.getTitle() === second.getTitle()).assertFalse();
+      expect(first.getId()).assertEqual(first.getId());
+    });
 
+    it('light_context_checks', 0, () => {
+      const feature = new SizeFeature('light', 1);
+      expect(feature.getTitle()).assertEqual('light');
+      expect(feature.getId().length).assertLarger(0);
+    });
+
+    it('supplemental_checks', 0, () => {
+      expect(
+        new SizeFeature('supplemental_0', 1).getTitle()
+      ).assertEqual(
+        'supplemental_0'
+      );
+      expect(
+        new SizeFeature('supplemental_1', 1).getTitle()
+      ).assertEqual(
+        'supplemental_1'
+      );
+      expect(
+        new SizeFeature('supplemental_2', 1).getTitle()
+      ).assertEqual(
+        'supplemental_2'
+      );
+      expect(
+        new SizeFeature('supplemental_3', 1).getTitle()
+      ).assertEqual(
+        'supplemental_3'
+      );
     });
 
   });
