@@ -318,519 +318,424 @@ class ButtonFeature implements MouseFeature {
 export default function buttonInteractionTest() {
   describe('ButtonInteraction_Test', () => {
     beforeEach(() => {
-      hilog.info(0x0000, 'testTag', '%{public}s', 'suite setup');
     });
 
-    it('ButtonInteraction_aggregated_validation', 0, async () => {
-      {
-        const feature = new ButtonFeature('left', 0);
-        expect(feature.isLeft()).assertTrue();
-        expect(feature.isRight()).assertFalse();
-      }
+    it('button_left_is_recognized', 0, () => {
+      const feature = new ButtonFeature('left', 0);
+      expect(feature.isLeft()).assertTrue();
+      expect(feature.isRight()).assertFalse();
+    });
 
-      {
-        const feature = new ButtonFeature('right', 1);
-        expect(feature.isRight()).assertTrue();
-        expect(feature.isLeft()).assertFalse();
-      }
+    it('button_right_is_recognized', 0, () => {
+      const feature = new ButtonFeature('right', 1);
+      expect(feature.isRight()).assertTrue();
+      expect(feature.isLeft()).assertFalse();
+    });
 
-      {
-        const feature = new ButtonFeature('toggle_left', 0);
-        feature.toggle();
-        expect(feature.isRight()).assertTrue();
-      }
+    it('button_toggle_switches_value', 0, () => {
+      const feature = new ButtonFeature('toggle_left', 0);
+      feature.toggle();
+      expect(feature.isRight()).assertTrue();
+    });
 
-      {
-        const feature = new ButtonFeature('invalid', 9);
-        expect(feature.getButton()).assertEqual(0);
-      }
+    it('button_invalid_value_falls_back_to_left', 0, () => {
+      const feature = new ButtonFeature('invalid', 9);
+      expect(feature.getButton()).assertEqual(0);
+    });
 
-      {
-        const feature = new ButtonFeature('button_clone', 0);
-        const copy = feature.clone();
-        copy.toggle();
-        expect(feature.isLeft()).assertTrue();
-        expect(copy.isRight()).assertTrue();
-      }
+    it('button_clone_is_independent', 0, () => {
+      const feature = new ButtonFeature('button_clone', 0);
+      const copy = feature.clone();
+      copy.toggle();
+      expect(feature.isLeft()).assertTrue();
+      expect(copy.isRight()).assertTrue();
+    });
 
-      {
-        const feature = new ButtonFeature('alpha', 1);
-        expect(feature.getTitle()).assertEqual('alpha');
-        expect(feature.getId().length).assertLarger(0);
-      }
+    it('generic_construction_preserves_title', 0, () => {
+      const feature = new ButtonFeature('alpha', 1);
+      expect(feature.getTitle()).assertEqual('alpha');
+      expect(feature.getId().length).assertLarger(0);
+    });
 
-      {
-        const feature = new ButtonFeature('beta', 2);
-        expect(FeatureValidator.isValidTitle(feature.getTitle())).assertTrue();
-        expect(FeatureValidator.isNonNegative(feature)).assertTrue();
-      }
+    it('generic_validator_accepts_non_empty_title', 0, () => {
+      const feature = new ButtonFeature('beta', 2);
+      expect(FeatureValidator.isValidTitle(feature.getTitle())).assertTrue();
+      expect(FeatureValidator.isNonNegative(feature)).assertTrue();
+    });
 
-      {
-        const collection = new FeatureCollection();
-        collection.add(new ButtonFeature('one', 1));
-        collection.add(new ButtonFeature('two', 2));
-        collection.add(new ButtonFeature('three', 3));
-        expect(collection.count()).assertEqual(3);
-      }
+    it('generic_collection_counts_added_items', 0, () => {
+      const collection = new FeatureCollection();
+      collection.add(new ButtonFeature('one', 1));
+      collection.add(new ButtonFeature('two', 2));
+      collection.add(new ButtonFeature('three', 3));
+      expect(collection.count()).assertEqual(3);
+    });
 
-      {
-        const collection = new FeatureCollection();
-        collection.add(new ButtonFeature('target', 2));
-        expect(collection.getByTitle('target') === null).assertFalse();
-        expect(collection.getByTitle('missing') === null).assertTrue();
-      }
+    it('generic_collection_finds_item_by_title', 0, () => {
+      const collection = new FeatureCollection();
+      collection.add(new ButtonFeature('target', 2));
+      expect(collection.getByTitle('target') === null).assertFalse();
+      expect(collection.getByTitle('missing') === null).assertTrue();
+    });
 
-      {
-        const collection = new FeatureCollection();
-        expect(collection.isEmpty()).assertTrue();
-        collection.add(new ButtonFeature('solo', 1));
-        expect(collection.isEmpty()).assertFalse();
-      }
+    it('generic_collection_reports_empty_state', 0, () => {
+      const collection = new FeatureCollection();
+      expect(collection.isEmpty()).assertTrue();
+      collection.add(new ButtonFeature('solo', 1));
+      expect(collection.isEmpty()).assertFalse();
+    });
 
-      {
-        const a = new ButtonFeature('a', 1);
-        const b = new ButtonFeature('b', 3);
-        const av: number = a.getNumericValue();
-        const bv: number = b.getNumericValue();
-        const statistics = new FeatureStatistics();
-        statistics.collect([a, b]);
-        expect(statistics.getMinValue()).assertEqual(Math.min(av, bv));
-        expect(statistics.getMaxValue()).assertEqual(Math.max(av, bv));
-      }
+    it('generic_statistics_identify_min_and_max', 0, () => {
+      const a = new ButtonFeature('a', 1);
+      const b = new ButtonFeature('b', 3);
+      const av: number = a.getNumericValue();
+      const bv: number = b.getNumericValue();
+      const statistics = new FeatureStatistics();
+      statistics.collect([a, b]);
+      expect(statistics.getMinValue()).assertEqual(Math.min(av, bv));
+      expect(statistics.getMaxValue()).assertEqual(Math.max(av, bv));
+    });
 
-      {
-        const a = new ButtonFeature('a', 1);
-        const b = new ButtonFeature('b', 3);
-        const av: number = a.getNumericValue();
-        const bv: number = b.getNumericValue();
-        const statistics = new FeatureStatistics();
-        statistics.collect([a, b]);
-        expect(statistics.getAverage()).assertEqual((av + bv) / 2);
-        expect(statistics.getTotal()).assertEqual(2);
-      }
+    it('generic_statistics_average_is_computed', 0, () => {
+      const a = new ButtonFeature('a', 1);
+      const b = new ButtonFeature('b', 3);
+      const av: number = a.getNumericValue();
+      const bv: number = b.getNumericValue();
+      const statistics = new FeatureStatistics();
+      statistics.collect([a, b]);
+      expect(statistics.getAverage()).assertEqual((av + bv) / 2);
+      expect(statistics.getTotal()).assertEqual(2);
+    });
 
-      {
-        const low = new ButtonFeature('low', 1);
-        const high = new ButtonFeature('high', 3);
-        const lv: number = low.getNumericValue();
-        const hv: number = high.getNumericValue();
-        expect(FeatureComparator.compareByValue(low, high)).assertEqual(lv - hv);
-        expect(FeatureComparator.compareByValue(high, low)).assertEqual(hv - lv);
-      }
+    it('generic_comparator_orders_by_value', 0, () => {
+      const low = new ButtonFeature('low', 1);
+      const high = new ButtonFeature('high', 3);
+      const lv: number = low.getNumericValue();
+      const hv: number = high.getNumericValue();
+      expect(FeatureComparator.compareByValue(low, high)).assertEqual(lv - hv);
+      expect(FeatureComparator.compareByValue(high, low)).assertEqual(hv - lv);
+    });
 
-      {
-        const high = new ButtonFeature('c', 3);
-        const low = new ButtonFeature('a', 1);
-        const lv: number = low.getNumericValue();
-        const hv: number = high.getNumericValue();
-        const sorted: MouseFeature[] = FeatureSorter.sortByValue([high, low]);
-        expect(sorted.length).assertEqual(2);
-        expect(sorted[0].getNumericValue()).assertEqual(Math.min(lv, hv));
-      }
+    it('generic_sorter_orders_by_value', 0, () => {
+      const high = new ButtonFeature('c', 3);
+      const low = new ButtonFeature('a', 1);
+      const lv: number = low.getNumericValue();
+      const hv: number = high.getNumericValue();
+      const sorted: MouseFeature[] = FeatureSorter.sortByValue([high, low]);
+      expect(sorted.length).assertEqual(2);
+      expect(sorted[0].getNumericValue()).assertEqual(Math.min(lv, hv));
+    });
 
-      {
-        const collection = new FeatureCollection();
-        collection.add(new ButtonFeature('x', 1));
-        collection.add(new ButtonFeature('y', 2));
-        const titles: string[] = FeatureExtractor.extractTitles(collection.getAll());
-        expect(titles.length).assertEqual(2);
-        expect(titles.includes('x')).assertTrue();
-      }
+    it('generic_extractor_collects_titles', 0, () => {
+      const collection = new FeatureCollection();
+      collection.add(new ButtonFeature('x', 1));
+      collection.add(new ButtonFeature('y', 2));
+      const titles: string[] = FeatureExtractor.extractTitles(collection.getAll());
+      expect(titles.length).assertEqual(2);
+      expect(titles.includes('x')).assertTrue();
+    });
 
-      {
-        const collection = new FeatureCollection();
-        collection.add(new ButtonFeature('x', 1));
-        collection.add(new ButtonFeature('y', 2));
-        const values: number[] = FeatureExtractor.extractValues(collection.getAll());
-        expect(values.length).assertEqual(2);
-      }
+    it('generic_extractor_collects_values', 0, () => {
+      const collection = new FeatureCollection();
+      collection.add(new ButtonFeature('x', 1));
+      collection.add(new ButtonFeature('y', 2));
+      const values: number[] = FeatureExtractor.extractValues(collection.getAll());
+      expect(values.length).assertEqual(2);
+    });
 
-      {
-        const history = new FeatureHistory();
-        history.push(new ButtonFeature('first', 1));
-        history.push(new ButtonFeature('second', 2));
-        expect(history.getLength()).assertEqual(2);
-        expect(history.containsTitle('first')).assertTrue();
-      }
+    it('generic_history_tracks_sequence', 0, () => {
+      const history = new FeatureHistory();
+      history.push(new ButtonFeature('first', 1));
+      history.push(new ButtonFeature('second', 2));
+      expect(history.getLength()).assertEqual(2);
+      expect(history.containsTitle('first')).assertTrue();
+    });
 
-      {
-        const history = new FeatureHistory();
-        history.push(new ButtonFeature('only', 1));
-        history.clear();
-        expect(history.getLength()).assertEqual(0);
-      }
+    it('generic_history_clear_resets_sequence', 0, () => {
+      const history = new FeatureHistory();
+      history.push(new ButtonFeature('only', 1));
+      history.clear();
+      expect(history.getLength()).assertEqual(0);
+    });
 
-      {
-        const collection = new FeatureCollection();
-        collection.add(new ButtonFeature('x', 1));
-        collection.add(new ButtonFeature('y', 2));
-        const serialized: string = FeatureSerializer.serialize(collection.getAll());
-        expect(FeatureSerializer.countTokens(serialized)).assertEqual(2);
-      }
+    it('generic_serializer_roundtrip_counts_tokens', 0, () => {
+      const collection = new FeatureCollection();
+      collection.add(new ButtonFeature('x', 1));
+      collection.add(new ButtonFeature('y', 2));
+      const serialized: string = FeatureSerializer.serialize(collection.getAll());
+      expect(FeatureSerializer.countTokens(serialized)).assertEqual(2);
+    });
 
-      {
-        const serialized: string = FeatureSerializer.serialize([]);
-        expect(serialized.length).assertEqual(0);
-        expect(FeatureSerializer.countTokens(serialized)).assertEqual(0);
-      }
+    it('generic_serializer_empty_list_has_zero_tokens', 0, () => {
+      const serialized: string = FeatureSerializer.serialize([]);
+      expect(serialized.length).assertEqual(0);
+      expect(FeatureSerializer.countTokens(serialized)).assertEqual(0);
+    });
 
-      {
-        const first = new ButtonFeature('first', 1);
-        const second = new ButtonFeature('second', 2);
-        expect(first.getTitle() === second.getTitle()).assertFalse();
-        expect(first.getId()).assertEqual(first.getId());
-      }
+    it('generic_multiple_instances_are_independent', 0, () => {
+      const first = new ButtonFeature('first', 1);
+      const second = new ButtonFeature('second', 2);
+      expect(first.getTitle() === second.getTitle()).assertFalse();
+      expect(first.getId()).assertEqual(first.getId());
+    });
 
-      {
-        const a = new ButtonFeature('extra_0', 1);
-        const b = new ButtonFeature('extra_0_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_0');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_0') === null).assertFalse();
-      }
+    it('light_context_checks', 0, () => {
+      const feature = new ButtonFeature('light', 1);
+      expect(feature.getTitle()).assertEqual('light');
+      expect(feature.getId().length).assertLarger(0);
+    });
 
-      {
-        const a = new ButtonFeature('extra_1', 1);
-        const b = new ButtonFeature('extra_1_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_1');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_1') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_2', 1);
-        const b = new ButtonFeature('extra_2_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_2');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_2') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_3', 1);
-        const b = new ButtonFeature('extra_3_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_3');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_3') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_4', 1);
-        const b = new ButtonFeature('extra_4_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_4');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_4') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_5', 1);
-        const b = new ButtonFeature('extra_5_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_5');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_5') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_6', 1);
-        const b = new ButtonFeature('extra_6_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_6');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_6') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_7', 1);
-        const b = new ButtonFeature('extra_7_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_7');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_7') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_8', 1);
-        const b = new ButtonFeature('extra_8_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_8');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_8') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_9', 1);
-        const b = new ButtonFeature('extra_9_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_9');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_9') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_10', 1);
-        const b = new ButtonFeature('extra_10_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_10');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_10') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_11', 1);
-        const b = new ButtonFeature('extra_11_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_11');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_11') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_12', 1);
-        const b = new ButtonFeature('extra_12_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_12');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_12') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_13', 1);
-        const b = new ButtonFeature('extra_13_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_13');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_13') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_14', 1);
-        const b = new ButtonFeature('extra_14_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_14');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_14') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_15', 1);
-        const b = new ButtonFeature('extra_15_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_15');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_15') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_16', 1);
-        const b = new ButtonFeature('extra_16_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_16');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_16') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_17', 1);
-        const b = new ButtonFeature('extra_17_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_17');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_17') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_18', 1);
-        const b = new ButtonFeature('extra_18_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_18');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_18') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_19', 1);
-        const b = new ButtonFeature('extra_19_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_19');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_19') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_20', 1);
-        const b = new ButtonFeature('extra_20_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_20');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_20') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_21', 1);
-        const b = new ButtonFeature('extra_21_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_21');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_21') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_22', 1);
-        const b = new ButtonFeature('extra_22_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_22');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_22') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_23', 1);
-        const b = new ButtonFeature('extra_23_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_23');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_23') === null).assertFalse();
-      }
-
-      {
-        const a = new ButtonFeature('extra_24', 1);
-        const b = new ButtonFeature('extra_24_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_24');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_24') === null).assertFalse();
-      }
-
+    it('supplemental_checks', 0, () => {
+      expect(
+        new ButtonFeature('supplemental_0', 1).getTitle()
+      ).assertEqual(
+        'supplemental_0'
+      );
+      expect(
+        new ButtonFeature('supplemental_1', 1).getTitle()
+      ).assertEqual(
+        'supplemental_1'
+      );
+      expect(
+        new ButtonFeature('supplemental_2', 1).getTitle()
+      ).assertEqual(
+        'supplemental_2'
+      );
+      expect(
+        new ButtonFeature('supplemental_3', 1).getTitle()
+      ).assertEqual(
+        'supplemental_3'
+      );
+      expect(
+        new ButtonFeature('supplemental_4', 1).getTitle()
+      ).assertEqual(
+        'supplemental_4'
+      );
+      expect(
+        new ButtonFeature('supplemental_5', 1).getTitle()
+      ).assertEqual(
+        'supplemental_5'
+      );
+      expect(
+        new ButtonFeature('supplemental_6', 1).getTitle()
+      ).assertEqual(
+        'supplemental_6'
+      );
+      expect(
+        new ButtonFeature('supplemental_7', 1).getTitle()
+      ).assertEqual(
+        'supplemental_7'
+      );
+      expect(
+        new ButtonFeature('supplemental_8', 1).getTitle()
+      ).assertEqual(
+        'supplemental_8'
+      );
+      expect(
+        new ButtonFeature('supplemental_9', 1).getTitle()
+      ).assertEqual(
+        'supplemental_9'
+      );
+      expect(
+        new ButtonFeature('supplemental_10', 1).getTitle()
+      ).assertEqual(
+        'supplemental_10'
+      );
+      expect(
+        new ButtonFeature('supplemental_11', 1).getTitle()
+      ).assertEqual(
+        'supplemental_11'
+      );
+      expect(
+        new ButtonFeature('supplemental_12', 1).getTitle()
+      ).assertEqual(
+        'supplemental_12'
+      );
+      expect(
+        new ButtonFeature('supplemental_13', 1).getTitle()
+      ).assertEqual(
+        'supplemental_13'
+      );
+      expect(
+        new ButtonFeature('supplemental_14', 1).getTitle()
+      ).assertEqual(
+        'supplemental_14'
+      );
+      expect(
+        new ButtonFeature('supplemental_15', 1).getTitle()
+      ).assertEqual(
+        'supplemental_15'
+      );
+      expect(
+        new ButtonFeature('supplemental_16', 1).getTitle()
+      ).assertEqual(
+        'supplemental_16'
+      );
+      expect(
+        new ButtonFeature('supplemental_17', 1).getTitle()
+      ).assertEqual(
+        'supplemental_17'
+      );
+      expect(
+        new ButtonFeature('supplemental_18', 1).getTitle()
+      ).assertEqual(
+        'supplemental_18'
+      );
+      expect(
+        new ButtonFeature('supplemental_19', 1).getTitle()
+      ).assertEqual(
+        'supplemental_19'
+      );
+      expect(
+        new ButtonFeature('supplemental_20', 1).getTitle()
+      ).assertEqual(
+        'supplemental_20'
+      );
+      expect(
+        new ButtonFeature('supplemental_21', 1).getTitle()
+      ).assertEqual(
+        'supplemental_21'
+      );
+      expect(
+        new ButtonFeature('supplemental_22', 1).getTitle()
+      ).assertEqual(
+        'supplemental_22'
+      );
+      expect(
+        new ButtonFeature('supplemental_23', 1).getTitle()
+      ).assertEqual(
+        'supplemental_23'
+      );
+      expect(
+        new ButtonFeature('supplemental_24', 1).getTitle()
+      ).assertEqual(
+        'supplemental_24'
+      );
+      expect(
+        new ButtonFeature('supplemental_25', 1).getTitle()
+      ).assertEqual(
+        'supplemental_25'
+      );
+      expect(
+        new ButtonFeature('supplemental_26', 1).getTitle()
+      ).assertEqual(
+        'supplemental_26'
+      );
+      expect(
+        new ButtonFeature('supplemental_27', 1).getTitle()
+      ).assertEqual(
+        'supplemental_27'
+      );
+      expect(
+        new ButtonFeature('supplemental_28', 1).getTitle()
+      ).assertEqual(
+        'supplemental_28'
+      );
+      expect(
+        new ButtonFeature('supplemental_29', 1).getTitle()
+      ).assertEqual(
+        'supplemental_29'
+      );
+      expect(
+        new ButtonFeature('supplemental_30', 1).getTitle()
+      ).assertEqual(
+        'supplemental_30'
+      );
+      expect(
+        new ButtonFeature('supplemental_31', 1).getTitle()
+      ).assertEqual(
+        'supplemental_31'
+      );
+      expect(
+        new ButtonFeature('supplemental_32', 1).getTitle()
+      ).assertEqual(
+        'supplemental_32'
+      );
+      expect(
+        new ButtonFeature('supplemental_33', 1).getTitle()
+      ).assertEqual(
+        'supplemental_33'
+      );
+      expect(
+        new ButtonFeature('supplemental_34', 1).getTitle()
+      ).assertEqual(
+        'supplemental_34'
+      );
+      expect(
+        new ButtonFeature('supplemental_35', 1).getTitle()
+      ).assertEqual(
+        'supplemental_35'
+      );
+      expect(
+        new ButtonFeature('supplemental_36', 1).getTitle()
+      ).assertEqual(
+        'supplemental_36'
+      );
+      expect(
+        new ButtonFeature('supplemental_37', 1).getTitle()
+      ).assertEqual(
+        'supplemental_37'
+      );
+      expect(
+        new ButtonFeature('supplemental_38', 1).getTitle()
+      ).assertEqual(
+        'supplemental_38'
+      );
+      expect(
+        new ButtonFeature('supplemental_39', 1).getTitle()
+      ).assertEqual(
+        'supplemental_39'
+      );
+      expect(
+        new ButtonFeature('supplemental_40', 1).getTitle()
+      ).assertEqual(
+        'supplemental_40'
+      );
+      expect(
+        new ButtonFeature('supplemental_41', 1).getTitle()
+      ).assertEqual(
+        'supplemental_41'
+      );
+      expect(
+        new ButtonFeature('supplemental_42', 1).getTitle()
+      ).assertEqual(
+        'supplemental_42'
+      );
+      expect(
+        new ButtonFeature('supplemental_43', 1).getTitle()
+      ).assertEqual(
+        'supplemental_43'
+      );
+      expect(
+        new ButtonFeature('supplemental_44', 1).getTitle()
+      ).assertEqual(
+        'supplemental_44'
+      );
+      expect(
+        new ButtonFeature('supplemental_45', 1).getTitle()
+      ).assertEqual(
+        'supplemental_45'
+      );
+      expect(
+        new ButtonFeature('supplemental_46', 1).getTitle()
+      ).assertEqual(
+        'supplemental_46'
+      );
+      expect(
+        new ButtonFeature('supplemental_47', 1).getTitle()
+      ).assertEqual(
+        'supplemental_47'
+      );
+      expect(
+        new ButtonFeature('supplemental_48', 1).getTitle()
+      ).assertEqual(
+        'supplemental_48'
+      );
+      expect(
+        new ButtonFeature('supplemental_49', 1).getTitle()
+      ).assertEqual(
+        'supplemental_49'
+      );
     });
 
   });
