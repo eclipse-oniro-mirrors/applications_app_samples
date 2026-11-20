@@ -1578,7 +1578,66 @@ function BreakpointStateRestorePart079() {
     });
 }
 
-export function registerBreakpointStateRestoreExtra2() {
+function BreakpointStateRestorePart080() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0979
+     * @tc.name    JsState139
+     * @tc.desc    Restore state and history cycle with 9 pushes seed 139
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState139', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 1373, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 1413;
+      expect(state.width).assertEqual(1413);
+      expect(snapshot.width).assertEqual(1373);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp3');
+      expect(history[0]).assertEqual('bp4');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState139 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0980
+     * @tc.name    JsState140
+     * @tc.desc    Restore state and history cycle with 3 pushes seed 140
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState140', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 1380, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 1420;
+      expect(state.width).assertEqual(1420);
+      expect(snapshot.width).assertEqual(1380);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      expect(history.length).assertEqual(3);
+      expect(history[history.length - 1]).assertEqual('bp2');
+      expect(history[0]).assertEqual('bp0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState140 done');
+    });
+}
+
+function BreakpointStateRestoreGroup003() {
   BreakpointStateRestorePart050();
   BreakpointStateRestorePart051();
   BreakpointStateRestorePart052();
@@ -1609,4 +1668,9 @@ export function registerBreakpointStateRestoreExtra2() {
   BreakpointStateRestorePart077();
   BreakpointStateRestorePart078();
   BreakpointStateRestorePart079();
+  BreakpointStateRestorePart080();
+}
+
+export function registerBreakpointStateRestoreExtra2() {
+  BreakpointStateRestoreGroup003();
 }
