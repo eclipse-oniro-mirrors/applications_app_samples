@@ -1685,3 +1685,1656 @@ export default function collectionSenseMatrixTest() {
    * @tc.type      FUNCTION
    * @tc.level     LEVEL1
    */
+  it('testCollectionSense0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0064', 'splice 4');
+        const values: number[] = [1, 2, 3, 4, 5, 6];
+        const expected: number[] = [1, 2, 3, 4, 104, 204, 6];
+    const removed: number[] = values.splice(4, 1, 104, 204);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(5);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(7);
+    expect(values.includes(104)).assertTrue();
+    expect(values.indexOf(104)).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0065
+   * @tc.name      testCollectionSense0065
+   * @tc.desc      Collection splice pass 5
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0065', 'splice 5');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7];
+        const expected: number[] = [1, 2, 3, 4, 5, 105, 205, 7];
+    const removed: number[] = values.splice(5, 1, 105, 205);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(6);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(8);
+    expect(values.includes(105)).assertTrue();
+    expect(values.indexOf(105)).assertEqual(5);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0066
+   * @tc.name      testCollectionSense0066
+   * @tc.desc      Collection splice pass 6
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0066', 'splice 6');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
+        const expected: number[] = [1, 2, 3, 4, 5, 6, 106, 206, 8];
+    const removed: number[] = values.splice(6, 1, 106, 206);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(7);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(9);
+    expect(values.includes(106)).assertTrue();
+    expect(values.indexOf(106)).assertEqual(6);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0067
+   * @tc.name      testCollectionSense0067
+   * @tc.desc      Collection splice pass 7
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0067', 'splice 7');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        const expected: number[] = [1, 2, 3, 4, 5, 6, 7, 107, 207, 9];
+    const removed: number[] = values.splice(7, 1, 107, 207);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(8);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(10);
+    expect(values.includes(107)).assertTrue();
+    expect(values.indexOf(107)).assertEqual(7);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0068
+   * @tc.name      testCollectionSense0068
+   * @tc.desc      Collection splice pass 8
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0068', 'splice 8');
+        const values: number[] = [1, 2];
+        const expected: number[] = [108, 208, 2];
+    const removed: number[] = values.splice(0, 1, 108, 208);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(1);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(3);
+    expect(values.includes(108)).assertTrue();
+    expect(values.indexOf(108)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0069
+   * @tc.name      testCollectionSense0069
+   * @tc.desc      Collection splice pass 9
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0069', 'splice 9');
+        const values: number[] = [1, 2, 3];
+        const expected: number[] = [109, 209, 2, 3];
+    const removed: number[] = values.splice(0, 1, 109, 209);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(1);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(4);
+    expect(values.includes(109)).assertTrue();
+    expect(values.indexOf(109)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0070
+   * @tc.name      testCollectionSense0070
+   * @tc.desc      Collection splice pass 10
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0070', 'splice 10');
+        const values: number[] = [1, 2, 3, 4];
+        const expected: number[] = [1, 2, 110, 210, 4];
+    const removed: number[] = values.splice(2, 1, 110, 210);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(3);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(5);
+    expect(values.includes(110)).assertTrue();
+    expect(values.indexOf(110)).assertEqual(2);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0071
+   * @tc.name      testCollectionSense0071
+   * @tc.desc      Collection splice pass 11
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0071', 'splice 11');
+        const values: number[] = [1, 2, 3, 4, 5];
+        const expected: number[] = [1, 111, 211, 3, 4, 5];
+    const removed: number[] = values.splice(1, 1, 111, 211);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(2);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(6);
+    expect(values.includes(111)).assertTrue();
+    expect(values.indexOf(111)).assertEqual(1);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0072
+   * @tc.name      testCollectionSense0072
+   * @tc.desc      Collection splice pass 12
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0072', 'splice 12');
+        const values: number[] = [1, 2, 3, 4, 5, 6];
+        const expected: number[] = [112, 212, 2, 3, 4, 5, 6];
+    const removed: number[] = values.splice(0, 1, 112, 212);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(1);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(7);
+    expect(values.includes(112)).assertTrue();
+    expect(values.indexOf(112)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0073
+   * @tc.name      testCollectionSense0073
+   * @tc.desc      Collection splice pass 13
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0073', 'splice 13');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7];
+        const expected: number[] = [1, 2, 3, 4, 5, 6, 113, 213];
+    const removed: number[] = values.splice(6, 1, 113, 213);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(7);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(8);
+    expect(values.includes(113)).assertTrue();
+    expect(values.indexOf(113)).assertEqual(6);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0074
+   * @tc.name      testCollectionSense0074
+   * @tc.desc      Collection splice pass 14
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0074', 'splice 14');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
+        const expected: number[] = [1, 2, 3, 4, 5, 6, 114, 214, 8];
+    const removed: number[] = values.splice(6, 1, 114, 214);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(7);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(9);
+    expect(values.includes(114)).assertTrue();
+    expect(values.indexOf(114)).assertEqual(6);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0075
+   * @tc.name      testCollectionSense0075
+   * @tc.desc      Collection splice pass 15
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0075', 'splice 15');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        const expected: number[] = [1, 2, 3, 4, 5, 6, 115, 215, 8, 9];
+    const removed: number[] = values.splice(6, 1, 115, 215);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(7);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(10);
+    expect(values.includes(115)).assertTrue();
+    expect(values.indexOf(115)).assertEqual(6);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0076
+   * @tc.name      testCollectionSense0076
+   * @tc.desc      Collection splice pass 16
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0076', 'splice 16');
+        const values: number[] = [1, 2];
+        const expected: number[] = [116, 216, 2];
+    const removed: number[] = values.splice(0, 1, 116, 216);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(1);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(3);
+    expect(values.includes(116)).assertTrue();
+    expect(values.indexOf(116)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0077
+   * @tc.name      testCollectionSense0077
+   * @tc.desc      Collection splice pass 17
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0077', 'splice 17');
+        const values: number[] = [1, 2, 3];
+        const expected: number[] = [1, 2, 117, 217];
+    const removed: number[] = values.splice(2, 1, 117, 217);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(3);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(4);
+    expect(values.includes(117)).assertTrue();
+    expect(values.indexOf(117)).assertEqual(2);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0078
+   * @tc.name      testCollectionSense0078
+   * @tc.desc      Collection splice pass 18
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0078', 'splice 18');
+        const values: number[] = [1, 2, 3, 4];
+        const expected: number[] = [1, 2, 118, 218, 4];
+    const removed: number[] = values.splice(2, 1, 118, 218);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(3);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(5);
+    expect(values.includes(118)).assertTrue();
+    expect(values.indexOf(118)).assertEqual(2);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0079
+   * @tc.name      testCollectionSense0079
+   * @tc.desc      Collection splice pass 19
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0079', 'splice 19');
+        const values: number[] = [1, 2, 3, 4, 5];
+        const expected: number[] = [1, 2, 3, 4, 119, 219];
+    const removed: number[] = values.splice(4, 1, 119, 219);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(5);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(6);
+    expect(values.includes(119)).assertTrue();
+    expect(values.indexOf(119)).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0080
+   * @tc.name      testCollectionSense0080
+   * @tc.desc      Collection splice pass 20
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0080', 'splice 20');
+        const values: number[] = [1, 2, 3, 4, 5, 6];
+        const expected: number[] = [1, 2, 120, 220, 4, 5, 6];
+    const removed: number[] = values.splice(2, 1, 120, 220);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(3);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(7);
+    expect(values.includes(120)).assertTrue();
+    expect(values.indexOf(120)).assertEqual(2);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0081
+   * @tc.name      testCollectionSense0081
+   * @tc.desc      Collection splice pass 21
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0081', 'splice 21');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7];
+        const expected: number[] = [121, 221, 2, 3, 4, 5, 6, 7];
+    const removed: number[] = values.splice(0, 1, 121, 221);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(1);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(8);
+    expect(values.includes(121)).assertTrue();
+    expect(values.indexOf(121)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0082
+   * @tc.name      testCollectionSense0082
+   * @tc.desc      Collection splice pass 22
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0082', 'splice 22');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
+        const expected: number[] = [1, 2, 3, 4, 5, 6, 122, 222, 8];
+    const removed: number[] = values.splice(6, 1, 122, 222);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(7);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(9);
+    expect(values.includes(122)).assertTrue();
+    expect(values.indexOf(122)).assertEqual(6);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0083
+   * @tc.name      testCollectionSense0083
+   * @tc.desc      Collection splice pass 23
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0083', 'splice 23');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        const expected: number[] = [1, 2, 3, 4, 5, 123, 223, 7, 8, 9];
+    const removed: number[] = values.splice(5, 1, 123, 223);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(6);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(10);
+    expect(values.includes(123)).assertTrue();
+    expect(values.indexOf(123)).assertEqual(5);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0084
+   * @tc.name      testCollectionSense0084
+   * @tc.desc      Collection splice pass 24
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0084', 'splice 24');
+        const values: number[] = [1, 2];
+        const expected: number[] = [124, 224, 2];
+    const removed: number[] = values.splice(0, 1, 124, 224);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(1);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(3);
+    expect(values.includes(124)).assertTrue();
+    expect(values.indexOf(124)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0085
+   * @tc.name      testCollectionSense0085
+   * @tc.desc      Collection splice pass 25
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0085', 'splice 25');
+        const values: number[] = [1, 2, 3];
+        const expected: number[] = [1, 125, 225, 3];
+    const removed: number[] = values.splice(1, 1, 125, 225);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(2);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(4);
+    expect(values.includes(125)).assertTrue();
+    expect(values.indexOf(125)).assertEqual(1);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0086
+   * @tc.name      testCollectionSense0086
+   * @tc.desc      Collection splice pass 26
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0086', 'splice 26');
+        const values: number[] = [1, 2, 3, 4];
+        const expected: number[] = [1, 2, 126, 226, 4];
+    const removed: number[] = values.splice(2, 1, 126, 226);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(3);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(5);
+    expect(values.includes(126)).assertTrue();
+    expect(values.indexOf(126)).assertEqual(2);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0087
+   * @tc.name      testCollectionSense0087
+   * @tc.desc      Collection splice pass 27
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0087', 'splice 27');
+        const values: number[] = [1, 2, 3, 4, 5];
+        const expected: number[] = [1, 2, 127, 227, 4, 5];
+    const removed: number[] = values.splice(2, 1, 127, 227);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(3);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(6);
+    expect(values.includes(127)).assertTrue();
+    expect(values.indexOf(127)).assertEqual(2);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0088
+   * @tc.name      testCollectionSense0088
+   * @tc.desc      Collection splice pass 28
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0088', 'splice 28');
+        const values: number[] = [1, 2, 3, 4, 5, 6];
+        const expected: number[] = [1, 2, 3, 4, 128, 228, 6];
+    const removed: number[] = values.splice(4, 1, 128, 228);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(5);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(7);
+    expect(values.includes(128)).assertTrue();
+    expect(values.indexOf(128)).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0089
+   * @tc.name      testCollectionSense0089
+   * @tc.desc      Collection splice pass 29
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0089', 'splice 29');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7];
+        const expected: number[] = [1, 129, 229, 3, 4, 5, 6, 7];
+    const removed: number[] = values.splice(1, 1, 129, 229);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(2);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(8);
+    expect(values.includes(129)).assertTrue();
+    expect(values.indexOf(129)).assertEqual(1);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0090
+   * @tc.name      testCollectionSense0090
+   * @tc.desc      Collection splice pass 30
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0090', 'splice 30');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
+        const expected: number[] = [1, 2, 3, 4, 5, 6, 130, 230, 8];
+    const removed: number[] = values.splice(6, 1, 130, 230);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(7);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(9);
+    expect(values.includes(130)).assertTrue();
+    expect(values.indexOf(130)).assertEqual(6);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0091
+   * @tc.name      testCollectionSense0091
+   * @tc.desc      Collection splice pass 31
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0091', 'splice 31');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        const expected: number[] = [1, 2, 3, 4, 131, 231, 6, 7, 8, 9];
+    const removed: number[] = values.splice(4, 1, 131, 231);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(5);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(10);
+    expect(values.includes(131)).assertTrue();
+    expect(values.indexOf(131)).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0092
+   * @tc.name      testCollectionSense0092
+   * @tc.desc      Collection splice pass 32
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0092', 'splice 32');
+        const values: number[] = [1, 2];
+        const expected: number[] = [132, 232, 2];
+    const removed: number[] = values.splice(0, 1, 132, 232);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(1);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(3);
+    expect(values.includes(132)).assertTrue();
+    expect(values.indexOf(132)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0093
+   * @tc.name      testCollectionSense0093
+   * @tc.desc      Collection splice pass 33
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0093', 'splice 33');
+        const values: number[] = [1, 2, 3];
+        const expected: number[] = [133, 233, 2, 3];
+    const removed: number[] = values.splice(0, 1, 133, 233);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(1);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(4);
+    expect(values.includes(133)).assertTrue();
+    expect(values.indexOf(133)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0094
+   * @tc.name      testCollectionSense0094
+   * @tc.desc      Collection splice pass 34
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0094', 'splice 34');
+        const values: number[] = [1, 2, 3, 4];
+        const expected: number[] = [1, 2, 134, 234, 4];
+    const removed: number[] = values.splice(2, 1, 134, 234);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(3);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(5);
+    expect(values.includes(134)).assertTrue();
+    expect(values.indexOf(134)).assertEqual(2);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0095
+   * @tc.name      testCollectionSense0095
+   * @tc.desc      Collection splice pass 35
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0095', 'splice 35');
+        const values: number[] = [1, 2, 3, 4, 5];
+        const expected: number[] = [135, 235, 2, 3, 4, 5];
+    const removed: number[] = values.splice(0, 1, 135, 235);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(1);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(6);
+    expect(values.includes(135)).assertTrue();
+    expect(values.indexOf(135)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0096
+   * @tc.name      testCollectionSense0096
+   * @tc.desc      Collection splice pass 36
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0096', 'splice 36');
+        const values: number[] = [1, 2, 3, 4, 5, 6];
+        const expected: number[] = [136, 236, 2, 3, 4, 5, 6];
+    const removed: number[] = values.splice(0, 1, 136, 236);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(1);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(7);
+    expect(values.includes(136)).assertTrue();
+    expect(values.indexOf(136)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0097
+   * @tc.name      testCollectionSense0097
+   * @tc.desc      Collection splice pass 37
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0097', 'splice 37');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7];
+        const expected: number[] = [1, 2, 137, 237, 4, 5, 6, 7];
+    const removed: number[] = values.splice(2, 1, 137, 237);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(3);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(8);
+    expect(values.includes(137)).assertTrue();
+    expect(values.indexOf(137)).assertEqual(2);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0098
+   * @tc.name      testCollectionSense0098
+   * @tc.desc      Collection splice pass 38
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0098', 'splice 38');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
+        const expected: number[] = [1, 2, 3, 4, 5, 6, 138, 238, 8];
+    const removed: number[] = values.splice(6, 1, 138, 238);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(7);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(9);
+    expect(values.includes(138)).assertTrue();
+    expect(values.indexOf(138)).assertEqual(6);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0099
+   * @tc.name      testCollectionSense0099
+   * @tc.desc      Collection splice pass 39
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0099', 'splice 39');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        const expected: number[] = [1, 2, 3, 139, 239, 5, 6, 7, 8, 9];
+    const removed: number[] = values.splice(3, 1, 139, 239);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(4);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(10);
+    expect(values.includes(139)).assertTrue();
+    expect(values.indexOf(139)).assertEqual(3);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0100
+   * @tc.name      testCollectionSense0100
+   * @tc.desc      Collection splice pass 40
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0100', 'splice 40');
+        const values: number[] = [1, 2];
+        const expected: number[] = [140, 240, 2];
+    const removed: number[] = values.splice(0, 1, 140, 240);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(1);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(3);
+    expect(values.includes(140)).assertTrue();
+    expect(values.indexOf(140)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0101
+   * @tc.name      testCollectionSense0101
+   * @tc.desc      Collection splice pass 41
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0101', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0101', 'splice 41');
+        const values: number[] = [1, 2, 3];
+        const expected: number[] = [1, 2, 141, 241];
+    const removed: number[] = values.splice(2, 1, 141, 241);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(3);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(4);
+    expect(values.includes(141)).assertTrue();
+    expect(values.indexOf(141)).assertEqual(2);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0102
+   * @tc.name      testCollectionSense0102
+   * @tc.desc      Collection splice pass 42
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0102', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0102', 'splice 42');
+        const values: number[] = [1, 2, 3, 4];
+        const expected: number[] = [1, 2, 142, 242, 4];
+    const removed: number[] = values.splice(2, 1, 142, 242);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(3);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(5);
+    expect(values.includes(142)).assertTrue();
+    expect(values.indexOf(142)).assertEqual(2);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0103
+   * @tc.name      testCollectionSense0103
+   * @tc.desc      Collection splice pass 43
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0103', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0103', 'splice 43');
+        const values: number[] = [1, 2, 3, 4, 5];
+        const expected: number[] = [1, 2, 3, 143, 243, 5];
+    const removed: number[] = values.splice(3, 1, 143, 243);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(4);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(6);
+    expect(values.includes(143)).assertTrue();
+    expect(values.indexOf(143)).assertEqual(3);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0104
+   * @tc.name      testCollectionSense0104
+   * @tc.desc      Collection splice pass 44
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0104', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0104', 'splice 44');
+        const values: number[] = [1, 2, 3, 4, 5, 6];
+        const expected: number[] = [1, 2, 144, 244, 4, 5, 6];
+    const removed: number[] = values.splice(2, 1, 144, 244);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(3);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(7);
+    expect(values.includes(144)).assertTrue();
+    expect(values.indexOf(144)).assertEqual(2);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0105
+   * @tc.name      testCollectionSense0105
+   * @tc.desc      Collection splice pass 45
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0105', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0105', 'splice 45');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7];
+        const expected: number[] = [1, 2, 3, 145, 245, 5, 6, 7];
+    const removed: number[] = values.splice(3, 1, 145, 245);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(4);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(8);
+    expect(values.includes(145)).assertTrue();
+    expect(values.indexOf(145)).assertEqual(3);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0106
+   * @tc.name      testCollectionSense0106
+   * @tc.desc      Collection splice pass 46
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0106', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0106', 'splice 46');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
+        const expected: number[] = [1, 2, 3, 4, 5, 6, 146, 246, 8];
+    const removed: number[] = values.splice(6, 1, 146, 246);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(7);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(9);
+    expect(values.includes(146)).assertTrue();
+    expect(values.indexOf(146)).assertEqual(6);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0107
+   * @tc.name      testCollectionSense0107
+   * @tc.desc      Collection splice pass 47
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0107', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0107', 'splice 47');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        const expected: number[] = [1, 2, 147, 247, 4, 5, 6, 7, 8, 9];
+    const removed: number[] = values.splice(2, 1, 147, 247);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(3);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(10);
+    expect(values.includes(147)).assertTrue();
+    expect(values.indexOf(147)).assertEqual(2);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0108
+   * @tc.name      testCollectionSense0108
+   * @tc.desc      Collection splice pass 48
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0108', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0108', 'splice 48');
+        const values: number[] = [1, 2];
+        const expected: number[] = [148, 248, 2];
+    const removed: number[] = values.splice(0, 1, 148, 248);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(1);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(3);
+    expect(values.includes(148)).assertTrue();
+    expect(values.indexOf(148)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0109
+   * @tc.name      testCollectionSense0109
+   * @tc.desc      Collection splice pass 49
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0109', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0109', 'splice 49');
+        const values: number[] = [1, 2, 3];
+        const expected: number[] = [1, 149, 249, 3];
+    const removed: number[] = values.splice(1, 1, 149, 249);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(2);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(4);
+    expect(values.includes(149)).assertTrue();
+    expect(values.indexOf(149)).assertEqual(1);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0110
+   * @tc.name      testCollectionSense0110
+   * @tc.desc      Collection splice pass 50
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0110', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0110', 'splice 50');
+        const values: number[] = [1, 2, 3, 4];
+        const expected: number[] = [1, 2, 150, 250, 4];
+    const removed: number[] = values.splice(2, 1, 150, 250);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(3);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(5);
+    expect(values.includes(150)).assertTrue();
+    expect(values.indexOf(150)).assertEqual(2);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0111
+   * @tc.name      testCollectionSense0111
+   * @tc.desc      Collection splice pass 51
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0111', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0111', 'splice 51');
+        const values: number[] = [1, 2, 3, 4, 5];
+        const expected: number[] = [1, 151, 251, 3, 4, 5];
+    const removed: number[] = values.splice(1, 1, 151, 251);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(2);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(6);
+    expect(values.includes(151)).assertTrue();
+    expect(values.indexOf(151)).assertEqual(1);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0112
+   * @tc.name      testCollectionSense0112
+   * @tc.desc      Collection splice pass 52
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0112', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0112', 'splice 52');
+        const values: number[] = [1, 2, 3, 4, 5, 6];
+        const expected: number[] = [1, 2, 3, 4, 152, 252, 6];
+    const removed: number[] = values.splice(4, 1, 152, 252);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(5);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(7);
+    expect(values.includes(152)).assertTrue();
+    expect(values.indexOf(152)).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0113
+   * @tc.name      testCollectionSense0113
+   * @tc.desc      Collection splice pass 53
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0113', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0113', 'splice 53');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7];
+        const expected: number[] = [1, 2, 3, 4, 153, 253, 6, 7];
+    const removed: number[] = values.splice(4, 1, 153, 253);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(5);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(8);
+    expect(values.includes(153)).assertTrue();
+    expect(values.indexOf(153)).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0114
+   * @tc.name      testCollectionSense0114
+   * @tc.desc      Collection splice pass 54
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0114', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0114', 'splice 54');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
+        const expected: number[] = [1, 2, 3, 4, 5, 6, 154, 254, 8];
+    const removed: number[] = values.splice(6, 1, 154, 254);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(7);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(9);
+    expect(values.includes(154)).assertTrue();
+    expect(values.indexOf(154)).assertEqual(6);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0115
+   * @tc.name      testCollectionSense0115
+   * @tc.desc      Collection splice pass 55
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0115', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0115', 'splice 55');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        const expected: number[] = [1, 155, 255, 3, 4, 5, 6, 7, 8, 9];
+    const removed: number[] = values.splice(1, 1, 155, 255);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(2);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(10);
+    expect(values.includes(155)).assertTrue();
+    expect(values.indexOf(155)).assertEqual(1);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0116
+   * @tc.name      testCollectionSense0116
+   * @tc.desc      Collection splice pass 56
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0116', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0116', 'splice 56');
+        const values: number[] = [1, 2];
+        const expected: number[] = [156, 256, 2];
+    const removed: number[] = values.splice(0, 1, 156, 256);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(1);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(3);
+    expect(values.includes(156)).assertTrue();
+    expect(values.indexOf(156)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0117
+   * @tc.name      testCollectionSense0117
+   * @tc.desc      Collection splice pass 57
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0117', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0117', 'splice 57');
+        const values: number[] = [1, 2, 3];
+        const expected: number[] = [157, 257, 2, 3];
+    const removed: number[] = values.splice(0, 1, 157, 257);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(1);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(4);
+    expect(values.includes(157)).assertTrue();
+    expect(values.indexOf(157)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0118
+   * @tc.name      testCollectionSense0118
+   * @tc.desc      Collection splice pass 58
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0118', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0118', 'splice 58');
+        const values: number[] = [1, 2, 3, 4];
+        const expected: number[] = [1, 2, 158, 258, 4];
+    const removed: number[] = values.splice(2, 1, 158, 258);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(3);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(5);
+    expect(values.includes(158)).assertTrue();
+    expect(values.indexOf(158)).assertEqual(2);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0119
+   * @tc.name      testCollectionSense0119
+   * @tc.desc      Collection splice pass 59
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0119', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0119', 'splice 59');
+        const values: number[] = [1, 2, 3, 4, 5];
+        const expected: number[] = [1, 2, 3, 4, 159, 259];
+    const removed: number[] = values.splice(4, 1, 159, 259);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(5);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(6);
+    expect(values.includes(159)).assertTrue();
+    expect(values.indexOf(159)).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0120
+   * @tc.name      testCollectionSense0120
+   * @tc.desc      Collection splice pass 60
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0120', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0120', 'splice 60');
+        const values: number[] = [1, 2, 3, 4, 5, 6];
+        const expected: number[] = [160, 260, 2, 3, 4, 5, 6];
+    const removed: number[] = values.splice(0, 1, 160, 260);
+    expect(removed.length).assertEqual(1);
+    expect(removed[0]).assertEqual(1);
+    expect(values.join(',')).assertEqual(expected.join(','));
+    expect(values.length).assertEqual(7);
+    expect(values.includes(160)).assertTrue();
+    expect(values.indexOf(160)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0121
+   * @tc.name      testCollectionSense0121
+   * @tc.desc      Collection filter map pass 1
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0121', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0121', 'filter map 1');
+        const values: number[] = [1];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(0);
+    expect(doubled.length).assertEqual(1);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(2);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 1)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0122
+   * @tc.name      testCollectionSense0122
+   * @tc.desc      Collection filter map pass 2
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0122', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0122', 'filter map 2');
+        const values: number[] = [1, 2];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(1);
+    expect(doubled.length).assertEqual(2);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(4);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 2)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0123
+   * @tc.name      testCollectionSense0123
+   * @tc.desc      Collection filter map pass 3
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0123', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0123', 'filter map 3');
+        const values: number[] = [1, 2, 3];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(1);
+    expect(doubled.length).assertEqual(3);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(6);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 3)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0124
+   * @tc.name      testCollectionSense0124
+   * @tc.desc      Collection filter map pass 4
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0124', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0124', 'filter map 4');
+        const values: number[] = [1, 2, 3, 4];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(2);
+    expect(doubled.length).assertEqual(4);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(8);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 4)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0125
+   * @tc.name      testCollectionSense0125
+   * @tc.desc      Collection filter map pass 5
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0125', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0125', 'filter map 5');
+        const values: number[] = [1, 2, 3, 4, 5];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(2);
+    expect(doubled.length).assertEqual(5);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(10);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 5)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0126
+   * @tc.name      testCollectionSense0126
+   * @tc.desc      Collection filter map pass 6
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0126', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0126', 'filter map 6');
+        const values: number[] = [1, 2, 3, 4, 5, 6];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(3);
+    expect(doubled.length).assertEqual(6);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(12);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 6)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0127
+   * @tc.name      testCollectionSense0127
+   * @tc.desc      Collection filter map pass 7
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0127', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0127', 'filter map 7');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(3);
+    expect(doubled.length).assertEqual(7);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(14);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 7)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0128
+   * @tc.name      testCollectionSense0128
+   * @tc.desc      Collection filter map pass 8
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0128', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0128', 'filter map 8');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(4);
+    expect(doubled.length).assertEqual(8);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(16);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 8)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0129
+   * @tc.name      testCollectionSense0129
+   * @tc.desc      Collection filter map pass 9
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0129', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0129', 'filter map 9');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(4);
+    expect(doubled.length).assertEqual(9);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(18);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 9)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0130
+   * @tc.name      testCollectionSense0130
+   * @tc.desc      Collection filter map pass 10
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0130', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0130', 'filter map 10');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(5);
+    expect(doubled.length).assertEqual(10);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(20);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 10)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0131
+   * @tc.name      testCollectionSense0131
+   * @tc.desc      Collection filter map pass 11
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0131', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0131', 'filter map 11');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(5);
+    expect(doubled.length).assertEqual(11);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(22);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 11)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0132
+   * @tc.name      testCollectionSense0132
+   * @tc.desc      Collection filter map pass 12
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0132', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0132', 'filter map 12');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(6);
+    expect(doubled.length).assertEqual(12);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(24);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 12)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0133
+   * @tc.name      testCollectionSense0133
+   * @tc.desc      Collection filter map pass 13
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0133', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0133', 'filter map 13');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(6);
+    expect(doubled.length).assertEqual(13);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(26);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 13)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0134
+   * @tc.name      testCollectionSense0134
+   * @tc.desc      Collection filter map pass 14
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0134', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0134', 'filter map 14');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(7);
+    expect(doubled.length).assertEqual(14);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(28);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 14)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0135
+   * @tc.name      testCollectionSense0135
+   * @tc.desc      Collection filter map pass 15
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0135', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0135', 'filter map 15');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(7);
+    expect(doubled.length).assertEqual(15);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(30);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 15)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0136
+   * @tc.name      testCollectionSense0136
+   * @tc.desc      Collection filter map pass 16
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0136', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0136', 'filter map 16');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(8);
+    expect(doubled.length).assertEqual(16);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(32);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 16)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0137
+   * @tc.name      testCollectionSense0137
+   * @tc.desc      Collection filter map pass 17
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0137', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0137', 'filter map 17');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(8);
+    expect(doubled.length).assertEqual(17);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(34);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 17)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0138
+   * @tc.name      testCollectionSense0138
+   * @tc.desc      Collection filter map pass 18
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0138', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0138', 'filter map 18');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(9);
+    expect(doubled.length).assertEqual(18);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(36);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 18)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0139
+   * @tc.name      testCollectionSense0139
+   * @tc.desc      Collection filter map pass 19
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0139', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0139', 'filter map 19');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(9);
+    expect(doubled.length).assertEqual(19);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(38);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 19)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0140
+   * @tc.name      testCollectionSense0140
+   * @tc.desc      Collection filter map pass 20
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testCollectionSense0140', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testCollectionSense0140', 'filter map 20');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(10);
+    expect(doubled.length).assertEqual(20);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(40);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 20)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0141
+   * @tc.name      testCollectionSense0141
+   * @tc.desc      Collection filter map pass 21
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testCollectionSense0141', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testCollectionSense0141', 'filter map 21');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(10);
+    expect(doubled.length).assertEqual(21);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(42);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 21)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0142
+   * @tc.name      testCollectionSense0142
+   * @tc.desc      Collection filter map pass 22
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testCollectionSense0142', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testCollectionSense0142', 'filter map 22');
+        const values: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
+    const evens: number[] = values.filter((value: number) => value % 2 === 0);
+    const doubled: number[] = values.map((value: number) => value * 2);
+    expect(evens.length).assertEqual(11);
+    expect(doubled.length).assertEqual(22);
+    expect(doubled[0]).assertEqual(2);
+    expect(doubled[doubled.length - 1]).assertEqual(44);
+    expect(values.every((value: number) => value > 0)).assertTrue();
+    expect(values.some((value: number) => value === 22)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_COL_0143
