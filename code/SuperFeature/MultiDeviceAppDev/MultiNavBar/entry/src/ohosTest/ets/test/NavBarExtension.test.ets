@@ -1987,3 +1987,1992 @@ export default function navBarExtensionSuite() {
       const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('xl');
       expect(style.sideBarPrimaryMenuTextSize).assertEqual(12);
     })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1517
+     * @tc.name    NavBarExtension1517
+     * @tc.desc    Breakpoint xl keeps the menu text height value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bpxl_menuTextHeight', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('xl');
+      expect(style.sideBarPrimaryMenuTextHeight).assertEqual(16);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1518
+     * @tc.name    NavBarExtension1518
+     * @tc.desc    Breakpoint xl keeps the recommend grid height value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bpxl_gridHeight', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('xl');
+      expect(style.recommendCompGridHeight).assertEqual(106);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1519
+     * @tc.name    NavBarExtension1519
+     * @tc.desc    Breakpoint xl keeps the recommend grid item height value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bpxl_gridItemHeight', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('xl');
+      expect(style.recommendCompGridItemHeight).assertEqual(106);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1520
+     * @tc.name    NavBarExtension1520
+     * @tc.desc    Breakpoint xl keeps the recommend grid second height value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bpxl_gridSecHeight', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('xl');
+      expect(style.recommendCompGridSecHeight).assertEqual(220);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1521
+     * @tc.name    NavBarExtension1521
+     * @tc.desc    Breakpoint xl keeps the main tabs background colour value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bpxl_bcColor', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('xl');
+      expect(style.mainTabsBcColor).assertEqual('#fff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1522
+     * @tc.name    NavBarExtension1522
+     * @tc.desc    Breakpoint sm keeps the control button left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nbsm_control_left', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('sm');
+      expect(style.controlButtonStyle.left).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1523
+     * @tc.name    NavBarExtension1523
+     * @tc.desc    Breakpoint sm keeps the control button top value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nbsm_control_top', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('sm');
+      expect(style.controlButtonStyle.top).assertEqual(40);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1524
+     * @tc.name    NavBarExtension1524
+     * @tc.desc    Breakpoint sm keeps the control button width value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nbsm_control_width', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('sm');
+      expect(style.controlButtonStyle.width).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1525
+     * @tc.name    NavBarExtension1525
+     * @tc.desc    Breakpoint sm keeps the control button height value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nbsm_control_height', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('sm');
+      expect(style.controlButtonStyle.height).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1526
+     * @tc.name    NavBarExtension1526
+     * @tc.desc    Breakpoint sm keeps the content top margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nbsm_content_top', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('sm');
+      expect(style.mainTabsContentMargin.top).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1527
+     * @tc.name    NavBarExtension1527
+     * @tc.desc    Breakpoint sm keeps the content bottom margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nbsm_content_bottom', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('sm');
+      expect(style.mainTabsContentMargin.bottom).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1528
+     * @tc.name    NavBarExtension1528
+     * @tc.desc    Breakpoint sm keeps the content left margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nbsm_content_left', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('sm');
+      expect(style.mainTabsContentMargin.left).assertEqual(16);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1529
+     * @tc.name    NavBarExtension1529
+     * @tc.desc    Breakpoint sm keeps the content right margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nbsm_content_right', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('sm');
+      expect(style.mainTabsContentMargin.right).assertEqual(16);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1530
+     * @tc.name    NavBarExtension1530
+     * @tc.desc    Breakpoint sm keeps the menu icon top margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nbsm_imgMarginTop', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('sm');
+      expect(style.sideBarPrimaryMenuImgMargin.top).assertEqual(7);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1531
+     * @tc.name    NavBarExtension1531
+     * @tc.desc    Breakpoint sm keeps the recommend top margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nbsm_recommendTop', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('sm');
+      expect(style.recommendCompMargin.top).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1532
+     * @tc.name    NavBarExtension1532
+     * @tc.desc    Breakpoint md keeps the control button left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nbmd_control_left', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('md');
+      expect(style.controlButtonStyle.left).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1533
+     * @tc.name    NavBarExtension1533
+     * @tc.desc    Breakpoint md keeps the control button top value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nbmd_control_top', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('md');
+      expect(style.controlButtonStyle.top).assertEqual(40);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1534
+     * @tc.name    NavBarExtension1534
+     * @tc.desc    Breakpoint md keeps the control button width value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nbmd_control_width', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('md');
+      expect(style.controlButtonStyle.width).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1535
+     * @tc.name    NavBarExtension1535
+     * @tc.desc    Breakpoint md keeps the control button height value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nbmd_control_height', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('md');
+      expect(style.controlButtonStyle.height).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1536
+     * @tc.name    NavBarExtension1536
+     * @tc.desc    Breakpoint md keeps the content top margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nbmd_content_top', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('md');
+      expect(style.mainTabsContentMargin.top).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1537
+     * @tc.name    NavBarExtension1537
+     * @tc.desc    Breakpoint md keeps the content bottom margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nbmd_content_bottom', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('md');
+      expect(style.mainTabsContentMargin.bottom).assertEqual(22);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1538
+     * @tc.name    NavBarExtension1538
+     * @tc.desc    Breakpoint md keeps the content left margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nbmd_content_left', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('md');
+      expect(style.mainTabsContentMargin.left).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1539
+     * @tc.name    NavBarExtension1539
+     * @tc.desc    Breakpoint md keeps the content right margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nbmd_content_right', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('md');
+      expect(style.mainTabsContentMargin.right).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1540
+     * @tc.name    NavBarExtension1540
+     * @tc.desc    Breakpoint md keeps the menu icon top margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nbmd_imgMarginTop', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('md');
+      expect(style.sideBarPrimaryMenuImgMargin.top).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1541
+     * @tc.name    NavBarExtension1541
+     * @tc.desc    Breakpoint md keeps the recommend top margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nbmd_recommendTop', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('md');
+      expect(style.recommendCompMargin.top).assertEqual(16);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1542
+     * @tc.name    NavBarExtension1542
+     * @tc.desc    Breakpoint lg keeps the control button left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nblg_control_left', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('lg');
+      expect(style.controlButtonStyle.left).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1543
+     * @tc.name    NavBarExtension1543
+     * @tc.desc    Breakpoint lg keeps the control button top value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nblg_control_top', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('lg');
+      expect(style.controlButtonStyle.top).assertEqual(40);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1544
+     * @tc.name    NavBarExtension1544
+     * @tc.desc    Breakpoint lg keeps the control button width value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nblg_control_width', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('lg');
+      expect(style.controlButtonStyle.width).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1545
+     * @tc.name    NavBarExtension1545
+     * @tc.desc    Breakpoint lg keeps the control button height value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nblg_control_height', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('lg');
+      expect(style.controlButtonStyle.height).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1546
+     * @tc.name    NavBarExtension1546
+     * @tc.desc    Breakpoint lg keeps the content top margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nblg_content_top', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('lg');
+      expect(style.mainTabsContentMargin.top).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1547
+     * @tc.name    NavBarExtension1547
+     * @tc.desc    Breakpoint lg keeps the content bottom margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nblg_content_bottom', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('lg');
+      expect(style.mainTabsContentMargin.bottom).assertEqual(22);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1548
+     * @tc.name    NavBarExtension1548
+     * @tc.desc    Breakpoint lg keeps the content left margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nblg_content_left', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('lg');
+      expect(style.mainTabsContentMargin.left).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1549
+     * @tc.name    NavBarExtension1549
+     * @tc.desc    Breakpoint lg keeps the content right margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nblg_content_right', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('lg');
+      expect(style.mainTabsContentMargin.right).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1550
+     * @tc.name    NavBarExtension1550
+     * @tc.desc    Breakpoint lg keeps the menu icon top margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nblg_imgMarginTop', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('lg');
+      expect(style.sideBarPrimaryMenuImgMargin.top).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1551
+     * @tc.name    NavBarExtension1551
+     * @tc.desc    Breakpoint lg keeps the recommend top margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5nblg_recommendTop', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('lg');
+      expect(style.recommendCompMargin.top).assertEqual(16);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1552
+     * @tc.name    NavBarExtension1552
+     * @tc.desc    Sub tabs style sm tabs keeps the text margin top value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsmt_textMarginTop', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'tabs');
+      expect(style.sideBarPrimaryMenuTextMargin.top).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1553
+     * @tc.name    NavBarExtension1553
+     * @tc.desc    Sub tabs style sm tabs keeps the text margin left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsmt_textMarginLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'tabs');
+      expect(style.sideBarPrimaryMenuTextMargin.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1554
+     * @tc.name    NavBarExtension1554
+     * @tc.desc    Sub tabs style sm tabs keeps the second menu space value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsmt_space', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'tabs');
+      expect(style.secondMenuListSpace).assertEqual(16);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1555
+     * @tc.name    NavBarExtension1555
+     * @tc.desc    Sub tabs style sm tabs keeps the second menu item margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsmt_itemMarginLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'tabs');
+      expect(style.secondMenuListItemMargin.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1556
+     * @tc.name    NavBarExtension1556
+     * @tc.desc    Sub tabs style sm tabs keeps the second menu item height value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsmt_itemHeight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'tabs');
+      expect(style.secondMenuListItemHeight).assertEqual(56);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1557
+     * @tc.name    NavBarExtension1557
+     * @tc.desc    Sub tabs style sm tabs keeps the nav list padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsmt_navPaddingLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'tabs');
+      expect(style.sideBarPrimaryNavListPadding.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1558
+     * @tc.name    NavBarExtension1558
+     * @tc.desc    Sub tabs style sm tabs omits the nav list padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsmt_navPaddingRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'tabs');
+      expect(style.sideBarPrimaryNavListPadding.right === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1559
+     * @tc.name    NavBarExtension1559
+     * @tc.desc    Sub tabs style sm tabs keeps the menu list padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsmt_menuPaddingLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'tabs');
+      expect(style.sideBarPrimaryMenuListPadding.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1560
+     * @tc.name    NavBarExtension1560
+     * @tc.desc    Sub tabs style sm tabs keeps the menu list padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsmt_menuPaddingRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'tabs');
+      expect(style.sideBarPrimaryMenuListPadding.right).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1561
+     * @tc.name    NavBarExtension1561
+     * @tc.desc    Sub tabs style sm tabs keeps the menu flex align value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsmt_flexAlign', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'tabs');
+      expect(style.sideBarPrimaryMenuFlexAlign).assertEqual(FlexAlign.Center);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1562
+     * @tc.name    NavBarExtension1562
+     * @tc.desc    Sub tabs style sm tabs keeps the menu flex direction value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsmt_flexDirection', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'tabs');
+      expect(style.sideBarPrimaryMenuFlexDirection).assertEqual(FlexDirection.Column);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1563
+     * @tc.name    NavBarExtension1563
+     * @tc.desc    Sub tabs style sm tabs keeps the primary text align value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsmt_textAlign', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'tabs');
+      expect(style.primaryMenuTextAlign).assertEqual(TextAlign.Center);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1564
+     * @tc.name    NavBarExtension1564
+     * @tc.desc    Sub tabs style sm tabs keeps the page title flag value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsmt_showTitle', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'tabs');
+      expect(style.isShowPageTitle).assertEqual(false);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1565
+     * @tc.name    NavBarExtension1565
+     * @tc.desc    Sub tabs style sm tabs keeps the second menu flag value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsmt_showSecond', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'tabs');
+      expect(style.isShowSecondMenu).assertEqual(true);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1566
+     * @tc.name    NavBarExtension1566
+     * @tc.desc    Sub tabs style sm tabs keeps the second menu item width value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsmt_itemWidth', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'tabs');
+      expect(style.secondMenuListItemWidth).assertEqual('');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1567
+     * @tc.name    NavBarExtension1567
+     * @tc.desc    Sub tabs style sm tabs keeps the second menu direction value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsmt_direction', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'tabs');
+      expect(style.secondMenuListDirection).assertEqual(Axis.Horizontal);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1568
+     * @tc.name    NavBarExtension1568
+     * @tc.desc    Sub tabs style sm tabs keeps the search padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsmt_searchLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'tabs');
+      expect(style.searchModulePadding.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1569
+     * @tc.name    NavBarExtension1569
+     * @tc.desc    Sub tabs style sm tabs keeps the search padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsmt_searchRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'tabs');
+      expect(style.searchModulePadding.right).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1570
+     * @tc.name    NavBarExtension1570
+     * @tc.desc    Sub tabs style sm tabs keeps the tool bar padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsmt_toolLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'tabs');
+      expect(style.toolBarPadding.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1571
+     * @tc.name    NavBarExtension1571
+     * @tc.desc    Sub tabs style sm tabs keeps the tool bar padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsmt_toolRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'tabs');
+      expect(style.toolBarPadding.right).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1572
+     * @tc.name    NavBarExtension1572
+     * @tc.desc    Sub tabs style sm list keeps the text margin top value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsml_textMarginTop', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'list');
+      expect(style.sideBarPrimaryMenuTextMargin.top).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1573
+     * @tc.name    NavBarExtension1573
+     * @tc.desc    Sub tabs style sm list keeps the text margin left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsml_textMarginLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'list');
+      expect(style.sideBarPrimaryMenuTextMargin.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1574
+     * @tc.name    NavBarExtension1574
+     * @tc.desc    Sub tabs style sm list keeps the second menu space value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsml_space', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'list');
+      expect(style.secondMenuListSpace).assertEqual(16);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1575
+     * @tc.name    NavBarExtension1575
+     * @tc.desc    Sub tabs style sm list keeps the second menu item margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsml_itemMarginLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'list');
+      expect(style.secondMenuListItemMargin.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1576
+     * @tc.name    NavBarExtension1576
+     * @tc.desc    Sub tabs style sm list keeps the second menu item height value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsml_itemHeight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'list');
+      expect(style.secondMenuListItemHeight).assertEqual(56);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1577
+     * @tc.name    NavBarExtension1577
+     * @tc.desc    Sub tabs style sm list keeps the nav list padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsml_navPaddingLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'list');
+      expect(style.sideBarPrimaryNavListPadding.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1578
+     * @tc.name    NavBarExtension1578
+     * @tc.desc    Sub tabs style sm list omits the nav list padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsml_navPaddingRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'list');
+      expect(style.sideBarPrimaryNavListPadding.right === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1579
+     * @tc.name    NavBarExtension1579
+     * @tc.desc    Sub tabs style sm list keeps the menu list padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsml_menuPaddingLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'list');
+      expect(style.sideBarPrimaryMenuListPadding.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1580
+     * @tc.name    NavBarExtension1580
+     * @tc.desc    Sub tabs style sm list keeps the menu list padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsml_menuPaddingRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'list');
+      expect(style.sideBarPrimaryMenuListPadding.right).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1581
+     * @tc.name    NavBarExtension1581
+     * @tc.desc    Sub tabs style sm list keeps the menu flex align value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsml_flexAlign', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'list');
+      expect(style.sideBarPrimaryMenuFlexAlign).assertEqual(FlexAlign.Center);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1582
+     * @tc.name    NavBarExtension1582
+     * @tc.desc    Sub tabs style sm list keeps the menu flex direction value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsml_flexDirection', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'list');
+      expect(style.sideBarPrimaryMenuFlexDirection).assertEqual(FlexDirection.Column);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1583
+     * @tc.name    NavBarExtension1583
+     * @tc.desc    Sub tabs style sm list keeps the primary text align value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsml_textAlign', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'list');
+      expect(style.primaryMenuTextAlign).assertEqual(TextAlign.Center);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1584
+     * @tc.name    NavBarExtension1584
+     * @tc.desc    Sub tabs style sm list keeps the page title flag value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsml_showTitle', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'list');
+      expect(style.isShowPageTitle).assertEqual(false);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1585
+     * @tc.name    NavBarExtension1585
+     * @tc.desc    Sub tabs style sm list keeps the second menu flag value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsml_showSecond', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'list');
+      expect(style.isShowSecondMenu).assertEqual(true);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1586
+     * @tc.name    NavBarExtension1586
+     * @tc.desc    Sub tabs style sm list keeps the second menu item width value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsml_itemWidth', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'list');
+      expect(style.secondMenuListItemWidth).assertEqual('');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1587
+     * @tc.name    NavBarExtension1587
+     * @tc.desc    Sub tabs style sm list keeps the second menu direction value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsml_direction', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'list');
+      expect(style.secondMenuListDirection).assertEqual(Axis.Horizontal);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1588
+     * @tc.name    NavBarExtension1588
+     * @tc.desc    Sub tabs style sm list keeps the search padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsml_searchLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'list');
+      expect(style.searchModulePadding.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1589
+     * @tc.name    NavBarExtension1589
+     * @tc.desc    Sub tabs style sm list keeps the search padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsml_searchRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'list');
+      expect(style.searchModulePadding.right).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1590
+     * @tc.name    NavBarExtension1590
+     * @tc.desc    Sub tabs style sm list keeps the tool bar padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsml_toolLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'list');
+      expect(style.toolBarPadding.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1591
+     * @tc.name    NavBarExtension1591
+     * @tc.desc    Sub tabs style sm list keeps the tool bar padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stsml_toolRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'list');
+      expect(style.toolBarPadding.right).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1592
+     * @tc.name    NavBarExtension1592
+     * @tc.desc    Sub tabs style md list keeps the text margin top value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdl_textMarginTop', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'list');
+      expect(style.sideBarPrimaryMenuTextMargin.top).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1593
+     * @tc.name    NavBarExtension1593
+     * @tc.desc    Sub tabs style md list keeps the text margin left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdl_textMarginLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'list');
+      expect(style.sideBarPrimaryMenuTextMargin.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1594
+     * @tc.name    NavBarExtension1594
+     * @tc.desc    Sub tabs style md list keeps the second menu space value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdl_space', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'list');
+      expect(style.secondMenuListSpace).assertEqual(16);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1595
+     * @tc.name    NavBarExtension1595
+     * @tc.desc    Sub tabs style md list keeps the second menu item margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdl_itemMarginLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'list');
+      expect(style.secondMenuListItemMargin.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1596
+     * @tc.name    NavBarExtension1596
+     * @tc.desc    Sub tabs style md list keeps the second menu item height value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdl_itemHeight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'list');
+      expect(style.secondMenuListItemHeight).assertEqual(56);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1597
+     * @tc.name    NavBarExtension1597
+     * @tc.desc    Sub tabs style md list keeps the nav list padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdl_navPaddingLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'list');
+      expect(style.sideBarPrimaryNavListPadding.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1598
+     * @tc.name    NavBarExtension1598
+     * @tc.desc    Sub tabs style md list omits the nav list padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdl_navPaddingRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'list');
+      expect(style.sideBarPrimaryNavListPadding.right === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1599
+     * @tc.name    NavBarExtension1599
+     * @tc.desc    Sub tabs style md list keeps the menu list padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdl_menuPaddingLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'list');
+      expect(style.sideBarPrimaryMenuListPadding.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1600
+     * @tc.name    NavBarExtension1600
+     * @tc.desc    Sub tabs style md list keeps the menu list padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdl_menuPaddingRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'list');
+      expect(style.sideBarPrimaryMenuListPadding.right).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1601
+     * @tc.name    NavBarExtension1601
+     * @tc.desc    Sub tabs style md list keeps the menu flex align value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdl_flexAlign', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'list');
+      expect(style.sideBarPrimaryMenuFlexAlign).assertEqual(FlexAlign.Center);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1602
+     * @tc.name    NavBarExtension1602
+     * @tc.desc    Sub tabs style md list keeps the menu flex direction value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdl_flexDirection', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'list');
+      expect(style.sideBarPrimaryMenuFlexDirection).assertEqual(FlexDirection.Column);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1603
+     * @tc.name    NavBarExtension1603
+     * @tc.desc    Sub tabs style md list keeps the primary text align value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdl_textAlign', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'list');
+      expect(style.primaryMenuTextAlign).assertEqual(TextAlign.Center);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1604
+     * @tc.name    NavBarExtension1604
+     * @tc.desc    Sub tabs style md list keeps the page title flag value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdl_showTitle', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'list');
+      expect(style.isShowPageTitle).assertEqual(false);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1605
+     * @tc.name    NavBarExtension1605
+     * @tc.desc    Sub tabs style md list keeps the second menu flag value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdl_showSecond', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'list');
+      expect(style.isShowSecondMenu).assertEqual(true);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1606
+     * @tc.name    NavBarExtension1606
+     * @tc.desc    Sub tabs style md list keeps the second menu item width value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdl_itemWidth', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'list');
+      expect(style.secondMenuListItemWidth).assertEqual('');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1607
+     * @tc.name    NavBarExtension1607
+     * @tc.desc    Sub tabs style md list keeps the second menu direction value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdl_direction', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'list');
+      expect(style.secondMenuListDirection).assertEqual(Axis.Horizontal);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1608
+     * @tc.name    NavBarExtension1608
+     * @tc.desc    Sub tabs style md list keeps the search padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdl_searchLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'list');
+      expect(style.searchModulePadding.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1609
+     * @tc.name    NavBarExtension1609
+     * @tc.desc    Sub tabs style md list keeps the search padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdl_searchRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'list');
+      expect(style.searchModulePadding.right).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1610
+     * @tc.name    NavBarExtension1610
+     * @tc.desc    Sub tabs style md list keeps the tool bar padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdl_toolLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'list');
+      expect(style.toolBarPadding.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1611
+     * @tc.name    NavBarExtension1611
+     * @tc.desc    Sub tabs style md list keeps the tool bar padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdl_toolRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'list');
+      expect(style.toolBarPadding.right).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1612
+     * @tc.name    NavBarExtension1612
+     * @tc.desc    Sub tabs style md tabs keeps the text margin top value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdt_textMarginTop', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'tabs');
+      expect(style.sideBarPrimaryMenuTextMargin.top).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1613
+     * @tc.name    NavBarExtension1613
+     * @tc.desc    Sub tabs style md tabs keeps the text margin left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdt_textMarginLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'tabs');
+      expect(style.sideBarPrimaryMenuTextMargin.left).assertEqual(8);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1614
+     * @tc.name    NavBarExtension1614
+     * @tc.desc    Sub tabs style md tabs keeps the second menu space value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdt_space', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'tabs');
+      expect(style.secondMenuListSpace).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1615
+     * @tc.name    NavBarExtension1615
+     * @tc.desc    Sub tabs style md tabs keeps the second menu item margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdt_itemMarginLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'tabs');
+      expect(style.secondMenuListItemMargin.left).assertEqual(44);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1616
+     * @tc.name    NavBarExtension1616
+     * @tc.desc    Sub tabs style md tabs keeps the second menu item height value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdt_itemHeight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'tabs');
+      expect(style.secondMenuListItemHeight).assertEqual(48);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1617
+     * @tc.name    NavBarExtension1617
+     * @tc.desc    Sub tabs style md tabs keeps the nav list padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdt_navPaddingLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'tabs');
+      expect(style.sideBarPrimaryNavListPadding.left).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1618
+     * @tc.name    NavBarExtension1618
+     * @tc.desc    Sub tabs style md tabs keeps the nav list padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdt_navPaddingRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'tabs');
+      expect(style.sideBarPrimaryNavListPadding.right).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1619
+     * @tc.name    NavBarExtension1619
+     * @tc.desc    Sub tabs style md tabs keeps the menu list padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdt_menuPaddingLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'tabs');
+      expect(style.sideBarPrimaryMenuListPadding.left).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1620
+     * @tc.name    NavBarExtension1620
+     * @tc.desc    Sub tabs style md tabs keeps the menu list padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdt_menuPaddingRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'tabs');
+      expect(style.sideBarPrimaryMenuListPadding.right).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1621
+     * @tc.name    NavBarExtension1621
+     * @tc.desc    Sub tabs style md tabs keeps the menu flex align value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdt_flexAlign', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'tabs');
+      expect(style.sideBarPrimaryMenuFlexAlign).assertEqual(FlexAlign.Start);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1622
+     * @tc.name    NavBarExtension1622
+     * @tc.desc    Sub tabs style md tabs keeps the menu flex direction value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdt_flexDirection', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'tabs');
+      expect(style.sideBarPrimaryMenuFlexDirection).assertEqual(FlexDirection.Row);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1623
+     * @tc.name    NavBarExtension1623
+     * @tc.desc    Sub tabs style md tabs keeps the primary text align value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdt_textAlign', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'tabs');
+      expect(style.primaryMenuTextAlign).assertEqual(TextAlign.Start);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1624
+     * @tc.name    NavBarExtension1624
+     * @tc.desc    Sub tabs style md tabs keeps the page title flag value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdt_showTitle', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'tabs');
+      expect(style.isShowPageTitle).assertEqual(true);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1625
+     * @tc.name    NavBarExtension1625
+     * @tc.desc    Sub tabs style md tabs keeps the second menu flag value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdt_showSecond', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'tabs');
+      expect(style.isShowSecondMenu).assertEqual(false);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1626
+     * @tc.name    NavBarExtension1626
+     * @tc.desc    Sub tabs style md tabs keeps the second menu item width value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdt_itemWidth', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'tabs');
+      expect(style.secondMenuListItemWidth).assertEqual('100%');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1627
+     * @tc.name    NavBarExtension1627
+     * @tc.desc    Sub tabs style md tabs keeps the second menu direction value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdt_direction', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'tabs');
+      expect(style.secondMenuListDirection).assertEqual(Axis.Vertical);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1628
+     * @tc.name    NavBarExtension1628
+     * @tc.desc    Sub tabs style md tabs keeps the search padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdt_searchLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'tabs');
+      expect(style.searchModulePadding.left).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1629
+     * @tc.name    NavBarExtension1629
+     * @tc.desc    Sub tabs style md tabs keeps the search padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdt_searchRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'tabs');
+      expect(style.searchModulePadding.right).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1630
+     * @tc.name    NavBarExtension1630
+     * @tc.desc    Sub tabs style md tabs keeps the tool bar padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdt_toolLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'tabs');
+      expect(style.toolBarPadding.left).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1631
+     * @tc.name    NavBarExtension1631
+     * @tc.desc    Sub tabs style md tabs keeps the tool bar padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stmdt_toolRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('md', 'tabs');
+      expect(style.toolBarPadding.right).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1632
+     * @tc.name    NavBarExtension1632
+     * @tc.desc    Sub tabs style lg list keeps the text margin top value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgl_textMarginTop', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'list');
+      expect(style.sideBarPrimaryMenuTextMargin.top).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1633
+     * @tc.name    NavBarExtension1633
+     * @tc.desc    Sub tabs style lg list keeps the text margin left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgl_textMarginLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'list');
+      expect(style.sideBarPrimaryMenuTextMargin.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1634
+     * @tc.name    NavBarExtension1634
+     * @tc.desc    Sub tabs style lg list keeps the second menu space value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgl_space', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'list');
+      expect(style.secondMenuListSpace).assertEqual(16);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1635
+     * @tc.name    NavBarExtension1635
+     * @tc.desc    Sub tabs style lg list keeps the second menu item margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgl_itemMarginLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'list');
+      expect(style.secondMenuListItemMargin.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1636
+     * @tc.name    NavBarExtension1636
+     * @tc.desc    Sub tabs style lg list keeps the second menu item height value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgl_itemHeight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'list');
+      expect(style.secondMenuListItemHeight).assertEqual(56);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1637
+     * @tc.name    NavBarExtension1637
+     * @tc.desc    Sub tabs style lg list keeps the nav list padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgl_navPaddingLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'list');
+      expect(style.sideBarPrimaryNavListPadding.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1638
+     * @tc.name    NavBarExtension1638
+     * @tc.desc    Sub tabs style lg list omits the nav list padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgl_navPaddingRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'list');
+      expect(style.sideBarPrimaryNavListPadding.right === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1639
+     * @tc.name    NavBarExtension1639
+     * @tc.desc    Sub tabs style lg list keeps the menu list padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgl_menuPaddingLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'list');
+      expect(style.sideBarPrimaryMenuListPadding.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1640
+     * @tc.name    NavBarExtension1640
+     * @tc.desc    Sub tabs style lg list keeps the menu list padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgl_menuPaddingRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'list');
+      expect(style.sideBarPrimaryMenuListPadding.right).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1641
+     * @tc.name    NavBarExtension1641
+     * @tc.desc    Sub tabs style lg list keeps the menu flex align value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgl_flexAlign', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'list');
+      expect(style.sideBarPrimaryMenuFlexAlign).assertEqual(FlexAlign.Center);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1642
+     * @tc.name    NavBarExtension1642
+     * @tc.desc    Sub tabs style lg list keeps the menu flex direction value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgl_flexDirection', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'list');
+      expect(style.sideBarPrimaryMenuFlexDirection).assertEqual(FlexDirection.Column);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1643
+     * @tc.name    NavBarExtension1643
+     * @tc.desc    Sub tabs style lg list keeps the primary text align value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgl_textAlign', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'list');
+      expect(style.primaryMenuTextAlign).assertEqual(TextAlign.Center);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1644
+     * @tc.name    NavBarExtension1644
+     * @tc.desc    Sub tabs style lg list keeps the page title flag value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgl_showTitle', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'list');
+      expect(style.isShowPageTitle).assertEqual(false);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1645
+     * @tc.name    NavBarExtension1645
+     * @tc.desc    Sub tabs style lg list keeps the second menu flag value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgl_showSecond', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'list');
+      expect(style.isShowSecondMenu).assertEqual(true);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1646
+     * @tc.name    NavBarExtension1646
+     * @tc.desc    Sub tabs style lg list keeps the second menu item width value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgl_itemWidth', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'list');
+      expect(style.secondMenuListItemWidth).assertEqual('');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1647
+     * @tc.name    NavBarExtension1647
+     * @tc.desc    Sub tabs style lg list keeps the second menu direction value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgl_direction', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'list');
+      expect(style.secondMenuListDirection).assertEqual(Axis.Horizontal);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1648
+     * @tc.name    NavBarExtension1648
+     * @tc.desc    Sub tabs style lg list keeps the search padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgl_searchLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'list');
+      expect(style.searchModulePadding.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1649
+     * @tc.name    NavBarExtension1649
+     * @tc.desc    Sub tabs style lg list keeps the search padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgl_searchRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'list');
+      expect(style.searchModulePadding.right).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1650
+     * @tc.name    NavBarExtension1650
+     * @tc.desc    Sub tabs style lg list keeps the tool bar padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgl_toolLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'list');
+      expect(style.toolBarPadding.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1651
+     * @tc.name    NavBarExtension1651
+     * @tc.desc    Sub tabs style lg list keeps the tool bar padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgl_toolRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'list');
+      expect(style.toolBarPadding.right).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1652
+     * @tc.name    NavBarExtension1652
+     * @tc.desc    Sub tabs style lg tabs keeps the text margin top value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgt_textMarginTop', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'tabs');
+      expect(style.sideBarPrimaryMenuTextMargin.top).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1653
+     * @tc.name    NavBarExtension1653
+     * @tc.desc    Sub tabs style lg tabs keeps the text margin left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgt_textMarginLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'tabs');
+      expect(style.sideBarPrimaryMenuTextMargin.left).assertEqual(8);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1654
+     * @tc.name    NavBarExtension1654
+     * @tc.desc    Sub tabs style lg tabs keeps the second menu space value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgt_space', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'tabs');
+      expect(style.secondMenuListSpace).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1655
+     * @tc.name    NavBarExtension1655
+     * @tc.desc    Sub tabs style lg tabs keeps the second menu item margin value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgt_itemMarginLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'tabs');
+      expect(style.secondMenuListItemMargin.left).assertEqual(44);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1656
+     * @tc.name    NavBarExtension1656
+     * @tc.desc    Sub tabs style lg tabs keeps the second menu item height value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgt_itemHeight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'tabs');
+      expect(style.secondMenuListItemHeight).assertEqual(48);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1657
+     * @tc.name    NavBarExtension1657
+     * @tc.desc    Sub tabs style lg tabs keeps the nav list padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgt_navPaddingLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'tabs');
+      expect(style.sideBarPrimaryNavListPadding.left).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1658
+     * @tc.name    NavBarExtension1658
+     * @tc.desc    Sub tabs style lg tabs keeps the nav list padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgt_navPaddingRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'tabs');
+      expect(style.sideBarPrimaryNavListPadding.right).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1659
+     * @tc.name    NavBarExtension1659
+     * @tc.desc    Sub tabs style lg tabs keeps the menu list padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgt_menuPaddingLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'tabs');
+      expect(style.sideBarPrimaryMenuListPadding.left).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1660
+     * @tc.name    NavBarExtension1660
+     * @tc.desc    Sub tabs style lg tabs keeps the menu list padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgt_menuPaddingRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'tabs');
+      expect(style.sideBarPrimaryMenuListPadding.right).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1661
+     * @tc.name    NavBarExtension1661
+     * @tc.desc    Sub tabs style lg tabs keeps the menu flex align value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgt_flexAlign', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'tabs');
+      expect(style.sideBarPrimaryMenuFlexAlign).assertEqual(FlexAlign.Start);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1662
+     * @tc.name    NavBarExtension1662
+     * @tc.desc    Sub tabs style lg tabs keeps the menu flex direction value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgt_flexDirection', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'tabs');
+      expect(style.sideBarPrimaryMenuFlexDirection).assertEqual(FlexDirection.Row);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1663
+     * @tc.name    NavBarExtension1663
+     * @tc.desc    Sub tabs style lg tabs keeps the primary text align value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgt_textAlign', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'tabs');
+      expect(style.primaryMenuTextAlign).assertEqual(TextAlign.Start);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1664
+     * @tc.name    NavBarExtension1664
+     * @tc.desc    Sub tabs style lg tabs keeps the page title flag value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgt_showTitle', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'tabs');
+      expect(style.isShowPageTitle).assertEqual(true);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1665
+     * @tc.name    NavBarExtension1665
+     * @tc.desc    Sub tabs style lg tabs keeps the second menu flag value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgt_showSecond', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'tabs');
+      expect(style.isShowSecondMenu).assertEqual(false);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1666
+     * @tc.name    NavBarExtension1666
+     * @tc.desc    Sub tabs style lg tabs keeps the second menu item width value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgt_itemWidth', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'tabs');
+      expect(style.secondMenuListItemWidth).assertEqual('100%');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1667
+     * @tc.name    NavBarExtension1667
+     * @tc.desc    Sub tabs style lg tabs keeps the second menu direction value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgt_direction', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'tabs');
+      expect(style.secondMenuListDirection).assertEqual(Axis.Vertical);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1668
+     * @tc.name    NavBarExtension1668
+     * @tc.desc    Sub tabs style lg tabs keeps the search padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgt_searchLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'tabs');
+      expect(style.searchModulePadding.left).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1669
+     * @tc.name    NavBarExtension1669
+     * @tc.desc    Sub tabs style lg tabs keeps the search padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgt_searchRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'tabs');
+      expect(style.searchModulePadding.right).assertEqual(12);
+    })
