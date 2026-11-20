@@ -675,3 +675,168 @@ export default function downloadMatrix025Test(): void {
      * @tc.type FUNC
      * @tc.level Level 1
      */
+    it("EnvironmentSample_snapshot_0594_FDDF_removeLast", 0, (): void => {
+      const caseName: string = "EnvironmentSample_snapshot_0594_FDDF_removeLast";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/report.txt", "/download/ spaced "];
+        api.mutationEvent = "stat:/download/report.txt";
+        api.mutationKind = "removeLast";
+        const sandboxAlias: string[] = api.sandboxEntries;
+        const result: string[] = importDownloadFiles('/download', '/sandbox', api);
+        const expected01: string[] = [
+          "list:/download", "stat:/download/report.txt", "copy:/download/report.txt->/sandbox/report.txt",
+          "stat:/download/.hidden", "stat:/download/资料.txt", "stat:/download/ spaced ",
+          "copy:/download/ spaced ->/sandbox/ spaced ", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected01);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected01));
+        sandboxAlias.push('sandbox-after-return');
+        logAssertion(caseName, "result", result, ["preexisting.txt", "report.txt", " spaced "]);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify(["preexisting.txt", "report.txt", " spaced "]));
+        result.push('caller-only');
+        const expected03: string[] = ["preexisting.txt", "report.txt", " spaced ", "sandbox-after-return"];
+        logAssertion(caseName, "sandboxAlias", sandboxAlias, expected03);
+        expect(JSON.stringify(sandboxAlias)).assertEqual(JSON.stringify(expected03));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_000596
+     * @tc.name EnvironmentSample_snapshot_0595_FDDF_removeLast
+     * @tc.desc Mask FDDF: removeLast at stat ordinary-file; source alias; ordered, two-way isolated result.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_snapshot_0595_FDDF_removeLast", 0, (): void => {
+      const caseName: string = "EnvironmentSample_snapshot_0595_FDDF_removeLast";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/report.txt", "/download/ spaced "];
+        api.mutationEvent = "stat:/download/report.txt";
+        api.mutationKind = "removeLast";
+        api.aliasSandboxToSource = true;
+        const sourceAlias: string[] = api.entries;
+        const result: string[] = importDownloadFiles('/download', '/sandbox', api);
+        const expected01: string[] = [
+          "list:/download", "stat:/download/report.txt", "copy:/download/report.txt->/sandbox/report.txt",
+          "stat:/download/.hidden", "stat:/download/资料.txt", "stat:/download/ spaced ",
+          "copy:/download/ spaced ->/sandbox/ spaced ", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected01);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected01));
+        sourceAlias.push('source-after-return');
+        logAssertion(caseName, "result", result, ["report.txt", ".hidden", "资料.txt"]);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify(["report.txt", ".hidden", "资料.txt"]));
+        result.push('caller-only');
+        const expected03: string[] = ["report.txt", ".hidden", "资料.txt", "source-after-return"];
+        logAssertion(caseName, "sourceAlias", sourceAlias, expected03);
+        expect(JSON.stringify(sourceAlias)).assertEqual(JSON.stringify(expected03));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_000597
+     * @tc.name EnvironmentSample_snapshot_0596_FDDF_clear
+     * @tc.desc Mask FDDF: clear at stat ordinary-file; sandbox alias; ordered, two-way isolated result.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_snapshot_0596_FDDF_clear", 0, (): void => {
+      const caseName: string = "EnvironmentSample_snapshot_0596_FDDF_clear";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/report.txt", "/download/ spaced "];
+        api.mutationEvent = "stat:/download/report.txt";
+        api.mutationKind = "clear";
+        const sandboxAlias: string[] = api.sandboxEntries;
+        const result: string[] = importDownloadFiles('/download', '/sandbox', api);
+        const expected01: string[] = [
+          "list:/download", "stat:/download/report.txt", "copy:/download/report.txt->/sandbox/report.txt",
+          "stat:/download/.hidden", "stat:/download/资料.txt", "stat:/download/ spaced ",
+          "copy:/download/ spaced ->/sandbox/ spaced ", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected01);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected01));
+        sandboxAlias.push('sandbox-after-return');
+        logAssertion(caseName, "result", result, ["preexisting.txt", "report.txt", " spaced "]);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify(["preexisting.txt", "report.txt", " spaced "]));
+        result.push('caller-only');
+        const expected03: string[] = ["preexisting.txt", "report.txt", " spaced ", "sandbox-after-return"];
+        logAssertion(caseName, "sandboxAlias", sandboxAlias, expected03);
+        expect(JSON.stringify(sandboxAlias)).assertEqual(JSON.stringify(expected03));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_000598
+     * @tc.name EnvironmentSample_snapshot_0597_FDDF_clear
+     * @tc.desc Mask FDDF: clear at stat ordinary-file; source alias; ordered, two-way isolated result.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_snapshot_0597_FDDF_clear", 0, (): void => {
+      const caseName: string = "EnvironmentSample_snapshot_0597_FDDF_clear";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/report.txt", "/download/ spaced "];
+        api.mutationEvent = "stat:/download/report.txt";
+        api.mutationKind = "clear";
+        api.aliasSandboxToSource = true;
+        const sourceAlias: string[] = api.entries;
+        const result: string[] = importDownloadFiles('/download', '/sandbox', api);
+        const expected01: string[] = [
+          "list:/download", "stat:/download/report.txt", "copy:/download/report.txt->/sandbox/report.txt",
+          "stat:/download/.hidden", "stat:/download/资料.txt", "stat:/download/ spaced ",
+          "copy:/download/ spaced ->/sandbox/ spaced ", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected01);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected01));
+        sourceAlias.push('source-after-return');
+        logAssertion(caseName, "result", result, []);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify([]));
+        result.push('caller-only');
+        logAssertion(caseName, "sourceAlias", sourceAlias, ["source-after-return"]);
+        expect(JSON.stringify(sourceAlias)).assertEqual(JSON.stringify(["source-after-return"]));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_000599
+     * @tc.name EnvironmentSample_snapshot_0598_FDDF_duplicateFirst
+     * @tc.desc Mask FDDF: duplicateFirst at stat ordinary-file; sandbox alias; ordered, two-way isolated result.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_snapshot_0598_FDDF_duplicateFirst", 0, (): void => {
+      const caseName: string = "EnvironmentSample_snapshot_0598_FDDF_duplicateFirst";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/report.txt", "/download/ spaced "];
+        api.mutationEvent = "stat:/download/report.txt";
+        api.mutationKind = "duplicateFirst";
+        const sandboxAlias: string[] = api.sandboxEntries;
+        const result: string[] = importDownloadFiles('/download', '/sandbox', api);
+        const expected01: string[] = [
+          "list:/download", "stat:/download/report.txt", "copy:/download/report.txt->/sandbox/report.txt",
+          "stat:/download/.hidden", "stat:/download/资料.txt", "stat:/download/ spaced ",
+          "copy:/download/ spaced ->/sandbox/ spaced ", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected01);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected01));
+        sandboxAlias.push('sandbox-after-return');
+        logAssertion(caseName, "result", result, ["preexisting.txt", "report.txt", " spaced "]);
