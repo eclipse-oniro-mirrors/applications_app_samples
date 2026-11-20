@@ -1353,16 +1353,16 @@ export default function viewWantJsonOfTest(): void {
     /**
      * @tc.number    SUB_FILEPREVIEWDLP_VIEW_WANT_JSON_OF_0079
      * @tc.name      FilePreviewDLP_ViewWantJsonOf_0079
-     * @tc.desc      viewWantJsonOf(uri="rN27xyLrIq2") returns "{?"action?":?"ohos.want.action.viewData?",?"uri?":?"r...
+     * @tc.desc      viewWantJsonOf(uri="rQ27xyLrIq2") returns "{?"action?":?"ohos.want.action.viewData?",?"uri?":?"r...
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL1
      */
     it('FilePreviewDLP_ViewWantJsonOf_0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       logInfo(`${BUNDLE}ViewWantJsonOf_0079 begin`);
-      const actual: string = viewWantJsonOf('rN27xyLrIq2');
-      logInfo(`viewWantJsonOf(uri="rN27xyLrIq2"): actual=${actual}`);
-      expect(actual).assertEqual('{"action":"ohos.want.action.viewData","uri":"rN27xyLrIq2"}');
+      const actual: string = viewWantJsonOf('rQ27xyLrIq2');
+      logInfo(`viewWantJsonOf(uri="rQ27xyLrIq2"): actual=${actual}`);
+      expect(actual).assertEqual('{"action":"ohos.want.action.viewData","uri":"rQ27xyLrIq2"}');
       logInfo(`${BUNDLE}ViewWantJsonOf_0079 end`);
     });
 
@@ -1513,16 +1513,16 @@ export default function viewWantJsonOfTest(): void {
     /**
      * @tc.number    SUB_FILEPREVIEWDLP_VIEW_WANT_JSON_OF_0089
      * @tc.name      FilePreviewDLP_ViewWantJsonOf_0089
-     * @tc.desc      viewWantJsonOf(uri="aNR") returns "{?"action?":?"ohos.want.action.viewData?",?"uri?":?"aNR?"}"
+     * @tc.desc      viewWantJsonOf(uri="aNQ") returns "{?"action?":?"ohos.want.action.viewData?",?"uri?":?"aNQ?"}"
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL1
      */
     it('FilePreviewDLP_ViewWantJsonOf_0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       logInfo(`${BUNDLE}ViewWantJsonOf_0089 begin`);
-      const actual: string = viewWantJsonOf('aNR');
-      logInfo(`viewWantJsonOf(uri="aNR"): actual=${actual}`);
-      expect(actual).assertEqual('{"action":"ohos.want.action.viewData","uri":"aNR"}');
+      const actual: string = viewWantJsonOf('aNQ');
+      logInfo(`viewWantJsonOf(uri="aNQ"): actual=${actual}`);
+      expect(actual).assertEqual('{"action":"ohos.want.action.viewData","uri":"aNQ"}');
       logInfo(`${BUNDLE}ViewWantJsonOf_0089 end`);
     });
 
