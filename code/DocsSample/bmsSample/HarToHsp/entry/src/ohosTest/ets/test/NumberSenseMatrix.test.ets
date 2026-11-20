@@ -3407,3 +3407,644 @@ export default function numberSenseMatrixTest() {
     expect(sum > 0).assertTrue();
     expect(sum.toString().length >= 1).assertTrue();
   });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0202
+   * @tc.name      testNumberSense0202
+   * @tc.desc      Accumulate 4 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0202', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0202', 'accumulate 4');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 4; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(10);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0203
+   * @tc.name      testNumberSense0203
+   * @tc.desc      Accumulate 5 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0203', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0203', 'accumulate 5');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 5; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(15);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0204
+   * @tc.name      testNumberSense0204
+   * @tc.desc      Accumulate 6 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0204', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0204', 'accumulate 6');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 6; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(21);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0205
+   * @tc.name      testNumberSense0205
+   * @tc.desc      Accumulate 7 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0205', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0205', 'accumulate 7');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 7; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(28);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0206
+   * @tc.name      testNumberSense0206
+   * @tc.desc      Accumulate 8 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0206', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0206', 'accumulate 8');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 8; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(36);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0207
+   * @tc.name      testNumberSense0207
+   * @tc.desc      Accumulate 9 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0207', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0207', 'accumulate 9');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 9; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(45);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0208
+   * @tc.name      testNumberSense0208
+   * @tc.desc      Accumulate 10 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0208', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0208', 'accumulate 10');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 10; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(55);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0209
+   * @tc.name      testNumberSense0209
+   * @tc.desc      Accumulate 11 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0209', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0209', 'accumulate 11');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 11; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(66);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0210
+   * @tc.name      testNumberSense0210
+   * @tc.desc      Accumulate 12 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0210', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0210', 'accumulate 12');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 12; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(78);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0211
+   * @tc.name      testNumberSense0211
+   * @tc.desc      Accumulate 13 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0211', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0211', 'accumulate 13');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 13; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(91);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0212
+   * @tc.name      testNumberSense0212
+   * @tc.desc      Accumulate 14 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0212', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0212', 'accumulate 14');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 14; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(105);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0213
+   * @tc.name      testNumberSense0213
+   * @tc.desc      Accumulate 15 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0213', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0213', 'accumulate 15');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 15; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(120);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0214
+   * @tc.name      testNumberSense0214
+   * @tc.desc      Accumulate 16 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0214', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0214', 'accumulate 16');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 16; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(136);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0215
+   * @tc.name      testNumberSense0215
+   * @tc.desc      Accumulate 17 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0215', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0215', 'accumulate 17');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 17; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(153);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0216
+   * @tc.name      testNumberSense0216
+   * @tc.desc      Accumulate 18 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0216', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0216', 'accumulate 18');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 18; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(171);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0217
+   * @tc.name      testNumberSense0217
+   * @tc.desc      Accumulate 19 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0217', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0217', 'accumulate 19');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 19; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(190);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0218
+   * @tc.name      testNumberSense0218
+   * @tc.desc      Accumulate 20 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0218', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0218', 'accumulate 20');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 20; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(210);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0219
+   * @tc.name      testNumberSense0219
+   * @tc.desc      Accumulate 21 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0219', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0219', 'accumulate 21');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 21; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(231);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0220
+   * @tc.name      testNumberSense0220
+   * @tc.desc      Accumulate 22 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0220', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0220', 'accumulate 22');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 22; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(253);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0221
+   * @tc.name      testNumberSense0221
+   * @tc.desc      Accumulate 23 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0221', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0221', 'accumulate 23');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 23; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(276);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0222
+   * @tc.name      testNumberSense0222
+   * @tc.desc      Accumulate 24 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0222', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0222', 'accumulate 24');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 24; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(300);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0223
+   * @tc.name      testNumberSense0223
+   * @tc.desc      Accumulate 25 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0223', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0223', 'accumulate 25');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 25; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(325);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0224
+   * @tc.name      testNumberSense0224
+   * @tc.desc      Accumulate 26 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0224', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0224', 'accumulate 26');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 26; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(351);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0225
+   * @tc.name      testNumberSense0225
+   * @tc.desc      Accumulate 27 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0225', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0225', 'accumulate 27');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 27; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(378);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0226
+   * @tc.name      testNumberSense0226
+   * @tc.desc      Accumulate 28 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0226', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0226', 'accumulate 28');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 28; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(406);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0227
+   * @tc.name      testNumberSense0227
+   * @tc.desc      Accumulate 29 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0227', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0227', 'accumulate 29');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 29; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(435);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0228
+   * @tc.name      testNumberSense0228
+   * @tc.desc      Accumulate 30 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0228', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0228', 'accumulate 30');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 30; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(465);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0229
+   * @tc.name      testNumberSense0229
+   * @tc.desc      Special number NaN keeps traits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0229', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0229', 'special NaN');
+    const value: number = Number.NaN;
+    expect(Number.isNaN(value)).assertTrue();
+    expect(Number.isFinite(value)).assertFalse();
+    expect(Number.isInteger(value)).assertFalse();
+    expect(typeof value).assertEqual('number');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0230
+   * @tc.name      testNumberSense0230
+   * @tc.desc      Special number infinity keeps traits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0230', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0230', 'special infinity');
+    const value: number = Number.POSITIVE_INFINITY;
+    expect(Number.isFinite(value)).assertFalse();
+    expect(value > 0).assertTrue();
+    expect(value > 1e300).assertTrue();
+    expect(typeof value).assertEqual('number');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0231
+   * @tc.name      testNumberSense0231
+   * @tc.desc      Special number neg infinity keeps traits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0231', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0231', 'special neg infinity');
+    const value: number = Number.NEGATIVE_INFINITY;
+    expect(Number.isFinite(value)).assertFalse();
+    expect(value < 0).assertTrue();
+    expect(typeof value).assertEqual('number');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0232
+   * @tc.name      testNumberSense0232
+   * @tc.desc      Special number max safe keeps traits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0232', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0232', 'special max safe');
+    const value: number = Number.MAX_SAFE_INTEGER;
+    expect(Number.isSafeInteger(value)).assertTrue();
+    expect(value).assertEqual(9007199254740991);
+    expect(Number.isInteger(value)).assertTrue();
+    expect(typeof value).assertEqual('number');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0233
+   * @tc.name      testNumberSense0233
+   * @tc.desc      Special number min safe keeps traits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0233', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0233', 'special min safe');
+    const value: number = Number.MIN_SAFE_INTEGER;
+    expect(Number.isSafeInteger(value)).assertTrue();
+    expect(value).assertEqual(-9007199254740991);
+    expect(typeof value).assertEqual('number');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0234
+   * @tc.name      testNumberSense0234
+   * @tc.desc      Special number epsilon keeps traits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0234', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0234', 'special epsilon');
+    const value: number = Number.EPSILON;
+    expect(value > 0).assertTrue();
+    expect(value < 0.001).assertTrue();
+    expect(typeof value).assertEqual('number');
+  });
+  });
+}
