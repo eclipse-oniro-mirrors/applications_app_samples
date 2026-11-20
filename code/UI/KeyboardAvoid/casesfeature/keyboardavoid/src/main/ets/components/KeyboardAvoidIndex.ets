@@ -245,9 +245,8 @@ export struct KeyboardAvoid {
       this.liftUpComponents()
       this.scalingComponents()
       // TextInput：单行输入框
-      // 关键属性：defaultFocus、key、function toString() { [native code] }、边框
+      // 关键属性：defaultFocus、key、边框
       TextInput().id('keyboard_avoid_index_text_input_11')// TODO：知识点：输入框自动获焦
-        .id('keyboardAvoidTextInput')
         .defaultFocus(true)
         .key($r('app.string.key_board_text_input_key_string').toString())
         .border({
