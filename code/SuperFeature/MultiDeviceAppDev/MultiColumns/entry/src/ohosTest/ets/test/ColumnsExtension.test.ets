@@ -5981,3 +5981,1151 @@ export default function columnsExtensionSuite() {
       model.getMails()[1].num = 0.5;
       expect(model.hasValidMailNums()).assertTrue();
     })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1827
+     * @tc.name    ColumnsExtension1827
+     * @tc.desc    Mail number validation returns false for neg
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5validMail_neg', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails()[1].num = -1;
+      expect(model.hasValidMailNums()).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1828
+     * @tc.name    ColumnsExtension1828
+     * @tc.desc    Mail number validation returns false for tinyNeg
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5validMail_tinyNeg', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails()[1].num = -0.0001;
+      expect(model.hasValidMailNums()).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1829
+     * @tc.name    ColumnsExtension1829
+     * @tc.desc    Positive photo check returns false for zero
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5validPhoto_zero', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[2].count = 0;
+      expect(model.hasPositivePhotoCounts()).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1830
+     * @tc.name    ColumnsExtension1830
+     * @tc.desc    Positive photo check returns false for neg
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5validPhoto_neg', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[2].count = -1;
+      expect(model.hasPositivePhotoCounts()).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1831
+     * @tc.name    ColumnsExtension1831
+     * @tc.desc    Positive photo check returns false for tinyNeg
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5validPhoto_tinyNeg', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[2].count = -0.5;
+      expect(model.hasPositivePhotoCounts()).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1832
+     * @tc.name    ColumnsExtension1832
+     * @tc.desc    Positive photo check returns true for half
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5validPhoto_half', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[2].count = 0.5;
+      expect(model.hasPositivePhotoCounts()).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1833
+     * @tc.name    ColumnsExtension1833
+     * @tc.desc    Positive photo check returns true for one
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5validPhoto_one', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[2].count = 1;
+      expect(model.hasPositivePhotoCounts()).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1834
+     * @tc.name    ColumnsExtension1834
+     * @tc.desc    Navbar ratio constant is 0.4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5const_ratio', 0, () => {
+      expect(COLUMNS_NAVBAR_RATIO).assertEqual(0.4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1835
+     * @tc.name    ColumnsExtension1835
+     * @tc.desc    Navbar ratio validity holds
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5const_ratioValid', 0, () => {
+      expect(new ColumnsModel().isRatioValid()).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1836
+     * @tc.name    ColumnsExtension1836
+     * @tc.desc    Mail kind constant is 3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5const_mailKinds', 0, () => {
+      expect(COLUMNS_MAIL_KINDS).assertEqual(3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1837
+     * @tc.name    ColumnsExtension1837
+     * @tc.desc    Photo kind constant is 4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5const_photoKinds', 0, () => {
+      expect(COLUMNS_PHOTO_KINDS).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1838
+     * @tc.name    ColumnsExtension1838
+     * @tc.desc    Ten navbar ratios equal 4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5const_ratioTimesTen', 0, () => {
+      expect(COLUMNS_NAVBAR_RATIO * 10).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1839
+     * @tc.name    ColumnsExtension1839
+     * @tc.desc    Navbar and content widths keep the ratio split at window 605
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0605', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(605)).assertEqual(242);
+      expect(model.contentWidth(605)).assertEqual(363);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1840
+     * @tc.name    ColumnsExtension1840
+     * @tc.desc    Navbar and content widths keep the ratio split at window 610
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0610', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(610)).assertEqual(244);
+      expect(model.contentWidth(610)).assertEqual(366);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1841
+     * @tc.name    ColumnsExtension1841
+     * @tc.desc    Navbar and content widths keep the ratio split at window 615
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0615', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(615)).assertEqual(246);
+      expect(model.contentWidth(615)).assertEqual(369);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1842
+     * @tc.name    ColumnsExtension1842
+     * @tc.desc    Navbar and content widths keep the ratio split at window 620
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0620', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(620)).assertEqual(248);
+      expect(model.contentWidth(620)).assertEqual(372);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1843
+     * @tc.name    ColumnsExtension1843
+     * @tc.desc    Navbar and content widths keep the ratio split at window 625
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0625', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(625)).assertEqual(250);
+      expect(model.contentWidth(625)).assertEqual(375);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1844
+     * @tc.name    ColumnsExtension1844
+     * @tc.desc    Navbar and content widths keep the ratio split at window 630
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0630', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(630)).assertEqual(252);
+      expect(model.contentWidth(630)).assertEqual(378);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1845
+     * @tc.name    ColumnsExtension1845
+     * @tc.desc    Navbar and content widths keep the ratio split at window 635
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0635', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(635)).assertEqual(254);
+      expect(model.contentWidth(635)).assertEqual(381);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1846
+     * @tc.name    ColumnsExtension1846
+     * @tc.desc    Navbar and content widths keep the ratio split at window 640
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0640', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(640)).assertEqual(256);
+      expect(model.contentWidth(640)).assertEqual(384);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1847
+     * @tc.name    ColumnsExtension1847
+     * @tc.desc    Navbar and content widths keep the ratio split at window 645
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0645', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(645)).assertEqual(258);
+      expect(model.contentWidth(645)).assertEqual(387);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1848
+     * @tc.name    ColumnsExtension1848
+     * @tc.desc    Navbar and content widths keep the ratio split at window 650
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0650', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(650)).assertEqual(260);
+      expect(model.contentWidth(650)).assertEqual(390);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1849
+     * @tc.name    ColumnsExtension1849
+     * @tc.desc    Navbar and content widths keep the ratio split at window 655
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0655', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(655)).assertEqual(262);
+      expect(model.contentWidth(655)).assertEqual(393);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1850
+     * @tc.name    ColumnsExtension1850
+     * @tc.desc    Navbar and content widths keep the ratio split at window 660
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0660', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(660)).assertEqual(264);
+      expect(model.contentWidth(660)).assertEqual(396);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1851
+     * @tc.name    ColumnsExtension1851
+     * @tc.desc    Navbar and content widths keep the ratio split at window 665
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0665', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(665)).assertEqual(266);
+      expect(model.contentWidth(665)).assertEqual(399);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1852
+     * @tc.name    ColumnsExtension1852
+     * @tc.desc    Navbar and content widths keep the ratio split at window 670
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0670', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(670)).assertEqual(268);
+      expect(model.contentWidth(670)).assertEqual(402);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1853
+     * @tc.name    ColumnsExtension1853
+     * @tc.desc    Navbar and content widths keep the ratio split at window 675
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0675', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(675)).assertEqual(270);
+      expect(model.contentWidth(675)).assertEqual(405);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1854
+     * @tc.name    ColumnsExtension1854
+     * @tc.desc    Navbar and content widths keep the ratio split at window 680
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0680', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(680)).assertEqual(272);
+      expect(model.contentWidth(680)).assertEqual(408);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1855
+     * @tc.name    ColumnsExtension1855
+     * @tc.desc    Navbar and content widths keep the ratio split at window 685
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0685', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(685)).assertEqual(274);
+      expect(model.contentWidth(685)).assertEqual(411);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1856
+     * @tc.name    ColumnsExtension1856
+     * @tc.desc    Navbar and content widths keep the ratio split at window 690
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0690', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(690)).assertEqual(276);
+      expect(model.contentWidth(690)).assertEqual(414);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1857
+     * @tc.name    ColumnsExtension1857
+     * @tc.desc    Navbar and content widths keep the ratio split at window 695
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0695', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(695)).assertEqual(278);
+      expect(model.contentWidth(695)).assertEqual(417);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1858
+     * @tc.name    ColumnsExtension1858
+     * @tc.desc    Navbar and content widths keep the ratio split at window 700
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0700', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(700)).assertEqual(280);
+      expect(model.contentWidth(700)).assertEqual(420);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1859
+     * @tc.name    ColumnsExtension1859
+     * @tc.desc    Navbar and content widths keep the ratio split at window 705
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0705', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(705)).assertEqual(282);
+      expect(model.contentWidth(705)).assertEqual(423);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1860
+     * @tc.name    ColumnsExtension1860
+     * @tc.desc    Navbar and content widths keep the ratio split at window 710
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0710', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(710)).assertEqual(284);
+      expect(model.contentWidth(710)).assertEqual(426);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1861
+     * @tc.name    ColumnsExtension1861
+     * @tc.desc    Navbar and content widths keep the ratio split at window 715
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0715', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(715)).assertEqual(286);
+      expect(model.contentWidth(715)).assertEqual(429);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1862
+     * @tc.name    ColumnsExtension1862
+     * @tc.desc    Navbar and content widths keep the ratio split at window 720
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0720', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(720)).assertEqual(288);
+      expect(model.contentWidth(720)).assertEqual(432);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1863
+     * @tc.name    ColumnsExtension1863
+     * @tc.desc    Navbar and content widths keep the ratio split at window 725
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0725', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(725)).assertEqual(290);
+      expect(model.contentWidth(725)).assertEqual(435);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1864
+     * @tc.name    ColumnsExtension1864
+     * @tc.desc    Navbar and content widths keep the ratio split at window 730
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0730', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(730)).assertEqual(292);
+      expect(model.contentWidth(730)).assertEqual(438);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1865
+     * @tc.name    ColumnsExtension1865
+     * @tc.desc    Navbar and content widths keep the ratio split at window 735
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0735', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(735)).assertEqual(294);
+      expect(model.contentWidth(735)).assertEqual(441);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1866
+     * @tc.name    ColumnsExtension1866
+     * @tc.desc    Navbar and content widths keep the ratio split at window 740
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0740', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(740)).assertEqual(296);
+      expect(model.contentWidth(740)).assertEqual(444);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1867
+     * @tc.name    ColumnsExtension1867
+     * @tc.desc    Navbar and content widths keep the ratio split at window 745
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0745', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(745)).assertEqual(298);
+      expect(model.contentWidth(745)).assertEqual(447);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1868
+     * @tc.name    ColumnsExtension1868
+     * @tc.desc    Navbar and content widths keep the ratio split at window 750
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0750', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(750)).assertEqual(300);
+      expect(model.contentWidth(750)).assertEqual(450);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1869
+     * @tc.name    ColumnsExtension1869
+     * @tc.desc    Navbar and content widths keep the ratio split at window 755
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0755', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(755)).assertEqual(302);
+      expect(model.contentWidth(755)).assertEqual(453);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1870
+     * @tc.name    ColumnsExtension1870
+     * @tc.desc    Navbar and content widths keep the ratio split at window 760
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0760', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(760)).assertEqual(304);
+      expect(model.contentWidth(760)).assertEqual(456);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1871
+     * @tc.name    ColumnsExtension1871
+     * @tc.desc    Navbar and content widths keep the ratio split at window 765
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0765', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(765)).assertEqual(306);
+      expect(model.contentWidth(765)).assertEqual(459);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1872
+     * @tc.name    ColumnsExtension1872
+     * @tc.desc    Navbar and content widths keep the ratio split at window 770
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0770', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(770)).assertEqual(308);
+      expect(model.contentWidth(770)).assertEqual(462);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1873
+     * @tc.name    ColumnsExtension1873
+     * @tc.desc    Navbar and content widths keep the ratio split at window 775
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0775', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(775)).assertEqual(310);
+      expect(model.contentWidth(775)).assertEqual(465);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1874
+     * @tc.name    ColumnsExtension1874
+     * @tc.desc    Navbar and content widths keep the ratio split at window 780
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0780', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(780)).assertEqual(312);
+      expect(model.contentWidth(780)).assertEqual(468);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1875
+     * @tc.name    ColumnsExtension1875
+     * @tc.desc    Navbar and content widths keep the ratio split at window 785
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0785', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(785)).assertEqual(314);
+      expect(model.contentWidth(785)).assertEqual(471);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1876
+     * @tc.name    ColumnsExtension1876
+     * @tc.desc    Navbar and content widths keep the ratio split at window 790
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0790', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(790)).assertEqual(316);
+      expect(model.contentWidth(790)).assertEqual(474);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1877
+     * @tc.name    ColumnsExtension1877
+     * @tc.desc    Navbar and content widths keep the ratio split at window 795
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0795', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(795)).assertEqual(318);
+      expect(model.contentWidth(795)).assertEqual(477);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1878
+     * @tc.name    ColumnsExtension1878
+     * @tc.desc    Navbar and content widths keep the ratio split at window 800
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ww0800', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.navbarWidth(800)).assertEqual(320);
+      expect(model.contentWidth(800)).assertEqual(480);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1879
+     * @tc.name    ColumnsExtension1879
+     * @tc.desc    Sample average of a wide pair stays exact at 3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5avg2_01', 0, () => {
+      expect(averageOf([1, 5])).assertEqual(3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1880
+     * @tc.name    ColumnsExtension1880
+     * @tc.desc    Sample average of a wide pair stays exact at 5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5avg2_03', 0, () => {
+      expect(averageOf([3, 7])).assertEqual(5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1881
+     * @tc.name    ColumnsExtension1881
+     * @tc.desc    Sample average of a wide pair stays exact at 6
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5avg2_04', 0, () => {
+      expect(averageOf([4, 8])).assertEqual(6);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1882
+     * @tc.name    ColumnsExtension1882
+     * @tc.desc    Sample average of a wide pair stays exact at 7
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5avg2_05', 0, () => {
+      expect(averageOf([5, 9])).assertEqual(7);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1883
+     * @tc.name    ColumnsExtension1883
+     * @tc.desc    Sample average of a wide pair stays exact at 8
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5avg2_06', 0, () => {
+      expect(averageOf([6, 10])).assertEqual(8);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1884
+     * @tc.name    ColumnsExtension1884
+     * @tc.desc    Sample average of a wide pair stays exact at 9
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5avg2_07', 0, () => {
+      expect(averageOf([7, 11])).assertEqual(9);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1885
+     * @tc.name    ColumnsExtension1885
+     * @tc.desc    Sample average of a wide pair stays exact at 10
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5avg2_08', 0, () => {
+      expect(averageOf([8, 12])).assertEqual(10);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1886
+     * @tc.name    ColumnsExtension1886
+     * @tc.desc    Sample average of a wide pair stays exact at 11
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5avg2_09', 0, () => {
+      expect(averageOf([9, 13])).assertEqual(11);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1887
+     * @tc.name    ColumnsExtension1887
+     * @tc.desc    Sample average of a wide pair stays exact at 12
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5avg2_10', 0, () => {
+      expect(averageOf([10, 14])).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1888
+     * @tc.name    ColumnsExtension1888
+     * @tc.desc    Sample range of a wide pair stays exact at 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5rng2_01', 0, () => {
+      expect(rangeOf([1, 101])).assertEqual(100);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1889
+     * @tc.name    ColumnsExtension1889
+     * @tc.desc    Sample range of a wide pair stays exact at 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5rng2_02', 0, () => {
+      expect(rangeOf([2, 102])).assertEqual(100);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1890
+     * @tc.name    ColumnsExtension1890
+     * @tc.desc    Sample range of a wide pair stays exact at 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5rng2_03', 0, () => {
+      expect(rangeOf([3, 103])).assertEqual(100);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1891
+     * @tc.name    ColumnsExtension1891
+     * @tc.desc    Sample range of a wide pair stays exact at 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5rng2_04', 0, () => {
+      expect(rangeOf([4, 104])).assertEqual(100);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1892
+     * @tc.name    ColumnsExtension1892
+     * @tc.desc    Sample range of a wide pair stays exact at 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5rng2_05', 0, () => {
+      expect(rangeOf([5, 105])).assertEqual(100);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1893
+     * @tc.name    ColumnsExtension1893
+     * @tc.desc    Sample range of a wide pair stays exact at 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5rng2_06', 0, () => {
+      expect(rangeOf([6, 106])).assertEqual(100);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1894
+     * @tc.name    ColumnsExtension1894
+     * @tc.desc    Sample range of a wide pair stays exact at 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5rng2_07', 0, () => {
+      expect(rangeOf([7, 107])).assertEqual(100);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1895
+     * @tc.name    ColumnsExtension1895
+     * @tc.desc    Sample range of a wide pair stays exact at 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5rng2_08', 0, () => {
+      expect(rangeOf([8, 108])).assertEqual(100);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1896
+     * @tc.name    ColumnsExtension1896
+     * @tc.desc    Sample range of a wide pair stays exact at 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5rng2_09', 0, () => {
+      expect(rangeOf([9, 109])).assertEqual(100);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1897
+     * @tc.name    ColumnsExtension1897
+     * @tc.desc    Sample range of a wide pair stays exact at 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5rng2_10', 0, () => {
+      expect(rangeOf([10, 110])).assertEqual(100);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1898
+     * @tc.name    ColumnsExtension1898
+     * @tc.desc    Swapping two unread counters keeps the mail total 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5swap0', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      const first: number = model.getMails()[0].num;
+      model.getMails()[0].num = model.getMails()[1].num;
+      model.getMails()[1].num = first;
+      expect(model.getTotalMailNum()).assertEqual(23);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1899
+     * @tc.name    ColumnsExtension1899
+     * @tc.desc    Swapping two unread counters keeps the mail total 2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5swap1', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      const first: number = model.getMails()[1].num;
+      model.getMails()[1].num = model.getMails()[2].num;
+      model.getMails()[2].num = first;
+      expect(model.getTotalMailNum()).assertEqual(23);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1900
+     * @tc.name    ColumnsExtension1900
+     * @tc.desc    Swapping two unread counters keeps the mail total 3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5swap2', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      const first: number = model.getMails()[0].num;
+      model.getMails()[0].num = model.getMails()[2].num;
+      model.getMails()[2].num = first;
+      expect(model.getTotalMailNum()).assertEqual(23);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1901
+     * @tc.name    ColumnsExtension1901
+     * @tc.desc    Swapping two unread counters keeps the mail total 4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5swap3', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      const first: number = model.getMails()[1].num;
+      model.getMails()[1].num = model.getMails()[0].num;
+      model.getMails()[0].num = first;
+      expect(model.getTotalMailNum()).assertEqual(23);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1902
+     * @tc.name    ColumnsExtension1902
+     * @tc.desc    Swapping two unread counters keeps the mail total 5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5swap4', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      const first: number = model.getMails()[2].num;
+      model.getMails()[2].num = model.getMails()[1].num;
+      model.getMails()[1].num = first;
+      expect(model.getTotalMailNum()).assertEqual(23);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1903
+     * @tc.name    ColumnsExtension1903
+     * @tc.desc    Raising photo counter 1 by one raises the total by one
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5inc0', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      const before: number = model.getTotalPhotoCount();
+      model.getPhotos()[0].count = model.getPhotos()[0].count + 1;
+      expect(model.getTotalPhotoCount()).assertEqual(before + 1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1904
+     * @tc.name    ColumnsExtension1904
+     * @tc.desc    Raising photo counter 2 by one raises the total by one
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5inc1', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      const before: number = model.getTotalPhotoCount();
+      model.getPhotos()[1].count = model.getPhotos()[1].count + 1;
+      expect(model.getTotalPhotoCount()).assertEqual(before + 1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1905
+     * @tc.name    ColumnsExtension1905
+     * @tc.desc    Raising photo counter 3 by one raises the total by one
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5inc2', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      const before: number = model.getTotalPhotoCount();
+      model.getPhotos()[2].count = model.getPhotos()[2].count + 1;
+      expect(model.getTotalPhotoCount()).assertEqual(before + 1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1906
+     * @tc.name    ColumnsExtension1906
+     * @tc.desc    Raising photo counter 4 by one raises the total by one
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5inc3', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      const before: number = model.getTotalPhotoCount();
+      model.getPhotos()[3].count = model.getPhotos()[3].count + 1;
+      expect(model.getTotalPhotoCount()).assertEqual(before + 1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1907
+     * @tc.name    ColumnsExtension1907
+     * @tc.desc    Zeroing photo counters 0 and 1 lowers the total accordingly
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5zero2_0', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[0].count = 0;
+      model.getPhotos()[1].count = 0;
+      expect(model.getTotalPhotoCount()).assertEqual(22);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1908
+     * @tc.name    ColumnsExtension1908
+     * @tc.desc    Zeroing photo counters 1 and 2 lowers the total accordingly
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5zero2_1', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[1].count = 0;
+      model.getPhotos()[2].count = 0;
+      expect(model.getTotalPhotoCount()).assertEqual(63);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1909
+     * @tc.name    ColumnsExtension1909
+     * @tc.desc    Zeroing photo counters 2 and 3 lowers the total accordingly
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5zero2_2', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[2].count = 0;
+      model.getPhotos()[3].count = 0;
+      expect(model.getTotalPhotoCount()).assertEqual(69);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1910
+     * @tc.name    ColumnsExtension1910
+     * @tc.desc    Zeroing photo counters 0 and 3 lowers the total accordingly
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5zero2_3', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[0].count = 0;
+      model.getPhotos()[3].count = 0;
+      expect(model.getTotalPhotoCount()).assertEqual(28);
+    })
+  })
+}
