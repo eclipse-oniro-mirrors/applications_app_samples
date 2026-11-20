@@ -1530,26 +1530,1310 @@ function ResourceQualifierPart019() {
     });
 }
 
+function ResourceQualifierPart020() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0497
+     * @tc.name    JsQualifier077
+     * @tc.desc    Qualifier fa-IR at 400 dpi page typicalScene seed 77
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier077', 0, async function () {
+      await yieldThread();
+      const tag = 'fa-IR';
+      const dpi = 400;
+      expect(model.langOf(tag)).assertEqual('fa');
+      expect(model.isRtl('fa')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('fa-xxhdpi');
+      expect(model.routeKeyOf('typicalScene')).assertEqual('app.string.typicalScene');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier077 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0498
+     * @tc.name    JsQualifier078
+     * @tc.desc    Qualifier de-DE at 440 dpi page diversion seed 78
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier078', 0, async function () {
+      await yieldThread();
+      const tag = 'de-DE';
+      const dpi = 440;
+      expect(model.langOf(tag)).assertEqual('de');
+      expect(model.isRtl('de')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('de-xxhdpi');
+      expect(model.routeKeyOf('diversion')).assertEqual('app.string.diversion');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier078 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0499
+     * @tc.name    JsQualifier079
+     * @tc.desc    Qualifier ru-RU at 480 dpi page repeat seed 79
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier079', 0, async function () {
+      await yieldThread();
+      const tag = 'ru-RU';
+      const dpi = 480;
+      expect(model.langOf(tag)).assertEqual('ru');
+      expect(model.isRtl('ru')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ru-xxhdpi');
+      expect(model.routeKeyOf('repeat')).assertEqual('app.string.repeat');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier079 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0500
+     * @tc.name    JsQualifier080
+     * @tc.desc    Qualifier zh-CN at 120 dpi page indentation seed 80
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier080', 0, async function () {
+      await yieldThread();
+      const tag = 'zh-CN';
+      const dpi = 120;
+      expect(model.langOf(tag)).assertEqual('zh');
+      expect(model.isRtl('zh')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('ldpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('zh-ldpi');
+      expect(model.routeKeyOf('indentation')).assertEqual('app.string.indentation');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier080 done');
+    });
+}
+
+function ResourceQualifierPart021() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0501
+     * @tc.name    JsQualifier081
+     * @tc.desc    Qualifier en-US at 160 dpi page banner seed 81
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier081', 0, async function () {
+      await yieldThread();
+      const tag = 'en-US';
+      const dpi = 160;
+      expect(model.langOf(tag)).assertEqual('en');
+      expect(model.isRtl('en')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('mdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('en-mdpi');
+      expect(model.routeKeyOf('banner')).assertEqual('app.string.banner');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier081 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0502
+     * @tc.name    JsQualifier082
+     * @tc.desc    Qualifier ar-EG at 200 dpi page gridRow seed 82
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier082', 0, async function () {
+      await yieldThread();
+      const tag = 'ar-EG';
+      const dpi = 200;
+      expect(model.langOf(tag)).assertEqual('ar');
+      expect(model.isRtl('ar')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('hdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ar-hdpi');
+      expect(model.routeKeyOf('gridRow')).assertEqual('app.string.gridRow');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier082 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0503
+     * @tc.name    JsQualifier083
+     * @tc.desc    Qualifier he-IL at 240 dpi page mediaQuery seed 83
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier083', 0, async function () {
+      await yieldThread();
+      const tag = 'he-IL';
+      const dpi = 240;
+      expect(model.langOf(tag)).assertEqual('he');
+      expect(model.isRtl('he')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('hdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('he-hdpi');
+      expect(model.routeKeyOf('mediaQuery')).assertEqual('app.string.mediaQuery');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier083 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0504
+     * @tc.name    JsQualifier084
+     * @tc.desc    Qualifier fr-FR at 280 dpi page index seed 84
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier084', 0, async function () {
+      await yieldThread();
+      const tag = 'fr-FR';
+      const dpi = 280;
+      expect(model.langOf(tag)).assertEqual('fr');
+      expect(model.isRtl('fr')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('fr-xhdpi');
+      expect(model.routeKeyOf('index')).assertEqual('app.string.index');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier084 done');
+    });
+}
+
+function ResourceQualifierPart022() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0505
+     * @tc.name    JsQualifier085
+     * @tc.desc    Qualifier ja-JP at 320 dpi page atomicLayout seed 85
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier085', 0, async function () {
+      await yieldThread();
+      const tag = 'ja-JP';
+      const dpi = 320;
+      expect(model.langOf(tag)).assertEqual('ja');
+      expect(model.isRtl('ja')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ja-xhdpi');
+      expect(model.routeKeyOf('atomicLayout')).assertEqual('app.string.atomicLayout');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier085 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0506
+     * @tc.name    JsQualifier086
+     * @tc.desc    Qualifier ur-PK at 360 dpi page equipartition seed 86
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier086', 0, async function () {
+      await yieldThread();
+      const tag = 'ur-PK';
+      const dpi = 360;
+      expect(model.langOf(tag)).assertEqual('ur');
+      expect(model.isRtl('ur')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ur-xxhdpi');
+      expect(model.routeKeyOf('equipartition')).assertEqual('app.string.equipartition');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier086 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0507
+     * @tc.name    JsQualifier087
+     * @tc.desc    Qualifier fa-IR at 400 dpi page extension seed 87
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier087', 0, async function () {
+      await yieldThread();
+      const tag = 'fa-IR';
+      const dpi = 400;
+      expect(model.langOf(tag)).assertEqual('fa');
+      expect(model.isRtl('fa')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('fa-xxhdpi');
+      expect(model.routeKeyOf('extension')).assertEqual('app.string.extension');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier087 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0508
+     * @tc.name    JsQualifier088
+     * @tc.desc    Qualifier de-DE at 440 dpi page resource seed 88
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier088', 0, async function () {
+      await yieldThread();
+      const tag = 'de-DE';
+      const dpi = 440;
+      expect(model.langOf(tag)).assertEqual('de');
+      expect(model.isRtl('de')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('de-xxhdpi');
+      expect(model.routeKeyOf('resource')).assertEqual('app.string.resource');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier088 done');
+    });
+}
+
+function ResourceQualifierPart023() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0509
+     * @tc.name    JsQualifier089
+     * @tc.desc    Qualifier ru-RU at 480 dpi page typicalScene seed 89
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier089', 0, async function () {
+      await yieldThread();
+      const tag = 'ru-RU';
+      const dpi = 480;
+      expect(model.langOf(tag)).assertEqual('ru');
+      expect(model.isRtl('ru')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ru-xxhdpi');
+      expect(model.routeKeyOf('typicalScene')).assertEqual('app.string.typicalScene');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier089 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0510
+     * @tc.name    JsQualifier090
+     * @tc.desc    Qualifier zh-CN at 120 dpi page diversion seed 90
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier090', 0, async function () {
+      await yieldThread();
+      const tag = 'zh-CN';
+      const dpi = 120;
+      expect(model.langOf(tag)).assertEqual('zh');
+      expect(model.isRtl('zh')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('ldpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('zh-ldpi');
+      expect(model.routeKeyOf('diversion')).assertEqual('app.string.diversion');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier090 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0511
+     * @tc.name    JsQualifier091
+     * @tc.desc    Qualifier en-US at 160 dpi page repeat seed 91
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier091', 0, async function () {
+      await yieldThread();
+      const tag = 'en-US';
+      const dpi = 160;
+      expect(model.langOf(tag)).assertEqual('en');
+      expect(model.isRtl('en')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('mdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('en-mdpi');
+      expect(model.routeKeyOf('repeat')).assertEqual('app.string.repeat');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier091 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0512
+     * @tc.name    JsQualifier092
+     * @tc.desc    Qualifier ar-EG at 200 dpi page indentation seed 92
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier092', 0, async function () {
+      await yieldThread();
+      const tag = 'ar-EG';
+      const dpi = 200;
+      expect(model.langOf(tag)).assertEqual('ar');
+      expect(model.isRtl('ar')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('hdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ar-hdpi');
+      expect(model.routeKeyOf('indentation')).assertEqual('app.string.indentation');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier092 done');
+    });
+}
+
+function ResourceQualifierPart024() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0513
+     * @tc.name    JsQualifier093
+     * @tc.desc    Qualifier he-IL at 240 dpi page banner seed 93
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier093', 0, async function () {
+      await yieldThread();
+      const tag = 'he-IL';
+      const dpi = 240;
+      expect(model.langOf(tag)).assertEqual('he');
+      expect(model.isRtl('he')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('hdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('he-hdpi');
+      expect(model.routeKeyOf('banner')).assertEqual('app.string.banner');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier093 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0514
+     * @tc.name    JsQualifier094
+     * @tc.desc    Qualifier fr-FR at 280 dpi page gridRow seed 94
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier094', 0, async function () {
+      await yieldThread();
+      const tag = 'fr-FR';
+      const dpi = 280;
+      expect(model.langOf(tag)).assertEqual('fr');
+      expect(model.isRtl('fr')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('fr-xhdpi');
+      expect(model.routeKeyOf('gridRow')).assertEqual('app.string.gridRow');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier094 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0515
+     * @tc.name    JsQualifier095
+     * @tc.desc    Qualifier ja-JP at 320 dpi page mediaQuery seed 95
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier095', 0, async function () {
+      await yieldThread();
+      const tag = 'ja-JP';
+      const dpi = 320;
+      expect(model.langOf(tag)).assertEqual('ja');
+      expect(model.isRtl('ja')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ja-xhdpi');
+      expect(model.routeKeyOf('mediaQuery')).assertEqual('app.string.mediaQuery');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier095 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0516
+     * @tc.name    JsQualifier096
+     * @tc.desc    Qualifier ur-PK at 360 dpi page index seed 96
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier096', 0, async function () {
+      await yieldThread();
+      const tag = 'ur-PK';
+      const dpi = 360;
+      expect(model.langOf(tag)).assertEqual('ur');
+      expect(model.isRtl('ur')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ur-xxhdpi');
+      expect(model.routeKeyOf('index')).assertEqual('app.string.index');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier096 done');
+    });
+}
+
+function ResourceQualifierPart025() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0517
+     * @tc.name    JsQualifier097
+     * @tc.desc    Qualifier fa-IR at 400 dpi page atomicLayout seed 97
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier097', 0, async function () {
+      await yieldThread();
+      const tag = 'fa-IR';
+      const dpi = 400;
+      expect(model.langOf(tag)).assertEqual('fa');
+      expect(model.isRtl('fa')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('fa-xxhdpi');
+      expect(model.routeKeyOf('atomicLayout')).assertEqual('app.string.atomicLayout');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier097 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0518
+     * @tc.name    JsQualifier098
+     * @tc.desc    Qualifier de-DE at 440 dpi page equipartition seed 98
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier098', 0, async function () {
+      await yieldThread();
+      const tag = 'de-DE';
+      const dpi = 440;
+      expect(model.langOf(tag)).assertEqual('de');
+      expect(model.isRtl('de')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('de-xxhdpi');
+      expect(model.routeKeyOf('equipartition')).assertEqual('app.string.equipartition');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier098 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0519
+     * @tc.name    JsQualifier099
+     * @tc.desc    Qualifier ru-RU at 480 dpi page extension seed 99
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier099', 0, async function () {
+      await yieldThread();
+      const tag = 'ru-RU';
+      const dpi = 480;
+      expect(model.langOf(tag)).assertEqual('ru');
+      expect(model.isRtl('ru')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ru-xxhdpi');
+      expect(model.routeKeyOf('extension')).assertEqual('app.string.extension');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier099 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0520
+     * @tc.name    JsQualifier100
+     * @tc.desc    Qualifier zh-CN at 120 dpi page resource seed 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier100', 0, async function () {
+      await yieldThread();
+      const tag = 'zh-CN';
+      const dpi = 120;
+      expect(model.langOf(tag)).assertEqual('zh');
+      expect(model.isRtl('zh')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('ldpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('zh-ldpi');
+      expect(model.routeKeyOf('resource')).assertEqual('app.string.resource');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier100 done');
+    });
+}
+
+function ResourceQualifierPart026() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0521
+     * @tc.name    JsQualifier101
+     * @tc.desc    Qualifier en-US at 160 dpi page typicalScene seed 101
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier101', 0, async function () {
+      await yieldThread();
+      const tag = 'en-US';
+      const dpi = 160;
+      expect(model.langOf(tag)).assertEqual('en');
+      expect(model.isRtl('en')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('mdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('en-mdpi');
+      expect(model.routeKeyOf('typicalScene')).assertEqual('app.string.typicalScene');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier101 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0522
+     * @tc.name    JsQualifier102
+     * @tc.desc    Qualifier ar-EG at 200 dpi page diversion seed 102
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier102', 0, async function () {
+      await yieldThread();
+      const tag = 'ar-EG';
+      const dpi = 200;
+      expect(model.langOf(tag)).assertEqual('ar');
+      expect(model.isRtl('ar')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('hdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ar-hdpi');
+      expect(model.routeKeyOf('diversion')).assertEqual('app.string.diversion');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier102 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0523
+     * @tc.name    JsQualifier103
+     * @tc.desc    Qualifier he-IL at 240 dpi page repeat seed 103
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier103', 0, async function () {
+      await yieldThread();
+      const tag = 'he-IL';
+      const dpi = 240;
+      expect(model.langOf(tag)).assertEqual('he');
+      expect(model.isRtl('he')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('hdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('he-hdpi');
+      expect(model.routeKeyOf('repeat')).assertEqual('app.string.repeat');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier103 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0524
+     * @tc.name    JsQualifier104
+     * @tc.desc    Qualifier fr-FR at 280 dpi page indentation seed 104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier104', 0, async function () {
+      await yieldThread();
+      const tag = 'fr-FR';
+      const dpi = 280;
+      expect(model.langOf(tag)).assertEqual('fr');
+      expect(model.isRtl('fr')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('fr-xhdpi');
+      expect(model.routeKeyOf('indentation')).assertEqual('app.string.indentation');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier104 done');
+    });
+}
+
+function ResourceQualifierPart027() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0525
+     * @tc.name    JsQualifier105
+     * @tc.desc    Qualifier ja-JP at 320 dpi page banner seed 105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier105', 0, async function () {
+      await yieldThread();
+      const tag = 'ja-JP';
+      const dpi = 320;
+      expect(model.langOf(tag)).assertEqual('ja');
+      expect(model.isRtl('ja')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ja-xhdpi');
+      expect(model.routeKeyOf('banner')).assertEqual('app.string.banner');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier105 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0526
+     * @tc.name    JsQualifier106
+     * @tc.desc    Qualifier ur-PK at 360 dpi page gridRow seed 106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier106', 0, async function () {
+      await yieldThread();
+      const tag = 'ur-PK';
+      const dpi = 360;
+      expect(model.langOf(tag)).assertEqual('ur');
+      expect(model.isRtl('ur')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ur-xxhdpi');
+      expect(model.routeKeyOf('gridRow')).assertEqual('app.string.gridRow');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier106 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0527
+     * @tc.name    JsQualifier107
+     * @tc.desc    Qualifier fa-IR at 400 dpi page mediaQuery seed 107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier107', 0, async function () {
+      await yieldThread();
+      const tag = 'fa-IR';
+      const dpi = 400;
+      expect(model.langOf(tag)).assertEqual('fa');
+      expect(model.isRtl('fa')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('fa-xxhdpi');
+      expect(model.routeKeyOf('mediaQuery')).assertEqual('app.string.mediaQuery');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier107 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0528
+     * @tc.name    JsQualifier108
+     * @tc.desc    Qualifier de-DE at 440 dpi page index seed 108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier108', 0, async function () {
+      await yieldThread();
+      const tag = 'de-DE';
+      const dpi = 440;
+      expect(model.langOf(tag)).assertEqual('de');
+      expect(model.isRtl('de')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('de-xxhdpi');
+      expect(model.routeKeyOf('index')).assertEqual('app.string.index');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier108 done');
+    });
+}
+
+function ResourceQualifierPart028() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0529
+     * @tc.name    JsQualifier109
+     * @tc.desc    Qualifier ru-RU at 480 dpi page atomicLayout seed 109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier109', 0, async function () {
+      await yieldThread();
+      const tag = 'ru-RU';
+      const dpi = 480;
+      expect(model.langOf(tag)).assertEqual('ru');
+      expect(model.isRtl('ru')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ru-xxhdpi');
+      expect(model.routeKeyOf('atomicLayout')).assertEqual('app.string.atomicLayout');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier109 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0530
+     * @tc.name    JsQualifier110
+     * @tc.desc    Qualifier zh-CN at 120 dpi page equipartition seed 110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier110', 0, async function () {
+      await yieldThread();
+      const tag = 'zh-CN';
+      const dpi = 120;
+      expect(model.langOf(tag)).assertEqual('zh');
+      expect(model.isRtl('zh')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('ldpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('zh-ldpi');
+      expect(model.routeKeyOf('equipartition')).assertEqual('app.string.equipartition');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier110 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0531
+     * @tc.name    JsQualifier111
+     * @tc.desc    Qualifier en-US at 160 dpi page extension seed 111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier111', 0, async function () {
+      await yieldThread();
+      const tag = 'en-US';
+      const dpi = 160;
+      expect(model.langOf(tag)).assertEqual('en');
+      expect(model.isRtl('en')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('mdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('en-mdpi');
+      expect(model.routeKeyOf('extension')).assertEqual('app.string.extension');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier111 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0532
+     * @tc.name    JsQualifier112
+     * @tc.desc    Qualifier ar-EG at 200 dpi page resource seed 112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier112', 0, async function () {
+      await yieldThread();
+      const tag = 'ar-EG';
+      const dpi = 200;
+      expect(model.langOf(tag)).assertEqual('ar');
+      expect(model.isRtl('ar')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('hdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ar-hdpi');
+      expect(model.routeKeyOf('resource')).assertEqual('app.string.resource');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier112 done');
+    });
+}
+
+function ResourceQualifierPart029() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0533
+     * @tc.name    JsQualifier113
+     * @tc.desc    Qualifier he-IL at 240 dpi page typicalScene seed 113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier113', 0, async function () {
+      await yieldThread();
+      const tag = 'he-IL';
+      const dpi = 240;
+      expect(model.langOf(tag)).assertEqual('he');
+      expect(model.isRtl('he')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('hdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('he-hdpi');
+      expect(model.routeKeyOf('typicalScene')).assertEqual('app.string.typicalScene');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier113 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0534
+     * @tc.name    JsQualifier114
+     * @tc.desc    Qualifier fr-FR at 280 dpi page diversion seed 114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier114', 0, async function () {
+      await yieldThread();
+      const tag = 'fr-FR';
+      const dpi = 280;
+      expect(model.langOf(tag)).assertEqual('fr');
+      expect(model.isRtl('fr')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('fr-xhdpi');
+      expect(model.routeKeyOf('diversion')).assertEqual('app.string.diversion');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier114 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0535
+     * @tc.name    JsQualifier115
+     * @tc.desc    Qualifier ja-JP at 320 dpi page repeat seed 115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier115', 0, async function () {
+      await yieldThread();
+      const tag = 'ja-JP';
+      const dpi = 320;
+      expect(model.langOf(tag)).assertEqual('ja');
+      expect(model.isRtl('ja')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ja-xhdpi');
+      expect(model.routeKeyOf('repeat')).assertEqual('app.string.repeat');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier115 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0536
+     * @tc.name    JsQualifier116
+     * @tc.desc    Qualifier ur-PK at 360 dpi page indentation seed 116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier116', 0, async function () {
+      await yieldThread();
+      const tag = 'ur-PK';
+      const dpi = 360;
+      expect(model.langOf(tag)).assertEqual('ur');
+      expect(model.isRtl('ur')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ur-xxhdpi');
+      expect(model.routeKeyOf('indentation')).assertEqual('app.string.indentation');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier116 done');
+    });
+}
+
+function ResourceQualifierPart030() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0537
+     * @tc.name    JsQualifier117
+     * @tc.desc    Qualifier fa-IR at 400 dpi page banner seed 117
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier117', 0, async function () {
+      await yieldThread();
+      const tag = 'fa-IR';
+      const dpi = 400;
+      expect(model.langOf(tag)).assertEqual('fa');
+      expect(model.isRtl('fa')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('fa-xxhdpi');
+      expect(model.routeKeyOf('banner')).assertEqual('app.string.banner');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier117 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0538
+     * @tc.name    JsQualifier118
+     * @tc.desc    Qualifier de-DE at 440 dpi page gridRow seed 118
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier118', 0, async function () {
+      await yieldThread();
+      const tag = 'de-DE';
+      const dpi = 440;
+      expect(model.langOf(tag)).assertEqual('de');
+      expect(model.isRtl('de')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('de-xxhdpi');
+      expect(model.routeKeyOf('gridRow')).assertEqual('app.string.gridRow');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier118 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0539
+     * @tc.name    JsQualifier119
+     * @tc.desc    Qualifier ru-RU at 480 dpi page mediaQuery seed 119
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier119', 0, async function () {
+      await yieldThread();
+      const tag = 'ru-RU';
+      const dpi = 480;
+      expect(model.langOf(tag)).assertEqual('ru');
+      expect(model.isRtl('ru')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ru-xxhdpi');
+      expect(model.routeKeyOf('mediaQuery')).assertEqual('app.string.mediaQuery');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier119 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0540
+     * @tc.name    JsQualifier120
+     * @tc.desc    Qualifier zh-CN at 120 dpi page index seed 120
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier120', 0, async function () {
+      await yieldThread();
+      const tag = 'zh-CN';
+      const dpi = 120;
+      expect(model.langOf(tag)).assertEqual('zh');
+      expect(model.isRtl('zh')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('ldpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('zh-ldpi');
+      expect(model.routeKeyOf('index')).assertEqual('app.string.index');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier120 done');
+    });
+}
+
+function ResourceQualifierPart031() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0541
+     * @tc.name    JsQualifier121
+     * @tc.desc    Qualifier en-US at 160 dpi page atomicLayout seed 121
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier121', 0, async function () {
+      await yieldThread();
+      const tag = 'en-US';
+      const dpi = 160;
+      expect(model.langOf(tag)).assertEqual('en');
+      expect(model.isRtl('en')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('mdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('en-mdpi');
+      expect(model.routeKeyOf('atomicLayout')).assertEqual('app.string.atomicLayout');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier121 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0542
+     * @tc.name    JsQualifier122
+     * @tc.desc    Qualifier ar-EG at 200 dpi page equipartition seed 122
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier122', 0, async function () {
+      await yieldThread();
+      const tag = 'ar-EG';
+      const dpi = 200;
+      expect(model.langOf(tag)).assertEqual('ar');
+      expect(model.isRtl('ar')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('hdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ar-hdpi');
+      expect(model.routeKeyOf('equipartition')).assertEqual('app.string.equipartition');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier122 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0543
+     * @tc.name    JsQualifier123
+     * @tc.desc    Qualifier he-IL at 240 dpi page extension seed 123
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier123', 0, async function () {
+      await yieldThread();
+      const tag = 'he-IL';
+      const dpi = 240;
+      expect(model.langOf(tag)).assertEqual('he');
+      expect(model.isRtl('he')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('hdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('he-hdpi');
+      expect(model.routeKeyOf('extension')).assertEqual('app.string.extension');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier123 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0544
+     * @tc.name    JsQualifier124
+     * @tc.desc    Qualifier fr-FR at 280 dpi page resource seed 124
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier124', 0, async function () {
+      await yieldThread();
+      const tag = 'fr-FR';
+      const dpi = 280;
+      expect(model.langOf(tag)).assertEqual('fr');
+      expect(model.isRtl('fr')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('fr-xhdpi');
+      expect(model.routeKeyOf('resource')).assertEqual('app.string.resource');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier124 done');
+    });
+}
+
+function ResourceQualifierPart032() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0545
+     * @tc.name    JsQualifier125
+     * @tc.desc    Qualifier ja-JP at 320 dpi page typicalScene seed 125
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier125', 0, async function () {
+      await yieldThread();
+      const tag = 'ja-JP';
+      const dpi = 320;
+      expect(model.langOf(tag)).assertEqual('ja');
+      expect(model.isRtl('ja')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ja-xhdpi');
+      expect(model.routeKeyOf('typicalScene')).assertEqual('app.string.typicalScene');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier125 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0546
+     * @tc.name    JsQualifier126
+     * @tc.desc    Qualifier ur-PK at 360 dpi page diversion seed 126
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier126', 0, async function () {
+      await yieldThread();
+      const tag = 'ur-PK';
+      const dpi = 360;
+      expect(model.langOf(tag)).assertEqual('ur');
+      expect(model.isRtl('ur')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ur-xxhdpi');
+      expect(model.routeKeyOf('diversion')).assertEqual('app.string.diversion');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier126 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0547
+     * @tc.name    JsQualifier127
+     * @tc.desc    Qualifier fa-IR at 400 dpi page repeat seed 127
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier127', 0, async function () {
+      await yieldThread();
+      const tag = 'fa-IR';
+      const dpi = 400;
+      expect(model.langOf(tag)).assertEqual('fa');
+      expect(model.isRtl('fa')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('fa-xxhdpi');
+      expect(model.routeKeyOf('repeat')).assertEqual('app.string.repeat');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier127 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0548
+     * @tc.name    JsQualifier128
+     * @tc.desc    Qualifier de-DE at 440 dpi page indentation seed 128
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier128', 0, async function () {
+      await yieldThread();
+      const tag = 'de-DE';
+      const dpi = 440;
+      expect(model.langOf(tag)).assertEqual('de');
+      expect(model.isRtl('de')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('de-xxhdpi');
+      expect(model.routeKeyOf('indentation')).assertEqual('app.string.indentation');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier128 done');
+    });
+}
+
+function ResourceQualifierPart033() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0549
+     * @tc.name    JsQualifier129
+     * @tc.desc    Qualifier ru-RU at 480 dpi page banner seed 129
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier129', 0, async function () {
+      await yieldThread();
+      const tag = 'ru-RU';
+      const dpi = 480;
+      expect(model.langOf(tag)).assertEqual('ru');
+      expect(model.isRtl('ru')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ru-xxhdpi');
+      expect(model.routeKeyOf('banner')).assertEqual('app.string.banner');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier129 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0550
+     * @tc.name    JsQualifier130
+     * @tc.desc    Qualifier zh-CN at 120 dpi page gridRow seed 130
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier130', 0, async function () {
+      await yieldThread();
+      const tag = 'zh-CN';
+      const dpi = 120;
+      expect(model.langOf(tag)).assertEqual('zh');
+      expect(model.isRtl('zh')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('ldpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('zh-ldpi');
+      expect(model.routeKeyOf('gridRow')).assertEqual('app.string.gridRow');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier130 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0551
+     * @tc.name    JsQualifier131
+     * @tc.desc    Qualifier en-US at 160 dpi page mediaQuery seed 131
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier131', 0, async function () {
+      await yieldThread();
+      const tag = 'en-US';
+      const dpi = 160;
+      expect(model.langOf(tag)).assertEqual('en');
+      expect(model.isRtl('en')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('mdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('en-mdpi');
+      expect(model.routeKeyOf('mediaQuery')).assertEqual('app.string.mediaQuery');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier131 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0552
+     * @tc.name    JsQualifier132
+     * @tc.desc    Qualifier ar-EG at 200 dpi page index seed 132
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier132', 0, async function () {
+      await yieldThread();
+      const tag = 'ar-EG';
+      const dpi = 200;
+      expect(model.langOf(tag)).assertEqual('ar');
+      expect(model.isRtl('ar')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('hdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ar-hdpi');
+      expect(model.routeKeyOf('index')).assertEqual('app.string.index');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier132 done');
+    });
+}
+
+function ResourceQualifierPart034() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0553
+     * @tc.name    JsQualifier133
+     * @tc.desc    Qualifier he-IL at 240 dpi page atomicLayout seed 133
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier133', 0, async function () {
+      await yieldThread();
+      const tag = 'he-IL';
+      const dpi = 240;
+      expect(model.langOf(tag)).assertEqual('he');
+      expect(model.isRtl('he')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('hdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('he-hdpi');
+      expect(model.routeKeyOf('atomicLayout')).assertEqual('app.string.atomicLayout');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier133 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0554
+     * @tc.name    JsQualifier134
+     * @tc.desc    Qualifier fr-FR at 280 dpi page equipartition seed 134
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier134', 0, async function () {
+      await yieldThread();
+      const tag = 'fr-FR';
+      const dpi = 280;
+      expect(model.langOf(tag)).assertEqual('fr');
+      expect(model.isRtl('fr')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('fr-xhdpi');
+      expect(model.routeKeyOf('equipartition')).assertEqual('app.string.equipartition');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier134 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0555
+     * @tc.name    JsQualifier135
+     * @tc.desc    Qualifier ja-JP at 320 dpi page extension seed 135
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier135', 0, async function () {
+      await yieldThread();
+      const tag = 'ja-JP';
+      const dpi = 320;
+      expect(model.langOf(tag)).assertEqual('ja');
+      expect(model.isRtl('ja')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ja-xhdpi');
+      expect(model.routeKeyOf('extension')).assertEqual('app.string.extension');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier135 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0556
+     * @tc.name    JsQualifier136
+     * @tc.desc    Qualifier ur-PK at 360 dpi page resource seed 136
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier136', 0, async function () {
+      await yieldThread();
+      const tag = 'ur-PK';
+      const dpi = 360;
+      expect(model.langOf(tag)).assertEqual('ur');
+      expect(model.isRtl('ur')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ur-xxhdpi');
+      expect(model.routeKeyOf('resource')).assertEqual('app.string.resource');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier136 done');
+    });
+}
+
+function ResourceQualifierPart035() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0557
+     * @tc.name    JsQualifier137
+     * @tc.desc    Qualifier fa-IR at 400 dpi page typicalScene seed 137
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier137', 0, async function () {
+      await yieldThread();
+      const tag = 'fa-IR';
+      const dpi = 400;
+      expect(model.langOf(tag)).assertEqual('fa');
+      expect(model.isRtl('fa')).assertEqual(true);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('fa-xxhdpi');
+      expect(model.routeKeyOf('typicalScene')).assertEqual('app.string.typicalScene');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier137 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0558
+     * @tc.name    JsQualifier138
+     * @tc.desc    Qualifier de-DE at 440 dpi page diversion seed 138
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier138', 0, async function () {
+      await yieldThread();
+      const tag = 'de-DE';
+      const dpi = 440;
+      expect(model.langOf(tag)).assertEqual('de');
+      expect(model.isRtl('de')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('de-xxhdpi');
+      expect(model.routeKeyOf('diversion')).assertEqual('app.string.diversion');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier138 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0559
+     * @tc.name    JsQualifier139
+     * @tc.desc    Qualifier ru-RU at 480 dpi page repeat seed 139
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier139', 0, async function () {
+      await yieldThread();
+      const tag = 'ru-RU';
+      const dpi = 480;
+      expect(model.langOf(tag)).assertEqual('ru');
+      expect(model.isRtl('ru')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('xxhdpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('ru-xxhdpi');
+      expect(model.routeKeyOf('repeat')).assertEqual('app.string.repeat');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier139 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0560
+     * @tc.name    JsQualifier140
+     * @tc.desc    Qualifier zh-CN at 120 dpi page indentation seed 140
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsQualifier140', 0, async function () {
+      await yieldThread();
+      const tag = 'zh-CN';
+      const dpi = 120;
+      expect(model.langOf(tag)).assertEqual('zh');
+      expect(model.isRtl('zh')).assertEqual(false);
+      expect(model.densityBucket(dpi)).assertEqual('ldpi');
+      expect(model.qualifierOf(tag, dpi)).assertEqual('zh-ldpi');
+      expect(model.routeKeyOf('indentation')).assertEqual('app.string.indentation');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsQualifier140 done');
+    });
+}
+
+function ResourceQualifierGroup001() {
+  ResourceQualifierPart001();
+  ResourceQualifierPart002();
+  ResourceQualifierPart003();
+  ResourceQualifierPart004();
+  ResourceQualifierPart005();
+  ResourceQualifierPart006();
+  ResourceQualifierPart007();
+  ResourceQualifierPart008();
+  ResourceQualifierPart009();
+  ResourceQualifierPart010();
+  ResourceQualifierPart011();
+  ResourceQualifierPart012();
+  ResourceQualifierPart013();
+  ResourceQualifierPart014();
+  ResourceQualifierPart015();
+  ResourceQualifierPart016();
+  ResourceQualifierPart017();
+  ResourceQualifierPart018();
+  ResourceQualifierPart019();
+  ResourceQualifierPart020();
+  ResourceQualifierPart021();
+  ResourceQualifierPart022();
+  ResourceQualifierPart023();
+  ResourceQualifierPart024();
+  ResourceQualifierPart025();
+  ResourceQualifierPart026();
+  ResourceQualifierPart027();
+  ResourceQualifierPart028();
+  ResourceQualifierPart029();
+  ResourceQualifierPart030();
+  ResourceQualifierPart031();
+  ResourceQualifierPart032();
+  ResourceQualifierPart033();
+  ResourceQualifierPart034();
+  ResourceQualifierPart035();
+}
+
 export default function resourceQualifierSuite() {
   describe('ResourceQualifierSuite', function () {
-    ResourceQualifierPart001();
-    ResourceQualifierPart002();
-    ResourceQualifierPart003();
-    ResourceQualifierPart004();
-    ResourceQualifierPart005();
-    ResourceQualifierPart006();
-    ResourceQualifierPart007();
-    ResourceQualifierPart008();
-    ResourceQualifierPart009();
-    ResourceQualifierPart010();
-    ResourceQualifierPart011();
-    ResourceQualifierPart012();
-    ResourceQualifierPart013();
-    ResourceQualifierPart014();
-    ResourceQualifierPart015();
-    ResourceQualifierPart016();
-    ResourceQualifierPart017();
-    ResourceQualifierPart018();
-    ResourceQualifierPart019();
+    ResourceQualifierGroup001();
   });
 }
