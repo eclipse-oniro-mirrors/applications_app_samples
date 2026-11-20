@@ -69,7 +69,7 @@ export default function searchPageStateInputTest(): void {
       expect(subject.results[0]).assertEqual('XComponent + Vsync \u5b9e\u73b0\u81ea\u5b9a\u4e49\u52a8\u753b');
       logInfo(`input(value="x") state: subject.results[2]=${subject.results[2]}`);
       expect(subject.results[2])
-        .assertEqual('Text\u5b9e\u73b0\u90e8\u5206\u6587\u672c\u9ad8\u4eae\u548c\u8d85\u94fe\u63a5\u6837\u5f0f');
+        .assertEqual('Text实现部分文本高亮和超链接样式');
       logInfo(`${BUNDLE}SearchPageStateInput_0002 end`);
     });
 
