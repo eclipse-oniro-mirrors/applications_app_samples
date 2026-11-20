@@ -57,7 +57,7 @@
 | `UiLayoutReal.test.ets` | UILA | 40 | 995 | MEDIUMTEST | Level0 15 / Level1 25 |
 | **合计** | - | **2461** | **55,730** | - | Level0 2214 / Level1 247 |
 
-> L1 套件预置条件统一为「已安装测试 HAP，测试模块资源可按 `entry_test` 加载」；UI 与冒烟套件统一为「已安装测试 HAP，应用已启动并停在首页」，UI 套件另需设备已解锁且无系统弹窗（AAMS 连接）。下表只写与单个用例相关的额外前置。
+> 一级套件预置条件统一为「已安装测试 HAP，测试模块资源可按 `entry_test` 加载」；UI 与冒烟套件统一为「已安装测试 HAP，应用已启动并停在首页」，UI 套件另需设备已解锁且无系统弹窗（AAMS 连接）。下表只写与单个用例相关的额外前置。
 >
 > 手写与 UI 探针套件一例一行；规格回归套件按输入族归档为「主体展开 + 锚点用例」，行内条数与该套件用例数、上表逐行可核。
 
@@ -691,7 +691,7 @@ key 读取顺序：返回值与赋值、读取顺序无关。
 
 ## UiLayoutReal 套件（`UiLayoutReal.test.ets`，40 条）
 
-页面几何：窗口与标题栏、歌单推荐区与歌曲网格、快捷入口行与播放条、我的歌单页四组，每组 10 条；几何断言按「任意断点都成立」的契约编写，不依赖具体档位。
+页面几何：窗口与标题栏、歌单推荐区与歌曲网格、快捷入口行与播放条、用户歌单页四组，每组 10 条；几何断言按「任意断点都成立」的契约编写，不依赖具体档位。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
@@ -762,18 +762,11 @@ devecocli build --modules entry@ohosTest
 # 产物：entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 ```
 
-安装与执行（需设备授权）：
+安装（需设备授权）：
 
 ```shell
 hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc shell aa test -b com.sample.multimusic -m entry_test -s unittest OpenHarmonyTestRunner
-```
-
-按套件分批运行（`-s class` 指定套件的 describe 名，多个套件用逗号分隔，也可用 `Suite#method` 指定单条用例）：
-
-```shell
-hdc shell aa test -b com.sample.multimusic -m entry_test -s unittest OpenHarmonyTestRunner -s class BreakpointMatrix01 -s timeout 30000
 ```
 
 单进程整跑 2461 条用例会触发 `App died`（`TestFinished-ResultCode: -1`，非用例失败），按下表分 9 批执行（每批 ≤5 个套件 / ≤300 条用例）：
@@ -793,7 +786,7 @@ hdc shell aa test -b com.sample.multimusic -m entry_test -s unittest OpenHarmony
 
 - 判定口径：`OHOS_REPORT_RESULT` 中 `Failure=0` 且 `Error=0`、`Tests run` 等于本批用例数，同时 `TestFinished-ResultCode` 为 `0`；`-2` 表示用例失败，`-1` 表示进程异常。
 - 执行前置条件：UI 套件通过 `@kit.TestKit` 的 `Driver.create()` 连接 AAMS，执行前需保证设备处于解锁状态、无系统弹窗或其它应用占据顶层窗口；若出现 `Can not connect to AAMS, REGISTER_LISTENER_FAILED`，重新跑该批即可恢复。
-- 套件顺序：L1（断点 → 模型 → 歌单 → 资源 → 布局）先跑，L2（页签 → 页面几何）后跑；冒烟套件会请求缩放窗口，单独安排以免影响几何断言。
+- 套件顺序：一级（断点 → 模型 → 歌单 → 资源 → 布局）先跑，二级（页签 → 页面几何）后跑；冒烟套件会请求缩放窗口，单独安排以免影响几何断言。
 
 ## 测试结果
 
@@ -816,11 +809,11 @@ hdc shell aa test -b com.sample.multimusic -m entry_test -s unittest OpenHarmony
 | 测试运行器 | `/ets/testrunner/OpenHarmonyTestRunner` | `-s unittest` |
 | 单用例超时（毫秒） | `30000` | `-s timeout` |
 
-9 批 `Tests run` 分别为 231 / 300 / 300 / 300 / 300 / 300 / 300 / 270 / 160，合计 Pass=2461、Failure=0、Error=0，各批 `TestFinished-ResultCode` 均为 0。只跑指定套件时，在批次命令基础上调整 `-s class <套件名或 Suite#method，逗号分隔>`。
+9 批 `Tests run` 分别为 231 / 300 / 300 / 300 / 300 / 300 / 300 / 270 / 160，合计 Pass=2461、Failure=0、Error=0，各批 `TestFinished-ResultCode` 均为 0。
 
 ## 已知限制
 
 - `src/main` 没有为测试新增 `id`：歌曲格、轮播与快捷入口图标只有文案可定位，图片节点无法按 id 断言。
 - 期望值通过 `getStringByNameSync` / `getStringSync` 在运行设备上按资源名解析，可在 `zh_CN` / `en_US` 设备上直接运行；`module_desc` 等有语言变体的键只按两种合法形式互证。
 - 真机结果采自单台 720×1280 标准系统设备，未在折叠屏、平板等形态上复测；全屏窗口设备上 `ActsAbilityTest` 只验证窗口仍可用，不断言宽度精确等于请求值。
-- L2 几何断言按「任意断点都成立」的契约编写，不依赖具体档位，因此单台设备即可覆盖；三档视觉差异需在预览器或支持窗口拖拽的设备上人工确认。
+- 二级几何断言按「任意断点都成立」的契约编写，不依赖具体档位，因此单台设备即可覆盖；三档视觉差异需在预览器或支持窗口拖拽的设备上人工确认。

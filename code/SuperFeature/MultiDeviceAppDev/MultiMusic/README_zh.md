@@ -2,13 +2,13 @@
 
 ### 介绍
 
-本示例基于「一次开发、多端部署」展示音乐类应用在手机、折叠屏、平板与 2in1 等不同窗口尺寸下的自适应布局。应用包含首页（推荐）、电台、发现、我的（我的歌单）四个页签，其中推荐与我的歌单为完整实现，电台与发现为占位页，用于观察页签方向随断点变化。
+本示例基于「一次开发、多端部署」展示音乐类应用在手机、折叠屏、平板与 2in1 等不同窗口尺寸下的自适应布局。应用包含首页（推荐）、电台、发现、用户（用户歌单）四个页签，其中推荐与用户歌单为完整实现，电台与发现为占位页，用于观察页签方向随断点变化。
 
 界面按窗口断点 `sm` / `md` / `lg` 切换布局：
 
 - **推荐**：使用 [GridRow](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-container-gridrow.md)、[List](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-container-list.md)、[Grid](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-container-grid.md) 与 [Swiper](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-container-swiper.md) 组件，标题栏跨列、轮播图数量、分类入口间距与歌单列数都随断点变化。
-- **我的歌单**：同一份数据在 `sm` 断点渲染为列表（封面、标题、数量、箭头与分隔线），在 `md` / `lg` 断点渲染为 5 / 6 列网格。
-- **页签**：`sm` / `md` 断点在底部横向排列，`lg` 断点切换为左侧纵向 Tabs；迷你播放器在 `sm` / `md` 位于页面底部，在 `lg` 位于页签下方通栏。
+- **用户歌单**：同一份数据在 `sm` 断点渲染为列表（封面、标题、数量、箭头与分隔线），在 `md` / `lg` 断点渲染为 5 / 6 列网格。
+- **页签**：`sm` / `md` 断点在底部横向排列，`lg` 断点切换为左侧纵向 Tabs；播放器在 `sm` / `md` 位于页面底部，在 `lg` 位于页签下方通栏。
 - **断点体系**：所有布局差异由 `BreakpointType` 三元组与 `GridRow.onBreakpointChange` 驱动，子组件统一从 AppStorage 中的 `currentBreakpoint` 读取，不写死尺寸。
 - **多语言资源**：文案全部走 `$r` 资源（`base` / `zh_CN` / `en_US` 三套），自建歌单数量使用 `%d` 格式化资源，便于多语言与后续适配。
 - **自动化测试**：覆盖 37 个套件 / 2461 条用例，用例矩阵与运行方式见 [ohosTest.md](./ohosTest.md)。
@@ -21,7 +21,7 @@
 | ----------------------------------- | ----------------------------------- | ----------------------------------- |
 | ![](screenshots/Devices/image1.png) | ![](screenshots/Devices/image2.png) | ![](screenshots/Devices/image3.png) |
 
-* 我的歌单
+* 用户歌单
 
 | sm 设备                             | md 设备                             | lg 设备                             |
 | ----------------------------------- | ----------------------------------- | ----------------------------------- |
@@ -35,8 +35,8 @@
 
 1. 安装编译生成的 HAP 包并打开应用，默认停在「推荐」页。
 2. 在 DevEco Studio 中打开预览器，或直接拖动应用窗口改变宽度，观察标题栏、轮播图、分类入口与歌单网格在 `sm` / `md` / `lg` 三档下的差异。
-3. 点击底部（`lg` 为左侧）页签，在「推荐」与「我的歌单」之间切换；在 `sm` 下我的歌单为列表形态，在 `md` / `lg` 下为网格形态。
-4. 观察迷你播放器：`sm` / `md` 固定在页面底部，`lg` 固定在页签下方。
+3. 点击底部（`lg` 为左侧）页签，在「推荐」与「用户歌单」之间切换；在 `sm` 下用户歌单为列表形态，在 `md` / `lg` 下为网格形态。
+4. 观察播放器：`sm` / `md` 固定在页面底部，`lg` 固定在页签下方。
 
 ### 工程目录
 
@@ -51,13 +51,13 @@ MultiMusic
    │  │  │  ├──DataSummary.ets             // 推荐歌单冻结数据（12 条）
    │  │  │  └──DataType.ets                // IconItem / OffsetDataType / PaddingDataType / SongType
    │  │  ├──pages
-   │  │  │  └──Index.ets                   // 首页：四页签与迷你播放器
+   │  │  │  └──Index.ets                   // 首页：四页签与播放器
    │  │  └──common
    │  │     ├──BreakpointSystem.ets        // 断点三元组 BreakpointType
    │  │     ├──Constants.ets               // 各组件布局与样式常量
    │  │     ├──RecommendPage.ets           // 推荐页：标题栏、轮播、分类入口、歌单网格
    │  │     ├──TitleBar.ets                // 标题栏
-   │  │     └──UserSongList.ets            // 我的歌单页
+   │  │     └──UserSongList.ets            // 用户歌单页
    │  └──resources                         // 字符串、颜色与图片资源（base / zh_CN / en_US）
    └──ohosTest                             // 自动化测试用例，详见 ohosTest.md
       └──ets
@@ -84,8 +84,8 @@ MultiMusic
 | 轮播形态 | Swiper 1 张 | Swiper 2 张 | 1 大 2 小并列 |
 | 分类入口间距 | 0 | 35vp | 63vp |
 | 推荐歌单列数 | 3 | 5 | 6 |
-| 我的歌单列数 | 1（列表） | 5 | 6 |
-| 迷你播放器位置 | 页内底部 | 页内底部 | 页签下方通栏 |
+| 用户歌单列数 | 1（列表） | 5 | 6 |
+| 播放器位置 | 页内底部 | 页内底部 | 页签下方通栏 |
 
 **标题栏**
 
@@ -101,15 +101,15 @@ MultiMusic
 
 **推荐歌单**
 
-[RecommendPage.ets](entry/src/main/ets/common/RecommendPage.ets) 中的 `SongList` 使用 `Grid` 渲染 12 条冻结数据，列数为 3 / 5 / 6，`columnsTemplate` 由 `BreakpointType` 给出。每个 `GridItem` 在 `onAreaChange` 中按 `Math.ceil(12 / columns)` 计算行数，并把网格高度设为 `(16vp 行距 + 行高) × 行数 − 16vp`；非 `lg` 断点再追加 48vp，为页面底部的迷你播放器留出空间，避免内容被遮挡。
+[RecommendPage.ets](entry/src/main/ets/common/RecommendPage.ets) 中的 `SongList` 使用 `Grid` 渲染 12 条冻结数据，列数为 3 / 5 / 6，`columnsTemplate` 由 `BreakpointType` 给出。每个 `GridItem` 在 `onAreaChange` 中按 `Math.ceil(12 / columns)` 计算行数，并把网格高度设为 `(16vp 行距 + 行高) × 行数 − 16vp`；非 `lg` 断点再追加 48vp，为页面底部的播放器留出空间，避免内容被遮挡。
 
-**我的歌单**
+**用户歌单**
 
 [UserSongList.ets](entry/src/main/ets/common/UserSongList.ets) 内置 13 条 `SongType` 数据（数量 16 至 48）。`sm` 断点下 `Flex` 方向为 `Row`：封面 48vp、标题 16vp、数量 12vp、右侧箭头与 1px 分隔线（左缩进 64vp）；`md` / `lg` 断点下方向改为 `Column`：封面占满单元格宽度并保留 8vp 圆角，标题与数量上下排列。副标题「自建歌单（50首）」由资源 `app.string.build_self_song_count` 与常量 `UserSongListConstants.SELF_BUILD_SONG_COUNT` 组合，语言与数字都可在资源层调整。
 
-**页签与迷你播放器**
+**页签与播放器**
 
-[Index.ets](entry/src/main/ets/pages/Index.ets) 中 `Tabs` 的 `barPosition` 取 `End` / `End` / `Start`，`vertical` 取 `false` / `false` / `true`，`scrollable(false)` 禁止滑动切页，`onChange` 同步当前页签索引用于图标高亮（选中态使用 `ic_*_h` 系列图标）。迷你播放器为 48vp 高的 `MusicPlayer` 组件：`sm` / `md` 由推荐页与我的歌单页在 `Stack` 底部绘制，`lg` 由首页在 `Tabs` 下方绘制，保证各窗口形态下都始终可见。
+[Index.ets](entry/src/main/ets/pages/Index.ets) 中 `Tabs` 的 `barPosition` 取 `End` / `End` / `Start`，`vertical` 取 `false` / `false` / `true`，`scrollable(false)` 禁止滑动切页，`onChange` 同步当前页签索引用于图标高亮（选中态使用 `ic_*_h` 系列图标）。播放器为 48vp 高的 `MusicPlayer` 组件：`sm` / `md` 由推荐页与用户歌单页在 `Stack` 底部绘制，`lg` 由首页在 `Tabs` 下方绘制，保证各窗口形态下都始终可见。
 
 **多语言资源**
 

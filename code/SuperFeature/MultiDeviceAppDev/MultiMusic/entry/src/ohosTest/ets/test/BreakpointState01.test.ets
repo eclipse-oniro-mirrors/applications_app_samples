@@ -199,13 +199,13 @@ export default function breakpointState01Test() {
      */
     it('testBrkOrd010008', 0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testBrkOrd010008 begin');
-      let sut: BreakpointType<string> = new BreakpointType<string>("sm-v8", "md-v8", "lg-v8");
+      let sut: BreakpointType<string> = new BreakpointType<string>("sm-row8", "md-row8", "lg-row8");
       const v0: string | undefined = sut.getValue("sm");
-      hilog.info(DOMAIN, TAG, 'sm actual=%{public}s expected=%{public}s', String(v0), String("sm-v8"));
-      expect(v0).assertEqual("sm-v8");
+      hilog.info(DOMAIN, TAG, 'sm actual=%{public}s expected=%{public}s', String(v0), String("sm-row8"));
+      expect(v0).assertEqual("sm-row8");
       const v1: string | undefined = sut.getValue("lg");
-      hilog.info(DOMAIN, TAG, 'lg actual=%{public}s expected=%{public}s', String(v1), String("lg-v8"));
-      expect(v1).assertEqual("lg-v8");
+      hilog.info(DOMAIN, TAG, 'lg actual=%{public}s expected=%{public}s', String(v1), String("lg-row8"));
+      expect(v1).assertEqual("lg-row8");
       const v2: string | undefined = sut.getValue("mds");
       hilog.info(DOMAIN, TAG, 'invalid-key=%{public}s actual=%{public}s', "mds", String(v2));
       expect(v2).assertUndefined();
