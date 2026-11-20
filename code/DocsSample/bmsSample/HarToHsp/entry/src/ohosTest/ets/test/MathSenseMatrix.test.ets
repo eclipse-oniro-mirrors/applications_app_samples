@@ -987,3 +987,808 @@ export default function mathSenseMatrixTest() {
     expect(Math.abs(24 - 73)).assertEqual(49);
     expect(Math.abs(-24)).assertEqual(24);
     expect(Math.sign(24)).assertEqual(1);
+    expect(Math.sign(-24)).assertEqual(-1);
+    expect(Math.sign(0)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0095
+   * @tc.name      testMathSense0095
+   * @tc.desc      Math pair 25 and 76
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMathSense0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMathSense0095', 'pair 25-76');
+    expect(Math.max(25, 76)).assertEqual(76);
+    expect(Math.min(25, 76)).assertEqual(25);
+    expect(Math.abs(25 - 76)).assertEqual(51);
+    expect(Math.abs(-25)).assertEqual(25);
+    expect(Math.sign(25)).assertEqual(1);
+    expect(Math.sign(-25)).assertEqual(-1);
+    expect(Math.sign(0)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0096
+   * @tc.name      testMathSense0096
+   * @tc.desc      Math pair 26 and 79
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMathSense0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMathSense0096', 'pair 26-79');
+    expect(Math.max(26, 79)).assertEqual(79);
+    expect(Math.min(26, 79)).assertEqual(26);
+    expect(Math.abs(26 - 79)).assertEqual(53);
+    expect(Math.abs(-26)).assertEqual(26);
+    expect(Math.sign(26)).assertEqual(1);
+    expect(Math.sign(-26)).assertEqual(-1);
+    expect(Math.sign(0)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0097
+   * @tc.name      testMathSense0097
+   * @tc.desc      Math pair 27 and 82
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMathSense0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMathSense0097', 'pair 27-82');
+    expect(Math.max(27, 82)).assertEqual(82);
+    expect(Math.min(27, 82)).assertEqual(27);
+    expect(Math.abs(27 - 82)).assertEqual(55);
+    expect(Math.abs(-27)).assertEqual(27);
+    expect(Math.sign(27)).assertEqual(1);
+    expect(Math.sign(-27)).assertEqual(-1);
+    expect(Math.sign(0)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0098
+   * @tc.name      testMathSense0098
+   * @tc.desc      Math pair 28 and 85
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMathSense0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMathSense0098', 'pair 28-85');
+    expect(Math.max(28, 85)).assertEqual(85);
+    expect(Math.min(28, 85)).assertEqual(28);
+    expect(Math.abs(28 - 85)).assertEqual(57);
+    expect(Math.abs(-28)).assertEqual(28);
+    expect(Math.sign(28)).assertEqual(1);
+    expect(Math.sign(-28)).assertEqual(-1);
+    expect(Math.sign(0)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0099
+   * @tc.name      testMathSense0099
+   * @tc.desc      Math pair 29 and 88
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMathSense0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMathSense0099', 'pair 29-88');
+    expect(Math.max(29, 88)).assertEqual(88);
+    expect(Math.min(29, 88)).assertEqual(29);
+    expect(Math.abs(29 - 88)).assertEqual(59);
+    expect(Math.abs(-29)).assertEqual(29);
+    expect(Math.sign(29)).assertEqual(1);
+    expect(Math.sign(-29)).assertEqual(-1);
+    expect(Math.sign(0)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0100
+   * @tc.name      testMathSense0100
+   * @tc.desc      Math pair 30 and 91
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMathSense0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMathSense0100', 'pair 30-91');
+    expect(Math.max(30, 91)).assertEqual(91);
+    expect(Math.min(30, 91)).assertEqual(30);
+    expect(Math.abs(30 - 91)).assertEqual(61);
+    expect(Math.abs(-30)).assertEqual(30);
+    expect(Math.sign(30)).assertEqual(1);
+    expect(Math.sign(-30)).assertEqual(-1);
+    expect(Math.sign(0)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0101
+   * @tc.name      testMathSense0101
+   * @tc.desc      Math trig 0 degrees
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMathSense0101', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMathSense0101', 'trig 0');
+    const radians: number = 0 * Math.PI / 180;
+    expect(Math.abs(Math.sin(radians) - 0.0) < 0.000001).assertTrue();
+    expect(Math.abs(Math.cos(radians) - 1.0) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sin(radians) ** 2 + Math.cos(radians) ** 2 - 1) < 0.000001).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0102
+   * @tc.name      testMathSense0102
+   * @tc.desc      Math trig 30 degrees
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMathSense0102', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMathSense0102', 'trig 30');
+    const radians: number = 30 * Math.PI / 180;
+    expect(Math.abs(Math.sin(radians) - 0.5) < 0.000001).assertTrue();
+    expect(Math.abs(Math.cos(radians) - 0.8660254037844387) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sin(radians) ** 2 + Math.cos(radians) ** 2 - 1) < 0.000001).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0103
+   * @tc.name      testMathSense0103
+   * @tc.desc      Math trig 45 degrees
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMathSense0103', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMathSense0103', 'trig 45');
+    const radians: number = 45 * Math.PI / 180;
+    expect(Math.abs(Math.sin(radians) - 0.7071067811865476) < 0.000001).assertTrue();
+    expect(Math.abs(Math.cos(radians) - 0.7071067811865476) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sin(radians) ** 2 + Math.cos(radians) ** 2 - 1) < 0.000001).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0104
+   * @tc.name      testMathSense0104
+   * @tc.desc      Math trig 60 degrees
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMathSense0104', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMathSense0104', 'trig 60');
+    const radians: number = 60 * Math.PI / 180;
+    expect(Math.abs(Math.sin(radians) - 0.8660254037844387) < 0.000001).assertTrue();
+    expect(Math.abs(Math.cos(radians) - 0.5) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sin(radians) ** 2 + Math.cos(radians) ** 2 - 1) < 0.000001).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0105
+   * @tc.name      testMathSense0105
+   * @tc.desc      Math trig 90 degrees
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMathSense0105', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMathSense0105', 'trig 90');
+    const radians: number = 90 * Math.PI / 180;
+    expect(Math.abs(Math.sin(radians) - 1.0) < 0.000001).assertTrue();
+    expect(Math.abs(Math.cos(radians) - 0.0) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sin(radians) ** 2 + Math.cos(radians) ** 2 - 1) < 0.000001).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0106
+   * @tc.name      testMathSense0106
+   * @tc.desc      Math trig 180 degrees
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMathSense0106', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMathSense0106', 'trig 180');
+    const radians: number = 180 * Math.PI / 180;
+    expect(Math.abs(Math.sin(radians) - 0.0) < 0.000001).assertTrue();
+    expect(Math.abs(Math.cos(radians) - -1.0) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sin(radians) ** 2 + Math.cos(radians) ** 2 - 1) < 0.000001).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0127
+   * @tc.name      testMathSense0127
+   * @tc.desc      Math hypot triple 1
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMathSense0127', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMathSense0127', 'hypot 1');
+    expect(Math.abs(Math.hypot(3, 4) - 5) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sqrt(9 + 16) - 5) < 0.000001).assertTrue();
+    expect(3 * 3 + 4 * 4).assertEqual(25);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0128
+   * @tc.name      testMathSense0128
+   * @tc.desc      Math hypot triple 2
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMathSense0128', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMathSense0128', 'hypot 2');
+    expect(Math.abs(Math.hypot(5, 12) - 13) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sqrt(25 + 144) - 13) < 0.000001).assertTrue();
+    expect(5 * 5 + 12 * 12).assertEqual(169);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0129
+   * @tc.name      testMathSense0129
+   * @tc.desc      Math hypot triple 3
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMathSense0129', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMathSense0129', 'hypot 3');
+    expect(Math.abs(Math.hypot(6, 8) - 10) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sqrt(36 + 64) - 10) < 0.000001).assertTrue();
+    expect(6 * 6 + 8 * 8).assertEqual(100);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0130
+   * @tc.name      testMathSense0130
+   * @tc.desc      Math hypot triple 4
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMathSense0130', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMathSense0130', 'hypot 4');
+    expect(Math.abs(Math.hypot(7, 24) - 25) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sqrt(49 + 576) - 25) < 0.000001).assertTrue();
+    expect(7 * 7 + 24 * 24).assertEqual(625);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0131
+   * @tc.name      testMathSense0131
+   * @tc.desc      Math hypot triple 5
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMathSense0131', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMathSense0131', 'hypot 5');
+    expect(Math.abs(Math.hypot(8, 15) - 17) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sqrt(64 + 225) - 17) < 0.000001).assertTrue();
+    expect(8 * 8 + 15 * 15).assertEqual(289);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0132
+   * @tc.name      testMathSense0132
+   * @tc.desc      Math hypot triple 6
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMathSense0132', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMathSense0132', 'hypot 6');
+    expect(Math.abs(Math.hypot(9, 12) - 15) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sqrt(81 + 144) - 15) < 0.000001).assertTrue();
+    expect(9 * 9 + 12 * 12).assertEqual(225);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0133
+   * @tc.name      testMathSense0133
+   * @tc.desc      Math hypot triple 7
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMathSense0133', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMathSense0133', 'hypot 7');
+    expect(Math.abs(Math.hypot(9, 40) - 41) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sqrt(81 + 1600) - 41) < 0.000001).assertTrue();
+    expect(9 * 9 + 40 * 40).assertEqual(1681);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0134
+   * @tc.name      testMathSense0134
+   * @tc.desc      Math hypot triple 8
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMathSense0134', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMathSense0134', 'hypot 8');
+    expect(Math.abs(Math.hypot(12, 16) - 20) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sqrt(144 + 256) - 20) < 0.000001).assertTrue();
+    expect(12 * 12 + 16 * 16).assertEqual(400);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0135
+   * @tc.name      testMathSense0135
+   * @tc.desc      Math hypot triple 9
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMathSense0135', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMathSense0135', 'hypot 9');
+    expect(Math.abs(Math.hypot(12, 35) - 37) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sqrt(144 + 1225) - 37) < 0.000001).assertTrue();
+    expect(12 * 12 + 35 * 35).assertEqual(1369);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0136
+   * @tc.name      testMathSense0136
+   * @tc.desc      Math hypot triple 10
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMathSense0136', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMathSense0136', 'hypot 10');
+    expect(Math.abs(Math.hypot(15, 20) - 25) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sqrt(225 + 400) - 25) < 0.000001).assertTrue();
+    expect(15 * 15 + 20 * 20).assertEqual(625);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0137
+   * @tc.name      testMathSense0137
+   * @tc.desc      Math hypot triple 11
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMathSense0137', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMathSense0137', 'hypot 11');
+    expect(Math.abs(Math.hypot(16, 30) - 34) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sqrt(256 + 900) - 34) < 0.000001).assertTrue();
+    expect(16 * 16 + 30 * 30).assertEqual(1156);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0138
+   * @tc.name      testMathSense0138
+   * @tc.desc      Math hypot triple 12
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMathSense0138', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMathSense0138', 'hypot 12');
+    expect(Math.abs(Math.hypot(20, 21) - 29) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sqrt(400 + 441) - 29) < 0.000001).assertTrue();
+    expect(20 * 20 + 21 * 21).assertEqual(841);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0139
+   * @tc.name      testMathSense0139
+   * @tc.desc      Math hypot triple 13
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMathSense0139', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMathSense0139', 'hypot 13');
+    expect(Math.abs(Math.hypot(24, 32) - 40) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sqrt(576 + 1024) - 40) < 0.000001).assertTrue();
+    expect(24 * 24 + 32 * 32).assertEqual(1600);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0140
+   * @tc.name      testMathSense0140
+   * @tc.desc      Math hypot triple 14
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMathSense0140', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMathSense0140', 'hypot 14');
+    expect(Math.abs(Math.hypot(28, 45) - 53) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sqrt(784 + 2025) - 53) < 0.000001).assertTrue();
+    expect(28 * 28 + 45 * 45).assertEqual(2809);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0141
+   * @tc.name      testMathSense0141
+   * @tc.desc      Math hypot triple 15
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMathSense0141', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMathSense0141', 'hypot 15');
+    expect(Math.abs(Math.hypot(33, 56) - 65) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sqrt(1089 + 3136) - 65) < 0.000001).assertTrue();
+    expect(33 * 33 + 56 * 56).assertEqual(4225);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0142
+   * @tc.name      testMathSense0142
+   * @tc.desc      Math hypot triple 16
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMathSense0142', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMathSense0142', 'hypot 16');
+    expect(Math.abs(Math.hypot(36, 48) - 60) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sqrt(1296 + 2304) - 60) < 0.000001).assertTrue();
+    expect(36 * 36 + 48 * 48).assertEqual(3600);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0143
+   * @tc.name      testMathSense0143
+   * @tc.desc      Math hypot triple 17
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMathSense0143', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMathSense0143', 'hypot 17');
+    expect(Math.abs(Math.hypot(39, 80) - 89) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sqrt(1521 + 6400) - 89) < 0.000001).assertTrue();
+    expect(39 * 39 + 80 * 80).assertEqual(7921);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0144
+   * @tc.name      testMathSense0144
+   * @tc.desc      Math hypot triple 18
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMathSense0144', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMathSense0144', 'hypot 18');
+    expect(Math.abs(Math.hypot(48, 64) - 80) < 0.000001).assertTrue();
+    expect(Math.abs(Math.sqrt(2304 + 4096) - 80) < 0.000001).assertTrue();
+    expect(48 * 48 + 64 * 64).assertEqual(6400);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0145
+   * @tc.name      testMathSense0145
+   * @tc.desc      Math clz32 scale 1
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMathSense0145', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMathSense0145', 'clz 1');
+    expect(Math.clz32(1)).assertEqual(31);
+    expect(Math.clz32(2)).assertEqual(30);
+    expect(Math.clz32(0)).assertEqual(32);
+    expect(Math.trunc(1 / 2)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0146
+   * @tc.name      testMathSense0146
+   * @tc.desc      Math clz32 scale 2
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMathSense0146', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMathSense0146', 'clz 2');
+    expect(Math.clz32(1)).assertEqual(31);
+    expect(Math.clz32(4)).assertEqual(29);
+    expect(Math.clz32(0)).assertEqual(32);
+    expect(Math.trunc(2 / 2)).assertEqual(1);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0147
+   * @tc.name      testMathSense0147
+   * @tc.desc      Math clz32 scale 3
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMathSense0147', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMathSense0147', 'clz 3');
+    expect(Math.clz32(1)).assertEqual(31);
+    expect(Math.clz32(8)).assertEqual(28);
+    expect(Math.clz32(0)).assertEqual(32);
+    expect(Math.trunc(3 / 2)).assertEqual(1);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0148
+   * @tc.name      testMathSense0148
+   * @tc.desc      Math clz32 scale 4
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMathSense0148', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMathSense0148', 'clz 4');
+    expect(Math.clz32(1)).assertEqual(31);
+    expect(Math.clz32(16)).assertEqual(27);
+    expect(Math.clz32(0)).assertEqual(32);
+    expect(Math.trunc(4 / 2)).assertEqual(2);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0149
+   * @tc.name      testMathSense0149
+   * @tc.desc      Math clz32 scale 5
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMathSense0149', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMathSense0149', 'clz 5');
+    expect(Math.clz32(1)).assertEqual(31);
+    expect(Math.clz32(32)).assertEqual(26);
+    expect(Math.clz32(0)).assertEqual(32);
+    expect(Math.trunc(5 / 2)).assertEqual(2);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0150
+   * @tc.name      testMathSense0150
+   * @tc.desc      Math clz32 scale 6
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMathSense0150', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMathSense0150', 'clz 6');
+    expect(Math.clz32(1)).assertEqual(31);
+    expect(Math.clz32(64)).assertEqual(25);
+    expect(Math.clz32(0)).assertEqual(32);
+    expect(Math.trunc(6 / 2)).assertEqual(3);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0151
+   * @tc.name      testMathSense0151
+   * @tc.desc      Math clz32 scale 7
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMathSense0151', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMathSense0151', 'clz 7');
+    expect(Math.clz32(1)).assertEqual(31);
+    expect(Math.clz32(128)).assertEqual(24);
+    expect(Math.clz32(0)).assertEqual(32);
+    expect(Math.trunc(7 / 2)).assertEqual(3);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0152
+   * @tc.name      testMathSense0152
+   * @tc.desc      Math clz32 scale 8
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMathSense0152', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMathSense0152', 'clz 8');
+    expect(Math.clz32(1)).assertEqual(31);
+    expect(Math.clz32(256)).assertEqual(23);
+    expect(Math.clz32(0)).assertEqual(32);
+    expect(Math.trunc(8 / 2)).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0153
+   * @tc.name      testMathSense0153
+   * @tc.desc      Math clz32 scale 9
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMathSense0153', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMathSense0153', 'clz 9');
+    expect(Math.clz32(1)).assertEqual(31);
+    expect(Math.clz32(512)).assertEqual(22);
+    expect(Math.clz32(0)).assertEqual(32);
+    expect(Math.trunc(9 / 2)).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0154
+   * @tc.name      testMathSense0154
+   * @tc.desc      Math clz32 scale 10
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMathSense0154', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMathSense0154', 'clz 10');
+    expect(Math.clz32(1)).assertEqual(31);
+    expect(Math.clz32(1024)).assertEqual(21);
+    expect(Math.clz32(0)).assertEqual(32);
+    expect(Math.trunc(10 / 2)).assertEqual(5);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0155
+   * @tc.name      testMathSense0155
+   * @tc.desc      Math clz32 scale 11
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMathSense0155', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMathSense0155', 'clz 11');
+    expect(Math.clz32(1)).assertEqual(31);
+    expect(Math.clz32(2048)).assertEqual(20);
+    expect(Math.clz32(0)).assertEqual(32);
+    expect(Math.trunc(11 / 2)).assertEqual(5);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0156
+   * @tc.name      testMathSense0156
+   * @tc.desc      Math clz32 scale 12
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMathSense0156', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMathSense0156', 'clz 12');
+    expect(Math.clz32(1)).assertEqual(31);
+    expect(Math.clz32(4096)).assertEqual(19);
+    expect(Math.clz32(0)).assertEqual(32);
+    expect(Math.trunc(12 / 2)).assertEqual(6);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0157
+   * @tc.name      testMathSense0157
+   * @tc.desc      Math clz32 scale 13
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMathSense0157', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMathSense0157', 'clz 13');
+    expect(Math.clz32(1)).assertEqual(31);
+    expect(Math.clz32(8192)).assertEqual(18);
+    expect(Math.clz32(0)).assertEqual(32);
+    expect(Math.trunc(13 / 2)).assertEqual(6);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0158
+   * @tc.name      testMathSense0158
+   * @tc.desc      Math clz32 scale 14
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMathSense0158', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMathSense0158', 'clz 14');
+    expect(Math.clz32(1)).assertEqual(31);
+    expect(Math.clz32(16384)).assertEqual(17);
+    expect(Math.clz32(0)).assertEqual(32);
+    expect(Math.trunc(14 / 2)).assertEqual(7);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0159
+   * @tc.name      testMathSense0159
+   * @tc.desc      Math clz32 scale 15
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMathSense0159', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMathSense0159', 'clz 15');
+    expect(Math.clz32(1)).assertEqual(31);
+    expect(Math.clz32(32768)).assertEqual(16);
+    expect(Math.clz32(0)).assertEqual(32);
+    expect(Math.trunc(15 / 2)).assertEqual(7);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0160
+   * @tc.name      testMathSense0160
+   * @tc.desc      Math clz32 scale 16
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMathSense0160', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMathSense0160', 'clz 16');
+    expect(Math.clz32(1)).assertEqual(31);
+    expect(Math.clz32(65536)).assertEqual(15);
+    expect(Math.clz32(0)).assertEqual(32);
+    expect(Math.trunc(16 / 2)).assertEqual(8);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0161
+   * @tc.name      testMathSense0161
+   * @tc.desc      Math clz32 scale 17
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMathSense0161', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMathSense0161', 'clz 17');
+    expect(Math.clz32(1)).assertEqual(31);
+    expect(Math.clz32(131072)).assertEqual(14);
+    expect(Math.clz32(0)).assertEqual(32);
+    expect(Math.trunc(17 / 2)).assertEqual(8);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0162
+   * @tc.name      testMathSense0162
+   * @tc.desc      Math clz32 scale 18
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testMathSense0162', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testMathSense0162', 'clz 18');
+    expect(Math.clz32(1)).assertEqual(31);
+    expect(Math.clz32(262144)).assertEqual(13);
+    expect(Math.clz32(0)).assertEqual(32);
+    expect(Math.trunc(18 / 2)).assertEqual(9);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0163
+   * @tc.name      testMathSense0163
+   * @tc.desc      Math clz32 scale 19
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testMathSense0163', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testMathSense0163', 'clz 19');
+    expect(Math.clz32(1)).assertEqual(31);
+    expect(Math.clz32(524288)).assertEqual(12);
+    expect(Math.clz32(0)).assertEqual(32);
+    expect(Math.trunc(19 / 2)).assertEqual(9);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_MATH_0164
+   * @tc.name      testMathSense0164
+   * @tc.desc      Math clz32 scale 20
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testMathSense0164', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testMathSense0164', 'clz 20');
+    expect(Math.clz32(1)).assertEqual(31);
+    expect(Math.clz32(1048576)).assertEqual(11);
+    expect(Math.clz32(0)).assertEqual(32);
+    expect(Math.trunc(20 / 2)).assertEqual(10);
+  });
+  });
+}
