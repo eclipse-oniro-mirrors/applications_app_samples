@@ -2793,3 +2793,1438 @@ export default function encodeTextMatrixTest() {
    * @tc.type      FUNCTION
    * @tc.level     LEVEL1
    */
+  it('testEncodeText0145', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0145', 'encode node-1 byte length');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('node-1');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(bytes.length).assertEqual(6);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0146
+   * @tc.name      testEncodeText0146
+   * @tc.desc      Encode node-1 keeps first byte
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0146', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0146', 'encode node-1 first byte');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('node-1');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(bytes[0]).assertEqual(110);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0147
+   * @tc.name      testEncodeText0147
+   * @tc.desc      Encode node-1 keeps round trip
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0147', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0147', 'encode node-1 round trip');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('node-1');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(restored).assertEqual('node-1');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0148
+   * @tc.name      testEncodeText0148
+   * @tc.desc      Encode node-1 keeps base64 length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0148', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0148', 'encode node-1 base64 length');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('node-1');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(encoded.length).assertEqual(8);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0149
+   * @tc.name      testEncodeText0149
+   * @tc.desc      Encode node-1 keeps base64 value
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0149', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0149', 'encode node-1 base64 value');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('node-1');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(encoded).assertEqual('bm9kZS0x');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0150
+   * @tc.name      testEncodeText0150
+   * @tc.desc      Encode node-1 keeps base64 alphabet
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0150', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0150', 'encode node-1 base64 alphabet');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('node-1');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(/^[A-Za-z0-9+/]+={0,2}$/.test(encoded)).assertTrue();
+    expect(encoded.indexOf(' ')).assertEqual(-1);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0151
+   * @tc.name      testEncodeText0151
+   * @tc.desc      Encode a.b.c keeps byte length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0151', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0151', 'encode a.b.c byte length');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('a.b.c');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(bytes.length).assertEqual(5);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0152
+   * @tc.name      testEncodeText0152
+   * @tc.desc      Encode a.b.c keeps first byte
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0152', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0152', 'encode a.b.c first byte');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('a.b.c');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(bytes[0]).assertEqual(97);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0153
+   * @tc.name      testEncodeText0153
+   * @tc.desc      Encode a.b.c keeps round trip
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0153', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0153', 'encode a.b.c round trip');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('a.b.c');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(restored).assertEqual('a.b.c');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0154
+   * @tc.name      testEncodeText0154
+   * @tc.desc      Encode a.b.c keeps base64 length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0154', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0154', 'encode a.b.c base64 length');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('a.b.c');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(encoded.length).assertEqual(8);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0155
+   * @tc.name      testEncodeText0155
+   * @tc.desc      Encode a.b.c keeps base64 value
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0155', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0155', 'encode a.b.c base64 value');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('a.b.c');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(encoded).assertEqual('YS5iLmM=');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0156
+   * @tc.name      testEncodeText0156
+   * @tc.desc      Encode a.b.c keeps base64 alphabet
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0156', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0156', 'encode a.b.c base64 alphabet');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('a.b.c');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(/^[A-Za-z0-9+/]+={0,2}$/.test(encoded)).assertTrue();
+    expect(encoded.indexOf(' ')).assertEqual(-1);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0157
+   * @tc.name      testEncodeText0157
+   * @tc.desc      Encode x_y_z keeps byte length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0157', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0157', 'encode x_y_z byte length');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('x_y_z');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(bytes.length).assertEqual(5);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0158
+   * @tc.name      testEncodeText0158
+   * @tc.desc      Encode x_y_z keeps first byte
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0158', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0158', 'encode x_y_z first byte');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('x_y_z');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(bytes[0]).assertEqual(120);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0159
+   * @tc.name      testEncodeText0159
+   * @tc.desc      Encode x_y_z keeps round trip
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0159', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0159', 'encode x_y_z round trip');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('x_y_z');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(restored).assertEqual('x_y_z');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0160
+   * @tc.name      testEncodeText0160
+   * @tc.desc      Encode x_y_z keeps base64 length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0160', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0160', 'encode x_y_z base64 length');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('x_y_z');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(encoded.length).assertEqual(8);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0161
+   * @tc.name      testEncodeText0161
+   * @tc.desc      Encode x_y_z keeps base64 value
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0161', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0161', 'encode x_y_z base64 value');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('x_y_z');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(encoded).assertEqual('eF95X3o=');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0162
+   * @tc.name      testEncodeText0162
+   * @tc.desc      Encode x_y_z keeps base64 alphabet
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0162', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0162', 'encode x_y_z base64 alphabet');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('x_y_z');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(/^[A-Za-z0-9+/]+={0,2}$/.test(encoded)).assertTrue();
+    expect(encoded.indexOf(' ')).assertEqual(-1);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0163
+   * @tc.name      testEncodeText0163
+   * @tc.desc      Encode kebab-case keeps byte length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0163', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0163', 'encode kebab-case byte length');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('kebab-case');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(bytes.length).assertEqual(10);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0164
+   * @tc.name      testEncodeText0164
+   * @tc.desc      Encode kebab-case keeps first byte
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0164', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0164', 'encode kebab-case first byte');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('kebab-case');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(bytes[0]).assertEqual(107);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0165
+   * @tc.name      testEncodeText0165
+   * @tc.desc      Encode kebab-case keeps round trip
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0165', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0165', 'encode kebab-case round trip');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('kebab-case');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(restored).assertEqual('kebab-case');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0166
+   * @tc.name      testEncodeText0166
+   * @tc.desc      Encode kebab-case keeps base64 length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0166', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0166', 'encode kebab-case base64 length');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('kebab-case');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(encoded.length).assertEqual(16);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0167
+   * @tc.name      testEncodeText0167
+   * @tc.desc      Encode kebab-case keeps base64 value
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0167', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0167', 'encode kebab-case base64 value');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('kebab-case');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(encoded).assertEqual('a2ViYWItY2FzZQ==');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0168
+   * @tc.name      testEncodeText0168
+   * @tc.desc      Encode kebab-case keeps base64 alphabet
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0168', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0168', 'encode kebab-case base64 alphabet');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('kebab-case');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(/^[A-Za-z0-9+/]+={0,2}$/.test(encoded)).assertTrue();
+    expect(encoded.indexOf(' ')).assertEqual(-1);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0169
+   * @tc.name      testEncodeText0169
+   * @tc.desc      Encode slash/path keeps byte length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0169', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0169', 'encode slash/path byte length');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('slash/path');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(bytes.length).assertEqual(10);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0170
+   * @tc.name      testEncodeText0170
+   * @tc.desc      Encode slash/path keeps first byte
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0170', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0170', 'encode slash/path first byte');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('slash/path');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(bytes[0]).assertEqual(115);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0171
+   * @tc.name      testEncodeText0171
+   * @tc.desc      Encode slash/path keeps round trip
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0171', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0171', 'encode slash/path round trip');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('slash/path');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(restored).assertEqual('slash/path');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0172
+   * @tc.name      testEncodeText0172
+   * @tc.desc      Encode slash/path keeps base64 length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0172', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0172', 'encode slash/path base64 length');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('slash/path');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(encoded.length).assertEqual(16);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0173
+   * @tc.name      testEncodeText0173
+   * @tc.desc      Encode slash/path keeps base64 value
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0173', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0173', 'encode slash/path base64 value');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('slash/path');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(encoded).assertEqual('c2xhc2gvcGF0aA==');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0174
+   * @tc.name      testEncodeText0174
+   * @tc.desc      Encode slash/path keeps base64 alphabet
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0174', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0174', 'encode slash/path base64 alphabet');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('slash/path');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(/^[A-Za-z0-9+/]+={0,2}$/.test(encoded)).assertTrue();
+    expect(encoded.indexOf(' ')).assertEqual(-1);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0175
+   * @tc.name      testEncodeText0175
+   * @tc.desc      Encode space word keeps byte length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0175', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0175', 'encode space word byte length');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('space word');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(bytes.length).assertEqual(10);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0176
+   * @tc.name      testEncodeText0176
+   * @tc.desc      Encode space word keeps first byte
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0176', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0176', 'encode space word first byte');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('space word');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(bytes[0]).assertEqual(115);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0177
+   * @tc.name      testEncodeText0177
+   * @tc.desc      Encode space word keeps round trip
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0177', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0177', 'encode space word round trip');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('space word');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(restored).assertEqual('space word');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0178
+   * @tc.name      testEncodeText0178
+   * @tc.desc      Encode space word keeps base64 length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0178', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0178', 'encode space word base64 length');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('space word');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(encoded.length).assertEqual(16);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0179
+   * @tc.name      testEncodeText0179
+   * @tc.desc      Encode space word keeps base64 value
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0179', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0179', 'encode space word base64 value');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('space word');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(encoded).assertEqual('c3BhY2Ugd29yZA==');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0180
+   * @tc.name      testEncodeText0180
+   * @tc.desc      Encode space word keeps base64 alphabet
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0180', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0180', 'encode space word base64 alphabet');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('space word');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(/^[A-Za-z0-9+/]+={0,2}$/.test(encoded)).assertTrue();
+    expect(encoded.indexOf(' ')).assertEqual(-1);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0181
+   * @tc.name      testEncodeText0181
+   * @tc.desc      Latin word café keeps multibyte bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0181', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0181', 'latin café');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('café');
+    expect(bytes.length).assertEqual(5);
+    expect(bytes.length > 'café'.length).assertTrue();
+    expect(helper.encodeToStringSync(bytes)).assertEqual('Y2Fmw6k=');
+    expect(decoder.decodeToString(bytes)).assertEqual('café');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0182
+   * @tc.name      testEncodeText0182
+   * @tc.desc      Latin word naïve keeps multibyte bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0182', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0182', 'latin naïve');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('naïve');
+    expect(bytes.length).assertEqual(6);
+    expect(bytes.length > 'naïve'.length).assertTrue();
+    expect(helper.encodeToStringSync(bytes)).assertEqual('bmHDr3Zl');
+    expect(decoder.decodeToString(bytes)).assertEqual('naïve');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0183
+   * @tc.name      testEncodeText0183
+   * @tc.desc      Latin word über keeps multibyte bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0183', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0183', 'latin über');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('über');
+    expect(bytes.length).assertEqual(5);
+    expect(bytes.length > 'über'.length).assertTrue();
+    expect(helper.encodeToStringSync(bytes)).assertEqual('w7xiZXI=');
+    expect(decoder.decodeToString(bytes)).assertEqual('über');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0184
+   * @tc.name      testEncodeText0184
+   * @tc.desc      Latin word señor keeps multibyte bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0184', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0184', 'latin señor');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('señor');
+    expect(bytes.length).assertEqual(6);
+    expect(bytes.length > 'señor'.length).assertTrue();
+    expect(helper.encodeToStringSync(bytes)).assertEqual('c2XDsW9y');
+    expect(decoder.decodeToString(bytes)).assertEqual('señor');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0185
+   * @tc.name      testEncodeText0185
+   * @tc.desc      Latin word déjà keeps multibyte bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0185', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0185', 'latin déjà');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('déjà');
+    expect(bytes.length).assertEqual(6);
+    expect(bytes.length > 'déjà'.length).assertTrue();
+    expect(helper.encodeToStringSync(bytes)).assertEqual('ZMOpasOg');
+    expect(decoder.decodeToString(bytes)).assertEqual('déjà');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0186
+   * @tc.name      testEncodeText0186
+   * @tc.desc      Latin word façade keeps multibyte bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0186', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0186', 'latin façade');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('façade');
+    expect(bytes.length).assertEqual(7);
+    expect(bytes.length > 'façade'.length).assertTrue();
+    expect(helper.encodeToStringSync(bytes)).assertEqual('ZmHDp2FkZQ==');
+    expect(decoder.decodeToString(bytes)).assertEqual('façade');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0187
+   * @tc.name      testEncodeText0187
+   * @tc.desc      Latin word résumé keeps multibyte bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0187', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0187', 'latin résumé');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('résumé');
+    expect(bytes.length).assertEqual(8);
+    expect(bytes.length > 'résumé'.length).assertTrue();
+    expect(helper.encodeToStringSync(bytes)).assertEqual('csOpc3Vtw6k=');
+    expect(decoder.decodeToString(bytes)).assertEqual('résumé');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0188
+   * @tc.name      testEncodeText0188
+   * @tc.desc      Latin word piñata keeps multibyte bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0188', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0188', 'latin piñata');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('piñata');
+    expect(bytes.length).assertEqual(7);
+    expect(bytes.length > 'piñata'.length).assertTrue();
+    expect(helper.encodeToStringSync(bytes)).assertEqual('cGnDsWF0YQ==');
+    expect(decoder.decodeToString(bytes)).assertEqual('piñata');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0189
+   * @tc.name      testEncodeText0189
+   * @tc.desc      Latin word coöperate keeps multibyte bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0189', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0189', 'latin coöperate');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('coöperate');
+    expect(bytes.length).assertEqual(10);
+    expect(bytes.length > 'coöperate'.length).assertTrue();
+    expect(helper.encodeToStringSync(bytes)).assertEqual('Y2/DtnBlcmF0ZQ==');
+    expect(decoder.decodeToString(bytes)).assertEqual('coöperate');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0190
+   * @tc.name      testEncodeText0190
+   * @tc.desc      Latin word jalapeño keeps multibyte bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0190', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0190', 'latin jalapeño');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('jalapeño');
+    expect(bytes.length).assertEqual(9);
+    expect(bytes.length > 'jalapeño'.length).assertTrue();
+    expect(helper.encodeToStringSync(bytes)).assertEqual('amFsYXBlw7Fv');
+    expect(decoder.decodeToString(bytes)).assertEqual('jalapeño');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0191
+   * @tc.name      testEncodeText0191
+   * @tc.desc      Hex round 1 keeps 2 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0191', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0191', 'hex 1');
+    const values: number[] = [1, 4];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('0104');
+    expect(hex.length).assertEqual(4);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(1);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0192
+   * @tc.name      testEncodeText0192
+   * @tc.desc      Hex round 2 keeps 3 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0192', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0192', 'hex 2');
+    const values: number[] = [2, 5, 8];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('020508');
+    expect(hex.length).assertEqual(6);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(2);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0193
+   * @tc.name      testEncodeText0193
+   * @tc.desc      Hex round 3 keeps 4 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0193', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0193', 'hex 3');
+    const values: number[] = [3, 6, 9, 12];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('0306090c');
+    expect(hex.length).assertEqual(8);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(3);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0194
+   * @tc.name      testEncodeText0194
+   * @tc.desc      Hex round 4 keeps 1 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0194', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0194', 'hex 4');
+    const values: number[] = [4];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('04');
+    expect(hex.length).assertEqual(2);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(4);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0195
+   * @tc.name      testEncodeText0195
+   * @tc.desc      Hex round 5 keeps 2 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0195', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0195', 'hex 5');
+    const values: number[] = [5, 8];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('0508');
+    expect(hex.length).assertEqual(4);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(5);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0196
+   * @tc.name      testEncodeText0196
+   * @tc.desc      Hex round 6 keeps 3 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0196', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0196', 'hex 6');
+    const values: number[] = [6, 9, 12];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('06090c');
+    expect(hex.length).assertEqual(6);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(6);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0197
+   * @tc.name      testEncodeText0197
+   * @tc.desc      Hex round 7 keeps 4 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0197', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0197', 'hex 7');
+    const values: number[] = [7, 10, 13, 16];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('070a0d10');
+    expect(hex.length).assertEqual(8);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(7);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0198
+   * @tc.name      testEncodeText0198
+   * @tc.desc      Hex round 8 keeps 1 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0198', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0198', 'hex 8');
+    const values: number[] = [8];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('08');
+    expect(hex.length).assertEqual(2);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(8);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0199
+   * @tc.name      testEncodeText0199
+   * @tc.desc      Hex round 9 keeps 2 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0199', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0199', 'hex 9');
+    const values: number[] = [9, 12];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('090c');
+    expect(hex.length).assertEqual(4);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(9);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0200
+   * @tc.name      testEncodeText0200
+   * @tc.desc      Hex round 10 keeps 3 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0200', 'hex 10');
+    const values: number[] = [10, 13, 16];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('0a0d10');
+    expect(hex.length).assertEqual(6);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(10);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0201
+   * @tc.name      testEncodeText0201
+   * @tc.desc      Hex round 11 keeps 4 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0201', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0201', 'hex 11');
+    const values: number[] = [11, 14, 17, 20];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('0b0e1114');
+    expect(hex.length).assertEqual(8);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(11);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0202
+   * @tc.name      testEncodeText0202
+   * @tc.desc      Hex round 12 keeps 1 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0202', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0202', 'hex 12');
+    const values: number[] = [12];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('0c');
+    expect(hex.length).assertEqual(2);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(12);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0203
+   * @tc.name      testEncodeText0203
+   * @tc.desc      Hex round 13 keeps 2 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0203', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0203', 'hex 13');
+    const values: number[] = [13, 16];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('0d10');
+    expect(hex.length).assertEqual(4);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(13);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0204
+   * @tc.name      testEncodeText0204
+   * @tc.desc      Hex round 14 keeps 3 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0204', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0204', 'hex 14');
+    const values: number[] = [14, 17, 20];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('0e1114');
+    expect(hex.length).assertEqual(6);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(14);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0205
+   * @tc.name      testEncodeText0205
+   * @tc.desc      Hex round 15 keeps 4 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0205', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0205', 'hex 15');
+    const values: number[] = [15, 18, 21, 24];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('0f121518');
+    expect(hex.length).assertEqual(8);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(15);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0206
+   * @tc.name      testEncodeText0206
+   * @tc.desc      Hex round 16 keeps 1 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0206', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0206', 'hex 16');
+    const values: number[] = [16];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('10');
+    expect(hex.length).assertEqual(2);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(16);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0207
+   * @tc.name      testEncodeText0207
+   * @tc.desc      Hex round 17 keeps 2 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0207', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0207', 'hex 17');
+    const values: number[] = [17, 20];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('1114');
+    expect(hex.length).assertEqual(4);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(17);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0208
+   * @tc.name      testEncodeText0208
+   * @tc.desc      Hex round 18 keeps 3 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0208', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0208', 'hex 18');
+    const values: number[] = [18, 21, 24];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('121518');
+    expect(hex.length).assertEqual(6);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(18);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0209
+   * @tc.name      testEncodeText0209
+   * @tc.desc      Hex round 19 keeps 4 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0209', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0209', 'hex 19');
+    const values: number[] = [19, 22, 25, 28];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('1316191c');
+    expect(hex.length).assertEqual(8);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(19);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0210
+   * @tc.name      testEncodeText0210
+   * @tc.desc      Hex round 20 keeps 1 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0210', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0210', 'hex 20');
+    const values: number[] = [20];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('14');
+    expect(hex.length).assertEqual(2);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(20);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0211
+   * @tc.name      testEncodeText0211
+   * @tc.desc      Hex round 21 keeps 2 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0211', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0211', 'hex 21');
+    const values: number[] = [21, 24];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('1518');
+    expect(hex.length).assertEqual(4);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(21);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0212
+   * @tc.name      testEncodeText0212
+   * @tc.desc      Hex round 22 keeps 3 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testEncodeText0212', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testEncodeText0212', 'hex 22');
+    const values: number[] = [22, 25, 28];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('16191c');
+    expect(hex.length).assertEqual(6);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(22);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0213
+   * @tc.name      testEncodeText0213
+   * @tc.desc      Hex round 23 keeps 4 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testEncodeText0213', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testEncodeText0213', 'hex 23');
+    const values: number[] = [23, 26, 29, 32];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('171a1d20');
+    expect(hex.length).assertEqual(8);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(23);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_ENC_0214
+   * @tc.name      testEncodeText0214
+   * @tc.desc      Hex round 24 keeps 1 bytes
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0214', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0214', 'hex 24');
+    const values: number[] = [24];
+    let hex: string = '';
+    for (let i: number = 0; i < values.length; i++) {
+      const part: string = values[i].toString(16);
+      hex += part.length === 1 ? '0' + part : part;
+    }
+    expect(hex).assertEqual('18');
+    expect(hex.length).assertEqual(2);
+    const back: number = parseInt(hex.substring(0, 2), 16);
+    expect(back).assertEqual(24);
+    expect(hex.split('').every((c: string) => '0123456789abcdef'.includes(c))).assertTrue();
+  });
+  });
+}
