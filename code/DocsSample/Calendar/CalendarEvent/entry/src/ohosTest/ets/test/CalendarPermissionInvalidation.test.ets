@@ -1549,3 +1549,57 @@ export default function calendarPermissionInvalidationTest(): void {
       const retry: PermissionRecorder = new PermissionRecorder('retry', trace);
       expect((await gate.request(() => Promise.resolve(retryResult), retry)) === retryResult).assertEqual(true);
       expect(retry.grants).assertEqual(1);
+      expect(retry.denials).assertEqual(0);
+      expect(retry.failures).assertEqual(0);
+      expect(retry.grantedResult === retryResult).assertEqual(true);
+      expect(retry.deniedResult === undefined).assertEqual(true);
+      expect(trace.join(',')).assertEqual('current:failed,retry:granted');
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_INVALIDATION_3200
+     * @tc.name CalendarEventPermissionInvalidation_0032
+     * @tc.desc Place 2 invalidations inside requester for current failed; suppress its callback while preserving
+     * settlement identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionInvalidation_0032', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('current', trace);
+      const currentPending: Pending<PermissionRequestResult> = new Pending<PermissionRequestResult>();
+      const currentError: Error = new Error('current rejected');
+      const currentWait: Promise<Error | undefined> = captureFailure(() =>
+        gate.request((): Promise<PermissionRequestResult> => {
+          gate.invalidate();
+          gate.invalidate();
+          return currentPending.promise;
+        }, handlers));
+      expect(trace.join(',')).assertEqual('');
+      currentPending.reject(currentError);
+      const currentFailure: Error | undefined = await currentWait;
+      expect(currentFailure?.message).assertEqual('current rejected');
+      expect(currentFailure === currentError).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(0);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === undefined).assertEqual(true);
+      expect(trace.join(',')).assertEqual('');
+      const retryResult: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.WRITE_CALENDAR',
+          'ohos.permission.READ_CALENDAR'
+        ],
+        authResults: [0, 0]
+      };
+      const retry: PermissionRecorder = new PermissionRecorder('retry', trace);
+      expect((await gate.request(() => Promise.resolve(retryResult), retry)) === retryResult).assertEqual(true);
+      expect(retry.grants).assertEqual(1);
+      expect(retry.denials).assertEqual(0);
+      expect(retry.failures).assertEqual(0);
+      expect(retry.grantedResult === retryResult).assertEqual(true);
+      expect(retry.deniedResult === undefined).assertEqual(true);
+      expect(trace.join(',')).assertEqual('retry:granted');
+    });
+  });
+}
