@@ -1591,29 +1591,969 @@ function PathSegmentPart022() {
     });
 }
 
+function PathSegmentPart023() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2609
+     * @tc.name    JsPathSegment089
+     * @tc.desc    Path with 6 segments keeps single segment s89_5 seed 89
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment089', 0, async function () {
+      await yieldThread();
+      const path = 's89_0/s89_1/s89_2/s89_3/s89_4/s89_5';
+      expect(model.segmentCount(path)).assertEqual(6);
+      expect(model.segmentCount(path + '/')).assertEqual(7);
+      expect(model.segmentCount('s89_5')).assertEqual(1);
+      expect(model.segmentCount('a89/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment089 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2610
+     * @tc.name    JsPathSegment090
+     * @tc.desc    Path with 1 segments keeps single segment s90_0 seed 90
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment090', 0, async function () {
+      await yieldThread();
+      const path = 's90_0';
+      expect(model.segmentCount(path)).assertEqual(1);
+      expect(model.segmentCount(path + '/')).assertEqual(2);
+      expect(model.segmentCount('s90_0')).assertEqual(1);
+      expect(model.segmentCount('a90/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment090 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2611
+     * @tc.name    JsPathSegment091
+     * @tc.desc    Path with 2 segments keeps single segment s91_1 seed 91
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment091', 0, async function () {
+      await yieldThread();
+      const path = 's91_0/s91_1';
+      expect(model.segmentCount(path)).assertEqual(2);
+      expect(model.segmentCount(path + '/')).assertEqual(3);
+      expect(model.segmentCount('s91_1')).assertEqual(1);
+      expect(model.segmentCount('a91/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment091 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2612
+     * @tc.name    JsPathSegment092
+     * @tc.desc    Path with 3 segments keeps single segment s92_2 seed 92
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment092', 0, async function () {
+      await yieldThread();
+      const path = 's92_0/s92_1/s92_2';
+      expect(model.segmentCount(path)).assertEqual(3);
+      expect(model.segmentCount(path + '/')).assertEqual(4);
+      expect(model.segmentCount('s92_2')).assertEqual(1);
+      expect(model.segmentCount('a92/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment092 done');
+    });
+}
+
+function PathSegmentPart024() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2613
+     * @tc.name    JsPathSegment093
+     * @tc.desc    Path with 4 segments keeps single segment s93_3 seed 93
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment093', 0, async function () {
+      await yieldThread();
+      const path = 's93_0/s93_1/s93_2/s93_3';
+      expect(model.segmentCount(path)).assertEqual(4);
+      expect(model.segmentCount(path + '/')).assertEqual(5);
+      expect(model.segmentCount('s93_3')).assertEqual(1);
+      expect(model.segmentCount('a93/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment093 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2614
+     * @tc.name    JsPathSegment094
+     * @tc.desc    Path with 5 segments keeps single segment s94_4 seed 94
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment094', 0, async function () {
+      await yieldThread();
+      const path = 's94_0/s94_1/s94_2/s94_3/s94_4';
+      expect(model.segmentCount(path)).assertEqual(5);
+      expect(model.segmentCount(path + '/')).assertEqual(6);
+      expect(model.segmentCount('s94_4')).assertEqual(1);
+      expect(model.segmentCount('a94/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment094 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2615
+     * @tc.name    JsPathSegment095
+     * @tc.desc    Path with 6 segments keeps single segment s95_5 seed 95
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment095', 0, async function () {
+      await yieldThread();
+      const path = 's95_0/s95_1/s95_2/s95_3/s95_4/s95_5';
+      expect(model.segmentCount(path)).assertEqual(6);
+      expect(model.segmentCount(path + '/')).assertEqual(7);
+      expect(model.segmentCount('s95_5')).assertEqual(1);
+      expect(model.segmentCount('a95/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment095 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2616
+     * @tc.name    JsPathSegment096
+     * @tc.desc    Path with 1 segments keeps single segment s96_0 seed 96
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment096', 0, async function () {
+      await yieldThread();
+      const path = 's96_0';
+      expect(model.segmentCount(path)).assertEqual(1);
+      expect(model.segmentCount(path + '/')).assertEqual(2);
+      expect(model.segmentCount('s96_0')).assertEqual(1);
+      expect(model.segmentCount('a96/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment096 done');
+    });
+}
+
+function PathSegmentPart025() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2617
+     * @tc.name    JsPathSegment097
+     * @tc.desc    Path with 2 segments keeps single segment s97_1 seed 97
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment097', 0, async function () {
+      await yieldThread();
+      const path = 's97_0/s97_1';
+      expect(model.segmentCount(path)).assertEqual(2);
+      expect(model.segmentCount(path + '/')).assertEqual(3);
+      expect(model.segmentCount('s97_1')).assertEqual(1);
+      expect(model.segmentCount('a97/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment097 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2618
+     * @tc.name    JsPathSegment098
+     * @tc.desc    Path with 3 segments keeps single segment s98_2 seed 98
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment098', 0, async function () {
+      await yieldThread();
+      const path = 's98_0/s98_1/s98_2';
+      expect(model.segmentCount(path)).assertEqual(3);
+      expect(model.segmentCount(path + '/')).assertEqual(4);
+      expect(model.segmentCount('s98_2')).assertEqual(1);
+      expect(model.segmentCount('a98/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment098 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2619
+     * @tc.name    JsPathSegment099
+     * @tc.desc    Path with 4 segments keeps single segment s99_3 seed 99
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment099', 0, async function () {
+      await yieldThread();
+      const path = 's99_0/s99_1/s99_2/s99_3';
+      expect(model.segmentCount(path)).assertEqual(4);
+      expect(model.segmentCount(path + '/')).assertEqual(5);
+      expect(model.segmentCount('s99_3')).assertEqual(1);
+      expect(model.segmentCount('a99/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment099 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2620
+     * @tc.name    JsPathSegment100
+     * @tc.desc    Path with 5 segments keeps single segment s100_4 seed 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment100', 0, async function () {
+      await yieldThread();
+      const path = 's100_0/s100_1/s100_2/s100_3/s100_4';
+      expect(model.segmentCount(path)).assertEqual(5);
+      expect(model.segmentCount(path + '/')).assertEqual(6);
+      expect(model.segmentCount('s100_4')).assertEqual(1);
+      expect(model.segmentCount('a100/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment100 done');
+    });
+}
+
+function PathSegmentPart026() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2621
+     * @tc.name    JsPathSegment101
+     * @tc.desc    Path with 6 segments keeps single segment s101_5 seed 101
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment101', 0, async function () {
+      await yieldThread();
+      const path = 's101_0/s101_1/s101_2/s101_3/s101_4/s101_5';
+      expect(model.segmentCount(path)).assertEqual(6);
+      expect(model.segmentCount(path + '/')).assertEqual(7);
+      expect(model.segmentCount('s101_5')).assertEqual(1);
+      expect(model.segmentCount('a101/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment101 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2622
+     * @tc.name    JsPathSegment102
+     * @tc.desc    Path with 1 segments keeps single segment s102_0 seed 102
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment102', 0, async function () {
+      await yieldThread();
+      const path = 's102_0';
+      expect(model.segmentCount(path)).assertEqual(1);
+      expect(model.segmentCount(path + '/')).assertEqual(2);
+      expect(model.segmentCount('s102_0')).assertEqual(1);
+      expect(model.segmentCount('a102/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment102 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2623
+     * @tc.name    JsPathSegment103
+     * @tc.desc    Path with 2 segments keeps single segment s103_1 seed 103
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment103', 0, async function () {
+      await yieldThread();
+      const path = 's103_0/s103_1';
+      expect(model.segmentCount(path)).assertEqual(2);
+      expect(model.segmentCount(path + '/')).assertEqual(3);
+      expect(model.segmentCount('s103_1')).assertEqual(1);
+      expect(model.segmentCount('a103/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment103 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2624
+     * @tc.name    JsPathSegment104
+     * @tc.desc    Path with 3 segments keeps single segment s104_2 seed 104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment104', 0, async function () {
+      await yieldThread();
+      const path = 's104_0/s104_1/s104_2';
+      expect(model.segmentCount(path)).assertEqual(3);
+      expect(model.segmentCount(path + '/')).assertEqual(4);
+      expect(model.segmentCount('s104_2')).assertEqual(1);
+      expect(model.segmentCount('a104/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment104 done');
+    });
+}
+
+function PathSegmentPart027() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2625
+     * @tc.name    JsPathSegment105
+     * @tc.desc    Path with 4 segments keeps single segment s105_3 seed 105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment105', 0, async function () {
+      await yieldThread();
+      const path = 's105_0/s105_1/s105_2/s105_3';
+      expect(model.segmentCount(path)).assertEqual(4);
+      expect(model.segmentCount(path + '/')).assertEqual(5);
+      expect(model.segmentCount('s105_3')).assertEqual(1);
+      expect(model.segmentCount('a105/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment105 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2626
+     * @tc.name    JsPathSegment106
+     * @tc.desc    Path with 5 segments keeps single segment s106_4 seed 106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment106', 0, async function () {
+      await yieldThread();
+      const path = 's106_0/s106_1/s106_2/s106_3/s106_4';
+      expect(model.segmentCount(path)).assertEqual(5);
+      expect(model.segmentCount(path + '/')).assertEqual(6);
+      expect(model.segmentCount('s106_4')).assertEqual(1);
+      expect(model.segmentCount('a106/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment106 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2627
+     * @tc.name    JsPathSegment107
+     * @tc.desc    Path with 6 segments keeps single segment s107_5 seed 107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment107', 0, async function () {
+      await yieldThread();
+      const path = 's107_0/s107_1/s107_2/s107_3/s107_4/s107_5';
+      expect(model.segmentCount(path)).assertEqual(6);
+      expect(model.segmentCount(path + '/')).assertEqual(7);
+      expect(model.segmentCount('s107_5')).assertEqual(1);
+      expect(model.segmentCount('a107/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment107 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2628
+     * @tc.name    JsPathSegment108
+     * @tc.desc    Path with 1 segments keeps single segment s108_0 seed 108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment108', 0, async function () {
+      await yieldThread();
+      const path = 's108_0';
+      expect(model.segmentCount(path)).assertEqual(1);
+      expect(model.segmentCount(path + '/')).assertEqual(2);
+      expect(model.segmentCount('s108_0')).assertEqual(1);
+      expect(model.segmentCount('a108/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment108 done');
+    });
+}
+
+function PathSegmentPart028() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2629
+     * @tc.name    JsPathSegment109
+     * @tc.desc    Path with 2 segments keeps single segment s109_1 seed 109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment109', 0, async function () {
+      await yieldThread();
+      const path = 's109_0/s109_1';
+      expect(model.segmentCount(path)).assertEqual(2);
+      expect(model.segmentCount(path + '/')).assertEqual(3);
+      expect(model.segmentCount('s109_1')).assertEqual(1);
+      expect(model.segmentCount('a109/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment109 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2630
+     * @tc.name    JsPathSegment110
+     * @tc.desc    Path with 3 segments keeps single segment s110_2 seed 110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment110', 0, async function () {
+      await yieldThread();
+      const path = 's110_0/s110_1/s110_2';
+      expect(model.segmentCount(path)).assertEqual(3);
+      expect(model.segmentCount(path + '/')).assertEqual(4);
+      expect(model.segmentCount('s110_2')).assertEqual(1);
+      expect(model.segmentCount('a110/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment110 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2631
+     * @tc.name    JsPathSegment111
+     * @tc.desc    Path with 4 segments keeps single segment s111_3 seed 111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment111', 0, async function () {
+      await yieldThread();
+      const path = 's111_0/s111_1/s111_2/s111_3';
+      expect(model.segmentCount(path)).assertEqual(4);
+      expect(model.segmentCount(path + '/')).assertEqual(5);
+      expect(model.segmentCount('s111_3')).assertEqual(1);
+      expect(model.segmentCount('a111/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment111 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2632
+     * @tc.name    JsPathSegment112
+     * @tc.desc    Path with 5 segments keeps single segment s112_4 seed 112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment112', 0, async function () {
+      await yieldThread();
+      const path = 's112_0/s112_1/s112_2/s112_3/s112_4';
+      expect(model.segmentCount(path)).assertEqual(5);
+      expect(model.segmentCount(path + '/')).assertEqual(6);
+      expect(model.segmentCount('s112_4')).assertEqual(1);
+      expect(model.segmentCount('a112/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment112 done');
+    });
+}
+
+function PathSegmentPart029() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2633
+     * @tc.name    JsPathSegment113
+     * @tc.desc    Path with 6 segments keeps single segment s113_5 seed 113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment113', 0, async function () {
+      await yieldThread();
+      const path = 's113_0/s113_1/s113_2/s113_3/s113_4/s113_5';
+      expect(model.segmentCount(path)).assertEqual(6);
+      expect(model.segmentCount(path + '/')).assertEqual(7);
+      expect(model.segmentCount('s113_5')).assertEqual(1);
+      expect(model.segmentCount('a113/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment113 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2634
+     * @tc.name    JsPathSegment114
+     * @tc.desc    Path with 1 segments keeps single segment s114_0 seed 114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment114', 0, async function () {
+      await yieldThread();
+      const path = 's114_0';
+      expect(model.segmentCount(path)).assertEqual(1);
+      expect(model.segmentCount(path + '/')).assertEqual(2);
+      expect(model.segmentCount('s114_0')).assertEqual(1);
+      expect(model.segmentCount('a114/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment114 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2635
+     * @tc.name    JsPathSegment115
+     * @tc.desc    Path with 2 segments keeps single segment s115_1 seed 115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment115', 0, async function () {
+      await yieldThread();
+      const path = 's115_0/s115_1';
+      expect(model.segmentCount(path)).assertEqual(2);
+      expect(model.segmentCount(path + '/')).assertEqual(3);
+      expect(model.segmentCount('s115_1')).assertEqual(1);
+      expect(model.segmentCount('a115/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment115 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2636
+     * @tc.name    JsPathSegment116
+     * @tc.desc    Path with 3 segments keeps single segment s116_2 seed 116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment116', 0, async function () {
+      await yieldThread();
+      const path = 's116_0/s116_1/s116_2';
+      expect(model.segmentCount(path)).assertEqual(3);
+      expect(model.segmentCount(path + '/')).assertEqual(4);
+      expect(model.segmentCount('s116_2')).assertEqual(1);
+      expect(model.segmentCount('a116/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment116 done');
+    });
+}
+
+function PathSegmentPart030() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2637
+     * @tc.name    JsPathSegment117
+     * @tc.desc    Path with 4 segments keeps single segment s117_3 seed 117
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment117', 0, async function () {
+      await yieldThread();
+      const path = 's117_0/s117_1/s117_2/s117_3';
+      expect(model.segmentCount(path)).assertEqual(4);
+      expect(model.segmentCount(path + '/')).assertEqual(5);
+      expect(model.segmentCount('s117_3')).assertEqual(1);
+      expect(model.segmentCount('a117/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment117 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2638
+     * @tc.name    JsPathSegment118
+     * @tc.desc    Path with 5 segments keeps single segment s118_4 seed 118
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment118', 0, async function () {
+      await yieldThread();
+      const path = 's118_0/s118_1/s118_2/s118_3/s118_4';
+      expect(model.segmentCount(path)).assertEqual(5);
+      expect(model.segmentCount(path + '/')).assertEqual(6);
+      expect(model.segmentCount('s118_4')).assertEqual(1);
+      expect(model.segmentCount('a118/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment118 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2639
+     * @tc.name    JsPathSegment119
+     * @tc.desc    Path with 6 segments keeps single segment s119_5 seed 119
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment119', 0, async function () {
+      await yieldThread();
+      const path = 's119_0/s119_1/s119_2/s119_3/s119_4/s119_5';
+      expect(model.segmentCount(path)).assertEqual(6);
+      expect(model.segmentCount(path + '/')).assertEqual(7);
+      expect(model.segmentCount('s119_5')).assertEqual(1);
+      expect(model.segmentCount('a119/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment119 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2640
+     * @tc.name    JsPathSegment120
+     * @tc.desc    Path with 1 segments keeps single segment s120_0 seed 120
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment120', 0, async function () {
+      await yieldThread();
+      const path = 's120_0';
+      expect(model.segmentCount(path)).assertEqual(1);
+      expect(model.segmentCount(path + '/')).assertEqual(2);
+      expect(model.segmentCount('s120_0')).assertEqual(1);
+      expect(model.segmentCount('a120/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment120 done');
+    });
+}
+
+function PathSegmentPart031() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2641
+     * @tc.name    JsPathSegment121
+     * @tc.desc    Path with 2 segments keeps single segment s121_1 seed 121
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment121', 0, async function () {
+      await yieldThread();
+      const path = 's121_0/s121_1';
+      expect(model.segmentCount(path)).assertEqual(2);
+      expect(model.segmentCount(path + '/')).assertEqual(3);
+      expect(model.segmentCount('s121_1')).assertEqual(1);
+      expect(model.segmentCount('a121/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment121 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2642
+     * @tc.name    JsPathSegment122
+     * @tc.desc    Path with 3 segments keeps single segment s122_2 seed 122
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment122', 0, async function () {
+      await yieldThread();
+      const path = 's122_0/s122_1/s122_2';
+      expect(model.segmentCount(path)).assertEqual(3);
+      expect(model.segmentCount(path + '/')).assertEqual(4);
+      expect(model.segmentCount('s122_2')).assertEqual(1);
+      expect(model.segmentCount('a122/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment122 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2643
+     * @tc.name    JsPathSegment123
+     * @tc.desc    Path with 4 segments keeps single segment s123_3 seed 123
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment123', 0, async function () {
+      await yieldThread();
+      const path = 's123_0/s123_1/s123_2/s123_3';
+      expect(model.segmentCount(path)).assertEqual(4);
+      expect(model.segmentCount(path + '/')).assertEqual(5);
+      expect(model.segmentCount('s123_3')).assertEqual(1);
+      expect(model.segmentCount('a123/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment123 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2644
+     * @tc.name    JsPathSegment124
+     * @tc.desc    Path with 5 segments keeps single segment s124_4 seed 124
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment124', 0, async function () {
+      await yieldThread();
+      const path = 's124_0/s124_1/s124_2/s124_3/s124_4';
+      expect(model.segmentCount(path)).assertEqual(5);
+      expect(model.segmentCount(path + '/')).assertEqual(6);
+      expect(model.segmentCount('s124_4')).assertEqual(1);
+      expect(model.segmentCount('a124/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment124 done');
+    });
+}
+
+function PathSegmentPart032() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2645
+     * @tc.name    JsPathSegment125
+     * @tc.desc    Path with 6 segments keeps single segment s125_5 seed 125
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment125', 0, async function () {
+      await yieldThread();
+      const path = 's125_0/s125_1/s125_2/s125_3/s125_4/s125_5';
+      expect(model.segmentCount(path)).assertEqual(6);
+      expect(model.segmentCount(path + '/')).assertEqual(7);
+      expect(model.segmentCount('s125_5')).assertEqual(1);
+      expect(model.segmentCount('a125/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment125 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2646
+     * @tc.name    JsPathSegment126
+     * @tc.desc    Path with 1 segments keeps single segment s126_0 seed 126
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment126', 0, async function () {
+      await yieldThread();
+      const path = 's126_0';
+      expect(model.segmentCount(path)).assertEqual(1);
+      expect(model.segmentCount(path + '/')).assertEqual(2);
+      expect(model.segmentCount('s126_0')).assertEqual(1);
+      expect(model.segmentCount('a126/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment126 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2647
+     * @tc.name    JsPathSegment127
+     * @tc.desc    Path with 2 segments keeps single segment s127_1 seed 127
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment127', 0, async function () {
+      await yieldThread();
+      const path = 's127_0/s127_1';
+      expect(model.segmentCount(path)).assertEqual(2);
+      expect(model.segmentCount(path + '/')).assertEqual(3);
+      expect(model.segmentCount('s127_1')).assertEqual(1);
+      expect(model.segmentCount('a127/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment127 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2648
+     * @tc.name    JsPathSegment128
+     * @tc.desc    Path with 3 segments keeps single segment s128_2 seed 128
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment128', 0, async function () {
+      await yieldThread();
+      const path = 's128_0/s128_1/s128_2';
+      expect(model.segmentCount(path)).assertEqual(3);
+      expect(model.segmentCount(path + '/')).assertEqual(4);
+      expect(model.segmentCount('s128_2')).assertEqual(1);
+      expect(model.segmentCount('a128/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment128 done');
+    });
+}
+
+function PathSegmentPart033() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2649
+     * @tc.name    JsPathSegment129
+     * @tc.desc    Path with 4 segments keeps single segment s129_3 seed 129
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment129', 0, async function () {
+      await yieldThread();
+      const path = 's129_0/s129_1/s129_2/s129_3';
+      expect(model.segmentCount(path)).assertEqual(4);
+      expect(model.segmentCount(path + '/')).assertEqual(5);
+      expect(model.segmentCount('s129_3')).assertEqual(1);
+      expect(model.segmentCount('a129/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment129 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2650
+     * @tc.name    JsPathSegment130
+     * @tc.desc    Path with 5 segments keeps single segment s130_4 seed 130
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment130', 0, async function () {
+      await yieldThread();
+      const path = 's130_0/s130_1/s130_2/s130_3/s130_4';
+      expect(model.segmentCount(path)).assertEqual(5);
+      expect(model.segmentCount(path + '/')).assertEqual(6);
+      expect(model.segmentCount('s130_4')).assertEqual(1);
+      expect(model.segmentCount('a130/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment130 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2651
+     * @tc.name    JsPathSegment131
+     * @tc.desc    Path with 6 segments keeps single segment s131_5 seed 131
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment131', 0, async function () {
+      await yieldThread();
+      const path = 's131_0/s131_1/s131_2/s131_3/s131_4/s131_5';
+      expect(model.segmentCount(path)).assertEqual(6);
+      expect(model.segmentCount(path + '/')).assertEqual(7);
+      expect(model.segmentCount('s131_5')).assertEqual(1);
+      expect(model.segmentCount('a131/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment131 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2652
+     * @tc.name    JsPathSegment132
+     * @tc.desc    Path with 1 segments keeps single segment s132_0 seed 132
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment132', 0, async function () {
+      await yieldThread();
+      const path = 's132_0';
+      expect(model.segmentCount(path)).assertEqual(1);
+      expect(model.segmentCount(path + '/')).assertEqual(2);
+      expect(model.segmentCount('s132_0')).assertEqual(1);
+      expect(model.segmentCount('a132/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment132 done');
+    });
+}
+
+function PathSegmentPart034() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2653
+     * @tc.name    JsPathSegment133
+     * @tc.desc    Path with 2 segments keeps single segment s133_1 seed 133
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment133', 0, async function () {
+      await yieldThread();
+      const path = 's133_0/s133_1';
+      expect(model.segmentCount(path)).assertEqual(2);
+      expect(model.segmentCount(path + '/')).assertEqual(3);
+      expect(model.segmentCount('s133_1')).assertEqual(1);
+      expect(model.segmentCount('a133/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment133 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2654
+     * @tc.name    JsPathSegment134
+     * @tc.desc    Path with 3 segments keeps single segment s134_2 seed 134
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment134', 0, async function () {
+      await yieldThread();
+      const path = 's134_0/s134_1/s134_2';
+      expect(model.segmentCount(path)).assertEqual(3);
+      expect(model.segmentCount(path + '/')).assertEqual(4);
+      expect(model.segmentCount('s134_2')).assertEqual(1);
+      expect(model.segmentCount('a134/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment134 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2655
+     * @tc.name    JsPathSegment135
+     * @tc.desc    Path with 4 segments keeps single segment s135_3 seed 135
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment135', 0, async function () {
+      await yieldThread();
+      const path = 's135_0/s135_1/s135_2/s135_3';
+      expect(model.segmentCount(path)).assertEqual(4);
+      expect(model.segmentCount(path + '/')).assertEqual(5);
+      expect(model.segmentCount('s135_3')).assertEqual(1);
+      expect(model.segmentCount('a135/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment135 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2656
+     * @tc.name    JsPathSegment136
+     * @tc.desc    Path with 5 segments keeps single segment s136_4 seed 136
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment136', 0, async function () {
+      await yieldThread();
+      const path = 's136_0/s136_1/s136_2/s136_3/s136_4';
+      expect(model.segmentCount(path)).assertEqual(5);
+      expect(model.segmentCount(path + '/')).assertEqual(6);
+      expect(model.segmentCount('s136_4')).assertEqual(1);
+      expect(model.segmentCount('a136/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment136 done');
+    });
+}
+
+function PathSegmentPart035() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2657
+     * @tc.name    JsPathSegment137
+     * @tc.desc    Path with 6 segments keeps single segment s137_5 seed 137
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment137', 0, async function () {
+      await yieldThread();
+      const path = 's137_0/s137_1/s137_2/s137_3/s137_4/s137_5';
+      expect(model.segmentCount(path)).assertEqual(6);
+      expect(model.segmentCount(path + '/')).assertEqual(7);
+      expect(model.segmentCount('s137_5')).assertEqual(1);
+      expect(model.segmentCount('a137/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment137 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2658
+     * @tc.name    JsPathSegment138
+     * @tc.desc    Path with 1 segments keeps single segment s138_0 seed 138
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment138', 0, async function () {
+      await yieldThread();
+      const path = 's138_0';
+      expect(model.segmentCount(path)).assertEqual(1);
+      expect(model.segmentCount(path + '/')).assertEqual(2);
+      expect(model.segmentCount('s138_0')).assertEqual(1);
+      expect(model.segmentCount('a138/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment138 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2659
+     * @tc.name    JsPathSegment139
+     * @tc.desc    Path with 2 segments keeps single segment s139_1 seed 139
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment139', 0, async function () {
+      await yieldThread();
+      const path = 's139_0/s139_1';
+      expect(model.segmentCount(path)).assertEqual(2);
+      expect(model.segmentCount(path + '/')).assertEqual(3);
+      expect(model.segmentCount('s139_1')).assertEqual(1);
+      expect(model.segmentCount('a139/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment139 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2660
+     * @tc.name    JsPathSegment140
+     * @tc.desc    Path with 3 segments keeps single segment s140_2 seed 140
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPathSegment140', 0, async function () {
+      await yieldThread();
+      const path = 's140_0/s140_1/s140_2';
+      expect(model.segmentCount(path)).assertEqual(3);
+      expect(model.segmentCount(path + '/')).assertEqual(4);
+      expect(model.segmentCount('s140_2')).assertEqual(1);
+      expect(model.segmentCount('a140/b/c')).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPathSegment140 done');
+    });
+}
+
+function PathSegmentGroup001() {
+  PathSegmentPart001();
+  PathSegmentPart002();
+  PathSegmentPart003();
+  PathSegmentPart004();
+  PathSegmentPart005();
+  PathSegmentPart006();
+  PathSegmentPart007();
+  PathSegmentPart008();
+  PathSegmentPart009();
+  PathSegmentPart010();
+  PathSegmentPart011();
+  PathSegmentPart012();
+  PathSegmentPart013();
+  PathSegmentPart014();
+  PathSegmentPart015();
+  PathSegmentPart016();
+  PathSegmentPart017();
+  PathSegmentPart018();
+  PathSegmentPart019();
+  PathSegmentPart020();
+  PathSegmentPart021();
+  PathSegmentPart022();
+  PathSegmentPart023();
+  PathSegmentPart024();
+  PathSegmentPart025();
+  PathSegmentPart026();
+  PathSegmentPart027();
+  PathSegmentPart028();
+  PathSegmentPart029();
+  PathSegmentPart030();
+  PathSegmentPart031();
+  PathSegmentPart032();
+  PathSegmentPart033();
+  PathSegmentPart034();
+  PathSegmentPart035();
+}
+
 export default function pathSegmentSuite() {
   describe('PathSegmentSuite', function () {
-    PathSegmentPart001();
-    PathSegmentPart002();
-    PathSegmentPart003();
-    PathSegmentPart004();
-    PathSegmentPart005();
-    PathSegmentPart006();
-    PathSegmentPart007();
-    PathSegmentPart008();
-    PathSegmentPart009();
-    PathSegmentPart010();
-    PathSegmentPart011();
-    PathSegmentPart012();
-    PathSegmentPart013();
-    PathSegmentPart014();
-    PathSegmentPart015();
-    PathSegmentPart016();
-    PathSegmentPart017();
-    PathSegmentPart018();
-    PathSegmentPart019();
-    PathSegmentPart020();
-    PathSegmentPart021();
-    PathSegmentPart022();
+    PathSegmentGroup001();
   });
 }
