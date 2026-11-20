@@ -17,6 +17,10 @@
       "value": "please set screen password"
     },
     {
+      "name": "please_enter_pwd",
+      "value": "please enter screen password"
+    },
+    {
       "name": "auth_failed",
       "value": "auth failed"
     },

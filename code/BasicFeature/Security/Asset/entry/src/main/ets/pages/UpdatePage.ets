@@ -29,7 +29,7 @@ struct UpdatePage {
   @State label: string = this.params.label as string;
   @State reservePassword: string = this.pwd;
   @State reserveLabel: string = this.label;
-  @State eventType: string = ''
+  @State eventType: string = '';
 
   build() {
     Column() {
@@ -37,6 +37,7 @@ struct UpdatePage {
         Image($r('app.media.back'))
           .height(18)
           .width(20)
+          .id('back_button')
           .onClick(() => {
             // 返回到上一页面，相当于pop操作
             router.back();
@@ -106,6 +107,7 @@ struct UpdatePage {
           TextInput({ text: this.pwd })
             .type(InputType.Password)
             .defaultFocus(false)
+            .id('update_secret_input')
             .fontColor(0x182431)
             .padding({ top: '1.70%', right: '48.00px', bottom: '1.70%', left: '0' })
             .backgroundColor(Color.Transparent)

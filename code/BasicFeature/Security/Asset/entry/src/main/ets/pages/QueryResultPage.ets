@@ -24,8 +24,8 @@ interface AssetItem {
 @Entry
 @Component
 struct QueryResultPage {
-  @State param: Record<string, Array<AssetItem>> = router.getParams() as Record<string, Array<AssetItem>>;
-  @State data: Array<AssetItem> = this.param.data_array_map as Array<AssetItem>;
+  @State param: Record<string, AssetItem[]> = router.getParams() as Record<string, AssetItem[]>;
+  @State data: AssetItem[] = this.param.data_array_map as AssetItem[];
 
   build() {
     Column() {
@@ -33,6 +33,7 @@ struct QueryResultPage {
         Image($r('app.media.back'))
           .height(18)
           .width(20)
+          .id('back_button')
           .onClick(() => {
             // 返回到上一页面，相当于pop操作
             router.back();
@@ -160,6 +161,7 @@ struct QueryResultPage {
         }
         .listDirection(Axis.Vertical) // 排列方向
         .edgeEffect(EdgeEffect.Spring) // 滑动到边缘无效果
+        .id('result_list')
       }
     }
     .width("100%").height("100%").backgroundColor(0xf1f3f5)
