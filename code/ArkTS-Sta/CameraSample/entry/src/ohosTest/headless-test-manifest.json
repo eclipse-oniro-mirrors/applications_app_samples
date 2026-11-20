@@ -1,6 +1,6 @@
 {
   "scope": "Comment model and Constants only; no UI or capture callback execution",
-  "caseCount": 1631,
+  "caseCount": 1702,
   "files": [
     {
       "reference": "ets/test/Integration/AdvancedScenarios.test.ets",
@@ -28290,7 +28290,1766 @@
           "file://capture/session-1631/photo-3.jpg"
         ]
       }
+    },
+    {
+      "name": "commentModelPart76Case015",
+      "file": "ets/test/CommentModel/CommentModelPart76Test.test.ets",
+      "scenario": "Verify Comment images retain append insertion and replacement order",
+      "inputs": {
+        "mode": 2,
+        "nameText": "zero\\u0000inside",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-0.5",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-1632/photo-1.jpg",
+          "file://capture/session-1632/photo-2.jpg",
+          "file://capture/session-1632/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart76Case016",
+      "file": "ets/test/CommentModel/CommentModelPart76Test.test.ets",
+      "scenario": "Verify Comment string fields preserve whitespace punctuation and Unicode payloads",
+      "inputs": {
+        "mode": 3,
+        "nameText": "zero\\u0000inside",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-0.5",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-1633/photo-1.jpg",
+          "file://capture/session-1633/photo-2.jpg",
+          "file://capture/session-1633/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart76Case017",
+      "file": "ets/test/CommentModel/CommentModelPart76Test.test.ets",
+      "scenario": "Verify Comment id accepts numeric boundary values without modifying text fields",
+      "inputs": {
+        "mode": 4,
+        "nameText": "zero\\u0000inside",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-0.5",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-1634/photo-1.jpg",
+          "file://capture/session-1634/photo-2.jpg",
+          "file://capture/session-1634/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart76Case018",
+      "file": "ets/test/CommentModel/CommentModelPart76Test.test.ets",
+      "scenario": "Verify Comment image copy mutation remains isolated from its source array",
+      "inputs": {
+        "mode": 5,
+        "nameText": "zero\\u0000inside",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-0.5",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-1635/photo-1.jpg",
+          "file://capture/session-1635/photo-2.jpg",
+          "file://capture/session-1635/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart76Case019",
+      "file": "ets/test/CommentModel/CommentModelPart76Test.test.ets",
+      "scenario": "Verify Comment reset assignments restore empty strings and empty image arrays",
+      "inputs": {
+        "mode": 6,
+        "nameText": "zero\\u0000inside",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-0.5",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-1636/photo-1.jpg",
+          "file://capture/session-1636/photo-2.jpg",
+          "file://capture/session-1636/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart76Case020",
+      "file": "ets/test/CommentModel/CommentModelPart76Test.test.ets",
+      "scenario": "Verify Comment shared image array aliasing follows direct field assignment",
+      "inputs": {
+        "mode": 7,
+        "nameText": "zero\\u0000inside",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-0.5",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-1637/photo-1.jpg",
+          "file://capture/session-1637/photo-2.jpg",
+          "file://capture/session-1637/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart76Case021",
+      "file": "ets/test/CommentModel/CommentModelPart76Test.test.ets",
+      "scenario": "Verify Constants capture action and result key remain exact contract strings",
+      "inputs": {
+        "mode": 8,
+        "nameText": "zero\\u0000inside",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-0.5",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-1638/photo-1.jpg",
+          "file://capture/session-1638/photo-2.jpg",
+          "file://capture/session-1638/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart76Case022",
+      "file": "ets/test/CommentModel/CommentModelPart76Test.test.ets",
+      "scenario": "Verify Comment image removal preserves retained data and unrelated fields",
+      "inputs": {
+        "mode": 9,
+        "nameText": "zero\\u0000inside",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-0.5",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-1639/photo-1.jpg",
+          "file://capture/session-1639/photo-2.jpg",
+          "file://capture/session-1639/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart76Case023",
+      "file": "ets/test/CommentModel/CommentModelPart76Test.test.ets",
+      "scenario": "Verify Comment preserves every assigned field and ordered image data",
+      "inputs": {
+        "mode": 0,
+        "nameText": "mix中English123",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-1640/photo-1.jpg",
+          "file://capture/session-1640/photo-2.jpg",
+          "file://capture/session-1640/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart76Case024",
+      "file": "ets/test/CommentModel/CommentModelPart76Test.test.ets",
+      "scenario": "Verify Comment instances keep independent image arrays and scalar fields",
+      "inputs": {
+        "mode": 1,
+        "nameText": "mix中English123",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-1641/photo-1.jpg",
+          "file://capture/session-1641/photo-2.jpg",
+          "file://capture/session-1641/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart76Case025",
+      "file": "ets/test/CommentModel/CommentModelPart76Test.test.ets",
+      "scenario": "Verify Comment images retain append insertion and replacement order",
+      "inputs": {
+        "mode": 2,
+        "nameText": "mix中English123",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-1642/photo-1.jpg",
+          "file://capture/session-1642/photo-2.jpg",
+          "file://capture/session-1642/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart76Case026",
+      "file": "ets/test/CommentModel/CommentModelPart76Test.test.ets",
+      "scenario": "Verify Comment string fields preserve whitespace punctuation and Unicode payloads",
+      "inputs": {
+        "mode": 3,
+        "nameText": "mix中English123",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-1643/photo-1.jpg",
+          "file://capture/session-1643/photo-2.jpg",
+          "file://capture/session-1643/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart76Case027",
+      "file": "ets/test/CommentModel/CommentModelPart76Test.test.ets",
+      "scenario": "Verify Comment id accepts numeric boundary values without modifying text fields",
+      "inputs": {
+        "mode": 4,
+        "nameText": "mix中English123",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-1644/photo-1.jpg",
+          "file://capture/session-1644/photo-2.jpg",
+          "file://capture/session-1644/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart76Case028",
+      "file": "ets/test/CommentModel/CommentModelPart76Test.test.ets",
+      "scenario": "Verify Comment image copy mutation remains isolated from its source array",
+      "inputs": {
+        "mode": 5,
+        "nameText": "mix中English123",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-1645/photo-1.jpg",
+          "file://capture/session-1645/photo-2.jpg",
+          "file://capture/session-1645/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case001",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment reset assignments restore empty strings and empty image arrays",
+      "inputs": {
+        "mode": 6,
+        "nameText": "mix中English123",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-1646/photo-1.jpg",
+          "file://capture/session-1646/photo-2.jpg",
+          "file://capture/session-1646/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case002",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment shared image array aliasing follows direct field assignment",
+      "inputs": {
+        "mode": 7,
+        "nameText": "mix中English123",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-1647/photo-1.jpg",
+          "file://capture/session-1647/photo-2.jpg",
+          "file://capture/session-1647/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case003",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Constants capture action and result key remain exact contract strings",
+      "inputs": {
+        "mode": 8,
+        "nameText": "mix中English123",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-1648/photo-1.jpg",
+          "file://capture/session-1648/photo-2.jpg",
+          "file://capture/session-1648/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case004",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment image removal preserves retained data and unrelated fields",
+      "inputs": {
+        "mode": 9,
+        "nameText": "mix中English123",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-1649/photo-1.jpg",
+          "file://capture/session-1649/photo-2.jpg",
+          "file://capture/session-1649/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case005",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment preserves every assigned field and ordered image data",
+      "inputs": {
+        "mode": 0,
+        "nameText": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-9007199254740991",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1650/photo-1.jpg",
+          "file://capture/session-1650/photo-2.jpg",
+          "file://capture/session-1650/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case006",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment instances keep independent image arrays and scalar fields",
+      "inputs": {
+        "mode": 1,
+        "nameText": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-9007199254740991",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1651/photo-1.jpg",
+          "file://capture/session-1651/photo-2.jpg",
+          "file://capture/session-1651/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case007",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment images retain append insertion and replacement order",
+      "inputs": {
+        "mode": 2,
+        "nameText": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-9007199254740991",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1652/photo-1.jpg",
+          "file://capture/session-1652/photo-2.jpg",
+          "file://capture/session-1652/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case008",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment string fields preserve whitespace punctuation and Unicode payloads",
+      "inputs": {
+        "mode": 3,
+        "nameText": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-9007199254740991",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1653/photo-1.jpg",
+          "file://capture/session-1653/photo-2.jpg",
+          "file://capture/session-1653/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case009",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment id accepts numeric boundary values without modifying text fields",
+      "inputs": {
+        "mode": 4,
+        "nameText": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-9007199254740991",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1654/photo-1.jpg",
+          "file://capture/session-1654/photo-2.jpg",
+          "file://capture/session-1654/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case010",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment image copy mutation remains isolated from its source array",
+      "inputs": {
+        "mode": 5,
+        "nameText": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-9007199254740991",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1655/photo-1.jpg",
+          "file://capture/session-1655/photo-2.jpg",
+          "file://capture/session-1655/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case011",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment reset assignments restore empty strings and empty image arrays",
+      "inputs": {
+        "mode": 6,
+        "nameText": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-9007199254740991",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1656/photo-1.jpg",
+          "file://capture/session-1656/photo-2.jpg",
+          "file://capture/session-1656/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case012",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment shared image array aliasing follows direct field assignment",
+      "inputs": {
+        "mode": 7,
+        "nameText": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-9007199254740991",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1657/photo-1.jpg",
+          "file://capture/session-1657/photo-2.jpg",
+          "file://capture/session-1657/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case013",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Constants capture action and result key remain exact contract strings",
+      "inputs": {
+        "mode": 8,
+        "nameText": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-9007199254740991",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1658/photo-1.jpg",
+          "file://capture/session-1658/photo-2.jpg",
+          "file://capture/session-1658/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case014",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment image removal preserves retained data and unrelated fields",
+      "inputs": {
+        "mode": 9,
+        "nameText": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-9007199254740991",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1659/photo-1.jpg",
+          "file://capture/session-1659/photo-2.jpg",
+          "file://capture/session-1659/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case015",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment preserves every assigned field and ordered image data",
+      "inputs": {
+        "mode": 0,
+        "nameText": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "1024",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1660/photo-1.jpg",
+          "file://capture/session-1660/photo-2.jpg",
+          "file://capture/session-1660/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case016",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment instances keep independent image arrays and scalar fields",
+      "inputs": {
+        "mode": 1,
+        "nameText": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "1024",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1661/photo-1.jpg",
+          "file://capture/session-1661/photo-2.jpg",
+          "file://capture/session-1661/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case017",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment images retain append insertion and replacement order",
+      "inputs": {
+        "mode": 2,
+        "nameText": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "1024",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1662/photo-1.jpg",
+          "file://capture/session-1662/photo-2.jpg",
+          "file://capture/session-1662/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case018",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment string fields preserve whitespace punctuation and Unicode payloads",
+      "inputs": {
+        "mode": 3,
+        "nameText": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "1024",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1663/photo-1.jpg",
+          "file://capture/session-1663/photo-2.jpg",
+          "file://capture/session-1663/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case019",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment id accepts numeric boundary values without modifying text fields",
+      "inputs": {
+        "mode": 4,
+        "nameText": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "1024",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1664/photo-1.jpg",
+          "file://capture/session-1664/photo-2.jpg",
+          "file://capture/session-1664/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case020",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment image copy mutation remains isolated from its source array",
+      "inputs": {
+        "mode": 5,
+        "nameText": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "1024",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1665/photo-1.jpg",
+          "file://capture/session-1665/photo-2.jpg",
+          "file://capture/session-1665/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case021",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment reset assignments restore empty strings and empty image arrays",
+      "inputs": {
+        "mode": 6,
+        "nameText": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "1024",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1666/photo-1.jpg",
+          "file://capture/session-1666/photo-2.jpg",
+          "file://capture/session-1666/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case022",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment shared image array aliasing follows direct field assignment",
+      "inputs": {
+        "mode": 7,
+        "nameText": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "1024",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1667/photo-1.jpg",
+          "file://capture/session-1667/photo-2.jpg",
+          "file://capture/session-1667/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case023",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Constants capture action and result key remain exact contract strings",
+      "inputs": {
+        "mode": 8,
+        "nameText": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "1024",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1668/photo-1.jpg",
+          "file://capture/session-1668/photo-2.jpg",
+          "file://capture/session-1668/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case024",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment image removal preserves retained data and unrelated fields",
+      "inputs": {
+        "mode": 9,
+        "nameText": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "1024",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1669/photo-1.jpg",
+          "file://capture/session-1669/photo-2.jpg",
+          "file://capture/session-1669/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case025",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment preserves every assigned field and ordered image data",
+      "inputs": {
+        "mode": 0,
+        "nameText": "<script>camera</script>",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-1024",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1670/photo-1.jpg",
+          "file://capture/session-1670/photo-2.jpg",
+          "file://capture/session-1670/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case026",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment instances keep independent image arrays and scalar fields",
+      "inputs": {
+        "mode": 1,
+        "nameText": "<script>camera</script>",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-1024",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1671/photo-1.jpg",
+          "file://capture/session-1671/photo-2.jpg",
+          "file://capture/session-1671/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case027",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment images retain append insertion and replacement order",
+      "inputs": {
+        "mode": 2,
+        "nameText": "<script>camera</script>",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-1024",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1672/photo-1.jpg",
+          "file://capture/session-1672/photo-2.jpg",
+          "file://capture/session-1672/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case028",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment string fields preserve whitespace punctuation and Unicode payloads",
+      "inputs": {
+        "mode": 3,
+        "nameText": "<script>camera</script>",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-1024",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1673/photo-1.jpg",
+          "file://capture/session-1673/photo-2.jpg",
+          "file://capture/session-1673/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case029",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment id accepts numeric boundary values without modifying text fields",
+      "inputs": {
+        "mode": 4,
+        "nameText": "<script>camera</script>",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-1024",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1674/photo-1.jpg",
+          "file://capture/session-1674/photo-2.jpg",
+          "file://capture/session-1674/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case030",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment image copy mutation remains isolated from its source array",
+      "inputs": {
+        "mode": 5,
+        "nameText": "<script>camera</script>",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-1024",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1675/photo-1.jpg",
+          "file://capture/session-1675/photo-2.jpg",
+          "file://capture/session-1675/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case031",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment reset assignments restore empty strings and empty image arrays",
+      "inputs": {
+        "mode": 6,
+        "nameText": "<script>camera</script>",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-1024",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1676/photo-1.jpg",
+          "file://capture/session-1676/photo-2.jpg",
+          "file://capture/session-1676/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case032",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment shared image array aliasing follows direct field assignment",
+      "inputs": {
+        "mode": 7,
+        "nameText": "<script>camera</script>",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-1024",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1677/photo-1.jpg",
+          "file://capture/session-1677/photo-2.jpg",
+          "file://capture/session-1677/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case033",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Constants capture action and result key remain exact contract strings",
+      "inputs": {
+        "mode": 8,
+        "nameText": "<script>camera</script>",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-1024",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1678/photo-1.jpg",
+          "file://capture/session-1678/photo-2.jpg",
+          "file://capture/session-1678/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case034",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment image removal preserves retained data and unrelated fields",
+      "inputs": {
+        "mode": 9,
+        "nameText": "<script>camera</script>",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "-1024",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1679/photo-1.jpg",
+          "file://capture/session-1679/photo-2.jpg",
+          "file://capture/session-1679/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case035",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment preserves every assigned field and ordered image data",
+      "inputs": {
+        "mode": 0,
+        "nameText": "${imageUri}",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "3.141592653589793",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1680/photo-1.jpg",
+          "file://capture/session-1680/photo-2.jpg",
+          "file://capture/session-1680/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case036",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment instances keep independent image arrays and scalar fields",
+      "inputs": {
+        "mode": 1,
+        "nameText": "${imageUri}",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "3.141592653589793",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1681/photo-1.jpg",
+          "file://capture/session-1681/photo-2.jpg",
+          "file://capture/session-1681/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case037",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment images retain append insertion and replacement order",
+      "inputs": {
+        "mode": 2,
+        "nameText": "${imageUri}",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "3.141592653589793",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1682/photo-1.jpg",
+          "file://capture/session-1682/photo-2.jpg",
+          "file://capture/session-1682/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart77Case038",
+      "file": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "scenario": "Verify Comment string fields preserve whitespace punctuation and Unicode payloads",
+      "inputs": {
+        "mode": 3,
+        "nameText": "${imageUri}",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "3.141592653589793",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1683/photo-1.jpg",
+          "file://capture/session-1683/photo-2.jpg",
+          "file://capture/session-1683/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart78Case001",
+      "file": "ets/test/CommentModel/CommentModelPart78Test.test.ets",
+      "scenario": "Verify Comment id accepts numeric boundary values without modifying text fields",
+      "inputs": {
+        "mode": 4,
+        "nameText": "${imageUri}",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "3.141592653589793",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1684/photo-1.jpg",
+          "file://capture/session-1684/photo-2.jpg",
+          "file://capture/session-1684/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart78Case002",
+      "file": "ets/test/CommentModel/CommentModelPart78Test.test.ets",
+      "scenario": "Verify Comment image copy mutation remains isolated from its source array",
+      "inputs": {
+        "mode": 5,
+        "nameText": "${imageUri}",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "3.141592653589793",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1685/photo-1.jpg",
+          "file://capture/session-1685/photo-2.jpg",
+          "file://capture/session-1685/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart78Case003",
+      "file": "ets/test/CommentModel/CommentModelPart78Test.test.ets",
+      "scenario": "Verify Comment reset assignments restore empty strings and empty image arrays",
+      "inputs": {
+        "mode": 6,
+        "nameText": "${imageUri}",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "3.141592653589793",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1686/photo-1.jpg",
+          "file://capture/session-1686/photo-2.jpg",
+          "file://capture/session-1686/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart78Case004",
+      "file": "ets/test/CommentModel/CommentModelPart78Test.test.ets",
+      "scenario": "Verify Comment shared image array aliasing follows direct field assignment",
+      "inputs": {
+        "mode": 7,
+        "nameText": "${imageUri}",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "3.141592653589793",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1687/photo-1.jpg",
+          "file://capture/session-1687/photo-2.jpg",
+          "file://capture/session-1687/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart78Case005",
+      "file": "ets/test/CommentModel/CommentModelPart78Test.test.ets",
+      "scenario": "Verify Constants capture action and result key remain exact contract strings",
+      "inputs": {
+        "mode": 8,
+        "nameText": "${imageUri}",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "3.141592653589793",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1688/photo-1.jpg",
+          "file://capture/session-1688/photo-2.jpg",
+          "file://capture/session-1688/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart78Case006",
+      "file": "ets/test/CommentModel/CommentModelPart78Test.test.ets",
+      "scenario": "Verify Comment image removal preserves retained data and unrelated fields",
+      "inputs": {
+        "mode": 9,
+        "nameText": "${imageUri}",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "3.141592653589793",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1689/photo-1.jpg",
+          "file://capture/session-1689/photo-2.jpg",
+          "file://capture/session-1689/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart78Case007",
+      "file": "ets/test/CommentModel/CommentModelPart78Test.test.ets",
+      "scenario": "Verify Comment preserves every assigned field and ordered image data",
+      "inputs": {
+        "mode": 0,
+        "nameText": "file://storage/photo.jpg",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "0",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1690/photo-1.jpg",
+          "file://capture/session-1690/photo-2.jpg",
+          "file://capture/session-1690/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart78Case008",
+      "file": "ets/test/CommentModel/CommentModelPart78Test.test.ets",
+      "scenario": "Verify Comment instances keep independent image arrays and scalar fields",
+      "inputs": {
+        "mode": 1,
+        "nameText": "file://storage/photo.jpg",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "0",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1691/photo-1.jpg",
+          "file://capture/session-1691/photo-2.jpg",
+          "file://capture/session-1691/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart78Case009",
+      "file": "ets/test/CommentModel/CommentModelPart78Test.test.ets",
+      "scenario": "Verify Comment images retain append insertion and replacement order",
+      "inputs": {
+        "mode": 2,
+        "nameText": "file://storage/photo.jpg",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "0",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1692/photo-1.jpg",
+          "file://capture/session-1692/photo-2.jpg",
+          "file://capture/session-1692/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart78Case010",
+      "file": "ets/test/CommentModel/CommentModelPart78Test.test.ets",
+      "scenario": "Verify Comment string fields preserve whitespace punctuation and Unicode payloads",
+      "inputs": {
+        "mode": 3,
+        "nameText": "file://storage/photo.jpg",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "0",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1693/photo-1.jpg",
+          "file://capture/session-1693/photo-2.jpg",
+          "file://capture/session-1693/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart78Case011",
+      "file": "ets/test/CommentModel/CommentModelPart78Test.test.ets",
+      "scenario": "Verify Comment id accepts numeric boundary values without modifying text fields",
+      "inputs": {
+        "mode": 4,
+        "nameText": "file://storage/photo.jpg",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "0",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1694/photo-1.jpg",
+          "file://capture/session-1694/photo-2.jpg",
+          "file://capture/session-1694/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart78Case012",
+      "file": "ets/test/CommentModel/CommentModelPart78Test.test.ets",
+      "scenario": "Verify Comment image copy mutation remains isolated from its source array",
+      "inputs": {
+        "mode": 5,
+        "nameText": "file://storage/photo.jpg",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "0",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1695/photo-1.jpg",
+          "file://capture/session-1695/photo-2.jpg",
+          "file://capture/session-1695/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart78Case013",
+      "file": "ets/test/CommentModel/CommentModelPart78Test.test.ets",
+      "scenario": "Verify Comment reset assignments restore empty strings and empty image arrays",
+      "inputs": {
+        "mode": 6,
+        "nameText": "file://storage/photo.jpg",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "0",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1696/photo-1.jpg",
+          "file://capture/session-1696/photo-2.jpg",
+          "file://capture/session-1696/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart78Case014",
+      "file": "ets/test/CommentModel/CommentModelPart78Test.test.ets",
+      "scenario": "Verify Comment shared image array aliasing follows direct field assignment",
+      "inputs": {
+        "mode": 7,
+        "nameText": "file://storage/photo.jpg",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "0",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1697/photo-1.jpg",
+          "file://capture/session-1697/photo-2.jpg",
+          "file://capture/session-1697/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart78Case015",
+      "file": "ets/test/CommentModel/CommentModelPart78Test.test.ets",
+      "scenario": "Verify Constants capture action and result key remain exact contract strings",
+      "inputs": {
+        "mode": 8,
+        "nameText": "file://storage/photo.jpg",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "0",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1698/photo-1.jpg",
+          "file://capture/session-1698/photo-2.jpg",
+          "file://capture/session-1698/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart78Case016",
+      "file": "ets/test/CommentModel/CommentModelPart78Test.test.ets",
+      "scenario": "Verify Comment image removal preserves retained data and unrelated fields",
+      "inputs": {
+        "mode": 9,
+        "nameText": "file://storage/photo.jpg",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "0",
+        "timestamp": "2000-02-29 12:30",
+        "imageUris": [
+          "file://capture/session-1699/photo-1.jpg",
+          "file://capture/session-1699/photo-2.jpg",
+          "file://capture/session-1699/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart78Case017",
+      "file": "ets/test/CommentModel/CommentModelPart78Test.test.ets",
+      "scenario": "Verify Comment preserves every assigned field and ordered image data",
+      "inputs": {
+        "mode": 0,
+        "nameText": "https://example.com/a?x=1&y=2",
+        "commentText": "O'Brien \"camera\"",
+        "idLiteral": "1",
+        "timestamp": "1970-01-01 00:00",
+        "imageUris": [
+          "file://capture/session-1700/photo-1.jpg",
+          "file://capture/session-1700/photo-2.jpg",
+          "file://capture/session-1700/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelDefaults001",
+      "file": "ets/test/Ability.test.ets",
+      "scenario": "Verify Comment constructor initializes every field and independent image arrays",
+      "inputs": {
+        "constructorCalls": 2
+      }
+    },
+    {
+      "name": "commentModelPart99Case001",
+      "file": "ets/test/Ability.test.ets",
+      "scenario": "Verify Comment preserves every assigned field and ordered image data",
+      "inputs": {
+        "mode": 0,
+        "nameText": "",
+        "commentText": "",
+        "idLiteral": "0",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0000/photo-1.jpg",
+          "file://capture/session-0000/photo-2.jpg",
+          "file://capture/session-0000/photo-3.jpg"
+        ]
+      }
     }
   ],
-  "mappings": []
+  "mappings": [
+    {
+      "reference": "ets/test/Integration/AdvancedScenarios.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart01Test.test.ets",
+      "referenceLines": 230,
+      "targetLines": 337,
+      "cases": 8
+    },
+    {
+      "reference": "ets/test/Integration/ComprehensiveRegression.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart02Test.test.ets",
+      "referenceLines": 497,
+      "targetLines": 651,
+      "cases": 16
+    },
+    {
+      "reference": "ets/test/Integration/DeviceCompatibility.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart03Test.test.ets",
+      "referenceLines": 88,
+      "targetLines": 144,
+      "cases": 3
+    },
+    {
+      "reference": "ets/test/Integration/IntegrationTesting.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart04Test.test.ets",
+      "referenceLines": 353,
+      "targetLines": 492,
+      "cases": 12
+    },
+    {
+      "reference": "ets/test/Integration/LocalizationTesting.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart05Test.test.ets",
+      "referenceLines": 690,
+      "targetLines": 925,
+      "cases": 23
+    },
+    {
+      "reference": "ets/test/Integration/NetworkConnectivity.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart06Test.test.ets",
+      "referenceLines": 109,
+      "targetLines": 182,
+      "cases": 4
+    },
+    {
+      "reference": "ets/test/Integration/PowerCompatibility.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart07Test.test.ets",
+      "referenceLines": 619,
+      "targetLines": 807,
+      "cases": 20
+    },
+    {
+      "reference": "ets/test/Integration/SystemIntegration.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart08Test.test.ets",
+      "referenceLines": 374,
+      "targetLines": 532,
+      "cases": 13
+    },
+    {
+      "reference": "ets/test/Integration/UserScenarios.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart09Test.test.ets",
+      "referenceLines": 751,
+      "targetLines": 1003,
+      "cases": 25
+    },
+    {
+      "reference": "ets/test/Interaction/AccessibilityNavigation.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart10Test.test.ets",
+      "referenceLines": 920,
+      "targetLines": 1198,
+      "cases": 30
+    },
+    {
+      "reference": "ets/test/Interaction/ButtonInteraction.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart11Test.test.ets",
+      "referenceLines": 870,
+      "targetLines": 1120,
+      "cases": 28
+    },
+    {
+      "reference": "ets/test/Interaction/ContentScaling.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart12Test.test.ets",
+      "referenceLines": 303,
+      "targetLines": 416,
+      "cases": 10
+    },
+    {
+      "reference": "ets/test/Interaction/DataBinding.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart13Test.test.ets",
+      "referenceLines": 408,
+      "targetLines": 573,
+      "cases": 14
+    },
+    {
+      "reference": "ets/test/Interaction/DialogPositioning.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart14Test.test.ets",
+      "referenceLines": 292,
+      "targetLines": 416,
+      "cases": 10
+    },
+    {
+      "reference": "ets/test/Interaction/EventHandling.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart15Test.test.ets",
+      "referenceLines": 897,
+      "targetLines": 1158,
+      "cases": 29
+    },
+    {
+      "reference": "ets/test/Interaction/EventPropagation.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart16Test.test.ets",
+      "referenceLines": 839,
+      "targetLines": 1081,
+      "cases": 27
+    },
+    {
+      "reference": "ets/test/Interaction/FocusNavigation.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart17Test.test.ets",
+      "referenceLines": 1191,
+      "targetLines": 1550,
+      "cases": 39
+    },
+    {
+      "reference": "ets/test/Interaction/FocusRingBehavior.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart18Test.test.ets",
+      "referenceLines": 687,
+      "targetLines": 924,
+      "cases": 23
+    },
+    {
+      "reference": "ets/test/Interaction/GestureRecognition.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart19Test.test.ets",
+      "referenceLines": 861,
+      "targetLines": 1120,
+      "cases": 28
+    },
+    {
+      "reference": "ets/test/Interaction/ThemeVariation.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart20Test.test.ets",
+      "referenceLines": 297,
+      "targetLines": 416,
+      "cases": 10
+    },
+    {
+      "reference": "ets/test/Interaction/TouchInteraction.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart21Test.test.ets",
+      "referenceLines": 933,
+      "targetLines": 1198,
+      "cases": 30
+    },
+    {
+      "reference": "ets/test/Interaction/UIComponentRendering.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart22Test.test.ets",
+      "referenceLines": 760,
+      "targetLines": 1004,
+      "cases": 25
+    },
+    {
+      "reference": "ets/test/Interaction/VisualEffects.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart23Test.test.ets",
+      "referenceLines": 669,
+      "targetLines": 883,
+      "cases": 22
+    },
+    {
+      "reference": "ets/test/LifecycleState/ConfigurationChanges.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart24Test.test.ets",
+      "referenceLines": 408,
+      "targetLines": 573,
+      "cases": 14
+    },
+    {
+      "reference": "ets/test/LifecycleState/DialogLifecycle.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart25Test.test.ets",
+      "referenceLines": 270,
+      "targetLines": 377,
+      "cases": 9
+    },
+    {
+      "reference": "ets/test/LifecycleState/DialogStateManagement.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart26Test.test.ets",
+      "referenceLines": 1014,
+      "targetLines": 1315,
+      "cases": 33
+    },
+    {
+      "reference": "ets/test/LifecycleState/ErrorRecovery.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart27Test.test.ets",
+      "referenceLines": 1041,
+      "targetLines": 1354,
+      "cases": 34
+    },
+    {
+      "reference": "ets/test/LifecycleState/ExceptionHandling.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "referenceLines": 1024,
+      "targetLines": 1316,
+      "cases": 33
+    },
+    {
+      "reference": "ets/test/LifecycleState/ExtensionLifecycle.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "referenceLines": 700,
+      "targetLines": 924,
+      "cases": 23
+    },
+    {
+      "reference": "ets/test/LifecycleState/ResourceManagement.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart30Test.test.ets",
+      "referenceLines": 379,
+      "targetLines": 533,
+      "cases": 13
+    },
+    {
+      "reference": "ets/test/LifecycleState/SessionManagement.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart31Test.test.ets",
+      "referenceLines": 407,
+      "targetLines": 573,
+      "cases": 14
+    },
+    {
+      "reference": "ets/test/LifecycleState/StatePersistence.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart32Test.test.ets",
+      "referenceLines": 294,
+      "targetLines": 416,
+      "cases": 10
+    },
+    {
+      "reference": "ets/test/LifecycleState/StateRecovery.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart33Test.test.ets",
+      "referenceLines": 299,
+      "targetLines": 416,
+      "cases": 10
+    },
+    {
+      "reference": "ets/test/PerformanceStability/AnimationPerformance.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart34Test.test.ets",
+      "referenceLines": 845,
+      "targetLines": 1120,
+      "cases": 28
+    },
+    {
+      "reference": "ets/test/PerformanceStability/ConcurrencyControl.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart35Test.test.ets",
+      "referenceLines": 168,
+      "targetLines": 260,
+      "cases": 6
+    },
+    {
+      "reference": "ets/test/PerformanceStability/LongTermStability.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart36Test.test.ets",
+      "referenceLines": 196,
+      "targetLines": 298,
+      "cases": 7
+    },
+    {
+      "reference": "ets/test/PerformanceStability/MemoryLeakDetection.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart37Test.test.ets",
+      "referenceLines": 212,
+      "targetLines": 299,
+      "cases": 7
+    },
+    {
+      "reference": "ets/test/PerformanceStability/PerformanceStress.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart38Test.test.ets",
+      "referenceLines": 598,
+      "targetLines": 807,
+      "cases": 20
+    },
+    {
+      "reference": "ets/test/PerformanceStability/PowerConsumption.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart39Test.test.ets",
+      "referenceLines": 834,
+      "targetLines": 1082,
+      "cases": 27
+    },
+    {
+      "reference": "ets/test/PerformanceStability/PowerPerformance.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart40Test.test.ets",
+      "referenceLines": 794,
+      "targetLines": 1040,
+      "cases": 26
+    },
+    {
+      "reference": "ets/test/PowerDialog/PowerDialogConcurrency.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart41Test.test.ets",
+      "referenceLines": 522,
+      "targetLines": 690,
+      "cases": 17
+    },
+    {
+      "reference": "ets/test/PowerDialog/PowerDialogConsistency.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart42Test.test.ets",
+      "referenceLines": 518,
+      "targetLines": 691,
+      "cases": 17
+    },
+    {
+      "reference": "ets/test/PowerDialog/PowerDialogEndToEnd.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart43Test.test.ets",
+      "referenceLines": 490,
+      "targetLines": 649,
+      "cases": 16
+    },
+    {
+      "reference": "ets/test/PowerDialog/PowerDialogErrorRecovery.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart44Test.test.ets",
+      "referenceLines": 551,
+      "targetLines": 729,
+      "cases": 18
+    },
+    {
+      "reference": "ets/test/PowerDialog/PowerDialogLifecycle.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart45Test.test.ets",
+      "referenceLines": 550,
+      "targetLines": 728,
+      "cases": 18
+    },
+    {
+      "reference": "ets/test/PowerDialog/PowerDialogStateManagement.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart46Test.test.ets",
+      "referenceLines": 521,
+      "targetLines": 691,
+      "cases": 17
+    },
+    {
+      "reference": "ets/test/PowerDialog/PowerDialogStress.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart47Test.test.ets",
+      "referenceLines": 126,
+      "targetLines": 220,
+      "cases": 5
+    },
+    {
+      "reference": "ets/test/PowerDialog/PowerDialogUI.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart48Test.test.ets",
+      "referenceLines": 496,
+      "targetLines": 652,
+      "cases": 16
+    },
+    {
+      "reference": "ets/test/PowerDialog/PowerInputInteraction.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart49Test.test.ets",
+      "referenceLines": 632,
+      "targetLines": 844,
+      "cases": 21
+    },
+    {
+      "reference": "ets/test/PowerDialog/PowerItemInfoModel.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart50Test.test.ets",
+      "referenceLines": 949,
+      "targetLines": 1237,
+      "cases": 31
+    },
+    {
+      "reference": "ets/test/PowerDialog/PowerMenuConfiguration.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart51Test.test.ets",
+      "referenceLines": 940,
+      "targetLines": 1238,
+      "cases": 31
+    },
+    {
+      "reference": "ets/test/PowerDialog/PowerModelDeep.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart52Test.test.ets",
+      "referenceLines": 1072,
+      "targetLines": 1393,
+      "cases": 35
+    },
+    {
+      "reference": "ets/test/PowerDialog/PowerOperationCatalog.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart53Test.test.ets",
+      "referenceLines": 1045,
+      "targetLines": 1354,
+      "cases": 34
+    },
+    {
+      "reference": "ets/test/PowerDialog/PowerOperationFlow.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart54Test.test.ets",
+      "referenceLines": 994,
+      "targetLines": 1277,
+      "cases": 32
+    },
+    {
+      "reference": "ets/test/PowerDialog/PowerOperationWorkflow.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart55Test.test.ets",
+      "referenceLines": 654,
+      "targetLines": 846,
+      "cases": 21
+    },
+    {
+      "reference": "ets/test/PowerDialog/PowerOperations.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart56Test.test.ets",
+      "referenceLines": 694,
+      "targetLines": 924,
+      "cases": 23
+    },
+    {
+      "reference": "ets/test/PowerValidation/PowerAppVersion.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart57Test.test.ets",
+      "referenceLines": 915,
+      "targetLines": 1198,
+      "cases": 30
+    },
+    {
+      "reference": "ets/test/PowerValidation/PowerAuthSession.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart58Test.test.ets",
+      "referenceLines": 869,
+      "targetLines": 1120,
+      "cases": 28
+    },
+    {
+      "reference": "ets/test/PowerValidation/PowerDataSourceValidation.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart59Test.test.ets",
+      "referenceLines": 535,
+      "targetLines": 729,
+      "cases": 18
+    },
+    {
+      "reference": "ets/test/PowerValidation/PowerEventToolValidation.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart60Test.test.ets",
+      "referenceLines": 505,
+      "targetLines": 689,
+      "cases": 17
+    },
+    {
+      "reference": "ets/test/PowerValidation/PowerInterruptionRecovery.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart61Test.test.ets",
+      "referenceLines": 679,
+      "targetLines": 886,
+      "cases": 22
+    },
+    {
+      "reference": "ets/test/PowerValidation/PowerNotification.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart62Test.test.ets",
+      "referenceLines": 905,
+      "targetLines": 1198,
+      "cases": 30
+    },
+    {
+      "reference": "ets/test/PowerValidation/PowerOfflineNetwork.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart63Test.test.ets",
+      "referenceLines": 884,
+      "targetLines": 1158,
+      "cases": 29
+    },
+    {
+      "reference": "ets/test/PowerValidation/PowerSessionValidation.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart64Test.test.ets",
+      "referenceLines": 580,
+      "targetLines": 768,
+      "cases": 19
+    },
+    {
+      "reference": "ets/test/Security/PowerSecurity.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart65Test.test.ets",
+      "referenceLines": 628,
+      "targetLines": 846,
+      "cases": 21
+    },
+    {
+      "reference": "ets/test/Security/SecurityAccessibility.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart66Test.test.ets",
+      "referenceLines": 366,
+      "targetLines": 495,
+      "cases": 12
+    },
+    {
+      "reference": "ets/test/Security/SecurityValidation.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart67Test.test.ets",
+      "referenceLines": 331,
+      "targetLines": 455,
+      "cases": 11
+    },
+    {
+      "reference": "ets/test/Validation/AnimationControllerValidation.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart68Test.test.ets",
+      "referenceLines": 1306,
+      "targetLines": 1667,
+      "cases": 42
+    },
+    {
+      "reference": "ets/test/Validation/BoundaryErrorTesting.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart69Test.test.ets",
+      "referenceLines": 703,
+      "targetLines": 926,
+      "cases": 23
+    },
+    {
+      "reference": "ets/test/Validation/CommonEventUtilValidation.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart70Test.test.ets",
+      "referenceLines": 1224,
+      "targetLines": 1589,
+      "cases": 40
+    },
+    {
+      "reference": "ets/test/Validation/ConfigurationManagerValidation.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart71Test.test.ets",
+      "referenceLines": 564,
+      "targetLines": 767,
+      "cases": 19
+    },
+    {
+      "reference": "ets/test/Validation/DialogStateManagerValidation.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart72Test.test.ets",
+      "referenceLines": 1128,
+      "targetLines": 1471,
+      "cases": 37
+    },
+    {
+      "reference": "ets/test/Validation/FocusManagerValidation.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart73Test.test.ets",
+      "referenceLines": 1178,
+      "targetLines": 1511,
+      "cases": 38
+    },
+    {
+      "reference": "ets/test/Validation/InputValidation.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart74Test.test.ets",
+      "referenceLines": 684,
+      "targetLines": 885,
+      "cases": 22
+    },
+    {
+      "reference": "ets/test/Validation/KeyCodeValidation.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart75Test.test.ets",
+      "referenceLines": 1353,
+      "targetLines": 1747,
+      "cases": 44
+    },
+    {
+      "reference": "ets/test/Validation/LoggerValidation.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart76Test.test.ets",
+      "referenceLines": 851,
+      "targetLines": 1118,
+      "cases": 28
+    },
+    {
+      "reference": "ets/test/Validation/PointerUtilValidation.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart77Test.test.ets",
+      "referenceLines": 1170,
+      "targetLines": 1511,
+      "cases": 38
+    },
+    {
+      "reference": "ets/test/Validation/ResourceLoaderValidation.test.ets",
+      "target": "ets/test/CommentModel/CommentModelPart78Test.test.ets",
+      "referenceLines": 520,
+      "targetLines": 690,
+      "cases": 17
+    },
+    {
+      "reference": "ets/test/Ability.test.ets",
+      "target": "ets/test/Ability.test.ets",
+      "referenceLines": 49,
+      "targetLines": 100,
+      "cases": 2
+    },
+    {
+      "reference": "ets/test/List.test.ets",
+      "target": "ets/test/List.test.ets",
+      "referenceLines": 174,
+      "targetLines": 177,
+      "cases": 0
+    }
+  ]
 }
