@@ -39,7 +39,7 @@ let greet: GreetingFunction = (name: string): string => {
 };
 
 // 不匹配的类型会编译错误
-let invalid: MathOperation = (a: string) => a; // 编译错误
+let invalid: MathOperation = (a: string) => a; // 编译错误：参数类型与返回类型均与MathOperation不匹配
 // [End ts_function_types]
 
 // [Start ts_optional_chaining_use_cases]
@@ -96,7 +96,7 @@ interface APIResponse {
 let response: APIResponse | null = null;
 
 response?.callback?.();  // 不执行
-response?.data?.items?.forEach?.(item => console.info(`${item}`));
+response?.data?.items?.forEach(item => console.info(`${item}`));
 // [End ts_optional_chaining_use_cases]
 
 // ===== ts_nested_function_declaration =====

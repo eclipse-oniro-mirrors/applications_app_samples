@@ -13,20 +13,17 @@
 * limitations under the License.
 */
 
+// [Start annotation_import_example]
 // Annotation.ets
 import { Anno } from './MyAnno';
+// 仅引用了Anno注解，不会导致MyAnno.ets的console.info执行
+// [End annotation_import_example]
+
 // [Start annotation_export_example_import]
-// [Start annotation_import_example]
 // Annotation.ets
 import { MyAnno2 } from './MyAnno';
 import * as ns from './MyAnno';
-// [StartExclude annotation_export_example_import]
-// 仅引用了Anno注解，不会导致MyAnno.ets的console.info执行
-class X {
-  // ...
-}
-// [End annotation_import_example]
-// [EndExclude annotation_export_example_import]
+// ...
 @MyAnno2
 @ns.ClassAuthor2
 class C {
@@ -65,7 +62,6 @@ class C1 {
   // ...
 }
 
-
 @ClassPreamble({authorName: "Bob"}) // revision的默认值为1
 class C2 {
   // ...
@@ -79,19 +75,18 @@ class C3 {
   static bar() {}
 }
 // [End annotation_usages_example]
+// [Start annotation_field_order]
 @interface ClassPreamble1 {
   authorName: string;
   revision: number = 1;
 }
-// [Start annotation_field_order]
+
 @ClassPreamble1({authorName: "John", revision: 2})
-// [StartExclude annotation_field_order]
 class C5 {}
-// [EndExclude annotation_field_order]
-// the same as:
+// 等价于：
 @ClassPreamble1({revision: 2, authorName: "John"})
-// [End annotation_field_order]
 class C6 {}
+// [End annotation_field_order]
 // [Start annotation_array]
 @interface ClassPreamble2 {
   authorName: string;

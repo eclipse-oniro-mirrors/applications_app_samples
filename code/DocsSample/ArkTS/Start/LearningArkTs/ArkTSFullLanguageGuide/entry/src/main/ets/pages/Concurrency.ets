@@ -31,13 +31,13 @@ async function loadMessage(): Promise<void> {
   }
 }
 
-loadMessage();  // 顶层不能使用await，直接调用返回Promise，不等待完成
+loadMessage(); // 顶层不能使用await，直接调用返回Promise，不等待完成
 // [End async_await_basic]
 
 // ===== promise_basic_usage =====
 // [Start promise_basic_usage]
 // 通过构造函数创建Promise
-let basicPromise = new Promise<string>((resolve, reject) => {
+let basicPromise = new Promise<string>((resolve: (value: string) => void, reject: (reason: Error) => void) => {
   let success = true;
   if (success) {
     resolve('操作成功');
@@ -70,8 +70,8 @@ Promise.race([fastPromise, slowPromise])
   .then((value: string): void => console.info(`${value}`)); // 'fast'
 
 // Promise.allSettled()：等待全部完成，无论成败都收集结果
-Promise.allSettled([Promise.resolve('ok'), Promise.reject(new Error('bad'))])
-  .then((results): void => {
+Promise.allSettled([Promise.resolve<string>('ok'), Promise.reject(new Error('bad'))])
+  .then((results: PromiseSettledResult<string>[]): void => {
     results.forEach((result): void => {
       console.info(`${result.status}`);
     });

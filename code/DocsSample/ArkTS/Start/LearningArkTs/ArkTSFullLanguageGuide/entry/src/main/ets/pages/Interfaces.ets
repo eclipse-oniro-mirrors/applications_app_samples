@@ -195,7 +195,7 @@ class ConsoleLogger implements Logger {
   }
   
   public warn(message: string): void {
-    console.info(`[WARN] ${message}`);
+    console.warn(`[WARN] ${message}`);
   }
 }
 
@@ -603,85 +603,6 @@ function useOptionalInterface(obj: OptionalInterface): void {
 }
 // [End using_optional_members]
 
-// ===== extending_interface_with_optionals =====
-// [Start extending_interface_with_optionals]
-// 基础接口（必选成员）
-interface BaseInterface {
-  requiredMethod(): void;
-  requiredProperty: string;
-}
-
-// 扩展接口（包含可选成员）
-interface ExtendedInterface extends BaseInterface {
-  optionalMethod?(): void;
-  optionalProperty?: number;
-}
-
-class BaseInterfaceImpl implements BaseInterface {
-  public requiredProperty: string = 'Required value';
-
-  public requiredMethod(): void {
-    console.info('Required method');
-  }
-}
-
-class ExtendedInterfaceImpl implements ExtendedInterface {
-  public requiredProperty: string = 'Required value';
-  public optionalProperty: number = 42;
-
-  public requiredMethod(): void {
-    console.info('Required method');
-  }
-
-  public optionalMethod(): void {
-    console.info('Optional method');
-  }
-}
-
-// 使用基础接口
-let baseObj: BaseInterface = new BaseInterfaceImpl();
-
-// 使用扩展接口（可以选择是否提供可选成员）
-let extendedObj: ExtendedInterface = new ExtendedInterfaceImpl();
-
-// 让扩展接口继承基础接口
-function processObject(obj: BaseInterface): void {
-  obj.requiredMethod();
-  console.info(`${obj.requiredProperty}`);
-  
-  // 如果传入扩展接口对象，可以先转换为扩展接口再检查可选成员
-  let extended: ExtendedInterface = obj as ExtendedInterface;
-  if (extended.optionalMethod !== undefined) {
-    extended.optionalMethod();
-  }
-}
-
-processObject(baseObj);
-processObject(extendedObj);
-// [End extending_interface_with_optionals]
-
-// ===== single_interface_implementation =====
-// [Start single_interface_implementation]
-interface Drawable {
-  draw(): void;
-}
-
-class Circle implements Drawable {
-  private radius: number;
-  
-  constructor(radius: number) {
-    this.radius = radius;
-  }
-  
-  public draw(): void {
-    console.info(`Drawing a circle with radius ${this.radius}`);
-  }
-}
-
-let circle = new Circle(5);
-circle.draw(); // Drawing a circle with radius 5
-// [End single_interface_implementation]
-
 // ===== multiple_interface_implementation =====
 // [Start multiple_interface_implementation]
 interface Printable {
@@ -824,9 +745,9 @@ function findMax<T extends EquatableComparable<T>>(items: T[]): T | null {
     return null;
   }
   
-  let max: T = items[0] as T;
+  let max: T = items[0];
   for (let i = 1; i < items.length; i++) {
-    let current: T = items[i] as T;
+    let current: T = items[i];
     if (current.compareTo(max) > 0) {
       max = current;
     }
@@ -1294,12 +1215,73 @@ abstract class AvicAbstractClass {
 }
 // [End abstract_vs_interface_constructor]
 
-// [Start map_replaces_index_signature]
-// ArkTS替代方案：使用Map
-let dictMap: Map<string, string | number> = new Map();
-dictMap.set('name', 'Alice');
-dictMap.set('age', 25);
-dictMap.set('city', 'New York');
+// ===== interface_property_types =====
+// [Start interface_property_types]
+interface ProductInfo {
+  // 必选属性
+  id: number;
+  name: string;
+  price: number;
 
-console.info(`${dictMap.get('city')}`);  // New York
-// [End map_replaces_index_signature]
+  // 可选属性（使用 ?）
+  description?: string;
+  stock?: number;
+
+  // 只读属性（使用 readonly）
+  readonly createdAt: Date;
+}
+
+let productInfo: ProductInfo = {
+  id: 1,
+  name: 'Laptop',
+  price: 999,
+  createdAt: new Date()
+};
+
+// 可以访问可选属性
+if (productInfo.description) {
+  console.info(`${productInfo.description}`);
+}
+
+// 只读属性不能修改
+// productInfo.createdAt = new Date(); // 编译错误
+// [End interface_property_types]
+// ===== interface_method_members =====
+// [Start interface_method_members]
+interface ArithmeticOperations {
+  reset(): void;
+  add(a: number, b: number): number;
+  subtract(a: number, b: number): number;
+
+  // 可选方法（使用 ?）
+  printResult?(): void;
+}
+
+class ArithmeticCalculator implements ArithmeticOperations {
+  private result: number = 0;
+
+  public reset(): void {
+    this.result = 0;
+    console.info('Calculator reset');
+  }
+
+  public add(a: number, b: number): number {
+    this.result = a + b;
+    return this.result;
+  }
+
+  public subtract(a: number, b: number): number {
+    this.result = a - b;
+    return this.result;
+  }
+
+  // 可选方法可以不实现，如需实现可参考以下写法
+  public printResult(): void {
+    console.info(`Result: ${this.result}`);
+  }
+}
+
+let arithCalculator: ArithmeticCalculator = new ArithmeticCalculator();
+let arithSum: number = arithCalculator.add(10, 5);
+console.info(`${arithSum}`); // 15
+// [End interface_method_members]

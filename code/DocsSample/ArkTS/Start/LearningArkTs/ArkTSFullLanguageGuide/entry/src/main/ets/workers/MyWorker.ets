@@ -28,10 +28,10 @@ workerPort.onmessage = (e: MessageEvents): void => {
     // 处理结果通过postMessage发回宿主线程，由宿主线程处理并更新UI
     workerPort.postMessage('success');
   }
-}
+};
 
 // Worker线程发生错误时的回调
 workerPort.onerror = (err: ErrorEvent): void => {
   console.error(`MyWorker error: ${err.message}`);
-}
+};
 // [End worker_thread_impl]
