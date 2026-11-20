@@ -15,11 +15,6 @@
  * limitations under the License.
  */
 
-/**
- * Permission and sanitisation models for the security suites. The sample has
- * no real network surface, so the suites assert the policy the pages rely on:
- * which roles may mutate calendar data and what text may reach a log line.
- */
 export class RolePolicy {
   public static readonly ROLES: string[] = ['viewer', 'editor', 'owner'];
 
