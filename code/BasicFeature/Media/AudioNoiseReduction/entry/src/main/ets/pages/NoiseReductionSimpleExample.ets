@@ -12,6 +12,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
+// [Start all_noiseReductionRecording]
 import { audio } from '@kit.AudioKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import noiseReduction from 'libentry.so';
@@ -109,6 +110,7 @@ struct NoiseReductionSimpleExample {
   }
 
   // Set noise reduction mode.
+  // [Start setNoiseReductionMode]
   jsSetMode(mode: audio.NoiseReductionMode): void {
     if (!this.audioCapturer) {
       return;
@@ -121,8 +123,10 @@ struct NoiseReductionSimpleExample {
       this.jsMode = `Failed: ${error.code}`;
     }
   }
+  // [End setNoiseReductionMode]
 
   // Get noise reduction mode.
+  // [Start getNoiseReductionMode]
   jsGetMode(): void {
     if (!this.audioCapturer) {
       return;
@@ -135,8 +139,10 @@ struct NoiseReductionSimpleExample {
       this.jsMode = `Failed: ${error.code}`;
     }
   }
+  // [End getNoiseReductionMode]
 
   // Get supported noise reduction modes.
+  // [Start getSupportedNoiseReductionModes]
   jsGetSupportedModes(): void {
     if (!this.audioCapturer) {
       return;
@@ -149,8 +155,10 @@ struct NoiseReductionSimpleExample {
       this.jsSupportedModes = `Failed: ${error.code}`;
     }
   }
+  // [End getSupportedNoiseReductionModes]
 
   // Register callback.
+  // [Start onNoiseReductionModeChanged]
   jsRegisterCallback(): void {
     if (!this.audioCapturer || this.jsCallbackRegistered) {
       return;
@@ -174,8 +182,10 @@ struct NoiseReductionSimpleExample {
       this.jsCallbackLogList = [`Failed: ${error.code}`];
     }
   }
+  // [End onNoiseReductionModeChanged]
 
   // Unregister callback.
+  // [Start offNoiseReductionModeChanged]
   jsUnregisterCallback(): void {
     if (!this.audioCapturer || !this.jsCallbackRegistered) {
       return;
@@ -189,6 +199,7 @@ struct NoiseReductionSimpleExample {
       this.jsCallbackLogList = [`Failed: ${error.code}`];
     }
   }
+  // [End offNoiseReductionModeChanged]
 
   // Release.
   async jsRelease(): Promise<void> {
@@ -440,3 +451,4 @@ struct NoiseReductionSimpleExample {
     .backgroundColor('#FFF')
   }
 }
+// [End all_noiseReductionRecording]
