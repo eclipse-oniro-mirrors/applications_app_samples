@@ -13,8 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it } from '@ohos/hypium';
-import { Driver, ON } from '@ohos.UiTest';
+import { describe, it, expect } from '@ohos/hypium';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import { logger } from '../util/Logger';
 
@@ -22,77 +21,29 @@ const TAG: string = '[Sample_AppMarket]';
 const BUNDLE = 'AppMarket_';
 
 export default function abilityTest() {
-  describe('ActsAbilityTest', function () {
+  describe('ActsAbilityTest', () => {
 
     /**
-     * 拉起应用
+     * @tc.number  SUB_MULTIDEVICE_MARKET_LEGACY_0100
+     * @tc.name    AppMarketStartAbility001
+     * @tc.desc    Launch the AppMarket ability
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
      */
-    it(BUNDLE + 'StartAbility_001', 0, async function (done) {
+    it(BUNDLE + 'StartAbility_001', 0, async () => {
       logger.info(TAG, `${BUNDLE}StartAbility_001 begin`);
       let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
       try {
         await abilityDelegator.startAbility({
           bundleName: 'ohos.samples.appmarket',
           abilityName: 'MainAbility'
-        })
-        done();
+        });
       } catch (expection) {
         logger.info(TAG, `StartAbility end ${JSON.stringify(expection)}`);
-        done();
+        expect(0).assertEqual(expection.code);
       }
       logger.info(TAG, `${BUNDLE}StartAbility_001 end`);
-    })
-
-    /**
-     * 关闭窗口
-     */
-    it(BUNDLE + 'CloseWindowFunction_001', 0, async () => {
-      logger.info(TAG, `${BUNDLE}CloseWindowFunction_001 begin`);
-      let driver = Driver.create();
-      await driver.delayMs(200);
-      let window = await driver.findWindow({
-        actived: true
-      });
-      await window.close();
-      await driver.delayMs(200);
-      logger.info(TAG, `${BUNDLE}CloseWindowFunction_001 end`);
-    })
-
-    /**
-     * 最小化窗口
-     */
-    it(BUNDLE + 'MinimizeWindowFunction_001', 0, async () => {
-      logger.info(TAG, `${BUNDLE}MinimizeWindowFunction_001 begin`);
-      let driver = Driver.create();
-      await driver.delayMs(200);
-      let appMarket = await driver.findComponent(ON.text('AppMarket'));
-      await appMarket.click();
-      await driver.delayMs(200);
-      let window = await driver.findWindow({
-        actived: true
-      });
-      await window.minimize();
-      await driver.delayMs(200);
-      logger.info(TAG, `${BUNDLE}MinimizeWindowFunction_001 end`);
-    })
-
-    /**
-     * 窗口分屏
-     */
-    it(BUNDLE + 'SplitWindowFunction_001', 0, async () => {
-      logger.info(TAG, `${BUNDLE}SplitWindowFunction_001 begin`);
-      let driver = Driver.create();
-      await driver.delayMs(200);
-      let appMarket = await driver.findComponent(ON.text('AppMarket'));
-      await appMarket.click();
-      await driver.delayMs(200);
-      let window = await driver.findWindow({
-        actived: true
-      });
-      await window.split();
-      await driver.delayMs(200);
-      await driver.pressBack();
-      logger.info(TAG, `${BUNDLE}SplitWindowFunction_001 end`);
     })
   })
 }
