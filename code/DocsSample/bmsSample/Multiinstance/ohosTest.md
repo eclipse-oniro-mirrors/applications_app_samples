@@ -19,9 +19,9 @@
 |----------|----------|-----------|----------|--------|----------|
 | 语言与编码基础 | 应用已安装 | 字符串、JSON、数值、集合、时间、数学、签名文本的构造与解析 | 结果与预期值一致 | 1576 | Pass |
 | 模块与包信息 | 应用已安装 | 查询 BundleInfo/HapModuleInfo | bundleName、版本、模块名与类型符合预期 | 528 | Pass |
-| 多实例行为 | 应用已安装（multiInstance，maxCount=5） | 查询 appIndex 并跨能力、文件、首选项、编解码验证 | 实例索引为 0，且在各场景保持不变 | 107 | Pass |
+| 多实例行为 | 应用已安装（multiInstance，maxCount=5） | 查询 appIndex 并跨能力、文件、偏好项、编解码验证 | 实例索引为 0，且在各场景保持不变 | 107 | Pass |
 | entry 资源读取 | 应用已安装 | 读取 string/color/float/media/layered-image | 资源值、PNG 结构与错误码符合预期 | 171 | Pass |
-| 文件与首选项 | 应用沙箱可写 | 写入/读取/删除草稿文件，读写 Preferences | 内容一致，异常码符合预期 | 515 | Pass |
+| 文件与偏好项 | 应用沙箱可写 | 写入/读取/删除草稿文件，读写 Preferences | 内容一致，异常码符合预期 | 515 | Pass |
 | 显示信息 | 应用已安装 | 查询默认显示器属性 | 宽高、密度、刷新率等均为有效值 | 70 | Pass |
 | Want 构造 | 应用已安装 | 构造显式 Want 并解析字段 | 字段完整、可往返序列化 | 112 | Pass |
 | Ability 与 UI | 应用已安装 | 拉起 EntryAbility、获取 UI 组件边界 | 上下文信息正确，HelloWorld 组件可见 | 23 | Pass |

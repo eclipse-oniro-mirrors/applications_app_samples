@@ -50,7 +50,7 @@ entry/src/
 
 ### 测试
 
-`entry/src/ohosTest` 下共 28 个测试套件、3102 条用例，覆盖多实例索引（appIndex）、BundleInfo/ApplicationInfo/AbilityInfo 字段、entry 与 entry_test 模块结构、资源读取、文件与首选项读写、显示、Want、错误码等场景。用例设计与执行方式见 [ohosTest.md](ohosTest.md)。
+`entry/src/ohosTest` 下共 28 个测试套件、3102 条用例，覆盖多实例索引（appIndex）、BundleInfo/ApplicationInfo/AbilityInfo 字段、entry 与 entry_test 模块结构、资源读取、文件与偏好项读写、显示、Want、错误码等场景。用例设计与执行方式见 [ohosTest.md](ohosTest.md)。
 
 执行命令：
 
