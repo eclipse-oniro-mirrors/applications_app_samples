@@ -1068,3 +1068,846 @@ export default function wantFactsMatrixTest() {
     expect(stored['label'] as string).assertEqual('india');
     expect((stored['label'] as string).length).assertEqual(5);
     expect((stored['label'] as string).charAt(0)).assertEqual('i');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0048
+   * @tc.name      testWantFacts0048
+   * @tc.desc      Want parameters 10 round trip
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testWantFacts0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testWantFacts0048', 'want params 10');
+    const params: Record<string, Object> = {
+      'probe': 130,
+      'label': 'juliet'
+    };
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      abilityName: ENTRY_ABILITY,
+      parameters: params
+    };
+    const stored: Record<string, Object> = want.parameters as Record<string, Object>;
+    expect(stored['probe'] as number).assertEqual(130);
+    expect(stored['label'] as string).assertEqual('juliet');
+    expect((stored['label'] as string).length).assertEqual(6);
+    expect((stored['label'] as string).charAt(0)).assertEqual('j');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0049
+   * @tc.name      testWantFacts0049
+   * @tc.desc      Want parameters 11 round trip
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testWantFacts0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testWantFacts0049', 'want params 11');
+    const params: Record<string, Object> = {
+      'probe': 143,
+      'label': 'kilo'
+    };
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      abilityName: ENTRY_ABILITY,
+      parameters: params
+    };
+    const stored: Record<string, Object> = want.parameters as Record<string, Object>;
+    expect(stored['probe'] as number).assertEqual(143);
+    expect(stored['label'] as string).assertEqual('kilo');
+    expect((stored['label'] as string).length).assertEqual(4);
+    expect((stored['label'] as string).charAt(0)).assertEqual('k');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0050
+   * @tc.name      testWantFacts0050
+   * @tc.desc      Want parameters 12 round trip
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testWantFacts0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testWantFacts0050', 'want params 12');
+    const params: Record<string, Object> = {
+      'probe': 156,
+      'label': 'lima'
+    };
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      abilityName: ENTRY_ABILITY,
+      parameters: params
+    };
+    const stored: Record<string, Object> = want.parameters as Record<string, Object>;
+    expect(stored['probe'] as number).assertEqual(156);
+    expect(stored['label'] as string).assertEqual('lima');
+    expect((stored['label'] as string).length).assertEqual(4);
+    expect((stored['label'] as string).charAt(0)).assertEqual('l');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0051
+   * @tc.name      testWantFacts0051
+   * @tc.desc      Want parameters 13 round trip
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testWantFacts0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testWantFacts0051', 'want params 13');
+    const params: Record<string, Object> = {
+      'probe': 169,
+      'label': 'mike'
+    };
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      abilityName: ENTRY_ABILITY,
+      parameters: params
+    };
+    const stored: Record<string, Object> = want.parameters as Record<string, Object>;
+    expect(stored['probe'] as number).assertEqual(169);
+    expect(stored['label'] as string).assertEqual('mike');
+    expect((stored['label'] as string).length).assertEqual(4);
+    expect((stored['label'] as string).charAt(0)).assertEqual('m');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0052
+   * @tc.name      testWantFacts0052
+   * @tc.desc      Want parameters 14 round trip
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testWantFacts0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testWantFacts0052', 'want params 14');
+    const params: Record<string, Object> = {
+      'probe': 182,
+      'label': 'november'
+    };
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      abilityName: ENTRY_ABILITY,
+      parameters: params
+    };
+    const stored: Record<string, Object> = want.parameters as Record<string, Object>;
+    expect(stored['probe'] as number).assertEqual(182);
+    expect(stored['label'] as string).assertEqual('november');
+    expect((stored['label'] as string).length).assertEqual(8);
+    expect((stored['label'] as string).charAt(0)).assertEqual('n');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0053
+   * @tc.name      testWantFacts0053
+   * @tc.desc      Want parameters 15 round trip
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testWantFacts0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testWantFacts0053', 'want params 15');
+    const params: Record<string, Object> = {
+      'probe': 195,
+      'label': 'oscar'
+    };
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      abilityName: ENTRY_ABILITY,
+      parameters: params
+    };
+    const stored: Record<string, Object> = want.parameters as Record<string, Object>;
+    expect(stored['probe'] as number).assertEqual(195);
+    expect(stored['label'] as string).assertEqual('oscar');
+    expect((stored['label'] as string).length).assertEqual(5);
+    expect((stored['label'] as string).charAt(0)).assertEqual('o');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0054
+   * @tc.name      testWantFacts0054
+   * @tc.desc      Want parameters 16 round trip
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testWantFacts0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testWantFacts0054', 'want params 16');
+    const params: Record<string, Object> = {
+      'probe': 208,
+      'label': 'papa'
+    };
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      abilityName: ENTRY_ABILITY,
+      parameters: params
+    };
+    const stored: Record<string, Object> = want.parameters as Record<string, Object>;
+    expect(stored['probe'] as number).assertEqual(208);
+    expect(stored['label'] as string).assertEqual('papa');
+    expect((stored['label'] as string).length).assertEqual(4);
+    expect((stored['label'] as string).charAt(0)).assertEqual('p');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0055
+   * @tc.name      testWantFacts0055
+   * @tc.desc      Want skill 1 pairs entity.system.home with ohos.want.action.home
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testWantFacts0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testWantFacts0055', 'want skill 1');
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      entities: ['entity.system.home', 'ohos.want.action.home'],
+      action: 'ohos.want.action.home'
+    };
+    const wantEntities: string[] = want.entities as string[];
+    expect(wantEntities.length).assertEqual(2);
+    expect(wantEntities[0]).assertEqual('entity.system.home');
+    expect(wantEntities[1]).assertEqual('ohos.want.action.home');
+    expect(wantEntities.join('|')).assertEqual('entity.system.home|ohos.want.action.home');
+    expect(want.action as string).assertEqual('ohos.want.action.home');
+    expect((want.action as string).startsWith('ohos.want.action.')).assertTrue();
+    expect((wantEntities[0] as string).startsWith('entity.system.')).assertTrue();
+    expect(want.bundleName as string).assertEqual(BUNDLE_NAME);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0056
+   * @tc.name      testWantFacts0056
+   * @tc.desc      Want skill 2 pairs entity.system.home with ohos.want.action.viewData
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testWantFacts0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testWantFacts0056', 'want skill 2');
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      entities: ['entity.system.home', 'ohos.want.action.viewData'],
+      action: 'ohos.want.action.viewData'
+    };
+    const wantEntities: string[] = want.entities as string[];
+    expect(wantEntities.length).assertEqual(2);
+    expect(wantEntities[0]).assertEqual('entity.system.home');
+    expect(wantEntities[1]).assertEqual('ohos.want.action.viewData');
+    expect(wantEntities.join('|')).assertEqual('entity.system.home|ohos.want.action.viewData');
+    expect(want.action as string).assertEqual('ohos.want.action.viewData');
+    expect((want.action as string).startsWith('ohos.want.action.')).assertTrue();
+    expect((wantEntities[0] as string).startsWith('entity.system.')).assertTrue();
+    expect(want.bundleName as string).assertEqual(BUNDLE_NAME);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0057
+   * @tc.name      testWantFacts0057
+   * @tc.desc      Want skill 3 pairs entity.system.home with ohos.want.action.sendData
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testWantFacts0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testWantFacts0057', 'want skill 3');
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      entities: ['entity.system.home', 'ohos.want.action.sendData'],
+      action: 'ohos.want.action.sendData'
+    };
+    const wantEntities: string[] = want.entities as string[];
+    expect(wantEntities.length).assertEqual(2);
+    expect(wantEntities[0]).assertEqual('entity.system.home');
+    expect(wantEntities[1]).assertEqual('ohos.want.action.sendData');
+    expect(wantEntities.join('|')).assertEqual('entity.system.home|ohos.want.action.sendData');
+    expect(want.action as string).assertEqual('ohos.want.action.sendData');
+    expect((want.action as string).startsWith('ohos.want.action.')).assertTrue();
+    expect((wantEntities[0] as string).startsWith('entity.system.')).assertTrue();
+    expect(want.bundleName as string).assertEqual(BUNDLE_NAME);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0058
+   * @tc.name      testWantFacts0058
+   * @tc.desc      Want skill 4 pairs entity.system.home with ohos.want.action.openDocument
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testWantFacts0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testWantFacts0058', 'want skill 4');
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      entities: ['entity.system.home', 'ohos.want.action.openDocument'],
+      action: 'ohos.want.action.openDocument'
+    };
+    const wantEntities: string[] = want.entities as string[];
+    expect(wantEntities.length).assertEqual(2);
+    expect(wantEntities[0]).assertEqual('entity.system.home');
+    expect(wantEntities[1]).assertEqual('ohos.want.action.openDocument');
+    expect(wantEntities.join('|')).assertEqual('entity.system.home|ohos.want.action.openDocument');
+    expect(want.action as string).assertEqual('ohos.want.action.openDocument');
+    expect((want.action as string).startsWith('ohos.want.action.')).assertTrue();
+    expect((wantEntities[0] as string).startsWith('entity.system.')).assertTrue();
+    expect(want.bundleName as string).assertEqual(BUNDLE_NAME);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0059
+   * @tc.name      testWantFacts0059
+   * @tc.desc      Want skill 5 pairs entity.system.browsable with ohos.want.action.home
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testWantFacts0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testWantFacts0059', 'want skill 5');
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      entities: ['entity.system.browsable', 'ohos.want.action.home'],
+      action: 'ohos.want.action.home'
+    };
+    const wantEntities: string[] = want.entities as string[];
+    expect(wantEntities.length).assertEqual(2);
+    expect(wantEntities[0]).assertEqual('entity.system.browsable');
+    expect(wantEntities[1]).assertEqual('ohos.want.action.home');
+    expect(wantEntities.join('|')).assertEqual('entity.system.browsable|ohos.want.action.home');
+    expect(want.action as string).assertEqual('ohos.want.action.home');
+    expect((want.action as string).startsWith('ohos.want.action.')).assertTrue();
+    expect((wantEntities[0] as string).startsWith('entity.system.')).assertTrue();
+    expect(want.bundleName as string).assertEqual(BUNDLE_NAME);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0060
+   * @tc.name      testWantFacts0060
+   * @tc.desc      Want skill 6 pairs entity.system.browsable with ohos.want.action.viewData
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testWantFacts0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testWantFacts0060', 'want skill 6');
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      entities: ['entity.system.browsable', 'ohos.want.action.viewData'],
+      action: 'ohos.want.action.viewData'
+    };
+    const wantEntities: string[] = want.entities as string[];
+    expect(wantEntities.length).assertEqual(2);
+    expect(wantEntities[0]).assertEqual('entity.system.browsable');
+    expect(wantEntities[1]).assertEqual('ohos.want.action.viewData');
+    expect(wantEntities.join('|')).assertEqual('entity.system.browsable|ohos.want.action.viewData');
+    expect(want.action as string).assertEqual('ohos.want.action.viewData');
+    expect((want.action as string).startsWith('ohos.want.action.')).assertTrue();
+    expect((wantEntities[0] as string).startsWith('entity.system.')).assertTrue();
+    expect(want.bundleName as string).assertEqual(BUNDLE_NAME);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0061
+   * @tc.name      testWantFacts0061
+   * @tc.desc      Want skill 7 pairs entity.system.browsable with ohos.want.action.sendData
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testWantFacts0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testWantFacts0061', 'want skill 7');
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      entities: ['entity.system.browsable', 'ohos.want.action.sendData'],
+      action: 'ohos.want.action.sendData'
+    };
+    const wantEntities: string[] = want.entities as string[];
+    expect(wantEntities.length).assertEqual(2);
+    expect(wantEntities[0]).assertEqual('entity.system.browsable');
+    expect(wantEntities[1]).assertEqual('ohos.want.action.sendData');
+    expect(wantEntities.join('|')).assertEqual('entity.system.browsable|ohos.want.action.sendData');
+    expect(want.action as string).assertEqual('ohos.want.action.sendData');
+    expect((want.action as string).startsWith('ohos.want.action.')).assertTrue();
+    expect((wantEntities[0] as string).startsWith('entity.system.')).assertTrue();
+    expect(want.bundleName as string).assertEqual(BUNDLE_NAME);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0062
+   * @tc.name      testWantFacts0062
+   * @tc.desc      Want skill 8 pairs entity.system.browsable with ohos.want.action.openDocument
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testWantFacts0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testWantFacts0062', 'want skill 8');
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      entities: ['entity.system.browsable', 'ohos.want.action.openDocument'],
+      action: 'ohos.want.action.openDocument'
+    };
+    const wantEntities: string[] = want.entities as string[];
+    expect(wantEntities.length).assertEqual(2);
+    expect(wantEntities[0]).assertEqual('entity.system.browsable');
+    expect(wantEntities[1]).assertEqual('ohos.want.action.openDocument');
+    expect(wantEntities.join('|')).assertEqual('entity.system.browsable|ohos.want.action.openDocument');
+    expect(want.action as string).assertEqual('ohos.want.action.openDocument');
+    expect((want.action as string).startsWith('ohos.want.action.')).assertTrue();
+    expect((wantEntities[0] as string).startsWith('entity.system.')).assertTrue();
+    expect(want.bundleName as string).assertEqual(BUNDLE_NAME);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0063
+   * @tc.name      testWantFacts0063
+   * @tc.desc      Want skill 9 pairs entity.system.default with ohos.want.action.home
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testWantFacts0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testWantFacts0063', 'want skill 9');
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      entities: ['entity.system.default', 'ohos.want.action.home'],
+      action: 'ohos.want.action.home'
+    };
+    const wantEntities: string[] = want.entities as string[];
+    expect(wantEntities.length).assertEqual(2);
+    expect(wantEntities[0]).assertEqual('entity.system.default');
+    expect(wantEntities[1]).assertEqual('ohos.want.action.home');
+    expect(wantEntities.join('|')).assertEqual('entity.system.default|ohos.want.action.home');
+    expect(want.action as string).assertEqual('ohos.want.action.home');
+    expect((want.action as string).startsWith('ohos.want.action.')).assertTrue();
+    expect((wantEntities[0] as string).startsWith('entity.system.')).assertTrue();
+    expect(want.bundleName as string).assertEqual(BUNDLE_NAME);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0064
+   * @tc.name      testWantFacts0064
+   * @tc.desc      Want skill 10 pairs entity.system.default with ohos.want.action.viewData
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testWantFacts0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testWantFacts0064', 'want skill 10');
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      entities: ['entity.system.default', 'ohos.want.action.viewData'],
+      action: 'ohos.want.action.viewData'
+    };
+    const wantEntities: string[] = want.entities as string[];
+    expect(wantEntities.length).assertEqual(2);
+    expect(wantEntities[0]).assertEqual('entity.system.default');
+    expect(wantEntities[1]).assertEqual('ohos.want.action.viewData');
+    expect(wantEntities.join('|')).assertEqual('entity.system.default|ohos.want.action.viewData');
+    expect(want.action as string).assertEqual('ohos.want.action.viewData');
+    expect((want.action as string).startsWith('ohos.want.action.')).assertTrue();
+    expect((wantEntities[0] as string).startsWith('entity.system.')).assertTrue();
+    expect(want.bundleName as string).assertEqual(BUNDLE_NAME);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0065
+   * @tc.name      testWantFacts0065
+   * @tc.desc      Want skill 11 pairs entity.system.default with ohos.want.action.sendData
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testWantFacts0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testWantFacts0065', 'want skill 11');
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      entities: ['entity.system.default', 'ohos.want.action.sendData'],
+      action: 'ohos.want.action.sendData'
+    };
+    const wantEntities: string[] = want.entities as string[];
+    expect(wantEntities.length).assertEqual(2);
+    expect(wantEntities[0]).assertEqual('entity.system.default');
+    expect(wantEntities[1]).assertEqual('ohos.want.action.sendData');
+    expect(wantEntities.join('|')).assertEqual('entity.system.default|ohos.want.action.sendData');
+    expect(want.action as string).assertEqual('ohos.want.action.sendData');
+    expect((want.action as string).startsWith('ohos.want.action.')).assertTrue();
+    expect((wantEntities[0] as string).startsWith('entity.system.')).assertTrue();
+    expect(want.bundleName as string).assertEqual(BUNDLE_NAME);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0066
+   * @tc.name      testWantFacts0066
+   * @tc.desc      Want skill 12 pairs entity.system.default with ohos.want.action.openDocument
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testWantFacts0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testWantFacts0066', 'want skill 12');
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      entities: ['entity.system.default', 'ohos.want.action.openDocument'],
+      action: 'ohos.want.action.openDocument'
+    };
+    const wantEntities: string[] = want.entities as string[];
+    expect(wantEntities.length).assertEqual(2);
+    expect(wantEntities[0]).assertEqual('entity.system.default');
+    expect(wantEntities[1]).assertEqual('ohos.want.action.openDocument');
+    expect(wantEntities.join('|')).assertEqual('entity.system.default|ohos.want.action.openDocument');
+    expect(want.action as string).assertEqual('ohos.want.action.openDocument');
+    expect((want.action as string).startsWith('ohos.want.action.')).assertTrue();
+    expect((wantEntities[0] as string).startsWith('entity.system.')).assertTrue();
+    expect(want.bundleName as string).assertEqual(BUNDLE_NAME);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0067
+   * @tc.name      testWantFacts0067
+   * @tc.desc      Want skill 13 pairs entity.system.voip with ohos.want.action.home
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testWantFacts0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testWantFacts0067', 'want skill 13');
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      entities: ['entity.system.voip', 'ohos.want.action.home'],
+      action: 'ohos.want.action.home'
+    };
+    const wantEntities: string[] = want.entities as string[];
+    expect(wantEntities.length).assertEqual(2);
+    expect(wantEntities[0]).assertEqual('entity.system.voip');
+    expect(wantEntities[1]).assertEqual('ohos.want.action.home');
+    expect(wantEntities.join('|')).assertEqual('entity.system.voip|ohos.want.action.home');
+    expect(want.action as string).assertEqual('ohos.want.action.home');
+    expect((want.action as string).startsWith('ohos.want.action.')).assertTrue();
+    expect((wantEntities[0] as string).startsWith('entity.system.')).assertTrue();
+    expect(want.bundleName as string).assertEqual(BUNDLE_NAME);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0068
+   * @tc.name      testWantFacts0068
+   * @tc.desc      Want skill 14 pairs entity.system.voip with ohos.want.action.viewData
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testWantFacts0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testWantFacts0068', 'want skill 14');
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      entities: ['entity.system.voip', 'ohos.want.action.viewData'],
+      action: 'ohos.want.action.viewData'
+    };
+    const wantEntities: string[] = want.entities as string[];
+    expect(wantEntities.length).assertEqual(2);
+    expect(wantEntities[0]).assertEqual('entity.system.voip');
+    expect(wantEntities[1]).assertEqual('ohos.want.action.viewData');
+    expect(wantEntities.join('|')).assertEqual('entity.system.voip|ohos.want.action.viewData');
+    expect(want.action as string).assertEqual('ohos.want.action.viewData');
+    expect((want.action as string).startsWith('ohos.want.action.')).assertTrue();
+    expect((wantEntities[0] as string).startsWith('entity.system.')).assertTrue();
+    expect(want.bundleName as string).assertEqual(BUNDLE_NAME);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0069
+   * @tc.name      testWantFacts0069
+   * @tc.desc      Want skill 15 pairs entity.system.voip with ohos.want.action.sendData
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testWantFacts0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testWantFacts0069', 'want skill 15');
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      entities: ['entity.system.voip', 'ohos.want.action.sendData'],
+      action: 'ohos.want.action.sendData'
+    };
+    const wantEntities: string[] = want.entities as string[];
+    expect(wantEntities.length).assertEqual(2);
+    expect(wantEntities[0]).assertEqual('entity.system.voip');
+    expect(wantEntities[1]).assertEqual('ohos.want.action.sendData');
+    expect(wantEntities.join('|')).assertEqual('entity.system.voip|ohos.want.action.sendData');
+    expect(want.action as string).assertEqual('ohos.want.action.sendData');
+    expect((want.action as string).startsWith('ohos.want.action.')).assertTrue();
+    expect((wantEntities[0] as string).startsWith('entity.system.')).assertTrue();
+    expect(want.bundleName as string).assertEqual(BUNDLE_NAME);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0070
+   * @tc.name      testWantFacts0070
+   * @tc.desc      Want skill 16 pairs entity.system.voip with ohos.want.action.openDocument
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testWantFacts0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testWantFacts0070', 'want skill 16');
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      entities: ['entity.system.voip', 'ohos.want.action.openDocument'],
+      action: 'ohos.want.action.openDocument'
+    };
+    const wantEntities: string[] = want.entities as string[];
+    expect(wantEntities.length).assertEqual(2);
+    expect(wantEntities[0]).assertEqual('entity.system.voip');
+    expect(wantEntities[1]).assertEqual('ohos.want.action.openDocument');
+    expect(wantEntities.join('|')).assertEqual('entity.system.voip|ohos.want.action.openDocument');
+    expect(want.action as string).assertEqual('ohos.want.action.openDocument');
+    expect((want.action as string).startsWith('ohos.want.action.')).assertTrue();
+    expect((wantEntities[0] as string).startsWith('entity.system.')).assertTrue();
+    expect(want.bundleName as string).assertEqual(BUNDLE_NAME);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0071
+   * @tc.name      testWantFacts0071
+   * @tc.desc      Want skill 17 pairs entity.system.media with ohos.want.action.home
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testWantFacts0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testWantFacts0071', 'want skill 17');
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      entities: ['entity.system.media', 'ohos.want.action.home'],
+      action: 'ohos.want.action.home'
+    };
+    const wantEntities: string[] = want.entities as string[];
+    expect(wantEntities.length).assertEqual(2);
+    expect(wantEntities[0]).assertEqual('entity.system.media');
+    expect(wantEntities[1]).assertEqual('ohos.want.action.home');
+    expect(wantEntities.join('|')).assertEqual('entity.system.media|ohos.want.action.home');
+    expect(want.action as string).assertEqual('ohos.want.action.home');
+    expect((want.action as string).startsWith('ohos.want.action.')).assertTrue();
+    expect((wantEntities[0] as string).startsWith('entity.system.')).assertTrue();
+    expect(want.bundleName as string).assertEqual(BUNDLE_NAME);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0072
+   * @tc.name      testWantFacts0072
+   * @tc.desc      Want skill 18 pairs entity.system.media with ohos.want.action.viewData
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testWantFacts0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testWantFacts0072', 'want skill 18');
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      entities: ['entity.system.media', 'ohos.want.action.viewData'],
+      action: 'ohos.want.action.viewData'
+    };
+    const wantEntities: string[] = want.entities as string[];
+    expect(wantEntities.length).assertEqual(2);
+    expect(wantEntities[0]).assertEqual('entity.system.media');
+    expect(wantEntities[1]).assertEqual('ohos.want.action.viewData');
+    expect(wantEntities.join('|')).assertEqual('entity.system.media|ohos.want.action.viewData');
+    expect(want.action as string).assertEqual('ohos.want.action.viewData');
+    expect((want.action as string).startsWith('ohos.want.action.')).assertTrue();
+    expect((wantEntities[0] as string).startsWith('entity.system.')).assertTrue();
+    expect(want.bundleName as string).assertEqual(BUNDLE_NAME);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0073
+   * @tc.name      testWantFacts0073
+   * @tc.desc      Want skill 19 pairs entity.system.media with ohos.want.action.sendData
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testWantFacts0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testWantFacts0073', 'want skill 19');
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      entities: ['entity.system.media', 'ohos.want.action.sendData'],
+      action: 'ohos.want.action.sendData'
+    };
+    const wantEntities: string[] = want.entities as string[];
+    expect(wantEntities.length).assertEqual(2);
+    expect(wantEntities[0]).assertEqual('entity.system.media');
+    expect(wantEntities[1]).assertEqual('ohos.want.action.sendData');
+    expect(wantEntities.join('|')).assertEqual('entity.system.media|ohos.want.action.sendData');
+    expect(want.action as string).assertEqual('ohos.want.action.sendData');
+    expect((want.action as string).startsWith('ohos.want.action.')).assertTrue();
+    expect((wantEntities[0] as string).startsWith('entity.system.')).assertTrue();
+    expect(want.bundleName as string).assertEqual(BUNDLE_NAME);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0074
+   * @tc.name      testWantFacts0074
+   * @tc.desc      Want skill 20 pairs entity.system.media with ohos.want.action.openDocument
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testWantFacts0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testWantFacts0074', 'want skill 20');
+    const want: Want = {
+      bundleName: BUNDLE_NAME,
+      entities: ['entity.system.media', 'ohos.want.action.openDocument'],
+      action: 'ohos.want.action.openDocument'
+    };
+    const wantEntities: string[] = want.entities as string[];
+    expect(wantEntities.length).assertEqual(2);
+    expect(wantEntities[0]).assertEqual('entity.system.media');
+    expect(wantEntities[1]).assertEqual('ohos.want.action.openDocument');
+    expect(wantEntities.join('|')).assertEqual('entity.system.media|ohos.want.action.openDocument');
+    expect(want.action as string).assertEqual('ohos.want.action.openDocument');
+    expect((want.action as string).startsWith('ohos.want.action.')).assertTrue();
+    expect((wantEntities[0] as string).startsWith('entity.system.')).assertTrue();
+    expect(want.bundleName as string).assertEqual(BUNDLE_NAME);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0075
+   * @tc.name      testWantFacts0075
+   * @tc.desc      Empty want 1 keeps only module only
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testWantFacts0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testWantFacts0075', 'want empty 1');
+    const want: Want = {
+      moduleName: 'har'
+    };
+    expect(want.moduleName as string).assertEqual('har');
+    expect((want.moduleName as string).length).assertEqual(3);
+    expect(want.bundleName === undefined).assertTrue();
+    expect(want.abilityName === undefined).assertTrue();
+    expect(want.parameters === undefined).assertTrue();
+    expect(want.uri === undefined).assertTrue();
+    expect(want.action === undefined).assertTrue();
+    expect(want.entities === undefined).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0076
+   * @tc.name      testWantFacts0076
+   * @tc.desc      Empty want 2 keeps only ability only
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testWantFacts0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testWantFacts0076', 'want empty 2');
+    const want: Want = {
+      abilityName: BACKUP_ABILITY
+    };
+    expect(want.abilityName as string).assertEqual(BACKUP_ABILITY);
+    expect((want.abilityName as string).endsWith('Ability')).assertTrue();
+    expect(want.bundleName === undefined).assertTrue();
+    expect(want.moduleName === undefined).assertTrue();
+    expect(want.parameters === undefined).assertTrue();
+    expect(want.uri === undefined).assertTrue();
+    expect(want.action === undefined).assertTrue();
+    expect(want.entities === undefined).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0077
+   * @tc.name      testWantFacts0077
+   * @tc.desc      Empty want 3 keeps only bundle only
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testWantFacts0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testWantFacts0077', 'want empty 3');
+    const want: Want = {
+      bundleName: BUNDLE_NAME
+    };
+    expect(want.bundleName as string).assertEqual(BUNDLE_NAME);
+    expect((want.bundleName as string).split('.').length).assertEqual(4);
+    expect(want.moduleName === undefined).assertTrue();
+    expect(want.abilityName === undefined).assertTrue();
+    expect(want.parameters === undefined).assertTrue();
+    expect(want.uri === undefined).assertTrue();
+    expect(want.action === undefined).assertTrue();
+    expect(want.entities === undefined).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0078
+   * @tc.name      testWantFacts0078
+   * @tc.desc      Empty want 4 keeps only uri only
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testWantFacts0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testWantFacts0078', 'want empty 4');
+    const want: Want = {
+      uri: 'https://probe.example.org/empty/1'
+    };
+    expect((want.uri as string).startsWith('https://')).assertTrue();
+    expect((want.uri as string).endsWith('/1')).assertTrue();
+    expect(want.bundleName === undefined).assertTrue();
+    expect(want.moduleName === undefined).assertTrue();
+    expect(want.abilityName === undefined).assertTrue();
+    expect(want.parameters === undefined).assertTrue();
+    expect(want.action === undefined).assertTrue();
+    expect(want.entities === undefined).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0079
+   * @tc.name      testWantFacts0079
+   * @tc.desc      Empty want 5 keeps only action only
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testWantFacts0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testWantFacts0079', 'want empty 5');
+    const want: Want = {
+      action: 'ohos.want.action.viewData'
+    };
+    expect(want.action as string).assertEqual('ohos.want.action.viewData');
+    expect((want.action as string).includes('viewData')).assertTrue();
+    expect(want.bundleName === undefined).assertTrue();
+    expect(want.moduleName === undefined).assertTrue();
+    expect(want.abilityName === undefined).assertTrue();
+    expect(want.parameters === undefined).assertTrue();
+    expect(want.uri === undefined).assertTrue();
+    expect(want.entities === undefined).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_WANT_0080
+   * @tc.name      testWantFacts0080
+   * @tc.desc      Empty want 6 keeps only entities only
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testWantFacts0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testWantFacts0080', 'want empty 6');
+    const want: Want = {
+      entities: ['entity.system.default']
+    };
+    expect((want.entities as string[]).length).assertEqual(1);
+    expect((want.entities as string[])[0]).assertEqual('entity.system.default');
+    expect(want.bundleName === undefined).assertTrue();
+    expect(want.moduleName === undefined).assertTrue();
+    expect(want.abilityName === undefined).assertTrue();
+    expect(want.parameters === undefined).assertTrue();
+    expect(want.uri === undefined).assertTrue();
+    expect(want.action === undefined).assertTrue();
+  });
+  });
+}
