@@ -1050,3 +1050,1667 @@ export default function moduleNameMatrixTest() {
     expect(token.toUpperCase()).assertEqual('ENTRYABILITY_LABEL');
     expect(token.toUpperCase().length).assertEqual(18);
   });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0069
+   * @tc.name      testModuleName0069
+   * @tc.desc      Name EntryAbility_label keeps tail three
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0069', 'EntryAbility_label tail three');
+    const token: string = 'EntryAbility_label';
+    expect(token.substring(token.length - 3)).assertEqual('bel');
+    expect(token.slice(-3)).assertEqual('bel');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0070
+   * @tc.name      testModuleName0070
+   * @tc.desc      Name EntryAbility_label keeps reverse
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0070', 'EntryAbility_label reverse');
+    const token: string = 'EntryAbility_label';
+    const reversed: string = token.split('').reverse().join('');
+    expect(reversed).assertEqual('lebal_ytilibAyrtnE');
+    expect(reversed.length).assertEqual(18);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0071
+   * @tc.name      testModuleName0071
+   * @tc.desc      Name EntryAbility_label keeps underscore split
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0071', 'EntryAbility_label underscore split');
+    const token: string = 'EntryAbility_label';
+    expect(token.split('_').length).assertEqual(2);
+    expect(token.includes('_')).assertEqual(true);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0072
+   * @tc.name      testModuleName0072
+   * @tc.desc      Name EntryAbility_label keeps lowercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0072', 'EntryAbility_label lowercase');
+    const token: string = 'EntryAbility_label';
+    expect(token.toLowerCase()).assertEqual('entryability_label');
+    expect(token.toLowerCase().length).assertEqual(token.length);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0073
+   * @tc.name      testModuleName0073
+   * @tc.desc      Name page_show keeps length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0073', 'page_show length');
+    const token: string = 'page_show';
+    expect(token.length).assertEqual(9);
+    expect(token.length > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0074
+   * @tc.name      testModuleName0074
+   * @tc.desc      Name page_show keeps first char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0074', 'page_show first char');
+    const token: string = 'page_show';
+    expect(token.charAt(0)).assertEqual('p');
+    expect(token.charCodeAt(0)).assertEqual(112);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0075
+   * @tc.name      testModuleName0075
+   * @tc.desc      Name page_show keeps last char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0075', 'page_show last char');
+    const token: string = 'page_show';
+    expect(token.charAt(token.length - 1)).assertEqual('w');
+    expect(token.charCodeAt(token.length - 1)).assertEqual(119);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0076
+   * @tc.name      testModuleName0076
+   * @tc.desc      Name page_show keeps index of e
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0076', 'page_show index of e');
+    const token: string = 'page_show';
+    expect(token.indexOf('e')).assertEqual(3);
+    expect(token.indexOf('e') >= -1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0077
+   * @tc.name      testModuleName0077
+   * @tc.desc      Name page_show keeps uppercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0077', 'page_show uppercase');
+    const token: string = 'page_show';
+    expect(token.toUpperCase()).assertEqual('PAGE_SHOW');
+    expect(token.toUpperCase().length).assertEqual(9);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0078
+   * @tc.name      testModuleName0078
+   * @tc.desc      Name page_show keeps tail three
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0078', 'page_show tail three');
+    const token: string = 'page_show';
+    expect(token.substring(token.length - 3)).assertEqual('how');
+    expect(token.slice(-3)).assertEqual('how');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0079
+   * @tc.name      testModuleName0079
+   * @tc.desc      Name page_show keeps reverse
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0079', 'page_show reverse');
+    const token: string = 'page_show';
+    const reversed: string = token.split('').reverse().join('');
+    expect(reversed).assertEqual('wohs_egap');
+    expect(reversed.length).assertEqual(9);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0080
+   * @tc.name      testModuleName0080
+   * @tc.desc      Name page_show keeps underscore split
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0080', 'page_show underscore split');
+    const token: string = 'page_show';
+    expect(token.split('_').length).assertEqual(2);
+    expect(token.includes('_')).assertEqual(true);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0081
+   * @tc.name      testModuleName0081
+   * @tc.desc      Name page_show keeps lowercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0081', 'page_show lowercase');
+    const token: string = 'page_show';
+    expect(token.toLowerCase()).assertEqual('page_show');
+    expect(token.toLowerCase().length).assertEqual(token.length);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0082
+   * @tc.name      testModuleName0082
+   * @tc.desc      Name page_text_font_size keeps length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0082', 'page_text_font_size length');
+    const token: string = 'page_text_font_size';
+    expect(token.length).assertEqual(19);
+    expect(token.length > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0083
+   * @tc.name      testModuleName0083
+   * @tc.desc      Name page_text_font_size keeps first char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0083', 'page_text_font_size first char');
+    const token: string = 'page_text_font_size';
+    expect(token.charAt(0)).assertEqual('p');
+    expect(token.charCodeAt(0)).assertEqual(112);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0084
+   * @tc.name      testModuleName0084
+   * @tc.desc      Name page_text_font_size keeps last char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0084', 'page_text_font_size last char');
+    const token: string = 'page_text_font_size';
+    expect(token.charAt(token.length - 1)).assertEqual('e');
+    expect(token.charCodeAt(token.length - 1)).assertEqual(101);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0085
+   * @tc.name      testModuleName0085
+   * @tc.desc      Name page_text_font_size keeps index of e
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0085', 'page_text_font_size index of e');
+    const token: string = 'page_text_font_size';
+    expect(token.indexOf('e')).assertEqual(3);
+    expect(token.indexOf('e') >= -1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0086
+   * @tc.name      testModuleName0086
+   * @tc.desc      Name page_text_font_size keeps uppercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0086', 'page_text_font_size uppercase');
+    const token: string = 'page_text_font_size';
+    expect(token.toUpperCase()).assertEqual('PAGE_TEXT_FONT_SIZE');
+    expect(token.toUpperCase().length).assertEqual(19);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0087
+   * @tc.name      testModuleName0087
+   * @tc.desc      Name page_text_font_size keeps tail three
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0087', 'page_text_font_size tail three');
+    const token: string = 'page_text_font_size';
+    expect(token.substring(token.length - 3)).assertEqual('ize');
+    expect(token.slice(-3)).assertEqual('ize');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0088
+   * @tc.name      testModuleName0088
+   * @tc.desc      Name page_text_font_size keeps reverse
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0088', 'page_text_font_size reverse');
+    const token: string = 'page_text_font_size';
+    const reversed: string = token.split('').reverse().join('');
+    expect(reversed).assertEqual('ezis_tnof_txet_egap');
+    expect(reversed.length).assertEqual(19);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0089
+   * @tc.name      testModuleName0089
+   * @tc.desc      Name page_text_font_size keeps underscore split
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0089', 'page_text_font_size underscore split');
+    const token: string = 'page_text_font_size';
+    expect(token.split('_').length).assertEqual(4);
+    expect(token.includes('_')).assertEqual(true);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0090
+   * @tc.name      testModuleName0090
+   * @tc.desc      Name page_text_font_size keeps lowercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0090', 'page_text_font_size lowercase');
+    const token: string = 'page_text_font_size';
+    expect(token.toLowerCase()).assertEqual('page_text_font_size');
+    expect(token.toLowerCase().length).assertEqual(token.length);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0091
+   * @tc.name      testModuleName0091
+   * @tc.desc      Name start_window_background keeps length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0091', 'start_window_background length');
+    const token: string = 'start_window_background';
+    expect(token.length).assertEqual(23);
+    expect(token.length > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0092
+   * @tc.name      testModuleName0092
+   * @tc.desc      Name start_window_background keeps first char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0092', 'start_window_background first char');
+    const token: string = 'start_window_background';
+    expect(token.charAt(0)).assertEqual('s');
+    expect(token.charCodeAt(0)).assertEqual(115);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0093
+   * @tc.name      testModuleName0093
+   * @tc.desc      Name start_window_background keeps last char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0093', 'start_window_background last char');
+    const token: string = 'start_window_background';
+    expect(token.charAt(token.length - 1)).assertEqual('d');
+    expect(token.charCodeAt(token.length - 1)).assertEqual(100);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0094
+   * @tc.name      testModuleName0094
+   * @tc.desc      Name start_window_background keeps index of e
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0094', 'start_window_background index of e');
+    const token: string = 'start_window_background';
+    expect(token.indexOf('e')).assertEqual(-1);
+    expect(token.indexOf('e') >= -1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0095
+   * @tc.name      testModuleName0095
+   * @tc.desc      Name start_window_background keeps uppercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0095', 'start_window_background uppercase');
+    const token: string = 'start_window_background';
+    expect(token.toUpperCase()).assertEqual('START_WINDOW_BACKGROUND');
+    expect(token.toUpperCase().length).assertEqual(23);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0096
+   * @tc.name      testModuleName0096
+   * @tc.desc      Name start_window_background keeps tail three
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0096', 'start_window_background tail three');
+    const token: string = 'start_window_background';
+    expect(token.substring(token.length - 3)).assertEqual('und');
+    expect(token.slice(-3)).assertEqual('und');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0097
+   * @tc.name      testModuleName0097
+   * @tc.desc      Name start_window_background keeps reverse
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0097', 'start_window_background reverse');
+    const token: string = 'start_window_background';
+    const reversed: string = token.split('').reverse().join('');
+    expect(reversed).assertEqual('dnuorgkcab_wodniw_trats');
+    expect(reversed.length).assertEqual(23);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0098
+   * @tc.name      testModuleName0098
+   * @tc.desc      Name start_window_background keeps underscore split
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0098', 'start_window_background underscore split');
+    const token: string = 'start_window_background';
+    expect(token.split('_').length).assertEqual(3);
+    expect(token.includes('_')).assertEqual(true);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0099
+   * @tc.name      testModuleName0099
+   * @tc.desc      Name start_window_background keeps lowercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0099', 'start_window_background lowercase');
+    const token: string = 'start_window_background';
+    expect(token.toLowerCase()).assertEqual('start_window_background');
+    expect(token.toLowerCase().length).assertEqual(token.length);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0100
+   * @tc.name      testModuleName0100
+   * @tc.desc      Name background keeps length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0100', 'background length');
+    const token: string = 'background';
+    expect(token.length).assertEqual(10);
+    expect(token.length > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0101
+   * @tc.name      testModuleName0101
+   * @tc.desc      Name background keeps first char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0101', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0101', 'background first char');
+    const token: string = 'background';
+    expect(token.charAt(0)).assertEqual('b');
+    expect(token.charCodeAt(0)).assertEqual(98);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0102
+   * @tc.name      testModuleName0102
+   * @tc.desc      Name background keeps last char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0102', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0102', 'background last char');
+    const token: string = 'background';
+    expect(token.charAt(token.length - 1)).assertEqual('d');
+    expect(token.charCodeAt(token.length - 1)).assertEqual(100);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0103
+   * @tc.name      testModuleName0103
+   * @tc.desc      Name background keeps index of e
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0103', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0103', 'background index of e');
+    const token: string = 'background';
+    expect(token.indexOf('e')).assertEqual(-1);
+    expect(token.indexOf('e') >= -1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0104
+   * @tc.name      testModuleName0104
+   * @tc.desc      Name background keeps uppercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0104', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0104', 'background uppercase');
+    const token: string = 'background';
+    expect(token.toUpperCase()).assertEqual('BACKGROUND');
+    expect(token.toUpperCase().length).assertEqual(10);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0105
+   * @tc.name      testModuleName0105
+   * @tc.desc      Name background keeps tail three
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0105', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0105', 'background tail three');
+    const token: string = 'background';
+    expect(token.substring(token.length - 3)).assertEqual('und');
+    expect(token.slice(-3)).assertEqual('und');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0106
+   * @tc.name      testModuleName0106
+   * @tc.desc      Name background keeps reverse
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0106', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0106', 'background reverse');
+    const token: string = 'background';
+    const reversed: string = token.split('').reverse().join('');
+    expect(reversed).assertEqual('dnuorgkcab');
+    expect(reversed.length).assertEqual(10);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0107
+   * @tc.name      testModuleName0107
+   * @tc.desc      Name background keeps underscore split
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0107', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0107', 'background underscore split');
+    const token: string = 'background';
+    expect(token.split('_').length).assertEqual(1);
+    expect(token.includes('_')).assertEqual(false);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0108
+   * @tc.name      testModuleName0108
+   * @tc.desc      Name background keeps lowercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0108', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0108', 'background lowercase');
+    const token: string = 'background';
+    expect(token.toLowerCase()).assertEqual('background');
+    expect(token.toLowerCase().length).assertEqual(token.length);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0109
+   * @tc.name      testModuleName0109
+   * @tc.desc      Name foreground keeps length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0109', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0109', 'foreground length');
+    const token: string = 'foreground';
+    expect(token.length).assertEqual(10);
+    expect(token.length > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0110
+   * @tc.name      testModuleName0110
+   * @tc.desc      Name foreground keeps first char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0110', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0110', 'foreground first char');
+    const token: string = 'foreground';
+    expect(token.charAt(0)).assertEqual('f');
+    expect(token.charCodeAt(0)).assertEqual(102);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0111
+   * @tc.name      testModuleName0111
+   * @tc.desc      Name foreground keeps last char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0111', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0111', 'foreground last char');
+    const token: string = 'foreground';
+    expect(token.charAt(token.length - 1)).assertEqual('d');
+    expect(token.charCodeAt(token.length - 1)).assertEqual(100);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0112
+   * @tc.name      testModuleName0112
+   * @tc.desc      Name foreground keeps index of e
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0112', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0112', 'foreground index of e');
+    const token: string = 'foreground';
+    expect(token.indexOf('e')).assertEqual(3);
+    expect(token.indexOf('e') >= -1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0113
+   * @tc.name      testModuleName0113
+   * @tc.desc      Name foreground keeps uppercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0113', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0113', 'foreground uppercase');
+    const token: string = 'foreground';
+    expect(token.toUpperCase()).assertEqual('FOREGROUND');
+    expect(token.toUpperCase().length).assertEqual(10);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0114
+   * @tc.name      testModuleName0114
+   * @tc.desc      Name foreground keeps tail three
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0114', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0114', 'foreground tail three');
+    const token: string = 'foreground';
+    expect(token.substring(token.length - 3)).assertEqual('und');
+    expect(token.slice(-3)).assertEqual('und');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0115
+   * @tc.name      testModuleName0115
+   * @tc.desc      Name foreground keeps reverse
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0115', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0115', 'foreground reverse');
+    const token: string = 'foreground';
+    const reversed: string = token.split('').reverse().join('');
+    expect(reversed).assertEqual('dnuorgerof');
+    expect(reversed.length).assertEqual(10);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0116
+   * @tc.name      testModuleName0116
+   * @tc.desc      Name foreground keeps underscore split
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0116', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0116', 'foreground underscore split');
+    const token: string = 'foreground';
+    expect(token.split('_').length).assertEqual(1);
+    expect(token.includes('_')).assertEqual(false);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0117
+   * @tc.name      testModuleName0117
+   * @tc.desc      Name foreground keeps lowercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0117', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0117', 'foreground lowercase');
+    const token: string = 'foreground';
+    expect(token.toLowerCase()).assertEqual('foreground');
+    expect(token.toLowerCase().length).assertEqual(token.length);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0118
+   * @tc.name      testModuleName0118
+   * @tc.desc      Name startIcon keeps length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0118', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0118', 'startIcon length');
+    const token: string = 'startIcon';
+    expect(token.length).assertEqual(9);
+    expect(token.length > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0119
+   * @tc.name      testModuleName0119
+   * @tc.desc      Name startIcon keeps first char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0119', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0119', 'startIcon first char');
+    const token: string = 'startIcon';
+    expect(token.charAt(0)).assertEqual('s');
+    expect(token.charCodeAt(0)).assertEqual(115);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0120
+   * @tc.name      testModuleName0120
+   * @tc.desc      Name startIcon keeps last char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0120', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0120', 'startIcon last char');
+    const token: string = 'startIcon';
+    expect(token.charAt(token.length - 1)).assertEqual('n');
+    expect(token.charCodeAt(token.length - 1)).assertEqual(110);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0121
+   * @tc.name      testModuleName0121
+   * @tc.desc      Name startIcon keeps index of e
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0121', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0121', 'startIcon index of e');
+    const token: string = 'startIcon';
+    expect(token.indexOf('e')).assertEqual(-1);
+    expect(token.indexOf('e') >= -1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0122
+   * @tc.name      testModuleName0122
+   * @tc.desc      Name startIcon keeps uppercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0122', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0122', 'startIcon uppercase');
+    const token: string = 'startIcon';
+    expect(token.toUpperCase()).assertEqual('STARTICON');
+    expect(token.toUpperCase().length).assertEqual(9);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0123
+   * @tc.name      testModuleName0123
+   * @tc.desc      Name startIcon keeps tail three
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0123', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0123', 'startIcon tail three');
+    const token: string = 'startIcon';
+    expect(token.substring(token.length - 3)).assertEqual('con');
+    expect(token.slice(-3)).assertEqual('con');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0124
+   * @tc.name      testModuleName0124
+   * @tc.desc      Name startIcon keeps reverse
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0124', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0124', 'startIcon reverse');
+    const token: string = 'startIcon';
+    const reversed: string = token.split('').reverse().join('');
+    expect(reversed).assertEqual('nocItrats');
+    expect(reversed.length).assertEqual(9);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0125
+   * @tc.name      testModuleName0125
+   * @tc.desc      Name startIcon keeps underscore split
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0125', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0125', 'startIcon underscore split');
+    const token: string = 'startIcon';
+    expect(token.split('_').length).assertEqual(1);
+    expect(token.includes('_')).assertEqual(false);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0126
+   * @tc.name      testModuleName0126
+   * @tc.desc      Name startIcon keeps lowercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0126', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0126', 'startIcon lowercase');
+    const token: string = 'startIcon';
+    expect(token.toLowerCase()).assertEqual('starticon');
+    expect(token.toLowerCase().length).assertEqual(token.length);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0127
+   * @tc.name      testModuleName0127
+   * @tc.desc      Name layered_image keeps length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0127', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0127', 'layered_image length');
+    const token: string = 'layered_image';
+    expect(token.length).assertEqual(13);
+    expect(token.length > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0128
+   * @tc.name      testModuleName0128
+   * @tc.desc      Name layered_image keeps first char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0128', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0128', 'layered_image first char');
+    const token: string = 'layered_image';
+    expect(token.charAt(0)).assertEqual('l');
+    expect(token.charCodeAt(0)).assertEqual(108);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0129
+   * @tc.name      testModuleName0129
+   * @tc.desc      Name layered_image keeps last char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0129', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0129', 'layered_image last char');
+    const token: string = 'layered_image';
+    expect(token.charAt(token.length - 1)).assertEqual('e');
+    expect(token.charCodeAt(token.length - 1)).assertEqual(101);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0130
+   * @tc.name      testModuleName0130
+   * @tc.desc      Name layered_image keeps index of e
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0130', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0130', 'layered_image index of e');
+    const token: string = 'layered_image';
+    expect(token.indexOf('e')).assertEqual(3);
+    expect(token.indexOf('e') >= -1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0131
+   * @tc.name      testModuleName0131
+   * @tc.desc      Name layered_image keeps uppercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0131', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0131', 'layered_image uppercase');
+    const token: string = 'layered_image';
+    expect(token.toUpperCase()).assertEqual('LAYERED_IMAGE');
+    expect(token.toUpperCase().length).assertEqual(13);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0132
+   * @tc.name      testModuleName0132
+   * @tc.desc      Name layered_image keeps tail three
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0132', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0132', 'layered_image tail three');
+    const token: string = 'layered_image';
+    expect(token.substring(token.length - 3)).assertEqual('age');
+    expect(token.slice(-3)).assertEqual('age');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0133
+   * @tc.name      testModuleName0133
+   * @tc.desc      Name layered_image keeps reverse
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0133', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0133', 'layered_image reverse');
+    const token: string = 'layered_image';
+    const reversed: string = token.split('').reverse().join('');
+    expect(reversed).assertEqual('egami_dereyal');
+    expect(reversed.length).assertEqual(13);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0134
+   * @tc.name      testModuleName0134
+   * @tc.desc      Name layered_image keeps underscore split
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0134', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0134', 'layered_image underscore split');
+    const token: string = 'layered_image';
+    expect(token.split('_').length).assertEqual(2);
+    expect(token.includes('_')).assertEqual(true);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0135
+   * @tc.name      testModuleName0135
+   * @tc.desc      Name layered_image keeps lowercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0135', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0135', 'layered_image lowercase');
+    const token: string = 'layered_image';
+    expect(token.toLowerCase()).assertEqual('layered_image');
+    expect(token.toLowerCase().length).assertEqual(token.length);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0136
+   * @tc.name      testModuleName0136
+   * @tc.desc      Name simple009_har_to_hsp keeps length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0136', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0136', 'simple009_har_to_hsp length');
+    const token: string = 'simple009_har_to_hsp';
+    expect(token.length).assertEqual(20);
+    expect(token.length > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0137
+   * @tc.name      testModuleName0137
+   * @tc.desc      Name simple009_har_to_hsp keeps first char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0137', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0137', 'simple009_har_to_hsp first char');
+    const token: string = 'simple009_har_to_hsp';
+    expect(token.charAt(0)).assertEqual('s');
+    expect(token.charCodeAt(0)).assertEqual(115);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0138
+   * @tc.name      testModuleName0138
+   * @tc.desc      Name simple009_har_to_hsp keeps last char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0138', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0138', 'simple009_har_to_hsp last char');
+    const token: string = 'simple009_har_to_hsp';
+    expect(token.charAt(token.length - 1)).assertEqual('p');
+    expect(token.charCodeAt(token.length - 1)).assertEqual(112);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0139
+   * @tc.name      testModuleName0139
+   * @tc.desc      Name simple009_har_to_hsp keeps index of e
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0139', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0139', 'simple009_har_to_hsp index of e');
+    const token: string = 'simple009_har_to_hsp';
+    expect(token.indexOf('e')).assertEqual(5);
+    expect(token.indexOf('e') >= -1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0140
+   * @tc.name      testModuleName0140
+   * @tc.desc      Name simple009_har_to_hsp keeps uppercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0140', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0140', 'simple009_har_to_hsp uppercase');
+    const token: string = 'simple009_har_to_hsp';
+    expect(token.toUpperCase()).assertEqual('SIMPLE009_HAR_TO_HSP');
+    expect(token.toUpperCase().length).assertEqual(20);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0141
+   * @tc.name      testModuleName0141
+   * @tc.desc      Name simple009_har_to_hsp keeps tail three
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0141', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0141', 'simple009_har_to_hsp tail three');
+    const token: string = 'simple009_har_to_hsp';
+    expect(token.substring(token.length - 3)).assertEqual('hsp');
+    expect(token.slice(-3)).assertEqual('hsp');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0142
+   * @tc.name      testModuleName0142
+   * @tc.desc      Name simple009_har_to_hsp keeps reverse
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0142', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0142', 'simple009_har_to_hsp reverse');
+    const token: string = 'simple009_har_to_hsp';
+    const reversed: string = token.split('').reverse().join('');
+    expect(reversed).assertEqual('psh_ot_rah_900elpmis');
+    expect(reversed.length).assertEqual(20);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0143
+   * @tc.name      testModuleName0143
+   * @tc.desc      Name simple009_har_to_hsp keeps underscore split
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0143', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0143', 'simple009_har_to_hsp underscore split');
+    const token: string = 'simple009_har_to_hsp';
+    expect(token.split('_').length).assertEqual(4);
+    expect(token.includes('_')).assertEqual(true);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0144
+   * @tc.name      testModuleName0144
+   * @tc.desc      Name simple009_har_to_hsp keeps lowercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0144', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0144', 'simple009_har_to_hsp lowercase');
+    const token: string = 'simple009_har_to_hsp';
+    expect(token.toLowerCase()).assertEqual('simple009_har_to_hsp');
+    expect(token.toLowerCase().length).assertEqual(token.length);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0145
+   * @tc.name      testModuleName0145
+   * @tc.desc      Name ohos keeps length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0145', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0145', 'ohos length');
+    const token: string = 'ohos';
+    expect(token.length).assertEqual(4);
+    expect(token.length > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0146
+   * @tc.name      testModuleName0146
+   * @tc.desc      Name ohos keeps first char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0146', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0146', 'ohos first char');
+    const token: string = 'ohos';
+    expect(token.charAt(0)).assertEqual('o');
+    expect(token.charCodeAt(0)).assertEqual(111);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0147
+   * @tc.name      testModuleName0147
+   * @tc.desc      Name ohos keeps last char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0147', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0147', 'ohos last char');
+    const token: string = 'ohos';
+    expect(token.charAt(token.length - 1)).assertEqual('s');
+    expect(token.charCodeAt(token.length - 1)).assertEqual(115);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0148
+   * @tc.name      testModuleName0148
+   * @tc.desc      Name ohos keeps index of e
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0148', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0148', 'ohos index of e');
+    const token: string = 'ohos';
+    expect(token.indexOf('e')).assertEqual(-1);
+    expect(token.indexOf('e') >= -1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0149
+   * @tc.name      testModuleName0149
+   * @tc.desc      Name ohos keeps uppercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0149', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0149', 'ohos uppercase');
+    const token: string = 'ohos';
+    expect(token.toUpperCase()).assertEqual('OHOS');
+    expect(token.toUpperCase().length).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0150
+   * @tc.name      testModuleName0150
+   * @tc.desc      Name ohos keeps tail three
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0150', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0150', 'ohos tail three');
+    const token: string = 'ohos';
+    expect(token.substring(token.length - 3)).assertEqual('hos');
+    expect(token.slice(-3)).assertEqual('hos');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0151
+   * @tc.name      testModuleName0151
+   * @tc.desc      Name ohos keeps reverse
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0151', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0151', 'ohos reverse');
+    const token: string = 'ohos';
+    const reversed: string = token.split('').reverse().join('');
+    expect(reversed).assertEqual('soho');
+    expect(reversed.length).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0152
+   * @tc.name      testModuleName0152
+   * @tc.desc      Name ohos keeps underscore split
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0152', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0152', 'ohos underscore split');
+    const token: string = 'ohos';
+    expect(token.split('_').length).assertEqual(1);
+    expect(token.includes('_')).assertEqual(false);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0153
+   * @tc.name      testModuleName0153
+   * @tc.desc      Name ohos keeps lowercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0153', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0153', 'ohos lowercase');
+    const token: string = 'ohos';
+    expect(token.toLowerCase()).assertEqual('ohos');
+    expect(token.toLowerCase().length).assertEqual(token.length);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0154
+   * @tc.name      testModuleName0154
+   * @tc.desc      Name app keeps length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0154', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0154', 'app length');
+    const token: string = 'app';
+    expect(token.length).assertEqual(3);
+    expect(token.length > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0155
+   * @tc.name      testModuleName0155
+   * @tc.desc      Name app keeps first char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0155', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0155', 'app first char');
+    const token: string = 'app';
+    expect(token.charAt(0)).assertEqual('a');
+    expect(token.charCodeAt(0)).assertEqual(97);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0156
+   * @tc.name      testModuleName0156
+   * @tc.desc      Name app keeps last char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0156', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0156', 'app last char');
+    const token: string = 'app';
+    expect(token.charAt(token.length - 1)).assertEqual('p');
+    expect(token.charCodeAt(token.length - 1)).assertEqual(112);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0157
+   * @tc.name      testModuleName0157
+   * @tc.desc      Name app keeps index of e
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0157', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0157', 'app index of e');
+    const token: string = 'app';
+    expect(token.indexOf('e')).assertEqual(-1);
+    expect(token.indexOf('e') >= -1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0158
+   * @tc.name      testModuleName0158
+   * @tc.desc      Name app keeps uppercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0158', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0158', 'app uppercase');
+    const token: string = 'app';
+    expect(token.toUpperCase()).assertEqual('APP');
+    expect(token.toUpperCase().length).assertEqual(3);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0159
+   * @tc.name      testModuleName0159
+   * @tc.desc      Name app keeps tail three
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0159', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0159', 'app tail three');
+    const token: string = 'app';
+    expect(token.substring(token.length - 3)).assertEqual('app');
+    expect(token.slice(-3)).assertEqual('app');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0160
+   * @tc.name      testModuleName0160
+   * @tc.desc      Name app keeps reverse
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0160', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0160', 'app reverse');
+    const token: string = 'app';
+    const reversed: string = token.split('').reverse().join('');
+    expect(reversed).assertEqual('ppa');
+    expect(reversed.length).assertEqual(3);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0161
+   * @tc.name      testModuleName0161
+   * @tc.desc      Name app keeps underscore split
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0161', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0161', 'app underscore split');
+    const token: string = 'app';
+    expect(token.split('_').length).assertEqual(1);
+    expect(token.includes('_')).assertEqual(false);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0162
+   * @tc.name      testModuleName0162
+   * @tc.desc      Name app keeps lowercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0162', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0162', 'app lowercase');
+    const token: string = 'app';
+    expect(token.toLowerCase()).assertEqual('app');
+    expect(token.toLowerCase().length).assertEqual(token.length);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0163
+   * @tc.name      testModuleName0163
+   * @tc.desc      Name hap keeps length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0163', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0163', 'hap length');
+    const token: string = 'hap';
+    expect(token.length).assertEqual(3);
+    expect(token.length > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0164
+   * @tc.name      testModuleName0164
+   * @tc.desc      Name hap keeps first char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0164', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0164', 'hap first char');
+    const token: string = 'hap';
+    expect(token.charAt(0)).assertEqual('h');
+    expect(token.charCodeAt(0)).assertEqual(104);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0165
+   * @tc.name      testModuleName0165
+   * @tc.desc      Name hap keeps last char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0165', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0165', 'hap last char');
+    const token: string = 'hap';
+    expect(token.charAt(token.length - 1)).assertEqual('p');
+    expect(token.charCodeAt(token.length - 1)).assertEqual(112);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0166
+   * @tc.name      testModuleName0166
+   * @tc.desc      Name hap keeps index of e
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0166', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0166', 'hap index of e');
+    const token: string = 'hap';
+    expect(token.indexOf('e')).assertEqual(-1);
+    expect(token.indexOf('e') >= -1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0167
+   * @tc.name      testModuleName0167
+   * @tc.desc      Name hap keeps uppercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0167', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0167', 'hap uppercase');
+    const token: string = 'hap';
+    expect(token.toUpperCase()).assertEqual('HAP');
+    expect(token.toUpperCase().length).assertEqual(3);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0168
+   * @tc.name      testModuleName0168
+   * @tc.desc      Name hap keeps tail three
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0168', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0168', 'hap tail three');
+    const token: string = 'hap';
+    expect(token.substring(token.length - 3)).assertEqual('hap');
+    expect(token.slice(-3)).assertEqual('hap');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0169
+   * @tc.name      testModuleName0169
+   * @tc.desc      Name hap keeps reverse
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0169', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0169', 'hap reverse');
+    const token: string = 'hap';
+    const reversed: string = token.split('').reverse().join('');
+    expect(reversed).assertEqual('pah');
+    expect(reversed.length).assertEqual(3);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0170
+   * @tc.name      testModuleName0170
+   * @tc.desc      Name hap keeps underscore split
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0170', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0170', 'hap underscore split');
+    const token: string = 'hap';
+    expect(token.split('_').length).assertEqual(1);
+    expect(token.includes('_')).assertEqual(false);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0171
+   * @tc.name      testModuleName0171
+   * @tc.desc      Name hap keeps lowercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0171', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0171', 'hap lowercase');
+    const token: string = 'hap';
+    expect(token.toLowerCase()).assertEqual('hap');
+    expect(token.toLowerCase().length).assertEqual(token.length);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0172
+   * @tc.name      testModuleName0172
+   * @tc.desc      Name myapplication keeps length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0172', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0172', 'myapplication length');
+    const token: string = 'myapplication';
+    expect(token.length).assertEqual(13);
+    expect(token.length > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0173
+   * @tc.name      testModuleName0173
+   * @tc.desc      Name myapplication keeps first char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0173', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0173', 'myapplication first char');
+    const token: string = 'myapplication';
+    expect(token.charAt(0)).assertEqual('m');
+    expect(token.charCodeAt(0)).assertEqual(109);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0174
+   * @tc.name      testModuleName0174
+   * @tc.desc      Name myapplication keeps last char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0174', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0174', 'myapplication last char');
+    const token: string = 'myapplication';
+    expect(token.charAt(token.length - 1)).assertEqual('n');
+    expect(token.charCodeAt(token.length - 1)).assertEqual(110);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0175
+   * @tc.name      testModuleName0175
+   * @tc.desc      Name myapplication keeps index of e
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0175', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0175', 'myapplication index of e');
+    const token: string = 'myapplication';
+    expect(token.indexOf('e')).assertEqual(-1);
+    expect(token.indexOf('e') >= -1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0176
+   * @tc.name      testModuleName0176
+   * @tc.desc      Name myapplication keeps uppercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0176', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0176', 'myapplication uppercase');
+    const token: string = 'myapplication';
+    expect(token.toUpperCase()).assertEqual('MYAPPLICATION');
+    expect(token.toUpperCase().length).assertEqual(13);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0177
+   * @tc.name      testModuleName0177
+   * @tc.desc      Name myapplication keeps tail three
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0177', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0177', 'myapplication tail three');
+    const token: string = 'myapplication';
+    expect(token.substring(token.length - 3)).assertEqual('ion');
+    expect(token.slice(-3)).assertEqual('ion');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0178
+   * @tc.name      testModuleName0178
+   * @tc.desc      Name myapplication keeps reverse
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testModuleName0178', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testModuleName0178', 'myapplication reverse');
+    const token: string = 'myapplication';
+    const reversed: string = token.split('').reverse().join('');
+    expect(reversed).assertEqual('noitacilppaym');
+    expect(reversed.length).assertEqual(13);
+  });
+
