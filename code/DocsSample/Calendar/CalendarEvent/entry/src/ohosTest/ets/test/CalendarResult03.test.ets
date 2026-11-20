@@ -1113,3 +1113,15 @@ export default function calendarResult03Test(): void {
       expect(manager.calendar.starts.join(',')).assertEqual('1686931200000');
       expect(manager.calendar.ends.join(',')).assertEqual('1687017600000');
       expect(manager.calendar.trace.join(',')).assertEqual('config,add,id,title,time');
+      await session.updateEvent();
+      expect(manager.calendar.updates[0].id).assertEqual(2147483647);
+      expect(manager.calendar.deletions.length).assertEqual(0);
+      expect(groups[0][0].id).assertEqual(100);
+      expect(groups[0][0].title).assertEqual('Id0');
+      expect(groups[1][0].id).assertEqual(200);
+      expect(groups[1][2].title).assertEqual('标题2');
+      expect(groups[2][0].id).assertEqual(300);
+      expect(groups[2][2].title).assertEqual('Time2');
+    });
+  });
+}
