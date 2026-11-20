@@ -108,14 +108,14 @@ async function main() {
   assert.ok(!runner.includes('startAbility'));
   assert.equal(countMatches(runner, /Hypium\.hypiumTest\(/g), 1);
   assert.equal(countMatches(runner, /await import\('\.\.\/test\/List\.test'\)/g), 1);
-  for (const field of ['global.__savePath__ =', 'global.__readPath__ =', 'global.testMode =']) {
+  for (const field of ['global.savePath =', 'global.readPath =', 'global.testMode =']) {
     assert.ok(runner.includes(field));
   }
   assert.ok(runner.includes('delegator.setMockList(mockMap)'));
   const orderedSteps = [
     'abilityDelegatorRegistry.getArguments()',
     'abilityDelegatorRegistry.getAbilityDelegator()',
-    'global.__savePath__ =',
+    'global.savePath =',
     'application.createModuleContext(',
     'await checkMock(',
     "await import('../test/List.test')",

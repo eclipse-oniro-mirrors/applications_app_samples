@@ -21,8 +21,8 @@ import { util } from '@kit.ArkTS';
 import { Hypium } from '@ohos/hypium';
 
 interface CoverageGlobal {
-  __savePath__: string;
-  __readPath__: string;
+  savePath: string;
+  readPath: string;
   testMode: string;
 }
 
@@ -49,8 +49,8 @@ export default class OpenHarmonyTestRunner implements TestRunner {
     const moduleName: string = abilityDelegatorArguments.parameters['-m'];
     const uid: number = Math.floor(abilityDelegator.getAppContext().applicationInfo.uid / 200000);
     const bundleName: string = abilityDelegatorArguments.bundleName;
-    global.__savePath__ = '/data/storage/el2/base/js_coverage.json';
-    global.__readPath__ = '/data/app/el2/' + uid + '/base/' + bundleName + '/js_coverage.json';
+    global.savePath = '/data/storage/el2/base/js_coverage.json';
+    global.readPath = '/data/app/el2/' + uid + '/base/' + bundleName + '/js_coverage.json';
     global.testMode = 'ohostest';
 
     try {
