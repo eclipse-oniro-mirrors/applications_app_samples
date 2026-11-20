@@ -14,6 +14,7 @@
  */
 
 import abilityTest from './Ability.test';
+import eraserApiSmokeTest from './EraserApiSmoke.test';
 import eraserStrokeMatrix1Test from './EraserStrokeMatrix1.test';
 import eraserStrokeMatrix2Test from './EraserStrokeMatrix2.test';
 import eraserStrokeMatrix3Test from './EraserStrokeMatrix3.test';
@@ -56,6 +57,7 @@ import eraserRouteMatrix1Test from './EraserRouteFactsMatrix1.test';
 
 export default function testsuite(): void {
   abilityTest();
+  eraserApiSmokeTest();
   eraserStrokeMatrix1Test();
   eraserStrokeMatrix2Test();
   eraserStrokeMatrix3Test();
