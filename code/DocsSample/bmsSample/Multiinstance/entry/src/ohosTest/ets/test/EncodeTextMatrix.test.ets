@@ -619,3 +619,28 @@ export default function encodeTextMatrixTest() {
     const encoder: util.TextEncoder = new util.TextEncoder();
     const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
     const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('zeta');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(restored).assertEqual('zeta');
+  });
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_ENC_0034
+   * @tc.name      testEncodeText0034
+   * @tc.desc      Encode zeta keeps base64 length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testEncodeText0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testEncodeText0034', 'encode zeta base64 length');
+    const encoder: util.TextEncoder = new util.TextEncoder();
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const helper: util.Base64Helper = new util.Base64Helper();
+    const bytes: Uint8Array = encoder.encodeInto('zeta');
+    const encoded: string = helper.encodeToStringSync(bytes);
+    const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
+    expect(encoded.length).assertEqual(8);
+  });
+  });
+}
