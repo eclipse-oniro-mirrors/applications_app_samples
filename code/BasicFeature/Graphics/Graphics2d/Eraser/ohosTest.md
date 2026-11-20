@@ -53,8 +53,9 @@ Eraser 橡皮擦样例的测试归档，自动化部分覆盖画笔模式与线�
 ```shell
 hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap --no-daemon
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc shell aa test -b com.samples.eraser -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 30000
 ```
+
+安装完成后，通过 `hdc shell` 调用测试执行器拉起 `entry_test` 模块：`-b com.samples.eraser` 指定应用包名，`-m entry_test` 指定测试模块，`-s unittest /ets/testrunner/OpenHarmonyTestRunner` 指定执行器入口（路径区分大小写），`-s timeout 30000` 指定超时时间。
 
 安装后也可在 DevEco Studio 中右键 `entry/src/ohosTest` 运行。仓库内 `build-profile.json5` 的 `signingConfigs` 为空，运行前需在 DevEco Studio 的 Signing Configs 中配置自动签名；更换证书后先 `hdc uninstall` 再安装，否则报 `install sign info inconsistent`。
 
@@ -63,6 +64,6 @@ hdc shell aa test -b com.samples.eraser -m entry_test -s unittest /ets/testrunne
 1. hypium 把整批用例串在同一个主线程任务里执行，主线程累计占用超过 6 秒会被系统判定 `THREAD_BLOCK_6S` 并结束进程（报告表现为 `TestFinished-ResultMsg: App died`），因此每个套件必须用 `beforeEachIt` 调用 `tick()`，每 10 条用例插入一次 1ms 定时器。
 2. 用例注册放在 `TestAbility.onForeground` 之后延迟 1 秒执行，避免注册阶段同步写日志导致前台超时并回收测试进程。
 3. `-s unittest` 的入口路径必须写成小写的 `/ets/testrunner/OpenHarmonyTestRunner`，设备端大小写敏感，写成 `TestRunner` 会报 `Cannot find module`。
-4. 开发者模式未解锁屏幕时 `aa start` 返回 `10106102`，`OpenHarmonyTestRunner` 会以 -3 直接结束测试，跑测前先解锁屏幕。
+4. 开发者模式未解锁屏幕时，启动应用命令返回 `10106102`，`OpenHarmonyTestRunner` 会以 -3 直接结束测试，跑测前先解锁屏幕。
 5. 像素级覆盖率按面积比推算，与设备屏幕密度无关；断言只比对推算值，不要在用例里截图比对实际像素。
 6. hilog 的 tag 超过 31 字节会截断，所有套件只使用一个短 tag `[Sample_Eraser]`，用例归属靠日志正文中的 `it` 名称区分。
