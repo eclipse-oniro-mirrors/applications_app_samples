@@ -92,11 +92,6 @@ HAR 编译验证：
 hdc shell hilog | grep Sample_HapToHar
 ```
 
-## 执行方式
-
-```
-hdc shell aa test -b ohos.app.hap.myapplication -m application_test -s unittest OpenHarmonyTestRunner -s timeout 600000
-```
 
 ## 验证结果
 
