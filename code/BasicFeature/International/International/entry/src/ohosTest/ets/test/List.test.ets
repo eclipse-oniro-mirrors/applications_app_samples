@@ -14,6 +14,7 @@
  */
 
 import abilityTest from './Ability.test';
+import intlApiSmokeTest from './IntlApiSmoke.test';
 import intlDateTimeMatrix1Test from './IntlDateTimeMatrix1.test';
 import intlDateTimeMatrix2Test from './IntlDateTimeMatrix2.test';
 import intlDateTimeMatrix3Test from './IntlDateTimeMatrix3.test';
@@ -61,6 +62,7 @@ import intlRouteMatrix1Test from './IntlRouteFactsMatrix1.test';
 
 export default function testsuite(): void {
   abilityTest();
+  intlApiSmokeTest();
   intlDateTimeMatrix1Test();
   intlDateTimeMatrix2Test();
   intlDateTimeMatrix3Test();
