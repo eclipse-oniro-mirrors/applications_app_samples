@@ -42,6 +42,7 @@ entry/src/main/ets/
     │   ├── StylesDecorator1.ets                   // 全局@Styles的用法
     │   └── StylesDecorator2.ets                   // 组件内的@Styles用法
     │   └── StylesVersionCondition.ets             // @Styles使用版本隔离的用法
+    │   └── StylesNested.ets                       // @Styles同类嵌套的用法
     └── common
         └── Index.ets
 entry/src/ohosTest/

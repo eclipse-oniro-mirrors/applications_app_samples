@@ -39,6 +39,10 @@
     {
       "name": "StylesVersionCondition",
       "value": "StylesVersionCondition"
+    },
+    {
+      "name": "StylesNested",
+      "value": "StylesNested"
     }
   ]
 }

@@ -17,12 +17,13 @@ import { CompletedRoutableCard } from '../../common/Card';
 import resource from '../../common/Resource';
 import { Route } from '../../common/Route';
 import { LocalExtendFunctionHandle } from './ExtendFunctionHandle';
+import { LocalExtendNested } from './ExtendNested';
 import { LocalExtendParameterUsage } from './ExtendParameterUsage';
 import { LocalExtendExtendPositiveExample } from './ExtendPositiveExample';
 import { LocalExtendUIStateVariable } from './ExtendUIStateVariable';
 import { LocalExtendUsageScenario } from './ExtendUsageScenario';
 import { LocalExtendUsageScenario2 } from './ExtendUsageScenariotwo';
-import { VersionConditionUseDemo } from './ExtendVersionCondition';
+import { LocalExtendVersionCondition } from './ExtendVersionCondition';
 import { LocalGlobalFunctionExtension } from './GlobalFunctionExtension';
 
 export const EXTEND: string = 'extend';
@@ -59,6 +60,10 @@ const routes: Route[] = [
   {
     name: `${EXTEND}/ExtendVersionCondition`,
     title: resource.resourceToString($r('app.string.extend_version_condition')),
+  },
+  {
+    name: `${EXTEND}/ExtendNested`,
+    title: resource.resourceToString($r('app.string.extend_nested')),
   }
 ];
 
@@ -81,7 +86,9 @@ export function extendDestination(name: string) {
   } else if (name === `${EXTEND}/ExtendUsageScenariotwo`) {
     LocalExtendUsageScenario2();
   } else if (name === `${EXTEND}/ExtendVersionCondition`) {
-    ExtendVersionCondition();
+    LocalExtendVersionCondition();
+  } else if (name === `${EXTEND}/ExtendNested`) {
+    LocalExtendNested();
   }
 }
 
