@@ -1987,3 +1987,1587 @@ export default function musicEventPropagationSuite() {
       expect(m.getPlaylistByIndex(1000 + 577) === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0578
+     * @tc.name    MusicEventPropagation578
+     * @tc.desc    Music playlist page partition 5 probe 578
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation578', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 578) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0579
+     * @tc.name    MusicEventPropagation579
+     * @tc.desc    Music playlist page partition 6 probe 579
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation579', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 579) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0580
+     * @tc.name    MusicEventPropagation580
+     * @tc.desc    Music playlist page partition 7 probe 580
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation580', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 580) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0581
+     * @tc.name    MusicEventPropagation581
+     * @tc.desc    Music playlist page partition 1 probe 581
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation581', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 581) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0582
+     * @tc.name    MusicEventPropagation582
+     * @tc.desc    Music playlist page partition 2 probe 582
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation582', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 582) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0583
+     * @tc.name    MusicEventPropagation583
+     * @tc.desc    Music playlist page partition 3 probe 583
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation583', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 583) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0584
+     * @tc.name    MusicEventPropagation584
+     * @tc.desc    Music playlist page partition 4 probe 584
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation584', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 584) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0585
+     * @tc.name    MusicEventPropagation585
+     * @tc.desc    Music playlist page partition 5 probe 585
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation585', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 585) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0586
+     * @tc.name    MusicEventPropagation586
+     * @tc.desc    Music playlist page partition 6 probe 586
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation586', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 586) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0587
+     * @tc.name    MusicEventPropagation587
+     * @tc.desc    Music playlist page partition 7 probe 587
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation587', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 587) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0588
+     * @tc.name    MusicEventPropagation588
+     * @tc.desc    Music playlist page partition 1 probe 588
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation588', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 588) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0589
+     * @tc.name    MusicEventPropagation589
+     * @tc.desc    Music playlist page partition 2 probe 589
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation589', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 589) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0590
+     * @tc.name    MusicEventPropagation590
+     * @tc.desc    Music playlist page partition 3 probe 590
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation590', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 590) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0591
+     * @tc.name    MusicEventPropagation591
+     * @tc.desc    Music playlist page partition 4 probe 591
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation591', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 591) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0592
+     * @tc.name    MusicEventPropagation592
+     * @tc.desc    Music playlist page partition 5 probe 592
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation592', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 592) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0593
+     * @tc.name    MusicEventPropagation593
+     * @tc.desc    Music playlist page partition 6 probe 593
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation593', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 593) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0594
+     * @tc.name    MusicEventPropagation594
+     * @tc.desc    Music playlist page partition 7 probe 594
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation594', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 594) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0595
+     * @tc.name    MusicEventPropagation595
+     * @tc.desc    Music playlist page partition 1 probe 595
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation595', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 595) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0596
+     * @tc.name    MusicEventPropagation596
+     * @tc.desc    Music playlist page partition 2 probe 596
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation596', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 596) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0597
+     * @tc.name    MusicEventPropagation597
+     * @tc.desc    Music playlist page partition 3 probe 597
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation597', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 597) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0598
+     * @tc.name    MusicEventPropagation598
+     * @tc.desc    Music playlist page partition 4 probe 598
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation598', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 598) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0599
+     * @tc.name    MusicEventPropagation599
+     * @tc.desc    Music playlist page partition 5 probe 599
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation599', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 599) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0600
+     * @tc.name    MusicEventPropagation600
+     * @tc.desc    Music playlist page partition 6 probe 600
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation600', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 600) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0601
+     * @tc.name    MusicEventPropagation601
+     * @tc.desc    Music playlist page partition 7 probe 601
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation601', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 601) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0602
+     * @tc.name    MusicEventPropagation602
+     * @tc.desc    Music playlist page partition 1 probe 602
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation602', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 602) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0603
+     * @tc.name    MusicEventPropagation603
+     * @tc.desc    Music playlist page partition 2 probe 603
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation603', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 603) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0604
+     * @tc.name    MusicEventPropagation604
+     * @tc.desc    Music playlist page partition 3 probe 604
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation604', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 604) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0605
+     * @tc.name    MusicEventPropagation605
+     * @tc.desc    Music playlist page partition 4 probe 605
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation605', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 605) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0606
+     * @tc.name    MusicEventPropagation606
+     * @tc.desc    Music playlist page partition 5 probe 606
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation606', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 606) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0607
+     * @tc.name    MusicEventPropagation607
+     * @tc.desc    Music playlist page partition 6 probe 607
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation607', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 607) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0608
+     * @tc.name    MusicEventPropagation608
+     * @tc.desc    Music playlist page partition 7 probe 608
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation608', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 608) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0609
+     * @tc.name    MusicEventPropagation609
+     * @tc.desc    Music playlist page partition 1 probe 609
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation609', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 609) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0610
+     * @tc.name    MusicEventPropagation610
+     * @tc.desc    Music playlist page partition 2 probe 610
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation610', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 610) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0611
+     * @tc.name    MusicEventPropagation611
+     * @tc.desc    Music playlist page partition 3 probe 611
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation611', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 611) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0612
+     * @tc.name    MusicEventPropagation612
+     * @tc.desc    Music playlist page partition 4 probe 612
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation612', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 612) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0613
+     * @tc.name    MusicEventPropagation613
+     * @tc.desc    Music playlist page partition 5 probe 613
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation613', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 613) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0614
+     * @tc.name    MusicEventPropagation614
+     * @tc.desc    Music playlist page partition 6 probe 614
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation614', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 614) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0615
+     * @tc.name    MusicEventPropagation615
+     * @tc.desc    Music playlist page partition 7 probe 615
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation615', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 615) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0616
+     * @tc.name    MusicEventPropagation616
+     * @tc.desc    Music playlist page partition 1 probe 616
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation616', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 616) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0617
+     * @tc.name    MusicEventPropagation617
+     * @tc.desc    Music playlist page partition 2 probe 617
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation617', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 617) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0618
+     * @tc.name    MusicEventPropagation618
+     * @tc.desc    Music playlist page partition 3 probe 618
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation618', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 618) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0619
+     * @tc.name    MusicEventPropagation619
+     * @tc.desc    Music playlist page partition 4 probe 619
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation619', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 619) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0620
+     * @tc.name    MusicEventPropagation620
+     * @tc.desc    Music playlist page partition 5 probe 620
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation620', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 620) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0621
+     * @tc.name    MusicEventPropagation621
+     * @tc.desc    Music playlist page partition 6 probe 621
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation621', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 621) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0622
+     * @tc.name    MusicEventPropagation622
+     * @tc.desc    Music playlist page partition 7 probe 622
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation622', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 622) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0623
+     * @tc.name    MusicEventPropagation623
+     * @tc.desc    Music playlist page partition 1 probe 623
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation623', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 623) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0624
+     * @tc.name    MusicEventPropagation624
+     * @tc.desc    Music playlist page partition 2 probe 624
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation624', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 624) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0625
+     * @tc.name    MusicEventPropagation625
+     * @tc.desc    Music playlist page partition 3 probe 625
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation625', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 625) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0626
+     * @tc.name    MusicEventPropagation626
+     * @tc.desc    Music playlist page partition 4 probe 626
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation626', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 626) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0627
+     * @tc.name    MusicEventPropagation627
+     * @tc.desc    Music playlist page partition 5 probe 627
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation627', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 627) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0628
+     * @tc.name    MusicEventPropagation628
+     * @tc.desc    Music playlist page partition 6 probe 628
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation628', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 628) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0629
+     * @tc.name    MusicEventPropagation629
+     * @tc.desc    Music playlist page partition 7 probe 629
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation629', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 629) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0630
+     * @tc.name    MusicEventPropagation630
+     * @tc.desc    Music playlist page partition 1 probe 630
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation630', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 630) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0631
+     * @tc.name    MusicEventPropagation631
+     * @tc.desc    Music playlist page partition 2 probe 631
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation631', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 631) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0632
+     * @tc.name    MusicEventPropagation632
+     * @tc.desc    Music playlist page partition 3 probe 632
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation632', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 632) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0633
+     * @tc.name    MusicEventPropagation633
+     * @tc.desc    Music playlist page partition 4 probe 633
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation633', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 633) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0634
+     * @tc.name    MusicEventPropagation634
+     * @tc.desc    Music playlist page partition 5 probe 634
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation634', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 634) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0635
+     * @tc.name    MusicEventPropagation635
+     * @tc.desc    Music playlist page partition 6 probe 635
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation635', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 635) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0636
+     * @tc.name    MusicEventPropagation636
+     * @tc.desc    Music playlist page partition 7 probe 636
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation636', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 636) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0637
+     * @tc.name    MusicEventPropagation637
+     * @tc.desc    Music playlist page partition 1 probe 637
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation637', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 637) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0638
+     * @tc.name    MusicEventPropagation638
+     * @tc.desc    Music playlist page partition 2 probe 638
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation638', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 638) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0639
+     * @tc.name    MusicEventPropagation639
+     * @tc.desc    Music playlist page partition 3 probe 639
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation639', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 639) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0640
+     * @tc.name    MusicEventPropagation640
+     * @tc.desc    Music playlist page partition 4 probe 640
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation640', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 640) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0641
+     * @tc.name    MusicEventPropagation641
+     * @tc.desc    Music playlist page partition 5 probe 641
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation641', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 641) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0642
+     * @tc.name    MusicEventPropagation642
+     * @tc.desc    Music playlist page partition 6 probe 642
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation642', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 642) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0643
+     * @tc.name    MusicEventPropagation643
+     * @tc.desc    Music playlist page partition 7 probe 643
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation643', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 643) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0644
+     * @tc.name    MusicEventPropagation644
+     * @tc.desc    Music playlist page partition 1 probe 644
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation644', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 644) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0645
+     * @tc.name    MusicEventPropagation645
+     * @tc.desc    Music playlist page partition 2 probe 645
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation645', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 645) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0646
+     * @tc.name    MusicEventPropagation646
+     * @tc.desc    Music playlist page partition 3 probe 646
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation646', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 646) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0647
+     * @tc.name    MusicEventPropagation647
+     * @tc.desc    Music playlist page partition 4 probe 647
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation647', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 647) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0648
+     * @tc.name    MusicEventPropagation648
+     * @tc.desc    Music playlist page partition 5 probe 648
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation648', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 648) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0649
+     * @tc.name    MusicEventPropagation649
+     * @tc.desc    Music playlist page partition 6 probe 649
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation649', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 649) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0650
+     * @tc.name    MusicEventPropagation650
+     * @tc.desc    Music playlist page partition 7 probe 650
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation650', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 650) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0651
+     * @tc.name    MusicEventPropagation651
+     * @tc.desc    Music playlist page partition 1 probe 651
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation651', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 651) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0652
+     * @tc.name    MusicEventPropagation652
+     * @tc.desc    Music playlist page partition 2 probe 652
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation652', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 652) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0653
+     * @tc.name    MusicEventPropagation653
+     * @tc.desc    Music playlist page partition 3 probe 653
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation653', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 653) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0654
+     * @tc.name    MusicEventPropagation654
+     * @tc.desc    Music playlist page partition 4 probe 654
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation654', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 654) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0655
+     * @tc.name    MusicEventPropagation655
+     * @tc.desc    Music playlist page partition 5 probe 655
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation655', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 655) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0656
+     * @tc.name    MusicEventPropagation656
+     * @tc.desc    Music playlist page partition 6 probe 656
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicEventPropagation656', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getPlaylistCount());
+      expect(m.getPlaylistByIndex(1000 + 656) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
