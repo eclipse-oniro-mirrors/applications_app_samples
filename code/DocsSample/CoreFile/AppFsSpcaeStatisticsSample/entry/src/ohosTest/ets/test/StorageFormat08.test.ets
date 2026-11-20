@@ -1934,3 +1934,270 @@ export default function storageFormat08Test(): void {
         let errorName: string = '';
         let errorMessage: string = '';
         try {
+          const actual: string = formatStorageSize(bytes, precision);
+          logCase(name, `unexpected return=${actual}`);
+        } catch (error) {
+          thrown = true;
+          const caught: Error = error as Error;
+          errorName = caught.name;
+          errorMessage = caught.message;
+          logCase(name, `caught name=${errorName} message=${errorMessage}`);
+        }
+        logAssertion(name, `bytes=${bytes} precision=${precision} throws`, thrown, true);
+        expect(thrown).assertEqual(true);
+        logAssertion(name, `bytes=${bytes} precision=${precision} error name`, errorName, 'InvalidStorageValueError');
+        expect(errorName).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `bytes=${bytes} precision=${precision} error message`,
+          errorMessage, 'Storage size must be a nonnegative safe integer');
+        expect(errorMessage).assertEqual('Storage size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_FORMAT_PRIORITY_0400
+     * @tc.name AppFsSpace_Format_0818
+     * @tc.desc bytes=-1 precision=Number.NaN; bytes validation wins over NaN precision
+     */
+    it('AppFsSpace_Format_0818', 0, (): void => {
+      const name: string = 'AppFsSpace_Format_0818';
+      const bytes: number = -1;
+      const precision: number = Number.NaN;
+      logCase(name, 'begin');
+      try {
+        let thrown: boolean = false;
+        let errorName: string = '';
+        let errorMessage: string = '';
+        try {
+          const actual: string = formatStorageSize(bytes, precision);
+          logCase(name, `unexpected return=${actual}`);
+        } catch (error) {
+          thrown = true;
+          const caught: Error = error as Error;
+          errorName = caught.name;
+          errorMessage = caught.message;
+          logCase(name, `caught name=${errorName} message=${errorMessage}`);
+        }
+        logAssertion(name, `bytes=${bytes} precision=${precision} throws`, thrown, true);
+        expect(thrown).assertEqual(true);
+        logAssertion(name, `bytes=${bytes} precision=${precision} error name`, errorName, 'InvalidStorageValueError');
+        expect(errorName).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `bytes=${bytes} precision=${precision} error message`,
+          errorMessage, 'Storage size must be a nonnegative safe integer');
+        expect(errorMessage).assertEqual('Storage size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_FORMAT_PRIORITY_0500
+     * @tc.name AppFsSpace_Format_0819
+     * @tc.desc bytes=-1 precision=Number.POSITIVE_INFINITY; bytes validation wins over positive infinite precision
+     */
+    it('AppFsSpace_Format_0819', 0, (): void => {
+      const name: string = 'AppFsSpace_Format_0819';
+      const bytes: number = -1;
+      const precision: number = Number.POSITIVE_INFINITY;
+      logCase(name, 'begin');
+      try {
+        let thrown: boolean = false;
+        let errorName: string = '';
+        let errorMessage: string = '';
+        try {
+          const actual: string = formatStorageSize(bytes, precision);
+          logCase(name, `unexpected return=${actual}`);
+        } catch (error) {
+          thrown = true;
+          const caught: Error = error as Error;
+          errorName = caught.name;
+          errorMessage = caught.message;
+          logCase(name, `caught name=${errorName} message=${errorMessage}`);
+        }
+        logAssertion(name, `bytes=${bytes} precision=${precision} throws`, thrown, true);
+        expect(thrown).assertEqual(true);
+        logAssertion(name, `bytes=${bytes} precision=${precision} error name`, errorName, 'InvalidStorageValueError');
+        expect(errorName).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `bytes=${bytes} precision=${precision} error message`,
+          errorMessage, 'Storage size must be a nonnegative safe integer');
+        expect(errorMessage).assertEqual('Storage size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_FORMAT_PRIORITY_0600
+     * @tc.name AppFsSpace_Format_0820
+     * @tc.desc bytes=-1 precision=Number.NEGATIVE_INFINITY; bytes validation wins over negative infinite precision
+     */
+    it('AppFsSpace_Format_0820', 0, (): void => {
+      const name: string = 'AppFsSpace_Format_0820';
+      const bytes: number = -1;
+      const precision: number = Number.NEGATIVE_INFINITY;
+      logCase(name, 'begin');
+      try {
+        let thrown: boolean = false;
+        let errorName: string = '';
+        let errorMessage: string = '';
+        try {
+          const actual: string = formatStorageSize(bytes, precision);
+          logCase(name, `unexpected return=${actual}`);
+        } catch (error) {
+          thrown = true;
+          const caught: Error = error as Error;
+          errorName = caught.name;
+          errorMessage = caught.message;
+          logCase(name, `caught name=${errorName} message=${errorMessage}`);
+        }
+        logAssertion(name, `bytes=${bytes} precision=${precision} throws`, thrown, true);
+        expect(thrown).assertEqual(true);
+        logAssertion(name, `bytes=${bytes} precision=${precision} error name`, errorName, 'InvalidStorageValueError');
+        expect(errorName).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `bytes=${bytes} precision=${precision} error message`,
+          errorMessage, 'Storage size must be a nonnegative safe integer');
+        expect(errorMessage).assertEqual('Storage size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_FORMAT_INVALID_BYTES_0600
+     * @tc.name AppFsSpace_Format_0821
+     * @tc.desc bytes=-1024 precision=0; reject negative unit count before formatting
+     */
+    it('AppFsSpace_Format_0821', 0, (): void => {
+      const name: string = 'AppFsSpace_Format_0821';
+      const bytes: number = -1024;
+      const precision: number = 0;
+      logCase(name, 'begin');
+      try {
+        let thrown: boolean = false;
+        let errorName: string = '';
+        let errorMessage: string = '';
+        try {
+          const actual: string = formatStorageSize(bytes, precision);
+          logCase(name, `unexpected return=${actual}`);
+        } catch (error) {
+          thrown = true;
+          const caught: Error = error as Error;
+          errorName = caught.name;
+          errorMessage = caught.message;
+          logCase(name, `caught name=${errorName} message=${errorMessage}`);
+        }
+        logAssertion(name, `bytes=${bytes} precision=${precision} throws`, thrown, true);
+        expect(thrown).assertEqual(true);
+        logAssertion(name, `bytes=${bytes} precision=${precision} error name`, errorName, 'InvalidStorageValueError');
+        expect(errorName).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `bytes=${bytes} precision=${precision} error message`,
+          errorMessage, 'Storage size must be a nonnegative safe integer');
+        expect(errorMessage).assertEqual('Storage size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_FORMAT_INVALID_BYTES_0700
+     * @tc.name AppFsSpace_Format_0822
+     * @tc.desc bytes=-1024 precision=1; reject negative unit count before formatting
+     */
+    it('AppFsSpace_Format_0822', 0, (): void => {
+      const name: string = 'AppFsSpace_Format_0822';
+      const bytes: number = -1024;
+      const precision: number = 1;
+      logCase(name, 'begin');
+      try {
+        let thrown: boolean = false;
+        let errorName: string = '';
+        let errorMessage: string = '';
+        try {
+          const actual: string = formatStorageSize(bytes, precision);
+          logCase(name, `unexpected return=${actual}`);
+        } catch (error) {
+          thrown = true;
+          const caught: Error = error as Error;
+          errorName = caught.name;
+          errorMessage = caught.message;
+          logCase(name, `caught name=${errorName} message=${errorMessage}`);
+        }
+        logAssertion(name, `bytes=${bytes} precision=${precision} throws`, thrown, true);
+        expect(thrown).assertEqual(true);
+        logAssertion(name, `bytes=${bytes} precision=${precision} error name`, errorName, 'InvalidStorageValueError');
+        expect(errorName).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `bytes=${bytes} precision=${precision} error message`,
+          errorMessage, 'Storage size must be a nonnegative safe integer');
+        expect(errorMessage).assertEqual('Storage size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_FORMAT_INVALID_BYTES_0800
+     * @tc.name AppFsSpace_Format_0823
+     * @tc.desc bytes=-1024 precision=2; reject negative unit count before formatting
+     */
+    it('AppFsSpace_Format_0823', 0, (): void => {
+      const name: string = 'AppFsSpace_Format_0823';
+      const bytes: number = -1024;
+      const precision: number = 2;
+      logCase(name, 'begin');
+      try {
+        let thrown: boolean = false;
+        let errorName: string = '';
+        let errorMessage: string = '';
+        try {
+          const actual: string = formatStorageSize(bytes, precision);
+          logCase(name, `unexpected return=${actual}`);
+        } catch (error) {
+          thrown = true;
+          const caught: Error = error as Error;
+          errorName = caught.name;
+          errorMessage = caught.message;
+          logCase(name, `caught name=${errorName} message=${errorMessage}`);
+        }
+        logAssertion(name, `bytes=${bytes} precision=${precision} throws`, thrown, true);
+        expect(thrown).assertEqual(true);
+        logAssertion(name, `bytes=${bytes} precision=${precision} error name`, errorName, 'InvalidStorageValueError');
+        expect(errorName).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `bytes=${bytes} precision=${precision} error message`,
+          errorMessage, 'Storage size must be a nonnegative safe integer');
+        expect(errorMessage).assertEqual('Storage size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_FORMAT_INVALID_BYTES_0900
+     * @tc.name AppFsSpace_Format_0824
+     * @tc.desc bytes=-1024 precision=3; reject negative unit count before formatting
+     */
+    it('AppFsSpace_Format_0824', 0, (): void => {
+      const name: string = 'AppFsSpace_Format_0824';
+      const bytes: number = -1024;
+      const precision: number = 3;
+      logCase(name, 'begin');
+      try {
+        let thrown: boolean = false;
+        let errorName: string = '';
+        let errorMessage: string = '';
+        try {
+          const actual: string = formatStorageSize(bytes, precision);
+          logCase(name, `unexpected return=${actual}`);
+        } catch (error) {
+          thrown = true;
+          const caught: Error = error as Error;
+          errorName = caught.name;
+          errorMessage = caught.message;
+          logCase(name, `caught name=${errorName} message=${errorMessage}`);
+        }
+        logAssertion(name, `bytes=${bytes} precision=${precision} throws`, thrown, true);
+        expect(thrown).assertEqual(true);
+        logAssertion(name, `bytes=${bytes} precision=${precision} error name`, errorName, 'InvalidStorageValueError');
+        expect(errorName).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `bytes=${bytes} precision=${precision} error message`,
+          errorMessage, 'Storage size must be a nonnegative safe integer');
+        expect(errorMessage).assertEqual('Storage size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+  });
+}
