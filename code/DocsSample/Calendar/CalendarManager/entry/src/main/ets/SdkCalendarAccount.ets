@@ -14,7 +14,7 @@ import { calendarManager } from '@kit.CalendarKit';
 import type { AccountCalendarPort, AccountManagerPort } from './CalendarAccountSession';
 
 export class SdkAccountCalendar implements AccountCalendarPort {
-  readonly calendar: calendarManager.Calendar;
+  public readonly calendar: calendarManager.Calendar;
   constructor(calendar: calendarManager.Calendar) { this.calendar = calendar; }
   setConfig(config: calendarManager.CalendarConfig): Promise<void> { return this.calendar.setConfig(config); }
   getAccount(): calendarManager.CalendarAccount { return this.calendar.getAccount(); }

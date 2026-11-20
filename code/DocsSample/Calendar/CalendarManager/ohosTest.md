@@ -7,7 +7,7 @@
 | 测试功能                                    | 预置条件                                  | 输入             | 预期输出                                                                                                | 是否自动 | 测试结果 |
 |-----------------------------------------|---------------------------------------|----------------|-----------------------------------------------------------------------------------------------------| -------- | -------- |
 | 拉起应用                                    | 设备正常运行                                |                | 成功拉起应用                                                                                              | 是       | 历史 Pass，本轮未测 |
-| 弹出 允许“CalendarManager”读取和修改你的日程？ 权限申请弹框 | 位于CalendarManager页面                   | 点击‘允许’         |                                                                                                     | 是       | 历史 Pass，本轮未测 |
+| 弹出 允许“CalendarManager”读取和修改日程？ 权限申请弹框 | 位于CalendarManager页面                   | 点击‘允许’         |                                                                                                     | 是       | 历史 Pass，本轮未测 |
 | 1，创建日历账户对象                              | 位于CalendarManager页面        | 点击‘1，创建日历账户对象’ | 成功创建日历账户。<br/>日历应用打开侧边栏，新增了‘MyCalendar’账户 ![CreateCalendar](screenshots/createCalendar.png)         | 是       | 历史 Pass，本轮未测 |
 | 2，设置日历配置信息                              | 位于CalendarManager页面        | 点击‘2，设置日历配置信息’ | 成功设置日历配置信息。<br/>观察日志打印 Succeeded in setting config, data->{"enableReminder":true,"color":"#aabbcc"} | 是       | 历史 Pass，本轮未测 |
 | 3，查询指定日历账户                              | 位于CalendarManager页面        | 点击‘3，查询指定日历账户’ | 成功查询指定日历账户。<br/>观察日志打印 Succeeded in getting calendar, data -> {"id":xx}                             | 是       | 历史 Pass，本轮未测 |
@@ -182,7 +182,7 @@ node build-audit.cjs ohosTest
 | --- | --- | --- |
 | 主机运行器把非Error异常当作成功 | [host-regression.cjs](host-regression.cjs) | 本轮用独立失败标志判定，保留原始异常、清理失败、逐例进程及超时保护，25项自检通过 |
 | 成功路径忽略observe捕获的拒绝 | [CalendarManagerLifecycle.test.ets](entry/src/ohosTest/ets/test/CalendarManagerLifecycle.test.ets) | 本轮增加5处error===undefined检查，意外拒绝不再被成功路径忽略 |
-| 删除只比名称漏检同名替代句柄 | Sequence、Recovery共16分片及生成模板 | 本轮增加564处实际创建句柄或恢复句柄身份断言，不重新生成其他用例，3个故障注入场景验证成功 |
+| 删除只比名称漏检同名替代句柄 | Sequence、Recovery共16分片及生成模板 | 本轮增加564处实际创建句柄或恢复句柄身份断言，不重新生成其余用例，3个故障注入场景验证成功 |
 | 原基础用例空格与请求器返回类型 | [CalendarManagerLogic.test.ets](entry/src/ohosTest/ets/test/CalendarManagerLogic.test.ets) | 本轮统一格式并补4个Promise返回类型，保持用例名称、编号及行为 |
 | 归档重复等待状态与历史结果 | 本文 | 本轮清理重复状态、分离历史证据和最终执行，附逐例清单及真实设备限制 |
 | 六个UI测试无断言、启动未等待 | [Ability.test.ets](entry/src/ohosTest/ets/test/Ability.test.ets) | 添加按钮文本和可用状态断言，await应用启动；保留六个原场景，不新增UI |
@@ -196,10 +196,10 @@ node build-audit.cjs ohosTest
 | 测试注册与引导 | List、OpenHarmonyTestRunner、本地List、module及build配置 | 原完整Hypium/ohosTest引导保留，新矩阵全部注册 |
 | 文档统计和运行边界 | 本文及README | 更新规模、用例、验证证据；历史设备Pass不作为本轮结果 |
 
-本轮保留工程现有 `com.sample.calendarmanager` 包名和本地签名身份。包名后缀全小写且与工程一致，但前缀与技能推荐的 `com.samples`/`com.example` 不同，这是未调整的现有配置差异，不代表已获正式PR豁免；现有本地签名配置及任何凭据不得原样随正式PR提交。未修改签名权限或配置，未输出密码。真实SDK调用保留编译器的可抛异常提示，不通过吞掉错误消除警告。正式PR前仍需清理本地签名并取得真实设备结果；本轮不是无条件合入认证。PR链接、提交格式和目标分支未提供，未创建提交或发布评论。
+本轮保留工程现有 `com.sample.calendarmanager` 包名和本地签名身份。包名后缀全小写且与工程一致，但前缀与技能推荐的 `com.samples`/`com.example` 不同，这是未调整的现有配置差异，不代表已获正式PR豁免；现有本地签名配置及任何凭据不得原样随正式PR提交。未修改签名权限或配置，未输出密码。真实SDK调用保留编译器的可抛异常提示，不通过吞掉错误消除警告。正式PR前仍需清理本地签名并取得真实设备结果；本轮不构成无条件合入依据。PR链接、提交格式和目标分支未提供，未创建提交或发布评论。
 
 ## 源码规模和功能保护
 
-当前 `entry/src/ohosTest/ets/test` 内ETS测试源码共 **52,195物理行**，其中 **44,489行含语法token**。物理行包含测试源码中的注释和空行；token-bearing统计去掉注释与空行，仍包含测试端口、日志、断言和结构语法，不是纯业务有效行认证。约50000物理行目标已达到，不能声称有50000行纯业务代码。统计不计脚本、快照、日志、图片、资源、本文或生产源码，也不将本地LocalUnit及测试runner计入上述目录行数。当前规模以 [.validation/matrix-format-check.json](.validation/matrix-format-check.json) 为准；旧extension-source-stats报告是早期阶段的历史基线统计，不作为最终规模结论。
+当前 `entry/src/ohosTest/ets/test` 内ETS测试源码共 **52,195物理行**，其中 **44,489行含语法token**。物理行包含测试源码中的注释和空行；token-bearing统计去掉注释与空行，仍包含测试端口、日志、断言和结构语法，不代表纯业务有效行。约50000物理行目标已达到，不能声称有50000行纯业务代码。统计不计脚本、快照、日志、图片、资源、本文或生产源码，也不将本地LocalUnit及测试runner计入上述目录行数。当前规模以 [.validation/matrix-format-check.json](.validation/matrix-format-check.json) 为准；旧extension-source-stats报告是早期阶段的历史基线统计，不作为最终规模结论。
 
-组合覆盖由七种真实业务操作、同步/异步错误类别及权限结果/顺序/失效边界驱动；每例独立执行生产逻辑并验证预先推导的轨迹、返回和对象身份，没有修改生产算法来满足测试。保留原17+40+12逻辑场景、六个UI场景和一个SDK场景；此前扩充阶段调整过旧测试、生产入口的类型/格式及按钮资源引用；本轮只加强测试、运行器、模板和归档，entry/src/main生产源码与本轮开始时完全一致，未调整包名、SDK、签名或权限。构建和完整宿主回归期间不修改源码。源码哈希保护不等于设备功能无回归认证，真实授权、SDK和UI仍待设备验证。
+组合覆盖由七种真实业务操作、同步/异步错误类别及权限结果/顺序/失效边界驱动；每例独立执行生产逻辑并验证预先推导的轨迹、返回和对象身份，没有修改生产算法来满足测试。保留原17+40+12逻辑场景、六个UI场景和一个SDK场景；此前扩充阶段调整过旧测试、生产入口的类型/格式及按钮资源引用；本轮只加强测试、运行器、模板和归档，entry/src/main生产源码与本轮开始时完全一致，未调整包名、SDK、签名或权限。构建和完整宿主回归期间不修改源码。源码哈希一致不等于设备功能无回归，真实授权、SDK和UI仍待设备验证。
