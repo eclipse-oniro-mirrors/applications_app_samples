@@ -31,8 +31,7 @@ struct Index {
   }
 
   async createCalendar(): Promise<void> {
-    try { await this.getSession().createCalendar(); }
-    catch (error) { console.error('Failed to create or configure calendar'); }
+    try { await this.getSession().createCalendar(); } catch (error) { console.error('Failed to create or configure calendar'); }
   }
 
   async addEvent(): Promise<void> {
@@ -44,23 +43,19 @@ struct Index {
   }
 
   async updateEvent(): Promise<void> {
-    try { await this.getSession().updateEvent(); }
-    catch (error) { console.error('Failed to update event'); }
+    try { await this.getSession().updateEvent(); } catch (error) { console.error('Failed to update event'); }
   }
 
   async getEvents(): Promise<void> {
-    try { await this.getSession().getEvents(); }
-    catch (error) { console.error('Failed to get events'); }
+    try { await this.getSession().getEvents(); } catch (error) { console.error('Failed to get events'); }
   }
 
   async getEvent(): Promise<void> {
-    try { await this.getSession().getEvent(); }
-    catch (error) { console.error('Failed to query events'); }
+    try { await this.getSession().getEvent(); } catch (error) { console.error('Failed to query events'); }
   }
 
   async deleteEvent(): Promise<void> {
-    try { await this.getSession().deleteEvent(); }
-    catch (error) { console.error('Failed to delete event'); }
+    try { await this.getSession().deleteEvent(); } catch (error) { console.error('Failed to delete event'); }
   }
 
   build() {

@@ -13,7 +13,7 @@
 import { calendarManager } from '@kit.CalendarKit';
 import { EventCalendarPort, EventManagerPort } from './CalendarEventSession';
 
-/** Translate query intent into actual SDK EventFilter instances. */
+/** Translate query requests into actual SDK EventFilter instances. */
 export class SdkEventCalendar implements EventCalendarPort {
   private calendar: calendarManager.Calendar;
   constructor(calendar: calendarManager.Calendar) { this.calendar = calendar; }
