@@ -34,7 +34,7 @@ export default struct Header {
         .id('header_title')
 
       Blank()
-      Image($r("app.media.ic_more"))
+      Image($r('app.media.ic_more'))
         .id('header_more')
         .width(20)
         .height(20)

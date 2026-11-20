@@ -1,63 +1,63 @@
 # MusicAlbum 测试用例归档
 
-共 **39 个套件 / 2633 条用例**，全部为 Hypium 自动化用例，源码位于 `entry/src/ohosTest/ets/test/`（39 个套件文件合计 54,237 行，另有只做注册的 `List.test.ets` 96 行）。
+共 **39 个套件 / 2633 条用例**，全部为 Hypium 自动化用例，源码位于 `entry/src/ohosTest/ets/test/`，`List.test.ets` 只负责套件注册。
 
 用例分三层覆盖：
 
 | 层 | 用例数 | 套件构成 |
 |---|---|---|
-| 真实行为（手写） | 213 | MusicAlbumUiAbility01 3 + RealDataCore01 35 + RealListener01 35 + RealSongTable01 35 + RealOption01 35 + RealStats01 35 + RealEdge01 35 |
+| 真实行为（手写） | 213 | AbilityTest 3 + RealDataCore01Test 35 + RealListener01Test 35 + RealSongTable01Test 35 + RealOption01Test 35 + RealStats01Test 35 + RealEdge01Test 35 |
 | 规格回归（批量覆盖） | 2300 | 28 个套件，按域：DS_ADD 425 / DS_GET 595 / DS_PUSH 255 / DS_SIZE 340 / LSN_NOTIFY 425 / LSN_REG 85 / OPTION_TABLE 45 / SONG_TABLE 85 / STATS 45 |
-| UI 探针（`@ohos.UiTest` + `UiEnv`） | 120 | UiHome01 30 + UiList01 30 + UiPlayer01 30 + UiBreakpoint01 30 |
+| UI 探针（`@kit.TestKit` + `UiEnv`） | 120 | UiHome01Test 30 + UiList01Test 30 + UiPlayer01Test 30 + UiBreakpoint01Test 30 |
 
-`@tc.size` 分布：MEDIUMTEST 2423 / SMALLTEST 210；`@tc.level` 分布：LEVEL1 141 / LEVEL2 2475 / LEVEL3 17。
+`@tc.size` 分布：MediumTest 2633；`@tc.type` 均为 Function；`@tc.level` 分布：Level 0 141 / Level 1 2492。
 
 全部用例共 8,029 条断言（`expect(...)` 计数），单条用例最少 3 条。
 
 ## 用例文件与规模
 
-| 套件文件 | 域名 | 用例数 | 行数 | `@tc.size` |
-|---|---|---|---|---|
-| `Ability.test.ets` | UI_ABILITY | 3 | 129 | MEDIUMTEST 3 |
-| `DsAddVolume01.test.ets` | DS_ADD | 85 | 1,729 | MEDIUMTEST 85 |
-| `DsAddVolume02.test.ets` | DS_ADD | 85 | 1,729 | MEDIUMTEST 85 |
-| `DsAddVolume03.test.ets` | DS_ADD | 85 | 1,729 | MEDIUMTEST 85 |
-| `DsAddVolume04.test.ets` | DS_ADD | 85 | 1,729 | MEDIUMTEST 85 |
-| `DsAddVolume05.test.ets` | DS_ADD | 85 | 1,729 | MEDIUMTEST 85 |
-| `DsGetVolume01.test.ets` | DS_GET | 85 | 1,729 | MEDIUMTEST 85 |
-| `DsGetVolume02.test.ets` | DS_GET | 85 | 1,729 | MEDIUMTEST 85 |
-| `DsGetVolume03.test.ets` | DS_GET | 85 | 1,729 | MEDIUMTEST 85 |
-| `DsGetVolume04.test.ets` | DS_GET | 85 | 1,729 | MEDIUMTEST 85 |
-| `DsGetVolume05.test.ets` | DS_GET | 85 | 1,729 | MEDIUMTEST 85 |
-| `DsGetVolume06.test.ets` | DS_GET | 85 | 1,729 | MEDIUMTEST 85 |
-| `DsGetVolume07.test.ets` | DS_GET | 85 | 1,729 | MEDIUMTEST 85 |
-| `DsPushVolume01.test.ets` | DS_PUSH | 85 | 1,729 | MEDIUMTEST 85 |
-| `DsPushVolume02.test.ets` | DS_PUSH | 85 | 1,729 | MEDIUMTEST 85 |
-| `DsPushVolume03.test.ets` | DS_PUSH | 85 | 1,729 | MEDIUMTEST 85 |
-| `DsSizeVolume01.test.ets` | DS_SIZE | 85 | 1,729 | MEDIUMTEST 85 |
-| `DsSizeVolume02.test.ets` | DS_SIZE | 85 | 1,729 | MEDIUMTEST 85 |
-| `DsSizeVolume03.test.ets` | DS_SIZE | 85 | 1,729 | MEDIUMTEST 85 |
-| `DsSizeVolume04.test.ets` | DS_SIZE | 85 | 1,729 | MEDIUMTEST 85 |
-| `LsnNotifyVolume01.test.ets` | LSN_NOTIFY | 85 | 1,729 | MEDIUMTEST 85 |
-| `LsnNotifyVolume02.test.ets` | LSN_NOTIFY | 85 | 1,729 | MEDIUMTEST 85 |
-| `LsnNotifyVolume03.test.ets` | LSN_NOTIFY | 85 | 1,729 | MEDIUMTEST 85 |
-| `LsnNotifyVolume04.test.ets` | LSN_NOTIFY | 85 | 1,729 | MEDIUMTEST 85 |
-| `LsnNotifyVolume05.test.ets` | LSN_NOTIFY | 85 | 1,729 | MEDIUMTEST 85 |
-| `LsnRegVolume01.test.ets` | LSN_REG | 85 | 1,729 | MEDIUMTEST 85 |
-| `OptionTableVolume01.test.ets` | OPTION_TABLE | 45 | 929 | MEDIUMTEST 45 |
-| `RealDataCore01.test.ets` | DS_REAL | 35 | 674 | SMALLTEST 35 |
-| `RealEdge01.test.ets` | EDGE_REAL | 35 | 682 | SMALLTEST 35 |
-| `RealListener01.test.ets` | LSN_REAL | 35 | 665 | SMALLTEST 35 |
-| `RealOption01.test.ets` | OPT_REAL | 35 | 727 | SMALLTEST 35 |
-| `RealSongTable01.test.ets` | TABLE_REAL | 35 | 715 | SMALLTEST 35 |
-| `RealStats01.test.ets` | STATS_REAL | 35 | 701 | SMALLTEST 35 |
-| `SongTableVolume01.test.ets` | SONG_TABLE | 85 | 1,715 | MEDIUMTEST 85 |
-| `StatsVolume01.test.ets` | STATS | 45 | 929 | MEDIUMTEST 45 |
-| `UiBreakpoint01.test.ets` | UI_BP | 30 | 786 | MEDIUMTEST 30 |
-| `UiHome01.test.ets` | UI_HOME | 30 | 760 | MEDIUMTEST 30 |
-| `UiList01.test.ets` | UI_LIST | 30 | 906 | MEDIUMTEST 30 |
-| `UiPlayer01.test.ets` | UI_PLAYER | 30 | 694 | MEDIUMTEST 30 |
-| **合计** | - | **2633** | **54,237** | - |
+| 套件文件 | `@tc.number` 模块段 | `describe` 套件名 | 用例数 |
+|---|---|---|---|
+| `Ability.test.ets` | ABILITY | AbilityTest | 3 |
+| `DsAddVolume01.test.ets` | DS_ADD_VOLUME_01 | DsAddVolume01Test | 85 |
+| `DsAddVolume02.test.ets` | DS_ADD_VOLUME_02 | DsAddVolume02Test | 85 |
+| `DsAddVolume03.test.ets` | DS_ADD_VOLUME_03 | DsAddVolume03Test | 85 |
+| `DsAddVolume04.test.ets` | DS_ADD_VOLUME_04 | DsAddVolume04Test | 85 |
+| `DsAddVolume05.test.ets` | DS_ADD_VOLUME_05 | DsAddVolume05Test | 85 |
+| `DsGetVolume01.test.ets` | DS_GET_VOLUME_01 | DsGetVolume01Test | 85 |
+| `DsGetVolume02.test.ets` | DS_GET_VOLUME_02 | DsGetVolume02Test | 85 |
+| `DsGetVolume03.test.ets` | DS_GET_VOLUME_03 | DsGetVolume03Test | 85 |
+| `DsGetVolume04.test.ets` | DS_GET_VOLUME_04 | DsGetVolume04Test | 85 |
+| `DsGetVolume05.test.ets` | DS_GET_VOLUME_05 | DsGetVolume05Test | 85 |
+| `DsGetVolume06.test.ets` | DS_GET_VOLUME_06 | DsGetVolume06Test | 85 |
+| `DsGetVolume07.test.ets` | DS_GET_VOLUME_07 | DsGetVolume07Test | 85 |
+| `DsPushVolume01.test.ets` | DS_PUSH_VOLUME_01 | DsPushVolume01Test | 85 |
+| `DsPushVolume02.test.ets` | DS_PUSH_VOLUME_02 | DsPushVolume02Test | 85 |
+| `DsPushVolume03.test.ets` | DS_PUSH_VOLUME_03 | DsPushVolume03Test | 85 |
+| `DsSizeVolume01.test.ets` | DS_SIZE_VOLUME_01 | DsSizeVolume01Test | 85 |
+| `DsSizeVolume02.test.ets` | DS_SIZE_VOLUME_02 | DsSizeVolume02Test | 85 |
+| `DsSizeVolume03.test.ets` | DS_SIZE_VOLUME_03 | DsSizeVolume03Test | 85 |
+| `DsSizeVolume04.test.ets` | DS_SIZE_VOLUME_04 | DsSizeVolume04Test | 85 |
+| `LsnNotifyVolume01.test.ets` | LSN_NOTIFY_VOLUME_01 | LsnNotifyVolume01Test | 85 |
+| `LsnNotifyVolume02.test.ets` | LSN_NOTIFY_VOLUME_02 | LsnNotifyVolume02Test | 85 |
+| `LsnNotifyVolume03.test.ets` | LSN_NOTIFY_VOLUME_03 | LsnNotifyVolume03Test | 85 |
+| `LsnNotifyVolume04.test.ets` | LSN_NOTIFY_VOLUME_04 | LsnNotifyVolume04Test | 85 |
+| `LsnNotifyVolume05.test.ets` | LSN_NOTIFY_VOLUME_05 | LsnNotifyVolume05Test | 85 |
+| `LsnRegVolume01.test.ets` | LSN_REG_VOLUME_01 | LsnRegVolume01Test | 85 |
+| `OptionTableVolume01.test.ets` | OPTION_TABLE_VOLUME_01 | OptionTableVolume01Test | 45 |
+| `RealDataCore01.test.ets` | REAL_DATA_CORE_01 | RealDataCore01Test | 35 |
+| `RealEdge01.test.ets` | REAL_EDGE_01 | RealEdge01Test | 35 |
+| `RealListener01.test.ets` | REAL_LISTENER_01 | RealListener01Test | 35 |
+| `RealOption01.test.ets` | REAL_OPTION_01 | RealOption01Test | 35 |
+| `RealSongTable01.test.ets` | REAL_SONG_TABLE_01 | RealSongTable01Test | 35 |
+| `RealStats01.test.ets` | REAL_STATS_01 | RealStats01Test | 35 |
+| `SongTableVolume01.test.ets` | SONG_TABLE_VOLUME_01 | SongTableVolume01Test | 85 |
+| `StatsVolume01.test.ets` | STATS_VOLUME_01 | StatsVolume01Test | 45 |
+| `UiBreakpoint01.test.ets` | UI_BREAKPOINT_01 | UiBreakpoint01Test | 30 |
+| `UiHome01.test.ets` | UI_HOME_01 | UiHome01Test | 30 |
+| `UiList01.test.ets` | UI_LIST_01 | UiList01Test | 30 |
+| `UiPlayer01.test.ets` | UI_PLAYER_01 | UiPlayer01Test | 30 |
+| **合计** | - | **39 个套件** | **2633** |
 
 > 基础层套件预置条件统一为「已安装测试 HAP，`src/main/ets` 可 import」；页面层与 UI 探针套件统一为「已安装测试 HAP，应用已启动并停在首页」，UI 探针另需设备已解锁且无系统弹窗。下表只写与单个用例相关的额外前置。
 >
@@ -65,32 +65,11 @@
 
 ## 用例号段
 
-`@tc.number` 形如 `SUB_MUSICALBUM_<域>_NNNN`，同一域内连续唯一、不跨主题重号。
+`@tc.number` 形如 `SUB_<MODULE>_NNNN`。每个文件独立从 `0100` 起逐 100 递增；`@tc.name` 保持 `test<Feature><NNNN>`，从 `0001` 起逐 1 递增，不添加包名前缀。`@tc.name`、`it()` 名称与 `runCase()` 第一个参数必须一致。
 
-| 域 | 号段 | 用例数 | 对应套件 |
-|---|---|---|---|
-| DS_ADD | 0001..0425 | 425 | DsAddVolume01…DsAddVolume05 |
-| DS_GET | 0001..0595 | 595 | DsGetVolume01…DsGetVolume07 |
-| DS_PUSH | 0001..0255 | 255 | DsPushVolume01…DsPushVolume03 |
-| DS_SIZE | 0001..0340 | 340 | DsSizeVolume01…DsSizeVolume04 |
-| LSN_NOTIFY | 0001..0425 | 425 | LsnNotifyVolume01…LsnNotifyVolume05 |
-| LSN_REG | 0001..0085 | 85 | LsnRegVolume01 |
-| OPTION_TABLE | 0001..0045 | 45 | OptionTableVolume01 |
-| SONG_TABLE | 0001..0085 | 85 | SongTableVolume01 |
-| STATS | 0001..0045 | 45 | StatsVolume01 |
-| DS_REAL | 0001..0035 | 35 | RealDataCore01 |
-| EDGE_REAL | 0001..0035 | 35 | RealEdge01 |
-| LSN_REAL | 0001..0035 | 35 | RealListener01 |
-| OPT_REAL | 0001..0035 | 35 | RealOption01 |
-| STATS_REAL | 0001..0035 | 35 | RealStats01 |
-| TABLE_REAL | 0001..0035 | 35 | RealSongTable01 |
-| UI_ABILITY | 0001..0003 | 3 | MusicAlbumUiAbility01 |
-| UI_BP | 0001..0030 | 30 | UiBreakpoint01 |
-| UI_HOME | 0001..0030 | 30 | UiHome01 |
-| UI_LIST | 0001..0030 | 30 | UiList01 |
-| UI_PLAYER | 0001..0030 | 30 | UiPlayer01 |
+例如 `Ability.test.ets` 的 3 条编号为 `SUB_ABILITY_0100` 至 `SUB_ABILITY_0300`；`DsAddVolume01.test.ets` 的 85 条编号为 `SUB_DS_ADD_VOLUME_01_0100` 至 `SUB_DS_ADD_VOLUME_01_8500`。各文件的模块段见上表。
 
-## MusicAlbumUiAbility01 套件（`Ability.test.ets`，3 条）
+## AbilityTest 套件（`Ability.test.ets`，3 条）
 
 端到端冒烟：经 `UiEnv` 拉起 `MainAbility`，校验标题栏根容器与歌单标题，校验封面 / 歌单列 / 播放控制栏的挂载，并校验显示快照与返回后再拉起的可恢复性。
 
@@ -100,7 +79,7 @@
 | the home page exposes cover, the list column when it fits and the player after launch | - | `existsId('cover_album')`、`listInViewport()`、`countId('song_list')`、`existsId('player_root')` | cover 与 player 为真；listCount = 视口可达 ? 1 : 0 | 是 | 通过 |
 | the display snapshot is well formed and keeps a positive width and height | - | `displaySize()`、`pressBack()`、`launchApp()`、`clickId('header_more')` | 快照以 'ok:' 开头且宽高均 > 0；back = 'ok'；重启后 header_root 可见；click = 'ok' | 是 | 通过 |
 
-## RealDataCore01 套件（`RealDataCore01.test.ets`，35 条）
+## RealDataCore01Test 套件（`RealDataCore01.test.ets`，35 条）
 
 `MyDataSource` 主流程：容量与首尾、索引读取、`addData` 落位、`pushData` 追加，以及混合序列与构造时的种子拷贝。
 
@@ -112,7 +91,7 @@
 | pushData 追加（5 条） | - | `runDataSourcePush(count, times)`（`testDsReal0021`..`testDsReal0025`） | 每次 push 追加 1 行并通知新的末位下标；0 次 push 不动数据也不通知 等 3 条 | 是 | 通过 |
 | 混合序列与构造（10 条） | - | `runDataSourceMixed(count, k, times)`、`runDataSourceBoundary(kind)`（`testDsReal0026`..`testDsReal0035`） | add + push 双通知且新行在首位；`MAX_SAFE_INTEGER` 不返回行；构造克隆种子、后续改种子不可见 等 3 条 | 是 | 通过 |
 
-## RealListener01 套件（`RealListener01.test.ets`，35 条）
+## RealListener01Test 套件（`RealListener01.test.ets`，35 条）
 
 `MyDataSource` 的监听注册、注销与五类通知：同一实例只保留一份、注销未知实例为 no-op、通知按监听器各回调一次并透传原始下标。
 
@@ -124,7 +103,7 @@
 | add / change / delete 透传（10 条） | - | `runListenerNotify(kind, index, k)`（`testLsnReal0012`..`testLsnReal0021`） | 原始下标原样透传（含负下标与 100），广播次数等于监听器数 等 3 条 | 是 | 通过 |
 | move、未知 kind 与极值（14 条） | - | `runListenerNotify('move' 或未知 kind, index, k)`（`testLsnReal0022`..`testLsnReal0035`） | move 透传 from 与 from+1；未知 kind 不触发任何回调；`MAX_SAFE_INTEGER` / -100 不做钳制 等 3 条 | 是 | 通过 |
 
-## RealSongTable01 套件（`RealSongTable01.test.ets`，35 条）
+## RealSongTable01Test 套件（`RealSongTable01.test.ets`，35 条）
 
 冻结歌曲表：24 行逐行的 id / title / singer / label 核对，越界与未知字段，以及表级统计的一致性。
 
@@ -134,7 +113,7 @@
 | 越界与字段读取（4 条） | - | `runSongField(24, field)`、`runSongRow(-1 / 60)`（`testTableReal0025`..`testTableReal0028`） | 行 24 / 负下标 / 远越界均为 undefined，字段读取同样为 undefined 等 3 条 | 是 | 通过 |
 | 表级统计一致性（7 条） | - | `runSongStats(kind)`（`testTableReal0029`..`testTableReal0035`） | id 缺口仅 22；`不知道` 出现 2 次；`小安安` 8 行、歌手计数次高值为 4 行；vip 仅 2 行 等 3 条 | 是 | 通过 |
 
-## RealOption01 套件（`RealOption01.test.ets`，35 条）
+## RealOption01Test 套件（`RealOption01.test.ets`，35 条）
 
 冻结操作表：4 项操作按顺序固定，图片解析到 `ic_*` 资源、文案解析到字符串资源，第 1 项文案为字面量 `999+`。
 
@@ -147,7 +126,7 @@
 | 未知字段与越界字段（2 条） | - | `runOptionField(0, 'badge')`、`runOptionField(4, field)`（`testOptReal0016`..`testOptReal0017`） | 未知字段返回 unknown 标记；越界下标任何字段都 undefined 等 3 条 | 是 | 通过 |
 | 去重、组合与统计（18 条） | - | `runOptionStats(kind)`、`runOptionRow(i)`（`testOptReal0018`..`testOptReal0035`） | 4 张图片两两不同；相邻项图片与文案均不同；组合行等于 image + text 等 3 条 | 是 | 通过 |
 
-## RealStats01 套件（`RealStats01.test.ets`，35 条）
+## RealStats01Test 套件（`RealStats01.test.ets`，35 条）
 
 派生统计：id 的最小 / 最大 / 求和与单点缺口、去重标题与歌手、出现次数最高的标题与歌手，以及 vip / SQ 标签的守恒关系。
 
@@ -157,7 +136,7 @@
 | 未知 kind 与守恒式（6 条） | - | `runSongStats(kind)`（`testStatsReal0015`..`testStatsReal0020`） | 未知 kind 返回 unknown；vip + SQ = 24；去重 + 重复 = 24；id 和 = 全段和 − 缺口 等 3 条 | 是 | 通过 |
 | 交叉校验与逐值计数（15 条） | - | `runSongCount(value, field)`、`runSongStats(kind)`（`testStatsReal0021`..`testStatsReal0035`） | 头名计数互等；歌手计数次高值为 4 行；缺席标题 / 歌手计 0；`Notebook` 3 次；7 个两行标题合计 14 行 等 3 条 | 是 | 通过 |
 
-## RealEdge01 套件（`RealEdge01.test.ets`，35 条）
+## RealEdge01Test 套件（`RealEdge01.test.ets`，35 条）
 
 极值与非法输入：`addData` 的负下标与超界、`pushData` 的批量、索引边界、insert + push 混合序列、监听器数量与通知透传、种子形态。
 
@@ -170,231 +149,231 @@
 | 监听器数量与通知透传（12 条） | - | `runListenerNotify(kind, index, k)`、`runDataSourceBoundary(kind)`（`testEdgeReal0021`..`testEdgeReal0032`） | 监听器数量为 0 时仍注册第一个实例、上限 3；move 透传 index 与 index+1；`MAX_SAFE_INTEGER` / -1 原样转发；未知 kind 无回调 等 3 条 | 是 | 通过 |
 | 种子形态（3 条） | - | `runDataSource(24)`、`runDataSource(100)`（`testEdgeReal0033`..`testEdgeReal0035`） | 探针种子长度等于冻结表 24 行；id 逐行 +1；24 行追加后报告第 25 行下标 等 3 条 | 是 | 通过 |
 
-## DsSizeVolume01 套件（`DsSizeVolume01.test.ets`，85 条）
+## DsSizeVolume01Test 套件（`DsSizeVolume01.test.ets`，85 条）
 
 `new MyDataSource(seed(n))` 的容量：`totalCount()` 等于 n、`getData(n)` 为 `undefined`，首尾 id 为 `7000` 与 `7000+n-1`。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| seed sweep（85 条） | - | `runDataSource(0)`..`runDataSource(84)`（`DS_SIZE_0001`..`DS_SIZE_0085`） | 首条 `0\|empty\|empty\|undefined`；末条 `84\|7000\|7083\|undefined` 等 3 条 | 是 | 通过 |
+| seed sweep（85 条） | - | `runDataSource(0)`..`runDataSource(84)`（`testDsSizeV010001`..`testDsSizeV010085`） | 首条 `0\|empty\|empty\|undefined`；末条 `84\|7000\|7083\|undefined` 等 3 条 | 是 | 通过 |
 
-## DsSizeVolume02 套件（`DsSizeVolume02.test.ets`，85 条）
+## DsSizeVolume02Test 套件（`DsSizeVolume02.test.ets`，85 条）
 
 同一规则的第二批：种子 85 行起继续按等差 id 递增。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| seed sweep（85 条） | - | `runDataSource(85)`..`runDataSource(169)`（`DS_SIZE_0086`..`DS_SIZE_0170`） | 首条 `85\|7000\|7084\|undefined`；末条 `169\|7000\|7168\|undefined` 等 3 条 | 是 | 通过 |
+| seed sweep（85 条） | - | `runDataSource(85)`..`runDataSource(169)`（`testDsSizeV020001`..`testDsSizeV020085`） | 首条 `85\|7000\|7084\|undefined`；末条 `169\|7000\|7168\|undefined` 等 3 条 | 是 | 通过 |
 
-## DsSizeVolume03 套件（`DsSizeVolume03.test.ets`，85 条）
+## DsSizeVolume03Test 套件（`DsSizeVolume03.test.ets`，85 条）
 
 同一规则的第三批：种子 170 行到 254 行。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| seed sweep（85 条） | - | `runDataSource(170)`..`runDataSource(254)`（`DS_SIZE_0171`..`DS_SIZE_0255`） | 首条 `170\|7000\|7169\|undefined`；末条 `254\|7000\|7253\|undefined` 等 3 条 | 是 | 通过 |
+| seed sweep（85 条） | - | `runDataSource(170)`..`runDataSource(254)`（`testDsSizeV030001`..`testDsSizeV030085`） | 首条 `170\|7000\|7169\|undefined`；末条 `254\|7000\|7253\|undefined` 等 3 条 | 是 | 通过 |
 
-## DsSizeVolume04 套件（`DsSizeVolume04.test.ets`，85 条）
+## DsSizeVolume04Test 套件（`DsSizeVolume04.test.ets`，85 条）
 
 同一规则的第四批：种子 255 行到 339 行。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| seed sweep（85 条） | - | `runDataSource(255)`..`runDataSource(339)`（`DS_SIZE_0256`..`DS_SIZE_0340`） | 首条 `255\|7000\|7254\|undefined`；末条 `339\|7000\|7338\|undefined` 等 3 条 | 是 | 通过 |
+| seed sweep（85 条） | - | `runDataSource(255)`..`runDataSource(339)`（`testDsSizeV040001`..`testDsSizeV040085`） | 首条 `255\|7000\|7254\|undefined`；末条 `339\|7000\|7338\|undefined` 等 3 条 | 是 | 通过 |
 
-## DsGetVolume01 套件（`DsGetVolume01.test.ets`，85 条）
+## DsGetVolume01Test 套件（`DsGetVolume01.test.ets`，85 条）
 
 `getData(i)`：`0<=i<n` 返回第 i 行，其余（负下标、`i>=n`）返回 `undefined`。本批以 1~5 行的小种子为主，重点覆盖负下标与末位越界。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| index sweep（85 条） | - | `runDataSourceIndex(n, i)`（`DS_GET_0001`..`DS_GET_0085`） | 首条 index -3 / 1 行种子越界；末条 index 13 / 5 行种子越界 等 3 条 | 是 | 通过 |
+| index sweep（85 条） | - | `runDataSourceIndex(n, i)`（`testDsGetV010001`..`testDsGetV010085`） | 首条 index -3 / 1 行种子越界；末条 index 13 / 5 行种子越界 等 3 条 | 是 | 通过 |
 
-## DsGetVolume02 套件（`DsGetVolume02.test.ets`，85 条）
+## DsGetVolume02Test 套件（`DsGetVolume02.test.ets`，85 条）
 
 同一规则的第二批：6~16 行种子，覆盖负下标、命中与末位越界。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| index sweep（85 条） | - | `runDataSourceIndex(n, i)`（`DS_GET_0086`..`DS_GET_0170`） | 首条 index -2 / 6 行种子越界；末条 index 14 / 16 行种子命中第 14 行 等 3 条 | 是 | 通过 |
+| index sweep（85 条） | - | `runDataSourceIndex(n, i)`（`testDsGetV020001`..`testDsGetV020085`） | 首条 index -2 / 6 行种子越界；末条 index 14 / 16 行种子命中第 14 行 等 3 条 | 是 | 通过 |
 
-## DsGetVolume03 套件（`DsGetVolume03.test.ets`，85 条）
+## DsGetVolume03Test 套件（`DsGetVolume03.test.ets`，85 条）
 
 同一规则的第三批：17~40 行种子。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| index sweep（85 条） | - | `runDataSourceIndex(n, i)`（`DS_GET_0171`..`DS_GET_0255`） | 首条 index -1 / 17 行种子越界；末条 index 15 / 40 行种子命中第 15 行 等 3 条 | 是 | 通过 |
+| index sweep（85 条） | - | `runDataSourceIndex(n, i)`（`testDsGetV030001`..`testDsGetV030085`） | 首条 index -1 / 17 行种子越界；末条 index 15 / 40 行种子命中第 15 行 等 3 条 | 是 | 通过 |
 
-## DsGetVolume04 套件（`DsGetVolume04.test.ets`，85 条）
+## DsGetVolume04Test 套件（`DsGetVolume04.test.ets`，85 条）
 
 同一规则的第四批：48~99 行种子。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| index sweep（85 条） | - | `runDataSourceIndex(n, i)`（`DS_GET_0256`..`DS_GET_0340`） | 首条 index 0 / 48 行种子命中第 0 行；末条 index 16 / 99 行种子命中第 16 行 等 3 条 | 是 | 通过 |
+| index sweep（85 条） | - | `runDataSourceIndex(n, i)`（`testDsGetV040001`..`testDsGetV040085`） | 首条 index 0 / 48 行种子命中第 0 行；末条 index 16 / 99 行种子命中第 16 行 等 3 条 | 是 | 通过 |
 
-## DsGetVolume05 套件（`DsGetVolume05.test.ets`，85 条）
+## DsGetVolume05Test 套件（`DsGetVolume05.test.ets`，85 条）
 
 同一规则的第五批：100~1000 行种子，含 `i` 与 `n` 同量级与越界的组合。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| index sweep（85 条） | - | `runDataSourceIndex(n, i)`（`DS_GET_0341`..`DS_GET_0425`） | 首条 index 92 / 100 行种子命中第 92 行；末条 index 1008 / 1000 行种子越界 等 3 条 | 是 | 通过 |
+| index sweep（85 条） | - | `runDataSourceIndex(n, i)`（`testDsGetV050001`..`testDsGetV050085`） | 首条 index 92 / 100 行种子命中第 92 行；末条 index 1008 / 1000 行种子越界 等 3 条 | 是 | 通过 |
 
-## DsGetVolume06 套件（`DsGetVolume06.test.ets`，85 条）
+## DsGetVolume06Test 套件（`DsGetVolume06.test.ets`，85 条）
 
 同一规则的第六批：7~15 行种子。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| index sweep（85 条） | - | `runDataSourceIndex(n, i)`（`DS_GET_0426`..`DS_GET_0510`） | 首条 index 0 / 7 行种子命中第 0 行；末条 index 16 / 15 行种子越界 等 3 条 | 是 | 通过 |
+| index sweep（85 条） | - | `runDataSourceIndex(n, i)`（`testDsGetV060001`..`testDsGetV060085`） | 首条 index 0 / 7 行种子命中第 0 行；末条 index 16 / 15 行种子越界 等 3 条 | 是 | 通过 |
 
-## DsGetVolume07 套件（`DsGetVolume07.test.ets`，85 条）
+## DsGetVolume07Test 套件（`DsGetVolume07.test.ets`，85 条）
 
 同一规则的第七批：25~30 行种子。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| index sweep（85 条） | - | `runDataSourceIndex(n, i)`（`DS_GET_0511`..`DS_GET_0595`） | 首条 index 18 / 25 行种子命中第 18 行；末条 index 34 / 30 行种子越界 等 3 条 | 是 | 通过 |
+| index sweep（85 条） | - | `runDataSourceIndex(n, i)`（`testDsGetV070001`..`testDsGetV070085`） | 首条 index 18 / 25 行种子命中第 18 行；末条 index 34 / 30 行种子越界 等 3 条 | 是 | 通过 |
 
-## DsAddVolume01 套件（`DsAddVolume01.test.ets`，85 条）
+## DsAddVolume01Test 套件（`DsAddVolume01.test.ets`，85 条）
 
 `addData(k, d)`：总量 +1、落位 `k>=0?min(k,n):max(n+k,0)`、`onDataAdd` 透传原始 k。本批以 0~4 行种子与负下标为主。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| insert sweep（85 条） | - | `runDataSourceAdd(count, k)`（`DS_ADD_0001`..`DS_ADD_0085`） | 首条 0 行插入 -20 → 落位 0、回显 -20；末条 4 行插入 -4 → 落位 0、回显 -4 等 3 条 | 是 | 通过 |
+| insert sweep（85 条） | - | `runDataSourceAdd(count, k)`（`testDsAddV010001`..`testDsAddV010085`） | 首条 0 行插入 -20 → 落位 0、回显 -20；末条 4 行插入 -4 → 落位 0、回显 -4 等 3 条 | 是 | 通过 |
 
-## DsAddVolume02 套件（`DsAddVolume02.test.ets`，85 条）
+## DsAddVolume02Test 套件（`DsAddVolume02.test.ets`，85 条）
 
 同一规则的第二批：5~9 行种子，`k` 从负下标跨到 `k<n`。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| insert sweep（85 条） | - | `runDataSourceAdd(count, k)`（`DS_ADD_0086`..`DS_ADD_0170`） | 首条 5 行插入 -8 → 落位 0、回显 -8；末条 9 行插入 8 → 落位 8、回显 8 等 3 条 | 是 | 通过 |
+| insert sweep（85 条） | - | `runDataSourceAdd(count, k)`（`testDsAddV020001`..`testDsAddV020085`） | 首条 5 行插入 -8 → 落位 0、回显 -8；末条 9 行插入 8 → 落位 8、回显 8 等 3 条 | 是 | 通过 |
 
-## DsAddVolume03 套件（`DsAddVolume03.test.ets`，85 条）
+## DsAddVolume03Test 套件（`DsAddVolume03.test.ets`，85 条）
 
 同一规则的第三批：10~48 行种子。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| insert sweep（85 条） | - | `runDataSourceAdd(count, k)`（`DS_ADD_0171`..`DS_ADD_0255`） | 首条 10 行插入 0 → 落位 0、回显 0；末条 48 行插入 16 → 落位 16、回显 16 等 3 条 | 是 | 通过 |
+| insert sweep（85 条） | - | `runDataSourceAdd(count, k)`（`testDsAddV030001`..`testDsAddV030085`） | 首条 10 行插入 0 → 落位 0、回显 0；末条 48 行插入 16 → 落位 16、回显 16 等 3 条 | 是 | 通过 |
 
-## DsAddVolume04 套件（`DsAddVolume04.test.ets`，85 条）
+## DsAddVolume04Test 套件（`DsAddVolume04.test.ets`，85 条）
 
 同一规则的第四批：64~255 行种子。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| insert sweep（85 条） | - | `runDataSourceAdd(count, k)`（`DS_ADD_0256`..`DS_ADD_0340`） | 首条 64 行插入 0 → 落位 0、回显 0；末条 255 行插入 16 → 落位 16、回显 16 等 3 条 | 是 | 通过 |
+| insert sweep（85 条） | - | `runDataSourceAdd(count, k)`（`testDsAddV040001`..`testDsAddV040085`） | 首条 64 行插入 0 → 落位 0、回显 0；末条 255 行插入 16 → 落位 16、回显 16 等 3 条 | 是 | 通过 |
 
-## DsAddVolume05 套件（`DsAddVolume05.test.ets`，85 条）
+## DsAddVolume05Test 套件（`DsAddVolume05.test.ets`，85 条）
 
 同一规则的第五批：100~12345 行种子，含 `k>n` 的超界插入。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| insert sweep（85 条） | - | `runDataSourceAdd(count, k)`（`DS_ADD_0341`..`DS_ADD_0425`） | 首条 100 行插入 96 → 落位 96、回显 96；末条 12345 行插入 12357 → 落位 12345、回显 12357 等 3 条 | 是 | 通过 |
+| insert sweep（85 条） | - | `runDataSourceAdd(count, k)`（`testDsAddV050001`..`testDsAddV050085`） | 首条 100 行插入 96 → 落位 96、回显 96；末条 12345 行插入 12357 → 落位 12345、回显 12357 等 3 条 | 是 | 通过 |
 
-## DsPushVolume01 套件（`DsPushVolume01.test.ets`，85 条）
+## DsPushVolume01Test 套件（`DsPushVolume01.test.ets`，85 条）
 
 `pushData(d)`：每次追加 1 行，`onDataAdd` 报告新的末位下标，尾元素 id 按 `9100+i` 递增。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| push sweep（85 条） | - | `runDataSourcePush(count, times)`（`DS_PUSH_0001`..`DS_PUSH_0085`） | 首条 0 行 push 0 次 → 尾 undefined、无通知；末条 4 行 push 16 次 → 尾 9115、通知下标 19 等 3 条 | 是 | 通过 |
+| push sweep（85 条） | - | `runDataSourcePush(count, times)`（`testDsPushV010001`..`testDsPushV010085`） | 首条 0 行 push 0 次 → 尾 undefined、无通知；末条 4 行 push 16 次 → 尾 9115、通知下标 19 等 3 条 | 是 | 通过 |
 
-## DsPushVolume02 套件（`DsPushVolume02.test.ets`，85 条）
+## DsPushVolume02Test 套件（`DsPushVolume02.test.ets`，85 条）
 
 同一规则的第二批：5~24 行种子。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| push sweep（85 条） | - | `runDataSourcePush(count, times)`（`DS_PUSH_0086`..`DS_PUSH_0170`） | 首条 5 行 push 1 次 → 尾 9100、通知下标 5；末条 24 行 push 17 次 → 尾 9116、通知下标 40 等 3 条 | 是 | 通过 |
+| push sweep（85 条） | - | `runDataSourcePush(count, times)`（`testDsPushV020001`..`testDsPushV020085`） | 首条 5 行 push 1 次 → 尾 9100、通知下标 5；末条 24 行 push 17 次 → 尾 9116、通知下标 40 等 3 条 | 是 | 通过 |
 
-## DsPushVolume03 套件（`DsPushVolume03.test.ets`，85 条）
+## DsPushVolume03Test 套件（`DsPushVolume03.test.ets`，85 条）
 
 同一规则的第三批：25~1000 行种子，push 次数上到 36。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| push sweep（85 条） | - | `runDataSourcePush(count, times)`（`DS_PUSH_0171`..`DS_PUSH_0255`） | 首条 25 行 push 20 次 → 尾 9119、通知下标 44；末条 1000 行 push 36 次 → 尾 9135、通知下标 1035 等 3 条 | 是 | 通过 |
+| push sweep（85 条） | - | `runDataSourcePush(count, times)`（`testDsPushV030001`..`testDsPushV030085`） | 首条 25 行 push 20 次 → 尾 9119、通知下标 44；末条 1000 行 push 36 次 → 尾 9135、通知下标 1035 等 3 条 | 是 | 通过 |
 
-## LsnNotifyVolume01 套件（`LsnNotifyVolume01.test.ets`，85 条）
+## LsnNotifyVolume01Test 套件（`LsnNotifyVolume01.test.ets`，85 条）
 
 `notifyDataAdd`：对每个已注册监听各回调 1 次，`onDataAdd` 收到原始下标（含负下标）。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| add notify sweep（85 条） | - | `runListenerNotify('add', index, k)`（`LSN_NOTIFY_0001`..`LSN_NOTIFY_0085`） | 首条 1 个监听器、index 0 → `1\|0\|0\|0\|-1\|-1`；末条 5 个监听器、index 42 → `1\|1\|1\|42\|-1\|-1` 等 3 条 | 是 | 通过 |
+| add notify sweep（85 条） | - | `runListenerNotify('add', index, k)`（`testLsnNotifyV010001`..`testLsnNotifyV010085`） | 首条 1 个监听器、index 0 → `1\|0\|0\|0\|-1\|-1`；末条 5 个监听器、index 42 → `1\|1\|1\|42\|-1\|-1` 等 3 条 | 是 | 通过 |
 
-## LsnNotifyVolume02 套件（`LsnNotifyVolume02.test.ets`，85 条）
+## LsnNotifyVolume02Test 套件（`LsnNotifyVolume02.test.ets`，85 条）
 
 `notifyDataChange`：回调次数与监听器数量一致，下标原样透传。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| change notify sweep（85 条） | - | `runListenerNotify('change', index, k)`（`LSN_NOTIFY_0086`..`LSN_NOTIFY_0170`） | 首条 `1\|0\|0\|0\|-1\|-1`；末条 5 个监听器、index 42 → `1\|1\|1\|42\|-1\|-1` 等 3 条 | 是 | 通过 |
+| change notify sweep（85 条） | - | `runListenerNotify('change', index, k)`（`testLsnNotifyV020001`..`testLsnNotifyV020085`） | 首条 `1\|0\|0\|0\|-1\|-1`；末条 5 个监听器、index 42 → `1\|1\|1\|42\|-1\|-1` 等 3 条 | 是 | 通过 |
 
-## LsnNotifyVolume03 套件（`LsnNotifyVolume03.test.ets`，85 条）
+## LsnNotifyVolume03Test 套件（`LsnNotifyVolume03.test.ets`，85 条）
 
 `notifyDataDelete`：回调次数与监听器数量一致，删除下标原样透传。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| delete notify sweep（85 条） | - | `runListenerNotify('delete', index, k)`（`LSN_NOTIFY_0171`..`LSN_NOTIFY_0255`） | 首条 `1\|0\|0\|0\|-1\|-1`；末条 5 个监听器、index 42 → `1\|1\|1\|42\|-1\|-1` 等 3 条 | 是 | 通过 |
+| delete notify sweep（85 条） | - | `runListenerNotify('delete', index, k)`（`testLsnNotifyV030001`..`testLsnNotifyV030085`） | 首条 `1\|0\|0\|0\|-1\|-1`；末条 5 个监听器、index 42 → `1\|1\|1\|42\|-1\|-1` 等 3 条 | 是 | 通过 |
 
-## LsnNotifyVolume04 套件（`LsnNotifyVolume04.test.ets`，85 条）
+## LsnNotifyVolume04Test 套件（`LsnNotifyVolume04.test.ets`，85 条）
 
 `notifyDataMove`：`onDataMove` 收到 from 与 from+1，`index` 槽位保持 -1。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| move notify sweep（85 条） | - | `runListenerNotify('move', index, k)`（`LSN_NOTIFY_0256`..`LSN_NOTIFY_0340`） | 首条 `1\|0\|0\|-1\|0\|1`；末条 5 个监听器、index 42 → `1\|1\|1\|-1\|42\|43` 等 3 条 | 是 | 通过 |
+| move notify sweep（85 条） | - | `runListenerNotify('move', index, k)`（`testLsnNotifyV040001`..`testLsnNotifyV040085`） | 首条 `1\|0\|0\|-1\|0\|1`；末条 5 个监听器、index 42 → `1\|1\|1\|-1\|42\|43` 等 3 条 | 是 | 通过 |
 
-## LsnNotifyVolume05 套件（`LsnNotifyVolume05.test.ets`，85 条）
+## LsnNotifyVolume05Test 套件（`LsnNotifyVolume05.test.ets`，85 条）
 
 `notifyDataReload`：忽略传入下标，回调次数等于监听器数量。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| reload notify sweep（85 条） | - | `runListenerNotify('reload', index, k)`（`LSN_NOTIFY_0341`..`LSN_NOTIFY_0425`） | 首条 `1\|0\|0\|-1\|-1\|-1`；末条 5 个监听器 → `1\|1\|1\|-1\|-1\|-1` 等 3 条 | 是 | 通过 |
+| reload notify sweep（85 条） | - | `runListenerNotify('reload', index, k)`（`testLsnNotifyV050001`..`testLsnNotifyV050085`） | 首条 `1\|0\|0\|-1\|-1\|-1`；末条 5 个监听器 → `1\|1\|1\|-1\|-1\|-1` 等 3 条 | 是 | 通过 |
 
-## LsnRegVolume01 套件（`LsnRegVolume01.test.ets`，85 条）
+## LsnRegVolume01Test 套件（`LsnRegVolume01.test.ets`，85 条）
 
 监听注册状态：同一实例只占 1 份、注销未知实例为 no-op、注销后可重复注册。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| registration sweep（85 条） | - | `runListenerRegister(kind)`、`runListenerRegisterIndex(kind, index)`（`LSN_REG_0001`..`LSN_REG_0085`） | 首条 once + index 0 → `1\|0\|0`；末条未知注册状态即使 index 999 也不转发 等 3 条 | 是 | 通过 |
+| registration sweep（85 条） | - | `runListenerRegister(kind)`、`runListenerRegisterIndex(kind, index)`（`testLsnRegV010001`..`testLsnRegV010085`） | 首条 once + index 0 → `1\|0\|0`；末条未知注册状态即使 index 999 也不转发 等 3 条 | 是 | 通过 |
 
-## SongTableVolume01 套件（`SongTableVolume01.test.ets`，85 条）
+## SongTableVolume01Test 套件（`SongTableVolume01.test.ets`，85 条）
 
 冻结歌曲表 24 行：逐行核对 id / title / singer / label，并覆盖越界行与表级统计。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| row sweep（85 条） | - | `runSongRow(index)`、`runSongField(index, field)`（`SONG_TABLE_0001`..`SONG_TABLE_0085`） | 首条 row 0 的 id 为 1；末条 row 12345 落在表外返回 undefined 等 3 条 | 是 | 通过 |
+| row sweep（85 条） | - | `runSongRow(index)`、`runSongField(index, field)`（`testSongTableV010001`..`testSongTableV010085`） | 首条 row 0 的 id 为 1；末条 row 12345 落在表外返回 undefined 等 3 条 | 是 | 通过 |
 
-## OptionTableVolume01 套件（`OptionTableVolume01.test.ets`，45 条）
+## OptionTableVolume01Test 套件（`OptionTableVolume01.test.ets`，45 条）
 
 冻结操作表 4 项：顺序固定，图片与文案分别解析到资源，越界下标与时未知字段返回 undefined。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| option sweep（45 条） | - | `runOptionRow(index)`、`runOptionField(index, field)`（`OPTION_TABLE_0001`..`OPTION_TABLE_0045`） | 首条 row -10 的 image 越界；末条 row 4 的 badge 字段越界 等 3 条 | 是 | 通过 |
+| option sweep（45 条） | - | `runOptionRow(index)`、`runOptionField(index, field)`（`testOptionTableV010001`..`testOptionTableV010045`） | 首条 row -10 的 image 越界；末条 row 4 的 badge 字段越界 等 3 条 | 是 | 通过 |
 
-## StatsVolume01 套件（`StatsVolume01.test.ets`，45 条）
+## StatsVolume01Test 套件（`StatsVolume01.test.ets`，45 条）
 
 `runSongCount(value, field)`：按 title 或 singer 计次，缺席返回 0，变形输入同样为 0。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| count sweep（45 条） | - | `runSongCount(value, field)`（`STATS_0001`..`STATS_0045`） | 首条 `不知道` 在 title 列计 2；末条最长的变形歌手串在 singer 列计 0 等 3 条 | 是 | 通过 |
+| count sweep（45 条） | - | `runSongCount(value, field)`（`testStatsV010001`..`testStatsV010045`） | 首条 `不知道` 在 title 列计 2；末条最长的变形歌手串在 singer 列计 0 等 3 条 | 是 | 通过 |
 
-## UiHome01 套件（`UiHome01.test.ets`，30 条）
+## UiHome01Test 套件（`UiHome01.test.ets`，30 条）
 
 首页三段结构与封面区：`ON.id()` 定位 `header_root` / `content_root` / `player_root`，校验文案、相对几何与复位后的稳定性；封面列被挤出内容带时改校验封面与选项条。
 
@@ -431,7 +410,7 @@
 | Anchor: an id that the app never declares is reported as not found | 同上 | `geometryOfId('cover_missing')`、`textOfId('cover_missing')` | 均为 'notfound' | 是 | 通过 |
 | the header stays on screen after the page is reset | 同上 | `resetToHome()`、`waitId('header_root')` | 复位后 header_root 仍可见 | 是 | 通过 |
 
-## UiList01 套件（`UiList01.test.ets`，30 条）
+## UiList01Test 套件（`UiList01.test.ets`，30 条）
 
 歌单列表：`song_list` 与 `song_item_<id>` 的行序、行高、id 缺口 22、列表内滑动与复位稳定性；列表列被挤出内容带时改校验该列的头部行几何。
 
@@ -468,7 +447,7 @@
 | two swipes do not detach the play-all row from the list | 同上 | `swipeUpInId('song_list')` 两次、`aboveOfId` | 两次滑动后 play_all_row 与列表的相对顺序不变 | 是 | 通过 |
 | the list geometry is stable across two consecutive reads | 同上 | `geometryOfId('song_list')` 连读两次 | 两次矩形相等 | 是 | 通过 |
 
-## UiPlayer01 套件（`UiPlayer01.test.ets`，30 条）
+## UiPlayer01Test 套件（`UiPlayer01.test.ets`，30 条）
 
 底部播放控制栏：`player_*` 七个部件的存在性、1:1 按钮、左右次序、与内容带 / 显示矩形的边界，以及点击播放 / 下一首 / 歌单后的页面稳定性。
 
@@ -505,7 +484,7 @@
 | the band geometry and copy survive a reset of the page | 同上 | `resetToHome()`、`geometryOfId('player_root')` | 复位后 player 顶边与复位前一致 | 是 | 通过 |
 | repeated reads of the band return the same rectangle and type | 同上 | `geometryOfId('player_root')` 连读两次、`typeOfId` | 两次矩形与类型均相等 | 是 | 通过 |
 
-## UiBreakpoint01 套件（`UiBreakpoint01.test.ets`，30 条）
+## UiBreakpoint01Test 套件（`UiBreakpoint01.test.ets`，30 条）
 
 断点与整体几何：显示矩形、三段容器的宽度与堆叠、1:1 封面、sm 堆叠 / md-lg 分栏两种排布的自洽性，以及复位后的重建顺序。
 
@@ -549,26 +528,30 @@
 
 方式一：IDE 构建。在 IDE 中执行 `Build > Build Hap(s)/APP(s) > Build Hap(s)`，构建目标选择 module `entry` 的 `ohosTest`。
 
-方式二：命令行构建。本工程根目录没有 `hvigorw` / `hvigorw.bat` wrapper，命令行场景直接调用 DevEco Studio 内置的 hvigor（本工程实测方式）：
+方式二：命令行构建。优先使用 `devecocli`，也可使用工程根目录已有的 `hvigorw.bat`：
 
 ```shell
-# Windows（路径按本机 DevEco Studio 安装位置调整）
-& "<DevEco Studio>/tools/hvigor/bin/hvigorw.bat" --mode module -p module=entry@ohosTest -p product=default -p buildMode=debug assembleHap --no-daemon
+devecocli build --modules entry@ohosTest
+devecocli build --modules entry@default
+```
+
+```shell
+.\hvigorw.bat --mode module -p module=entry@ohosTest -p product=default -p buildMode=debug assembleHap --no-daemon
+.\hvigorw.bat --mode module -p module=entry@default -p product=default -p buildMode=debug assembleHap --no-daemon
 ```
 
 ```text
-# 产物：entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-#       entry/build/default/outputs/default/entry-default-signed.hap
+# 产物目录：entry/build/default/outputs/ohosTest/
+#           entry/build/default/outputs/default/
 ```
 
-> 根 `build-profile.json5` 的 `products[0].signingConfig` 指向 `default` 且 `signingConfigs` 已配置签名材料，因此构建产物直接是可安装的
-> `-signed.hap`。ohosTest 构建会清空 `outputs/default`，装包前需要再构建一次主包：
-> `hvigorw.bat --mode module -p module=entry@default -p product=default -p buildMode=debug assembleHap --no-daemon`。
+> 仓库不保存签名配置、证书或密钥。真机安装前需在 DevEco Studio 的 `Project Structure > Signing Configs` 中配置本机自动签名，且不得将生成的签名材料提交到仓库。
+> 产物是 `-signed.hap` 还是 `-unsigned.hap` 取决于本机签名配置；只有正确签名的 HAP 才能安装。ohosTest 构建会清理 `outputs/default`，装包前需要再构建一次主包。
 
 真机安装（测试 HAP 与主 HAP 一起装，避免只装测试包时被测应用缺失）：
 
 ```shell
-hdc uninstall ohos.samples.MusicAlbum
+hdc uninstall ohos.samples.musicalbum
 hdc shell mkdir data/local/tmp/musicalbum
 hdc file send entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap /data/local/tmp/musicalbum/entry-ohosTest.hap
 hdc file send entry/build/default/outputs/default/entry-default-signed.hap /data/local/tmp/musicalbum/entry-default.hap
@@ -580,46 +563,52 @@ hdc shell rm -rf data/local/tmp/musicalbum
 
 | 批次 | `-s class` 套件清单 | 套件数 | 用例数 |
 |---|---|---|---|
-| 1 | MusicAlbumUiAbility01、UiHome01 | 2 | 33 |
-| 2 | UiList01、UiPlayer01、UiBreakpoint01 | 3 | 90 |
-| 3 | RealDataCore01、RealListener01、RealSongTable01、RealOption01、RealStats01、RealEdge01 | 6 | 210 |
-| 4 | DsSizeVolume01、DsSizeVolume02 | 2 | 170 |
-| 5 | DsSizeVolume03、DsSizeVolume04 | 2 | 170 |
-| 6 | DsAddVolume01、DsAddVolume02 | 2 | 170 |
-| 7 | DsAddVolume03、DsAddVolume04、DsAddVolume05 | 3 | 255 |
-| 8 | DsGetVolume01、DsGetVolume02、DsGetVolume03 | 3 | 255 |
-| 9 | DsGetVolume04、DsGetVolume05 | 2 | 170 |
-| 10 | DsGetVolume06、DsGetVolume07 | 2 | 170 |
-| 11 | DsPushVolume01、DsPushVolume02、DsPushVolume03 | 3 | 255 |
-| 12 | LsnRegVolume01、LsnNotifyVolume01 | 2 | 170 |
-| 13 | LsnNotifyVolume02、LsnNotifyVolume03、LsnNotifyVolume04 | 3 | 255 |
-| 14 | LsnNotifyVolume05、SongTableVolume01 | 2 | 170 |
-| 15 | OptionTableVolume01、StatsVolume01 | 2 | 90 |
+| 1 | AbilityTest、UiHome01Test | 2 | 33 |
+| 2 | UiList01Test、UiPlayer01Test、UiBreakpoint01Test | 3 | 90 |
+| 3 | RealDataCore01Test、RealListener01Test、RealSongTable01Test、RealOption01Test、RealStats01Test、RealEdge01Test | 6 | 210 |
+| 4 | DsSizeVolume01Test、DsSizeVolume02Test | 2 | 170 |
+| 5 | DsSizeVolume03Test、DsSizeVolume04Test | 2 | 170 |
+| 6 | DsAddVolume01Test、DsAddVolume02Test | 2 | 170 |
+| 7 | DsAddVolume03Test、DsAddVolume04Test、DsAddVolume05Test | 3 | 255 |
+| 8 | DsGetVolume01Test、DsGetVolume02Test、DsGetVolume03Test | 3 | 255 |
+| 9 | DsGetVolume04Test、DsGetVolume05Test | 2 | 170 |
+| 10 | DsGetVolume06Test、DsGetVolume07Test | 2 | 170 |
+| 11 | DsPushVolume01Test、DsPushVolume02Test、DsPushVolume03Test | 3 | 255 |
+| 12 | LsnRegVolume01Test、LsnNotifyVolume01Test | 2 | 170 |
+| 13 | LsnNotifyVolume02Test、LsnNotifyVolume03Test、LsnNotifyVolume04Test | 3 | 255 |
+| 14 | LsnNotifyVolume05Test、SongTableVolume01Test | 2 | 170 |
+| 15 | OptionTableVolume01Test、StatsVolume01Test | 2 | 90 |
 | **合计** | - | **39** | **2633** |
 
-> 执行前置条件：UI 探针用例通过 `@ohos.UiTest` 的 `Driver` 连接 AAMS，执行前需保证设备处于解锁状态、无系统弹窗或其它应用占据顶层窗口。
+> 执行前置条件：UI 探针用例通过 `@kit.TestKit` 的 `Driver` 连接 AAMS，执行前需保证设备处于解锁状态、无系统弹窗或其它应用占据顶层窗口。
 > 设备停在锁屏时，`launchApp()` 无法把应用带到前台，全部 L2 用例会返回 `notfound` / `error:geometry`；执行前可用
 > `hdc shell power-shell wakeup` 与上滑手势解锁，并用 `hdc shell power-shell setmode 602` 保持常亮。
 
 ## 测试结果
 
+### 本轮整改验证
+
 | 检查项 | 结果 |
 |---|---|
-| 构建 `entry@ohosTest` | `BUILD SUCCESSFUL` |
 | 套件注册 | 39 个套件全部在 `List.test.ets` 中 import 并在 `testsuite()` 内调用 |
-| 用例规模 | 2633 条，与本文件各套件表格逐行一致（未增未删） |
-| 真机运行 | 2633 条通过 / 0 条失败 / 0 条错误 |
-| 结论 | **2633 条用例全部通过** |
+| 静态审计 | 2633 条用例、8029 条断言；编号、名称、元数据、`runCase()` 和断言前日志检查无问题；69 个源码及配置文件版权头完整，120 字符长行为 0 |
+| 本地构建 | `entry@default` 与 `entry@ohosTest` 均 `BUILD SUCCESSFUL`；真机验证使用本机签名产物 `entry-default-signed.hap` 与 `entry-ohosTest-signed.hap`，仓库不保留签名配置 |
+| Code Linter | 0 错误、0 建议；剩余 3 条性能警告涉及自定义组件改 Builder 或可复用组件的结构改造，未通过关闭规则规避 |
+| 真机运行 | 2026-11-20 连续两轮各执行 15 批；每轮 2633 条通过、0 失败、0 错误、0 忽略，两轮结果一致 |
 
-设备与执行参数：OpenHarmony-7.1.0.21（API 26），设备类型 default，真机 `d629034339413535311028a580d3ab00`，2026-11-19，`ohos.samples.MusicAlbum` + `entry_test` + `OpenHarmonyTestRunner`。该机为 720×1280 px、密度 2，即 360×640 vp 的 sm 档窗口。
+### 历史真机基线（2026-11-19，整改前）
+
+2633 条通过 / 0 条失败 / 0 条错误。执行环境为 OpenHarmony-7.1.0.21（API 26）、设备类型 default，应用使用整改前包名，测试模块为 `entry_test`。设备标识不写入文档。该机为 720×1280 px、密度 2，即 360×640 vp 的 sm 档窗口。
+
+当前运行参数如下：
 
 | 参数 | 取值 | 运行时选项 |
 |---|---|---|
-| 应用包名 | `ohos.samples.MusicAlbum` | `-b` |
+| 应用包名 | `ohos.samples.musicalbum` | `-b` |
 | 测试模块名 | `entry_test` | `-m` |
-| 测试运行器 | `/ets/testrunner/OpenHarmonyTestRunner` | `-s unittest` |
+| 测试运行器 | `/ets/TestRunner/OpenHarmonyTestRunner` | `-s unittest` |
 | 单批超时（毫秒） | `15000` | `-s timeout` |
 
-15 批 `Tests run` 分别为 33 / 90 / 210 / 170 / 170 / 170 / 255 / 255 / 170 / 170 / 255 / 170 / 255 / 170 / 90，合计 Pass=2633、Failure=0、Error=0。只跑指定套件时，在上表基础上追加 `-s class <套件名或 Suite#method，逗号分隔>`。
+历史 15 批 `Tests run` 分别为 33 / 90 / 210 / 170 / 170 / 170 / 255 / 255 / 170 / 170 / 255 / 170 / 255 / 170 / 90，合计 Pass=2633、Failure=0、Error=0。只跑指定套件时，在当前批次命令基础上追加 `-s class <套件名或 Suite#method，逗号分隔>`。
 
 说明：本设备为 sm 窄屏，`Content.ets` 的 `GridRow` 会把封面列与歌单列上下堆叠，且 1:1 封面会占满整个内容带高度，因此 `song_list` / `song_item_*` 与 `cover_list_name` / `cover_intro` 在该窗口下不进入无障碍树。UI 用例统一先用 `listInViewport()` / `introInViewport()` 探针判断当前视口，再分别断言「列可达」与「列被挤出」两种真实排布，避免把单一窗口尺寸写死。

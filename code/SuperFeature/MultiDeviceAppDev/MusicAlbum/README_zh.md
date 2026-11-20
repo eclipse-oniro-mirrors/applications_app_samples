@@ -42,14 +42,14 @@
 ```
 MusicAlbum
 ├──AppScope
-│  ├──app.json5                               // 应用配置，bundleName 为 ohos.samples.MusicAlbum
+│  ├──app.json5                               // 应用配置，bundleName 为 ohos.samples.musicalbum
 │  └──resources/base/media/app_icon.png
 └──entry/src
    ├──main/ets
    │  ├──Application
    │  │  └──MyAbilityStage.ts                 // 自定义 AbilityStage
    │  ├──MainAbility
-   │  │  └──MainAbility.ets                   // 主窗口，加载 pages/index
+   │  │  └──MainAbility.ets                   // 主窗口，加载 pages/Index
    │  ├──common
    │  │  ├──Header.ets                        // 标题栏：返回图标、歌单标题、更多按钮
    │  │  ├──Content.ets                       // 内容区：GridRow 拆分封面列与歌单列
@@ -61,21 +61,21 @@ MusicAlbum
    │  │  ├──SongList.ets                      // songList 24 行与 optionList 4 项冻结数据
    │  │  └──SongModule.ets                    // SongItem 与 MyDataSource
    │  └──pages
-   │     └──index.ets                         // 首页入口，组合标题栏、内容区与播放控制栏
+   │     └──Index.ets                         // 首页入口，组合标题栏、内容区与播放控制栏
    ├──main/resources                          // 字符串、颜色、图标与 main_pages 清单
    └──ohosTest                                // 自动化测试，详见 ohosTest.md
       └──ets
          ├──test                              // 39 个套件 / 2633 条用例，注册表 List.test.ets
          ├──testability                       // 测试用 UIAbility 与页面
-         ├──testrunner                        // OpenHarmonyTestRunner
-         └──util                              // DataSourceProbe、ListenerProbe、SongTableProbe、UiEnv
+         ├──TestRunner                        // OpenHarmonyTestRunner
+         └──util                              // DataSourceProbe、ListenerProbe、SongTableProbe、TestCase、UiEnv
 ```
 
 ### 具体实现
 
 **断点系统与响应式令牌**
 
-[MediaData.ets](entry/src/main/ets/model/MediaData.ets) 的 `BreakpointSystem` 在 `register` 中用 `uiContext.getMediaQuery().matchMediaSync` 注册 `(320vp<=width<600vp)`、`(600vp<=width<840vp)`、`(840vp<=width)` 三条查询；命中后调用 `updateCurrentBreakpoint` 写 `AppStorage` 的 `currentBreakpoint`，并分别写入 `fontSize` 14 / 16 / 18 与 `coverMargin` 10 / 30 / 40。[index.ets](entry/src/main/ets/pages/index.ets) 在 `aboutToAppear` 中构造并注册它、在 `aboutToDisappear` 中注销，页面底色按 `currentBreakpoint` 在 `#e4ecf7`（SM）与 `#f6f9fc`（MD / LG）之间切换。
+[MediaData.ets](entry/src/main/ets/model/MediaData.ets) 的 `BreakpointSystem` 在 `register` 中用 `uiContext.getMediaQuery().matchMediaSync` 注册 `(320vp<=width<600vp)`、`(600vp<=width<840vp)`、`(840vp<=width)` 三条查询；命中后调用 `updateCurrentBreakpoint` 写 `AppStorage` 的 `currentBreakpoint`，并分别写入 `fontSize` 14 / 16 / 18 与 `coverMargin` 10 / 30 / 40。[Index.ets](entry/src/main/ets/pages/Index.ets) 在 `aboutToAppear` 中构造并注册它、在 `aboutToDisappear` 中注销，页面底色按 `currentBreakpoint` 在 `#e4ecf7`（SM）与 `#f6f9fc`（MD / LG）之间切换。
 
 **标题栏**
 
@@ -99,9 +99,9 @@ MusicAlbum
 
 ### 测试
 
-- 测试工程：`entry/src/ohosTest`（bundleName `ohos.samples.MusicAlbum`，测试模块 `entry_test`，runner `OpenHarmonyTestRunner`）。
+- 测试工程：`entry/src/ohosTest`（bundleName `ohos.samples.musicalbum`，测试模块 `entry_test`，runner `OpenHarmonyTestRunner`）。
 - 规模：39 个套件 / 2633 条用例，分手写行为用例（213 条）、规格回归用例（2300 条）与 UI 探针用例（120 条）。
-- 结果：2026-11-19 在真机（OpenHarmony 7.1.0.21 / API 26）分 15 批执行，2633 条全部通过。
+- 历史基线：2026-11-19 在真机（OpenHarmony 7.1.0.21 / API 26）分 15 批执行，2633 条全部通过。该结果早于本次整改，本轮验证状态见 ohosTest.md。
 
 用例矩阵、`@tc` 元数据、构建签名与分批命令见 [ohosTest.md](./ohosTest.md)。
 
@@ -120,7 +120,7 @@ MusicAlbum
 3. 本示例需使用支持 `modelVersion` 6.0.2 的 DevEco Studio 编译运行。
 4. `MainAbility` 声明了 `minWindowWidth` 320 与 `minWindowHeight` 240，窗口宽度小于 600vp 时封面与歌单上下堆叠，1:1 封面会把歌单列挤出内容带，此时 `song_list` / `song_item_*` 不进入无障碍树，属于该窗口尺寸下的真实排布。
 5. 单进程整跑 2633 条用例会触发 App died，自动化回归需按 [ohosTest.md](./ohosTest.md) 的 15 批清单分批执行。
-6. UI 探针用例通过 `@ohos.UiTest` 驱动，执行前需保证设备已解锁且无系统弹窗遮挡。
+6. UI 探针用例通过 `@kit.TestKit` 驱动，执行前需保证设备已解锁且无系统弹窗遮挡。
 
 ### 下载
 

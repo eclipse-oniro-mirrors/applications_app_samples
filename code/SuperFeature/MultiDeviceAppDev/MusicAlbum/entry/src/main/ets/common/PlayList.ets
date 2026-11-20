@@ -25,7 +25,7 @@ export default struct PlayList {
   @Builder
   PlayAll() {
     Row() {
-      Image($r("app.media.ic_play_all"))
+      Image($r('app.media.ic_play_all'))
         .height(23)
         .width(23)
       Text($r('app.string.play_all'))
@@ -52,7 +52,7 @@ export default struct PlayList {
   }
 
   @Builder
-  SongItem(title: string, label: Resource, singer: string) {
+  SongItem(title: ResourceStr, label: Resource, singer: ResourceStr) {
     Row() {
       Column() {
         Text(title)
@@ -104,6 +104,7 @@ export default struct PlayList {
         }
         .id('song_list')
         .width('100%')
+        .cachedCount(2)
         .lanes(this.currentBreakpoint === 'lg' ? 2 : 1)
       }
       .height('100%')

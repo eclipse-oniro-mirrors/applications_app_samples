@@ -42,14 +42,14 @@ The device shows:
 ```
 MusicAlbum
 ├──AppScope
-│  ├──app.json5                               // App config, bundleName ohos.samples.MusicAlbum
+│  ├──app.json5                               // App config, bundleName ohos.samples.musicalbum
 │  └──resources/base/media/app_icon.png
 └──entry/src
    ├──main/ets
    │  ├──Application
    │  │  └──MyAbilityStage.ts                 // Custom AbilityStage
    │  ├──MainAbility
-   │  │  └──MainAbility.ets                   // Main window, loads pages/index
+   │  │  └──MainAbility.ets                   // Main window, loads pages/Index
    │  ├──common
    │  │  ├──Header.ets                        // Title bar: back icon, playlist title, more button
    │  │  ├──Content.ets                       // Content area: GridRow with cover and list columns
@@ -61,21 +61,21 @@ MusicAlbum
    │  │  ├──SongList.ets                      // Frozen songList (24 rows) and optionList (4 items)
    │  │  └──SongModule.ets                    // SongItem and MyDataSource
    │  └──pages
-   │     └──index.ets                         // Entry page, composes the three bands
+   │     └──Index.ets                         // Entry page, composes the three bands
    ├──main/resources                          // Strings, colors, icons and main_pages
    └──ohosTest                                // Automated tests, see ohosTest.md
       └──ets
          ├──test                              // 39 suites / 2633 cases, registered in List.test.ets
          ├──testability                       // UIAbility and page used by the test HAP
-         ├──testrunner                        // OpenHarmonyTestRunner
-         └──util                              // DataSourceProbe, ListenerProbe, SongTableProbe, UiEnv
+         ├──TestRunner                        // OpenHarmonyTestRunner
+         └──util                              // DataSourceProbe, ListenerProbe, SongTableProbe, TestCase, UiEnv
 ```
 
 ### How to Implement
 
 **Breakpoint system and responsive tokens**
 
-`BreakpointSystem` in [MediaData.ets](entry/src/main/ets/model/MediaData.ets) registers `(320vp<=width<600vp)`, `(600vp<=width<840vp)` and `(840vp<=width)` with `uiContext.getMediaQuery().matchMediaSync()`; when a query matches, `updateCurrentBreakpoint` writes `currentBreakpoint` to `AppStorage` and stores the font size (14 / 16 / 18) and the cover margin (10 / 30 / 40) as well. [index.ets](entry/src/main/ets/pages/index.ets) creates and registers the system in `aboutToAppear`, unregisters it in `aboutToDisappear`, and switches the page background between `#e4ecf7` (SM) and `#f6f9fc` (MD / LG).
+`BreakpointSystem` in [MediaData.ets](entry/src/main/ets/model/MediaData.ets) registers `(320vp<=width<600vp)`, `(600vp<=width<840vp)` and `(840vp<=width)` with `uiContext.getMediaQuery().matchMediaSync()`; when a query matches, `updateCurrentBreakpoint` writes `currentBreakpoint` to `AppStorage` and stores the font size (14 / 16 / 18) and the cover margin (10 / 30 / 40) as well. [Index.ets](entry/src/main/ets/pages/Index.ets) creates and registers the system in `aboutToAppear`, unregisters it in `aboutToDisappear`, and switches the page background between `#e4ecf7` (SM) and `#f6f9fc` (MD / LG).
 
 **Title bar**
 
@@ -99,9 +99,9 @@ MusicAlbum
 
 ### Test
 
-- Test project: `entry/src/ohosTest` (bundleName `ohos.samples.MusicAlbum`, test module `entry_test`, runner `OpenHarmonyTestRunner`).
+- Test project: `entry/src/ohosTest` (bundleName `ohos.samples.musicalbum`, test module `entry_test`, runner `OpenHarmonyTestRunner`).
 - Scale: 39 suites / 2633 cases — 213 hand-written behavior cases, 2300 specification regression cases and 120 UI probe cases.
-- Result: all 2633 cases passed on a real device (OpenHarmony 7.1.0.21 / API 26) on 2026-11-19, executed in 15 batches.
+- Historical baseline: all 2633 cases passed on a real device (OpenHarmony 7.1.0.21 / API 26) on 2026-11-19, executed in 15 batches. This result predates the current remediation; see ohosTest.md for the latest verification status.
 
 For the case matrix, the `@tc` metadata, the build/signing steps and the batch commands, see [ohosTest.md](./ohosTest.md).
 
@@ -120,7 +120,7 @@ No third-party dependencies.
 3. This sample can be compiled and run only with a DevEco Studio version that supports `modelVersion` 6.0.2.
 4. `MainAbility` declares `minWindowWidth` 320 and `minWindowHeight` 240. Below 600vp the cover and the list are stacked, and the 1:1 cover pushes the list column out of the content band, so `song_list` / `song_item_*` do not enter the UI component tree — this is the real arrangement of that window size.
 5. Running all 2633 cases in a single process triggers App died, so the automated regression must follow the 15-batch plan in [ohosTest.md](./ohosTest.md).
-6. The UI probe cases are driven by `@ohos.UiTest`; the device must be unlocked and free of system dialogs before running them.
+6. The UI probe cases are driven by `@kit.TestKit`; the device must be unlocked and free of system dialogs before running them.
 
 ### How to Download
 

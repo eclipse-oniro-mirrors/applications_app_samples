@@ -28,7 +28,7 @@
     "pages": "$profile:test_pages",
     "testRunner": {
       "name": "OpenHarmonyTestRunner",
-      "srcPath": "./ets/testrunner/OpenHarmonyTestRunner.ts"
+      "srcPath": "./ets/TestRunner/OpenHarmonyTestRunner.ts"
     },
     "abilities": [
       {

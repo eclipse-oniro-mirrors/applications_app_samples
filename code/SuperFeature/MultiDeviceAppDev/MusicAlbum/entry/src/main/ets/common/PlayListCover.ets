@@ -85,7 +85,7 @@ export default struct PlayListCover {
             .fontColor('#556B89')
             .fontSize(this.fontSize - 1)
         }
-      })
+      }, (item: OptionItem) => item.image.id.toString())
     }
     .id('cover_options')
     .width('100%')

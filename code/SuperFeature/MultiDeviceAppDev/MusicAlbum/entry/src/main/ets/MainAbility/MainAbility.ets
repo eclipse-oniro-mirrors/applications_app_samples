@@ -16,41 +16,45 @@
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit'
 import { window } from '@kit.ArkUI'
 import { BusinessError } from '@kit.BasicServicesKit'
+import { hilog } from '@kit.PerformanceAnalysisKit'
+
+const DOMAIN: number = 0xF811
+const TAG: string = '[Sample_MusicAlbum]'
 
 export default class MainAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    console.log('[Sample_MusicAlbum] MainAbility onCreate')
+    hilog.info(DOMAIN, TAG, 'MainAbility onCreate')
   }
 
   onDestroy(): void {
-    console.log('[Sample_MusicAlbum] MainAbility onDestroy')
+    hilog.info(DOMAIN, TAG, 'MainAbility onDestroy')
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
-    console.log('[Sample_MusicAlbum] MainAbility onWindowStageCreate')
+    hilog.info(DOMAIN, TAG, 'MainAbility onWindowStageCreate')
 
-    windowStage.loadContent('pages/index', (err: BusinessError) => {
+    windowStage.loadContent('pages/Index', (err: BusinessError) => {
       if (err.code) {
-        console.error('[Sample_MusicAlbum] Failed to load the content. Cause:' + JSON.stringify(err))
+        hilog.error(DOMAIN, TAG, 'Failed to load the content. Cause: %{public}s', JSON.stringify(err))
         return
       }
-      console.info('[Sample_MusicAlbum] Succeeded in loading the content.')
+      hilog.info(DOMAIN, TAG, 'Succeeded in loading the content.')
     })
   }
 
   onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources
-    console.log('[Sample_MusicAlbum] MainAbility onWindowStageDestroy')
+    hilog.info(DOMAIN, TAG, 'MainAbility onWindowStageDestroy')
   }
 
   onForeground(): void {
     // Ability has brought to foreground
-    console.log('[Sample_MusicAlbum] MainAbility onForeground')
+    hilog.info(DOMAIN, TAG, 'MainAbility onForeground')
   }
 
   onBackground(): void {
     // Ability has back to background
-    console.log('[Sample_MusicAlbum] MainAbility onBackground')
+    hilog.info(DOMAIN, TAG, 'MainAbility onBackground')
   }
 };

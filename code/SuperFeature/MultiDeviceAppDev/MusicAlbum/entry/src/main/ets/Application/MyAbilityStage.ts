@@ -13,10 +13,10 @@
  * limitations under the License.
  */
 
-import AbilityStage from '@ohos.app.ability.AbilityStage';
+import { AbilityStage } from '@kit.AbilityKit';
 
 export default class MyAbilityStage extends AbilityStage {
-  onCreate() {
-    console.log('[Sample_MusicAlbum] MyAbilityStage onCreate')
+  onCreate(): void {
+    console.info('[Sample_MusicAlbum] MyAbilityStage onCreate');
   }
 }
