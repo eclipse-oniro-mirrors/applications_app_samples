@@ -2410,7 +2410,7 @@ export default function keyUpdVolume02() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testKeyUpd020239 begin');
       await removeAssetPromise('uUpd020088', '');
       await addAssetPromise('uUpd020088', 'pwd@#$%^&*()', 'l8');
-      await updateAssetPromise('uUpd020088', 'npwd@#$%^&*()', 'a8;b8;c8;d8');
+      await updateAssetPromise('uUpd020088', 'npwd@#$%^&*()', 'a8;b8;c8;j8');
       const result: Map<string, string>[] = await queryAssetPromise('uUpd020088', '');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.length), String(1));
       expect(result.length).assertEqual(1);
@@ -2950,7 +2950,7 @@ export default function keyUpdVolume02() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testKeyUpd020259 begin');
       await removeAssetPromise('uUpd020108', '');
       await addAssetPromise('uUpd020108', 'p1', 'l8');
-      await updateAssetPromise('uUpd020108', 'np1', 'a8;b8;c8;d8;e8');
+      await updateAssetPromise('uUpd020108', 'np1', 'a8;b8;c8;j8;e8');
       const result: Map<string, string>[] = await queryAssetPromise('uUpd020108', '');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.length), String(1));
       expect(result.length).assertEqual(1);
@@ -3625,7 +3625,7 @@ export default function keyUpdVolume02() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testKeyUpd020284 begin');
       await removeAssetPromise('uUpd020133', '');
       await addAssetPromise('uUpd020133', 'password8', 'l8');
-      await updateAssetPromise('uUpd020133', 'newPassword', 'a8;b8;c8;d8;e8;f8');
+      await updateAssetPromise('uUpd020133', 'newPassword', 'a8;b8;c8;j8;e8;f8');
       const result: Map<string, string>[] = await queryAssetPromise('uUpd020133', '');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.length), String(1));
       expect(result.length).assertEqual(1);

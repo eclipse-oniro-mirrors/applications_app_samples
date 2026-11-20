@@ -3922,7 +3922,7 @@ export default function convVolume03() {
         [asset.Tag.DATA_LABEL_NORMAL_1, stringToArray('a8')],
         [asset.Tag.DATA_LABEL_NORMAL_2, stringToArray('b8')],
         [asset.Tag.DATA_LABEL_NORMAL_3, stringToArray('c8')],
-        [asset.Tag.DATA_LABEL_NORMAL_4, stringToArray('d8')]
+        [asset.Tag.DATA_LABEL_NORMAL_4, stringToArray('j8')]
       ])];
       const result: Map<string, string>[] = convertAssetList(assetList, accountList);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.length), String(1));
@@ -3935,8 +3935,8 @@ export default function convVolume03() {
       hilog.info(LOG_DOMAIN, LOG_TAG,
         'actual=%{public}s expected=%{public}s',
         String(result[0].get('label')),
-        String('a8;b8;c8;d8'));
-      expect(result[0].get('label')).assertEqual('a8;b8;c8;d8');
+        String('a8;b8;c8;j8'));
+      expect(result[0].get('label')).assertEqual('a8;b8;c8;j8');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testConv030419 end');
     })
 

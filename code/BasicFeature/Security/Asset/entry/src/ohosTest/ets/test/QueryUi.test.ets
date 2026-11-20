@@ -271,7 +271,7 @@ export default function queryUi() {
       expect(search !== undefined).assertTrue();
       expect(typeof search.click === 'function').assertTrue();
       // 账号非空点击查询会触发 preQuery：设备无 PIN 验证时 asset.preQuery 阻塞主线程 6s+
-      // 触发 ANR（实测 THREAD_BLOCK_6S 且应用被系统关闭），故清空账号走全量查询分支
+      // 阻塞超过 6s 会被系统关闭（实测 THREAD_BLOCK_6S），故清空账号走全量查询分支
       await clearQueryInputs(driver);
       // clearText 会重新聚焦标签框弹出软键盘遮挡 search，收起键盘后再点击查询
       stopInput();
@@ -549,7 +549,7 @@ export default function queryUi() {
       expect(search !== null).assertTrue();
       expect(search !== undefined).assertTrue();
       expect(typeof search.click === 'function').assertTrue();
-      // 账号非空点击查询会触发 preQuery（无 PIN 设备阻塞主线程触发 ANR），清空账号走全量查询分支
+      // 账号非空点击查询会触发 preQuery（无 PIN 设备主线程阻塞 6s 以上会被系统关闭），清空账号走全量查询分支
       await clearQueryInputs(driver);
       // clearText 会重新聚焦标签框弹出软键盘遮挡 search，收起键盘后再点击查询
       stopInput();

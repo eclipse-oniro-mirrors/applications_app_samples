@@ -2970,12 +2970,12 @@ export default function parseDedupVolume03() {
      */
     it('testParseDedup030429', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testParseDedup030429 begin');
-      const result: string[] = removeDuplicateAndSort(["u8","v8","w8","y8"]);
+      const result: string[] = removeDuplicateAndSort(["u8","x8","w8","y8"]);
       hilog.info(LOG_DOMAIN, LOG_TAG,
         'actual=%{public}s expected=%{public}s',
         String(JSON.stringify(result)),
-        String(["u8","v8","w8","y8"]));
-      expect(JSON.stringify(result)).assertEqual(JSON.stringify(["u8","v8","w8","y8"]));
+        String(["u8","x8","w8","y8"]));
+      expect(JSON.stringify(result)).assertEqual(JSON.stringify(["u8","x8","w8","y8"]));
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.length), String(4));
       expect(result.length).assertEqual(4);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result instanceof Array));

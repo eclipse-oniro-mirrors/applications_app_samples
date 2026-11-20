@@ -1797,7 +1797,7 @@ export default function keyAddVolume03() {
     it('testKeyAdd030369', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testKeyAdd030369 begin');
       await removeAssetPromise('uAdd030068', '');
-      await addAssetPromise('uAdd030068', 'pwd_16_chars_123', 'a8;b8;c8;d8');
+      await addAssetPromise('uAdd030068', 'pwd_16_chars_123', 'a8;b8;c8;j8');
       const result: Map<string, string>[] = await queryAssetPromise('uAdd030068', '');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.length), String(1));
       expect(result.length).assertEqual(1);
@@ -2317,7 +2317,7 @@ export default function keyAddVolume03() {
     it('testKeyAdd030389', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testKeyAdd030389 begin');
       await removeAssetPromise('uAdd030088', '');
-      await addAssetPromise('uAdd030088', 'pwd@#$%^&*()', 'a8;b8;c8;d8;e8');
+      await addAssetPromise('uAdd030088', 'pwd@#$%^&*()', 'a8;b8;c8;j8;e8');
       const result: Map<string, string>[] = await queryAssetPromise('uAdd030088', '');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.length), String(0));
       expect(result.length).assertEqual(0);
@@ -2837,7 +2837,7 @@ export default function keyAddVolume03() {
     it('testKeyAdd030409', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testKeyAdd030409 begin');
       await removeAssetPromise('uAdd030108', '');
-      await addAssetPromise('uAdd030108', 'p1', 'a8;b8;c8;d8;e8;f8');
+      await addAssetPromise('uAdd030108', 'p1', 'a8;b8;c8;j8;e8;f8');
       const result: Map<string, string>[] = await queryAssetPromise('uAdd030108', '');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.length), String(0));
       expect(result.length).assertEqual(0);

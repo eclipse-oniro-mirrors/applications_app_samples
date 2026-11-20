@@ -3877,8 +3877,8 @@ export default function keyQryVolume01() {
     it('testKeyQry010149', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testKeyQry010149 begin');
       await removeAssetPromise('uQry010148', '');
-      await addAssetPromise('uQry010148', 'pwd@#$%^&*()', 'd8');
-      const result: Map<string, string>[] = await queryAssetPromise('uQry010148', 'd8;d8');
+      await addAssetPromise('uQry010148', 'pwd@#$%^&*()', 'j8');
+      const result: Map<string, string>[] = await queryAssetPromise('uQry010148', 'j8;j8');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.length), String(1));
       expect(result.length).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result instanceof Array));

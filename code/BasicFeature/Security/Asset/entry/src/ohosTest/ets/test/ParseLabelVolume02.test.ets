@@ -3081,12 +3081,12 @@ export default function parseLabelVolume02() {
         [asset.Tag.DATA_LABEL_NORMAL_1, stringToArray('a8')],
         [asset.Tag.DATA_LABEL_NORMAL_2, stringToArray('b8')],
         [asset.Tag.DATA_LABEL_NORMAL_3, stringToArray('c8')],
-        [asset.Tag.DATA_LABEL_NORMAL_4, stringToArray('d8')]]));
+        [asset.Tag.DATA_LABEL_NORMAL_4, stringToArray('j8')]]));
       hilog.info(LOG_DOMAIN, LOG_TAG,
         'actual=%{public}s expected=%{public}s',
         String(JSON.stringify(result)),
-        String(["a8","b8","c8","d8"]));
-      expect(JSON.stringify(result)).assertEqual(JSON.stringify(["a8","b8","c8","d8"]));
+        String(["a8","b8","c8","j8"]));
+      expect(JSON.stringify(result)).assertEqual(JSON.stringify(["a8","b8","c8","j8"]));
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.length), String(4));
       expect(result.length).assertEqual(4);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result instanceof Array));

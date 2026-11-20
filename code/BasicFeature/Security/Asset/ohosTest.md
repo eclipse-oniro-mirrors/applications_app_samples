@@ -69,7 +69,7 @@
   2. getFirstQuery 标签批量查询 RETURN_TYPE=ALL 不被设备支持 → 改 RETURN_TYPE=ATTRIBUTES。
   3. stringToArray('') 在该设备 encodeInto 空串返回 undefined → 加空串保护。
 - UI 套件测试侧修复：
-  1. 1062/1074 账号查询触发 asset.preQuery，无 PIN 设备阻塞主线程 7.6s 触发 ANR → 用例清空账号走全量查询分支。
+  1. 1062/1074 账号查询触发 asset.preQuery，无 PIN 设备主线程阻塞 7.6s 超时会被系统关闭 → 用例清空账号走全量查询分支。
   2. 1070/1071 clearText 聚焦弹软键盘把 Scroll 底部 search 按钮挤出屏幕，findComponent 只找屏内组件 → clearQueryInputs 末尾收起键盘。
 
 ## 功能用例表
