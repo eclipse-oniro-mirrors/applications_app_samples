@@ -1744,3 +1744,1666 @@ export default function numberSenseMatrixTest() {
     expect(Number(value.toFixed(0)) >= 0).assertTrue();
   });
 
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0101
+   * @tc.name      testNumberSense0101
+   * @tc.desc      ToFixed 14 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0101', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0101', 'toFixed 14-1');
+    const value: number = 18.2;
+    expect(value.toFixed(1)).assertEqual('18.2');
+    expect(value.toFixed(1).length >= 4).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0102
+   * @tc.name      testNumberSense0102
+   * @tc.desc      ToFixed 14 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0102', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0102', 'toFixed 14-2');
+    const value: number = 18.2;
+    expect(value.toFixed(2)).assertEqual('18.20');
+    expect(value.toFixed(2).length >= 5).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0103
+   * @tc.name      testNumberSense0103
+   * @tc.desc      ToFixed 15 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0103', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0103', 'toFixed 15-0');
+    const value: number = 19.6;
+    expect(value.toFixed(0)).assertEqual('20');
+    expect(value.toFixed(0).length >= 2).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0104
+   * @tc.name      testNumberSense0104
+   * @tc.desc      ToFixed 15 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0104', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0104', 'toFixed 15-1');
+    const value: number = 19.6;
+    expect(value.toFixed(1)).assertEqual('19.6');
+    expect(value.toFixed(1).length >= 4).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0105
+   * @tc.name      testNumberSense0105
+   * @tc.desc      ToFixed 15 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0105', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0105', 'toFixed 15-2');
+    const value: number = 19.6;
+    expect(value.toFixed(2)).assertEqual('19.60');
+    expect(value.toFixed(2).length >= 5).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0106
+   * @tc.name      testNumberSense0106
+   * @tc.desc      ToFixed 16 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0106', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0106', 'toFixed 16-0');
+    const value: number = 20.8;
+    expect(value.toFixed(0)).assertEqual('21');
+    expect(value.toFixed(0).length >= 2).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0107
+   * @tc.name      testNumberSense0107
+   * @tc.desc      ToFixed 16 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0107', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0107', 'toFixed 16-1');
+    const value: number = 20.8;
+    expect(value.toFixed(1)).assertEqual('20.8');
+    expect(value.toFixed(1).length >= 4).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0108
+   * @tc.name      testNumberSense0108
+   * @tc.desc      ToFixed 16 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0108', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0108', 'toFixed 16-2');
+    const value: number = 20.8;
+    expect(value.toFixed(2)).assertEqual('20.80');
+    expect(value.toFixed(2).length >= 5).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0109
+   * @tc.name      testNumberSense0109
+   * @tc.desc      ToFixed 17 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0109', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0109', 'toFixed 17-0');
+    const value: number = 22.1;
+    expect(value.toFixed(0)).assertEqual('22');
+    expect(value.toFixed(0).length >= 2).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0110
+   * @tc.name      testNumberSense0110
+   * @tc.desc      ToFixed 17 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0110', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0110', 'toFixed 17-1');
+    const value: number = 22.1;
+    expect(value.toFixed(1)).assertEqual('22.1');
+    expect(value.toFixed(1).length >= 4).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0111
+   * @tc.name      testNumberSense0111
+   * @tc.desc      ToFixed 17 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0111', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0111', 'toFixed 17-2');
+    const value: number = 22.1;
+    expect(value.toFixed(2)).assertEqual('22.10');
+    expect(value.toFixed(2).length >= 5).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0112
+   * @tc.name      testNumberSense0112
+   * @tc.desc      ToFixed 18 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0112', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0112', 'toFixed 18-0');
+    const value: number = 23.4;
+    expect(value.toFixed(0)).assertEqual('23');
+    expect(value.toFixed(0).length >= 2).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0113
+   * @tc.name      testNumberSense0113
+   * @tc.desc      ToFixed 18 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0113', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0113', 'toFixed 18-1');
+    const value: number = 23.4;
+    expect(value.toFixed(1)).assertEqual('23.4');
+    expect(value.toFixed(1).length >= 4).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0114
+   * @tc.name      testNumberSense0114
+   * @tc.desc      ToFixed 18 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0114', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0114', 'toFixed 18-2');
+    const value: number = 23.4;
+    expect(value.toFixed(2)).assertEqual('23.40');
+    expect(value.toFixed(2).length >= 5).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0115
+   * @tc.name      testNumberSense0115
+   * @tc.desc      ToFixed 19 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0115', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0115', 'toFixed 19-0');
+    const value: number = 24.7;
+    expect(value.toFixed(0)).assertEqual('25');
+    expect(value.toFixed(0).length >= 2).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0116
+   * @tc.name      testNumberSense0116
+   * @tc.desc      ToFixed 19 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0116', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0116', 'toFixed 19-1');
+    const value: number = 24.7;
+    expect(value.toFixed(1)).assertEqual('24.7');
+    expect(value.toFixed(1).length >= 4).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0117
+   * @tc.name      testNumberSense0117
+   * @tc.desc      ToFixed 19 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0117', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0117', 'toFixed 19-2');
+    const value: number = 24.7;
+    expect(value.toFixed(2)).assertEqual('24.70');
+    expect(value.toFixed(2).length >= 5).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0118
+   * @tc.name      testNumberSense0118
+   * @tc.desc      ToFixed 20 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0118', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0118', 'toFixed 20-0');
+    const value: number = 26.0;
+    expect(value.toFixed(0)).assertEqual('26');
+    expect(value.toFixed(0).length >= 2).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0119
+   * @tc.name      testNumberSense0119
+   * @tc.desc      ToFixed 20 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0119', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0119', 'toFixed 20-1');
+    const value: number = 26.0;
+    expect(value.toFixed(1)).assertEqual('26.0');
+    expect(value.toFixed(1).length >= 4).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0120
+   * @tc.name      testNumberSense0120
+   * @tc.desc      ToFixed 20 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0120', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0120', 'toFixed 20-2');
+    const value: number = 26.0;
+    expect(value.toFixed(2)).assertEqual('26.00');
+    expect(value.toFixed(2).length >= 5).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0121
+   * @tc.name      testNumberSense0121
+   * @tc.desc      ToFixed 21 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0121', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0121', 'toFixed 21-0');
+    const value: number = 27.3;
+    expect(value.toFixed(0)).assertEqual('27');
+    expect(value.toFixed(0).length >= 2).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0122
+   * @tc.name      testNumberSense0122
+   * @tc.desc      ToFixed 21 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0122', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0122', 'toFixed 21-1');
+    const value: number = 27.3;
+    expect(value.toFixed(1)).assertEqual('27.3');
+    expect(value.toFixed(1).length >= 4).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0123
+   * @tc.name      testNumberSense0123
+   * @tc.desc      ToFixed 21 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0123', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0123', 'toFixed 21-2');
+    const value: number = 27.3;
+    expect(value.toFixed(2)).assertEqual('27.30');
+    expect(value.toFixed(2).length >= 5).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0124
+   * @tc.name      testNumberSense0124
+   * @tc.desc      ToFixed 22 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0124', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0124', 'toFixed 22-0');
+    const value: number = 28.6;
+    expect(value.toFixed(0)).assertEqual('29');
+    expect(value.toFixed(0).length >= 2).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0125
+   * @tc.name      testNumberSense0125
+   * @tc.desc      ToFixed 22 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0125', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0125', 'toFixed 22-1');
+    const value: number = 28.6;
+    expect(value.toFixed(1)).assertEqual('28.6');
+    expect(value.toFixed(1).length >= 4).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0126
+   * @tc.name      testNumberSense0126
+   * @tc.desc      ToFixed 22 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0126', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0126', 'toFixed 22-2');
+    const value: number = 28.6;
+    expect(value.toFixed(2)).assertEqual('28.60');
+    expect(value.toFixed(2).length >= 5).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0127
+   * @tc.name      testNumberSense0127
+   * @tc.desc      ToFixed 23 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0127', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0127', 'toFixed 23-0');
+    const value: number = 29.9;
+    expect(value.toFixed(0)).assertEqual('30');
+    expect(value.toFixed(0).length >= 2).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0128
+   * @tc.name      testNumberSense0128
+   * @tc.desc      ToFixed 23 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0128', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0128', 'toFixed 23-1');
+    const value: number = 29.9;
+    expect(value.toFixed(1)).assertEqual('29.9');
+    expect(value.toFixed(1).length >= 4).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0129
+   * @tc.name      testNumberSense0129
+   * @tc.desc      ToFixed 23 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0129', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0129', 'toFixed 23-2');
+    const value: number = 29.9;
+    expect(value.toFixed(2)).assertEqual('29.90');
+    expect(value.toFixed(2).length >= 5).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0130
+   * @tc.name      testNumberSense0130
+   * @tc.desc      ToFixed 24 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0130', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0130', 'toFixed 24-0');
+    const value: number = 31.2;
+    expect(value.toFixed(0)).assertEqual('31');
+    expect(value.toFixed(0).length >= 2).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0131
+   * @tc.name      testNumberSense0131
+   * @tc.desc      ToFixed 24 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0131', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0131', 'toFixed 24-1');
+    const value: number = 31.2;
+    expect(value.toFixed(1)).assertEqual('31.2');
+    expect(value.toFixed(1).length >= 4).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0132
+   * @tc.name      testNumberSense0132
+   * @tc.desc      ToFixed 24 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0132', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0132', 'toFixed 24-2');
+    const value: number = 31.2;
+    expect(value.toFixed(2)).assertEqual('31.20');
+    expect(value.toFixed(2).length >= 5).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0133
+   * @tc.name      testNumberSense0133
+   * @tc.desc      ToFixed 25 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0133', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0133', 'toFixed 25-0');
+    const value: number = 32.6;
+    expect(value.toFixed(0)).assertEqual('33');
+    expect(value.toFixed(0).length >= 2).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0134
+   * @tc.name      testNumberSense0134
+   * @tc.desc      ToFixed 25 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0134', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0134', 'toFixed 25-1');
+    const value: number = 32.6;
+    expect(value.toFixed(1)).assertEqual('32.6');
+    expect(value.toFixed(1).length >= 4).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0135
+   * @tc.name      testNumberSense0135
+   * @tc.desc      ToFixed 25 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0135', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0135', 'toFixed 25-2');
+    const value: number = 32.6;
+    expect(value.toFixed(2)).assertEqual('32.60');
+    expect(value.toFixed(2).length >= 5).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0136
+   * @tc.name      testNumberSense0136
+   * @tc.desc      ToFixed 26 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0136', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0136', 'toFixed 26-0');
+    const value: number = 33.8;
+    expect(value.toFixed(0)).assertEqual('34');
+    expect(value.toFixed(0).length >= 2).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0137
+   * @tc.name      testNumberSense0137
+   * @tc.desc      ToFixed 26 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0137', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0137', 'toFixed 26-1');
+    const value: number = 33.8;
+    expect(value.toFixed(1)).assertEqual('33.8');
+    expect(value.toFixed(1).length >= 4).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0138
+   * @tc.name      testNumberSense0138
+   * @tc.desc      ToFixed 26 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0138', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0138', 'toFixed 26-2');
+    const value: number = 33.8;
+    expect(value.toFixed(2)).assertEqual('33.80');
+    expect(value.toFixed(2).length >= 5).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0139
+   * @tc.name      testNumberSense0139
+   * @tc.desc      ToFixed 27 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0139', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0139', 'toFixed 27-0');
+    const value: number = 35.1;
+    expect(value.toFixed(0)).assertEqual('35');
+    expect(value.toFixed(0).length >= 2).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0140
+   * @tc.name      testNumberSense0140
+   * @tc.desc      ToFixed 27 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0140', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0140', 'toFixed 27-1');
+    const value: number = 35.1;
+    expect(value.toFixed(1)).assertEqual('35.1');
+    expect(value.toFixed(1).length >= 4).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0141
+   * @tc.name      testNumberSense0141
+   * @tc.desc      ToFixed 27 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0141', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0141', 'toFixed 27-2');
+    const value: number = 35.1;
+    expect(value.toFixed(2)).assertEqual('35.10');
+    expect(value.toFixed(2).length >= 5).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0142
+   * @tc.name      testNumberSense0142
+   * @tc.desc      ToFixed 28 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0142', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0142', 'toFixed 28-0');
+    const value: number = 36.4;
+    expect(value.toFixed(0)).assertEqual('36');
+    expect(value.toFixed(0).length >= 2).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0143
+   * @tc.name      testNumberSense0143
+   * @tc.desc      ToFixed 28 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0143', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0143', 'toFixed 28-1');
+    const value: number = 36.4;
+    expect(value.toFixed(1)).assertEqual('36.4');
+    expect(value.toFixed(1).length >= 4).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0144
+   * @tc.name      testNumberSense0144
+   * @tc.desc      ToFixed 28 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0144', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0144', 'toFixed 28-2');
+    const value: number = 36.4;
+    expect(value.toFixed(2)).assertEqual('36.40');
+    expect(value.toFixed(2).length >= 5).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0145
+   * @tc.name      testNumberSense0145
+   * @tc.desc      ToFixed 29 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0145', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0145', 'toFixed 29-0');
+    const value: number = 37.7;
+    expect(value.toFixed(0)).assertEqual('38');
+    expect(value.toFixed(0).length >= 2).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0146
+   * @tc.name      testNumberSense0146
+   * @tc.desc      ToFixed 29 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0146', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0146', 'toFixed 29-1');
+    const value: number = 37.7;
+    expect(value.toFixed(1)).assertEqual('37.7');
+    expect(value.toFixed(1).length >= 4).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0147
+   * @tc.name      testNumberSense0147
+   * @tc.desc      ToFixed 29 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0147', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0147', 'toFixed 29-2');
+    const value: number = 37.7;
+    expect(value.toFixed(2)).assertEqual('37.70');
+    expect(value.toFixed(2).length >= 5).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0148
+   * @tc.name      testNumberSense0148
+   * @tc.desc      ToFixed 30 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0148', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0148', 'toFixed 30-0');
+    const value: number = 39.0;
+    expect(value.toFixed(0)).assertEqual('39');
+    expect(value.toFixed(0).length >= 2).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0149
+   * @tc.name      testNumberSense0149
+   * @tc.desc      ToFixed 30 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0149', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0149', 'toFixed 30-1');
+    const value: number = 39.0;
+    expect(value.toFixed(1)).assertEqual('39.0');
+    expect(value.toFixed(1).length >= 4).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0150
+   * @tc.name      testNumberSense0150
+   * @tc.desc      ToFixed 30 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0150', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0150', 'toFixed 30-2');
+    const value: number = 39.0;
+    expect(value.toFixed(2)).assertEqual('39.00');
+    expect(value.toFixed(2).length >= 5).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0151
+   * @tc.name      testNumberSense0151
+   * @tc.desc      ToFixed 31 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0151', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0151', 'toFixed 31-0');
+    const value: number = 0.3;
+    expect(value.toFixed(0)).assertEqual('0');
+    expect(value.toFixed(0).length >= 1).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0152
+   * @tc.name      testNumberSense0152
+   * @tc.desc      ToFixed 31 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0152', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0152', 'toFixed 31-1');
+    const value: number = 0.3;
+    expect(value.toFixed(1)).assertEqual('0.3');
+    expect(value.toFixed(1).length >= 3).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0153
+   * @tc.name      testNumberSense0153
+   * @tc.desc      ToFixed 31 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0153', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0153', 'toFixed 31-2');
+    const value: number = 0.3;
+    expect(value.toFixed(2)).assertEqual('0.30');
+    expect(value.toFixed(2).length >= 4).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0154
+   * @tc.name      testNumberSense0154
+   * @tc.desc      ToFixed 32 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0154', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0154', 'toFixed 32-0');
+    const value: number = 1.6;
+    expect(value.toFixed(0)).assertEqual('2');
+    expect(value.toFixed(0).length >= 1).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0155
+   * @tc.name      testNumberSense0155
+   * @tc.desc      ToFixed 32 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0155', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0155', 'toFixed 32-1');
+    const value: number = 1.6;
+    expect(value.toFixed(1)).assertEqual('1.6');
+    expect(value.toFixed(1).length >= 3).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0156
+   * @tc.name      testNumberSense0156
+   * @tc.desc      ToFixed 32 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0156', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0156', 'toFixed 32-2');
+    const value: number = 1.6;
+    expect(value.toFixed(2)).assertEqual('1.60');
+    expect(value.toFixed(2).length >= 4).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0157
+   * @tc.name      testNumberSense0157
+   * @tc.desc      ToFixed 33 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0157', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0157', 'toFixed 33-0');
+    const value: number = 2.9;
+    expect(value.toFixed(0)).assertEqual('3');
+    expect(value.toFixed(0).length >= 1).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0158
+   * @tc.name      testNumberSense0158
+   * @tc.desc      ToFixed 33 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0158', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0158', 'toFixed 33-1');
+    const value: number = 2.9;
+    expect(value.toFixed(1)).assertEqual('2.9');
+    expect(value.toFixed(1).length >= 3).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0159
+   * @tc.name      testNumberSense0159
+   * @tc.desc      ToFixed 33 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0159', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0159', 'toFixed 33-2');
+    const value: number = 2.9;
+    expect(value.toFixed(2)).assertEqual('2.90');
+    expect(value.toFixed(2).length >= 4).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0160
+   * @tc.name      testNumberSense0160
+   * @tc.desc      ToFixed 34 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0160', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0160', 'toFixed 34-0');
+    const value: number = 4.2;
+    expect(value.toFixed(0)).assertEqual('4');
+    expect(value.toFixed(0).length >= 1).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0161
+   * @tc.name      testNumberSense0161
+   * @tc.desc      ToFixed 34 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0161', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0161', 'toFixed 34-1');
+    const value: number = 4.2;
+    expect(value.toFixed(1)).assertEqual('4.2');
+    expect(value.toFixed(1).length >= 3).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0162
+   * @tc.name      testNumberSense0162
+   * @tc.desc      ToFixed 34 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0162', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0162', 'toFixed 34-2');
+    const value: number = 4.2;
+    expect(value.toFixed(2)).assertEqual('4.20');
+    expect(value.toFixed(2).length >= 4).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0163
+   * @tc.name      testNumberSense0163
+   * @tc.desc      ToFixed 35 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0163', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0163', 'toFixed 35-0');
+    const value: number = 5.6;
+    expect(value.toFixed(0)).assertEqual('6');
+    expect(value.toFixed(0).length >= 1).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0164
+   * @tc.name      testNumberSense0164
+   * @tc.desc      ToFixed 35 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0164', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0164', 'toFixed 35-1');
+    const value: number = 5.6;
+    expect(value.toFixed(1)).assertEqual('5.6');
+    expect(value.toFixed(1).length >= 3).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0165
+   * @tc.name      testNumberSense0165
+   * @tc.desc      ToFixed 35 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0165', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0165', 'toFixed 35-2');
+    const value: number = 5.6;
+    expect(value.toFixed(2)).assertEqual('5.60');
+    expect(value.toFixed(2).length >= 4).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0166
+   * @tc.name      testNumberSense0166
+   * @tc.desc      ToFixed 36 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0166', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0166', 'toFixed 36-0');
+    const value: number = 6.8;
+    expect(value.toFixed(0)).assertEqual('7');
+    expect(value.toFixed(0).length >= 1).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0167
+   * @tc.name      testNumberSense0167
+   * @tc.desc      ToFixed 36 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0167', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0167', 'toFixed 36-1');
+    const value: number = 6.8;
+    expect(value.toFixed(1)).assertEqual('6.8');
+    expect(value.toFixed(1).length >= 3).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0168
+   * @tc.name      testNumberSense0168
+   * @tc.desc      ToFixed 36 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0168', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0168', 'toFixed 36-2');
+    const value: number = 6.8;
+    expect(value.toFixed(2)).assertEqual('6.80');
+    expect(value.toFixed(2).length >= 4).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0169
+   * @tc.name      testNumberSense0169
+   * @tc.desc      ToFixed 37 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0169', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0169', 'toFixed 37-0');
+    const value: number = 8.1;
+    expect(value.toFixed(0)).assertEqual('8');
+    expect(value.toFixed(0).length >= 1).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0170
+   * @tc.name      testNumberSense0170
+   * @tc.desc      ToFixed 37 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0170', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0170', 'toFixed 37-1');
+    const value: number = 8.1;
+    expect(value.toFixed(1)).assertEqual('8.1');
+    expect(value.toFixed(1).length >= 3).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0171
+   * @tc.name      testNumberSense0171
+   * @tc.desc      ToFixed 37 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0171', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0171', 'toFixed 37-2');
+    const value: number = 8.1;
+    expect(value.toFixed(2)).assertEqual('8.10');
+    expect(value.toFixed(2).length >= 4).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0172
+   * @tc.name      testNumberSense0172
+   * @tc.desc      ToFixed 38 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0172', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0172', 'toFixed 38-0');
+    const value: number = 9.4;
+    expect(value.toFixed(0)).assertEqual('9');
+    expect(value.toFixed(0).length >= 1).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0173
+   * @tc.name      testNumberSense0173
+   * @tc.desc      ToFixed 38 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0173', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0173', 'toFixed 38-1');
+    const value: number = 9.4;
+    expect(value.toFixed(1)).assertEqual('9.4');
+    expect(value.toFixed(1).length >= 3).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0174
+   * @tc.name      testNumberSense0174
+   * @tc.desc      ToFixed 38 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0174', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0174', 'toFixed 38-2');
+    const value: number = 9.4;
+    expect(value.toFixed(2)).assertEqual('9.40');
+    expect(value.toFixed(2).length >= 4).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0175
+   * @tc.name      testNumberSense0175
+   * @tc.desc      ToFixed 39 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0175', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0175', 'toFixed 39-0');
+    const value: number = 10.7;
+    expect(value.toFixed(0)).assertEqual('11');
+    expect(value.toFixed(0).length >= 2).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0176
+   * @tc.name      testNumberSense0176
+   * @tc.desc      ToFixed 39 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0176', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0176', 'toFixed 39-1');
+    const value: number = 10.7;
+    expect(value.toFixed(1)).assertEqual('10.7');
+    expect(value.toFixed(1).length >= 4).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0177
+   * @tc.name      testNumberSense0177
+   * @tc.desc      ToFixed 39 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0177', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0177', 'toFixed 39-2');
+    const value: number = 10.7;
+    expect(value.toFixed(2)).assertEqual('10.70');
+    expect(value.toFixed(2).length >= 5).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0178
+   * @tc.name      testNumberSense0178
+   * @tc.desc      ToFixed 40 at 0 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0178', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0178', 'toFixed 40-0');
+    const value: number = 12.0;
+    expect(value.toFixed(0)).assertEqual('12');
+    expect(value.toFixed(0).length >= 2).assertTrue();
+    expect(Number(value.toFixed(0)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0179
+   * @tc.name      testNumberSense0179
+   * @tc.desc      ToFixed 40 at 1 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0179', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0179', 'toFixed 40-1');
+    const value: number = 12.0;
+    expect(value.toFixed(1)).assertEqual('12.0');
+    expect(value.toFixed(1).length >= 4).assertTrue();
+    expect(Number(value.toFixed(1)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0180
+   * @tc.name      testNumberSense0180
+   * @tc.desc      ToFixed 40 at 2 digits
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0180', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0180', 'toFixed 40-2');
+    const value: number = 12.0;
+    expect(value.toFixed(2)).assertEqual('12.00');
+    expect(value.toFixed(2).length >= 5).assertTrue();
+    expect(Number(value.toFixed(2)) >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0181
+   * @tc.name      testNumberSense0181
+   * @tc.desc      Rounding case 1
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0181', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0181', 'round 1');
+    const value: number = 1.2;
+    expect(Math.round(value)).assertEqual(1);
+    expect(Math.floor(value)).assertEqual(1);
+    expect(Math.ceil(value)).assertEqual(2);
+    expect(Math.trunc(value)).assertEqual(1);
+    expect(Math.abs(value) > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0182
+   * @tc.name      testNumberSense0182
+   * @tc.desc      Rounding case 2
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0182', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0182', 'round 2');
+    const value: number = 1.5;
+    expect(Math.round(value)).assertEqual(2);
+    expect(Math.floor(value)).assertEqual(1);
+    expect(Math.ceil(value)).assertEqual(2);
+    expect(Math.trunc(value)).assertEqual(1);
+    expect(Math.abs(value) > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0183
+   * @tc.name      testNumberSense0183
+   * @tc.desc      Rounding case 3
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0183', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0183', 'round 3');
+    const value: number = 1.8;
+    expect(Math.round(value)).assertEqual(2);
+    expect(Math.floor(value)).assertEqual(1);
+    expect(Math.ceil(value)).assertEqual(2);
+    expect(Math.trunc(value)).assertEqual(1);
+    expect(Math.abs(value) > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0184
+   * @tc.name      testNumberSense0184
+   * @tc.desc      Rounding case 4
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0184', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0184', 'round 4');
+    const value: number = 2.3;
+    expect(Math.round(value)).assertEqual(2);
+    expect(Math.floor(value)).assertEqual(2);
+    expect(Math.ceil(value)).assertEqual(3);
+    expect(Math.trunc(value)).assertEqual(2);
+    expect(Math.abs(value) > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0185
+   * @tc.name      testNumberSense0185
+   * @tc.desc      Rounding case 5
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0185', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0185', 'round 5');
+    const value: number = 2.7;
+    expect(Math.round(value)).assertEqual(3);
+    expect(Math.floor(value)).assertEqual(2);
+    expect(Math.ceil(value)).assertEqual(3);
+    expect(Math.trunc(value)).assertEqual(2);
+    expect(Math.abs(value) > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0186
+   * @tc.name      testNumberSense0186
+   * @tc.desc      Rounding case 6
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0186', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0186', 'round 6');
+    const value: number = -1.2;
+    expect(Math.round(value)).assertEqual(-1);
+    expect(Math.floor(value)).assertEqual(-2);
+    expect(Math.ceil(value)).assertEqual(-1);
+    expect(Math.trunc(value)).assertEqual(-1);
+    expect(Math.abs(value) > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0187
+   * @tc.name      testNumberSense0187
+   * @tc.desc      Rounding case 7
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0187', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0187', 'round 7');
+    const value: number = -1.5;
+    expect(Math.round(value)).assertEqual(-1);
+    expect(Math.floor(value)).assertEqual(-2);
+    expect(Math.ceil(value)).assertEqual(-1);
+    expect(Math.trunc(value)).assertEqual(-1);
+    expect(Math.abs(value) > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0188
+   * @tc.name      testNumberSense0188
+   * @tc.desc      Rounding case 8
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0188', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0188', 'round 8');
+    const value: number = -1.8;
+    expect(Math.round(value)).assertEqual(-2);
+    expect(Math.floor(value)).assertEqual(-2);
+    expect(Math.ceil(value)).assertEqual(-1);
+    expect(Math.trunc(value)).assertEqual(-1);
+    expect(Math.abs(value) > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0189
+   * @tc.name      testNumberSense0189
+   * @tc.desc      Rounding case 9
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0189', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0189', 'round 9');
+    const value: number = -2.7;
+    expect(Math.round(value)).assertEqual(-3);
+    expect(Math.floor(value)).assertEqual(-3);
+    expect(Math.ceil(value)).assertEqual(-2);
+    expect(Math.trunc(value)).assertEqual(-2);
+    expect(Math.abs(value) > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0190
+   * @tc.name      testNumberSense0190
+   * @tc.desc      Rounding case 10
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0190', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0190', 'round 10');
+    const value: number = 10.5;
+    expect(Math.round(value)).assertEqual(11);
+    expect(Math.floor(value)).assertEqual(10);
+    expect(Math.ceil(value)).assertEqual(11);
+    expect(Math.trunc(value)).assertEqual(10);
+    expect(Math.abs(value) > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0191
+   * @tc.name      testNumberSense0191
+   * @tc.desc      Rounding case 11
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0191', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0191', 'round 11');
+    const value: number = -10.5;
+    expect(Math.round(value)).assertEqual(-10);
+    expect(Math.floor(value)).assertEqual(-11);
+    expect(Math.ceil(value)).assertEqual(-10);
+    expect(Math.trunc(value)).assertEqual(-10);
+    expect(Math.abs(value) > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0192
+   * @tc.name      testNumberSense0192
+   * @tc.desc      Rounding case 12
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0192', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0192', 'round 12');
+    const value: number = 0.4;
+    expect(Math.round(value)).assertEqual(0);
+    expect(Math.floor(value)).assertEqual(0);
+    expect(Math.ceil(value)).assertEqual(1);
+    expect(Math.trunc(value)).assertEqual(0);
+    expect(Math.abs(value) > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0193
+   * @tc.name      testNumberSense0193
+   * @tc.desc      Rounding case 13
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0193', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0193', 'round 13');
+    const value: number = 0.6;
+    expect(Math.round(value)).assertEqual(1);
+    expect(Math.floor(value)).assertEqual(0);
+    expect(Math.ceil(value)).assertEqual(1);
+    expect(Math.trunc(value)).assertEqual(0);
+    expect(Math.abs(value) > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0194
+   * @tc.name      testNumberSense0194
+   * @tc.desc      Rounding case 14
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0194', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0194', 'round 14');
+    const value: number = 99.5;
+    expect(Math.round(value)).assertEqual(100);
+    expect(Math.floor(value)).assertEqual(99);
+    expect(Math.ceil(value)).assertEqual(100);
+    expect(Math.trunc(value)).assertEqual(99);
+    expect(Math.abs(value) > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0195
+   * @tc.name      testNumberSense0195
+   * @tc.desc      Rounding case 15
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0195', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0195', 'round 15');
+    const value: number = -99.5;
+    expect(Math.round(value)).assertEqual(-99);
+    expect(Math.floor(value)).assertEqual(-100);
+    expect(Math.ceil(value)).assertEqual(-99);
+    expect(Math.trunc(value)).assertEqual(-99);
+    expect(Math.abs(value) > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0196
+   * @tc.name      testNumberSense0196
+   * @tc.desc      Rounding case 16
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0196', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0196', 'round 16');
+    const value: number = 3.05;
+    expect(Math.round(value)).assertEqual(3);
+    expect(Math.floor(value)).assertEqual(3);
+    expect(Math.ceil(value)).assertEqual(4);
+    expect(Math.trunc(value)).assertEqual(3);
+    expect(Math.abs(value) > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0197
+   * @tc.name      testNumberSense0197
+   * @tc.desc      Rounding case 17
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0197', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0197', 'round 17');
+    const value: number = 7.49;
+    expect(Math.round(value)).assertEqual(7);
+    expect(Math.floor(value)).assertEqual(7);
+    expect(Math.ceil(value)).assertEqual(8);
+    expect(Math.trunc(value)).assertEqual(7);
+    expect(Math.abs(value) > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0198
+   * @tc.name      testNumberSense0198
+   * @tc.desc      Rounding case 18
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0198', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0198', 'round 18');
+    const value: number = 7.51;
+    expect(Math.round(value)).assertEqual(8);
+    expect(Math.floor(value)).assertEqual(7);
+    expect(Math.ceil(value)).assertEqual(8);
+    expect(Math.trunc(value)).assertEqual(7);
+    expect(Math.abs(value) > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0199
+   * @tc.name      testNumberSense0199
+   * @tc.desc      Accumulate 1 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testNumberSense0199', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testNumberSense0199', 'accumulate 1');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 1; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(1);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0200
+   * @tc.name      testNumberSense0200
+   * @tc.desc      Accumulate 2 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testNumberSense0200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testNumberSense0200', 'accumulate 2');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 2; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(3);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NUM_0201
+   * @tc.name      testNumberSense0201
+   * @tc.desc      Accumulate 3 integers
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testNumberSense0201', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testNumberSense0201', 'accumulate 3');
+    let sum: number = 0;
+    for (let i: number = 1; i <= 3; i++) {
+      sum += i;
+    }
+    expect(sum).assertEqual(6);
+    expect(sum % 1).assertEqual(0);
+    expect(sum > 0).assertTrue();
+    expect(sum.toString().length >= 1).assertTrue();
+  });
