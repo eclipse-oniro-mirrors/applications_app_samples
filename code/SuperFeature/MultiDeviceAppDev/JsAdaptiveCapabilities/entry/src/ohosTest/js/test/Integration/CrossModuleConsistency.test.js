@@ -1541,31 +1541,1491 @@ function CrossModuleConsistencyPart024() {
     });
 }
 
+function CrossModuleConsistencyPart025() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0773
+     * @tc.name    JsConsistency073
+     * @tc.desc    Cross module consistency at width 1397 seed 73
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency073', 0, async function () {
+      await yieldThread();
+      const width = 1397;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(315);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 1333).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency073 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0774
+     * @tc.name    JsConsistency074
+     * @tc.desc    Cross module consistency at width 1426 seed 74
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency074', 0, async function () {
+      await yieldThread();
+      const width = 1426;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(322);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 1362).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency074 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0775
+     * @tc.name    JsConsistency075
+     * @tc.desc    Cross module consistency at width 375 seed 75
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency075', 0, async function () {
+      await yieldThread();
+      const width = 375;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsForWidth(width)).assertEqual(2);
+      expect(model.itemWidthOf(width)).assertEqual(165);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.itemWidthOf(width) * 2 + 12 <= 343).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency075 done');
+    });
+}
+
+function CrossModuleConsistencyPart026() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0776
+     * @tc.name    JsConsistency076
+     * @tc.desc    Cross module consistency at width 404 seed 76
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency076', 0, async function () {
+      await yieldThread();
+      const width = 404;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsForWidth(width)).assertEqual(2);
+      expect(model.itemWidthOf(width)).assertEqual(180);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.itemWidthOf(width) * 2 + 12 <= 372).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency076 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0777
+     * @tc.name    JsConsistency077
+     * @tc.desc    Cross module consistency at width 433 seed 77
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency077', 0, async function () {
+      await yieldThread();
+      const width = 433;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsForWidth(width)).assertEqual(2);
+      expect(model.itemWidthOf(width)).assertEqual(194);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.itemWidthOf(width) * 2 + 12 <= 401).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency077 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0778
+     * @tc.name    JsConsistency078
+     * @tc.desc    Cross module consistency at width 462 seed 78
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency078', 0, async function () {
+      await yieldThread();
+      const width = 462;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsForWidth(width)).assertEqual(2);
+      expect(model.itemWidthOf(width)).assertEqual(209);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.itemWidthOf(width) * 2 + 12 <= 430).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency078 done');
+    });
+}
+
+function CrossModuleConsistencyPart027() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0779
+     * @tc.name    JsConsistency079
+     * @tc.desc    Cross module consistency at width 491 seed 79
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency079', 0, async function () {
+      await yieldThread();
+      const width = 491;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsForWidth(width)).assertEqual(2);
+      expect(model.itemWidthOf(width)).assertEqual(223);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.itemWidthOf(width) * 2 + 12 <= 459).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency079 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0780
+     * @tc.name    JsConsistency080
+     * @tc.desc    Cross module consistency at width 520 seed 80
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency080', 0, async function () {
+      await yieldThread();
+      const width = 520;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsForWidth(width)).assertEqual(2);
+      expect(model.itemWidthOf(width)).assertEqual(238);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.itemWidthOf(width) * 2 + 12 <= 488).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency080 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0781
+     * @tc.name    JsConsistency081
+     * @tc.desc    Cross module consistency at width 549 seed 81
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency081', 0, async function () {
+      await yieldThread();
+      const width = 549;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsForWidth(width)).assertEqual(2);
+      expect(model.itemWidthOf(width)).assertEqual(252);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.itemWidthOf(width) * 2 + 12 <= 517).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency081 done');
+    });
+}
+
+function CrossModuleConsistencyPart028() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0782
+     * @tc.name    JsConsistency082
+     * @tc.desc    Cross module consistency at width 578 seed 82
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency082', 0, async function () {
+      await yieldThread();
+      const width = 578;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsForWidth(width)).assertEqual(2);
+      expect(model.itemWidthOf(width)).assertEqual(267);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.itemWidthOf(width) * 2 + 12 <= 546).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency082 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0783
+     * @tc.name    JsConsistency083
+     * @tc.desc    Cross module consistency at width 607 seed 83
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency083', 0, async function () {
+      await yieldThread();
+      const width = 607;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsForWidth(width)).assertEqual(3);
+      expect(model.itemWidthOf(width)).assertEqual(165);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 3 + 48 <= 543).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency083 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0784
+     * @tc.name    JsConsistency084
+     * @tc.desc    Cross module consistency at width 636 seed 84
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency084', 0, async function () {
+      await yieldThread();
+      const width = 636;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsForWidth(width)).assertEqual(3);
+      expect(model.itemWidthOf(width)).assertEqual(174);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 3 + 48 <= 572).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency084 done');
+    });
+}
+
+function CrossModuleConsistencyPart029() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0785
+     * @tc.name    JsConsistency085
+     * @tc.desc    Cross module consistency at width 665 seed 85
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency085', 0, async function () {
+      await yieldThread();
+      const width = 665;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsForWidth(width)).assertEqual(3);
+      expect(model.itemWidthOf(width)).assertEqual(184);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 3 + 48 <= 601).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency085 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0786
+     * @tc.name    JsConsistency086
+     * @tc.desc    Cross module consistency at width 694 seed 86
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency086', 0, async function () {
+      await yieldThread();
+      const width = 694;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsForWidth(width)).assertEqual(3);
+      expect(model.itemWidthOf(width)).assertEqual(194);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 3 + 48 <= 630).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency086 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0787
+     * @tc.name    JsConsistency087
+     * @tc.desc    Cross module consistency at width 723 seed 87
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency087', 0, async function () {
+      await yieldThread();
+      const width = 723;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsForWidth(width)).assertEqual(3);
+      expect(model.itemWidthOf(width)).assertEqual(203);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 3 + 48 <= 659).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency087 done');
+    });
+}
+
+function CrossModuleConsistencyPart030() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0788
+     * @tc.name    JsConsistency088
+     * @tc.desc    Cross module consistency at width 752 seed 88
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency088', 0, async function () {
+      await yieldThread();
+      const width = 752;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsForWidth(width)).assertEqual(3);
+      expect(model.itemWidthOf(width)).assertEqual(213);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 3 + 48 <= 688).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency088 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0789
+     * @tc.name    JsConsistency089
+     * @tc.desc    Cross module consistency at width 781 seed 89
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency089', 0, async function () {
+      await yieldThread();
+      const width = 781;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsForWidth(width)).assertEqual(3);
+      expect(model.itemWidthOf(width)).assertEqual(223);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 3 + 48 <= 717).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency089 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0790
+     * @tc.name    JsConsistency090
+     * @tc.desc    Cross module consistency at width 810 seed 90
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency090', 0, async function () {
+      await yieldThread();
+      const width = 810;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsForWidth(width)).assertEqual(3);
+      expect(model.itemWidthOf(width)).assertEqual(232);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 3 + 48 <= 746).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency090 done');
+    });
+}
+
+function CrossModuleConsistencyPart031() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0791
+     * @tc.name    JsConsistency091
+     * @tc.desc    Cross module consistency at width 839 seed 91
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency091', 0, async function () {
+      await yieldThread();
+      const width = 839;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsForWidth(width)).assertEqual(3);
+      expect(model.itemWidthOf(width)).assertEqual(242);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 3 + 48 <= 775).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency091 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0792
+     * @tc.name    JsConsistency092
+     * @tc.desc    Cross module consistency at width 868 seed 92
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency092', 0, async function () {
+      await yieldThread();
+      const width = 868;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(183);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 804).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency092 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0793
+     * @tc.name    JsConsistency093
+     * @tc.desc    Cross module consistency at width 897 seed 93
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency093', 0, async function () {
+      await yieldThread();
+      const width = 897;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(190);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 833).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency093 done');
+    });
+}
+
+function CrossModuleConsistencyPart032() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0794
+     * @tc.name    JsConsistency094
+     * @tc.desc    Cross module consistency at width 926 seed 94
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency094', 0, async function () {
+      await yieldThread();
+      const width = 926;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(197);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 862).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency094 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0795
+     * @tc.name    JsConsistency095
+     * @tc.desc    Cross module consistency at width 955 seed 95
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency095', 0, async function () {
+      await yieldThread();
+      const width = 955;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(204);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 891).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency095 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0796
+     * @tc.name    JsConsistency096
+     * @tc.desc    Cross module consistency at width 984 seed 96
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency096', 0, async function () {
+      await yieldThread();
+      const width = 984;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(212);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 920).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency096 done');
+    });
+}
+
+function CrossModuleConsistencyPart033() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0797
+     * @tc.name    JsConsistency097
+     * @tc.desc    Cross module consistency at width 1013 seed 97
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency097', 0, async function () {
+      await yieldThread();
+      const width = 1013;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(219);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 949).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency097 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0798
+     * @tc.name    JsConsistency098
+     * @tc.desc    Cross module consistency at width 1042 seed 98
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency098', 0, async function () {
+      await yieldThread();
+      const width = 1042;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(226);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 978).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency098 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0799
+     * @tc.name    JsConsistency099
+     * @tc.desc    Cross module consistency at width 1071 seed 99
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency099', 0, async function () {
+      await yieldThread();
+      const width = 1071;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(233);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 1007).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency099 done');
+    });
+}
+
+function CrossModuleConsistencyPart034() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0800
+     * @tc.name    JsConsistency100
+     * @tc.desc    Cross module consistency at width 1100 seed 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency100', 0, async function () {
+      await yieldThread();
+      const width = 1100;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(241);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 1036).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency100 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0801
+     * @tc.name    JsConsistency101
+     * @tc.desc    Cross module consistency at width 1129 seed 101
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency101', 0, async function () {
+      await yieldThread();
+      const width = 1129;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(248);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 1065).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency101 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0802
+     * @tc.name    JsConsistency102
+     * @tc.desc    Cross module consistency at width 1158 seed 102
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency102', 0, async function () {
+      await yieldThread();
+      const width = 1158;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(255);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 1094).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency102 done');
+    });
+}
+
+function CrossModuleConsistencyPart035() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0803
+     * @tc.name    JsConsistency103
+     * @tc.desc    Cross module consistency at width 1187 seed 103
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency103', 0, async function () {
+      await yieldThread();
+      const width = 1187;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(262);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 1123).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency103 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0804
+     * @tc.name    JsConsistency104
+     * @tc.desc    Cross module consistency at width 1216 seed 104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency104', 0, async function () {
+      await yieldThread();
+      const width = 1216;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(270);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 1152).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency104 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0805
+     * @tc.name    JsConsistency105
+     * @tc.desc    Cross module consistency at width 1245 seed 105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency105', 0, async function () {
+      await yieldThread();
+      const width = 1245;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(277);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 1181).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency105 done');
+    });
+}
+
+function CrossModuleConsistencyPart036() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0806
+     * @tc.name    JsConsistency106
+     * @tc.desc    Cross module consistency at width 1274 seed 106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency106', 0, async function () {
+      await yieldThread();
+      const width = 1274;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(284);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 1210).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency106 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0807
+     * @tc.name    JsConsistency107
+     * @tc.desc    Cross module consistency at width 1303 seed 107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency107', 0, async function () {
+      await yieldThread();
+      const width = 1303;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(291);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 1239).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency107 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0808
+     * @tc.name    JsConsistency108
+     * @tc.desc    Cross module consistency at width 1332 seed 108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency108', 0, async function () {
+      await yieldThread();
+      const width = 1332;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(299);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 1268).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency108 done');
+    });
+}
+
+function CrossModuleConsistencyPart037() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0809
+     * @tc.name    JsConsistency109
+     * @tc.desc    Cross module consistency at width 1361 seed 109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency109', 0, async function () {
+      await yieldThread();
+      const width = 1361;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(306);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 1297).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency109 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0810
+     * @tc.name    JsConsistency110
+     * @tc.desc    Cross module consistency at width 1390 seed 110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency110', 0, async function () {
+      await yieldThread();
+      const width = 1390;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(313);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 1326).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency110 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0811
+     * @tc.name    JsConsistency111
+     * @tc.desc    Cross module consistency at width 1419 seed 111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency111', 0, async function () {
+      await yieldThread();
+      const width = 1419;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(320);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 1355).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency111 done');
+    });
+}
+
+function CrossModuleConsistencyPart038() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0812
+     * @tc.name    JsConsistency112
+     * @tc.desc    Cross module consistency at width 368 seed 112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency112', 0, async function () {
+      await yieldThread();
+      const width = 368;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsForWidth(width)).assertEqual(2);
+      expect(model.itemWidthOf(width)).assertEqual(162);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.itemWidthOf(width) * 2 + 12 <= 336).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency112 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0813
+     * @tc.name    JsConsistency113
+     * @tc.desc    Cross module consistency at width 397 seed 113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency113', 0, async function () {
+      await yieldThread();
+      const width = 397;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsForWidth(width)).assertEqual(2);
+      expect(model.itemWidthOf(width)).assertEqual(176);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.itemWidthOf(width) * 2 + 12 <= 365).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency113 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0814
+     * @tc.name    JsConsistency114
+     * @tc.desc    Cross module consistency at width 426 seed 114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency114', 0, async function () {
+      await yieldThread();
+      const width = 426;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsForWidth(width)).assertEqual(2);
+      expect(model.itemWidthOf(width)).assertEqual(191);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.itemWidthOf(width) * 2 + 12 <= 394).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency114 done');
+    });
+}
+
+function CrossModuleConsistencyPart039() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0815
+     * @tc.name    JsConsistency115
+     * @tc.desc    Cross module consistency at width 455 seed 115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency115', 0, async function () {
+      await yieldThread();
+      const width = 455;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsForWidth(width)).assertEqual(2);
+      expect(model.itemWidthOf(width)).assertEqual(205);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.itemWidthOf(width) * 2 + 12 <= 423).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency115 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0816
+     * @tc.name    JsConsistency116
+     * @tc.desc    Cross module consistency at width 484 seed 116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency116', 0, async function () {
+      await yieldThread();
+      const width = 484;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsForWidth(width)).assertEqual(2);
+      expect(model.itemWidthOf(width)).assertEqual(220);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.itemWidthOf(width) * 2 + 12 <= 452).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency116 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0817
+     * @tc.name    JsConsistency117
+     * @tc.desc    Cross module consistency at width 513 seed 117
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency117', 0, async function () {
+      await yieldThread();
+      const width = 513;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsForWidth(width)).assertEqual(2);
+      expect(model.itemWidthOf(width)).assertEqual(234);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.itemWidthOf(width) * 2 + 12 <= 481).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency117 done');
+    });
+}
+
+function CrossModuleConsistencyPart040() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0818
+     * @tc.name    JsConsistency118
+     * @tc.desc    Cross module consistency at width 542 seed 118
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency118', 0, async function () {
+      await yieldThread();
+      const width = 542;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsForWidth(width)).assertEqual(2);
+      expect(model.itemWidthOf(width)).assertEqual(249);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.itemWidthOf(width) * 2 + 12 <= 510).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency118 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0819
+     * @tc.name    JsConsistency119
+     * @tc.desc    Cross module consistency at width 571 seed 119
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency119', 0, async function () {
+      await yieldThread();
+      const width = 571;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsForWidth(width)).assertEqual(2);
+      expect(model.itemWidthOf(width)).assertEqual(263);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.itemWidthOf(width) * 2 + 12 <= 539).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency119 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0820
+     * @tc.name    JsConsistency120
+     * @tc.desc    Cross module consistency at width 600 seed 120
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency120', 0, async function () {
+      await yieldThread();
+      const width = 600;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsForWidth(width)).assertEqual(3);
+      expect(model.itemWidthOf(width)).assertEqual(162);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 3 + 48 <= 536).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency120 done');
+    });
+}
+
+function CrossModuleConsistencyPart041() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0821
+     * @tc.name    JsConsistency121
+     * @tc.desc    Cross module consistency at width 629 seed 121
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency121', 0, async function () {
+      await yieldThread();
+      const width = 629;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsForWidth(width)).assertEqual(3);
+      expect(model.itemWidthOf(width)).assertEqual(172);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 3 + 48 <= 565).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency121 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0822
+     * @tc.name    JsConsistency122
+     * @tc.desc    Cross module consistency at width 658 seed 122
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency122', 0, async function () {
+      await yieldThread();
+      const width = 658;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsForWidth(width)).assertEqual(3);
+      expect(model.itemWidthOf(width)).assertEqual(182);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 3 + 48 <= 594).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency122 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0823
+     * @tc.name    JsConsistency123
+     * @tc.desc    Cross module consistency at width 687 seed 123
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency123', 0, async function () {
+      await yieldThread();
+      const width = 687;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsForWidth(width)).assertEqual(3);
+      expect(model.itemWidthOf(width)).assertEqual(191);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 3 + 48 <= 623).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency123 done');
+    });
+}
+
+function CrossModuleConsistencyPart042() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0824
+     * @tc.name    JsConsistency124
+     * @tc.desc    Cross module consistency at width 716 seed 124
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency124', 0, async function () {
+      await yieldThread();
+      const width = 716;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsForWidth(width)).assertEqual(3);
+      expect(model.itemWidthOf(width)).assertEqual(201);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 3 + 48 <= 652).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency124 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0825
+     * @tc.name    JsConsistency125
+     * @tc.desc    Cross module consistency at width 745 seed 125
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency125', 0, async function () {
+      await yieldThread();
+      const width = 745;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsForWidth(width)).assertEqual(3);
+      expect(model.itemWidthOf(width)).assertEqual(211);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 3 + 48 <= 681).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency125 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0826
+     * @tc.name    JsConsistency126
+     * @tc.desc    Cross module consistency at width 774 seed 126
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency126', 0, async function () {
+      await yieldThread();
+      const width = 774;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsForWidth(width)).assertEqual(3);
+      expect(model.itemWidthOf(width)).assertEqual(220);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 3 + 48 <= 710).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency126 done');
+    });
+}
+
+function CrossModuleConsistencyPart043() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0827
+     * @tc.name    JsConsistency127
+     * @tc.desc    Cross module consistency at width 803 seed 127
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency127', 0, async function () {
+      await yieldThread();
+      const width = 803;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsForWidth(width)).assertEqual(3);
+      expect(model.itemWidthOf(width)).assertEqual(230);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 3 + 48 <= 739).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency127 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0828
+     * @tc.name    JsConsistency128
+     * @tc.desc    Cross module consistency at width 832 seed 128
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency128', 0, async function () {
+      await yieldThread();
+      const width = 832;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsForWidth(width)).assertEqual(3);
+      expect(model.itemWidthOf(width)).assertEqual(240);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 3 + 48 <= 768).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency128 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0829
+     * @tc.name    JsConsistency129
+     * @tc.desc    Cross module consistency at width 861 seed 129
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency129', 0, async function () {
+      await yieldThread();
+      const width = 861;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(181);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 797).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency129 done');
+    });
+}
+
+function CrossModuleConsistencyPart044() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0830
+     * @tc.name    JsConsistency130
+     * @tc.desc    Cross module consistency at width 890 seed 130
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency130', 0, async function () {
+      await yieldThread();
+      const width = 890;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(188);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 826).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency130 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0831
+     * @tc.name    JsConsistency131
+     * @tc.desc    Cross module consistency at width 919 seed 131
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency131', 0, async function () {
+      await yieldThread();
+      const width = 919;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(195);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 855).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency131 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0832
+     * @tc.name    JsConsistency132
+     * @tc.desc    Cross module consistency at width 948 seed 132
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency132', 0, async function () {
+      await yieldThread();
+      const width = 948;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(203);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 884).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency132 done');
+    });
+}
+
+function CrossModuleConsistencyPart045() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0833
+     * @tc.name    JsConsistency133
+     * @tc.desc    Cross module consistency at width 977 seed 133
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency133', 0, async function () {
+      await yieldThread();
+      const width = 977;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(210);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 913).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency133 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0834
+     * @tc.name    JsConsistency134
+     * @tc.desc    Cross module consistency at width 1006 seed 134
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency134', 0, async function () {
+      await yieldThread();
+      const width = 1006;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(217);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 942).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency134 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0835
+     * @tc.name    JsConsistency135
+     * @tc.desc    Cross module consistency at width 1035 seed 135
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency135', 0, async function () {
+      await yieldThread();
+      const width = 1035;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(224);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 971).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency135 done');
+    });
+}
+
+function CrossModuleConsistencyPart046() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0836
+     * @tc.name    JsConsistency136
+     * @tc.desc    Cross module consistency at width 1064 seed 136
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency136', 0, async function () {
+      await yieldThread();
+      const width = 1064;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(232);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 1000).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency136 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0837
+     * @tc.name    JsConsistency137
+     * @tc.desc    Cross module consistency at width 1093 seed 137
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency137', 0, async function () {
+      await yieldThread();
+      const width = 1093;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(239);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 1029).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency137 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0838
+     * @tc.name    JsConsistency138
+     * @tc.desc    Cross module consistency at width 1122 seed 138
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency138', 0, async function () {
+      await yieldThread();
+      const width = 1122;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(246);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 1058).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency138 done');
+    });
+}
+
+function CrossModuleConsistencyPart047() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0839
+     * @tc.name    JsConsistency139
+     * @tc.desc    Cross module consistency at width 1151 seed 139
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency139', 0, async function () {
+      await yieldThread();
+      const width = 1151;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(253);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 1087).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency139 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0840
+     * @tc.name    JsConsistency140
+     * @tc.desc    Cross module consistency at width 1180 seed 140
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsConsistency140', 0, async function () {
+      await yieldThread();
+      const width = 1180;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsForWidth(width)).assertEqual(4);
+      expect(model.itemWidthOf(width)).assertEqual(261);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.itemWidthOf(width) * 4 + 72 <= 1116).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsConsistency140 done');
+    });
+}
+
+function CrossModuleConsistencyGroup001() {
+  CrossModuleConsistencyPart001();
+  CrossModuleConsistencyPart002();
+  CrossModuleConsistencyPart003();
+  CrossModuleConsistencyPart004();
+  CrossModuleConsistencyPart005();
+  CrossModuleConsistencyPart006();
+  CrossModuleConsistencyPart007();
+  CrossModuleConsistencyPart008();
+  CrossModuleConsistencyPart009();
+  CrossModuleConsistencyPart010();
+  CrossModuleConsistencyPart011();
+  CrossModuleConsistencyPart012();
+  CrossModuleConsistencyPart013();
+  CrossModuleConsistencyPart014();
+  CrossModuleConsistencyPart015();
+  CrossModuleConsistencyPart016();
+  CrossModuleConsistencyPart017();
+  CrossModuleConsistencyPart018();
+  CrossModuleConsistencyPart019();
+  CrossModuleConsistencyPart020();
+  CrossModuleConsistencyPart021();
+  CrossModuleConsistencyPart022();
+  CrossModuleConsistencyPart023();
+  CrossModuleConsistencyPart024();
+  CrossModuleConsistencyPart025();
+  CrossModuleConsistencyPart026();
+  CrossModuleConsistencyPart027();
+  CrossModuleConsistencyPart028();
+  CrossModuleConsistencyPart029();
+  CrossModuleConsistencyPart030();
+  CrossModuleConsistencyPart031();
+  CrossModuleConsistencyPart032();
+  CrossModuleConsistencyPart033();
+  CrossModuleConsistencyPart034();
+  CrossModuleConsistencyPart035();
+  CrossModuleConsistencyPart036();
+  CrossModuleConsistencyPart037();
+  CrossModuleConsistencyPart038();
+  CrossModuleConsistencyPart039();
+  CrossModuleConsistencyPart040();
+}
+
+function CrossModuleConsistencyGroup002() {
+  CrossModuleConsistencyPart041();
+  CrossModuleConsistencyPart042();
+  CrossModuleConsistencyPart043();
+  CrossModuleConsistencyPart044();
+  CrossModuleConsistencyPart045();
+  CrossModuleConsistencyPart046();
+  CrossModuleConsistencyPart047();
+}
+
 export default function crossModuleConsistencySuite() {
   describe('CrossModuleConsistencySuite', function () {
-    CrossModuleConsistencyPart001();
-    CrossModuleConsistencyPart002();
-    CrossModuleConsistencyPart003();
-    CrossModuleConsistencyPart004();
-    CrossModuleConsistencyPart005();
-    CrossModuleConsistencyPart006();
-    CrossModuleConsistencyPart007();
-    CrossModuleConsistencyPart008();
-    CrossModuleConsistencyPart009();
-    CrossModuleConsistencyPart010();
-    CrossModuleConsistencyPart011();
-    CrossModuleConsistencyPart012();
-    CrossModuleConsistencyPart013();
-    CrossModuleConsistencyPart014();
-    CrossModuleConsistencyPart015();
-    CrossModuleConsistencyPart016();
-    CrossModuleConsistencyPart017();
-    CrossModuleConsistencyPart018();
-    CrossModuleConsistencyPart019();
-    CrossModuleConsistencyPart020();
-    CrossModuleConsistencyPart021();
-    CrossModuleConsistencyPart022();
-    CrossModuleConsistencyPart023();
-    CrossModuleConsistencyPart024();
+    CrossModuleConsistencyGroup001();
+    CrossModuleConsistencyGroup002();
   });
 }
