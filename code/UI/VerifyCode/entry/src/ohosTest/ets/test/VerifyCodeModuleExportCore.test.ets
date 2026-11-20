@@ -42,7 +42,7 @@ export default function verifyCodeModuleExportCoreTest(): void {
     /**
      * @tc.number    SUB_VERIFYCODE_MEXP_0201
      * @tc.name      testVcModule0201
-     * @tc.desc      Verify the HAR public surface still exports the verify code component.
+     * @tc.desc      Verify the HAR public API still includes the verify code component.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
@@ -263,7 +263,7 @@ export default function verifyCodeModuleExportCoreTest(): void {
     /**
      * @tc.number    SUB_VERIFYCODE_MEXP_0212
      * @tc.name      testVcModule0212
-     * @tc.desc      Verify the component export stays usable after logger and constant activity.
+     * @tc.desc      Verify the component export stays usable after logger and constant access.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0

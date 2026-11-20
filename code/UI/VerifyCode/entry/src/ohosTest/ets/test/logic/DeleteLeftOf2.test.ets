@@ -194,16 +194,16 @@ export default function deleteLeftOf2Test(): void {
     /**
      * @tc.number    SUB_VERIFYCODE_DELETE_LEFT_OF_0107
      * @tc.name      VerifyCode_DeleteLeftOf_0107
-     * @tc.desc      deleteLeftOf(codeText="rN9ElPO6VD") returns "rN9ElPO6V"
+     * @tc.desc      deleteLeftOf(codeText="qM9ElPO6VD") returns "qM9ElPO6V"
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL1
      */
     it('VerifyCode_DeleteLeftOf_0107', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       logInfo(`${BUNDLE}DeleteLeftOf_0107 begin`);
-      const actual: string = deleteLeftOf('rN9ElPO6VD');
-      logInfo(`deleteLeftOf(codeText="rN9ElPO6VD"): actual=${actual}`);
-      expect(actual).assertEqual('rN9ElPO6V');
+      const actual: string = deleteLeftOf('qM9ElPO6VD');
+      logInfo(`deleteLeftOf(codeText="qM9ElPO6VD"): actual=${actual}`);
+      expect(actual).assertEqual('qM9ElPO6V');
       logInfo(`${BUNDLE}DeleteLeftOf_0107 end`);
     });
 

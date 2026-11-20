@@ -316,9 +316,9 @@ export default function verifyCodeLoggerCoreTest(): void {
      */
     it('testVcLogger0113', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testVcLogger0113 begin');
-      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue callQuietly(() => {logger.info('/u9a8c/u8bc1/u7801/u6d88/u...`);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue callQuietly(() => {logger.info('/u9a8c/u8bc1/u7801');})`);
       expect(callQuietly(() => {
-        logger.info('\u9a8c\u8bc1\u7801\u6d88\u606f');
+        logger.info('\u9a8c\u8bc1\u7801');
       })).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual typeof logger.info=${typeof logger.info}`);
       expect(typeof logger.info).assertEqual('function');

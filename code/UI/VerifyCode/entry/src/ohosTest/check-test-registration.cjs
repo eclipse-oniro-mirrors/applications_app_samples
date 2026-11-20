@@ -108,7 +108,7 @@ async function main() {
   assert.ok(!runner.includes('startAbility'));
   assert.equal(countMatches(runner, /Hypium\.hypiumTest\(/g), 1);
   assert.equal(countMatches(runner, /await import\('\.\.\/test\/List\.test'\)/g), 1);
-  for (const field of ['global.__savePath__ =', 'global.__readPath__ =', 'global.__testMode__ =']) {
+  for (const field of ['global.__savePath__ =', 'global.__readPath__ =', 'global.testMode =']) {
     assert.ok(runner.includes(field));
   }
   assert.ok(runner.includes('delegator.setMockList(mockMap)'));

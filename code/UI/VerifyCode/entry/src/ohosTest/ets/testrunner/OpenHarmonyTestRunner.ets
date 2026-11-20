@@ -23,7 +23,7 @@ import { Hypium } from '@ohos/hypium';
 interface CoverageGlobal {
   __savePath__: string;
   __readPath__: string;
-  __testMode__: string;
+  testMode: string;
 }
 
 interface MockConfig {
@@ -51,7 +51,7 @@ export default class OpenHarmonyTestRunner implements TestRunner {
     const bundleName: string = abilityDelegatorArguments.bundleName;
     global.__savePath__ = '/data/storage/el2/base/js_coverage.json';
     global.__readPath__ = '/data/app/el2/' + uid + '/base/' + bundleName + '/js_coverage.json';
-    global.__testMode__ = 'ohostest';
+    global.testMode = 'ohostest';
 
     try {
       const context: common.Context = await application.createModuleContext(

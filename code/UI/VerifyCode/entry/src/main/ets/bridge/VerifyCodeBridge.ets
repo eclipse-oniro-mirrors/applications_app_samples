@@ -25,7 +25,7 @@
  * With useNormalizedOHMUrl=true, the ohosTest source set must not import
  * across modules via relative paths, so the internal types of the verifycode
  * HAR are re-exported here through the {pkgName}/src/main/ets/... deep path.
- * The export surface of the HAR Index.ets stays unchanged.
+ * The public exports of the HAR Index.ets stay unchanged.
  */
 export { VerifyCodeConstants } from 'verifycode/src/main/ets/constants/VerifyCodeConstants';
 
