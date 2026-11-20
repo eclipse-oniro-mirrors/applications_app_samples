@@ -39,23 +39,24 @@ class NotificationManagementUtil {
     this.refreshFromActive();
   }
 
-  // 从系统当前活动通知刷新本地分组与角标（可重复调用，逐次累加）
+  // 从系统当前活动通知刷新本地分组与角标（可重复调用，整体覆盖不累加）
   async refreshFromActive(): Promise<void> {
     try {
       const activeNotifications: notification.NotificationRequest[] = await notification.getActiveNotifications();
-      const refreshedCounts: number[] = new Array(this.typeNotifications.length);
-      refreshedCounts.fill(0);
+      // 先清空旧分组、计数与角标，避免重复调用时数据翻倍
+      for (let i: number = 0; i < this.typeNotifications.length; i++) {
+        this.typeNotifications[i] = [];
+      }
+      this.countsByType.fill(0);
+      this.badgeNum = 0;
       for (let i: number = 0; i < activeNotifications.length; i++) {
         const typeId: number = notificationContentUtil.getContentTypeId(activeNotifications[i].content);
         if (typeId < 0 || typeId >= this.typeNotifications.length) {
           continue;
         }
-        refreshedCounts[typeId] += 1;
         this.typeNotifications[typeId].push(activeNotifications[i]);
-      }
-      for (let i: number = 0; i < refreshedCounts.length; i++) {
-        this.countsByType[i] += refreshedCounts[i];
-        this.badgeNum += refreshedCounts[i];
+        this.countsByType[typeId] += 1;
+        this.badgeNum += 1;
       }
       logger.info(`refreshFromActive success, data: ${JSON.stringify(activeNotifications)}`);
     } catch (err) {

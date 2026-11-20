@@ -129,7 +129,7 @@ export default class NotificationOperations {
           this.context.resourceManager.getStringSync($r('app.string.notification_brief_text'));
         let notificationExpandedText: string =
           this.context.resourceManager.getStringSync($r('app.string.notification_expanded_title'));
-        let imageArray: Uint8Array = await this.context.resourceManager.getMedia($r('app.media.notification_icon').id);
+        let imageArray: Uint8Array = await this.context.resourceManager.getMediaContent($r('app.media.notification_icon').id);
         let imageResource: image.ImageSource = image.createImageSource(imageArray.buffer);
         let picture: image.PixelMap = await imageResource.createPixelMap();
         let notificationContent: notification.NotificationContent =
