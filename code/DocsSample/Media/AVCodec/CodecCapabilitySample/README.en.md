@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This sample demonstrates how to query the codecs supported by the system and their capability specifications through the OH_AVCapability interfaces of AVCodec Kit. It works with the development guides "Obtain Supported Codecs", "Video Encoding Parameter Configuration for Typical Scenarios", "High-Compression B-Frame Encoding", and "Temporal-Scalable Encoding for Weak-Network Packet Loss Resilience". The sample code is embedded in scenario functions with [Start xxx]/[End xxx] markers so that the documentation can reference it by snippet name.
+This sample demonstrates how to query the codecs supported by the system and their capability specifications through the OH_AVCapability interfaces of AVCodec Kit. It works with the development guides [Obtain Supported Codecs](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/media/avcodec/obtain-supported-codecs.md), [Video Encoding Parameter Configuration for Typical Scenarios](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/media/avcodec/video-encoding-configuration-typical-scenarios.md), [High-Compression B-Frame Encoding](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/media/avcodec/video-encoding-b-frame.md), and [Temporal-Scalable Encoding for Weak-Network Packet Loss Resilience](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/media/avcodec/video-encoding-temporal-scalability.md). The sample code is embedded in scenario functions with [Start xxx]/[End xxx] markers so that the documentation can reference it by snippet name.
 
 Main capabilities:
 
