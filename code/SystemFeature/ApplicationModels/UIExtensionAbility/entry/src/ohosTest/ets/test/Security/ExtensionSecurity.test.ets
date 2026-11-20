@@ -433,12 +433,26 @@ export default function extensionSecurityTest(): void {
       hilog.info(0x0000, 'testTag', '%{public}s', 'ExtensionSecurity afterAll');
     });
 
+    // Coverage case: security_should_grant_permission_0
+    // Suite: ExtensionSecurity
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('security_should_grant_permission_0', 0, async () => {
       model.grant('ohos.permission.INTERNET');
       expect(model.hasPermission('ohos.permission.INTERNET')).assertTrue();
       expect(model.getPermissionCount()).assertEqual(1);
     });
 
+    // Coverage case: security_should_revoke_permission_1
+    // Suite: ExtensionSecurity
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('security_should_revoke_permission_1', 0, async () => {
       model.grant('ohos.permission.INTERNET');
       model.revoke('ohos.permission.INTERNET');
@@ -446,6 +460,13 @@ export default function extensionSecurityTest(): void {
       expect(model.getPermissionCount()).assertEqual(0);
     });
 
+    // Coverage case: security_should_not_duplicate_permission_2
+    // Suite: ExtensionSecurity
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('security_should_not_duplicate_permission_2', 0, async () => {
       for (let index = 0; index < 4; index++) {
         model.grant('ohos.permission.GET_NETWORK_INFO');
@@ -453,16 +474,37 @@ export default function extensionSecurityTest(): void {
       expect(model.getPermissionCount()).assertEqual(1);
     });
 
+    // Coverage case: security_should_reject_unknown_permission_revoke_3
+    // Suite: ExtensionSecurity
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('security_should_reject_unknown_permission_revoke_3', 0, async () => {
       model.revoke('ohos.permission.UNKNOWN_3');
       expect(model.getPermissionCount()).assertEqual(0);
     });
 
+    // Coverage case: security_should_validate_exported_want_4
+    // Suite: ExtensionSecurity
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('security_should_validate_exported_want_4', 0, async () => {
       expect(model.validateWant('com.samples.uiextensionability', 'UIExtensionProvider')).assertTrue();
       expect(model.validateWant('', 'UIExtensionProvider_4')).assertFalse();
     });
 
+    // Coverage case: security_should_verify_session_identity_5
+    // Suite: ExtensionSecurity
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('security_should_verify_session_identity_5', 0, async () => {
       model.onSessionCreate('secure_5', 'com.samples.uiextensionability',
         'UIExtensionProvider', 'entry', 'sys/commonUI');
@@ -470,11 +512,25 @@ export default function extensionSecurityTest(): void {
       expect(model.getActiveSessionCount()).assertEqual(1);
     });
 
+    // Coverage case: security_should_reject_empty_bundle_6
+    // Suite: ExtensionSecurity
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('security_should_reject_empty_bundle_6', 0, async () => {
       expect(model.validateWant('', '')).assertFalse();
       expect(model.validateWant('com.samples.uiextensionability', '')).assertFalse();
     });
 
+    // Coverage case: security_should_keep_permission_order_7
+    // Suite: ExtensionSecurity
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('security_should_keep_permission_order_7', 0, async () => {
       model.grant('perm_a_7');
       model.grant('perm_b_7');
@@ -483,176 +539,69 @@ export default function extensionSecurityTest(): void {
       expect(model.getPermissionCount()).assertEqual(2);
     });
 
+    // Coverage case: usability_should_expose_message_text_8
+    // Suite: ExtensionSecurity
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('usability_should_expose_message_text_8', 0, async () => {
       model.onReceive('UIExtension provider 8');
       expect(model.getLastMessage().indexOf('UIExtension provider')).assertEqual(0);
     });
 
+    // Coverage case: focus_should_keep_index_bounded_9
+    // Suite: ExtensionSecurity
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('focus_should_keep_index_bounded_9', 0, async () => {
       const index: number = clampValue(9, 0, 3);
       expect(index >= 0).assertTrue();
       expect(index <= 3).assertTrue();
     });
 
+    // Coverage case: security_validation_should_accept_valid_id_10
+    // Suite: ExtensionSecurity
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('security_validation_should_accept_valid_id_10', 0, async () => {
       expect(model.validateSessionId('session_10')).assertTrue();
       expect(model.validateSessionId('')).assertFalse();
     });
 
+    // Coverage case: security_validation_should_guard_release_code_11
+    // Suite: ExtensionSecurity
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('security_validation_should_guard_release_code_11', 0, async () => {
       model.onRelease(11);
       expect(model.getReleaseCode()).assertEqual(11);
       expect(model.getReleaseCode() >= 0).assertTrue();
     });
 
+    // Coverage case: security_should_grant_permission_12
+    // Suite: ExtensionSecurity
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('security_should_grant_permission_12', 0, async () => {
       model.grant('ohos.permission.INTERNET');
       expect(model.hasPermission('ohos.permission.INTERNET')).assertTrue();
       expect(model.getPermissionCount()).assertEqual(1);
     });
 
-    /*
-     * Supplementary coverage matrix for ExtensionSecurity:
-     *   - scenario 0: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 1: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 2: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 3: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 4: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 5: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 6: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 7: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 8: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 9: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 10: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 11: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 12: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 13: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 14: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 15: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 16: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 17: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 18: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 19: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 20: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 21: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 22: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 23: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 24: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 25: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 26: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 27: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 28: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 29: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 30: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 31: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 32: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 33: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 34: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 35: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 36: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 37: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 38: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 39: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 40: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 41: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 42: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 43: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 44: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 45: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 46: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 47: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 48: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 49: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 50: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 51: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 52: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 53: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 54: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 55: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 56: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 57: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 58: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 59: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 60: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 61: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 62: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 63: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 64: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 65: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 66: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 67: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 68: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 69: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 70: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 71: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 72: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 73: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 74: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 75: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 76: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 77: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 78: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 79: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 80: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 81: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 82: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 83: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 84: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 85: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 86: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 87: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 88: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 89: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 90: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 91: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 92: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 93: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 94: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 95: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 96: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 97: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 98: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 99: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 100: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 101: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 102: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 103: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 104: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 105: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 106: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 107: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 108: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 109: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 110: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 111: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 112: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 113: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 114: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 115: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 116: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 117: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 118: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 119: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 120: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 121: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 122: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 123: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 124: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 125: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 126: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 127: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 128: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 129: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 130: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 131: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 132: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 133: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 134: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 135: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 136: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 137: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 138: lifecycle, session, storage, proxy and validation behavior
-     */
 
   });
 }
