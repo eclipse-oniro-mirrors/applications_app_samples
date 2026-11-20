@@ -2196,3 +2196,32 @@ export default function calendarManagerPermutation04Test(): void {
             const outcome1: MatrixOutcome<PermissionRequestResult> = await request1;
             expect(outcome1.error === error1).assertEqual(true);
             expect(outcome1.error?.message).assertEqual('request 1 rejected');
+            expect(outcome1.value === undefined).assertEqual(true);
+            expect(recorder.trace.join(',')).assertEqual('failed');
+            pending0.resolve(input0);
+            const outcome0: MatrixOutcome<PermissionRequestResult> = await request0;
+            expect(outcome0.value === input0).assertEqual(true);
+            expect(outcome0.error === undefined).assertEqual(true);
+            expect(hasCalendarPermissions(input0)).assertEqual(false);
+            expect(recorder.trace.join(',')).assertEqual('failed');
+            expect(recorder.granted.length).assertEqual(0);
+            expect(recorder.denied.length).assertEqual(0);
+            expect(recorder.failures).assertEqual(1);
+            const fresh: PermissionRequestResult = {
+              permissions: ['ohos.permission.READ_CALENDAR', 'ohos.permission.WRITE_CALENDAR'],
+              authResults: [0, 0]
+            };
+            const returned: PermissionRequestResult = await gate.request(
+              (): Promise<PermissionRequestResult> => Promise.resolve(fresh), recorder);
+            expect(returned === fresh).assertEqual(true);
+            expect(recorder.trace.join(',')).assertEqual('failed,granted');
+            expect(recorder.granted[0] === fresh).assertEqual(true);
+          } finally {
+            await scope.close();
+          }
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+  });
+}
