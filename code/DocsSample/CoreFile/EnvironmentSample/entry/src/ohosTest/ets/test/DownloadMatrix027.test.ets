@@ -827,3 +827,28 @@ export default function downloadMatrix027Test(): void {
     });
     /**
      * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_000647
+     * @tc.name EnvironmentSample_snapshot_0646_FDDF_duplicateFirst
+     * @tc.desc Mask FDDF: duplicateFirst at stat spaced-file; sandbox alias; ordered, two-way isolated result.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_snapshot_0646_FDDF_duplicateFirst", 0, (): void => {
+      const caseName: string = "EnvironmentSample_snapshot_0646_FDDF_duplicateFirst";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/report.txt", "/download/ spaced "];
+        api.mutationEvent = "stat:/download/ spaced ";
+        api.mutationKind = "duplicateFirst";
+        const sandboxAlias: string[] = api.sandboxEntries;
+        const result: string[] = importDownloadFiles('/download', '/sandbox', api);
+        const expected01: string[] = [
+          "list:/download", "stat:/download/report.txt", "copy:/download/report.txt->/sandbox/report.txt",
+          "stat:/download/.hidden", "stat:/download/资料.txt", "stat:/download/ spaced ",
+          "copy:/download/ spaced ->/sandbox/ spaced ", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected01);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected01));
+        sandboxAlias.push('sandbox-after-return');
+        logAssertion(caseName, "result", result, ["preexisting.txt", "report.txt", " spaced "]);
