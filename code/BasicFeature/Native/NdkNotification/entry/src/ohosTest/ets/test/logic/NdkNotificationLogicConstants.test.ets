@@ -36,7 +36,7 @@ export default function ndkNotificationLogicConstantsTest(): void {
   describe('NdkNotificationLogicConstantsTest', () => {
     beforeEach(yieldToEventLoop);
     /**
-     * @tc.number    SUB_NDKNOTIFICATION_NDK_NOTIFICATION_LOGIC_CONSTANTS_0001
+     * @tc.number    SUB_NDKNOTIFICATION_NATIVE_NOTIFICATION_LOGIC_CONSTANTS_0001
      * @tc.name      NdkNotification_NdkNotificationLogicConstants_0001
      * @tc.desc      PAGE_MESSAGE keeps value "Native Notification Sample"
      * @tc.type      FUNCTION
@@ -52,7 +52,7 @@ export default function ndkNotificationLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKNOTIFICATION_NDK_NOTIFICATION_LOGIC_CONSTANTS_0002
+     * @tc.number    SUB_NDKNOTIFICATION_NATIVE_NOTIFICATION_LOGIC_CONSTANTS_0002
      * @tc.name      NdkNotification_NdkNotificationLogicConstants_0002
      * @tc.desc      CHECK_BUTTON_LABEL keeps value "Check notification enabled"
      * @tc.type      FUNCTION
@@ -68,7 +68,7 @@ export default function ndkNotificationLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKNOTIFICATION_NDK_NOTIFICATION_LOGIC_CONSTANTS_0003
+     * @tc.number    SUB_NDKNOTIFICATION_NATIVE_NOTIFICATION_LOGIC_CONSTANTS_0003
      * @tc.name      NdkNotification_NdkNotificationLogicConstants_0003
      * @tc.desc      DIALOG_RESULT_PREFIX keeps value "Current application notification enabled: "
      * @tc.type      FUNCTION
@@ -84,7 +84,7 @@ export default function ndkNotificationLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKNOTIFICATION_NDK_NOTIFICATION_LOGIC_CONSTANTS_0004
+     * @tc.number    SUB_NDKNOTIFICATION_NATIVE_NOTIFICATION_LOGIC_CONSTANTS_0004
      * @tc.name      NdkNotification_NdkNotificationLogicConstants_0004
      * @tc.desc      OK_BUTTON_LABEL keeps value "OK"
      * @tc.type      FUNCTION
@@ -100,7 +100,7 @@ export default function ndkNotificationLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKNOTIFICATION_NDK_NOTIFICATION_LOGIC_CONSTANTS_0005
+     * @tc.number    SUB_NDKNOTIFICATION_NATIVE_NOTIFICATION_LOGIC_CONSTANTS_0005
      * @tc.name      NdkNotification_NdkNotificationLogicConstants_0005
      * @tc.desc      TITLE_AREA_PX keeps value 280
      * @tc.type      FUNCTION
@@ -116,7 +116,7 @@ export default function ndkNotificationLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKNOTIFICATION_NDK_NOTIFICATION_LOGIC_CONSTANTS_0006
+     * @tc.number    SUB_NDKNOTIFICATION_NATIVE_NOTIFICATION_LOGIC_CONSTANTS_0006
      * @tc.name      NdkNotification_NdkNotificationLogicConstants_0006
      * @tc.desc      DIALOG_TITLE_HEIGHT_PX keeps value 100
      * @tc.type      FUNCTION
@@ -132,7 +132,7 @@ export default function ndkNotificationLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKNOTIFICATION_NDK_NOTIFICATION_LOGIC_CONSTANTS_0007
+     * @tc.number    SUB_NDKNOTIFICATION_NATIVE_NOTIFICATION_LOGIC_CONSTANTS_0007
      * @tc.name      NdkNotification_NdkNotificationLogicConstants_0007
      * @tc.desc      DIALOG_TEXT_MARGIN_PX keeps value 84
      * @tc.type      FUNCTION
@@ -148,7 +148,7 @@ export default function ndkNotificationLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKNOTIFICATION_NDK_NOTIFICATION_LOGIC_CONSTANTS_0008
+     * @tc.number    SUB_NDKNOTIFICATION_NATIVE_NOTIFICATION_LOGIC_CONSTANTS_0008
      * @tc.name      NdkNotification_NdkNotificationLogicConstants_0008
      * @tc.desc      TITLE_FONT_SIZE keeps value 30
      * @tc.type      FUNCTION
@@ -164,7 +164,7 @@ export default function ndkNotificationLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKNOTIFICATION_NDK_NOTIFICATION_LOGIC_CONSTANTS_0009
+     * @tc.number    SUB_NDKNOTIFICATION_NATIVE_NOTIFICATION_LOGIC_CONSTANTS_0009
      * @tc.name      NdkNotification_NdkNotificationLogicConstants_0009
      * @tc.desc      TITLE_FONT_WEIGHT keeps value 700
      * @tc.type      FUNCTION
@@ -180,7 +180,7 @@ export default function ndkNotificationLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKNOTIFICATION_NDK_NOTIFICATION_LOGIC_CONSTANTS_0010
+     * @tc.number    SUB_NDKNOTIFICATION_NATIVE_NOTIFICATION_LOGIC_CONSTANTS_0010
      * @tc.name      NdkNotification_NdkNotificationLogicConstants_0010
      * @tc.desc      TITLE_MARGIN_TOP keeps value 56
      * @tc.type      FUNCTION
@@ -196,7 +196,7 @@ export default function ndkNotificationLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKNOTIFICATION_NDK_NOTIFICATION_LOGIC_CONSTANTS_0011
+     * @tc.number    SUB_NDKNOTIFICATION_NATIVE_NOTIFICATION_LOGIC_CONSTANTS_0011
      * @tc.name      NdkNotification_NdkNotificationLogicConstants_0011
      * @tc.desc      SIDE_MARGIN keeps value 16
      * @tc.type      FUNCTION
@@ -212,7 +212,7 @@ export default function ndkNotificationLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKNOTIFICATION_NDK_NOTIFICATION_LOGIC_CONSTANTS_0012
+     * @tc.number    SUB_NDKNOTIFICATION_NATIVE_NOTIFICATION_LOGIC_CONSTANTS_0012
      * @tc.name      NdkNotification_NdkNotificationLogicConstants_0012
      * @tc.desc      BUTTON_FONT_SIZE keeps value 18
      * @tc.type      FUNCTION
@@ -228,7 +228,7 @@ export default function ndkNotificationLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKNOTIFICATION_NDK_NOTIFICATION_LOGIC_CONSTANTS_0013
+     * @tc.number    SUB_NDKNOTIFICATION_NATIVE_NOTIFICATION_LOGIC_CONSTANTS_0013
      * @tc.name      NdkNotification_NdkNotificationLogicConstants_0013
      * @tc.desc      DIALOG_TITLE_FONT_SIZE keeps value 24
      * @tc.type      FUNCTION
@@ -244,7 +244,7 @@ export default function ndkNotificationLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKNOTIFICATION_NDK_NOTIFICATION_LOGIC_CONSTANTS_0014
+     * @tc.number    SUB_NDKNOTIFICATION_NATIVE_NOTIFICATION_LOGIC_CONSTANTS_0014
      * @tc.name      NdkNotification_NdkNotificationLogicConstants_0014
      * @tc.desc      DIALOG_TEXT_FONT_WEIGHT keeps value 400
      * @tc.type      FUNCTION
@@ -260,7 +260,7 @@ export default function ndkNotificationLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKNOTIFICATION_NDK_NOTIFICATION_LOGIC_CONSTANTS_0015
+     * @tc.number    SUB_NDKNOTIFICATION_NATIVE_NOTIFICATION_LOGIC_CONSTANTS_0015
      * @tc.name      NdkNotification_NdkNotificationLogicConstants_0015
      * @tc.desc      DIALOG_BUTTON_FONT_WEIGHT keeps value 500
      * @tc.type      FUNCTION
@@ -276,7 +276,7 @@ export default function ndkNotificationLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKNOTIFICATION_NDK_NOTIFICATION_LOGIC_CONSTANTS_0016
+     * @tc.number    SUB_NDKNOTIFICATION_NATIVE_NOTIFICATION_LOGIC_CONSTANTS_0016
      * @tc.name      NdkNotification_NdkNotificationLogicConstants_0016
      * @tc.desc      DIALOG_BUTTON_MARGIN keeps value 5
      * @tc.type      FUNCTION
@@ -292,7 +292,7 @@ export default function ndkNotificationLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKNOTIFICATION_NDK_NOTIFICATION_LOGIC_CONSTANTS_0017
+     * @tc.number    SUB_NDKNOTIFICATION_NATIVE_NOTIFICATION_LOGIC_CONSTANTS_0017
      * @tc.name      NdkNotification_NdkNotificationLogicConstants_0017
      * @tc.desc      DIALOG_TEXT_WIDTH_PERCENT keeps value 90
      * @tc.type      FUNCTION
@@ -308,7 +308,7 @@ export default function ndkNotificationLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKNOTIFICATION_NDK_NOTIFICATION_LOGIC_CONSTANTS_0018
+     * @tc.number    SUB_NDKNOTIFICATION_NATIVE_NOTIFICATION_LOGIC_CONSTANTS_0018
      * @tc.name      NdkNotification_NdkNotificationLogicConstants_0018
      * @tc.desc      NAPI_METHOD_NAME keeps value "isNotificationEnabled"
      * @tc.type      FUNCTION
@@ -324,7 +324,7 @@ export default function ndkNotificationLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKNOTIFICATION_NDK_NOTIFICATION_LOGIC_CONSTANTS_0019
+     * @tc.number    SUB_NDKNOTIFICATION_NATIVE_NOTIFICATION_LOGIC_CONSTANTS_0019
      * @tc.name      NdkNotification_NdkNotificationLogicConstants_0019
      * @tc.desc      DIALOG_TITLE keeps value "Native Notification Sample"
      * @tc.type      FUNCTION
