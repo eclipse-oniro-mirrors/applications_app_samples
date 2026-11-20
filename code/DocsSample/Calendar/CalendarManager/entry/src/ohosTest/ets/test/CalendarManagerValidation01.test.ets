@@ -1104,3 +1104,88 @@ export default function calendarManagerValidation01Test(): void {
           expect(recorder.denied[0] === input).assertEqual(true);
           expect(input.permissions.join(',')).assertEqual(beforePermissions);
           expect(input.authResults.join(',')).assertEqual(beforeResults);
+          expect(hasCalendarPermissions(input)).assertEqual(false);
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+
+    /**
+     * @tc.number SUB_CALENDAR_MANAGER_VALIDATION_01_2900
+     * @tc.name testCalendarManagerValidation010029
+     * @tc.desc duplicateRead permissions with noCodes; validate exact dual grant and unchanged SDK result.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testCalendarManagerValidation010029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const TAG: string = 'testCalendarManagerValidation010029';
+        console.info(`${TAG} start`);
+        try {
+          const input: PermissionRequestResult = {
+            permissions: ['ohos.permission.READ_CALENDAR',
+    'ohos.permission.READ_CALENDAR'],
+            authResults: []
+          };
+          const beforePermissions: string = input.permissions.join(',');
+          const beforeResults: string = input.authResults.join(',');
+          const gate: CalendarPermissionGate = new CalendarPermissionGate();
+          const recorder: MatrixPermissionRecorder = new MatrixPermissionRecorder();
+          expect(hasCalendarPermissions(input)).assertEqual(false);
+          const returned: PermissionRequestResult = await gate.request(
+            (): Promise<PermissionRequestResult> => Promise.resolve(input), recorder);
+          expect(returned === input).assertEqual(true);
+          expect(recorder.trace.join(',')).assertEqual('denied');
+          expect(recorder.granted.length).assertEqual(0);
+          expect(recorder.denied.length).assertEqual(1);
+          expect(recorder.failures).assertEqual(0);
+          expect(recorder.denied[0] === input).assertEqual(true);
+          expect(input.permissions.join(',')).assertEqual(beforePermissions);
+          expect(input.authResults.join(',')).assertEqual(beforeResults);
+          expect(hasCalendarPermissions(input)).assertEqual(false);
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+
+    /**
+     * @tc.number SUB_CALENDAR_MANAGER_VALIDATION_01_3000
+     * @tc.name testCalendarManagerValidation010030
+     * @tc.desc duplicateRead permissions with extraCode; validate exact dual grant and unchanged SDK result.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testCalendarManagerValidation010030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const TAG: string = 'testCalendarManagerValidation010030';
+        console.info(`${TAG} start`);
+        try {
+          const input: PermissionRequestResult = {
+            permissions: ['ohos.permission.READ_CALENDAR',
+    'ohos.permission.READ_CALENDAR'],
+            authResults: [0, 0, 0]
+          };
+          const beforePermissions: string = input.permissions.join(',');
+          const beforeResults: string = input.authResults.join(',');
+          const gate: CalendarPermissionGate = new CalendarPermissionGate();
+          const recorder: MatrixPermissionRecorder = new MatrixPermissionRecorder();
+          expect(hasCalendarPermissions(input)).assertEqual(false);
+          const returned: PermissionRequestResult = await gate.request(
+            (): Promise<PermissionRequestResult> => Promise.resolve(input), recorder);
+          expect(returned === input).assertEqual(true);
+          expect(recorder.trace.join(',')).assertEqual('denied');
+          expect(recorder.granted.length).assertEqual(0);
+          expect(recorder.denied.length).assertEqual(1);
+          expect(recorder.failures).assertEqual(0);
+          expect(recorder.denied[0] === input).assertEqual(true);
+          expect(input.permissions.join(',')).assertEqual(beforePermissions);
+          expect(input.authResults.join(',')).assertEqual(beforeResults);
+          expect(hasCalendarPermissions(input)).assertEqual(false);
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+  });
+}
