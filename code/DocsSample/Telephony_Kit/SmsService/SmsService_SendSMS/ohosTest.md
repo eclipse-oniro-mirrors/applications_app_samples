@@ -101,7 +101,7 @@
 2. 在 DevEco Studio 中选择目标设备。运行 Instrument Test 时，构建并安装带签名的 `entry@default` 主包和 `entry@ohosTest` 测试包。
 3. 根据范围运行测试。
    - 全量测试。在工程树中右键 `entry/src/ohosTest/ets/test`，选择 **Run 'test' with Coverage**，执行全部套件并生成覆盖率报告。
-   - 指定套件。打开 [`SmsSender.test.ets`](entry/src/ohosTest/ets/test/SmsService/SmsSender.test.ets) 或 [`SmsOutOfOrderCallbacks.test.ets`](entry/src/ohosTest/ets/test/SmsTrace/SmsOutOfOrderCallbacks.test.ets)，点击对应 `describe` 左侧的运行图标。其他测试文件可通过[套件索引](#套件索引)定位。
+   - 指定套件。打开 [`SmsSender.test.ets`](entry/src/ohosTest/ets/test/SmsService/SmsSender.test.ets) 或 [`SmsOutOfOrderCallbacks.test.ets`](entry/src/ohosTest/ets/test/SmsTrace/SmsOutOfOrderCallbacks.test.ets)，点击对应 `describe` 左侧的运行图标。可通过[套件索引](#套件索引)定位所需的测试文件。
 
 ## 验证结果
 
