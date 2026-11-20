@@ -16,7 +16,7 @@
 
 {
   "modelVersion": "6.0.2",
-  "name": "detachedKeyboardSta",
+  "name": "detachedkeyboardsta",
   "version": "1.0.0",
   "description": "Static ArkTS preview text style sample",
   "license": "Apache-2.0",
