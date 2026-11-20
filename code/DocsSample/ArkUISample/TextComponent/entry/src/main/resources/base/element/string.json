@@ -1991,6 +1991,30 @@
     {
       "name": "SelectionContainer_Controller_description",
       "value": "通过控制器关闭选择菜单与清除文本选中"
+    },
+    {
+      "name": "SelectedDataDetector_title",
+      "value": "设置文本选择的AI菜单"
+    },
+    {
+      "name": "SelectedDataDetector_description",
+      "value": "通过enableSelectedDataDetector属性配置文本选择AI菜单功能"
+    },
+    {
+      "name": "SelectedDataDetector_Text_One",
+      "value": "示例网址：www.example.com"
+    },
+    {
+      "name": "Auto_Fill_TextArea_description",
+      "value": "TextArea通过contentType和enableAutoFill属性设置自动填充类型"
+    },
+    {
+      "name": "Auto_Fill_Email_PlaceHolder",
+      "value": "input your email..."
+    },
+    {
+      "name": "Auto_Fill_Street_PlaceHolder",
+      "value": "input your street address..."
     }
   ]
 }

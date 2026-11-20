@@ -31,6 +31,7 @@ import { SetTextMargin } from './SetTextMargin';
 import { SetInputMultiTypeStyle } from './SetInputMultiTypeStyle';
 import { NormalQuestion } from './NormalQuestion';
 import { TextMenuShowSubWindow } from './TextMenuShowSubWindow';
+import { SelectedDataDetector } from './SelectedDataDetector';
 
 export const INPUT_ROUTE_PREFIX: string = 'TextInput';
 
@@ -104,6 +105,11 @@ const routes: Route[] = [
     name: `${INPUT_ROUTE_PREFIX}/TextMenuShowSubWindow`,
     title: resource.resourceToString($r('app.string.TextMenuShow_title')),
     description: $r('app.string.TextMenuShow_description')
+  },
+  {
+    name: `${INPUT_ROUTE_PREFIX}/SelectedDataDetector`,
+    title: resource.resourceToString($r('app.string.SelectedDataDetector_title')),
+    description: $r('app.string.SelectedDataDetector_description')
   }
 ];
 
@@ -139,6 +145,8 @@ export function TextInputDestination(name: string) {
     NormalQuestion();
   } else if (name === routes[13].name) {
     TextMenuShowSubWindow();
+  } else if (name === routes[14].name) {
+    SelectedDataDetector();
   }
 }
 
