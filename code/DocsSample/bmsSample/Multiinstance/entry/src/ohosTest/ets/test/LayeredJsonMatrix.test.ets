@@ -129,3 +129,230 @@ export default function layeredJsonMatrixTest() {
     const groups: string[] = Object.keys(doc);
     const layered: Record<string, string> = doc['layered-image'] as Record<string, string>;
     expect(layered['background'].startsWith('$media:')).assertTrue();
+    expect(layered['foreground'].startsWith('$media:')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_LJSON_0006
+   * @tc.name      testLayeredJson0006
+   * @tc.desc      Layered json check value length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testLayeredJson0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testLayeredJson0006', 'layered json 6');
+    const res: resourceManager.ResourceManager = entryResources();
+    const bytes: Uint8Array = res.getMediaByNameSync('layered_image');
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const text: string = decoder.decodeToString(bytes);
+    const doc: Record<string, Object> = JSON.parse(text) as Record<string, Object>;
+    const groups: string[] = Object.keys(doc);
+    const layered: Record<string, string> = doc['layered-image'] as Record<string, string>;
+    expect(layered['background'].length).assertEqual(17);
+    expect(layered['foreground'].length).assertEqual(17);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_LJSON_0007
+   * @tc.name      testLayeredJson0007
+   * @tc.desc      Layered json check colon split
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testLayeredJson0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testLayeredJson0007', 'layered json 7');
+    const res: resourceManager.ResourceManager = entryResources();
+    const bytes: Uint8Array = res.getMediaByNameSync('layered_image');
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const text: string = decoder.decodeToString(bytes);
+    const doc: Record<string, Object> = JSON.parse(text) as Record<string, Object>;
+    const groups: string[] = Object.keys(doc);
+    const layered: Record<string, string> = doc['layered-image'] as Record<string, string>;
+    expect(layered['background'].split(':').length).assertEqual(2);
+    expect(layered['foreground'].split(':').length).assertEqual(2);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_LJSON_0008
+   * @tc.name      testLayeredJson0008
+   * @tc.desc      Layered json check background tail
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testLayeredJson0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testLayeredJson0008', 'layered json 8');
+    const res: resourceManager.ResourceManager = entryResources();
+    const bytes: Uint8Array = res.getMediaByNameSync('layered_image');
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const text: string = decoder.decodeToString(bytes);
+    const doc: Record<string, Object> = JSON.parse(text) as Record<string, Object>;
+    const groups: string[] = Object.keys(doc);
+    const layered: Record<string, string> = doc['layered-image'] as Record<string, string>;
+    expect(layered['background'].substring(7)).assertEqual('background');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_LJSON_0009
+   * @tc.name      testLayeredJson0009
+   * @tc.desc      Layered json check foreground tail
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testLayeredJson0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testLayeredJson0009', 'layered json 9');
+    const res: resourceManager.ResourceManager = entryResources();
+    const bytes: Uint8Array = res.getMediaByNameSync('layered_image');
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const text: string = decoder.decodeToString(bytes);
+    const doc: Record<string, Object> = JSON.parse(text) as Record<string, Object>;
+    const groups: string[] = Object.keys(doc);
+    const layered: Record<string, string> = doc['layered-image'] as Record<string, string>;
+    expect(layered['foreground'].substring(7)).assertEqual('foreground');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_LJSON_0010
+   * @tc.name      testLayeredJson0010
+   * @tc.desc      Layered json check ground suffix
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testLayeredJson0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testLayeredJson0010', 'layered json 10');
+    const res: resourceManager.ResourceManager = entryResources();
+    const bytes: Uint8Array = res.getMediaByNameSync('layered_image');
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const text: string = decoder.decodeToString(bytes);
+    const doc: Record<string, Object> = JSON.parse(text) as Record<string, Object>;
+    const groups: string[] = Object.keys(doc);
+    const layered: Record<string, string> = doc['layered-image'] as Record<string, string>;
+    expect(layered['background'].endsWith('ground')).assertTrue();
+    expect(layered['foreground'].endsWith('ground')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_LJSON_0011
+   * @tc.name      testLayeredJson0011
+   * @tc.desc      Layered json check text braces
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testLayeredJson0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testLayeredJson0011', 'layered json 11');
+    const res: resourceManager.ResourceManager = entryResources();
+    const bytes: Uint8Array = res.getMediaByNameSync('layered_image');
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const text: string = decoder.decodeToString(bytes);
+    const doc: Record<string, Object> = JSON.parse(text) as Record<string, Object>;
+    const groups: string[] = Object.keys(doc);
+    expect(text.trim().startsWith('{')).assertTrue();
+    expect(text.trim().endsWith('}')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_LJSON_0012
+   * @tc.name      testLayeredJson0012
+   * @tc.desc      Layered json check text length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testLayeredJson0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testLayeredJson0012', 'layered json 12');
+    const res: resourceManager.ResourceManager = entryResources();
+    const bytes: Uint8Array = res.getMediaByNameSync('layered_image');
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const text: string = decoder.decodeToString(bytes);
+    const doc: Record<string, Object> = JSON.parse(text) as Record<string, Object>;
+    const groups: string[] = Object.keys(doc);
+    expect(text.length).assertEqual(115);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_LJSON_0013
+   * @tc.name      testLayeredJson0013
+   * @tc.desc      Layered json check text mentions key
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testLayeredJson0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testLayeredJson0013', 'layered json 13');
+    const res: resourceManager.ResourceManager = entryResources();
+    const bytes: Uint8Array = res.getMediaByNameSync('layered_image');
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const text: string = decoder.decodeToString(bytes);
+    const doc: Record<string, Object> = JSON.parse(text) as Record<string, Object>;
+    const groups: string[] = Object.keys(doc);
+    expect(text.indexOf('layered-image') >= 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_LJSON_0014
+   * @tc.name      testLayeredJson0014
+   * @tc.desc      Layered json check sorted ref names
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testLayeredJson0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testLayeredJson0014', 'layered json 14');
+    const res: resourceManager.ResourceManager = entryResources();
+    const bytes: Uint8Array = res.getMediaByNameSync('layered_image');
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const text: string = decoder.decodeToString(bytes);
+    const doc: Record<string, Object> = JSON.parse(text) as Record<string, Object>;
+    const groups: string[] = Object.keys(doc);
+    const layered: Record<string, string> = doc['layered-image'] as Record<string, string>;
+    const names: string[] = Object.keys(layered);
+    names.sort();
+    expect(names.join(',')).assertEqual('background,foreground');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_LJSON_0015
+   * @tc.name      testLayeredJson0015
+   * @tc.desc      Layered json check distinct values
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testLayeredJson0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testLayeredJson0015', 'layered json 15');
+    const res: resourceManager.ResourceManager = entryResources();
+    const bytes: Uint8Array = res.getMediaByNameSync('layered_image');
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const text: string = decoder.decodeToString(bytes);
+    const doc: Record<string, Object> = JSON.parse(text) as Record<string, Object>;
+    const groups: string[] = Object.keys(doc);
+    const layered: Record<string, string> = doc['layered-image'] as Record<string, string>;
+    expect(layered['background'] === layered['foreground']).assertFalse();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_MULTIINSTANCE_LJSON_0016
+   * @tc.name      testLayeredJson0016
+   * @tc.desc      Layered json check first ref name
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testLayeredJson0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testLayeredJson0016', 'layered json 16');
+    const res: resourceManager.ResourceManager = entryResources();
+    const bytes: Uint8Array = res.getMediaByNameSync('layered_image');
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const text: string = decoder.decodeToString(bytes);
+    const doc: Record<string, Object> = JSON.parse(text) as Record<string, Object>;
+    const groups: string[] = Object.keys(doc);
+    const layered: Record<string, string> = doc['layered-image'] as Record<string, string>;
+    expect(Object.keys(layered)[0]).assertEqual('background');
+  });
+  });
+}
