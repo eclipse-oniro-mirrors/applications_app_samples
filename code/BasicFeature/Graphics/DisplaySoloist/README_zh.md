@@ -42,7 +42,7 @@
 ### 具体实现
 
 * XComponent：通过在IDE中的Native c++ 工程，在c++代码中定义对外接口为register、unregister以及destroy，并调用NativeDisplaySoloist分级管控接口,可在页面上使用drawing根据设定的期望帧率来绘制。
-    * 涉及到的相关接口([CAPI接口链接](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkgraphics2d/_native_display_soloist.md))：
+    * 涉及到的相关接口([CAPI接口链接](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkgraphics2d/_native_display_soloist.md))：
 
       | 接口名 | 描述 | 
       | -------- | -------- |
@@ -61,6 +61,10 @@
 
 不涉及
 
+### 测试
+
+本轮 RK3568 全量 2487/2487 通过，Failure/Error/Ignore 均为 0。两条 native 冒烟通过真实 XComponent context 调用 NAPI `register`、`unregister`、`destroy`，验证普通生命周期与独占线程重建。算术矩阵不能证明 native API 可达或帧率精度；详见 [测试覆盖与运行](ohosTest.md)。签名材料仅保留本地，不纳入仓库改动。
+
 ### 约束与限制
 
 1.本示例仅支持在标准系统上运行，支持设备：RK3568。
@@ -77,7 +81,7 @@
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/Graphics/DisplaySoloist/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 
 ```

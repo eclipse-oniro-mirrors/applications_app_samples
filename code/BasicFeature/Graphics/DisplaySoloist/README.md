@@ -62,6 +62,10 @@ None.
 
 None.
 
+### Tests
+
+The latest RK3568 run passed all 2487 cases (Failure/Error/Ignore: 0). Two native smoke cases use a real XComponent context to call NAPI `register`, `unregister`, and `destroy`, covering normal lifecycle and exclusive-thread recreation. Arithmetic matrices do not prove native API reachability or frame-rate accuracy. See [test coverage and execution](ohosTest.md). Local signing material is excluded from repository changes.
+
 ### Constraints and Limitations
 
 1. This sample can run only on standard-system devices and has been verified on an RK3568 board.
