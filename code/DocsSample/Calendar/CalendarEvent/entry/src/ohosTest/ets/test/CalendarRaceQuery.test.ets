@@ -789,3 +789,451 @@ export default function calendarRaceQueryTest(): void {
       expect(await session.addEvent()).assertEqual(801);
       const byId: calendarManager.Event[] = [fixtureEvent(801, 'by-id', 1686931200000)];
       const byTitle: calendarManager.Event[] = [fixtureEvent(802, 'by-title', 1686931200100),
+        fixtureEvent(803, 'by-title-second', 1686931200200)];
+      const byTime: calendarManager.Event[] = [fixtureEvent(804, 'by-time', 1686931200300),
+        fixtureEvent(805, 'by-time-second', 1686931200400), fixtureEvent(806, 'by-time-third', 1686931200500)];
+      const firstGate: Pending<calendarManager.Event[]> = new Pending<calendarManager.Event[]>();
+      const secondGate: Pending<calendarManager.Event[]> = new Pending<calendarManager.Event[]>();
+      const thirdGate: Pending<calendarManager.Event[]> = new Pending<calendarManager.Event[]>();
+      calendar.idQueue.push(firstGate);
+      calendar.titleQueue.push(secondGate);
+      calendar.timeQueue.push(thirdGate);
+      const query: Promise<calendarManager.Event[][]> = session.getEvent();
+      const queryResult: Promise<Error | undefined> = captureFailure((): Promise<calendarManager.Event[][]> => query);
+      expect(calendar.ids.length).assertEqual(1);
+      expect(calendar.ids[0]).assertEqual(801);
+      expect(calendar.titles[0]).assertEqual('update');
+      expect(calendar.starts[0]).assertEqual(1686931200000);
+      expect(calendar.ends[0]).assertEqual(1687017600000);
+      expect(calendar.trace[2]).assertEqual('id');
+      expect(calendar.trace[3]).assertEqual('title');
+      expect(calendar.trace[4]).assertEqual('time');
+      secondGate.resolve(byTitle);
+      expect((await secondGate.promise) === byTitle).assertEqual(true);
+      thirdGate.resolve(byTime);
+      expect((await thirdGate.promise) === byTime).assertEqual(true);
+      firstGate.resolve(byId);
+      expect((await firstGate.promise) === byId).assertEqual(true);
+      expect((await queryResult) === undefined).assertEqual(true);
+      const result: calendarManager.Event[][] = await query;
+      expect(result.length).assertEqual(3);
+      expect(result[0] === byId).assertEqual(true);
+      expect(result[1] === byTitle).assertEqual(true);
+      expect(result[2] === byTime).assertEqual(true);
+      expect(result[0].length).assertEqual(1);
+      expect(result[1].length).assertEqual(2);
+      expect(result[2].length).assertEqual(3);
+      expect(result[0][0].id).assertEqual(801);
+      expect(result[0][0].title).assertEqual('by-id');
+      expect(result[1][1].id).assertEqual(803);
+      expect(result[2][2].startTime).assertEqual(1686931200500);
+      await assertSelected(session, calendar, 801);
+      session.clear();
+      await assertMissingCalendar(session);
+      expect(calendar.ids.length).assertEqual(1);
+      expect(calendar.titles.length).assertEqual(1);
+      expect(calendar.starts.length).assertEqual(1);
+      expect(calendar.ends.length).assertEqual(1);
+      expect(calendar.idQueue.length).assertEqual(0);
+      expect(calendar.titleQueue.length).assertEqual(0);
+      expect(calendar.timeQueue.length).assertEqual(0);
+      expect(calendar.deletions.length).assertEqual(0);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_RACE_QUERY_1300
+     * @tc.name CalendarEventRaceQuery_0013
+     * @tc.desc Three query branches complete 312; clear after 0 branch completions;
+     * Promise.all returns original arrays in byId/title/time order and never restores cleared selection.
+     * @tc.type FUNC
+     */
+    it('CalendarEventRaceQuery_0013', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const calendar: CalendarProbe = manager.calendar;
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1686931200000);
+      await session.createCalendar();
+      calendar.nextId = 0;
+      expect(await session.addEvent()).assertEqual(0);
+      const byId: calendarManager.Event[] = [fixtureEvent(801, 'by-id', 1686931200000)];
+      const byTitle: calendarManager.Event[] = [fixtureEvent(802, 'by-title', 1686931200100),
+        fixtureEvent(803, 'by-title-second', 1686931200200)];
+      const byTime: calendarManager.Event[] = [fixtureEvent(804, 'by-time', 1686931200300),
+        fixtureEvent(805, 'by-time-second', 1686931200400), fixtureEvent(806, 'by-time-third', 1686931200500)];
+      const firstGate: Pending<calendarManager.Event[]> = new Pending<calendarManager.Event[]>();
+      const secondGate: Pending<calendarManager.Event[]> = new Pending<calendarManager.Event[]>();
+      const thirdGate: Pending<calendarManager.Event[]> = new Pending<calendarManager.Event[]>();
+      calendar.idQueue.push(firstGate);
+      calendar.titleQueue.push(secondGate);
+      calendar.timeQueue.push(thirdGate);
+      const query: Promise<calendarManager.Event[][]> = session.getEvent();
+      const queryResult: Promise<Error | undefined> = captureFailure((): Promise<calendarManager.Event[][]> => query);
+      expect(calendar.ids.length).assertEqual(1);
+      expect(calendar.ids[0]).assertEqual(0);
+      expect(calendar.titles[0]).assertEqual('update');
+      expect(calendar.starts[0]).assertEqual(1686931200000);
+      expect(calendar.ends[0]).assertEqual(1687017600000);
+      expect(calendar.trace[2]).assertEqual('id');
+      expect(calendar.trace[3]).assertEqual('title');
+      expect(calendar.trace[4]).assertEqual('time');
+      session.clear();
+      await assertMissingCalendar(session);
+      thirdGate.resolve(byTime);
+      expect((await thirdGate.promise) === byTime).assertEqual(true);
+      firstGate.resolve(byId);
+      expect((await firstGate.promise) === byId).assertEqual(true);
+      secondGate.resolve(byTitle);
+      expect((await secondGate.promise) === byTitle).assertEqual(true);
+      expect((await queryResult) === undefined).assertEqual(true);
+      const result: calendarManager.Event[][] = await query;
+      expect(result.length).assertEqual(3);
+      expect(result[0] === byId).assertEqual(true);
+      expect(result[1] === byTitle).assertEqual(true);
+      expect(result[2] === byTime).assertEqual(true);
+      expect(result[0].length).assertEqual(1);
+      expect(result[1].length).assertEqual(2);
+      expect(result[2].length).assertEqual(3);
+      expect(result[0][0].id).assertEqual(801);
+      expect(result[0][0].title).assertEqual('by-id');
+      expect(result[1][1].id).assertEqual(803);
+      expect(result[2][2].startTime).assertEqual(1686931200500);
+      await assertMissingCalendar(session);
+      expect(calendar.ids.length).assertEqual(1);
+      expect(calendar.titles.length).assertEqual(1);
+      expect(calendar.starts.length).assertEqual(1);
+      expect(calendar.ends.length).assertEqual(1);
+      expect(calendar.idQueue.length).assertEqual(0);
+      expect(calendar.titleQueue.length).assertEqual(0);
+      expect(calendar.timeQueue.length).assertEqual(0);
+      expect(calendar.deletions.length).assertEqual(0);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_RACE_QUERY_1400
+     * @tc.name CalendarEventRaceQuery_0014
+     * @tc.desc Three query branches complete 312; clear after 1 branch completions;
+     * Promise.all returns original arrays in byId/title/time order and never restores cleared selection.
+     * @tc.type FUNC
+     */
+    it('CalendarEventRaceQuery_0014', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const calendar: CalendarProbe = manager.calendar;
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1686931200000);
+      await session.createCalendar();
+      calendar.nextId = 801;
+      expect(await session.addEvent()).assertEqual(801);
+      const byId: calendarManager.Event[] = [fixtureEvent(801, 'by-id', 1686931200000)];
+      const byTitle: calendarManager.Event[] = [fixtureEvent(802, 'by-title', 1686931200100),
+        fixtureEvent(803, 'by-title-second', 1686931200200)];
+      const byTime: calendarManager.Event[] = [fixtureEvent(804, 'by-time', 1686931200300),
+        fixtureEvent(805, 'by-time-second', 1686931200400), fixtureEvent(806, 'by-time-third', 1686931200500)];
+      const firstGate: Pending<calendarManager.Event[]> = new Pending<calendarManager.Event[]>();
+      const secondGate: Pending<calendarManager.Event[]> = new Pending<calendarManager.Event[]>();
+      const thirdGate: Pending<calendarManager.Event[]> = new Pending<calendarManager.Event[]>();
+      calendar.idQueue.push(firstGate);
+      calendar.titleQueue.push(secondGate);
+      calendar.timeQueue.push(thirdGate);
+      const query: Promise<calendarManager.Event[][]> = session.getEvent();
+      const queryResult: Promise<Error | undefined> = captureFailure((): Promise<calendarManager.Event[][]> => query);
+      expect(calendar.ids.length).assertEqual(1);
+      expect(calendar.ids[0]).assertEqual(801);
+      expect(calendar.titles[0]).assertEqual('update');
+      expect(calendar.starts[0]).assertEqual(1686931200000);
+      expect(calendar.ends[0]).assertEqual(1687017600000);
+      expect(calendar.trace[2]).assertEqual('id');
+      expect(calendar.trace[3]).assertEqual('title');
+      expect(calendar.trace[4]).assertEqual('time');
+      thirdGate.resolve(byTime);
+      expect((await thirdGate.promise) === byTime).assertEqual(true);
+      session.clear();
+      await assertMissingCalendar(session);
+      firstGate.resolve(byId);
+      expect((await firstGate.promise) === byId).assertEqual(true);
+      secondGate.resolve(byTitle);
+      expect((await secondGate.promise) === byTitle).assertEqual(true);
+      expect((await queryResult) === undefined).assertEqual(true);
+      const result: calendarManager.Event[][] = await query;
+      expect(result.length).assertEqual(3);
+      expect(result[0] === byId).assertEqual(true);
+      expect(result[1] === byTitle).assertEqual(true);
+      expect(result[2] === byTime).assertEqual(true);
+      expect(result[0].length).assertEqual(1);
+      expect(result[1].length).assertEqual(2);
+      expect(result[2].length).assertEqual(3);
+      expect(result[0][0].id).assertEqual(801);
+      expect(result[0][0].title).assertEqual('by-id');
+      expect(result[1][1].id).assertEqual(803);
+      expect(result[2][2].startTime).assertEqual(1686931200500);
+      await assertMissingCalendar(session);
+      expect(calendar.ids.length).assertEqual(1);
+      expect(calendar.titles.length).assertEqual(1);
+      expect(calendar.starts.length).assertEqual(1);
+      expect(calendar.ends.length).assertEqual(1);
+      expect(calendar.idQueue.length).assertEqual(0);
+      expect(calendar.titleQueue.length).assertEqual(0);
+      expect(calendar.timeQueue.length).assertEqual(0);
+      expect(calendar.deletions.length).assertEqual(0);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_RACE_QUERY_1500
+     * @tc.name CalendarEventRaceQuery_0015
+     * @tc.desc Three query branches complete 312; clear after 3 branch completions;
+     * Promise.all returns original arrays in byId/title/time order and never restores cleared selection.
+     * @tc.type FUNC
+     */
+    it('CalendarEventRaceQuery_0015', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const calendar: CalendarProbe = manager.calendar;
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1686931200000);
+      await session.createCalendar();
+      calendar.nextId = 801;
+      expect(await session.addEvent()).assertEqual(801);
+      const byId: calendarManager.Event[] = [fixtureEvent(801, 'by-id', 1686931200000)];
+      const byTitle: calendarManager.Event[] = [fixtureEvent(802, 'by-title', 1686931200100),
+        fixtureEvent(803, 'by-title-second', 1686931200200)];
+      const byTime: calendarManager.Event[] = [fixtureEvent(804, 'by-time', 1686931200300),
+        fixtureEvent(805, 'by-time-second', 1686931200400), fixtureEvent(806, 'by-time-third', 1686931200500)];
+      const firstGate: Pending<calendarManager.Event[]> = new Pending<calendarManager.Event[]>();
+      const secondGate: Pending<calendarManager.Event[]> = new Pending<calendarManager.Event[]>();
+      const thirdGate: Pending<calendarManager.Event[]> = new Pending<calendarManager.Event[]>();
+      calendar.idQueue.push(firstGate);
+      calendar.titleQueue.push(secondGate);
+      calendar.timeQueue.push(thirdGate);
+      const query: Promise<calendarManager.Event[][]> = session.getEvent();
+      const queryResult: Promise<Error | undefined> = captureFailure((): Promise<calendarManager.Event[][]> => query);
+      expect(calendar.ids.length).assertEqual(1);
+      expect(calendar.ids[0]).assertEqual(801);
+      expect(calendar.titles[0]).assertEqual('update');
+      expect(calendar.starts[0]).assertEqual(1686931200000);
+      expect(calendar.ends[0]).assertEqual(1687017600000);
+      expect(calendar.trace[2]).assertEqual('id');
+      expect(calendar.trace[3]).assertEqual('title');
+      expect(calendar.trace[4]).assertEqual('time');
+      thirdGate.resolve(byTime);
+      expect((await thirdGate.promise) === byTime).assertEqual(true);
+      firstGate.resolve(byId);
+      expect((await firstGate.promise) === byId).assertEqual(true);
+      secondGate.resolve(byTitle);
+      expect((await secondGate.promise) === byTitle).assertEqual(true);
+      expect((await queryResult) === undefined).assertEqual(true);
+      const result: calendarManager.Event[][] = await query;
+      expect(result.length).assertEqual(3);
+      expect(result[0] === byId).assertEqual(true);
+      expect(result[1] === byTitle).assertEqual(true);
+      expect(result[2] === byTime).assertEqual(true);
+      expect(result[0].length).assertEqual(1);
+      expect(result[1].length).assertEqual(2);
+      expect(result[2].length).assertEqual(3);
+      expect(result[0][0].id).assertEqual(801);
+      expect(result[0][0].title).assertEqual('by-id');
+      expect(result[1][1].id).assertEqual(803);
+      expect(result[2][2].startTime).assertEqual(1686931200500);
+      await assertSelected(session, calendar, 801);
+      session.clear();
+      await assertMissingCalendar(session);
+      expect(calendar.ids.length).assertEqual(1);
+      expect(calendar.titles.length).assertEqual(1);
+      expect(calendar.starts.length).assertEqual(1);
+      expect(calendar.ends.length).assertEqual(1);
+      expect(calendar.idQueue.length).assertEqual(0);
+      expect(calendar.titleQueue.length).assertEqual(0);
+      expect(calendar.timeQueue.length).assertEqual(0);
+      expect(calendar.deletions.length).assertEqual(0);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_RACE_QUERY_1600
+     * @tc.name CalendarEventRaceQuery_0016
+     * @tc.desc Three query branches complete 321; clear after 0 branch completions;
+     * Promise.all returns original arrays in byId/title/time order and never restores cleared selection.
+     * @tc.type FUNC
+     */
+    it('CalendarEventRaceQuery_0016', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const calendar: CalendarProbe = manager.calendar;
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1686931200000);
+      await session.createCalendar();
+      calendar.nextId = 0;
+      expect(await session.addEvent()).assertEqual(0);
+      const byId: calendarManager.Event[] = [fixtureEvent(801, 'by-id', 1686931200000)];
+      const byTitle: calendarManager.Event[] = [fixtureEvent(802, 'by-title', 1686931200100),
+        fixtureEvent(803, 'by-title-second', 1686931200200)];
+      const byTime: calendarManager.Event[] = [fixtureEvent(804, 'by-time', 1686931200300),
+        fixtureEvent(805, 'by-time-second', 1686931200400), fixtureEvent(806, 'by-time-third', 1686931200500)];
+      const firstGate: Pending<calendarManager.Event[]> = new Pending<calendarManager.Event[]>();
+      const secondGate: Pending<calendarManager.Event[]> = new Pending<calendarManager.Event[]>();
+      const thirdGate: Pending<calendarManager.Event[]> = new Pending<calendarManager.Event[]>();
+      calendar.idQueue.push(firstGate);
+      calendar.titleQueue.push(secondGate);
+      calendar.timeQueue.push(thirdGate);
+      const query: Promise<calendarManager.Event[][]> = session.getEvent();
+      const queryResult: Promise<Error | undefined> = captureFailure((): Promise<calendarManager.Event[][]> => query);
+      expect(calendar.ids.length).assertEqual(1);
+      expect(calendar.ids[0]).assertEqual(0);
+      expect(calendar.titles[0]).assertEqual('update');
+      expect(calendar.starts[0]).assertEqual(1686931200000);
+      expect(calendar.ends[0]).assertEqual(1687017600000);
+      expect(calendar.trace[2]).assertEqual('id');
+      expect(calendar.trace[3]).assertEqual('title');
+      expect(calendar.trace[4]).assertEqual('time');
+      session.clear();
+      await assertMissingCalendar(session);
+      thirdGate.resolve(byTime);
+      expect((await thirdGate.promise) === byTime).assertEqual(true);
+      secondGate.resolve(byTitle);
+      expect((await secondGate.promise) === byTitle).assertEqual(true);
+      firstGate.resolve(byId);
+      expect((await firstGate.promise) === byId).assertEqual(true);
+      expect((await queryResult) === undefined).assertEqual(true);
+      const result: calendarManager.Event[][] = await query;
+      expect(result.length).assertEqual(3);
+      expect(result[0] === byId).assertEqual(true);
+      expect(result[1] === byTitle).assertEqual(true);
+      expect(result[2] === byTime).assertEqual(true);
+      expect(result[0].length).assertEqual(1);
+      expect(result[1].length).assertEqual(2);
+      expect(result[2].length).assertEqual(3);
+      expect(result[0][0].id).assertEqual(801);
+      expect(result[0][0].title).assertEqual('by-id');
+      expect(result[1][1].id).assertEqual(803);
+      expect(result[2][2].startTime).assertEqual(1686931200500);
+      await assertMissingCalendar(session);
+      expect(calendar.ids.length).assertEqual(1);
+      expect(calendar.titles.length).assertEqual(1);
+      expect(calendar.starts.length).assertEqual(1);
+      expect(calendar.ends.length).assertEqual(1);
+      expect(calendar.idQueue.length).assertEqual(0);
+      expect(calendar.titleQueue.length).assertEqual(0);
+      expect(calendar.timeQueue.length).assertEqual(0);
+      expect(calendar.deletions.length).assertEqual(0);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_RACE_QUERY_1700
+     * @tc.name CalendarEventRaceQuery_0017
+     * @tc.desc Three query branches complete 321; clear after 1 branch completions;
+     * Promise.all returns original arrays in byId/title/time order and never restores cleared selection.
+     * @tc.type FUNC
+     */
+    it('CalendarEventRaceQuery_0017', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const calendar: CalendarProbe = manager.calendar;
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1686931200000);
+      await session.createCalendar();
+      calendar.nextId = 801;
+      expect(await session.addEvent()).assertEqual(801);
+      const byId: calendarManager.Event[] = [fixtureEvent(801, 'by-id', 1686931200000)];
+      const byTitle: calendarManager.Event[] = [fixtureEvent(802, 'by-title', 1686931200100),
+        fixtureEvent(803, 'by-title-second', 1686931200200)];
+      const byTime: calendarManager.Event[] = [fixtureEvent(804, 'by-time', 1686931200300),
+        fixtureEvent(805, 'by-time-second', 1686931200400), fixtureEvent(806, 'by-time-third', 1686931200500)];
+      const firstGate: Pending<calendarManager.Event[]> = new Pending<calendarManager.Event[]>();
+      const secondGate: Pending<calendarManager.Event[]> = new Pending<calendarManager.Event[]>();
+      const thirdGate: Pending<calendarManager.Event[]> = new Pending<calendarManager.Event[]>();
+      calendar.idQueue.push(firstGate);
+      calendar.titleQueue.push(secondGate);
+      calendar.timeQueue.push(thirdGate);
+      const query: Promise<calendarManager.Event[][]> = session.getEvent();
+      const queryResult: Promise<Error | undefined> = captureFailure((): Promise<calendarManager.Event[][]> => query);
+      expect(calendar.ids.length).assertEqual(1);
+      expect(calendar.ids[0]).assertEqual(801);
+      expect(calendar.titles[0]).assertEqual('update');
+      expect(calendar.starts[0]).assertEqual(1686931200000);
+      expect(calendar.ends[0]).assertEqual(1687017600000);
+      expect(calendar.trace[2]).assertEqual('id');
+      expect(calendar.trace[3]).assertEqual('title');
+      expect(calendar.trace[4]).assertEqual('time');
+      thirdGate.resolve(byTime);
+      expect((await thirdGate.promise) === byTime).assertEqual(true);
+      session.clear();
+      await assertMissingCalendar(session);
+      secondGate.resolve(byTitle);
+      expect((await secondGate.promise) === byTitle).assertEqual(true);
+      firstGate.resolve(byId);
+      expect((await firstGate.promise) === byId).assertEqual(true);
+      expect((await queryResult) === undefined).assertEqual(true);
+      const result: calendarManager.Event[][] = await query;
+      expect(result.length).assertEqual(3);
+      expect(result[0] === byId).assertEqual(true);
+      expect(result[1] === byTitle).assertEqual(true);
+      expect(result[2] === byTime).assertEqual(true);
+      expect(result[0].length).assertEqual(1);
+      expect(result[1].length).assertEqual(2);
+      expect(result[2].length).assertEqual(3);
+      expect(result[0][0].id).assertEqual(801);
+      expect(result[0][0].title).assertEqual('by-id');
+      expect(result[1][1].id).assertEqual(803);
+      expect(result[2][2].startTime).assertEqual(1686931200500);
+      await assertMissingCalendar(session);
+      expect(calendar.ids.length).assertEqual(1);
+      expect(calendar.titles.length).assertEqual(1);
+      expect(calendar.starts.length).assertEqual(1);
+      expect(calendar.ends.length).assertEqual(1);
+      expect(calendar.idQueue.length).assertEqual(0);
+      expect(calendar.titleQueue.length).assertEqual(0);
+      expect(calendar.timeQueue.length).assertEqual(0);
+      expect(calendar.deletions.length).assertEqual(0);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_RACE_QUERY_1800
+     * @tc.name CalendarEventRaceQuery_0018
+     * @tc.desc Three query branches complete 321; clear after 3 branch completions;
+     * Promise.all returns original arrays in byId/title/time order and never restores cleared selection.
+     * @tc.type FUNC
+     */
+    it('CalendarEventRaceQuery_0018', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const calendar: CalendarProbe = manager.calendar;
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1686931200000);
+      await session.createCalendar();
+      calendar.nextId = 801;
+      expect(await session.addEvent()).assertEqual(801);
+      const byId: calendarManager.Event[] = [fixtureEvent(801, 'by-id', 1686931200000)];
+      const byTitle: calendarManager.Event[] = [fixtureEvent(802, 'by-title', 1686931200100),
+        fixtureEvent(803, 'by-title-second', 1686931200200)];
+      const byTime: calendarManager.Event[] = [fixtureEvent(804, 'by-time', 1686931200300),
+        fixtureEvent(805, 'by-time-second', 1686931200400), fixtureEvent(806, 'by-time-third', 1686931200500)];
+      const firstGate: Pending<calendarManager.Event[]> = new Pending<calendarManager.Event[]>();
+      const secondGate: Pending<calendarManager.Event[]> = new Pending<calendarManager.Event[]>();
+      const thirdGate: Pending<calendarManager.Event[]> = new Pending<calendarManager.Event[]>();
+      calendar.idQueue.push(firstGate);
+      calendar.titleQueue.push(secondGate);
+      calendar.timeQueue.push(thirdGate);
+      const query: Promise<calendarManager.Event[][]> = session.getEvent();
+      const queryResult: Promise<Error | undefined> = captureFailure((): Promise<calendarManager.Event[][]> => query);
+      expect(calendar.ids.length).assertEqual(1);
+      expect(calendar.ids[0]).assertEqual(801);
+      expect(calendar.titles[0]).assertEqual('update');
+      expect(calendar.starts[0]).assertEqual(1686931200000);
+      expect(calendar.ends[0]).assertEqual(1687017600000);
+      expect(calendar.trace[2]).assertEqual('id');
+      expect(calendar.trace[3]).assertEqual('title');
+      expect(calendar.trace[4]).assertEqual('time');
+      thirdGate.resolve(byTime);
+      expect((await thirdGate.promise) === byTime).assertEqual(true);
+      secondGate.resolve(byTitle);
+      expect((await secondGate.promise) === byTitle).assertEqual(true);
+      firstGate.resolve(byId);
+      expect((await firstGate.promise) === byId).assertEqual(true);
+      expect((await queryResult) === undefined).assertEqual(true);
+      const result: calendarManager.Event[][] = await query;
+      expect(result.length).assertEqual(3);
+      expect(result[0] === byId).assertEqual(true);
+      expect(result[1] === byTitle).assertEqual(true);
+      expect(result[2] === byTime).assertEqual(true);
+      expect(result[0].length).assertEqual(1);
+      expect(result[1].length).assertEqual(2);
+      expect(result[2].length).assertEqual(3);
+      expect(result[0][0].id).assertEqual(801);
+      expect(result[0][0].title).assertEqual('by-id');
+      expect(result[1][1].id).assertEqual(803);
+      expect(result[2][2].startTime).assertEqual(1686931200500);
+      await assertSelected(session, calendar, 801);
+      session.clear();
+      await assertMissingCalendar(session);
+      expect(calendar.ids.length).assertEqual(1);
+      expect(calendar.titles.length).assertEqual(1);
+      expect(calendar.starts.length).assertEqual(1);
+      expect(calendar.ends.length).assertEqual(1);
+      expect(calendar.idQueue.length).assertEqual(0);
+      expect(calendar.titleQueue.length).assertEqual(0);
+      expect(calendar.timeQueue.length).assertEqual(0);
+      expect(calendar.deletions.length).assertEqual(0);
+    });
+  });
+}
