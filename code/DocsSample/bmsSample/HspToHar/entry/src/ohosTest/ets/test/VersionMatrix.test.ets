@@ -820,3 +820,363 @@ export default function versionMatrixTest() {
 
   /**
    * @tc.number    SUB_BMS_HSPTOHAR_VER_0037
+   * @tc.name      testVersion0037
+   * @tc.desc      Version digits 2 sum and zeros
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testVersion0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testVersion0037', 'version digits 2');
+    const text: string = '1020000';
+    const sum: number = text.split('').reduce((a: number, b: string) => a + Number.parseInt(b, 10), 0);
+    expect(sum).assertEqual(3);
+    expect(text.split('').length).assertEqual(7);
+    expect(text.charAt(0)).assertEqual('1');
+    expect(text.endsWith('0000')).assertTrue();
+    expect(text.split('0').length - 1).assertEqual(5);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_VER_0038
+   * @tc.name      testVersion0038
+   * @tc.desc      Version digits 3 sum and zeros
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testVersion0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testVersion0038', 'version digits 3');
+    const text: string = '1030000';
+    const sum: number = text.split('').reduce((a: number, b: string) => a + Number.parseInt(b, 10), 0);
+    expect(sum).assertEqual(4);
+    expect(text.split('').length).assertEqual(7);
+    expect(text.charAt(0)).assertEqual('1');
+    expect(text.endsWith('0000')).assertTrue();
+    expect(text.split('0').length - 1).assertEqual(5);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_VER_0039
+   * @tc.name      testVersion0039
+   * @tc.desc      Version digits 4 sum and zeros
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testVersion0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testVersion0039', 'version digits 4');
+    const text: string = '1040000';
+    const sum: number = text.split('').reduce((a: number, b: string) => a + Number.parseInt(b, 10), 0);
+    expect(sum).assertEqual(5);
+    expect(text.split('').length).assertEqual(7);
+    expect(text.charAt(0)).assertEqual('1');
+    expect(text.endsWith('0000')).assertTrue();
+    expect(text.split('0').length - 1).assertEqual(5);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_VER_0040
+   * @tc.name      testVersion0040
+   * @tc.desc      Version digits 5 sum and zeros
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testVersion0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testVersion0040', 'version digits 5');
+    const text: string = '1050000';
+    const sum: number = text.split('').reduce((a: number, b: string) => a + Number.parseInt(b, 10), 0);
+    expect(sum).assertEqual(6);
+    expect(text.split('').length).assertEqual(7);
+    expect(text.charAt(0)).assertEqual('1');
+    expect(text.endsWith('0000')).assertTrue();
+    expect(text.split('0').length - 1).assertEqual(5);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_VER_0041
+   * @tc.name      testVersion0041
+   * @tc.desc      Version digits 6 sum and zeros
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testVersion0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testVersion0041', 'version digits 6');
+    const text: string = '1060000';
+    const sum: number = text.split('').reduce((a: number, b: string) => a + Number.parseInt(b, 10), 0);
+    expect(sum).assertEqual(7);
+    expect(text.split('').length).assertEqual(7);
+    expect(text.charAt(0)).assertEqual('1');
+    expect(text.endsWith('0000')).assertTrue();
+    expect(text.split('0').length - 1).assertEqual(5);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_VER_0042
+   * @tc.name      testVersion0042
+   * @tc.desc      Version digits 7 sum and zeros
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testVersion0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testVersion0042', 'version digits 7');
+    const text: string = '1070000';
+    const sum: number = text.split('').reduce((a: number, b: string) => a + Number.parseInt(b, 10), 0);
+    expect(sum).assertEqual(8);
+    expect(text.split('').length).assertEqual(7);
+    expect(text.charAt(0)).assertEqual('1');
+    expect(text.endsWith('0000')).assertTrue();
+    expect(text.split('0').length - 1).assertEqual(5);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_VER_0043
+   * @tc.name      testVersion0043
+   * @tc.desc      Version digits 8 sum and zeros
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testVersion0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testVersion0043', 'version digits 8');
+    const text: string = '1080000';
+    const sum: number = text.split('').reduce((a: number, b: string) => a + Number.parseInt(b, 10), 0);
+    expect(sum).assertEqual(9);
+    expect(text.split('').length).assertEqual(7);
+    expect(text.charAt(0)).assertEqual('1');
+    expect(text.endsWith('0000')).assertTrue();
+    expect(text.split('0').length - 1).assertEqual(5);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_VER_0044
+   * @tc.name      testVersion0044
+   * @tc.desc      Version digits 9 sum and zeros
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testVersion0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testVersion0044', 'version digits 9');
+    const text: string = '1090000';
+    const sum: number = text.split('').reduce((a: number, b: string) => a + Number.parseInt(b, 10), 0);
+    expect(sum).assertEqual(10);
+    expect(text.split('').length).assertEqual(7);
+    expect(text.charAt(0)).assertEqual('1');
+    expect(text.endsWith('0000')).assertTrue();
+    expect(text.split('0').length - 1).assertEqual(5);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_VER_0045
+   * @tc.name      testVersion0045
+   * @tc.desc      Version digits 10 sum and zeros
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testVersion0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testVersion0045', 'version digits 10');
+    const text: string = '1100000';
+    const sum: number = text.split('').reduce((a: number, b: string) => a + Number.parseInt(b, 10), 0);
+    expect(sum).assertEqual(2);
+    expect(text.split('').length).assertEqual(7);
+    expect(text.charAt(0)).assertEqual('1');
+    expect(text.endsWith('0000')).assertTrue();
+    expect(text.split('0').length - 1).assertEqual(5);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_VER_0046
+   * @tc.name      testVersion0046
+   * @tc.desc      Version digits 11 sum and zeros
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testVersion0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testVersion0046', 'version digits 11');
+    const text: string = '1110000';
+    const sum: number = text.split('').reduce((a: number, b: string) => a + Number.parseInt(b, 10), 0);
+    expect(sum).assertEqual(3);
+    expect(text.split('').length).assertEqual(7);
+    expect(text.charAt(0)).assertEqual('1');
+    expect(text.endsWith('0000')).assertTrue();
+    expect(text.split('0').length - 1).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_VER_0047
+   * @tc.name      testVersion0047
+   * @tc.desc      Version digits 12 sum and zeros
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testVersion0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testVersion0047', 'version digits 12');
+    const text: string = '1120000';
+    const sum: number = text.split('').reduce((a: number, b: string) => a + Number.parseInt(b, 10), 0);
+    expect(sum).assertEqual(4);
+    expect(text.split('').length).assertEqual(7);
+    expect(text.charAt(0)).assertEqual('1');
+    expect(text.endsWith('0000')).assertTrue();
+    expect(text.split('0').length - 1).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_VER_0048
+   * @tc.name      testVersion0048
+   * @tc.desc      Version digits 13 sum and zeros
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testVersion0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testVersion0048', 'version digits 13');
+    const text: string = '1130000';
+    const sum: number = text.split('').reduce((a: number, b: string) => a + Number.parseInt(b, 10), 0);
+    expect(sum).assertEqual(5);
+    expect(text.split('').length).assertEqual(7);
+    expect(text.charAt(0)).assertEqual('1');
+    expect(text.endsWith('0000')).assertTrue();
+    expect(text.split('0').length - 1).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_VER_0049
+   * @tc.name      testVersion0049
+   * @tc.desc      Version digits 14 sum and zeros
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testVersion0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testVersion0049', 'version digits 14');
+    const text: string = '1140000';
+    const sum: number = text.split('').reduce((a: number, b: string) => a + Number.parseInt(b, 10), 0);
+    expect(sum).assertEqual(6);
+    expect(text.split('').length).assertEqual(7);
+    expect(text.charAt(0)).assertEqual('1');
+    expect(text.endsWith('0000')).assertTrue();
+    expect(text.split('0').length - 1).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_VER_0050
+   * @tc.name      testVersion0050
+   * @tc.desc      Version digits 15 sum and zeros
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testVersion0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testVersion0050', 'version digits 15');
+    const text: string = '1150000';
+    const sum: number = text.split('').reduce((a: number, b: string) => a + Number.parseInt(b, 10), 0);
+    expect(sum).assertEqual(7);
+    expect(text.split('').length).assertEqual(7);
+    expect(text.charAt(0)).assertEqual('1');
+    expect(text.endsWith('0000')).assertTrue();
+    expect(text.split('0').length - 1).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_VER_0051
+   * @tc.name      testVersion0051
+   * @tc.desc      Version digits 16 sum and zeros
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testVersion0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testVersion0051', 'version digits 16');
+    const text: string = '1160000';
+    const sum: number = text.split('').reduce((a: number, b: string) => a + Number.parseInt(b, 10), 0);
+    expect(sum).assertEqual(8);
+    expect(text.split('').length).assertEqual(7);
+    expect(text.charAt(0)).assertEqual('1');
+    expect(text.endsWith('0000')).assertTrue();
+    expect(text.split('0').length - 1).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_VER_0052
+   * @tc.name      testVersion0052
+   * @tc.desc      Version digits 17 sum and zeros
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testVersion0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testVersion0052', 'version digits 17');
+    const text: string = '1170000';
+    const sum: number = text.split('').reduce((a: number, b: string) => a + Number.parseInt(b, 10), 0);
+    expect(sum).assertEqual(9);
+    expect(text.split('').length).assertEqual(7);
+    expect(text.charAt(0)).assertEqual('1');
+    expect(text.endsWith('0000')).assertTrue();
+    expect(text.split('0').length - 1).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_VER_0053
+   * @tc.name      testVersion0053
+   * @tc.desc      Version digits 18 sum and zeros
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testVersion0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testVersion0053', 'version digits 18');
+    const text: string = '1180000';
+    const sum: number = text.split('').reduce((a: number, b: string) => a + Number.parseInt(b, 10), 0);
+    expect(sum).assertEqual(10);
+    expect(text.split('').length).assertEqual(7);
+    expect(text.charAt(0)).assertEqual('1');
+    expect(text.endsWith('0000')).assertTrue();
+    expect(text.split('0').length - 1).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_VER_0054
+   * @tc.name      testVersion0054
+   * @tc.desc      Version digits 19 sum and zeros
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testVersion0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testVersion0054', 'version digits 19');
+    const text: string = '1190000';
+    const sum: number = text.split('').reduce((a: number, b: string) => a + Number.parseInt(b, 10), 0);
+    expect(sum).assertEqual(11);
+    expect(text.split('').length).assertEqual(7);
+    expect(text.charAt(0)).assertEqual('1');
+    expect(text.endsWith('0000')).assertTrue();
+    expect(text.split('0').length - 1).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_VER_0055
+   * @tc.name      testVersion0055
+   * @tc.desc      Version digits 20 sum and zeros
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testVersion0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testVersion0055', 'version digits 20');
+    const text: string = '1200000';
+    const sum: number = text.split('').reduce((a: number, b: string) => a + Number.parseInt(b, 10), 0);
+    expect(sum).assertEqual(3);
+    expect(text.split('').length).assertEqual(7);
+    expect(text.charAt(0)).assertEqual('1');
+    expect(text.endsWith('0000')).assertTrue();
+    expect(text.split('0').length - 1).assertEqual(5);
+  });
+  });
+}
