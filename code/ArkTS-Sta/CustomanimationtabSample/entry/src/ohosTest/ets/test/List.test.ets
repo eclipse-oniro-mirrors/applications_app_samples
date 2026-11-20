@@ -1,5 +1,4 @@
 'use static';
-
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,179 +13,183 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import abilityTest from './Ability.test.ets';
-import PublishConcurrency from './Publish/PublishConcurrency.test.ets';
-import PublishConsistency from './Publish/PublishConsistency.test.ets';
-import PublishEndToEnd from './Publish/PublishEndToEnd.test.ets';
-import PublishErrorRecovery from './Publish/PublishErrorRecovery.test.ets';
-import PublishLifecycle from './Publish/PublishLifecycle.test.ets';
-import PublishStateManagement from './Publish/PublishStateManagement.test.ets';
-import PublishStress from './Publish/PublishStress.test.ets';
-import PublishViewState from './Publish/PublishViewState.test.ets';
-import PublishInputInteraction from './Publish/PublishInputInteraction.test.ets';
-import CommentModelBasics from './Publish/CommentModelBasics.test.ets';
-import PublishComposerConfiguration from './Publish/PublishComposerConfiguration.test.ets';
-import CommentModelDeep from './Publish/CommentModelDeep.test.ets';
-import PublishOperationCatalog from './Publish/PublishOperationCatalog.test.ets';
-import PublishOperationFlow from './Publish/PublishOperationFlow.test.ets';
-import PublishOperations from './Publish/PublishOperations.test.ets';
-import PublishOperationWorkflow from './Publish/PublishOperationWorkflow.test.ets';
-import DraftContentRules from './DraftValidation/DraftContentRules.test.ets';
-import DraftWhitespacePolicy from './DraftValidation/DraftWhitespacePolicy.test.ets';
-import DraftInputBinding from './DraftValidation/DraftInputBinding.test.ets';
-import DraftTextNormalization from './DraftValidation/DraftTextNormalization.test.ets';
-import DraftInterruptionRecovery from './DraftValidation/DraftInterruptionRecovery.test.ets';
-import DraftPublishFeedback from './DraftValidation/DraftPublishFeedback.test.ets';
-import DraftOfflineQueue from './DraftValidation/DraftOfflineQueue.test.ets';
-import DraftSessionValidation from './DraftValidation/DraftSessionValidation.test.ets';
-import ModelFieldTransmission from './ModelValidation/ModelFieldTransmission.test.ets';
-import ModelBoundaryValues from './ModelValidation/ModelBoundaryValues.test.ets';
-import ModelMutationTracking from './ModelValidation/ModelMutationTracking.test.ets';
-import ModelDefaults from './ModelValidation/ModelDefaults.test.ets';
-import ModelIdentity from './ModelValidation/ModelIdentity.test.ets';
-import ModelEquality from './ModelValidation/ModelEquality.test.ets';
-import ModelTextValidation from './ModelValidation/ModelTextValidation.test.ets';
-import ModelUnicode from './ModelValidation/ModelUnicode.test.ets';
-import ModelSerialization from './ModelValidation/ModelSerialization.test.ets';
-import ModelCloning from './ModelValidation/ModelCloning.test.ets';
-import ModelReplyFields from './ModelValidation/ModelReplyFields.test.ets';
-import NavigationModel from './Interaction/NavigationModel.test.ets';
-import ButtonStateModel from './Interaction/ButtonStateModel.test.ets';
-import ContentScalingModel from './Interaction/ContentScalingModel.test.ets';
-import DataBindingModel from './Interaction/DataBindingModel.test.ets';
-import ComposerPositionModel from './Interaction/ComposerPositionModel.test.ets';
-import EventHandlingModel from './Interaction/EventHandlingModel.test.ets';
-import EventPropagationModel from './Interaction/EventPropagationModel.test.ets';
-import FocusNavigationModel from './Interaction/FocusNavigationModel.test.ets';
-import FocusRingModel from './Interaction/FocusRingModel.test.ets';
-import GestureRecognitionModel from './Interaction/GestureRecognitionModel.test.ets';
-import ThemeVariationModel from './Interaction/ThemeVariationModel.test.ets';
-import TouchInteractionModel from './Interaction/TouchInteractionModel.test.ets';
-import RenderPipelineModel from './Interaction/RenderPipelineModel.test.ets';
-import VisualEffectsModel from './Interaction/VisualEffectsModel.test.ets';
-import PageConfiguration from './LifecycleState/PageConfiguration.test.ets';
-import ComposerLifecycle from './LifecycleState/ComposerLifecycle.test.ets';
-import BoardStateManagement from './LifecycleState/BoardStateManagement.test.ets';
-import BoardErrorRecovery from './LifecycleState/BoardErrorRecovery.test.ets';
-import BoardExceptionHandling from './LifecycleState/BoardExceptionHandling.test.ets';
-import AbilityLifecycle from './LifecycleState/AbilityLifecycle.test.ets';
-import BoardResourceManagement from './LifecycleState/BoardResourceManagement.test.ets';
-import BoardSessionManagement from './LifecycleState/BoardSessionManagement.test.ets';
-import BoardStatePersistence from './LifecycleState/BoardStatePersistence.test.ets';
-import BoardStateRecovery from './LifecycleState/BoardStateRecovery.test.ets';
-import RenderLoopPerformance from './PerformanceStability/RenderLoopPerformance.test.ets';
-import ConcurrencyControl from './PerformanceStability/ConcurrencyControl.test.ets';
-import LongTermStability from './PerformanceStability/LongTermStability.test.ets';
-import MemoryLeakDetection from './PerformanceStability/MemoryLeakDetection.test.ets';
-import PerformanceStress from './PerformanceStability/PerformanceStress.test.ets';
-import WorkloadBudget from './PerformanceStability/WorkloadBudget.test.ets';
-import ThroughputProfile from './PerformanceStability/ThroughputProfile.test.ets';
-import AdvancedScenarios from './Integration/AdvancedScenarios.test.ets';
-import ComprehensiveRegression from './Integration/ComprehensiveRegression.test.ets';
-import DeviceCompatibility from './Integration/DeviceCompatibility.test.ets';
-import IntegrationTesting from './Integration/IntegrationTesting.test.ets';
-import LocalizationTesting from './Integration/LocalizationTesting.test.ets';
-import OfflineCommentSync from './Integration/OfflineCommentSync.test.ets';
-import CompatibilityMatrix from './Integration/CompatibilityMatrix.test.ets';
-import SystemIntegration from './Integration/SystemIntegration.test.ets';
-import UserScenarios from './Integration/UserScenarios.test.ets';
-import InputSanitization from './Security/InputSanitization.test.ets';
-import DataExposure from './Security/DataExposure.test.ets';
-import SecurityValidation from './Security/SecurityValidation.test.ets';
+
+import abilityTest from './Ability.test';
+
+// Suites in Tabs
+import tTabConcurrency from './Tabs/TabConcurrency.test';
+import tTabConsistency from './Tabs/TabConsistency.test';
+import tTabEndToEnd from './Tabs/TabEndToEnd.test';
+import tTabErrorRecovery from './Tabs/TabErrorRecovery.test';
+import tTabInputInteraction from './Tabs/TabInputInteraction.test';
+import tTabItemInfoModel from './Tabs/TabItemInfoModel.test';
+import tTabLifecycle from './Tabs/TabLifecycle.test';
+import tTabMenuConfiguration from './Tabs/TabMenuConfiguration.test';
+import tTabModelDeep from './Tabs/TabModelDeep.test';
+import tTabOperationCatalog from './Tabs/TabOperationCatalog.test';
+import tTabOperationFlow from './Tabs/TabOperationFlow.test';
+import tTabOperations from './Tabs/TabOperations.test';
+import tTabOperationWorkflow from './Tabs/TabOperationWorkflow.test';
+import tTabStateManagement from './Tabs/TabStateManagement.test';
+import tTabStress from './Tabs/TabStress.test';
+import tTabSurfaceModel from './Tabs/TabSurfaceModel.test';
+
+// Suites in TabValidation
+import tTabAppVersion from './TabValidation/TabAppVersion.test';
+import tTabAuthSession from './TabValidation/TabAuthSession.test';
+import tTabDataSourceValidation from './TabValidation/TabDataSourceValidation.test';
+import tTabEventToolValidation from './TabValidation/TabEventToolValidation.test';
+import tTabInterruptionRecovery from './TabValidation/TabInterruptionRecovery.test';
+import tTabNotification from './TabValidation/TabNotification.test';
+import tTabOfflineNetwork from './TabValidation/TabOfflineNetwork.test';
+import tTabSessionValidation from './TabValidation/TabSessionValidation.test';
+
+// Suites in SkeletonValidation
+import sSkeletonAnimationControllerValidation from './SkeletonValidation/SkeletonAnimationControllerValidation.test';
+import sSkeletonBoundaryErrorTesting from './SkeletonValidation/SkeletonBoundaryErrorTesting.test';
+import sSkeletonCommonEventValidation from './SkeletonValidation/SkeletonCommonEventValidation.test';
+import sSkeletonConfigurationManagerValidation from './SkeletonValidation/SkeletonConfigurationManagerValidation.test';
+import sSkeletonFocusManagerValidation from './SkeletonValidation/SkeletonFocusManagerValidation.test';
+import sSkeletonInputValidation from './SkeletonValidation/SkeletonInputValidation.test';
+import sSkeletonKeyCodeValidation from './SkeletonValidation/SkeletonKeyCodeValidation.test';
+import sSkeletonLoggerValidation from './SkeletonValidation/SkeletonLoggerValidation.test';
+import sSkeletonPointerValidation from './SkeletonValidation/SkeletonPointerValidation.test';
+import sSkeletonResourceLoaderValidation from './SkeletonValidation/SkeletonResourceLoaderValidation.test';
+import sSkeletonStateManagerValidation from './SkeletonValidation/SkeletonStateManagerValidation.test';
+
+// Suites in Interaction
+import iTabAccessibilityNavigation from './Interaction/TabAccessibilityNavigation.test';
+import iTabButtonInteraction from './Interaction/TabButtonInteraction.test';
+import iTabComponentRendering from './Interaction/TabComponentRendering.test';
+import iTabContentScaling from './Interaction/TabContentScaling.test';
+import iTabDataBinding from './Interaction/TabDataBinding.test';
+import iTabEventHandling from './Interaction/TabEventHandling.test';
+import iTabEventPropagation from './Interaction/TabEventPropagation.test';
+import iTabFocusNavigation from './Interaction/TabFocusNavigation.test';
+import iTabFocusRingBehavior from './Interaction/TabFocusRingBehavior.test';
+import iTabGestureRecognition from './Interaction/TabGestureRecognition.test';
+import iTabPositioning from './Interaction/TabPositioning.test';
+import iTabThemeVariation from './Interaction/TabThemeVariation.test';
+import iTabTouchInteraction from './Interaction/TabTouchInteraction.test';
+import iTabVisualEffects from './Interaction/TabVisualEffects.test';
+
+// Suites in LifecycleState
+import lTabConfigurationChanges from './LifecycleState/TabConfigurationChanges.test';
+import lTabExceptionHandling from './LifecycleState/TabExceptionHandling.test';
+import lTabExtensionLifecycle from './LifecycleState/TabExtensionLifecycle.test';
+import lTabIndicatorLifecycle from './LifecycleState/TabIndicatorLifecycle.test';
+import lTabResourceManagement from './LifecycleState/TabResourceManagement.test';
+import lTabSessionManagement from './LifecycleState/TabSessionManagement.test';
+import lTabStateErrorRecovery from './LifecycleState/TabStateErrorRecovery.test';
+import lTabStatePersistence from './LifecycleState/TabStatePersistence.test';
+import lTabStateRecovery from './LifecycleState/TabStateRecovery.test';
+import lTabStateTransitions from './LifecycleState/TabStateTransitions.test';
+
+// Suites in PerformanceStability
+import pTabAnimationPerformance from './PerformanceStability/TabAnimationPerformance.test';
+import pTabConcurrencyControl from './PerformanceStability/TabConcurrencyControl.test';
+import pTabLongTermStability from './PerformanceStability/TabLongTermStability.test';
+import pTabMemoryStability from './PerformanceStability/TabMemoryStability.test';
+import pTabPerformanceStress from './PerformanceStability/TabPerformanceStress.test';
+import pTabPowerConsumption from './PerformanceStability/TabPowerConsumption.test';
+import pTabPowerPerformance from './PerformanceStability/TabPowerPerformance.test';
+
+// Suites in Integration
+import iResourceContract from './Integration/ResourceContract.test';
+import iTabAdvancedScenarios from './Integration/TabAdvancedScenarios.test';
+import iTabComprehensiveRegression from './Integration/TabComprehensiveRegression.test';
+import iTabDeviceCompatibility from './Integration/TabDeviceCompatibility.test';
+import iTabIntegrationTesting from './Integration/TabIntegrationTesting.test';
+import iTabLocalizationTesting from './Integration/TabLocalizationTesting.test';
+import iTabNetworkConnectivity from './Integration/TabNetworkConnectivity.test';
+import iTabPlatformCompatibility from './Integration/TabPlatformCompatibility.test';
+import iTabSystemIntegration from './Integration/TabSystemIntegration.test';
+import iTabUserScenarios from './Integration/TabUserScenarios.test';
+
+// Suites in Security
+import sTabSecurity from './Security/TabSecurity.test';
+import sTabSecurityAccessibility from './Security/TabSecurityAccessibility.test';
+import sTabSecurityValidation from './Security/TabSecurityValidation.test';
 
 export default function testsuite(): void {
   abilityTest();
-
-  PublishConcurrency();
-  PublishConsistency();
-  PublishEndToEnd();
-  PublishErrorRecovery();
-  PublishLifecycle();
-  PublishStateManagement();
-  PublishStress();
-  PublishViewState();
-  PublishInputInteraction();
-  CommentModelBasics();
-  PublishComposerConfiguration();
-  CommentModelDeep();
-  PublishOperationCatalog();
-  PublishOperationFlow();
-  PublishOperations();
-  PublishOperationWorkflow();
-
-  // Category: DraftValidation (8 suites)
-  DraftContentRules();
-  DraftWhitespacePolicy();
-  DraftInputBinding();
-  DraftTextNormalization();
-  DraftInterruptionRecovery();
-  DraftPublishFeedback();
-  DraftOfflineQueue();
-  DraftSessionValidation();
-
-  // Category: ModelValidation (11 suites)
-  ModelFieldTransmission();
-  ModelBoundaryValues();
-  ModelMutationTracking();
-  ModelDefaults();
-  ModelIdentity();
-  ModelEquality();
-  ModelTextValidation();
-  ModelUnicode();
-  ModelSerialization();
-  ModelCloning();
-  ModelReplyFields();
-
-  // Category: Interaction (14 suites, pure logic models only)
-  NavigationModel();
-  ButtonStateModel();
-  ContentScalingModel();
-  DataBindingModel();
-  ComposerPositionModel();
-  EventHandlingModel();
-  EventPropagationModel();
-  FocusNavigationModel();
-  FocusRingModel();
-  GestureRecognitionModel();
-  ThemeVariationModel();
-  TouchInteractionModel();
-  RenderPipelineModel();
-  VisualEffectsModel();
-
-  // Category: LifecycleState (10 suites)
-  PageConfiguration();
-  ComposerLifecycle();
-  BoardStateManagement();
-  BoardErrorRecovery();
-  BoardExceptionHandling();
-  AbilityLifecycle();
-  BoardResourceManagement();
-  BoardSessionManagement();
-  BoardStatePersistence();
-  BoardStateRecovery();
-
-  // Category: PerformanceStability (7 suites)
-  RenderLoopPerformance();
-  ConcurrencyControl();
-  LongTermStability();
-  MemoryLeakDetection();
-  PerformanceStress();
-  WorkloadBudget();
-  ThroughputProfile();
-
-  // Category: Integration (9 suites)
-  AdvancedScenarios();
-  ComprehensiveRegression();
-  DeviceCompatibility();
-  IntegrationTesting();
-  LocalizationTesting();
-  OfflineCommentSync();
-  CompatibilityMatrix();
-  SystemIntegration();
-  UserScenarios();
-
-  // Category: Security (3 suites)
-  InputSanitization();
-  DataExposure();
-  SecurityValidation();
+  tTabConcurrency();
+  tTabConsistency();
+  tTabEndToEnd();
+  tTabErrorRecovery();
+  tTabInputInteraction();
+  tTabItemInfoModel();
+  tTabLifecycle();
+  tTabMenuConfiguration();
+  tTabModelDeep();
+  tTabOperationCatalog();
+  tTabOperationFlow();
+  tTabOperations();
+  tTabOperationWorkflow();
+  tTabStateManagement();
+  tTabStress();
+  tTabSurfaceModel();
+  tTabAppVersion();
+  tTabAuthSession();
+  tTabDataSourceValidation();
+  tTabEventToolValidation();
+  tTabInterruptionRecovery();
+  tTabNotification();
+  tTabOfflineNetwork();
+  tTabSessionValidation();
+  sSkeletonAnimationControllerValidation();
+  sSkeletonBoundaryErrorTesting();
+  sSkeletonCommonEventValidation();
+  sSkeletonConfigurationManagerValidation();
+  sSkeletonFocusManagerValidation();
+  sSkeletonInputValidation();
+  sSkeletonKeyCodeValidation();
+  sSkeletonLoggerValidation();
+  sSkeletonPointerValidation();
+  sSkeletonResourceLoaderValidation();
+  sSkeletonStateManagerValidation();
+  iTabAccessibilityNavigation();
+  iTabButtonInteraction();
+  iTabComponentRendering();
+  iTabContentScaling();
+  iTabDataBinding();
+  iTabEventHandling();
+  iTabEventPropagation();
+  iTabFocusNavigation();
+  iTabFocusRingBehavior();
+  iTabGestureRecognition();
+  iTabPositioning();
+  iTabThemeVariation();
+  iTabTouchInteraction();
+  iTabVisualEffects();
+  lTabConfigurationChanges();
+  lTabExceptionHandling();
+  lTabExtensionLifecycle();
+  lTabIndicatorLifecycle();
+  lTabResourceManagement();
+  lTabSessionManagement();
+  lTabStateErrorRecovery();
+  lTabStatePersistence();
+  lTabStateRecovery();
+  lTabStateTransitions();
+  pTabAnimationPerformance();
+  pTabConcurrencyControl();
+  pTabLongTermStability();
+  pTabMemoryStability();
+  pTabPerformanceStress();
+  pTabPowerConsumption();
+  pTabPowerPerformance();
+  iResourceContract();
+  iTabAdvancedScenarios();
+  iTabComprehensiveRegression();
+  iTabDeviceCompatibility();
+  iTabIntegrationTesting();
+  iTabLocalizationTesting();
+  iTabNetworkConnectivity();
+  iTabPlatformCompatibility();
+  iTabSystemIntegration();
+  iTabUserScenarios();
+  sTabSecurity();
+  sTabSecurityAccessibility();
+  sTabSecurityValidation();
 }
