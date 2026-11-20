@@ -2136,3 +2136,431 @@ export default function prefStoreMatrixTest() {
     logCase('testPrefStore0110', 'overwrite 13');
     const context: common.Context = entryContext();
     const pref: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'overwrite_store' });
+    pref.putSync('slot_13', 'first-13');
+    expect(pref.getSync('slot_13', '') as string).assertEqual('first-13');
+    pref.putSync('slot_13', 'second-13');
+    expect(pref.getSync('slot_13', '') as string).assertEqual('second-13');
+    await pref.flush();
+    pref.deleteSync('slot_13');
+    expect(pref.hasSync('slot_13')).assertFalse();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_PREF_0111
+   * @tc.name      testPrefStore0111
+   * @tc.desc      Preference overwrite pass 14
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testPrefStore0111', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testPrefStore0111', 'overwrite 14');
+    const context: common.Context = entryContext();
+    const pref: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'overwrite_store' });
+    pref.putSync('slot_14', 'first-14');
+    expect(pref.getSync('slot_14', '') as string).assertEqual('first-14');
+    pref.putSync('slot_14', 'second-14');
+    expect(pref.getSync('slot_14', '') as string).assertEqual('second-14');
+    await pref.flush();
+    pref.deleteSync('slot_14');
+    expect(pref.hasSync('slot_14')).assertFalse();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_PREF_0112
+   * @tc.name      testPrefStore0112
+   * @tc.desc      Preference overwrite pass 15
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testPrefStore0112', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testPrefStore0112', 'overwrite 15');
+    const context: common.Context = entryContext();
+    const pref: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'overwrite_store' });
+    pref.putSync('slot_15', 'first-15');
+    expect(pref.getSync('slot_15', '') as string).assertEqual('first-15');
+    pref.putSync('slot_15', 'second-15');
+    expect(pref.getSync('slot_15', '') as string).assertEqual('second-15');
+    await pref.flush();
+    pref.deleteSync('slot_15');
+    expect(pref.hasSync('slot_15')).assertFalse();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_PREF_0113
+   * @tc.name      testPrefStore0113
+   * @tc.desc      Preference stores isolate pass 1
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testPrefStore0113', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testPrefStore0113', 'isolation 1');
+    const context: common.Context = entryContext();
+    const left: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'iso_left_1' });
+    const right: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'iso_right_1' });
+    left.putSync('shared_key', 'left-1');
+    right.putSync('shared_key', 'right-1');
+    expect(left.getSync('shared_key', '') as string).assertEqual('left-1');
+    expect(right.getSync('shared_key', '') as string).assertEqual('right-1');
+    left.deleteSync('shared_key');
+    expect(left.hasSync('shared_key')).assertFalse();
+    expect(right.hasSync('shared_key')).assertTrue();
+    right.deleteSync('shared_key');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_PREF_0114
+   * @tc.name      testPrefStore0114
+   * @tc.desc      Preference stores isolate pass 2
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testPrefStore0114', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testPrefStore0114', 'isolation 2');
+    const context: common.Context = entryContext();
+    const left: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'iso_left_2' });
+    const right: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'iso_right_2' });
+    left.putSync('shared_key', 'left-2');
+    right.putSync('shared_key', 'right-2');
+    expect(left.getSync('shared_key', '') as string).assertEqual('left-2');
+    expect(right.getSync('shared_key', '') as string).assertEqual('right-2');
+    left.deleteSync('shared_key');
+    expect(left.hasSync('shared_key')).assertFalse();
+    expect(right.hasSync('shared_key')).assertTrue();
+    right.deleteSync('shared_key');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_PREF_0115
+   * @tc.name      testPrefStore0115
+   * @tc.desc      Preference stores isolate pass 3
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testPrefStore0115', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testPrefStore0115', 'isolation 3');
+    const context: common.Context = entryContext();
+    const left: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'iso_left_3' });
+    const right: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'iso_right_3' });
+    left.putSync('shared_key', 'left-3');
+    right.putSync('shared_key', 'right-3');
+    expect(left.getSync('shared_key', '') as string).assertEqual('left-3');
+    expect(right.getSync('shared_key', '') as string).assertEqual('right-3');
+    left.deleteSync('shared_key');
+    expect(left.hasSync('shared_key')).assertFalse();
+    expect(right.hasSync('shared_key')).assertTrue();
+    right.deleteSync('shared_key');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_PREF_0116
+   * @tc.name      testPrefStore0116
+   * @tc.desc      Preference stores isolate pass 4
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testPrefStore0116', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testPrefStore0116', 'isolation 4');
+    const context: common.Context = entryContext();
+    const left: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'iso_left_4' });
+    const right: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'iso_right_4' });
+    left.putSync('shared_key', 'left-4');
+    right.putSync('shared_key', 'right-4');
+    expect(left.getSync('shared_key', '') as string).assertEqual('left-4');
+    expect(right.getSync('shared_key', '') as string).assertEqual('right-4');
+    left.deleteSync('shared_key');
+    expect(left.hasSync('shared_key')).assertFalse();
+    expect(right.hasSync('shared_key')).assertTrue();
+    right.deleteSync('shared_key');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_PREF_0117
+   * @tc.name      testPrefStore0117
+   * @tc.desc      Preference stores isolate pass 5
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testPrefStore0117', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testPrefStore0117', 'isolation 5');
+    const context: common.Context = entryContext();
+    const left: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'iso_left_5' });
+    const right: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'iso_right_5' });
+    left.putSync('shared_key', 'left-5');
+    right.putSync('shared_key', 'right-5');
+    expect(left.getSync('shared_key', '') as string).assertEqual('left-5');
+    expect(right.getSync('shared_key', '') as string).assertEqual('right-5');
+    left.deleteSync('shared_key');
+    expect(left.hasSync('shared_key')).assertFalse();
+    expect(right.hasSync('shared_key')).assertTrue();
+    right.deleteSync('shared_key');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_PREF_0118
+   * @tc.name      testPrefStore0118
+   * @tc.desc      Preference stores isolate pass 6
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testPrefStore0118', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testPrefStore0118', 'isolation 6');
+    const context: common.Context = entryContext();
+    const left: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'iso_left_6' });
+    const right: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'iso_right_6' });
+    left.putSync('shared_key', 'left-6');
+    right.putSync('shared_key', 'right-6');
+    expect(left.getSync('shared_key', '') as string).assertEqual('left-6');
+    expect(right.getSync('shared_key', '') as string).assertEqual('right-6');
+    left.deleteSync('shared_key');
+    expect(left.hasSync('shared_key')).assertFalse();
+    expect(right.hasSync('shared_key')).assertTrue();
+    right.deleteSync('shared_key');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_PREF_0119
+   * @tc.name      testPrefStore0119
+   * @tc.desc      Preference stores isolate pass 7
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testPrefStore0119', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testPrefStore0119', 'isolation 7');
+    const context: common.Context = entryContext();
+    const left: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'iso_left_7' });
+    const right: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'iso_right_7' });
+    left.putSync('shared_key', 'left-7');
+    right.putSync('shared_key', 'right-7');
+    expect(left.getSync('shared_key', '') as string).assertEqual('left-7');
+    expect(right.getSync('shared_key', '') as string).assertEqual('right-7');
+    left.deleteSync('shared_key');
+    expect(left.hasSync('shared_key')).assertFalse();
+    expect(right.hasSync('shared_key')).assertTrue();
+    right.deleteSync('shared_key');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_PREF_0120
+   * @tc.name      testPrefStore0120
+   * @tc.desc      Preference stores isolate pass 8
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testPrefStore0120', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testPrefStore0120', 'isolation 8');
+    const context: common.Context = entryContext();
+    const left: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'iso_left_8' });
+    const right: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'iso_right_8' });
+    left.putSync('shared_key', 'left-8');
+    right.putSync('shared_key', 'right-8');
+    expect(left.getSync('shared_key', '') as string).assertEqual('left-8');
+    expect(right.getSync('shared_key', '') as string).assertEqual('right-8');
+    left.deleteSync('shared_key');
+    expect(left.hasSync('shared_key')).assertFalse();
+    expect(right.hasSync('shared_key')).assertTrue();
+    right.deleteSync('shared_key');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_PREF_0121
+   * @tc.name      testPrefStore0121
+   * @tc.desc      Preference clear pass 1 empties store
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testPrefStore0121', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testPrefStore0121', 'clear 1');
+    const context: common.Context = entryContext();
+    const pref: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'clear_store_1' });
+    pref.putSync('one', 'a-1');
+    pref.putSync('two', 'b-1');
+    pref.putSync('three', 'c-1');
+    expect(pref.hasSync('one')).assertTrue();
+    expect(pref.hasSync('two')).assertTrue();
+    pref.clearSync();
+    expect(pref.hasSync('one')).assertFalse();
+    expect(pref.hasSync('two')).assertFalse();
+    expect(pref.hasSync('three')).assertFalse();
+    await pref.flush();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_PREF_0122
+   * @tc.name      testPrefStore0122
+   * @tc.desc      Preference clear pass 2 empties store
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testPrefStore0122', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testPrefStore0122', 'clear 2');
+    const context: common.Context = entryContext();
+    const pref: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'clear_store_2' });
+    pref.putSync('one', 'a-2');
+    pref.putSync('two', 'b-2');
+    pref.putSync('three', 'c-2');
+    expect(pref.hasSync('one')).assertTrue();
+    expect(pref.hasSync('two')).assertTrue();
+    pref.clearSync();
+    expect(pref.hasSync('one')).assertFalse();
+    expect(pref.hasSync('two')).assertFalse();
+    expect(pref.hasSync('three')).assertFalse();
+    await pref.flush();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_PREF_0123
+   * @tc.name      testPrefStore0123
+   * @tc.desc      Preference clear pass 3 empties store
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testPrefStore0123', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testPrefStore0123', 'clear 3');
+    const context: common.Context = entryContext();
+    const pref: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'clear_store_3' });
+    pref.putSync('one', 'a-3');
+    pref.putSync('two', 'b-3');
+    pref.putSync('three', 'c-3');
+    expect(pref.hasSync('one')).assertTrue();
+    expect(pref.hasSync('two')).assertTrue();
+    pref.clearSync();
+    expect(pref.hasSync('one')).assertFalse();
+    expect(pref.hasSync('two')).assertFalse();
+    expect(pref.hasSync('three')).assertFalse();
+    await pref.flush();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_PREF_0124
+   * @tc.name      testPrefStore0124
+   * @tc.desc      Preference clear pass 4 empties store
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testPrefStore0124', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testPrefStore0124', 'clear 4');
+    const context: common.Context = entryContext();
+    const pref: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'clear_store_4' });
+    pref.putSync('one', 'a-4');
+    pref.putSync('two', 'b-4');
+    pref.putSync('three', 'c-4');
+    expect(pref.hasSync('one')).assertTrue();
+    expect(pref.hasSync('two')).assertTrue();
+    pref.clearSync();
+    expect(pref.hasSync('one')).assertFalse();
+    expect(pref.hasSync('two')).assertFalse();
+    expect(pref.hasSync('three')).assertFalse();
+    await pref.flush();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_PREF_0125
+   * @tc.name      testPrefStore0125
+   * @tc.desc      Preference clear pass 5 empties store
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testPrefStore0125', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testPrefStore0125', 'clear 5');
+    const context: common.Context = entryContext();
+    const pref: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'clear_store_5' });
+    pref.putSync('one', 'a-5');
+    pref.putSync('two', 'b-5');
+    pref.putSync('three', 'c-5');
+    expect(pref.hasSync('one')).assertTrue();
+    expect(pref.hasSync('two')).assertTrue();
+    pref.clearSync();
+    expect(pref.hasSync('one')).assertFalse();
+    expect(pref.hasSync('two')).assertFalse();
+    expect(pref.hasSync('three')).assertFalse();
+    await pref.flush();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_PREF_0126
+   * @tc.name      testPrefStore0126
+   * @tc.desc      Preference clear pass 6 empties store
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testPrefStore0126', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testPrefStore0126', 'clear 6');
+    const context: common.Context = entryContext();
+    const pref: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'clear_store_6' });
+    pref.putSync('one', 'a-6');
+    pref.putSync('two', 'b-6');
+    pref.putSync('three', 'c-6');
+    expect(pref.hasSync('one')).assertTrue();
+    expect(pref.hasSync('two')).assertTrue();
+    pref.clearSync();
+    expect(pref.hasSync('one')).assertFalse();
+    expect(pref.hasSync('two')).assertFalse();
+    expect(pref.hasSync('three')).assertFalse();
+    await pref.flush();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_PREF_0127
+   * @tc.name      testPrefStore0127
+   * @tc.desc      Preference clear pass 7 empties store
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testPrefStore0127', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testPrefStore0127', 'clear 7');
+    const context: common.Context = entryContext();
+    const pref: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'clear_store_7' });
+    pref.putSync('one', 'a-7');
+    pref.putSync('two', 'b-7');
+    pref.putSync('three', 'c-7');
+    expect(pref.hasSync('one')).assertTrue();
+    expect(pref.hasSync('two')).assertTrue();
+    pref.clearSync();
+    expect(pref.hasSync('one')).assertFalse();
+    expect(pref.hasSync('two')).assertFalse();
+    expect(pref.hasSync('three')).assertFalse();
+    await pref.flush();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_PREF_0128
+   * @tc.name      testPrefStore0128
+   * @tc.desc      Preference clear pass 8 empties store
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testPrefStore0128', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testPrefStore0128', 'clear 8');
+    const context: common.Context = entryContext();
+    const pref: preferences.Preferences = preferences.getPreferencesSync(context, { name: 'clear_store_8' });
+    pref.putSync('one', 'a-8');
+    pref.putSync('two', 'b-8');
+    pref.putSync('three', 'c-8');
+    expect(pref.hasSync('one')).assertTrue();
+    expect(pref.hasSync('two')).assertTrue();
+    pref.clearSync();
+    expect(pref.hasSync('one')).assertFalse();
+    expect(pref.hasSync('two')).assertFalse();
+    expect(pref.hasSync('three')).assertFalse();
+    await pref.flush();
+  });
+  });
+}
