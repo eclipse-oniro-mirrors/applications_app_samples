@@ -1,5 +1,4 @@
 'use static';
-
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,633 +14,601 @@
  * limitations under the License.
  */
 
-import { NewsCommentModel } from '../../../../main/ets/model/NewsCommentModel.ets';
-import { mockData, curUser } from '../../../../main/ets/mock/NewsDetailData.ets';
+/**
+ * Pure logical model of the custom animation tab page. No UI framework is
+ * imported here. The model mirrors the transitions that Index.ets performs in
+ * its tab click handler, in its Swiper.onChange callback and in its horizontal
+ * Scroll.onDidScroll callback. Expectations in the suites come from the
+ * independent oracle functions in this file, never from the model itself.
+ */
 
-/** Fixed publish timestamp used by Index.ets for every locally created row. */
-export const FIXED_TIME: string = '2024-11-01 23:00:00';
-
-/** Mock data oracle, hand copied from NewsDetailData.ets. */
-export const EXPECTED_IDS: Array<string> = ['1', '2', '3', '4', '5', '7', '8', '9'];
-
-export const EXPECTED_USERS: Array<string> = [
-  '你若安好便是晴天',
-  '天要下雨娘要嫁人',
-  '太阳打北边出来了',
-  '西红柿炒鸡蛋蛋卷(特辣)',
-  '东边有个塔玛，西边有个喇嘛',
-  '等烟雨而我在等你',
-  '大事不妙了',
-  '小猫带耳机'
+export const TABS: string[] = [
+  '\u5168\u90e8', 'UI\u5e03\u5c40', '\u52a8\u6548', '\u4e09\u65b9\u5e93', '\u5176\u4ed6'
 ];
+export const TAB_KEYS: string[] = ['all', 'layout', 'motion', 'thirdParty', 'other'];
+export const DATA_ROWS: string[] = ['0', '1', '2', '3', '4', '5', '6', '7'];
 
-export const EXPECTED_TEXTS: Array<string> = [
-  '国足加油！国足必胜！',
-  '来点信心，加油加油~',
-  '下一场什么时候，有直播吗',
-  '教练组的战术调整值得肯定，尤其是在中场控制方面有所改善。',
-  '期待他们在未来的比赛中继续进步！',
-  '希望接下来的比赛中继续发挥，成为球队的中坚力量。',
-  '与世界强队的差距依然显著，继续努力吧。',
-  '国足必胜，加油加油。'
-];
+export const TAB_COUNT: number = 5;
+export const DATA_ROW_COUNT: number = 8;
+export const TAB_WIDTH: number = 95;
+export const BAR_WIDTH: number = 90;
+export const BAR_HEIGHT: number = 60;
+export const BAR_RADIUS: number = 20;
+export const BAR_TOP_MARGIN: number = 10;
+export const PAGE_HEIGHT_PERCENT: number = 85;
+export const BUTTON_HEIGHT_PERCENT: number = 15;
 
-export const MODEL_FIELDS: Array<string> = [
-  'id', 'url', 'user', 'replyId', 'replyUser', 'text', 'commentTime'
-];
+export const DEFAULT_COLOR: string = '#C0C0C0';
+export const TOGGLE_COLOR: string = 'yellow';
+export const SCROLL_LEFT: number = 90;
+export const SCROLL_RIGHT: number = -90;
+export const SELECT_FONT_SIZE: number = 18;
+export const UNSELECT_FONT_SIZE: number = 17;
 
-/* ----------------------- Layout oracle: CommentPage.ets ------------------ */
+export const CARD_HEIGHT: number = 102;
+export const CARD_RADIUS: number = 8;
+export const IMAGE_WIDTH: number = 128;
+export const IMAGE_HEIGHT: number = 80;
+export const IMAGE_RADIUS: number = 8;
+export const TOPIC_WIDTH: number = 58;
+export const TOPIC_HEIGHT: number = 16;
+export const TOPIC_RADIUS: number = 4;
+export const ACTION_WIDTH: number = 58;
+export const ACTION_HEIGHT: number = 20;
+export const PADDING: number = 12;
+export const ROW_HEIGHT: number = 40;
+export const TITLE_HEIGHT: number = 20;
+export const TEXT_HEIGHT: number = 20;
+export const TEXT_GAP_HEIGHT: number = 4;
 
-export const AVATAR_SIZE: number = 30;
-export const AVATAR_RADIUS: number = 30;
-export const AVATAR_MARGIN_TOP: number = 10;
-export const AVATAR_MARGIN_LEFT: number = 15;
-export const NAME_FONT_SIZE: number = 14;
-export const NAME_FONT_WEIGHT: number = 500;
-export const NAME_COLOR: string = '#000000';
-export const NAME_WIDTH_PERCENT: number = 80;
-export const NAME_MARGIN_BOTTOM: number = 6;
-export const BODY_FONT_SIZE: number = 14;
-export const BODY_FONT_WEIGHT: number = 400;
-export const BODY_OPACITY: number = 0.8;
-export const BODY_LINE_HEIGHT: number = 20;
-export const BODY_WIDTH_PERCENT: number = 80;
-export const BODY_MARGIN_BOTTOM: number = 6;
-export const REPLY_ROW_WIDTH_PERCENT: number = 85;
-export const REPLY_FONT_SIZE: number = 14;
-export const REPLY_COLOR: string = '#368AEF';
-export const REPLY_BACKGROUND: string = '#dbdbdb';
-export const REPLY_RADIUS: number = 5;
-export const REPLY_OPACITY: number = 0.8;
-export const REPLY_PAD_HORIZONTAL: number = 3;
-export const REPLY_PAD_VERTICAL: number = 2;
-export const CONTENT_PAD_LEFT: number = 12;
-export const CONTENT_PAD_TOP: number = 10;
-export const ACTION_ICON_SIZE: number = 20;
-export const ACTION_ICON_GAP: number = 20;
+export class FloatEntry {
+  name: string;
+  value: number;
+  unit: string;
 
-/* ------------------------- Layout oracle: Index.ets --------------------- */
-
-export const TITLE_BAR_HEIGHT: number = 55;
-export const TITLE_BAR_PADDING: number = 10;
-export const AVATAR_BADGE_SIZE: number = 55;
-export const BADGE_FONT_SIZE: number = 11;
-export const BADGE_HEIGHT: number = 16;
-export const BADGE_WIDTH: number = 55;
-export const BADGE_TEXT_COLOR: string = '#ff3d36';
-export const BADGE_BACKGROUND: string = '#ffeeee';
-export const SEARCH_PLACEHOLDER_FONT: number = 14;
-export const SEARCH_PLACEHOLDER_WEIGHT: number = 400;
-export const SEARCH_HEIGHT_PERCENT: number = 75;
-export const SEARCH_MARGIN_LEFT: number = 15;
-export const HEADLINE_FONT_SIZE: number = 20;
-export const HEADLINE_FONT_WEIGHT: number = 600;
-export const HEADLINE_MARGIN: number = 10;
-export const MEDIA_NAME_FONT_SIZE: number = 14;
-export const MEDIA_INFO_FONT_SIZE: number = 12;
-export const NEWS_ROW_HEIGHT: number = 40;
-export const FOLLOW_BADGE_WIDTH: number = 50;
-export const FOLLOW_BADGE_HEIGHT: number = 25;
-export const FOLLOW_BADGE_FONT: number = 13;
-export const FOLLOW_BADGE_BACKGROUND: string = '#ff3f3a';
-export const STORY_FONT_SIZE: number = 18;
-export const STORY_LINE_HEIGHT: number = 20;
-export const DISCLAIMER_FONT_SIZE: number = 14;
-export const COMMENT_TITLE_WIDTH_PERCENT: number = 95;
-export const COMMENT_TITLE_HEIGHT: number = 30;
-export const COMMENT_COUNT_FONT: number = 20;
-export const COMMENT_COUNT_WEIGHT: number = 700;
-export const COMMENT_ACTION_FONT: number = 14;
-export const COMMENT_ACTION_WEIGHT: number = 700;
-export const PUBLISH_BAR_HEIGHT: number = 40;
-export const PUBLISH_BAR_RADIUS: number = 30;
-export const PUBLISH_BAR_BORDER: number = 1;
-export const PUBLISH_BAR_BORDER_COLOR: string = '#eeeeee';
-export const PUBLISH_BAR_PAD_LEFT: number = 15;
-export const PUBLISH_WRAP_HEIGHT: number = 100;
-export const PUBLISH_WRAP_PAD: number = 10;
-export const PANEL_HEIGHT_PERCENT: number = 95;
-export const EDITOR_ROW_HEIGHT: number = 50;
-export const EDITOR_PADDING: number = 10;
-export const INPUT_HEIGHT: number = 40;
-export const INPUT_PAD_LEFT: number = 10;
-export const INPUT_PAD_RIGHT: number = 50;
-export const INPUT_PAD_VERTICAL: number = 3;
-export const PUBLISH_BUTTON_WIDTH: number = 60;
-export const PUBLISH_BUTTON_HEIGHT: number = 30;
-export const PUBLISH_BUTTON_RADIUS: number = 15;
-export const PUBLISH_BUTTON_BACKGROUND: string = '#ed394b';
-export const PUBLISH_BUTTON_FOREGROUND: string = '#ffffff';
-export const PUBLISH_BUTTON_GAP: number = 10;
-export const SHARE_BAR_HEIGHT: number = 60;
-export const SHARE_ITEM_WIDTH_PERCENT: number = 25;
-export const SHARE_ICON_SIZE: number = 20;
-export const SHARE_ICON_GAP_LEFT: number = 5;
-export const SHARE_ICON_GAP_RIGHT: number = 8;
-
-/* --------------------------- Time oracle helpers ------------------------ */
-
-/** Decomposed timestamp, produced by an independent parser. */
-export class TimeParts {
-  public year: number = 0;
-  public month: number = 0;
-  public day: number = 0;
-  public hour: number = 0;
-  public minute: number = 0;
-  public second: number = 0;
-
-  constructor(year: number, month: number, day: number, hour: number, minute: number, second: number) {
-    this.year = year;
-    this.month = month;
-    this.day = day;
-    this.hour = hour;
-    this.minute = minute;
-    this.second = second;
+  constructor(name: string, value: number, unit: string) {
+    this.name = name;
+    this.value = value;
+    this.unit = unit;
   }
 }
 
-/** True when value is one of the ten ASCII digits. */
-export function isDigitChar(value: string): boolean {
-  return value.length === 1 && value >= '0' && value <= '9';
+export class IntEntry {
+  name: string;
+  value: number;
+
+  constructor(name: string, value: number) {
+    this.name = name;
+    this.value = value;
+  }
 }
 
-/** Parses a fixed width number slice without Number() on the whole string. */
-export function sliceNumber(value: string, start: int, length: int): number {
-  if (start < 0 || start + length > value.length) {
-    return -1;
+export class ColorEntry {
+  name: string;
+  hex: string;
+
+  constructor(name: string, hex: string) {
+    this.name = name;
+    this.hex = hex;
   }
-  let result: number = 0;
-  for (let index = start; index < start + length; index++) {
-    const digit: number = value.charCodeAt(index) - 48;
-    if (digit < 0 || digit > 9) {
-      return -1;
+}
+
+export const FLOAT_ENTRIES: FloatEntry[] = [
+  new FloatEntry('custom_animation_tab_list_select_font_size', 18, 'fp'),
+  new FloatEntry('custom_animation_tab_list_unselect_font_size', 17, 'fp'),
+  new FloatEntry('custom_animation_tab_ske_large_border_radius', 8, 'vp'),
+  new FloatEntry('custom_animation_tab_ske_small_border_radius', 8, 'vp'),
+  new FloatEntry('custom_animation_tab_ske_xs_border_radius', 4, 'vp'),
+  new FloatEntry('custom_animation_tab_ske_lg_topic_width', 58, 'vp'),
+  new FloatEntry('custom_animation_tab_ske_topic_height', 16, 'vp'),
+  new FloatEntry('custom_animation_tab_ske_action_area_height', 20, 'vp'),
+  new FloatEntry('custom_animation_tab_ske_card_height', 102, 'vp'),
+  new FloatEntry('custom_animation_tab_ske_card_title_height', 20, 'vp'),
+  new FloatEntry('custom_animation_tab_ske_card_text_height', 20, 'vp'),
+  new FloatEntry('custom_animation_tab_ske_image_height', 80, 'vp'),
+  new FloatEntry('custom_animation_tab_ske_md_padding_margin', 12, 'vp'),
+  new FloatEntry('custom_animation_tab_ske_row_height', 40, 'vp')
+];
+
+export const COLOR_ENTRIES: ColorEntry[] = [
+  new ColorEntry('start_window_background', '#FFFFFF'),
+  new ColorEntry('custom_animation_tab_skeleton_color_medium', '#FFF2F3F4'),
+  new ColorEntry('custom_animation_tab_skeleton_color_light', '#FFECECEC')
+];
+
+export const INT_ENTRIES: IntEntry[] = [
+  new IntEntry('multiple_files_download_image_size_fifty', 50),
+  new IntEntry('multiple_files_download_image_size_twenty_five', 25),
+  new IntEntry('multiple_files_download_text_font_size_fourteen', 14),
+  new IntEntry('multiple_files_download_text_font_size_twelve', 12),
+  new IntEntry('multiple_files_download_text_font_size_twenty_five', 25),
+  new IntEntry('multiple_files_download_text_font_size_twenty', 20),
+  new IntEntry('multiple_files_download_padding_twenty', 20),
+  new IntEntry('multiple_files_download_padding_fifteen', 15),
+  new IntEntry('multiple_files_download_margin_bottom_eighteen', 18),
+  new IntEntry('multiple_files_download_margin_bottom_twelve', 12),
+  new IntEntry('multiple_files_download_margin_top_twenty', 20),
+  new IntEntry('multiple_files_download_margin_top_seven', 7),
+  new IntEntry('multiple_files_download_margin_top_five', 5),
+  new IntEntry('multiple_files_download_progress_height', 5),
+  new IntEntry('multiple_files_download_border_width', 5),
+  new IntEntry('multiple_files_download_border_radius', 10),
+  new IntEntry('multiple_files_download_margin_top_thirty', 30),
+  new IntEntry('multiple_files_download_margin_left_four', 4),
+  new IntEntry('multiple_files_download_padding_zero', 0),
+  new IntEntry('multiple_files_download_padding_five', 5),
+  new IntEntry('multiple_files_download_height_twenty_six', 26),
+  new IntEntry('multiple_files_download_borderRadius_eight', 8),
+  new IntEntry('multiple_files_download_borderRadius_twelve', 12),
+  new IntEntry('multiple_files_download_history_percentage_fifty', 50),
+  new IntEntry('multiple_files_download_margin_left_sixty', 60)
+];
+
+export function floatOf(name: string): number {
+  for (let i = 0; i < FLOAT_ENTRIES.length; i++) {
+    if (FLOAT_ENTRIES[i].name === name) {
+      return FLOAT_ENTRIES[i].value;
     }
-    result = result * 10 + digit;
   }
-  return result;
+  return -1;
 }
 
-/** Parses 'YYYY-MM-DD HH:mm:ss', returning null when the shape is wrong. */
-export function parseTime(value: string): TimeParts | null {
-  if (value.length !== 19) {
-    return null;
+export function integerOf(name: string): number {
+  for (let i = 0; i < INT_ENTRIES.length; i++) {
+    if (INT_ENTRIES[i].name === name) {
+      return INT_ENTRIES[i].value;
+    }
   }
-  if (value.charAt(4).toString() !== '-' || value.charAt(7).toString() !== '-') {
-    return null;
-  }
-  if (value.charAt(10).toString() !== ' ' || value.charAt(13).toString() !== ':' || value.charAt(16).toString() !== ':') {
-    return null;
-  }
-  const year: number = sliceNumber(value, 0, 4);
-  const month: number = sliceNumber(value, 5, 2);
-  const day: number = sliceNumber(value, 8, 2);
-  const hour: number = sliceNumber(value, 11, 2);
-  const minute: number = sliceNumber(value, 14, 2);
-  const second: number = sliceNumber(value, 17, 2);
-  if (year < 0 || month < 0 || day < 0 || hour < 0 || minute < 0 || second < 0) {
-    return null;
-  }
-  return new TimeParts(year, month, day, hour, minute, second);
+  return -1;
 }
 
-/** Formats a TimeParts instance back into the canonical layout. */
-export function formatTime(parts: TimeParts): string {
-  const year: string = parts.year.toString();
-  const month: string = parts.month < 10 ? `0${parts.month}` : parts.month.toString();
-  const day: string = parts.day < 10 ? `0${parts.day}` : parts.day.toString();
-  const hour: string = parts.hour < 10 ? `0${parts.hour}` : parts.hour.toString();
-  const minute: string = parts.minute < 10 ? `0${parts.minute}` : parts.minute.toString();
-  const second: string = parts.second < 10 ? `0${parts.second}` : parts.second.toString();
-  return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+export function colorOf(name: string): string {
+  for (let i = 0; i < COLOR_ENTRIES.length; i++) {
+    if (COLOR_ENTRIES[i].name === name) {
+      return COLOR_ENTRIES[i].hex;
+    }
+  }
+  return '';
 }
 
-/** Calendar oracle: Gregorian leap year rule. */
-export function isLeapYear(year: number): boolean {
-  if (year % 400 === 0) {
-    return true;
-  }
-  if (year % 100 === 0) {
-    return false;
-  }
-  return year % 4 === 0;
-}
-
-/** Calendar oracle: number of days of a month, zero for invalid months. */
-export function daysInMonth(year: number, month: number): number {
-  if (month < 1 || month > 12) {
+export function clampIndex(value: number): number {
+  if (value < 0) {
     return 0;
   }
-  if (month === 2) {
-    return isLeapYear(year) ? 29 : 28;
+  if (value > TAB_COUNT - 1) {
+    return TAB_COUNT - 1;
   }
-  if (month === 4 || month === 6 || month === 9 || month === 11) {
-    return 30;
-  }
-  return 31;
+  return value;
 }
 
-/** Full range validation of one timestamp string. */
-export function isValidTime(value: string): boolean {
-  const parts: TimeParts | null = parseTime(value);
-  if (parts === null) {
-    return false;
+/** Independent oracle: fold (next - current) * 95 over a click path. */
+export function oracleDisplacement(path: number[]): number {
+  let current: number = 0;
+  let total: number = 0;
+  for (let i = 0; i < path.length; i++) {
+    total += (path[i] - current) * TAB_WIDTH;
+    current = path[i];
   }
-  if (parts.year < 1970 || parts.year > 2100) {
-    return false;
-  }
-  if (parts.month < 1 || parts.month > 12) {
-    return false;
-  }
-  if (parts.day < 1 || parts.day > daysInMonth(parts.year, parts.month)) {
-    return false;
-  }
-  if (parts.hour > 23 || parts.minute > 59 || parts.second > 59) {
-    return false;
-  }
-  return true;
+  return total;
 }
 
-/* ----------------------------- UUID oracle ----------------------------- */
-
-/** True for 0-9, a-f and A-F. */
-export function isHexChar(value: string): boolean {
-  if (value.length !== 1) {
-    return false;
-  }
-  const lower: boolean = value >= 'a' && value <= 'f';
-  const upper: boolean = value >= 'A' && value <= 'F';
-  const digit: boolean = value >= '0' && value <= '9';
-  return lower || upper || digit;
-}
-
-/** Structural validation of a canonical 8-4-4-4-12 UUID. */
-export function isCanonicalUuid(value: string): boolean {
-  if (value.length !== 36) {
-    return false;
-  }
-  if (value.charAt(8).toString() !== '-' || value.charAt(13).toString() !== '-' ||
-    value.charAt(18).toString() !== '-' || value.charAt(23).toString() !== '-') {
-    return false;
-  }
-  for (let index = 0; index < value.length; index++) {
-    if (index === 8 || index === 13 || index === 18 || index === 23) {
-      continue;
-    }
-    if (!isHexChar(value.charAt(index).toString())) {
-      return false;
+/** Independent oracle: final scrollX after the documented scroll-focus rule. */
+export function oracleScrollFinal(path: number[]): number {
+  let scroll: number = 0;
+  for (let i = 0; i < path.length; i++) {
+    if (path[i] === 3) {
+      scroll = SCROLL_LEFT;
+    } else if (path[i] === 1) {
+      scroll = SCROLL_RIGHT;
     }
   }
-  return true;
+  return scroll;
 }
 
-const HEX_DIGITS: string = '0123456789abcdef';
-
-/** Deterministic UUID-shaped token, so tests never depend on randomness. */
-export function makeUuid(seed: number): string {
-  let state: number = ((seed % 2147483646) + 2147483646) % 2147483646 + 1;
-  let raw: string = '';
-  for (let index = 0; index < 32; index++) {
-    state = (state * 48271) % 2147483647;
-    const slot: int = (state % 16).toInt();
-    raw += HEX_DIGITS.charAt(slot).toString();
-  }
-  const block1: string = raw.substring(0, 8);
-  const block2: string = raw.substring(8, 12);
-  const block3: string = `4${raw.substring(13, 16)}`;
-  const variant: string = `a${raw.substring(17, 20)}`;
-  const block5: string = raw.substring(20, 32);
-  return `${block1}-${block2}-${block3}-${variant}-${block5}`;
-}
-
-/* --------------------------- Text helpers ------------------------------ */
-
-/** Counts occurrences of a single character inside value. */
-export function countChar(value: string, target: string): number {
-  let count: number = 0;
-  for (let index = 0; index < value.length; index++) {
-    if (value.charAt(index).toString() === target) {
-      count++;
+/** Independent oracle: full scrollX trail, one entry per click. */
+export function oracleScrollTrail(path: number[]): number[] {
+  let scroll: number = 0;
+  let trail: number[] = [];
+  for (let i = 0; i < path.length; i++) {
+    if (path[i] === 3) {
+      scroll = SCROLL_LEFT;
+    } else if (path[i] === 1) {
+      scroll = SCROLL_RIGHT;
     }
+    trail.push(scroll);
   }
-  return count;
+  return trail;
 }
 
-/** Stable 32 bit digest of a string, computed without external helpers. */
-export function stableHash(value: string): number {
-  let hash: number = 5381;
-  for (let index = 0; index < value.length; index++) {
-    hash = (hash * 33 + value.charCodeAt(index)) % 4294967296;
+/** Independent oracle: displacement is always index * 95 after a path from 0. */
+export function oracleLinear(path: number[]): number {
+  if (path.length === 0) {
+    return 0;
   }
-  return hash;
+  return path[path.length - 1] * TAB_WIDTH;
 }
 
-/** Joins ids with a pipe, giving a compact fingerprint of list order. */
-export function joinIds(list: Array<NewsCommentModel>): string {
-  let joined: string = '';
-  for (let index = 0; index < list.length; index++) {
-    if (index > 0) {
-      joined += '|';
-    }
-    joined += list[index].id;
+export function dragTotal(deltas: number[]): number {
+  let total: number = 0;
+  for (let i = 0; i < deltas.length; i++) {
+    total -= deltas[i];
   }
-  return joined;
+  return total;
 }
 
-/** Counts distinct ids; equal to list length when every id is unique. */
-export function distinctIdCount(list: Array<NewsCommentModel>): number {
-  const seen: Array<string> = [];
-  for (let index = 0; index < list.length; index++) {
-    const id: string = list[index].id;
-    if (seen.indexOf(id) < 0) {
-      seen.push(id);
+export function settleTargetIndex(start: number, delta: number): number {
+  const half: number = TAB_WIDTH / 2;
+  let steps: number = 0;
+  let rest: number = delta;
+  while (rest >= half) {
+    steps++;
+    rest -= TAB_WIDTH;
+  }
+  while (rest <= -half) {
+    steps--;
+    rest += TAB_WIDTH;
+  }
+  return clampIndex(start + steps);
+}
+
+export function settleRebounds(start: number, delta: number): boolean {
+  return settleTargetIndex(start, delta) === start;
+}
+
+export function colorAfterToggles(toggles: number): string {
+  return toggles % 2 === 0 ? DEFAULT_COLOR : TOGGLE_COLOR;
+}
+
+export function uniqueCount(items: string[]): number {
+  let seen: string[] = [];
+  for (let i = 0; i < items.length; i++) {
+    if (seen.indexOf(items[i]) < 0) {
+      seen.push(items[i]);
     }
   }
   return seen.length;
 }
 
-/** Returns the tail slice of a list, or an empty list when count is 0. */
-export function tailOf(list: Array<NewsCommentModel>, count: int): Array<NewsCommentModel> {
-  if (count <= 0) {
-    return [];
-  }
-  if (count >= list.length) {
-    return list.slice(0);
-  }
-  return list.slice(list.length - count);
+export function totalCells(pages: number, rows: number): number {
+  return pages * rows;
 }
 
-/** Independent clone helper used to prove that fields are value copies. */
-export function cloneComment(source: NewsCommentModel): NewsCommentModel {
-  return new NewsCommentModel(
-    source.id, source.url, source.user, source.replyId, source.replyUser, source.text, source.commentTime);
+export function sequenceTotal(values: number[]): number {
+  let total: number = 0;
+  for (let i = 0; i < values.length; i++) {
+    total += values[i];
+  }
+  return total;
 }
 
-/** True when all seven fields are equal, compared field by field. */
-export function sameFields(left: NewsCommentModel, right: NewsCommentModel): boolean {
-  const idOk: boolean = left.id === right.id;
-  const urlOk: boolean = left.url === right.url;
-  const userOk: boolean = left.user === right.user;
-  const replyIdOk: boolean = left.replyId === right.replyId;
-  const replyUserOk: boolean = left.replyUser === right.replyUser;
-  const textOk: boolean = left.text === right.text;
-  const timeOk: boolean = left.commentTime === right.commentTime;
-  return idOk && urlOk && userOk && replyIdOk && replyUserOk && textOk && timeOk;
+export function rgbOf(hex: string): number[] {
+  let raw: string = hex;
+  if (raw.length === 9) {
+    raw = raw.substring(3);
+  } else if (raw.length === 7) {
+    raw = raw.substring(1);
+  }
+  const r: number = parseInt(raw.substring(0, 2), 16);
+  const g: number = parseInt(raw.substring(2, 4), 16);
+  const b: number = parseInt(raw.substring(4, 6), 16);
+  return [r, g, b];
 }
-/* ------------------------- Publish state machine ----------------------- */
 
-/**
- * Pure logic replica of the Index.ets publish flow. `editing` is the inverse
- * of `isVariable`: editing means the TextInput row is mounted.
- */
-export class CommentBoard {
-  public comments: Array<NewsCommentModel> = [];
-  public draft: string = '';
-  public editing: boolean = false;
-  public publishCount: number = 0;
-  public lastId: string = '';
-  public seeded: boolean = false;
+export function luminanceOf(hex: string): number {
+  const parts: number[] = rgbOf(hex);
+  const r: number = parts[0] / 255;
+  const g: number = parts[1] / 255;
+  const b: number = parts[2] / 255;
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
 
-  constructor(useMockSeed: boolean) {
-    this.seeded = useMockSeed;
-    this.comments = useMockSeed ? mockData() : [];
-  }
+export function contrastOf(first: string, second: string): number {
+  const a: number = luminanceOf(first) + 0.05;
+  const b: number = luminanceOf(second) + 0.05;
+  return a > b ? a / b : b / a;
+}
 
-  /** Number of comment rows currently rendered. */
-  public get count(): int {
-    return this.comments.length;
-  }
+export class TabState {
+  index: number = 0;
+  displacement: number = 0;
+  color: string = DEFAULT_COLOR;
+  scrollX: number = 0;
+  selects: number = 0;
+  drags: number = 0;
+  toggles: number = 0;
+  changes: number = 0;
+  path: number[] = [];
+  dragPath: number[] = [];
+  history: string[] = [];
 
-  /** Mirrors `isVariable`: the list panel is visible while not editing. */
-  public get listVisible(): boolean {
-    return !this.editing;
-  }
-
-  /** Opens the composer; a second open is rejected. */
-  public openComposer(): boolean {
-    if (this.editing) {
-      return false;
+  select(next: number): void {
+    const bounded: number = clampIndex(next);
+    this.displacement += (bounded - this.index) * TAB_WIDTH;
+    this.index = bounded;
+    this.selects++;
+    this.path.push(bounded);
+    this.history.push('select:' + String(bounded));
+    if (this.index === 3) {
+      this.scrollX = SCROLL_LEFT;
+    } else if (this.index === 1) {
+      this.scrollX = SCROLL_RIGHT;
     }
-    this.editing = true;
-    return true;
   }
 
-  /** Typing is only accepted while the editor is mounted. */
-  public updateDraft(value: string): boolean {
-    if (!this.editing) {
-      return false;
+  onChange(next: number): void {
+    const bounded: number = clampIndex(next);
+    this.displacement += (bounded - this.index) * TAB_WIDTH;
+    this.index = bounded;
+    this.changes++;
+    this.path.push(bounded);
+    this.history.push('change:' + String(bounded));
+    if (this.index === 3) {
+      this.scrollX = SCROLL_LEFT;
+    } else if (this.index === 1) {
+      this.scrollX = SCROLL_RIGHT;
     }
-    this.draft = value;
-    return true;
   }
 
-  /** Source rule: a draft is publishable when it is not the empty string. */
-  public get canPublish(): boolean {
-    return this.draft !== '';
+  drag(xOffset: number): void {
+    this.displacement -= xOffset;
+    this.drags++;
+    this.dragPath.push(xOffset);
+    this.history.push('drag:' + String(xOffset));
   }
 
-  /** Publishes with a caller supplied id so assertions stay deterministic. */
-  public publish(idToken: string): NewsCommentModel | null {
-    if (!this.editing || !this.canPublish) {
-      return null;
-    }
-    const row: NewsCommentModel = new NewsCommentModel(
-      idToken, '', curUser, '', '', this.draft, FIXED_TIME);
-    this.comments = [...this.comments, row];
-    this.draft = '';
-    this.editing = false;
-    this.publishCount++;
-    this.lastId = idToken;
-    return row;
+  toggleColor(): void {
+    this.color = this.color === DEFAULT_COLOR ? TOGGLE_COLOR : DEFAULT_COLOR;
+    this.toggles++;
   }
 
-  /** Closes the composer without publishing, dropping the draft. */
-  public cancel(): boolean {
-    if (!this.editing) {
-      return false;
-    }
-    this.editing = false;
-    this.draft = '';
-    return true;
+  reset(): void {
+    this.index = 0;
+    this.displacement = 0;
+    this.color = DEFAULT_COLOR;
+    this.scrollX = 0;
+    this.selects = 0;
+    this.drags = 0;
+    this.toggles = 0;
+    this.changes = 0;
+    this.path = [];
+    this.dragPath = [];
+    this.history = [];
   }
 
-  /** Appends a reply row that carries replyId / replyUser metadata. */
-  public reply(target: NewsCommentModel, replyId: string, replyUser: string, text: string,
-    idToken: string): NewsCommentModel | null {
-    if (text === '' || target.id === '') {
-      return null;
-    }
-    const row: NewsCommentModel = new NewsCommentModel(
-      idToken, '', curUser, replyId, replyUser, text, FIXED_TIME);
-    this.comments = [...this.comments, row];
-    return row;
-  }
-
-  /** Returns the rows whose user matches, preserving list order. */
-  public byUser(user: string): Array<NewsCommentModel> {
-    const result: Array<NewsCommentModel> = [];
-    for (let index = 0; index < this.comments.length; index++) {
-      if (this.comments[index].user === user) {
-        result.push(this.comments[index]);
-      }
-    }
-    return result;
-  }
-
-  /** Resets to the seed state without reloading the fixture. */
-  public reset(): void {
-    this.comments = this.seeded ? mockData() : [];
-    this.draft = '';
-    this.editing = false;
-    this.publishCount = 0;
-    this.lastId = '';
-  }
-
-  /** Read-only view of the ids in render order. */
-  public ids(): Array<string> {
-    const result: Array<string> = [];
-    for (let index = 0; index < this.comments.length; index++) {
-      result.push(this.comments[index].id);
-    }
-    return result;
+  clone(): TabState {
+    const copy: TabState = new TabState();
+    copy.index = this.index;
+    copy.displacement = this.displacement;
+    copy.color = this.color;
+    copy.scrollX = this.scrollX;
+    copy.selects = this.selects;
+    copy.drags = this.drags;
+    copy.toggles = this.toggles;
+    copy.changes = this.changes;
+    copy.path = this.path.slice();
+    copy.dragPath = this.dragPath.slice();
+    copy.history = this.history.slice();
+    return copy;
   }
 }
 
-/**
- * Drives a board through a script of operations. Supported opcodes:
- *   'open', 'focus', 'blur'   composer mount state
- *   'type:<payload>'          replace the draft
- *   'publish:<id>'            publish attempt
- *   'cancel'                  dismiss the composer
- *   'reply:<index>:<id>:<text>' append a reply to a row
- * Returns the number of accepted operations.
- */
-export function runScript(board: CommentBoard, script: Array<string>): number {
-  let accepted: number = 0;
-  for (let index = 0; index < script.length; index++) {
-    const step: string = script[index];
-    if (step === 'open') {
-      if (board.openComposer()) {
-        accepted++;
-      }
-      continue;
+export class SkeletonCard {
+  isMine: boolean = false;
+
+  constructor(isMine: boolean) {
+    this.isMine = isMine;
+  }
+
+  textBlocks(): number {
+    return 2;
+  }
+
+  imageBlocks(): number {
+    return 1;
+  }
+
+  actionBlocks(): number {
+    return this.isMine ? 0 : 3;
+  }
+
+  tagBlocks(): number {
+    return this.isMine ? 2 : 0;
+  }
+
+  totalBlocks(): number {
+    return this.textBlocks() + this.imageBlocks() + this.actionBlocks() + this.tagBlocks();
+  }
+
+  contentHeight(): number {
+    return TITLE_HEIGHT + TEXT_GAP_HEIGHT + TEXT_HEIGHT;
+  }
+
+  footerHeight(): number {
+    return ROW_HEIGHT;
+  }
+
+  innerWidth(): number {
+    return IMAGE_WIDTH + PADDING;
+  }
+
+  cardWidthWithMargins(outerWidth: number): number {
+    return outerWidth - PADDING * 2;
+  }
+
+  tagWidthAt(index: number): number {
+    return index === 0 ? TOPIC_WIDTH : TOPIC_WIDTH;
+  }
+}
+
+export class PageModel {
+  labels: string[] = TABS;
+  rows: string[] = DATA_ROWS;
+
+  cellCount(): number {
+    return totalCells(this.labels.length, this.rows.length);
+  }
+
+  labelAt(index: number): string {
+    return this.labels[clampIndex(index).toInt()];
+  }
+
+  rowAt(index: number): string {
+    if (index < 0 || index >= this.rows.length) {
+      return '';
     }
-    if (step === 'cancel') {
-      if (board.cancel()) {
-        accepted++;
+    return this.rows[index.toInt()];
+  }
+}
+
+export class ActionLog {
+  entries: string[] = [];
+
+  record(event: string): void {
+    this.entries.push(event);
+  }
+
+  size(): number {
+    return this.entries.length;
+  }
+
+  countOf(prefix: string): number {
+    let total: number = 0;
+    for (let i = 0; i < this.entries.length; i++) {
+      if (this.entries[i].indexOf(prefix) === 0) {
+        total++;
       }
-      continue;
     }
-    if (step.indexOf('type:') === 0) {
-      if (board.updateDraft(step.substring(5))) {
-        accepted++;
-      }
-      continue;
-    }
-    if (step.indexOf('publish:') === 0) {
-      if (board.publish(step.substring(8)) !== null) {
-        accepted++;
-      }
-      continue;
-    }
-    if (step.indexOf('reply:') === 0) {
-      const body: string = step.substring(6);
-      const first: int = body.indexOf(':');
-      if (first < 0) {
-        continue;
-      }
-      const second: int = body.indexOf(':', first + 1);
-      if (second < 0) {
-        continue;
-      }
-      const rowIndex: number = Number(body.substring(0, first));
-      const idToken: string = body.substring(first + 1, second);
-      const payload: string = body.substring(second + 1);
-      if (rowIndex < 0 || rowIndex >= board.comments.length) {
-        continue;
-      }
-      const target: NewsCommentModel = board.comments[rowIndex.toInt()];
-      if (board.reply(target, target.id, target.user, payload, idToken) !== null) {
-        accepted++;
-      }
+    return total;
+  }
+
+  last(): string {
+    return this.entries.length === 0 ? '' : this.entries[this.entries.length - 1];
+  }
+
+  snapshot(): string {
+    return this.entries.join('|');
+  }
+}
+
+export function sanitizeLabel(raw: string): string {
+  return raw.trim();
+}
+
+export function isBlank(raw: string): boolean {
+  return raw.trim().length === 0;
+}
+
+export function tabToPageKey(index: number): string {
+  if (index < 0 || index >= TAB_KEYS.length) {
+    return '';
+  }
+  return TAB_KEYS[index.toInt()];
+}
+
+export function pageKeyToIndex(key: string): number {
+  for (let i = 0; i < TAB_KEYS.length; i++) {
+    if (TAB_KEYS[i] === key) {
+      return i;
     }
   }
-  return accepted;
+  return -1;
 }
 
-/** Expectation table for a scripted run, filled by the caller. */
-export class BoardSnapshot {
-  public count: number = 0;
-  public ids: string = '';
-  public editing: boolean = false;
-  public draft: string = '';
-  public publishCount: number = 0;
-  public lastText: string = '';
-  public lastUser: string = '';
-  public lastId: string = '';
-}
-
-/** Captures the externally observable state of a board. */
-export function snapshot(board: CommentBoard): BoardSnapshot {
-  const result: BoardSnapshot = new BoardSnapshot();
-  result.count = board.count;
-  result.ids = joinIds(board.comments);
-  result.editing = board.editing;
-  result.draft = board.draft;
-  result.publishCount = board.publishCount;
-  if (board.comments.length > 0) {
-    const last: NewsCommentModel = board.comments[board.comments.length - 1];
-    result.lastText = last.text;
-    result.lastUser = last.user;
-    result.lastId = last.id;
-  }
-  return result;
-}
-
-/** Repeats a board cycle count times, returning elapsed wall clock millis. */
-export function runPublishCycles(board: CommentBoard, count: number, payload: string): number {
-  const started: number = Date.now();
-  for (let index = 0; index < count; index++) {
-    board.openComposer();
-    board.updateDraft(payload);
-    board.publish(`cycle-${index}`);
-  }
-  return Date.now() - started;
-}
-
-/** Builds a comment from positional arguments, mirroring the constructor. */
-export function makeComment(id: string, user: string, text: string, replyId: string,
-  replyUser: string, time: string): NewsCommentModel {
-  return new NewsCommentModel(id, '', user, replyId, replyUser, text, time);
-}
-
-/** Every mock row must satisfy this basic field contract. */
-export function allFieldsNonEmptyText(list: Array<NewsCommentModel>): boolean {
-  for (let index = 0; index < list.length; index++) {
-    if (list[index].text.length === 0) {
-      return false;
+/** FNV-1a style accumulator used to fingerprint an event log independently. */
+export function logFingerprint(events: string[]): number {
+  let hash: number = 2166136261;
+  for (let i = 0; i < events.length; i++) {
+    const text: string = events[i];
+    for (let j = 0; j < text.length; j++) {
+      hash = hash ^ text.charCodeAt(j);
+      hash = hash * 16777619;
+      hash = hash >>> 0;
     }
-    if (list[index].id.length === 0) {
+  }
+  return hash >>> 0;
+}
+
+export function expectedSelectedFont(current: number, target: number): number {
+  return current === target ? SELECT_FONT_SIZE : UNSELECT_FONT_SIZE;
+}
+
+export function selectedCountAt(index: number): number {
+  return index >= 0 && index < TAB_COUNT ? 1 : 0;
+}
+
+export function barOffsetAt(index: number): number {
+  return index * TAB_WIDTH;
+}
+
+export function isVisibleBar(index: number, viewport: number): boolean {
+  const left: number = index * TAB_WIDTH;
+  return left + BAR_WIDTH > 0 && left < viewport;
+}
+
+export function wrapDisabled(index: number, delta: number): number {
+  const candidate: number = index + delta;
+  if (candidate < 0) {
+    return 0;
+  }
+  if (candidate > TAB_COUNT - 1) {
+    return TAB_COUNT - 1;
+  }
+  return candidate;
+}
+
+export function percentage(part: number, whole: number): number {
+  if (whole === 0) {
+    return 0;
+  }
+  return part / whole * 100;
+}
+
+export function average(values: number[]): number {
+  if (values.length === 0) {
+    return 0;
+  }
+  return sequenceTotal(values) / values.length;
+}
+
+export function maxOf(values: number[]): number {
+  let best: number = values[0];
+  for (let i = 1; i < values.length; i++) {
+    if (values[i] > best) {
+      best = values[i];
+    }
+  }
+  return best;
+}
+
+export function minOf(values: number[]): number {
+  let best: number = values[0];
+  for (let i = 1; i < values.length; i++) {
+    if (values[i] < best) {
+      best = values[i];
+    }
+  }
+  return best;
+}
+
+export function ascending(values: number[]): boolean {
+  for (let i = 1; i < values.length; i++) {
+    if (values[i] < values[i - 1]) {
       return false;
     }
   }
   return true;
 }
 
-/** Validates the full mock fixture against the hard coded oracle. */
-export function mockMatchesOracle(list: Array<NewsCommentModel>): boolean {
-  if (list.length !== EXPECTED_IDS.length) {
-    return false;
+export function displacementInvariant(state: TabState): boolean {
+  return state.displacement === state.index * TAB_WIDTH;
+}
+
+export function scrollInvariant(state: TabState): boolean {
+  if (state.index === 3) {
+    return state.scrollX === SCROLL_LEFT;
   }
-  for (let index = 0; index < list.length; index++) {
-    if (list[index].id !== EXPECTED_IDS[index]) {
-      return false;
-    }
-    if (list[index].user !== EXPECTED_USERS[index]) {
-      return false;
-    }
-    if (list[index].text !== EXPECTED_TEXTS[index]) {
-      return false;
-    }
+  if (state.index === 1) {
+    return state.scrollX === SCROLL_RIGHT;
   }
   return true;
 }
