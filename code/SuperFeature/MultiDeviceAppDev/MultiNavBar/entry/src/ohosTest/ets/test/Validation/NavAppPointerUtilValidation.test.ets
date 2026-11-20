@@ -1983,3 +1983,1992 @@ export default function navAppPointerUtilValidationSuite() {
       expect(m.getNode(1000 + 1139) === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1140
+     * @tc.name    NavAppPointerUtilValidation1140
+     * @tc.desc    NavBar index validity for 4 probe 1140
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1140', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1140) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1141
+     * @tc.name    NavAppPointerUtilValidation1141
+     * @tc.desc    NavBar index validity for 5 probe 1141
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1141', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 5;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1141) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1142
+     * @tc.name    NavAppPointerUtilValidation1142
+     * @tc.desc    NavBar index validity for 6 probe 1142
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1142', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 6;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1142) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1143
+     * @tc.name    NavAppPointerUtilValidation1143
+     * @tc.desc    NavBar index validity for 7 probe 1143
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1143', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 7;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1143) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1144
+     * @tc.name    NavAppPointerUtilValidation1144
+     * @tc.desc    NavBar index validity for 0 probe 1144
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1144', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1144) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1145
+     * @tc.name    NavAppPointerUtilValidation1145
+     * @tc.desc    NavBar index validity for 1 probe 1145
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1145', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1145) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1146
+     * @tc.name    NavAppPointerUtilValidation1146
+     * @tc.desc    NavBar index validity for 2 probe 1146
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1146', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1146) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1147
+     * @tc.name    NavAppPointerUtilValidation1147
+     * @tc.desc    NavBar index validity for 3 probe 1147
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1147', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1147) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1148
+     * @tc.name    NavAppPointerUtilValidation1148
+     * @tc.desc    NavBar index validity for 4 probe 1148
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1148', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1148) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1149
+     * @tc.name    NavAppPointerUtilValidation1149
+     * @tc.desc    NavBar index validity for 5 probe 1149
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1149', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 5;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1149) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1150
+     * @tc.name    NavAppPointerUtilValidation1150
+     * @tc.desc    NavBar index validity for 6 probe 1150
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1150', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 6;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1150) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1151
+     * @tc.name    NavAppPointerUtilValidation1151
+     * @tc.desc    NavBar index validity for 7 probe 1151
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1151', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 7;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1151) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1152
+     * @tc.name    NavAppPointerUtilValidation1152
+     * @tc.desc    NavBar index validity for 0 probe 1152
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1152', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1152) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1153
+     * @tc.name    NavAppPointerUtilValidation1153
+     * @tc.desc    NavBar index validity for 1 probe 1153
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1153', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1153) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1154
+     * @tc.name    NavAppPointerUtilValidation1154
+     * @tc.desc    NavBar index validity for 2 probe 1154
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1154', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1154) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1155
+     * @tc.name    NavAppPointerUtilValidation1155
+     * @tc.desc    NavBar index validity for 3 probe 1155
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1155', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1155) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1156
+     * @tc.name    NavAppPointerUtilValidation1156
+     * @tc.desc    NavBar index validity for 4 probe 1156
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1156', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1156) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1157
+     * @tc.name    NavAppPointerUtilValidation1157
+     * @tc.desc    NavBar index validity for 5 probe 1157
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1157', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 5;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1157) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1158
+     * @tc.name    NavAppPointerUtilValidation1158
+     * @tc.desc    NavBar index validity for 6 probe 1158
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1158', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 6;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1158) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1159
+     * @tc.name    NavAppPointerUtilValidation1159
+     * @tc.desc    NavBar index validity for 7 probe 1159
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1159', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 7;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1159) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1160
+     * @tc.name    NavAppPointerUtilValidation1160
+     * @tc.desc    NavBar index validity for 0 probe 1160
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1160', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1160) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1161
+     * @tc.name    NavAppPointerUtilValidation1161
+     * @tc.desc    NavBar index validity for 1 probe 1161
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1161', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1161) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1162
+     * @tc.name    NavAppPointerUtilValidation1162
+     * @tc.desc    NavBar index validity for 2 probe 1162
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1162', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1162) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1163
+     * @tc.name    NavAppPointerUtilValidation1163
+     * @tc.desc    NavBar index validity for 3 probe 1163
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1163', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1163) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1164
+     * @tc.name    NavAppPointerUtilValidation1164
+     * @tc.desc    NavBar index validity for 4 probe 1164
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1164', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1164) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1165
+     * @tc.name    NavAppPointerUtilValidation1165
+     * @tc.desc    NavBar index validity for 5 probe 1165
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1165', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 5;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1165) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1166
+     * @tc.name    NavAppPointerUtilValidation1166
+     * @tc.desc    NavBar index validity for 6 probe 1166
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1166', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 6;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1166) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1167
+     * @tc.name    NavAppPointerUtilValidation1167
+     * @tc.desc    NavBar index validity for 7 probe 1167
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1167', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 7;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1167) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1168
+     * @tc.name    NavAppPointerUtilValidation1168
+     * @tc.desc    NavBar index validity for 0 probe 1168
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1168', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1168) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1169
+     * @tc.name    NavAppPointerUtilValidation1169
+     * @tc.desc    NavBar index validity for 1 probe 1169
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1169', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1169) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1170
+     * @tc.name    NavAppPointerUtilValidation1170
+     * @tc.desc    NavBar index validity for 2 probe 1170
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1170', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1170) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1171
+     * @tc.name    NavAppPointerUtilValidation1171
+     * @tc.desc    NavBar index validity for 3 probe 1171
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1171', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1171) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1172
+     * @tc.name    NavAppPointerUtilValidation1172
+     * @tc.desc    NavBar index validity for 4 probe 1172
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1172', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1172) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1173
+     * @tc.name    NavAppPointerUtilValidation1173
+     * @tc.desc    NavBar index validity for 5 probe 1173
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1173', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 5;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1173) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1174
+     * @tc.name    NavAppPointerUtilValidation1174
+     * @tc.desc    NavBar index validity for 6 probe 1174
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1174', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 6;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1174) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1175
+     * @tc.name    NavAppPointerUtilValidation1175
+     * @tc.desc    NavBar index validity for 7 probe 1175
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1175', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 7;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1175) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1176
+     * @tc.name    NavAppPointerUtilValidation1176
+     * @tc.desc    NavBar index validity for 0 probe 1176
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1176', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1176) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1177
+     * @tc.name    NavAppPointerUtilValidation1177
+     * @tc.desc    NavBar index validity for 1 probe 1177
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1177', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1177) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1178
+     * @tc.name    NavAppPointerUtilValidation1178
+     * @tc.desc    NavBar index validity for 2 probe 1178
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1178', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1178) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1179
+     * @tc.name    NavAppPointerUtilValidation1179
+     * @tc.desc    NavBar index validity for 3 probe 1179
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1179', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1179) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1180
+     * @tc.name    NavAppPointerUtilValidation1180
+     * @tc.desc    NavBar index validity for 4 probe 1180
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1180', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1180) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1181
+     * @tc.name    NavAppPointerUtilValidation1181
+     * @tc.desc    NavBar index validity for 5 probe 1181
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1181', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 5;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1181) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1182
+     * @tc.name    NavAppPointerUtilValidation1182
+     * @tc.desc    NavBar index validity for 6 probe 1182
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1182', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 6;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1182) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1183
+     * @tc.name    NavAppPointerUtilValidation1183
+     * @tc.desc    NavBar index validity for 7 probe 1183
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1183', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 7;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1183) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1184
+     * @tc.name    NavAppPointerUtilValidation1184
+     * @tc.desc    NavBar index validity for 0 probe 1184
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1184', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1184) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1185
+     * @tc.name    NavAppPointerUtilValidation1185
+     * @tc.desc    NavBar index validity for 1 probe 1185
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1185', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1185) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1186
+     * @tc.name    NavAppPointerUtilValidation1186
+     * @tc.desc    NavBar index validity for 2 probe 1186
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1186', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1186) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1187
+     * @tc.name    NavAppPointerUtilValidation1187
+     * @tc.desc    NavBar index validity for 3 probe 1187
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1187', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1187) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1188
+     * @tc.name    NavAppPointerUtilValidation1188
+     * @tc.desc    NavBar index validity for 4 probe 1188
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1188', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1188) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1189
+     * @tc.name    NavAppPointerUtilValidation1189
+     * @tc.desc    NavBar index validity for 5 probe 1189
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1189', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 5;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1189) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1190
+     * @tc.name    NavAppPointerUtilValidation1190
+     * @tc.desc    NavBar index validity for 6 probe 1190
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1190', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 6;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1190) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1191
+     * @tc.name    NavAppPointerUtilValidation1191
+     * @tc.desc    NavBar index validity for 7 probe 1191
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1191', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 7;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1191) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1192
+     * @tc.name    NavAppPointerUtilValidation1192
+     * @tc.desc    NavBar index validity for 0 probe 1192
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1192', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1192) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1193
+     * @tc.name    NavAppPointerUtilValidation1193
+     * @tc.desc    NavBar index validity for 1 probe 1193
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1193', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1193) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1194
+     * @tc.name    NavAppPointerUtilValidation1194
+     * @tc.desc    NavBar index validity for 2 probe 1194
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1194', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1194) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1195
+     * @tc.name    NavAppPointerUtilValidation1195
+     * @tc.desc    NavBar index validity for 3 probe 1195
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1195', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1195) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1196
+     * @tc.name    NavAppPointerUtilValidation1196
+     * @tc.desc    NavBar index validity for 4 probe 1196
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1196', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1196) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1197
+     * @tc.name    NavAppPointerUtilValidation1197
+     * @tc.desc    NavBar index validity for 5 probe 1197
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1197', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 5;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1197) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1198
+     * @tc.name    NavAppPointerUtilValidation1198
+     * @tc.desc    NavBar index validity for 6 probe 1198
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1198', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 6;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1198) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1199
+     * @tc.name    NavAppPointerUtilValidation1199
+     * @tc.desc    NavBar index validity for 7 probe 1199
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1199', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 7;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1199) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1200
+     * @tc.name    NavAppPointerUtilValidation1200
+     * @tc.desc    NavBar index validity for 0 probe 1200
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1200', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1200) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1201
+     * @tc.name    NavAppPointerUtilValidation1201
+     * @tc.desc    NavBar index validity for 1 probe 1201
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1201', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1201) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1202
+     * @tc.name    NavAppPointerUtilValidation1202
+     * @tc.desc    NavBar index validity for 2 probe 1202
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1202', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1202) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1203
+     * @tc.name    NavAppPointerUtilValidation1203
+     * @tc.desc    NavBar index validity for 3 probe 1203
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1203', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1203) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1204
+     * @tc.name    NavAppPointerUtilValidation1204
+     * @tc.desc    NavBar index validity for 4 probe 1204
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1204', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1204) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1205
+     * @tc.name    NavAppPointerUtilValidation1205
+     * @tc.desc    NavBar index validity for 5 probe 1205
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1205', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 5;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1205) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1206
+     * @tc.name    NavAppPointerUtilValidation1206
+     * @tc.desc    NavBar index validity for 6 probe 1206
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1206', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 6;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1206) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1207
+     * @tc.name    NavAppPointerUtilValidation1207
+     * @tc.desc    NavBar index validity for 7 probe 1207
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1207', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 7;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1207) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1208
+     * @tc.name    NavAppPointerUtilValidation1208
+     * @tc.desc    NavBar index validity for 0 probe 1208
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1208', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1208) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1209
+     * @tc.name    NavAppPointerUtilValidation1209
+     * @tc.desc    NavBar index validity for 1 probe 1209
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1209', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1209) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1210
+     * @tc.name    NavAppPointerUtilValidation1210
+     * @tc.desc    NavBar index validity for 2 probe 1210
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1210', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1210) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1211
+     * @tc.name    NavAppPointerUtilValidation1211
+     * @tc.desc    NavBar index validity for 3 probe 1211
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1211', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1211) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1212
+     * @tc.name    NavAppPointerUtilValidation1212
+     * @tc.desc    NavBar index validity for 4 probe 1212
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1212', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1212) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1213
+     * @tc.name    NavAppPointerUtilValidation1213
+     * @tc.desc    NavBar index validity for 5 probe 1213
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1213', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 5;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1213) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1214
+     * @tc.name    NavAppPointerUtilValidation1214
+     * @tc.desc    NavBar index validity for 6 probe 1214
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1214', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 6;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1214) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1215
+     * @tc.name    NavAppPointerUtilValidation1215
+     * @tc.desc    NavBar index validity for 7 probe 1215
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1215', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 7;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1215) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1216
+     * @tc.name    NavAppPointerUtilValidation1216
+     * @tc.desc    NavBar index validity for 0 probe 1216
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1216', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1216) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1217
+     * @tc.name    NavAppPointerUtilValidation1217
+     * @tc.desc    NavBar index validity for 1 probe 1217
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1217', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1217) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1218
+     * @tc.name    NavAppPointerUtilValidation1218
+     * @tc.desc    NavBar index validity for 2 probe 1218
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1218', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1218) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1219
+     * @tc.name    NavAppPointerUtilValidation1219
+     * @tc.desc    NavBar index validity for 3 probe 1219
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1219', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1219) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1220
+     * @tc.name    NavAppPointerUtilValidation1220
+     * @tc.desc    NavBar index validity for 4 probe 1220
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1220', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1220) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1221
+     * @tc.name    NavAppPointerUtilValidation1221
+     * @tc.desc    NavBar index validity for 5 probe 1221
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1221', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 5;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1221) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1222
+     * @tc.name    NavAppPointerUtilValidation1222
+     * @tc.desc    NavBar index validity for 6 probe 1222
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1222', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 6;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1222) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1223
+     * @tc.name    NavAppPointerUtilValidation1223
+     * @tc.desc    NavBar index validity for 7 probe 1223
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1223', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 7;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1223) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1224
+     * @tc.name    NavAppPointerUtilValidation1224
+     * @tc.desc    NavBar index validity for 0 probe 1224
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1224', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1224) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1225
+     * @tc.name    NavAppPointerUtilValidation1225
+     * @tc.desc    NavBar index validity for 1 probe 1225
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1225', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1225) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1226
+     * @tc.name    NavAppPointerUtilValidation1226
+     * @tc.desc    NavBar index validity for 2 probe 1226
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1226', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1226) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1227
+     * @tc.name    NavAppPointerUtilValidation1227
+     * @tc.desc    NavBar index validity for 3 probe 1227
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1227', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1227) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1228
+     * @tc.name    NavAppPointerUtilValidation1228
+     * @tc.desc    NavBar index validity for 4 probe 1228
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1228', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1228) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1229
+     * @tc.name    NavAppPointerUtilValidation1229
+     * @tc.desc    NavBar index validity for 5 probe 1229
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1229', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 5;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1229) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1230
+     * @tc.name    NavAppPointerUtilValidation1230
+     * @tc.desc    NavBar index validity for 6 probe 1230
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1230', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 6;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1230) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1231
+     * @tc.name    NavAppPointerUtilValidation1231
+     * @tc.desc    NavBar index validity for 7 probe 1231
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1231', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 7;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1231) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1232
+     * @tc.name    NavAppPointerUtilValidation1232
+     * @tc.desc    NavBar index validity for 0 probe 1232
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1232', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1232) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1233
+     * @tc.name    NavAppPointerUtilValidation1233
+     * @tc.desc    NavBar index validity for 1 probe 1233
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1233', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1233) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1234
+     * @tc.name    NavAppPointerUtilValidation1234
+     * @tc.desc    NavBar index validity for 2 probe 1234
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1234', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1234) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1235
+     * @tc.name    NavAppPointerUtilValidation1235
+     * @tc.desc    NavBar index validity for 3 probe 1235
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1235', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1235) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1236
+     * @tc.name    NavAppPointerUtilValidation1236
+     * @tc.desc    NavBar index validity for 4 probe 1236
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1236', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1236) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1237
+     * @tc.name    NavAppPointerUtilValidation1237
+     * @tc.desc    NavBar index validity for 5 probe 1237
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1237', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 5;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1237) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1238
+     * @tc.name    NavAppPointerUtilValidation1238
+     * @tc.desc    NavBar index validity for 6 probe 1238
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1238', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 6;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1238) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1239
+     * @tc.name    NavAppPointerUtilValidation1239
+     * @tc.desc    NavBar index validity for 7 probe 1239
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1239', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 7;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1239) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1240
+     * @tc.name    NavAppPointerUtilValidation1240
+     * @tc.desc    NavBar index validity for 0 probe 1240
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1240', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1240) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1241
+     * @tc.name    NavAppPointerUtilValidation1241
+     * @tc.desc    NavBar index validity for 1 probe 1241
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1241', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1241) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1242
+     * @tc.name    NavAppPointerUtilValidation1242
+     * @tc.desc    NavBar index validity for 2 probe 1242
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1242', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1242) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1243
+     * @tc.name    NavAppPointerUtilValidation1243
+     * @tc.desc    NavBar index validity for 3 probe 1243
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1243', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1243) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1244
+     * @tc.name    NavAppPointerUtilValidation1244
+     * @tc.desc    NavBar index validity for 4 probe 1244
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1244', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1244) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1245
+     * @tc.name    NavAppPointerUtilValidation1245
+     * @tc.desc    NavBar index validity for 5 probe 1245
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1245', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 5;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1245) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1246
+     * @tc.name    NavAppPointerUtilValidation1246
+     * @tc.desc    NavBar index validity for 6 probe 1246
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1246', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 6;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1246) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1247
+     * @tc.name    NavAppPointerUtilValidation1247
+     * @tc.desc    NavBar index validity for 7 probe 1247
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1247', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 7;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1247) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1248
+     * @tc.name    NavAppPointerUtilValidation1248
+     * @tc.desc    NavBar index validity for 0 probe 1248
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1248', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1248) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1249
+     * @tc.name    NavAppPointerUtilValidation1249
+     * @tc.desc    NavBar index validity for 1 probe 1249
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1249', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1249) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1250
+     * @tc.name    NavAppPointerUtilValidation1250
+     * @tc.desc    NavBar index validity for 2 probe 1250
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1250', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1250) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1251
+     * @tc.name    NavAppPointerUtilValidation1251
+     * @tc.desc    NavBar index validity for 3 probe 1251
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1251', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1251) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1252
+     * @tc.name    NavAppPointerUtilValidation1252
+     * @tc.desc    NavBar index validity for 4 probe 1252
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1252', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1252) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1253
+     * @tc.name    NavAppPointerUtilValidation1253
+     * @tc.desc    NavBar index validity for 5 probe 1253
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1253', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 5;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1253) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1254
+     * @tc.name    NavAppPointerUtilValidation1254
+     * @tc.desc    NavBar index validity for 6 probe 1254
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1254', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 6;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1254) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1255
+     * @tc.name    NavAppPointerUtilValidation1255
+     * @tc.desc    NavBar index validity for 7 probe 1255
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1255', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 7;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1255) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1256
+     * @tc.name    NavAppPointerUtilValidation1256
+     * @tc.desc    NavBar index validity for 0 probe 1256
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppPointerUtilValidation1256', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.isValidIndex(idx)).assertEqual(idx >= 0 && idx < m.getTopCount());
+      expect(m.getNode(1000 + 1256) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
