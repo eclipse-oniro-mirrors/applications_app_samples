@@ -40,15 +40,15 @@ export interface ScanErrorInfo {
  * 扫描错误码映射表。五张表的索引一一对齐，全部取自 @ohos.scan 的 ScanErrorCode。
  */
 export class ScanErrorMapper {
-  static readonly UNKNOWN_MESSAGE_KEY: string = 'scan_error_unknown';
+  public static readonly UNKNOWN_MESSAGE_KEY: string = 'scan_error_unknown';
 
   // 数值与 @ohos.scan 的 ScanErrorCode 一一对应，写成字面量以免静态初始化依赖 syscap。
-  static readonly CODES: number[] = [
+  public static readonly CODES: number[] = [
     201, 202, 401, 13100001, 13100002, 13100003, 13100004,
     13100005, 13100006, 13100007, 13100008, 13100009, 13100010, 13100011, 13100012
   ];
 
-  static readonly CATEGORIES: ScanErrorCategory[] = [
+  public static readonly CATEGORIES: ScanErrorCategory[] = [
     ScanErrorCategory.PERMISSION,
     ScanErrorCategory.FRAMEWORK,
     ScanErrorCategory.PARAMETER,
@@ -66,17 +66,17 @@ export class ScanErrorMapper {
     ScanErrorCategory.FRAMEWORK
   ];
 
-  static readonly RETRYABLE: boolean[] = [
+  public static readonly RETRYABLE: boolean[] = [
     false, true, false, true, true, true, false,
     true, true, false, false, false, false, true, true
   ];
 
-  static readonly USER_ACTION: boolean[] = [
+  public static readonly USER_ACTION: boolean[] = [
     true, true, false, false, false, false, true,
     false, false, true, true, true, true, false, false
   ];
 
-  static readonly MESSAGE_KEYS: string[] = [
+  public static readonly MESSAGE_KEYS: string[] = [
     'scan_error_no_permission',
     'scan_error_not_system_application',
     'scan_error_invalid_parameter',

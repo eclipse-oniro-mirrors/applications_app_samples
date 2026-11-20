@@ -36,10 +36,10 @@ export interface ScanProgressSummary {
  * 扫描进度聚合：轮询、批量、失败重试都走同一套归一化规则。
  */
 export class ScanProgressAggregator {
-  static readonly PERCENT_MIN: number = 0;
-  static readonly PERCENT_MAX: number = 100;
-  static readonly POLL_DELAY_MS: number = 500;
-  static readonly STOP_DELAY_MS: number = -1;
+  public static readonly PERCENT_MIN: number = 0;
+  public static readonly PERCENT_MAX: number = 100;
+  public static readonly POLL_DELAY_MS: number = 500;
+  public static readonly STOP_DELAY_MS: number = -1;
 
   /**
    * NaN、负数、超过 100 一律修正到 [0, 100] 并取整。
@@ -60,8 +60,8 @@ export class ScanProgressAggregator {
   static countCompleted(list: ScanProgressSnapshot[]): number {
     let count: number = 0;
     for (let index = 0; index < list.length; index++) {
-      if (ScanProgressAggregator.normalizeProgress(list[index].progress)
-        >= ScanProgressAggregator.PERCENT_MAX) {
+      if (ScanProgressAggregator.normalizeProgress(list[index].progress) >=
+        ScanProgressAggregator.PERCENT_MAX) {
         count++;
       }
     }

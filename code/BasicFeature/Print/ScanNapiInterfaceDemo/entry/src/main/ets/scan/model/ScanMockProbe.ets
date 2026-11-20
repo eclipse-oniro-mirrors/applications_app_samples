@@ -20,14 +20,14 @@ import { ScanMockSource } from './ScanMockSource';
  * 快照串格式：count=n;first=a;last=b;tcp=n;usb=n;full=0|1;empty=0|1
  */
 export class ScanMockProbe {
-  static readonly OP_NONE: string = 'none';
-  static readonly OP_ADD: string = 'add';
-  static readonly OP_REMOVE: string = 'remove';
-  static readonly OP_RENAME: string = 'rename';
-  static readonly OP_REPLACE: string = 'replace';
-  static readonly OP_REPLACE_DUP: string = 'replaceDup';
-  static readonly OP_COPY: string = 'copy';
-  static readonly OP_RESET: string = 'reset';
+  private static readonly OP_NONE: string = 'none';
+  private static readonly OP_ADD: string = 'add';
+  private static readonly OP_REMOVE: string = 'remove';
+  private static readonly OP_RENAME: string = 'rename';
+  private static readonly OP_REPLACE: string = 'replace';
+  private static readonly OP_REPLACE_DUP: string = 'replaceDup';
+  private static readonly OP_COPY: string = 'copy';
+  private static readonly OP_RESET: string = 'reset';
 
   static device(scannerId: string, usb: boolean): scan.ScannerDevice {
     const mode: scan.ScannerDiscoveryMode =

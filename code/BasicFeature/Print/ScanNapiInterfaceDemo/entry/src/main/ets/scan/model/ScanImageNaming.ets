@@ -18,13 +18,13 @@
  * 序号超 9999 不再补零，格式不支持时退回 jpg。
  */
 export class ScanImageNaming {
-  static readonly PREFIX: string = 'scan';
-  static readonly SEPARATOR: string = '_';
-  static readonly INDEX_DIGITS: number = 4;
-  static readonly MAX_INDEX: number = 9999;
-  static readonly INVALID_INDEX: number = -1;
-  static readonly DEFAULT_FORMAT: string = 'jpg';
-  static readonly SUPPORTED_FORMATS: string[] = ['jpg', 'jpeg', 'png', 'pdf', 'tiff'];
+  public static readonly PREFIX: string = 'scan';
+  public static readonly SEPARATOR: string = '_';
+  public static readonly INDEX_DIGITS: number = 4;
+  public static readonly MAX_INDEX: number = 9999;
+  public static readonly INVALID_INDEX: number = -1;
+  public static readonly DEFAULT_FORMAT: string = 'jpg';
+  public static readonly SUPPORTED_FORMATS: string[] = ['jpg', 'jpeg', 'png', 'pdf', 'tiff'];
 
   static padIndex(index: number): string {
     const normalized: number = Math.floor(Math.abs(index));

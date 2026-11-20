@@ -19,15 +19,15 @@ import { scan } from '@kit.BasicServicesKit';
  * 可断言文本/数值，并为区间截断与数值比较提供统一入口。
  */
 export class ScanOptionValueParser {
-  static readonly FIXED_DIGITS: number = 2;
+  private static readonly FIXED_DIGITS: number = 2;
 
   static asNumber(value: scan.ScannerOptionValue): number {
     if (value.valueType === scan.OptionValueType.SCAN_TYPE_BOOL) {
       const boolValue: boolean | undefined = value.boolValue;
       return boolValue === true ? 1 : 0;
     }
-    if (value.valueType === scan.OptionValueType.SCAN_TYPE_INT
-      || value.valueType === scan.OptionValueType.SCAN_TYPE_FIXED) {
+    if (value.valueType === scan.OptionValueType.SCAN_TYPE_INT ||
+      value.valueType === scan.OptionValueType.SCAN_TYPE_FIXED) {
       const numValue: number | undefined = value.numValue;
       return numValue === undefined ? 0 : numValue;
     }

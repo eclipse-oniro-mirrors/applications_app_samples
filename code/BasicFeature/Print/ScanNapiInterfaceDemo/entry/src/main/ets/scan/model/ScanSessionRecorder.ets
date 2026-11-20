@@ -18,7 +18,7 @@
  * 超过容量上限时丢弃最旧事件，供状态回放与日志摘要使用。
  */
 export class ScanSessionRecorder {
-  static readonly CAPACITY: number = 100;
+  private static readonly CAPACITY: number = 100;
 
   private events: string[] = [];
 

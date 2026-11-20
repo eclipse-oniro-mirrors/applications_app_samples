@@ -18,9 +18,9 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
  * 统一日志出口：固定 DOMAIN 0xF811 与带 Sample 前缀的 TAG。
  */
 export class SampleLogger {
-  static readonly DOMAIN: number = 0xF811;
-  static readonly TAG: string = '[Sample_ScanNapiInterfaceDemo]';
-  static readonly EMPTY_MESSAGE: string = 'empty message';
+  private static readonly DOMAIN: number = 0xF811;
+  private static readonly TAG: string = '[Sample_ScanNapiInterfaceDemo]';
+  private static readonly EMPTY_MESSAGE: string = 'empty message';
 
   /**
    * 空消息替换为占位文案，避免日志里出现无内容的行。

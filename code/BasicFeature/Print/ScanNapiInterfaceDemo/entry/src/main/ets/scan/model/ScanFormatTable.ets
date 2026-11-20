@@ -19,10 +19,10 @@
  */
 export class ScanFormatTable {
   /** 页面尺寸键序：A3 / A4 / A5 / B4 / B5 / LETTER / LEGAL */
-  static readonly PAGE_KEYS: string[] = ['A3', 'A4', 'A5', 'B4', 'B5', 'LETTER', 'LEGAL'];
+  private static readonly PAGE_KEYS: string[] = ['A3', 'A4', 'A5', 'B4', 'B5', 'LETTER', 'LEGAL'];
 
   /** 300dpi 下的像素点对 [宽, 高] */
-  static readonly PAGE_DOTS: number[][] = [
+  private static readonly PAGE_DOTS: number[][] = [
     [3508, 4961],
     [2480, 3508],
     [1748, 2480],
@@ -33,7 +33,7 @@ export class ScanFormatTable {
   ];
 
   /** 图像格式键序 */
-  static readonly FORMAT_KEYS: string[] = ['jpg', 'png', 'pdf', 'bmp', 'tiff'];
+  private static readonly FORMAT_KEYS: string[] = ['jpg', 'png', 'pdf', 'bmp', 'tiff'];
 
   static pageSizeKeys(): string[] {
     return ScanFormatTable.PAGE_KEYS.slice(0);

@@ -8,7 +8,7 @@
 
 ## 环境要求
 
-- DevEco Studio 与 HarmonyOS SDK：apiVersion 26
+- DevEco Studio 与 OpenHarmony SDK：apiVersion 26
 - 依赖：`@ohos/hypium` 1.0.18（见工程根目录 `oh-package.json5`）
 - 设备：支持 `default` 或 `tablet` 类型的真机 / 模拟器
 

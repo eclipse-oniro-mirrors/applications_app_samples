@@ -19,7 +19,7 @@ import { scan } from '@kit.BasicServicesKit';
  * 规则：scannerId 唯一；容量 16；getAll 返回副本，外部修改不影响内部列表。
  */
 export class ScanMockSource {
-  static readonly CAPACITY: number = 16;
+  private static readonly CAPACITY: number = 16;
 
   private devices: scan.ScannerDevice[] = [];
 

@@ -1633,7 +1633,7 @@ export default function scanOptionTopupVolume01Test() {
     /**
      * @tc.name   testOption020081
      * @tc.number SUB_SCAN_OPTION_03_0081
-     * @tc.desc   title fallback name 'n8' title '' detail 'd8'
+     * @tc.desc   title fallback name 'n8' title '' detail 'x8'
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL1
@@ -1641,10 +1641,10 @@ export default function scanOptionTopupVolume01Test() {
     it('testOption020081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOption020081 begin');
       const result: scan.ScannerOptionValue = ScanParameterBuilder.optionValue(1, 7, 'x', false);
-      expect(ScanOptionModel.getTitle(ScanParameterBuilder.param(10, 'n8', '', 'd8', 3, 0, 0))).assertEqual('n8');
-      expect(ScanOptionModel.getDetail(ScanParameterBuilder.param(10, 'n8', '', 'd8', 3, 0, 0))).assertEqual('d8');
+      expect(ScanOptionModel.getTitle(ScanParameterBuilder.param(10, 'n8', '', 'x8', 3, 0, 0))).assertEqual('n8');
+      expect(ScanOptionModel.getDetail(ScanParameterBuilder.param(10, 'n8', '', 'x8', 3, 0, 0))).assertEqual('x8');
       expect(
-        ScanOptionModel.toItem(ScanParameterBuilder.param(10, 'n8', '', 'd8', 3, 0, 0)).unitText
+        ScanOptionModel.toItem(ScanParameterBuilder.param(10, 'n8', '', 'x8', 3, 0, 0)).unitText
       ).assertEqual('mm');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOption020081 end');
     });

@@ -19,9 +19,9 @@ import { scan } from '@kit.BasicServicesKit';
  * 规则：mm 与 inch 基准 25.4；像素与 mm 的换算在 dpi 下进行；dpi 非正时不换算，返回 0。
  */
 export class ScanUnitFormatter {
-  static readonly MM_PER_INCH: number = 25.4;
-  static readonly SCREEN_DPI: number = 96;
-  static readonly DIGITS: number = 2;
+  public static readonly MM_PER_INCH: number = 25.4;
+  public static readonly SCREEN_DPI: number = 96;
+  public static readonly DIGITS: number = 2;
 
   static getUnitText(unit: scan.PhysicalUnit): string {
     if (unit === scan.PhysicalUnit.SCAN_UNIT_PIXEL) {

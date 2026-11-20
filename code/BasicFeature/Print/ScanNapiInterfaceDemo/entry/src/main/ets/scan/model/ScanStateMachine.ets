@@ -74,8 +74,8 @@ export class ScanStateMachine {
       return event === ScanEvent.SCAN_START || event === ScanEvent.OPEN || event === ScanEvent.CLOSE;
     }
     if (state === ScanState.SCANNING) {
-      return event === ScanEvent.PROGRESS || event === ScanEvent.SCAN_FINISH
-        || event === ScanEvent.CANCEL;
+      return event === ScanEvent.PROGRESS || event === ScanEvent.SCAN_FINISH ||
+        event === ScanEvent.CANCEL;
     }
     if (state === ScanState.CANCELLING) {
       return event === ScanEvent.CANCEL_DONE;
@@ -136,8 +136,8 @@ export class ScanStateMachine {
    * 长耗时操作进行中，此时禁止并发点击。
    */
   static isBusy(state: ScanState): boolean {
-    return state === ScanState.OPENING || state === ScanState.SCANNING
-      || state === ScanState.CANCELLING;
+    return state === ScanState.OPENING || state === ScanState.SCANNING ||
+      state === ScanState.CANCELLING;
   }
 
   static isTerminal(state: ScanState): boolean {

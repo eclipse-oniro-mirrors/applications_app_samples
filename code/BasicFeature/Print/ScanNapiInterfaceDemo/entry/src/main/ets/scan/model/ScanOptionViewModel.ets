@@ -32,8 +32,8 @@ export interface ScanOptionItem {
  * 把 ScannerParameter[] 转成界面可渲染的模型，并统一单位与取值文案。
  */
 export class ScanOptionModel {
-  static readonly NO_DESCRIPTION_KEY: string = 'scan_option_no_description';
-  static readonly FIXED_DIGITS: number = 2;
+  public static readonly NO_DESCRIPTION_KEY: string = 'scan_option_no_description';
+  public static readonly FIXED_DIGITS: number = 2;
 
   static getUnitText(unit: scan.PhysicalUnit): string {
     if (unit === scan.PhysicalUnit.SCAN_UNIT_PIXEL) {

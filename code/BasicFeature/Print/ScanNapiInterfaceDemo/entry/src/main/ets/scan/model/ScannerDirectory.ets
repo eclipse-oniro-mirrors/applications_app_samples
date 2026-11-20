@@ -19,8 +19,8 @@ import { scan } from '@kit.BasicServicesKit';
  * 规则：delete 按 scannerId 移除；update 只改 id，不新增设备（同步事件不含厂商信息）。
  */
 export class ScannerDirectory {
-  static readonly CAPACITY: number = 16;
-  static readonly UNKNOWN_LABEL: string = 'scan_device_unknown';
+  public static readonly CAPACITY: number = 16;
+  public static readonly UNKNOWN_LABEL: string = 'scan_device_unknown';
 
   static findIndex(devices: scan.ScannerDevice[], scannerId: string): number {
     for (let index = 0; index < devices.length; index++) {

@@ -173,7 +173,7 @@ export default function scanParamShapeVolume01Test() {
      */
     it('testParamShape010009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testParamShape010009 begin');
-      const result: scan.ScannerParameter = ScanParameterBuilder.param(60, 'k8', 't8', 'd8', 2, 0, 3);
+      const result: scan.ScannerParameter = ScanParameterBuilder.param(60, 'k8', 't8', 'x8', 2, 0, 3);
       expect(result.optionName).assertEqual('k8');
       expect(result.optionTitle).assertEqual('t8');
       expect(result.optionType).assertEqual(scan.OptionValueType.SCAN_TYPE_STRING);

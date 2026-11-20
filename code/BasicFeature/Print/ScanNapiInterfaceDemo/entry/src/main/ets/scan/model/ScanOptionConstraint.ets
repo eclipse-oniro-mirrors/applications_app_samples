@@ -47,11 +47,11 @@ export interface ScanTextCheck {
  * 规则：RANGE 用 [minValue, maxValue] + quantValue 步长；列表类用逐项匹配；NONE 不做限制。
  */
 export class ScanOptionConstraint {
-  static readonly REASON_OK: string = 'scan_option_valid';
-  static readonly REASON_OUT_OF_RANGE: string = 'scan_option_out_of_range';
-  static readonly REASON_TYPE_MISMATCH: string = 'scan_option_type_mismatch';
-  static readonly REASON_NOT_LISTED: string = 'scan_option_not_listed';
-  static readonly REASON_EMPTY: string = 'scan_option_empty';
+  public static readonly REASON_OK: string = 'scan_option_valid';
+  public static readonly REASON_OUT_OF_RANGE: string = 'scan_option_out_of_range';
+  public static readonly REASON_TYPE_MISMATCH: string = 'scan_option_type_mismatch';
+  public static readonly REASON_NOT_LISTED: string = 'scan_option_not_listed';
+  public static readonly REASON_EMPTY: string = 'scan_option_empty';
 
   static getKind(param: scan.ScannerParameter): ScanConstraintKind {
     if (param.optionConstraintType === scan.ConstraintType.SCAN_CONSTRAINT_RANGE) {
@@ -67,8 +67,8 @@ export class ScanOptionConstraint {
   }
 
   static isNumericType(optionType: scan.OptionValueType): boolean {
-    return optionType === scan.OptionValueType.SCAN_TYPE_INT
-      || optionType === scan.OptionValueType.SCAN_TYPE_FIXED;
+    return optionType === scan.OptionValueType.SCAN_TYPE_INT ||
+      optionType === scan.OptionValueType.SCAN_TYPE_FIXED;
   }
 
   static isEditable(param: scan.ScannerParameter): boolean {
