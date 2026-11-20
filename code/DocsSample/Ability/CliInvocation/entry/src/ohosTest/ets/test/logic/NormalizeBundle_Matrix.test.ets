@@ -247,16 +247,16 @@ export default function normalizeBundleMatrixTest(): void {
     /**
      * @tc.number    SUB_CLI_INVOCATION_NORMALIZE_BUNDLE_MATRIX_0015
      * @tc.name      CliInvocation_normalizeBundle_Matrix_0015
-     * @tc.desc      [WhitespaceString] Verify normalizeBundle(  v8  ) returns v8.
+     * @tc.desc      [WhitespaceString] Verify normalizeBundle(  value8  ) returns value8.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL2
      */
     it('CliInvocation_normalizeBundle_Matrix_0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
-      // Category: WhitespaceString; expected: v8
-      const actual: string = CliModel.normalizeBundle('  v8  ');
-      expect(actual).assertEqual('v8');
-      expect(actual.length).assertEqual(2);
+      // Category: WhitespaceString; expected: value8
+      const actual: string = CliModel.normalizeBundle('  value8  ');
+      expect(actual).assertEqual('value8');
+      expect(actual.length).assertEqual(6);
     });
 
     /**

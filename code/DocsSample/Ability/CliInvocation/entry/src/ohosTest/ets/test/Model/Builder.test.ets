@@ -677,9 +677,9 @@ export default function cliInvocationBuilderTest(): void {
         expect(extended[extended.length - 1]).assertEqual('v7');
       }
       {
-        const extended: Array<string> = CliModel.appendOption(['/system/bin/cli_tool/executable/ohos-aa', 'start', '--bundlename', 'com.example.app', '--abilityname', 'EntryAbility'], '--flag', 'v8');
+        const extended: Array<string> = CliModel.appendOption(['/system/bin/cli_tool/executable/ohos-aa', 'start', '--bundlename', 'com.example.app', '--abilityname', 'EntryAbility'], '--flag', 'value8');
         expect(extended.length).assertEqual(8);
-        expect(extended[extended.length - 1]).assertEqual('v8');
+        expect(extended[extended.length - 1]).assertEqual('value8');
       }
       {
         const extended: Array<string> = CliModel.appendOption(['/system/bin/cli_tool/executable/ohos-aa', 'start', '--bundlename', 'com.example.app', '--abilityname', 'EntryAbility'], '--flag', 'v9');

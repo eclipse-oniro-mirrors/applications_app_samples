@@ -247,16 +247,16 @@ export default function normalizeParamsMatrixTest(): void {
     /**
      * @tc.number    SUB_ARKTS_CHILD_PROCESS_NORMALIZE_PARAMS_MATRIX_0015
      * @tc.name      ArkTsChildProcess_normalizeParams_Matrix_0015
-     * @tc.desc      [WhitespaceString] Verify normalizeParams(  v8  ) returns v8.
+     * @tc.desc      [WhitespaceString] Verify normalizeParams(  value8  ) returns value8.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL2
      */
     it('ArkTsChildProcess_normalizeParams_Matrix_0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
-      // Category: WhitespaceString; expected: v8
-      const actual: string = ChildProcessModel.normalizeParams('  v8  ');
-      expect(actual).assertEqual('v8');
-      expect(actual.length).assertEqual(2);
+      // Category: WhitespaceString; expected: value8
+      const actual: string = ChildProcessModel.normalizeParams('  value8  ');
+      expect(actual).assertEqual('value8');
+      expect(actual.length).assertEqual(6);
     });
 
     /**

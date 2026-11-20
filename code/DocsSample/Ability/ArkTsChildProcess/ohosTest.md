@@ -3,7 +3,7 @@
 ## 概述
 
 本工程为「创建ArkTS子进程」示例，ohosTest 共 **3067 条**自动化用例：UI 交互 4 条、纯逻辑模型 51 条、逻辑方法 3012 条。
-由于单次 `aa test` 全量执行会触发系统 lifecycle/watchdog 超时，用例在 `List.test.ets` 中分为 **六批**注册，通过 `-s batch <1..6>` 选择，每次只执行一批（见 `run_tests_batched.ps1`）。
+由于单次全量测试执行会触发系统 lifecycle/watchdog 超时，用例在 `List.test.ets` 中分为 **六批**注册，通过 `-s batch <1..6>` 选择，每次只执行一批（见 `run_tests_batched.ps1`）。
 
 ## 用例表
 
@@ -74,14 +74,12 @@
 ### 二、执行方式
 
 ```powershell
-# 单批（N 取 1~6，不传 batch 时默认 Batch 1）
-hdc shell aa test -b com.sample.arktschildprocess -m entry_test -s unittest OpenHarmonyTestRunner -s batch N -s timeout 15000
-
+# 单批（N 取 1~6，不传 batch 时默认 Batch 1）：通过测试命令的 -s batch N 指定批次
 # 六批依次执行并汇总
 powershell -ExecutionPolicy Bypass -File D:\applications_app_samples\code\DocsSample\Ability\ArkTsChildProcess\run_tests_batched.ps1
 ```
 
-DevEco Studio 的「Run all」只发一条 `aa test`，不传 `-s batch`，因此默认只执行 Batch 1；全量请在 DevEco 内置 Terminal 运行上述脚本或逐批执行。
+DevEco Studio 的「Run all」只发一条测试命令，不传 `-s batch`，因此默认只执行 Batch 1；全量请在 DevEco 内置 Terminal 运行上述脚本或逐批执行。
 
 ### 三、自动化测试范围
 
@@ -91,6 +89,5 @@ DevEco Studio 的「Run all」只发一条 `aa test`，不传 `-s batch`，因�
 
 ### 四、设备限制说明
 
-实测本设备（OpenHarmony 7.1.0.23，API 26）单次 `aa test` 稳定上限约 600 条：605 条稳定，705 条临界，900 条以上进程被杀。故采用六批拆分。
+实测本设备（OpenHarmony 7.1.0.23，API 26）单次测试命令稳定上限约 600 条：605 条稳定，705 条临界，900 条以上进程被杀。故采用六批拆分。
 `List.test.ets` 通过 `-s batch` 每次只注册一批；UiTest Driver 采用懒加载，UiTest 不可用时相关 UI 用例安全跳过，避免 jscrash。
-
