@@ -15,6 +15,7 @@
 
 // [Start bin_convert_ecc_keypair]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function convertEccAsyKey(): Promise<void> {
   return new Promise<void>((resolve, reject) => {
@@ -32,9 +33,10 @@ function convertEccAsyKey(): Promise<void> {
     let generator = cryptoFramework.createAsyKeyGenerator('ECC256');
     generator.convertKey(pubKeyBlob, priKeyBlob, (error, keyPair) => {
       if (error) {
-        console.error(`convertKey failed: errCode: ${error.code}, message: ${error.message}`);
+        let e: BusinessError = error as BusinessError;
+        console.error(`convertKey failed: errCode: ${e.code}, message: ${e.message}`);
         // [StartExclude bin_convert_ecc_keypair]
-        reject(new Error(`convertKey failed: errCode: ${error.code}, message: ${error.message}`));
+        reject(new Error(`convertKey failed: errCode: ${e.code}, message: ${e.message}`));
         // [EndExclude bin_convert_ecc_keypair]
         return;
       }

@@ -15,6 +15,7 @@
 
 // [Start specify_parameter_generate_rsa_keypair_sync]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 // RSA公钥密钥参数生成函数
 function genRsaPubKeySpec(nIn: bigint, eIn: bigint): cryptoFramework.RSAPubKeySpec {
@@ -88,7 +89,8 @@ function rsaUsePubKeySpecGetSync() {
       throw new Error('get pub key result: fail!');
       // [EndExclude specify_parameter_generate_rsa_keypair_sync]
     }
-  } catch (e) {
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
     console.error(`get pub key result failed: errCode: ${e.code}, message: ${e.message}`);
     // [StartExclude specify_parameter_generate_rsa_keypair_sync]
     throw new Error(`get pub key result failed: errCode: ${e.code}, message: ${e.message}`);
