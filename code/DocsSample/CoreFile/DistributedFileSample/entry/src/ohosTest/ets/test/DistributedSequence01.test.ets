@@ -2235,3 +2235,53 @@ export default function distributedSequence01Test(): void {
           const step2EventCount: number = api.events.length;
           const step2UriCount: number = api.uriPaths.length;
           const step2NetworkCount: number = api.networks.length;
+          const step2CopyCount: number = api.sources.length;
+          const step2RemovedCount: number = api.removed.length;
+          const step2ReleaseCount: number = api.disconnected.length;
+          const step2Outcome: DistributedOutcome = await captureDistributed(
+            (): Promise<void> => copyFromDistributed(step2Request, api));
+          expect(step2Outcome.threw).assertEqual(true);
+          expect(step2Outcome.error).assertEqual(step2Error);
+          expect(api.events.slice(step2EventCount).join('|')).assertEqual('uri|uri');
+          expect(api.uriPaths.length - step2UriCount).assertEqual(2);
+          expect(api.uriPaths[step2UriCount]).assertEqual('/distributed/source-2.txt');
+          expect(api.networks.length - step2NetworkCount).assertEqual(0);
+          expect(api.sources.length - step2CopyCount).assertEqual(0);
+          expect(api.removed.length - step2RemovedCount).assertEqual(0);
+          expect(api.disconnected.length - step2ReleaseCount).assertEqual(0);
+          expect(api.uriPaths[step2UriCount + 1]).assertEqual('/sandbox/destination-2.txt');
+          const step3Request: DistributedCopyRequest = distributedRequest(3);
+          const step3Error: Error = new Error('sourceUri step 3');
+          const step3ReleaseError: Error = new Error('release step 3');
+          api.uriCalls = 0;
+          api.uriErrorAt = 1;
+          api.uriError = step3Error;
+          api.connectError = undefined;
+          api.copyError = undefined;
+          api.unlinkError = undefined;
+          api.disconnectError = undefined;
+          const step3EventCount: number = api.events.length;
+          const step3UriCount: number = api.uriPaths.length;
+          const step3NetworkCount: number = api.networks.length;
+          const step3CopyCount: number = api.sources.length;
+          const step3RemovedCount: number = api.removed.length;
+          const step3ReleaseCount: number = api.disconnected.length;
+          const step3Outcome: DistributedOutcome = await captureDistributed(
+            (): Promise<void> => copyFromDistributed(step3Request, api));
+          expect(step3Outcome.threw).assertEqual(true);
+          expect(step3Outcome.error).assertEqual(step3Error);
+          expect(api.events.slice(step3EventCount).join('|')).assertEqual('uri');
+          expect(api.uriPaths.length - step3UriCount).assertEqual(1);
+          expect(api.uriPaths[step3UriCount]).assertEqual('/distributed/source-3.txt');
+          expect(api.networks.length - step3NetworkCount).assertEqual(0);
+          expect(api.sources.length - step3CopyCount).assertEqual(0);
+          expect(api.removed.length - step3RemovedCount).assertEqual(0);
+          expect(api.disconnected.length - step3ReleaseCount).assertEqual(0);
+          expect(api.events.join('|')).assertEqual('uri|uri|connect|copy|unlink|disconnect|uri|uri|uri');
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+
+  });
+}

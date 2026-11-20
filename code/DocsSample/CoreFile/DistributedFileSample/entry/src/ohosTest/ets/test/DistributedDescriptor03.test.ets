@@ -1051,3 +1051,53 @@ export default function distributedDescriptor03Test(): void {
       async (): Promise<void> => {
         const TAG: string = 'testDistributedFileDescriptor030018';
         console.info(`${TAG} start`);
+        try {
+          const api: RecordingDescriptorApi = new RecordingDescriptorApi();
+          const step1Error: Error = new Error('primary step 1');
+          const step1CloseError: Error = new Error('release step 1');
+          api.fd = 7;
+          api.openError = step1Error;
+          api.writeError = undefined;
+          api.closeError = undefined;
+          const step1EventCount: number = api.events.length;
+          const step1PathCount: number = api.paths.length;
+          const step1WriteCount: number = api.descriptors.length;
+          const step1CloseCount: number = api.closed.length;
+          const step1Outcome: DistributedOutcome = captureDescriptor(
+            (): void => writeTextFile(' /sandbox/file-1.txt ', 'payload-1', api));
+          expect(step1Outcome.threw).assertEqual(true);
+          expect(api.events.slice(step1EventCount).join('|')).assertEqual('open');
+          expect(api.paths.length - step1PathCount).assertEqual(1);
+          expect(api.paths[step1PathCount]).assertEqual('/sandbox/file-1.txt');
+          expect(api.descriptors.length - step1WriteCount).assertEqual(0);
+          expect(api.closed.length - step1CloseCount).assertEqual(0);
+          expect(step1Outcome.error).assertEqual(step1Error);
+          const step2Error: Error = new Error('primary step 2');
+          const step2CloseError: Error = new Error('release step 2');
+          api.fd = 7;
+          api.openError = undefined;
+          api.writeError = step2Error;
+          api.closeError = step2CloseError;
+          const step2EventCount: number = api.events.length;
+          const step2PathCount: number = api.paths.length;
+          const step2WriteCount: number = api.descriptors.length;
+          const step2CloseCount: number = api.closed.length;
+          const step2Outcome: DistributedOutcome = captureDescriptor(
+            (): void => writeTextFile(' /sandbox/file-2.txt ', 'payload-2', api));
+          expect(step2Outcome.threw).assertEqual(true);
+          expect(api.events.slice(step2EventCount).join('|')).assertEqual('open|write|close');
+          expect(api.paths.length - step2PathCount).assertEqual(1);
+          expect(api.paths[step2PathCount]).assertEqual('/sandbox/file-2.txt');
+          expect(api.descriptors.length - step2WriteCount).assertEqual(1);
+          expect(api.closed.length - step2CloseCount).assertEqual(1);
+          expect(step2Outcome.error).assertEqual(step2Error);
+          expect(api.descriptors[step2WriteCount]).assertEqual(7);
+          expect(api.contents[step2WriteCount]).assertEqual('payload-2');
+          expect(api.closed[step2CloseCount]).assertEqual(7);
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+
+  });
+}

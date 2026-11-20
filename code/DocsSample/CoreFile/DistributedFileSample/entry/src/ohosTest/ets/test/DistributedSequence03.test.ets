@@ -2391,3 +2391,21 @@ export default function distributedSequence03Test(): void {
           expect(api.uriPaths[step3UriCount + 1]).assertEqual('/sandbox/destination-3.txt');
           expect(api.networks[step3NetworkCount]).assertEqual('peer-3');
           expect(api.listeners[step3NetworkCount] === step3Request.listeners).assertEqual(false);
+          expect(api.listeners[step3NetworkCount].onStatus).assertEqual(step3Request.listeners.onStatus);
+          expect(api.sources[step3CopyCount]).assertEqual('mock:/distributed/source-3.txt');
+          expect(api.destinations[step3CopyCount]).assertEqual('mock:/sandbox/destination-3.txt');
+          expect(api.options[step3CopyCount] === step3Request.options).assertEqual(false);
+          expect(api.options[step3CopyCount].progressListener).assertEqual(undefined);
+          expect(api.options[step3CopyCount].copySignal).assertEqual(undefined);
+          expect(api.disconnected[step3ReleaseCount]).assertEqual('peer-3');
+          expect(api.removed[step3RemovedCount]).assertEqual('/distributed/source-3.txt');
+          expect(api.events.join('|')).assertEqual(
+            'uri|uri|connect|copy|unlink|disconnect|uri|uri|connect|copy|unlink|disconnec' +
+            't|uri|uri|connect|copy|unlink|disconnect');
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+
+  });
+}

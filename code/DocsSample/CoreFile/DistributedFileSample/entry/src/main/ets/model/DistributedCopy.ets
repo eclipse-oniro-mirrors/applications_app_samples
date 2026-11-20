@@ -108,3 +108,53 @@ export async function copyFromDistributed(request: DistributedCopyRequest,
   const destinationUri: string = api.getUriFromPath(destinationPath);
   const listeners: fileIo.DfsListeners = { onStatus: request.listeners.onStatus };
   const options: fileIo.CopyOptions = {
+    progressListener: request.options.progressListener,
+    copySignal: request.options.copySignal
+  };
+  let connected: boolean = false;
+  let operationError: Error | undefined = undefined;
+  try {
+    await api.connectDfs(networkId, listeners);
+    connected = true;
+    await api.copy(sourceUri, destinationUri, options);
+    api.unlinkSync(sourcePath);
+  } catch (error) {
+    operationError = error as Error;
+  } finally {
+    if (connected) {
+      try {
+        await api.disconnectDfs(networkId);
+      } catch (error) {
+        if (operationError === undefined) {
+          operationError = error as Error;
+        }
+      }
+    }
+  }
+  if (operationError !== undefined) {
+    throw operationError;
+  }
+}
+
+/** Writes through a validated descriptor and releases it on every post-open path. */
+export function writeTextFile(path: string, content: string, api: FileDescriptorApi): void {
+  const requestPath: string = requireText(path, 'File path');
+  const fd: number = requireDescriptor(api.open(requestPath));
+  let operationError: Error | undefined = undefined;
+  try {
+    api.write(fd, content);
+  } catch (error) {
+    operationError = error as Error;
+  } finally {
+    try {
+      api.close(fd);
+    } catch (error) {
+      if (operationError === undefined) {
+        operationError = error as Error;
+      }
+    }
+  }
+  if (operationError !== undefined) {
+    throw operationError;
+  }
+}
