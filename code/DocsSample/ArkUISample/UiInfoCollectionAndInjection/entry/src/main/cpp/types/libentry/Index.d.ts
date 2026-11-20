@@ -38,36 +38,36 @@ export const collectTreeAsync: (context: UIContext, options: TreeOptions) => Pro
 
 // [Start ndk_image_result_type]
 export interface ImageItemResult {
-  // Node id of this item. The framework returns one item per requested id, failures included.
+  // 本结果项的节点ID。每个请求的节点ID都有一项，失败项也包含在内。
   nodeId: number;
-  // Result of consuming the item from the collection. 0 means the item was consumed.
+  // 从集合中取出该项的结果。0表示取出成功。
   takeError: number;
-  // Result of collecting this node image. Non-zero means this item has no image.
+  // 该节点图片的采集结果。非0表示该项没有图片。
   itemError: number;
-  // Image size in pixels. Both fields are absent when the item has no image.
+  // 图片的像素尺寸。该项没有图片时这两个字段不存在。
   width?: number;
   height?: number;
-  // Collected image. The sample releases nothing here: ArkTS owns the object.
+  // 采集到的图片。示例在此不释放，对象由ArkTS持有。
   pixelMap?: image.PixelMap;
 }
 
 export interface ImageCollectionResult {
-  // Result of submitting the request. Non-zero means the request was rejected and no item exists.
+  // 请求的受理结果。非0表示请求被拒绝，没有任何结果项。
   submitError: number;
-  // Overall result reported by the callback. Partial failure still delivers every item. A rejected
-  // request reports the same code as submitError, because the callback never runs.
+  // 回调上报的整体结果。部分失败时仍会返回全部结果项。
+  // 请求被拒绝时不会执行回调，此处与submitError相同。
   overallError: number;
   items: ImageItemResult[];
 }
 // [End ndk_image_result_type]
 
 // [Start ndk_image_bridge_type]
-// nodeIds are the unique ids of the target nodes.
+// nodeIds为各目标节点的唯一节点ID。
 export const collectImages: (nodeIds: number[]) => Promise<ImageCollectionResult>;
 // [End ndk_image_bridge_type]
 
 // [Start ndk_image_anchor_type]
-// The page hosts a native anchor node in a NodeContent, and the capture context is resolved from it.
+// 页面通过NodeContent挂载一个native锚点节点，采集上下文从该节点反查获得。
 export const attachImageAnchor: (content: NodeContent) => void;
 
 export const detachImageAnchor: () => void;
