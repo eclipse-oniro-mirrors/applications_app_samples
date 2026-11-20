@@ -1644,18 +1644,18 @@ export default function harStringUnicodeMatrixTest() {
      * @tc.level     LEVEL0
      */
     it('testUnicode0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      const text: string = '\u00D8\u00EB\u4E42';
+      const text: string = String.fromCharCode(216) + '\u00EB\u4E42';
       logCase('testUnicode0067', `len=${text.length}`);
       expect(text.length).assertEqual(3);
       expect(text.charCodeAt(0)).assertEqual(216);
       expect(text.codePointAt(0)).assertEqual(216);
       expect(text.charCodeAt(text.length - 1)).assertEqual(20034);
-      expect(text.toUpperCase()).assertEqual('\u00D8\u00CB\u4E42');
+      expect(text.toUpperCase()).assertEqual(String.fromCharCode(216) + '\u00CB\u4E42');
       expect(text.toLowerCase()).assertEqual('\u00F8\u00EB\u4E42');
       expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
       expect(text.includes('\u00EB')).assertTrue();
       expect(text.indexOf('\u00EB') >= 0).assertTrue();
-      expect(text.slice(0, 2)).assertEqual('\u00D8\u00EB');
+      expect(text.slice(0, 2)).assertEqual(String.fromCharCode(216) + '\u00EB');
       expect(text.slice(1, 3)).assertEqual('\u00EB\u4E42');
       expect(text.repeat(2)).assertEqual(text + text);
       expect(text.repeat(0)).assertEqual('');
@@ -2841,7 +2841,7 @@ export default function harStringUnicodeMatrixTest() {
       expect(text.charCodeAt(0)).assertEqual(218);
       expect(text.codePointAt(0)).assertEqual(218);
       expect(text.charCodeAt(text.length - 1)).assertEqual(20083);
-      expect(text.toUpperCase()).assertEqual('\u00DA\u00D8\u4E73');
+      expect(text.toUpperCase()).assertEqual('\u00DA' + String.fromCharCode(216) + '\u4E73');
       expect(text.toLowerCase()).assertEqual('\u00FA\u00F8\u4E73');
       expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
       expect(text.includes('\u00F8')).assertTrue();

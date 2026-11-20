@@ -13,11 +13,7 @@
 `entry/src/ohosTest` 下共 25 个测试套件、3250 个用例、约 6.7 万行用例代码，
 全部基于 Hypium 编写，覆盖 HAR 包的对外契约、资源、包信息、上下文、窗口与生命周期。
 
-执行命令：
 
-```
-hdc shell aa test -b ohos.app.hap.myapplication -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 600000
-```
 
 | 测试套件 | 用例数 | 覆盖内容 |
 |------|------|------|

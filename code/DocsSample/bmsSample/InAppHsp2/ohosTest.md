@@ -22,7 +22,7 @@
 | HSP 路由集成 | HspIntegrationMatrix | 51 | 安装 entry.hap 与 library.hsp | 读取聚合路由表 | 路由名、页面路径、构建函数与 HSP 内配置一致 | Pass |
 | entry 资源解析 | EntryResourceMatrix | 285 | 安装 entry.hap | 读取字符串、颜色、图片、分层图标 | 资源值与工程配置逐项一致 | Pass |
 | library 资源解析 | LibraryResourceMatrix | 42 | 安装 library.hsp | 读取 library 共享资源 | 资源值与工程配置一致 | Pass |
-| 上下文目录 | ContextDirMatrix | 101 | 应用可运行 | 读取 files/cache/temp 等目录 | 路径为绝对路径、目录存在且可读写 | Pass |
+| 上下文目录 | ContextDirMatrix | 101 | 应用可运行 | 读取 files/cache/temp 等目录 | 路径为完整路径、目录存在且可读写 | Pass |
 | 文件读写 | FileCacheIoMatrix | 557 | 应用可运行 | 创建、追加、复制、重命名、删除文件 | 文件大小、内容、元数据与操作一致，且无残留 | Pass |
 | 文件异常路径 | FileCacheErrorMatrix | 240 | 应用可运行 | 读取/删除不存在的文件、重复建目录、删除非空目录 | 返回对应错误码或保持目录原状 | Pass |
 | 显示与设备信息 | DisplayMatrix | 84 | 设备正常显示 | 读取 Display 与 deviceInfo | 分辨率、密度、刷新率、旋转方向取值合法且稳定 | Pass |
