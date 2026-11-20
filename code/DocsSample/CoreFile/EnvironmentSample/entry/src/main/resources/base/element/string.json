@@ -26,7 +26,31 @@
     },
     {
       "name": "reason",
-      "value": "testEnvironmentSample"
+      "value": "用于导入下载目录中的文件并保存示例文件。"
+    },
+    {
+      "name": "public_dirs_success",
+      "value": "getUserDirExample SUCCESS"
+    },
+    {
+      "name": "public_dirs_failed",
+      "value": "getUserDirExample FAILED"
+    },
+    {
+      "name": "download_import_success",
+      "value": "readUserDownloadDirExample SUCCESS"
+    },
+    {
+      "name": "download_import_failed",
+      "value": "readUserDownloadDirExample FAILED"
+    },
+    {
+      "name": "download_write_success",
+      "value": "writeUserDownloadDirExample SUCCESS"
+    },
+    {
+      "name": "download_write_failed",
+      "value": "writeUserDownloadDirExample FAILED"
     }
   ]
 }
