@@ -14,9 +14,13 @@
  */
 
 import UIAbility from '@ohos.app.ability.UIAbility'
+import Want from '@ohos.app.ability.Want'
+import window from '@ohos.window'
+import { BusinessError } from '@ohos.base'
+import { Configuration } from '@ohos.app.ability.Configuration'
 
 export default class MainAbility extends UIAbility {
-  onCreate(want, launchParam) {
+  onCreate(want: Want, launchParam: object): void {
     console.log('[Sample_appMarket] MainAbility onCreate')
   }
 
@@ -24,11 +28,11 @@ export default class MainAbility extends UIAbility {
     console.log('[Sample_appMarket] MainAbility onDestroy')
   }
 
-  onWindowStageCreate(windowStage) {
+  onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
     console.log('[Demo] MainAbility onWindowStageCreate')
 
-    windowStage.loadContent("pages/index", (err, data) => {
+    windowStage.loadContent("pages/index", (err: BusinessError, data: void) => {
       if (err.code) {
         console.error('Failed to load the content. Cause:' + JSON.stringify(err))
         return

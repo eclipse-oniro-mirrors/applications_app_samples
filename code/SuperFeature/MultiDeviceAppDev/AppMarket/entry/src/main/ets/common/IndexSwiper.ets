@@ -17,7 +17,7 @@
 export default struct IndexSwiper {
   @StorageProp('currentBreakpoint') currentBreakpoint: string = 'md'
 
-  @Builder swiperItem(imageSrc) {
+  @Builder swiperItem(imageSrc: Resource) {
     Image(imageSrc)
       .width('100%')
       .aspectRatio(2.5)

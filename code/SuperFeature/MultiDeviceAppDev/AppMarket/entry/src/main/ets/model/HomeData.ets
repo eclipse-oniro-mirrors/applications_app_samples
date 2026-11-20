@@ -13,7 +13,9 @@
  * limitations under the License.
  */
 
-const appList = [
+import { AppItem, AllIcons } from '../model/HomeDataType'
+
+const appList: AppItem[] = [
   { id: '0', title: $r('app.string.public_app1'), image: $r('app.media.ic_public_app1') },
   { id: '1', title: $r('app.string.public_app2'), image: $r('app.media.ic_public_app2') },
   { id: '2', title: $r('app.string.public_app3'), image: $r('app.media.ic_public_app3') },
@@ -37,7 +39,7 @@ const appList = [
   { id: '20', title: $r('app.string.public_app10'), image: $r('app.media.ic_public_app10') }
 ]
 
-const gameList = [
+const gameList: AppItem[] = [
   { id: '21', title: $r('app.string.public_game1'), image: $r('app.media.ic_public_game1') },
   { id: '22', title: $r('app.string.public_game2'), image: $r('app.media.ic_public_game2') },
   { id: '23', title: $r('app.string.public_game3'), image: $r('app.media.ic_public_game3') },
@@ -60,7 +62,7 @@ const gameList = [
   { id: '40', title: $r('app.string.public_game10'), image: $r('app.media.ic_public_game10') }
 ]
 
-const entranceIcons = [
+const entranceIcons: AllIcons[] = [
   { title: $r('app.string.home_categories'), image: $r('app.media.ic_home_categories') },
   { title: $r('app.string.home_top'), image: $r('app.media.ic_home_top') },
   { title: $r('app.string.home_fast'), image: $r('app.media.ic_home_fast') },

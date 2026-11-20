@@ -13,7 +13,12 @@
  * limitations under the License.
  */
 
-const TitleColor = {
+declare interface TitleColorType {
+  NORMAL: string
+  SELECTED: string
+}
+
+const TitleColor: TitleColorType = {
   NORMAL: '#999',
   SELECTED: '#0A59F7'
 }
@@ -22,10 +27,10 @@ const TitleColor = {
 export default struct TabBarItem {
   @StorageProp('currentBreakpoint') currentBreakpoint: string = 'md'
   @Prop currentIndex: number
-  private index: number
-  private icon: Resource
-  private iconSelected: Resource
-  private title: Resource
+  private index: number = 0
+  icon: Resource = $r('app.media.icon')
+  iconSelected: Resource = $r('app.media.icon')
+  title: Resource = $r('app.string.MainAbility_label')
 
   private getIcon() {
     return this.currentIndex === this.index ? this.iconSelected : this.icon
