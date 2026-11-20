@@ -20,9 +20,13 @@
 #include <arkui/native_node_napi.h>
 #include <arkui/ui_event_injection.h>
 #include <arkui/ui_json_wrapper.h>
+#include <hilog/log.h>
 #include <napi/native_api.h>
 
 #include "NativeEntry.h"
+
+#define LOG_DOMAIN 0x0000
+#define LOG_TAG "NdkInject"
 
 namespace NativeEntry {
 
@@ -33,13 +37,11 @@ constexpr uint32_t INJECT_ARG_INDEX_Y = 2;
 constexpr size_t INJECT_ARG_COUNT = 3;
 } // namespace
 
-// 定义完成回调：命令执行完成后回调一次，result为执行结果。
+// 定义完成回调，命令执行完成后回调一次，result为执行结果。
 static void OnInjectionResult(OH_ArkUI_NativeModule_UIEventInjection_ResultCode result, void* userData)
 {
-    int* finished = static_cast<int*>(userData);
-    if (finished != nullptr) {
-        *finished = 1;
-    }
+    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_DOMAIN, LOG_TAG, "injection result: %{public}d",
+        static_cast<int>(result));
 }
 
 // 通过ArkUI_ContextHandle在指定坐标（相对窗口的物理像素）注入一次点击手势命令。
@@ -58,8 +60,7 @@ void InjectClickCommand(ArkUI_ContextHandle uiContext, double x, double y)
     }
 
     // 注入命令。
-    int finished = 0;
-    ret = OH_ArkUI_NativeModule_UIEventInjectRelaxedInteraction(uiContext, command, OnInjectionResult, &finished);
+    ret = OH_ArkUI_NativeModule_UIEventInjectRelaxedInteraction(uiContext, command, OnInjectionResult, nullptr);
 
     // JSON在接口返回前已被复制，返回后可立即销毁命令对象。
     OH_ArkUI_NativeModule_UIJsonWrapperDestroy(command);
