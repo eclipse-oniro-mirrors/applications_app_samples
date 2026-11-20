@@ -26,7 +26,7 @@ export default function soloNativeSmokeTest(): void {
     /**
      * @tc.number    SOLO_NATIVE_0001
      * @tc.name      solo_native_normal_lifecycle
-     * @tc.desc      真实 Surface 经 NAPI 创建普通线程句柄、停止并销毁，销毁后句柄不可达
+     * @tc.desc      真实 XComponent 经 NAPI 创建普通线程句柄、停止并销毁，销毁后句柄不可达
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0

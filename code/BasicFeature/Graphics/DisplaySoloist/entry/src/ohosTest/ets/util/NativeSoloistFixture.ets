@@ -15,12 +15,12 @@
 
 import XComponentContext from '../../../main/ets/interface/XComponentContext';
 
-// 只传递真实 Surface 的 onLoad 上下文，不模拟 native 实现。
+// 只传递真实 XComponent 的 onLoad 上下文，不模拟 native 实现。
 export class NativeSoloistFixture {
-  static normal: XComponentContext | undefined = undefined;
-  static exclusive: XComponentContext | undefined = undefined;
+  public static normal: XComponentContext | undefined = undefined;
+  public static exclusive: XComponentContext | undefined = undefined;
 
-  static async waitForContext(exclusive: boolean): Promise<XComponentContext> {
+  public static async waitForContext(exclusive: boolean): Promise<XComponentContext> {
     for (let attempt: number = 0; attempt < 100; attempt++) {
       const context: XComponentContext | undefined =
         exclusive ? NativeSoloistFixture.exclusive : NativeSoloistFixture.normal;
@@ -29,6 +29,6 @@ export class NativeSoloistFixture {
       }
       await new Promise<void>((resolve) => setTimeout(resolve, 50));
     }
-    throw new Error('真实 XComponent Surface 未完成 onLoad');
+    throw new Error('真实 XComponent 未完成 onLoad');
   }
 }

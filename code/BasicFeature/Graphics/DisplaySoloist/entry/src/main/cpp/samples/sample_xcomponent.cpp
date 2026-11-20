@@ -283,6 +283,25 @@ int32_t ExecuteDisplaySoloist(std::string id, DisplaySoloist_ExpectedRateRange r
     return status;
 }
 
+static bool ResolveSoloistConfig(const std::string &id, DisplaySoloist_ExpectedRateRange &range,
+                                 bool &useExclusiveThread)
+{
+    if (id == "xcomponentId30") {
+        // 第一个按照期望30HZ的帧率来移动
+        range = {30, 120, 30};
+    } else if (id == "xcomponentId60") {
+        // 第二个按照期望60HZ的帧率来移动
+        range = {30, 120, 60};
+        useExclusiveThread = true;
+    } else if (id == "xcomponentId120") {
+        // 第三个按照期望120HZ的帧率来移动
+        range = {30, 120, 120};
+    } else {
+        return false;
+    }
+    return true;
+}
+
 napi_value SampleXComponent::NapiRegister(napi_env env, napi_callback_info info)
 {
     SAMPLE_LOGI("NapiRegister");
@@ -321,23 +340,8 @@ napi_value SampleXComponent::NapiRegister(napi_env env, napi_callback_info info)
     if (render != nullptr) {
         DisplaySoloist_ExpectedRateRange range = {30, 120, 30};
         bool useExclusiveThread = false;
-        if (id != "xcomponentId30" && id != "xcomponentId60" && id != "xcomponentId120") {
+        if (!ResolveSoloistConfig(id, range, useExclusiveThread)) {
             return ToNapiStatus(env, -1);
-        }
-        if (id == "xcomponentId30") {
-            // 第一个按照期望30HZ的帧率来移动
-            range = {30, 120, 30};
-        }
-
-        if (id == "xcomponentId60") {
-            // 第二个按照期望60HZ的帧率来移动
-            range = {30, 120, 60};
-            useExclusiveThread = true;
-        }
-
-        if (id == "xcomponentId120") {
-            // 第三个按照期望120HZ的帧率来移动
-            range = {30, 120, 120};
         }
         int32_t status = ExecuteDisplaySoloist(id, range, useExclusiveThread, nativeXComponent);
         SAMPLE_LOGI("NapiRegister status = %{public}d", status);
