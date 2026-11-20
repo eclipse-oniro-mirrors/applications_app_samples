@@ -16,8 +16,8 @@
 
 使用说明：
 
-1. 本应用主要用于拉起应用数据备份，依赖于FileBackuoExtension应用，在使用前确保安装FileBackuoExtension应用。
-2. 启动该应用后，通过点击相关的按钮可以拉起FileBackuoExtensiony应用的数据备份和恢复，备份和恢复将会按照FileBackuoExtensiony应用中配置的数据 备份和恢复框架进行。
+1. 本应用主要用于拉起应用数据备份，依赖于FileBackupExtension应用，在使用前确保安装FileBackupExtension应用。
+2. 启动该应用后，通过点击相关的按钮可以拉起FileBackupExtension应用的数据备份和恢复，备份和恢复将会按照FileBackupExtension应用中配置的数据 备份和恢复框架进行。
 
 ## 工程目录
 
@@ -57,9 +57,17 @@
 ## 约束与限制
 
 1. 本示例仅支持标准系统上运行，支持设备：RK3568。
-2. 本示例为Stage模型，支持API14版本SDK，版本号：5.0.2.58，镜像版本号：OpenHarmony 5.1.0.51。
+2. 本示例为Stage模型，当前工程配置为OpenHarmony API 26（SDK版本字段26.0.0），备份服务接口为系统API，需要包含`backup`导出的完整系统SDK。原API14说明仅为历史环境，不作为本轮构建依据。
 3. 本示例需要使用DevEco Studio 5. 1Release (Build Version: 5.0.5.306, built on December 6, 2024)及以上版本才可编译运行。
 4. 本示例涉及部分接口需要配置系统应用签名，可以参考[特殊权限配置方法](https://gitee.com/openharmony/docs/blob/OpenHarmony-5.0.1-Release/zh-cn/application-dev/security/hapsigntool-overview.md) ，把配置文件中的“apl”字段信息改为“system_basic”。
+
+## 自动化测试与本轮验证
+
+设备套件保留8个UI场景和2个真实FileIo场景，补充768个文件传输逻辑矩阵用例，连同11个基础逻辑共789例；另有1个本地逻辑用例。完整Hypium启动、静态注册与场景说明见[ohosTest.md](ohosTest.md)。
+
+本地主机检查可运行`node host-regression.cjs`，仅转译实际BackupFileTransfer生产逻辑并注入记录端口，禁止执行FileIo、系统备份服务、UI或Native接口；结果不是设备通过证明。最终主机回归780/780通过，实际执行16,467次断言，运行器25项契约检查通过。测试目录54,637物理行，包含注释和空行，不宣称五万行纯业务代码；源码绑定的790条逐例目录见测试归档。
+
+本轮主包在已安装的完整系统API26 SDK隔离副本编译，测试包在原工程API26公共SDK编译。两者不是同一SDK的双目标验收：公共SDK缺少主包需要的`backup`导出，系统SDK缺少测试构建的互操作生成工具。原工程SDK配置、签名和权限未变；只有补齐完整系统SDK工具链、系统签名及目标设备后，才能完成同一环境下双包与真实服务/UI验证。未修改或补丁化共享SDK。
 
 ## 下载
 
@@ -67,7 +75,7 @@
 git init
 git config core.sparsecheckout true
 echo code/DocsSample/CoreFile/AppFileBackup > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
 

@@ -15,14 +15,27 @@
 
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "certpath": "C:/Users/xychengas/.ohos/config/openharmony/default_AppFileBackup_nSI4FM68Knnwqo5dTUtHoDiQqq-GtFxZEBADKeJQo-Y=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001BF6D9E66324E8EC9188FF1D76835DF7513F15CD1881AF926996495B877B54ABD28D670597325992",
+          "profile": "C:/Users/xychengas/.ohos/config/openharmony/default_AppFileBackup_nSI4FM68Knnwqo5dTUtHoDiQqq-GtFxZEBADKeJQo-Y=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:/Users/xychengas/.ohos/config/openharmony/default_AppFileBackup_nSI4FM68Knnwqo5dTUtHoDiQqq-GtFxZEBADKeJQo-Y=.p12",
+          "storePassword": "0000001BEB794727B0A2040D916BBD96A1FCD3C87D445017786FCB79B0E2935D5CA0AF6009FE9509A384B5"
+        }
+      }
+    ],
     "products": [
       {
         "name": "default",
         "signingConfig": "default",
-        "targetSdkVersion": 20,
-        "compatibleSdkVersion": 20,
-        "compileSdkVersion": 20,
+        "targetSdkVersion": "26.0.0",
+        "compatibleSdkVersion": "26.0.0",
+        "compileSdkVersion": "26.0.0",
         "runtimeOS": "OpenHarmony",
         "buildOption": {
           "strictMode": {
