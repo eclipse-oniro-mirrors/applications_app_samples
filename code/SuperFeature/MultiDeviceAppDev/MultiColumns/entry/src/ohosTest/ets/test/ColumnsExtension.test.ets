@@ -3987,3 +3987,1997 @@ export default function columnsExtensionSuite() {
     it(DATASET + 'b5a017', 0, () => {
       expect(averageOf([17, 19])).assertEqual(18);
     })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1673
+     * @tc.name    ColumnsExtension1673
+     * @tc.desc    Sample average of 2 values keeps the exact mean 19
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a018', 0, () => {
+      expect(averageOf([18, 20])).assertEqual(19);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1674
+     * @tc.name    ColumnsExtension1674
+     * @tc.desc    Sample average of 2 values keeps the exact mean 20
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a019', 0, () => {
+      expect(averageOf([19, 21])).assertEqual(20);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1675
+     * @tc.name    ColumnsExtension1675
+     * @tc.desc    Sample average of 2 values keeps the exact mean 21
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a020', 0, () => {
+      expect(averageOf([20, 22])).assertEqual(21);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1676
+     * @tc.name    ColumnsExtension1676
+     * @tc.desc    Sample average of 2 values keeps the exact mean 4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a022', 0, () => {
+      expect(averageOf([2, 6])).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1677
+     * @tc.name    ColumnsExtension1677
+     * @tc.desc    Sample average of 2 values keeps the exact mean 6
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a023', 0, () => {
+      expect(averageOf([3, 9])).assertEqual(6);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1678
+     * @tc.name    ColumnsExtension1678
+     * @tc.desc    Sample average of 2 values keeps the exact mean 8
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a024', 0, () => {
+      expect(averageOf([4, 12])).assertEqual(8);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1679
+     * @tc.name    ColumnsExtension1679
+     * @tc.desc    Sample average of 2 values keeps the exact mean 10
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a025', 0, () => {
+      expect(averageOf([5, 15])).assertEqual(10);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1680
+     * @tc.name    ColumnsExtension1680
+     * @tc.desc    Sample average of 2 values keeps the exact mean 12
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a026', 0, () => {
+      expect(averageOf([6, 18])).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1681
+     * @tc.name    ColumnsExtension1681
+     * @tc.desc    Sample average of 2 values keeps the exact mean 14
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a027', 0, () => {
+      expect(averageOf([7, 21])).assertEqual(14);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1682
+     * @tc.name    ColumnsExtension1682
+     * @tc.desc    Sample average of 2 values keeps the exact mean 16
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a028', 0, () => {
+      expect(averageOf([8, 24])).assertEqual(16);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1683
+     * @tc.name    ColumnsExtension1683
+     * @tc.desc    Sample average of 2 values keeps the exact mean 18
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a029', 0, () => {
+      expect(averageOf([9, 27])).assertEqual(18);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1684
+     * @tc.name    ColumnsExtension1684
+     * @tc.desc    Sample average of 2 values keeps the exact mean 20
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a030', 0, () => {
+      expect(averageOf([10, 30])).assertEqual(20);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1685
+     * @tc.name    ColumnsExtension1685
+     * @tc.desc    Sample average of 2 values keeps the exact mean 22
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a031', 0, () => {
+      expect(averageOf([11, 33])).assertEqual(22);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1686
+     * @tc.name    ColumnsExtension1686
+     * @tc.desc    Sample average of 2 values keeps the exact mean 24
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a032', 0, () => {
+      expect(averageOf([12, 36])).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1687
+     * @tc.name    ColumnsExtension1687
+     * @tc.desc    Sample average of 2 values keeps the exact mean 26
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a033', 0, () => {
+      expect(averageOf([13, 39])).assertEqual(26);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1688
+     * @tc.name    ColumnsExtension1688
+     * @tc.desc    Sample average of 2 values keeps the exact mean 28
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a034', 0, () => {
+      expect(averageOf([14, 42])).assertEqual(28);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1689
+     * @tc.name    ColumnsExtension1689
+     * @tc.desc    Sample average of 2 values keeps the exact mean 30
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a035', 0, () => {
+      expect(averageOf([15, 45])).assertEqual(30);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1690
+     * @tc.name    ColumnsExtension1690
+     * @tc.desc    Sample average of 2 values keeps the exact mean 32
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a036', 0, () => {
+      expect(averageOf([16, 48])).assertEqual(32);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1691
+     * @tc.name    ColumnsExtension1691
+     * @tc.desc    Sample average of 2 values keeps the exact mean 34
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a037', 0, () => {
+      expect(averageOf([17, 51])).assertEqual(34);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1692
+     * @tc.name    ColumnsExtension1692
+     * @tc.desc    Sample average of 2 values keeps the exact mean 36
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a038', 0, () => {
+      expect(averageOf([18, 54])).assertEqual(36);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1693
+     * @tc.name    ColumnsExtension1693
+     * @tc.desc    Sample average of 2 values keeps the exact mean 38
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a039', 0, () => {
+      expect(averageOf([19, 57])).assertEqual(38);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1694
+     * @tc.name    ColumnsExtension1694
+     * @tc.desc    Sample average of 2 values keeps the exact mean 40
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a040', 0, () => {
+      expect(averageOf([20, 60])).assertEqual(40);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1695
+     * @tc.name    ColumnsExtension1695
+     * @tc.desc    Sample average of 2 values keeps the exact mean 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a041', 0, () => {
+      expect(averageOf([-1, 1])).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1696
+     * @tc.name    ColumnsExtension1696
+     * @tc.desc    Sample average of 2 values keeps the exact mean 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a042', 0, () => {
+      expect(averageOf([-2, 2])).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1697
+     * @tc.name    ColumnsExtension1697
+     * @tc.desc    Sample average of 2 values keeps the exact mean 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a043', 0, () => {
+      expect(averageOf([-3, 3])).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1698
+     * @tc.name    ColumnsExtension1698
+     * @tc.desc    Sample average of 2 values keeps the exact mean 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a044', 0, () => {
+      expect(averageOf([-4, 4])).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1699
+     * @tc.name    ColumnsExtension1699
+     * @tc.desc    Sample average of 2 values keeps the exact mean 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a045', 0, () => {
+      expect(averageOf([-5, 5])).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1700
+     * @tc.name    ColumnsExtension1700
+     * @tc.desc    Sample average of 2 values keeps the exact mean 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a046', 0, () => {
+      expect(averageOf([-6, 6])).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1701
+     * @tc.name    ColumnsExtension1701
+     * @tc.desc    Sample average of 2 values keeps the exact mean 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a047', 0, () => {
+      expect(averageOf([-7, 7])).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1702
+     * @tc.name    ColumnsExtension1702
+     * @tc.desc    Sample average of 2 values keeps the exact mean 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a048', 0, () => {
+      expect(averageOf([-8, 8])).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1703
+     * @tc.name    ColumnsExtension1703
+     * @tc.desc    Sample average of 2 values keeps the exact mean 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a049', 0, () => {
+      expect(averageOf([-9, 9])).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1704
+     * @tc.name    ColumnsExtension1704
+     * @tc.desc    Sample average of 2 values keeps the exact mean 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a050', 0, () => {
+      expect(averageOf([-10, 10])).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1705
+     * @tc.name    ColumnsExtension1705
+     * @tc.desc    Sample average of 2 values keeps the exact mean 1.5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a051', 0, () => {
+      expect(averageOf([1, 2])).assertEqual(1.5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1706
+     * @tc.name    ColumnsExtension1706
+     * @tc.desc    Sample average of 2 values keeps the exact mean 2.5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a052', 0, () => {
+      expect(averageOf([2, 3])).assertEqual(2.5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1707
+     * @tc.name    ColumnsExtension1707
+     * @tc.desc    Sample average of 2 values keeps the exact mean 3.5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a053', 0, () => {
+      expect(averageOf([3, 4])).assertEqual(3.5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1708
+     * @tc.name    ColumnsExtension1708
+     * @tc.desc    Sample average of 2 values keeps the exact mean 4.5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a054', 0, () => {
+      expect(averageOf([4, 5])).assertEqual(4.5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1709
+     * @tc.name    ColumnsExtension1709
+     * @tc.desc    Sample average of 2 values keeps the exact mean 5.5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a055', 0, () => {
+      expect(averageOf([5, 6])).assertEqual(5.5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1710
+     * @tc.name    ColumnsExtension1710
+     * @tc.desc    Sample average of 2 values keeps the exact mean 6.5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a056', 0, () => {
+      expect(averageOf([6, 7])).assertEqual(6.5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1711
+     * @tc.name    ColumnsExtension1711
+     * @tc.desc    Sample average of 2 values keeps the exact mean 7.5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a057', 0, () => {
+      expect(averageOf([7, 8])).assertEqual(7.5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1712
+     * @tc.name    ColumnsExtension1712
+     * @tc.desc    Sample average of 2 values keeps the exact mean 8.5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a058', 0, () => {
+      expect(averageOf([8, 9])).assertEqual(8.5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1713
+     * @tc.name    ColumnsExtension1713
+     * @tc.desc    Sample average of 2 values keeps the exact mean 9.5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a059', 0, () => {
+      expect(averageOf([9, 10])).assertEqual(9.5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1714
+     * @tc.name    ColumnsExtension1714
+     * @tc.desc    Sample average of 2 values keeps the exact mean 10.5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5a060', 0, () => {
+      expect(averageOf([10, 11])).assertEqual(10.5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1715
+     * @tc.name    ColumnsExtension1715
+     * @tc.desc    Sample range of 3 values keeps the exact spread 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r001', 0, () => {
+      expect(rangeOf([1, 0, 0])).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1716
+     * @tc.name    ColumnsExtension1716
+     * @tc.desc    Sample range of 3 values keeps the exact spread 2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r002', 0, () => {
+      expect(rangeOf([1, 1, -1])).assertEqual(2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1717
+     * @tc.name    ColumnsExtension1717
+     * @tc.desc    Sample range of 3 values keeps the exact spread 4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r003', 0, () => {
+      expect(rangeOf([1, 2, -2])).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1718
+     * @tc.name    ColumnsExtension1718
+     * @tc.desc    Sample range of 3 values keeps the exact spread 6
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r004', 0, () => {
+      expect(rangeOf([1, 3, -3])).assertEqual(6);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1719
+     * @tc.name    ColumnsExtension1719
+     * @tc.desc    Sample range of 3 values keeps the exact spread 8
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r005', 0, () => {
+      expect(rangeOf([1, 4, -4])).assertEqual(8);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1720
+     * @tc.name    ColumnsExtension1720
+     * @tc.desc    Sample range of 3 values keeps the exact spread 10
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r006', 0, () => {
+      expect(rangeOf([1, 5, -5])).assertEqual(10);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1721
+     * @tc.name    ColumnsExtension1721
+     * @tc.desc    Sample range of 3 values keeps the exact spread 2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r007', 0, () => {
+      expect(rangeOf([2, 0, 0])).assertEqual(2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1722
+     * @tc.name    ColumnsExtension1722
+     * @tc.desc    Sample range of 3 values keeps the exact spread 4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r008', 0, () => {
+      expect(rangeOf([2, 1, -2])).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1723
+     * @tc.name    ColumnsExtension1723
+     * @tc.desc    Sample range of 3 values keeps the exact spread 6
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r009', 0, () => {
+      expect(rangeOf([2, 2, -4])).assertEqual(6);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1724
+     * @tc.name    ColumnsExtension1724
+     * @tc.desc    Sample range of 3 values keeps the exact spread 9
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r010', 0, () => {
+      expect(rangeOf([2, 3, -6])).assertEqual(9);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1725
+     * @tc.name    ColumnsExtension1725
+     * @tc.desc    Sample range of 3 values keeps the exact spread 12
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r011', 0, () => {
+      expect(rangeOf([2, 4, -8])).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1726
+     * @tc.name    ColumnsExtension1726
+     * @tc.desc    Sample range of 3 values keeps the exact spread 15
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r012', 0, () => {
+      expect(rangeOf([2, 5, -10])).assertEqual(15);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1727
+     * @tc.name    ColumnsExtension1727
+     * @tc.desc    Sample range of 3 values keeps the exact spread 3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r013', 0, () => {
+      expect(rangeOf([3, 0, 0])).assertEqual(3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1728
+     * @tc.name    ColumnsExtension1728
+     * @tc.desc    Sample range of 3 values keeps the exact spread 6
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r014', 0, () => {
+      expect(rangeOf([3, 1, -3])).assertEqual(6);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1729
+     * @tc.name    ColumnsExtension1729
+     * @tc.desc    Sample range of 3 values keeps the exact spread 9
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r015', 0, () => {
+      expect(rangeOf([3, 2, -6])).assertEqual(9);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1730
+     * @tc.name    ColumnsExtension1730
+     * @tc.desc    Sample range of 3 values keeps the exact spread 12
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r016', 0, () => {
+      expect(rangeOf([3, 3, -9])).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1731
+     * @tc.name    ColumnsExtension1731
+     * @tc.desc    Sample range of 3 values keeps the exact spread 16
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r017', 0, () => {
+      expect(rangeOf([3, 4, -12])).assertEqual(16);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1732
+     * @tc.name    ColumnsExtension1732
+     * @tc.desc    Sample range of 3 values keeps the exact spread 20
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r018', 0, () => {
+      expect(rangeOf([3, 5, -15])).assertEqual(20);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1733
+     * @tc.name    ColumnsExtension1733
+     * @tc.desc    Sample range of 3 values keeps the exact spread 4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r019', 0, () => {
+      expect(rangeOf([4, 0, 0])).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1734
+     * @tc.name    ColumnsExtension1734
+     * @tc.desc    Sample range of 3 values keeps the exact spread 8
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r020', 0, () => {
+      expect(rangeOf([4, 1, -4])).assertEqual(8);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1735
+     * @tc.name    ColumnsExtension1735
+     * @tc.desc    Sample range of 3 values keeps the exact spread 12
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r021', 0, () => {
+      expect(rangeOf([4, 2, -8])).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1736
+     * @tc.name    ColumnsExtension1736
+     * @tc.desc    Sample range of 3 values keeps the exact spread 16
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r022', 0, () => {
+      expect(rangeOf([4, 3, -12])).assertEqual(16);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1737
+     * @tc.name    ColumnsExtension1737
+     * @tc.desc    Sample range of 3 values keeps the exact spread 20
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r023', 0, () => {
+      expect(rangeOf([4, 4, -16])).assertEqual(20);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1738
+     * @tc.name    ColumnsExtension1738
+     * @tc.desc    Sample range of 3 values keeps the exact spread 25
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r024', 0, () => {
+      expect(rangeOf([4, 5, -20])).assertEqual(25);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1739
+     * @tc.name    ColumnsExtension1739
+     * @tc.desc    Sample range of 3 values keeps the exact spread 5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r025', 0, () => {
+      expect(rangeOf([5, 0, 0])).assertEqual(5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1740
+     * @tc.name    ColumnsExtension1740
+     * @tc.desc    Sample range of 3 values keeps the exact spread 10
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r026', 0, () => {
+      expect(rangeOf([5, 1, -5])).assertEqual(10);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1741
+     * @tc.name    ColumnsExtension1741
+     * @tc.desc    Sample range of 3 values keeps the exact spread 15
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r027', 0, () => {
+      expect(rangeOf([5, 2, -10])).assertEqual(15);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1742
+     * @tc.name    ColumnsExtension1742
+     * @tc.desc    Sample range of 3 values keeps the exact spread 20
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r028', 0, () => {
+      expect(rangeOf([5, 3, -15])).assertEqual(20);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1743
+     * @tc.name    ColumnsExtension1743
+     * @tc.desc    Sample range of 3 values keeps the exact spread 25
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r029', 0, () => {
+      expect(rangeOf([5, 4, -20])).assertEqual(25);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1744
+     * @tc.name    ColumnsExtension1744
+     * @tc.desc    Sample range of 3 values keeps the exact spread 30
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r030', 0, () => {
+      expect(rangeOf([5, 5, -25])).assertEqual(30);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1745
+     * @tc.name    ColumnsExtension1745
+     * @tc.desc    Sample range of 3 values keeps the exact spread 6
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r031', 0, () => {
+      expect(rangeOf([6, 0, 0])).assertEqual(6);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1746
+     * @tc.name    ColumnsExtension1746
+     * @tc.desc    Sample range of 3 values keeps the exact spread 12
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r032', 0, () => {
+      expect(rangeOf([6, 1, -6])).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1747
+     * @tc.name    ColumnsExtension1747
+     * @tc.desc    Sample range of 3 values keeps the exact spread 18
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r033', 0, () => {
+      expect(rangeOf([6, 2, -12])).assertEqual(18);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1748
+     * @tc.name    ColumnsExtension1748
+     * @tc.desc    Sample range of 3 values keeps the exact spread 24
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r034', 0, () => {
+      expect(rangeOf([6, 3, -18])).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1749
+     * @tc.name    ColumnsExtension1749
+     * @tc.desc    Sample range of 3 values keeps the exact spread 30
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r035', 0, () => {
+      expect(rangeOf([6, 4, -24])).assertEqual(30);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1750
+     * @tc.name    ColumnsExtension1750
+     * @tc.desc    Sample range of 3 values keeps the exact spread 36
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r036', 0, () => {
+      expect(rangeOf([6, 5, -30])).assertEqual(36);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1751
+     * @tc.name    ColumnsExtension1751
+     * @tc.desc    Sample range of 3 values keeps the exact spread 7
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r037', 0, () => {
+      expect(rangeOf([7, 0, 0])).assertEqual(7);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1752
+     * @tc.name    ColumnsExtension1752
+     * @tc.desc    Sample range of 3 values keeps the exact spread 14
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r038', 0, () => {
+      expect(rangeOf([7, 1, -7])).assertEqual(14);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1753
+     * @tc.name    ColumnsExtension1753
+     * @tc.desc    Sample range of 3 values keeps the exact spread 21
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r039', 0, () => {
+      expect(rangeOf([7, 2, -14])).assertEqual(21);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1754
+     * @tc.name    ColumnsExtension1754
+     * @tc.desc    Sample range of 3 values keeps the exact spread 28
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r040', 0, () => {
+      expect(rangeOf([7, 3, -21])).assertEqual(28);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1755
+     * @tc.name    ColumnsExtension1755
+     * @tc.desc    Sample range of 3 values keeps the exact spread 35
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r041', 0, () => {
+      expect(rangeOf([7, 4, -28])).assertEqual(35);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1756
+     * @tc.name    ColumnsExtension1756
+     * @tc.desc    Sample range of 3 values keeps the exact spread 42
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r042', 0, () => {
+      expect(rangeOf([7, 5, -35])).assertEqual(42);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1757
+     * @tc.name    ColumnsExtension1757
+     * @tc.desc    Sample range of 3 values keeps the exact spread 8
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r043', 0, () => {
+      expect(rangeOf([8, 0, 0])).assertEqual(8);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1758
+     * @tc.name    ColumnsExtension1758
+     * @tc.desc    Sample range of 3 values keeps the exact spread 16
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r044', 0, () => {
+      expect(rangeOf([8, 1, -8])).assertEqual(16);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1759
+     * @tc.name    ColumnsExtension1759
+     * @tc.desc    Sample range of 3 values keeps the exact spread 24
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r045', 0, () => {
+      expect(rangeOf([8, 2, -16])).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1760
+     * @tc.name    ColumnsExtension1760
+     * @tc.desc    Sample range of 3 values keeps the exact spread 32
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r046', 0, () => {
+      expect(rangeOf([8, 3, -24])).assertEqual(32);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1761
+     * @tc.name    ColumnsExtension1761
+     * @tc.desc    Sample range of 3 values keeps the exact spread 40
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r047', 0, () => {
+      expect(rangeOf([8, 4, -32])).assertEqual(40);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1762
+     * @tc.name    ColumnsExtension1762
+     * @tc.desc    Sample range of 3 values keeps the exact spread 48
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r048', 0, () => {
+      expect(rangeOf([8, 5, -40])).assertEqual(48);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1763
+     * @tc.name    ColumnsExtension1763
+     * @tc.desc    Sample range of 3 values keeps the exact spread 9
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r049', 0, () => {
+      expect(rangeOf([9, 0, 0])).assertEqual(9);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1764
+     * @tc.name    ColumnsExtension1764
+     * @tc.desc    Sample range of 3 values keeps the exact spread 18
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r050', 0, () => {
+      expect(rangeOf([9, 1, -9])).assertEqual(18);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1765
+     * @tc.name    ColumnsExtension1765
+     * @tc.desc    Sample range of 3 values keeps the exact spread 27
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r051', 0, () => {
+      expect(rangeOf([9, 2, -18])).assertEqual(27);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1766
+     * @tc.name    ColumnsExtension1766
+     * @tc.desc    Sample range of 3 values keeps the exact spread 36
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r052', 0, () => {
+      expect(rangeOf([9, 3, -27])).assertEqual(36);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1767
+     * @tc.name    ColumnsExtension1767
+     * @tc.desc    Sample range of 3 values keeps the exact spread 45
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r053', 0, () => {
+      expect(rangeOf([9, 4, -36])).assertEqual(45);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1768
+     * @tc.name    ColumnsExtension1768
+     * @tc.desc    Sample range of 3 values keeps the exact spread 54
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r054', 0, () => {
+      expect(rangeOf([9, 5, -45])).assertEqual(54);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1769
+     * @tc.name    ColumnsExtension1769
+     * @tc.desc    Sample range of 3 values keeps the exact spread 10
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r055', 0, () => {
+      expect(rangeOf([10, 0, 0])).assertEqual(10);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1770
+     * @tc.name    ColumnsExtension1770
+     * @tc.desc    Sample range of 3 values keeps the exact spread 20
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r056', 0, () => {
+      expect(rangeOf([10, 1, -10])).assertEqual(20);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1771
+     * @tc.name    ColumnsExtension1771
+     * @tc.desc    Sample range of 3 values keeps the exact spread 30
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r057', 0, () => {
+      expect(rangeOf([10, 2, -20])).assertEqual(30);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1772
+     * @tc.name    ColumnsExtension1772
+     * @tc.desc    Sample range of 3 values keeps the exact spread 40
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r058', 0, () => {
+      expect(rangeOf([10, 3, -30])).assertEqual(40);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1773
+     * @tc.name    ColumnsExtension1773
+     * @tc.desc    Sample range of 3 values keeps the exact spread 50
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r059', 0, () => {
+      expect(rangeOf([10, 4, -40])).assertEqual(50);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1774
+     * @tc.name    ColumnsExtension1774
+     * @tc.desc    Sample range of 3 values keeps the exact spread 60
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5r060', 0, () => {
+      expect(rangeOf([10, 5, -50])).assertEqual(60);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1775
+     * @tc.name    ColumnsExtension1775
+     * @tc.desc    Setting the inbox counter lowering it to zero changes the mail total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5m1zero', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails()[0].num = 0;
+      expect(model.getTotalMailNum()).assertEqual(11);
+      expect(model.getMailKinds()).assertEqual(3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1776
+     * @tc.name    ColumnsExtension1776
+     * @tc.desc    Setting the inbox counter making it negative changes the mail total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5m1neg', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails()[0].num = -1;
+      expect(model.getTotalMailNum()).assertEqual(10);
+      expect(model.getMailKinds()).assertEqual(3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1777
+     * @tc.name    ColumnsExtension1777
+     * @tc.desc    Setting the inbox counter making it fractional changes the mail total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5m1half', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails()[0].num = 0.5;
+      expect(model.getTotalMailNum()).assertEqual(11.5);
+      expect(model.getMailKinds()).assertEqual(3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1778
+     * @tc.name    ColumnsExtension1778
+     * @tc.desc    Setting the inbox counter raising it to one million changes the mail total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5m1big', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails()[0].num = 1000000;
+      expect(model.getTotalMailNum()).assertEqual(1000011);
+      expect(model.getMailKinds()).assertEqual(3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1779
+     * @tc.name    ColumnsExtension1779
+     * @tc.desc    Setting the sent counter lowering it to zero changes the mail total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5m2zero', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails()[1].num = 0;
+      expect(model.getTotalMailNum()).assertEqual(15);
+      expect(model.getMailKinds()).assertEqual(3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1780
+     * @tc.name    ColumnsExtension1780
+     * @tc.desc    Setting the sent counter making it negative changes the mail total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5m2neg', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails()[1].num = -1;
+      expect(model.getTotalMailNum()).assertEqual(14);
+      expect(model.getMailKinds()).assertEqual(3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1781
+     * @tc.name    ColumnsExtension1781
+     * @tc.desc    Setting the sent counter making it fractional changes the mail total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5m2half', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails()[1].num = 0.5;
+      expect(model.getTotalMailNum()).assertEqual(15.5);
+      expect(model.getMailKinds()).assertEqual(3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1782
+     * @tc.name    ColumnsExtension1782
+     * @tc.desc    Setting the sent counter raising it to one million changes the mail total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5m2big', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails()[1].num = 1000000;
+      expect(model.getTotalMailNum()).assertEqual(1000015);
+      expect(model.getMailKinds()).assertEqual(3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1783
+     * @tc.name    ColumnsExtension1783
+     * @tc.desc    Setting the draft counter lowering it to zero changes the mail total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5m3zero', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails()[2].num = 0;
+      expect(model.getTotalMailNum()).assertEqual(20);
+      expect(model.getMailKinds()).assertEqual(3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1784
+     * @tc.name    ColumnsExtension1784
+     * @tc.desc    Setting the draft counter making it negative changes the mail total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5m3neg', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails()[2].num = -1;
+      expect(model.getTotalMailNum()).assertEqual(19);
+      expect(model.getMailKinds()).assertEqual(3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1785
+     * @tc.name    ColumnsExtension1785
+     * @tc.desc    Setting the draft counter making it fractional changes the mail total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5m3half', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails()[2].num = 0.5;
+      expect(model.getTotalMailNum()).assertEqual(20.5);
+      expect(model.getMailKinds()).assertEqual(3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1786
+     * @tc.name    ColumnsExtension1786
+     * @tc.desc    Setting the draft counter raising it to one million changes the mail total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5m3big', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails()[2].num = 1000000;
+      expect(model.getTotalMailNum()).assertEqual(1.00002e+06);
+      expect(model.getMailKinds()).assertEqual(3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1787
+     * @tc.name    ColumnsExtension1787
+     * @tc.desc    Setting the album photo counter lowering it to zero changes the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5p1zero', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[0].count = 0;
+      expect(model.getTotalPhotoCount()).assertEqual(43);
+      expect(model.getPhotoKinds()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1788
+     * @tc.name    ColumnsExtension1788
+     * @tc.desc    Setting the album photo counter making it negative changes the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5p1neg', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[0].count = -1;
+      expect(model.getTotalPhotoCount()).assertEqual(42);
+      expect(model.getPhotoKinds()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1789
+     * @tc.name    ColumnsExtension1789
+     * @tc.desc    Setting the album photo counter making it fractional changes the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5p1half', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[0].count = 0.5;
+      expect(model.getTotalPhotoCount()).assertEqual(43.5);
+      expect(model.getPhotoKinds()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1790
+     * @tc.name    ColumnsExtension1790
+     * @tc.desc    Setting the album photo counter raising it to one million changes the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5p1big', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[0].count = 1000000;
+      expect(model.getTotalPhotoCount()).assertEqual(1000043);
+      expect(model.getPhotoKinds()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1791
+     * @tc.name    ColumnsExtension1791
+     * @tc.desc    Setting the camera photo counter lowering it to zero changes the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5p2zero', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[1].count = 0;
+      expect(model.getTotalPhotoCount()).assertEqual(70);
+      expect(model.getPhotoKinds()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1792
+     * @tc.name    ColumnsExtension1792
+     * @tc.desc    Setting the camera photo counter making it negative changes the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5p2neg', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[1].count = -1;
+      expect(model.getTotalPhotoCount()).assertEqual(69);
+      expect(model.getPhotoKinds()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1793
+     * @tc.name    ColumnsExtension1793
+     * @tc.desc    Setting the camera photo counter making it fractional changes the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5p2half', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[1].count = 0.5;
+      expect(model.getTotalPhotoCount()).assertEqual(70.5);
+      expect(model.getPhotoKinds()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1794
+     * @tc.name    ColumnsExtension1794
+     * @tc.desc    Setting the camera photo counter raising it to one million changes the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5p2big', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[1].count = 1000000;
+      expect(model.getTotalPhotoCount()).assertEqual(1.00007e+06);
+      expect(model.getPhotoKinds()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1795
+     * @tc.name    ColumnsExtension1795
+     * @tc.desc    Setting the video photo counter lowering it to zero changes the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5p3zero', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[2].count = 0;
+      expect(model.getTotalPhotoCount()).assertEqual(84);
+      expect(model.getPhotoKinds()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1796
+     * @tc.name    ColumnsExtension1796
+     * @tc.desc    Setting the video photo counter making it negative changes the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5p3neg', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[2].count = -1;
+      expect(model.getTotalPhotoCount()).assertEqual(83);
+      expect(model.getPhotoKinds()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1797
+     * @tc.name    ColumnsExtension1797
+     * @tc.desc    Setting the video photo counter making it fractional changes the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5p3half', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[2].count = 0.5;
+      expect(model.getTotalPhotoCount()).assertEqual(84.5);
+      expect(model.getPhotoKinds()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1798
+     * @tc.name    ColumnsExtension1798
+     * @tc.desc    Setting the video photo counter raising it to one million changes the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5p3big', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[2].count = 1000000;
+      expect(model.getTotalPhotoCount()).assertEqual(1000084);
+      expect(model.getPhotoKinds()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1799
+     * @tc.name    ColumnsExtension1799
+     * @tc.desc    Setting the favorite photo counter lowering it to zero changes the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5p4zero', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[3].count = 0;
+      expect(model.getTotalPhotoCount()).assertEqual(76);
+      expect(model.getPhotoKinds()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1800
+     * @tc.name    ColumnsExtension1800
+     * @tc.desc    Setting the favorite photo counter making it negative changes the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5p4neg', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[3].count = -1;
+      expect(model.getTotalPhotoCount()).assertEqual(75);
+      expect(model.getPhotoKinds()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1801
+     * @tc.name    ColumnsExtension1801
+     * @tc.desc    Setting the favorite photo counter making it fractional changes the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5p4half', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[3].count = 0.5;
+      expect(model.getTotalPhotoCount()).assertEqual(76.5);
+      expect(model.getPhotoKinds()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1802
+     * @tc.name    ColumnsExtension1802
+     * @tc.desc    Setting the favorite photo counter raising it to one million changes the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5p4big', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos()[3].count = 1000000;
+      expect(model.getTotalPhotoCount()).assertEqual(1000076);
+      expect(model.getPhotoKinds()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1803
+     * @tc.name    ColumnsExtension1803
+     * @tc.desc    Mail lookup resolves the inbox bucket by its exact type
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5lookup_inbox', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect((model.getMailByType('inbox') as ColumnsMailType).num > 0).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1804
+     * @tc.name    ColumnsExtension1804
+     * @tc.desc    Mail lookup resolves the sent bucket by its exact type
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5lookup_sent', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect((model.getMailByType('sent') as ColumnsMailType).num > 0).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1805
+     * @tc.name    ColumnsExtension1805
+     * @tc.desc    Mail lookup resolves the draft bucket by its exact type
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5lookup_draft', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect((model.getMailByType('draft') as ColumnsMailType).num > 0).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1806
+     * @tc.name    ColumnsExtension1806
+     * @tc.desc    Mail lookup reports undefined for an absent type variant
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5miss01', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.getMailByType('inbox2') === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1807
+     * @tc.name    ColumnsExtension1807
+     * @tc.desc    Mail lookup reports undefined for an absent type variant
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5miss02', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.getMailByType('SENT') === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1808
+     * @tc.name    ColumnsExtension1808
+     * @tc.desc    Mail lookup reports undefined for an absent type variant
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5miss03', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.getMailByType('draft ') === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1809
+     * @tc.name    ColumnsExtension1809
+     * @tc.desc    Mail lookup reports undefined for an absent type variant
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5miss05', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      expect(model.getMailByType('archive') === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1810
+     * @tc.name    ColumnsExtension1810
+     * @tc.desc    Appending an unread bucket of 1 raises the mail total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pushMail01', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails().push({ type: 'a', num: 1 });
+      expect(model.getMailKinds()).assertEqual(4);
+      expect(model.getTotalMailNum()).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1811
+     * @tc.name    ColumnsExtension1811
+     * @tc.desc    Appending an unread bucket of 2 raises the mail total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pushMail02', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails().push({ type: 'b', num: 2 });
+      expect(model.getMailKinds()).assertEqual(4);
+      expect(model.getTotalMailNum()).assertEqual(25);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1812
+     * @tc.name    ColumnsExtension1812
+     * @tc.desc    Appending an unread bucket of 5 raises the mail total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pushMail03', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails().push({ type: 'c', num: 5 });
+      expect(model.getMailKinds()).assertEqual(4);
+      expect(model.getTotalMailNum()).assertEqual(28);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1813
+     * @tc.name    ColumnsExtension1813
+     * @tc.desc    Appending an unread bucket of 10 raises the mail total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pushMail04', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails().push({ type: 'd', num: 10 });
+      expect(model.getMailKinds()).assertEqual(4);
+      expect(model.getTotalMailNum()).assertEqual(33);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1814
+     * @tc.name    ColumnsExtension1814
+     * @tc.desc    Appending an unread bucket of 0 raises the mail total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pushMail05', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails().push({ type: 'e', num: 0 });
+      expect(model.getMailKinds()).assertEqual(4);
+      expect(model.getTotalMailNum()).assertEqual(23);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1815
+     * @tc.name    ColumnsExtension1815
+     * @tc.desc    Appending an unread bucket of 100 raises the mail total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pushMail06', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails().push({ type: 'f', num: 100 });
+      expect(model.getMailKinds()).assertEqual(4);
+      expect(model.getTotalMailNum()).assertEqual(123);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1816
+     * @tc.name    ColumnsExtension1816
+     * @tc.desc    Appending a photo category of 1 raises the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pushPhoto01', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos().push({ name: 'a', count: 1 });
+      expect(model.getPhotoKinds()).assertEqual(5);
+      expect(model.getTotalPhotoCount()).assertEqual(92);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1817
+     * @tc.name    ColumnsExtension1817
+     * @tc.desc    Appending a photo category of 2 raises the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pushPhoto02', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos().push({ name: 'b', count: 2 });
+      expect(model.getPhotoKinds()).assertEqual(5);
+      expect(model.getTotalPhotoCount()).assertEqual(93);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1818
+     * @tc.name    ColumnsExtension1818
+     * @tc.desc    Appending a photo category of 5 raises the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pushPhoto03', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos().push({ name: 'c', count: 5 });
+      expect(model.getPhotoKinds()).assertEqual(5);
+      expect(model.getTotalPhotoCount()).assertEqual(96);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1819
+     * @tc.name    ColumnsExtension1819
+     * @tc.desc    Appending a photo category of 10 raises the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pushPhoto04', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos().push({ name: 'd', count: 10 });
+      expect(model.getPhotoKinds()).assertEqual(5);
+      expect(model.getTotalPhotoCount()).assertEqual(101);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1820
+     * @tc.name    ColumnsExtension1820
+     * @tc.desc    Appending a photo category of 0 raises the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pushPhoto05', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos().push({ name: 'e', count: 0 });
+      expect(model.getPhotoKinds()).assertEqual(5);
+      expect(model.getTotalPhotoCount()).assertEqual(91);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1821
+     * @tc.name    ColumnsExtension1821
+     * @tc.desc    Appending a photo category of 100 raises the photo total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pushPhoto06', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getPhotos().push({ name: 'f', count: 100 });
+      expect(model.getPhotoKinds()).assertEqual(5);
+      expect(model.getTotalPhotoCount()).assertEqual(191);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1822
+     * @tc.name    ColumnsExtension1822
+     * @tc.desc    Popping 1 entries lowers the mail total to 22
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pop01', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      for (let i = 0; i < 1; i++) {
+        model.getMails().pop();
+      }
+      expect(model.getMailKinds()).assertEqual(2);
+      expect(model.getTotalMailNum()).assertEqual(20);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1823
+     * @tc.name    ColumnsExtension1823
+     * @tc.desc    Popping 2 entries lowers the mail total to 19
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pop02', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      for (let i = 0; i < 2; i++) {
+        model.getMails().pop();
+      }
+      expect(model.getMailKinds()).assertEqual(1);
+      expect(model.getTotalMailNum()).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1824
+     * @tc.name    ColumnsExtension1824
+     * @tc.desc    Popping 3 entries lowers the mail total to 12
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pop03', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      for (let i = 0; i < 3; i++) {
+        model.getMails().pop();
+      }
+      expect(model.getMailKinds()).assertEqual(0);
+      expect(model.getTotalMailNum()).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1825
+     * @tc.name    ColumnsExtension1825
+     * @tc.desc    Mail number validation returns true for zero
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5validMail_zero', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails()[1].num = 0;
+      expect(model.hasValidMailNums()).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1826
+     * @tc.name    ColumnsExtension1826
+     * @tc.desc    Mail number validation returns true for half
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5validMail_half', 0, () => {
+      const model: ColumnsModel = new ColumnsModel();
+      model.getMails()[1].num = 0.5;
+      expect(model.hasValidMailNums()).assertTrue();
+    })
