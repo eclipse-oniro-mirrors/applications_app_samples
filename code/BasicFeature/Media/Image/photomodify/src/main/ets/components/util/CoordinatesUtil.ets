@@ -12,6 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file src/main/ets/components/util/CoordinatesUtil.ets
+ * 文件职责：CoordinatesUtil 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：transformCoordinates、offsetOrigin、Point。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 /**
  * 转换坐标系
  */
@@ -29,10 +37,14 @@ export function offsetOrigin(p: Point, offX: number, offY: number): Point {
   return new Point(p.x - offX, p.y - offY);
 }
 
+/**
+ * Point：类定义，承载本文件对应的逻辑与数据。
+ */
 export class Point {
   x: number
   y: number
 
+  /** 构造 CoordinatesUtil 实例。 */
   constructor(x: number, y: number) {
     this.x = x
     this.y = y
