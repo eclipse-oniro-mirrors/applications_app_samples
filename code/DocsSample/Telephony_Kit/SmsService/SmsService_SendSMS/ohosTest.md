@@ -73,9 +73,9 @@
 
 #### 套件索引
 
-下列套件名可直接用于 `aa test -s class`。交叠场景中的 `PrimaryFirst` 和 `SecondaryFirst` 表示哪条请求先提交，回调顺序由各用例独立编排。
+点击下列套件名可查看对应的测试文件。交叠场景中的 `PrimaryFirst` 和 `SecondaryFirst` 表示哪条请求先提交，回调顺序由各用例独立编排。
 
-| `-s class` 套件名 | 用例数 |
+| 套件名 | 用例数 |
 | --- | ---: |
 | [`SmsSuccessfulOverlapPrimaryFirst_Test`](entry/src/ohosTest/ets/test/SmsTrace/SmsSuccessfulOverlapPrimaryFirst.test.ets) | 34 |
 | [`SmsSuccessfulOverlapSecondaryFirst_Test`](entry/src/ohosTest/ets/test/SmsTrace/SmsSuccessfulOverlapSecondaryFirst.test.ets) | 34 |
@@ -98,19 +98,10 @@
 完整复测需要应用侧的 `entry/src/main/ets/service/SmsSender.ets`，以及与设备匹配的测试模块配置、资源和签名。`SmsSender_Test` 和 `SmsTrace/` 通过相对路径导入此发送实现。仅检出本次测试源码时，需先准备这些依赖再构建。
 
 1. 在 DevEco Studio 中打开 `SmsService_SendSMS`，使用工程配置的 API 20 SDK，同步依赖并配置签名。连接兼容的设备或模拟器，确认 `hdc list targets` 可以列出目标，并保持屏幕解锁。
-2. 构建 `entry@default` 主包和 `entry@ohosTest` 测试包，将两个签名 HAP 安装到同一设备。DevEco Studio 运行 `ohosTest` 时可执行构建、安装和启动。
-3. 安装两个 HAP 后，使用实际安装的包名运行全量或指定套件。以下命令使用工程默认包名 `com.samples.SmsService_Web`。复测独立包时，将 `-b` 的值替换为表中记录的包名。
-
-```powershell
-# 全量测试并开启覆盖数据采集
-hdc shell aa test -b com.samples.SmsService_Web -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 15000 -s coverage true
-
-# 只运行短信发送套件
-hdc shell aa test -b com.samples.SmsService_Web -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s class SmsSender_Test -s timeout 15000 -s coverage true
-
-# 只运行发送回调乱序套件
-hdc shell aa test -b com.samples.SmsService_Web -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s class SmsOutOfOrderCallbacks_Test -s timeout 15000 -s coverage true
-```
+2. 在 DevEco Studio 中选择目标设备。运行 Instrument Test 时，构建并安装带签名的 `entry@default` 主包和 `entry@ohosTest` 测试包。
+3. 根据范围运行测试。
+   - 全量测试。在工程树中右键 `entry/src/ohosTest/ets/test`，选择 **Run 'test' with Coverage**，执行全部套件并生成覆盖率报告。
+   - 指定套件。打开 [`SmsSender.test.ets`](entry/src/ohosTest/ets/test/SmsService/SmsSender.test.ets) 或 [`SmsOutOfOrderCallbacks.test.ets`](entry/src/ohosTest/ets/test/SmsTrace/SmsOutOfOrderCallbacks.test.ets)，点击对应 `describe` 左侧的运行图标。其他测试文件可通过[套件索引](#套件索引)定位。
 
 ## 验证结果
 
@@ -118,11 +109,11 @@ hdc shell aa test -b com.samples.SmsService_Web -m entry_test -s unittest /ets/t
 
 | 运行范围 | 包名 | 执行 | 通过 | 失败 | 错误 | 跳过 | 耗时 |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| 全量真机复测 | `com.samples.SmsService_Web.freezefix20261120` | 595 | 595 | 0 | 0 | 0 | 约 72 秒（`hdc shell aa test` 命令耗时） |
+| 全量真机复测 | `com.samples.SmsService_Web.freezefix20261120` | 595 | 595 | 0 | 0 | 0 | 约 72 秒（含命令启动及等待结果的时间） |
 
 本次运行的 `TestFinished-ResultCode` 为 `0`，已输出覆盖率数据，复测前后设备的 AppFreeze 文件清单一致。原包名 `com.samples.SmsService_Web` 重装时返回签名不一致错误 `9568332`，真机结果对应上表的独立包。
 
-原始证据保存在复测工作区 `applications_app_samples_Telephony_Kit333` 的 `test-adaptation/appfreeze-fix/` 下。`aa-test-isolated.log` 末尾记录覆盖率输出和结果汇总，`aa-test-isolated-status.txt` 记录命令耗时，`device-isolated-before.txt` 与 `device-isolated-after.txt` 记录设备故障文件清单，`install-retry.txt` 记录原包名重装结果。
+原始证据保存在复测工作区 `applications_app_samples_Telephony_Kit333` 的 `test-adaptation/appfreeze-fix/` 下。独立包的测试日志末尾记录覆盖率输出和结果汇总，对应的状态文件记录命令耗时，`device-isolated-before.txt` 与 `device-isolated-after.txt` 记录设备故障文件清单，`install-retry.txt` 记录原包名重装结果。
 
 ## 常见运行问题
 
