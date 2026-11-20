@@ -1591,29 +1591,969 @@ function RouteSanitizationPart022() {
     });
 }
 
+function RouteSanitizationPart023() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1209
+     * @tc.name    JsRoute089
+     * @tc.desc    Sanitize route seed 89 length 9 seed 89
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute089', 0, async function () {
+      await yieldThread();
+      const raw = '(}.Zed2$(}.Zed2$(}.Z';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('Zed2Zed2Z');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute089 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1210
+     * @tc.name    JsRoute090
+     * @tc.desc    Sanitize route seed 90 length 8 seed 90
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute090', 0, async function () {
+      await yieldThread();
+      const raw = ';>p/x@^[;>p/x@^[;>p/';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('p/xp/xp/');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute090 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1211
+     * @tc.name    JsRoute091
+     * @tc.desc    Sanitize route seed 91 length 12 seed 91
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute091', 0, async function () {
+      await yieldThread();
+      const raw = 'agn4 *{,agn4 *{,agn4';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('agn4agn4agn4');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute091 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1212
+     * @tc.name    JsRoute092
+     * @tc.desc    Sanitize route seed 92 length 8 seed 92
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute092', 0, async function () {
+      await yieldThread();
+      const raw = 'se!%)|<9se!%)|<9se!%';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('se9se9se');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute092 done');
+    });
+}
+
+function RouteSanitizationPart024() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1213
+     * @tc.name    JsRoute093
+     * @tc.desc    Sanitize route seed 93 length 7 seed 93
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute093', 0, async function () {
+      await yieldThread();
+      const raw = '_#&]:?aI_#&]:?aI_#&]';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('_aI_aI_');
+      expect(model.isValidRoute(clean)).assertEqual(false);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute093 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1214
+     * @tc.name    JsRoute094
+     * @tc.desc    Sanitize route seed 94 length 8 seed 94
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute094', 0, async function () {
+      await yieldThread();
+      const raw = '$(}.Zed2$(}.Zed2$(}.';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('Zed2Zed2');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute094 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1215
+     * @tc.name    JsRoute095
+     * @tc.desc    Sanitize route seed 95 length 7 seed 95
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute095', 0, async function () {
+      await yieldThread();
+      const raw = '[;>p/x@^[;>p/x@^[;>p';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('p/xp/xp');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute095 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1216
+     * @tc.name    JsRoute096
+     * @tc.desc    Sanitize route seed 96 length 11 seed 96
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute096', 0, async function () {
+      await yieldThread();
+      const raw = ',agn4 *{,agn4 *{,agn';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('agn4agn4agn');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute096 done');
+    });
+}
+
+function RouteSanitizationPart025() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1217
+     * @tc.name    JsRoute097
+     * @tc.desc    Sanitize route seed 97 length 9 seed 97
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute097', 0, async function () {
+      await yieldThread();
+      const raw = '9se!%)|<9se!%)|<9se!';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('9se9se9se');
+      expect(model.isValidRoute(clean)).assertEqual(false);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute097 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1218
+     * @tc.name    JsRoute098
+     * @tc.desc    Sanitize route seed 98 length 8 seed 98
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute098', 0, async function () {
+      await yieldThread();
+      const raw = 'I_#&]:?aI_#&]:?aI_#&';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('I_aI_aI_');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute098 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1219
+     * @tc.name    JsRoute099
+     * @tc.desc    Sanitize route seed 99 length 9 seed 99
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute099', 0, async function () {
+      await yieldThread();
+      const raw = '2$(}.Zed2$(}.Zed2$(}';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('2Zed2Zed2');
+      expect(model.isValidRoute(clean)).assertEqual(false);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute099 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1220
+     * @tc.name    JsRoute100
+     * @tc.desc    Sanitize route seed 100 length 6 seed 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute100', 0, async function () {
+      await yieldThread();
+      const raw = '^[;>p/x@^[;>p/x@^[;>';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('p/xp/x');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute100 done');
+    });
+}
+
+function RouteSanitizationPart026() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1221
+     * @tc.name    JsRoute101
+     * @tc.desc    Sanitize route seed 101 length 10 seed 101
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute101', 0, async function () {
+      await yieldThread();
+      const raw = '{,agn4 *{,agn4 *{,ag';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('agn4agn4ag');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute101 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1222
+     * @tc.name    JsRoute102
+     * @tc.desc    Sanitize route seed 102 length 9 seed 102
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute102', 0, async function () {
+      await yieldThread();
+      const raw = '<9se!%)|<9se!%)|<9se';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('9se9se9se');
+      expect(model.isValidRoute(clean)).assertEqual(false);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute102 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1223
+     * @tc.name    JsRoute103
+     * @tc.desc    Sanitize route seed 103 length 9 seed 103
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute103', 0, async function () {
+      await yieldThread();
+      const raw = 'aI_#&]:?aI_#&]:?aI_#';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('aI_aI_aI_');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute103 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1224
+     * @tc.name    JsRoute104
+     * @tc.desc    Sanitize route seed 104 length 10 seed 104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute104', 0, async function () {
+      await yieldThread();
+      const raw = 'd2$(}.Zed2$(}.Zed2$(';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('d2Zed2Zed2');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute104 done');
+    });
+}
+
+function RouteSanitizationPart027() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1225
+     * @tc.name    JsRoute105
+     * @tc.desc    Sanitize route seed 105 length 6 seed 105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute105', 0, async function () {
+      await yieldThread();
+      const raw = '@^[;>p/x@^[;>p/x@^[;';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('p/xp/x');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute105 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1226
+     * @tc.name    JsRoute106
+     * @tc.desc    Sanitize route seed 106 length 9 seed 106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute106', 0, async function () {
+      await yieldThread();
+      const raw = '*{,agn4 *{,agn4 *{,a';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('agn4agn4a');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute106 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1227
+     * @tc.name    JsRoute107
+     * @tc.desc    Sanitize route seed 107 length 8 seed 107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute107', 0, async function () {
+      await yieldThread();
+      const raw = '|<9se!%)|<9se!%)|<9s';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('9se9se9s');
+      expect(model.isValidRoute(clean)).assertEqual(false);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute107 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1228
+     * @tc.name    JsRoute108
+     * @tc.desc    Sanitize route seed 108 length 9 seed 108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute108', 0, async function () {
+      await yieldThread();
+      const raw = '?aI_#&]:?aI_#&]:?aI_';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('aI_aI_aI_');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute108 done');
+    });
+}
+
+function RouteSanitizationPart028() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1229
+     * @tc.name    JsRoute109
+     * @tc.desc    Sanitize route seed 109 length 11 seed 109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute109', 0, async function () {
+      await yieldThread();
+      const raw = 'ed2$(}.Zed2$(}.Zed2$';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('ed2Zed2Zed2');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute109 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1230
+     * @tc.name    JsRoute110
+     * @tc.desc    Sanitize route seed 110 length 7 seed 110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute110', 0, async function () {
+      await yieldThread();
+      const raw = 'x@^[;>p/x@^[;>p/x@^[';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('xp/xp/x');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute110 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1231
+     * @tc.name    JsRoute111
+     * @tc.desc    Sanitize route seed 111 length 8 seed 111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute111', 0, async function () {
+      await yieldThread();
+      const raw = ' *{,agn4 *{,agn4 *{,';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('agn4agn4');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute111 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1232
+     * @tc.name    JsRoute112
+     * @tc.desc    Sanitize route seed 112 length 7 seed 112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute112', 0, async function () {
+      await yieldThread();
+      const raw = ')|<9se!%)|<9se!%)|<9';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('9se9se9');
+      expect(model.isValidRoute(clean)).assertEqual(false);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute112 done');
+    });
+}
+
+function RouteSanitizationPart029() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1233
+     * @tc.name    JsRoute113
+     * @tc.desc    Sanitize route seed 113 length 8 seed 113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute113', 0, async function () {
+      await yieldThread();
+      const raw = ':?aI_#&]:?aI_#&]:?aI';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('aI_aI_aI');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute113 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1234
+     * @tc.name    JsRoute114
+     * @tc.desc    Sanitize route seed 114 length 12 seed 114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute114', 0, async function () {
+      await yieldThread();
+      const raw = 'Zed2$(}.Zed2$(}.Zed2';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('Zed2Zed2Zed2');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute114 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1235
+     * @tc.name    JsRoute115
+     * @tc.desc    Sanitize route seed 115 length 8 seed 115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute115', 0, async function () {
+      await yieldThread();
+      const raw = '/x@^[;>p/x@^[;>p/x@^';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('/xp/xp/x');
+      expect(model.isValidRoute(clean)).assertEqual(false);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute115 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1236
+     * @tc.name    JsRoute116
+     * @tc.desc    Sanitize route seed 116 length 9 seed 116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute116', 0, async function () {
+      await yieldThread();
+      const raw = '4 *{,agn4 *{,agn4 *{';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('4agn4agn4');
+      expect(model.isValidRoute(clean)).assertEqual(false);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute116 done');
+    });
+}
+
+function RouteSanitizationPart030() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1237
+     * @tc.name    JsRoute117
+     * @tc.desc    Sanitize route seed 117 length 6 seed 117
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute117', 0, async function () {
+      await yieldThread();
+      const raw = '%)|<9se!%)|<9se!%)|<';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('9se9se');
+      expect(model.isValidRoute(clean)).assertEqual(false);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute117 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1238
+     * @tc.name    JsRoute118
+     * @tc.desc    Sanitize route seed 118 length 7 seed 118
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute118', 0, async function () {
+      await yieldThread();
+      const raw = ']:?aI_#&]:?aI_#&]:?a';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('aI_aI_a');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute118 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1239
+     * @tc.name    JsRoute119
+     * @tc.desc    Sanitize route seed 119 length 11 seed 119
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute119', 0, async function () {
+      await yieldThread();
+      const raw = '.Zed2$(}.Zed2$(}.Zed';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('Zed2Zed2Zed');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute119 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1240
+     * @tc.name    JsRoute120
+     * @tc.desc    Sanitize route seed 120 length 9 seed 120
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute120', 0, async function () {
+      await yieldThread();
+      const raw = 'p/x@^[;>p/x@^[;>p/x@';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('p/xp/xp/x');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute120 done');
+    });
+}
+
+function RouteSanitizationPart031() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1241
+     * @tc.name    JsRoute121
+     * @tc.desc    Sanitize route seed 121 length 10 seed 121
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute121', 0, async function () {
+      await yieldThread();
+      const raw = 'n4 *{,agn4 *{,agn4 *';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('n4agn4agn4');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute121 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1242
+     * @tc.name    JsRoute122
+     * @tc.desc    Sanitize route seed 122 length 6 seed 122
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute122', 0, async function () {
+      await yieldThread();
+      const raw = '!%)|<9se!%)|<9se!%)|';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('9se9se');
+      expect(model.isValidRoute(clean)).assertEqual(false);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute122 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1243
+     * @tc.name    JsRoute123
+     * @tc.desc    Sanitize route seed 123 length 6 seed 123
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute123', 0, async function () {
+      await yieldThread();
+      const raw = '&]:?aI_#&]:?aI_#&]:?';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('aI_aI_');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute123 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1244
+     * @tc.name    JsRoute124
+     * @tc.desc    Sanitize route seed 124 length 10 seed 124
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute124', 0, async function () {
+      await yieldThread();
+      const raw = '}.Zed2$(}.Zed2$(}.Ze';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('Zed2Zed2Ze');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute124 done');
+    });
+}
+
+function RouteSanitizationPart032() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1245
+     * @tc.name    JsRoute125
+     * @tc.desc    Sanitize route seed 125 length 9 seed 125
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute125', 0, async function () {
+      await yieldThread();
+      const raw = '>p/x@^[;>p/x@^[;>p/x';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('p/xp/xp/x');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute125 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1246
+     * @tc.name    JsRoute126
+     * @tc.desc    Sanitize route seed 126 length 11 seed 126
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute126', 0, async function () {
+      await yieldThread();
+      const raw = 'gn4 *{,agn4 *{,agn4 ';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('gn4agn4agn4');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute126 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1247
+     * @tc.name    JsRoute127
+     * @tc.desc    Sanitize route seed 127 length 7 seed 127
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute127', 0, async function () {
+      await yieldThread();
+      const raw = 'e!%)|<9se!%)|<9se!%)';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('e9se9se');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute127 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1248
+     * @tc.name    JsRoute128
+     * @tc.desc    Sanitize route seed 128 length 6 seed 128
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute128', 0, async function () {
+      await yieldThread();
+      const raw = '#&]:?aI_#&]:?aI_#&]:';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('aI_aI_');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute128 done');
+    });
+}
+
+function RouteSanitizationPart033() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1249
+     * @tc.name    JsRoute129
+     * @tc.desc    Sanitize route seed 129 length 9 seed 129
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute129', 0, async function () {
+      await yieldThread();
+      const raw = '(}.Zed2$(}.Zed2$(}.Z';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('Zed2Zed2Z');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute129 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1250
+     * @tc.name    JsRoute130
+     * @tc.desc    Sanitize route seed 130 length 8 seed 130
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute130', 0, async function () {
+      await yieldThread();
+      const raw = ';>p/x@^[;>p/x@^[;>p/';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('p/xp/xp/');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute130 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1251
+     * @tc.name    JsRoute131
+     * @tc.desc    Sanitize route seed 131 length 12 seed 131
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute131', 0, async function () {
+      await yieldThread();
+      const raw = 'agn4 *{,agn4 *{,agn4';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('agn4agn4agn4');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute131 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1252
+     * @tc.name    JsRoute132
+     * @tc.desc    Sanitize route seed 132 length 8 seed 132
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute132', 0, async function () {
+      await yieldThread();
+      const raw = 'se!%)|<9se!%)|<9se!%';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('se9se9se');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute132 done');
+    });
+}
+
+function RouteSanitizationPart034() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1253
+     * @tc.name    JsRoute133
+     * @tc.desc    Sanitize route seed 133 length 7 seed 133
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute133', 0, async function () {
+      await yieldThread();
+      const raw = '_#&]:?aI_#&]:?aI_#&]';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('_aI_aI_');
+      expect(model.isValidRoute(clean)).assertEqual(false);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute133 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1254
+     * @tc.name    JsRoute134
+     * @tc.desc    Sanitize route seed 134 length 8 seed 134
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute134', 0, async function () {
+      await yieldThread();
+      const raw = '$(}.Zed2$(}.Zed2$(}.';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('Zed2Zed2');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute134 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1255
+     * @tc.name    JsRoute135
+     * @tc.desc    Sanitize route seed 135 length 7 seed 135
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute135', 0, async function () {
+      await yieldThread();
+      const raw = '[;>p/x@^[;>p/x@^[;>p';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('p/xp/xp');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute135 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1256
+     * @tc.name    JsRoute136
+     * @tc.desc    Sanitize route seed 136 length 11 seed 136
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute136', 0, async function () {
+      await yieldThread();
+      const raw = ',agn4 *{,agn4 *{,agn';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('agn4agn4agn');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute136 done');
+    });
+}
+
+function RouteSanitizationPart035() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1257
+     * @tc.name    JsRoute137
+     * @tc.desc    Sanitize route seed 137 length 9 seed 137
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute137', 0, async function () {
+      await yieldThread();
+      const raw = '9se!%)|<9se!%)|<9se!';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('9se9se9se');
+      expect(model.isValidRoute(clean)).assertEqual(false);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute137 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1258
+     * @tc.name    JsRoute138
+     * @tc.desc    Sanitize route seed 138 length 8 seed 138
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute138', 0, async function () {
+      await yieldThread();
+      const raw = 'I_#&]:?aI_#&]:?aI_#&';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('I_aI_aI_');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute138 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1259
+     * @tc.name    JsRoute139
+     * @tc.desc    Sanitize route seed 139 length 9 seed 139
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute139', 0, async function () {
+      await yieldThread();
+      const raw = '2$(}.Zed2$(}.Zed2$(}';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('2Zed2Zed2');
+      expect(model.isValidRoute(clean)).assertEqual(false);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute139 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1260
+     * @tc.name    JsRoute140
+     * @tc.desc    Sanitize route seed 140 length 6 seed 140
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsRoute140', 0, async function () {
+      await yieldThread();
+      const raw = '^[;>p/x@^[;>p/x@^[;>';
+      const clean = model.sanitizeRoute(raw);
+      expect(clean).assertEqual('p/xp/x');
+      expect(model.isValidRoute(clean)).assertEqual(true);
+      expect(model.sanitizeRoute(clean)).assertEqual(clean);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsRoute140 done');
+    });
+}
+
+function RouteSanitizationGroup001() {
+  RouteSanitizationPart001();
+  RouteSanitizationPart002();
+  RouteSanitizationPart003();
+  RouteSanitizationPart004();
+  RouteSanitizationPart005();
+  RouteSanitizationPart006();
+  RouteSanitizationPart007();
+  RouteSanitizationPart008();
+  RouteSanitizationPart009();
+  RouteSanitizationPart010();
+  RouteSanitizationPart011();
+  RouteSanitizationPart012();
+  RouteSanitizationPart013();
+  RouteSanitizationPart014();
+  RouteSanitizationPart015();
+  RouteSanitizationPart016();
+  RouteSanitizationPart017();
+  RouteSanitizationPart018();
+  RouteSanitizationPart019();
+  RouteSanitizationPart020();
+  RouteSanitizationPart021();
+  RouteSanitizationPart022();
+  RouteSanitizationPart023();
+  RouteSanitizationPart024();
+  RouteSanitizationPart025();
+  RouteSanitizationPart026();
+  RouteSanitizationPart027();
+  RouteSanitizationPart028();
+  RouteSanitizationPart029();
+  RouteSanitizationPart030();
+  RouteSanitizationPart031();
+  RouteSanitizationPart032();
+  RouteSanitizationPart033();
+  RouteSanitizationPart034();
+  RouteSanitizationPart035();
+}
+
 export default function routeSanitizationSuite() {
   describe('RouteSanitizationSuite', function () {
-    RouteSanitizationPart001();
-    RouteSanitizationPart002();
-    RouteSanitizationPart003();
-    RouteSanitizationPart004();
-    RouteSanitizationPart005();
-    RouteSanitizationPart006();
-    RouteSanitizationPart007();
-    RouteSanitizationPart008();
-    RouteSanitizationPart009();
-    RouteSanitizationPart010();
-    RouteSanitizationPart011();
-    RouteSanitizationPart012();
-    RouteSanitizationPart013();
-    RouteSanitizationPart014();
-    RouteSanitizationPart015();
-    RouteSanitizationPart016();
-    RouteSanitizationPart017();
-    RouteSanitizationPart018();
-    RouteSanitizationPart019();
-    RouteSanitizationPart020();
-    RouteSanitizationPart021();
-    RouteSanitizationPart022();
+    RouteSanitizationGroup001();
   });
 }
