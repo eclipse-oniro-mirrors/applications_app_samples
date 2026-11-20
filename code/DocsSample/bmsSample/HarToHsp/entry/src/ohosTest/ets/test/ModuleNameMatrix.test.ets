@@ -2714,3 +2714,34 @@ export default function moduleNameMatrixTest() {
     expect(reversed.length).assertEqual(13);
   });
 
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0179
+   * @tc.name      testModuleName0179
+   * @tc.desc      Name myapplication keeps underscore split
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testModuleName0179', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testModuleName0179', 'myapplication underscore split');
+    const token: string = 'myapplication';
+    expect(token.split('_').length).assertEqual(1);
+    expect(token.includes('_')).assertEqual(false);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_NAME_0180
+   * @tc.name      testModuleName0180
+   * @tc.desc      Name myapplication keeps lowercase
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testModuleName0180', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testModuleName0180', 'myapplication lowercase');
+    const token: string = 'myapplication';
+    expect(token.toLowerCase()).assertEqual('myapplication');
+    expect(token.toLowerCase().length).assertEqual(token.length);
+  });
+  });
+}
