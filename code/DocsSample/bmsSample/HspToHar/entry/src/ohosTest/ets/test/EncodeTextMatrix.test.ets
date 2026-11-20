@@ -2558,112 +2558,112 @@ export default function encodeTextMatrixTest() {
   /**
    * @tc.number    SUB_BMS_HSPTOHAR_ENC_0133
    * @tc.name      testEncodeText0133
-   * @tc.desc      Encode psi keeps byte length
+   * @tc.desc      Encode alpha keeps byte length
    * @tc.size      MEDIUMTEST
    * @tc.type      FUNCTION
    * @tc.level     LEVEL1
    */
   it('testEncodeText0133', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-    logCase('testEncodeText0133', 'encode psi byte length');
+    logCase('testEncodeText0133', 'encode alpha byte length');
     const encoder: util.TextEncoder = new util.TextEncoder();
     const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
     const helper: util.Base64Helper = new util.Base64Helper();
-    const bytes: Uint8Array = encoder.encodeInto('psi');
+    const bytes: Uint8Array = encoder.encodeInto('alpha');
     const encoded: string = helper.encodeToStringSync(bytes);
     const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
-    expect(bytes.length).assertEqual(3);
+    expect(bytes.length).assertEqual(5);
   });
 
   /**
    * @tc.number    SUB_BMS_HSPTOHAR_ENC_0134
    * @tc.name      testEncodeText0134
-   * @tc.desc      Encode psi keeps first byte
+   * @tc.desc      Encode alpha keeps first byte
    * @tc.size      MEDIUMTEST
    * @tc.type      FUNCTION
    * @tc.level     LEVEL2
    */
   it('testEncodeText0134', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-    logCase('testEncodeText0134', 'encode psi first byte');
+    logCase('testEncodeText0134', 'encode alpha first byte');
     const encoder: util.TextEncoder = new util.TextEncoder();
     const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
     const helper: util.Base64Helper = new util.Base64Helper();
-    const bytes: Uint8Array = encoder.encodeInto('psi');
+    const bytes: Uint8Array = encoder.encodeInto('alpha');
     const encoded: string = helper.encodeToStringSync(bytes);
     const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
-    expect(bytes[0]).assertEqual(112);
+    expect(bytes[0]).assertEqual(97);
   });
 
   /**
    * @tc.number    SUB_BMS_HSPTOHAR_ENC_0135
    * @tc.name      testEncodeText0135
-   * @tc.desc      Encode psi keeps round trip
+   * @tc.desc      Encode alpha keeps round trip
    * @tc.size      MEDIUMTEST
    * @tc.type      FUNCTION
    * @tc.level     LEVEL0
    */
   it('testEncodeText0135', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-    logCase('testEncodeText0135', 'encode psi round trip');
+    logCase('testEncodeText0135', 'encode alpha round trip');
     const encoder: util.TextEncoder = new util.TextEncoder();
     const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
     const helper: util.Base64Helper = new util.Base64Helper();
-    const bytes: Uint8Array = encoder.encodeInto('psi');
+    const bytes: Uint8Array = encoder.encodeInto('alpha');
     const encoded: string = helper.encodeToStringSync(bytes);
     const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
-    expect(restored).assertEqual('psi');
+    expect(restored).assertEqual('alpha');
   });
 
   /**
    * @tc.number    SUB_BMS_HSPTOHAR_ENC_0136
    * @tc.name      testEncodeText0136
-   * @tc.desc      Encode psi keeps base64 length
+   * @tc.desc      Encode alpha keeps base64 length
    * @tc.size      MEDIUMTEST
    * @tc.type      FUNCTION
    * @tc.level     LEVEL1
    */
   it('testEncodeText0136', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-    logCase('testEncodeText0136', 'encode psi base64 length');
+    logCase('testEncodeText0136', 'encode alpha base64 length');
     const encoder: util.TextEncoder = new util.TextEncoder();
     const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
     const helper: util.Base64Helper = new util.Base64Helper();
-    const bytes: Uint8Array = encoder.encodeInto('psi');
+    const bytes: Uint8Array = encoder.encodeInto('alpha');
     const encoded: string = helper.encodeToStringSync(bytes);
     const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
-    expect(encoded.length).assertEqual(4);
+    expect(encoded.length).assertEqual(8);
   });
 
   /**
    * @tc.number    SUB_BMS_HSPTOHAR_ENC_0137
    * @tc.name      testEncodeText0137
-   * @tc.desc      Encode psi keeps base64 value
+   * @tc.desc      Encode alpha keeps base64 value
    * @tc.size      MEDIUMTEST
    * @tc.type      FUNCTION
    * @tc.level     LEVEL2
    */
   it('testEncodeText0137', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-    logCase('testEncodeText0137', 'encode psi base64 value');
+    logCase('testEncodeText0137', 'encode alpha base64 value');
     const encoder: util.TextEncoder = new util.TextEncoder();
     const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
     const helper: util.Base64Helper = new util.Base64Helper();
-    const bytes: Uint8Array = encoder.encodeInto('psi');
+    const bytes: Uint8Array = encoder.encodeInto('alpha');
     const encoded: string = helper.encodeToStringSync(bytes);
     const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
-    expect(encoded).assertEqual('cHNp');
+    expect(encoded).assertEqual('YWxwaGE=');
   });
 
   /**
    * @tc.number    SUB_BMS_HSPTOHAR_ENC_0138
    * @tc.name      testEncodeText0138
-   * @tc.desc      Encode psi keeps base64 alphabet
+   * @tc.desc      Encode alpha keeps base64 alphabet
    * @tc.size      MEDIUMTEST
    * @tc.type      FUNCTION
    * @tc.level     LEVEL0
    */
   it('testEncodeText0138', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-    logCase('testEncodeText0138', 'encode psi base64 alphabet');
+    logCase('testEncodeText0138', 'encode alpha base64 alphabet');
     const encoder: util.TextEncoder = new util.TextEncoder();
     const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
     const helper: util.Base64Helper = new util.Base64Helper();
-    const bytes: Uint8Array = encoder.encodeInto('psi');
+    const bytes: Uint8Array = encoder.encodeInto('alpha');
     const encoded: string = helper.encodeToStringSync(bytes);
     const restored: string = decoder.decodeToString(helper.decodeSync(encoded));
     expect(/^[A-Za-z0-9+/]+={0,2}$/.test(encoded)).assertTrue();
