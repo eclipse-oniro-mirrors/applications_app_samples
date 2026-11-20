@@ -13,11 +13,21 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/mock/LocationMock.ets
+ * 文件职责：LocationMock 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ProvinceWithSubCities、ListItem。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 export interface ProvinceWithSubCities {
     name: string;
     city: string[];
 }
 
+/**
+ * ListItem：接口定义，承载本文件对应的逻辑与数据。
+ */
 export interface ListItem {
     name: string;
     city: string[] | ProvinceWithSubCities[];
