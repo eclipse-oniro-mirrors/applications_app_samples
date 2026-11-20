@@ -27,7 +27,7 @@ export class NetworkMobile {
     } catch (err) {
       Logger.info(TAG, `getDefaultCellularDataSlotId failed err is ${JSON.stringify(err)}`)
     }
-    return slotId
+    return slotId;
   }
 
   async isCellularDataEnabled(): Promise<boolean> {
@@ -38,7 +38,7 @@ export class NetworkMobile {
     } catch (err) {
       Logger.info(TAG, `isCellularDataEnabled failed err is ${JSON.stringify(err)}`)
     }
-    return dataEnabled
+    return dataEnabled;
   }
 
   async isCellularDataRoamingEnabled(slotId: number): Promise<boolean> {
@@ -49,7 +49,7 @@ export class NetworkMobile {
     } catch (err) {
       Logger.info(TAG, `isCellularDataRoamingEnabled failed err is ${JSON.stringify(err)}`)
     }
-    return dataRoamingEnabled
+    return dataRoamingEnabled;
   }
 
   getDataFlowTypeResource(dataFlow: data.DataFlowType): Resource {
@@ -57,24 +57,24 @@ export class NetworkMobile {
     switch (dataFlow) {
       case data.DataFlowType.DATA_FLOW_TYPE_NONE:
         result = $r('app.string.none')
-        break
+        break;
       case data.DataFlowType.DATA_FLOW_TYPE_DOWN:
         result = $r('app.string.down')
-        break
+        break;
       case data.DataFlowType.DATA_FLOW_TYPE_UP:
         result = $r('app.string.up')
-        break
+        break;
       case data.DataFlowType.DATA_FLOW_TYPE_UP_DOWN:
         result = $r('app.string.upDown')
-        break
+        break;
       case data.DataFlowType.DATA_FLOW_TYPE_DORMANT:
         result = $r('app.string.dormant')
-        break
+        break;
       default:
         result = $r('app.string.none')
-        break
+        break;
     }
-    return result
+    return result;
   }
 
   getDataStateResource(state: data.DataConnectState): Resource {
@@ -82,24 +82,24 @@ export class NetworkMobile {
     switch (state) {
       case data.DataConnectState.DATA_STATE_UNKNOWN:
         result = $r('app.string.unknown')
-        break
+        break;
       case data.DataConnectState.DATA_STATE_DISCONNECTED:
         result = $r('app.string.disconnect')
-        break
+        break;
       case data.DataConnectState.DATA_STATE_CONNECTING:
         result = $r('app.string.connecting')
-        break
+        break;
       case data.DataConnectState.DATA_STATE_CONNECTED:
         result = $r('app.string.connect')
-        break
+        break;
       case data.DataConnectState.DATA_STATE_SUSPENDED:
         result = $r('app.string.suspended')
-        break
+        break;
       default:
         result = $r('app.string.unknown')
-        break
+        break;
     }
-    return result
+    return result;
   }
 
   async getCellularDataFlowType(): Promise<Resource> {
@@ -110,7 +110,7 @@ export class NetworkMobile {
     } catch (err) {
       Logger.info(TAG, `getCellularDataFlowType failed err is ${JSON.stringify(err)}`)
     }
-    return this.getDataFlowTypeResource(dataFlow)
+    return this.getDataFlowTypeResource(dataFlow);
   }
 
   async getCellularDataState(): Promise<Resource> {
@@ -121,6 +121,6 @@ export class NetworkMobile {
     } catch (err) {
       Logger.info(TAG, `getCellularDataState failed err is ${JSON.stringify(err)}`)
     }
-    return this.getDataStateResource(dataConnectState)
+    return this.getDataStateResource(dataConnectState);
   }
 }
