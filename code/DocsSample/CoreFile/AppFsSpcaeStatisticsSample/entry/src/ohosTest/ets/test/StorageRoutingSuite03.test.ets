@@ -3870,3 +3870,1140 @@ export default function storageRoutingSuite03Test(): void {
                 completed = true;
                 completionCount++;
                 throw error;
+              });
+          await Promise.resolve();
+          await Promise.resolve();
+          await Promise.resolve();
+          const actualPending: boolean = completed;
+          logAssertion(name, "FILESYSTEM_FREE; no settlement before dependency completion", actualPending, false);
+          expect(actualPending).assertEqual(false);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; dependency is called before the pending observation",
+            actualStartedCalls, "filesystem:/data/storage/el2/base/files");
+          expect(actualStartedCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          api.completeFilesystem(undefined, Number.NaN);
+          api.completeFilesystem(undefined, 0);
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await pending;
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "Filesystem free size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Filesystem free size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          const actualCompleted: boolean = completed;
+          logAssertion(name, "FILESYSTEM_FREE; observer runs after dependency completion", actualCompleted, true);
+          expect(actualCompleted).assertEqual(true);
+          const actualCompletionCount: number = completionCount;
+          logAssertion(name, "FILESYSTEM_FREE; exactly one final promise settlement", actualCompletionCount, 1);
+          expect(actualCompletionCount).assertEqual(1);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE first=NAN second=ZERO; repeated callback is not a new query",
+            actualCalls, "filesystem:/data/storage/el2/base/files");
+          expect(actualCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CALLBACK_FIRST_G1_1000
+     * @tc.name AppFsSpace_Routing_0281
+     * @tc.desc Verify FILESYSTEM_FREE first NAN completion is final despite second MAX.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0281', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0281';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.deferFilesystem = true;
+          const firstError: BusinessError = {
+            name: 'BusinessError', code: 13900002, message: "First filesystem callback failed"
+          };
+          api.filesystemError = firstError;
+          const secondError: BusinessError = {
+            name: 'BusinessError', code: 13900002, message: "Second filesystem callback failed"
+          };
+          api.filesystemError = secondError;
+          let completed: boolean = false;
+          let completionCount: number = 0;
+          const pending: Promise<number> =
+            queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api)
+              .then((bytes: number): number => {
+                completed = true;
+                completionCount++;
+                return bytes;
+              }, (error: Error): number => {
+                completed = true;
+                completionCount++;
+                throw error;
+              });
+          await Promise.resolve();
+          await Promise.resolve();
+          await Promise.resolve();
+          const actualPending: boolean = completed;
+          logAssertion(name, "FILESYSTEM_FREE; no settlement before dependency completion", actualPending, false);
+          expect(actualPending).assertEqual(false);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; dependency is called before the pending observation",
+            actualStartedCalls, "filesystem:/data/storage/el2/base/files");
+          expect(actualStartedCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          api.completeFilesystem(undefined, Number.NaN);
+          api.completeFilesystem(undefined, 9007199254740991);
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await pending;
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "Filesystem free size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Filesystem free size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          const actualCompleted: boolean = completed;
+          logAssertion(name, "FILESYSTEM_FREE; observer runs after dependency completion", actualCompleted, true);
+          expect(actualCompleted).assertEqual(true);
+          const actualCompletionCount: number = completionCount;
+          logAssertion(name, "FILESYSTEM_FREE; exactly one final promise settlement", actualCompletionCount, 1);
+          expect(actualCompletionCount).assertEqual(1);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE first=NAN second=MAX; repeated callback is not a new query",
+            actualCalls, "filesystem:/data/storage/el2/base/files");
+          expect(actualCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CALLBACK_FIRST_G1_1100
+     * @tc.name AppFsSpace_Routing_0282
+     * @tc.desc Verify FILESYSTEM_FREE first NAN completion is final despite second NAN.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0282', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0282';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.deferFilesystem = true;
+          const firstError: BusinessError = {
+            name: 'BusinessError', code: 13900002, message: "First filesystem callback failed"
+          };
+          api.filesystemError = firstError;
+          const secondError: BusinessError = {
+            name: 'BusinessError', code: 13900002, message: "Second filesystem callback failed"
+          };
+          api.filesystemError = secondError;
+          let completed: boolean = false;
+          let completionCount: number = 0;
+          const pending: Promise<number> =
+            queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api)
+              .then((bytes: number): number => {
+                completed = true;
+                completionCount++;
+                return bytes;
+              }, (error: Error): number => {
+                completed = true;
+                completionCount++;
+                throw error;
+              });
+          await Promise.resolve();
+          await Promise.resolve();
+          await Promise.resolve();
+          const actualPending: boolean = completed;
+          logAssertion(name, "FILESYSTEM_FREE; no settlement before dependency completion", actualPending, false);
+          expect(actualPending).assertEqual(false);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; dependency is called before the pending observation",
+            actualStartedCalls, "filesystem:/data/storage/el2/base/files");
+          expect(actualStartedCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          api.completeFilesystem(undefined, Number.NaN);
+          api.completeFilesystem(undefined, Number.NaN);
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await pending;
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "Filesystem free size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Filesystem free size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          const actualCompleted: boolean = completed;
+          logAssertion(name, "FILESYSTEM_FREE; observer runs after dependency completion", actualCompleted, true);
+          expect(actualCompleted).assertEqual(true);
+          const actualCompletionCount: number = completionCount;
+          logAssertion(name, "FILESYSTEM_FREE; exactly one final promise settlement", actualCompletionCount, 1);
+          expect(actualCompletionCount).assertEqual(1);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE first=NAN second=NAN; repeated callback is not a new query",
+            actualCalls, "filesystem:/data/storage/el2/base/files");
+          expect(actualCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CALLBACK_FIRST_G1_1200
+     * @tc.name AppFsSpace_Routing_0283
+     * @tc.desc Verify FILESYSTEM_FREE first NAN completion is final despite second SDK_ERROR.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0283', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0283';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.deferFilesystem = true;
+          const firstError: BusinessError = {
+            name: 'BusinessError', code: 13900002, message: "First filesystem callback failed"
+          };
+          api.filesystemError = firstError;
+          const secondError: BusinessError = {
+            name: 'BusinessError', code: 13900002, message: "Second filesystem callback failed"
+          };
+          api.filesystemError = secondError;
+          let completed: boolean = false;
+          let completionCount: number = 0;
+          const pending: Promise<number> =
+            queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api)
+              .then((bytes: number): number => {
+                completed = true;
+                completionCount++;
+                return bytes;
+              }, (error: Error): number => {
+                completed = true;
+                completionCount++;
+                throw error;
+              });
+          await Promise.resolve();
+          await Promise.resolve();
+          await Promise.resolve();
+          const actualPending: boolean = completed;
+          logAssertion(name, "FILESYSTEM_FREE; no settlement before dependency completion", actualPending, false);
+          expect(actualPending).assertEqual(false);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; dependency is called before the pending observation",
+            actualStartedCalls, "filesystem:/data/storage/el2/base/files");
+          expect(actualStartedCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          api.completeFilesystem(undefined, Number.NaN);
+          api.completeFilesystem(secondError, 9007199254740992);
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await pending;
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "Filesystem free size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Filesystem free size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          const actualCompleted: boolean = completed;
+          logAssertion(name, "FILESYSTEM_FREE; observer runs after dependency completion", actualCompleted, true);
+          expect(actualCompleted).assertEqual(true);
+          const actualCompletionCount: number = completionCount;
+          logAssertion(name, "FILESYSTEM_FREE; exactly one final promise settlement", actualCompletionCount, 1);
+          expect(actualCompletionCount).assertEqual(1);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE first=NAN second=SDK_ERROR; repeated callback is not a new query",
+            actualCalls, "filesystem:/data/storage/el2/base/files");
+          expect(actualCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CALLBACK_FIRST_G1_1300
+     * @tc.name AppFsSpace_Routing_0284
+     * @tc.desc Verify FILESYSTEM_FREE first SDK_ERROR completion is final despite second ZERO.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0284', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0284';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.deferFilesystem = true;
+          const firstError: BusinessError = {
+            name: 'BusinessError', code: 13900002, message: "First filesystem callback failed"
+          };
+          api.filesystemError = firstError;
+          const secondError: BusinessError = {
+            name: 'BusinessError', code: 13900002, message: "Second filesystem callback failed"
+          };
+          api.filesystemError = secondError;
+          let completed: boolean = false;
+          let completionCount: number = 0;
+          const pending: Promise<number> =
+            queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api)
+              .then((bytes: number): number => {
+                completed = true;
+                completionCount++;
+                return bytes;
+              }, (error: Error): number => {
+                completed = true;
+                completionCount++;
+                throw error;
+              });
+          await Promise.resolve();
+          await Promise.resolve();
+          await Promise.resolve();
+          const actualPending: boolean = completed;
+          logAssertion(name, "FILESYSTEM_FREE; no settlement before dependency completion", actualPending, false);
+          expect(actualPending).assertEqual(false);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; dependency is called before the pending observation",
+            actualStartedCalls, "filesystem:/data/storage/el2/base/files");
+          expect(actualStartedCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          api.completeFilesystem(firstError, 9007199254740992);
+          api.completeFilesystem(undefined, 0);
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await pending;
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "BusinessError");
+          expect(failureName).assertEqual("BusinessError");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "First filesystem callback failed");
+          expect(failureMessage).assertEqual("First filesystem callback failed");
+          const failureIdentity: boolean = failureError === firstError;
+          logAssertion(name, "FILESYSTEM_FREE; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          const actualCompleted: boolean = completed;
+          logAssertion(name, "FILESYSTEM_FREE; observer runs after dependency completion", actualCompleted, true);
+          expect(actualCompleted).assertEqual(true);
+          const actualCompletionCount: number = completionCount;
+          logAssertion(name, "FILESYSTEM_FREE; exactly one final promise settlement", actualCompletionCount, 1);
+          expect(actualCompletionCount).assertEqual(1);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE first=SDK_ERROR second=ZERO; repeated callback is not a new query",
+            actualCalls, "filesystem:/data/storage/el2/base/files");
+          expect(actualCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CALLBACK_FIRST_G1_1400
+     * @tc.name AppFsSpace_Routing_0285
+     * @tc.desc Verify FILESYSTEM_FREE first SDK_ERROR completion is final despite second MAX.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0285', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0285';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.deferFilesystem = true;
+          const firstError: BusinessError = {
+            name: 'BusinessError', code: 13900002, message: "First filesystem callback failed"
+          };
+          api.filesystemError = firstError;
+          const secondError: BusinessError = {
+            name: 'BusinessError', code: 13900002, message: "Second filesystem callback failed"
+          };
+          api.filesystemError = secondError;
+          let completed: boolean = false;
+          let completionCount: number = 0;
+          const pending: Promise<number> =
+            queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api)
+              .then((bytes: number): number => {
+                completed = true;
+                completionCount++;
+                return bytes;
+              }, (error: Error): number => {
+                completed = true;
+                completionCount++;
+                throw error;
+              });
+          await Promise.resolve();
+          await Promise.resolve();
+          await Promise.resolve();
+          const actualPending: boolean = completed;
+          logAssertion(name, "FILESYSTEM_FREE; no settlement before dependency completion", actualPending, false);
+          expect(actualPending).assertEqual(false);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; dependency is called before the pending observation",
+            actualStartedCalls, "filesystem:/data/storage/el2/base/files");
+          expect(actualStartedCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          api.completeFilesystem(firstError, 9007199254740992);
+          api.completeFilesystem(undefined, 9007199254740991);
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await pending;
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "BusinessError");
+          expect(failureName).assertEqual("BusinessError");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "First filesystem callback failed");
+          expect(failureMessage).assertEqual("First filesystem callback failed");
+          const failureIdentity: boolean = failureError === firstError;
+          logAssertion(name, "FILESYSTEM_FREE; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          const actualCompleted: boolean = completed;
+          logAssertion(name, "FILESYSTEM_FREE; observer runs after dependency completion", actualCompleted, true);
+          expect(actualCompleted).assertEqual(true);
+          const actualCompletionCount: number = completionCount;
+          logAssertion(name, "FILESYSTEM_FREE; exactly one final promise settlement", actualCompletionCount, 1);
+          expect(actualCompletionCount).assertEqual(1);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE first=SDK_ERROR second=MAX; repeated callback is not a new query",
+            actualCalls, "filesystem:/data/storage/el2/base/files");
+          expect(actualCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CALLBACK_FIRST_G1_1500
+     * @tc.name AppFsSpace_Routing_0286
+     * @tc.desc Verify FILESYSTEM_FREE first SDK_ERROR completion is final despite second NAN.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0286', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0286';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.deferFilesystem = true;
+          const firstError: BusinessError = {
+            name: 'BusinessError', code: 13900002, message: "First filesystem callback failed"
+          };
+          api.filesystemError = firstError;
+          const secondError: BusinessError = {
+            name: 'BusinessError', code: 13900002, message: "Second filesystem callback failed"
+          };
+          api.filesystemError = secondError;
+          let completed: boolean = false;
+          let completionCount: number = 0;
+          const pending: Promise<number> =
+            queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api)
+              .then((bytes: number): number => {
+                completed = true;
+                completionCount++;
+                return bytes;
+              }, (error: Error): number => {
+                completed = true;
+                completionCount++;
+                throw error;
+              });
+          await Promise.resolve();
+          await Promise.resolve();
+          await Promise.resolve();
+          const actualPending: boolean = completed;
+          logAssertion(name, "FILESYSTEM_FREE; no settlement before dependency completion", actualPending, false);
+          expect(actualPending).assertEqual(false);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; dependency is called before the pending observation",
+            actualStartedCalls, "filesystem:/data/storage/el2/base/files");
+          expect(actualStartedCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          api.completeFilesystem(firstError, 9007199254740992);
+          api.completeFilesystem(undefined, Number.NaN);
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await pending;
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "BusinessError");
+          expect(failureName).assertEqual("BusinessError");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "First filesystem callback failed");
+          expect(failureMessage).assertEqual("First filesystem callback failed");
+          const failureIdentity: boolean = failureError === firstError;
+          logAssertion(name, "FILESYSTEM_FREE; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          const actualCompleted: boolean = completed;
+          logAssertion(name, "FILESYSTEM_FREE; observer runs after dependency completion", actualCompleted, true);
+          expect(actualCompleted).assertEqual(true);
+          const actualCompletionCount: number = completionCount;
+          logAssertion(name, "FILESYSTEM_FREE; exactly one final promise settlement", actualCompletionCount, 1);
+          expect(actualCompletionCount).assertEqual(1);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE first=SDK_ERROR second=NAN; repeated callback is not a new query",
+            actualCalls, "filesystem:/data/storage/el2/base/files");
+          expect(actualCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CALLBACK_FIRST_G1_1600
+     * @tc.name AppFsSpace_Routing_0287
+     * @tc.desc Verify FILESYSTEM_FREE first SDK_ERROR completion is final despite second SDK_ERROR.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0287', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0287';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.deferFilesystem = true;
+          const firstError: BusinessError = {
+            name: 'BusinessError', code: 13900002, message: "First filesystem callback failed"
+          };
+          api.filesystemError = firstError;
+          const secondError: BusinessError = {
+            name: 'BusinessError', code: 13900002, message: "Second filesystem callback failed"
+          };
+          api.filesystemError = secondError;
+          let completed: boolean = false;
+          let completionCount: number = 0;
+          const pending: Promise<number> =
+            queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api)
+              .then((bytes: number): number => {
+                completed = true;
+                completionCount++;
+                return bytes;
+              }, (error: Error): number => {
+                completed = true;
+                completionCount++;
+                throw error;
+              });
+          await Promise.resolve();
+          await Promise.resolve();
+          await Promise.resolve();
+          const actualPending: boolean = completed;
+          logAssertion(name, "FILESYSTEM_FREE; no settlement before dependency completion", actualPending, false);
+          expect(actualPending).assertEqual(false);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; dependency is called before the pending observation",
+            actualStartedCalls, "filesystem:/data/storage/el2/base/files");
+          expect(actualStartedCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          api.completeFilesystem(firstError, 9007199254740992);
+          api.completeFilesystem(secondError, 9007199254740992);
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await pending;
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "BusinessError");
+          expect(failureName).assertEqual("BusinessError");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "First filesystem callback failed");
+          expect(failureMessage).assertEqual("First filesystem callback failed");
+          const failureIdentity: boolean = failureError === firstError;
+          logAssertion(name, "FILESYSTEM_FREE; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          const actualCompleted: boolean = completed;
+          logAssertion(name, "FILESYSTEM_FREE; observer runs after dependency completion", actualCompleted, true);
+          expect(actualCompleted).assertEqual(true);
+          const actualCompletionCount: number = completionCount;
+          logAssertion(name, "FILESYSTEM_FREE; exactly one final promise settlement", actualCompletionCount, 1);
+          expect(actualCompletionCount).assertEqual(1);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE first=SDK_ERROR second=SDK_ERROR; repeated callback is not a new query",
+            actualCalls, "filesystem:/data/storage/el2/base/files");
+          expect(actualCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_FILESYSTEM_THROW_G1_0100
+     * @tc.name AppFsSpace_Routing_0288
+     * @tc.desc Verify FILESYSTEM_FREE synchronous adapter throw wins before callback bytes=0.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0288', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0288';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemBytes = 0;
+          api.deferFilesystem = true;
+          const sdkError: Error = new Error("Filesystem adapter threw synchronously");
+          sdkError.name = "Error";
+          api.filesystemThrow = sdkError;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "Error");
+          expect(failureName).assertEqual("Error");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "Filesystem adapter threw synchronously");
+          expect(failureMessage).assertEqual("Filesystem adapter threw synchronously");
+          const failureIdentity: boolean = failureError === sdkError;
+          logAssertion(name, "FILESYSTEM_FREE; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          const actualCallbackAbsent: boolean = api.filesystemCallback === undefined;
+          logAssertion(name,
+            "FILESYSTEM_FREE bytes=0; synchronous throw prevents callback registration", actualCallbackAbsent, true);
+          expect(actualCallbackAbsent).assertEqual(true);
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_FILESYSTEM_THROW_G1_0200
+     * @tc.name AppFsSpace_Routing_0289
+     * @tc.desc Verify FILESYSTEM_FREE synchronous adapter throw wins before callback bytes=1024.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0289', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0289';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemBytes = 1024;
+          api.deferFilesystem = true;
+          const sdkError: Error = new Error("Filesystem adapter threw synchronously");
+          sdkError.name = "Error";
+          api.filesystemThrow = sdkError;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "Error");
+          expect(failureName).assertEqual("Error");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "Filesystem adapter threw synchronously");
+          expect(failureMessage).assertEqual("Filesystem adapter threw synchronously");
+          const failureIdentity: boolean = failureError === sdkError;
+          logAssertion(name, "FILESYSTEM_FREE; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          const actualCallbackAbsent: boolean = api.filesystemCallback === undefined;
+          logAssertion(name,
+            "FILESYSTEM_FREE bytes=1024; synchronous throw prevents callback registration", actualCallbackAbsent, true);
+          expect(actualCallbackAbsent).assertEqual(true);
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_FILESYSTEM_THROW_G1_0300
+     * @tc.name AppFsSpace_Routing_0290
+     * @tc.desc Verify FILESYSTEM_FREE synchronous adapter throw wins before callback bytes=-1.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0290', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0290';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemBytes = -1;
+          api.deferFilesystem = true;
+          const sdkError: Error = new Error("Filesystem adapter threw synchronously");
+          sdkError.name = "Error";
+          api.filesystemThrow = sdkError;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "Error");
+          expect(failureName).assertEqual("Error");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "Filesystem adapter threw synchronously");
+          expect(failureMessage).assertEqual("Filesystem adapter threw synchronously");
+          const failureIdentity: boolean = failureError === sdkError;
+          logAssertion(name, "FILESYSTEM_FREE; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          const actualCallbackAbsent: boolean = api.filesystemCallback === undefined;
+          logAssertion(name,
+            "FILESYSTEM_FREE bytes=-1; synchronous throw prevents callback registration", actualCallbackAbsent, true);
+          expect(actualCallbackAbsent).assertEqual(true);
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_FILESYSTEM_THROW_G1_0400
+     * @tc.name AppFsSpace_Routing_0291
+     * @tc.desc Verify FILESYSTEM_FREE synchronous adapter throw wins before callback bytes=0.5.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0291', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0291';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemBytes = 0.5;
+          api.deferFilesystem = true;
+          const sdkError: Error = new Error("Filesystem adapter threw synchronously");
+          sdkError.name = "Error";
+          api.filesystemThrow = sdkError;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "Error");
+          expect(failureName).assertEqual("Error");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "Filesystem adapter threw synchronously");
+          expect(failureMessage).assertEqual("Filesystem adapter threw synchronously");
+          const failureIdentity: boolean = failureError === sdkError;
+          logAssertion(name, "FILESYSTEM_FREE; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          const actualCallbackAbsent: boolean = api.filesystemCallback === undefined;
+          logAssertion(name,
+            "FILESYSTEM_FREE bytes=0.5; synchronous throw prevents callback registration", actualCallbackAbsent, true);
+          expect(actualCallbackAbsent).assertEqual(true);
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_FILESYSTEM_THROW_G1_0500
+     * @tc.name AppFsSpace_Routing_0292
+     * @tc.desc Verify FILESYSTEM_FREE synchronous adapter throw wins before callback bytes=Number.NaN.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0292', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0292';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemBytes = Number.NaN;
+          api.deferFilesystem = true;
+          const sdkError: Error = new Error("Filesystem adapter threw synchronously");
+          sdkError.name = "Error";
+          api.filesystemThrow = sdkError;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "Error");
+          expect(failureName).assertEqual("Error");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "Filesystem adapter threw synchronously");
+          expect(failureMessage).assertEqual("Filesystem adapter threw synchronously");
+          const failureIdentity: boolean = failureError === sdkError;
+          logAssertion(name, "FILESYSTEM_FREE; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          const actualCallbackAbsent: boolean = api.filesystemCallback === undefined;
+          logAssertion(name,
+            "FILESYSTEM_FREE bytes=Number.NaN; synchronous throw prevents callback registration",
+            actualCallbackAbsent, true);
+          expect(actualCallbackAbsent).assertEqual(true);
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_FILESYSTEM_THROW_G1_0600
+     * @tc.name AppFsSpace_Routing_0293
+     * @tc.desc Verify FILESYSTEM_FREE synchronous adapter throw wins before callback bytes=9007199254740992.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0293', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0293';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemBytes = 9007199254740992;
+          api.deferFilesystem = true;
+          const sdkError: Error = new Error("Filesystem adapter threw synchronously");
+          sdkError.name = "Error";
+          api.filesystemThrow = sdkError;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "Error");
+          expect(failureName).assertEqual("Error");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "Filesystem adapter threw synchronously");
+          expect(failureMessage).assertEqual("Filesystem adapter threw synchronously");
+          const failureIdentity: boolean = failureError === sdkError;
+          logAssertion(name, "FILESYSTEM_FREE; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          const actualCallbackAbsent: boolean = api.filesystemCallback === undefined;
+          logAssertion(name,
+            "FILESYSTEM_FREE bytes=9007199254740992; synchronous throw prevents callback registration",
+            actualCallbackAbsent, true);
+          expect(actualCallbackAbsent).assertEqual(true);
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_DEFERRED_TOTAL_G1_0100
+     * @tc.name AppFsSpace_Routing_0294
+     * @tc.desc Verify TOTAL validates deferred bytes=0 rather than the invalid fallback field.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0294', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0294';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          const deferred: DeferredBytes = new DeferredBytes();
+          api.totalDeferred = deferred;
+          api.totalBytes = -1;
+          let completed: boolean = false;
+          let completionCount: number = 0;
+          const pending: Promise<number> =
+            queryStorage(StorageOperation.TOTAL, "/data/storage/el2/base/files", api)
+              .then((bytes: number): number => {
+                completed = true;
+                completionCount++;
+                return bytes;
+              }, (error: Error): number => {
+                completed = true;
+                completionCount++;
+                throw error;
+              });
+          await Promise.resolve();
+          await Promise.resolve();
+          await Promise.resolve();
+          const actualPending: boolean = completed;
+          logAssertion(name, "TOTAL; no settlement before dependency completion", actualPending, false);
+          expect(actualPending).assertEqual(false);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name, "TOTAL; dependency is called before the pending observation", actualStartedCalls, "total");
+          expect(actualStartedCalls).assertEqual("total");
+          deferred.resolve(0);
+          const actualBytes: number = await pending;
+          logAssertion(name, "TOTAL deferred bytes=0; deferred result supersedes fallback bytes=-1", actualBytes, 0);
+          expect(actualBytes).assertEqual(0);
+          const actualCompleted: boolean = completed;
+          logAssertion(name, "TOTAL; observer runs after dependency completion", actualCompleted, true);
+          expect(actualCompleted).assertEqual(true);
+          const actualCompletionCount: number = completionCount;
+          logAssertion(name, "TOTAL; exactly one final promise settlement", actualCompletionCount, 1);
+          expect(actualCompletionCount).assertEqual(1);
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_DEFERRED_TOTAL_G1_0200
+     * @tc.name AppFsSpace_Routing_0295
+     * @tc.desc Verify TOTAL validates deferred bytes=1024 rather than the invalid fallback field.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0295', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0295';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          const deferred: DeferredBytes = new DeferredBytes();
+          api.totalDeferred = deferred;
+          api.totalBytes = -1;
+          let completed: boolean = false;
+          let completionCount: number = 0;
+          const pending: Promise<number> =
+            queryStorage(StorageOperation.TOTAL, "/data/storage/el2/base/files", api)
+              .then((bytes: number): number => {
+                completed = true;
+                completionCount++;
+                return bytes;
+              }, (error: Error): number => {
+                completed = true;
+                completionCount++;
+                throw error;
+              });
+          await Promise.resolve();
+          await Promise.resolve();
+          await Promise.resolve();
+          const actualPending: boolean = completed;
+          logAssertion(name, "TOTAL; no settlement before dependency completion", actualPending, false);
+          expect(actualPending).assertEqual(false);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name, "TOTAL; dependency is called before the pending observation", actualStartedCalls, "total");
+          expect(actualStartedCalls).assertEqual("total");
+          deferred.resolve(1024);
+          const actualBytes: number = await pending;
+          logAssertion(name,
+            "TOTAL deferred bytes=1024; deferred result supersedes fallback bytes=-1", actualBytes, 1024);
+          expect(actualBytes).assertEqual(1024);
+          const actualCompleted: boolean = completed;
+          logAssertion(name, "TOTAL; observer runs after dependency completion", actualCompleted, true);
+          expect(actualCompleted).assertEqual(true);
+          const actualCompletionCount: number = completionCount;
+          logAssertion(name, "TOTAL; exactly one final promise settlement", actualCompletionCount, 1);
+          expect(actualCompletionCount).assertEqual(1);
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+  });
+}

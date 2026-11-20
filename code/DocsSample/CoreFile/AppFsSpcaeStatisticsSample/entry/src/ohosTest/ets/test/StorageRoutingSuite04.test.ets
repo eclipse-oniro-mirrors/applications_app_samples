@@ -3870,3 +3870,795 @@ export default function storageRoutingSuite04Test(): void {
           expect(actualStartedCalls).assertEqual("filesystem:/data/storage/el2/base/files|freeSync");
           const actualSecondBytes: number = await pendingSecond;
           logAssertion(name,
+            "concurrent FREE_SYNC; awaiting second first cannot consume the first result", actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFirstBytes: number = await pendingFirst;
+          logAssertion(name,
+            "concurrent FILESYSTEM_FREE; first promise retains its own result", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent FILESYSTEM_FREE and FREE_SYNC; settlement adds no hidden dependency calls",
+            actualFinalCalls, "filesystem:/data/storage/el2/base/files|freeSync");
+          expect(actualFinalCalls).assertEqual("filesystem:/data/storage/el2/base/files|freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_PAIR_G1_1000
+     * @tc.name AppFsSpace_Routing_0377
+     * @tc.desc Verify concurrent TOTAL=1024 and TOTAL_SYNC=4096 on one probe preserve route-specific bytes.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0377', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0377';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.totalBytes = 1024;
+          api.totalSyncBytes = 4096;
+          const pendingFirst: Promise<number> =
+            queryStorage(StorageOperation.TOTAL, "/data/storage/el2/base/files", api);
+          const pendingSecond: Promise<number> =
+            queryStorage(StorageOperation.TOTAL_SYNC, "/data/storage/el2/base/cache", api);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent TOTAL and TOTAL_SYNC; both SDK calls start before awaiting",
+            actualStartedCalls, "total|totalSync");
+          expect(actualStartedCalls).assertEqual("total|totalSync");
+          const actualSecondBytes: number = await pendingSecond;
+          logAssertion(name,
+            "concurrent TOTAL_SYNC; awaiting second first cannot consume the first result", actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFirstBytes: number = await pendingFirst;
+          logAssertion(name, "concurrent TOTAL; first promise retains its own result", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent TOTAL and TOTAL_SYNC; settlement adds no hidden dependency calls",
+            actualFinalCalls, "total|totalSync");
+          expect(actualFinalCalls).assertEqual("total|totalSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_PAIR_G1_1100
+     * @tc.name AppFsSpace_Routing_0378
+     * @tc.desc Verify concurrent TOTAL=1024 and FREE=4096 on one probe preserve route-specific bytes.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0378', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0378';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.totalBytes = 1024;
+          api.freeBytes = 4096;
+          const pendingFirst: Promise<number> =
+            queryStorage(StorageOperation.TOTAL, "/data/storage/el2/base/files", api);
+          const pendingSecond: Promise<number> =
+            queryStorage(StorageOperation.FREE, "/data/storage/el2/base/cache", api);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent TOTAL and FREE; both SDK calls start before awaiting", actualStartedCalls, "total|free");
+          expect(actualStartedCalls).assertEqual("total|free");
+          const actualSecondBytes: number = await pendingSecond;
+          logAssertion(name,
+            "concurrent FREE; awaiting second first cannot consume the first result", actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFirstBytes: number = await pendingFirst;
+          logAssertion(name, "concurrent TOTAL; first promise retains its own result", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent TOTAL and FREE; settlement adds no hidden dependency calls", actualFinalCalls, "total|free");
+          expect(actualFinalCalls).assertEqual("total|free");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_PAIR_G1_1200
+     * @tc.name AppFsSpace_Routing_0379
+     * @tc.desc Verify concurrent TOTAL=1024 and FREE_SYNC=4096 on one probe preserve route-specific bytes.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0379', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0379';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.totalBytes = 1024;
+          api.freeSyncBytes = 4096;
+          const pendingFirst: Promise<number> =
+            queryStorage(StorageOperation.TOTAL, "/data/storage/el2/base/files", api);
+          const pendingSecond: Promise<number> =
+            queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/cache", api);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent TOTAL and FREE_SYNC; both SDK calls start before awaiting",
+            actualStartedCalls, "total|freeSync");
+          expect(actualStartedCalls).assertEqual("total|freeSync");
+          const actualSecondBytes: number = await pendingSecond;
+          logAssertion(name,
+            "concurrent FREE_SYNC; awaiting second first cannot consume the first result", actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFirstBytes: number = await pendingFirst;
+          logAssertion(name, "concurrent TOTAL; first promise retains its own result", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent TOTAL and FREE_SYNC; settlement adds no hidden dependency calls",
+            actualFinalCalls, "total|freeSync");
+          expect(actualFinalCalls).assertEqual("total|freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_PAIR_G1_1300
+     * @tc.name AppFsSpace_Routing_0380
+     * @tc.desc Verify concurrent TOTAL_SYNC=1024 and FREE=4096 on one probe preserve route-specific bytes.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0380', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0380';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.totalSyncBytes = 1024;
+          api.freeBytes = 4096;
+          const pendingFirst: Promise<number> =
+            queryStorage(StorageOperation.TOTAL_SYNC, "/data/storage/el2/base/files", api);
+          const pendingSecond: Promise<number> =
+            queryStorage(StorageOperation.FREE, "/data/storage/el2/base/cache", api);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent TOTAL_SYNC and FREE; both SDK calls start before awaiting",
+            actualStartedCalls, "totalSync|free");
+          expect(actualStartedCalls).assertEqual("totalSync|free");
+          const actualSecondBytes: number = await pendingSecond;
+          logAssertion(name,
+            "concurrent FREE; awaiting second first cannot consume the first result", actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFirstBytes: number = await pendingFirst;
+          logAssertion(name, "concurrent TOTAL_SYNC; first promise retains its own result", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent TOTAL_SYNC and FREE; settlement adds no hidden dependency calls",
+            actualFinalCalls, "totalSync|free");
+          expect(actualFinalCalls).assertEqual("totalSync|free");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_PAIR_G1_1400
+     * @tc.name AppFsSpace_Routing_0381
+     * @tc.desc Verify concurrent TOTAL_SYNC=1024 and FREE_SYNC=4096 on one probe preserve route-specific bytes.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0381', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0381';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.totalSyncBytes = 1024;
+          api.freeSyncBytes = 4096;
+          const pendingFirst: Promise<number> =
+            queryStorage(StorageOperation.TOTAL_SYNC, "/data/storage/el2/base/files", api);
+          const pendingSecond: Promise<number> =
+            queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/cache", api);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent TOTAL_SYNC and FREE_SYNC; both SDK calls start before awaiting",
+            actualStartedCalls, "totalSync|freeSync");
+          expect(actualStartedCalls).assertEqual("totalSync|freeSync");
+          const actualSecondBytes: number = await pendingSecond;
+          logAssertion(name,
+            "concurrent FREE_SYNC; awaiting second first cannot consume the first result", actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFirstBytes: number = await pendingFirst;
+          logAssertion(name, "concurrent TOTAL_SYNC; first promise retains its own result", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent TOTAL_SYNC and FREE_SYNC; settlement adds no hidden dependency calls",
+            actualFinalCalls, "totalSync|freeSync");
+          expect(actualFinalCalls).assertEqual("totalSync|freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_PAIR_G1_1500
+     * @tc.name AppFsSpace_Routing_0382
+     * @tc.desc Verify concurrent FREE=1024 and FREE_SYNC=4096 on one probe preserve route-specific bytes.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0382', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0382';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeBytes = 1024;
+          api.freeSyncBytes = 4096;
+          const pendingFirst: Promise<number> =
+            queryStorage(StorageOperation.FREE, "/data/storage/el2/base/files", api);
+          const pendingSecond: Promise<number> =
+            queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/cache", api);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent FREE and FREE_SYNC; both SDK calls start before awaiting", actualStartedCalls, "free|freeSync");
+          expect(actualStartedCalls).assertEqual("free|freeSync");
+          const actualSecondBytes: number = await pendingSecond;
+          logAssertion(name,
+            "concurrent FREE_SYNC; awaiting second first cannot consume the first result", actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFirstBytes: number = await pendingFirst;
+          logAssertion(name, "concurrent FREE; first promise retains its own result", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent FREE and FREE_SYNC; settlement adds no hidden dependency calls",
+            actualFinalCalls, "free|freeSync");
+          expect(actualFinalCalls).assertEqual("free|freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_IGNORED_PATH_G1_0100
+     * @tc.name AppFsSpace_Routing_0383
+     * @tc.desc Verify BUNDLE ignores a Unicode whitespace-only path and returns 1024.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0383', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0383';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.bundleStats.appSize = 1024;
+          const actualBytes: number = await queryStorage(StorageOperation.BUNDLE, "\t﻿　", api);
+          logAssertion(name, "BUNDLE expected bytes=1024; returned bytes", actualBytes, 1024);
+          expect(actualBytes).assertEqual(1024);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name, "BUNDLE; selected dependency and exclusive call record", actualCalls, "bundle");
+          expect(actualCalls).assertEqual("bundle");
+          const actualCallbackAbsent: boolean = api.filesystemCallback === undefined;
+          logAssertion(name,
+            "BUNDLE; an ignored path does not register a filesystem callback", actualCallbackAbsent, true);
+          expect(actualCallbackAbsent).assertEqual(true);
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_IGNORED_PATH_G1_0200
+     * @tc.name AppFsSpace_Routing_0384
+     * @tc.desc Verify TOTAL ignores a Unicode whitespace-only path and returns 1024.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0384', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0384';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.totalBytes = 1024;
+          const actualBytes: number = await queryStorage(StorageOperation.TOTAL, "\t﻿　", api);
+          logAssertion(name, "TOTAL expected bytes=1024; returned bytes", actualBytes, 1024);
+          expect(actualBytes).assertEqual(1024);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name, "TOTAL; selected dependency and exclusive call record", actualCalls, "total");
+          expect(actualCalls).assertEqual("total");
+          const actualCallbackAbsent: boolean = api.filesystemCallback === undefined;
+          logAssertion(name,
+            "TOTAL; an ignored path does not register a filesystem callback", actualCallbackAbsent, true);
+          expect(actualCallbackAbsent).assertEqual(true);
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_IGNORED_PATH_G1_0300
+     * @tc.name AppFsSpace_Routing_0385
+     * @tc.desc Verify TOTAL_SYNC ignores a Unicode whitespace-only path and returns 1024.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0385', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0385';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.totalSyncBytes = 1024;
+          const actualBytes: number = await queryStorage(StorageOperation.TOTAL_SYNC, "\t﻿　", api);
+          logAssertion(name, "TOTAL_SYNC expected bytes=1024; returned bytes", actualBytes, 1024);
+          expect(actualBytes).assertEqual(1024);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name, "TOTAL_SYNC; selected dependency and exclusive call record", actualCalls, "totalSync");
+          expect(actualCalls).assertEqual("totalSync");
+          const actualCallbackAbsent: boolean = api.filesystemCallback === undefined;
+          logAssertion(name,
+            "TOTAL_SYNC; an ignored path does not register a filesystem callback", actualCallbackAbsent, true);
+          expect(actualCallbackAbsent).assertEqual(true);
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_IGNORED_PATH_G1_0400
+     * @tc.name AppFsSpace_Routing_0386
+     * @tc.desc Verify FREE ignores a Unicode whitespace-only path and returns 1024.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0386', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0386';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeBytes = 1024;
+          const actualBytes: number = await queryStorage(StorageOperation.FREE, "\t﻿　", api);
+          logAssertion(name, "FREE expected bytes=1024; returned bytes", actualBytes, 1024);
+          expect(actualBytes).assertEqual(1024);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name, "FREE; selected dependency and exclusive call record", actualCalls, "free");
+          expect(actualCalls).assertEqual("free");
+          const actualCallbackAbsent: boolean = api.filesystemCallback === undefined;
+          logAssertion(name,
+            "FREE; an ignored path does not register a filesystem callback", actualCallbackAbsent, true);
+          expect(actualCallbackAbsent).assertEqual(true);
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_IGNORED_PATH_G1_0500
+     * @tc.name AppFsSpace_Routing_0387
+     * @tc.desc Verify FREE_SYNC ignores a Unicode whitespace-only path and returns 1024.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0387', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0387';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 1024;
+          const actualBytes: number = await queryStorage(StorageOperation.FREE_SYNC, "\t﻿　", api);
+          logAssertion(name, "FREE_SYNC expected bytes=1024; returned bytes", actualBytes, 1024);
+          expect(actualBytes).assertEqual(1024);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name, "FREE_SYNC; selected dependency and exclusive call record", actualCalls, "freeSync");
+          expect(actualCalls).assertEqual("freeSync");
+          const actualCallbackAbsent: boolean = api.filesystemCallback === undefined;
+          logAssertion(name,
+            "FREE_SYNC; an ignored path does not register a filesystem callback", actualCallbackAbsent, true);
+          expect(actualCallbackAbsent).assertEqual(true);
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_UNSUPPORTED_G1_0100
+     * @tc.name AppFsSpace_Routing_0388
+     * @tc.desc Verify unsupported operation=-1 rejects before accessing SDK dependencies.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0388', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0388';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemThrow = new Error("Unreachable filesystem adapter");
+          const operation: StorageOperation = -1 as StorageOperation;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(operation, "", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'UNSUPPORTED; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'UNSUPPORTED; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'UNSUPPORTED; captured error message',
+            failureMessage, "Unsupported storage operation");
+          expect(failureMessage).assertEqual("Unsupported storage operation");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "UNSUPPORTED; error does not fall through to another method", failureCalls, "");
+          expect(failureCalls).assertEqual("");
+          const actualCallbackAbsent: boolean = api.filesystemCallback === undefined;
+          logAssertion(name, "unsupported operation=-1; no callback registration", actualCallbackAbsent, true);
+          expect(actualCallbackAbsent).assertEqual(true);
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_UNSUPPORTED_G1_0200
+     * @tc.name AppFsSpace_Routing_0389
+     * @tc.desc Verify unsupported operation=6 rejects before accessing SDK dependencies.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0389', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0389';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemThrow = new Error("Unreachable filesystem adapter");
+          const operation: StorageOperation = 6 as StorageOperation;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(operation, "", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'UNSUPPORTED; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'UNSUPPORTED; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'UNSUPPORTED; captured error message',
+            failureMessage, "Unsupported storage operation");
+          expect(failureMessage).assertEqual("Unsupported storage operation");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "UNSUPPORTED; error does not fall through to another method", failureCalls, "");
+          expect(failureCalls).assertEqual("");
+          const actualCallbackAbsent: boolean = api.filesystemCallback === undefined;
+          logAssertion(name, "unsupported operation=6; no callback registration", actualCallbackAbsent, true);
+          expect(actualCallbackAbsent).assertEqual(true);
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_UNSUPPORTED_G1_0300
+     * @tc.name AppFsSpace_Routing_0390
+     * @tc.desc Verify unsupported operation=0.5 rejects before accessing SDK dependencies.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0390', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0390';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemThrow = new Error("Unreachable filesystem adapter");
+          const operation: StorageOperation = 0.5 as StorageOperation;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(operation, "", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'UNSUPPORTED; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'UNSUPPORTED; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'UNSUPPORTED; captured error message',
+            failureMessage, "Unsupported storage operation");
+          expect(failureMessage).assertEqual("Unsupported storage operation");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "UNSUPPORTED; error does not fall through to another method", failureCalls, "");
+          expect(failureCalls).assertEqual("");
+          const actualCallbackAbsent: boolean = api.filesystemCallback === undefined;
+          logAssertion(name, "unsupported operation=0.5; no callback registration", actualCallbackAbsent, true);
+          expect(actualCallbackAbsent).assertEqual(true);
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_UNSUPPORTED_G1_0400
+     * @tc.name AppFsSpace_Routing_0391
+     * @tc.desc Verify unsupported operation=Number.NaN rejects before accessing SDK dependencies.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0391', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0391';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemThrow = new Error("Unreachable filesystem adapter");
+          const operation: StorageOperation = Number.NaN as StorageOperation;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(operation, "", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'UNSUPPORTED; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'UNSUPPORTED; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'UNSUPPORTED; captured error message',
+            failureMessage, "Unsupported storage operation");
+          expect(failureMessage).assertEqual("Unsupported storage operation");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "UNSUPPORTED; error does not fall through to another method", failureCalls, "");
+          expect(failureCalls).assertEqual("");
+          const actualCallbackAbsent: boolean = api.filesystemCallback === undefined;
+          logAssertion(name, "unsupported operation=Number.NaN; no callback registration", actualCallbackAbsent, true);
+          expect(actualCallbackAbsent).assertEqual(true);
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_CALLBACK_G1_0100
+     * @tc.name AppFsSpace_Routing_0392
+     * @tc.desc Verify independent filesystem callbacks keep one query pending while the other query rejects.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0392', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0392';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          const peer: StorageQueryProbe = new StorageQueryProbe();
+          api.deferFilesystem = true;
+          peer.deferFilesystem = true;
+          const peerError: BusinessError = {
+            name: 'BusinessError', code: 13900002, message: "Concurrent cache permission denied"
+          };
+          peer.filesystemError = peerError;
+          const pendingBad: Promise<number> =
+            queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/cache", peer);
+          let completed: boolean = false;
+          let completionCount: number = 0;
+          const pending: Promise<number> =
+            queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api)
+              .then((bytes: number): number => {
+                completed = true;
+                completionCount++;
+                return bytes;
+              }, (error: Error): number => {
+                completed = true;
+                completionCount++;
+                throw error;
+              });
+          await Promise.resolve();
+          await Promise.resolve();
+          await Promise.resolve();
+          const actualPending: boolean = completed;
+          logAssertion(name, "FILESYSTEM_FREE; no settlement before dependency completion", actualPending, false);
+          expect(actualPending).assertEqual(false);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; dependency is called before the pending observation",
+            actualStartedCalls, "filesystem:/data/storage/el2/base/files");
+          expect(actualStartedCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          peer.completeFilesystem(peerError, Number.NaN);
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await pendingBad;
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "BusinessError");
+          expect(failureName).assertEqual("BusinessError");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "Concurrent cache permission denied");
+          expect(failureMessage).assertEqual("Concurrent cache permission denied");
+          const failureIdentity: boolean = failureError === peerError;
+          logAssertion(name, "FILESYSTEM_FREE; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = peer.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/cache");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/cache");
+          const actualGoodStillPending: boolean = completed;
+          logAssertion(name,
+            "FILESYSTEM_FREE; rejecting the cache probe does not complete the files probe",
+            actualGoodStillPending, false);
+          expect(actualGoodStillPending).assertEqual(false);
+          api.completeFilesystem(undefined, 0);
+          const actualGoodBytes: number = await pending;
+          logAssertion(name,
+            "FILESYSTEM_FREE; delayed files query accepts zero after the other probe rejects", actualGoodBytes, 0);
+          expect(actualGoodBytes).assertEqual(0);
+          const actualCompleted: boolean = completed;
+          logAssertion(name, "FILESYSTEM_FREE; observer runs after dependency completion", actualCompleted, true);
+          expect(actualCompleted).assertEqual(true);
+          const actualCompletionCount: number = completionCount;
+          logAssertion(name, "FILESYSTEM_FREE; exactly one final promise settlement", actualCompletionCount, 1);
+          expect(actualCompletionCount).assertEqual(1);
+          const actualGoodCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; successful probe retains its own path and callback",
+            actualGoodCalls, "filesystem:/data/storage/el2/base/files");
+          expect(actualGoodCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_DEFERRED_G1_0100
+     * @tc.name AppFsSpace_Routing_0393
+     * @tc.desc Verify a deferred FREE rejection does not settle a concurrently pending TOTAL on the same probe.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0393', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0393';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          const totalDeferred: DeferredBytes = new DeferredBytes();
+          const freeDeferred: DeferredBytes = new DeferredBytes();
+          api.totalDeferred = totalDeferred;
+          api.freeDeferred = freeDeferred;
+          let completed: boolean = false;
+          let completionCount: number = 0;
+          const pending: Promise<number> =
+            queryStorage(StorageOperation.TOTAL, "/data/storage/el2/base/files", api)
+              .then((bytes: number): number => {
+                completed = true;
+                completionCount++;
+                return bytes;
+              }, (error: Error): number => {
+                completed = true;
+                completionCount++;
+                throw error;
+              });
+          await Promise.resolve();
+          await Promise.resolve();
+          await Promise.resolve();
+          const actualPending: boolean = completed;
+          logAssertion(name, "TOTAL; no settlement before dependency completion", actualPending, false);
+          expect(actualPending).assertEqual(false);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name, "TOTAL; dependency is called before the pending observation", actualStartedCalls, "total");
+          expect(actualStartedCalls).assertEqual("total");
+          const pendingFree: Promise<number> = queryStorage(StorageOperation.FREE, "/data/storage/el2/base/files", api);
+          const sdkError: Error = new Error("Concurrent free statistics unavailable");
+          freeDeferred.reject(sdkError);
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await pendingFree;
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FREE; captured error name', failureName, "Error");
+          expect(failureName).assertEqual("Error");
+          logAssertion(name, 'FREE; captured error message',
+            failureMessage, "Concurrent free statistics unavailable");
+          expect(failureMessage).assertEqual("Concurrent free statistics unavailable");
+          const failureIdentity: boolean = failureError === sdkError;
+          logAssertion(name, "FREE; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "FREE; error does not fall through to another method", failureCalls, "total|free");
+          expect(failureCalls).assertEqual("total|free");
+          const actualTotalStillPending: boolean = completed;
+          logAssertion(name,
+            "TOTAL and FREE; FREE rejection cannot settle the deferred TOTAL promise", actualTotalStillPending, false);
+          expect(actualTotalStillPending).assertEqual(false);
+          totalDeferred.resolve(9007199254740991);
+          const actualTotalBytes: number = await pending;
+          logAssertion(name,
+            "TOTAL and FREE; TOTAL accepts its independent maximum-safe result after FREE fails",
+            actualTotalBytes, 9007199254740991);
+          expect(actualTotalBytes).assertEqual(9007199254740991);
+          const actualCompleted: boolean = completed;
+          logAssertion(name, "TOTAL; observer runs after dependency completion", actualCompleted, true);
+          expect(actualCompleted).assertEqual(true);
+          const actualCompletionCount: number = completionCount;
+          logAssertion(name, "TOTAL; exactly one final promise settlement", actualCompletionCount, 1);
+          expect(actualCompletionCount).assertEqual(1);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "TOTAL and FREE; deferred settlement never retries either dependency", actualFinalCalls, "total|free");
+          expect(actualFinalCalls).assertEqual("total|free");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+  });
+}
