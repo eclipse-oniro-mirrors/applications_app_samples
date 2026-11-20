@@ -1517,23 +1517,719 @@ function ThemeMappingPart016() {
     });
 }
 
+function ThemeMappingPart017() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2197
+     * @tc.name    JsTheme097
+     * @tc.desc    Theme index 3 maps to theme_3 seed 97
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme097', 0, async function () {
+      await yieldThread();
+      const index = 3;
+      expect(model.themeKeyOf(index)).assertEqual('theme_3');
+      expect(model.themeKeyOf(index + 97)).assertEqual('theme_0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme097 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2198
+     * @tc.name    JsTheme098
+     * @tc.desc    Theme index 16 maps to theme_1 seed 98
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme098', 0, async function () {
+      await yieldThread();
+      const index = 16;
+      expect(model.themeKeyOf(index)).assertEqual('theme_1');
+      expect(model.themeKeyOf(index + 98)).assertEqual('theme_4');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme098 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2199
+     * @tc.name    JsTheme099
+     * @tc.desc    Theme index 29 maps to theme_4 seed 99
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme099', 0, async function () {
+      await yieldThread();
+      const index = 29;
+      expect(model.themeKeyOf(index)).assertEqual('theme_4');
+      expect(model.themeKeyOf(index + 99)).assertEqual('theme_3');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme099 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2200
+     * @tc.name    JsTheme100
+     * @tc.desc    Theme index 5 maps to theme_0 seed 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme100', 0, async function () {
+      await yieldThread();
+      const index = 5;
+      expect(model.themeKeyOf(index)).assertEqual('theme_0');
+      expect(model.themeKeyOf(index + 100)).assertEqual('theme_0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme100 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2201
+     * @tc.name    JsTheme101
+     * @tc.desc    Theme index 18 maps to theme_3 seed 101
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme101', 0, async function () {
+      await yieldThread();
+      const index = 18;
+      expect(model.themeKeyOf(index)).assertEqual('theme_3');
+      expect(model.themeKeyOf(index + 101)).assertEqual('theme_4');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme101 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2202
+     * @tc.name    JsTheme102
+     * @tc.desc    Theme index 31 maps to theme_1 seed 102
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme102', 0, async function () {
+      await yieldThread();
+      const index = 31;
+      expect(model.themeKeyOf(index)).assertEqual('theme_1');
+      expect(model.themeKeyOf(index + 102)).assertEqual('theme_3');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme102 done');
+    });
+}
+
+function ThemeMappingPart018() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2203
+     * @tc.name    JsTheme103
+     * @tc.desc    Theme index 7 maps to theme_2 seed 103
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme103', 0, async function () {
+      await yieldThread();
+      const index = 7;
+      expect(model.themeKeyOf(index)).assertEqual('theme_2');
+      expect(model.themeKeyOf(index + 103)).assertEqual('theme_0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme103 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2204
+     * @tc.name    JsTheme104
+     * @tc.desc    Theme index 20 maps to theme_0 seed 104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme104', 0, async function () {
+      await yieldThread();
+      const index = 20;
+      expect(model.themeKeyOf(index)).assertEqual('theme_0');
+      expect(model.themeKeyOf(index + 104)).assertEqual('theme_4');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme104 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2205
+     * @tc.name    JsTheme105
+     * @tc.desc    Theme index 33 maps to theme_3 seed 105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme105', 0, async function () {
+      await yieldThread();
+      const index = 33;
+      expect(model.themeKeyOf(index)).assertEqual('theme_3');
+      expect(model.themeKeyOf(index + 105)).assertEqual('theme_3');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme105 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2206
+     * @tc.name    JsTheme106
+     * @tc.desc    Theme index 9 maps to theme_4 seed 106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme106', 0, async function () {
+      await yieldThread();
+      const index = 9;
+      expect(model.themeKeyOf(index)).assertEqual('theme_4');
+      expect(model.themeKeyOf(index + 106)).assertEqual('theme_0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme106 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2207
+     * @tc.name    JsTheme107
+     * @tc.desc    Theme index 22 maps to theme_2 seed 107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme107', 0, async function () {
+      await yieldThread();
+      const index = 22;
+      expect(model.themeKeyOf(index)).assertEqual('theme_2');
+      expect(model.themeKeyOf(index + 107)).assertEqual('theme_4');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme107 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2208
+     * @tc.name    JsTheme108
+     * @tc.desc    Theme index 35 maps to theme_0 seed 108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme108', 0, async function () {
+      await yieldThread();
+      const index = 35;
+      expect(model.themeKeyOf(index)).assertEqual('theme_0');
+      expect(model.themeKeyOf(index + 108)).assertEqual('theme_3');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme108 done');
+    });
+}
+
+function ThemeMappingPart019() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2209
+     * @tc.name    JsTheme109
+     * @tc.desc    Theme index 11 maps to theme_1 seed 109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme109', 0, async function () {
+      await yieldThread();
+      const index = 11;
+      expect(model.themeKeyOf(index)).assertEqual('theme_1');
+      expect(model.themeKeyOf(index + 109)).assertEqual('theme_0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme109 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2210
+     * @tc.name    JsTheme110
+     * @tc.desc    Theme index 24 maps to theme_4 seed 110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme110', 0, async function () {
+      await yieldThread();
+      const index = 24;
+      expect(model.themeKeyOf(index)).assertEqual('theme_4');
+      expect(model.themeKeyOf(index + 110)).assertEqual('theme_4');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme110 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2211
+     * @tc.name    JsTheme111
+     * @tc.desc    Theme index 0 maps to theme_0 seed 111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme111', 0, async function () {
+      await yieldThread();
+      const index = 0;
+      expect(model.themeKeyOf(index)).assertEqual('theme_0');
+      expect(model.themeKeyOf(index + 111)).assertEqual('theme_1');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme111 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2212
+     * @tc.name    JsTheme112
+     * @tc.desc    Theme index 13 maps to theme_3 seed 112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme112', 0, async function () {
+      await yieldThread();
+      const index = 13;
+      expect(model.themeKeyOf(index)).assertEqual('theme_3');
+      expect(model.themeKeyOf(index + 112)).assertEqual('theme_0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme112 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2213
+     * @tc.name    JsTheme113
+     * @tc.desc    Theme index 26 maps to theme_1 seed 113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme113', 0, async function () {
+      await yieldThread();
+      const index = 26;
+      expect(model.themeKeyOf(index)).assertEqual('theme_1');
+      expect(model.themeKeyOf(index + 113)).assertEqual('theme_4');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme113 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2214
+     * @tc.name    JsTheme114
+     * @tc.desc    Theme index 2 maps to theme_2 seed 114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme114', 0, async function () {
+      await yieldThread();
+      const index = 2;
+      expect(model.themeKeyOf(index)).assertEqual('theme_2');
+      expect(model.themeKeyOf(index + 114)).assertEqual('theme_1');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme114 done');
+    });
+}
+
+function ThemeMappingPart020() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2215
+     * @tc.name    JsTheme115
+     * @tc.desc    Theme index 15 maps to theme_0 seed 115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme115', 0, async function () {
+      await yieldThread();
+      const index = 15;
+      expect(model.themeKeyOf(index)).assertEqual('theme_0');
+      expect(model.themeKeyOf(index + 115)).assertEqual('theme_0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme115 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2216
+     * @tc.name    JsTheme116
+     * @tc.desc    Theme index 28 maps to theme_3 seed 116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme116', 0, async function () {
+      await yieldThread();
+      const index = 28;
+      expect(model.themeKeyOf(index)).assertEqual('theme_3');
+      expect(model.themeKeyOf(index + 116)).assertEqual('theme_4');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme116 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2217
+     * @tc.name    JsTheme117
+     * @tc.desc    Theme index 4 maps to theme_4 seed 117
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme117', 0, async function () {
+      await yieldThread();
+      const index = 4;
+      expect(model.themeKeyOf(index)).assertEqual('theme_4');
+      expect(model.themeKeyOf(index + 117)).assertEqual('theme_1');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme117 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2218
+     * @tc.name    JsTheme118
+     * @tc.desc    Theme index 17 maps to theme_2 seed 118
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme118', 0, async function () {
+      await yieldThread();
+      const index = 17;
+      expect(model.themeKeyOf(index)).assertEqual('theme_2');
+      expect(model.themeKeyOf(index + 118)).assertEqual('theme_0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme118 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2219
+     * @tc.name    JsTheme119
+     * @tc.desc    Theme index 30 maps to theme_0 seed 119
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme119', 0, async function () {
+      await yieldThread();
+      const index = 30;
+      expect(model.themeKeyOf(index)).assertEqual('theme_0');
+      expect(model.themeKeyOf(index + 119)).assertEqual('theme_4');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme119 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2220
+     * @tc.name    JsTheme120
+     * @tc.desc    Theme index 6 maps to theme_1 seed 120
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme120', 0, async function () {
+      await yieldThread();
+      const index = 6;
+      expect(model.themeKeyOf(index)).assertEqual('theme_1');
+      expect(model.themeKeyOf(index + 120)).assertEqual('theme_1');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme120 done');
+    });
+}
+
+function ThemeMappingPart021() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2221
+     * @tc.name    JsTheme121
+     * @tc.desc    Theme index 19 maps to theme_4 seed 121
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme121', 0, async function () {
+      await yieldThread();
+      const index = 19;
+      expect(model.themeKeyOf(index)).assertEqual('theme_4');
+      expect(model.themeKeyOf(index + 121)).assertEqual('theme_0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme121 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2222
+     * @tc.name    JsTheme122
+     * @tc.desc    Theme index 32 maps to theme_2 seed 122
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme122', 0, async function () {
+      await yieldThread();
+      const index = 32;
+      expect(model.themeKeyOf(index)).assertEqual('theme_2');
+      expect(model.themeKeyOf(index + 122)).assertEqual('theme_4');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme122 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2223
+     * @tc.name    JsTheme123
+     * @tc.desc    Theme index 8 maps to theme_3 seed 123
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme123', 0, async function () {
+      await yieldThread();
+      const index = 8;
+      expect(model.themeKeyOf(index)).assertEqual('theme_3');
+      expect(model.themeKeyOf(index + 123)).assertEqual('theme_1');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme123 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2224
+     * @tc.name    JsTheme124
+     * @tc.desc    Theme index 21 maps to theme_1 seed 124
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme124', 0, async function () {
+      await yieldThread();
+      const index = 21;
+      expect(model.themeKeyOf(index)).assertEqual('theme_1');
+      expect(model.themeKeyOf(index + 124)).assertEqual('theme_0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme124 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2225
+     * @tc.name    JsTheme125
+     * @tc.desc    Theme index 34 maps to theme_4 seed 125
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme125', 0, async function () {
+      await yieldThread();
+      const index = 34;
+      expect(model.themeKeyOf(index)).assertEqual('theme_4');
+      expect(model.themeKeyOf(index + 125)).assertEqual('theme_4');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme125 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2226
+     * @tc.name    JsTheme126
+     * @tc.desc    Theme index 10 maps to theme_0 seed 126
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme126', 0, async function () {
+      await yieldThread();
+      const index = 10;
+      expect(model.themeKeyOf(index)).assertEqual('theme_0');
+      expect(model.themeKeyOf(index + 126)).assertEqual('theme_1');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme126 done');
+    });
+}
+
+function ThemeMappingPart022() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2227
+     * @tc.name    JsTheme127
+     * @tc.desc    Theme index 23 maps to theme_3 seed 127
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme127', 0, async function () {
+      await yieldThread();
+      const index = 23;
+      expect(model.themeKeyOf(index)).assertEqual('theme_3');
+      expect(model.themeKeyOf(index + 127)).assertEqual('theme_0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme127 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2228
+     * @tc.name    JsTheme128
+     * @tc.desc    Theme index 36 maps to theme_1 seed 128
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme128', 0, async function () {
+      await yieldThread();
+      const index = 36;
+      expect(model.themeKeyOf(index)).assertEqual('theme_1');
+      expect(model.themeKeyOf(index + 128)).assertEqual('theme_4');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme128 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2229
+     * @tc.name    JsTheme129
+     * @tc.desc    Theme index 12 maps to theme_2 seed 129
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme129', 0, async function () {
+      await yieldThread();
+      const index = 12;
+      expect(model.themeKeyOf(index)).assertEqual('theme_2');
+      expect(model.themeKeyOf(index + 129)).assertEqual('theme_1');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme129 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2230
+     * @tc.name    JsTheme130
+     * @tc.desc    Theme index 25 maps to theme_0 seed 130
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme130', 0, async function () {
+      await yieldThread();
+      const index = 25;
+      expect(model.themeKeyOf(index)).assertEqual('theme_0');
+      expect(model.themeKeyOf(index + 130)).assertEqual('theme_0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme130 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2231
+     * @tc.name    JsTheme131
+     * @tc.desc    Theme index 1 maps to theme_1 seed 131
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme131', 0, async function () {
+      await yieldThread();
+      const index = 1;
+      expect(model.themeKeyOf(index)).assertEqual('theme_1');
+      expect(model.themeKeyOf(index + 131)).assertEqual('theme_2');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme131 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2232
+     * @tc.name    JsTheme132
+     * @tc.desc    Theme index 14 maps to theme_4 seed 132
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme132', 0, async function () {
+      await yieldThread();
+      const index = 14;
+      expect(model.themeKeyOf(index)).assertEqual('theme_4');
+      expect(model.themeKeyOf(index + 132)).assertEqual('theme_1');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme132 done');
+    });
+}
+
+function ThemeMappingPart023() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2233
+     * @tc.name    JsTheme133
+     * @tc.desc    Theme index 27 maps to theme_2 seed 133
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme133', 0, async function () {
+      await yieldThread();
+      const index = 27;
+      expect(model.themeKeyOf(index)).assertEqual('theme_2');
+      expect(model.themeKeyOf(index + 133)).assertEqual('theme_0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme133 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2234
+     * @tc.name    JsTheme134
+     * @tc.desc    Theme index 3 maps to theme_3 seed 134
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme134', 0, async function () {
+      await yieldThread();
+      const index = 3;
+      expect(model.themeKeyOf(index)).assertEqual('theme_3');
+      expect(model.themeKeyOf(index + 134)).assertEqual('theme_2');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme134 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2235
+     * @tc.name    JsTheme135
+     * @tc.desc    Theme index 16 maps to theme_1 seed 135
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme135', 0, async function () {
+      await yieldThread();
+      const index = 16;
+      expect(model.themeKeyOf(index)).assertEqual('theme_1');
+      expect(model.themeKeyOf(index + 135)).assertEqual('theme_1');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme135 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2236
+     * @tc.name    JsTheme136
+     * @tc.desc    Theme index 29 maps to theme_4 seed 136
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme136', 0, async function () {
+      await yieldThread();
+      const index = 29;
+      expect(model.themeKeyOf(index)).assertEqual('theme_4');
+      expect(model.themeKeyOf(index + 136)).assertEqual('theme_0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme136 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2237
+     * @tc.name    JsTheme137
+     * @tc.desc    Theme index 5 maps to theme_0 seed 137
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme137', 0, async function () {
+      await yieldThread();
+      const index = 5;
+      expect(model.themeKeyOf(index)).assertEqual('theme_0');
+      expect(model.themeKeyOf(index + 137)).assertEqual('theme_2');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme137 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2238
+     * @tc.name    JsTheme138
+     * @tc.desc    Theme index 18 maps to theme_3 seed 138
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme138', 0, async function () {
+      await yieldThread();
+      const index = 18;
+      expect(model.themeKeyOf(index)).assertEqual('theme_3');
+      expect(model.themeKeyOf(index + 138)).assertEqual('theme_1');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme138 done');
+    });
+}
+
+function ThemeMappingPart024() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2239
+     * @tc.name    JsTheme139
+     * @tc.desc    Theme index 31 maps to theme_1 seed 139
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme139', 0, async function () {
+      await yieldThread();
+      const index = 31;
+      expect(model.themeKeyOf(index)).assertEqual('theme_1');
+      expect(model.themeKeyOf(index + 139)).assertEqual('theme_0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme139 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2240
+     * @tc.name    JsTheme140
+     * @tc.desc    Theme index 7 maps to theme_2 seed 140
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTheme140', 0, async function () {
+      await yieldThread();
+      const index = 7;
+      expect(model.themeKeyOf(index)).assertEqual('theme_2');
+      expect(model.themeKeyOf(index + 140)).assertEqual('theme_2');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTheme140 done');
+    });
+}
+
+function ThemeMappingGroup001() {
+  ThemeMappingPart001();
+  ThemeMappingPart002();
+  ThemeMappingPart003();
+  ThemeMappingPart004();
+  ThemeMappingPart005();
+  ThemeMappingPart006();
+  ThemeMappingPart007();
+  ThemeMappingPart008();
+  ThemeMappingPart009();
+  ThemeMappingPart010();
+  ThemeMappingPart011();
+  ThemeMappingPart012();
+  ThemeMappingPart013();
+  ThemeMappingPart014();
+  ThemeMappingPart015();
+  ThemeMappingPart016();
+  ThemeMappingPart017();
+  ThemeMappingPart018();
+  ThemeMappingPart019();
+  ThemeMappingPart020();
+  ThemeMappingPart021();
+  ThemeMappingPart022();
+  ThemeMappingPart023();
+  ThemeMappingPart024();
+}
+
 export default function themeMappingSuite() {
   describe('ThemeMappingSuite', function () {
-    ThemeMappingPart001();
-    ThemeMappingPart002();
-    ThemeMappingPart003();
-    ThemeMappingPart004();
-    ThemeMappingPart005();
-    ThemeMappingPart006();
-    ThemeMappingPart007();
-    ThemeMappingPart008();
-    ThemeMappingPart009();
-    ThemeMappingPart010();
-    ThemeMappingPart011();
-    ThemeMappingPart012();
-    ThemeMappingPart013();
-    ThemeMappingPart014();
-    ThemeMappingPart015();
-    ThemeMappingPart016();
+    ThemeMappingGroup001();
   });
 }
