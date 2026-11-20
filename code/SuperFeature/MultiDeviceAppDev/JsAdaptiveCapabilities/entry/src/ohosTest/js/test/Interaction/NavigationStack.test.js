@@ -16,6 +16,7 @@
 import hilog from '@ohos.hilog';
 import { describe, it, expect } from '@ohos/hypium';
 import model from '../Shared/AdaptiveModel';
+import { registerNavigationStackExtra2 } from './NavigationStack.testCases2';
 
 const DOMAIN = 0xF811;
 const TAG = '[Sample_jsAdaptiveCapabilities]';
@@ -1573,35 +1574,1160 @@ function NavigationStackPart028() {
     });
 }
 
+function NavigationStackPart029() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0617
+     * @tc.name    JsNavigate057
+     * @tc.desc    Push 10 routes then pop 1 seed 57
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate057', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(model.pushRoute(stack, 'pages/page6')).assertEqual(7);
+      expect(model.pushRoute(stack, 'pages/page7')).assertEqual(8);
+      expect(model.pushRoute(stack, 'pages/page8')).assertEqual(9);
+      expect(model.pushRoute(stack, 'pages/page9')).assertEqual(10);
+      expect(stack.length).assertEqual(10);
+      expect(model.topRoute(stack)).assertEqual('pages/page9');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page9');
+      expect(stack.length).assertEqual(9);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate057 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0618
+     * @tc.name    JsNavigate058
+     * @tc.desc    Push 3 routes then pop 2 seed 58
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate058', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(stack.length).assertEqual(3);
+      expect(model.topRoute(stack)).assertEqual('pages/page2');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page2');
+      expect(model.popRoute(stack)).assertEqual('pages/page1');
+      expect(stack.length).assertEqual(1);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate058 done');
+    });
+}
+
+function NavigationStackPart030() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0619
+     * @tc.name    JsNavigate059
+     * @tc.desc    Push 8 routes then pop 3 seed 59
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate059', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(model.pushRoute(stack, 'pages/page6')).assertEqual(7);
+      expect(model.pushRoute(stack, 'pages/page7')).assertEqual(8);
+      expect(stack.length).assertEqual(8);
+      expect(model.topRoute(stack)).assertEqual('pages/page7');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page7');
+      expect(model.popRoute(stack)).assertEqual('pages/page6');
+      expect(model.popRoute(stack)).assertEqual('pages/page5');
+      expect(stack.length).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate059 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0620
+     * @tc.name    JsNavigate060
+     * @tc.desc    Push 1 routes then pop 0 seed 60
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate060', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(stack.length).assertEqual(1);
+      expect(model.topRoute(stack)).assertEqual('pages/page0');
+      expect(model.canBack(stack)).assertEqual(false);
+      expect(model.indexOfRoute(stack, 'pages/page0')).assertEqual(0);
+      expect(stack.length).assertEqual(1);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate060 done');
+    });
+}
+
+function NavigationStackPart031() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0621
+     * @tc.name    JsNavigate061
+     * @tc.desc    Push 6 routes then pop 1 seed 61
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate061', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(stack.length).assertEqual(6);
+      expect(model.topRoute(stack)).assertEqual('pages/page5');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page5');
+      expect(stack.length).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate061 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0622
+     * @tc.name    JsNavigate062
+     * @tc.desc    Push 11 routes then pop 2 seed 62
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate062', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(model.pushRoute(stack, 'pages/page6')).assertEqual(7);
+      expect(model.pushRoute(stack, 'pages/page7')).assertEqual(8);
+      expect(model.pushRoute(stack, 'pages/page8')).assertEqual(9);
+      expect(model.pushRoute(stack, 'pages/page9')).assertEqual(10);
+      expect(model.pushRoute(stack, 'pages/page10')).assertEqual(11);
+      expect(stack.length).assertEqual(11);
+      expect(model.topRoute(stack)).assertEqual('pages/page10');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page10');
+      expect(model.popRoute(stack)).assertEqual('pages/page9');
+      expect(stack.length).assertEqual(9);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate062 done');
+    });
+}
+
+function NavigationStackPart032() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0623
+     * @tc.name    JsNavigate063
+     * @tc.desc    Push 4 routes then pop 3 seed 63
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate063', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(stack.length).assertEqual(4);
+      expect(model.topRoute(stack)).assertEqual('pages/page3');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page3');
+      expect(model.popRoute(stack)).assertEqual('pages/page2');
+      expect(model.popRoute(stack)).assertEqual('pages/page1');
+      expect(stack.length).assertEqual(1);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate063 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0624
+     * @tc.name    JsNavigate064
+     * @tc.desc    Push 9 routes then pop 0 seed 64
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate064', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(model.pushRoute(stack, 'pages/page6')).assertEqual(7);
+      expect(model.pushRoute(stack, 'pages/page7')).assertEqual(8);
+      expect(model.pushRoute(stack, 'pages/page8')).assertEqual(9);
+      expect(stack.length).assertEqual(9);
+      expect(model.topRoute(stack)).assertEqual('pages/page8');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(stack.length).assertEqual(9);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate064 done');
+    });
+}
+
+function NavigationStackPart033() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0625
+     * @tc.name    JsNavigate065
+     * @tc.desc    Push 2 routes then pop 1 seed 65
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate065', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(stack.length).assertEqual(2);
+      expect(model.topRoute(stack)).assertEqual('pages/page1');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page1');
+      expect(stack.length).assertEqual(1);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate065 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0626
+     * @tc.name    JsNavigate066
+     * @tc.desc    Push 7 routes then pop 2 seed 66
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate066', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(model.pushRoute(stack, 'pages/page6')).assertEqual(7);
+      expect(stack.length).assertEqual(7);
+      expect(model.topRoute(stack)).assertEqual('pages/page6');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page6');
+      expect(model.popRoute(stack)).assertEqual('pages/page5');
+      expect(stack.length).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate066 done');
+    });
+}
+
+function NavigationStackPart034() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0627
+     * @tc.name    JsNavigate067
+     * @tc.desc    Push 12 routes then pop 3 seed 67
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate067', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(model.pushRoute(stack, 'pages/page6')).assertEqual(7);
+      expect(model.pushRoute(stack, 'pages/page7')).assertEqual(8);
+      expect(model.pushRoute(stack, 'pages/page8')).assertEqual(9);
+      expect(model.pushRoute(stack, 'pages/page9')).assertEqual(10);
+      expect(model.pushRoute(stack, 'pages/page10')).assertEqual(11);
+      expect(model.pushRoute(stack, 'pages/page11')).assertEqual(12);
+      expect(stack.length).assertEqual(12);
+      expect(model.topRoute(stack)).assertEqual('pages/page11');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page11');
+      expect(model.popRoute(stack)).assertEqual('pages/page10');
+      expect(model.popRoute(stack)).assertEqual('pages/page9');
+      expect(stack.length).assertEqual(9);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate067 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0628
+     * @tc.name    JsNavigate068
+     * @tc.desc    Push 5 routes then pop 0 seed 68
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate068', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(stack.length).assertEqual(5);
+      expect(model.topRoute(stack)).assertEqual('pages/page4');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(stack.length).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate068 done');
+    });
+}
+
+function NavigationStackPart035() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0629
+     * @tc.name    JsNavigate069
+     * @tc.desc    Push 10 routes then pop 1 seed 69
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate069', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(model.pushRoute(stack, 'pages/page6')).assertEqual(7);
+      expect(model.pushRoute(stack, 'pages/page7')).assertEqual(8);
+      expect(model.pushRoute(stack, 'pages/page8')).assertEqual(9);
+      expect(model.pushRoute(stack, 'pages/page9')).assertEqual(10);
+      expect(stack.length).assertEqual(10);
+      expect(model.topRoute(stack)).assertEqual('pages/page9');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page9');
+      expect(stack.length).assertEqual(9);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate069 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0630
+     * @tc.name    JsNavigate070
+     * @tc.desc    Push 3 routes then pop 2 seed 70
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate070', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(stack.length).assertEqual(3);
+      expect(model.topRoute(stack)).assertEqual('pages/page2');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page2');
+      expect(model.popRoute(stack)).assertEqual('pages/page1');
+      expect(stack.length).assertEqual(1);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate070 done');
+    });
+}
+
+function NavigationStackPart036() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0631
+     * @tc.name    JsNavigate071
+     * @tc.desc    Push 8 routes then pop 3 seed 71
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate071', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(model.pushRoute(stack, 'pages/page6')).assertEqual(7);
+      expect(model.pushRoute(stack, 'pages/page7')).assertEqual(8);
+      expect(stack.length).assertEqual(8);
+      expect(model.topRoute(stack)).assertEqual('pages/page7');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page7');
+      expect(model.popRoute(stack)).assertEqual('pages/page6');
+      expect(model.popRoute(stack)).assertEqual('pages/page5');
+      expect(stack.length).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate071 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0632
+     * @tc.name    JsNavigate072
+     * @tc.desc    Push 1 routes then pop 0 seed 72
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate072', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(stack.length).assertEqual(1);
+      expect(model.topRoute(stack)).assertEqual('pages/page0');
+      expect(model.canBack(stack)).assertEqual(false);
+      expect(model.indexOfRoute(stack, 'pages/page0')).assertEqual(0);
+      expect(stack.length).assertEqual(1);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate072 done');
+    });
+}
+
+function NavigationStackPart037() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0633
+     * @tc.name    JsNavigate073
+     * @tc.desc    Push 6 routes then pop 1 seed 73
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate073', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(stack.length).assertEqual(6);
+      expect(model.topRoute(stack)).assertEqual('pages/page5');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page5');
+      expect(stack.length).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate073 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0634
+     * @tc.name    JsNavigate074
+     * @tc.desc    Push 11 routes then pop 2 seed 74
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate074', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(model.pushRoute(stack, 'pages/page6')).assertEqual(7);
+      expect(model.pushRoute(stack, 'pages/page7')).assertEqual(8);
+      expect(model.pushRoute(stack, 'pages/page8')).assertEqual(9);
+      expect(model.pushRoute(stack, 'pages/page9')).assertEqual(10);
+      expect(model.pushRoute(stack, 'pages/page10')).assertEqual(11);
+      expect(stack.length).assertEqual(11);
+      expect(model.topRoute(stack)).assertEqual('pages/page10');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page10');
+      expect(model.popRoute(stack)).assertEqual('pages/page9');
+      expect(stack.length).assertEqual(9);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate074 done');
+    });
+}
+
+function NavigationStackPart038() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0635
+     * @tc.name    JsNavigate075
+     * @tc.desc    Push 4 routes then pop 3 seed 75
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate075', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(stack.length).assertEqual(4);
+      expect(model.topRoute(stack)).assertEqual('pages/page3');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page3');
+      expect(model.popRoute(stack)).assertEqual('pages/page2');
+      expect(model.popRoute(stack)).assertEqual('pages/page1');
+      expect(stack.length).assertEqual(1);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate075 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0636
+     * @tc.name    JsNavigate076
+     * @tc.desc    Push 9 routes then pop 0 seed 76
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate076', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(model.pushRoute(stack, 'pages/page6')).assertEqual(7);
+      expect(model.pushRoute(stack, 'pages/page7')).assertEqual(8);
+      expect(model.pushRoute(stack, 'pages/page8')).assertEqual(9);
+      expect(stack.length).assertEqual(9);
+      expect(model.topRoute(stack)).assertEqual('pages/page8');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(stack.length).assertEqual(9);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate076 done');
+    });
+}
+
+function NavigationStackPart039() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0637
+     * @tc.name    JsNavigate077
+     * @tc.desc    Push 2 routes then pop 1 seed 77
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate077', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(stack.length).assertEqual(2);
+      expect(model.topRoute(stack)).assertEqual('pages/page1');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page1');
+      expect(stack.length).assertEqual(1);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate077 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0638
+     * @tc.name    JsNavigate078
+     * @tc.desc    Push 7 routes then pop 2 seed 78
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate078', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(model.pushRoute(stack, 'pages/page6')).assertEqual(7);
+      expect(stack.length).assertEqual(7);
+      expect(model.topRoute(stack)).assertEqual('pages/page6');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page6');
+      expect(model.popRoute(stack)).assertEqual('pages/page5');
+      expect(stack.length).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate078 done');
+    });
+}
+
+function NavigationStackPart040() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0639
+     * @tc.name    JsNavigate079
+     * @tc.desc    Push 12 routes then pop 3 seed 79
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate079', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(model.pushRoute(stack, 'pages/page6')).assertEqual(7);
+      expect(model.pushRoute(stack, 'pages/page7')).assertEqual(8);
+      expect(model.pushRoute(stack, 'pages/page8')).assertEqual(9);
+      expect(model.pushRoute(stack, 'pages/page9')).assertEqual(10);
+      expect(model.pushRoute(stack, 'pages/page10')).assertEqual(11);
+      expect(model.pushRoute(stack, 'pages/page11')).assertEqual(12);
+      expect(stack.length).assertEqual(12);
+      expect(model.topRoute(stack)).assertEqual('pages/page11');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page11');
+      expect(model.popRoute(stack)).assertEqual('pages/page10');
+      expect(model.popRoute(stack)).assertEqual('pages/page9');
+      expect(stack.length).assertEqual(9);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate079 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0640
+     * @tc.name    JsNavigate080
+     * @tc.desc    Push 5 routes then pop 0 seed 80
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate080', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(stack.length).assertEqual(5);
+      expect(model.topRoute(stack)).assertEqual('pages/page4');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(stack.length).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate080 done');
+    });
+}
+
+function NavigationStackPart041() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0641
+     * @tc.name    JsNavigate081
+     * @tc.desc    Push 10 routes then pop 1 seed 81
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate081', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(model.pushRoute(stack, 'pages/page6')).assertEqual(7);
+      expect(model.pushRoute(stack, 'pages/page7')).assertEqual(8);
+      expect(model.pushRoute(stack, 'pages/page8')).assertEqual(9);
+      expect(model.pushRoute(stack, 'pages/page9')).assertEqual(10);
+      expect(stack.length).assertEqual(10);
+      expect(model.topRoute(stack)).assertEqual('pages/page9');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page9');
+      expect(stack.length).assertEqual(9);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate081 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0642
+     * @tc.name    JsNavigate082
+     * @tc.desc    Push 3 routes then pop 2 seed 82
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate082', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(stack.length).assertEqual(3);
+      expect(model.topRoute(stack)).assertEqual('pages/page2');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page2');
+      expect(model.popRoute(stack)).assertEqual('pages/page1');
+      expect(stack.length).assertEqual(1);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate082 done');
+    });
+}
+
+function NavigationStackPart042() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0643
+     * @tc.name    JsNavigate083
+     * @tc.desc    Push 8 routes then pop 3 seed 83
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate083', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(model.pushRoute(stack, 'pages/page6')).assertEqual(7);
+      expect(model.pushRoute(stack, 'pages/page7')).assertEqual(8);
+      expect(stack.length).assertEqual(8);
+      expect(model.topRoute(stack)).assertEqual('pages/page7');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page7');
+      expect(model.popRoute(stack)).assertEqual('pages/page6');
+      expect(model.popRoute(stack)).assertEqual('pages/page5');
+      expect(stack.length).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate083 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0644
+     * @tc.name    JsNavigate084
+     * @tc.desc    Push 1 routes then pop 0 seed 84
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate084', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(stack.length).assertEqual(1);
+      expect(model.topRoute(stack)).assertEqual('pages/page0');
+      expect(model.canBack(stack)).assertEqual(false);
+      expect(model.indexOfRoute(stack, 'pages/page0')).assertEqual(0);
+      expect(stack.length).assertEqual(1);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate084 done');
+    });
+}
+
+function NavigationStackPart043() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0645
+     * @tc.name    JsNavigate085
+     * @tc.desc    Push 6 routes then pop 1 seed 85
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate085', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(stack.length).assertEqual(6);
+      expect(model.topRoute(stack)).assertEqual('pages/page5');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page5');
+      expect(stack.length).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate085 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0646
+     * @tc.name    JsNavigate086
+     * @tc.desc    Push 11 routes then pop 2 seed 86
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate086', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(model.pushRoute(stack, 'pages/page6')).assertEqual(7);
+      expect(model.pushRoute(stack, 'pages/page7')).assertEqual(8);
+      expect(model.pushRoute(stack, 'pages/page8')).assertEqual(9);
+      expect(model.pushRoute(stack, 'pages/page9')).assertEqual(10);
+      expect(model.pushRoute(stack, 'pages/page10')).assertEqual(11);
+      expect(stack.length).assertEqual(11);
+      expect(model.topRoute(stack)).assertEqual('pages/page10');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page10');
+      expect(model.popRoute(stack)).assertEqual('pages/page9');
+      expect(stack.length).assertEqual(9);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate086 done');
+    });
+}
+
+function NavigationStackPart044() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0647
+     * @tc.name    JsNavigate087
+     * @tc.desc    Push 4 routes then pop 3 seed 87
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate087', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(stack.length).assertEqual(4);
+      expect(model.topRoute(stack)).assertEqual('pages/page3');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page3');
+      expect(model.popRoute(stack)).assertEqual('pages/page2');
+      expect(model.popRoute(stack)).assertEqual('pages/page1');
+      expect(stack.length).assertEqual(1);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate087 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0648
+     * @tc.name    JsNavigate088
+     * @tc.desc    Push 9 routes then pop 0 seed 88
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate088', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(model.pushRoute(stack, 'pages/page6')).assertEqual(7);
+      expect(model.pushRoute(stack, 'pages/page7')).assertEqual(8);
+      expect(model.pushRoute(stack, 'pages/page8')).assertEqual(9);
+      expect(stack.length).assertEqual(9);
+      expect(model.topRoute(stack)).assertEqual('pages/page8');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(stack.length).assertEqual(9);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate088 done');
+    });
+}
+
+function NavigationStackPart045() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0649
+     * @tc.name    JsNavigate089
+     * @tc.desc    Push 2 routes then pop 1 seed 89
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate089', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(stack.length).assertEqual(2);
+      expect(model.topRoute(stack)).assertEqual('pages/page1');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page1');
+      expect(stack.length).assertEqual(1);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate089 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0650
+     * @tc.name    JsNavigate090
+     * @tc.desc    Push 7 routes then pop 2 seed 90
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate090', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(model.pushRoute(stack, 'pages/page6')).assertEqual(7);
+      expect(stack.length).assertEqual(7);
+      expect(model.topRoute(stack)).assertEqual('pages/page6');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page6');
+      expect(model.popRoute(stack)).assertEqual('pages/page5');
+      expect(stack.length).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate090 done');
+    });
+}
+
+function NavigationStackPart046() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0651
+     * @tc.name    JsNavigate091
+     * @tc.desc    Push 12 routes then pop 3 seed 91
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate091', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(model.pushRoute(stack, 'pages/page6')).assertEqual(7);
+      expect(model.pushRoute(stack, 'pages/page7')).assertEqual(8);
+      expect(model.pushRoute(stack, 'pages/page8')).assertEqual(9);
+      expect(model.pushRoute(stack, 'pages/page9')).assertEqual(10);
+      expect(model.pushRoute(stack, 'pages/page10')).assertEqual(11);
+      expect(model.pushRoute(stack, 'pages/page11')).assertEqual(12);
+      expect(stack.length).assertEqual(12);
+      expect(model.topRoute(stack)).assertEqual('pages/page11');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page11');
+      expect(model.popRoute(stack)).assertEqual('pages/page10');
+      expect(model.popRoute(stack)).assertEqual('pages/page9');
+      expect(stack.length).assertEqual(9);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate091 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0652
+     * @tc.name    JsNavigate092
+     * @tc.desc    Push 5 routes then pop 0 seed 92
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate092', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(stack.length).assertEqual(5);
+      expect(model.topRoute(stack)).assertEqual('pages/page4');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(stack.length).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate092 done');
+    });
+}
+
+function NavigationStackPart047() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0653
+     * @tc.name    JsNavigate093
+     * @tc.desc    Push 10 routes then pop 1 seed 93
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate093', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(model.pushRoute(stack, 'pages/page6')).assertEqual(7);
+      expect(model.pushRoute(stack, 'pages/page7')).assertEqual(8);
+      expect(model.pushRoute(stack, 'pages/page8')).assertEqual(9);
+      expect(model.pushRoute(stack, 'pages/page9')).assertEqual(10);
+      expect(stack.length).assertEqual(10);
+      expect(model.topRoute(stack)).assertEqual('pages/page9');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page9');
+      expect(stack.length).assertEqual(9);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate093 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0654
+     * @tc.name    JsNavigate094
+     * @tc.desc    Push 3 routes then pop 2 seed 94
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate094', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(stack.length).assertEqual(3);
+      expect(model.topRoute(stack)).assertEqual('pages/page2');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page2');
+      expect(model.popRoute(stack)).assertEqual('pages/page1');
+      expect(stack.length).assertEqual(1);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate094 done');
+    });
+}
+
+function NavigationStackPart048() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0655
+     * @tc.name    JsNavigate095
+     * @tc.desc    Push 8 routes then pop 3 seed 95
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate095', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(model.pushRoute(stack, 'pages/page1')).assertEqual(2);
+      expect(model.pushRoute(stack, 'pages/page2')).assertEqual(3);
+      expect(model.pushRoute(stack, 'pages/page3')).assertEqual(4);
+      expect(model.pushRoute(stack, 'pages/page4')).assertEqual(5);
+      expect(model.pushRoute(stack, 'pages/page5')).assertEqual(6);
+      expect(model.pushRoute(stack, 'pages/page6')).assertEqual(7);
+      expect(model.pushRoute(stack, 'pages/page7')).assertEqual(8);
+      expect(stack.length).assertEqual(8);
+      expect(model.topRoute(stack)).assertEqual('pages/page7');
+      expect(model.canBack(stack)).assertEqual(true);
+      expect(model.indexOfRoute(stack, 'pages/page1')).assertEqual(1);
+      expect(model.popRoute(stack)).assertEqual('pages/page7');
+      expect(model.popRoute(stack)).assertEqual('pages/page6');
+      expect(model.popRoute(stack)).assertEqual('pages/page5');
+      expect(stack.length).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate095 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0656
+     * @tc.name    JsNavigate096
+     * @tc.desc    Push 1 routes then pop 0 seed 96
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsNavigate096', 0, async function () {
+      await yieldThread();
+      const stack = [];
+      expect(model.pushRoute(stack, 'pages/page0')).assertEqual(1);
+      expect(stack.length).assertEqual(1);
+      expect(model.topRoute(stack)).assertEqual('pages/page0');
+      expect(model.canBack(stack)).assertEqual(false);
+      expect(model.indexOfRoute(stack, 'pages/page0')).assertEqual(0);
+      expect(stack.length).assertEqual(1);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsNavigate096 done');
+    });
+}
+
+function NavigationStackGroup001() {
+  NavigationStackPart001();
+  NavigationStackPart002();
+  NavigationStackPart003();
+  NavigationStackPart004();
+  NavigationStackPart005();
+  NavigationStackPart006();
+  NavigationStackPart007();
+  NavigationStackPart008();
+  NavigationStackPart009();
+  NavigationStackPart010();
+  NavigationStackPart011();
+  NavigationStackPart012();
+  NavigationStackPart013();
+  NavigationStackPart014();
+  NavigationStackPart015();
+  NavigationStackPart016();
+  NavigationStackPart017();
+  NavigationStackPart018();
+  NavigationStackPart019();
+  NavigationStackPart020();
+  NavigationStackPart021();
+  NavigationStackPart022();
+  NavigationStackPart023();
+  NavigationStackPart024();
+  NavigationStackPart025();
+  NavigationStackPart026();
+  NavigationStackPart027();
+  NavigationStackPart028();
+  NavigationStackPart029();
+  NavigationStackPart030();
+  NavigationStackPart031();
+  NavigationStackPart032();
+  NavigationStackPart033();
+  NavigationStackPart034();
+  NavigationStackPart035();
+  NavigationStackPart036();
+  NavigationStackPart037();
+  NavigationStackPart038();
+  NavigationStackPart039();
+  NavigationStackPart040();
+}
+
+function NavigationStackGroup002() {
+  NavigationStackPart041();
+  NavigationStackPart042();
+  NavigationStackPart043();
+  NavigationStackPart044();
+  NavigationStackPart045();
+  NavigationStackPart046();
+  NavigationStackPart047();
+  NavigationStackPart048();
+}
+
 export default function navigationStackSuite() {
   describe('NavigationStackSuite', function () {
-    NavigationStackPart001();
-    NavigationStackPart002();
-    NavigationStackPart003();
-    NavigationStackPart004();
-    NavigationStackPart005();
-    NavigationStackPart006();
-    NavigationStackPart007();
-    NavigationStackPart008();
-    NavigationStackPart009();
-    NavigationStackPart010();
-    NavigationStackPart011();
-    NavigationStackPart012();
-    NavigationStackPart013();
-    NavigationStackPart014();
-    NavigationStackPart015();
-    NavigationStackPart016();
-    NavigationStackPart017();
-    NavigationStackPart018();
-    NavigationStackPart019();
-    NavigationStackPart020();
-    NavigationStackPart021();
-    NavigationStackPart022();
-    NavigationStackPart023();
-    NavigationStackPart024();
-    NavigationStackPart025();
-    NavigationStackPart026();
-    NavigationStackPart027();
-    NavigationStackPart028();
+    NavigationStackGroup001();
+    NavigationStackGroup002();
+    registerNavigationStackExtra2();
   });
 }
