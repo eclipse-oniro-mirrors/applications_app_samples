@@ -1523,25 +1523,869 @@ function PathSafetyPart018() {
     });
 }
 
+function PathSafetyPart019() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2471
+     * @tc.name    JsPath091
+     * @tc.desc    Path mode 1 valid false segments 3 seed 91
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath091', 0, async function () {
+      await yieldThread();
+      const path = 'a91//b';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a91/b')).assertEqual(true);
+      expect(model.isSafePath('a91/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath091 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2472
+     * @tc.name    JsPath092
+     * @tc.desc    Path mode 2 valid false segments 3 seed 92
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath092', 0, async function () {
+      await yieldThread();
+      const path = 'a92/../b';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a92/b')).assertEqual(true);
+      expect(model.isSafePath('a92/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath092 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2473
+     * @tc.name    JsPath093
+     * @tc.desc    Path mode 3 valid false segments 2 seed 93
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath093', 0, async function () {
+      await yieldThread();
+      const path = 'a93/b c';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a93/b')).assertEqual(true);
+      expect(model.isSafePath('a93/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath093 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2474
+     * @tc.name    JsPath094
+     * @tc.desc    Path mode 4 valid false segments 0 seed 94
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath094', 0, async function () {
+      await yieldThread();
+      const path = '';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a94/b')).assertEqual(true);
+      expect(model.isSafePath('a94/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath094 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2475
+     * @tc.name    JsPath095
+     * @tc.desc    Path mode 5 valid false segments 1 seed 95
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath095', 0, async function () {
+      await yieldThread();
+      const path = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a95/b')).assertEqual(true);
+      expect(model.isSafePath('a95/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath095 done');
+    });
+}
+
+function PathSafetyPart020() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2476
+     * @tc.name    JsPath096
+     * @tc.desc    Path mode 0 valid true segments 3 seed 96
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath096', 0, async function () {
+      await yieldThread();
+      const path = 'a96/b/c';
+      expect(model.isSafePath(path)).assertEqual(true);
+      expect(model.isSafePath('a96/b')).assertEqual(true);
+      expect(model.isSafePath('a96/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath096 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2477
+     * @tc.name    JsPath097
+     * @tc.desc    Path mode 1 valid false segments 3 seed 97
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath097', 0, async function () {
+      await yieldThread();
+      const path = 'a97//b';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a97/b')).assertEqual(true);
+      expect(model.isSafePath('a97/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath097 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2478
+     * @tc.name    JsPath098
+     * @tc.desc    Path mode 2 valid false segments 3 seed 98
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath098', 0, async function () {
+      await yieldThread();
+      const path = 'a98/../b';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a98/b')).assertEqual(true);
+      expect(model.isSafePath('a98/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath098 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2479
+     * @tc.name    JsPath099
+     * @tc.desc    Path mode 3 valid false segments 2 seed 99
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath099', 0, async function () {
+      await yieldThread();
+      const path = 'a99/b c';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a99/b')).assertEqual(true);
+      expect(model.isSafePath('a99/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath099 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2480
+     * @tc.name    JsPath100
+     * @tc.desc    Path mode 4 valid false segments 0 seed 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath100', 0, async function () {
+      await yieldThread();
+      const path = '';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a100/b')).assertEqual(true);
+      expect(model.isSafePath('a100/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath100 done');
+    });
+}
+
+function PathSafetyPart021() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2481
+     * @tc.name    JsPath101
+     * @tc.desc    Path mode 5 valid false segments 1 seed 101
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath101', 0, async function () {
+      await yieldThread();
+      const path = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a101/b')).assertEqual(true);
+      expect(model.isSafePath('a101/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath101 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2482
+     * @tc.name    JsPath102
+     * @tc.desc    Path mode 0 valid true segments 3 seed 102
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath102', 0, async function () {
+      await yieldThread();
+      const path = 'a102/b/c';
+      expect(model.isSafePath(path)).assertEqual(true);
+      expect(model.isSafePath('a102/b')).assertEqual(true);
+      expect(model.isSafePath('a102/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath102 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2483
+     * @tc.name    JsPath103
+     * @tc.desc    Path mode 1 valid false segments 3 seed 103
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath103', 0, async function () {
+      await yieldThread();
+      const path = 'a103//b';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a103/b')).assertEqual(true);
+      expect(model.isSafePath('a103/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath103 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2484
+     * @tc.name    JsPath104
+     * @tc.desc    Path mode 2 valid false segments 3 seed 104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath104', 0, async function () {
+      await yieldThread();
+      const path = 'a104/../b';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a104/b')).assertEqual(true);
+      expect(model.isSafePath('a104/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath104 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2485
+     * @tc.name    JsPath105
+     * @tc.desc    Path mode 3 valid false segments 2 seed 105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath105', 0, async function () {
+      await yieldThread();
+      const path = 'a105/b c';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a105/b')).assertEqual(true);
+      expect(model.isSafePath('a105/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath105 done');
+    });
+}
+
+function PathSafetyPart022() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2486
+     * @tc.name    JsPath106
+     * @tc.desc    Path mode 4 valid false segments 0 seed 106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath106', 0, async function () {
+      await yieldThread();
+      const path = '';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a106/b')).assertEqual(true);
+      expect(model.isSafePath('a106/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath106 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2487
+     * @tc.name    JsPath107
+     * @tc.desc    Path mode 5 valid false segments 1 seed 107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath107', 0, async function () {
+      await yieldThread();
+      const path = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a107/b')).assertEqual(true);
+      expect(model.isSafePath('a107/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath107 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2488
+     * @tc.name    JsPath108
+     * @tc.desc    Path mode 0 valid true segments 3 seed 108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath108', 0, async function () {
+      await yieldThread();
+      const path = 'a108/b/c';
+      expect(model.isSafePath(path)).assertEqual(true);
+      expect(model.isSafePath('a108/b')).assertEqual(true);
+      expect(model.isSafePath('a108/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath108 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2489
+     * @tc.name    JsPath109
+     * @tc.desc    Path mode 1 valid false segments 3 seed 109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath109', 0, async function () {
+      await yieldThread();
+      const path = 'a109//b';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a109/b')).assertEqual(true);
+      expect(model.isSafePath('a109/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath109 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2490
+     * @tc.name    JsPath110
+     * @tc.desc    Path mode 2 valid false segments 3 seed 110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath110', 0, async function () {
+      await yieldThread();
+      const path = 'a110/../b';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a110/b')).assertEqual(true);
+      expect(model.isSafePath('a110/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath110 done');
+    });
+}
+
+function PathSafetyPart023() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2491
+     * @tc.name    JsPath111
+     * @tc.desc    Path mode 3 valid false segments 2 seed 111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath111', 0, async function () {
+      await yieldThread();
+      const path = 'a111/b c';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a111/b')).assertEqual(true);
+      expect(model.isSafePath('a111/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath111 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2492
+     * @tc.name    JsPath112
+     * @tc.desc    Path mode 4 valid false segments 0 seed 112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath112', 0, async function () {
+      await yieldThread();
+      const path = '';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a112/b')).assertEqual(true);
+      expect(model.isSafePath('a112/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath112 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2493
+     * @tc.name    JsPath113
+     * @tc.desc    Path mode 5 valid false segments 1 seed 113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath113', 0, async function () {
+      await yieldThread();
+      const path = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a113/b')).assertEqual(true);
+      expect(model.isSafePath('a113/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath113 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2494
+     * @tc.name    JsPath114
+     * @tc.desc    Path mode 0 valid true segments 3 seed 114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath114', 0, async function () {
+      await yieldThread();
+      const path = 'a114/b/c';
+      expect(model.isSafePath(path)).assertEqual(true);
+      expect(model.isSafePath('a114/b')).assertEqual(true);
+      expect(model.isSafePath('a114/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath114 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2495
+     * @tc.name    JsPath115
+     * @tc.desc    Path mode 1 valid false segments 3 seed 115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath115', 0, async function () {
+      await yieldThread();
+      const path = 'a115//b';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a115/b')).assertEqual(true);
+      expect(model.isSafePath('a115/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath115 done');
+    });
+}
+
+function PathSafetyPart024() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2496
+     * @tc.name    JsPath116
+     * @tc.desc    Path mode 2 valid false segments 3 seed 116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath116', 0, async function () {
+      await yieldThread();
+      const path = 'a116/../b';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a116/b')).assertEqual(true);
+      expect(model.isSafePath('a116/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath116 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2497
+     * @tc.name    JsPath117
+     * @tc.desc    Path mode 3 valid false segments 2 seed 117
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath117', 0, async function () {
+      await yieldThread();
+      const path = 'a117/b c';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a117/b')).assertEqual(true);
+      expect(model.isSafePath('a117/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath117 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2498
+     * @tc.name    JsPath118
+     * @tc.desc    Path mode 4 valid false segments 0 seed 118
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath118', 0, async function () {
+      await yieldThread();
+      const path = '';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a118/b')).assertEqual(true);
+      expect(model.isSafePath('a118/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath118 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2499
+     * @tc.name    JsPath119
+     * @tc.desc    Path mode 5 valid false segments 1 seed 119
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath119', 0, async function () {
+      await yieldThread();
+      const path = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a119/b')).assertEqual(true);
+      expect(model.isSafePath('a119/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath119 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2500
+     * @tc.name    JsPath120
+     * @tc.desc    Path mode 0 valid true segments 3 seed 120
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath120', 0, async function () {
+      await yieldThread();
+      const path = 'a120/b/c';
+      expect(model.isSafePath(path)).assertEqual(true);
+      expect(model.isSafePath('a120/b')).assertEqual(true);
+      expect(model.isSafePath('a120/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath120 done');
+    });
+}
+
+function PathSafetyPart025() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2501
+     * @tc.name    JsPath121
+     * @tc.desc    Path mode 1 valid false segments 3 seed 121
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath121', 0, async function () {
+      await yieldThread();
+      const path = 'a121//b';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a121/b')).assertEqual(true);
+      expect(model.isSafePath('a121/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath121 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2502
+     * @tc.name    JsPath122
+     * @tc.desc    Path mode 2 valid false segments 3 seed 122
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath122', 0, async function () {
+      await yieldThread();
+      const path = 'a122/../b';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a122/b')).assertEqual(true);
+      expect(model.isSafePath('a122/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath122 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2503
+     * @tc.name    JsPath123
+     * @tc.desc    Path mode 3 valid false segments 2 seed 123
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath123', 0, async function () {
+      await yieldThread();
+      const path = 'a123/b c';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a123/b')).assertEqual(true);
+      expect(model.isSafePath('a123/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath123 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2504
+     * @tc.name    JsPath124
+     * @tc.desc    Path mode 4 valid false segments 0 seed 124
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath124', 0, async function () {
+      await yieldThread();
+      const path = '';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a124/b')).assertEqual(true);
+      expect(model.isSafePath('a124/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath124 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2505
+     * @tc.name    JsPath125
+     * @tc.desc    Path mode 5 valid false segments 1 seed 125
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath125', 0, async function () {
+      await yieldThread();
+      const path = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a125/b')).assertEqual(true);
+      expect(model.isSafePath('a125/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath125 done');
+    });
+}
+
+function PathSafetyPart026() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2506
+     * @tc.name    JsPath126
+     * @tc.desc    Path mode 0 valid true segments 3 seed 126
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath126', 0, async function () {
+      await yieldThread();
+      const path = 'a126/b/c';
+      expect(model.isSafePath(path)).assertEqual(true);
+      expect(model.isSafePath('a126/b')).assertEqual(true);
+      expect(model.isSafePath('a126/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath126 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2507
+     * @tc.name    JsPath127
+     * @tc.desc    Path mode 1 valid false segments 3 seed 127
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath127', 0, async function () {
+      await yieldThread();
+      const path = 'a127//b';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a127/b')).assertEqual(true);
+      expect(model.isSafePath('a127/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath127 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2508
+     * @tc.name    JsPath128
+     * @tc.desc    Path mode 2 valid false segments 3 seed 128
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath128', 0, async function () {
+      await yieldThread();
+      const path = 'a128/../b';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a128/b')).assertEqual(true);
+      expect(model.isSafePath('a128/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath128 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2509
+     * @tc.name    JsPath129
+     * @tc.desc    Path mode 3 valid false segments 2 seed 129
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath129', 0, async function () {
+      await yieldThread();
+      const path = 'a129/b c';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a129/b')).assertEqual(true);
+      expect(model.isSafePath('a129/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath129 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2510
+     * @tc.name    JsPath130
+     * @tc.desc    Path mode 4 valid false segments 0 seed 130
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath130', 0, async function () {
+      await yieldThread();
+      const path = '';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a130/b')).assertEqual(true);
+      expect(model.isSafePath('a130/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath130 done');
+    });
+}
+
+function PathSafetyPart027() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2511
+     * @tc.name    JsPath131
+     * @tc.desc    Path mode 5 valid false segments 1 seed 131
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath131', 0, async function () {
+      await yieldThread();
+      const path = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a131/b')).assertEqual(true);
+      expect(model.isSafePath('a131/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath131 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2512
+     * @tc.name    JsPath132
+     * @tc.desc    Path mode 0 valid true segments 3 seed 132
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath132', 0, async function () {
+      await yieldThread();
+      const path = 'a132/b/c';
+      expect(model.isSafePath(path)).assertEqual(true);
+      expect(model.isSafePath('a132/b')).assertEqual(true);
+      expect(model.isSafePath('a132/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath132 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2513
+     * @tc.name    JsPath133
+     * @tc.desc    Path mode 1 valid false segments 3 seed 133
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath133', 0, async function () {
+      await yieldThread();
+      const path = 'a133//b';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a133/b')).assertEqual(true);
+      expect(model.isSafePath('a133/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath133 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2514
+     * @tc.name    JsPath134
+     * @tc.desc    Path mode 2 valid false segments 3 seed 134
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath134', 0, async function () {
+      await yieldThread();
+      const path = 'a134/../b';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a134/b')).assertEqual(true);
+      expect(model.isSafePath('a134/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath134 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2515
+     * @tc.name    JsPath135
+     * @tc.desc    Path mode 3 valid false segments 2 seed 135
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath135', 0, async function () {
+      await yieldThread();
+      const path = 'a135/b c';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a135/b')).assertEqual(true);
+      expect(model.isSafePath('a135/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath135 done');
+    });
+}
+
+function PathSafetyPart028() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2516
+     * @tc.name    JsPath136
+     * @tc.desc    Path mode 4 valid false segments 0 seed 136
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath136', 0, async function () {
+      await yieldThread();
+      const path = '';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a136/b')).assertEqual(true);
+      expect(model.isSafePath('a136/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath136 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2517
+     * @tc.name    JsPath137
+     * @tc.desc    Path mode 5 valid false segments 1 seed 137
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath137', 0, async function () {
+      await yieldThread();
+      const path = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a137/b')).assertEqual(true);
+      expect(model.isSafePath('a137/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath137 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2518
+     * @tc.name    JsPath138
+     * @tc.desc    Path mode 0 valid true segments 3 seed 138
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath138', 0, async function () {
+      await yieldThread();
+      const path = 'a138/b/c';
+      expect(model.isSafePath(path)).assertEqual(true);
+      expect(model.isSafePath('a138/b')).assertEqual(true);
+      expect(model.isSafePath('a138/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath138 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2519
+     * @tc.name    JsPath139
+     * @tc.desc    Path mode 1 valid false segments 3 seed 139
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath139', 0, async function () {
+      await yieldThread();
+      const path = 'a139//b';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a139/b')).assertEqual(true);
+      expect(model.isSafePath('a139/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath139 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2520
+     * @tc.name    JsPath140
+     * @tc.desc    Path mode 2 valid false segments 3 seed 140
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPath140', 0, async function () {
+      await yieldThread();
+      const path = 'a140/../b';
+      expect(model.isSafePath(path)).assertEqual(false);
+      expect(model.isSafePath('a140/b')).assertEqual(true);
+      expect(model.isSafePath('a140/..')).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPath140 done');
+    });
+}
+
+function PathSafetyGroup001() {
+  PathSafetyPart001();
+  PathSafetyPart002();
+  PathSafetyPart003();
+  PathSafetyPart004();
+  PathSafetyPart005();
+  PathSafetyPart006();
+  PathSafetyPart007();
+  PathSafetyPart008();
+  PathSafetyPart009();
+  PathSafetyPart010();
+  PathSafetyPart011();
+  PathSafetyPart012();
+  PathSafetyPart013();
+  PathSafetyPart014();
+  PathSafetyPart015();
+  PathSafetyPart016();
+  PathSafetyPart017();
+  PathSafetyPart018();
+  PathSafetyPart019();
+  PathSafetyPart020();
+  PathSafetyPart021();
+  PathSafetyPart022();
+  PathSafetyPart023();
+  PathSafetyPart024();
+  PathSafetyPart025();
+  PathSafetyPart026();
+  PathSafetyPart027();
+  PathSafetyPart028();
+}
+
 export default function pathSafetySuite() {
   describe('PathSafetySuite', function () {
-    PathSafetyPart001();
-    PathSafetyPart002();
-    PathSafetyPart003();
-    PathSafetyPart004();
-    PathSafetyPart005();
-    PathSafetyPart006();
-    PathSafetyPart007();
-    PathSafetyPart008();
-    PathSafetyPart009();
-    PathSafetyPart010();
-    PathSafetyPart011();
-    PathSafetyPart012();
-    PathSafetyPart013();
-    PathSafetyPart014();
-    PathSafetyPart015();
-    PathSafetyPart016();
-    PathSafetyPart017();
-    PathSafetyPart018();
+    PathSafetyGroup001();
   });
 }
