@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,12 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import fileIo from '@ohos.file.fs'
-import router from '@ohos.router'
-import Logger from '../model/Logger'
-import MediaUtils from '../model/MediaUtils'
-import TitleBar from '../view/TitleBar'
-import common from '@ohos.app.ability.common'
+import { fileIo } from '@kit.CoreFileKit';
+import { router } from '@kit.ArkUI';
+import Logger from '../model/Logger';
+import MediaUtils from '../model/MediaUtils';
+import TitleBar from '../view/TitleBar';
+import { common } from '@kit.AbilityKit';
 
 @Entry
 @Component
@@ -26,16 +26,19 @@ struct DocumentPage {
   private mediaUtils: MediaUtils = MediaUtils.getInstance(getContext(this))
   @State fileContent: string = ''
 
-  async saveFile() {
-    Logger.info(this.tag, 'saveFile')
-    let context = this.getUIContext().getHostContext() as common.UIAbilityContext
-    let file: fileIo.File|null = await this.mediaUtils.createFile(4, context)
-    if(file){
-      Logger.info(this.tag, `fd = ${file.fd}`)
-      let writeResult=fileIo.writeSync(file.fd, this.fileContent)
-      Logger.info(this.tag, `writeResult = ${writeResult}`)
-      fileIo.closeSync(file.fd)
-      this.getUIContext().getRouter().back()
+  async saveFile(): Promise<void> {
+    Logger.info(this.tag, 'saveFile');
+    const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+    const file: fileIo.File | null = await this.mediaUtils.createFile(4, context);
+    if (file) {
+      Logger.info(this.tag, `fd = ${file.fd}`);
+      try {
+        const writeResult: number = fileIo.writeSync(file.fd, this.fileContent);
+        Logger.info(this.tag, `writeResult = ${writeResult}`);
+      } finally {
+        fileIo.closeSync(file.fd);
+      }
+      this.getUIContext().getRouter().back();
     }
   }
 
@@ -64,7 +67,9 @@ struct DocumentPage {
       .margin({ top: 10 })
       .onClick(() => {
         Logger.info(this.tag, 'saveFile onClick')
-        this.saveFile()
+        this.saveFile().catch((error: Error): void => {
+          Logger.error(this.tag, `saveFile failed: ${error.message}`);
+        });
       })
     }
     .height('100%')

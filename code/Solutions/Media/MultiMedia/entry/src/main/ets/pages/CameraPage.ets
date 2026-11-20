@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,10 +12,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import prompt from '@ohos.prompt'
-import Logger from '../model/Logger'
-import CameraService from '../model/CameraService'
-import TitleBar from '../view/TitleBar'
+import { promptAction } from '@kit.ArkUI';
+import Logger from '../model/Logger';
+import CameraService from '../model/CameraService';
+import TitleBar from '../view/TitleBar';
 
 const CameraMode = {
   MODE_PHOTO: 0, // 拍照模式
@@ -97,7 +97,7 @@ struct CameraPage {
               .fontSize(25)
               .onClick(() => {
                 if (this.curModel === CameraMode.MODE_VIDEO) {
-                  prompt.showToast({ message: '切换中...', duration: 1000 })
+                  promptAction.showToast({ message: $r('app.string.camera_switching'), duration: 1000 })
                   if (this.isRecording) {
                     this.cameraService.stopVideo()
                     this.isRecording = false
@@ -116,7 +116,7 @@ struct CameraPage {
               .margin({ left: 30 })
               .onClick(() => {
                 if (this.curModel === CameraMode.MODE_PHOTO) {
-                  prompt.showToast({ message: '切换中...', duration: 1000 })
+                  promptAction.showToast({ message: $r('app.string.camera_switching'), duration: 1000 })
                   this.curModel = CameraMode.MODE_VIDEO
                   this.cameraService.initCamera(this.surfaceId)
                 }
@@ -150,7 +150,7 @@ struct CameraPage {
               .onClick(() => {
                 if (this.curModel === CameraMode.MODE_PHOTO) {
                   Logger.info(this.tag, 'takePicture begin')
-                  prompt.showToast({ message: '拍照中...', duration: 1000 })
+                  promptAction.showToast({ message: $r('app.string.camera_capturing'), duration: 1000 })
                   this.cameraService.takePicture()
                 } else if (this.curModel === CameraMode.MODE_VIDEO) {
                   this.refreshVideoState()
