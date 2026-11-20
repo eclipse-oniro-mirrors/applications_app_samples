@@ -1987,3 +1987,367 @@ export default function musicDialogLifecycleSuite() {
       expect(m.getPlaylistByIndex(1000 + 98) === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0099
+     * @tc.name    MusicDialogLifecycle099
+     * @tc.desc    Music offset accumulation 99 probe 99
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicDialogLifecycle099', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(99, 99);
+      const delta = m.makeOffset(20, 10);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 99) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0100
+     * @tc.name    MusicDialogLifecycle100
+     * @tc.desc    Music offset accumulation 100 probe 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicDialogLifecycle100', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(100, 100);
+      const delta = m.makeOffset(21, 11);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 100) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0101
+     * @tc.name    MusicDialogLifecycle101
+     * @tc.desc    Music offset accumulation 101 probe 101
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicDialogLifecycle101', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(101, 101);
+      const delta = m.makeOffset(22, 12);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 101) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0102
+     * @tc.name    MusicDialogLifecycle102
+     * @tc.desc    Music offset accumulation 102 probe 102
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicDialogLifecycle102', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(102, 102);
+      const delta = m.makeOffset(23, 13);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 102) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0103
+     * @tc.name    MusicDialogLifecycle103
+     * @tc.desc    Music offset accumulation 103 probe 103
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicDialogLifecycle103', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(103, 103);
+      const delta = m.makeOffset(24, 14);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 103) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0104
+     * @tc.name    MusicDialogLifecycle104
+     * @tc.desc    Music offset accumulation 104 probe 104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicDialogLifecycle104', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(104, 104);
+      const delta = m.makeOffset(25, 15);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 104) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0105
+     * @tc.name    MusicDialogLifecycle105
+     * @tc.desc    Music offset accumulation 105 probe 105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicDialogLifecycle105', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(105, 105);
+      const delta = m.makeOffset(26, 16);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 105) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0106
+     * @tc.name    MusicDialogLifecycle106
+     * @tc.desc    Music offset accumulation 106 probe 106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicDialogLifecycle106', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(106, 106);
+      const delta = m.makeOffset(27, 17);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 106) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0107
+     * @tc.name    MusicDialogLifecycle107
+     * @tc.desc    Music offset accumulation 107 probe 107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicDialogLifecycle107', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(107, 107);
+      const delta = m.makeOffset(28, 18);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 107) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0108
+     * @tc.name    MusicDialogLifecycle108
+     * @tc.desc    Music offset accumulation 108 probe 108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicDialogLifecycle108', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(108, 108);
+      const delta = m.makeOffset(29, 19);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 108) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0109
+     * @tc.name    MusicDialogLifecycle109
+     * @tc.desc    Music offset accumulation 109 probe 109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicDialogLifecycle109', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(109, 109);
+      const delta = m.makeOffset(30, 20);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 109) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0110
+     * @tc.name    MusicDialogLifecycle110
+     * @tc.desc    Music offset accumulation 110 probe 110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicDialogLifecycle110', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(110, 110);
+      const delta = m.makeOffset(31, 21);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 110) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0111
+     * @tc.name    MusicDialogLifecycle111
+     * @tc.desc    Music offset accumulation 111 probe 111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicDialogLifecycle111', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(111, 111);
+      const delta = m.makeOffset(32, 22);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 111) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0112
+     * @tc.name    MusicDialogLifecycle112
+     * @tc.desc    Music offset accumulation 112 probe 112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicDialogLifecycle112', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(112, 112);
+      const delta = m.makeOffset(33, 23);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 112) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0113
+     * @tc.name    MusicDialogLifecycle113
+     * @tc.desc    Music offset accumulation 113 probe 113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicDialogLifecycle113', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(113, 113);
+      const delta = m.makeOffset(34, 24);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 113) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0114
+     * @tc.name    MusicDialogLifecycle114
+     * @tc.desc    Music offset accumulation 114 probe 114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicDialogLifecycle114', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(114, 114);
+      const delta = m.makeOffset(35, 25);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 114) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0115
+     * @tc.name    MusicDialogLifecycle115
+     * @tc.desc    Music offset accumulation 115 probe 115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicDialogLifecycle115', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(115, 115);
+      const delta = m.makeOffset(36, 26);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 115) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0116
+     * @tc.name    MusicDialogLifecycle116
+     * @tc.desc    Music offset accumulation 116 probe 116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicDialogLifecycle116', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const base = m.makeOffset(116, 116);
+      const delta = m.makeOffset(37, 27);
+      const sum = m.accumulateOffset(base, delta);
+      expect(sum.x).assertEqual((base.x + delta.x));
+      expect(sum.y).assertEqual((base.y + delta.y));
+      expect(m.getPlaylistByIndex(1000 + 116) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
