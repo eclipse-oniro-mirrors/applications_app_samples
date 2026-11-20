@@ -16,9 +16,9 @@ Effect in the previewer:
 
 **A+B+C**:
 
-| 360vp                               | 600vp                               | 840vp                               |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| ![](screenshots/Devices/image3.png) | ![](screenshots/Devices/image2.png) | ![](screenshots/Devices/image1.png) |
+| 360vp                               | 840vp                               |
+| ----------------------------------- | ----------------------------------- |
+| ![](screenshots/Devices/image3.png) | ![](screenshots/Devices/image1.png) |
 
 **A+C**:
 
@@ -26,19 +26,13 @@ Effect in the previewer:
 | ----------------------------------- | ----------------------------------- |
 | ![](screenshots/Devices/image8.png) | ![](screenshots/Devices/image7.png) |
 
-**B+C**:
+### How to Use
 
-| 360vp                                | 600vp                               |
-| ------------------------------------ | ----------------------------------- |
-| ![](screenshots/Devices/image10.png) | ![](screenshots/Devices/image9.png) |
+Prerequisites: open this project with DevEco Studio 26 or later, and run it in the previewer or on a standard-system device (phone, tablet, or 2-in-1). To drag the window on a real device, enable the free-form window capability as described in Constraints.
 
-How to use:
-
-1. View the page effect in the previewer.
-
-2. Enable the window drag mode in the previewer and drag to resize the window. The responsive change of the components is displayed, as shown below:
-
-![](screenshots/Devices/image11.png)
+1. Run this sample in the previewer. The home page provides three entry buttons, **A+B+C**, **A+C**, and **B+C**, which open the mail box, photo album, and settings scenarios respectively.
+2. Enable window drag mode in the previewer and drag the window edge to change its width. Three columns are displayed when the width is greater than 840vp, two columns when it is between 600vp and 840vp, and only the content column when it is less than 600vp. For details, see Implementation.
+3. On a real device, tap an entry button on the home page to open the corresponding scenario. If the free-form window capability is not enabled, the window runs in full-screen mode. You can unfold or fold a foldable device, or switch to a device of another size, to observe the responsive behavior.
 
 ### Project Structure
 
