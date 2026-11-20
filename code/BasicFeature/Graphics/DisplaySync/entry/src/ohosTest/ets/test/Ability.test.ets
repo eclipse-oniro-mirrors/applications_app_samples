@@ -15,7 +15,7 @@
 
 import { describe, expect, it } from '@ohos/hypium';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
-import { bundleManager } from '@kit.AbilityKit';
+import { bundleManager, common } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const DOMAIN: number = 0xF811;
@@ -27,7 +27,7 @@ export default function abilityTest(): void {
   describe('ActsAbilityTest', () => {
     it('displaySync_context_001', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'displaySync_context_001 begin');
-      const context = delegator.getAppContext();
+      const context: common.Context = delegator.getAppContext();
       expect(context.applicationInfo.name).assertEqual(BUNDLE);
       expect(context.filesDir.length > 0).assertTrue();
       expect(typeof context.applicationInfo.releaseType).assertEqual('string');
