@@ -87,13 +87,76 @@ function optionTextName(text: ResourceStr): string {
   return 'string:other';
 }
 
+function songTextValue(text: ResourceStr): string {
+  if (typeof text === 'string') {
+    return text;
+  }
+  const res: Resource = text as Resource;
+  if (res.id === $r('app.string.song_title_01').id) {
+    return '不知道';
+  }
+  if (res.id === $r('app.string.song_title_02').id) {
+    return '歌名你好';
+  }
+  if (res.id === $r('app.string.song_title_03').id) {
+    return '还是歌名';
+  }
+  if (res.id === $r('app.string.song_title_04').id) {
+    return 'AIUHGVNHK';
+  }
+  if (res.id === $r('app.string.song_title_05').id) {
+    return '可可不喜欢';
+  }
+  if (res.id === $r('app.string.song_title_06').id) {
+    return '我是UOUYGBJ';
+  }
+  if (res.id === $r('app.string.song_title_07').id) {
+    return '好好学习';
+  }
+  if (res.id === $r('app.string.song_title_08').id) {
+    return '安心安心';
+  }
+  if (res.id === $r('app.string.song_title_09').id) {
+    return 'HBNJGHJHB';
+  }
+  if (res.id === $r('app.string.song_title_10').id) {
+    return 'Notebook';
+  }
+  if (res.id === $r('app.string.song_singer_01').id) {
+    return '小碗你好';
+  }
+  if (res.id === $r('app.string.song_singer_02').id) {
+    return '张三-你好我好都好';
+  }
+  if (res.id === $r('app.string.song_singer_03').id) {
+    return '不知道你是谁';
+  }
+  if (res.id === $r('app.string.song_singer_04').id) {
+    return 'Gwyu-Hjjiyabn';
+  }
+  if (res.id === $r('app.string.song_singer_05').id) {
+    return '名佚';
+  }
+  if (res.id === $r('app.string.song_singer_06').id) {
+    return '我是小树';
+  }
+  if (res.id === $r('app.string.song_singer_07').id) {
+    return '全村最帅';
+  }
+  if (res.id === $r('app.string.song_singer_08').id) {
+    return '小安安';
+  }
+  return 'unknown';
+}
+
 /** '<id>|<title>|<singer>|<labelName>' or 'undefined' */
 export function runSongRow(index: number): string {
   const item: SongItem | undefined = songAt(index);
   if (item === undefined) {
     return 'undefined';
   }
-  return item.id.toString() + '|' + item.title + '|' + item.singer + '|' + labelName(item.label);
+  return item.id.toString() + '|' + songTextValue(item.title) + '|' +
+    songTextValue(item.singer) + '|' + labelName(item.label);
 }
 
 /** single field of a row: id | title | singer | label */
@@ -106,10 +169,10 @@ export function runSongField(index: number, field: string): string {
     return item.id.toString();
   }
   if (field === 'title') {
-    return item.title;
+    return songTextValue(item.title);
   }
   if (field === 'singer') {
-    return item.singer;
+    return songTextValue(item.singer);
   }
   if (field === 'label') {
     return labelName(item.label);
@@ -142,7 +205,7 @@ function titles(): string[] {
   for (let i = 0; i < SONG_COUNT; i++) {
     const item: SongItem | undefined = songAt(i);
     if (item !== undefined) {
-      out.push(item.title);
+      out.push(songTextValue(item.title));
     }
   }
   return out;
@@ -153,7 +216,7 @@ function singers(): string[] {
   for (let i = 0; i < SONG_COUNT; i++) {
     const item: SongItem | undefined = songAt(i);
     if (item !== undefined) {
-      out.push(item.singer);
+      out.push(songTextValue(item.singer));
     }
   }
   return out;
@@ -254,11 +317,11 @@ export function runSongStats(kind: string): string {
   }
   if (kind === 'first-title') {
     const item: SongItem | undefined = songAt(0);
-    return item === undefined ? 'undefined' : item.title;
+    return item === undefined ? 'undefined' : songTextValue(item.title);
   }
   if (kind === 'last-title') {
     const item: SongItem | undefined = songAt(SONG_COUNT - 1);
-    return item === undefined ? 'undefined' : item.title;
+    return item === undefined ? 'undefined' : songTextValue(item.title);
   }
   return 'unknown';
 }

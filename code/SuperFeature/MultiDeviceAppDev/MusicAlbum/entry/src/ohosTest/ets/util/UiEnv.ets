@@ -25,10 +25,9 @@
  *
  * Snapshot grammar: 'ok[:detail]' | 'notfound' | 'error[:detail]'.
  */
-import { Driver, ON, Component } from '@ohos.UiTest';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { abilityDelegatorRegistry, Driver, ON, Component } from '@kit.TestKit';
 
-export const BUNDLE_NAME: string = 'ohos.samples.MusicAlbum';
+export const BUNDLE_NAME: string = 'ohos.samples.musicalbum';
 export const MAIN_ABILITY: string = 'MainAbility';
 export const WAIT_MS: number = 3000;
 
@@ -42,7 +41,7 @@ export async function sleep(ms: number): Promise<void> {
 
 export async function launchApp(): Promise<string> {
   try {
-    const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+    const delegator = abilityDelegatorRegistry.getAbilityDelegator();
     await delegator.startAbility({
       bundleName: BUNDLE_NAME,
       abilityName: MAIN_ABILITY
@@ -232,7 +231,7 @@ const FROZEN_TEXT: Map<string, string> = new Map<string, string>([
 
 /** Resolve a main-module string by resource name, falling back to the frozen table. */
 export function expectedText(name: string): string {
-  const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+  const delegator = abilityDelegatorRegistry.getAbilityDelegator();
   const context = delegator.getAppContext();
   try {
     return context.resourceManager.getStringByNameSync(name);
