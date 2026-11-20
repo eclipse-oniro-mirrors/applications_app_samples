@@ -509,3 +509,322 @@ export default function downloadMatrix006Test(): void {
         logAssertion(caseName, "api.events", api.events, expected01);
         expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected01));
         sourceAlias.push('source-after-return');
+        const expected02: string[] = ["report.txt", ".hidden", "资料.txt", " spaced ", "../late"];
+        logAssertion(caseName, "result", result, expected02);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify(expected02));
+        result.push('caller-only');
+        const expected03: string[] = ["report.txt", ".hidden", "资料.txt", " spaced ", "../late", "source-after-return"];
+        logAssertion(caseName, "sourceAlias", sourceAlias, expected03);
+        expect(JSON.stringify(sourceAlias)).assertEqual(JSON.stringify(expected03));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_000135
+     * @tc.name EnvironmentSample_snapshot_0134_DDFD_replaceFirst
+     * @tc.desc Mask DDFD: replaceFirst at stat Unicode-file; sandbox alias; ordered, two-way isolated result.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_snapshot_0134_DDFD_replaceFirst", 0, (): void => {
+      const caseName: string = "EnvironmentSample_snapshot_0134_DDFD_replaceFirst";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/资料.txt"];
+        api.mutationEvent = "stat:/download/资料.txt";
+        api.mutationKind = "replaceFirst";
+        const sandboxAlias: string[] = api.sandboxEntries;
+        const result: string[] = importDownloadFiles('/download', '/sandbox', api);
+        const expected01: string[] = [
+          "list:/download", "stat:/download/report.txt", "stat:/download/.hidden", "stat:/download/资料.txt",
+          "copy:/download/资料.txt->/sandbox/资料.txt", "stat:/download/ spaced ", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected01);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected01));
+        sandboxAlias.push('sandbox-after-return');
+        logAssertion(caseName, "result", result, ["preexisting.txt", "资料.txt"]);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify(["preexisting.txt", "资料.txt"]));
+        result.push('caller-only');
+        const expected03: string[] = ["preexisting.txt", "资料.txt", "sandbox-after-return"];
+        logAssertion(caseName, "sandboxAlias", sandboxAlias, expected03);
+        expect(JSON.stringify(sandboxAlias)).assertEqual(JSON.stringify(expected03));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_000136
+     * @tc.name EnvironmentSample_snapshot_0135_DDFD_replaceFirst
+     * @tc.desc Mask DDFD: replaceFirst at stat Unicode-file; source alias; ordered, two-way isolated result.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_snapshot_0135_DDFD_replaceFirst", 0, (): void => {
+      const caseName: string = "EnvironmentSample_snapshot_0135_DDFD_replaceFirst";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/资料.txt"];
+        api.mutationEvent = "stat:/download/资料.txt";
+        api.mutationKind = "replaceFirst";
+        api.aliasSandboxToSource = true;
+        const sourceAlias: string[] = api.entries;
+        const result: string[] = importDownloadFiles('/download', '/sandbox', api);
+        const expected01: string[] = [
+          "list:/download", "stat:/download/report.txt", "stat:/download/.hidden", "stat:/download/资料.txt",
+          "copy:/download/资料.txt->/sandbox/资料.txt", "stat:/download/ spaced ", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected01);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected01));
+        sourceAlias.push('source-after-return');
+        logAssertion(caseName, "result", result, ["evil\\late", ".hidden", "资料.txt", " spaced "]);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify(["evil\\late", ".hidden", "资料.txt", " spaced "]));
+        result.push('caller-only');
+        const expected03: string[] = ["evil\\late", ".hidden", "资料.txt", " spaced ", "source-after-return"];
+        logAssertion(caseName, "sourceAlias", sourceAlias, expected03);
+        expect(JSON.stringify(sourceAlias)).assertEqual(JSON.stringify(expected03));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_000137
+     * @tc.name EnvironmentSample_snapshot_0136_DDFD_reverse
+     * @tc.desc Mask DDFD: reverse at stat Unicode-file; sandbox alias; ordered, two-way isolated result.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_snapshot_0136_DDFD_reverse", 0, (): void => {
+      const caseName: string = "EnvironmentSample_snapshot_0136_DDFD_reverse";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/资料.txt"];
+        api.mutationEvent = "stat:/download/资料.txt";
+        api.mutationKind = "reverse";
+        const sandboxAlias: string[] = api.sandboxEntries;
+        const result: string[] = importDownloadFiles('/download', '/sandbox', api);
+        const expected01: string[] = [
+          "list:/download", "stat:/download/report.txt", "stat:/download/.hidden", "stat:/download/资料.txt",
+          "copy:/download/资料.txt->/sandbox/资料.txt", "stat:/download/ spaced ", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected01);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected01));
+        sandboxAlias.push('sandbox-after-return');
+        logAssertion(caseName, "result", result, ["preexisting.txt", "资料.txt"]);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify(["preexisting.txt", "资料.txt"]));
+        result.push('caller-only');
+        const expected03: string[] = ["preexisting.txt", "资料.txt", "sandbox-after-return"];
+        logAssertion(caseName, "sandboxAlias", sandboxAlias, expected03);
+        expect(JSON.stringify(sandboxAlias)).assertEqual(JSON.stringify(expected03));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_000138
+     * @tc.name EnvironmentSample_snapshot_0137_DDFD_reverse
+     * @tc.desc Mask DDFD: reverse at stat Unicode-file; source alias; ordered, two-way isolated result.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_snapshot_0137_DDFD_reverse", 0, (): void => {
+      const caseName: string = "EnvironmentSample_snapshot_0137_DDFD_reverse";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/资料.txt"];
+        api.mutationEvent = "stat:/download/资料.txt";
+        api.mutationKind = "reverse";
+        api.aliasSandboxToSource = true;
+        const sourceAlias: string[] = api.entries;
+        const result: string[] = importDownloadFiles('/download', '/sandbox', api);
+        const expected01: string[] = [
+          "list:/download", "stat:/download/report.txt", "stat:/download/.hidden", "stat:/download/资料.txt",
+          "copy:/download/资料.txt->/sandbox/资料.txt", "stat:/download/ spaced ", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected01);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected01));
+        sourceAlias.push('source-after-return');
+        logAssertion(caseName, "result", result, [" spaced ", "资料.txt", ".hidden", "report.txt"]);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify([" spaced ", "资料.txt", ".hidden", "report.txt"]));
+        result.push('caller-only');
+        const expected03: string[] = [" spaced ", "资料.txt", ".hidden", "report.txt", "source-after-return"];
+        logAssertion(caseName, "sourceAlias", sourceAlias, expected03);
+        expect(JSON.stringify(sourceAlias)).assertEqual(JSON.stringify(expected03));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_000139
+     * @tc.name EnvironmentSample_snapshot_0138_DDFD_removeLast
+     * @tc.desc Mask DDFD: removeLast at stat Unicode-file; sandbox alias; ordered, two-way isolated result.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_snapshot_0138_DDFD_removeLast", 0, (): void => {
+      const caseName: string = "EnvironmentSample_snapshot_0138_DDFD_removeLast";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/资料.txt"];
+        api.mutationEvent = "stat:/download/资料.txt";
+        api.mutationKind = "removeLast";
+        const sandboxAlias: string[] = api.sandboxEntries;
+        const result: string[] = importDownloadFiles('/download', '/sandbox', api);
+        const expected01: string[] = [
+          "list:/download", "stat:/download/report.txt", "stat:/download/.hidden", "stat:/download/资料.txt",
+          "copy:/download/资料.txt->/sandbox/资料.txt", "stat:/download/ spaced ", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected01);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected01));
+        sandboxAlias.push('sandbox-after-return');
+        logAssertion(caseName, "result", result, ["preexisting.txt", "资料.txt"]);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify(["preexisting.txt", "资料.txt"]));
+        result.push('caller-only');
+        const expected03: string[] = ["preexisting.txt", "资料.txt", "sandbox-after-return"];
+        logAssertion(caseName, "sandboxAlias", sandboxAlias, expected03);
+        expect(JSON.stringify(sandboxAlias)).assertEqual(JSON.stringify(expected03));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_000140
+     * @tc.name EnvironmentSample_snapshot_0139_DDFD_removeLast
+     * @tc.desc Mask DDFD: removeLast at stat Unicode-file; source alias; ordered, two-way isolated result.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_snapshot_0139_DDFD_removeLast", 0, (): void => {
+      const caseName: string = "EnvironmentSample_snapshot_0139_DDFD_removeLast";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/资料.txt"];
+        api.mutationEvent = "stat:/download/资料.txt";
+        api.mutationKind = "removeLast";
+        api.aliasSandboxToSource = true;
+        const sourceAlias: string[] = api.entries;
+        const result: string[] = importDownloadFiles('/download', '/sandbox', api);
+        const expected01: string[] = [
+          "list:/download", "stat:/download/report.txt", "stat:/download/.hidden", "stat:/download/资料.txt",
+          "copy:/download/资料.txt->/sandbox/资料.txt", "stat:/download/ spaced ", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected01);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected01));
+        sourceAlias.push('source-after-return');
+        logAssertion(caseName, "result", result, ["report.txt", ".hidden", "资料.txt"]);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify(["report.txt", ".hidden", "资料.txt"]));
+        result.push('caller-only');
+        const expected03: string[] = ["report.txt", ".hidden", "资料.txt", "source-after-return"];
+        logAssertion(caseName, "sourceAlias", sourceAlias, expected03);
+        expect(JSON.stringify(sourceAlias)).assertEqual(JSON.stringify(expected03));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_000141
+     * @tc.name EnvironmentSample_snapshot_0140_DDFD_clear
+     * @tc.desc Mask DDFD: clear at stat Unicode-file; sandbox alias; ordered, two-way isolated result.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_snapshot_0140_DDFD_clear", 0, (): void => {
+      const caseName: string = "EnvironmentSample_snapshot_0140_DDFD_clear";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/资料.txt"];
+        api.mutationEvent = "stat:/download/资料.txt";
+        api.mutationKind = "clear";
+        const sandboxAlias: string[] = api.sandboxEntries;
+        const result: string[] = importDownloadFiles('/download', '/sandbox', api);
+        const expected01: string[] = [
+          "list:/download", "stat:/download/report.txt", "stat:/download/.hidden", "stat:/download/资料.txt",
+          "copy:/download/资料.txt->/sandbox/资料.txt", "stat:/download/ spaced ", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected01);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected01));
+        sandboxAlias.push('sandbox-after-return');
+        logAssertion(caseName, "result", result, ["preexisting.txt", "资料.txt"]);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify(["preexisting.txt", "资料.txt"]));
+        result.push('caller-only');
+        const expected03: string[] = ["preexisting.txt", "资料.txt", "sandbox-after-return"];
+        logAssertion(caseName, "sandboxAlias", sandboxAlias, expected03);
+        expect(JSON.stringify(sandboxAlias)).assertEqual(JSON.stringify(expected03));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_000142
+     * @tc.name EnvironmentSample_snapshot_0141_DDFD_clear
+     * @tc.desc Mask DDFD: clear at stat Unicode-file; source alias; ordered, two-way isolated result.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_snapshot_0141_DDFD_clear", 0, (): void => {
+      const caseName: string = "EnvironmentSample_snapshot_0141_DDFD_clear";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/资料.txt"];
+        api.mutationEvent = "stat:/download/资料.txt";
+        api.mutationKind = "clear";
+        api.aliasSandboxToSource = true;
+        const sourceAlias: string[] = api.entries;
+        const result: string[] = importDownloadFiles('/download', '/sandbox', api);
+        const expected01: string[] = [
+          "list:/download", "stat:/download/report.txt", "stat:/download/.hidden", "stat:/download/资料.txt",
+          "copy:/download/资料.txt->/sandbox/资料.txt", "stat:/download/ spaced ", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected01);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected01));
+        sourceAlias.push('source-after-return');
+        logAssertion(caseName, "result", result, []);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify([]));
+        result.push('caller-only');
+        logAssertion(caseName, "sourceAlias", sourceAlias, ["source-after-return"]);
+        expect(JSON.stringify(sourceAlias)).assertEqual(JSON.stringify(["source-after-return"]));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_000143
+     * @tc.name EnvironmentSample_snapshot_0142_DDFD_duplicateFirst
+     * @tc.desc Mask DDFD: duplicateFirst at stat Unicode-file; sandbox alias; ordered, two-way isolated result.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_snapshot_0142_DDFD_duplicateFirst", 0, (): void => {
+      const caseName: string = "EnvironmentSample_snapshot_0142_DDFD_duplicateFirst";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/资料.txt"];
+        api.mutationEvent = "stat:/download/资料.txt";
+        api.mutationKind = "duplicateFirst";
+        const sandboxAlias: string[] = api.sandboxEntries;
+        const result: string[] = importDownloadFiles('/download', '/sandbox', api);
+        const expected01: string[] = [
+          "list:/download", "stat:/download/report.txt", "stat:/download/.hidden", "stat:/download/资料.txt",
+          "copy:/download/资料.txt->/sandbox/资料.txt", "stat:/download/ spaced ", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected01);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected01));
+        sandboxAlias.push('sandbox-after-return');
