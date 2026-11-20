@@ -64,6 +64,9 @@
     ],
     "requestPermissions": [
       {
+        "name" : "ohos.permission.PRINT"
+      },
+      {
         "name" : "ohos.permission.MANAGE_PRINT_JOB"
       }
     ]
