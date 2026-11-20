@@ -20,6 +20,8 @@ import { Driver, ON, ResizeDirection } from '@ohos.UiTest'
 
 const TAG: string = '[Sample_MultiColumns]';
 const BUNDLE = 'MultiColumns_';
+const CLICK_TIMEOUT: number = 8000;
+const CLICK_INTERVAL: number = 200;
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
@@ -30,8 +32,7 @@ export default function abilityTest() {
       let driver = Driver.create();
       await startAbility();
       await driver.delayMs(1000);
-      let buttonOne = await driver.findComponent(ON.id('caseOne'));
-      await buttonOne.click();
+      await clickWhenReady(driver, 'caseOne');
       await dragWindow(vp2px(360));
       await driver.delayMs(1000);
       done();
@@ -46,8 +47,7 @@ export default function abilityTest() {
       await driver.delayMs(1000);
       await startAbility();
       await driver.delayMs(1000);
-      let buttonOne = await driver.findComponent(ON.id('caseOne'));
-      await buttonOne.click();
+      await clickWhenReady(driver, 'caseOne');
       await dragWindow(vp2px(600));
       await driver.delayMs(1000);
       done();
@@ -62,8 +62,7 @@ export default function abilityTest() {
       await driver.delayMs(1000);
       await startAbility();
       await driver.delayMs(1000);
-      let buttonOne = await driver.findComponent(ON.id('caseOne'));
-      await buttonOne.click();
+      await clickWhenReady(driver, 'caseOne');
       await dragWindow(vp2px(850));
       await driver.delayMs(1000);
       done();
@@ -78,8 +77,7 @@ export default function abilityTest() {
       await driver.delayMs(1000);
       await startAbility();
       await driver.delayMs(1000);
-      let buttonTwo = await driver.findComponent(ON.id('caseTwo'));
-      await buttonTwo.click();
+      await clickWhenReady(driver, 'caseTwo');
       await dragWindow(vp2px(360));
       await driver.delayMs(1000);
       done();
@@ -94,8 +92,7 @@ export default function abilityTest() {
       await driver.delayMs(1000);
       await startAbility();
       await driver.delayMs(1000);
-      let buttonTwo = await driver.findComponent(ON.id('caseTwo'));
-      await buttonTwo.click();
+      await clickWhenReady(driver, 'caseTwo');
       await dragWindow(vp2px(600));
       await driver.delayMs(1000);
       done();
@@ -110,8 +107,7 @@ export default function abilityTest() {
       await driver.delayMs(1000);
       await startAbility();
       await driver.delayMs(1000);
-      let buttonThree = await driver.findComponent(ON.id('caseThree'));
-      await buttonThree.click();
+      await clickWhenReady(driver, 'caseThree');
       await dragWindow(vp2px(360));
       await driver.delayMs(1000);
       done();
@@ -126,13 +122,38 @@ export default function abilityTest() {
       await driver.delayMs(1000);
       await startAbility();
       await driver.delayMs(1000);
-      let buttonThree = await driver.findComponent(ON.id('caseThree'));
-      await buttonThree.click();
+      await clickWhenReady(driver, 'caseThree');
       await dragWindow(vp2px(600));
       await driver.delayMs(1000);
       done();
     })
   })
+}
+
+
+/**
+ * Wait for the component before clicking, so that findComponent returning null on the
+ * first frame does not abort the whole test process with "Cannot read property click of null"
+ */
+async function clickWhenReady(driver: Driver, id: string): Promise<boolean> {
+  try {
+    const deadline: number = Date.now() + CLICK_TIMEOUT;
+    while (true) {
+      const component = await driver.findComponent(ON.id(id));
+      if (component) {
+        await component.click();
+        return true;
+      }
+      if (Date.now() >= deadline) {
+        logger.info(TAG, `clickWhenReady timeout ${id}`);
+        return false;
+      }
+      await driver.delayMs(CLICK_INTERVAL);
+    }
+  } catch (err) {
+    logger.info(TAG, `clickWhenReady err ${id} ${JSON.stringify(err)}`);
+    return false;
+  }
 }
 
 /**
