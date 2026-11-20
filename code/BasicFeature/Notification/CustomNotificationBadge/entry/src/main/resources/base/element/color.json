@@ -13,6 +13,10 @@
       "value": "#F1F3F5"
     },
     {
+      "name": "title_bar_text",
+      "value": "#182431"
+    },
+    {
       "name": "background_light_gray",
       "value": "#f1f3f5"
     },

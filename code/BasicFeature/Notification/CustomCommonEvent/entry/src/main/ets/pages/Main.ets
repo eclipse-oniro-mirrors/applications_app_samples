@@ -37,15 +37,16 @@ struct Main {
   @State currentEvent: string = '';
   @State detailState: Visibility = Visibility.None;
   @State currentState: Visibility = Visibility.None;
-  private validEventsSubscriber: commonEvent.CommonEventSubscriber | null = null; // this subscriber subscribe system defined ordinary events
+  // this subscriber subscribe system defined ordinary events
+  private validEventsSubscriber: commonEvent.CommonEventSubscriber | null = null;
   private feature: mainFeature = new mainFeature();
 
-  async onPageShow() {
+  async onPageShow(): Promise<void> {
     Logger.info("enter onPageShow");
     await this.feature.init();
   }
 
-  async onPageHide() {
+  async onPageHide(): Promise<void> {
     Logger.info("enter onPageHide");
     this.feature.reset();
   }
@@ -68,7 +69,7 @@ struct Main {
   }
 
   private systemEventCallback = (error: Base.BusinessError, event: commonEvent.CommonEventData) => {
-    let index = this.feature.getCurrentValidEvents().indexOf(event.event);
+    let index: number = this.feature.getCurrentValidEvents().indexOf(event.event);
     this.recTimesArray[index]++;
     this.recEventsArray[index] = event.event + ' : ' + this.recTimesArray[index].toString();
     this.totalEvents++;
@@ -106,10 +107,14 @@ struct Main {
     // refresh time
     sysTime.getCurrentTime().then((curTime) => {
       this.totalTimeInString = utils.convertTimeToFormatString(curTime - this.startTime);
+      Logger.info(`finish meditation, valid events: ${this.feature.getCurrentValidEvents().length}`);
       // unsubscribe
-      commonEvent.unsubscribe(this.validEventsSubscriber, () => {
-        Logger.info("unsubscribe called");
-      })
+      if (this.validEventsSubscriber !== null) {
+        commonEvent.unsubscribe(this.validEventsSubscriber, () => {
+          Logger.info("unsubscribe called");
+        })
+        this.validEventsSubscriber = null;
+      }
       let parameters: Record<string, string> = {
         'startTime': utils.getLocaleTime(this.startTime),
         'endTime': utils.getLocaleTime(curTime),
@@ -147,6 +152,7 @@ struct Main {
             .fontColor(0xCCCCCC)
             .visibility(this.currentState)
           Text(this.getMsg(this.currentEvent)).size({ width: '80%', height: '50%' })
+            .id('mainCurrentEventText')
             .fontSize(20)
             .fontColor(0xCCCCCC)
             .visibility(this.currentState)
@@ -156,11 +162,12 @@ struct Main {
               .fontColor(0xCCCCCC)
               .offset({ x: '10%', y: '0%' })
             Text(this.totalTimeInString).size({ width: '30%', height: '100%' })
+              .id('mainDurationText')
               .fontSize(20)
               .fontColor(0xCCCCCC)
           }.size({ width: '80%', height: '50%' })
-          .offset({ x: '0%', y: '5%' })
-          .visibility(this.detailState)
+            .offset({ x: '0%', y: '5%' })
+            .visibility(this.detailState)
 
           Row() {
             Text($r('app.string.total_interrupt_tips')).size({ width: '70%', height: '100%' })
@@ -168,19 +175,20 @@ struct Main {
               .fontColor(0xCCCCCC)
               .offset({ x: '10%', y: '0%' })
             Text(this.totalEventsInString).size({ width: '10%', height: '100%' })
+              .id('mainEventCountText')
               .fontSize(20)
               .fontColor(0xCCCCCC)
           }.size({ width: '80%', height: '50%' })
-          .offset({ x: '0%', y: '5%' })
-          .visibility(this.detailState)
+            .offset({ x: '0%', y: '5%' })
+            .visibility(this.detailState)
         }
         .size({ width: '90%', height: '20%' })
-        .backgroundColor(0xfbfafb)
-        .opacity(0.8)
-        .offset({ x: '0%', y: '5%' })
-        .borderRadius(10)
+          .backgroundColor(0xfbfafb)
+          .opacity(0.8)
+          .offset({ x: '0%', y: '5%' })
+          .borderRadius(10)
       }.size({ width: '100%', height: '100%' })
-      .offset({ x: '0%', y: '-15%' })
+        .offset({ x: '0%', y: '-15%' })
 
       Image($rawfile('nextDetail.png'))
         .id('nextDetail')
@@ -189,12 +197,7 @@ struct Main {
         .position({ x: '60%', y: '85%' })
         .visibility(this.detailState)
         .onClick(() => {
-          let validRecEvents: Array<string> = [];
-          this.recEventsArray.forEach((element: string) => {
-            if (element != '') {
-              validRecEvents.push(element);
-            }
-          });
+          let validRecEvents: Array<string> = mainFeature.compactRecordedEvents(this.recEventsArray);
           router.pushUrl({
             url: 'pages/Detail',
             params: {
@@ -204,7 +207,7 @@ struct Main {
           });
         })
     }.size({ width: '100%', height: '100%' })
-    .backgroundImage($rawfile('vbg720.png'))
-    .backgroundImageSize(ImageSize.Contain)
+      .backgroundImage($rawfile('vbg720.png'))
+      .backgroundImageSize(ImageSize.Contain)
   }
 }

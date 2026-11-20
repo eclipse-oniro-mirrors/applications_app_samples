@@ -26,7 +26,7 @@ export struct TitleBar {
           .fontWeight(700)
           .lineHeight(32)
           .margin({ left: 24 })
-          .fontColor('#182431')
+          .fontColor($r('app.color.title_font_color'))
       }
     }
     .width('100%')

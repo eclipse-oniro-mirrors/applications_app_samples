@@ -13,28 +13,26 @@
  * limitations under the License.
  */
 
-import UIAbility from '@ohos.app.ability.UIAbility';
-import Window from '@ohos.window';
+import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { window } from '@kit.ArkUI';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { logger } from '@ohos/notification';
-import Want from '@ohos.app.ability.Want';
-import AbilityConstant from '@ohos.app.ability.AbilityConstant';
-import Base from '@ohos.base';
 
-const TAG: string = 'MainAbility';
+const TAG: string = '[Sample_CustomNotification]';
 
 export default class MainAbility extends UIAbility {
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     logger.info(TAG, 'Ability onCreate');
   }
 
-  onDestroy() {
+  onDestroy(): void {
     logger.info(TAG, 'Ability onDestroy');
   }
 
-  onWindowStageCreate(windowStage: Window.WindowStage) {
+  onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
     logger.info(TAG, 'Ability onWindowStageCreate');
-    windowStage.loadContent('pages/Index', (err: Base.BusinessError) => {
+    windowStage.loadContent('pages/Index', (err: BusinessError) => {
       if (err.code) {
         logger.info(TAG, 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
         return;
@@ -42,17 +40,17 @@ export default class MainAbility extends UIAbility {
     });
   }
 
-  onWindowStageDestroy() {
+  onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources
     logger.info(TAG, 'Ability onWindowStageDestroy');
   }
 
-  onForeground() {
+  onForeground(): void {
     // Ability has brought to foreground
     logger.info(TAG, 'Ability onForeground');
   }
 
-  onBackground() {
+  onBackground(): void {
     // Ability has back to background
     logger.info(TAG, 'Ability onBackground');
   }

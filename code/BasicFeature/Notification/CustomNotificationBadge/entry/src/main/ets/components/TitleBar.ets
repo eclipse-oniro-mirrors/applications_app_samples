@@ -17,7 +17,7 @@
 // Page title bar
 @Component
 export struct TitleBar {
-  private title: string | Resource | undefined = undefined
+  public title: string | Resource | undefined = undefined
 
   build() {
     Row() {
@@ -26,10 +26,11 @@ export struct TitleBar {
         .fontWeight(700)
         .lineHeight(32)
         .margin({ left: 24 })
-        .fontColor('#182431')
+        .fontColor($r('app.color.title_bar_text'))
+        .id('titleBar')
     }
     .width('100%')
-    .height(70)
-    .backgroundColor($r('app.color.title_bar_background'))
+      .height(70)
+      .backgroundColor($r('app.color.title_bar_background'))
   }
 }

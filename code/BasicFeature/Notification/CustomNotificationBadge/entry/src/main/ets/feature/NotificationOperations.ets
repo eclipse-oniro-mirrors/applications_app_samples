@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2023 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 (the "License")
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -13,12 +13,12 @@
  * limitations under the License.
  */
 
-import image from '@ohos.multimedia.image';
-import notification from '@ohos.notificationManager';
+import { image } from '@kit.ImageKit';
+import { notificationManager as notification } from '@kit.NotificationKit';
 import { logger, notificationUtil, notificationContentUtil, notificationRequestUtil } from '@ohos/notification';
 
-const TAG: string = 'Sample_Notification';
-const MULTI_LINE_CONTENT: Array<string> = ['line0', 'line1', 'line2', 'line3']; // 多行文本通知的多行文本内容
+const TAG: string = '[Sample_CustomNotificationBadge]';
+const MULTI_LINE_CONTENT: string[] = ['line0', 'line1', 'line2', 'line3']; // 多行文本通知的多行文本内容
 
 interface NOTIFICATION_GROUP_TYPE {
   BASIC: string
@@ -43,83 +43,127 @@ export default class NotificationOperations {
   // 在初始化函数初始化基本通知类型的参数
   constructor(context: Context) {
     this.context = context;
-    let notificationTitle = '';
-    let notificationText = this.context.resourceManager.getStringSync($r('app.string.notification_content'));
-    let notificationAdditional = this.context.resourceManager.getStringSync($r('app.string.notification_additional'));
     this.basicContent = {
-      title: notificationTitle,
-      text: notificationText,
-      additionalText: notificationAdditional
+      title: '',
+      text: this.getResourceText($r('app.string.notification_content')),
+      additionalText: this.getResourceText($r('app.string.notification_additional'))
     }
   }
 
+  // 统一按资源 id 读取字符串，避免各构造方法里的调用链过长
+  private getResourceText(resId: Resource): string {
+    return this.context.resourceManager.getStringSync(resId);
+  }
+
+  // 获取当前基本通知内容快照，供外部观测构造结果
+  getBasicContent(): notification.NotificationBasicContent {
+    return {
+      title: this.basicContent.title,
+      text: this.basicContent.text,
+      additionalText: this.basicContent.additionalText
+    }
+  }
+
+  // 构造基本类型通知内容（仅构造，不发布）
+  buildBasicContent(): notification.NotificationContent {
+    this.basicContent.title = this.getResourceText($r('app.string.basic_notification'));
+    return notificationContentUtil.initBasicNotificationContent(this.basicContent);
+  }
+
+  // 构造长文本类型通知内容（仅构造，不发布）
+  buildLongTextContent(): notification.NotificationContent {
+    this.basicContent.title = this.getResourceText($r('app.string.long_text_notification'));
+    let notificationLongText: string = this.getResourceText($r('app.string.notification_long_text'));
+    let notificationBriefText: string = this.getResourceText($r('app.string.notification_brief_text'));
+    let notificationExpandedText: string =
+      this.getResourceText($r('app.string.notification_expanded_title'));
+    return notificationContentUtil.initNotificationLongTextContent(this.basicContent, notificationLongText,
+      notificationBriefText, notificationExpandedText);
+  }
+
+  // 构造多行文本类型通知内容（仅构造，不发布）
+  buildMultiLineContent(): notification.NotificationContent {
+    this.basicContent.title = this.getResourceText($r('app.string.multiline_notification'));
+    let notificationBriefText: string = this.getResourceText($r('app.string.notification_brief_text'));
+    let notificationLongTitle: string =
+      this.getResourceText($r('app.string.notification_expanded_title'));
+    return notificationContentUtil.initNotificationMultiLineContent(this.basicContent, notificationBriefText,
+      notificationLongTitle, MULTI_LINE_CONTENT);
+  }
+
+  // 构造图片类型通知内容（仅构造，不发布）
+  buildPictureContent(picture: image.PixelMap): notification.NotificationContent {
+    this.basicContent.title = this.getResourceText($r('app.string.picture_notification'));
+    let notificationBriefText: string = this.getResourceText($r('app.string.notification_brief_text'));
+    let notificationExpandedText: string =
+      this.getResourceText($r('app.string.notification_expanded_title'));
+    return notificationContentUtil.initNotificationPictureContent(this.basicContent, notificationBriefText,
+      notificationExpandedText, picture);
+  }
+
+  // 构造社交类型通知内容（仅构造，不发布）
+  buildConversationContent(): notification.NotificationContent {
+    this.basicContent.title = this.getResourceText($r('app.string.conversation_notification'));
+    return notificationContentUtil.initNotificationConversationContent(this.basicContent);
+  }
+
   // 发布基本类型通知
-  publishBasicNotification = () => {
+  publishBasicNotification = (): void => {
     try {
       logger.info(TAG, 'publishBasicNotification');
-      this.basicContent.title = this.context.resourceManager.getStringSync($r('app.string.basic_notification'));
-      let notificationContent = notificationContentUtil.initBasicNotificationContent(this.basicContent);
-      notificationUtil.publishNotification(notificationRequestUtil.initBasicNotificationRequest(notificationContent));
+      notificationUtil.publishNotification(
+        notificationRequestUtil.initBasicNotificationRequest(this.buildBasicContent()));
     } catch (error) {
-      logger.info(TAG, `publishBasicNotification error, error = ${JSON.stringify(error)}`);
+      logger.error(TAG, `publishBasicNotification error, error = ${JSON.stringify(error)}`);
     }
   }
 
   // 发布长文本类型通知
-  publishLongTextNotification = () => {
+  publishLongTextNotification = (): void => {
     try {
       logger.info(TAG, 'publishLongTextNotification');
-      this.basicContent.title = this.context.resourceManager.getStringSync($r('app.string.long_text_notification'));
-      let notificationLongText = this.context.resourceManager.getStringSync($r('app.string.notification_long_text'));
-      let notificationBriefText = this.context.resourceManager.getStringSync($r('app.string.notification_brief_text'));
-      let notificationExpandedText = this.context.resourceManager.getStringSync($r('app.string.notification_expanded_title'));
-      let notificationContent = notificationContentUtil.initNotificationLongTextContent(this.basicContent, notificationLongText, notificationBriefText, notificationExpandedText);
-      notificationUtil.publishNotification(notificationRequestUtil.initBasicNotificationRequest(notificationContent));
+      notificationUtil.publishNotification(
+        notificationRequestUtil.initBasicNotificationRequest(this.buildLongTextContent()));
     } catch (error) {
-      logger.info(TAG, `publishLongTextNotification error, error = ${JSON.stringify(error)}`);
+      logger.error(TAG, `publishLongTextNotification error, error = ${JSON.stringify(error)}`);
     }
   }
 
   // 发布多行文本类型通知
-  publishMultiLineNotification = () => {
+  publishMultiLineNotification = (): void => {
     try {
       logger.info(TAG, 'publishMultiLineNotification');
-      this.basicContent.title = this.context.resourceManager.getStringSync($r('app.string.multiline_notification'));
-      let notificationBriefText = this.context.resourceManager.getStringSync($r('app.string.notification_brief_text'));
-      let notificationLongTitle = this.context.resourceManager.getStringSync($r('app.string.notification_expanded_title'));
-      let notificationContent = notificationContentUtil.initNotificationMultiLineContent(this.basicContent, notificationBriefText, notificationLongTitle, MULTI_LINE_CONTENT);
-      notificationUtil.publishNotification(notificationRequestUtil.initBasicNotificationRequest(notificationContent));
+      notificationUtil.publishNotification(
+        notificationRequestUtil.initBasicNotificationRequest(this.buildMultiLineContent()));
     } catch (error) {
-      logger.info(TAG, `publishMultiLineNotification error, error = ${JSON.stringify(error)}`);
+      logger.error(TAG, `publishMultiLineNotification error, error = ${JSON.stringify(error)}`);
     }
   }
 
   // 发布图片类型通知
-  publishPictureNotification = async () => {
+  publishPictureNotification = async (): Promise<void> => {
     try {
       logger.info(TAG, 'publishPictureNotification');
-      this.basicContent.title = this.context.resourceManager.getStringSync($r('app.string.picture_notification'));
-      let notificationBriefText = this.context.resourceManager.getStringSync($r('app.string.notification_brief_text'));
-      let notificationExpandedText = this.context.resourceManager.getStringSync($r('app.string.notification_expanded_title'));
-      let imageArray = await this.context.resourceManager.getMediaContent($r('app.media.notification_icon').id);
-      let imageResource = image.createImageSource(imageArray.buffer);
-      let picture = await imageResource.createPixelMap();
-      let notificationContent = notificationContentUtil.initNotificationPictureContent(this.basicContent, notificationBriefText, notificationExpandedText, picture);
-      notificationUtil.publishNotification(notificationRequestUtil.initBasicNotificationRequest(notificationContent));
+      let imageArray: Uint8Array =
+        await this.context.resourceManager.getMediaContent($r('app.media.notification_icon').id);
+      let imageResource: image.ImageSource = image.createImageSource(imageArray.buffer);
+      let picture: image.PixelMap = await imageResource.createPixelMap();
+      notificationUtil.publishNotification(
+        notificationRequestUtil.initBasicNotificationRequest(this.buildPictureContent(picture)));
     } catch (error) {
-      logger.info(TAG, `publishPictureNotification error, error = ${JSON.stringify(error)}`);
+      logger.error(TAG, `publishPictureNotification error, error = ${JSON.stringify(error)}`);
     }
   }
 
   // 发布社交类型的通知
-  publishConversationNotification = async () => {
+  publishConversationNotification = async (): Promise<void> => {
     try {
       logger.info(TAG, 'publishConversationNotification');
-      this.basicContent.title = this.context.resourceManager.getStringSync($r('app.string.conversation_notification'));
-      let notificationContent = notificationContentUtil.initNotificationConversationContent(this.basicContent);
-      notificationUtil.publishNotification(notificationRequestUtil.initBasicNotificationRequest(notificationContent), NOTIFICATION_GROUP.CONVERSATION);
+      notificationUtil.publishNotification(
+        notificationRequestUtil.initBasicNotificationRequest(this.buildConversationContent()),
+        NOTIFICATION_GROUP.CONVERSATION);
     } catch (error) {
-      logger.info(TAG, `publishNotificationWithWantAgent error, error = ${JSON.stringify(error)}`);
+      logger.error(TAG, `publishNotificationWithWantAgent error, error = ${JSON.stringify(error)}`);
     }
   }
 }

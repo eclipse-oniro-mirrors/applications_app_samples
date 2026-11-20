@@ -28,7 +28,7 @@ export default class SettingFeature {
     this.innerContext = abilityContext
   }
 
-  async init() {
+  async init(): Promise<void> {
     await dataPreferences.getPreferences(this.innerContext, consts.DATA_BASE_NAME).then((pref=>{
       this.pref = pref
     })).catch(err=>{
@@ -36,16 +36,24 @@ export default class SettingFeature {
     })
   }
 
-  changeState(group: string, state: number) {
-    globalThis.settings.set(group, state);
-    let options = {
+  static normalizeState(state: number): number {
+    if (state === consts.ENABLE_STATE_ALWAYS || state === consts.ENABLE_STATE_ONCE) {
+      return state;
+    }
+    return consts.ENABLE_STATE_NEVER;
+  }
+
+  changeState(group: string, state: number): void {
+    let normalizedState: number = SettingFeature.normalizeState(state);
+    globalThis.settings.set(group, normalizedState);
+    let options: commonEvent.CommonEventPublishData = {
       isSticky: true,
       parameters: surveillanceEventsManager.getSurveillanceEventStates()
     }
     commonEvent.publish(consts.COMMON_EVENT_SETTING_UPDATE, options, () => {
       Logger.info('success to publish setting update event')
     })
-    this.pref.put(group, state).then(() => {
+    this.pref.put(group, normalizedState).then(() => {
       this.pref.flush()
     })
   }
@@ -62,15 +70,15 @@ export default class SettingFeature {
     return globalThis.settings.get(group) == consts.ENABLE_STATE_NEVER
   }
 
-  changeStateToAlways(group: string) {
+  changeStateToAlways(group: string): void {
     this.changeState(group, consts.ENABLE_STATE_ALWAYS)
   }
 
-  changeStateToOnce(group: string) {
+  changeStateToOnce(group: string): void {
     this.changeState(group, consts.ENABLE_STATE_ONCE)
   }
 
-  changeStateToNever(group: string) {
+  changeStateToNever(group: string): void {
     this.changeState(group, consts.ENABLE_STATE_NEVER)
   }
 }

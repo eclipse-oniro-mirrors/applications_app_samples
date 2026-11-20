@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import wantAgent from '@ohos.app.ability.wantAgent'
+import { WantAgent, wantAgent } from '@kit.AbilityKit';
 
 const REQUEST_CODE: number = 0 // WantAgentInfo的请求码，默认定义成0
 class WantAgentUtil {
@@ -24,7 +24,7 @@ class WantAgentUtil {
    * @param abilityName
    * @return return the created WantAgent object.
    */
-  async createWantAgentForStartAbility(bundleName: string, abilityName: string) {
+  async createWantAgentForStartAbility(bundleName: string, abilityName: string): Promise<WantAgent> {
     let wantAgentInfo: wantAgent.WantAgentInfo = {
       wants: [
         {
@@ -44,7 +44,7 @@ class WantAgentUtil {
    * @param mAction
    * @return return the created WantAgent object.
    */
-  async createWantAgentForCommonEvent(action: string) {
+  async createWantAgentForCommonEvent(action: string): Promise<WantAgent> {
     let wantAgentInfo: wantAgent.WantAgentInfo = {
       wants: [{ action: action }],
       operationType: wantAgent.OperationType.SEND_COMMON_EVENT,
@@ -54,4 +54,4 @@ class WantAgentUtil {
   }
 }
 
-export let wantAgentUtil = new WantAgentUtil();
+export let wantAgentUtil: WantAgentUtil = new WantAgentUtil();

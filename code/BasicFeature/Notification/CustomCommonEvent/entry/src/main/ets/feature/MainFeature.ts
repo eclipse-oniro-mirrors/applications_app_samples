@@ -14,23 +14,34 @@
  */
 import commonEventManager from '@ohos.commonEventManager';
 import consts from '../module/Consts';
-import surveillanceEventsManager from '../module/SurveillanceEventsManager';
+import surveillanceEventsManager, { EventData } from '../module/SurveillanceEventsManager';
 
 export default class MainFeature {
   private onceEvents: Array<string> = [];
   private currentValidEvents: Array<string> = surveillanceEventsManager.surveillanceEvents;
-  private settingSubscriber = null // this subscriber subscribe self defined sticky events
+  // this subscriber subscribe self defined sticky events
+  private settingSubscriber: commonEventManager.CommonEventSubscriber | null = null;
   private eventsState: Map<string, number> = new Map();
 
   constructor() {
     this.refreshCurrentState();
   }
 
+  static compactRecordedEvents(rec: Array<string>): Array<string> {
+    const validEvents: Array<string> = [];
+    rec.forEach((element: string) => {
+      if (element !== '') {
+        validEvents.push(element);
+      }
+    });
+    return validEvents;
+  }
+
   async init(): Promise<void> {
     if (this.settingSubscriber == null) {
-      let settingSubscriberInfo = {
+      let settingSubscriberInfo: commonEventManager.CommonEventSubscribeInfo = {
         events: [
-        consts.COMMON_EVENT_SETTING_UPDATE
+          consts.COMMON_EVENT_SETTING_UPDATE
         ]
       };
       commonEventManager.createSubscriber(settingSubscriberInfo).then((subscriber) => {
@@ -48,7 +59,7 @@ export default class MainFeature {
 
   refreshCurrentState(): void {
     this.clearEvents();
-    let eventStates = surveillanceEventsManager.getSurveillanceEventStates();
+    let eventStates: EventData = surveillanceEventsManager.getSurveillanceEventStates();
     surveillanceEventsManager.surveillanceEvents.forEach((element: string) => {
       this.eventsState.set(element, eventStates[`${element}`]);
     });
@@ -76,6 +87,9 @@ export default class MainFeature {
   }
 
   reset(): void {
+    if (this.settingSubscriber == null) {
+      return;
+    }
     commonEventManager.unsubscribe(this.settingSubscriber, () => {
       this.settingSubscriber = null;
     });

@@ -19,7 +19,10 @@ export { notificationRequestUtil } from './src/main/ets/notification/Notificatio
 
 export { notificationContentUtil } from './src/main/ets/notification/NotificationContentUtil';
 
-export { notificationManagement } from './src/main/ets/notification/NotificationManagementUtil';
+export {
+  notificationManagement,
+  GetAllNotificationsResultType
+} from './src/main/ets/notification/NotificationManagementUtil';
 
 export { logger } from './src/main/ets/util/Logger';
 

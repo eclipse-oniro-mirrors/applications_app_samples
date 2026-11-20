@@ -4,6 +4,7 @@
 /.idea
 **/build
 /.hvigor
+**/oh-package-lock.json5
 .cxx
 /.clangd
 /.clang-format

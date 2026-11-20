@@ -20,8 +20,8 @@ import { Header } from '../component/Header';
 import launchFeature from '../feature/LaunchFeature';
 
 class EventData {
-  event: string = '';
-  title: Resource | null = null;
+  public event: string = '';
+  public title: Resource | null = null;
 }
 
 @Entry
@@ -37,7 +37,7 @@ struct Setting {
     { event: commonEvent.Support.COMMON_EVENT_SCREEN_UNLOCKED, title: $r('app.string.enable_screen_unlocked') }
   ];
 
-  aboutToAppear() {
+  aboutToAppear(): void {
     this.feature.init();
   }
 
