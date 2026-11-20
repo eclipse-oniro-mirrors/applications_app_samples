@@ -5674,5 +5674,1274 @@ export default function SequenceFiveATest(): void {
       expect(board.isEmpty()).assertEqual(true);
     });
 
+    /**
+     * @tc.name SequenceFiveATest_case_0210
+     * @tc.desc state-transition: replay user action sequence AAUAC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0210', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('A');
+      board.clickUpdate();
+      board.typeText('A');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.inputPlaceholder()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(1);
+      expect(board.inputEvents).assertEqual(4);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0211
+     * @tc.desc state-transition: replay user action sequence ANUAC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0211', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('\u65b0');
+      board.clickUpdate();
+      board.typeText('A');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.inputPlaceholder()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(1);
+      expect(board.inputEvents).assertEqual(4);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0212
+     * @tc.desc state-transition: replay user action sequence ACUAC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0212', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clearText();
+      board.clickUpdate();
+      board.typeText('A');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.inputPlaceholder()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(1);
+      expect(board.inputEvents).assertEqual(4);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0213
+     * @tc.desc state-transition: replay user action sequence AUAAC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0213', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clickUpdate();
+      board.typeText('A');
+      board.typeText('A');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.inputPlaceholder()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(1);
+      expect(board.inputEvents).assertEqual(4);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0214
+     * @tc.desc state-transition: replay user action sequence AAAAC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0214', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('A');
+      board.typeText('A');
+      board.typeText('A');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0215
+     * @tc.desc state-transition: replay user action sequence ANAAC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0215', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('\u65b0');
+      board.typeText('A');
+      board.typeText('A');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0216
+     * @tc.desc state-transition: replay user action sequence ACAAC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0216', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clearText();
+      board.typeText('A');
+      board.typeText('A');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0217
+     * @tc.desc state-transition: replay user action sequence AUNAC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0217', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clickUpdate();
+      board.typeText('\u65b0');
+      board.typeText('A');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.inputPlaceholder()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(1);
+      expect(board.inputEvents).assertEqual(4);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0218
+     * @tc.desc state-transition: replay user action sequence AANAC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0218', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('A');
+      board.typeText('\u65b0');
+      board.typeText('A');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0219
+     * @tc.desc state-transition: replay user action sequence ANNAC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0219', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('\u65b0');
+      board.typeText('\u65b0');
+      board.typeText('A');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0220
+     * @tc.desc state-transition: replay user action sequence ACNAC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0220', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clearText();
+      board.typeText('\u65b0');
+      board.typeText('A');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0221
+     * @tc.desc state-transition: replay user action sequence AUCAC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0221', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clickUpdate();
+      board.clearText();
+      board.typeText('A');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.inputPlaceholder()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(1);
+      expect(board.inputEvents).assertEqual(4);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0222
+     * @tc.desc state-transition: replay user action sequence AACAC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0222', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('A');
+      board.clearText();
+      board.typeText('A');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0223
+     * @tc.desc state-transition: replay user action sequence ANCAC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0223', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('\u65b0');
+      board.clearText();
+      board.typeText('A');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0224
+     * @tc.desc state-transition: replay user action sequence ACCAC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0224', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clearText();
+      board.clearText();
+      board.typeText('A');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0225
+     * @tc.desc state-transition: replay user action sequence AUUNC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0225', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clickUpdate();
+      board.clickUpdate();
+      board.typeText('\u65b0');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.inputPlaceholder()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(2);
+      expect(board.inputEvents).assertEqual(3);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0226
+     * @tc.desc state-transition: replay user action sequence AAUNC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0226', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('A');
+      board.clickUpdate();
+      board.typeText('\u65b0');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.inputPlaceholder()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(1);
+      expect(board.inputEvents).assertEqual(4);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0227
+     * @tc.desc state-transition: replay user action sequence ANUNC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0227', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('\u65b0');
+      board.clickUpdate();
+      board.typeText('\u65b0');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.inputPlaceholder()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(1);
+      expect(board.inputEvents).assertEqual(4);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0228
+     * @tc.desc state-transition: replay user action sequence ACUNC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0228', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clearText();
+      board.clickUpdate();
+      board.typeText('\u65b0');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.inputPlaceholder()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(1);
+      expect(board.inputEvents).assertEqual(4);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0229
+     * @tc.desc state-transition: replay user action sequence AUANC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0229', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clickUpdate();
+      board.typeText('A');
+      board.typeText('\u65b0');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.inputPlaceholder()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(1);
+      expect(board.inputEvents).assertEqual(4);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0230
+     * @tc.desc state-transition: replay user action sequence AAANC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0230', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('A');
+      board.typeText('A');
+      board.typeText('\u65b0');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0231
+     * @tc.desc state-transition: replay user action sequence ANANC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0231', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('\u65b0');
+      board.typeText('A');
+      board.typeText('\u65b0');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0232
+     * @tc.desc state-transition: replay user action sequence ACANC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0232', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clearText();
+      board.typeText('A');
+      board.typeText('\u65b0');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0233
+     * @tc.desc state-transition: replay user action sequence AUNNC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0233', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clickUpdate();
+      board.typeText('\u65b0');
+      board.typeText('\u65b0');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.inputPlaceholder()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(1);
+      expect(board.inputEvents).assertEqual(4);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0234
+     * @tc.desc state-transition: replay user action sequence AANNC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0234', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('A');
+      board.typeText('\u65b0');
+      board.typeText('\u65b0');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0235
+     * @tc.desc state-transition: replay user action sequence ANNNC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0235', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('\u65b0');
+      board.typeText('\u65b0');
+      board.typeText('\u65b0');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0236
+     * @tc.desc state-transition: replay user action sequence ACNNC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0236', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clearText();
+      board.typeText('\u65b0');
+      board.typeText('\u65b0');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0237
+     * @tc.desc state-transition: replay user action sequence AUCNC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0237', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clickUpdate();
+      board.clearText();
+      board.typeText('\u65b0');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.inputPlaceholder()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(1);
+      expect(board.inputEvents).assertEqual(4);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0238
+     * @tc.desc state-transition: replay user action sequence AACNC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0238', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('A');
+      board.clearText();
+      board.typeText('\u65b0');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0239
+     * @tc.desc state-transition: replay user action sequence ANCNC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0239', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('\u65b0');
+      board.clearText();
+      board.typeText('\u65b0');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0240
+     * @tc.desc state-transition: replay user action sequence ACCNC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0240', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clearText();
+      board.clearText();
+      board.typeText('\u65b0');
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0241
+     * @tc.desc state-transition: replay user action sequence AUUCC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0241', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clickUpdate();
+      board.clickUpdate();
+      board.clearText();
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.inputPlaceholder()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(2);
+      expect(board.inputEvents).assertEqual(3);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0242
+     * @tc.desc state-transition: replay user action sequence AAUCC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0242', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('A');
+      board.clickUpdate();
+      board.clearText();
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.inputPlaceholder()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(1);
+      expect(board.inputEvents).assertEqual(4);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0243
+     * @tc.desc state-transition: replay user action sequence ANUCC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0243', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('\u65b0');
+      board.clickUpdate();
+      board.clearText();
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.inputPlaceholder()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(1);
+      expect(board.inputEvents).assertEqual(4);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0244
+     * @tc.desc state-transition: replay user action sequence ACUCC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0244', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clearText();
+      board.clickUpdate();
+      board.clearText();
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.inputPlaceholder()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(1);
+      expect(board.inputEvents).assertEqual(4);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0245
+     * @tc.desc state-transition: replay user action sequence AUACC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0245', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clickUpdate();
+      board.typeText('A');
+      board.clearText();
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.inputPlaceholder()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(1);
+      expect(board.inputEvents).assertEqual(4);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0246
+     * @tc.desc state-transition: replay user action sequence AAACC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0246', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('A');
+      board.typeText('A');
+      board.clearText();
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0247
+     * @tc.desc state-transition: replay user action sequence ANACC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0247', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('\u65b0');
+      board.typeText('A');
+      board.clearText();
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0248
+     * @tc.desc state-transition: replay user action sequence ACACC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0248', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clearText();
+      board.typeText('A');
+      board.clearText();
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0249
+     * @tc.desc state-transition: replay user action sequence AUNCC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0249', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clickUpdate();
+      board.typeText('\u65b0');
+      board.clearText();
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.inputPlaceholder()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(1);
+      expect(board.inputEvents).assertEqual(4);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0250
+     * @tc.desc state-transition: replay user action sequence AANCC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0250', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('A');
+      board.typeText('\u65b0');
+      board.clearText();
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0251
+     * @tc.desc state-transition: replay user action sequence ANNCC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0251', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('\u65b0');
+      board.typeText('\u65b0');
+      board.clearText();
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0252
+     * @tc.desc state-transition: replay user action sequence ACNCC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0252', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clearText();
+      board.typeText('\u65b0');
+      board.clearText();
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0253
+     * @tc.desc state-transition: replay user action sequence AUCCC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0253', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clickUpdate();
+      board.clearText();
+      board.clearText();
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.inputPlaceholder()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(1);
+      expect(board.inputEvents).assertEqual(4);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0254
+     * @tc.desc state-transition: replay user action sequence AACCC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0254', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('A');
+      board.clearText();
+      board.clearText();
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0255
+     * @tc.desc state-transition: replay user action sequence ANCCC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0255', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.typeText('\u65b0');
+      board.clearText();
+      board.clearText();
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
+    /**
+     * @tc.name SequenceFiveATest_case_0256
+     * @tc.desc state-transition: replay user action sequence ACCCC and verify parent text, placeholder and counters.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('SequenceFiveATest_case_0256', 0, () => {
+      const board: WishBoard = new WishBoard();
+      expect(board.parentText).assertEqual('"\u270d\ufe0f \u5199\u4e0b\u4f60\u7684\u613f\u671b:"');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      board.typeText('A');
+      board.clearText();
+      board.clearText();
+      board.clearText();
+      board.clearText();
+      expect(board.parentText).assertEqual('');
+      expect(board.mainTitle()).assertEqual('');
+      expect(board.bottomEcho()).assertEqual('');
+      expect(board.mainPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.inputPlaceholder()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.bottomPlaceholder).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(board.updateClicks).assertEqual(0);
+      expect(board.inputEvents).assertEqual(5);
+      expect(board.isEmpty()).assertEqual(true);
+    });
+
   });
 }
