@@ -2,7 +2,7 @@
 
 ## 简介
 
-本示例展示了通过 AVCodec Kit 的 OH_AVCapability 接口查询系统支持的编解码器及能力规格的开发方法，与开发指南《[获取支持的编解码能力](../docs/zh-cn/application-dev/media/avcodec/obtain-supported-codecs.md)》《[典型场景的视频编码配置](../docs/zh-cn/application-dev/media/avcodec/video-encoding-configuration-typical-scenarios.md)》《[B帧视频编码](../docs/zh-cn/application-dev/media/avcodec/video-encoding-b-frame.md)》《[时域可分层视频编码](../docs/zh-cn/application-dev/media/avcodec/video-encoding-temporal-scalability.md)》配套使用，示例代码以 `[Start xxx]` / `[End xxx]` 标记嵌入各场景函数中，供文档通过代码片段名引用.
+本示例展示了通过 AVCodec Kit 的 OH_AVCapability 接口查询系统支持的编解码器及能力规格的开发方法，与开发指南《[获取支持的编解码能力](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/media/avcodec/obtain-supported-codecs.md)》《[典型场景的视频编码配置](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/media/avcodec/video-encoding-configuration-typical-scenarios.md)》《[B帧视频编码](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/media/avcodec/video-encoding-b-frame.md)》《[时域可分层视频编码](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/media/avcodec/video-encoding-temporal-scalability.md)》配套使用，示例代码以 `[Start xxx]` / `[End xxx]` 标记嵌入各场景函数中，供文档通过代码片段名引用.
 
 主要能力：
 
