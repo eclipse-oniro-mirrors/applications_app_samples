@@ -13,36 +13,78 @@
  * limitations under the License.
  */
 
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+import { describe, it, expect as hypiumExpect, TestType, Size, Level } from '@ohos/hypium';
+import type { Assert } from '@ohos/hypium';
+import { storeBackupFile, restoreBackupFile } from '../main/ets/backuprestore/BackupFileTransfer';
+import type { BackupTransferFile, BackupTransferIo } from '../main/ets/backuprestore/BackupFileTransfer';
 
-export default function localUnitTest() {
-  describe('localUnitTest', () => {
-    // Defines a test suite. Two parameters are supported: test suite name and test suite function.
-    beforeAll(() => {
-      // Presets an action, which is performed only once before all test cases of the test suite start.
-      // This API supports only one parameter: preset action function.
-    });
-    beforeEach(() => {
-      // Presets an action, which is performed before each unit test case starts.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: preset action function.
-    });
-    afterEach(() => {
-      // Presets a clear action, which is performed after each unit test case ends.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: clear action function.
-    });
-    afterAll(() => {
-      // Presets a clear action, which is performed after all test cases of the test suite end.
-      // This API supports only one parameter: clear action function.
-    });
-    it('assertContain', 0, () => {
-      // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
-      let a = 'abc';
-      let b = 'b';
-      // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
-      expect(a).assertContain(b);
-      expect(a).assertEqual(a);
+function expect(actual: boolean | number | string | undefined): Assert {
+  console.info(`assert actual=${actual}`);
+  return hypiumExpect(actual);
+}
+
+class LocalTransferIoProbe implements BackupTransferIo {
+  events: string[] = [];
+
+  accessSync(path: string): boolean {
+    this.events.push(`access:${path}`);
+    return false;
+  }
+
+  mkdirSync(path: string): void {
+    this.events.push(`mkdir:${path}`);
+  }
+
+  copyFileSync(source: string | number, destination: string | number): void {
+    this.events.push(`copy:${source}->${destination}`);
+  }
+
+  closeSync(fd: number): void {
+    this.events.push(`close:${fd}`);
+  }
+}
+
+/** Registers a local production transfer ownership check. */
+export default function localUnitTest(): void {
+  describe('localUnitTest', (): void => {
+    /**
+     * @tc.number SUB_APP_FILE_BACKUP_LOCAL_0100
+     * @tc.name testAppFileBackupLocal0001
+     * @tc.desc Verify production store and restore directions, descriptor closure, and unchanged inputs.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testAppFileBackupLocal0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const TAG: string = 'testAppFileBackupLocal0001';
+      console.info(`${TAG} start`);
+      try {
+        const io: LocalTransferIoProbe = new LocalTransferIoProbe();
+        const source: BackupTransferFile = {
+          fd: 7,
+          bundleName: 'com.samples.target',
+          uri: 'manage.json'
+        };
+        const destination: BackupTransferFile = {
+          fd: 8,
+          bundleName: 'com.samples.target',
+          uri: 'manage.json'
+        };
+        storeBackupFile('/sandbox', source, io);
+        restoreBackupFile('/sandbox', destination, io);
+        expect(io.events.join(',')).assertEqual(
+          'access:/sandbox/com.samples.target,mkdir:/sandbox/com.samples.target,' +
+          'copy:7->/sandbox/com.samples.target/manage.json,close:7,' +
+          'copy:/sandbox/com.samples.target/manage.json->8,close:8');
+        expect(source.fd).assertEqual(7);
+        expect(source.bundleName).assertEqual('com.samples.target');
+        expect(source.uri).assertEqual('manage.json');
+        expect(destination.fd).assertEqual(8);
+        expect(destination.bundleName).assertEqual('com.samples.target');
+        expect(destination.uri).assertEqual('manage.json');
+      } finally {
+        console.info(`${TAG} end`);
+      }
     });
   });
 }
