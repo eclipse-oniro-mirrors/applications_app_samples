@@ -20,7 +20,7 @@
 
 ## 自动化用例（entry/src/ohosTest）
 
-测试环境：HarmonyOS API 26，hvigor 构建 debug 版 ohosTest HAP，Hypium 1.0.6，
+测试环境：OpenHarmony API 26，hvigor 构建 debug 版 ohosTest HAP，Hypium 1.0.6，
 运行入口为 DevEco Studio 的 `entry@ohosTest` 运行配置，参数清单：包名 `ohos.samples.resourcemanager`（`-b`）、测试模块 `entry_test`（`-m`）、运行器路径 `/ets/TestRunner/OpenHarmonyTestRunner`（`-s unittest`）、超时 `-s timeout 600000`，并按 `describe` 追加 `-s class <Describe>`。
 
 | 测试套件 | 用例数 |

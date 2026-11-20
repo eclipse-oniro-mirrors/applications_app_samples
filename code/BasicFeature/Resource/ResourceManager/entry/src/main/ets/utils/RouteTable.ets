@@ -19,15 +19,15 @@
  */
 export class RouteTable {
   /** Entry page of the sample. */
-  static readonly PAGE_INDEX: string = 'pages/Index';
+  public static readonly PAGE_INDEX: string = 'pages/Index';
   /** Page that walks the resource APIs. */
-  static readonly PAGE_BASIC_RESOURCES: string = 'pages/BasicResources';
+  public static readonly PAGE_BASIC_RESOURCES: string = 'pages/BasicResources';
   /** Page that drives the overlay module. */
-  static readonly PAGE_OVERLAY: string = 'pages/Overlay';
+  public static readonly PAGE_OVERLAY: string = 'pages/Overlay';
   /** Common event published by the test to jump into BasicResources. */
-  static readonly RESOURCES_EVENT: string = 'TestResourcesEvent';
+  public static readonly RESOURCES_EVENT: string = 'TestResourcesEvent';
   /** Prefix every router url of this sample starts with. */
-  static readonly PAGE_PREFIX: string = 'pages/';
+  public static readonly PAGE_PREFIX: string = 'pages/';
 
   private static readonly PAGES: string[] = [
     RouteTable.PAGE_INDEX,

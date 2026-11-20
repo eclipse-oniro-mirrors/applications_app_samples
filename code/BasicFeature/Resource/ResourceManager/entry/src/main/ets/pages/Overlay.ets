@@ -26,8 +26,8 @@ const TAG: string = '[Sample_ResourceManager]';
 struct Overlay {
   private resmgr = getContext().resourceManager;
   @State message: string = 'Test Overlay'
-  @State resources: string = this.resmgr.getStringSync($r("app.string.test_string").id)
-  @State pixmap: PixelMap = this.resmgr.getDrawableDescriptor($r("app.media.icon").id).getPixelMap()
+  @State resources: string = this.resmgr.getStringSync($r('app.string.test_string').id)
+  @State pixmap: PixelMap = this.resmgr.getDrawableDescriptor($r('app.media.icon').id).getPixelMap()
   @State overlayState: string = OverlayState.INITIAL
 
   /** Maps the controller decision onto the real resource string. */
@@ -55,8 +55,8 @@ struct Overlay {
     this.overlayState = OverlayController.nextStateOf(this.overlayState, action, success);
     hilog.info(DOMAIN, TAG, 'overlay action %{public}s success=%{public}s state=%{public}s',
       action, String(success), this.overlayState);
-    this.pixmap = this.resmgr.getDrawableDescriptor($r("app.media.icon").id).getPixelMap();
-    this.resources = this.resmgr.getStringSync($r("app.string.test_string").id);
+    this.pixmap = this.resmgr.getDrawableDescriptor($r('app.media.icon').id).getPixelMap();
+    this.resources = this.resmgr.getStringSync($r('app.string.test_string').id);
   }
 
   build() {

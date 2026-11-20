@@ -24,21 +24,21 @@ import { resourceManager } from '@kit.LocalizationKit';
  */
 export class ResourceUtils {
   /** Screen density buckets that the system ships pre-built media for. */
-  static readonly DENSITY_BUCKETS: number[] = [120, 160, 240, 320, 480, 640];
+  public static readonly DENSITY_BUCKETS: number[] = [120, 160, 240, 320, 480, 640];
   /** Fallback bucket used when the requested density is not a positive integer. */
-  static readonly DEFAULT_DENSITY: number = 320;
+  public static readonly DEFAULT_DENSITY: number = 320;
   /** Baseline density used to turn a bucket into a scale factor. */
-  static readonly BASE_DENSITY: number = 160;
+  public static readonly BASE_DENSITY: number = 160;
   /** Raw bytes carried by one base64 group. */
-  static readonly BASE64_GROUP_BYTES: number = 3;
+  public static readonly BASE64_GROUP_BYTES: number = 3;
   /** Characters produced by one base64 group. */
-  static readonly BASE64_GROUP_CHARS: number = 4;
+  public static readonly BASE64_GROUP_CHARS: number = 4;
   /** Maximum length kept by sanitizeWorld before ellipsis is appended. */
-  static readonly WORLD_MAX_LENGTH: number = 16;
+  public static readonly WORLD_MAX_LENGTH: number = 16;
   /** Replacement used when the placeholder word is empty or blank. */
-  static readonly DEFAULT_WORLD: string = 'world';
+  public static readonly DEFAULT_WORLD: string = 'world';
   /** Marker used by resourceKey when a field is missing. */
-  static readonly MISSING_FIELD: string = '-';
+  public static readonly MISSING_FIELD: string = '-';
 
   private static readonly KB: number = 1024;
   private static readonly MB: number = 1024 * 1024;

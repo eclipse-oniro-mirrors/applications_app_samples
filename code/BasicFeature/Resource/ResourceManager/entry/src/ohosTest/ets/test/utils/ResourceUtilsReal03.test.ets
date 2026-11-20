@@ -355,12 +355,12 @@ export default function resourceUtilsReal03Test() {
     it('testResourceUtilsReal0316', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testResourceUtilsReal0316 begin');
       const inner: string = ResourceUtils.sanitizeWorld('  a  b  ');
-      const leading: string = ResourceUtils.sanitizeWorld('   Android');
-      const trailing: string = ResourceUtils.sanitizeWorld('Harmony   ');
+      const leading: string = ResourceUtils.sanitizeWorld('   apple');
+      const trailing: string = ResourceUtils.sanitizeWorld('orange   ');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=[%{public}s][%{public}s][%{public}s]', inner, leading, trailing);
       expect(inner).assertEqual('a  b');
-      expect(leading).assertEqual('Android');
-      expect(trailing).assertEqual('Harmony');
+      expect(leading).assertEqual('apple');
+      expect(trailing).assertEqual('orange');
       expect(inner.indexOf('a  b')).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testResourceUtilsReal0316 end');
     })

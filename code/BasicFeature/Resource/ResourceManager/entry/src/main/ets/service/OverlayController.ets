@@ -37,13 +37,13 @@ export enum OverlayState {
  */
 export class OverlayController {
   /** Module whose resources are overlaid statically. */
-  static readonly OVERLAY_MODULE_NAME: string = 'libraryOverlay';
+  public static readonly OVERLAY_MODULE_NAME: string = 'libraryOverlay';
   /** Runtime hsp packaged next to the entry module. */
-  static readonly RUNTIME_HSP_NAME: string = 'libraryRuntimeOverlay-default-signed.hsp';
+  public static readonly RUNTIME_HSP_NAME: string = 'libraryRuntimeOverlay-default-signed.hsp';
   /** Returned when the bundle code dir cannot be used to build a path. */
-  static readonly INVALID_PATH: string = '';
+  public static readonly INVALID_PATH: string = '';
   /** Returned when an action name is unknown. */
-  static readonly UNKNOWN_ACTION: string = '';
+  public static readonly UNKNOWN_ACTION: string = '';
 
   /** Joins bundleCodeDir with the runtime hsp name, empty string when codeDir is invalid. */
   static buildHspPath(codeDir: string): string {
