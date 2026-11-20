@@ -286,6 +286,31 @@ function fail(message: string): never {
 function assertNever(value: never): never {
   throw new Error(`Unexpected value: ${value}`);
 }
+
+interface NevCircle {
+  kind: 'circle';
+  radius: number;
+}
+
+interface NevSquare {
+  kind: 'square';
+  sideLength: number;
+}
+
+type NevShape = NevCircle | NevSquare;
+
+function nevShapeArea(shape: NevShape): number {
+  switch (shape.kind) {
+    case 'circle':
+      return Math.PI * shape.radius * shape.radius;
+    case 'square':
+      return shape.sideLength * shape.sideLength;
+    default:
+      // 若联合新增成员未在case覆盖，此处编译报错
+      const _check: never = shape;
+      return _check;
+  }
+}
 // [End never_type]
 
 // ===== bigint_type =====
@@ -383,6 +408,9 @@ if (optionalValue !== null) {
 // 使用可选链
 let obj: NullableObj = {};
 let sub: string | undefined = obj?.prop?.sub;
+if (sub !== undefined) {
+  console.info(`${sub}`);
+}
 // [End null_safety]
 
 // ===== throwing_exceptions =====
@@ -708,7 +736,7 @@ let tiRatio = 3.14;  // 推断为number（宽泛类型）
 
 // ===== type_inference_best_common =====
 // [Start type_inference_best_common]
-let tiMixed: (number | null)[] = [0, 1, null]; // 需显式标注为联合类型数组
+let tiMixed = [0, 1, null]; // 自动推断为(number | null)[]，无需显式标注
 let tiNames: string[] = ['Alice', 'Bob'];      // 推断为string[]
 // [End type_inference_best_common]
 

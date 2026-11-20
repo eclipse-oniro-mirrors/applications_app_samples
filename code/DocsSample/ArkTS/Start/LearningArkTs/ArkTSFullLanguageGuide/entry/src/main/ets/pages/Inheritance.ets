@@ -1169,39 +1169,43 @@ for (let shape of shapes) {
 }
 // [End polymorphism_concept]
 
-// [Start implements_clause]
-interface InhComparable {
-  compareTo(other: Object): number;
-}
+// [Start abstract_class_basic]
+// 抽象类：不能实例化，只能作为父类被继承
+abstract class AbsShape {
+  public name: string;
 
-class InhProduct implements InhComparable {
-  public price: number;
-
-  constructor(price: number) {
-    this.price = price;
+  constructor(name: string) {
+    this.name = name;
   }
 
-  compareTo(other: Object): number {
-    if (other instanceof InhProduct) {
-      return this.price - other.price;
-    }
-    return 0;
+  // 抽象方法：不提供实现，强制子类实现
+  abstract area(): number;
+
+  // 具体方法：提供默认实现，子类可直接继承或覆盖
+  public describe(): string {
+    return `${this.name}的面积为${this.area()}`;
   }
 }
 
-class InhDiscountedProduct extends InhProduct implements InhComparable {
-  public discount: number;
+class AbsRectangle extends AbsShape {
+  public width: number;
+  public height: number;
 
-  constructor(price: number, discount: number) {
-    super(price);
-    this.discount = discount;
+  constructor(name: string, width: number, height: number) {
+    super(name);
+    this.width = width;
+    this.height = height;
   }
 
-  getFinalPrice(): number {
-    return this.price * (1 - this.discount);
+  area(): number {
+    return this.width * this.height;
   }
 }
-// [End implements_clause]
+
+// let shape: AbsShape = new AbsShape('图形');  // 编译错误：抽象类不能实例化
+let absRectangle: AbsRectangle = new AbsRectangle('矩形', 3, 4);
+console.info(absRectangle.describe());  // 矩形的面积为12
+// [End abstract_class_basic]
 
 
 // ===== class_inheritance_essence =====
@@ -1325,3 +1329,37 @@ class Child extends Parent {
   // 子类成员
 }
 // [End extends_syntax]
+// ===== super_usage_restrictions =====
+// [Start super_usage_restrictions]
+class RestrictionParent {
+  public name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  greet(): void {
+    console.info(`Parent: ${this.name}`);
+  }
+}
+
+class RestrictionChild extends RestrictionParent {
+  public age: number;
+
+  constructor(name: string, age: number) {
+    // this.age = age;  // 错误：super()调用之前不能访问this
+    super(name);        // 限制一：super()须在任何this访问之前调用
+    this.age = age;     // super()之后才可访问this
+  }
+
+  override greet(): void {
+    super.greet();  // 限制三：super只用于super()与super.方法名()调用场景
+    // console.info(`${super.name}`);  // 限制二：不能通过super访问父类实例属性，应使用this
+    // let parentRef = super;          // 错误：super不能单独引用
+    console.info(`Child: ${this.name}, ${this.age}`);
+  }
+}
+
+let restrictionChild: RestrictionChild = new RestrictionChild('Alice', 25);
+restrictionChild.greet();  // 输出两行：Parent: Alice / Child: Alice, 25
+// [End super_usage_restrictions]

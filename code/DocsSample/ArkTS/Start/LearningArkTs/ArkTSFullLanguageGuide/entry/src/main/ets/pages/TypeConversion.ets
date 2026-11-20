@@ -112,8 +112,8 @@ function typeGuardProcessValue(value: string | number | boolean): void {
   }
 }
 
-typeGuardProcessValue('Hello');  // 字符串长度: 5, 大写: HELLO
-typeGuardProcessValue(42);       // 数值: 42.00, 平方: 1764
+typeGuardProcessValue('Hello');  // 输出两行：字符串长度: 5 / 大写: HELLO
+typeGuardProcessValue(42);       // 输出两行：数值: 42.00 / 平方: 1764
 typeGuardProcessValue(true);     // 布尔值: 真
 // [End typeof_type_guard]
 
@@ -158,8 +158,8 @@ function makeSound(pet: TypeGuardDog | Cat): void {
 let myDog = new TypeGuardDog('Buddy');
 let myCat = new Cat('Whiskers');
 
-makeSound(myDog); // Pet name: Buddy, Buddy barks: Woof!
-makeSound(myCat); // Pet name: Whiskers, Whiskers meows: Meow!
+makeSound(myDog); // 输出两行：Pet name: Buddy / Buddy barks: Woof!
+makeSound(myCat); // 输出两行：Pet name: Whiskers / Whiskers meows: Meow!
 // [End instanceof_type_guard]
 
 // ===== discriminated_union_vehicle_example =====
@@ -1039,6 +1039,10 @@ type TaskState = 'pending' | 'running' | 'done';
 
 let state: TaskState = 'pending';
 // state = 'finished'; // 编译错误：'finished'不是TaskState的成员
+
+// const声明的常量推断为字面量类型
+const pi = 3.14; // 推断为字面量类型 3.14
+let piValue: number = pi; // 字面量类型可赋给 number
 // [End literal_type_basic]
 
 // ===== object_object_type =====
@@ -1270,7 +1274,7 @@ creature.speak(); // 'Buddy makes a sound'
 // 向下转型：需先确认实际类型
 if (creature instanceof Hound) {
   let myHound: Hound = creature; // 守卫分支内自动收窄
-  myHound.bark();            // 'Buddy barks: Woof!'
+  myHound.bark(); // 'Buddy barks: Woof!'
 }
 // [End subtype_class_hierarchy]
 
@@ -1338,3 +1342,26 @@ console.info(`${text.length}`);     // 3
 let num: number = Number('123');
 console.info(`${num.toFixed(2)}`); // 123.00
 // [End assertion_vs_conversion]
+
+// ===== assertion_runtime_check =====
+// [Start assertion_runtime_check]
+class ShapeBase {
+  public name: string = 'shape';
+}
+
+class RoundShape extends ShapeBase {
+  public draw(): void {
+    console.info(`draw ${this.name}`);
+  }
+}
+
+let checkShape: ShapeBase = new ShapeBase();
+
+let wrongCircle: RoundShape = checkShape as RoundShape;
+// wrongCircle.draw(); // 运行时错误：调用RoundShape成员会触发运行时类型检查失败
+
+// 正确做法：先确认实际类型再访问
+if (checkShape instanceof RoundShape) {
+  checkShape.draw();
+}
+// [End assertion_runtime_check]

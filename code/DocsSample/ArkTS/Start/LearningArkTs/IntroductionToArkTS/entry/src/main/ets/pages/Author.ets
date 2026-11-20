@@ -13,6 +13,6 @@
 * limitations under the License.
 */
 
-export declare @interface ClassAuthor4 {
+export @interface ClassAuthor4 {
   data: number = 0;
 }

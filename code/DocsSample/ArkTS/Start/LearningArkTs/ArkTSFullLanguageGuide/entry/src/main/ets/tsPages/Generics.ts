@@ -15,32 +15,6 @@
 
 export {};
 
-// [Start ts_generic_constraint_length]
-// 约束泛型参数必须具有length属性
-interface Lengthwise {
-  length: number;
-}
-
-function getLength<T extends Lengthwise>(arg: T): number {
-  return arg.length;
-}
-
-class LengthSample implements Lengthwise {
-  public length: number;
-
-  constructor(length: number) {
-    this.length = length;
-  }
-}
-
-console.info(`${getLength('Hello')}`);        // 5
-console.info(`${getLength([1, 2, 3])}`);      // 3
-console.info(`${getLength(new LengthSample(10))}`); // 10
-
-// 编译错误：number类型没有length属性
-console.info(`${getLength(42)}`);
-// [End ts_generic_constraint_length]
-
 // [Start ts_generic_constraint_serializable]
 interface Serializable {
   serialize(): string;

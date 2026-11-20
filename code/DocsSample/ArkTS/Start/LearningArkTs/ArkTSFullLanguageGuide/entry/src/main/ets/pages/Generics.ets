@@ -305,7 +305,7 @@ console.info(`${gciContainer3.getValue()}`); // true
 class GenericCollection<T> {
   // 泛型属性
   private items: T[] = [];
-  public count: number = 0;
+  private count: number = 0;
   
   // 泛型方法
   public add(item: T): void {
@@ -331,6 +331,10 @@ class GenericCollection<T> {
     return this.items;
   }
   
+  public getCount(): number {
+    return this.count;
+  }
+  
   // 泛型方法返回泛型类型
   public filter(predicate: (item: T) => boolean): GenericCollection<T> {
     let filtered = new GenericCollection<T>();
@@ -350,7 +354,7 @@ collection.add(3);
 collection.add(4);
 collection.add(5);
 
-console.info(`${collection.count}`); // 5
+console.info(`${collection.getCount()}`); // 5
 console.info(`${collection.get(0)}`); // 1
 
 let evenNumbers: GenericCollection<number> = collection.filter((n: number): boolean => n % 2 === 0);
@@ -427,7 +431,7 @@ class Triple<A, B, C> {
 
 let triple: Triple<string, number, boolean> = new Triple<string, number, boolean>('Hello', 42, true);
 let tripleValues: [string, number, boolean] = triple.toArray();
-console.info(`${tripleValues[0]}, ${tripleValues[1]}, ${tripleValues[2]}`); // 'Hello,42,true'
+console.info(`${tripleValues[0]}, ${tripleValues[1]}, ${tripleValues[2]}`); // 'Hello, 42, true'
 // [End multi_type_parameter_generic_class]
 
 // ===== generic_interface_basic =====
@@ -597,11 +601,11 @@ interface DefaultPair<T = string, U = number> {
 
 let defaultPair1: DefaultPair = { first: 'Hello', second: 42 };
 let defaultPair2: DefaultPair<number> = { first: 100, second: 200 };
-let pair3: DefaultPair<number, string> = { first: 100, second: 'Hello' };
+let defaultPair3: DefaultPair<number, string> = { first: 100, second: 'Hello' };
 
-console.info(`${defaultPair1}`);
-console.info(`${defaultPair2}`);
-console.info(`${pair3}`);
+console.info(`${defaultPair1.first}, ${defaultPair1.second}`); // 'Hello, 42'
+console.info(`${defaultPair2.first}, ${defaultPair2.second}`); // '100, 200'
+console.info(`${defaultPair3.first}, ${defaultPair3.second}`); // '100, Hello'
 // [End generic_interface_default_type]
 
 // ===== generic_constraint_property =====
@@ -892,7 +896,7 @@ console.info(`${stringQueue.size()}`);    // 2
 // ===== generic_array_utilities =====
 // [Start generic_array_utilities]
 // 通用数组工具函数
-function utilitiesFirst<T>(arr: T[]): T | undefined {
+function getFirst<T>(arr: T[]): T | undefined {
   return arr[0];
 }
 
@@ -918,7 +922,7 @@ function unique<T>(arr: T[]): T[] {
 let utilitiesNumbers: number[] = [1, 2, 3, 4, 5, 3, 2];
 let utilitiesStrings: string[] = ['a', 'b', 'c', 'b', 'a'];
 
-let firstResult: number | undefined = utilitiesFirst(utilitiesNumbers);
+let firstResult: number | undefined = getFirst(utilitiesNumbers);
 console.info(`${firstResult}`);  // 1
 
 let lastResult: string | undefined = last(utilitiesStrings);
@@ -945,7 +949,8 @@ let utilitiesUser: UtilitiesUser = {
   email: 'alice@example.com'
 };
 
-// ArkTS中优先使用明确的属性访问，避免依赖keyof和索引访问类型
+// TypeScript中可借助keyof和索引访问类型编写通用的属性更新函数（如update<T, K extends keyof T>(target: T, key: K, value: T[K])）。
+// ArkTS不支持keyof和索引访问类型，此类场景应改用明确的属性访问，直接修改具体属性。
 function renameUser(target: UtilitiesUser, newName: string): void {
   target.name = newName;
 }

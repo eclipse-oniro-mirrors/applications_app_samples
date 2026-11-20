@@ -22,10 +22,10 @@ export declare @interface MethodAnno4 {
 
 @ClassAuthor4
 export declare class MyClass {
-  @MethodAnno4({data: 123})
+  @MethodAnno4({ data: 123 })
   foo(): void;
 
-  bar; // 私有方法不保留注解
+  private bar; // 私有方法不保留注解，签名不导出，生成为 private bar;
 }
 // [End annotation_export_autoGenerate_dts]
 
@@ -35,13 +35,14 @@ export declare @interface ClassAuthor3 {}
 // [End annotation_export_dts]
 
 // [Start annotation_autoGenerate_dts]
-// NameAnno.d.ets 编译器生成的声明文件
+// NameAnno.d.ets
 export declare @interface ClassAuthor5 {}
+// 注：未导出的 @interface MethodAnno 不会出现在生成的 .d.ets 文件中
 // [End annotation_autoGenerate_dts]
 
 // [Start annotation_name]
 // NameAnno.d.ets
-export declare @interface NameAnno{name: string = ""}
+export declare @interface NameAnno {name: string = ""}
 // [End annotation_name]
 
 // [Start annotation_anno]

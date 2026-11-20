@@ -225,9 +225,9 @@ console.info(`${neNum1 !== neNum2}`); // true
 let gtA: number = 10;
 let gtB: number = 5;
 
-console.info(`${gtA > gtB}`);   // true
-console.info(`${gtB > gtA}`);   // false
-console.info(`${gtA > gtA}`);   // false
+console.info(`${gtA > gtB}`);     // true
+console.info(`${gtB > gtA}`);     // false
+console.info(`${gtA > gtA}`);     // false
 
 // 字符串比较Unicode码点
 console.info(`${'b' > 'a'}`);     // true
@@ -485,7 +485,7 @@ function expensiveDefault(): string {
   return 'default';
 }
 
-let provided: string = 'text';
+let provided: string | null = 'text';
 let circuitResult2: string = provided ?? expensiveDefault();  // 不执行expensiveDefault
 // [End short_circuit_evaluation]
 
@@ -575,18 +575,6 @@ let namesCanDrive: boolean = age >= 18 && hasLicense;
 // 反例
 let x: boolean = a >= 18 && !!b;
 // [End meaningful_boolean_names]
-
-// [Start parentheses_for_precedence]
-let precA: number = 5;
-let precB: number = 3;
-let precC: number = 10;
-let precD: number = 2;
-let precInput: string | null = 'hello';
-// 使用括号明确优先级
-let precResult: number = (precA + precB) * (precC - precD);
-let valid: boolean = (precA > precB) && (precC < precD);
-let precValue: string = (precInput ?? 'default') + ' suffix';
-// [End parentheses_for_precedence]
 
 // [Start nullish_coalescing_over_ternary]
 let coalesceInput: string | null = 'hello';
