@@ -86,7 +86,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate1947 begin');
       const fps: number = 90;
       const step: number = 1;
-      const stamps: number[] = [0, 11, 22, 33, 44];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -155,7 +155,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate1950 begin');
       const fps: number = 90;
       const step: number = 2;
-      const stamps: number[] = [0, 22, 44, 67, 89];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -224,7 +224,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate1953 begin');
       const fps: number = 120;
       const step: number = 2;
-      const stamps: number[] = [0, 17, 33, 50, 67];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -293,7 +293,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate1956 begin');
       const fps: number = 120;
       const step: number = 3;
-      const stamps: number[] = [0, 25, 50, 75, 100];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -362,7 +362,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate1959 begin');
       const fps: number = 120;
       const step: number = 1;
-      const stamps: number[] = [0, 8, 17, 25, 33];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -431,7 +431,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate1962 begin');
       const fps: number = 120;
       const step: number = 2;
-      const stamps: number[] = [0, 17, 33, 50, 67];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -500,7 +500,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate1965 begin');
       const fps: number = 120;
       const step: number = 3;
-      const stamps: number[] = [0, 25, 50, 75, 100];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -569,7 +569,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate1968 begin');
       const fps: number = 120;
       const step: number = 1;
-      const stamps: number[] = [0, 8, 17, 25, 33];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -638,7 +638,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate1971 begin');
       const fps: number = 120;
       const step: number = 2;
-      const stamps: number[] = [0, 17, 33, 50, 67];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -707,7 +707,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate1974 begin');
       const fps: number = 120;
       const step: number = 3;
-      const stamps: number[] = [0, 25, 50, 75, 100];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -776,7 +776,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate1977 begin');
       const fps: number = 120;
       const step: number = 1;
-      const stamps: number[] = [0, 8, 17, 25, 33];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -845,7 +845,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate1980 begin');
       const fps: number = 120;
       const step: number = 2;
-      const stamps: number[] = [0, 17, 33, 50, 67];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -914,7 +914,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate1983 begin');
       const fps: number = 120;
       const step: number = 3;
-      const stamps: number[] = [0, 25, 50, 75, 100];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -983,7 +983,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate1986 begin');
       const fps: number = 120;
       const step: number = 1;
-      const stamps: number[] = [0, 8, 17, 25, 33];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -1052,7 +1052,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate1989 begin');
       const fps: number = 120;
       const step: number = 2;
-      const stamps: number[] = [0, 17, 33, 50, 67];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -1121,7 +1121,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate1992 begin');
       const fps: number = 120;
       const step: number = 3;
-      const stamps: number[] = [0, 25, 50, 75, 100];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -1190,7 +1190,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate1995 begin');
       const fps: number = 120;
       const step: number = 1;
-      const stamps: number[] = [0, 8, 17, 25, 33];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -1259,7 +1259,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate1998 begin');
       const fps: number = 120;
       const step: number = 2;
-      const stamps: number[] = [0, 17, 33, 50, 67];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -1328,7 +1328,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate2001 begin');
       const fps: number = 120;
       const step: number = 3;
-      const stamps: number[] = [0, 25, 50, 75, 100];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -1397,7 +1397,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate2004 begin');
       const fps: number = 120;
       const step: number = 1;
-      const stamps: number[] = [0, 8, 17, 25, 33];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -1466,7 +1466,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate2007 begin');
       const fps: number = 120;
       const step: number = 2;
-      const stamps: number[] = [0, 17, 33, 50, 67];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -1535,7 +1535,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate2010 begin');
       const fps: number = 120;
       const step: number = 3;
-      const stamps: number[] = [0, 25, 50, 75, 100];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -1604,7 +1604,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate2013 begin');
       const fps: number = 120;
       const step: number = 1;
-      const stamps: number[] = [0, 8, 17, 25, 33];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -1673,7 +1673,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate2016 begin');
       const fps: number = 120;
       const step: number = 2;
-      const stamps: number[] = [0, 17, 33, 50, 67];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -1742,7 +1742,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate2019 begin');
       const fps: number = 120;
       const step: number = 3;
-      const stamps: number[] = [0, 25, 50, 75, 100];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -1811,7 +1811,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate2022 begin');
       const fps: number = 120;
       const step: number = 1;
-      const stamps: number[] = [0, 8, 17, 25, 33];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);
@@ -1880,7 +1880,7 @@ export default function soloFrameRateMatrix25Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloFrameRate2025 begin');
       const fps: number = 120;
       const step: number = 2;
-      const stamps: number[] = [0, 17, 33, 50, 67];
+      const stamps: number[] = [0, 1, 2, 3, 4].map((frame: number) => Math.round(frame * step * 1000 / fps));
       hilog.info(DOMAIN, TAG, '%{public}s', 'size=' + stamps.length);
       expect(stamps.length).assertEqual(5);
       expect(stamps[0]).assertEqual(0);

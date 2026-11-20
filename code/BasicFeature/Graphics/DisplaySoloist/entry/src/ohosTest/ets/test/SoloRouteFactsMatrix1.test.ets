@@ -91,14 +91,14 @@ export default function soloRouteFactsMatrix1Test(): void {
     /**
      * @tc.number    SOLO_ROUTE_FACTS_0004
      * @tc.name      soloRouteRoute0004
-     * @tc.desc      包名 com.samples.DisplaySoloist 的分段与命名规范校验
+     * @tc.desc      包名 com.samples.displaysoloist 的分段与命名规范校验
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
     it('soloRouteRoute0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'soloRouteRoute0004 begin');
-      const bundle: string = 'com.samples.DisplaySoloist';
+      const bundle: string = 'com.samples.displaysoloist';
       const segments: string[] = bundle.split('.');
       hilog.info(DOMAIN, TAG, '%{public}s', 'bundle=' + bundle);
       expect(segments.length).assertEqual(3);
