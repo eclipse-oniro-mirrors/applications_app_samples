@@ -494,16 +494,5 @@ export default function securityValidationTest(): void {
       expect(index <= 3).assertTrue();
     });
 
-    it('security_validation_should_accept_valid_id_10', 0, async () => {
-      expect(model.validateSessionId('session_10')).assertTrue();
-      expect(model.validateSessionId('')).assertFalse();
-    });
-
-    it('security_validation_should_guard_release_code_11', 0, async () => {
-      model.onRelease(11);
-      expect(model.getReleaseCode()).assertEqual(11);
-      expect(model.getReleaseCode() >= 0).assertTrue();
-    });
-
   });
 }

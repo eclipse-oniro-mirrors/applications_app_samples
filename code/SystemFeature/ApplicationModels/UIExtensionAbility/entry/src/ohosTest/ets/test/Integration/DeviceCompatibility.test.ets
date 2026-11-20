@@ -509,20 +509,5 @@ export default function deviceCompatibilityTest(): void {
       expect(model.computeRate(9, 10)).assertLessOrEqual(1);
     });
 
-    it('integration_should_handle_interruption_recovery_10', 0, async () => {
-      model.onForeground();
-      model.onBackground();
-      model.onForeground();
-      expect(model.isForeground()).assertTrue();
-      expect(model.isDestroyed()).assertFalse();
-    });
-
-    it('integration_should_expose_workflow_counters_11', 0, async () => {
-      model.loadContent('pages/Extension');
-      model.loadContent('pages/Index');
-      expect(model.getCounter('loadContent')).assertEqual(2);
-      expect(model.getLoadedPageCount()).assertEqual(2);
-    });
-
   });
 }

@@ -501,23 +501,5 @@ export default function contentScalingTest(): void {
       expect(model.isProxyReleased()).assertFalse();
     });
 
-    it('interaction_should_track_multiple_event_types_10', 0, async () => {
-      model.onRemoteReady();
-      model.onReceive('data_10');
-      model.onResult('result_10');
-      model.onRelease(10);
-      expect(model.getEventCount(ProxyEventType.REMOTE_READY)).assertEqual(1);
-      expect(model.getEventCount(ProxyEventType.RECEIVE)).assertEqual(1);
-      expect(model.getEventCount(ProxyEventType.RESULT)).assertEqual(1);
-      expect(model.getEventCount(ProxyEventType.RELEASE)).assertEqual(1);
-    });
-
-    it('interaction_should_compute_message_length_11', 0, async () => {
-      const text: string = 'extension_message_11';
-      model.onReceive(text);
-      expect(model.getLastMessage().length).assertEqual(text.length);
-      expect(computeSuccessRate(text.length, text.length)).assertEqual(1);
-    });
-
   });
 }

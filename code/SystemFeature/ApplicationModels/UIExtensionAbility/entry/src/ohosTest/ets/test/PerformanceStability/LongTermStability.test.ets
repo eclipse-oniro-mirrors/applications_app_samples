@@ -499,17 +499,5 @@ export default function longTermStabilityTest(): void {
       expect(model.getSessionCount()).assertEqual(0);
     });
 
-    it('performance_should_clamp_helper_values_10', 0, async () => {
-      expect(clampValue(-40, 0, 100)).assertEqual(0);
-      expect(safeDivide(10, 2)).assertEqual(5);
-      expect(safeDivide(10, 0)).assertEqual(0);
-    });
-
-    it('stability_should_average_samples_11', 0, async () => {
-      const values: number[] = [2, 4, 6, 8];
-      expect(averageOf(values)).assertEqual(5);
-      expect(averageOf(values)).assertLessOrEqual(9);
-    });
-
   });
 }

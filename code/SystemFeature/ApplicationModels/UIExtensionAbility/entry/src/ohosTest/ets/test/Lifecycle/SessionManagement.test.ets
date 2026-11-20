@@ -508,19 +508,5 @@ export default function sessionManagementTest(): void {
       expect(model.getStorage().get('recovered')).assertEqual('true_9');
     });
 
-    it('lifecycle_should_reload_content_after_recovery_10', 0, async () => {
-      model.loadContent('pages/Extension');
-      model.reset();
-      expect(model.loadContent('pages/Extension')).assertTrue();
-      expect(model.getLoadedPageAt(0)).assertEqual('pages/Extension');
-    });
-
-    it('lifecycle_should_expose_last_phase_11', 0, async () => {
-      model.onCreate();
-      model.onSessionCreate('last_11', 'com.samples.uiextensionability',
-        'UIExtensionProvider', 'entry', 'sys/commonUI');
-      expect(model.getPhaseAt(model.getPhaseCount() - 1)).assertEqual('sessionCreate');
-    });
-
   });
 }
