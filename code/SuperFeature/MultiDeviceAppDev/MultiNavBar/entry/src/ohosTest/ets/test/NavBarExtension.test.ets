@@ -3976,3 +3976,1988 @@ export default function navBarExtensionSuite() {
       const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'tabs');
       expect(style.searchModulePadding.right).assertEqual(12);
     })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1670
+     * @tc.name    NavBarExtension1670
+     * @tc.desc    Sub tabs style lg tabs keeps the tool bar padding left value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgt_toolLeft', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'tabs');
+      expect(style.toolBarPadding.left).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1671
+     * @tc.name    NavBarExtension1671
+     * @tc.desc    Sub tabs style lg tabs keeps the tool bar padding right value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stlgt_toolRight', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('lg', 'tabs');
+      expect(style.toolBarPadding.right).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1672
+     * @tc.name    NavBarExtension1672
+     * @tc.desc    Current sub tab style for sm tabs at 0 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur001', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('sm', 'tabs', 0, 0);
+      expect(style.fontSize).assertEqual(24);
+      expect(style.fontColor).assertEqual('#000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1673
+     * @tc.name    NavBarExtension1673
+     * @tc.desc    Current sub tab style for sm tabs at 0 of 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur002', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('sm', 'tabs', 0, 1);
+      expect(style.fontSize).assertEqual(18);
+      expect(style.fontColor).assertEqual('#99000000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1674
+     * @tc.name    NavBarExtension1674
+     * @tc.desc    Current sub tab style for sm tabs at 1 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur003', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('sm', 'tabs', 1, 0);
+      expect(style.fontSize).assertEqual(18);
+      expect(style.fontColor).assertEqual('#99000000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1675
+     * @tc.name    NavBarExtension1675
+     * @tc.desc    Current sub tab style for sm tabs at 1 of 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur004', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('sm', 'tabs', 1, 1);
+      expect(style.fontSize).assertEqual(24);
+      expect(style.fontColor).assertEqual('#000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1676
+     * @tc.name    NavBarExtension1676
+     * @tc.desc    Current sub tab style for sm tabs at 2 of 5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur005', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('sm', 'tabs', 2, 5);
+      expect(style.fontSize).assertEqual(18);
+      expect(style.fontColor).assertEqual('#99000000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1677
+     * @tc.name    NavBarExtension1677
+     * @tc.desc    Current sub tab style for sm tabs at 5 of 2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur006', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('sm', 'tabs', 5, 2);
+      expect(style.fontSize).assertEqual(18);
+      expect(style.fontColor).assertEqual('#99000000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1678
+     * @tc.name    NavBarExtension1678
+     * @tc.desc    Current sub tab style for sm tabs at 3 of 3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur007', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('sm', 'tabs', 3, 3);
+      expect(style.fontSize).assertEqual(24);
+      expect(style.fontColor).assertEqual('#000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1679
+     * @tc.name    NavBarExtension1679
+     * @tc.desc    Current sub tab style for sm tabs at 4 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur008', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('sm', 'tabs', 4, 0);
+      expect(style.fontSize).assertEqual(18);
+      expect(style.fontColor).assertEqual('#99000000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1680
+     * @tc.name    NavBarExtension1680
+     * @tc.desc    Current sub tab style for sm list at 0 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur009', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('sm', 'list', 0, 0);
+      expect(style.fontSize).assertEqual(24);
+      expect(style.fontColor).assertEqual('#000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1681
+     * @tc.name    NavBarExtension1681
+     * @tc.desc    Current sub tab style for sm list at 0 of 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur010', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('sm', 'list', 0, 1);
+      expect(style.fontSize).assertEqual(18);
+      expect(style.fontColor).assertEqual('#99000000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1682
+     * @tc.name    NavBarExtension1682
+     * @tc.desc    Current sub tab style for sm list at 1 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur011', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('sm', 'list', 1, 0);
+      expect(style.fontSize).assertEqual(18);
+      expect(style.fontColor).assertEqual('#99000000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1683
+     * @tc.name    NavBarExtension1683
+     * @tc.desc    Current sub tab style for sm list at 1 of 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur012', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('sm', 'list', 1, 1);
+      expect(style.fontSize).assertEqual(24);
+      expect(style.fontColor).assertEqual('#000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1684
+     * @tc.name    NavBarExtension1684
+     * @tc.desc    Current sub tab style for sm list at 2 of 5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur013', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('sm', 'list', 2, 5);
+      expect(style.fontSize).assertEqual(18);
+      expect(style.fontColor).assertEqual('#99000000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1685
+     * @tc.name    NavBarExtension1685
+     * @tc.desc    Current sub tab style for sm list at 5 of 2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur014', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('sm', 'list', 5, 2);
+      expect(style.fontSize).assertEqual(18);
+      expect(style.fontColor).assertEqual('#99000000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1686
+     * @tc.name    NavBarExtension1686
+     * @tc.desc    Current sub tab style for sm list at 3 of 3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur015', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('sm', 'list', 3, 3);
+      expect(style.fontSize).assertEqual(24);
+      expect(style.fontColor).assertEqual('#000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1687
+     * @tc.name    NavBarExtension1687
+     * @tc.desc    Current sub tab style for sm list at 4 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur016', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('sm', 'list', 4, 0);
+      expect(style.fontSize).assertEqual(18);
+      expect(style.fontColor).assertEqual('#99000000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1688
+     * @tc.name    NavBarExtension1688
+     * @tc.desc    Current sub tab style for md tabs at 0 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur017', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('md', 'tabs', 0, 0);
+      expect(style.fontSize).assertEqual(16);
+      expect(style.fontColor).assertEqual('#0A59F7');
+      expect(style.backgroundColor).assertEqual('#190A59F7');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1689
+     * @tc.name    NavBarExtension1689
+     * @tc.desc    Current sub tab style for md tabs at 0 of 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur018', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('md', 'tabs', 0, 1);
+      expect(style.fontSize).assertEqual(16);
+      expect(style.fontColor).assertEqual('#000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1690
+     * @tc.name    NavBarExtension1690
+     * @tc.desc    Current sub tab style for md tabs at 1 of 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur020', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('md', 'tabs', 1, 1);
+      expect(style.fontSize).assertEqual(16);
+      expect(style.fontColor).assertEqual('#0A59F7');
+      expect(style.backgroundColor).assertEqual('#190A59F7');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1691
+     * @tc.name    NavBarExtension1691
+     * @tc.desc    Current sub tab style for md tabs at 2 of 5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur021', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('md', 'tabs', 2, 5);
+      expect(style.fontSize).assertEqual(16);
+      expect(style.fontColor).assertEqual('#000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1692
+     * @tc.name    NavBarExtension1692
+     * @tc.desc    Current sub tab style for md tabs at 5 of 2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur022', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('md', 'tabs', 5, 2);
+      expect(style.fontSize).assertEqual(16);
+      expect(style.fontColor).assertEqual('#000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1693
+     * @tc.name    NavBarExtension1693
+     * @tc.desc    Current sub tab style for md tabs at 3 of 3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur023', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('md', 'tabs', 3, 3);
+      expect(style.fontSize).assertEqual(16);
+      expect(style.fontColor).assertEqual('#0A59F7');
+      expect(style.backgroundColor).assertEqual('#190A59F7');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1694
+     * @tc.name    NavBarExtension1694
+     * @tc.desc    Current sub tab style for md tabs at 4 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur024', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('md', 'tabs', 4, 0);
+      expect(style.fontSize).assertEqual(16);
+      expect(style.fontColor).assertEqual('#000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1695
+     * @tc.name    NavBarExtension1695
+     * @tc.desc    Current sub tab style for md list at 0 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur025', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('md', 'list', 0, 0);
+      expect(style.fontSize).assertEqual(24);
+      expect(style.fontColor).assertEqual('#000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1696
+     * @tc.name    NavBarExtension1696
+     * @tc.desc    Current sub tab style for md list at 0 of 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur026', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('md', 'list', 0, 1);
+      expect(style.fontSize).assertEqual(18);
+      expect(style.fontColor).assertEqual('#99000000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1697
+     * @tc.name    NavBarExtension1697
+     * @tc.desc    Current sub tab style for md list at 1 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur027', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('md', 'list', 1, 0);
+      expect(style.fontSize).assertEqual(18);
+      expect(style.fontColor).assertEqual('#99000000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1698
+     * @tc.name    NavBarExtension1698
+     * @tc.desc    Current sub tab style for md list at 1 of 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur028', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('md', 'list', 1, 1);
+      expect(style.fontSize).assertEqual(24);
+      expect(style.fontColor).assertEqual('#000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1699
+     * @tc.name    NavBarExtension1699
+     * @tc.desc    Current sub tab style for md list at 2 of 5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur029', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('md', 'list', 2, 5);
+      expect(style.fontSize).assertEqual(18);
+      expect(style.fontColor).assertEqual('#99000000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1700
+     * @tc.name    NavBarExtension1700
+     * @tc.desc    Current sub tab style for md list at 5 of 2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur030', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('md', 'list', 5, 2);
+      expect(style.fontSize).assertEqual(18);
+      expect(style.fontColor).assertEqual('#99000000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1701
+     * @tc.name    NavBarExtension1701
+     * @tc.desc    Current sub tab style for md list at 3 of 3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur031', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('md', 'list', 3, 3);
+      expect(style.fontSize).assertEqual(24);
+      expect(style.fontColor).assertEqual('#000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1702
+     * @tc.name    NavBarExtension1702
+     * @tc.desc    Current sub tab style for md list at 4 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur032', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('md', 'list', 4, 0);
+      expect(style.fontSize).assertEqual(18);
+      expect(style.fontColor).assertEqual('#99000000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1703
+     * @tc.name    NavBarExtension1703
+     * @tc.desc    Current sub tab style for lg tabs at 0 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur033', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('lg', 'tabs', 0, 0);
+      expect(style.fontSize).assertEqual(16);
+      expect(style.fontColor).assertEqual('#0A59F7');
+      expect(style.backgroundColor).assertEqual('#190A59F7');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1704
+     * @tc.name    NavBarExtension1704
+     * @tc.desc    Current sub tab style for lg tabs at 0 of 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur034', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('lg', 'tabs', 0, 1);
+      expect(style.fontSize).assertEqual(16);
+      expect(style.fontColor).assertEqual('#000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1705
+     * @tc.name    NavBarExtension1705
+     * @tc.desc    Current sub tab style for lg tabs at 1 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur035', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('lg', 'tabs', 1, 0);
+      expect(style.fontSize).assertEqual(16);
+      expect(style.fontColor).assertEqual('#000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1706
+     * @tc.name    NavBarExtension1706
+     * @tc.desc    Current sub tab style for lg tabs at 1 of 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur036', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('lg', 'tabs', 1, 1);
+      expect(style.fontSize).assertEqual(16);
+      expect(style.fontColor).assertEqual('#0A59F7');
+      expect(style.backgroundColor).assertEqual('#190A59F7');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1707
+     * @tc.name    NavBarExtension1707
+     * @tc.desc    Current sub tab style for lg tabs at 2 of 5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur037', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('lg', 'tabs', 2, 5);
+      expect(style.fontSize).assertEqual(16);
+      expect(style.fontColor).assertEqual('#000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1708
+     * @tc.name    NavBarExtension1708
+     * @tc.desc    Current sub tab style for lg tabs at 5 of 2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur038', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('lg', 'tabs', 5, 2);
+      expect(style.fontSize).assertEqual(16);
+      expect(style.fontColor).assertEqual('#000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1709
+     * @tc.name    NavBarExtension1709
+     * @tc.desc    Current sub tab style for lg tabs at 3 of 3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur039', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('lg', 'tabs', 3, 3);
+      expect(style.fontSize).assertEqual(16);
+      expect(style.fontColor).assertEqual('#0A59F7');
+      expect(style.backgroundColor).assertEqual('#190A59F7');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1710
+     * @tc.name    NavBarExtension1710
+     * @tc.desc    Current sub tab style for lg tabs at 4 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur040', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('lg', 'tabs', 4, 0);
+      expect(style.fontSize).assertEqual(16);
+      expect(style.fontColor).assertEqual('#000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1711
+     * @tc.name    NavBarExtension1711
+     * @tc.desc    Current sub tab style for lg list at 0 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur041', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('lg', 'list', 0, 0);
+      expect(style.fontSize).assertEqual(24);
+      expect(style.fontColor).assertEqual('#000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1712
+     * @tc.name    NavBarExtension1712
+     * @tc.desc    Current sub tab style for lg list at 0 of 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur042', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('lg', 'list', 0, 1);
+      expect(style.fontSize).assertEqual(18);
+      expect(style.fontColor).assertEqual('#99000000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1713
+     * @tc.name    NavBarExtension1713
+     * @tc.desc    Current sub tab style for lg list at 1 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur043', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('lg', 'list', 1, 0);
+      expect(style.fontSize).assertEqual(18);
+      expect(style.fontColor).assertEqual('#99000000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1714
+     * @tc.name    NavBarExtension1714
+     * @tc.desc    Current sub tab style for lg list at 1 of 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur044', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('lg', 'list', 1, 1);
+      expect(style.fontSize).assertEqual(24);
+      expect(style.fontColor).assertEqual('#000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1715
+     * @tc.name    NavBarExtension1715
+     * @tc.desc    Current sub tab style for lg list at 2 of 5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur045', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('lg', 'list', 2, 5);
+      expect(style.fontSize).assertEqual(18);
+      expect(style.fontColor).assertEqual('#99000000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1716
+     * @tc.name    NavBarExtension1716
+     * @tc.desc    Current sub tab style for lg list at 5 of 2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur046', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('lg', 'list', 5, 2);
+      expect(style.fontSize).assertEqual(18);
+      expect(style.fontColor).assertEqual('#99000000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1717
+     * @tc.name    NavBarExtension1717
+     * @tc.desc    Current sub tab style for lg list at 3 of 3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur047', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('lg', 'list', 3, 3);
+      expect(style.fontSize).assertEqual(24);
+      expect(style.fontColor).assertEqual('#000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1718
+     * @tc.name    NavBarExtension1718
+     * @tc.desc    Current sub tab style for lg list at 4 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cur048', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentSubTabsStyle('lg', 'list', 4, 0);
+      expect(style.fontSize).assertEqual(18);
+      expect(style.fontColor).assertEqual('#99000000');
+      expect(style.backgroundColor).assertEqual('#00ffffff');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1719
+     * @tc.name    NavBarExtension1719
+     * @tc.desc    Current main tab style for sm at 0 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5main001', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentMainTabsStyle(0, 0, 'sm');
+      expect(style.fillColor).assertEqual('#0a59f7');
+      expect(style.fontColor).assertEqual('#0a59f7');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1720
+     * @tc.name    NavBarExtension1720
+     * @tc.desc    Current main tab style for sm at 0 of 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5main003', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentMainTabsStyle(0, 1, 'sm');
+      expect(style.fillColor).assertEqual('');
+      expect(style.fontColor).assertEqual('#182431');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1721
+     * @tc.name    NavBarExtension1721
+     * @tc.desc    Current main tab style for sm at 2 of 2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5main004', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentMainTabsStyle(2, 2, 'sm');
+      expect(style.fillColor).assertEqual('#0a59f7');
+      expect(style.fontColor).assertEqual('#0a59f7');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1722
+     * @tc.name    NavBarExtension1722
+     * @tc.desc    Current main tab style for sm at 5 of 5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5main005', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentMainTabsStyle(5, 5, 'sm');
+      expect(style.fillColor).assertEqual('#0a59f7');
+      expect(style.fontColor).assertEqual('#0a59f7');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1723
+     * @tc.name    NavBarExtension1723
+     * @tc.desc    Current main tab style for sm at 5 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5main006', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentMainTabsStyle(5, 0, 'sm');
+      expect(style.fillColor).assertEqual('');
+      expect(style.fontColor).assertEqual('#182431');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1724
+     * @tc.name    NavBarExtension1724
+     * @tc.desc    Current main tab style for md at 0 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5main007', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentMainTabsStyle(0, 0, 'md');
+      expect(style.fillColor).assertEqual('#0a59f7');
+      expect(style.fontColor).assertEqual('#0a59f7');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1725
+     * @tc.name    NavBarExtension1725
+     * @tc.desc    Current main tab style for md at 1 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5main008', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentMainTabsStyle(1, 0, 'md');
+      expect(style.fillColor).assertEqual('');
+      expect(style.fontColor).assertEqual('#182431');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1726
+     * @tc.name    NavBarExtension1726
+     * @tc.desc    Current main tab style for md at 0 of 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5main009', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentMainTabsStyle(0, 1, 'md');
+      expect(style.fillColor).assertEqual('');
+      expect(style.fontColor).assertEqual('#182431');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1727
+     * @tc.name    NavBarExtension1727
+     * @tc.desc    Current main tab style for md at 2 of 2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5main010', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentMainTabsStyle(2, 2, 'md');
+      expect(style.fillColor).assertEqual('#0a59f7');
+      expect(style.fontColor).assertEqual('#0a59f7');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1728
+     * @tc.name    NavBarExtension1728
+     * @tc.desc    Current main tab style for md at 5 of 5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5main011', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentMainTabsStyle(5, 5, 'md');
+      expect(style.fillColor).assertEqual('#0a59f7');
+      expect(style.fontColor).assertEqual('#0a59f7');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1729
+     * @tc.name    NavBarExtension1729
+     * @tc.desc    Current main tab style for md at 5 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5main012', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentMainTabsStyle(5, 0, 'md');
+      expect(style.fillColor).assertEqual('');
+      expect(style.fontColor).assertEqual('#182431');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1730
+     * @tc.name    NavBarExtension1730
+     * @tc.desc    Current main tab style for lg at 0 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5main013', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentMainTabsStyle(0, 0, 'lg');
+      expect(style.fillColor).assertEqual('#0a59f7');
+      expect(style.fontColor).assertEqual('#0a59f7');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1731
+     * @tc.name    NavBarExtension1731
+     * @tc.desc    Current main tab style for lg at 1 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5main014', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentMainTabsStyle(1, 0, 'lg');
+      expect(style.fillColor).assertEqual('');
+      expect(style.fontColor).assertEqual('#182431');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1732
+     * @tc.name    NavBarExtension1732
+     * @tc.desc    Current main tab style for lg at 0 of 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5main015', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentMainTabsStyle(0, 1, 'lg');
+      expect(style.fillColor).assertEqual('');
+      expect(style.fontColor).assertEqual('#182431');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1733
+     * @tc.name    NavBarExtension1733
+     * @tc.desc    Current main tab style for lg at 2 of 2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5main016', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentMainTabsStyle(2, 2, 'lg');
+      expect(style.fillColor).assertEqual('#0a59f7');
+      expect(style.fontColor).assertEqual('#0a59f7');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1734
+     * @tc.name    NavBarExtension1734
+     * @tc.desc    Current main tab style for lg at 5 of 5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5main017', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentMainTabsStyle(5, 5, 'lg');
+      expect(style.fillColor).assertEqual('#0a59f7');
+      expect(style.fontColor).assertEqual('#0a59f7');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1735
+     * @tc.name    NavBarExtension1735
+     * @tc.desc    Current main tab style for lg at 5 of 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5main018', 0, () => {
+      const style: CustomFontStyle = StyleConfiguration.getCurrentMainTabsStyle(5, 0, 'lg');
+      expect(style.fillColor).assertEqual('');
+      expect(style.fontColor).assertEqual('#182431');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1736
+     * @tc.name    NavBarExtension1736
+     * @tc.desc    Node lookup rejects out of range index -3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5node00', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getNode(-3) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1737
+     * @tc.name    NavBarExtension1737
+     * @tc.desc    Node lookup rejects out of range index -2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5node01', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getNode(-2) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1738
+     * @tc.name    NavBarExtension1738
+     * @tc.desc    Node lookup rejects out of range index -1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5node02', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getNode(-1) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1739
+     * @tc.name    NavBarExtension1739
+     * @tc.desc    Node lookup resolves top level index 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5node03', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      const node: NavMenuNode | undefined = model.getNode(0);
+      expect(node !== undefined).assertTrue();
+      expect((node as NavMenuNode).name).assertEqual('nav0');
+      expect((node as NavMenuNode).parentNode).assertEqual(-1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1740
+     * @tc.name    NavBarExtension1740
+     * @tc.desc    Node lookup resolves top level index 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5node04', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      const node: NavMenuNode | undefined = model.getNode(1);
+      expect(node !== undefined).assertTrue();
+      expect((node as NavMenuNode).name).assertEqual('nav1');
+      expect((node as NavMenuNode).parentNode).assertEqual(-1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1741
+     * @tc.name    NavBarExtension1741
+     * @tc.desc    Node lookup resolves top level index 2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5node05', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      const node: NavMenuNode | undefined = model.getNode(2);
+      expect(node !== undefined).assertTrue();
+      expect((node as NavMenuNode).name).assertEqual('nav2');
+      expect((node as NavMenuNode).parentNode).assertEqual(-1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1742
+     * @tc.name    NavBarExtension1742
+     * @tc.desc    Node lookup resolves top level index 3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5node06', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      const node: NavMenuNode | undefined = model.getNode(3);
+      expect(node !== undefined).assertTrue();
+      expect((node as NavMenuNode).name).assertEqual('nav3');
+      expect((node as NavMenuNode).parentNode).assertEqual(-1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1743
+     * @tc.name    NavBarExtension1743
+     * @tc.desc    Node lookup resolves top level index 4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5node07', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      const node: NavMenuNode | undefined = model.getNode(4);
+      expect(node !== undefined).assertTrue();
+      expect((node as NavMenuNode).name).assertEqual('nav4');
+      expect((node as NavMenuNode).parentNode).assertEqual(-1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1744
+     * @tc.name    NavBarExtension1744
+     * @tc.desc    Node lookup rejects out of range index 5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5node08', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getNode(5) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1745
+     * @tc.name    NavBarExtension1745
+     * @tc.desc    Node lookup rejects out of range index 6
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5node09', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getNode(6) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1746
+     * @tc.name    NavBarExtension1746
+     * @tc.desc    Node lookup rejects out of range index 7
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5node10', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getNode(7) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1747
+     * @tc.name    NavBarExtension1747
+     * @tc.desc    Node lookup rejects out of range index 8
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5node11', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getNode(8) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1748
+     * @tc.name    NavBarExtension1748
+     * @tc.desc    Node lookup rejects out of range index 9
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5node12', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getNode(9) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1749
+     * @tc.name    NavBarExtension1749
+     * @tc.desc    Node lookup rejects out of range index 10
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5node13', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getNode(10) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1750
+     * @tc.name    NavBarExtension1750
+     * @tc.desc    Sub count of invalid index -2 reports minus one
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sub00', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getSubCount(-2)).assertEqual(-1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1751
+     * @tc.name    NavBarExtension1751
+     * @tc.desc    Sub count of invalid index -1 reports minus one
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sub01', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getSubCount(-1)).assertEqual(-1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1752
+     * @tc.name    NavBarExtension1752
+     * @tc.desc    Sub count of top level index 0 matches the seed
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sub02', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getSubCount(0)).assertEqual(NAV_SUB_COUNTS[0]);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1753
+     * @tc.name    NavBarExtension1753
+     * @tc.desc    Sub count of top level index 1 matches the seed
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sub03', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getSubCount(1)).assertEqual(NAV_SUB_COUNTS[1]);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1754
+     * @tc.name    NavBarExtension1754
+     * @tc.desc    Sub count of top level index 2 matches the seed
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sub04', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getSubCount(2)).assertEqual(NAV_SUB_COUNTS[2]);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1755
+     * @tc.name    NavBarExtension1755
+     * @tc.desc    Sub count of top level index 3 matches the seed
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sub05', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getSubCount(3)).assertEqual(NAV_SUB_COUNTS[3]);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1756
+     * @tc.name    NavBarExtension1756
+     * @tc.desc    Sub count of top level index 4 matches the seed
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sub06', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getSubCount(4)).assertEqual(NAV_SUB_COUNTS[4]);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1757
+     * @tc.name    NavBarExtension1757
+     * @tc.desc    Sub count of invalid index 5 reports minus one
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sub07', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getSubCount(5)).assertEqual(-1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1758
+     * @tc.name    NavBarExtension1758
+     * @tc.desc    Sub count of invalid index 6 reports minus one
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sub08', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getSubCount(6)).assertEqual(-1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1759
+     * @tc.name    NavBarExtension1759
+     * @tc.desc    Sub count of invalid index 7 reports minus one
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sub09', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getSubCount(7)).assertEqual(-1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1760
+     * @tc.name    NavBarExtension1760
+     * @tc.desc    Index validation for -3 returns false
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5valid00', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.isValidIndex(-3)).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1761
+     * @tc.name    NavBarExtension1761
+     * @tc.desc    Index validation for -2 returns false
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5valid01', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.isValidIndex(-2)).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1762
+     * @tc.name    NavBarExtension1762
+     * @tc.desc    Index validation for -1 returns false
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5valid02', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.isValidIndex(-1)).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1763
+     * @tc.name    NavBarExtension1763
+     * @tc.desc    Index validation for 0 returns true
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5valid03', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.isValidIndex(0)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1764
+     * @tc.name    NavBarExtension1764
+     * @tc.desc    Index validation for 1 returns true
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5valid04', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.isValidIndex(1)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1765
+     * @tc.name    NavBarExtension1765
+     * @tc.desc    Index validation for 2 returns true
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5valid05', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.isValidIndex(2)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1766
+     * @tc.name    NavBarExtension1766
+     * @tc.desc    Index validation for 3 returns true
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5valid06', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.isValidIndex(3)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1767
+     * @tc.name    NavBarExtension1767
+     * @tc.desc    Index validation for 4 returns true
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5valid07', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.isValidIndex(4)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1768
+     * @tc.name    NavBarExtension1768
+     * @tc.desc    Index validation for 5 returns false
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5valid08', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.isValidIndex(5)).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1769
+     * @tc.name    NavBarExtension1769
+     * @tc.desc    Index validation for 6 returns false
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5valid09', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.isValidIndex(6)).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1770
+     * @tc.name    NavBarExtension1770
+     * @tc.desc    Index validation for 7 returns false
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5valid10', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.isValidIndex(7)).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1771
+     * @tc.name    NavBarExtension1771
+     * @tc.desc    Index validation for 8 returns false
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5valid11', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.isValidIndex(8)).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1772
+     * @tc.name    NavBarExtension1772
+     * @tc.desc    Index validation for fractional 0.5 returns false
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5validf05', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.isValidIndex(0.5)).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1773
+     * @tc.name    NavBarExtension1773
+     * @tc.desc    Index validation for fractional 4.5 returns false
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5validf45', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.isValidIndex(4.5)).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1774
+     * @tc.name    NavBarExtension1774
+     * @tc.desc    Index validation for fractional -0.5 returns false
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5validfn05', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.isValidIndex(-0.5)).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1775
+     * @tc.name    NavBarExtension1775
+     * @tc.desc    Index validation for fractional -0 returns true
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5validfn0', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.isValidIndex(-0)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1776
+     * @tc.name    NavBarExtension1776
+     * @tc.desc    Hiding index 0 returns true and keeps 4 visible
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5vis00', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.setVisible(0, false)).assertTrue();
+      expect(model.getVisibleCount()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1777
+     * @tc.name    NavBarExtension1777
+     * @tc.desc    Hiding index 1 returns true and keeps 4 visible
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5vis01', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.setVisible(1, false)).assertTrue();
+      expect(model.getVisibleCount()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1778
+     * @tc.name    NavBarExtension1778
+     * @tc.desc    Hiding index 2 returns true and keeps 4 visible
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5vis02', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.setVisible(2, false)).assertTrue();
+      expect(model.getVisibleCount()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1779
+     * @tc.name    NavBarExtension1779
+     * @tc.desc    Hiding index 3 returns true and keeps 4 visible
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5vis03', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.setVisible(3, false)).assertTrue();
+      expect(model.getVisibleCount()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1780
+     * @tc.name    NavBarExtension1780
+     * @tc.desc    Hiding index 4 returns true and keeps 4 visible
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5vis04', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.setVisible(4, false)).assertTrue();
+      expect(model.getVisibleCount()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1781
+     * @tc.name    NavBarExtension1781
+     * @tc.desc    Hiding index 5 returns false and keeps 5 visible
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5vis05', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.setVisible(5, false)).assertFalse();
+      expect(model.getVisibleCount()).assertEqual(5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1782
+     * @tc.name    NavBarExtension1782
+     * @tc.desc    No node is adopted by parent index -2 initially
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5child00', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.countChildrenOf(-2)).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1783
+     * @tc.name    NavBarExtension1783
+     * @tc.desc    Every top level node declares the root parent index -1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5child01', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.countChildrenOf(-1)).assertEqual(NAV_TOP_COUNT);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1784
+     * @tc.name    NavBarExtension1784
+     * @tc.desc    No node is adopted by parent index 0 initially
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5child02', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.countChildrenOf(0)).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1785
+     * @tc.name    NavBarExtension1785
+     * @tc.desc    No node is adopted by parent index 1 initially
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5child03', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.countChildrenOf(1)).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1786
+     * @tc.name    NavBarExtension1786
+     * @tc.desc    No node is adopted by parent index 2 initially
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5child04', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.countChildrenOf(2)).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1787
+     * @tc.name    NavBarExtension1787
+     * @tc.desc    No node is adopted by parent index 3 initially
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5child05', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.countChildrenOf(3)).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1788
+     * @tc.name    NavBarExtension1788
+     * @tc.desc    No node is adopted by parent index 4 initially
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5child06', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.countChildrenOf(4)).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1789
+     * @tc.name    NavBarExtension1789
+     * @tc.desc    No node is adopted by parent index 5 initially
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5child07', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.countChildrenOf(5)).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1790
+     * @tc.name    NavBarExtension1790
+     * @tc.desc    A node adopted by parent 0 is counted once
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5adopt00', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      model.getNodes().push({ name: 'c0', subCount: 1, isVisible: true, parentNode: 0 });
+      expect(model.countChildrenOf(0)).assertEqual(1);
+      expect(model.countChildrenOf(-1)).assertEqual(5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1791
+     * @tc.name    NavBarExtension1791
+     * @tc.desc    A node adopted by parent 1 is counted once
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5adopt01', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      model.getNodes().push({ name: 'c1', subCount: 1, isVisible: true, parentNode: 1 });
+      expect(model.countChildrenOf(1)).assertEqual(1);
+      expect(model.countChildrenOf(-1)).assertEqual(5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1792
+     * @tc.name    NavBarExtension1792
+     * @tc.desc    A node adopted by parent 2 is counted once
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5adopt02', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      model.getNodes().push({ name: 'c2', subCount: 1, isVisible: true, parentNode: 2 });
+      expect(model.countChildrenOf(2)).assertEqual(1);
+      expect(model.countChildrenOf(-1)).assertEqual(5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1793
+     * @tc.name    NavBarExtension1793
+     * @tc.desc    Renaming node 2 to the first name breaks uniqueness
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5dupname02', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      model.getNodes()[2].name = model.getNodes()[0].name;
+      expect(model.hasUniqueNames()).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1794
+     * @tc.name    NavBarExtension1794
+     * @tc.desc    Renaming node 3 to the first name breaks uniqueness
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5dupname03', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      model.getNodes()[3].name = model.getNodes()[0].name;
+      expect(model.hasUniqueNames()).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1795
+     * @tc.name    NavBarExtension1795
+     * @tc.desc    Renaming node 4 to the first name breaks uniqueness
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5dupname04', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      model.getNodes()[4].name = model.getNodes()[0].name;
+      expect(model.hasUniqueNames()).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1796
+     * @tc.name    NavBarExtension1796
+     * @tc.desc    Changing sub count at index 0 breaks consistency
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5consistent00', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      model.getNodes()[0].subCount = model.getNodes()[0].subCount + 1;
+      expect(model.isSubCountConsistent()).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1797
+     * @tc.name    NavBarExtension1797
+     * @tc.desc    Changing sub count at index 1 breaks consistency
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5consistent01', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      model.getNodes()[1].subCount = model.getNodes()[1].subCount + 1;
+      expect(model.isSubCountConsistent()).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1798
+     * @tc.name    NavBarExtension1798
+     * @tc.desc    Changing sub count at index 2 breaks consistency
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5consistent02', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      model.getNodes()[2].subCount = model.getNodes()[2].subCount + 1;
+      expect(model.isSubCountConsistent()).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1799
+     * @tc.name    NavBarExtension1799
+     * @tc.desc    Changing sub count at index 3 breaks consistency
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5consistent03', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      model.getNodes()[3].subCount = model.getNodes()[3].subCount + 1;
+      expect(model.isSubCountConsistent()).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1800
+     * @tc.name    NavBarExtension1800
+     * @tc.desc    Changing sub count at index 4 breaks consistency
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5consistent04', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      model.getNodes()[4].subCount = model.getNodes()[4].subCount + 1;
+      expect(model.isSubCountConsistent()).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1801
+     * @tc.name    NavBarExtension1801
+     * @tc.desc    The seeded sub counts stay consistent
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5consistentok', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.isSubCountConsistent()).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1802
+     * @tc.name    NavBarExtension1802
+     * @tc.desc    Zeroing sub count at index 0 empties the top menu
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5empty00', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      model.getNodes()[0].subCount = 0;
+      expect(model.hasNoEmptyTop()).assertFalse();
+      expect(model.getTotalSubCount()).assertEqual(8);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1803
+     * @tc.name    NavBarExtension1803
+     * @tc.desc    Zeroing sub count at index 1 empties the top menu
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5empty01', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      model.getNodes()[1].subCount = 0;
+      expect(model.hasNoEmptyTop()).assertFalse();
+      expect(model.getTotalSubCount()).assertEqual(9);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1804
+     * @tc.name    NavBarExtension1804
+     * @tc.desc    Zeroing sub count at index 2 empties the top menu
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5empty02', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      model.getNodes()[2].subCount = 0;
+      expect(model.hasNoEmptyTop()).assertFalse();
+      expect(model.getTotalSubCount()).assertEqual(9);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1805
+     * @tc.name    NavBarExtension1805
+     * @tc.desc    Zeroing sub count at index 3 empties the top menu
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5empty03', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      model.getNodes()[3].subCount = 0;
+      expect(model.hasNoEmptyTop()).assertFalse();
+      expect(model.getTotalSubCount()).assertEqual(9);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1806
+     * @tc.name    NavBarExtension1806
+     * @tc.desc    Zeroing sub count at index 4 empties the top menu
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5empty04', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      model.getNodes()[4].subCount = 0;
+      expect(model.hasNoEmptyTop()).assertFalse();
+      expect(model.getTotalSubCount()).assertEqual(9);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1807
+     * @tc.name    NavBarExtension1807
+     * @tc.desc    A negative sub count empties the top menu
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5emptyneg', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      model.getNodes()[2].subCount = -4;
+      expect(model.hasNoEmptyTop()).assertFalse();
+      expect(model.getTotalSubCount()).assertEqual(5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1808
+     * @tc.name    NavBarExtension1808
+     * @tc.desc    Doubling every sub count doubles the total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5emptytotal', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      model.getNodes().forEach((node: NavMenuNode) => {
+        node.subCount = node.subCount * 2;
+      });
+      expect(model.getTotalSubCount()).assertEqual(22);
+      expect(model.hasNoEmptyTop()).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1809
+     * @tc.name    NavBarExtension1809
+     * @tc.desc    Clearing every sub count yields a zero total
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5emptyclear', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      model.getNodes().forEach((node: NavMenuNode) => {
+        node.subCount = 0;
+      });
+      expect(model.getTotalSubCount()).assertEqual(0);
+    })
