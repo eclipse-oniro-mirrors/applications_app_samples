@@ -838,3 +838,293 @@ export default function downloadMatrix052Test(): void {
         logAssertion(caseName, "api.sandboxEntries", api.sandboxEntries, expected05);
         expect(JSON.stringify(api.sandboxEntries)).assertEqual(JSON.stringify(expected05));
       } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_001243
+     * @tc.name EnvironmentSample_statFailure_1242_3_duplicateFirst
+     * @tc.desc Fail stat at entry 3, prefix FDF, mutation duplicateFirst; propagate identical error, return no
+     * result, stop traversal and retain committed copies.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_statFailure_1242_3_duplicateFirst", 0, (): void => {
+      const caseName: string = "EnvironmentSample_statFailure_1242_3_duplicateFirst";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/report.txt", "/download/资料.txt", "/download/ spaced "];
+        api.faultEvent = "stat:/download/ spaced ";
+        const injected: Error = api.failure;
+        api.mutationEvent = "stat:/download/ spaced ";
+        api.mutationKind = "duplicateFirst";
+        let caught: Error | undefined = undefined;
+        let result: string[] = [];
+        try {
+          result = importDownloadFiles('/download', '/sandbox', api);
+        } catch (error) {
+          caught = error as Error;
+        }
+        logAssertion(caseName, "caught === injected", caught === injected, true);
+        expect(caught === injected).assertEqual(true);
+        logAssertion(caseName, "result", result, []);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify([]));
+        const expected03: string[] = [
+          "list:/download", "stat:/download/report.txt", "copy:/download/report.txt->/sandbox/report.txt",
+          "stat:/download/.hidden", "stat:/download/资料.txt", "copy:/download/资料.txt->/sandbox/资料.txt",
+          "stat:/download/ spaced ",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected03);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected03));
+        const expected04: string[] = ["/download/report.txt->/sandbox/report.txt", "/download/资料.txt->/sandbox/资料.txt"];
+        logAssertion(caseName, "api.copied", api.copied, expected04);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify(expected04));
+        const expected05: string[] = ["preexisting.txt", "report.txt", "资料.txt"];
+        logAssertion(caseName, "api.sandboxEntries", api.sandboxEntries, expected05);
+        expect(JSON.stringify(api.sandboxEntries)).assertEqual(JSON.stringify(expected05));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_001244
+     * @tc.name EnvironmentSample_statFailure_1243_3_none
+     * @tc.desc Fail stat at entry 3, prefix FFD, mutation none; propagate identical error, return no result, stop
+     * traversal and retain committed copies.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_statFailure_1243_3_none", 0, (): void => {
+      const caseName: string = "EnvironmentSample_statFailure_1243_3_none";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/report.txt", "/download/.hidden", "/download/ spaced "];
+        api.faultEvent = "stat:/download/ spaced ";
+        const injected: Error = api.failure;
+        let caught: Error | undefined = undefined;
+        let result: string[] = [];
+        try {
+          result = importDownloadFiles('/download', '/sandbox', api);
+        } catch (error) {
+          caught = error as Error;
+        }
+        logAssertion(caseName, "caught === injected", caught === injected, true);
+        expect(caught === injected).assertEqual(true);
+        logAssertion(caseName, "result", result, []);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify([]));
+        const expected03: string[] = [
+          "list:/download", "stat:/download/report.txt", "copy:/download/report.txt->/sandbox/report.txt",
+          "stat:/download/.hidden", "copy:/download/.hidden->/sandbox/.hidden", "stat:/download/资料.txt",
+          "stat:/download/ spaced ",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected03);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected03));
+        const expected04: string[] =
+          ["/download/report.txt->/sandbox/report.txt", "/download/.hidden->/sandbox/.hidden"];
+        logAssertion(caseName, "api.copied", api.copied, expected04);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify(expected04));
+        const expected05: string[] = ["preexisting.txt", "report.txt", ".hidden"];
+        logAssertion(caseName, "api.sandboxEntries", api.sandboxEntries, expected05);
+        expect(JSON.stringify(api.sandboxEntries)).assertEqual(JSON.stringify(expected05));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_001245
+     * @tc.name EnvironmentSample_statFailure_1244_3_appendTraversal
+     * @tc.desc Fail stat at entry 3, prefix FFD, mutation appendTraversal; propagate identical error, return no
+     * result, stop traversal and retain committed copies.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_statFailure_1244_3_appendTraversal", 0, (): void => {
+      const caseName: string = "EnvironmentSample_statFailure_1244_3_appendTraversal";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/report.txt", "/download/.hidden", "/download/ spaced "];
+        api.faultEvent = "stat:/download/ spaced ";
+        const injected: Error = api.failure;
+        api.mutationEvent = "stat:/download/ spaced ";
+        api.mutationKind = "appendTraversal";
+        let caught: Error | undefined = undefined;
+        let result: string[] = [];
+        try {
+          result = importDownloadFiles('/download', '/sandbox', api);
+        } catch (error) {
+          caught = error as Error;
+        }
+        logAssertion(caseName, "caught === injected", caught === injected, true);
+        expect(caught === injected).assertEqual(true);
+        logAssertion(caseName, "result", result, []);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify([]));
+        const expected03: string[] = [
+          "list:/download", "stat:/download/report.txt", "copy:/download/report.txt->/sandbox/report.txt",
+          "stat:/download/.hidden", "copy:/download/.hidden->/sandbox/.hidden", "stat:/download/资料.txt",
+          "stat:/download/ spaced ",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected03);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected03));
+        const expected04: string[] =
+          ["/download/report.txt->/sandbox/report.txt", "/download/.hidden->/sandbox/.hidden"];
+        logAssertion(caseName, "api.copied", api.copied, expected04);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify(expected04));
+        const expected05: string[] = ["preexisting.txt", "report.txt", ".hidden"];
+        logAssertion(caseName, "api.sandboxEntries", api.sandboxEntries, expected05);
+        expect(JSON.stringify(api.sandboxEntries)).assertEqual(JSON.stringify(expected05));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_001246
+     * @tc.name EnvironmentSample_statFailure_1245_3_replaceFirst
+     * @tc.desc Fail stat at entry 3, prefix FFD, mutation replaceFirst; propagate identical error, return no
+     * result, stop traversal and retain committed copies.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_statFailure_1245_3_replaceFirst", 0, (): void => {
+      const caseName: string = "EnvironmentSample_statFailure_1245_3_replaceFirst";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/report.txt", "/download/.hidden", "/download/ spaced "];
+        api.faultEvent = "stat:/download/ spaced ";
+        const injected: Error = api.failure;
+        api.mutationEvent = "stat:/download/ spaced ";
+        api.mutationKind = "replaceFirst";
+        let caught: Error | undefined = undefined;
+        let result: string[] = [];
+        try {
+          result = importDownloadFiles('/download', '/sandbox', api);
+        } catch (error) {
+          caught = error as Error;
+        }
+        logAssertion(caseName, "caught === injected", caught === injected, true);
+        expect(caught === injected).assertEqual(true);
+        logAssertion(caseName, "result", result, []);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify([]));
+        const expected03: string[] = [
+          "list:/download", "stat:/download/report.txt", "copy:/download/report.txt->/sandbox/report.txt",
+          "stat:/download/.hidden", "copy:/download/.hidden->/sandbox/.hidden", "stat:/download/资料.txt",
+          "stat:/download/ spaced ",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected03);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected03));
+        const expected04: string[] =
+          ["/download/report.txt->/sandbox/report.txt", "/download/.hidden->/sandbox/.hidden"];
+        logAssertion(caseName, "api.copied", api.copied, expected04);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify(expected04));
+        const expected05: string[] = ["preexisting.txt", "report.txt", ".hidden"];
+        logAssertion(caseName, "api.sandboxEntries", api.sandboxEntries, expected05);
+        expect(JSON.stringify(api.sandboxEntries)).assertEqual(JSON.stringify(expected05));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_001247
+     * @tc.name EnvironmentSample_statFailure_1246_3_reverse
+     * @tc.desc Fail stat at entry 3, prefix FFD, mutation reverse; propagate identical error, return no result,
+     * stop traversal and retain committed copies.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_statFailure_1246_3_reverse", 0, (): void => {
+      const caseName: string = "EnvironmentSample_statFailure_1246_3_reverse";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/report.txt", "/download/.hidden", "/download/ spaced "];
+        api.faultEvent = "stat:/download/ spaced ";
+        const injected: Error = api.failure;
+        api.mutationEvent = "stat:/download/ spaced ";
+        api.mutationKind = "reverse";
+        let caught: Error | undefined = undefined;
+        let result: string[] = [];
+        try {
+          result = importDownloadFiles('/download', '/sandbox', api);
+        } catch (error) {
+          caught = error as Error;
+        }
+        logAssertion(caseName, "caught === injected", caught === injected, true);
+        expect(caught === injected).assertEqual(true);
+        logAssertion(caseName, "result", result, []);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify([]));
+        const expected03: string[] = [
+          "list:/download", "stat:/download/report.txt", "copy:/download/report.txt->/sandbox/report.txt",
+          "stat:/download/.hidden", "copy:/download/.hidden->/sandbox/.hidden", "stat:/download/资料.txt",
+          "stat:/download/ spaced ",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected03);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected03));
+        const expected04: string[] =
+          ["/download/report.txt->/sandbox/report.txt", "/download/.hidden->/sandbox/.hidden"];
+        logAssertion(caseName, "api.copied", api.copied, expected04);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify(expected04));
+        const expected05: string[] = ["preexisting.txt", "report.txt", ".hidden"];
+        logAssertion(caseName, "api.sandboxEntries", api.sandboxEntries, expected05);
+        expect(JSON.stringify(api.sandboxEntries)).assertEqual(JSON.stringify(expected05));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_001248
+     * @tc.name EnvironmentSample_statFailure_1247_3_removeLast
+     * @tc.desc Fail stat at entry 3, prefix FFD, mutation removeLast; propagate identical error, return no result,
+     * stop traversal and retain committed copies.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_statFailure_1247_3_removeLast", 0, (): void => {
+      const caseName: string = "EnvironmentSample_statFailure_1247_3_removeLast";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/report.txt", "/download/.hidden", "/download/ spaced "];
+        api.faultEvent = "stat:/download/ spaced ";
+        const injected: Error = api.failure;
+        api.mutationEvent = "stat:/download/ spaced ";
+        api.mutationKind = "removeLast";
+        let caught: Error | undefined = undefined;
+        let result: string[] = [];
+        try {
+          result = importDownloadFiles('/download', '/sandbox', api);
+        } catch (error) {
+          caught = error as Error;
+        }
+        logAssertion(caseName, "caught === injected", caught === injected, true);
+        expect(caught === injected).assertEqual(true);
+        logAssertion(caseName, "result", result, []);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify([]));
+        const expected03: string[] = [
+          "list:/download", "stat:/download/report.txt", "copy:/download/report.txt->/sandbox/report.txt",
+          "stat:/download/.hidden", "copy:/download/.hidden->/sandbox/.hidden", "stat:/download/资料.txt",
+          "stat:/download/ spaced ",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected03);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected03));
+        const expected04: string[] =
+          ["/download/report.txt->/sandbox/report.txt", "/download/.hidden->/sandbox/.hidden"];
+        logAssertion(caseName, "api.copied", api.copied, expected04);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify(expected04));
+        const expected05: string[] = ["preexisting.txt", "report.txt", ".hidden"];
+        logAssertion(caseName, "api.sandboxEntries", api.sandboxEntries, expected05);
+        expect(JSON.stringify(api.sandboxEntries)).assertEqual(JSON.stringify(expected05));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+  });
+}
