@@ -15,13 +15,9 @@ Three breakpoints are recognized: sm, md and lg. The sm breakpoint uses the bott
 
 ### Effect Preview
 
-| Narrow sm: bottom tabs                   | Wide md: side bar, tabs style             | Wide lg: side bar, tabs style             |
-| ---------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| ![sm](screenshots/devices/image1.png)     | ![md](screenshots/devices/image2.png)      | ![lg](screenshots/devices/image4.png)      |
-
-| Wide md: side bar, list style              | Wide lg: side bar, list style              |
-| ----------------------------------------- | ----------------------------------------- |
-| ![md-list](screenshots/devices/image3.png) | ![lg-list](screenshots/devices/image5.png) |
+| Narrow sm: bottom tabs | Wide md: side bar, tabs style | Wide lg: side bar, tabs style | Wide lg: side bar, list style |
+| ---------------------- | ----------------------------- | ----------------------------- | ----------------------------- |
+| ![sm](screenshots/Devices/image1.png) | ![md](screenshots/Devices/image2.png) | ![lg](screenshots/Devices/image4.png) | ![lg-list](screenshots/Devices/image5.png) |
 
 Log output
 

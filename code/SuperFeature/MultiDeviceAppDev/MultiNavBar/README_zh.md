@@ -15,13 +15,9 @@
 
 ### 效果预览
 
-| 窄屏 sm：底部 Tabs                        | 宽屏 md：侧边栏 tabs 形态                  | 宽屏 lg：侧边栏 tabs 形态                  |
-| ---------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| ![sm](screenshots/devices/image1.png)     | ![md](screenshots/devices/image2.png)      | ![lg](screenshots/devices/image4.png)      |
-
-| 宽屏 md：侧边栏 list 形态                  | 宽屏 lg：侧边栏 list 形态                  |
-| ----------------------------------------- | ----------------------------------------- |
-| ![md-list](screenshots/devices/image3.png) | ![lg-list](screenshots/devices/image5.png) |
+| 窄屏 sm：底部 Tabs | 宽屏 md：侧边栏 tabs 形态 | 宽屏 lg：侧边栏 tabs 形态 | 宽屏 lg：侧边栏 list 形态 |
+| ------------------ | ------------------------- | ------------------------- | ------------------------- |
+| ![sm](screenshots/Devices/image1.png) | ![md](screenshots/Devices/image2.png) | ![lg](screenshots/Devices/image4.png) | ![lg-list](screenshots/Devices/image5.png) |
 
 日志打印
 

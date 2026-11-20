@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -23,20 +23,6 @@
         "compileSdkVersion": '26.0.0',
         "compatibleSdkVersion": '26.0.0',
         "runtimeOS": "OpenHarmony"
-      }
-    ],
-    "signingConfigs": [
-      {
-        "name": "default",
-        "material": {
-          "certpath": "C:/Users/ISSUSER/.ohos/config/openharmony/default_MultiNavBar_zgHZvA_E6-0EVe-0epA2e0UbftJJN5X9bLocmLoorxU=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "000000193EDEFDCAA3F1363BC7379A996BFAA251D897EABC459F4DEE1294B1626B8C57C4E513745C6E",
-          "profile": "C:/Users/ISSUSER/.ohos/config/openharmony/default_MultiNavBar_zgHZvA_E6-0EVe-0epA2e0UbftJJN5X9bLocmLoorxU=.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "C:/Users/ISSUSER/.ohos/config/openharmony/default_MultiNavBar_zgHZvA_E6-0EVe-0epA2e0UbftJJN5X9bLocmLoorxU=.p12",
-          "storePassword": "000000195B8455C46926D85F754CE36DB24064E89451B1F49F936D5867A49BC9C35F74B99F287DD147"
-        }
       }
     ]
   },
