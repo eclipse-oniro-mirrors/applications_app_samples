@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,98 +14,139 @@
  */
 
 import { describe, expect, it } from '@ohos/hypium';
-
-import { abilityDelegatorRegistry, Component, Driver, ON, } from '@kit.TestKit';
+import { abilityDelegatorRegistry, Component, Driver, ON } from '@kit.TestKit';
 import { UIAbility, Want } from '@kit.AbilityKit';
-import Logger from '../common/Logger';
+import { logCase, logAssertion } from './EnvironmentTestSupport';
 
-const DELAY_TIME = 1500; // 延时1.5秒
-const BUNDLE = 'EnvironmentTest_';
-
-const delegator = abilityDelegatorRegistry.getAbilityDelegator();
-const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const DELAY_TIME: number = 1500;
 
 async function getResourceString(resource: Resource): Promise<string> {
-  let manage = abilityDelegator.getAppContext().resourceManager;
-  let text = await manage.getStringValue(resource);
+  const text: string = await abilityDelegatorRegistry.getAbilityDelegator()
+    .getAppContext().resourceManager.getStringValue(resource.id);
   return text;
 }
 
-export default function abilityTest() {
-  describe('ActsAbilityTest', () => {
+export default function abilityTest(): void {
+  describe('ActsAbilityTest', (): void => {
     /**
-     * @tc.number StartAbility_001
-     * @tc.name StartAbility_001
-     * @tc.desc 启动Ability
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_UI_001
+     * @tc.name SUB_CORE_FILE_ENVIRONMENT_UI_001
+     * @tc.desc Start EntryAbility and handle the optional permission dialog.
      */
-    it(BUNDLE + 'StartAbility_001', 0, async (done: Function) => {
-      Logger.info('StartAbility_001 begin');
-      const want: Want = {
-        bundleName: bundleName,
-        abilityName: 'EntryAbility'
-      };
-
-      await delegator.startAbility(want);
-      let driver: Driver = Driver.create();
-      await driver.delayMs(DELAY_TIME);
-      const allowButton: Component = await driver.findComponent(ON.text('允许'));
-      await allowButton.click();
-      await driver.delayMs(DELAY_TIME); // 等待2秒，确保弹窗已显示
-
-      const ability: UIAbility = await delegator.getCurrentTopAbility();
-      Logger.info('get top ability');
-      expect(ability.context.abilityInfo.name).assertEqual('EntryAbility');
-      done();
-      Logger.info('StartAbility_001 end');
-    })
-
-    /**
-     * @tc.number EnvironmentTest_001
-     * @tc.name EnvironmentTest_001
-     * @tc.desc 获取用户 Download 目录沙箱路径
-     */
-    it(BUNDLE + 'environmentTest_001', 0, async () => {
-      Logger.info(BUNDLE + 'EnvironmentTest_001 begin');
-      let str = await getResourceString($r('app.string.getUserDirExample'));
-      let driver: Driver = Driver.create();
-      await driver.assertComponentExist(ON.text(str));
-      let button: Component = await driver.findComponent(ON.text(str));
-      await button.click();
-      await driver.delayMs(DELAY_TIME);
-      Logger.info(BUNDLE + 'EnvironmentTest_001 end');
-    })
+    it('SUB_CORE_FILE_ENVIRONMENT_UI_001', 0, async (): Promise<void> => {
+      const name: string = 'SUB_CORE_FILE_ENVIRONMENT_UI_001';
+      logCase(name, 'begin');
+      try {
+        const bundleName: string = abilityDelegatorRegistry.getArguments().bundleName;
+        const want: Want = {
+          bundleName: bundleName,
+          abilityName: 'EntryAbility'
+        };
+        await abilityDelegatorRegistry.getAbilityDelegator().startAbility(want);
+        const driver: Driver = Driver.create();
+        await driver.delayMs(DELAY_TIME);
+        // SDK 26.0.0 documents undefined for an unmatched findComponent, not null.
+        const allowButton: Component | undefined = await driver.findComponent(ON.text('允许'));
+        const actualAllowPresent: boolean = allowButton !== undefined;
+        logCase(name, actualAllowPresent ? 'permission dialog present' : 'permission dialog absent');
+        if (allowButton !== undefined) {
+          await allowButton.click();
+          await driver.delayMs(DELAY_TIME);
+        }
+        const ability: UIAbility = await abilityDelegatorRegistry.getAbilityDelegator().getCurrentTopAbility();
+        const actualAbilityName: string = ability.context.abilityInfo.name;
+        logAssertion(name, 'top ability name', actualAbilityName, 'EntryAbility');
+        expect(actualAbilityName).assertEqual('EntryAbility');
+        const buttonText: string = await getResourceString($r('app.string.getUserDirExample'));
+        logAssertion(name, 'initial button selector (EQUALS)', buttonText, buttonText);
+        await driver.assertComponentExist(ON.text(buttonText));
+      } finally {
+        logCase(name, 'end');
+      }
+    });
 
     /**
-     * @tc.number EnvironmentTest_002
-     * @tc.name EnvironmentTest_002
-     * @tc.desc 查看Download目录下的文件
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_UI_002
+     * @tc.name SUB_CORE_FILE_ENVIRONMENT_UI_002
+     * @tc.desc Click the user directory button and verify a newly appended success status.
      */
-    it(BUNDLE + 'environmentTest_002', 0, async () => {
-      Logger.info(BUNDLE + 'EnvironmentTest_002 begin');
-      let str = await getResourceString($r('app.string.readUserDownloadDirExample'));
-      let driver: Driver = Driver.create();
-      await driver.assertComponentExist(ON.text(str));
-      let button: Component = await driver.findComponent(ON.text(str));
-      await button.click();
-      await driver.delayMs(DELAY_TIME);
-      Logger.info(BUNDLE + 'EnvironmentTest_002 end');
-    })
+    it('SUB_CORE_FILE_ENVIRONMENT_UI_002', 0, async (): Promise<void> => {
+      const name: string = 'SUB_CORE_FILE_ENVIRONMENT_UI_002';
+      logCase(name, 'begin');
+      try {
+        const buttonText: string = await getResourceString($r('app.string.getUserDirExample'));
+        const driver: Driver = Driver.create();
+        logAssertion(name, 'directory button selector (EQUALS)', buttonText, buttonText);
+        await driver.assertComponentExist(ON.text(buttonText));
+        const button: Component = await driver.findComponent(ON.text(buttonText));
+        const result: Component = await driver.findComponent(ON.id('operationResult'));
+        const previousText: string = await result.getText();
+        await button.click();
+        await driver.delayMs(DELAY_TIME);
+        const resultText: string = await getResourceString($r('app.string.public_dirs_success'));
+        const visibleText: string = await result.getText();
+        const actualResultVisible: boolean = visibleText === `${previousText}${resultText}\n`;
+        logAssertion(name, 'fresh directory success status', actualResultVisible, true);
+        expect(actualResultVisible).assertEqual(true);
+      } finally {
+        logCase(name, 'end');
+      }
+    });
 
     /**
-     * @tc.number EnvironmentTest_003
-     * @tc.name EnvironmentTest_003
-     * @tc.desc 保存 temp.txt 到 Download 目录
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_UI_003
+     * @tc.name SUB_CORE_FILE_ENVIRONMENT_UI_003
+     * @tc.desc Click the download import button and verify a newly appended success status.
      */
-    it(BUNDLE + 'environmentTest_003', 0, async () => {
-      Logger.info(BUNDLE + 'EnvironmentTest_003 begin');
-      let str = await getResourceString($r('app.string.writeUserDownloadDirExample'));
-      let driver: Driver = Driver.create();
-      await driver.assertComponentExist(ON.text(str));
-      let button: Component = await driver.findComponent(ON.text(str));
-      await button.click();
-      await driver.delayMs(DELAY_TIME);
-      Logger.info(BUNDLE + 'EnvironmentTest_003 end');
-    })
-  })
+    it('SUB_CORE_FILE_ENVIRONMENT_UI_003', 0, async (): Promise<void> => {
+      const name: string = 'SUB_CORE_FILE_ENVIRONMENT_UI_003';
+      logCase(name, 'begin');
+      try {
+        const buttonText: string = await getResourceString($r('app.string.readUserDownloadDirExample'));
+        const driver: Driver = Driver.create();
+        logAssertion(name, 'import button selector (EQUALS)', buttonText, buttonText);
+        await driver.assertComponentExist(ON.text(buttonText));
+        const button: Component = await driver.findComponent(ON.text(buttonText));
+        const result: Component = await driver.findComponent(ON.id('operationResult'));
+        const previousText: string = await result.getText();
+        await button.click();
+        await driver.delayMs(DELAY_TIME);
+        const resultText: string = await getResourceString($r('app.string.download_import_success'));
+        const visibleText: string = await result.getText();
+        const actualResultVisible: boolean = visibleText === `${previousText}${resultText}\n`;
+        logAssertion(name, 'fresh import success status', actualResultVisible, true);
+        expect(actualResultVisible).assertEqual(true);
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_UI_004
+     * @tc.name SUB_CORE_FILE_ENVIRONMENT_UI_004
+     * @tc.desc Click the download write button and verify a newly appended success status.
+     */
+    it('SUB_CORE_FILE_ENVIRONMENT_UI_004', 0, async (): Promise<void> => {
+      const name: string = 'SUB_CORE_FILE_ENVIRONMENT_UI_004';
+      logCase(name, 'begin');
+      try {
+        const buttonText: string = await getResourceString($r('app.string.writeUserDownloadDirExample'));
+        const driver: Driver = Driver.create();
+        logAssertion(name, 'write button selector (EQUALS)', buttonText, buttonText);
+        await driver.assertComponentExist(ON.text(buttonText));
+        const button: Component = await driver.findComponent(ON.text(buttonText));
+        const result: Component = await driver.findComponent(ON.id('operationResult'));
+        const previousText: string = await result.getText();
+        await button.click();
+        await driver.delayMs(DELAY_TIME);
+        const resultText: string = await getResourceString($r('app.string.download_write_success'));
+        const visibleText: string = await result.getText();
+        const actualResultVisible: boolean = visibleText === `${previousText}${resultText}\n`;
+        logAssertion(name, 'fresh write success status', actualResultVisible, true);
+        expect(actualResultVisible).assertEqual(true);
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+  });
 }
