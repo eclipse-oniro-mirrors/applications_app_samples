@@ -3934,3 +3934,1666 @@ export default function draftIoMatrixTest() {
 
   /**
    * @tc.number    SUB_BMS_HARTOHSP_DIO_0148
+   * @tc.name      testDraftIo0148
+   * @tc.desc      Draft batch holds 8 listed items
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0148', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0148', 'batch list 8');
+    const dir: string = scratchDir();
+    const box: string = dir + '/batch_08';
+    fs.mkdirSync(box);
+    writeText(box + '/item_01.txt', 'item-1');
+    writeText(box + '/item_02.txt', 'item-2');
+    writeText(box + '/item_03.txt', 'item-3');
+    writeText(box + '/item_04.txt', 'item-4');
+    writeText(box + '/item_05.txt', 'item-5');
+    writeText(box + '/item_06.txt', 'item-6');
+    writeText(box + '/item_07.txt', 'item-7');
+    writeText(box + '/item_08.txt', 'item-8');
+    const names: string[] = fs.listFileSync(box);
+    expect(names.length).assertEqual(8);
+    expect(names.includes('item_01.txt')).assertTrue();
+    expect(names.includes('item_08.txt')).assertTrue();
+    fs.unlinkSync(box + '/item_01.txt');
+    fs.unlinkSync(box + '/item_02.txt');
+    fs.unlinkSync(box + '/item_03.txt');
+    fs.unlinkSync(box + '/item_04.txt');
+    fs.unlinkSync(box + '/item_05.txt');
+    fs.unlinkSync(box + '/item_06.txt');
+    fs.unlinkSync(box + '/item_07.txt');
+    fs.unlinkSync(box + '/item_08.txt');
+    expect(fs.listFileSync(box).length).assertEqual(0);
+    fs.rmdirSync(box);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0149
+   * @tc.name      testDraftIo0149
+   * @tc.desc      Draft batch holds 9 listed items
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0149', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0149', 'batch list 9');
+    const dir: string = scratchDir();
+    const box: string = dir + '/batch_09';
+    fs.mkdirSync(box);
+    writeText(box + '/item_01.txt', 'item-1');
+    writeText(box + '/item_02.txt', 'item-2');
+    writeText(box + '/item_03.txt', 'item-3');
+    writeText(box + '/item_04.txt', 'item-4');
+    writeText(box + '/item_05.txt', 'item-5');
+    writeText(box + '/item_06.txt', 'item-6');
+    writeText(box + '/item_07.txt', 'item-7');
+    writeText(box + '/item_08.txt', 'item-8');
+    writeText(box + '/item_09.txt', 'item-9');
+    const names: string[] = fs.listFileSync(box);
+    expect(names.length).assertEqual(9);
+    expect(names.includes('item_01.txt')).assertTrue();
+    expect(names.includes('item_09.txt')).assertTrue();
+    fs.unlinkSync(box + '/item_01.txt');
+    fs.unlinkSync(box + '/item_02.txt');
+    fs.unlinkSync(box + '/item_03.txt');
+    fs.unlinkSync(box + '/item_04.txt');
+    fs.unlinkSync(box + '/item_05.txt');
+    fs.unlinkSync(box + '/item_06.txt');
+    fs.unlinkSync(box + '/item_07.txt');
+    fs.unlinkSync(box + '/item_08.txt');
+    fs.unlinkSync(box + '/item_09.txt');
+    expect(fs.listFileSync(box).length).assertEqual(0);
+    fs.rmdirSync(box);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0150
+   * @tc.name      testDraftIo0150
+   * @tc.desc      Draft batch holds 10 listed items
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0150', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0150', 'batch list 10');
+    const dir: string = scratchDir();
+    const box: string = dir + '/batch_10';
+    fs.mkdirSync(box);
+    writeText(box + '/item_01.txt', 'item-1');
+    writeText(box + '/item_02.txt', 'item-2');
+    writeText(box + '/item_03.txt', 'item-3');
+    writeText(box + '/item_04.txt', 'item-4');
+    writeText(box + '/item_05.txt', 'item-5');
+    writeText(box + '/item_06.txt', 'item-6');
+    writeText(box + '/item_07.txt', 'item-7');
+    writeText(box + '/item_08.txt', 'item-8');
+    writeText(box + '/item_09.txt', 'item-9');
+    writeText(box + '/item_10.txt', 'item-10');
+    const names: string[] = fs.listFileSync(box);
+    expect(names.length).assertEqual(10);
+    expect(names.includes('item_01.txt')).assertTrue();
+    expect(names.includes('item_10.txt')).assertTrue();
+    fs.unlinkSync(box + '/item_01.txt');
+    fs.unlinkSync(box + '/item_02.txt');
+    fs.unlinkSync(box + '/item_03.txt');
+    fs.unlinkSync(box + '/item_04.txt');
+    fs.unlinkSync(box + '/item_05.txt');
+    fs.unlinkSync(box + '/item_06.txt');
+    fs.unlinkSync(box + '/item_07.txt');
+    fs.unlinkSync(box + '/item_08.txt');
+    fs.unlinkSync(box + '/item_09.txt');
+    fs.unlinkSync(box + '/item_10.txt');
+    expect(fs.listFileSync(box).length).assertEqual(0);
+    fs.rmdirSync(box);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0151
+   * @tc.name      testDraftIo0151
+   * @tc.desc      Draft batch holds 11 listed items
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0151', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0151', 'batch list 11');
+    const dir: string = scratchDir();
+    const box: string = dir + '/batch_11';
+    fs.mkdirSync(box);
+    writeText(box + '/item_01.txt', 'item-1');
+    writeText(box + '/item_02.txt', 'item-2');
+    writeText(box + '/item_03.txt', 'item-3');
+    writeText(box + '/item_04.txt', 'item-4');
+    writeText(box + '/item_05.txt', 'item-5');
+    writeText(box + '/item_06.txt', 'item-6');
+    writeText(box + '/item_07.txt', 'item-7');
+    writeText(box + '/item_08.txt', 'item-8');
+    writeText(box + '/item_09.txt', 'item-9');
+    writeText(box + '/item_10.txt', 'item-10');
+    writeText(box + '/item_11.txt', 'item-11');
+    const names: string[] = fs.listFileSync(box);
+    expect(names.length).assertEqual(11);
+    expect(names.includes('item_01.txt')).assertTrue();
+    expect(names.includes('item_11.txt')).assertTrue();
+    fs.unlinkSync(box + '/item_01.txt');
+    fs.unlinkSync(box + '/item_02.txt');
+    fs.unlinkSync(box + '/item_03.txt');
+    fs.unlinkSync(box + '/item_04.txt');
+    fs.unlinkSync(box + '/item_05.txt');
+    fs.unlinkSync(box + '/item_06.txt');
+    fs.unlinkSync(box + '/item_07.txt');
+    fs.unlinkSync(box + '/item_08.txt');
+    fs.unlinkSync(box + '/item_09.txt');
+    fs.unlinkSync(box + '/item_10.txt');
+    fs.unlinkSync(box + '/item_11.txt');
+    expect(fs.listFileSync(box).length).assertEqual(0);
+    fs.rmdirSync(box);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0152
+   * @tc.name      testDraftIo0152
+   * @tc.desc      Draft batch holds 12 listed items
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0152', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0152', 'batch list 12');
+    const dir: string = scratchDir();
+    const box: string = dir + '/batch_12';
+    fs.mkdirSync(box);
+    writeText(box + '/item_01.txt', 'item-1');
+    writeText(box + '/item_02.txt', 'item-2');
+    writeText(box + '/item_03.txt', 'item-3');
+    writeText(box + '/item_04.txt', 'item-4');
+    writeText(box + '/item_05.txt', 'item-5');
+    writeText(box + '/item_06.txt', 'item-6');
+    writeText(box + '/item_07.txt', 'item-7');
+    writeText(box + '/item_08.txt', 'item-8');
+    writeText(box + '/item_09.txt', 'item-9');
+    writeText(box + '/item_10.txt', 'item-10');
+    writeText(box + '/item_11.txt', 'item-11');
+    writeText(box + '/item_12.txt', 'item-12');
+    const names: string[] = fs.listFileSync(box);
+    expect(names.length).assertEqual(12);
+    expect(names.includes('item_01.txt')).assertTrue();
+    expect(names.includes('item_12.txt')).assertTrue();
+    fs.unlinkSync(box + '/item_01.txt');
+    fs.unlinkSync(box + '/item_02.txt');
+    fs.unlinkSync(box + '/item_03.txt');
+    fs.unlinkSync(box + '/item_04.txt');
+    fs.unlinkSync(box + '/item_05.txt');
+    fs.unlinkSync(box + '/item_06.txt');
+    fs.unlinkSync(box + '/item_07.txt');
+    fs.unlinkSync(box + '/item_08.txt');
+    fs.unlinkSync(box + '/item_09.txt');
+    fs.unlinkSync(box + '/item_10.txt');
+    fs.unlinkSync(box + '/item_11.txt');
+    fs.unlinkSync(box + '/item_12.txt');
+    expect(fs.listFileSync(box).length).assertEqual(0);
+    fs.rmdirSync(box);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0153
+   * @tc.name      testDraftIo0153
+   * @tc.desc      Draft holds special quote case 1
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0153', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0153', 'quote 1');
+    const dir: string = scratchDir();
+    const path: string = dir + '/special_quote_1.txt';
+    writeText(path, "it's-1");
+    const text: string = readText(path);
+    expect(text).assertEqual("it's-1");
+    expect(text.length).assertEqual(6);
+    expect(fs.statSync(path).size).assertEqual(6);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0154
+   * @tc.name      testDraftIo0154
+   * @tc.desc      Draft holds special quote case 2
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0154', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0154', 'quote 2');
+    const dir: string = scratchDir();
+    const path: string = dir + '/special_quote_2.txt';
+    writeText(path, "it's-2");
+    const text: string = readText(path);
+    expect(text).assertEqual("it's-2");
+    expect(text.length).assertEqual(6);
+    expect(fs.statSync(path).size).assertEqual(6);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0155
+   * @tc.name      testDraftIo0155
+   * @tc.desc      Draft holds special quote case 3
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0155', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0155', 'quote 3');
+    const dir: string = scratchDir();
+    const path: string = dir + '/special_quote_3.txt';
+    writeText(path, "it's-3");
+    const text: string = readText(path);
+    expect(text).assertEqual("it's-3");
+    expect(text.length).assertEqual(6);
+    expect(fs.statSync(path).size).assertEqual(6);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0156
+   * @tc.name      testDraftIo0156
+   * @tc.desc      Draft holds special backslash case 1
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0156', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0156', 'backslash 1');
+    const dir: string = scratchDir();
+    const path: string = dir + '/special_backslash_1.txt';
+    writeText(path, "path\\to\\1");
+    const text: string = readText(path);
+    expect(text).assertEqual("path\\to\\1");
+    expect(text.length).assertEqual(9);
+    expect(fs.statSync(path).size).assertEqual(9);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0157
+   * @tc.name      testDraftIo0157
+   * @tc.desc      Draft holds special backslash case 2
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0157', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0157', 'backslash 2');
+    const dir: string = scratchDir();
+    const path: string = dir + '/special_backslash_2.txt';
+    writeText(path, "path\\to\\2");
+    const text: string = readText(path);
+    expect(text).assertEqual("path\\to\\2");
+    expect(text.length).assertEqual(9);
+    expect(fs.statSync(path).size).assertEqual(9);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0158
+   * @tc.name      testDraftIo0158
+   * @tc.desc      Draft holds special backslash case 3
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0158', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0158', 'backslash 3');
+    const dir: string = scratchDir();
+    const path: string = dir + '/special_backslash_3.txt';
+    writeText(path, "path\\to\\3");
+    const text: string = readText(path);
+    expect(text).assertEqual("path\\to\\3");
+    expect(text.length).assertEqual(9);
+    expect(fs.statSync(path).size).assertEqual(9);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0159
+   * @tc.name      testDraftIo0159
+   * @tc.desc      Draft holds special tab case 1
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0159', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0159', 'tab 1');
+    const dir: string = scratchDir();
+    const path: string = dir + '/special_tab_1.txt';
+    writeText(path, "col-a-1\tcol-b-1");
+    const text: string = readText(path);
+    expect(text).assertEqual("col-a-1\tcol-b-1");
+    expect(text.length).assertEqual(15);
+    expect(fs.statSync(path).size).assertEqual(15);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0160
+   * @tc.name      testDraftIo0160
+   * @tc.desc      Draft holds special tab case 2
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0160', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0160', 'tab 2');
+    const dir: string = scratchDir();
+    const path: string = dir + '/special_tab_2.txt';
+    writeText(path, "col-a-2\tcol-b-2");
+    const text: string = readText(path);
+    expect(text).assertEqual("col-a-2\tcol-b-2");
+    expect(text.length).assertEqual(15);
+    expect(fs.statSync(path).size).assertEqual(15);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0161
+   * @tc.name      testDraftIo0161
+   * @tc.desc      Draft holds special tab case 3
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0161', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0161', 'tab 3');
+    const dir: string = scratchDir();
+    const path: string = dir + '/special_tab_3.txt';
+    writeText(path, "col-a-3\tcol-b-3");
+    const text: string = readText(path);
+    expect(text).assertEqual("col-a-3\tcol-b-3");
+    expect(text.length).assertEqual(15);
+    expect(fs.statSync(path).size).assertEqual(15);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0162
+   * @tc.name      testDraftIo0162
+   * @tc.desc      Draft holds special newline case 1
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0162', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0162', 'newline 1');
+    const dir: string = scratchDir();
+    const path: string = dir + '/special_newline_1.txt';
+    writeText(path, "line-a-1\nline-b-1");
+    const text: string = readText(path);
+    expect(text).assertEqual("line-a-1\nline-b-1");
+    expect(text.length).assertEqual(17);
+    expect(fs.statSync(path).size).assertEqual(17);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0163
+   * @tc.name      testDraftIo0163
+   * @tc.desc      Draft holds special newline case 2
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0163', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0163', 'newline 2');
+    const dir: string = scratchDir();
+    const path: string = dir + '/special_newline_2.txt';
+    writeText(path, "line-a-2\nline-b-2");
+    const text: string = readText(path);
+    expect(text).assertEqual("line-a-2\nline-b-2");
+    expect(text.length).assertEqual(17);
+    expect(fs.statSync(path).size).assertEqual(17);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0164
+   * @tc.name      testDraftIo0164
+   * @tc.desc      Draft holds special newline case 3
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0164', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0164', 'newline 3');
+    const dir: string = scratchDir();
+    const path: string = dir + '/special_newline_3.txt';
+    writeText(path, "line-a-3\nline-b-3");
+    const text: string = readText(path);
+    expect(text).assertEqual("line-a-3\nline-b-3");
+    expect(text.length).assertEqual(17);
+    expect(fs.statSync(path).size).assertEqual(17);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0165
+   * @tc.name      testDraftIo0165
+   * @tc.desc      Draft holds special mix case 1
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0165', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0165', 'mix 1');
+    const dir: string = scratchDir();
+    const path: string = dir + '/special_mix_1.txt';
+    writeText(path, "mix-1\\x\t\n");
+    const text: string = readText(path);
+    expect(text).assertEqual("mix-1\\x\t\n");
+    expect(text.length).assertEqual(9);
+    expect(fs.statSync(path).size).assertEqual(9);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0166
+   * @tc.name      testDraftIo0166
+   * @tc.desc      Draft holds special mix case 2
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0166', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0166', 'mix 2');
+    const dir: string = scratchDir();
+    const path: string = dir + '/special_mix_2.txt';
+    writeText(path, "mix-2\\x\t\n");
+    const text: string = readText(path);
+    expect(text).assertEqual("mix-2\\x\t\n");
+    expect(text.length).assertEqual(9);
+    expect(fs.statSync(path).size).assertEqual(9);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0167
+   * @tc.name      testDraftIo0167
+   * @tc.desc      Draft holds special mix case 3
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0167', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0167', 'mix 3');
+    const dir: string = scratchDir();
+    const path: string = dir + '/special_mix_3.txt';
+    writeText(path, "mix-3\\x\t\n");
+    const text: string = readText(path);
+    expect(text).assertEqual("mix-3\\x\t\n");
+    expect(text.length).assertEqual(9);
+    expect(fs.statSync(path).size).assertEqual(9);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0168
+   * @tc.name      testDraftIo0168
+   * @tc.desc      Draft move pass 1 crosses directories
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0168', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0168', 'move 1');
+    const dir: string = scratchDir();
+    const fromDir: string = dir + '/move_from_01';
+    const toDir: string = dir + '/move_to_01';
+    fs.mkdirSync(fromDir);
+    fs.mkdirSync(toDir);
+    const source: string = fromDir + '/payload.txt';
+    writeText(source, 'move-body-1');
+    const target: string = toDir + '/payload.txt';
+    fs.renameSync(source, target);
+    expect(fs.listFileSync(fromDir).length).assertEqual(0);
+    expect(fs.listFileSync(toDir).length).assertEqual(1);
+    expect(readText(target)).assertEqual('move-body-1');
+    fs.unlinkSync(target);
+    fs.rmdirSync(fromDir);
+    fs.rmdirSync(toDir);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0169
+   * @tc.name      testDraftIo0169
+   * @tc.desc      Draft move pass 2 crosses directories
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0169', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0169', 'move 2');
+    const dir: string = scratchDir();
+    const fromDir: string = dir + '/move_from_02';
+    const toDir: string = dir + '/move_to_02';
+    fs.mkdirSync(fromDir);
+    fs.mkdirSync(toDir);
+    const source: string = fromDir + '/payload.txt';
+    writeText(source, 'move-body-2');
+    const target: string = toDir + '/payload.txt';
+    fs.renameSync(source, target);
+    expect(fs.listFileSync(fromDir).length).assertEqual(0);
+    expect(fs.listFileSync(toDir).length).assertEqual(1);
+    expect(readText(target)).assertEqual('move-body-2');
+    fs.unlinkSync(target);
+    fs.rmdirSync(fromDir);
+    fs.rmdirSync(toDir);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0170
+   * @tc.name      testDraftIo0170
+   * @tc.desc      Draft move pass 3 crosses directories
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0170', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0170', 'move 3');
+    const dir: string = scratchDir();
+    const fromDir: string = dir + '/move_from_03';
+    const toDir: string = dir + '/move_to_03';
+    fs.mkdirSync(fromDir);
+    fs.mkdirSync(toDir);
+    const source: string = fromDir + '/payload.txt';
+    writeText(source, 'move-body-3');
+    const target: string = toDir + '/payload.txt';
+    fs.renameSync(source, target);
+    expect(fs.listFileSync(fromDir).length).assertEqual(0);
+    expect(fs.listFileSync(toDir).length).assertEqual(1);
+    expect(readText(target)).assertEqual('move-body-3');
+    fs.unlinkSync(target);
+    fs.rmdirSync(fromDir);
+    fs.rmdirSync(toDir);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0171
+   * @tc.name      testDraftIo0171
+   * @tc.desc      Draft move pass 4 crosses directories
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0171', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0171', 'move 4');
+    const dir: string = scratchDir();
+    const fromDir: string = dir + '/move_from_04';
+    const toDir: string = dir + '/move_to_04';
+    fs.mkdirSync(fromDir);
+    fs.mkdirSync(toDir);
+    const source: string = fromDir + '/payload.txt';
+    writeText(source, 'move-body-4');
+    const target: string = toDir + '/payload.txt';
+    fs.renameSync(source, target);
+    expect(fs.listFileSync(fromDir).length).assertEqual(0);
+    expect(fs.listFileSync(toDir).length).assertEqual(1);
+    expect(readText(target)).assertEqual('move-body-4');
+    fs.unlinkSync(target);
+    fs.rmdirSync(fromDir);
+    fs.rmdirSync(toDir);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0172
+   * @tc.name      testDraftIo0172
+   * @tc.desc      Draft move pass 5 crosses directories
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0172', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0172', 'move 5');
+    const dir: string = scratchDir();
+    const fromDir: string = dir + '/move_from_05';
+    const toDir: string = dir + '/move_to_05';
+    fs.mkdirSync(fromDir);
+    fs.mkdirSync(toDir);
+    const source: string = fromDir + '/payload.txt';
+    writeText(source, 'move-body-5');
+    const target: string = toDir + '/payload.txt';
+    fs.renameSync(source, target);
+    expect(fs.listFileSync(fromDir).length).assertEqual(0);
+    expect(fs.listFileSync(toDir).length).assertEqual(1);
+    expect(readText(target)).assertEqual('move-body-5');
+    fs.unlinkSync(target);
+    fs.rmdirSync(fromDir);
+    fs.rmdirSync(toDir);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0173
+   * @tc.name      testDraftIo0173
+   * @tc.desc      Draft move pass 6 crosses directories
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0173', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0173', 'move 6');
+    const dir: string = scratchDir();
+    const fromDir: string = dir + '/move_from_06';
+    const toDir: string = dir + '/move_to_06';
+    fs.mkdirSync(fromDir);
+    fs.mkdirSync(toDir);
+    const source: string = fromDir + '/payload.txt';
+    writeText(source, 'move-body-6');
+    const target: string = toDir + '/payload.txt';
+    fs.renameSync(source, target);
+    expect(fs.listFileSync(fromDir).length).assertEqual(0);
+    expect(fs.listFileSync(toDir).length).assertEqual(1);
+    expect(readText(target)).assertEqual('move-body-6');
+    fs.unlinkSync(target);
+    fs.rmdirSync(fromDir);
+    fs.rmdirSync(toDir);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0174
+   * @tc.name      testDraftIo0174
+   * @tc.desc      Draft move pass 7 crosses directories
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0174', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0174', 'move 7');
+    const dir: string = scratchDir();
+    const fromDir: string = dir + '/move_from_07';
+    const toDir: string = dir + '/move_to_07';
+    fs.mkdirSync(fromDir);
+    fs.mkdirSync(toDir);
+    const source: string = fromDir + '/payload.txt';
+    writeText(source, 'move-body-7');
+    const target: string = toDir + '/payload.txt';
+    fs.renameSync(source, target);
+    expect(fs.listFileSync(fromDir).length).assertEqual(0);
+    expect(fs.listFileSync(toDir).length).assertEqual(1);
+    expect(readText(target)).assertEqual('move-body-7');
+    fs.unlinkSync(target);
+    fs.rmdirSync(fromDir);
+    fs.rmdirSync(toDir);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0175
+   * @tc.name      testDraftIo0175
+   * @tc.desc      Draft move pass 8 crosses directories
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0175', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0175', 'move 8');
+    const dir: string = scratchDir();
+    const fromDir: string = dir + '/move_from_08';
+    const toDir: string = dir + '/move_to_08';
+    fs.mkdirSync(fromDir);
+    fs.mkdirSync(toDir);
+    const source: string = fromDir + '/payload.txt';
+    writeText(source, 'move-body-8');
+    const target: string = toDir + '/payload.txt';
+    fs.renameSync(source, target);
+    expect(fs.listFileSync(fromDir).length).assertEqual(0);
+    expect(fs.listFileSync(toDir).length).assertEqual(1);
+    expect(readText(target)).assertEqual('move-body-8');
+    fs.unlinkSync(target);
+    fs.rmdirSync(fromDir);
+    fs.rmdirSync(toDir);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0176
+   * @tc.name      testDraftIo0176
+   * @tc.desc      Draft move pass 9 crosses directories
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0176', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0176', 'move 9');
+    const dir: string = scratchDir();
+    const fromDir: string = dir + '/move_from_09';
+    const toDir: string = dir + '/move_to_09';
+    fs.mkdirSync(fromDir);
+    fs.mkdirSync(toDir);
+    const source: string = fromDir + '/payload.txt';
+    writeText(source, 'move-body-9');
+    const target: string = toDir + '/payload.txt';
+    fs.renameSync(source, target);
+    expect(fs.listFileSync(fromDir).length).assertEqual(0);
+    expect(fs.listFileSync(toDir).length).assertEqual(1);
+    expect(readText(target)).assertEqual('move-body-9');
+    fs.unlinkSync(target);
+    fs.rmdirSync(fromDir);
+    fs.rmdirSync(toDir);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0177
+   * @tc.name      testDraftIo0177
+   * @tc.desc      Draft move pass 10 crosses directories
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0177', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0177', 'move 10');
+    const dir: string = scratchDir();
+    const fromDir: string = dir + '/move_from_10';
+    const toDir: string = dir + '/move_to_10';
+    fs.mkdirSync(fromDir);
+    fs.mkdirSync(toDir);
+    const source: string = fromDir + '/payload.txt';
+    writeText(source, 'move-body-10');
+    const target: string = toDir + '/payload.txt';
+    fs.renameSync(source, target);
+    expect(fs.listFileSync(fromDir).length).assertEqual(0);
+    expect(fs.listFileSync(toDir).length).assertEqual(1);
+    expect(readText(target)).assertEqual('move-body-10');
+    fs.unlinkSync(target);
+    fs.rmdirSync(fromDir);
+    fs.rmdirSync(toDir);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0178
+   * @tc.name      testDraftIo0178
+   * @tc.desc      Draft move pass 11 crosses directories
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0178', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0178', 'move 11');
+    const dir: string = scratchDir();
+    const fromDir: string = dir + '/move_from_11';
+    const toDir: string = dir + '/move_to_11';
+    fs.mkdirSync(fromDir);
+    fs.mkdirSync(toDir);
+    const source: string = fromDir + '/payload.txt';
+    writeText(source, 'move-body-11');
+    const target: string = toDir + '/payload.txt';
+    fs.renameSync(source, target);
+    expect(fs.listFileSync(fromDir).length).assertEqual(0);
+    expect(fs.listFileSync(toDir).length).assertEqual(1);
+    expect(readText(target)).assertEqual('move-body-11');
+    fs.unlinkSync(target);
+    fs.rmdirSync(fromDir);
+    fs.rmdirSync(toDir);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0179
+   * @tc.name      testDraftIo0179
+   * @tc.desc      Draft move pass 12 crosses directories
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0179', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0179', 'move 12');
+    const dir: string = scratchDir();
+    const fromDir: string = dir + '/move_from_12';
+    const toDir: string = dir + '/move_to_12';
+    fs.mkdirSync(fromDir);
+    fs.mkdirSync(toDir);
+    const source: string = fromDir + '/payload.txt';
+    writeText(source, 'move-body-12');
+    const target: string = toDir + '/payload.txt';
+    fs.renameSync(source, target);
+    expect(fs.listFileSync(fromDir).length).assertEqual(0);
+    expect(fs.listFileSync(toDir).length).assertEqual(1);
+    expect(readText(target)).assertEqual('move-body-12');
+    fs.unlinkSync(target);
+    fs.rmdirSync(fromDir);
+    fs.rmdirSync(toDir);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0180
+   * @tc.name      testDraftIo0180
+   * @tc.desc      Draft move pass 13 crosses directories
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0180', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0180', 'move 13');
+    const dir: string = scratchDir();
+    const fromDir: string = dir + '/move_from_13';
+    const toDir: string = dir + '/move_to_13';
+    fs.mkdirSync(fromDir);
+    fs.mkdirSync(toDir);
+    const source: string = fromDir + '/payload.txt';
+    writeText(source, 'move-body-13');
+    const target: string = toDir + '/payload.txt';
+    fs.renameSync(source, target);
+    expect(fs.listFileSync(fromDir).length).assertEqual(0);
+    expect(fs.listFileSync(toDir).length).assertEqual(1);
+    expect(readText(target)).assertEqual('move-body-13');
+    fs.unlinkSync(target);
+    fs.rmdirSync(fromDir);
+    fs.rmdirSync(toDir);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0181
+   * @tc.name      testDraftIo0181
+   * @tc.desc      Draft move pass 14 crosses directories
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0181', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0181', 'move 14');
+    const dir: string = scratchDir();
+    const fromDir: string = dir + '/move_from_14';
+    const toDir: string = dir + '/move_to_14';
+    fs.mkdirSync(fromDir);
+    fs.mkdirSync(toDir);
+    const source: string = fromDir + '/payload.txt';
+    writeText(source, 'move-body-14');
+    const target: string = toDir + '/payload.txt';
+    fs.renameSync(source, target);
+    expect(fs.listFileSync(fromDir).length).assertEqual(0);
+    expect(fs.listFileSync(toDir).length).assertEqual(1);
+    expect(readText(target)).assertEqual('move-body-14');
+    fs.unlinkSync(target);
+    fs.rmdirSync(fromDir);
+    fs.rmdirSync(toDir);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0182
+   * @tc.name      testDraftIo0182
+   * @tc.desc      Draft move pass 15 crosses directories
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0182', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0182', 'move 15');
+    const dir: string = scratchDir();
+    const fromDir: string = dir + '/move_from_15';
+    const toDir: string = dir + '/move_to_15';
+    fs.mkdirSync(fromDir);
+    fs.mkdirSync(toDir);
+    const source: string = fromDir + '/payload.txt';
+    writeText(source, 'move-body-15');
+    const target: string = toDir + '/payload.txt';
+    fs.renameSync(source, target);
+    expect(fs.listFileSync(fromDir).length).assertEqual(0);
+    expect(fs.listFileSync(toDir).length).assertEqual(1);
+    expect(readText(target)).assertEqual('move-body-15');
+    fs.unlinkSync(target);
+    fs.rmdirSync(fromDir);
+    fs.rmdirSync(toDir);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0183
+   * @tc.name      testDraftIo0183
+   * @tc.desc      Draft stat pass 1 matches body
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0183', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0183', 'stat 1');
+    const dir: string = scratchDir();
+    const path: string = dir + '/stat_01.txt';
+    writeText(path, 'stat-1');
+    const stat: fs.Stat = fs.statSync(path);
+    expect(stat.isFile()).assertTrue();
+    expect(stat.isDirectory()).assertFalse();
+    expect(stat.size).assertEqual(6);
+    expect(stat.size).assertEqual(readText(path).length);
+    expect(stat.mtime > 0).assertTrue();
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0184
+   * @tc.name      testDraftIo0184
+   * @tc.desc      Draft stat pass 2 matches body
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0184', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0184', 'stat 2');
+    const dir: string = scratchDir();
+    const path: string = dir + '/stat_02.txt';
+    writeText(path, 'stat-2');
+    const stat: fs.Stat = fs.statSync(path);
+    expect(stat.isFile()).assertTrue();
+    expect(stat.isDirectory()).assertFalse();
+    expect(stat.size).assertEqual(6);
+    expect(stat.size).assertEqual(readText(path).length);
+    expect(stat.mtime > 0).assertTrue();
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0185
+   * @tc.name      testDraftIo0185
+   * @tc.desc      Draft stat pass 3 matches body
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0185', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0185', 'stat 3');
+    const dir: string = scratchDir();
+    const path: string = dir + '/stat_03.txt';
+    writeText(path, 'stat-3');
+    const stat: fs.Stat = fs.statSync(path);
+    expect(stat.isFile()).assertTrue();
+    expect(stat.isDirectory()).assertFalse();
+    expect(stat.size).assertEqual(6);
+    expect(stat.size).assertEqual(readText(path).length);
+    expect(stat.mtime > 0).assertTrue();
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0186
+   * @tc.name      testDraftIo0186
+   * @tc.desc      Draft stat pass 4 matches body
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0186', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0186', 'stat 4');
+    const dir: string = scratchDir();
+    const path: string = dir + '/stat_04.txt';
+    writeText(path, 'stat-4');
+    const stat: fs.Stat = fs.statSync(path);
+    expect(stat.isFile()).assertTrue();
+    expect(stat.isDirectory()).assertFalse();
+    expect(stat.size).assertEqual(6);
+    expect(stat.size).assertEqual(readText(path).length);
+    expect(stat.mtime > 0).assertTrue();
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0187
+   * @tc.name      testDraftIo0187
+   * @tc.desc      Draft stat pass 5 matches body
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0187', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0187', 'stat 5');
+    const dir: string = scratchDir();
+    const path: string = dir + '/stat_05.txt';
+    writeText(path, 'stat-5');
+    const stat: fs.Stat = fs.statSync(path);
+    expect(stat.isFile()).assertTrue();
+    expect(stat.isDirectory()).assertFalse();
+    expect(stat.size).assertEqual(6);
+    expect(stat.size).assertEqual(readText(path).length);
+    expect(stat.mtime > 0).assertTrue();
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0188
+   * @tc.name      testDraftIo0188
+   * @tc.desc      Draft stat pass 6 matches body
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0188', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0188', 'stat 6');
+    const dir: string = scratchDir();
+    const path: string = dir + '/stat_06.txt';
+    writeText(path, 'stat-6');
+    const stat: fs.Stat = fs.statSync(path);
+    expect(stat.isFile()).assertTrue();
+    expect(stat.isDirectory()).assertFalse();
+    expect(stat.size).assertEqual(6);
+    expect(stat.size).assertEqual(readText(path).length);
+    expect(stat.mtime > 0).assertTrue();
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0189
+   * @tc.name      testDraftIo0189
+   * @tc.desc      Draft stat pass 7 matches body
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0189', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0189', 'stat 7');
+    const dir: string = scratchDir();
+    const path: string = dir + '/stat_07.txt';
+    writeText(path, 'stat-7');
+    const stat: fs.Stat = fs.statSync(path);
+    expect(stat.isFile()).assertTrue();
+    expect(stat.isDirectory()).assertFalse();
+    expect(stat.size).assertEqual(6);
+    expect(stat.size).assertEqual(readText(path).length);
+    expect(stat.mtime > 0).assertTrue();
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0190
+   * @tc.name      testDraftIo0190
+   * @tc.desc      Draft stat pass 8 matches body
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0190', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0190', 'stat 8');
+    const dir: string = scratchDir();
+    const path: string = dir + '/stat_08.txt';
+    writeText(path, 'stat-8');
+    const stat: fs.Stat = fs.statSync(path);
+    expect(stat.isFile()).assertTrue();
+    expect(stat.isDirectory()).assertFalse();
+    expect(stat.size).assertEqual(6);
+    expect(stat.size).assertEqual(readText(path).length);
+    expect(stat.mtime > 0).assertTrue();
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0191
+   * @tc.name      testDraftIo0191
+   * @tc.desc      Draft stat pass 9 matches body
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0191', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0191', 'stat 9');
+    const dir: string = scratchDir();
+    const path: string = dir + '/stat_09.txt';
+    writeText(path, 'stat-9');
+    const stat: fs.Stat = fs.statSync(path);
+    expect(stat.isFile()).assertTrue();
+    expect(stat.isDirectory()).assertFalse();
+    expect(stat.size).assertEqual(6);
+    expect(stat.size).assertEqual(readText(path).length);
+    expect(stat.mtime > 0).assertTrue();
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0192
+   * @tc.name      testDraftIo0192
+   * @tc.desc      Draft stat pass 10 matches body
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0192', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0192', 'stat 10');
+    const dir: string = scratchDir();
+    const path: string = dir + '/stat_10.txt';
+    writeText(path, 'stat-10');
+    const stat: fs.Stat = fs.statSync(path);
+    expect(stat.isFile()).assertTrue();
+    expect(stat.isDirectory()).assertFalse();
+    expect(stat.size).assertEqual(7);
+    expect(stat.size).assertEqual(readText(path).length);
+    expect(stat.mtime > 0).assertTrue();
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0193
+   * @tc.name      testDraftIo0193
+   * @tc.desc      Draft stat pass 11 matches body
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0193', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0193', 'stat 11');
+    const dir: string = scratchDir();
+    const path: string = dir + '/stat_11.txt';
+    writeText(path, 'stat-11');
+    const stat: fs.Stat = fs.statSync(path);
+    expect(stat.isFile()).assertTrue();
+    expect(stat.isDirectory()).assertFalse();
+    expect(stat.size).assertEqual(7);
+    expect(stat.size).assertEqual(readText(path).length);
+    expect(stat.mtime > 0).assertTrue();
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0194
+   * @tc.name      testDraftIo0194
+   * @tc.desc      Draft stat pass 12 matches body
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0194', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0194', 'stat 12');
+    const dir: string = scratchDir();
+    const path: string = dir + '/stat_12.txt';
+    writeText(path, 'stat-12');
+    const stat: fs.Stat = fs.statSync(path);
+    expect(stat.isFile()).assertTrue();
+    expect(stat.isDirectory()).assertFalse();
+    expect(stat.size).assertEqual(7);
+    expect(stat.size).assertEqual(readText(path).length);
+    expect(stat.mtime > 0).assertTrue();
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0195
+   * @tc.name      testDraftIo0195
+   * @tc.desc      Draft stat pass 13 matches body
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0195', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0195', 'stat 13');
+    const dir: string = scratchDir();
+    const path: string = dir + '/stat_13.txt';
+    writeText(path, 'stat-13');
+    const stat: fs.Stat = fs.statSync(path);
+    expect(stat.isFile()).assertTrue();
+    expect(stat.isDirectory()).assertFalse();
+    expect(stat.size).assertEqual(7);
+    expect(stat.size).assertEqual(readText(path).length);
+    expect(stat.mtime > 0).assertTrue();
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0196
+   * @tc.name      testDraftIo0196
+   * @tc.desc      Draft stat pass 14 matches body
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0196', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0196', 'stat 14');
+    const dir: string = scratchDir();
+    const path: string = dir + '/stat_14.txt';
+    writeText(path, 'stat-14');
+    const stat: fs.Stat = fs.statSync(path);
+    expect(stat.isFile()).assertTrue();
+    expect(stat.isDirectory()).assertFalse();
+    expect(stat.size).assertEqual(7);
+    expect(stat.size).assertEqual(readText(path).length);
+    expect(stat.mtime > 0).assertTrue();
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0197
+   * @tc.name      testDraftIo0197
+   * @tc.desc      Draft stat pass 15 matches body
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0197', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0197', 'stat 15');
+    const dir: string = scratchDir();
+    const path: string = dir + '/stat_15.txt';
+    writeText(path, 'stat-15');
+    const stat: fs.Stat = fs.statSync(path);
+    expect(stat.isFile()).assertTrue();
+    expect(stat.isDirectory()).assertFalse();
+    expect(stat.size).assertEqual(7);
+    expect(stat.size).assertEqual(readText(path).length);
+    expect(stat.mtime > 0).assertTrue();
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0198
+   * @tc.name      testDraftIo0198
+   * @tc.desc      Draft access pass 1 flips
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0198', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0198', 'access 1');
+    const dir: string = scratchDir();
+    const path: string = dir + '/access_01.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    expect(fs.accessSync(path)).assertFalse();
+    writeText(path, 'access-1');
+    expect(fs.accessSync(path)).assertTrue();
+    expect(fs.accessSync(dir)).assertTrue();
+    fs.unlinkSync(path);
+    expect(fs.listFileSync(dir).includes('access_01.txt')).assertFalse();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0199
+   * @tc.name      testDraftIo0199
+   * @tc.desc      Draft access pass 2 flips
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0199', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0199', 'access 2');
+    const dir: string = scratchDir();
+    const path: string = dir + '/access_02.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    expect(fs.accessSync(path)).assertFalse();
+    writeText(path, 'access-2');
+    expect(fs.accessSync(path)).assertTrue();
+    expect(fs.accessSync(dir)).assertTrue();
+    fs.unlinkSync(path);
+    expect(fs.listFileSync(dir).includes('access_02.txt')).assertFalse();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0200
+   * @tc.name      testDraftIo0200
+   * @tc.desc      Draft access pass 3 flips
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0200', 'access 3');
+    const dir: string = scratchDir();
+    const path: string = dir + '/access_03.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    expect(fs.accessSync(path)).assertFalse();
+    writeText(path, 'access-3');
+    expect(fs.accessSync(path)).assertTrue();
+    expect(fs.accessSync(dir)).assertTrue();
+    fs.unlinkSync(path);
+    expect(fs.listFileSync(dir).includes('access_03.txt')).assertFalse();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0201
+   * @tc.name      testDraftIo0201
+   * @tc.desc      Draft access pass 4 flips
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0201', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0201', 'access 4');
+    const dir: string = scratchDir();
+    const path: string = dir + '/access_04.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    expect(fs.accessSync(path)).assertFalse();
+    writeText(path, 'access-4');
+    expect(fs.accessSync(path)).assertTrue();
+    expect(fs.accessSync(dir)).assertTrue();
+    fs.unlinkSync(path);
+    expect(fs.listFileSync(dir).includes('access_04.txt')).assertFalse();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0202
+   * @tc.name      testDraftIo0202
+   * @tc.desc      Draft access pass 5 flips
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0202', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0202', 'access 5');
+    const dir: string = scratchDir();
+    const path: string = dir + '/access_05.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    expect(fs.accessSync(path)).assertFalse();
+    writeText(path, 'access-5');
+    expect(fs.accessSync(path)).assertTrue();
+    expect(fs.accessSync(dir)).assertTrue();
+    fs.unlinkSync(path);
+    expect(fs.listFileSync(dir).includes('access_05.txt')).assertFalse();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0203
+   * @tc.name      testDraftIo0203
+   * @tc.desc      Draft access pass 6 flips
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0203', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0203', 'access 6');
+    const dir: string = scratchDir();
+    const path: string = dir + '/access_06.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    expect(fs.accessSync(path)).assertFalse();
+    writeText(path, 'access-6');
+    expect(fs.accessSync(path)).assertTrue();
+    expect(fs.accessSync(dir)).assertTrue();
+    fs.unlinkSync(path);
+    expect(fs.listFileSync(dir).includes('access_06.txt')).assertFalse();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0204
+   * @tc.name      testDraftIo0204
+   * @tc.desc      Draft access pass 7 flips
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0204', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0204', 'access 7');
+    const dir: string = scratchDir();
+    const path: string = dir + '/access_07.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    expect(fs.accessSync(path)).assertFalse();
+    writeText(path, 'access-7');
+    expect(fs.accessSync(path)).assertTrue();
+    expect(fs.accessSync(dir)).assertTrue();
+    fs.unlinkSync(path);
+    expect(fs.listFileSync(dir).includes('access_07.txt')).assertFalse();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0205
+   * @tc.name      testDraftIo0205
+   * @tc.desc      Draft access pass 8 flips
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0205', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0205', 'access 8');
+    const dir: string = scratchDir();
+    const path: string = dir + '/access_08.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    expect(fs.accessSync(path)).assertFalse();
+    writeText(path, 'access-8');
+    expect(fs.accessSync(path)).assertTrue();
+    expect(fs.accessSync(dir)).assertTrue();
+    fs.unlinkSync(path);
+    expect(fs.listFileSync(dir).includes('access_08.txt')).assertFalse();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0206
+   * @tc.name      testDraftIo0206
+   * @tc.desc      Draft access pass 9 flips
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0206', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0206', 'access 9');
+    const dir: string = scratchDir();
+    const path: string = dir + '/access_09.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    expect(fs.accessSync(path)).assertFalse();
+    writeText(path, 'access-9');
+    expect(fs.accessSync(path)).assertTrue();
+    expect(fs.accessSync(dir)).assertTrue();
+    fs.unlinkSync(path);
+    expect(fs.listFileSync(dir).includes('access_09.txt')).assertFalse();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0207
+   * @tc.name      testDraftIo0207
+   * @tc.desc      Draft access pass 10 flips
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0207', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0207', 'access 10');
+    const dir: string = scratchDir();
+    const path: string = dir + '/access_10.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    expect(fs.accessSync(path)).assertFalse();
+    writeText(path, 'access-10');
+    expect(fs.accessSync(path)).assertTrue();
+    expect(fs.accessSync(dir)).assertTrue();
+    fs.unlinkSync(path);
+    expect(fs.listFileSync(dir).includes('access_10.txt')).assertFalse();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0208
+   * @tc.name      testDraftIo0208
+   * @tc.desc      Draft empty file pass 1 stays readable
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0208', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0208', 'empty 1');
+    const dir: string = scratchDir();
+    const path: string = dir + '/empty_01.txt';
+    writeText(path, '');
+    expect(fs.accessSync(path)).assertTrue();
+    expect(fs.statSync(path).size).assertEqual(0);
+    expect(readText(path)).assertEqual('');
+    expect(readText(path).length).assertEqual(0);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0209
+   * @tc.name      testDraftIo0209
+   * @tc.desc      Draft empty file pass 2 stays readable
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0209', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0209', 'empty 2');
+    const dir: string = scratchDir();
+    const path: string = dir + '/empty_02.txt';
+    writeText(path, '');
+    expect(fs.accessSync(path)).assertTrue();
+    expect(fs.statSync(path).size).assertEqual(0);
+    expect(readText(path)).assertEqual('');
+    expect(readText(path).length).assertEqual(0);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0210
+   * @tc.name      testDraftIo0210
+   * @tc.desc      Draft empty file pass 3 stays readable
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0210', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0210', 'empty 3');
+    const dir: string = scratchDir();
+    const path: string = dir + '/empty_03.txt';
+    writeText(path, '');
+    expect(fs.accessSync(path)).assertTrue();
+    expect(fs.statSync(path).size).assertEqual(0);
+    expect(readText(path)).assertEqual('');
+    expect(readText(path).length).assertEqual(0);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0211
+   * @tc.name      testDraftIo0211
+   * @tc.desc      Draft empty file pass 4 stays readable
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0211', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0211', 'empty 4');
+    const dir: string = scratchDir();
+    const path: string = dir + '/empty_04.txt';
+    writeText(path, '');
+    expect(fs.accessSync(path)).assertTrue();
+    expect(fs.statSync(path).size).assertEqual(0);
+    expect(readText(path)).assertEqual('');
+    expect(readText(path).length).assertEqual(0);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0212
+   * @tc.name      testDraftIo0212
+   * @tc.desc      Draft empty file pass 5 stays readable
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0212', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0212', 'empty 5');
+    const dir: string = scratchDir();
+    const path: string = dir + '/empty_05.txt';
+    writeText(path, '');
+    expect(fs.accessSync(path)).assertTrue();
+    expect(fs.statSync(path).size).assertEqual(0);
+    expect(readText(path)).assertEqual('');
+    expect(readText(path).length).assertEqual(0);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0213
+   * @tc.name      testDraftIo0213
+   * @tc.desc      Draft empty file pass 6 stays readable
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0213', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0213', 'empty 6');
+    const dir: string = scratchDir();
+    const path: string = dir + '/empty_06.txt';
+    writeText(path, '');
+    expect(fs.accessSync(path)).assertTrue();
+    expect(fs.statSync(path).size).assertEqual(0);
+    expect(readText(path)).assertEqual('');
+    expect(readText(path).length).assertEqual(0);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0214
+   * @tc.name      testDraftIo0214
+   * @tc.desc      Draft empty file pass 7 stays readable
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0214', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0214', 'empty 7');
+    const dir: string = scratchDir();
+    const path: string = dir + '/empty_07.txt';
+    writeText(path, '');
+    expect(fs.accessSync(path)).assertTrue();
+    expect(fs.statSync(path).size).assertEqual(0);
+    expect(readText(path)).assertEqual('');
+    expect(readText(path).length).assertEqual(0);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0215
+   * @tc.name      testDraftIo0215
+   * @tc.desc      Draft empty file pass 8 stays readable
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDraftIo0215', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDraftIo0215', 'empty 8');
+    const dir: string = scratchDir();
+    const path: string = dir + '/empty_08.txt';
+    writeText(path, '');
+    expect(fs.accessSync(path)).assertTrue();
+    expect(fs.statSync(path).size).assertEqual(0);
+    expect(readText(path)).assertEqual('');
+    expect(readText(path).length).assertEqual(0);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0216
+   * @tc.name      testDraftIo0216
+   * @tc.desc      Draft empty file pass 9 stays readable
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDraftIo0216', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDraftIo0216', 'empty 9');
+    const dir: string = scratchDir();
+    const path: string = dir + '/empty_09.txt';
+    writeText(path, '');
+    expect(fs.accessSync(path)).assertTrue();
+    expect(fs.statSync(path).size).assertEqual(0);
+    expect(readText(path)).assertEqual('');
+    expect(readText(path).length).assertEqual(0);
+    fs.unlinkSync(path);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_DIO_0217
+   * @tc.name      testDraftIo0217
+   * @tc.desc      Draft empty file pass 10 stays readable
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDraftIo0217', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDraftIo0217', 'empty 10');
+    const dir: string = scratchDir();
+    const path: string = dir + '/empty_10.txt';
+    writeText(path, '');
+    expect(fs.accessSync(path)).assertTrue();
+    expect(fs.statSync(path).size).assertEqual(0);
