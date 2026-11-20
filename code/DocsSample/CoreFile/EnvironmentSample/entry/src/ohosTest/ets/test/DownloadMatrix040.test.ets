@@ -874,3 +874,43 @@ export default function downloadMatrix040Test(): void {
       }
     });
     /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_000960
+     * @tc.name EnvironmentSample_snapshot_0959_FFDF_duplicateFirst
+     * @tc.desc Mask FFDF: duplicateFirst at stat spaced-file; source alias; ordered, two-way isolated result.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_snapshot_0959_FFDF_duplicateFirst", 0, (): void => {
+      const caseName: string = "EnvironmentSample_snapshot_0959_FFDF_duplicateFirst";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/report.txt", "/download/.hidden", "/download/ spaced "];
+        api.mutationEvent = "stat:/download/ spaced ";
+        api.mutationKind = "duplicateFirst";
+        api.aliasSandboxToSource = true;
+        const sourceAlias: string[] = api.entries;
+        const result: string[] = importDownloadFiles('/download', '/sandbox', api);
+        const expected01: string[] = [
+          "list:/download", "stat:/download/report.txt", "copy:/download/report.txt->/sandbox/report.txt",
+          "stat:/download/.hidden", "copy:/download/.hidden->/sandbox/.hidden", "stat:/download/资料.txt",
+          "stat:/download/ spaced ", "copy:/download/ spaced ->/sandbox/ spaced ", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected01);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected01));
+        sourceAlias.push('source-after-return');
+        const expected02: string[] = ["report.txt", "report.txt", ".hidden", "资料.txt", " spaced "];
+        logAssertion(caseName, "result", result, expected02);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify(expected02));
+        result.push('caller-only');
+        const expected03: string[] =
+          ["report.txt", "report.txt", ".hidden", "资料.txt", " spaced ", "source-after-return"];
+        logAssertion(caseName, "sourceAlias", sourceAlias, expected03);
+        expect(JSON.stringify(sourceAlias)).assertEqual(JSON.stringify(expected03));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+  });
+}
