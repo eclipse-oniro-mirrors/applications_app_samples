@@ -1053,3 +1053,32 @@ export default function downloadMatrix050Test(): void {
         api.mutationEvent = "stat:/download/资料.txt";
         api.mutationKind = "clear";
         let caught: Error | undefined = undefined;
+        let result: string[] = [];
+        try {
+          result = importDownloadFiles('/download', '/sandbox', api);
+        } catch (error) {
+          caught = error as Error;
+        }
+        logAssertion(caseName, "caught === injected", caught === injected, true);
+        expect(caught === injected).assertEqual(true);
+        logAssertion(caseName, "result", result, []);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify([]));
+        const expected03: string[] = [
+          "list:/download", "stat:/download/report.txt", "copy:/download/report.txt->/sandbox/report.txt",
+          "stat:/download/.hidden", "copy:/download/.hidden->/sandbox/.hidden", "stat:/download/资料.txt",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected03);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected03));
+        const expected04: string[] =
+          ["/download/report.txt->/sandbox/report.txt", "/download/.hidden->/sandbox/.hidden"];
+        logAssertion(caseName, "api.copied", api.copied, expected04);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify(expected04));
+        const expected05: string[] = ["preexisting.txt", "report.txt", ".hidden"];
+        logAssertion(caseName, "api.sandboxEntries", api.sandboxEntries, expected05);
+        expect(JSON.stringify(api.sandboxEntries)).assertEqual(JSON.stringify(expected05));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+  });
+}
