@@ -2912,6 +2912,13 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/SystemFeature/IPC/ObjectTransfer/IPC_Client/image/service.PNG" desc="Provided by code/SystemFeature/IPC"/>
                 <filteritem type="filepath" name="code/SystemFeature/IPC/ObjectTransfer/IPC_Client/image/fingerprint.PNG" desc="Provided by code/SystemFeature/IPC"/>
                 <filteritem type="filepath" name="code/SystemFeature/IPC/ObjectTransfer/IPC_Client/image/permission.PNG" desc="Provided by code/SystemFeature/IPC"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/AVCodec/CodecCapabilitySample/AppScope/resources/base/media/app_icon.png" desc="Provided by code/DocsSample/Media/AVCodec/CodecCapabilitySample"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/AVCodec/CodecCapabilitySample/entry/src/main/resources/base/media/icon.png" desc="Provided by code/DocsSample/Media/AVCodec/CodecCapabilitySample"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/AVCodec/CodecCapabilitySample/entry/src/ohosTest/resources/base/media/icon.png" desc="Provided by code/DocsSample/Media/AVCodec/CodecCapabilitySample"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/AVCodec/CodecCapabilitySample/screenshots/codec_list.png" desc="screenshot"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/AVCodec/CodecCapabilitySample/screenshots/codec_detail.png" desc="screenshot"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/AVCodec/CodecCapabilitySample/screenshots/scenario_list.png" desc="screenshot"/>
+				<filteritem type="filepath" name="code/DocsSample/Media/AVCodec/CodecCapabilitySample/screenshots/scenario_result.png" desc="screenshot"/>
                 <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/AppScope/resources/base/media/app_icon.png" desc="Provided by code/BasicFeature/Media/AudioNoiseReduction"/>
                 <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/entry/src/main/resources/base/media/icon.png" desc="Provided by code/BasicFeature/Media/AudioNoiseReduction"/>
                 <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/Index.png" desc="screenshot"/>
