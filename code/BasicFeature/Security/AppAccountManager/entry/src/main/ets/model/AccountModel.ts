@@ -15,55 +15,108 @@
 
 import Logger from '../model/Logger'
 import appAccount from '@ohos.account.appAccount'
+import { BusinessError } from '@kit.BasicServicesKit'
+import { AccountErrorCode } from './AccountErrorCode'
 
 const TAG: string = '[AccountModel]'
 const app: appAccount.AppAccountManager = appAccount.createAppAccountManager()
 
 export class AccountModel {
-  async addAccount(username: string) {
-    await app.addAccount(username)
+  async addAccount(username: string): Promise<void> {
+    try {
+      await app.addAccount(username)
+    } catch (err) {
+      let error: BusinessError = err as BusinessError
+      Logger.error(TAG, `addAccount failed, ${AccountErrorCode.describe(error.code)}`)
+      throw error
+    }
     Logger.info(TAG, `addAccount success`)
     return
   }
 
-  async deleteAccount(username: string) {
-    await app.deleteAccount(username)
+  async deleteAccount(username: string): Promise<void> {
+    try {
+      await app.deleteAccount(username)
+    } catch (err) {
+      let error: BusinessError = err as BusinessError
+      Logger.error(TAG, `deleteAccount failed, ${AccountErrorCode.describe(error.code)}`)
+      throw error
+    }
     Logger.info(TAG, `deleteAccount success`)
     return
   }
 
-  async setAccountCredential(username: string, credentialType: string, credential: string) {
-    await app.setAccountCredential(username, credentialType, credential)
+  async setAccountCredential(username: string, credentialType: string, credential: string): Promise<void> {
+    try {
+      await app.setAccountCredential(username, credentialType, credential)
+    } catch (err) {
+      let error: BusinessError = err as BusinessError
+      Logger.error(TAG, `setAccountCredential failed, ${AccountErrorCode.describe(error.code)}`)
+      throw error
+    }
     Logger.info(TAG, `setAccountCredential success`)
     return
   }
 
-  async setAccountExtraInfo(name: string, extraInfo: string) {
-    await app.setAccountExtraInfo(name, extraInfo)
+  async setAccountExtraInfo(name: string, extraInfo: string): Promise<void> {
+    try {
+      await app.setAccountExtraInfo(name, extraInfo)
+    } catch (err) {
+      let error: BusinessError = err as BusinessError
+      Logger.error(TAG, `setAccountExtraInfo failed, ${AccountErrorCode.describe(error.code)}`)
+      throw error
+    }
     Logger.info(TAG, `setAccountExtraInfo success`)
     return
   }
 
-  async setAssociatedData(name: string, key: string, value: string) {
-    await app.setAssociatedData(name, key, value)
+  async setAssociatedData(name: string, key: string, value: string): Promise<void> {
+    try {
+      await app.setAssociatedData(name, key, value)
+    } catch (err) {
+      let error: BusinessError = err as BusinessError
+      Logger.error(TAG, `setAssociatedData failed, ${AccountErrorCode.describe(error.code)}`)
+      throw error
+    }
     Logger.info(TAG, `setAssociatedData success`)
     return
   }
 
-  async getAccountCredential(name: string, credentialType: string) {
-    let result = await app.getAccountCredential(name, credentialType)
+  async getAccountCredential(name: string, credentialType: string): Promise<string> {
+    let result: string = ''
+    try {
+      result = await app.getAccountCredential(name, credentialType)
+    } catch (err) {
+      let error: BusinessError = err as BusinessError
+      Logger.error(TAG, `getAccountCredential failed, ${AccountErrorCode.describe(error.code)}`)
+      throw error
+    }
     Logger.info(TAG, `getAccountCredential success`)
     return result
   }
 
-  async getAccountExtraInfo(name: string) {
-    let result = await app.getAccountExtraInfo(name)
+  async getAccountExtraInfo(name: string): Promise<string> {
+    let result: string = ''
+    try {
+      result = await app.getAccountExtraInfo(name)
+    } catch (err) {
+      let error: BusinessError = err as BusinessError
+      Logger.error(TAG, `getAccountExtraInfo failed, ${AccountErrorCode.describe(error.code)}`)
+      throw error
+    }
     Logger.info(TAG, `getAccountExtraInfo success`)
     return result
   }
 
-  async getAssociatedData(name: string, key: string) {
-    let result = await app.getAssociatedData(name, key)
+  async getAssociatedData(name: string, key: string): Promise<string> {
+    let result: string = ''
+    try {
+      result = await app.getAssociatedData(name, key)
+    } catch (err) {
+      let error: BusinessError = err as BusinessError
+      Logger.error(TAG, `getAssociatedData failed, ${AccountErrorCode.describe(error.code)}`)
+      throw error
+    }
     Logger.info(TAG, `getAssociatedData success`)
     return result
   }

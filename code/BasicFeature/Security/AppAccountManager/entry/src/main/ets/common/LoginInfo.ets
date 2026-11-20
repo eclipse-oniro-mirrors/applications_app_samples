@@ -17,6 +17,8 @@ import router from '@ohos.router'
 import Logger from '../model/Logger'
 import { AccountData } from '../model/AccountData'
 import { AccountModel } from '../model/AccountModel'
+import { AccountKeyBuilder } from '../model/AccountKeyBuilder'
+import { AccountValidator, LoginInput, LoginResult } from '../model/AccountValidator'
 
 const TAG: string = '[LoginInfo]'
 
@@ -44,7 +46,7 @@ export struct LoginInfo {
         .textAlign(TextAlign.Center)
     }
     .margin({ top: '10%' })
-    .padding({ left: 5 })
+      .padding({ left: 5 })
   }
 
   @Builder
@@ -56,7 +58,7 @@ export struct LoginInfo {
         .width('20%')
         .textAlign(TextAlign.End)
 
-      TextInput({ placeholder: 'xxxxxxx' })
+      TextInput({ placeholder: $r('app.string.login_placeholder') })
         .id('nameInput')
         .margin(10)
         .width('55%')
@@ -80,7 +82,7 @@ export struct LoginInfo {
         .width('20%')
         .textAlign(TextAlign.End)
 
-      TextInput({ placeholder: 'xxxxxxx' })
+      TextInput({ placeholder: $r('app.string.login_placeholder') })
         .id('passwordInput')
         .margin(10)
         .width('55%')
@@ -126,8 +128,14 @@ export struct LoginInfo {
       .type(ButtonType.Capsule)
       .onClick(async () => {
         let result: string = await this.storage.getStorageValue(getContext(), this.name, this.bundleName)
-        let effect: string = await this.storage.getStorageValue(getContext(), this.bundleName, `${this.name}_${this.bundleName}`)
-        if (this.name === '') {
+        let effect: string = await this.storage.getStorageValue(getContext(), this.bundleName,
+          AccountKeyBuilder.accountName(this.name, this.bundleName))
+        let input: LoginInput = {
+          name: this.name,
+          password: this.password
+        }
+        let check: LoginResult = AccountValidator.validateLogin(input, result, effect)
+        if (check === LoginResult.NAME_EMPTY) {
           AlertDialog.show(
             {
               message: $r('app.string.blank'),
@@ -141,7 +149,7 @@ export struct LoginInfo {
                 Logger.info(TAG, `AlertDialog close`)
               }
             })
-        } else if (this.password === '') {
+        } else if (check === LoginResult.PASSWORD_EMPTY) {
           AlertDialog.show(
             {
               message: $r('app.string.password_blank'),
@@ -155,18 +163,22 @@ export struct LoginInfo {
                 Logger.info(TAG, `AlertDialog close`)
               }
             })
-        } else if (result === this.password && effect === 'true') {
+        } else if (check === LoginResult.OK) {
           let email: string = ''
           let signature: string = ''
           try {
-            email = await this.accountModel.getAccountCredential(`${this.name}_${this.bundleName}`, `email_${this.bundleName}`)
+            email = await this.accountModel.getAccountCredential(
+              AccountKeyBuilder.accountName(this.name, this.bundleName),
+              AccountKeyBuilder.credentialType(AccountKeyBuilder.EMAIL_FIELD, this.bundleName))
             Logger.info(TAG, `getAccountCredential email is ${email}`)
           } catch (err) {
             email = ''
             Logger.info(TAG, `getAccountCredential failed err is ${JSON.stringify(err)}`)
           }
           try {
-            signature = await this.accountModel.getAccountCredential(`${this.name}_${this.bundleName}`, `signature_${this.bundleName}`)
+            signature = await this.accountModel.getAccountCredential(
+              AccountKeyBuilder.accountName(this.name, this.bundleName),
+              AccountKeyBuilder.credentialType(AccountKeyBuilder.SIGNATURE_FIELD, this.bundleName))
             Logger.info(TAG, `getAccountExtraInfo signature is ${signature}`)
           } catch (err) {
             signature = ''
@@ -215,7 +227,7 @@ export struct LoginInfo {
             this.loginButton()
           }
           .width('32%')
-          .justifyContent(FlexAlign.Center)
+            .justifyContent(FlexAlign.Center)
         }
         .width('100%')
       } else {

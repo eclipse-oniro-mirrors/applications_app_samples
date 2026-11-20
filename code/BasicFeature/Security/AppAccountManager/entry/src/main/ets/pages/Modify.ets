@@ -17,6 +17,7 @@ import router from '@ohos.router';
 import { ModifyInfo } from '../common/ModifyInfo';
 import { NavigationBar } from '../common/NavigationBar';
 import { BundleInfo } from '../common/BundleInfo';
+import { LayoutPolicy } from '../model/LayoutPolicy';
 
 interface ModifyPageParams {
   username?: string
@@ -33,21 +34,20 @@ struct Modify {
   @State signature: string = '';
   @State email: string = '';
   @State isWideLayout: boolean = false;
-  private readonly splitThreshold: number = 840;
 
-  aboutToAppear() {
+  aboutToAppear(): void {
     const params: ModifyPageParams = router.getParams() as ModifyPageParams;
     this.username = params.username ?? '';
     this.signature = params.signature ?? '';
     this.email = params.email ?? '';
-    let bundleNameFromParam: string = params.bundleName ?? '';
+    let bundleNameFromParam: string = LayoutPolicy.resolveBundleName(params.bundleName);
     if (bundleNameFromParam) {
       this.bundleName = bundleNameFromParam;
       AppStorage.SetOrCreate<string>('selectedBundleName', bundleNameFromParam);
     }
   }
 
-  onBundleNameChange() {
+  onBundleNameChange(): void {
     this.username = '';
     this.signature = '';
     this.email = '';
@@ -75,8 +75,8 @@ struct Modify {
             })
           }
           .width('32%')
-          .height('100%')
-          .padding({ left: 12, right: 8, top: 10, bottom: 10 })
+            .height('100%')
+            .padding({ left: 12, right: 8, top: 10, bottom: 10 })
 
           Scroll() {
             Column() {
@@ -85,11 +85,11 @@ struct Modify {
             .width('100%')
           }
           .width('68%')
-          .height('100%')
-          .padding({ left: 8, right: 12, top: 10, bottom: 10 })
+            .height('100%')
+            .padding({ left: 8, right: 12, top: 10, bottom: 10 })
         }
         .width('100%')
-        .layoutWeight(1)
+          .layoutWeight(1)
       } else {
         Row() {
           Scroll() {
@@ -101,13 +101,13 @@ struct Modify {
           .width('100%')
         }
         .width('100%')
-        .layoutWeight(1)
+          .layoutWeight(1)
       }
     }
     .width('100%')
-    .height('100%')
-    .onAreaChange((oldArea, newArea) => {
-      this.isWideLayout = Number(newArea.width) >= this.splitThreshold;
-    })
+      .height('100%')
+      .onAreaChange((oldArea, newArea) => {
+        this.isWideLayout = LayoutPolicy.isWideLayout(Number(newArea.width));
+      })
   }
 }

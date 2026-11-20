@@ -17,6 +17,9 @@ import router from '@ohos.router'
 import Logger from '../model/Logger'
 import { AccountData } from '../model/AccountData'
 import { AccountModel } from '../model/AccountModel'
+import { AccountKeyBuilder } from '../model/AccountKeyBuilder'
+import { AccountValidator, ModifyInput, ModifyResult } from '../model/AccountValidator'
+import { BaseDataSource } from './BaseDataSource'
 
 const TAG: string = '[ModifyInfo]'
 
@@ -28,62 +31,7 @@ interface ModifyFieldItem {
   promptText: Resource
 }
 
-class BasicDataSource<T> implements IDataSource {
-  private listeners: DataChangeListener[] = []
-
-  public totalCount(): number {
-    return 0
-  }
-
-  public getData(index: number): T | undefined {
-    return undefined
-  }
-
-  registerDataChangeListener(listener: DataChangeListener) {
-    if (this.listeners.indexOf(listener) < 0) {
-      this.listeners.push(listener)
-    }
-  }
-
-  unregisterDataChangeListener(listener: DataChangeListener) {
-    const pos = this.listeners.indexOf(listener)
-    if (pos >= 0) {
-      this.listeners.splice(pos, 1)
-    }
-  }
-
-  notifyDataReload() {
-    this.listeners.forEach(listener => {
-      listener.onDataReloaded()
-    })
-  }
-
-  notifyDataAdd(index: number) {
-    this.listeners.forEach(listener => {
-      listener.onDataAdd(index)
-    })
-  }
-
-  notifyDataChange(index: number) {
-    this.listeners.forEach(listener => {
-      listener.onDataChange(index)
-    })
-  }
-
-  notifyDataDelete(index: number) {
-    this.listeners.forEach(listener => {
-      listener.onDataDelete(index)
-    })
-  }
-
-  notifyDataMove(from: number, to: number) {
-    this.listeners.forEach(listener => {
-      listener.onDataMove(from, to)
-    })
-  }
-}
-
-class MyDataSource extends BasicDataSource<ModifyFieldItem> {
+class MyDataSource extends BaseDataSource<ModifyFieldItem> {
   private dataArray: ModifyFieldItem[] = [
     {
       text: $r('app.string.email'),
@@ -123,7 +71,7 @@ class MyDataSource extends BasicDataSource<ModifyFieldItem> {
     return this.dataArray[index]
   }
 
-  public replaceData(result: ModifyFieldItem[]) {
+  public replaceData(result: ModifyFieldItem[]): void {
     this.dataArray = result
   }
 }
@@ -141,7 +89,7 @@ export struct ModifyInfo {
   private storage: AccountData = AccountData.getInstance()
   private accountModel: AccountModel = new AccountModel()
 
-  async getInfo(value: string, name: string, credentialType: string) {
+  async getInfo(value: string, name: string, credentialType: string): Promise<string> {
     try {
       value = await this.accountModel.getAccountCredential(name, credentialType)
       Logger.info(TAG, `getAccountCredential email is ${value}`)
@@ -189,15 +137,15 @@ export struct ModifyInfo {
               .fontSize(18)
               .width('25%')
               .textAlign(TextAlign.End)
-              .backgroundColor('#ffffff')
+              .backgroundColor($r('app.color.input_background'))
             Column() {
               Text(item.promptText)
                 .fontSize(14)
                 .width('80%')
-                .fontColor('#ffb0b0b0')
+                .fontColor($r('app.color.hint_gray'))
                 .textAlign(TextAlign.Center)
 
-              TextInput({ placeholder: 'xxxxx' })
+              TextInput({ placeholder: $r('app.string.input_placeholder') })
                 .id('Modify' + (index + 1))
                 .margin(10)
                 .width('55%')
@@ -228,7 +176,7 @@ export struct ModifyInfo {
             }
           }
           .margin(5)
-          .width(this.isWideLayout ? '48%' : '100%')
+            .width(this.isWideLayout ? '48%' : '100%')
         }, (item: ModifyFieldItem) => JSON.stringify(item))
       }
       .width('100%')
@@ -246,14 +194,22 @@ export struct ModifyInfo {
             return
           }
           if (this.emailInfo !== '') {
-            await this.accountModel.setAccountCredential(`${this.username}_${this.bundleName}`, `email_${this.bundleName}`, this.emailInfo)
+            await this.accountModel.setAccountCredential(AccountKeyBuilder.accountName(this.username, this.bundleName),
+              AccountKeyBuilder.credentialType(AccountKeyBuilder.EMAIL_FIELD, this.bundleName), this.emailInfo)
           }
           if (this.signature !== '') {
-            await this.accountModel.setAccountCredential(`${this.username}_${this.bundleName}`, `signature_${this.bundleName}`, this.signature)
+            await this.accountModel.setAccountCredential(AccountKeyBuilder.accountName(this.username, this.bundleName),
+              AccountKeyBuilder.credentialType(AccountKeyBuilder.SIGNATURE_FIELD, this.bundleName), this.signature)
           }
-          let res = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/
           let userPassWord: string = await this.storage.getStorageValue(getContext(), this.username, this.bundleName)
-          if (this.emailInfo !== '' && !res.test(this.emailInfo)) {
+          let input: ModifyInput = {
+            email: this.emailInfo,
+            signature: this.signature,
+            password: this.passWord,
+            confirmPassword: this.confirmPassword
+          }
+          let check: ModifyResult = AccountValidator.validateModify(input, userPassWord)
+          if (check === ModifyResult.EMAIL_INVALID) {
             AlertDialog.show(
               {
                 message: $r('app.string.emailinfo'),
@@ -267,7 +223,7 @@ export struct ModifyInfo {
                   Logger.info(TAG, `AlertDialog close`)
                 }
               })
-          } else if (this.passWord !== '' && this.passWord.length < 6) {
+          } else if (check === ModifyResult.PASSWORD_TOO_SHORT) {
             AlertDialog.show(
               {
                 message: $r('app.string.min_password'),
@@ -281,7 +237,7 @@ export struct ModifyInfo {
                   Logger.info(TAG, `AlertDialog close`)
                 }
               })
-          } else if (this.passWord !== '' && this.passWord === userPassWord) {
+          } else if (check === ModifyResult.PASSWORD_SAME_AS_OLD) {
             AlertDialog.show(
               {
                 message: $r('app.string.userpassword'),
@@ -295,7 +251,7 @@ export struct ModifyInfo {
                   Logger.info(TAG, `AlertDialog close`)
                 }
               })
-          } else if (this.confirmPassword !== this.passWord) {
+          } else if (check === ModifyResult.CONFIRM_MISMATCH) {
             AlertDialog.show(
               {
                 message: $r('app.string.password_error'),
@@ -309,10 +265,14 @@ export struct ModifyInfo {
                   Logger.info(TAG, `AlertDialog close`)
                 }
               })
-          } else if (this.passWord !== '' && this.confirmPassword !== '') {
+          } else if (check === ModifyResult.OK_WITH_PASSWORD) {
             await this.storage.putStorageValue(getContext(), this.username, this.passWord, this.bundleName)
-            let email = await this.getInfo('', `${this.username}_${this.bundleName}`, `email_${this.bundleName}`)
-            let signature = await this.getInfo('', `${this.username}_${this.bundleName}`, `signature_${this.bundleName}`)
+            let email: string = await this.getInfo('',
+              AccountKeyBuilder.accountName(this.username, this.bundleName),
+              AccountKeyBuilder.credentialType(AccountKeyBuilder.EMAIL_FIELD, this.bundleName))
+            let signature: string = await this.getInfo('',
+              AccountKeyBuilder.accountName(this.username, this.bundleName),
+              AccountKeyBuilder.credentialType(AccountKeyBuilder.SIGNATURE_FIELD, this.bundleName))
             AlertDialog.show(
               {
                 message: $r('app.string.modify_info'),
@@ -336,8 +296,12 @@ export struct ModifyInfo {
               })
           }
           else {
-            let email = await this.getInfo('', `${this.username}_${this.bundleName}`, `email_${this.bundleName}`)
-            let signature = await this.getInfo('', `${this.username}_${this.bundleName}`, `signature_${this.bundleName}`)
+            let email: string = await this.getInfo('',
+              AccountKeyBuilder.accountName(this.username, this.bundleName),
+              AccountKeyBuilder.credentialType(AccountKeyBuilder.EMAIL_FIELD, this.bundleName))
+            let signature: string = await this.getInfo('',
+              AccountKeyBuilder.accountName(this.username, this.bundleName),
+              AccountKeyBuilder.credentialType(AccountKeyBuilder.SIGNATURE_FIELD, this.bundleName))
             AlertDialog.show(
               {
                 message: $r('app.string.modify_info'),
