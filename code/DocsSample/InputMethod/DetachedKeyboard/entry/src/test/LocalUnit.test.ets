@@ -19,7 +19,7 @@ import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, TestT
 import { Driver, ON, MatchPattern } from '@ohos.UiTest';
 import { logger } from './Logger';
 
-const TAG: string = 'detachedKeyboard';
+const TAG: string = 'detachedkeyboard';
 
 export default function localUnitTest() {
   describe('localUnitTest', () => {
@@ -47,19 +47,19 @@ export default function localUnitTest() {
       logger.info(TAG, `SwitchInputMethod_001 begin`);
       let driver: Driver = Driver.create();
       let delegator = AbilityDelegatorRegistry.getAbilityDelegator();
-      await delegator.executeShellCommand('ime -e com.samples.detachedKeyboardSta').then(result => {
-        logger.info(TAG, `ime -e com.samples.detachedKeyboardSta finished}`);
+      await delegator.executeShellCommand('ime -e com.samples.detachedkeyboard').then(result => {
+        logger.info(TAG, `ime -e com.samples.detachedkeyboard finished}`);
       }).catch((err: Error) => {
-        logger.error(TAG, `ime -e com.samples.detachedKeyboardSta failed}`);
+        logger.error(TAG, `ime -e com.samples.detachedkeyboard failed}`);
       })
       await driver.delayMs(1000);
-      await delegator.executeShellCommand('ime -s com.samples.detachedKeyboardSta').then(result => {
-        logger.info(TAG, `ime -s com.samples.detachedKeyboardSta finished}`);
+      await delegator.executeShellCommand('ime -s com.samples.detachedkeyboard').then(result => {
+        logger.info(TAG, `ime -s com.samples.detachedkeyboard finished}`);
         let resultStr: string = JSON.stringify(result);
         expect(resultStr).assertContain('"exitCode":0');
         done();
       }).catch((err: Error) => {
-        logger.error(TAG, `ime -s com.samples.detachedKeyboardSta failed}`);
+        logger.error(TAG, `ime -s com.samples.detachedkeyboard failed}`);
       })
       await driver.delayMs(1000);
       done();
