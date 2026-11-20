@@ -18,25 +18,25 @@ import Logger from '../../../../main/ets/model/Logger';
 @Entry
 @Component
 struct Index {
-  aboutToAppear() {
-    Logger.info('testTag', 'TestAbility index aboutToAppear');
+  aboutToAppear(): void {
+    Logger.info('[Sample_CertManager]', 'TestAbility index aboutToAppear');
   }
- @State message: string = 'Hello World';
-   build() {
-     Row() {
-       Column() {
-         Text(this.message)
-           .fontSize(50)
-           .fontWeight(FontWeight.Bold)
-         Button() {
-           Text('next page')
-             .fontSize(20)
-             .fontWeight(FontWeight.Bold)
-         }.type(ButtonType.Capsule)
-         .margin({
-           top: 20
-         })
-         .backgroundColor('#0D9FFB')
+  @State message: Resource = $r('app.string.hello_world_text');
+  build() {
+    Row() {
+      Column() {
+        Text(this.message)
+          .fontSize(50)
+          .fontWeight(FontWeight.Bold)
+        Button() {
+          Text($r('app.string.next_page_text'))
+            .fontSize(20)
+            .fontWeight(FontWeight.Bold)
+        }.type(ButtonType.Capsule)
+        .margin({
+          top: 20
+        })
+        .backgroundColor($r('app.color.button_blue'))
          .width('35%')
          .height('5%')
          .onClick(()=>{

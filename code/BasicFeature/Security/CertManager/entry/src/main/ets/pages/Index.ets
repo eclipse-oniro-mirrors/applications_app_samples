@@ -13,8 +13,7 @@
  * limitations under the License.
  */
 
-import { CertManagerModel } from '../model/Model'
-import promptAction from '@ohos.promptAction';
+import { CertManagerModel, IDataInfo, IResponse } from '../model/Model';
 
 @Entry
 @Component
@@ -23,15 +22,15 @@ struct Index {
   @State originTextInfo: string = '';
   @State signTextInfo: string = '';
   private certManagerModel: CertManagerModel = new CertManagerModel();
-  private promot = (msg: Resource) => {
-    promptAction.showToast(
+  private promot(msg: Resource): void {
+    this.getUIContext().getPromptAction().showToast(
       {
         message: msg,
         duration: 2000,
         bottom: 122
       }
-    )
-  };
+    );
+  }
 
   build() {
     Column() {
@@ -43,8 +42,8 @@ struct Index {
           .margin({ top: '12vp', left: '24vp', bottom: '11vp' })
       }
       .width('100%')
-      .height('56vp')
-      .alignItems(HorizontalAlign.Start)
+        .height('56vp')
+        .alignItems(HorizontalAlign.Start)
 
       Column() {
         Flex({ justifyContent: FlexAlign.SpaceBetween, alignItems: ItemAlign.Center }) {
@@ -66,20 +65,20 @@ struct Index {
             }
           }
           .width('100vp')
-          .height('28vp')
-          .backgroundColor($r('app.color.button_display_bg_color'))
-          .margin({ right: '24vp' })
-          .id('dispalyButton')
-          .onClick(() => {
-            const result = this.certManagerModel.dataDisplay();
-            this.originTextInfo = result.originInfo;
-            this.certTextInfo = result.certTextInfo;
-            this.signTextInfo = '';
-          })
+            .height('28vp')
+            .backgroundColor($r('app.color.button_display_bg_color'))
+            .margin({ right: '24vp' })
+            .id('dispalyButton')
+            .onClick(() => {
+              const result: IDataInfo = this.certManagerModel.dataDisplay();
+              this.originTextInfo = result.originInfo;
+              this.certTextInfo = result.certTextInfo;
+              this.signTextInfo = '';
+            })
         }
       }
       .width('100%')
-      .height('48vp')
+        .height('48vp')
 
       Column() {
         Column() {
@@ -92,7 +91,7 @@ struct Index {
               .width('100%')
           }
           .height('103vp')
-          .margin({ top: '8vp', left: '16vp', right: '16vp' })
+            .margin({ top: '8vp', left: '16vp', right: '16vp' })
 
           Flex({ justifyContent: FlexAlign.End, alignItems: ItemAlign.Center }) {
             Text(`${this.certTextInfo.length || 0}/100`)
@@ -104,14 +103,14 @@ struct Index {
           }
         }
         .height('139vp')
-        .backgroundColor($r('app.color.text_bg_color'))
-        .borderRadius($r('sys.float.ohos_id_corner_radius_default_l'))
-        .margin({ left: '12vp', right: '12vp' })
-        .align(Alignment.TopStart)
+          .backgroundColor($r('app.color.text_bg_color'))
+          .borderRadius($r('sys.float.ohos_id_corner_radius_default_l'))
+          .margin({ left: '12vp', right: '12vp' })
+          .align(Alignment.TopStart)
       }
       .width('100%')
-      .height('139vp')
-      .alignItems(HorizontalAlign.Center)
+        .height('139vp')
+        .alignItems(HorizontalAlign.Center)
 
       Column() {
         Text($r('app.string.origin_data'))
@@ -121,8 +120,8 @@ struct Index {
           .margin({ top: '19.5vp', left: '24vp', bottom: '9.5vp' })
       }
       .width('100%')
-      .height('48vp')
-      .alignItems(HorizontalAlign.Start)
+        .height('48vp')
+        .alignItems(HorizontalAlign.Start)
 
       Column() {
         Column() {
@@ -135,7 +134,7 @@ struct Index {
               .width('100%')
           }
           .height('103vp')
-          .margin({ top: '8vp', left: '16vp', right: '16vp' })
+            .margin({ top: '8vp', left: '16vp', right: '16vp' })
 
           Flex({ justifyContent: FlexAlign.End, alignItems: ItemAlign.Center }) {
             Text(`${this.originTextInfo.length || 0}/100`)
@@ -147,14 +146,14 @@ struct Index {
           }
         }
         .height('139vp')
-        .backgroundColor($r('app.color.text_bg_color'))
-        .borderRadius($r('sys.float.ohos_id_corner_radius_default_l'))
-        .margin({ left: '12vp', right: '12vp' })
-        .align(Alignment.TopStart)
+          .backgroundColor($r('app.color.text_bg_color'))
+          .borderRadius($r('sys.float.ohos_id_corner_radius_default_l'))
+          .margin({ left: '12vp', right: '12vp' })
+          .align(Alignment.TopStart)
       }
       .width('100%')
-      .height('139vp')
-      .alignItems(HorizontalAlign.Center)
+        .height('139vp')
+        .alignItems(HorizontalAlign.Center)
 
       Column() {
         Flex({ justifyContent: FlexAlign.SpaceBetween, alignItems: ItemAlign.Center }) {
@@ -175,23 +174,23 @@ struct Index {
             }
           }
           .width('100vp')
-          .height('28vp')
-          .backgroundColor($r('app.color.button_sign_bg_color'))
-          .id('signButton')
-          .margin({ right: '24vp' })
-          .onClick(async () => {
-            const result = await this.certManagerModel.sign();
-            if (result.code == 200) {
-              this.promot($r('app.string.sign_success'));
-              this.signTextInfo = result.data;
-            } else {
-              this.promot($r('app.string.sign_fail'));
-            }
-          })
+            .height('28vp')
+            .backgroundColor($r('app.color.button_sign_bg_color'))
+            .id('signButton')
+            .margin({ right: '24vp' })
+            .onClick(async () => {
+              const result: IResponse = await this.certManagerModel.sign();
+              if (result.code == 200) {
+                this.promot($r('app.string.sign_success'));
+                this.signTextInfo = result.data;
+              } else {
+                this.promot($r('app.string.sign_fail'));
+              }
+            })
         }
       }
       .width('100%')
-      .height('48vp')
+        .height('48vp')
 
       Column() {
         Column() {
@@ -204,7 +203,7 @@ struct Index {
               .width('100%')
           }
           .height('103vp')
-          .margin({ top: '8vp', left: '16vp', right: '16vp' })
+            .margin({ top: '8vp', left: '16vp', right: '16vp' })
 
           Flex({ justifyContent: FlexAlign.End, alignItems: ItemAlign.Center }) {
             Text(`${this.signTextInfo.length || 0}/100`)
@@ -216,14 +215,14 @@ struct Index {
           }
         }
         .height('139vp')
-        .backgroundColor($r('app.color.text_bg_color'))
-        .borderRadius($r('sys.float.ohos_id_corner_radius_default_l'))
-        .margin({ left: '12vp', right: '12vp' })
-        .align(Alignment.TopStart)
+          .backgroundColor($r('app.color.text_bg_color'))
+          .borderRadius($r('sys.float.ohos_id_corner_radius_default_l'))
+          .margin({ left: '12vp', right: '12vp' })
+          .align(Alignment.TopStart)
       }
       .width('100%')
-      .height('139vp')
-      .alignItems(HorizontalAlign.Center)
+        .height('139vp')
+        .alignItems(HorizontalAlign.Center)
 
       Column() {
         Row() {
@@ -235,17 +234,17 @@ struct Index {
               .height('40vp')
           }
           .width('200vp')
-          .backgroundColor($r('app.color.button_install_bg_color'))
-          .margin({ right: '16vp' })
-          .id('installButton')
-          .onClick(async () => {
-            const result = await this.certManagerModel.install();
-            if (result.code === 200) {
-              this.promot($r('app.string.install_success'));
-            } else {
-              this.promot($r('app.string.install_fail'));
-            }
-          })
+            .backgroundColor($r('app.color.button_install_bg_color'))
+            .margin({ right: '16vp' })
+            .id('installButton')
+            .onClick(async () => {
+              const result: IResponse = await this.certManagerModel.install();
+              if (result.code === 200) {
+                this.promot($r('app.string.install_success'));
+              } else {
+                this.promot($r('app.string.install_fail'));
+              }
+            })
 
           Button({ type: ButtonType.Capsule, stateEffect: false }) {
             Text($r('app.string.verify'))
@@ -255,23 +254,23 @@ struct Index {
               .height('40vp')
           }
           .width('200vp')
-          .backgroundColor($r('app.color.button_verify_bg_color'))
-          .id('verifyButton')
-          .onClick(async () => {
-            const result = await this.certManagerModel.verify();
-            if (result.code == 200) {
-              this.promot($r('app.string.verify_success'));
-              this.signTextInfo = result.data;
-            } else {
-              this.promot($r('app.string.verify_fail'));
-            }
-          })
+            .backgroundColor($r('app.color.button_verify_bg_color'))
+            .id('verifyButton')
+            .onClick(async () => {
+              const result: IResponse = await this.certManagerModel.verify();
+              if (result.code == 200) {
+                this.promot($r('app.string.verify_success'));
+                this.signTextInfo = result.data;
+              } else {
+                this.promot($r('app.string.verify_fail'));
+              }
+            })
         }
         .margin({ left: '24vp', right: '24vp' })
       }
       .width('100%')
-      .alignItems(HorizontalAlign.Center)
-      .margin({ top: '23vp' })
+        .alignItems(HorizontalAlign.Center)
+        .margin({ top: '23vp' })
 
       Column() {
         Row() {
@@ -283,14 +282,14 @@ struct Index {
               .height('40vp')
           }
           .width('200vp')
-          .backgroundColor($r('app.color.button_modify_origin_data_bg_color'))
-          .margin({ right: '16vp' })
-          .id('modifyOriginButton')
-          .onClick(() => {
-            const result = this.certManagerModel.modifyOriginData();
-            this.originTextInfo = result.originInfo;
-            this.signTextInfo = result.signatureInfo;
-          })
+            .backgroundColor($r('app.color.button_modify_origin_data_bg_color'))
+            .margin({ right: '16vp' })
+            .id('modifyOriginButton')
+            .onClick(() => {
+              const result: IDataInfo = this.certManagerModel.modifyOriginData();
+              this.originTextInfo = result.originInfo;
+              this.signTextInfo = result.signatureInfo;
+            })
 
           Button({ type: ButtonType.Capsule, stateEffect: false }) {
             Text($r('app.string.modify_signature_data'))
@@ -300,22 +299,22 @@ struct Index {
               .height('40vp')
           }
           .width('200vp')
-          .backgroundColor($r('app.color.button_modify_signature_data_bg_color'))
-          .id('modifySignatureButton')
-          .onClick(async () => {
-            const result = await this.certManagerModel.modifySignatureData()
-            this.originTextInfo = result.originInfo;
-            this.signTextInfo = result.signatureInfo;
-          })
+            .backgroundColor($r('app.color.button_modify_signature_data_bg_color'))
+            .id('modifySignatureButton')
+            .onClick(async () => {
+              const result: IDataInfo = await this.certManagerModel.modifySignatureData()
+              this.originTextInfo = result.originInfo;
+              this.signTextInfo = result.signatureInfo;
+            })
         }
         .margin({ left: '24vp', right: '24vp' })
       }
       .width('100%')
-      .alignItems(HorizontalAlign.Center)
-      .margin({ top: '12vp' })
+        .alignItems(HorizontalAlign.Center)
+        .margin({ top: '12vp' })
     }
     .width('100%')
-    .height('100%')
-    .backgroundColor($r('app.color.homepage_bg_color'))
+      .height('100%')
+      .backgroundColor($r('app.color.homepage_bg_color'))
   }
 }
