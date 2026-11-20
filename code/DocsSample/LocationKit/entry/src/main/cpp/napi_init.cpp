@@ -36,11 +36,13 @@ static napi_value SetNativeCallback(napi_env env, napi_callback_info info);
 // [Start location_capi_is_enabled]
 std::string GetErrorMsgFromErrorCode(int errorCode)
 {
-    switch(errorCode) {
+    switch (errorCode) {
         case LOCATION_PERMISSION_DENIED:
-            return "Permission verification failed. The application does not have the permission required to call the API.";
+            return "Permission verification failed. The application does not have the permission"
+                " required to call the API.";
         case LOCATION_INVALID_PARAM:
-            return "Parameter error. Possible causes: 1. Mandatory parameters are left unspecified; 2. Incorrect parameter types; 3. Parameter verification failed.";
+            return "Parameter error. Possible causes: 1. Mandatory parameters are left unspecified; "
+                "2. Incorrect parameter types; 3. Parameter verification failed.";
         case LOCATION_NOT_SUPPORTED:
             return "Capability not supported. Failed to call this API due to limited device capabilities.";
         case LOCATION_SERVICE_UNAVAILABLE:
@@ -56,7 +58,7 @@ static napi_value OhLocationIsEnabled(napi_env env, napi_callback_info info)
 {
     bool isEnabled = false;
     int resultCode = OH_Location_IsLocatingEnabled(&isEnabled);
-    napi_value result = NULL;
+    napi_value result = nullptr;
     if (resultCode != LOCATION_SUCCESS) {
         std::string errorMsg = GetErrorMsgFromErrorCode(resultCode);
         napi_throw_error(env, std::to_string(resultCode).c_str(), errorMsg.c_str());
@@ -137,15 +139,15 @@ void reportLocation(Location_Info* location, void* userData)
 // 订阅位置信息
 static napi_value OhLocationStartLocating(napi_env env, napi_callback_info info)
 {
-    if (g_requestConfig == NULL) {
+    if (g_requestConfig == nullptr) {
         g_requestConfig = OH_Location_CreateRequestConfig();
     }
     OH_LocationRequestConfig_SetUseScene(g_requestConfig, LOCATION_USE_SCENE_NAVIGATION);
     OH_LocationRequestConfig_SetInterval(g_requestConfig, 1);
     // g_mydata:用户自定义任意类型，触发reportLocation回调时会传回该字段，用于区分是否为携带mydata字段的位置请求回调
-    g_mydata = (void *)malloc(sizeof("g_mydata"));
-    napi_value result = NULL;
-    if (g_mydata == NULL) {
+    g_mydata = static_cast<void *>(malloc(sizeof("g_mydata")));
+    napi_value result = nullptr;
+    if (g_mydata == nullptr) {
         int errCode = LOCATION_INVALID_PARAM;
         std::string errorMsg = GetErrorMsgFromErrorCode(errCode);
         napi_throw_error(env, std::to_string(errCode).c_str(), errorMsg.c_str());
@@ -169,15 +171,15 @@ static napi_value OhLocationStartLocating(napi_env env, napi_callback_info info)
 static napi_value OhLocationStopLocating(napi_env env, napi_callback_info info)
 {
     int32_t resultCode = OH_Location_StopLocating(g_requestConfig);
-    if (g_requestConfig != NULL) {
+    if (g_requestConfig != nullptr) {
         OH_Location_DestroyRequestConfig(g_requestConfig);
-        g_requestConfig = NULL;
+        g_requestConfig = nullptr;
     }
-    if (g_mydata != NULL) {
+    if (g_mydata != nullptr) {
         free(g_mydata);
-        g_mydata = NULL;
+        g_mydata = nullptr;
     }
-    napi_value result = NULL;
+    napi_value result = nullptr;
     if (resultCode != LOCATION_SUCCESS) {
         std::string errorMsg = GetErrorMsgFromErrorCode(resultCode);
         napi_throw_error(env, std::to_string(resultCode).c_str(), errorMsg.c_str());

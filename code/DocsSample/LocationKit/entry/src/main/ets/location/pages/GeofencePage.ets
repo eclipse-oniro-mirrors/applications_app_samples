@@ -60,7 +60,7 @@ export struct GeofencePage {
     // [Start is_gnss_geofence_support]
     let isGnssGeoFeceSupported = geoLocationManager.isGnssFenceServiceSupported();
     if (!isGnssGeoFeceSupported) {
-        console.error("Current Device Do not Support GnssGeofence");
+        console.error('Current Device Do not Support GnssGeofence');
     }
     // [End is_gnss_geofence_support]
   }

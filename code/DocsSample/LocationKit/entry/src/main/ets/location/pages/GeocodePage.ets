@@ -69,7 +69,7 @@ export struct GeocodePage {
     try {
       let isAvailable = geoLocationManager.isGeocoderAvailable();
       if (!isAvailable) {
-          console.error("current device do not support geocoder");
+          console.error('current device do not support geocoder');
       }
       // [StartExclude geocode_is_available]
       this.isGeocoderAvailable = isAvailable;
