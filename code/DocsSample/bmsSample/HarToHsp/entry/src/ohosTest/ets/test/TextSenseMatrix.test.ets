@@ -3442,3 +3442,1056 @@ export default function textSenseMatrixTest() {
    * @tc.desc      Text whiskey keeps repeat twice
    * @tc.size      MEDIUMTEST
    * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0230', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0230', 'text whiskey repeat twice');
+    const text: string = 'whiskey';
+    expect(text.repeat(2)).assertEqual('whiskeywhiskey');
+    expect(text.repeat(2).length).assertEqual(14);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0231
+   * @tc.name      testTextSense0231
+   * @tc.desc      Text xray keeps length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0231', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0231', 'text xray length');
+    const text: string = 'xray';
+    expect(text.length).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0232
+   * @tc.name      testTextSense0232
+   * @tc.desc      Text xray keeps middle char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0232', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0232', 'text xray middle char');
+    const text: string = 'xray';
+    expect(text.charAt(2)).assertEqual('a');
+    expect(text.charCodeAt(2)).assertEqual(97);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0233
+   * @tc.name      testTextSense0233
+   * @tc.desc      Text xray keeps slice equals substring
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0233', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0233', 'text xray slice equals substring');
+    const text: string = 'xray';
+    expect(text.slice(2)).assertEqual('ay');
+    expect(text.substring(2)).assertEqual('ay');
+    expect(text.slice(2).length + 2).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0234
+   * @tc.name      testTextSense0234
+   * @tc.desc      Text xray keeps case pairs
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0234', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0234', 'text xray case pairs');
+    const text: string = 'xray';
+    expect(text.toUpperCase()).assertEqual('XRAY');
+    expect(text.toLowerCase()).assertEqual('xray');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0235
+   * @tc.name      testTextSense0235
+   * @tc.desc      Text xray keeps search edges
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0235', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0235', 'text xray search edges');
+    const text: string = 'xray';
+    expect(text.indexOf('x')).assertEqual(0);
+    expect(text.lastIndexOf('y')).assertEqual(3);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0236
+   * @tc.name      testTextSense0236
+   * @tc.desc      Text xray keeps prefix and suffix
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0236', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0236', 'text xray prefix and suffix');
+    const text: string = 'xray';
+    expect(text.startsWith('xr')).assertTrue();
+    expect(text.endsWith('ay')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0237
+   * @tc.name      testTextSense0237
+   * @tc.desc      Text xray keeps split join
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0237', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0237', 'text xray split join');
+    const text: string = 'xray';
+    expect(text.split('').join('')).assertEqual(text);
+    expect(text.split('').length).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0238
+   * @tc.name      testTextSense0238
+   * @tc.desc      Text xray keeps pad edges
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0238', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0238', 'text xray pad edges');
+    const text: string = 'xray';
+    expect(text.padStart(7, '0').length).assertEqual(7);
+    expect(text.padEnd(6, '~').startsWith(text)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0239
+   * @tc.name      testTextSense0239
+   * @tc.desc      Text xray keeps replace first
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0239', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0239', 'text xray replace first');
+    const text: string = 'xray';
+    expect(text.replace('x', '#')).assertEqual('#ray');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0240
+   * @tc.name      testTextSense0240
+   * @tc.desc      Text xray keeps repeat twice
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0240', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0240', 'text xray repeat twice');
+    const text: string = 'xray';
+    expect(text.repeat(2)).assertEqual('xrayxray');
+    expect(text.repeat(2).length).assertEqual(8);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0241
+   * @tc.name      testTextSense0241
+   * @tc.desc      Text yankee keeps length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0241', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0241', 'text yankee length');
+    const text: string = 'yankee';
+    expect(text.length).assertEqual(6);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0242
+   * @tc.name      testTextSense0242
+   * @tc.desc      Text yankee keeps middle char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0242', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0242', 'text yankee middle char');
+    const text: string = 'yankee';
+    expect(text.charAt(3)).assertEqual('k');
+    expect(text.charCodeAt(3)).assertEqual(107);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0243
+   * @tc.name      testTextSense0243
+   * @tc.desc      Text yankee keeps slice equals substring
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0243', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0243', 'text yankee slice equals substring');
+    const text: string = 'yankee';
+    expect(text.slice(3)).assertEqual('kee');
+    expect(text.substring(3)).assertEqual('kee');
+    expect(text.slice(3).length + 3).assertEqual(6);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0244
+   * @tc.name      testTextSense0244
+   * @tc.desc      Text yankee keeps case pairs
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0244', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0244', 'text yankee case pairs');
+    const text: string = 'yankee';
+    expect(text.toUpperCase()).assertEqual('YANKEE');
+    expect(text.toLowerCase()).assertEqual('yankee');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0245
+   * @tc.name      testTextSense0245
+   * @tc.desc      Text yankee keeps search edges
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0245', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0245', 'text yankee search edges');
+    const text: string = 'yankee';
+    expect(text.indexOf('y')).assertEqual(0);
+    expect(text.lastIndexOf('e')).assertEqual(5);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0246
+   * @tc.name      testTextSense0246
+   * @tc.desc      Text yankee keeps prefix and suffix
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0246', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0246', 'text yankee prefix and suffix');
+    const text: string = 'yankee';
+    expect(text.startsWith('ya')).assertTrue();
+    expect(text.endsWith('ee')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0247
+   * @tc.name      testTextSense0247
+   * @tc.desc      Text yankee keeps split join
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0247', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0247', 'text yankee split join');
+    const text: string = 'yankee';
+    expect(text.split('').join('')).assertEqual(text);
+    expect(text.split('').length).assertEqual(6);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0248
+   * @tc.name      testTextSense0248
+   * @tc.desc      Text yankee keeps pad edges
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0248', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0248', 'text yankee pad edges');
+    const text: string = 'yankee';
+    expect(text.padStart(9, '0').length).assertEqual(9);
+    expect(text.padEnd(8, '~').startsWith(text)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0249
+   * @tc.name      testTextSense0249
+   * @tc.desc      Text yankee keeps replace first
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0249', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0249', 'text yankee replace first');
+    const text: string = 'yankee';
+    expect(text.replace('y', '#')).assertEqual('#ankee');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0250
+   * @tc.name      testTextSense0250
+   * @tc.desc      Text yankee keeps repeat twice
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0250', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0250', 'text yankee repeat twice');
+    const text: string = 'yankee';
+    expect(text.repeat(2)).assertEqual('yankeeyankee');
+    expect(text.repeat(2).length).assertEqual(12);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0251
+   * @tc.name      testTextSense0251
+   * @tc.desc      Text zulu keeps length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0251', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0251', 'text zulu length');
+    const text: string = 'zulu';
+    expect(text.length).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0252
+   * @tc.name      testTextSense0252
+   * @tc.desc      Text zulu keeps middle char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0252', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0252', 'text zulu middle char');
+    const text: string = 'zulu';
+    expect(text.charAt(2)).assertEqual('l');
+    expect(text.charCodeAt(2)).assertEqual(108);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0253
+   * @tc.name      testTextSense0253
+   * @tc.desc      Text zulu keeps slice equals substring
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0253', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0253', 'text zulu slice equals substring');
+    const text: string = 'zulu';
+    expect(text.slice(2)).assertEqual('lu');
+    expect(text.substring(2)).assertEqual('lu');
+    expect(text.slice(2).length + 2).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0254
+   * @tc.name      testTextSense0254
+   * @tc.desc      Text zulu keeps case pairs
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0254', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0254', 'text zulu case pairs');
+    const text: string = 'zulu';
+    expect(text.toUpperCase()).assertEqual('ZULU');
+    expect(text.toLowerCase()).assertEqual('zulu');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0255
+   * @tc.name      testTextSense0255
+   * @tc.desc      Text zulu keeps search edges
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0255', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0255', 'text zulu search edges');
+    const text: string = 'zulu';
+    expect(text.indexOf('z')).assertEqual(0);
+    expect(text.lastIndexOf('u')).assertEqual(3);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0256
+   * @tc.name      testTextSense0256
+   * @tc.desc      Text zulu keeps prefix and suffix
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0256', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0256', 'text zulu prefix and suffix');
+    const text: string = 'zulu';
+    expect(text.startsWith('zu')).assertTrue();
+    expect(text.endsWith('lu')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0257
+   * @tc.name      testTextSense0257
+   * @tc.desc      Text zulu keeps split join
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0257', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0257', 'text zulu split join');
+    const text: string = 'zulu';
+    expect(text.split('').join('')).assertEqual(text);
+    expect(text.split('').length).assertEqual(4);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0258
+   * @tc.name      testTextSense0258
+   * @tc.desc      Text zulu keeps pad edges
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0258', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0258', 'text zulu pad edges');
+    const text: string = 'zulu';
+    expect(text.padStart(7, '0').length).assertEqual(7);
+    expect(text.padEnd(6, '~').startsWith(text)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0259
+   * @tc.name      testTextSense0259
+   * @tc.desc      Text zulu keeps replace first
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0259', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0259', 'text zulu replace first');
+    const text: string = 'zulu';
+    expect(text.replace('z', '#')).assertEqual('#ulu');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0260
+   * @tc.name      testTextSense0260
+   * @tc.desc      Text zulu keeps repeat twice
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0260', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0260', 'text zulu repeat twice');
+    const text: string = 'zulu';
+    expect(text.repeat(2)).assertEqual('zuluzulu');
+    expect(text.repeat(2).length).assertEqual(8);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0261
+   * @tc.name      testTextSense0261
+   * @tc.desc      Text camelCaseToken keeps length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0261', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0261', 'text camelCaseToken length');
+    const text: string = 'camelCaseToken';
+    expect(text.length).assertEqual(14);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0262
+   * @tc.name      testTextSense0262
+   * @tc.desc      Text camelCaseToken keeps middle char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0262', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0262', 'text camelCaseToken middle char');
+    const text: string = 'camelCaseToken';
+    expect(text.charAt(7)).assertEqual('s');
+    expect(text.charCodeAt(7)).assertEqual(115);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0263
+   * @tc.name      testTextSense0263
+   * @tc.desc      Text camelCaseToken keeps slice equals substring
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0263', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0263', 'text camelCaseToken slice equals substring');
+    const text: string = 'camelCaseToken';
+    expect(text.slice(7)).assertEqual('seToken');
+    expect(text.substring(7)).assertEqual('seToken');
+    expect(text.slice(7).length + 7).assertEqual(14);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0264
+   * @tc.name      testTextSense0264
+   * @tc.desc      Text camelCaseToken keeps case pairs
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0264', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0264', 'text camelCaseToken case pairs');
+    const text: string = 'camelCaseToken';
+    expect(text.toUpperCase()).assertEqual('CAMELCASETOKEN');
+    expect(text.toLowerCase()).assertEqual('camelcasetoken');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0265
+   * @tc.name      testTextSense0265
+   * @tc.desc      Text camelCaseToken keeps search edges
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0265', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0265', 'text camelCaseToken search edges');
+    const text: string = 'camelCaseToken';
+    expect(text.indexOf('c')).assertEqual(0);
+    expect(text.lastIndexOf('n')).assertEqual(13);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0266
+   * @tc.name      testTextSense0266
+   * @tc.desc      Text camelCaseToken keeps prefix and suffix
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0266', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0266', 'text camelCaseToken prefix and suffix');
+    const text: string = 'camelCaseToken';
+    expect(text.startsWith('ca')).assertTrue();
+    expect(text.endsWith('en')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0267
+   * @tc.name      testTextSense0267
+   * @tc.desc      Text camelCaseToken keeps split join
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0267', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0267', 'text camelCaseToken split join');
+    const text: string = 'camelCaseToken';
+    expect(text.split('').join('')).assertEqual(text);
+    expect(text.split('').length).assertEqual(14);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0268
+   * @tc.name      testTextSense0268
+   * @tc.desc      Text camelCaseToken keeps pad edges
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0268', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0268', 'text camelCaseToken pad edges');
+    const text: string = 'camelCaseToken';
+    expect(text.padStart(17, '0').length).assertEqual(17);
+    expect(text.padEnd(16, '~').startsWith(text)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0269
+   * @tc.name      testTextSense0269
+   * @tc.desc      Text camelCaseToken keeps replace first
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0269', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0269', 'text camelCaseToken replace first');
+    const text: string = 'camelCaseToken';
+    expect(text.replace('c', '#')).assertEqual('#amelCaseToken');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0270
+   * @tc.name      testTextSense0270
+   * @tc.desc      Text camelCaseToken keeps repeat twice
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0270', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0270', 'text camelCaseToken repeat twice');
+    const text: string = 'camelCaseToken';
+    expect(text.repeat(2)).assertEqual('camelCaseTokencamelCaseToken');
+    expect(text.repeat(2).length).assertEqual(28);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0271
+   * @tc.name      testTextSense0271
+   * @tc.desc      Text kebab-case-token keeps length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0271', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0271', 'text kebab-case-token length');
+    const text: string = 'kebab-case-token';
+    expect(text.length).assertEqual(16);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0272
+   * @tc.name      testTextSense0272
+   * @tc.desc      Text kebab-case-token keeps middle char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0272', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0272', 'text kebab-case-token middle char');
+    const text: string = 'kebab-case-token';
+    expect(text.charAt(8)).assertEqual('s');
+    expect(text.charCodeAt(8)).assertEqual(115);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0273
+   * @tc.name      testTextSense0273
+   * @tc.desc      Text kebab-case-token keeps slice equals substring
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0273', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0273', 'text kebab-case-token slice equals substring');
+    const text: string = 'kebab-case-token';
+    expect(text.slice(8)).assertEqual('se-token');
+    expect(text.substring(8)).assertEqual('se-token');
+    expect(text.slice(8).length + 8).assertEqual(16);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0274
+   * @tc.name      testTextSense0274
+   * @tc.desc      Text kebab-case-token keeps case pairs
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0274', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0274', 'text kebab-case-token case pairs');
+    const text: string = 'kebab-case-token';
+    expect(text.toUpperCase()).assertEqual('KEBAB-CASE-TOKEN');
+    expect(text.toLowerCase()).assertEqual('kebab-case-token');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0275
+   * @tc.name      testTextSense0275
+   * @tc.desc      Text kebab-case-token keeps search edges
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0275', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0275', 'text kebab-case-token search edges');
+    const text: string = 'kebab-case-token';
+    expect(text.indexOf('k')).assertEqual(0);
+    expect(text.lastIndexOf('n')).assertEqual(15);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0276
+   * @tc.name      testTextSense0276
+   * @tc.desc      Text kebab-case-token keeps prefix and suffix
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0276', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0276', 'text kebab-case-token prefix and suffix');
+    const text: string = 'kebab-case-token';
+    expect(text.startsWith('ke')).assertTrue();
+    expect(text.endsWith('en')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0277
+   * @tc.name      testTextSense0277
+   * @tc.desc      Text kebab-case-token keeps split join
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0277', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0277', 'text kebab-case-token split join');
+    const text: string = 'kebab-case-token';
+    expect(text.split('').join('')).assertEqual(text);
+    expect(text.split('').length).assertEqual(16);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0278
+   * @tc.name      testTextSense0278
+   * @tc.desc      Text kebab-case-token keeps pad edges
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0278', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0278', 'text kebab-case-token pad edges');
+    const text: string = 'kebab-case-token';
+    expect(text.padStart(19, '0').length).assertEqual(19);
+    expect(text.padEnd(18, '~').startsWith(text)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0279
+   * @tc.name      testTextSense0279
+   * @tc.desc      Text kebab-case-token keeps replace first
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0279', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0279', 'text kebab-case-token replace first');
+    const text: string = 'kebab-case-token';
+    expect(text.replace('k', '#')).assertEqual('#ebab-case-token');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0280
+   * @tc.name      testTextSense0280
+   * @tc.desc      Text kebab-case-token keeps repeat twice
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0280', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0280', 'text kebab-case-token repeat twice');
+    const text: string = 'kebab-case-token';
+    expect(text.repeat(2)).assertEqual('kebab-case-tokenkebab-case-token');
+    expect(text.repeat(2).length).assertEqual(32);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0281
+   * @tc.name      testTextSense0281
+   * @tc.desc      Text snake_case_token keeps length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0281', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0281', 'text snake_case_token length');
+    const text: string = 'snake_case_token';
+    expect(text.length).assertEqual(16);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0282
+   * @tc.name      testTextSense0282
+   * @tc.desc      Text snake_case_token keeps middle char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0282', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0282', 'text snake_case_token middle char');
+    const text: string = 'snake_case_token';
+    expect(text.charAt(8)).assertEqual('s');
+    expect(text.charCodeAt(8)).assertEqual(115);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0283
+   * @tc.name      testTextSense0283
+   * @tc.desc      Text snake_case_token keeps slice equals substring
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0283', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0283', 'text snake_case_token slice equals substring');
+    const text: string = 'snake_case_token';
+    expect(text.slice(8)).assertEqual('se_token');
+    expect(text.substring(8)).assertEqual('se_token');
+    expect(text.slice(8).length + 8).assertEqual(16);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0284
+   * @tc.name      testTextSense0284
+   * @tc.desc      Text snake_case_token keeps case pairs
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0284', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0284', 'text snake_case_token case pairs');
+    const text: string = 'snake_case_token';
+    expect(text.toUpperCase()).assertEqual('SNAKE_CASE_TOKEN');
+    expect(text.toLowerCase()).assertEqual('snake_case_token');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0285
+   * @tc.name      testTextSense0285
+   * @tc.desc      Text snake_case_token keeps search edges
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0285', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0285', 'text snake_case_token search edges');
+    const text: string = 'snake_case_token';
+    expect(text.indexOf('s')).assertEqual(0);
+    expect(text.lastIndexOf('n')).assertEqual(15);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0286
+   * @tc.name      testTextSense0286
+   * @tc.desc      Text snake_case_token keeps prefix and suffix
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0286', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0286', 'text snake_case_token prefix and suffix');
+    const text: string = 'snake_case_token';
+    expect(text.startsWith('sn')).assertTrue();
+    expect(text.endsWith('en')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0287
+   * @tc.name      testTextSense0287
+   * @tc.desc      Text snake_case_token keeps split join
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0287', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0287', 'text snake_case_token split join');
+    const text: string = 'snake_case_token';
+    expect(text.split('').join('')).assertEqual(text);
+    expect(text.split('').length).assertEqual(16);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0288
+   * @tc.name      testTextSense0288
+   * @tc.desc      Text snake_case_token keeps pad edges
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0288', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0288', 'text snake_case_token pad edges');
+    const text: string = 'snake_case_token';
+    expect(text.padStart(19, '0').length).assertEqual(19);
+    expect(text.padEnd(18, '~').startsWith(text)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0289
+   * @tc.name      testTextSense0289
+   * @tc.desc      Text snake_case_token keeps replace first
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0289', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0289', 'text snake_case_token replace first');
+    const text: string = 'snake_case_token';
+    expect(text.replace('s', '#')).assertEqual('#nake_case_token');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0290
+   * @tc.name      testTextSense0290
+   * @tc.desc      Text snake_case_token keeps repeat twice
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0290', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0290', 'text snake_case_token repeat twice');
+    const text: string = 'snake_case_token';
+    expect(text.repeat(2)).assertEqual('snake_case_tokensnake_case_token');
+    expect(text.repeat(2).length).assertEqual(32);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0291
+   * @tc.name      testTextSense0291
+   * @tc.desc      Text Mixed99Case keeps length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0291', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0291', 'text Mixed99Case length');
+    const text: string = 'Mixed99Case';
+    expect(text.length).assertEqual(11);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0292
+   * @tc.name      testTextSense0292
+   * @tc.desc      Text Mixed99Case keeps middle char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0292', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0292', 'text Mixed99Case middle char');
+    const text: string = 'Mixed99Case';
+    expect(text.charAt(5)).assertEqual('9');
+    expect(text.charCodeAt(5)).assertEqual(57);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0293
+   * @tc.name      testTextSense0293
+   * @tc.desc      Text Mixed99Case keeps slice equals substring
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0293', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0293', 'text Mixed99Case slice equals substring');
+    const text: string = 'Mixed99Case';
+    expect(text.slice(5)).assertEqual('99Case');
+    expect(text.substring(5)).assertEqual('99Case');
+    expect(text.slice(5).length + 5).assertEqual(11);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0294
+   * @tc.name      testTextSense0294
+   * @tc.desc      Text Mixed99Case keeps case pairs
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0294', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0294', 'text Mixed99Case case pairs');
+    const text: string = 'Mixed99Case';
+    expect(text.toUpperCase()).assertEqual('MIXED99CASE');
+    expect(text.toLowerCase()).assertEqual('mixed99case');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0295
+   * @tc.name      testTextSense0295
+   * @tc.desc      Text Mixed99Case keeps search edges
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0295', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0295', 'text Mixed99Case search edges');
+    const text: string = 'Mixed99Case';
+    expect(text.indexOf('M')).assertEqual(0);
+    expect(text.lastIndexOf('e')).assertEqual(10);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0296
+   * @tc.name      testTextSense0296
+   * @tc.desc      Text Mixed99Case keeps prefix and suffix
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0296', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0296', 'text Mixed99Case prefix and suffix');
+    const text: string = 'Mixed99Case';
+    expect(text.startsWith('Mi')).assertTrue();
+    expect(text.endsWith('se')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0297
+   * @tc.name      testTextSense0297
+   * @tc.desc      Text Mixed99Case keeps split join
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0297', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0297', 'text Mixed99Case split join');
+    const text: string = 'Mixed99Case';
+    expect(text.split('').join('')).assertEqual(text);
+    expect(text.split('').length).assertEqual(11);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0298
+   * @tc.name      testTextSense0298
+   * @tc.desc      Text Mixed99Case keeps pad edges
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0298', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0298', 'text Mixed99Case pad edges');
+    const text: string = 'Mixed99Case';
+    expect(text.padStart(14, '0').length).assertEqual(14);
+    expect(text.padEnd(13, '~').startsWith(text)).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0299
+   * @tc.name      testTextSense0299
+   * @tc.desc      Text Mixed99Case keeps replace first
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0299', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0299', 'text Mixed99Case replace first');
+    const text: string = 'Mixed99Case';
+    expect(text.replace('M', '#')).assertEqual('#ixed99Case');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_TXT_0300
+   * @tc.name      testTextSense0300
+   * @tc.desc      Text Mixed99Case keeps repeat twice
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0300', 'text Mixed99Case repeat twice');
+    const text: string = 'Mixed99Case';
+    expect(text.repeat(2)).assertEqual('Mixed99CaseMixed99Case');
+    expect(text.repeat(2).length).assertEqual(22);
+  });
+  });
+}
