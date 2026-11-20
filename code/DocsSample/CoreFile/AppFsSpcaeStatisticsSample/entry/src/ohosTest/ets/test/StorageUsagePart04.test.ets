@@ -1934,3 +1934,1368 @@ export default function storageUsagePart04Test(): void {
     it('AppFsSpace_Usage_0302', 0, async (): Promise<void> => {
       const name: string = 'AppFsSpace_Usage_0302';
       logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = 1023;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 9007199254740991);
+        expect(snapshot.totalBytes).assertEqual(9007199254740991);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1023);
+        expect(snapshot.freeBytes).assertEqual(1023);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 9007199254739968);
+        expect(snapshot.usedBytes).assertEqual(9007199254739968);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 9007199254740991);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(9007199254740991);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 99.99999999998865);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 99.99999999998865`,
+          snapshotPercentDelta, 8.881784197000244e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.881784197000244e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_030300
+     * @tc.name AppFsSpace_Usage_0303
+     * @tc.desc total=9007199254740991, free=1024; verify async fields, conserved bytes, rational percent and routing.
+     */
+    it('AppFsSpace_Usage_0303', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0303';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = 1024;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 9007199254740991);
+        expect(snapshot.totalBytes).assertEqual(9007199254740991);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1024);
+        expect(snapshot.freeBytes).assertEqual(1024);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 9007199254739967);
+        expect(snapshot.usedBytes).assertEqual(9007199254739967);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 9007199254740991);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(9007199254740991);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 99.99999999998863);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 99.99999999998863`,
+          snapshotPercentDelta, 8.881784197000243e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.881784197000243e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_030400
+     * @tc.name AppFsSpace_Usage_0304
+     * @tc.desc total=9007199254740991, free=1025; verify async fields, conserved bytes, rational percent and routing.
+     */
+    it('AppFsSpace_Usage_0304', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0304';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = 1025;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 9007199254740991);
+        expect(snapshot.totalBytes).assertEqual(9007199254740991);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1025);
+        expect(snapshot.freeBytes).assertEqual(1025);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 9007199254739966);
+        expect(snapshot.usedBytes).assertEqual(9007199254739966);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 9007199254740991);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(9007199254740991);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 99.99999999998862);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 99.99999999998862`,
+          snapshotPercentDelta, 8.881784197000241e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.881784197000241e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_030500
+     * @tc.name AppFsSpace_Usage_0305
+     * @tc.desc total=9007199254740991, free=1048575; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0305', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0305';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = 1048575;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 9007199254740991);
+        expect(snapshot.totalBytes).assertEqual(9007199254740991);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1048575);
+        expect(snapshot.freeBytes).assertEqual(1048575);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 9007199253692416);
+        expect(snapshot.usedBytes).assertEqual(9007199253692416);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 9007199254740991);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(9007199254740991);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 99.99999998835848);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 99.99999998835848`,
+          snapshotPercentDelta, 8.881784195967278e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.881784195967278e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_030600
+     * @tc.name AppFsSpace_Usage_0306
+     * @tc.desc total=9007199254740991, free=1048576; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0306', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0306';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = 1048576;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 9007199254740991);
+        expect(snapshot.totalBytes).assertEqual(9007199254740991);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1048576);
+        expect(snapshot.freeBytes).assertEqual(1048576);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 9007199253692415);
+        expect(snapshot.usedBytes).assertEqual(9007199253692415);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 9007199254740991);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(9007199254740991);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 99.99999998835847);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 99.99999998835847`,
+          snapshotPercentDelta, 8.881784195967277e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.881784195967277e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_030700
+     * @tc.name AppFsSpace_Usage_0307
+     * @tc.desc total=9007199254740991, free=1048577; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0307', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0307';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = 1048577;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 9007199254740991);
+        expect(snapshot.totalBytes).assertEqual(9007199254740991);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1048577);
+        expect(snapshot.freeBytes).assertEqual(1048577);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 9007199253692414);
+        expect(snapshot.usedBytes).assertEqual(9007199253692414);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 9007199254740991);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(9007199254740991);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 99.99999998835845);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 99.99999998835845`,
+          snapshotPercentDelta, 8.881784195967275e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.881784195967275e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_030800
+     * @tc.name AppFsSpace_Usage_0308
+     * @tc.desc total=9007199254740991, free=1073741823; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0308', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0308';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = 1073741823;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 9007199254740991);
+        expect(snapshot.totalBytes).assertEqual(9007199254740991);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1073741823);
+        expect(snapshot.freeBytes).assertEqual(1073741823);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 9007198180999168);
+        expect(snapshot.usedBytes).assertEqual(9007198180999168);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 9007199254740991);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(9007199254740991);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 99.99998807907106);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 99.99998807907106`,
+          snapshotPercentDelta, 8.88178313821007e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.88178313821007e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_030900
+     * @tc.name AppFsSpace_Usage_0309
+     * @tc.desc total=9007199254740991, free=1073741824; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0309', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0309';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = 1073741824;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 9007199254740991);
+        expect(snapshot.totalBytes).assertEqual(9007199254740991);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1073741824);
+        expect(snapshot.freeBytes).assertEqual(1073741824);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 9007198180999167);
+        expect(snapshot.usedBytes).assertEqual(9007198180999167);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 9007199254740991);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(9007199254740991);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 99.99998807907104);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 99.99998807907104`,
+          snapshotPercentDelta, 8.881783138210068e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.881783138210068e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_031000
+     * @tc.name AppFsSpace_Usage_0310
+     * @tc.desc total=9007199254740991, free=1073741825; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0310', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0310';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = 1073741825;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 9007199254740991);
+        expect(snapshot.totalBytes).assertEqual(9007199254740991);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1073741825);
+        expect(snapshot.freeBytes).assertEqual(1073741825);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 9007198180999166);
+        expect(snapshot.usedBytes).assertEqual(9007198180999166);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 9007199254740991);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(9007199254740991);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 99.99998807907103);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 99.99998807907103`,
+          snapshotPercentDelta, 8.881783138210067e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.881783138210067e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_031100
+     * @tc.name AppFsSpace_Usage_0311
+     * @tc.desc total=9007199254740991, free=1099511627775; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0311', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0311';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = 1099511627775;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 9007199254740991);
+        expect(snapshot.totalBytes).assertEqual(9007199254740991);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1099511627775);
+        expect(snapshot.freeBytes).assertEqual(1099511627775);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 9006099743113216);
+        expect(snapshot.usedBytes).assertEqual(9006099743113216);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 9007199254740991);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(9007199254740991);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 99.98779296875001);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 99.98779296875001`,
+          snapshotPercentDelta, 8.880699994828768e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.880699994828768e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_031200
+     * @tc.name AppFsSpace_Usage_0312
+     * @tc.desc total=9007199254740991, free=1099511627776; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0312', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0312';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = 1099511627776;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 9007199254740991);
+        expect(snapshot.totalBytes).assertEqual(9007199254740991);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1099511627776);
+        expect(snapshot.freeBytes).assertEqual(1099511627776);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 9006099743113215);
+        expect(snapshot.usedBytes).assertEqual(9006099743113215);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 9007199254740991);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(9007199254740991);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 99.98779296875);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 99.98779296875`,
+          snapshotPercentDelta, 8.880699994828767e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.880699994828767e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_031300
+     * @tc.name AppFsSpace_Usage_0313
+     * @tc.desc total=9007199254740991, free=1099511627777; verify async fields, conserved bytes, rational percent and
+     * routing.
+     */
+    it('AppFsSpace_Usage_0313', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0313';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = 1099511627777;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 9007199254740991);
+        expect(snapshot.totalBytes).assertEqual(9007199254740991);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1099511627777);
+        expect(snapshot.freeBytes).assertEqual(1099511627777);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 9006099743113214);
+        expect(snapshot.usedBytes).assertEqual(9006099743113214);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 9007199254740991);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(9007199254740991);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 99.98779296874999);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 99.98779296874999`,
+          snapshotPercentDelta, 8.880699994828766e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(8.880699994828766e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_031400
+     * @tc.name AppFsSpace_Usage_0314
+     * @tc.desc total=9007199254740991, free=1125899906842623; verify async fields, conserved bytes, rational percent
+     * and routing.
+     */
+    it('AppFsSpace_Usage_0314', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0314';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = 1125899906842623;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 9007199254740991);
+        expect(snapshot.totalBytes).assertEqual(9007199254740991);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1125899906842623);
+        expect(snapshot.freeBytes).assertEqual(1125899906842623);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 7881299347898368);
+        expect(snapshot.usedBytes).assertEqual(7881299347898368);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 9007199254740991);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(9007199254740991);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 87.50000000000001);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 87.50000000000001`,
+          snapshotPercentDelta, 7.771561172376097e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(7.771561172376097e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_031500
+     * @tc.name AppFsSpace_Usage_0315
+     * @tc.desc total=9007199254740991, free=1125899906842624; verify async fields, conserved bytes, rational percent
+     * and routing.
+     */
+    it('AppFsSpace_Usage_0315', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0315';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = 1125899906842624;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 9007199254740991);
+        expect(snapshot.totalBytes).assertEqual(9007199254740991);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1125899906842624);
+        expect(snapshot.freeBytes).assertEqual(1125899906842624);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 7881299347898367);
+        expect(snapshot.usedBytes).assertEqual(7881299347898367);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 9007199254740991);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(9007199254740991);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 87.5);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 87.5`,
+          snapshotPercentDelta, 7.771561172376096e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(7.771561172376096e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_031600
+     * @tc.name AppFsSpace_Usage_0316
+     * @tc.desc total=9007199254740991, free=1125899906842625; verify async fields, conserved bytes, rational percent
+     * and routing.
+     */
+    it('AppFsSpace_Usage_0316', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0316';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = 1125899906842625;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        const probe: StorageQueryProbe = new StorageQueryProbe();
+        probe.totalBytes = totalBytes;
+        probe.freeBytes = freeBytes;
+        probe.totalSyncBytes = -1;
+        probe.freeSyncBytes = Number.NaN;
+        const snapshot: StorageUsage = await queryStorageUsage(probe);
+        logAssertion(name, `${input}: snapshot.totalBytes`, snapshot.totalBytes, 9007199254740991);
+        expect(snapshot.totalBytes).assertEqual(9007199254740991);
+        logAssertion(name, `${input}: snapshot.freeBytes`, snapshot.freeBytes, 1125899906842625);
+        expect(snapshot.freeBytes).assertEqual(1125899906842625);
+        logAssertion(name, `${input}: snapshot.usedBytes`, snapshot.usedBytes, 7881299347898366);
+        expect(snapshot.usedBytes).assertEqual(7881299347898366);
+        logAssertion(name, `${input}: snapshot four-field shape`,
+          Object.keys(snapshot).sort().join(','), 'freeBytes,totalBytes,usedBytes,usedPercent');
+        expect(Object.keys(snapshot).sort().join(',')).assertEqual('freeBytes,totalBytes,usedBytes,usedPercent');
+        logAssertion(name, `${input}: snapshot used+free conservation`,
+          snapshot.usedBytes + snapshot.freeBytes, 9007199254740991);
+        expect(snapshot.usedBytes + snapshot.freeBytes).assertEqual(9007199254740991);
+        const snapshotPercentDelta: number = Math.abs(snapshot.usedPercent - 87.49999999999999);
+        logAssertion(name, `${input}: snapshot.usedPercent delta from 87.49999999999999`,
+          snapshotPercentDelta, 7.771561172376095e-14);
+        expect(snapshotPercentDelta).assertLessOrEqual(7.771561172376095e-14);
+        logAssertion(name, 'probe completed: total/free only; no sync/bundle/fs', probe.events.join(','), 'total,free');
+        expect(probe.events.join(',')).assertEqual('total,free');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_031700
+     * @tc.name AppFsSpace_Usage_0317
+     * @tc.desc Calculate total=-1, free=0; reject an invalid total byte count. Require rejection outside the catch
+     * and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0317', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0317';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = -1;
+        const freeBytes: number = 0;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Total size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Total size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_031800
+     * @tc.name AppFsSpace_Usage_0318
+     * @tc.desc Calculate total=9007199254740991, free=-1; reject an invalid free byte count. Require rejection
+     * outside the catch and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0318', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0318';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = -1;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Free size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Free size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_031900
+     * @tc.name AppFsSpace_Usage_0319
+     * @tc.desc Calculate total=-1024, free=0; reject an invalid total byte count. Require rejection outside the catch
+     * and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0319', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0319';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = -1024;
+        const freeBytes: number = 0;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Total size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Total size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_032000
+     * @tc.name AppFsSpace_Usage_0320
+     * @tc.desc Calculate total=9007199254740991, free=-1024; reject an invalid free byte count. Require rejection
+     * outside the catch and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0320', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0320';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = -1024;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Free size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Free size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_032100
+     * @tc.name AppFsSpace_Usage_0321
+     * @tc.desc Calculate total=Number.NaN, free=0; reject an invalid total byte count. Require rejection outside the
+     * catch and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0321', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0321';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = Number.NaN;
+        const freeBytes: number = 0;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Total size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Total size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_032200
+     * @tc.name AppFsSpace_Usage_0322
+     * @tc.desc Calculate total=9007199254740991, free=Number.NaN; reject an invalid free byte count. Require
+     * rejection outside the catch and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0322', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0322';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = Number.NaN;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Free size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Free size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_032300
+     * @tc.name AppFsSpace_Usage_0323
+     * @tc.desc Calculate total=Number.POSITIVE_INFINITY, free=0; reject an invalid total byte count. Require
+     * rejection outside the catch and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0323', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0323';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = Number.POSITIVE_INFINITY;
+        const freeBytes: number = 0;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Total size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Total size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_032400
+     * @tc.name AppFsSpace_Usage_0324
+     * @tc.desc Calculate total=9007199254740991, free=Number.POSITIVE_INFINITY; reject an invalid free byte count.
+     * Require rejection outside the catch and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0324', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0324';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = Number.POSITIVE_INFINITY;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Free size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Free size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_032500
+     * @tc.name AppFsSpace_Usage_0325
+     * @tc.desc Calculate total=Number.NEGATIVE_INFINITY, free=0; reject an invalid total byte count. Require
+     * rejection outside the catch and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0325', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0325';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = Number.NEGATIVE_INFINITY;
+        const freeBytes: number = 0;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Total size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Total size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_032600
+     * @tc.name AppFsSpace_Usage_0326
+     * @tc.desc Calculate total=9007199254740991, free=Number.NEGATIVE_INFINITY; reject an invalid free byte count.
+     * Require rejection outside the catch and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0326', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0326';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = Number.NEGATIVE_INFINITY;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Free size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Free size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_032700
+     * @tc.name AppFsSpace_Usage_0327
+     * @tc.desc Calculate total=9007199254740992, free=0; reject an invalid total byte count. Require rejection
+     * outside the catch and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0327', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0327';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740992;
+        const freeBytes: number = 0;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Total size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Total size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_032800
+     * @tc.name AppFsSpace_Usage_0328
+     * @tc.desc Calculate total=9007199254740991, free=9007199254740992; reject an invalid free byte count. Require
+     * rejection outside the catch and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0328', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0328';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = 9007199254740992;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Free size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Free size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_032900
+     * @tc.name AppFsSpace_Usage_0329
+     * @tc.desc Calculate total=9007199254740994, free=0; reject an invalid total byte count. Require rejection
+     * outside the catch and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0329', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0329';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740994;
+        const freeBytes: number = 0;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Total size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Total size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_033000
+     * @tc.name AppFsSpace_Usage_0330
+     * @tc.desc Calculate total=9007199254740991, free=9007199254740994; reject an invalid free byte count. Require
+     * rejection outside the catch and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0330', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0330';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = 9007199254740994;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Free size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Free size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_033100
+     * @tc.name AppFsSpace_Usage_0331
+     * @tc.desc Calculate total=0.5, free=0; reject an invalid total byte count. Require rejection outside the catch
+     * and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0331', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0331';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 0.5;
+        const freeBytes: number = 0;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Total size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Total size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_033200
+     * @tc.name AppFsSpace_Usage_0332
+     * @tc.desc Calculate total=9007199254740991, free=0.5; reject an invalid free byte count. Require rejection
+     * outside the catch and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0332', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0332';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = 0.5;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Free size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Free size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_033300
+     * @tc.name AppFsSpace_Usage_0333
+     * @tc.desc Calculate total=1023.5, free=0; reject an invalid total byte count. Require rejection outside the
+     * catch and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0333', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0333';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1023.5;
+        const freeBytes: number = 0;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Total size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Total size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_033400
+     * @tc.name AppFsSpace_Usage_0334
+     * @tc.desc Calculate total=9007199254740991, free=1023.5; reject an invalid free byte count. Require rejection
+     * outside the catch and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0334', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0334';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = 1023.5;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Free size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Free size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_033500
+     * @tc.name AppFsSpace_Usage_0335
+     * @tc.desc Calculate total=1099511627776.5, free=0; reject an invalid total byte count. Require rejection outside
+     * the catch and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0335', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0335';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 1099511627776.5;
+        const freeBytes: number = 0;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Total size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Total size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_033600
+     * @tc.name AppFsSpace_Usage_0336
+     * @tc.desc Calculate total=9007199254740991, free=1099511627776.5; reject an invalid free byte count. Require
+     * rejection outside the catch and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0336', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0336';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = 9007199254740991;
+        const freeBytes: number = 1099511627776.5;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Free size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Free size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_033700
+     * @tc.name AppFsSpace_Usage_0337
+     * @tc.desc Calculate total=-1, free=-1; both inputs are invalid and immediate validation must report total before
+     * free. Require rejection outside the catch and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0337', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0337';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = -1;
+        const freeBytes: number = -1;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Total size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Total size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_033800
+     * @tc.name AppFsSpace_Usage_0338
+     * @tc.desc Calculate total=-1, free=Number.NaN; both inputs are invalid and immediate validation must report
+     * total before free. Require rejection outside the catch and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0338', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0338';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = -1;
+        const freeBytes: number = Number.NaN;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Total size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Total size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_033900
+     * @tc.name AppFsSpace_Usage_0339
+     * @tc.desc Calculate total=Number.NaN, free=Number.NaN; both inputs are invalid and immediate validation must
+     * report total before free. Require rejection outside the catch and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0339', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0339';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = Number.NaN;
+        const freeBytes: number = Number.NaN;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Total size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Total size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_USAGE_034000
+     * @tc.name AppFsSpace_Usage_0340
+     * @tc.desc Calculate total=Number.NaN, free=Number.POSITIVE_INFINITY; both inputs are invalid and immediate
+     * validation must report total before free. Require rejection outside the catch and the exact validation error.
+     */
+    it('AppFsSpace_Usage_0340', 0, async (): Promise<void> => {
+      const name: string = 'AppFsSpace_Usage_0340';
+      logCase(name, 'begin');
+      try {
+        const totalBytes: number = Number.NaN;
+        const freeBytes: number = Number.POSITIVE_INFINITY;
+        const input: string = `total=${totalBytes} free=${freeBytes}`;
+        let captured: Error | undefined = undefined;
+        try {
+          calculateStorageUsage(totalBytes, freeBytes);
+        } catch (error) {
+          captured = error as Error;
+        }
+        logAssertion(name, `${input}: invalid request must reject rather than succeed`, captured !== undefined, true);
+        expect(captured !== undefined).assertEqual(true);
+        logAssertion(name, `${input}: rejection error name`, captured?.name, 'InvalidStorageValueError');
+        expect(captured?.name).assertEqual('InvalidStorageValueError');
+        logAssertion(name, `${input}: rejection error message`,
+          captured?.message, 'Total size must be a nonnegative safe integer');
+        expect(captured?.message).assertEqual('Total size must be a nonnegative safe integer');
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+
+  });
+}

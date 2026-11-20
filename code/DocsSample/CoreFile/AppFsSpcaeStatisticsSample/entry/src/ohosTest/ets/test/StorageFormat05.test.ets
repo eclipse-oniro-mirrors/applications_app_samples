@@ -1934,3 +1934,31 @@ export default function storageFormat05Test(): void {
       const expected: string = '1.8 TiB';
       logCase(name, 'begin');
       try {
+        const actual: string = formatStorageSize(bytes, precision);
+        logAssertion(name, `bytes=${bytes} precision=${precision} formatted`, actual, expected);
+        expect(actual).assertEqual(expected);
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_FORMAT_FRACTION_13800
+     * @tc.name AppFsSpace_Format_0515
+     * @tc.desc bytes=1924145348608 precision=2; TiB 1 plus three quarters; exact binary fraction
+     */
+    it('AppFsSpace_Format_0515', 0, (): void => {
+      const name: string = 'AppFsSpace_Format_0515';
+      const bytes: number = 1924145348608;
+      const precision: number = 2;
+      const expected: string = '1.75 TiB';
+      logCase(name, 'begin');
+      try {
+        const actual: string = formatStorageSize(bytes, precision);
+        logAssertion(name, `bytes=${bytes} precision=${precision} formatted`, actual, expected);
+        expect(actual).assertEqual(expected);
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+  });
+}

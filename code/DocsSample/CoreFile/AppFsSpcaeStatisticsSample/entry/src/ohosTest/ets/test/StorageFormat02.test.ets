@@ -1934,3 +1934,28 @@ export default function storageFormat02Test(): void {
         const actual: string = formatStorageSize(bytes, precision);
         logAssertion(name, `bytes=${bytes} precision=${precision} formatted`, actual, expected);
         expect(actual).assertEqual(expected);
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_FORMAT_FRACTION_2900
+     * @tc.name AppFsSpace_Format_0206
+     * @tc.desc bytes=3200 precision=3; KiB 3 plus one eighth; exact binary fraction
+     */
+    it('AppFsSpace_Format_0206', 0, (): void => {
+      const name: string = 'AppFsSpace_Format_0206';
+      const bytes: number = 3200;
+      const precision: number = 3;
+      const expected: string = '3.125 KiB';
+      logCase(name, 'begin');
+      try {
+        const actual: string = formatStorageSize(bytes, precision);
+        logAssertion(name, `bytes=${bytes} precision=${precision} formatted`, actual, expected);
+        expect(actual).assertEqual(expected);
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+  });
+}
