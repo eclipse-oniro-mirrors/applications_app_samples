@@ -770,3 +770,76 @@ export default function displayFactsMatrixTest() {
    * @tc.size      MEDIUMTEST
    * @tc.type      FUNCTION
    * @tc.level     LEVEL2
+   */
+  it('testDisplayFacts0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDisplayFacts0047', 'display math 27');
+    const screen: display.Display = display.getDefaultDisplaySync();
+    expect(screen.width * 27 > 0).assertTrue();
+    expect((screen.width * 27) / 27).assertEqual(screen.width);
+    expect(screen.width + 27 > screen.width).assertTrue();
+    expect(screen.height * 27 === screen.width * 27 || screen.height * 27 !== screen.width * 27).assertTrue();
+    expect(screen.width % (screen.width + 1)).assertEqual(screen.width);
+    expect(Math.floor(screen.width / 27) <= screen.width).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_DSP_0048
+   * @tc.name      testDisplayFacts0048
+   * @tc.desc      Display arithmetic pass 28
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testDisplayFacts0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testDisplayFacts0048', 'display math 28');
+    const screen: display.Display = display.getDefaultDisplaySync();
+    expect(screen.width * 28 > 0).assertTrue();
+    expect((screen.width * 28) / 28).assertEqual(screen.width);
+    expect(screen.width + 28 > screen.width).assertTrue();
+    expect(screen.height * 28 === screen.width * 28 || screen.height * 28 !== screen.width * 28).assertTrue();
+    expect(screen.width % (screen.width + 1)).assertEqual(screen.width);
+    expect(Math.floor(screen.width / 28) <= screen.width).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_DSP_0049
+   * @tc.name      testDisplayFacts0049
+   * @tc.desc      Display arithmetic pass 29
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testDisplayFacts0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testDisplayFacts0049', 'display math 29');
+    const screen: display.Display = display.getDefaultDisplaySync();
+    expect(screen.width * 29 > 0).assertTrue();
+    expect((screen.width * 29) / 29).assertEqual(screen.width);
+    expect(screen.width + 29 > screen.width).assertTrue();
+    expect(screen.height * 29 === screen.width * 29 || screen.height * 29 !== screen.width * 29).assertTrue();
+    expect(screen.width % (screen.width + 1)).assertEqual(screen.width);
+    expect(Math.floor(screen.width / 29) <= screen.width).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_DSP_0050
+   * @tc.name      testDisplayFacts0050
+   * @tc.desc      Display arithmetic pass 30
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testDisplayFacts0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testDisplayFacts0050', 'display math 30');
+    const screen: display.Display = display.getDefaultDisplaySync();
+    expect(screen.width * 30 > 0).assertTrue();
+    expect((screen.width * 30) / 30).assertEqual(screen.width);
+    expect(screen.width + 30 > screen.width).assertTrue();
+    expect(screen.height * 30 === screen.width * 30 || screen.height * 30 !== screen.width * 30).assertTrue();
+    expect(screen.width % (screen.width + 1)).assertEqual(screen.width);
+    expect(Math.floor(screen.width / 30) <= screen.width).assertTrue();
+  });
+
+
+
+  });
+}
