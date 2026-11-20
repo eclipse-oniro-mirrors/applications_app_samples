@@ -15,7 +15,7 @@
 
 {
   "app": {
-    "bundleName": "com.samples.detachedKeyboard",
+    "bundleName": "com.samples.detachedkeyboard",
     "vendor": "samples",
     "versionCode": 1001010,
     "versionName": "1.1.10",
