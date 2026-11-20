@@ -1985,3 +1985,1698 @@ export default function navAppStateStoreSuite() {
       expect(m.getNode(1000 + 627) === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0628
+     * @tc.name    NavAppStateStore628
+     * @tc.desc    NavBar fresh model 628 probe 628
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore628', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(3)?.name).assertEqual(m.getNode(3)?.name);
+      expect(m.getNode(1000 + 628) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0629
+     * @tc.name    NavAppStateStore629
+     * @tc.desc    NavBar fresh model 629 probe 629
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore629', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(4)?.name).assertEqual(m.getNode(4)?.name);
+      expect(m.getNode(1000 + 629) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0630
+     * @tc.name    NavAppStateStore630
+     * @tc.desc    NavBar fresh model 630 probe 630
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore630', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(0)?.name).assertEqual(m.getNode(0)?.name);
+      expect(m.getNode(1000 + 630) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0631
+     * @tc.name    NavAppStateStore631
+     * @tc.desc    NavBar fresh model 631 probe 631
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore631', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(1)?.name).assertEqual(m.getNode(1)?.name);
+      expect(m.getNode(1000 + 631) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0632
+     * @tc.name    NavAppStateStore632
+     * @tc.desc    NavBar fresh model 632 probe 632
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore632', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(2)?.name).assertEqual(m.getNode(2)?.name);
+      expect(m.getNode(1000 + 632) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0633
+     * @tc.name    NavAppStateStore633
+     * @tc.desc    NavBar fresh model 633 probe 633
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore633', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(3)?.name).assertEqual(m.getNode(3)?.name);
+      expect(m.getNode(1000 + 633) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0634
+     * @tc.name    NavAppStateStore634
+     * @tc.desc    NavBar fresh model 634 probe 634
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore634', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(4)?.name).assertEqual(m.getNode(4)?.name);
+      expect(m.getNode(1000 + 634) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0635
+     * @tc.name    NavAppStateStore635
+     * @tc.desc    NavBar fresh model 635 probe 635
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore635', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(0)?.name).assertEqual(m.getNode(0)?.name);
+      expect(m.getNode(1000 + 635) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0636
+     * @tc.name    NavAppStateStore636
+     * @tc.desc    NavBar fresh model 636 probe 636
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore636', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(1)?.name).assertEqual(m.getNode(1)?.name);
+      expect(m.getNode(1000 + 636) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0637
+     * @tc.name    NavAppStateStore637
+     * @tc.desc    NavBar fresh model 637 probe 637
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore637', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(2)?.name).assertEqual(m.getNode(2)?.name);
+      expect(m.getNode(1000 + 637) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0638
+     * @tc.name    NavAppStateStore638
+     * @tc.desc    NavBar fresh model 638 probe 638
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore638', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(3)?.name).assertEqual(m.getNode(3)?.name);
+      expect(m.getNode(1000 + 638) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0639
+     * @tc.name    NavAppStateStore639
+     * @tc.desc    NavBar fresh model 639 probe 639
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore639', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(4)?.name).assertEqual(m.getNode(4)?.name);
+      expect(m.getNode(1000 + 639) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0640
+     * @tc.name    NavAppStateStore640
+     * @tc.desc    NavBar fresh model 640 probe 640
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore640', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(0)?.name).assertEqual(m.getNode(0)?.name);
+      expect(m.getNode(1000 + 640) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0641
+     * @tc.name    NavAppStateStore641
+     * @tc.desc    NavBar fresh model 641 probe 641
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore641', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(1)?.name).assertEqual(m.getNode(1)?.name);
+      expect(m.getNode(1000 + 641) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0642
+     * @tc.name    NavAppStateStore642
+     * @tc.desc    NavBar fresh model 642 probe 642
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore642', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(2)?.name).assertEqual(m.getNode(2)?.name);
+      expect(m.getNode(1000 + 642) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0643
+     * @tc.name    NavAppStateStore643
+     * @tc.desc    NavBar fresh model 643 probe 643
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore643', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(3)?.name).assertEqual(m.getNode(3)?.name);
+      expect(m.getNode(1000 + 643) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0644
+     * @tc.name    NavAppStateStore644
+     * @tc.desc    NavBar fresh model 644 probe 644
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore644', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(4)?.name).assertEqual(m.getNode(4)?.name);
+      expect(m.getNode(1000 + 644) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0645
+     * @tc.name    NavAppStateStore645
+     * @tc.desc    NavBar fresh model 645 probe 645
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore645', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(0)?.name).assertEqual(m.getNode(0)?.name);
+      expect(m.getNode(1000 + 645) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0646
+     * @tc.name    NavAppStateStore646
+     * @tc.desc    NavBar fresh model 646 probe 646
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore646', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(1)?.name).assertEqual(m.getNode(1)?.name);
+      expect(m.getNode(1000 + 646) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0647
+     * @tc.name    NavAppStateStore647
+     * @tc.desc    NavBar fresh model 647 probe 647
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore647', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(2)?.name).assertEqual(m.getNode(2)?.name);
+      expect(m.getNode(1000 + 647) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0648
+     * @tc.name    NavAppStateStore648
+     * @tc.desc    NavBar fresh model 648 probe 648
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore648', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(3)?.name).assertEqual(m.getNode(3)?.name);
+      expect(m.getNode(1000 + 648) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0649
+     * @tc.name    NavAppStateStore649
+     * @tc.desc    NavBar fresh model 649 probe 649
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore649', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(4)?.name).assertEqual(m.getNode(4)?.name);
+      expect(m.getNode(1000 + 649) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0650
+     * @tc.name    NavAppStateStore650
+     * @tc.desc    NavBar fresh model 650 probe 650
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore650', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(0)?.name).assertEqual(m.getNode(0)?.name);
+      expect(m.getNode(1000 + 650) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0651
+     * @tc.name    NavAppStateStore651
+     * @tc.desc    NavBar fresh model 651 probe 651
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore651', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(1)?.name).assertEqual(m.getNode(1)?.name);
+      expect(m.getNode(1000 + 651) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0652
+     * @tc.name    NavAppStateStore652
+     * @tc.desc    NavBar fresh model 652 probe 652
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore652', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(2)?.name).assertEqual(m.getNode(2)?.name);
+      expect(m.getNode(1000 + 652) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0653
+     * @tc.name    NavAppStateStore653
+     * @tc.desc    NavBar fresh model 653 probe 653
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore653', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(3)?.name).assertEqual(m.getNode(3)?.name);
+      expect(m.getNode(1000 + 653) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0654
+     * @tc.name    NavAppStateStore654
+     * @tc.desc    NavBar fresh model 654 probe 654
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore654', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(4)?.name).assertEqual(m.getNode(4)?.name);
+      expect(m.getNode(1000 + 654) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0655
+     * @tc.name    NavAppStateStore655
+     * @tc.desc    NavBar fresh model 655 probe 655
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore655', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(0)?.name).assertEqual(m.getNode(0)?.name);
+      expect(m.getNode(1000 + 655) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0656
+     * @tc.name    NavAppStateStore656
+     * @tc.desc    NavBar fresh model 656 probe 656
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore656', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(1)?.name).assertEqual(m.getNode(1)?.name);
+      expect(m.getNode(1000 + 656) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0657
+     * @tc.name    NavAppStateStore657
+     * @tc.desc    NavBar fresh model 657 probe 657
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore657', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(2)?.name).assertEqual(m.getNode(2)?.name);
+      expect(m.getNode(1000 + 657) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0658
+     * @tc.name    NavAppStateStore658
+     * @tc.desc    NavBar fresh model 658 probe 658
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore658', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(3)?.name).assertEqual(m.getNode(3)?.name);
+      expect(m.getNode(1000 + 658) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0659
+     * @tc.name    NavAppStateStore659
+     * @tc.desc    NavBar fresh model 659 probe 659
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore659', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(4)?.name).assertEqual(m.getNode(4)?.name);
+      expect(m.getNode(1000 + 659) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0660
+     * @tc.name    NavAppStateStore660
+     * @tc.desc    NavBar fresh model 660 probe 660
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore660', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(0)?.name).assertEqual(m.getNode(0)?.name);
+      expect(m.getNode(1000 + 660) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0661
+     * @tc.name    NavAppStateStore661
+     * @tc.desc    NavBar fresh model 661 probe 661
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore661', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(1)?.name).assertEqual(m.getNode(1)?.name);
+      expect(m.getNode(1000 + 661) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0662
+     * @tc.name    NavAppStateStore662
+     * @tc.desc    NavBar fresh model 662 probe 662
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore662', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(2)?.name).assertEqual(m.getNode(2)?.name);
+      expect(m.getNode(1000 + 662) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0663
+     * @tc.name    NavAppStateStore663
+     * @tc.desc    NavBar fresh model 663 probe 663
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore663', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(3)?.name).assertEqual(m.getNode(3)?.name);
+      expect(m.getNode(1000 + 663) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0664
+     * @tc.name    NavAppStateStore664
+     * @tc.desc    NavBar fresh model 664 probe 664
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore664', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(4)?.name).assertEqual(m.getNode(4)?.name);
+      expect(m.getNode(1000 + 664) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0665
+     * @tc.name    NavAppStateStore665
+     * @tc.desc    NavBar fresh model 665 probe 665
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore665', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(0)?.name).assertEqual(m.getNode(0)?.name);
+      expect(m.getNode(1000 + 665) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0666
+     * @tc.name    NavAppStateStore666
+     * @tc.desc    NavBar fresh model 666 probe 666
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore666', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(1)?.name).assertEqual(m.getNode(1)?.name);
+      expect(m.getNode(1000 + 666) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0667
+     * @tc.name    NavAppStateStore667
+     * @tc.desc    NavBar fresh model 667 probe 667
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore667', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(2)?.name).assertEqual(m.getNode(2)?.name);
+      expect(m.getNode(1000 + 667) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0668
+     * @tc.name    NavAppStateStore668
+     * @tc.desc    NavBar fresh model 668 probe 668
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore668', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(3)?.name).assertEqual(m.getNode(3)?.name);
+      expect(m.getNode(1000 + 668) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0669
+     * @tc.name    NavAppStateStore669
+     * @tc.desc    NavBar fresh model 669 probe 669
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore669', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(4)?.name).assertEqual(m.getNode(4)?.name);
+      expect(m.getNode(1000 + 669) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0670
+     * @tc.name    NavAppStateStore670
+     * @tc.desc    NavBar fresh model 670 probe 670
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore670', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(0)?.name).assertEqual(m.getNode(0)?.name);
+      expect(m.getNode(1000 + 670) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0671
+     * @tc.name    NavAppStateStore671
+     * @tc.desc    NavBar fresh model 671 probe 671
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore671', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(1)?.name).assertEqual(m.getNode(1)?.name);
+      expect(m.getNode(1000 + 671) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0672
+     * @tc.name    NavAppStateStore672
+     * @tc.desc    NavBar fresh model 672 probe 672
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore672', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(2)?.name).assertEqual(m.getNode(2)?.name);
+      expect(m.getNode(1000 + 672) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0673
+     * @tc.name    NavAppStateStore673
+     * @tc.desc    NavBar fresh model 673 probe 673
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore673', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(3)?.name).assertEqual(m.getNode(3)?.name);
+      expect(m.getNode(1000 + 673) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0674
+     * @tc.name    NavAppStateStore674
+     * @tc.desc    NavBar fresh model 674 probe 674
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore674', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(4)?.name).assertEqual(m.getNode(4)?.name);
+      expect(m.getNode(1000 + 674) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0675
+     * @tc.name    NavAppStateStore675
+     * @tc.desc    NavBar fresh model 675 probe 675
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore675', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(0)?.name).assertEqual(m.getNode(0)?.name);
+      expect(m.getNode(1000 + 675) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0676
+     * @tc.name    NavAppStateStore676
+     * @tc.desc    NavBar fresh model 676 probe 676
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore676', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(1)?.name).assertEqual(m.getNode(1)?.name);
+      expect(m.getNode(1000 + 676) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0677
+     * @tc.name    NavAppStateStore677
+     * @tc.desc    NavBar fresh model 677 probe 677
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore677', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(2)?.name).assertEqual(m.getNode(2)?.name);
+      expect(m.getNode(1000 + 677) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0678
+     * @tc.name    NavAppStateStore678
+     * @tc.desc    NavBar fresh model 678 probe 678
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore678', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(3)?.name).assertEqual(m.getNode(3)?.name);
+      expect(m.getNode(1000 + 678) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0679
+     * @tc.name    NavAppStateStore679
+     * @tc.desc    NavBar fresh model 679 probe 679
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore679', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(4)?.name).assertEqual(m.getNode(4)?.name);
+      expect(m.getNode(1000 + 679) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0680
+     * @tc.name    NavAppStateStore680
+     * @tc.desc    NavBar fresh model 680 probe 680
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore680', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(0)?.name).assertEqual(m.getNode(0)?.name);
+      expect(m.getNode(1000 + 680) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0681
+     * @tc.name    NavAppStateStore681
+     * @tc.desc    NavBar fresh model 681 probe 681
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore681', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(1)?.name).assertEqual(m.getNode(1)?.name);
+      expect(m.getNode(1000 + 681) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0682
+     * @tc.name    NavAppStateStore682
+     * @tc.desc    NavBar fresh model 682 probe 682
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore682', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(2)?.name).assertEqual(m.getNode(2)?.name);
+      expect(m.getNode(1000 + 682) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0683
+     * @tc.name    NavAppStateStore683
+     * @tc.desc    NavBar fresh model 683 probe 683
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore683', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(3)?.name).assertEqual(m.getNode(3)?.name);
+      expect(m.getNode(1000 + 683) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0684
+     * @tc.name    NavAppStateStore684
+     * @tc.desc    NavBar fresh model 684 probe 684
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore684', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(4)?.name).assertEqual(m.getNode(4)?.name);
+      expect(m.getNode(1000 + 684) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0685
+     * @tc.name    NavAppStateStore685
+     * @tc.desc    NavBar fresh model 685 probe 685
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore685', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(0)?.name).assertEqual(m.getNode(0)?.name);
+      expect(m.getNode(1000 + 685) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0686
+     * @tc.name    NavAppStateStore686
+     * @tc.desc    NavBar fresh model 686 probe 686
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore686', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(1)?.name).assertEqual(m.getNode(1)?.name);
+      expect(m.getNode(1000 + 686) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0687
+     * @tc.name    NavAppStateStore687
+     * @tc.desc    NavBar fresh model 687 probe 687
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore687', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(2)?.name).assertEqual(m.getNode(2)?.name);
+      expect(m.getNode(1000 + 687) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0688
+     * @tc.name    NavAppStateStore688
+     * @tc.desc    NavBar fresh model 688 probe 688
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore688', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(3)?.name).assertEqual(m.getNode(3)?.name);
+      expect(m.getNode(1000 + 688) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0689
+     * @tc.name    NavAppStateStore689
+     * @tc.desc    NavBar fresh model 689 probe 689
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore689', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(4)?.name).assertEqual(m.getNode(4)?.name);
+      expect(m.getNode(1000 + 689) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0690
+     * @tc.name    NavAppStateStore690
+     * @tc.desc    NavBar fresh model 690 probe 690
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore690', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(0)?.name).assertEqual(m.getNode(0)?.name);
+      expect(m.getNode(1000 + 690) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0691
+     * @tc.name    NavAppStateStore691
+     * @tc.desc    NavBar fresh model 691 probe 691
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore691', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(1)?.name).assertEqual(m.getNode(1)?.name);
+      expect(m.getNode(1000 + 691) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0692
+     * @tc.name    NavAppStateStore692
+     * @tc.desc    NavBar fresh model 692 probe 692
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore692', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(2)?.name).assertEqual(m.getNode(2)?.name);
+      expect(m.getNode(1000 + 692) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0693
+     * @tc.name    NavAppStateStore693
+     * @tc.desc    NavBar fresh model 693 probe 693
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore693', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(3)?.name).assertEqual(m.getNode(3)?.name);
+      expect(m.getNode(1000 + 693) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0694
+     * @tc.name    NavAppStateStore694
+     * @tc.desc    NavBar fresh model 694 probe 694
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore694', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(4)?.name).assertEqual(m.getNode(4)?.name);
+      expect(m.getNode(1000 + 694) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0695
+     * @tc.name    NavAppStateStore695
+     * @tc.desc    NavBar fresh model 695 probe 695
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore695', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(0)?.name).assertEqual(m.getNode(0)?.name);
+      expect(m.getNode(1000 + 695) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0696
+     * @tc.name    NavAppStateStore696
+     * @tc.desc    NavBar fresh model 696 probe 696
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore696', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(1)?.name).assertEqual(m.getNode(1)?.name);
+      expect(m.getNode(1000 + 696) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0697
+     * @tc.name    NavAppStateStore697
+     * @tc.desc    NavBar fresh model 697 probe 697
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore697', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(2)?.name).assertEqual(m.getNode(2)?.name);
+      expect(m.getNode(1000 + 697) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0698
+     * @tc.name    NavAppStateStore698
+     * @tc.desc    NavBar fresh model 698 probe 698
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore698', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(3)?.name).assertEqual(m.getNode(3)?.name);
+      expect(m.getNode(1000 + 698) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0699
+     * @tc.name    NavAppStateStore699
+     * @tc.desc    NavBar fresh model 699 probe 699
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore699', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(4)?.name).assertEqual(m.getNode(4)?.name);
+      expect(m.getNode(1000 + 699) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0700
+     * @tc.name    NavAppStateStore700
+     * @tc.desc    NavBar fresh model 700 probe 700
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore700', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(0)?.name).assertEqual(m.getNode(0)?.name);
+      expect(m.getNode(1000 + 700) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0701
+     * @tc.name    NavAppStateStore701
+     * @tc.desc    NavBar fresh model 701 probe 701
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore701', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(1)?.name).assertEqual(m.getNode(1)?.name);
+      expect(m.getNode(1000 + 701) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0702
+     * @tc.name    NavAppStateStore702
+     * @tc.desc    NavBar fresh model 702 probe 702
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore702', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(2)?.name).assertEqual(m.getNode(2)?.name);
+      expect(m.getNode(1000 + 702) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0703
+     * @tc.name    NavAppStateStore703
+     * @tc.desc    NavBar fresh model 703 probe 703
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore703', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(3)?.name).assertEqual(m.getNode(3)?.name);
+      expect(m.getNode(1000 + 703) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0704
+     * @tc.name    NavAppStateStore704
+     * @tc.desc    NavBar fresh model 704 probe 704
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore704', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(4)?.name).assertEqual(m.getNode(4)?.name);
+      expect(m.getNode(1000 + 704) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0705
+     * @tc.name    NavAppStateStore705
+     * @tc.desc    NavBar fresh model 705 probe 705
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore705', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(0)?.name).assertEqual(m.getNode(0)?.name);
+      expect(m.getNode(1000 + 705) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0706
+     * @tc.name    NavAppStateStore706
+     * @tc.desc    NavBar fresh model 706 probe 706
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore706', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(1)?.name).assertEqual(m.getNode(1)?.name);
+      expect(m.getNode(1000 + 706) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0707
+     * @tc.name    NavAppStateStore707
+     * @tc.desc    NavBar fresh model 707 probe 707
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore707', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(2)?.name).assertEqual(m.getNode(2)?.name);
+      expect(m.getNode(1000 + 707) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0708
+     * @tc.name    NavAppStateStore708
+     * @tc.desc    NavBar fresh model 708 probe 708
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore708', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(3)?.name).assertEqual(m.getNode(3)?.name);
+      expect(m.getNode(1000 + 708) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0709
+     * @tc.name    NavAppStateStore709
+     * @tc.desc    NavBar fresh model 709 probe 709
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore709', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(4)?.name).assertEqual(m.getNode(4)?.name);
+      expect(m.getNode(1000 + 709) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0710
+     * @tc.name    NavAppStateStore710
+     * @tc.desc    NavBar fresh model 710 probe 710
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore710', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(0)?.name).assertEqual(m.getNode(0)?.name);
+      expect(m.getNode(1000 + 710) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0711
+     * @tc.name    NavAppStateStore711
+     * @tc.desc    NavBar fresh model 711 probe 711
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore711', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(1)?.name).assertEqual(m.getNode(1)?.name);
+      expect(m.getNode(1000 + 711) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0712
+     * @tc.name    NavAppStateStore712
+     * @tc.desc    NavBar fresh model 712 probe 712
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore712', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(2)?.name).assertEqual(m.getNode(2)?.name);
+      expect(m.getNode(1000 + 712) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0713
+     * @tc.name    NavAppStateStore713
+     * @tc.desc    NavBar fresh model 713 probe 713
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore713', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(3)?.name).assertEqual(m.getNode(3)?.name);
+      expect(m.getNode(1000 + 713) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0714
+     * @tc.name    NavAppStateStore714
+     * @tc.desc    NavBar fresh model 714 probe 714
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore714', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(4)?.name).assertEqual(m.getNode(4)?.name);
+      expect(m.getNode(1000 + 714) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0715
+     * @tc.name    NavAppStateStore715
+     * @tc.desc    NavBar fresh model 715 probe 715
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore715', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(0)?.name).assertEqual(m.getNode(0)?.name);
+      expect(m.getNode(1000 + 715) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0716
+     * @tc.name    NavAppStateStore716
+     * @tc.desc    NavBar fresh model 716 probe 716
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppStateStore716', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: NavBarModel = new NavBarModel();
+      expect(local.getTopCount()).assertEqual(m.getTopCount());
+      expect(local.hasUniqueNames()).assertEqual(true);
+      expect(local.getNode(1)?.name).assertEqual(m.getNode(1)?.name);
+      expect(m.getNode(1000 + 716) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
