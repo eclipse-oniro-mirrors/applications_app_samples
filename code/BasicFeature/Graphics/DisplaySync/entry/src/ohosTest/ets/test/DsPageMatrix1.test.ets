@@ -16,10 +16,7 @@
 import { beforeEachIt, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { tick } from '../util/TestTick';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { displaySync } from '@kit.ArkGraphics2D';
-import { bundleManager } from '@kit.AbilityKit';
-import { abilityDelegatorRegistry } from '@kit.TestKit';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { readMainPage } from '../util/MainResources';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_DisplaySync]';
@@ -41,7 +38,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0001 begin');
-      const url: string = 'pages/Index';
+      const url: string = await readMainPage('pages/Index');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.split('/').length).assertEqual(2);
       expect(typeof url).assertEqual('string');
@@ -60,7 +57,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0002 begin');
-      const url: string = 'pages/Index';
+      const url: string = await readMainPage('pages/Index');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.startsWith('pages/')).assertTrue();
       expect(typeof url).assertEqual('string');
@@ -79,7 +76,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0003 begin');
-      const url: string = 'pages/Index';
+      const url: string = await readMainPage('pages/Index');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.split('/')[0]).assertEqual('pages');
       expect(typeof url).assertEqual('string');
@@ -98,7 +95,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0004 begin');
-      const url: string = 'pages/Index';
+      const url: string = await readMainPage('pages/Index');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.endsWith('Index')).assertTrue();
       expect(typeof url).assertEqual('string');
@@ -117,7 +114,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0005 begin');
-      const url: string = 'pages/Index';
+      const url: string = await readMainPage('pages/Index');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.indexOf('//')).assertEqual(-1);
       expect(typeof url).assertEqual('string');
@@ -136,7 +133,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0006 begin');
-      const url: string = 'pages/Index';
+      const url: string = await readMainPage('pages/Index');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.length).assertEqual(11);
       expect(typeof url).assertEqual('string');
@@ -155,9 +152,9 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0007 begin');
-      const url: string = 'pages/Index';
+      const url: string = await readMainPage('pages/Index');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
-      expect(url.indexOf(' ') === -1).assertTrue();
+      expect(url.indexOf(' ')).assertEqual(-1);
       expect(typeof url).assertEqual('string');
       expect(url.length > 0).assertTrue();
       await tick();
@@ -174,9 +171,9 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0008 begin');
-      const url: string = 'pages/Index';
+      const url: string = await readMainPage('pages/Index');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
-      expect(url === url.toLowerCase() || url === url).assertTrue();
+      expect(url).assertEqual('pages/Index');
       expect(typeof url).assertEqual('string');
       expect(url.length > 0).assertTrue();
       await tick();
@@ -193,7 +190,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0009 begin');
-      const url: string = 'pages/CustomDrawDisplaySync';
+      const url: string = await readMainPage('pages/CustomDrawDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.split('/').length).assertEqual(2);
       expect(typeof url).assertEqual('string');
@@ -212,7 +209,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0010 begin');
-      const url: string = 'pages/CustomDrawDisplaySync';
+      const url: string = await readMainPage('pages/CustomDrawDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.startsWith('pages/')).assertTrue();
       expect(typeof url).assertEqual('string');
@@ -231,7 +228,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0011 begin');
-      const url: string = 'pages/CustomDrawDisplaySync';
+      const url: string = await readMainPage('pages/CustomDrawDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.split('/')[0]).assertEqual('pages');
       expect(typeof url).assertEqual('string');
@@ -250,7 +247,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0012 begin');
-      const url: string = 'pages/CustomDrawDisplaySync';
+      const url: string = await readMainPage('pages/CustomDrawDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.endsWith('CustomDrawDisplaySync')).assertTrue();
       expect(typeof url).assertEqual('string');
@@ -269,7 +266,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0013 begin');
-      const url: string = 'pages/CustomDrawDisplaySync';
+      const url: string = await readMainPage('pages/CustomDrawDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.indexOf('//')).assertEqual(-1);
       expect(typeof url).assertEqual('string');
@@ -288,7 +285,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0014 begin');
-      const url: string = 'pages/CustomDrawDisplaySync';
+      const url: string = await readMainPage('pages/CustomDrawDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.length).assertEqual(27);
       expect(typeof url).assertEqual('string');
@@ -307,9 +304,9 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0015 begin');
-      const url: string = 'pages/CustomDrawDisplaySync';
+      const url: string = await readMainPage('pages/CustomDrawDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
-      expect(url.indexOf(' ') === -1).assertTrue();
+      expect(url.indexOf(' ')).assertEqual(-1);
       expect(typeof url).assertEqual('string');
       expect(url.length > 0).assertTrue();
       await tick();
@@ -326,9 +323,9 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0016 begin');
-      const url: string = 'pages/CustomDrawDisplaySync';
+      const url: string = await readMainPage('pages/CustomDrawDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
-      expect(url === url.toLowerCase() || url === url).assertTrue();
+      expect(url).assertEqual('pages/CustomDrawDisplaySync');
       expect(typeof url).assertEqual('string');
       expect(url.length > 0).assertTrue();
       await tick();
@@ -345,7 +342,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0017 begin');
-      const url: string = 'pages/PropertyAnimationDisplaySync';
+      const url: string = await readMainPage('pages/PropertyAnimationDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.split('/').length).assertEqual(2);
       expect(typeof url).assertEqual('string');
@@ -364,7 +361,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0018 begin');
-      const url: string = 'pages/PropertyAnimationDisplaySync';
+      const url: string = await readMainPage('pages/PropertyAnimationDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.startsWith('pages/')).assertTrue();
       expect(typeof url).assertEqual('string');
@@ -383,7 +380,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0019 begin');
-      const url: string = 'pages/PropertyAnimationDisplaySync';
+      const url: string = await readMainPage('pages/PropertyAnimationDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.split('/')[0]).assertEqual('pages');
       expect(typeof url).assertEqual('string');
@@ -402,7 +399,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0020 begin');
-      const url: string = 'pages/PropertyAnimationDisplaySync';
+      const url: string = await readMainPage('pages/PropertyAnimationDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.endsWith('PropertyAnimationDisplaySync')).assertTrue();
       expect(typeof url).assertEqual('string');
@@ -421,7 +418,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0021 begin');
-      const url: string = 'pages/PropertyAnimationDisplaySync';
+      const url: string = await readMainPage('pages/PropertyAnimationDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.indexOf('//')).assertEqual(-1);
       expect(typeof url).assertEqual('string');
@@ -440,7 +437,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0022 begin');
-      const url: string = 'pages/PropertyAnimationDisplaySync';
+      const url: string = await readMainPage('pages/PropertyAnimationDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.length).assertEqual(34);
       expect(typeof url).assertEqual('string');
@@ -459,9 +456,9 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0023 begin');
-      const url: string = 'pages/PropertyAnimationDisplaySync';
+      const url: string = await readMainPage('pages/PropertyAnimationDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
-      expect(url.indexOf(' ') === -1).assertTrue();
+      expect(url.indexOf(' ')).assertEqual(-1);
       expect(typeof url).assertEqual('string');
       expect(url.length > 0).assertTrue();
       await tick();
@@ -478,9 +475,9 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0024 begin');
-      const url: string = 'pages/PropertyAnimationDisplaySync';
+      const url: string = await readMainPage('pages/PropertyAnimationDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
-      expect(url === url.toLowerCase() || url === url).assertTrue();
+      expect(url).assertEqual('pages/PropertyAnimationDisplaySync');
       expect(typeof url).assertEqual('string');
       expect(url.length > 0).assertTrue();
       await tick();
@@ -497,7 +494,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0025 begin');
-      const url: string = 'pages/XComponentDisplaySync';
+      const url: string = await readMainPage('pages/XComponentDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.split('/').length).assertEqual(2);
       expect(typeof url).assertEqual('string');
@@ -516,7 +513,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0026 begin');
-      const url: string = 'pages/XComponentDisplaySync';
+      const url: string = await readMainPage('pages/XComponentDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.startsWith('pages/')).assertTrue();
       expect(typeof url).assertEqual('string');
@@ -535,7 +532,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0027 begin');
-      const url: string = 'pages/XComponentDisplaySync';
+      const url: string = await readMainPage('pages/XComponentDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.split('/')[0]).assertEqual('pages');
       expect(typeof url).assertEqual('string');
@@ -554,7 +551,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0028 begin');
-      const url: string = 'pages/XComponentDisplaySync';
+      const url: string = await readMainPage('pages/XComponentDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.endsWith('XComponentDisplaySync')).assertTrue();
       expect(typeof url).assertEqual('string');
@@ -573,7 +570,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0029 begin');
-      const url: string = 'pages/XComponentDisplaySync';
+      const url: string = await readMainPage('pages/XComponentDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.indexOf('//')).assertEqual(-1);
       expect(typeof url).assertEqual('string');
@@ -592,7 +589,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0030 begin');
-      const url: string = 'pages/XComponentDisplaySync';
+      const url: string = await readMainPage('pages/XComponentDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.length).assertEqual(27);
       expect(typeof url).assertEqual('string');
@@ -611,9 +608,9 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0031 begin');
-      const url: string = 'pages/XComponentDisplaySync';
+      const url: string = await readMainPage('pages/XComponentDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
-      expect(url.indexOf(' ') === -1).assertTrue();
+      expect(url.indexOf(' ')).assertEqual(-1);
       expect(typeof url).assertEqual('string');
       expect(url.length > 0).assertTrue();
       await tick();
@@ -630,9 +627,9 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0032 begin');
-      const url: string = 'pages/XComponentDisplaySync';
+      const url: string = await readMainPage('pages/XComponentDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
-      expect(url === url.toLowerCase() || url === url).assertTrue();
+      expect(url).assertEqual('pages/XComponentDisplaySync');
       expect(typeof url).assertEqual('string');
       expect(url.length > 0).assertTrue();
       await tick();
@@ -649,7 +646,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0033 begin');
-      const url: string = 'pages/AnimatorDisplaySync';
+      const url: string = await readMainPage('pages/AnimatorDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.split('/').length).assertEqual(2);
       expect(typeof url).assertEqual('string');
@@ -668,7 +665,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0034 begin');
-      const url: string = 'pages/AnimatorDisplaySync';
+      const url: string = await readMainPage('pages/AnimatorDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.startsWith('pages/')).assertTrue();
       expect(typeof url).assertEqual('string');
@@ -687,7 +684,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0035 begin');
-      const url: string = 'pages/AnimatorDisplaySync';
+      const url: string = await readMainPage('pages/AnimatorDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.split('/')[0]).assertEqual('pages');
       expect(typeof url).assertEqual('string');
@@ -706,7 +703,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0036 begin');
-      const url: string = 'pages/AnimatorDisplaySync';
+      const url: string = await readMainPage('pages/AnimatorDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.endsWith('AnimatorDisplaySync')).assertTrue();
       expect(typeof url).assertEqual('string');
@@ -725,7 +722,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0037 begin');
-      const url: string = 'pages/AnimatorDisplaySync';
+      const url: string = await readMainPage('pages/AnimatorDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.indexOf('//')).assertEqual(-1);
       expect(typeof url).assertEqual('string');
@@ -744,7 +741,7 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0038 begin');
-      const url: string = 'pages/AnimatorDisplaySync';
+      const url: string = await readMainPage('pages/AnimatorDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
       expect(url.length).assertEqual(25);
       expect(typeof url).assertEqual('string');
@@ -763,9 +760,9 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0039 begin');
-      const url: string = 'pages/AnimatorDisplaySync';
+      const url: string = await readMainPage('pages/AnimatorDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
-      expect(url.indexOf(' ') === -1).assertTrue();
+      expect(url.indexOf(' ')).assertEqual(-1);
       expect(typeof url).assertEqual('string');
       expect(url.length > 0).assertTrue();
       await tick();
@@ -782,9 +779,9 @@ export default function dsPageMatrix1Test(): void {
      */
     it('dsPage0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsPage0040 begin');
-      const url: string = 'pages/AnimatorDisplaySync';
+      const url: string = await readMainPage('pages/AnimatorDisplaySync');
       hilog.info(DOMAIN, TAG, '%{public}s', 'url=' + url);
-      expect(url === url.toLowerCase() || url === url).assertTrue();
+      expect(url).assertEqual('pages/AnimatorDisplaySync');
       expect(typeof url).assertEqual('string');
       expect(url.length > 0).assertTrue();
       await tick();

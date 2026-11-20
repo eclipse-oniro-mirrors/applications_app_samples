@@ -16,10 +16,7 @@
 import { beforeEachIt, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { tick } from '../util/TestTick';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { displaySync } from '@kit.ArkGraphics2D';
-import { bundleManager } from '@kit.AbilityKit';
-import { abilityDelegatorRegistry } from '@kit.TestKit';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { readMainText } from '../util/MainResources';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_DisplaySync]';
@@ -41,9 +38,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0001 begin');
-      const text: string = 'DisplaySync';
+      const text: string = readMainText('EntryAbility_label');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('DisplaySync'.length).assertEqual(11);
+      expect(text.length).assertEqual(11);
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -60,9 +57,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0002 begin');
-      const text: string = 'DisplaySync';
+      const text: string = readMainText('EntryAbility_label');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('DisplaySync'.indexOf(' ')).assertEqual(-1);
+      expect(text.indexOf(' ')).assertEqual(-1);
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -79,9 +76,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0003 begin');
-      const text: string = 'DisplaySync';
+      const text: string = readMainText('EntryAbility_label');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('DisplaySync' === 'DisplaySync').assertTrue();
+      expect(text).assertEqual('DisplaySync');
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -98,9 +95,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0004 begin');
-      const text: string = 'DisplaySync';
+      const text: string = readMainText('EntryAbility_label');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('DisplaySync'.toUpperCase().length).assertEqual(11);
+      expect(text.toUpperCase().length).assertEqual(11);
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -117,9 +114,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0005 begin');
-      const text: string = 'DisplaySync';
+      const text: string = readMainText('EntryAbility_label');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('DisplaySync'.substring(0, 1)).assertEqual('D');
+      expect(text.substring(0, 1)).assertEqual('D');
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -136,9 +133,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0006 begin');
-      const text: string = 'DisplaySync';
+      const text: string = readMainText('EntryAbility_label');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('DisplaySync'.startsWith('Di')).assertTrue();
+      expect(text.startsWith('Di')).assertTrue();
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -155,9 +152,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0007 begin');
-      const text: string = 'DisplaySync';
+      const text: string = readMainText('EntryAbility_label');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('DisplaySync'.endsWith('nc')).assertTrue();
+      expect(text.endsWith('nc')).assertTrue();
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -174,9 +171,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0008 begin');
-      const text: string = 'DisplaySync';
+      const text: string = readMainText('EntryAbility_label');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('DisplaySync'.split('').length).assertEqual(11);
+      expect(text.split('').length).assertEqual(11);
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -193,9 +190,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0009 begin');
-      const text: string = 'CustomDraw';
+      const text: string = readMainText('custom_draw');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('CustomDraw'.length).assertEqual(10);
+      expect(text.length).assertEqual(10);
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -212,9 +209,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0010 begin');
-      const text: string = 'CustomDraw';
+      const text: string = readMainText('custom_draw');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('CustomDraw'.indexOf(' ')).assertEqual(-1);
+      expect(text.indexOf(' ')).assertEqual(-1);
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -231,9 +228,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0011 begin');
-      const text: string = 'CustomDraw';
+      const text: string = readMainText('custom_draw');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('CustomDraw' === 'CustomDraw').assertTrue();
+      expect(text).assertEqual('CustomDraw');
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -250,9 +247,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0012 begin');
-      const text: string = 'CustomDraw';
+      const text: string = readMainText('custom_draw');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('CustomDraw'.toUpperCase().length).assertEqual(10);
+      expect(text.toUpperCase().length).assertEqual(10);
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -269,9 +266,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0013 begin');
-      const text: string = 'CustomDraw';
+      const text: string = readMainText('custom_draw');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('CustomDraw'.substring(0, 1)).assertEqual('C');
+      expect(text.substring(0, 1)).assertEqual('C');
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -288,9 +285,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0014 begin');
-      const text: string = 'CustomDraw';
+      const text: string = readMainText('custom_draw');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('CustomDraw'.startsWith('Cu')).assertTrue();
+      expect(text.startsWith('Cu')).assertTrue();
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -307,9 +304,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0015 begin');
-      const text: string = 'CustomDraw';
+      const text: string = readMainText('custom_draw');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('CustomDraw'.endsWith('aw')).assertTrue();
+      expect(text.endsWith('aw')).assertTrue();
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -326,9 +323,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0016 begin');
-      const text: string = 'CustomDraw';
+      const text: string = readMainText('custom_draw');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('CustomDraw'.split('').length).assertEqual(10);
+      expect(text.split('').length).assertEqual(10);
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -345,9 +342,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0017 begin');
-      const text: string = 'PropertyAnimation';
+      const text: string = readMainText('property_animation');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('PropertyAnimation'.length).assertEqual(17);
+      expect(text.length).assertEqual(17);
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -364,9 +361,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0018 begin');
-      const text: string = 'PropertyAnimation';
+      const text: string = readMainText('property_animation');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('PropertyAnimation'.indexOf(' ')).assertEqual(-1);
+      expect(text.indexOf(' ')).assertEqual(-1);
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -383,9 +380,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0019 begin');
-      const text: string = 'PropertyAnimation';
+      const text: string = readMainText('property_animation');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('PropertyAnimation' === 'PropertyAnimation').assertTrue();
+      expect(text).assertEqual('PropertyAnimation');
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -402,9 +399,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0020 begin');
-      const text: string = 'PropertyAnimation';
+      const text: string = readMainText('property_animation');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('PropertyAnimation'.toUpperCase().length).assertEqual(17);
+      expect(text.toUpperCase().length).assertEqual(17);
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -421,9 +418,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0021 begin');
-      const text: string = 'PropertyAnimation';
+      const text: string = readMainText('property_animation');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('PropertyAnimation'.substring(0, 1)).assertEqual('P');
+      expect(text.substring(0, 1)).assertEqual('P');
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -440,9 +437,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0022 begin');
-      const text: string = 'PropertyAnimation';
+      const text: string = readMainText('property_animation');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('PropertyAnimation'.startsWith('Pr')).assertTrue();
+      expect(text.startsWith('Pr')).assertTrue();
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -459,9 +456,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0023 begin');
-      const text: string = 'PropertyAnimation';
+      const text: string = readMainText('property_animation');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('PropertyAnimation'.endsWith('on')).assertTrue();
+      expect(text.endsWith('on')).assertTrue();
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -478,9 +475,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0024 begin');
-      const text: string = 'PropertyAnimation';
+      const text: string = readMainText('property_animation');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('PropertyAnimation'.split('').length).assertEqual(17);
+      expect(text.split('').length).assertEqual(17);
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -497,9 +494,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0025 begin');
-      const text: string = 'XComponent';
+      const text: string = readMainText('xcomponent');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('XComponent'.length).assertEqual(10);
+      expect(text.length).assertEqual(10);
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -516,9 +513,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0026 begin');
-      const text: string = 'XComponent';
+      const text: string = readMainText('xcomponent');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('XComponent'.indexOf(' ')).assertEqual(-1);
+      expect(text.indexOf(' ')).assertEqual(-1);
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -535,9 +532,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0027 begin');
-      const text: string = 'XComponent';
+      const text: string = readMainText('xcomponent');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('XComponent' === 'XComponent').assertTrue();
+      expect(text).assertEqual('XComponent');
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -554,9 +551,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0028 begin');
-      const text: string = 'XComponent';
+      const text: string = readMainText('xcomponent');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('XComponent'.toUpperCase().length).assertEqual(10);
+      expect(text.toUpperCase().length).assertEqual(10);
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -573,9 +570,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0029 begin');
-      const text: string = 'XComponent';
+      const text: string = readMainText('xcomponent');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('XComponent'.substring(0, 1)).assertEqual('X');
+      expect(text.substring(0, 1)).assertEqual('X');
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -592,9 +589,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0030 begin');
-      const text: string = 'XComponent';
+      const text: string = readMainText('xcomponent');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('XComponent'.startsWith('XC')).assertTrue();
+      expect(text.startsWith('XC')).assertTrue();
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -611,9 +608,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0031 begin');
-      const text: string = 'XComponent';
+      const text: string = readMainText('xcomponent');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('XComponent'.endsWith('nt')).assertTrue();
+      expect(text.endsWith('nt')).assertTrue();
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -630,9 +627,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0032 begin');
-      const text: string = 'XComponent';
+      const text: string = readMainText('xcomponent');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('XComponent'.split('').length).assertEqual(10);
+      expect(text.split('').length).assertEqual(10);
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -649,9 +646,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0033 begin');
-      const text: string = 'Animator';
+      const text: string = readMainText('animator');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('Animator'.length).assertEqual(8);
+      expect(text.length).assertEqual(8);
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -668,9 +665,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0034 begin');
-      const text: string = 'Animator';
+      const text: string = readMainText('animator');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('Animator'.indexOf(' ')).assertEqual(-1);
+      expect(text.indexOf(' ')).assertEqual(-1);
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -687,9 +684,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0035 begin');
-      const text: string = 'Animator';
+      const text: string = readMainText('animator');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('Animator' === 'Animator').assertTrue();
+      expect(text).assertEqual('Animator');
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -706,9 +703,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0036 begin');
-      const text: string = 'Animator';
+      const text: string = readMainText('animator');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('Animator'.toUpperCase().length).assertEqual(8);
+      expect(text.toUpperCase().length).assertEqual(8);
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -725,9 +722,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0037 begin');
-      const text: string = 'Animator';
+      const text: string = readMainText('animator');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('Animator'.substring(0, 1)).assertEqual('A');
+      expect(text.substring(0, 1)).assertEqual('A');
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -744,9 +741,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0038 begin');
-      const text: string = 'Animator';
+      const text: string = readMainText('animator');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('Animator'.startsWith('An')).assertTrue();
+      expect(text.startsWith('An')).assertTrue();
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -763,9 +760,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0039 begin');
-      const text: string = 'Animator';
+      const text: string = readMainText('animator');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('Animator'.endsWith('or')).assertTrue();
+      expect(text.endsWith('or')).assertTrue();
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();
@@ -782,9 +779,9 @@ export default function dsTextMatrix1Test(): void {
      */
     it('dsText0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsText0040 begin');
-      const text: string = 'Animator';
+      const text: string = readMainText('animator');
       hilog.info(DOMAIN, TAG, '%{public}s', 'text=' + text);
-      expect('Animator'.split('').length).assertEqual(8);
+      expect(text.split('').length).assertEqual(8);
       expect(typeof text).assertEqual('string');
       expect(text.length > 0).assertTrue();
       await tick();

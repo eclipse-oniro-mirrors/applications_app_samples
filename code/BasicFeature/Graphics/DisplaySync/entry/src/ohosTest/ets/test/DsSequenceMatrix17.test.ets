@@ -17,9 +17,6 @@ import { beforeEachIt, describe, expect, it, Level, Size, TestType } from '@ohos
 import { tick } from '../util/TestTick';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { displaySync } from '@kit.ArkGraphics2D';
-import { bundleManager } from '@kit.AbilityKit';
-import { abilityDelegatorRegistry } from '@kit.TestKit';
-import { BusinessError } from '@kit.BasicServicesKit';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_DisplaySync]';

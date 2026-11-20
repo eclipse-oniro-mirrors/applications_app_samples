@@ -17,9 +17,6 @@ import { beforeEachIt, describe, expect, it, Level, Size, TestType } from '@ohos
 import { tick } from '../util/TestTick';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { displaySync } from '@kit.ArkGraphics2D';
-import { bundleManager } from '@kit.AbilityKit';
-import { abilityDelegatorRegistry } from '@kit.TestKit';
-import { BusinessError } from '@kit.BasicServicesKit';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_DisplaySync]';
@@ -373,11 +370,17 @@ export default function dsApiMatrix1Test(): void {
       const type1: string = typeof ds.on;
       expect(type1).assertEqual('function');
       let frames: number = 0;
-      ds.on('frame', (info: displaySync.IntervalInfo) => {
+      const cb: (info: displaySync.IntervalInfo) => void = () => {
         frames = frames + 1;
-      });
-      expect(typeof frames).assertEqual('number');
-      expect(ds !== undefined).assertTrue();
+      };
+      try {
+        ds.on('frame', cb);
+        hilog.info(DOMAIN, TAG, '%{public}s', 'beforeStartFrames=' + frames);
+        expect(frames).assertEqual(0);
+        expect(ds !== undefined).assertTrue();
+      } finally {
+        ds.off('frame', cb);
+      }
       await tick();
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsApi0017 end');
     })
@@ -396,11 +399,17 @@ export default function dsApiMatrix1Test(): void {
       const type1: string = typeof ds.on;
       expect(type1).assertEqual('function');
       let frames: number = 0;
-      ds.on('frame', (info: displaySync.IntervalInfo) => {
+      const cb: (info: displaySync.IntervalInfo) => void = () => {
         frames = frames + 1;
-      });
-      expect(typeof frames).assertEqual('number');
-      expect(ds !== undefined).assertTrue();
+      };
+      try {
+        ds.on('frame', cb);
+        hilog.info(DOMAIN, TAG, '%{public}s', 'beforeStartFrames=' + frames);
+        expect(frames).assertEqual(0);
+        expect(ds !== undefined).assertTrue();
+      } finally {
+        ds.off('frame', cb);
+      }
       await tick();
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsApi0018 end');
     })
@@ -419,11 +428,17 @@ export default function dsApiMatrix1Test(): void {
       const type1: string = typeof ds.on;
       expect(type1).assertEqual('function');
       let frames: number = 0;
-      ds.on('frame', (info: displaySync.IntervalInfo) => {
+      const cb: (info: displaySync.IntervalInfo) => void = () => {
         frames = frames + 1;
-      });
-      expect(typeof frames).assertEqual('number');
-      expect(ds !== undefined).assertTrue();
+      };
+      try {
+        ds.on('frame', cb);
+        hilog.info(DOMAIN, TAG, '%{public}s', 'beforeStartFrames=' + frames);
+        expect(frames).assertEqual(0);
+        expect(ds !== undefined).assertTrue();
+      } finally {
+        ds.off('frame', cb);
+      }
       await tick();
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsApi0019 end');
     })
@@ -442,11 +457,17 @@ export default function dsApiMatrix1Test(): void {
       const type1: string = typeof ds.on;
       expect(type1).assertEqual('function');
       let frames: number = 0;
-      ds.on('frame', (info: displaySync.IntervalInfo) => {
+      const cb: (info: displaySync.IntervalInfo) => void = () => {
         frames = frames + 1;
-      });
-      expect(typeof frames).assertEqual('number');
-      expect(ds !== undefined).assertTrue();
+      };
+      try {
+        ds.on('frame', cb);
+        hilog.info(DOMAIN, TAG, '%{public}s', 'beforeStartFrames=' + frames);
+        expect(frames).assertEqual(0);
+        expect(ds !== undefined).assertTrue();
+      } finally {
+        ds.off('frame', cb);
+      }
       await tick();
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsApi0020 end');
     })
@@ -465,11 +486,17 @@ export default function dsApiMatrix1Test(): void {
       const type1: string = typeof ds.on;
       expect(type1).assertEqual('function');
       let frames: number = 0;
-      ds.on('frame', (info: displaySync.IntervalInfo) => {
+      const cb: (info: displaySync.IntervalInfo) => void = () => {
         frames = frames + 1;
-      });
-      expect(typeof frames).assertEqual('number');
-      expect(ds !== undefined).assertTrue();
+      };
+      try {
+        ds.on('frame', cb);
+        hilog.info(DOMAIN, TAG, '%{public}s', 'beforeStartFrames=' + frames);
+        expect(frames).assertEqual(0);
+        expect(ds !== undefined).assertTrue();
+      } finally {
+        ds.off('frame', cb);
+      }
       await tick();
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsApi0021 end');
     })
@@ -488,11 +515,17 @@ export default function dsApiMatrix1Test(): void {
       const type1: string = typeof ds.on;
       expect(type1).assertEqual('function');
       let frames: number = 0;
-      ds.on('frame', (info: displaySync.IntervalInfo) => {
+      const cb: (info: displaySync.IntervalInfo) => void = () => {
         frames = frames + 1;
-      });
-      expect(typeof frames).assertEqual('number');
-      expect(ds !== undefined).assertTrue();
+      };
+      try {
+        ds.on('frame', cb);
+        hilog.info(DOMAIN, TAG, '%{public}s', 'beforeStartFrames=' + frames);
+        expect(frames).assertEqual(0);
+        expect(ds !== undefined).assertTrue();
+      } finally {
+        ds.off('frame', cb);
+      }
       await tick();
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsApi0022 end');
     })
@@ -511,11 +544,17 @@ export default function dsApiMatrix1Test(): void {
       const type1: string = typeof ds.on;
       expect(type1).assertEqual('function');
       let frames: number = 0;
-      ds.on('frame', (info: displaySync.IntervalInfo) => {
+      const cb: (info: displaySync.IntervalInfo) => void = () => {
         frames = frames + 1;
-      });
-      expect(typeof frames).assertEqual('number');
-      expect(ds !== undefined).assertTrue();
+      };
+      try {
+        ds.on('frame', cb);
+        hilog.info(DOMAIN, TAG, '%{public}s', 'beforeStartFrames=' + frames);
+        expect(frames).assertEqual(0);
+        expect(ds !== undefined).assertTrue();
+      } finally {
+        ds.off('frame', cb);
+      }
       await tick();
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsApi0023 end');
     })
@@ -534,11 +573,17 @@ export default function dsApiMatrix1Test(): void {
       const type1: string = typeof ds.on;
       expect(type1).assertEqual('function');
       let frames: number = 0;
-      ds.on('frame', (info: displaySync.IntervalInfo) => {
+      const cb: (info: displaySync.IntervalInfo) => void = () => {
         frames = frames + 1;
-      });
-      expect(typeof frames).assertEqual('number');
-      expect(ds !== undefined).assertTrue();
+      };
+      try {
+        ds.on('frame', cb);
+        hilog.info(DOMAIN, TAG, '%{public}s', 'beforeStartFrames=' + frames);
+        expect(frames).assertEqual(0);
+        expect(ds !== undefined).assertTrue();
+      } finally {
+        ds.off('frame', cb);
+      }
       await tick();
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsApi0024 end');
     })
@@ -557,13 +602,18 @@ export default function dsApiMatrix1Test(): void {
       const type1: string = typeof ds.off;
       expect(type1).assertEqual('function');
       let frames: number = 0;
-      const cb: (info: displaySync.IntervalInfo) => void = (info: displaySync.IntervalInfo) => {
+      const cb: (info: displaySync.IntervalInfo) => void = () => {
         frames = frames + 1;
       };
-      ds.on('frame', cb);
-      ds.off('frame', cb);
-      expect(frames).assertEqual(0);
-      expect(typeof ds.on).assertEqual('function');
+      try {
+        ds.on('frame', cb);
+        ds.off('frame', cb);
+        hilog.info(DOMAIN, TAG, '%{public}s', 'afterOffFrames=' + frames);
+        expect(frames).assertEqual(0);
+        expect(typeof ds.on).assertEqual('function');
+      } finally {
+        ds.off('frame', cb);
+      }
       await tick();
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsApi0025 end');
     })
@@ -582,13 +632,18 @@ export default function dsApiMatrix1Test(): void {
       const type1: string = typeof ds.off;
       expect(type1).assertEqual('function');
       let frames: number = 0;
-      const cb: (info: displaySync.IntervalInfo) => void = (info: displaySync.IntervalInfo) => {
+      const cb: (info: displaySync.IntervalInfo) => void = () => {
         frames = frames + 1;
       };
-      ds.on('frame', cb);
-      ds.off('frame', cb);
-      expect(frames).assertEqual(0);
-      expect(typeof ds.on).assertEqual('function');
+      try {
+        ds.on('frame', cb);
+        ds.off('frame', cb);
+        hilog.info(DOMAIN, TAG, '%{public}s', 'afterOffFrames=' + frames);
+        expect(frames).assertEqual(0);
+        expect(typeof ds.on).assertEqual('function');
+      } finally {
+        ds.off('frame', cb);
+      }
       await tick();
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsApi0026 end');
     })
@@ -607,13 +662,18 @@ export default function dsApiMatrix1Test(): void {
       const type1: string = typeof ds.off;
       expect(type1).assertEqual('function');
       let frames: number = 0;
-      const cb: (info: displaySync.IntervalInfo) => void = (info: displaySync.IntervalInfo) => {
+      const cb: (info: displaySync.IntervalInfo) => void = () => {
         frames = frames + 1;
       };
-      ds.on('frame', cb);
-      ds.off('frame', cb);
-      expect(frames).assertEqual(0);
-      expect(typeof ds.on).assertEqual('function');
+      try {
+        ds.on('frame', cb);
+        ds.off('frame', cb);
+        hilog.info(DOMAIN, TAG, '%{public}s', 'afterOffFrames=' + frames);
+        expect(frames).assertEqual(0);
+        expect(typeof ds.on).assertEqual('function');
+      } finally {
+        ds.off('frame', cb);
+      }
       await tick();
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsApi0027 end');
     })
@@ -632,13 +692,18 @@ export default function dsApiMatrix1Test(): void {
       const type1: string = typeof ds.off;
       expect(type1).assertEqual('function');
       let frames: number = 0;
-      const cb: (info: displaySync.IntervalInfo) => void = (info: displaySync.IntervalInfo) => {
+      const cb: (info: displaySync.IntervalInfo) => void = () => {
         frames = frames + 1;
       };
-      ds.on('frame', cb);
-      ds.off('frame', cb);
-      expect(frames).assertEqual(0);
-      expect(typeof ds.on).assertEqual('function');
+      try {
+        ds.on('frame', cb);
+        ds.off('frame', cb);
+        hilog.info(DOMAIN, TAG, '%{public}s', 'afterOffFrames=' + frames);
+        expect(frames).assertEqual(0);
+        expect(typeof ds.on).assertEqual('function');
+      } finally {
+        ds.off('frame', cb);
+      }
       await tick();
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsApi0028 end');
     })
@@ -657,13 +722,18 @@ export default function dsApiMatrix1Test(): void {
       const type1: string = typeof ds.off;
       expect(type1).assertEqual('function');
       let frames: number = 0;
-      const cb: (info: displaySync.IntervalInfo) => void = (info: displaySync.IntervalInfo) => {
+      const cb: (info: displaySync.IntervalInfo) => void = () => {
         frames = frames + 1;
       };
-      ds.on('frame', cb);
-      ds.off('frame', cb);
-      expect(frames).assertEqual(0);
-      expect(typeof ds.on).assertEqual('function');
+      try {
+        ds.on('frame', cb);
+        ds.off('frame', cb);
+        hilog.info(DOMAIN, TAG, '%{public}s', 'afterOffFrames=' + frames);
+        expect(frames).assertEqual(0);
+        expect(typeof ds.on).assertEqual('function');
+      } finally {
+        ds.off('frame', cb);
+      }
       await tick();
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsApi0029 end');
     })
@@ -682,13 +752,18 @@ export default function dsApiMatrix1Test(): void {
       const type1: string = typeof ds.off;
       expect(type1).assertEqual('function');
       let frames: number = 0;
-      const cb: (info: displaySync.IntervalInfo) => void = (info: displaySync.IntervalInfo) => {
+      const cb: (info: displaySync.IntervalInfo) => void = () => {
         frames = frames + 1;
       };
-      ds.on('frame', cb);
-      ds.off('frame', cb);
-      expect(frames).assertEqual(0);
-      expect(typeof ds.on).assertEqual('function');
+      try {
+        ds.on('frame', cb);
+        ds.off('frame', cb);
+        hilog.info(DOMAIN, TAG, '%{public}s', 'afterOffFrames=' + frames);
+        expect(frames).assertEqual(0);
+        expect(typeof ds.on).assertEqual('function');
+      } finally {
+        ds.off('frame', cb);
+      }
       await tick();
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsApi0030 end');
     })
@@ -707,13 +782,18 @@ export default function dsApiMatrix1Test(): void {
       const type1: string = typeof ds.off;
       expect(type1).assertEqual('function');
       let frames: number = 0;
-      const cb: (info: displaySync.IntervalInfo) => void = (info: displaySync.IntervalInfo) => {
+      const cb: (info: displaySync.IntervalInfo) => void = () => {
         frames = frames + 1;
       };
-      ds.on('frame', cb);
-      ds.off('frame', cb);
-      expect(frames).assertEqual(0);
-      expect(typeof ds.on).assertEqual('function');
+      try {
+        ds.on('frame', cb);
+        ds.off('frame', cb);
+        hilog.info(DOMAIN, TAG, '%{public}s', 'afterOffFrames=' + frames);
+        expect(frames).assertEqual(0);
+        expect(typeof ds.on).assertEqual('function');
+      } finally {
+        ds.off('frame', cb);
+      }
       await tick();
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsApi0031 end');
     })
@@ -732,13 +812,18 @@ export default function dsApiMatrix1Test(): void {
       const type1: string = typeof ds.off;
       expect(type1).assertEqual('function');
       let frames: number = 0;
-      const cb: (info: displaySync.IntervalInfo) => void = (info: displaySync.IntervalInfo) => {
+      const cb: (info: displaySync.IntervalInfo) => void = () => {
         frames = frames + 1;
       };
-      ds.on('frame', cb);
-      ds.off('frame', cb);
-      expect(frames).assertEqual(0);
-      expect(typeof ds.on).assertEqual('function');
+      try {
+        ds.on('frame', cb);
+        ds.off('frame', cb);
+        hilog.info(DOMAIN, TAG, '%{public}s', 'afterOffFrames=' + frames);
+        expect(frames).assertEqual(0);
+        expect(typeof ds.on).assertEqual('function');
+      } finally {
+        ds.off('frame', cb);
+      }
       await tick();
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsApi0032 end');
     })

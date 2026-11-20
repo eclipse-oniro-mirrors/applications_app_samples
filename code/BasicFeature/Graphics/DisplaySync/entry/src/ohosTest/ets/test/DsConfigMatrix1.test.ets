@@ -19,7 +19,7 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { displaySync } from '@kit.ArkGraphics2D';
 import { bundleManager } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { common } from '@kit.AbilityKit';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_DisplaySync]';
@@ -104,7 +104,7 @@ export default function dsConfigMatrix1Test(): void {
      */
     it('dsConfig0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsConfig0004 begin');
-      const ctx = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+      const ctx: common.Context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
       hilog.info(DOMAIN, TAG, '%{public}s', 'filesDir=' + ctx.filesDir);
       expect(ctx.filesDir.length > 0).assertTrue();
       expect(ctx.cacheDir.length > 0).assertTrue();
@@ -205,7 +205,7 @@ export default function dsConfigMatrix1Test(): void {
      */
     it('dsConfig0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsConfig0009 begin');
-      const ctx = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+      const ctx: common.Context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
       hilog.info(DOMAIN, TAG, '%{public}s', 'filesDir=' + ctx.filesDir);
       expect(ctx.filesDir.length > 0).assertTrue();
       expect(ctx.cacheDir.length > 0).assertTrue();
@@ -306,7 +306,7 @@ export default function dsConfigMatrix1Test(): void {
      */
     it('dsConfig0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsConfig0014 begin');
-      const ctx = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+      const ctx: common.Context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
       hilog.info(DOMAIN, TAG, '%{public}s', 'filesDir=' + ctx.filesDir);
       expect(ctx.filesDir.length > 0).assertTrue();
       expect(ctx.cacheDir.length > 0).assertTrue();
@@ -407,7 +407,7 @@ export default function dsConfigMatrix1Test(): void {
      */
     it('dsConfig0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsConfig0019 begin');
-      const ctx = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+      const ctx: common.Context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
       hilog.info(DOMAIN, TAG, '%{public}s', 'filesDir=' + ctx.filesDir);
       expect(ctx.filesDir.length > 0).assertTrue();
       expect(ctx.cacheDir.length > 0).assertTrue();
@@ -508,7 +508,7 @@ export default function dsConfigMatrix1Test(): void {
      */
     it('dsConfig0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsConfig0024 begin');
-      const ctx = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+      const ctx: common.Context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
       hilog.info(DOMAIN, TAG, '%{public}s', 'filesDir=' + ctx.filesDir);
       expect(ctx.filesDir.length > 0).assertTrue();
       expect(ctx.cacheDir.length > 0).assertTrue();
@@ -609,7 +609,7 @@ export default function dsConfigMatrix1Test(): void {
      */
     it('dsConfig0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'dsConfig0029 begin');
-      const ctx = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+      const ctx: common.Context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
       hilog.info(DOMAIN, TAG, '%{public}s', 'filesDir=' + ctx.filesDir);
       expect(ctx.filesDir.length > 0).assertTrue();
       expect(ctx.cacheDir.length > 0).assertTrue();
