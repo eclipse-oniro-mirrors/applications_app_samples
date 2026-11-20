@@ -1523,25 +1523,869 @@ function InputBoundaryCodePart018() {
     });
 }
 
+function InputBoundaryCodePart019() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1351
+     * @tc.name    JsBoundary091
+     * @tc.desc    Boundary codes width 1301 parts 15.5 seed 91
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary091', 0, async function () {
+      await yieldThread();
+      const width = 1301;
+      const parts = 15.5;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary091 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1352
+     * @tc.name    JsBoundary092
+     * @tc.desc    Boundary codes width 1312 parts 12 seed 92
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary092', 0, async function () {
+      await yieldThread();
+      const width = 1312;
+      const parts = 12;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary092 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1353
+     * @tc.name    JsBoundary093
+     * @tc.desc    Boundary codes width 1323 parts 9 seed 93
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary093', 0, async function () {
+      await yieldThread();
+      const width = 1323;
+      const parts = 9;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary093 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1354
+     * @tc.name    JsBoundary094
+     * @tc.desc    Boundary codes width 1334 parts 6 seed 94
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary094', 0, async function () {
+      await yieldThread();
+      const width = 1334;
+      const parts = 6;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary094 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1355
+     * @tc.name    JsBoundary095
+     * @tc.desc    Boundary codes width 1345.5 parts 3 seed 95
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary095', 0, async function () {
+      await yieldThread();
+      const width = 1345.5;
+      const parts = 3;
+      expect(model.codeOfWidth(width)).assertEqual(3);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary095 done');
+    });
+}
+
+function InputBoundaryCodePart020() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1356
+     * @tc.name    JsBoundary096
+     * @tc.desc    Boundary codes width 1356 parts 0 seed 96
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary096', 0, async function () {
+      await yieldThread();
+      const width = 1356;
+      const parts = 0;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(1);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary096 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1357
+     * @tc.name    JsBoundary097
+     * @tc.desc    Boundary codes width 1367 parts 13 seed 97
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary097', 0, async function () {
+      await yieldThread();
+      const width = 1367;
+      const parts = 13;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(2);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary097 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1358
+     * @tc.name    JsBoundary098
+     * @tc.desc    Boundary codes width 1378 parts 10.5 seed 98
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary098', 0, async function () {
+      await yieldThread();
+      const width = 1378;
+      const parts = 10.5;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary098 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1359
+     * @tc.name    JsBoundary099
+     * @tc.desc    Boundary codes width 1389 parts 7 seed 99
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary099', 0, async function () {
+      await yieldThread();
+      const width = 1389;
+      const parts = 7;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary099 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1360
+     * @tc.name    JsBoundary100
+     * @tc.desc    Boundary codes width 1400.5 parts 4 seed 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary100', 0, async function () {
+      await yieldThread();
+      const width = 1400.5;
+      const parts = 4;
+      expect(model.codeOfWidth(width)).assertEqual(3);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary100 done');
+    });
+}
+
+function InputBoundaryCodePart021() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1361
+     * @tc.name    JsBoundary101
+     * @tc.desc    Boundary codes width 1411 parts 1 seed 101
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary101', 0, async function () {
+      await yieldThread();
+      const width = 1411;
+      const parts = 1;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary101 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1362
+     * @tc.name    JsBoundary102
+     * @tc.desc    Boundary codes width 1422 parts 14 seed 102
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary102', 0, async function () {
+      await yieldThread();
+      const width = 1422;
+      const parts = 14;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(2);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary102 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1363
+     * @tc.name    JsBoundary103
+     * @tc.desc    Boundary codes width 1433 parts 11 seed 103
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary103', 0, async function () {
+      await yieldThread();
+      const width = 1433;
+      const parts = 11;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary103 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1364
+     * @tc.name    JsBoundary104
+     * @tc.desc    Boundary codes width 1444 parts 8 seed 104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary104', 0, async function () {
+      await yieldThread();
+      const width = 1444;
+      const parts = 8;
+      expect(model.codeOfWidth(width)).assertEqual(2);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary104 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1365
+     * @tc.name    JsBoundary105
+     * @tc.desc    Boundary codes width 1455.5 parts 5.5 seed 105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary105', 0, async function () {
+      await yieldThread();
+      const width = 1455.5;
+      const parts = 5.5;
+      expect(model.codeOfWidth(width)).assertEqual(3);
+      expect(model.codeOfParts(parts)).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary105 done');
+    });
+}
+
+function InputBoundaryCodePart022() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1366
+     * @tc.name    JsBoundary106
+     * @tc.desc    Boundary codes width 1466 parts 2 seed 106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary106', 0, async function () {
+      await yieldThread();
+      const width = 1466;
+      const parts = 2;
+      expect(model.codeOfWidth(width)).assertEqual(2);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary106 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1367
+     * @tc.name    JsBoundary107
+     * @tc.desc    Boundary codes width 1477 parts 15 seed 107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary107', 0, async function () {
+      await yieldThread();
+      const width = 1477;
+      const parts = 15;
+      expect(model.codeOfWidth(width)).assertEqual(2);
+      expect(model.codeOfParts(parts)).assertEqual(2);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary107 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1368
+     * @tc.name    JsBoundary108
+     * @tc.desc    Boundary codes width 1488 parts 12 seed 108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary108', 0, async function () {
+      await yieldThread();
+      const width = 1488;
+      const parts = 12;
+      expect(model.codeOfWidth(width)).assertEqual(2);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary108 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1369
+     * @tc.name    JsBoundary109
+     * @tc.desc    Boundary codes width 1499 parts 9 seed 109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary109', 0, async function () {
+      await yieldThread();
+      const width = 1499;
+      const parts = 9;
+      expect(model.codeOfWidth(width)).assertEqual(2);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary109 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1370
+     * @tc.name    JsBoundary110
+     * @tc.desc    Boundary codes width 310.5 parts 6 seed 110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary110', 0, async function () {
+      await yieldThread();
+      const width = 310.5;
+      const parts = 6;
+      expect(model.codeOfWidth(width)).assertEqual(3);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary110 done');
+    });
+}
+
+function InputBoundaryCodePart023() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1371
+     * @tc.name    JsBoundary111
+     * @tc.desc    Boundary codes width 321 parts 3 seed 111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary111', 0, async function () {
+      await yieldThread();
+      const width = 321;
+      const parts = 3;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary111 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1372
+     * @tc.name    JsBoundary112
+     * @tc.desc    Boundary codes width 332 parts 0.5 seed 112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary112', 0, async function () {
+      await yieldThread();
+      const width = 332;
+      const parts = 0.5;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary112 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1373
+     * @tc.name    JsBoundary113
+     * @tc.desc    Boundary codes width 343 parts 13 seed 113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary113', 0, async function () {
+      await yieldThread();
+      const width = 343;
+      const parts = 13;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(2);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary113 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1374
+     * @tc.name    JsBoundary114
+     * @tc.desc    Boundary codes width 354 parts 10 seed 114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary114', 0, async function () {
+      await yieldThread();
+      const width = 354;
+      const parts = 10;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary114 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1375
+     * @tc.name    JsBoundary115
+     * @tc.desc    Boundary codes width 365.5 parts 7 seed 115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary115', 0, async function () {
+      await yieldThread();
+      const width = 365.5;
+      const parts = 7;
+      expect(model.codeOfWidth(width)).assertEqual(3);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary115 done');
+    });
+}
+
+function InputBoundaryCodePart024() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1376
+     * @tc.name    JsBoundary116
+     * @tc.desc    Boundary codes width 376 parts 4 seed 116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary116', 0, async function () {
+      await yieldThread();
+      const width = 376;
+      const parts = 4;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary116 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1377
+     * @tc.name    JsBoundary117
+     * @tc.desc    Boundary codes width 387 parts 1 seed 117
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary117', 0, async function () {
+      await yieldThread();
+      const width = 387;
+      const parts = 1;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary117 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1378
+     * @tc.name    JsBoundary118
+     * @tc.desc    Boundary codes width 398 parts 14 seed 118
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary118', 0, async function () {
+      await yieldThread();
+      const width = 398;
+      const parts = 14;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(2);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary118 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1379
+     * @tc.name    JsBoundary119
+     * @tc.desc    Boundary codes width 409 parts 11.5 seed 119
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary119', 0, async function () {
+      await yieldThread();
+      const width = 409;
+      const parts = 11.5;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary119 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1380
+     * @tc.name    JsBoundary120
+     * @tc.desc    Boundary codes width 420.5 parts 8 seed 120
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary120', 0, async function () {
+      await yieldThread();
+      const width = 420.5;
+      const parts = 8;
+      expect(model.codeOfWidth(width)).assertEqual(3);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary120 done');
+    });
+}
+
+function InputBoundaryCodePart025() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1381
+     * @tc.name    JsBoundary121
+     * @tc.desc    Boundary codes width 431 parts 5 seed 121
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary121', 0, async function () {
+      await yieldThread();
+      const width = 431;
+      const parts = 5;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary121 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1382
+     * @tc.name    JsBoundary122
+     * @tc.desc    Boundary codes width 442 parts 2 seed 122
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary122', 0, async function () {
+      await yieldThread();
+      const width = 442;
+      const parts = 2;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary122 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1383
+     * @tc.name    JsBoundary123
+     * @tc.desc    Boundary codes width 453 parts 15 seed 123
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary123', 0, async function () {
+      await yieldThread();
+      const width = 453;
+      const parts = 15;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(2);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary123 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1384
+     * @tc.name    JsBoundary124
+     * @tc.desc    Boundary codes width 464 parts 12 seed 124
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary124', 0, async function () {
+      await yieldThread();
+      const width = 464;
+      const parts = 12;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary124 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1385
+     * @tc.name    JsBoundary125
+     * @tc.desc    Boundary codes width 475.5 parts 9 seed 125
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary125', 0, async function () {
+      await yieldThread();
+      const width = 475.5;
+      const parts = 9;
+      expect(model.codeOfWidth(width)).assertEqual(3);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary125 done');
+    });
+}
+
+function InputBoundaryCodePart026() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1386
+     * @tc.name    JsBoundary126
+     * @tc.desc    Boundary codes width 486 parts 6.5 seed 126
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary126', 0, async function () {
+      await yieldThread();
+      const width = 486;
+      const parts = 6.5;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary126 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1387
+     * @tc.name    JsBoundary127
+     * @tc.desc    Boundary codes width 497 parts 3 seed 127
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary127', 0, async function () {
+      await yieldThread();
+      const width = 497;
+      const parts = 3;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary127 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1388
+     * @tc.name    JsBoundary128
+     * @tc.desc    Boundary codes width 508 parts 0 seed 128
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary128', 0, async function () {
+      await yieldThread();
+      const width = 508;
+      const parts = 0;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(1);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary128 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1389
+     * @tc.name    JsBoundary129
+     * @tc.desc    Boundary codes width 519 parts 13 seed 129
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary129', 0, async function () {
+      await yieldThread();
+      const width = 519;
+      const parts = 13;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(2);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary129 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1390
+     * @tc.name    JsBoundary130
+     * @tc.desc    Boundary codes width 530.5 parts 10 seed 130
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary130', 0, async function () {
+      await yieldThread();
+      const width = 530.5;
+      const parts = 10;
+      expect(model.codeOfWidth(width)).assertEqual(3);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary130 done');
+    });
+}
+
+function InputBoundaryCodePart027() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1391
+     * @tc.name    JsBoundary131
+     * @tc.desc    Boundary codes width 541 parts 7 seed 131
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary131', 0, async function () {
+      await yieldThread();
+      const width = 541;
+      const parts = 7;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary131 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1392
+     * @tc.name    JsBoundary132
+     * @tc.desc    Boundary codes width 552 parts 4 seed 132
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary132', 0, async function () {
+      await yieldThread();
+      const width = 552;
+      const parts = 4;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary132 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1393
+     * @tc.name    JsBoundary133
+     * @tc.desc    Boundary codes width 563 parts 1.5 seed 133
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary133', 0, async function () {
+      await yieldThread();
+      const width = 563;
+      const parts = 1.5;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary133 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1394
+     * @tc.name    JsBoundary134
+     * @tc.desc    Boundary codes width 574 parts 14 seed 134
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary134', 0, async function () {
+      await yieldThread();
+      const width = 574;
+      const parts = 14;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(2);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary134 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1395
+     * @tc.name    JsBoundary135
+     * @tc.desc    Boundary codes width 585.5 parts 11 seed 135
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary135', 0, async function () {
+      await yieldThread();
+      const width = 585.5;
+      const parts = 11;
+      expect(model.codeOfWidth(width)).assertEqual(3);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary135 done');
+    });
+}
+
+function InputBoundaryCodePart028() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1396
+     * @tc.name    JsBoundary136
+     * @tc.desc    Boundary codes width 596 parts 8 seed 136
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary136', 0, async function () {
+      await yieldThread();
+      const width = 596;
+      const parts = 8;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary136 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1397
+     * @tc.name    JsBoundary137
+     * @tc.desc    Boundary codes width 607 parts 5 seed 137
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary137', 0, async function () {
+      await yieldThread();
+      const width = 607;
+      const parts = 5;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary137 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1398
+     * @tc.name    JsBoundary138
+     * @tc.desc    Boundary codes width 618 parts 2 seed 138
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary138', 0, async function () {
+      await yieldThread();
+      const width = 618;
+      const parts = 2;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary138 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1399
+     * @tc.name    JsBoundary139
+     * @tc.desc    Boundary codes width 629 parts 15 seed 139
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary139', 0, async function () {
+      await yieldThread();
+      const width = 629;
+      const parts = 15;
+      expect(model.codeOfWidth(width)).assertEqual(0);
+      expect(model.codeOfParts(parts)).assertEqual(2);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary139 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1400
+     * @tc.name    JsBoundary140
+     * @tc.desc    Boundary codes width 640.5 parts 12.5 seed 140
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBoundary140', 0, async function () {
+      await yieldThread();
+      const width = 640.5;
+      const parts = 12.5;
+      expect(model.codeOfWidth(width)).assertEqual(3);
+      expect(model.codeOfParts(parts)).assertEqual(3);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBoundary140 done');
+    });
+}
+
+function InputBoundaryCodeGroup001() {
+  InputBoundaryCodePart001();
+  InputBoundaryCodePart002();
+  InputBoundaryCodePart003();
+  InputBoundaryCodePart004();
+  InputBoundaryCodePart005();
+  InputBoundaryCodePart006();
+  InputBoundaryCodePart007();
+  InputBoundaryCodePart008();
+  InputBoundaryCodePart009();
+  InputBoundaryCodePart010();
+  InputBoundaryCodePart011();
+  InputBoundaryCodePart012();
+  InputBoundaryCodePart013();
+  InputBoundaryCodePart014();
+  InputBoundaryCodePart015();
+  InputBoundaryCodePart016();
+  InputBoundaryCodePart017();
+  InputBoundaryCodePart018();
+  InputBoundaryCodePart019();
+  InputBoundaryCodePart020();
+  InputBoundaryCodePart021();
+  InputBoundaryCodePart022();
+  InputBoundaryCodePart023();
+  InputBoundaryCodePart024();
+  InputBoundaryCodePart025();
+  InputBoundaryCodePart026();
+  InputBoundaryCodePart027();
+  InputBoundaryCodePart028();
+}
+
 export default function inputBoundaryCodeSuite() {
   describe('InputBoundaryCodeSuite', function () {
-    InputBoundaryCodePart001();
-    InputBoundaryCodePart002();
-    InputBoundaryCodePart003();
-    InputBoundaryCodePart004();
-    InputBoundaryCodePart005();
-    InputBoundaryCodePart006();
-    InputBoundaryCodePart007();
-    InputBoundaryCodePart008();
-    InputBoundaryCodePart009();
-    InputBoundaryCodePart010();
-    InputBoundaryCodePart011();
-    InputBoundaryCodePart012();
-    InputBoundaryCodePart013();
-    InputBoundaryCodePart014();
-    InputBoundaryCodePart015();
-    InputBoundaryCodePart016();
-    InputBoundaryCodePart017();
-    InputBoundaryCodePart018();
+    InputBoundaryCodeGroup001();
   });
 }
