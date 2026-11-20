@@ -1,117 +1,88 @@
 # 扫描仪应用demo
 
 ### 介绍
-本示例使用@ohos.scan接口拉起[打印框架](https://gitee.com/openharmony/print_print_fwk)下的扫描服务，由扫描服务加载扫描仪驱动，完成扫描仪的发现与连接、获取扫描仪选项、设置扫描仪参数、启动扫描仪、获取扫描图片进度、取消扫描的功能。
 
-### 界面预览
-![扫描demo](sceenshots/scandemo.png)
+本示例使用[@ohos.scan](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-basic-services-kit/js-apis-scan.md)接口（Basic Services Kit，系统能力 SystemCapability.Print.PrintFramework）拉起[打印框架](https://gitcode.com/openharmony/print_print_fwk)下的扫描服务，由扫描服务加载扫描仪驱动，实现扫描仪的发现与连接、获取与设置扫描仪参数、启动与取消扫描、获取扫描进度并预览扫描图片的功能。示例使用 ArkTS 语言与 Stage 模型编写，扫描接口统一封装在[scan.ets](entry/src/main/ets/scan/scan.ets)中，配套[scan/model](entry/src/main/ets/scan/model)目录下的可测纯逻辑模型，并随工程提供 46 个套件 2666 条 ohosTest 自动化用例，用例说明见[ohosTest.md](ohosTest.md)。
 
-使用说明
+### 效果预览
 
-1.本示例是测试扫描框架接口能力，扫描仪驱动基于sane-backends开发。
+|扫描仪应用首页|
+|--------------------------------|
+|![扫描demo](sceenshots/scandemo.png)|
 
-2.首页的按钮点击后调用扫描框架对应的接口。
+### 使用说明
 
-3.启动扫描后，可以通过图片预览按钮查看扫描出的图片。
+1. 本示例用于验证扫描框架接口能力，扫描仪驱动基于[sane-backends](https://gitcode.com/openharmony-sig/third_party_backends)开发，运行前需连接扫描仪并安装对应驱动。
+2. 启动应用后，首页自动调用扫描初始化接口。
+3. 点击 Searching Scanner 按钮搜索扫描仪，发现设备后通过回调记录扫描仪 id。
+4. 点击 open Scanner 按钮连接扫描仪。
+5. 点击 get options 按钮获取扫描仪全部选项描述与当前取值，点击 set option 按钮设置扫描仪参数。
+6. 点击 Start Scan 按钮启动扫描，扫描完成后可通过 picture preview 按钮预览扫描出的图片。
+7. 点击 Cancel Scan 按钮取消当前扫描任务。
 
 ### 工程目录
 
 ```
 ScanNapiInterfaceDemo
-├── AppScope                                    
-│   └── app.json5                               //APP信息配置文件
-├── entry/src/main                              
+├── AppScope/app.json5                              // APP信息配置文件
+├── entry/src/main
 │   ├── ets
-│   │   ├── entryability
-│   │   ├── scan                          		
-│   │   │   ├── log.ts                        	//日志库
-│   │   │   ├── scan.ts                       	//扫描接口库
-│   │   ├── pages
-│   │   │   ├── Index.ets                       //应用界面            
+│   │   ├── entryability/EntryAbility.ets           // 入口Ability
+│   │   ├── entrybackupability/EntryBackupAbility.ets // 备份恢复扩展Ability
+│   │   ├── pages/Index.ets                         // 应用首页
+│   │   └── scan
+│   │       ├── scan.ets                            // 扫描接口封装
+│   │       ├── log.ts                              // 日志工具
+│   │       ├── model                               // 可测纯逻辑模型
+│   │       └── utils/SampleLogger.ets              // 示例日志工具
 │   └── module.json5
-│
-├── entry/src/ohosTest       					//测试用例
-│   ├── ets/test
-│   │   ├── Ability.test.ets                        
-│   │   ├── List.test.ets  							//测试列表
-│   │   ├── Scan.test.ets                           //扫描接口测试
-│   └── module.json5
+├── entry/src/ohosTest                              // 自动化测试
+│   ├── ets/test                                   // 46个测试套件
+│   └── ets/test/List.test.ets                      // 测试套件注册
+├── ohosTest.md                                    // 测试用例说明
+└── sceenshots/scandemo.png                         // 运行截图
 ```
 
 ### 具体实现
 
-* 该示例分为7个接口：
-  * 搜索扫描仪
-    * 使用@ohos.scan中API 12接口scan.on注册发现回调函数，然后调用@ohos.scan中的scan.getScannerList接口开启扫描仪搜索，当发现到扫描仪时，会通过on注册的回调函数，将扫描仪设备信息回调到应用。
-    * 源码链接：[scan.ts](./entry/src/main/ets/scan/scan.ts)
-    * 参考接口：[@ohos.scan]
-    
-  * 连接扫描仪
-    
-    * 使用@ohos.scan中API 12接口scan.openScanner连接扫描仪，传入的参数是扫描仪的id。
-    * 源码链接：[scan.ts](./entry/src/main/ets/scan/scan.ts)
-    * 参考接口：[@ohos.scan]
-    
-  * 启动扫描仪
-    
-    * 使用@ohos.scan中API 12接口scan.startScan启动扫描任务，传入的参数是扫描仪的id和是否开启批处理扫描模式。
-    
-    * 源码链接，[scan.ts](./entry/src/main/ets/scan/scan.ts)
-    
-    * 参考接口：[@ohos.scan]
+* 扫描接口封装在[scan.ets](entry/src/main/ets/scan/scan.ets)的 Scan 类中，对外提供 init、exit、startScannerDiscovery、openScanner、closeScanner、startScan、cancelScan、getScannerParameter、getScannerCurrentSetting、setScannerParameter、getScanProgress 以及设备事件监听方法，页面通过该封装调用扫描服务。接口参考：[@ohos.scan](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-basic-services-kit/js-apis-scan.md)。
 
-  * 取消扫描
-    
-    * 使用@ohos.scan中API 12接口scan.cancelScan取消扫描任务，传入的参数是扫描仪的id。
-    
-    * 源码链接，[scan.ts](./entry/src/main/ets/scan/scan.ts)
-    
-    * 参考接口：[@ohos.scan]
-  * 查询扫描进度
-    
-    * 使用@ohos.scan中API 12接口scan.getScanProgress查询扫描仪扫描图片的进度。
-    
-    * 源码链接，[scan.ts](./entry/src/main/ets/scan/scan.ts)
-    
-    * 参考接口：@ohos.scan
-  * 获取扫描仪选项
-    
-    * 使用@ohos.scan中API 12接口scan.getScanOption查询扫描仪有多少个选项，getScanOptionDesc获取每一个选项具体的描述信息。
-    
-    * 源码链接，[scan.ts](./entry/src/main/ets/scan/scan.ts)
-    
-    * 参考接口：@ohos.scan
-  * 设置扫描仪参数
-    
-    * 使用@ohos.scan中API 12接口scan.setScanOption设置某一台扫描仪的选项参数。
-    
-    * 源码链接，[scan.ts](./entry/src/main/ets/scan/scan.ts)
-    
-    * 参考接口：@ohos.scan
+* 搜索扫描仪：在[Index.ets](entry/src/main/ets/pages/Index.ets)中点击 Searching Scanner 按钮，先通过 scan.on('scanDeviceFound') 注册设备发现回调，再调用 startScannerDiscovery 开启搜索，发现扫描仪后回调返回设备信息并记录 scannerId。
+
+* 连接扫描仪：点击 open Scanner 按钮调用 openScanner，传入扫描仪 id 完成连接，页面退出时调用 closeScanner 断开连接。
+
+* 获取与设置扫描仪参数：点击 get options 按钮调用 getScannerParameter 获取全部选项描述，再对每个选项调用 getScannerCurrentSetting 获取当前取值；点击 set option 按钮调用 setScannerParameter 设置指定选项。
+
+* 启动与取消扫描：点击 Start Scan 按钮调用 startScan 启动扫描任务，并定时调用 getScanProgress 查询进度，进度为 100 时通过 pictureFd 创建图片源并生成预览图；点击 Cancel Scan 按钮调用 cancelScan 取消任务。
+
+* 图片预览：点击 picture preview 按钮打开弹窗展示扫描出的图片。
+
+* 可测逻辑模型：参数约束、状态机、选项 UI 模型、进度聚合、设备目录、图片命名、单位换算、设备过滤、取值解析等纯逻辑放在[scan/model](entry/src/main/ets/scan/model)目录下，供页面与 ohosTest 用例复用。
+
+### 测试
+
+本工程提供 46 个套件 2666 条 ohosTest 自动化用例，覆盖扫描接口错误码映射、参数约束、状态机、参数 UI 模型、进度聚合、设备同步、图片命名、单位换算与页面主流程，已在真机分批执行通过，用例说明见[ohosTest.md](ohosTest.md)。
 
 ### 相关权限
 
-[ohos.permission.PRINT]
+[ohos.permission.PRINT](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionprint)（normal级，系统授权）
 
-[ohos.permission.MANAGE_PRINT_JOB]
+[ohos.permission.MANAGE_PRINT_JOB](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-system-apps.md#ohospermissionmanage_print_job)（system_basic级，需配置高权限签名，可参考[特殊权限配置方法](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/hapsigntool-overview.md)）
 
 ### 依赖
 
-1.API12版本SDK的@ohos.scan接口。
-
-2.基于[sane-backends](https://gitee.com/openharmony-sig/third_party_backends)开发的扫描仪驱动以及对应厂商型号的扫描仪设备。
+1. 本示例不依赖其余 Sample。
+2. 基于[sane-backends](https://gitcode.com/openharmony-sig/third_party_backends)开发的扫描仪驱动以及对应厂商型号的扫描仪设备。
 
 ### 约束与限制
 
-1.本示例仅支持标准系统上运行，支持设备：RK3568。
+1. 本示例为 Stage 模型，支持在标准系统设备上运行，设备类型为 default 与 tablet。
+2. 本示例 compileSdkVersion、targetSdkVersion、compatibleSdkVersion 均为 26.0.0（runtimeOS 为 OpenHarmony），需要使用支持 API 26.0.0 SDK 的 DevEco Studio 才可编译运行。
+3. 扫描接口首批从 API version 20 开始支持。
+4. 运行本示例需要连接扫描仪并下载扫描仪对应的驱动。
+5. ohos.permission.MANAGE_PRINT_JOB 为 system_basic 级权限，需按特殊权限配置方法完成高权限签名。
 
-2.本示例为Stage模型，支持API12版本SDK，SDK版本号(API Version 12),镜像版本号(5.0)
-
-3.本示例需要使用DevEco Studio 版本号(5.0.3.403)及以上版本才可编译运行。
-
-4.运行本示例需要连接扫描仪，下载扫描仪对应的驱动。
-
-###  下载
+### 下载
 
 如需单独下载本工程，执行如下命令：
 
@@ -119,16 +90,6 @@ ScanNapiInterfaceDemo
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/Print/ScanNapiInterfaceDemo/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
-git pull
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
+git pull origin master
 ```
-
-### 构建说明
-
-1.需要基于[sane-backends](https://gitee.com/openharmony-sig/third_party_backends/)完成扫描仪驱动的开发。
-
-2.扫描仪驱动通过驱动安装应用安装到指定路径。
-
-3.本工程通过Build Hap(s)/APP(s)完成编译构建，然后安装。
-
-4.通过局域网或有线等物理方式连接扫描仪后即可通过主界面的相关按钮实现扫描仪的发现和连接等功能。
