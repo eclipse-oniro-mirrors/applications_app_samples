@@ -54,6 +54,15 @@ struct CallbackContext {
     PlaybackCompletionReason reason = PlaybackCompletionReason::ERROR;
 };
 
+struct AsyncStartWork {
+    std::shared_ptr<NativePlayerSession> session;
+    SampleInfo info;
+    napi_async_work work = nullptr;
+    napi_deferred deferred = nullptr;
+    CallbackContext *callback = nullptr;
+    bool started = false;
+};
+
 void DestroyCallbackContext(CallbackContext *context)
 {
     if (context == nullptr) {
@@ -150,12 +159,13 @@ napi_value StartPlaybackSync(napi_env env, SampleInfo &sampleInfo, napi_value ca
 
     sampleInfo.playback.playDoneCallback = &Callback;
     sampleInfo.playback.playDoneCallbackData = asyncContext.get();
-    const int32_t initRet = session->player.Init(sampleInfo);
+    bool completionOwned = false;
+    const int32_t initRet = session->player.Init(sampleInfo, &completionOwned);
     int32_t startRet = initRet;
     if (initRet == AVCODEC_SAMPLE_ERR_OK) {
         asyncContext.release();
         startRet = session->player.Start();
-    } else if (session->player.GetState() == PLAYER_STATE_STOPPING) {
+    } else if (completionOwned) {
         asyncContext.release();
     } else {
         Callback(asyncContext.release(), false, PlaybackCompletionReason::ERROR);
@@ -165,16 +175,89 @@ napi_value StartPlaybackSync(napi_env env, SampleInfo &sampleInfo, napi_value ca
     return result;
 }
 
+void ExecuteStart(napi_env env, void *data)
+{
+    (void)env;
+    auto *work = static_cast<AsyncStartWork *>(data);
+    work->started = StartPlayerPlayback(*work->session, work->info, Callback, work->callback) ==
+        AVCODEC_SAMPLE_ERR_OK;
+    work->callback = nullptr;
+    work->session->Finish();
+}
+
+void ResolveStart(napi_env env, napi_deferred deferred, bool started, bool completionOwned)
+{
+    napi_value result = nullptr;
+    napi_value startedValue = nullptr;
+    napi_value ownedValue = nullptr;
+    if (napi_create_object(env, &result) == napi_ok &&
+        napi_get_boolean(env, started, &startedValue) == napi_ok &&
+        napi_get_boolean(env, completionOwned, &ownedValue) == napi_ok &&
+        napi_set_named_property(env, result, "started", startedValue) == napi_ok &&
+        napi_set_named_property(env, result, "completionOwned", ownedValue) == napi_ok) {
+        napi_resolve_deferred(env, deferred, result);
+    }
+}
+
+void CompleteStart(napi_env env, napi_status status, void *data)
+{
+    std::unique_ptr<AsyncStartWork> work(static_cast<AsyncStartWork *>(data));
+    if (work->callback != nullptr) {
+        work->session->Finish();
+        Callback(work->callback, false, PlaybackCompletionReason::ERROR);
+        work->callback = nullptr;
+    }
+    ResolveStart(env, work->deferred, status == napi_ok && work->started, true);
+    napi_delete_async_work(env, work->work);
+}
+
+void RejectStart(napi_env env, AsyncStartWork &work)
+{
+    if (work.session != nullptr) { work.session->Finish(); }
+    DestroyCallbackContext(work.callback);
+    work.callback = nullptr;
+    if (work.work != nullptr) { napi_delete_async_work(env, work.work); }
+    ResolveStart(env, work.deferred, false, false);
+}
+
 } // 匿名命名空间
+
+napi_value PlayerNative::PlayAsync(napi_env env, napi_callback_info info)
+{
+    auto work = std::make_unique<AsyncStartWork>();
+    napi_value callback = nullptr;
+    if (!PlayerNapiParser::ParseStructuredPlayArguments(env, info, work->info, callback)) { return nullptr; }
+    napi_value promise = nullptr;
+    if (napi_create_promise(env, &work->deferred, &promise) != napi_ok) { return nullptr; }
+    const auto session = GetNativePlayerSession(env);
+    if (session == nullptr || session->player.GetState() != PLAYER_STATE_IDLE ||
+        !session->Begin(NativePlayerSession::Operation::START)) {
+        RejectStart(env, *work);
+        return promise;
+    }
+    work->session = session;
+    auto context = std::make_unique<CallbackContext>();
+    context->env = env;
+    context->structuredResult = true;
+    work->callback = context.release();
+    napi_value name = nullptr;
+    if (napi_create_reference(env, callback, 1, &work->callback->callbackRef) != napi_ok ||
+        napi_create_string_utf8(env, "PlayerStart", NAPI_AUTO_LENGTH, &name) != napi_ok ||
+        napi_create_async_work(env, nullptr, name, ExecuteStart, CompleteStart, work.get(), &work->work) != napi_ok ||
+        napi_queue_async_work(env, work->work) != napi_ok) {
+        RejectStart(env, *work);
+        return promise;
+    }
+    work.release();
+    return promise;
+}
 
 napi_value PlayerNative::SetPlaybackSpeed(napi_env env, napi_callback_info info)
 {
-    double speed;
-    size_t argc = 1;
-    napi_value args[1] = {nullptr};
-    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
-
-    napi_get_value_double(env, args[0], &speed);
+    double speed = 0;
+    if (!PlayerNapiParser::ParseSpeed(env, info, speed)) {
+        return nullptr;
+    }
     if (Player *player = GetPlayer(env); player != nullptr) {
         player->SetSpeed(static_cast<float>(speed));
     }
@@ -183,12 +266,10 @@ napi_value PlayerNative::SetPlaybackSpeed(napi_env env, napi_callback_info info)
 
 napi_value PlayerNative::SetTransform(napi_env env, napi_callback_info info)
 {
-    int32_t transformHint;
-    size_t argc = 1;
-    napi_value args[1] = {nullptr};
-    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
-
-    napi_get_value_int32(env, args[0], &transformHint);
+    int32_t transformHint = 0;
+    if (!PlayerNapiParser::ParseTransform(env, info, transformHint)) {
+        return nullptr;
+    }
     if (Player *player = GetPlayer(env); player != nullptr) {
         player->SetTransform(transformHint);
     }
@@ -197,12 +278,10 @@ napi_value PlayerNative::SetTransform(napi_env env, napi_callback_info info)
 
 napi_value PlayerNative::SetSmartFluencyEnabled(napi_env env, napi_callback_info info)
 {
-    bool enabled;
-    size_t argc = 1;
-    napi_value args[1] = {nullptr};
-    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
-
-    napi_get_value_bool(env, args[0], &enabled);
+    bool enabled = false;
+    if (!PlayerNapiParser::ParseEnabled(env, info, enabled)) {
+        return nullptr;
+    }
     if (Player *player = GetPlayer(env); player != nullptr) {
         player->SetSmartFluencySupported(enabled);
     }
@@ -211,12 +290,10 @@ napi_value PlayerNative::SetSmartFluencyEnabled(napi_env env, napi_callback_info
 
 napi_value PlayerNative::OnThermalWarningReceived(napi_env env, napi_callback_info info)
 {
-    double ratio;
-    size_t argc = 1;
-    napi_value args[1] = {nullptr};
-    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
-
-    napi_get_value_double(env, args[0], &ratio);
+    double ratio = 0;
+    if (!PlayerNapiParser::ParseThermalRatio(env, info, ratio)) {
+        return nullptr;
+    }
     if (Player *player = GetPlayer(env); player != nullptr) {
         player->OnThermalWarningReceived(ratio);
     }
@@ -278,11 +355,7 @@ napi_value PlayerNative::Play(napi_env env, napi_callback_info info)
 napi_value PlayerNative::SetVolume(napi_env env, napi_callback_info info)
 {
     double volume = 1.0;
-    size_t argc = 1;
-    napi_value args[1] = {nullptr};
-    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc != 1 ||
-        napi_get_value_double(env, args[0], &volume) != napi_ok || volume < 0.0 || volume > 1.0) {
-        napi_throw_range_error(env, nullptr, "volume must be a number in the range [0, 1]");
+    if (!PlayerNapiParser::ParseVolume(env, info, volume)) {
         return nullptr;
     }
     if (Player *player = GetPlayer(env); player != nullptr) {
@@ -305,9 +378,8 @@ napi_value PlayerNative::Stop(napi_env env, napi_callback_info info)
 {
     (void)info;
     napi_value result = nullptr;
-    Player *player = GetPlayer(env);
-    int32_t ret = player == nullptr ? AVCODEC_SAMPLE_ERR_ERROR : player->Stop();
-    napi_get_boolean(env, ret == AVCODEC_SAMPLE_ERR_OK, &result);
+    const auto session = GetNativePlayerSession(env);
+    napi_get_boolean(env, session != nullptr && session->RequestStop(), &result);
     return result;
 }
 
@@ -346,13 +418,9 @@ napi_value PlayerNative::SeekTo(napi_env env, napi_callback_info info)
 
 napi_value PlayerNative::SelectAudioTrack(napi_env env, napi_callback_info info)
 {
-    size_t argc = 1;
-    napi_value args[1] = {nullptr};
     int32_t trackIndex = -1;
     napi_value result = nullptr;
-    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc != 1 ||
-        napi_get_value_int32(env, args[0], &trackIndex) != napi_ok) {
-        napi_throw_type_error(env, nullptr, "trackIndex must be an integer");
+    if (!PlayerNapiParser::ParseTrackIndex(env, info, trackIndex)) {
         return nullptr;
     }
     Player *player = GetPlayer(env);
@@ -423,6 +491,7 @@ static bool ExportPlayerMethods(napi_env env, napi_value exports)
 {
     napi_property_descriptor classProp[] = {
         {"play", nullptr, PlayerNative::PlayWithOptions, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"playAsync", nullptr, PlayerNative::PlayAsync, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"playNative", nullptr, PlayerNative::Play, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"stop", nullptr, PlayerNative::Stop, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"pause", nullptr, PlayerNative::Pause, nullptr, nullptr, nullptr, napi_default, nullptr},
@@ -430,6 +499,8 @@ static bool ExportPlayerMethods(napi_env env, napi_value exports)
         {"seekTo", nullptr, PlayerNative::SeekTo, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"seekToAsync", nullptr, SeekToAsync, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"selectAudioTrack", nullptr, PlayerNative::SelectAudioTrack,
+            nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"selectAudioTrackAsync", nullptr, SelectAudioTrackAsync,
             nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getState", nullptr, PlayerNative::GetState, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getPlaybackInfo", nullptr, PlayerNative::GetPlaybackInfo,

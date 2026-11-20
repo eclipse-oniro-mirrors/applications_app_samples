@@ -9,6 +9,7 @@
 - 注册实现了自定义亮度滤镜与自定义裁剪滤镜。
 - 通过ImageEffect提供的Native API接口快速实现单个滤镜的处理效果。
 - 通过ImageEffect提供的Native API接口查询滤镜能力信息。
+- 支持纹理输入场景：纹理输入类型从API版本20开始支持。应用需要自行创建输入、输出纹理（例如通过glGenTextures创建），并保证输入纹理与输出纹理不是同一块纹理。纹理输入场景下，滤镜直接处理GPU纹理，仅支持输入、输出均为纹理缓冲（EFFECT_BUFFER_TYPE_TEXTURE）的滤镜，例如Brightness、Contrast。Crop等需要PixelMap信息的滤镜以及以像素缓冲注册的自定义滤镜不适用于纹理输入，需要从滤镜链中排除。
 
 ## 效果预览
 
@@ -41,10 +42,15 @@ entry/src/main/cpp/
 └── utils
     ├── common_utils.cpp(字符处理工具函数)
     ├── common_utils.h
+    ├── egl_utils.cpp(EGL上下文创建与释放工具函数)
+    ├── egl_utils.h
+    ├── gl_utils.cpp(OpenGL ES纹理创建与读取工具函数)
+    ├── gl_utils.h
     ├── json_utils.cpp(json格式处理工具函数)
     ├── json_utils.h
     ├── pixelmap_helper.cpp(图片解码)
-    └── pixelmap_helper.h
+    ├── pixelmap_helper.h
+    └── render_texture.h(纹理渲染类型定义)
 entry/src/main/ets/
 ├── pages
 │   └── ImageEditPage.ets(图片显示、设置页面)
@@ -70,7 +76,7 @@ entry/src/ohosTest/ets/
 
 ## 相关权限
 
-[ohos.permission.CAMERA](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all-user.md#ohospermissioncamera)
+[ohos.permission.CAMERA](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all-user.md#ohospermissioncamera)
 
 ## 依赖
 
@@ -79,8 +85,8 @@ entry/src/ohosTest/ets/
 ## 约束和限制
 
 1. 本示例支持标准系统上运行，支持设备：RK3568;
-2. 本示例支持API14版本SDK，版本号：5.0.2.57；
-3. 本示例已支持使DevEco Studio 5.0.1 Release (构建版本：5.0.5.306，构建 2024年12月6日)编译运行
+2. 当前工程的编译、兼容和目标 SDK 版本均为 26.0.0（API 26）。
+3. 请使用支持上述 SDK 的 DevEco Studio。旧版文档记录的 DevEco Studio 5.0.1 Release (构建版本：5.0.5.306，构建 2024年12月6日) 仅供历史参考，不代表当前工程的最低 IDE 版本。
 4. 本示例涉及系统相机，由相机功能异常导致的OHNativeWindow场景无画面问题，可通过更换相机功能正常的镜像解决。
 
 ## 下载
@@ -91,6 +97,6 @@ entry/src/ohosTest/ets/
 git init
 git config core.sparsecheckout true
 echo code/DocsSample/Media/Image/ImageEffect/ > .git/info/sparse-checkout
-git remote add origin OpenHarmony/applications_app_samples
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

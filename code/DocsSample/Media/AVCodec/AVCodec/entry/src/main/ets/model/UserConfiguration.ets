@@ -21,10 +21,13 @@ import { DumpPolicyModel } from './DumpPolicyModel';
 import { CommonConstants as Const } from '../common/CommonConstants';
 
 // 各代数组快照的字段数。新增字段只追加到末尾，保留旧配置兼容性。
+const PLAYER_BASE_FIELDS: number = 11;
+const PLAYER_RESUME_FIELDS: number = 12;
 const RECORDER_BASE_FIELDS: number = 22;
 const RECORDER_STORAGE_FIELDS: number = 23;
 const RECORDER_SEGMENT_FIELDS: number = 25;
 const RECORDER_BUFFER_FIELDS: number = 26;
+const RECORDER_EFFECT_FIELDS: number = 29;
 const SHORT_SEGMENT_SECONDS: number = 60;
 const MEDIUM_SEGMENT_SECONDS: number = 180;
 const LONG_SEGMENT_SECONDS: number = 300;
@@ -35,21 +38,23 @@ export class UserConfiguration {
       player: [player.videoDecoderType, player.videoDecoderRunMode, player.videoDecoderSyncMode,
         Number(player.enableVideoDump), Number(player.retainLastFrame), Number(player.enableLowLatency),
         Number(player.outputInDecodingOrder), Number(player.convertHdrVividToBt709), player.audioVolume,
-        Number(player.enableAudioLowLatency), Number(player.autoHideControls)],
+        Number(player.enableAudioLowLatency), Number(player.autoHideControls), Number(player.resumeLastPosition)],
       recorder: [recorder.outputFormat, recorder.isHDRVivid, recorder.videoCodecMime === 'video/hevc' ? 1 : 0,
         recorder.cameraWidth, recorder.cameraHeight, recorder.frameRate, recorder.isSync, recorder.bitRate,
         recorder.bitrateMode, recorder.iFrameInterval, recorder.audioSampleRate, recorder.audioChannelCount,
         recorder.audioBitRate, recorder.audioCaptureLatencyMode, recorder.videoStabilizationMode,
         recorder.preprocMode, recorder.cropPercent, recorder.downsamplingTargetHeight, recorder.secondaryTargetHeight,
         recorder.dropToFrameRate, Number(recorder.enableDualOutput), Number(recorder.enableVideoDump),
-        Number(recorder.stopOnLowSpace), recorder.segmentSeconds, recorder.segmentMiB, Number(recorder.bufferInput)],
+        Number(recorder.stopOnLowSpace), recorder.segmentSeconds, recorder.segmentMiB, Number(recorder.bufferInput),
+        Number(recorder.recordAudio), Number(recorder.bufferGrayscale), Number(recorder.bufferWatermark)],
       dump: [DumpPolicyModel.maxMiB, DumpPolicyModel.maxSeconds]
     };
   }
 
   static restore(snapshot: ConfigurationSnapshot, player: PlayerSettingsModel, recorder: CameraDataModel): void {
     const p = snapshot.player;
-    if (p.length === 11 && UserConfiguration.integers(p) &&
+    if ((p.length === PLAYER_BASE_FIELDS || p.length === PLAYER_RESUME_FIELDS) && UserConfiguration.integers(p) &&
+      (p.length === PLAYER_BASE_FIELDS || UserConfiguration.choice(p[11], [0, 1])) &&
       UserConfiguration.choice(p[0], [0, 1, 2]) && UserConfiguration.choice(p[1], [0, 1, 2, 3]) &&
       UserConfiguration.choice(p[2], [0, 1]) && p[8] >= 0 && p[8] <= 100 &&
       [p[3], p[4], p[5], p[6], p[7], p[9], p[10]].every((v: number): boolean => v === 0 || v === 1)) {
@@ -64,6 +69,7 @@ export class UserConfiguration {
       player.audioVolume = p[8];
       player.enableAudioLowLatency = p[9] === 1;
       player.autoHideControls = p[10] === 1;
+      player.resumeLastPosition = p.length === PLAYER_RESUME_FIELDS && p[11] === 1;
     }
     const r = snapshot.recorder;
     if (UserConfiguration.validRecorder(r)) {
@@ -89,7 +95,10 @@ export class UserConfiguration {
       recorder.stopOnLowSpace = r.length >= 23 && r[22] === 1;
       recorder.segmentSeconds = r.length >= RECORDER_SEGMENT_FIELDS && r[0] === Const.FORMAT_MP4 ? r[23] : 0;
       recorder.segmentMiB = r.length >= RECORDER_SEGMENT_FIELDS && r[0] === Const.FORMAT_MP4 ? r[24] : 0;
-      recorder.bufferInput = r.length === RECORDER_BUFFER_FIELDS && r[25] === 1;
+      recorder.bufferInput = r.length >= RECORDER_BUFFER_FIELDS && r[25] === 1;
+      recorder.recordAudio = r.length < RECORDER_EFFECT_FIELDS || r[26] === 1;
+      recorder.bufferGrayscale = r.length >= RECORDER_EFFECT_FIELDS && r[25] === 1 && r[27] === 1;
+      recorder.bufferWatermark = r.length >= RECORDER_EFFECT_FIELDS && r[25] === 1 && r[28] === 1;
       RecorderPreprocessModel.apply(recorder);
     }
     if (snapshot.dump.length === 2 &&
@@ -131,11 +140,15 @@ export class UserConfiguration {
       (r[3] === Const.VIDEO_WIDTH_720P && r[4] === Const.VIDEO_HEIGHT_720P) ||
       (r[3] === Const.VIDEO_WIDTH_1080P && r[4] === Const.VIDEO_HEIGHT_1080P);
     return (r.length === RECORDER_BASE_FIELDS || r.length === RECORDER_STORAGE_FIELDS ||
-      r.length === RECORDER_SEGMENT_FIELDS || r.length === RECORDER_BUFFER_FIELDS) &&
+      r.length === RECORDER_SEGMENT_FIELDS || r.length === RECORDER_BUFFER_FIELDS ||
+      r.length === RECORDER_EFFECT_FIELDS) &&
       UserConfiguration.integers(r) &&
-      (r.length !== RECORDER_BUFFER_FIELDS || (UserConfiguration.choice(r[25], [0, 1]) && (r[25] === 0 ||
+      (r.length < RECORDER_BUFFER_FIELDS || (UserConfiguration.choice(r[25], [0, 1]) && (r[25] === 0 ||
         (r[1] === 0 && bufferResolution && r[5] === Const.RECORDER_BUFFER_FRAME_RATE &&
           r[15] === 0 && r[19] === 0 && r[20] === 0)))) &&
+      (r.length < RECORDER_EFFECT_FIELDS || (UserConfiguration.choice(r[26], [0, 1]) &&
+        UserConfiguration.choice(r[27], [0, 1]) && UserConfiguration.choice(r[28], [0, 1]) &&
+        (r[25] === 1 || (r[27] === 0 && r[28] === 0)))) &&
       (r.length < RECORDER_SEGMENT_FIELDS || (UserConfiguration.choice(r[23],
         [0, SHORT_SEGMENT_SECONDS, MEDIUM_SEGMENT_SECONDS, LONG_SEGMENT_SECONDS]) &&
         UserConfiguration.choice(r[24], [0, 256, 512, 1024]))) &&

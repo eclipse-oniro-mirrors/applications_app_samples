@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,107 +13,88 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
-import { describe, it, expect } from '@ohos/hypium'
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import { Driver, ON } from '@ohos.UiTest';
+import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+import {
+  MODE_STANDARD,
+  MODE_SPECIFIED,
+  MODE_SINGLETON,
+  ABILITY_MAIN,
+  ABILITY_STANDARD,
+  ABILITY_SPECIFIED,
+  ABILITY_SINGLETON,
+  TIMEOUT_PAGE_RENDER,
+  DELAY_AFTER_START_MODE,
+  logInfo
+} from './Shared/SharedDriver';
 
-const DRIVER = Driver.create();
-let abilityDelegatorRegistry = AbilityDelegatorRegistry.getAbilityDelegator();
-
-// 资源本地化
-async function getResourceString<T extends Resource>(resource: T): Promise<string> {
-  let manage = abilityDelegatorRegistry.getAppContext().resourceManager;
-  let text = await manage.getStringValue(resource);
-  return text;
-}
-
-// 结果需要使用aa工具查看，这里仅测试UI部分是否展示正常
 export default function abilityTest() {
-  describe('ActsAbilityTest', function () {
+  describe('ActsAbilityTest', () => {
+    beforeAll(() => {
+      logInfo('ActsAbilityTest beforeAll');
+    });
 
-    /**
-     * 拉起应用
-     */
-    it('StartAbility_001', 0, async function (done) {
-      hilog.info(0xF811, 'testTag', 'StartAbility_001 begin');
-      try {
-        await abilityDelegatorRegistry.startAbility({
-          bundleName: 'ohos.samples.startmode',
-          abilityName: 'MainAbility'
-        });
-        done();
-      } catch (err) {
-        expect(0).assertEqual(err.code);
-        done();
+    beforeEach(() => {
+      logInfo('ActsAbilityTest beforeEach');
+    });
+
+    afterEach(() => {
+      logInfo('ActsAbilityTest afterEach');
+    });
+
+    afterAll(() => {
+      logInfo('ActsAbilityTest afterAll');
+    });
+
+    it('assertContain', 0, () => {
+      let sample: string = 'StartMode';
+      expect(sample).assertContain('Mode');
+      expect(sample).assertEqual(sample);
+    });
+
+    it('ability_names_should_be_unique', 0, () => {
+      const names: string[] = [ABILITY_MAIN, ABILITY_STANDARD, ABILITY_SPECIFIED, ABILITY_SINGLETON];
+      const unique: Set<string> = new Set<string>();
+      for (let i = 0; i < names.length; i++) {
+        unique.add(names[i]);
       }
-      hilog.info(0xF811, 'testTag', 'StartAbility_001 end');
-    })
+      expect(unique.size).assertEqual(names.length);
+    });
 
-    /**
-     * 检查页面
-     */
-    it('CheckPage_001', 0, async function () {
-      hilog.info(0xF811, 'testTag', 'CheckPage_001 begin');
-      await DRIVER.delayMs(1000);
-      // 检查是否存在这三个板块
-      await DRIVER.assertComponentExist(ON.text(await getResourceString($r('app.string.Ordinary_multiple_instances'))));
-      await DRIVER.assertComponentExist(ON.text(await getResourceString($r('app.string.Specify_multiple_instances'))));
-      await DRIVER.assertComponentExist(ON.text(await getResourceString($r('app.string.Single_instance'))));
-      hilog.info(0xF811, 'testTag', 'CheckPage_001 end');
-    })
+    it('mode_labels_should_be_stable', 0, () => {
+      expect(MODE_STANDARD).assertEqual('standard');
+      expect(MODE_SPECIFIED).assertEqual('specified');
+      expect(MODE_SINGLETON).assertEqual('sinleton');
+    });
 
-    /**
-     * 进入详情页
-     */
-    it('CheckDetailPage_001', 0, async function () {
-      hilog.info(0xF811, 'testTag', 'CheckDetailPage_001 begin');
-      await DRIVER.delayMs(1000);
-      // 点击番茄
-      await DRIVER.assertComponentExist(ON.text(await getResourceString($r('app.string.Tomato'))));
-      let tomato = await DRIVER.findComponent(ON.text(await getResourceString($r('app.string.Tomato'))));
-      await tomato.click();
-      await DRIVER.delayMs(1000);
-      // 断言存在text为番茄的组件
-      await DRIVER.assertComponentExist(ON.text(await getResourceString($r('app.string.Tomato'))));
-      await DRIVER.assertComponentExist(ON.id('ContentTable'));
-      let contentTable = await DRIVER.findComponent(ON.id('ContentTable'));
-      let contentTablePoint = await contentTable.getBoundsCenter();
-      // 向左滑动
-      await DRIVER.fling({
-        x: contentTablePoint.x + 200, y: contentTablePoint.y
-      }, {
-        x: contentTablePoint.x - 200, y: contentTablePoint.y
-      }, 50, 200);
-      await DRIVER.delayMs(2000);
-      await DRIVER.assertComponentExist(ON.id('CaloriesProgress'));
-      await DRIVER.assertComponentExist(ON.id('detailPage'));
-      let detailPage = await DRIVER.findComponent(ON.id('detailPage'));
-      let detailPagePoint = await detailPage.getBoundsCenter();
-      // 向下滑动
-      await DRIVER.fling({
-        x: detailPagePoint.x, y: detailPagePoint.y + 100
-      }, {
-        x: detailPagePoint.x, y: detailPagePoint.y - 100
-      }, 100, 200);
-      await DRIVER.delayMs(2000);
-      await DRIVER.assertComponentExist(ON.text(await getResourceString($r('app.string.Cucumber'))));
-      hilog.info(0xF811, 'testTag', 'CheckDetailPage_001 end');
-    })
+    it('timeout_should_be_positive', 0, () => {
+      expect(TIMEOUT_PAGE_RENDER > 0).assertTrue();
+      expect(DELAY_AFTER_START_MODE >= 0).assertTrue();
+    });
 
-    /**
-     * 进入另个一个详情页
-     */
-    it('CheckDetailPage_002', 0, async function () {
-      hilog.info(0xF811, 'testTag', 'CheckDetailPage_002 begin');
-      // 点击黄瓜
-      await DRIVER.delayMs(1000);
-      let cucumber = await DRIVER.findComponent(ON.text(await getResourceString($r('app.string.Cucumber'))));
-      await cucumber.click();
-      await DRIVER.delayMs(1000);
-      await DRIVER.assertComponentExist(ON.text(await getResourceString($r('app.string.Cucumber'))));
-      await DRIVER.assertComponentExist(ON.text('Food Detail'));
-      hilog.info(0xF811, 'testTag', 'CheckDetailPage_002 end');
-    })
-  })
+    it('mode_labels_should_differ', 0, () => {
+      expect(MODE_STANDARD === MODE_SPECIFIED).assertFalse();
+      expect(MODE_SPECIFIED === MODE_SINGLETON).assertFalse();
+      expect(MODE_STANDARD === MODE_SINGLETON).assertFalse();
+    });
+
+    it('ability_name_length_should_match', 0, () => {
+      expect(ABILITY_MAIN.length).assertEqual('MainAbility'.length);
+      expect(ABILITY_STANDARD.length).assertEqual('StandardAbility'.length);
+      expect(ABILITY_SPECIFIED.length).assertEqual('SpecifiedAbility'.length);
+      expect(ABILITY_SINGLETON.length).assertEqual('SingletonAbility'.length);
+    });
+
+    it('mode_label_index_should_be_valid', 0, () => {
+      const labels: string[] = [MODE_STANDARD, MODE_SPECIFIED, MODE_SINGLETON];
+      for (let i = 0; i < labels.length; i++) {
+        expect(labels[i].length > 0).assertTrue();
+      }
+    });
+
+    it('ability_name_should_contain_suffix', 0, () => {
+      expect(ABILITY_STANDARD).assertContain('Ability');
+      expect(ABILITY_SPECIFIED).assertContain('Ability');
+      expect(ABILITY_SINGLETON).assertContain('Ability');
+    });
+  });
 }

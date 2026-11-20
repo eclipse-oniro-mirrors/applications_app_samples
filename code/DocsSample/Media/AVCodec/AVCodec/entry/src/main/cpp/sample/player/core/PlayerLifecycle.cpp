@@ -104,7 +104,7 @@ int32_t Player::CreateAudioRenderer()
         return AVCODEC_SAMPLE_ERR_ERROR;
     }
     const int32_t volumeRet = OH_AudioRenderer_SetVolume(audioRenderer_, sampleInfo_.audioPlayback.volume);
-    audioVolume_.store(sampleInfo_.audioPlayback.volume);
+    audioCallbackContext_.volume.store(sampleInfo_.audioPlayback.volume);
     if (volumeRet != AUDIOSTREAM_SUCCESS) {
         AVCODEC_SAMPLE_LOGW("Set initial audio volume failed, ret: %{public}d", volumeRet);
     }
@@ -264,18 +264,18 @@ void Player::ResetPlaybackState()
 {
     mediaInfo_ = {};
     completedPlaybackInfo_ = {};
+    cleanupFailure_.Reset("", "", 0);
     dumpLayoutKey_ = 0;
     failure_.Reset(sampleInfo_.video.videoCodecMime, sampleInfo_.codec.codecName, sampleInfo_.codec.codecRunMode);
     diagnostics_.Reset();
     sampleInfo_.output.sessionId = CreateCodecSessionId("playback");
     diagnostics_.SetSession(sampleInfo_.output.sessionId, DescribeCodecRequest(sampleInfo_, false));
     playbackFailed_ = false;
-    audioInterrupted_ = false;
-    audioResumePending_ = false;
-    audioInterruptCount_ = 0;
-    audioInterruptHint_ = AUDIOSTREAM_INTERRUPT_HINT_NONE;
-    audioDucked_ = false;
-    appBackgrounded_ = false;
+    audioCallbackContext_.interrupted = false;
+    audioCallbackContext_.resumePending = false;
+    audioCallbackContext_.interruptCount = 0;
+    audioCallbackContext_.interruptHint = AUDIOSTREAM_INTERRUPT_HINT_NONE;
+    audioCallbackContext_.ducked = false;
     backgroundPausedPlayback_ = false;
     hasDecodedOutput_ = false;
     stopRequested_ = false;
@@ -494,8 +494,9 @@ int32_t Player::InitializePlaybackResources(std::unique_lock<std::mutex> &lock)
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
-int32_t Player::Init(SampleInfo &sampleInfo)
+int32_t Player::Init(SampleInfo &sampleInfo, bool *completionOwned)
 {
+    if (completionOwned != nullptr) { *completionOwned = false; }
     JoinReleaseThread();
     const PlayerState previousState = stateMachine_.GetState();
     CHECK_AND_RETURN_RET_LOG(stateMachine_.BeginInitialization(), AVCODEC_SAMPLE_ERR_ERROR,
@@ -507,6 +508,7 @@ int32_t Player::Init(SampleInfo &sampleInfo)
         return AVCODEC_SAMPLE_ERR_ERROR;
     }
     PrepareForInitialization(sampleInfo);
+    if (completionOwned != nullptr) { *completionOwned = true; }
     AVCODEC_SAMPLE_LOGI("Smart fluency supported: %{public}d", isSmartFluencySupported_);
     return InitializePlaybackResources(lock);
 }
@@ -544,8 +546,7 @@ int32_t Player::StartAudioDecoder()
         "Audio threads already running");
     {
         std::lock_guard<std::mutex> lock(audioDecContext_->outputMutex);
-        std::queue<unsigned char> emptyQueue;
-        audioDecContext_->renderQueue.swap(emptyQueue);
+        audioDecContext_->renderQueue.Clear();
     }
     audioWorkerRunning_ = true;
     int32_t ret = audioDecoder_->Start();
@@ -608,6 +609,8 @@ int32_t Player::Start()
         isVideoDone = videoDecContext_ == nullptr;
     }
     isStarted_ = true;
+    paused_ = appBackgrounded_.load() && !backgroundPlaybackEnabled_.load();
+    backgroundPausedPlayback_ = paused_.load();
     audioWorkerRunning_ = audioDecContext_ != nullptr;
     bool videoStarted = false;
     const int32_t ret = StartPlaybackDecoders(videoStarted);
@@ -618,6 +621,10 @@ int32_t Player::Start()
     }
     CHECK_AND_RETURN_RET_LOG(stateMachine_.BeginPlayback(), AVCODEC_SAMPLE_ERR_ERROR,
         "Failed to enter playing state");
+    if (backgroundPausedPlayback_.load()) {
+        stateMachine_.BeginPause();
+        diagnostics_.SetBackgroundPaused(true);
+    }
     AVCODEC_SAMPLE_LOGI("Player started successfully");
     StartRelease();
     return AVCODEC_SAMPLE_ERR_OK;
@@ -645,8 +652,13 @@ int32_t Player::StartPlaybackDecoders(bool &videoStarted)
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         return ret;
     }
+    if (appBackgrounded_.load() && !backgroundPlaybackEnabled_.load()) {
+        paused_ = true;
+        backgroundPausedPlayback_ = true;
+    }
     std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
-    if (audioRenderer_ != nullptr && OH_AudioRenderer_Start(audioRenderer_) != AUDIOSTREAM_SUCCESS) {
+    if (!paused_.load() && audioRenderer_ != nullptr &&
+        OH_AudioRenderer_Start(audioRenderer_) != AUDIOSTREAM_SUCCESS) {
         AVCODEC_SAMPLE_LOGE("Start audio renderer failed");
         return AVCODEC_SAMPLE_ERR_ERROR;
     }
@@ -662,17 +674,7 @@ void Player::InitializeAudioDecoderContext()
     audioDecContext_->runningFlag = &audioWorkerRunning_;
     audioDecContext_->playbackFailure = &playbackFailed_;
     audioDecContext_->failureDetails = &failure_;
-    audioDecContext_->pausedFlag = &paused_;
-    audioDecContext_->audioInterrupted = &audioInterrupted_;
-    audioDecContext_->audioResumePending = &audioResumePending_;
-    audioDecContext_->audioInterruptCount = &audioInterruptCount_;
-    audioDecContext_->audioInterruptHint = &audioInterruptHint_;
-    audioDecContext_->audioVolume = &audioVolume_;
-    audioDecContext_->audioDucked = &audioDucked_;
-    audioDecContext_->pauseCond = &pauseCond_;
-    audioDecContext_->audioUnderruns = &diagnostics_.audioUnderruns;
-    audioDecContext_->audioQueueDurationUs = &diagnostics_.audioQueueDurationUs;
-    audioDecContext_->playbackPositionUs = &playbackPositionUs_;
+    audioDecContext_->audioPlayback = &audioCallbackContext_;
     audioDecContext_->sampleInfo = &sampleInfo_;
 }
 

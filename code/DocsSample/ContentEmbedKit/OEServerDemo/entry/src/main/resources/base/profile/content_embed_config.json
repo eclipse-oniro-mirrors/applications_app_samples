@@ -1,0 +1,11 @@
+{
+  "content_embed_config": [
+    {
+      "oeid": "E0A8B74A-445B-4D7A-8B05-07B5509B50DD",
+      "file_exts": ".aaa",
+      "icon": "$media:oe_a_logo",
+      "name": "$string:name",
+      "description": "$string:description"
+    }
+  ]
+}

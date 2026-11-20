@@ -47,7 +47,7 @@
         "icon": "$media:icon",
         "description": "$string:MainAbility_desc",
         "label": "$string:MainAbility_label",
-        "srcEntrance": "./ets/MainAbility/MainAbility.ets",
+        "srcEntry": "./ets/MainAbility/MainAbility.ets",
         "type": "service"
       },
     ],

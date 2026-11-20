@@ -20,7 +20,8 @@
     "description": "$string:module_desc",
     "mainElement": "FeatureAbility",
     "deviceTypes": [
-      "tablet"
+      "tablet",
+      "default"
     ],
     "deliveryWithInstall": true,
     "installationFree": true,

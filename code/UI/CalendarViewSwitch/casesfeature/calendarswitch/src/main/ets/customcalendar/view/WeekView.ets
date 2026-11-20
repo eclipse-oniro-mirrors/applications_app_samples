@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file casesfeature/calendarswitch/src/main/ets/customcalendar/view/WeekView.ets
+ * 文件职责：WeekView 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：WeekView。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import Constants from '../constant/Constants';
 import { CalendarController, CalendarViewType } from '../components/CustomCalendar';
 import { CalendarData, CalendarStyle, CalendarSwitch } from '../model/CalendarModel';
@@ -23,21 +30,38 @@ import CommonData from '../common/CommonData';
 /**
  * 周视图
  */
+/**
+ * WeekView：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct WeekView {
   // swiper当前显示的子组件索引
+  // @State swiperWeekIndex：组件内部状态
   @State swiperWeekIndex: number = 1;
+
   // 控制周视图每个WeekViewItem显示哪一周的数据
+  // @State weekNumOne：组件内部状态
   @State weekNumOne: number = -1;
+
+  // @State weekNumTwo：组件内部状态
   @State weekNumTwo: number = 0;
+
+  // @State weekNumThree：组件内部状态
   @State weekNumThree: number = 1;
+
   // 当前选中的日期
+  // @State currentSelectDate：组件内部状态
   @State @Watch('onSelectDayChange') currentSelectDate: string =
     Constants.TODAY_YEAR + '-' + Constants.TODAY_MONTH + '-' + Constants.TODAY + '-' + '0';
+
   // 当前显示的年份
+  // @State currentShowYear：组件内部状态
   @State currentShowYear: number = Constants.TODAY_YEAR;
+
   // 当前显示的月份
+  // @State currentShowMonth：组件内部状态
   @State currentShowMonth: number = Constants.TODAY_MONTH;
+
   // 用于记录周视图每个WeekViewItem第一天（周日）的年月信息
   private weekYearOne: number = 0;
   private weekYearTwo: number = 0;
@@ -45,22 +69,29 @@ export struct WeekView {
   private weekMonthOne: number = 0;
   private weekMonthTwo: number = 0;
   private weekMonthThree: number = 0;
+
   // 记录swiper上一次显示的子组件索引。
   private oldWeekViewIndex: number = 1;
+
   // 添加日程后，重新刷新周视图的控制器
   private oneController = new CalendarController();
   private twoController = new CalendarController();
   private threeController = new CalendarController();
+
   // 自定义日历样式
   calendarStyle: CalendarStyle = {};
+
   // 年、月、周视图切换场景的相关设置
   calendarSwitch: CalendarSwitch = { isYearMonthHidden: false };
+
   // 日期点击回调
   onDateClick: (year: number, month: number, date: number) => void = () => {
   };
+
   // 年、月、周视图左右滑动切换回调
   onChangeYearMonth: (year: number, month: number) => void = () => {
   };
+
   /**
    * 用于年、月、周视图间切换场景下刷新日期数据
    */
@@ -109,6 +140,9 @@ export struct WeekView {
     this.threeController.schedulePointRefresh();
   }
 
+  /**
+   * aboutToAppear：组件即将挂载时回调，用于初始化数据与订阅。
+   */
   aboutToAppear() {
     if (this.calendarSwitch.controller) {
       // 给controller对应的方法赋值
@@ -120,29 +154,44 @@ export struct WeekView {
   /**
    * 星期
    */
+  /**
+   * weeks：执行 weeks 相关逻辑。
+   */
   @Builder
   weeks() {
+    // Row：水平布局容器
+    // 关键属性：宽度、主轴对齐、外边距
     Row() {
       ForEach(Constants.WEEKS, (text: string, index: number) => {
-        Text(text)
+        // Text：文本
+        // 关键属性：字号
+        Text(text).id('week_view_text_2')
           .fontSize(Constants.WEEK_FONT_SIZE *
             (this.calendarStyle.textScaling ? this.calendarStyle.textScaling : Constants.FONT_MULTIPLIER))
           .fontColor((index === 0 || index === 6) ? Color.Grey : Color.Black)
           .width($r('app.integer.calendar_switch_size_forty'))
           .textAlign(TextAlign.Center)
       }, (text: string) => text)
-    }
+    }.id('week_view_row_1')
     .width(Constants.WEEK_VIEW_WIDTH)
     .justifyContent(FlexAlign.SpaceBetween)
     .margin({ bottom: $r('app.integer.calendar_switch_size_ten') })
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
     // 月视图
+    // Column：垂直布局容器
+    // 关键属性：宽度、高度
     Column() {
       if (!this.calendarSwitch.isYearMonthHidden) {
         // 年月信息标题
-        Text(`${this.currentShowYear}年${this.currentShowMonth}月`)
+        // Text：文本
+        // 关键属性：字号
+        Text($r('app.string.calendar_switch_year_month', this.currentShowYear, this.currentShowMonth))
+          .id('week_view_text_4')
           .fontSize(Constants.YEAR_MONTH_FONT_SIZE *
             (this.calendarStyle.textScaling ? this.calendarStyle.textScaling : Constants.FONT_MULTIPLIER))
           .fontWeight(Constants.FONT_WEIGHT_FIVE_HUNDRED)
@@ -153,8 +202,11 @@ export struct WeekView {
       // 星期
       this.weeks()
 
+      // Swiper：轮播容器
+      // 关键属性：onAnimationStart
       Swiper() {
         // 周视图子组件
+        // WeekViewItem：WeekViewItem 自定义组件
         WeekViewItem({
           weekNum: this.weekNumOne,
           currentSelectDate: this.currentSelectDate,
@@ -173,7 +225,8 @@ export struct WeekView {
             lunarColor: this.calendarStyle.lunarColor
           },
           controller: this.oneController
-        })
+        }).id('week_view_week_view_item_6')
+        // WeekViewItem：WeekViewItem 自定义组件
         WeekViewItem({
           weekNum: this.weekNumTwo,
           currentSelectDate: this.currentSelectDate,
@@ -192,7 +245,8 @@ export struct WeekView {
             lunarColor: this.calendarStyle.lunarColor
           },
           controller: this.twoController
-        })
+        }).id('week_view_week_view_item_7')
+        // WeekViewItem：WeekViewItem 自定义组件
         WeekViewItem({
           weekNum: this.weekNumThree,
           currentSelectDate: this.currentSelectDate,
@@ -211,8 +265,8 @@ export struct WeekView {
             lunarColor: this.calendarStyle.lunarColor
           },
           controller: this.threeController
-        })
-      }
+        }).id('week_view_week_view_item_8')
+      }.id('week_view_swiper_5')
       .onAnimationStart((index: number, targetIndex: number, extraInfo: SwiperAnimationEvent) => {
         // 判断是否右滑切换周
         const IS_RIGHT_SLIDE: boolean = (index === 1 && targetIndex === 0) || (index === 0 && targetIndex === 2) ||
@@ -256,7 +310,7 @@ export struct WeekView {
       .indicator(false)
       .loop(true)
       .index($$this.swiperWeekIndex)
-    }
+    }.id('week_view_column_3')
     .width(Constants.WEEK_VIEW_WIDTH)
     .height(Constants.WEEK_VIEW_HEIGHT)
   }

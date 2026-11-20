@@ -13,15 +13,26 @@
  * limitations under the License.
  */
 
+/**
+ * @file customanimationtab/src/main/ets/model/IndicatorAniamtionInfo.ets
+ * 文件职责：IndicatorAniamtionInfo 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：IndicatorAnimationInfo。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 export interface IndicatorAnimationInfo {
   // 背景条左边距
   left: number;
+
   // 页签条便宜
   offset: number;
+
   // 背景条高度
   height: number;
+
   // 背景条宽度
   width: number;
+
   // 是否初始化(true: 已初始化, false: 未初始化)
   flag: boolean;
 }

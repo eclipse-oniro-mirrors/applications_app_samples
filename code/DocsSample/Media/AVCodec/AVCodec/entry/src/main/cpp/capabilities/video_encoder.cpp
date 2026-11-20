@@ -391,9 +391,7 @@ int32_t VideoEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
     info.buffer = nullptr;
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
-    // [StartExclude encoder_sync_get_outputbuffer]
     // 格式变化后只重试一次；持续变化由下次轮询继续处理。
-    // [EndExclude encoder_sync_get_outputbuffer]
     for (uint32_t retry = 0; retry < OUTPUT_BUFFER_QUERY_RETRY_COUNT; ++retry) {
         const int32_t ret = OH_VideoEncoder_QueryOutputBuffer(encoder_, &info.bufferIndex, timeoutUs);
         switch (ret) {
@@ -405,6 +403,16 @@ int32_t VideoEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
                     "Get buffer attr error, ret: %{public}d", getBufferRet);
                 info.buffer = buffer;
                 // 开发者可根据业务需要，对输出数据进行保存/释放处理。
+                /**
+                 * 示例：将编码完成帧数据buffer写入到对应输出文件中。
+                 * uint8_t *addr = OH_AVBuffer_GetAddr(buffer);
+                 * if (addr == nullptr) {
+                 *    // 异常处理 。
+                 * }
+                 * if (outputFile != nullptr && outputFile->is_open()) {
+                 *     outputFile->write(reinterpret_cast<char *>(addr), attr.size);
+                 * }
+                 */
                 return AVCODEC_SAMPLE_ERR_OK;
             }
             case AV_ERR_TRY_AGAIN_LATER: {
@@ -429,9 +437,7 @@ int32_t VideoEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
             }
         }
     }
-    // [StartExclude encoder_sync_get_outputbuffer]
     AVCODEC_SAMPLE_LOGD("Output stream changed repeatedly, defer buffer acquisition to next poll");
-    // [EndExclude encoder_sync_get_outputbuffer]
     return AVCODEC_SAMPLE_ERR_AGAIN;
 }
 // [End encoder_sync_get_outputbuffer]
@@ -480,7 +486,7 @@ int32_t VideoEncoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
      *     // 处理文件流得到帧的长度，再将需要编码的数据写入到对应index的buffer中。
      *     memcpy(addr, frameData, frameSize);
      * } else {
-     *     // 如果跨距不等于宽，需要开发者按照跨距进行偏移。
+     *     // 如果跨距不等于宽，需要开发者按照跨距进行对齐处理。
      * }
      *
      * OH_AVCodecBufferAttr attr;
@@ -494,7 +500,6 @@ int32_t VideoEncoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
      * OH_AVErrCode setBufferRet = OH_AVBuffer_SetBufferAttr(buffer, &attr);
      * if (setBufferRet != AV_ERR_OK) {
      *     // 异常处理。
-     *     return false;
      * }
      */
     return AVCODEC_SAMPLE_ERR_OK;
@@ -646,8 +651,7 @@ int32_t VideoEncoder::Release()
         // Destroy是编码器句柄的最终释放点。销毁后立即置空，避免后续调用继续使用失效句柄。
         const int32_t ret = OH_VideoEncoder_Destroy(encoder_);
         encoder_ = nullptr;
-        CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
-            "Destroy failed, ret: %{public}d", ret);
+        CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Destroy failed, ret: %{public}d", ret);
     }
     return AVCODEC_SAMPLE_ERR_OK;
 }

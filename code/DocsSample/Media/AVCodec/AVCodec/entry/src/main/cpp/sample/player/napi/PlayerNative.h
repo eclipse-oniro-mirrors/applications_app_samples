@@ -23,6 +23,7 @@ class PlayerNative {
 public:
     static napi_value Play(napi_env env, napi_callback_info info);
     static napi_value PlayWithOptions(napi_env env, napi_callback_info info);
+    static napi_value PlayAsync(napi_env env, napi_callback_info info);
     static napi_value Stop(napi_env env, napi_callback_info info);
     static napi_value Pause(napi_env env, napi_callback_info info);
     static napi_value Resume(napi_env env, napi_callback_info info);

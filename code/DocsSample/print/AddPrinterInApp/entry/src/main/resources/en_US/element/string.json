@@ -1,0 +1,132 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "AddPrinterInApp module"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "AddPrinterInApp entry ability"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "AddPrinterInApp"
+    },
+    {
+      "name": "page_title",
+      "value": "Add Printer"
+    },
+    {
+      "name": "printer_name_label",
+      "value": "Printer name (required)"
+    },
+    {
+      "name": "printer_uri_label",
+      "value": "Printer URI (required)"
+    },
+    {
+      "name": "ppd_name_label",
+      "value": "PPD name (optional)"
+    },
+    {
+      "name": "printer_uri_placeholder",
+      "value": "e.g. ipp://192.168.1.100/ipp/print"
+    },
+    {
+      "name": "ppd_placeholder",
+      "value": "Leave blank for auto matching"
+    },
+    {
+      "name": "printer_uri_hint",
+      "value": "Use a URI actually supported by the target printer. The example is for format reference only."
+    },
+    {
+      "name": "ppd_hint",
+      "value": "Enter the actual PPD name registered by the installed driver (package_module_file). Do not enter a sandbox path or NickName."
+    },
+    {
+      "name": "button_add",
+      "value": "Add Printer"
+    },
+    {
+      "name": "adding",
+      "value": "Adding..."
+    },
+    {
+      "name": "result_wait_title",
+      "value": "Waiting to add"
+    },
+    {
+      "name": "result_wait_detail",
+      "value": "Fill in a real printer URI, then tap \"Add Printer\"."
+    },
+    {
+      "name": "result_incomplete_title",
+      "value": "Complete required fields"
+    },
+    {
+      "name": "result_name_empty_detail",
+      "value": "Printer name cannot be empty."
+    },
+    {
+      "name": "result_uri_empty_detail",
+      "value": "Printer URI cannot be empty."
+    },
+    {
+      "name": "result_adding_detail",
+      "value": "Waiting for the system to add the printer."
+    },
+    {
+      "name": "result_success_title",
+      "value": "API returned success"
+    },
+    {
+      "name": "result_fail_title",
+      "value": "Failed to add"
+    },
+    {
+      "name": "result_success_detail",
+      "value": "Returned: true\nPrinter: %s\nVerify the printer in the system printer list."
+    },
+    {
+      "name": "result_fail_detail",
+      "value": "Returned: false\nThe system did not report success. Check the printer URI and PPD configuration."
+    },
+    {
+      "name": "error_detail_code_only",
+      "value": "code: %s\nmessage: The system did not provide an error message."
+    },
+    {
+      "name": "error_detail_201",
+      "value": "code: 201\nmessage: %s\nCheck the PRINTER_DRIVER permission declaration and the permission status on the device."
+    },
+    {
+      "name": "error_detail_13100003",
+      "value": "code: 13100003\nmessage: %s\nCheck the real printer URI and the actual PPD name of the installed driver."
+    },
+    {
+      "name": "error_detail_unknown_code",
+      "value": "code: unknown\nmessage: %s"
+    },
+    {
+      "name": "error_detail",
+      "value": "code: %1$s\nmessage: %2$s"
+    },
+    {
+      "name": "printer_name_a11y",
+      "value": "Printer name, required"
+    },
+    {
+      "name": "printer_uri_a11y",
+      "value": "Printer URI, required"
+    },
+    {
+      "name": "ppd_name_a11y",
+      "value": "PPD name, optional"
+    },
+    {
+      "name": "footer_note",
+      "value": "This sample only adds a printer and does not print."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/A2dpPage",
+    "pages/HfpPage",
+    "pages/HidPage",
+    "pages/PanPage",
+    "pages/PbapPage",
+    "pages/MapPage",
+    "pages/AvrcpPage",
+    "pages/HdpPage",
+    "pages/ScanPage",
+    "pages/BondedDevicesPage",
+    "pages/ConnectionLogPage",
+    "pages/ProfileStatisticsPage",
+    "pages/CombinedScenarioPage",
+    "pages/SettingsPage"
+  ]
+}

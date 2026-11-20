@@ -11,3 +11,4 @@
 **/.test
 /.appanalyzer
 /.signing
+/oh-package-lock.json5

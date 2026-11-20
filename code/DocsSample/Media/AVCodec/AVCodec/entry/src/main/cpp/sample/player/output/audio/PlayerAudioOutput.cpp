@@ -125,15 +125,11 @@ bool Player::ProcessAudioOutput(CodecBufferInfo &bufferInfo)
         return false;
     }
     playbackClock_.AddWrittenSamples(bufferInfo.attr.size / sampleInfo_.audio.audioChannelCount / BYTES_PER_SAMPLE_2);
-    AVCODEC_SAMPLE_LOGI("writtenSampleCnt_: %{public}" PRId64 ", bufferInfo.attr.size: %{public}d, "
-        "sampleInfo_.audioChannelCount: %{public}d", playbackClock_.GetWrittenSamples(), bufferInfo.attr.size,
-        sampleInfo_.audio.audioChannelCount);
     playbackClock_.SetAudioBufferPts(bufferInfo.attr.pts);
-    audioDecContext_->endPosAudioBufferPts = playbackClock_.GetAudioBufferPts();
     hasDecodedOutput_ = true;
     std::unique_lock<std::mutex> lockRender(audioDecContext_->outputMutex);
     audioDecContext_->renderCond.wait_for(lockRender, 20ms, [this, bufferInfo]() {
-        return audioDecContext_->renderQueue.size() < BALANCE_VALUE * bufferInfo.attr.size;
+        return audioDecContext_->renderQueue.Size() < BALANCE_VALUE * bufferInfo.attr.size;
     });
     return true;
 }
@@ -179,7 +175,7 @@ void Player::FinishAudioOutput(bool stopRenderer)
     }
     std::unique_lock<std::mutex> lockRender(audioDecContext_->outputMutex);
     audioDecContext_->renderCond.wait_for(lockRender, 500ms,
-        [this]() { return audioDecContext_->renderQueue.empty(); });
+        [this]() { return audioDecContext_->renderQueue.Empty(); });
     if (seekInProgress_.load()) {
         AVCODEC_SAMPLE_LOGI("Audio output paused for seek after draining wait");
         return;
@@ -196,6 +192,9 @@ void Player::FinishAudioOutput(bool stopRenderer)
         return;
     }
     isAudioDone = true;
+    // 唤醒正在等待音频时钟的视频帧，尾部改按自身PTS连续送显。
+    NotifyPlaybackTimingChanged();
+    AVCODEC_SAMPLE_LOGI("Audio output drained, switch remaining video to monotonic clock");
     doneCond_.notify_all();
 }
 

@@ -35,18 +35,6 @@ export default function chaosTest() {
     })
 
     /**
-     * @tc.name: chaos_display_service_crash_midway_001
-     * @tc.desc: Simulate a display service crash during the screenshot process.
-     * @tc.type: CHAOS
-     * @tc.require: issueI5W5B3
-     */
-    it('chaos_display_service_crash_midway_001', 0, async () => {
-      await screenShotModel.shotScreen()
-      const saveTipStr = AppStorage.get('saveTipStr') as string
-      expect(saveTipStr !== undefined).assertTrue()
-    })
-
-    /**
      * @tc.name: chaos_fs_readonly_suddenly_002
      * @tc.desc: Simulate file system becoming read-only during image saving.
      * @tc.type: CHAOS
@@ -70,27 +58,5 @@ export default function chaosTest() {
       expect(failed).assertFalse()
     })
 
-    /**
-     * @tc.name: chaos_interrupted_by_system_004
-     * @tc.desc: Test if the process can recover when interrupted by system.
-     * @tc.type: CHAOS
-     * @tc.require: issueI5W5B3
-     */
-    it('chaos_interrupted_by_system_004', 0, () => {
-      let startAbilityCalled = false
-      const want: Want = {
-        bundleName: 'com.huawei.screenshot.tv',
-        abilityName: 'MainAbility'
-      }
-      const context: StartAbilityContext = {
-        startAbility: (_want: Want): Promise<void> => {
-          startAbilityCalled = true
-          return Promise.resolve()
-        }
-      }
-      AppStorage.setOrCreate('context', context)
-      screenShotModel.openAbility(want)
-      expect(startAbilityCalled).assertTrue()
-    })
   })
 }

@@ -26,9 +26,12 @@ export interface RecorderVideoOptions {
   hdrVivid: boolean;
   synchronous: boolean;
   bufferInput: boolean;
+  grayscale?: boolean;
+  watermark?: boolean;
 }
 
 export interface RecorderAudioOptions {
+  enabled?: boolean;
   sampleRate: number;
   channelCount: number;
   bitrate: number;
@@ -153,6 +156,10 @@ export interface RecorderDiagnostics {
 export interface RecorderAudioStats {
   capturedFrames: number;
   pendingPcmMs: number;
+  peakPendingPcmBytes: number;
+  captureCapacityBytes: number;
+  captureOverflows: number;
+  captureCallback: RecorderStageTiming;
   outputFrames: number;
   outputBytes: number;
   recentBitrate: number;

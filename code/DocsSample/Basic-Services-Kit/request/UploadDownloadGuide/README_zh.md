@@ -39,7 +39,7 @@
 
 点击选择文件列表中的**test.txt**，点击**下载**，选择保存目录后，下载文档类型文件到用户目录。
 
-点击选择文件列表中的**edge_picture.jpg**，点击**下载**，下载图片类型文件到用户目录。
+点击选择文件列表中的**edge_picture.jpg**，点击**下载**，使用时弹出媒体库写入权限授权弹窗，点击**允许**后下载图片类型文件到用户目录。
 
 点击选择文件列表中的**audio_test.mp3**，点击**下载**，选择保存目录后，下载音频类型文件到用户目录。
 
@@ -97,6 +97,8 @@ UploadDownloadGuide
 ### 相关权限
 
 [ohos.permission.INTERNET](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissioninternet)
+
+[ohos.permission.WRITE_IMAGEVIDEO](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionwrite_imagevideo)（受限开放权限，授予方式为user_grant。下载图片或视频类用户文件时，用于通过PhotoAccessHelper创建媒体资源）
 
 
 ### 依赖

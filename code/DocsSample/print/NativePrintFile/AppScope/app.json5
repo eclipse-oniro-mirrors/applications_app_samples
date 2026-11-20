@@ -15,8 +15,8 @@
 
 {
   "app": {
-    "bundleName": "com.example.NativePrintFile",
-    "vendor": "example",
+    "bundleName": "com.samples.nativeprintfile",
+    "vendor": "samples",
     "versionCode": 1000000,
     "versionName": "1.0.0",
     "icon": "$media:layered_image",

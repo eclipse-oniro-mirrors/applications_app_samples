@@ -32,6 +32,10 @@ struct RecordingResult {
     const params = this.getUIContext().getRouter().getParams() as RecordingResultInfo;
     const context = this.getUIContext().getHostContext();
     this.result = params;
+    if (params.validation !== undefined) {
+      this.fileMetadata = RecordingMetadataReader.describe(params.validation);
+      return;
+    }
     if (context === undefined) { return; }
     const metadata: string[] = await Promise.all([
       RecordingMetadataReader.read(params.primaryUri, LocalizedText.get($r('app.string.recorder_primary'))),
@@ -59,6 +63,12 @@ struct RecordingResult {
               .fontSize(12).width('100%')
             Text(this.result.complete === false ? $r('app.string.rec_result_partial') :
               $r('app.string.rec_result_complete')).width('100%')
+            if (this.result.historySaved === false) {
+              Text($r('app.string.recorder_history_unsaved')).fontSize(13).fontColor('#B54708').width('100%')
+            }
+            if (this.result.cleanupPending === true) {
+              Text($r('app.string.recorder_close_unconfirmed')).fontSize(13).fontColor('#B42318').width('100%')
+            }
             Text(this.fileMetadata || LocalizedText.get($r('app.string.rec_result_metadata_unavailable')))
               .fontSize(13).width('100%')
             Text($r('app.string.rec_result_metadata_note')).fontSize(12).fontColor('#667085').width('100%')
@@ -71,6 +81,9 @@ struct RecordingResult {
                   Text(segment.title).fontSize(12).width('100%')
                   Text(segment.complete ? $r('app.string.rec_result_complete') :
                     $r('app.string.rec_result_partial')).fontSize(12)
+                  if (segment.validation !== undefined) {
+                    Text(RecordingMetadataReader.describe(segment.validation)).fontSize(12).width('100%')
+                  }
                   Row({ space: 8 }) {
                     Button($r('app.string.rec_result_primary')).fontSize(12).enabled(segment.uri.length > 0)
                       .onClick((): void => this.play(segment.uri))

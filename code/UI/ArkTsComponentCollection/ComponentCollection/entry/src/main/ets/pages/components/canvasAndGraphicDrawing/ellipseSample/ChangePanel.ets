@@ -13,47 +13,81 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/components/canvasAndGraphicDrawing/ellipseSample/ChangePanel.ets
+ * 文件职责：ChangePanel 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：EllipseControlPanel。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { CommonItemSlider, CommonItemColorSelect, CommonItemTwoRowSlider } from '../../../../common/AttributeModificationTool';
 
+/**
+ * EllipseControlPanel：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct EllipseControlPanel {
+  // @Link ellipseWidth：与父组件双向绑定的状态
   @Link ellipseWidth: number;
+
+  // @Link ellipseHeight：与父组件双向绑定的状态
   @Link ellipseHeight: number;
+
+  // @Link fillOpacity：与父组件双向绑定的状态
   @Link fillOpacity: number;
+
+  // @Link strokeWidth：与父组件双向绑定的状态
   @Link strokeWidth: number;
+
+  // @Link stroke：与父组件双向绑定的状态
   @Link stroke: Color;
+
+  // @Link strokeDashArray：与父组件双向绑定的状态
   @Link strokeDashArray: number;
+
+  // @Link fill：与父组件双向绑定的状态
   @Link fill: Color;
+
+  // @Link strokeOpacity：与父组件双向绑定的状态
   @Link strokeOpacity: number;
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
     Column() {
+      // CommonItemColorSelect：CommonItemColorSelect 自定义组件
       CommonItemColorSelect({
         name: $r('app.string.ellipse_fill'),
         isItemStyle: true,
         selectColor: $fill,
         testId: 'ellipse_color_001'
-      })
+      }).id('change_panel_common_item_color_select_2')
+      // CommonItemColorSelect：CommonItemColorSelect 自定义组件
       CommonItemColorSelect({
         name: $r('app.string.ellipse_stroke_color'),
         isItemStyle: true,
         selectColor: $stroke,
         testId: 'ellipse_color_002'
-      })
+      }).id('change_panel_common_item_color_select_3')
+      // CommonItemTwoRowSlider：CommonItemTwoRowSlider 自定义组件
       CommonItemTwoRowSlider({
         changeValue: $ellipseWidth,
         max: 200,
         min: 50,
         name: $r('app.string.ellipse_width'),
         testId: 'ellipse_slider_001'
-      })
+      }).id('change_panel_common_item_two_row_slider_4')
+      // CommonItemTwoRowSlider：CommonItemTwoRowSlider 自定义组件
       CommonItemTwoRowSlider({
         changeValue: $ellipseHeight,
         max: 200,
         min: 50,
         name: $r('app.string.ellipse_height'),
         testId: 'ellipse_slider_002'
-      })
+      }).id('change_panel_common_item_two_row_slider_5')
+      // CommonItemTwoRowSlider：CommonItemTwoRowSlider 自定义组件
       CommonItemTwoRowSlider({
         changeValue: $strokeOpacity,
         max: 100,
@@ -62,7 +96,8 @@ export struct EllipseControlPanel {
         step: 0.1,
         vpTest: '%',
         testId: 'ellipse_slider_003'
-      })
+      }).id('change_panel_common_item_two_row_slider_6')
+      // CommonItemTwoRowSlider：CommonItemTwoRowSlider 自定义组件
       CommonItemTwoRowSlider({
         changeValue: $fillOpacity,
         max: 100,
@@ -71,21 +106,23 @@ export struct EllipseControlPanel {
         step: 0.1,
         vpTest: '%',
         testId: 'ellipse_slider_004'
-      })
+      }).id('change_panel_common_item_two_row_slider_7')
+      // CommonItemTwoRowSlider：CommonItemTwoRowSlider 自定义组件
       CommonItemTwoRowSlider({
         changeValue: $strokeWidth,
         max: 10,
         min: 3,
         name: $r('app.string.ellipse_stroke_width'),
         testId: 'ellipse_slider_005'
-      })
+      }).id('change_panel_common_item_two_row_slider_8')
+      // CommonItemTwoRowSlider：CommonItemTwoRowSlider 自定义组件
       CommonItemTwoRowSlider({
         changeValue: $strokeDashArray,
         max: 40,
         min: 1,
         name: $r('app.string.ellipse_stroke_dash'),
         testId: 'ellipse_slider_006'
-      })
-    }
+      }).id('change_panel_common_item_two_row_slider_9')
+    }.id('change_panel_column_1')
   }
 }

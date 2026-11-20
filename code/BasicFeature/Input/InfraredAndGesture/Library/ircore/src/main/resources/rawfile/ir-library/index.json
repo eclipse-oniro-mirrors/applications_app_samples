@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0",
+  "brands": [
+    {
+      "brandId": "demo",
+      "brandName": "Demo Brand",
+      "deviceTypes": ["PROJECTOR", "SCREEN", "LIGHT", "AC"],
+      "models": ["DEMO-P1", "DEMO-S1", "DEMO-L1", "DEMO-A1"],
+      "source": "self-authored-demo",
+      "license": "Apache-2.0",
+      "file": "brands/demo.json"
+    }
+  ]
+}

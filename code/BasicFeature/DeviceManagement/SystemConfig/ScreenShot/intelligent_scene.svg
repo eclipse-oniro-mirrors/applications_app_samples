@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 780" width="100%" height="100%">
+    <defs>
+        <style>
+            .bg { fill: #f5f6f8; }
+            .card { fill: #ffffff; rx: 12; }
+            .text-main { font-family: -apple-system, sans-serif; fill: #1a1a1a; }
+            .text-sub { font-family: -apple-system, sans-serif; fill: #666666; }
+            .text-gray { font-family: -apple-system, sans-serif; fill: #999999; }
+            .text-green { font-family: -apple-system, sans-serif; fill: #2e7d32; font-weight: 500; }
+            .btn-blue { fill: #0a59f7; rx: 20; }
+            .btn-outline { fill: none; stroke: #0a59f7; stroke-width: 1.5; rx: 20; }
+            .btn-red { fill: #f54a45; rx: 20; }
+            .btn-text-white { font-family: -apple-system, sans-serif; fill: #ffffff; font-size: 15px; font-weight: 500; text-anchor: middle; dominant-baseline: middle; }
+            .btn-text-blue { font-family: -apple-system, sans-serif; fill: #0a59f7; font-size: 15px; font-weight: 500; text-anchor: middle; dominant-baseline: middle; }
+            .tag-gray { fill: #f0f0f0; rx: 4; }
+            .json-text { font-family: monospace; fill: #333333; font-size: 13px; }
+        </style>
+    </defs>
+
+    <!-- 状态栏与背景 -->
+    <rect width="360" height="780" class="bg"/>
+    <text x="20" y="30" class="text-main" font-size="14">没有 SIM 卡 <tspan font-size="10">📶</tspan></text>
+    <text x="340" y="30" class="text-main" font-size="14" text-anchor="end">11% 🔋 19:32</text>
+
+    <!-- 标题 -->
+    <text x="180" y="85" class="text-main" font-size="20" font-weight="bold" text-anchor="middle">情景模式</text>
+
+    <!-- 免打扰状态信息卡片 -->
+    <rect x="15" y="110" width="330" height="210" class="card"/>
+    <text x="30" y="140" class="text-main" font-size="16" font-weight="bold">免打扰状态信息</text>
+    <text x="30" y="165" class="text-gray" font-size="13">intelligentScene 模块查询结果</text>
+    <line x1="30" y1="180" x2="330" y2="180" stroke="#eeeeee" stroke-width="1"/>
+
+    <text x="30" y="205" class="text-sub" font-size="14">免打扰模式:</text>
+    <text x="110" y="205" class="text-green" font-size="14">未启用</text>
+
+    <text x="30" y="235" class="text-sub" font-size="14">通知允许:</text>
+    <text x="110" y="235" class="text-green" font-size="14">允许</text>
+
+    <text x="30" y="265" class="text-sub" font-size="14">查询状态:</text>
+    <rect x="110" y="250" width="40" height="20" class="tag-gray"/>
+    <text x="130" y="264" class="text-gray" font-size="12" text-anchor="middle" dominant-baseline="middle">空闲</text>
+
+    <text x="30" y="295" class="text-gray" font-size="13">所需权限: </text>
+    <text x="90" y="295" class="text-gray" font-size="13" font-family="monospace">ohos.permission.GET_DONOTDISTURB_STATE</text>
+
+    <!-- 按钮区域 -->
+    <rect x="15" y="335" width="330" height="40" class="btn-blue"/>
+    <text x="180" y="355" class="btn-text-white">查询免打扰状态</text>
+
+    <rect x="15" y="390" width="330" height="40" class="btn-blue"/>
+    <text x="180" y="410" class="btn-text-white">查询通知允许状态</text>
+
+    <rect x="15" y="445" width="330" height="40" class="btn-outline"/>
+    <text x="180" y="465" class="btn-text-blue">查询全部状态</text>
+
+    <rect x="15" y="500" width="330" height="40" class="btn-red"/>
+    <text x="180" y="520" class="btn-text-white">重置</text>
+
+    <!-- 详细数据卡片 -->
+    <rect x="15" y="560" width="330" height="220" class="card"/>
+    <text x="30" y="590" class="text-main" font-size="16" font-weight="bold">详细数据</text>
+    <text x="30" y="615" class="text-gray" font-size="13">DoNotDisturbModel JSON 表示</text>
+    <line x1="30" y1="630" x2="330" y2="630" stroke="#eeeeee" stroke-width="1"/>
+
+    <text x="30" y="655" class="json-text">{</text>
+    <text x="40" y="675" class="json-text">"isDoNotDisturbEnabled": false,</text>
+    <text x="40" y="695" class="json-text">"isNotifyAllowed": true,</text>
+    <text x="40" y="715" class="json-text">"status": "idle",</text>
+    <text x="40" y="735" class="json-text">"lastQueryTime": 0,</text>
+    <text x="40" y="755" class="json-text">"errorMessage": "",</text>
+    <text x="40" y="775" class="json-text">"errorCode": 0,</text>
+    <text x="40" y="795" class="json-text">"queryCount": 0</text>
+    <text x="30" y="815" class="json-text">}</text>
+
+    <!-- 底部导航栏 -->
+    <polygon points="110,750 120,760 100,760" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="180" cy="755" r="8" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="245" y="747" width="14" height="14" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+</svg>

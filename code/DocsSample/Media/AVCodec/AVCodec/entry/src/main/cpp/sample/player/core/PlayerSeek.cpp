@@ -66,9 +66,9 @@ void Player::WaitIfPaused(bool audioWorker)
             return true;
         }
         if (audioWorker) {
-            return !audioWorkerRunning_.load() || (!paused_.load() && !audioInterrupted_.load());
+            return !audioWorkerRunning_.load() || (!paused_.load() && !audioCallbackContext_.interrupted.load());
         }
-        return (!paused_.load() && !audioInterrupted_.load()) || renderSingleFrameAfterSeek_.load();
+        return (!paused_.load() && !audioCallbackContext_.interrupted.load()) || renderSingleFrameAfterSeek_.load();
     });
 }
 
@@ -108,7 +108,7 @@ void Player::StartAudioAfterVideoSeek()
 void Player::StopWorkersForSeek()
 {
     isStarted_ = false;
-    pauseCond_.notify_all();
+    NotifyPlaybackTimingChanged();
     // 唤醒可能正在等待首个视频帧的音频输出线程。
     audioStartPendingAfterVideoSeek_ = false;
     audioWorkerRunning_ = false;
@@ -178,8 +178,7 @@ void Player::ResetPlaybackClockForSeek(int64_t positionUs)
         return;
     }
     std::lock_guard<std::mutex> lock(audioDecContext_->outputMutex);
-    std::queue<unsigned char> emptyQueue;
-    audioDecContext_->renderQueue.swap(emptyQueue);
+    audioDecContext_->renderQueue.Clear();
     audioDecContext_->audioFramesWritten = 0;
     audioDecContext_->currentPosAudioBufferPts = positionUs;
     audioDecContext_->endPosAudioBufferPts = positionUs;
@@ -375,7 +374,7 @@ int32_t Player::HandleSeekFailure()
     isStarted_ = false;
     paused_ = false;
     renderSingleFrameAfterSeek_ = false;
-    pauseCond_.notify_all();
+    NotifyPlaybackTimingChanged();
     audioStartPendingAfterVideoSeek_ = false;
     audioStartCond_.notify_all();
     stateMachine_.BeginStop();

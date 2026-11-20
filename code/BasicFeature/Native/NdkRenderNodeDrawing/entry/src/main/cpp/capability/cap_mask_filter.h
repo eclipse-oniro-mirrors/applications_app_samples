@@ -1,0 +1,30 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+#ifndef NDR_CAP_MASK_FILTER_H
+#define NDR_CAP_MASK_FILTER_H
+
+#include <cstdint>
+
+#include <native_drawing/drawing_canvas.h>
+
+#include "capability/param_bag.h"
+
+namespace ndr {
+// 蒙版滤波器能力域：scene 取 MaskFilterScene，参数顺序与 ets/schema/CapabilityMaskFilter.ets 一致。
+void DrawMaskFilterScene(OH_Drawing_Canvas *canvas, int32_t width, int32_t height, int32_t scene,
+    const ParamBag &params);
+} // namespace ndr
+
+#endif // NDR_CAP_MASK_FILTER_H

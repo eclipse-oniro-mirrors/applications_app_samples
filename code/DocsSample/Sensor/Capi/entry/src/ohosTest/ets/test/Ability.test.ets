@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,72 +13,116 @@
  * limitations under the License.
  */
 
+import { describe, it, expect, beforeAll, beforeEach, afterEach, afterAll } from '@ohos/hypium';
+import { DisplayRotation } from '@ohos.UiTest';
 import hilog from '@ohos.hilog';
-import { describe, it, expect } from '@ohos/hypium';
-import AbilityDelegatorRegistry from '@ohos.application.abilityDelegatorRegistry';
-import { Driver, ON, Component, MatchPattern } from '@ohos.UiTest';
-import Want from '@ohos.app.ability.Want';
+import { relaunchAndWait, compassComponentCount, isCompassVisible, readDirection, requireById,
+  runSerializedUiOperation, readTextById, isHeadingText, readHeading, backgroundAndRestore,
+  readDisplayRotation, rotateDisplay, waitForCompassStable, resetDriver } from './Shared/SharedDriver';
 
-const TAG = '[Sample_Sensor]';
-const DOMAIN = 0xF811;
-const BUNDLE = 'Sensor_';
-
-export default function abilityTest() {
-  describe('AppTest', () => {
-    /**
-     * 启动应用
-     */
-    it(BUNDLE + 'VerifyOrientationFunction_001', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'VerifyVibrationFunction_001 begin');
-      let want: Want = {
-        bundleName : "com.example.sensor",
-        abilityName: "EntryAbility"
-      };
-      let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-      abilityDelegator.startAbility(want, (err) => {
-        hilog.info(DOMAIN, TAG, BUNDLE + 'VerifyOrientationFunction_001,err.code:' + err.code);
-        expect(0).assertEqual(err.code);
-      });
-      let driver = Driver.create();
-      await driver.delayMs(1000);
-      hilog.info(DOMAIN, TAG, BUNDLE + 'VerifyOrientationFunction_001 end');
-      done();
+export default function abilityTest(): void {
+  describe('SensorAbility', () => {
+    beforeAll(() => {
+      hilog.info(0xF811, 'SensorTest', '%{public}s', 'SensorAbility begin');
+    });
+    beforeEach(async () => {
+      await relaunchAndWait();
+    });
+    afterEach(() => {
+      hilog.debug(0xF811, 'SensorTest', '%{public}s', 'SensorAbility case completed');
+    });
+    afterAll(async () => {
+      await resetDriver();
     });
 
     /**
-     * 获取"方向"组件
+     * @tc.number SUB_COMMONLIBRARY_UTIL_SENSOR_CAPI_UI_0100
+     * @tc.name testSensorAbilityLaunchTest0001
+     * @tc.desc Verify EntryAbility renders all three compass components
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL2
      */
-    it(BUNDLE + 'VerifyOrientationFunction_002', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'VerifyOrientationFunction_002 begin');
-      let driver = Driver.create();
-      await driver.assertComponentExist(ON.id('directionMy'));
-      await driver.delayMs(1000);
-      hilog.info(DOMAIN, TAG, BUNDLE + 'VerifyOrientationFunction_002 end');
-      done();
+    it('testSensorAbilityLaunchTest0001', 0, async (): Promise<void> => {
+      expect(await compassComponentCount()).assertEqual(3);
+      expect(await isCompassVisible()).assertTrue();
     });
 
     /**
-     * 获取"指南针指向"组件
+     * @tc.number SUB_COMMONLIBRARY_UTIL_SENSOR_CAPI_UI_0200
+     * @tc.name testSensorAbilityDirectionTest0002
+     * @tc.desc Verify directionMy displays the north resource used by this project
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL2
      */
-    it(BUNDLE + 'VerifyOrientationFunction_003', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'VerifyOrientationFunction_003 begin');
-      let driver = Driver.create();
-      await driver.assertComponentExist(ON.id('compassPointing'));
-      await driver.delayMs(1000);
-      hilog.info(DOMAIN, TAG, BUNDLE + 'VerifyOrientationFunction_003 end');
-      done();
+    it('testSensorAbilityDirectionTest0002', 0, async (): Promise<void> => {
+      expect(await readDirection()).assertEqual('北');
     });
 
     /**
-     * 获取"倾斜角度"组件
+     * @tc.number SUB_COMMONLIBRARY_UTIL_SENSOR_CAPI_UI_0300
+     * @tc.name testSensorAbilityCompassImageTest0003
+     * @tc.desc Verify compassPointing is an Image component
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL2
      */
-    it(BUNDLE + 'VerifyOrientationFunction_004', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'VerifyOrientationFunction_004 begin');
-      let driver = Driver.create();
-      await driver.assertComponentExist(ON.id('tiltAngle'));
-      await driver.delayMs(1000);
-      hilog.info(DOMAIN, TAG, BUNDLE + 'VerifyOrientationFunction_004 end');
-      done();
+    it('testSensorAbilityCompassImageTest0003', 0, async (): Promise<void> => {
+      const component = await requireById('compassPointing');
+      const type = await runSerializedUiOperation(async (): Promise<string> => component.getType());
+      expect(type).assertEqual('Image');
     });
-  })
+
+    /**
+     * @tc.number SUB_COMMONLIBRARY_UTIL_SENSOR_CAPI_UI_0400
+     * @tc.name testSensorAbilityAngleLabelTest0004
+     * @tc.desc Verify tiltAngle contains a normalized integer degree label
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL2
+     */
+    it('testSensorAbilityAngleLabelTest0004', 0, async (): Promise<void> => {
+      const text = await readTextById('tiltAngle');
+      expect(isHeadingText(text)).assertTrue();
+      const heading = await readHeading();
+      expect(heading >= 0 && heading < 360).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_COMMONLIBRARY_UTIL_SENSOR_CAPI_UI_0500
+     * @tc.name testSensorAbilityBackgroundRestoreTest0005
+     * @tc.desc Verify EntryAbility restores the compass view after backgrounding
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL2
+     */
+    it('testSensorAbilityBackgroundRestoreTest0005', 0, async (): Promise<void> => {
+      await backgroundAndRestore();
+      expect(await compassComponentCount()).assertEqual(3);
+      expect(isHeadingText(await readTextById('tiltAngle'))).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_COMMONLIBRARY_UTIL_SENSOR_CAPI_UI_0600
+     * @tc.name testSensorAbilityRotationRestoreTest0006
+     * @tc.desc Verify compass components remain visible across a display rotation
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL2
+     */
+    it('testSensorAbilityRotationRestoreTest0006', 0, async (): Promise<void> => {
+      const previous = await readDisplayRotation();
+      try {
+        await rotateDisplay(DisplayRotation.ROTATION_90);
+        await waitForCompassStable();
+        expect(await compassComponentCount()).assertEqual(3);
+        expect(isHeadingText(await readTextById('tiltAngle'))).assertTrue();
+      } finally {
+        await rotateDisplay(previous);
+        await waitForCompassStable();
+      }
+    });
+
+  });
 }

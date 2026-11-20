@@ -1,0 +1,116 @@
+{
+  "string": [
+    {
+      "name": "device_type_projector",
+      "value": "Projector"
+    },
+    {
+      "name": "device_type_screen",
+      "value": "Screen"
+    },
+    {
+      "name": "device_type_light",
+      "value": "Light"
+    },
+    {
+      "name": "device_type_ac",
+      "value": "Air Conditioner"
+    },
+    {
+      "name": "device_type_tv",
+      "value": "TV"
+    },
+    {
+      "name": "device_type_audio",
+      "value": "Audio"
+    },
+    {
+      "name": "device_type_unknown",
+      "value": "Device"
+    },
+    {
+      "name": "key_semantic_power_on",
+      "value": "Power On"
+    },
+    {
+      "name": "key_semantic_power_off",
+      "value": "Power Off"
+    },
+    {
+      "name": "key_semantic_power_toggle",
+      "value": "Power Toggle"
+    },
+    {
+      "name": "key_semantic_hdmi_1",
+      "value": "HDMI1"
+    },
+    {
+      "name": "key_semantic_hdmi_2",
+      "value": "HDMI2"
+    },
+    {
+      "name": "key_semantic_volume_up",
+      "value": "Volume Up"
+    },
+    {
+      "name": "key_semantic_volume_down",
+      "value": "Volume Down"
+    },
+    {
+      "name": "key_semantic_temperature_up",
+      "value": "Temperature Up"
+    },
+    {
+      "name": "key_semantic_temperature_down",
+      "value": "Temperature Down"
+    },
+    {
+      "name": "key_semantic_fan_speed",
+      "value": "Fan Speed"
+    },
+    {
+      "name": "key_semantic_screen_up",
+      "value": "Screen Up"
+    },
+    {
+      "name": "key_semantic_screen_down",
+      "value": "Screen Down"
+    },
+    {
+      "name": "key_semantic_unknown",
+      "value": "Key"
+    },
+    {
+      "name": "template_default_suffix",
+      "value": "%s Default Template"
+    },
+    {
+      "name": "demo_room_name",
+      "value": "Meeting Room 3F"
+    },
+    {
+      "name": "demo_room_note",
+      "value": "Default meeting room"
+    },
+    {
+      "name": "demo_device_projector",
+      "value": "Main Projector"
+    },
+    {
+      "name": "demo_device_screen",
+      "value": "Projection Screen"
+    },
+    {
+      "name": "demo_device_light",
+      "value": "Lights"
+    },
+    {
+      "name": "demo_device_ac",
+      "value": "Air Conditioner"
+    },
+    {
+      "name": "demo_scene_meeting",
+      "value": "Start Meeting"
+    }
+  ]
+}

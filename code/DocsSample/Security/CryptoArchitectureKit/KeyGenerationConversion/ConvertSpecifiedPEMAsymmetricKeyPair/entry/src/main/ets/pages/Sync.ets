@@ -15,6 +15,7 @@
 
 // [Start specify_pem_string_convert_rsa_keypair_sync]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 let priKeyPkcs1Str1024: string =
   '-----BEGIN RSA PRIVATE KEY-----\n' +
@@ -47,6 +48,9 @@ function testPkcs1ToPkcs8BySync() {
       console.info('[Sync]: convert pem key pair result: success.');
     } else {
       console.error('[Sync]: convert pem key pair result: fail.');
+      // [StartExclude specify_pem_string_convert_rsa_keypair_sync]
+      throw new Error('[Sync]: convert pem key pair result: fail.');
+      // [EndExclude specify_pem_string_convert_rsa_keypair_sync]
     }
     let priPemKey = keyPairData.priKey;
     let pubPemKey = keyPairData.pubKey;
@@ -54,8 +58,12 @@ function testPkcs1ToPkcs8BySync() {
     let pubString = pubPemKey.getEncodedPem('X509');
     console.info('[Sync]TestPkcs1ToPkcs8BySync priString output: ' + priString);
     console.info('[Sync]TestPkcs1ToPkcs8BySync pubString output: ' + pubString);
-  } catch (e) {
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
     console.error(`Sync failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude specify_pem_string_convert_rsa_keypair_sync]
+    throw new Error(`Sync failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude specify_pem_string_convert_rsa_keypair_sync]
   }
 }
 // [End specify_pem_string_convert_rsa_keypair_sync]

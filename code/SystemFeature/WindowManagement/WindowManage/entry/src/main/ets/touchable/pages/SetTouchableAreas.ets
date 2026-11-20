@@ -13,10 +13,20 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/touchable/pages/SetTouchableAreas.ets
+ * 文件职责：SetTouchableAreas 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：SetTouchableAreas。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { window } from '@kit.ArkUI';
 import logger from '../../utils/Logger';
 import promptAction from '@ohos.promptAction';
 
+/**
+ * SetTouchableAreas：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct SetTouchableAreas {
@@ -28,16 +38,30 @@ struct SetTouchableAreas {
     })
   };
 
-  onPageShow() {
+  /**
+   * onPageShow：页面进入前台时回调。
+   */
+  onPageShow(): void {
     this.setTouchableAreas();
   }
 
+  /**
+   * onPageHide：页面退到后台时回调。
+   */
   onPageHide(): void {
     this.clearTouchableAreas();
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：主轴对齐、交叉轴对齐、宽度、高度、背景色
     Column() {
+      // Text：文本
+      // 关键属性：宽度、高度、背景色、文本对齐、点击事件回调、onButtonClick
+      // 交互：可点击交互
       Text($r("app.string.area1"))
         .width('100%')
         .height('25%')
@@ -47,6 +71,9 @@ struct SetTouchableAreas {
         .onClick(async () => this.onButtonClick(await getContext(this)
           .resourceManager
           .getStringValue($r("app.string.area1"))))
+      // Text：文本
+      // 关键属性：宽度、高度、背景色、文本对齐、点击事件回调、onButtonClick
+      // 交互：可点击交互
       Text($r("app.string.area2"))
         .width('100%')
         .height('25%')
@@ -56,6 +83,9 @@ struct SetTouchableAreas {
         .onClick(async () => this.onButtonClick(await getContext(this)
           .resourceManager
           .getStringValue($r("app.string.area2"))))
+      // Text：文本
+      // 关键属性：宽度、高度、背景色、文本对齐、点击事件回调、onButtonClick
+      // 交互：可点击交互
       Text($r("app.string.area3"))
         .width('100%')
         .height('25%')
@@ -65,6 +95,9 @@ struct SetTouchableAreas {
         .onClick(async () => this.onButtonClick(await getContext(this)
           .resourceManager
           .getStringValue($r("app.string.area3"))))
+      // Text：文本
+      // 关键属性：宽度、高度、背景色、文本对齐、点击事件回调、onButtonClick
+      // 交互：可点击交互
       Text($r("app.string.area4"))
         .width('100%')
         .height('25%')
@@ -74,7 +107,7 @@ struct SetTouchableAreas {
         .onClick(async () => this.onButtonClick(await getContext(this)
           .resourceManager
           .getStringValue($r("app.string.area4"))))
-    }
+    }.id('set_touchable_areas_column_1')
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
     .width('100%')
@@ -82,23 +115,29 @@ struct SetTouchableAreas {
     .backgroundColor($r('app.color.light_gray'))
   }
 
-  async clearTouchableAreas() {
+  /**
+   * clearTouchableAreas：执行 clearTouchableAreas 相关逻辑。
+   */
+  async clearTouchableAreas(): Promise<void> {
     const parentWindow: window.Window = await window.getLastWindow(getContext(this));
-    parentWindow.setTouchableAreas([]);
+    try {
+      await parentWindow.setTouchableAreas([]);
+    } catch (e) {
+      logger.error(`clearTouchableAreas error,Caused: ${JSON.stringify(e)}`);
+    }
   }
 
-  async setTouchableAreas() {
+  /**
+   * setTouchableAreas：执行 setTouchableAreas 相关逻辑。
+   */
+  async setTouchableAreas(): Promise<void> {
     const parentWindow: window.Window = await window.getLastWindow(getContext(this));
-    const windowWidth = parentWindow.getWindowProperties();
-    const rect = windowWidth.windowRect;
-    const top = rect.top;
-    const left = rect.left;
-    const width = rect.width;
-    const height = rect.height;
+    const windowWidth: window.WindowProperties = parentWindow.getWindowProperties();
+    const rect: window.Rect = windowWidth.windowRect;
     try {
-      parentWindow.setTouchableAreas([
-        { top: top, left: left, width: width, height: height / 4 },
-        { top: top + height * 3 / 4, left: left, width: width, height: height / 4 },
+      await parentWindow.setTouchableAreas([
+        { top: rect.top, left: rect.left, width: rect.width, height: rect.height / 4 },
+        { top: rect.top + rect.height * 3 / 4, left: rect.left, width: rect.width, height: rect.height / 4 },
       ]);
     } catch (e) {
       logger.error(`setTouchableAreas error,Caused: ${JSON.stringify(e)}`);

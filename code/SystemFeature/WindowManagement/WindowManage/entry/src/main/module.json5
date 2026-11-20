@@ -66,6 +66,15 @@
           "when": "inuse"
         }
       },
+      {
+        "name": "ohos.permission.SET_WINDOW_TOUCH_AREAS",
+        "usedScene": {
+          "abilities": [
+            "MainAbility"
+          ],
+          "when": "inuse"
+        }
+      }
     ]
   }
 }

@@ -1,0 +1,8 @@
+{
+  "string": [
+    {
+      "name": "reason_bluetooth",
+      "value": "用于在测试用例中查询 HFP/PAN/MAP Profile 的开关状态、权限与连接状态"
+    }
+  ]
+}

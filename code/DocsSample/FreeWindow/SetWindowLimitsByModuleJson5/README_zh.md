@@ -53,9 +53,9 @@ SetWindowLimitsByModuleJson5/
 
 ### 约束与限制
 
-1. 本示例为Stage模型，支持API10版本及以上SDK，SDK版本号(API Version 24)；
+1. 本示例为Stage模型，支持API10版本及以上SDK，SDK版本号(API Version 26)；
 2. 窗口尺寸限制与标题栏避让仅在自由窗口（支持自由窗口的设备，如2in1、平板等）状态下生效；
-3. 本示例需要使用DevEco Studio 6.0及以上版本才可编译运行；
+3. 本示例需要使用DevEco Studio 26.0.0及以上版本才可编译运行；
 4. 本示例不涉及系统接口。
 
 ### 下载

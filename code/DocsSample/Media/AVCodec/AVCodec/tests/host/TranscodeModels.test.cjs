@@ -18,6 +18,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const { createHash } = require('node:crypto');
 const ts = require(path.resolve(process.argv[2]));
 const root = path.resolve(__dirname, '../../entry/src/main/ets/model');
 const cache = new Map();
@@ -53,7 +54,7 @@ function deferred() {
 function stat(file) {
   if (!files.has(file)) { throw new Error('Missing file: ' + file); }
   const item = files.get(file);
-  return { size: item.text?.length || 200, isDirectory: () => item.kind === 'dir',
+  return { size: item.data?.length ?? (item.text?.length || 200), mtime: item.mtime ?? 10, isDirectory: () => item.kind === 'dir',
     isFile: () => item.kind === 'file', isSymbolicLink: () => item.kind === 'link' };
 }
 const io = {
@@ -69,7 +70,17 @@ const io = {
     if (failOpen) { throw new Error('Open failed: /private/source.mp4'); }
     if (!files.has(file) && !(flags & 1)) { throw new Error('Missing file'); }
     if (flags & 4 || !files.has(file)) { files.set(file, { kind: 'file', text: '' }); }
+    files.get(file).offset = 0;
     return { fd: file };
+  },
+  read: async (fd, buffer, options) => {
+    const file = files.get(fd);
+    const offset = file.offset || 0;
+    const length = Math.min(options.length, 3, file.data.length - offset);
+    new Uint8Array(buffer, 0, length).set(file.data.subarray(offset, offset + length));
+    file.offset = offset + length;
+    if (file.mutate) { file.mtime = 11; }
+    return length;
   },
   close: async () => {}, fsync: async () => {}, readText: async file => files.get(file).text,
   rename: async (from, to) => { files.set(to, files.get(from)); files.delete(from); },
@@ -79,6 +90,13 @@ const mocks = {
   '@kit.ImageKit': { image: { PixelMapFormat: { RGBA_8888: 3 },
     createPixelMap: async () => ({ release: async () => {} }) } },
   '@kit.BasicServicesKit': { deviceInfo: { productModel: 'host', osFullName: 'mock', sdkApiVersion: 26 } },
+  '@kit.ArkData': {},
+  '@kit.CryptoArchitectureKit': { cryptoFramework: { createMd: algorithm => {
+    assert.equal(algorithm, 'SHA256');
+    const hash = createHash('sha256');
+    return { update: async blob => { hash.update(blob.data); },
+      digest: async () => ({ data: new Uint8Array(hash.digest()) }) };
+  } } },
   '@kit.ArkUI': {}, '@kit.AbilityKit': {}, '@kit.MediaLibraryKit': { photoAccessHelper: {} },
   '@kit.CoreFileKit': { fileIo: io, fileUri: { getUriFromPath: file => 'file://' + file },
     statfs: { getFreeSize: async () => 1e9 },
@@ -88,6 +106,7 @@ const mocks = {
   'libtranscoder.so': { default: transcoder }
 };
 function load(name) {
+  name = path.normalize(name);
   if (cache.has(name)) { return cache.get(name).exports; }
   const module = { exports: {} };
   cache.set(name, module);
@@ -100,6 +119,8 @@ function load(name) {
     Observed: target => target, $r: name => name, setInterval: () => 1, clearInterval: () => {},
     require: name => {
       if (mocks[name]) { return mocks[name]; }
+      if (name === '../common/utils/Logger') { return { default: { warn: () => {}, error: () => {} } }; }
+      if (name === '@kit.LocalizationKit' || name === '@kit.ArkTS') { return {}; }
       if (name === '../common/LocalizedText') { return { LocalizedText: { get: key => key } }; }
       if (name === './PlaybackHistoryModel') { return { getPlaybackTitle: uri => uri.split('/').pop() }; }
       if (name === './MediaFileWriter') {
@@ -216,6 +237,17 @@ async function testActivity() {
   assert.equal(model.status.state, 2);
   assert(model.resultPath.endsWith('.mp4') && files.has(model.resultPath));
   assert(!files.has(model.resultPath + '.part'));
+  const originalStat = io.stat;
+  try {
+    io.stat = async file => {
+      if (file === model.sourceUri) { throw new Error('Provider does not expose source metadata'); }
+      return originalStat(file);
+    };
+    await model.start(ui);
+    assert.equal(model.status.state, 2, 'Optional source metadata must not block transcoding');
+    const report = (await MediaSessionStore.reports(ui.getHostContext()))[0];
+    assert.equal(report.input, undefined, 'Unavailable metadata cannot produce a source baseline');
+  } finally { io.stat = originalStat; }
   cancelDialog = true;
   await model.clearHistory(ui);
   cancelDialog = false;
@@ -337,7 +369,83 @@ async function testTimeRanges() {
   inspect = async () => status();
   console.info('Time ranges: draft inspection, validation, size estimate, queue snapshot and Surface reset passed');
 }
+async function testInputFingerprint() {
+  const { MediaInputFingerprint } = load('MediaInputFingerprint');
+  const { MediaBuildInfo } = load('MediaBuildInfo');
+  assert.equal(MediaBuildInfo.valid({ appVersion: '1.0', revision: 'a'.repeat(40), sourceDigest: 'b'.repeat(64),
+    builtAt: '2026-11-13T00:00:00Z' }), true);
+  assert.equal(MediaBuildInfo.valid({ appVersion: '1.0', revision: 'bad', sourceDigest: 'b'.repeat(64),
+    builtAt: '2026-11-13T00:00:00Z' }), false);
+  const file = '/private/fingerprint.mp4';
+  const data = Buffer.from('source bytes for checksum');
+  files.set(file, { kind: 'file', data });
+  const input = { sourceUri: file, bytes: data.length, modifiedAt: 10 };
+  let closes = 0;
+  const close = io.close;
+  io.close = async () => { closes++; };
+  try {
+    const result = await MediaInputFingerprint.calculate(ui.getHostContext(), input);
+    assert.equal(result.sha256, createHash('sha256').update(data).digest('hex'), 'All short reads are hashed');
+    assert.equal(closes, 1);
+    assert.equal(MediaTaskCoordinator.busy(), false);
+    const active = MediaTaskCoordinator.acquire('playback');
+    await assert.rejects(() => MediaInputFingerprint.calculate(ui.getHostContext(), input), /busy/);
+    MediaTaskCoordinator.release(active);
+    files.get(file).mtime = 12;
+    await assert.rejects(() => MediaInputFingerprint.calculate(ui.getHostContext(), input), /changed/);
+    files.get(file).mtime = 10;
+    files.get(file).mutate = true;
+    await assert.rejects(() => MediaInputFingerprint.calculate(ui.getHostContext(), input), /changed/);
+    delete files.get(file).mutate;
+    files.get(file).mtime = 10;
+    const read = io.read;
+    io.read = async () => 0;
+    try { await assert.rejects(() => MediaInputFingerprint.calculate(ui.getHostContext(), input), /complete/); }
+    finally { io.read = read; }
+    assert.equal(closes, 4, 'Every opened descriptor closes on both success and failure');
+    assert.equal(MediaTaskCoordinator.busy(), false, 'Failure releases the task lease');
+    assert.equal(input.sha256, undefined, 'Failed or successful calculation does not mutate the input report');
+  } finally { io.close = close; files.delete(file); }
+  console.info('Input fingerprints: SHA256, short reads, busy task, changed source, EOF and fd/lease cleanup passed');
+}
+
+function testBuildMetadata() {
+  const { execFileSync } = require('node:child_process');
+  const os = require('node:os');
+  const prefix = path.resolve(os.tmpdir(), 'avcodec-build-info-');
+  const scratch = fs.mkdtempSync(prefix);
+  assert(scratch.startsWith(prefix), 'Fixture cleanup must stay within the named temporary directory');
+  try {
+    fs.mkdirSync(path.join(scratch, 'AppScope'));
+    fs.mkdirSync(path.join(scratch, 'scripts'));
+    fs.mkdirSync(path.join(scratch, 'entry/src/main'), { recursive: true });
+    fs.writeFileSync(path.join(scratch, 'AppScope/app.json5'), '{"app":{"versionName":"1.0.0"}}');
+    const generator = path.join(scratch, 'scripts/generate-build-info.cjs');
+    fs.copyFileSync(path.resolve(__dirname, '../../scripts/generate-build-info.cjs'), generator);
+    const source = path.join(scratch, 'entry/src/main/source.txt');
+    const local = path.join(scratch, 'build-profile.json5');
+    const generated = path.join(scratch, 'entry/src/main/resources/rawfile/build-info.json');
+    fs.writeFileSync(source, 'first');
+    const generate = () => {
+      execFileSync(process.execPath, [generator], { cwd: scratch, stdio: 'pipe' });
+      return JSON.parse(fs.readFileSync(generated, 'utf8'));
+    };
+    const first = generate();
+    assert.equal(first.revision, 'unknown', 'A source archive builds without Git history');
+    assert.equal(first.appVersion, '1.0.0');
+    assert.match(first.sourceDigest, /^[0-9a-f]{64}$/);
+    assert.equal(generate().sourceDigest, first.sourceDigest, 'Generated metadata does not hash itself');
+    fs.writeFileSync(local, 'local signing settings');
+    assert.equal(generate().sourceDigest, first.sourceDigest, 'Local signing configuration is excluded');
+    fs.writeFileSync(source, 'second');
+    assert.notEqual(generate().sourceDigest, first.sourceDigest, 'Local source edits have a distinct identity');
+  } finally { fs.rmSync(scratch, { recursive: true, force: true }); }
+  console.info('Build identity: archive fallback, deterministic source digest, local edits and signing exclusion passed');
+}
+
 async function main() {
+  testBuildMetadata();
+  await testInputFingerprint();
   files.set('/private/source.mp4', { kind: 'file' });
   await testStateFiles();
   await testInspection();
@@ -474,7 +582,19 @@ async function testSessionTasks() {
   assert.match(report.observed, /private/, 'Share export must not mutate local report');
   assert.throws(() => MediaReports.parseList('{}'), /Invalid/);
   assert.equal(MediaReports.parseList('[null,{},false]').length, 0);
+  assert.equal(MediaPerformanceBaseline.eligible(report), false, 'Old reports without input hashes cannot become baselines');
+  report.input = { bytes: 100, modifiedAt: 10, sha256: 'a'.repeat(64), sourceUri: 'file://private/secret.mp4' };
+  assert.equal(MediaPerformanceBaseline.eligible({ ...report, input: { sha256: 'a'.repeat(64) } }), false);
   const baseline = JSON.parse(JSON.stringify(report));
+  baseline.input.sha256 = 'b'.repeat(64);
+  assert.equal(MediaPerformanceBaseline.compare(report, baseline), '', 'Different source bytes cannot be compared');
+  baseline.input.sha256 = report.input.sha256;
+  baseline.input.bytes++;
+  assert.equal(MediaPerformanceBaseline.compare(report, baseline), '');
+  baseline.input.bytes = report.input.bytes;
+  assert.doesNotMatch(JSON.stringify(MediaReports.shareable(report)), /secret/);
+  assert.equal(MediaReports.parseList(JSON.stringify([{ ...report, input: { ...report.input, sha256: 'bad' } }])).length, 0);
+  assert.equal(MediaReports.parseList(JSON.stringify([{ ...report, build: { revision: 'bad' } }])).length, 0);
   baseline.metrics[0].amount = 20;
   assert.match(MediaPerformanceBaseline.compare(report, baseline), /[+]50[.]0%/);
   baseline.api = 25;
@@ -504,7 +624,8 @@ async function testSessionTasks() {
 async function testQueue() {
   files.set('/private/source.mp4', { kind: 'file' });
   const model = new TranscodeModel();
-  const options = [0, 0, 0, 2, 0, 0, 0, 0];
+  const options = { codecIndex: 0, modeIndex: 0, sizeIndex: 0, bitrateIndex: 2,
+    encoderCategory: 0, audioMode: 0, audioTrack: 0, resizeMode: 0 };
   model.quality.codecMode = 1;
   model.queue.add('/private/source.mp4', 'one.mp4', options, false, 0, 0, model.quality.snapshot());
   model.queue.add('/private/source.mp4', 'two.mp4', options, false);
@@ -515,7 +636,7 @@ async function testQueue() {
   rangeQueue.reassociate(rangeId, '/private/relinked.mp4', 'relinked.mp4');
   assert.equal(rangeQueue.items[0].uri, '/private/relinked.mp4');
   assert.equal(rangeQueue.items[0].title, 'relinked.mp4');
-  assert.deepEqual(rangeQueue.items[0].options, options);
+  assert.equal(TranscodeQueueModel.settings(rangeQueue.items[0]).bitrateIndex, options.bitrateIndex);
   assert.equal(rangeQueue.items[0].grayscale, true);
   assert.equal(rangeQueue.items[0].state, 'waiting');
   assert.equal(rangeQueue.items[0].progress, 0);
@@ -567,7 +688,7 @@ async function testQueue() {
   interrupted.queue.retry(interrupted.queue.items[1].id);
   assert.equal(interrupted.queue.items[1].state, 'waiting');
   const invalid = JSON.parse(JSON.stringify(restored.queue.items));
-  invalid[0].options[0] = 999;
+  invalid[0].settings.codecIndex = 999;
   assert.equal(TranscodeQueueModel.validated(invalid).length, 1);
   assert.equal(TranscodeQueueModel.validated([null, false, {}]).length, 0);
   const abandoned = new TranscodeModel();
@@ -652,7 +773,8 @@ async function testQualityProfiles() {
   assert.equal(request.audioSourceLayout, 2, 'Pass the selected 5.1 layout to Native');
   assert.equal(model.quality.snapshot().audioSourceLayout, 2, 'Persist the selected source layout');
   const queue = new TranscodeQueueModel();
-  queue.add(model.sourceUri, model.sourceTitle, [0, 0, 0, 2, 0, 1, 0, 0], false, 0, 0, model.quality.snapshot());
+  queue.add(model.sourceUri, model.sourceTitle, { codecIndex: 0, modeIndex: 0, sizeIndex: 0, bitrateIndex: 2,
+    encoderCategory: 0, audioMode: 1, audioTrack: 0, resizeMode: 0 }, false, 0, 0, model.quality.snapshot());
   model.quality.filter = 0;
   model.quality.codecMode = 0;
   model.quality.audioSourceLayout = 1;
@@ -673,13 +795,13 @@ async function testQualityProfiles() {
   const legacy = JSON.parse(JSON.stringify(queue.items[0])); delete legacy.quality.codecMode;
   assert.equal(TranscodeQueueModel.validated([legacy]).length, 1, 'Legacy quality remains valid');
   const surfaceAsync = JSON.parse(JSON.stringify(queue.items[0]));
-  surfaceAsync.options[1] = 1; surfaceAsync.quality.filter = 0;
+  surfaceAsync.settings.modeIndex = 1; surfaceAsync.quality.filter = 0;
   assert.equal(TranscodeQueueModel.validated([surfaceAsync]).length, 1, 'Surface supports asynchronous scheduling');
   const surfaceFilter = JSON.parse(JSON.stringify(queue.items[0]));
-  surfaceFilter.options[1] = 1;
+  surfaceFilter.settings.modeIndex = 1;
   assert.equal(TranscodeQueueModel.validated([surfaceFilter]).length, 0, 'Surface cannot restore CPU filtering');
   const remuxFilter = JSON.parse(JSON.stringify(queue.items[0]));
-  remuxFilter.quality.operation = 1; remuxFilter.options[5] = 0;
+  remuxFilter.quality.operation = 1; remuxFilter.settings.audioMode = 0;
   assert.equal(TranscodeQueueModel.validated([remuxFilter]).length, 0, 'Remux cannot restore processing controls');
   model.audioMode = 1; model.rangeEnabled = true; model.sizeIndex = 2; model.grayscale = true;
   model.quality.deepValidation = true;
@@ -716,7 +838,8 @@ async function testBatchOperations() {
   const { TranscodeExportController } = load('../controller/TranscodeExportController');
   const queue = new TranscodeQueueModel();
   for (let index = 0; index < 4; index++) {
-    queue.add('file://' + index, 'Clip ' + index, [0, 0, 0, 2, 0, 0, 0, 0], false);
+    queue.add('file://' + index, 'Clip ' + index, { codecIndex: 0, modeIndex: 0, sizeIndex: 0, bitrateIndex: 2,
+      encoderCategory: 0, audioMode: 0, audioTrack: 0, resizeMode: 0 }, false);
   }
   const ids = queue.items.map(item => item.id);
   queue.update(ids[0], 'running', 10); queue.activeId = ids[0];
@@ -740,8 +863,10 @@ async function testBatchOperations() {
   assert.equal(order.length, 3, 'Continue policy visits every remaining waiting task');
   assert.equal(queue.activeId, '');
   const paused = new TranscodeQueueModel();
-  paused.add('file://a', 'A', [0, 0, 0, 2, 0, 0, 0, 0], false);
-  paused.add('file://b', 'B', [0, 0, 0, 2, 0, 0, 0, 0], false);
+  const pausedSettings = new TranscodeModel().queueSettings();
+  paused.add('file://a', 'A', pausedSettings, false);
+  paused.add('file://b', 'B', pausedSettings, false);
+  assert.equal(JSON.stringify(paused.items[0].settings), JSON.stringify(pausedSettings));
   const current = deferred();
   const entered = deferred();
   const pauseHost = { available: () => true, disposed: () => false, persist: async () => true,
@@ -819,6 +944,79 @@ async function testPreviewDisposal() {
   } finally { images.createPixelMap = originalCreate; preview = originalPreview; }
   console.info('Preview lifecycle: disposal during bitmap creation and paired image release passed');
 }
+async function testPreviewLoadFailures() {
+  const { TranscodePreviewController } = load('../controller/TranscodePreviewController');
+  const images = mocks['@kit.ImageKit'].image;
+  const originalCreate = images.createPixelMap;
+  const originalPreview = preview;
+  const originalOpen = io.open;
+  const originalClose = io.close;
+  const controller = new TranscodePreviewController();
+  const failure = new Error('Preview processing failed');
+  let closed = 0;
+  let released = 0;
+  try {
+    io.close = async () => { closed++; };
+    io.open = async () => { throw failure; };
+    await assert.rejects(controller.load('/source.mp4', {}, 'open'), error => error === failure);
+    assert.equal(closed, 0, 'An unsuccessful open has no descriptor to close');
+    io.open = originalOpen;
+    preview = async () => { throw failure; };
+    await assert.rejects(controller.load('/source.mp4', {}, 'decode'), error => error === failure);
+    assert.equal(closed, 1, 'Decoder rejection still closes the source');
+    preview = async () => status({ previewWidth: 2, previewHeight: 2, previewRgba: new ArrayBuffer(16) });
+    let created = 0;
+    images.createPixelMap = async () => {
+      if (++created === 2) { throw failure; }
+      return { release: async () => { released++; } };
+    };
+    await assert.rejects(controller.load('/source.mp4', {}, 'bitmap'), error => error === failure);
+    assert.equal(closed, 2, 'Bitmap rejection still closes the source');
+    assert.equal(released, 1, 'A partially created pair releases the first PixelMap');
+    assert.equal(controller.processed, undefined);
+    assert.equal(controller.original, undefined);
+  } finally {
+    images.createPixelMap = originalCreate; preview = originalPreview;
+    io.open = originalOpen; io.close = originalClose;
+  }
+  console.info('Preview cleanup: open, decoder and bitmap errors retain their original result');
+}
+
+async function testPreviewEarlyCancellation() {
+  const { TranscodePreviewController } = load('../controller/TranscodePreviewController');
+  const controller = new TranscodePreviewController();
+  const originalOpen = io.open;
+  const originalClose = io.close;
+  const originalPreview = preview;
+  let closed = 0;
+  let decoded = 0;
+  try {
+    const opening = deferred();
+    io.open = async () => opening.promise;
+    io.close = async () => { closed++; };
+    preview = async () => { decoded++; return status(); };
+    const staleOpen = controller.load('/source.mp4', {}, 'stale open');
+    controller.clear();
+    opening.resolve({ fd: '/source.mp4' });
+    await staleOpen;
+    assert.equal(closed, 1, 'Cancellation while opening still closes the acquired source');
+    assert.equal(decoded, 0, 'Cancellation before decoding skips Native preview');
+    io.open = originalOpen;
+    const decoding = deferred();
+    const entered = deferred();
+    preview = () => { entered.resolve(); return decoding.promise; };
+    const staleDecode = controller.load('/source.mp4', {}, 'stale decode');
+    await entered.promise;
+    controller.clear();
+    decoding.resolve(status());
+    await staleDecode;
+    assert.equal(closed, 2, 'Cancellation while decoding still closes the source');
+    assert.equal(controller.processed, undefined);
+    assert.equal(controller.original, undefined);
+  } finally { io.open = originalOpen; io.close = originalClose; preview = originalPreview; }
+  console.info('Preview cleanup: cancellation while opening and decoding passed');
+}
+
 async function testHistoryController() {
   const { TranscodeHistoryController } = load('../controller/TranscodeHistoryController');
   const { TranscodeFilesModel } = load('TranscodeFilesModel');
@@ -874,5 +1072,168 @@ async function testHistoryController() {
   console.info('History controller: page append, usage, stale requests and disposal passed');
 }
 
-main().then(testQualityProfiles).then(testBatchOperations).then(testPreviewDisposal).then(testHistoryController)
+async function testTaskSnapshot() {
+  files.set('/private/snapshot.mp4', { kind: 'file' });
+  const model = new TranscodeModel();
+  model.sourceUri = '/private/snapshot.mp4';
+  model.sourceTitle = 'snapshot.mp4';
+  const entered = deferred();
+  const gate = deferred();
+  let before, submitted;
+  inspect = async request => { before = { ...request }; entered.resolve(); return gate.promise; };
+  start = async request => { submitted = { ...request }; return status(); };
+  const pending = model.start(ui);
+  await entered.promise;
+  model.bitrateIndex = 3; model.rangeEnabled = true; model.rangeStart = '999'; model.quality.codecMode = 1;
+  gate.resolve(status());
+  await pending;
+  assert.equal(submitted.bitrate, before.bitrate, 'Native request retains the preflight bitrate');
+  assert.equal(submitted.startTimeMs, before.startTimeMs, 'Range validation uses the task snapshot');
+  assert.equal(submitted.codecMode, before.codecMode, 'Scheduling retains the task snapshot');
+  assert.match(model.activeEntry.configuration, /8 Mbps/);
+  const serialized = JSON.parse(JSON.stringify(model.queue.items));
+  assert.equal(TranscodeQueueModel.validated(serialized).length, serialized.length);
+  const legacy = { id: 'queue_900_1', uri: 'source', title: 'old', options: [0, 0, 0, 2, 0, 0, 0],
+    grayscale: false, state: 'waiting', progress: 0, resultPath: '' };
+  const migrated = TranscodeQueueModel.validated([legacy])[0];
+  assert.equal(migrated.settings.resizeMode, 0);
+  assert.equal(migrated.options, undefined, 'New snapshots store named settings only');
+  assert.equal(TranscodeQueueModel.validated([migrated]).length, 1);
+  console.info('Task snapshot: preflight, Native request, report and legacy queue migration passed');
+}
+
+async function testAuxiliaryCloseFailure(mode) {
+  const model = new TranscodeModel();
+  model.sourceUri = '/private/auxiliary.mp4';
+  files.set(model.sourceUri, { kind: 'file' });
+  inspect = async () => status();
+  preview = async () => status({ previewWidth: 2, previewHeight: 2, previewRgba: new ArrayBuffer(16) });
+  io.close = async () => { throw Object.assign(Error('close unknown'), { code: 13900005 }); };
+  await model[mode](ui);
+  assert.equal(model.status.cleanupStage, 'files.close', mode + ' reports the cleanup stage');
+  assert.equal(model.busy, false);
+  assert.equal(model.inspecting, false);
+  assert.equal(model.queue.paused, true);
+  assert.match(model.notice, /transcode_close_unconfirmed/);
+  assert.equal(MediaFileActivity.beginTranscode(), false);
+  assert.equal(MediaFileActivity.beginLaunch(), false);
+  assert.equal(MediaTaskCoordinator.busy(), true);
+  console.info(mode + ': close failure retains the gate and reports restart guidance');
+}
+
+function testAuxiliaryCloseFailures() {
+  const { spawnSync } = require('node:child_process');
+  const modes = ['inspect', 'preview', 'preview-close-success', 'preview-close-decode',
+    'preview-close-bitmap', 'preview-close-stale-open', 'preview-close-stale-bitmap'];
+  for (const mode of modes) {
+    const result = spawnSync(process.execPath, [__filename, process.argv[2], mode],
+      { encoding: 'utf8', timeout: 20000 });
+    assert.equal(result.status, 0, result.stdout + result.stderr);
+    process.stdout.write(result.stdout);
+  }
+}
+
+async function testPreviewCloseFailure(mode) {
+  const { TranscodePreviewController } = load('../controller/TranscodePreviewController');
+  const controller = new TranscodePreviewController();
+  const failure = new Error('Preview processing failed');
+  const stale = mode.includes('stale');
+  const operationFails = mode === 'preview-close-decode' || mode === 'preview-close-bitmap';
+  let closed = 0;
+  let released = 0;
+  let created = 0;
+  files.set('/source.mp4', { kind: 'file' });
+  io.open = async () => {
+    if (mode === 'preview-close-stale-open') { controller.clear(); }
+    return { fd: '/source.mp4' };
+  };
+  io.close = async () => {
+    closed++;
+    throw Object.assign(new Error('close unknown'), { code: 13900005 });
+  };
+  preview = async () => {
+    if (mode === 'preview-close-decode') { throw failure; }
+    return status({ previewWidth: 2, previewHeight: 2, previewRgba: new ArrayBuffer(16) });
+  };
+  mocks['@kit.ImageKit'].image.createPixelMap = async () => {
+    if (++created === 2 && mode === 'preview-close-bitmap') { throw failure; }
+    if (mode === 'preview-close-stale-bitmap') { controller.clear(); }
+    return { release: async () => { released++; } };
+  };
+  await assert.rejects(controller.load('/source.mp4', {}, 'preview'), error =>
+    operationFails ? error === failure : /Transcode file close unconfirmed/.test(error.message));
+  assert.equal(closed, 1, 'Every opened source is closed once, including stale results');
+  assert.equal(MediaFileActivity.isCleanupUnconfirmed(), true);
+  assert.equal(MediaFileActivity.beginTranscode(), false);
+  assert.equal(MediaFileActivity.beginLaunch(), false);
+  if (stale || operationFails) {
+    assert.equal(controller.processed, undefined);
+    assert.equal(controller.original, undefined);
+    assert.equal(released, created - (mode === 'preview-close-bitmap' ? 1 : 0));
+  }
+  controller.clear();
+  console.info(mode + ': cleanup blocks further tasks and preserves the operation error');
+}
+
+async function testTranscodeCloseFailure() {
+  const { TranscodeFileCloser } = load('../controller/TranscodeFileCloser');
+  const originalClose = io.close;
+  let calls = 0;
+  const entered = deferred();
+  const gate = deferred();
+  io.close = async () => { calls++; entered.resolve(); await gate.promise; };
+  const firstClose = TranscodeFileCloser.close({ fd: 9099 });
+  await entered.promise;
+  const secondClose = TranscodeFileCloser.close({ fd: 9099 });
+  assert.equal(calls, 1, 'Concurrent cleanup shares the same close operation');
+  gate.resolve();
+  assert.deepEqual(await Promise.all([firstClose, secondClose]), [true, true]);
+  io.close = async () => { calls++; throw Object.assign(Error('invalid descriptor'), { code: 13900008 }); };
+  assert.equal(await TranscodeFileCloser.close({ fd: 9100 }), true, 'EBADF confirms closure');
+  assert.equal(MediaTaskCoordinator.busy(), false);
+  files.set('/private/close.mp4', { kind: 'file' });
+  const model = new TranscodeModel(); model.sourceUri = '/private/close.mp4';
+  inspect = async () => status(); start = async () => status();
+  io.close = async file => {
+    const fd = file?.fd ?? file;
+    if (fd === '/private/close.mp4') {
+      calls++; throw Object.assign(Error('close result unknown'), { code: 13900005 });
+    }
+    return originalClose(file);
+  };
+  try {
+    const previous = (await MediaSessionStore.pending(ui.getHostContext())).length;
+    await model.start(ui);
+    assert.equal(model.status.state, 4);
+    assert.equal(model.status.cleanupStage, 'files.close');
+    assert.equal((await MediaSessionStore.pending(ui.getHostContext())).length, previous + 1,
+      'Unconfirmed cleanup retains the pending session');
+    assert.equal(model.busy, false, 'UI completes while the resource gate remains held');
+    assert.equal(model.queue.paused, true);
+    assert.equal(MediaFileActivity.beginTranscode(), false);
+    assert.equal(MediaFileActivity.beginLaunch(), false);
+    assert.equal(MediaTaskCoordinator.busy(), true);
+    let inspections = 0;
+    inspect = async () => { inspections++; return status(); };
+    const blocked = new TranscodeModel(); blocked.sourceUri = '/private/close.mp4';
+    await blocked.inspect(ui);
+    assert.equal(inspections, 0, 'Source inspection respects unconfirmed cleanup');
+    const beforeRetry = calls;
+    assert.equal(await TranscodeFileCloser.close({ fd: '/private/close.mp4' }), false);
+    assert.equal(calls, beforeRetry, 'Unconfirmed descriptors are never retried');
+  } finally { io.close = originalClose; }
+  console.info('Transcode cleanup: EBADF, retained File, blocked lease and no repeated close passed');
+}
+
+(process.argv[3] ? (process.argv[3].startsWith('preview-close-') ?
+  testPreviewCloseFailure(process.argv[3]) : testAuxiliaryCloseFailure(process.argv[3])) : main()
+  .then(testQualityProfiles)
+  .then(testBatchOperations)
+  .then(testPreviewDisposal)
+  .then(testPreviewLoadFailures)
+  .then(testPreviewEarlyCancellation)
+  .then(testHistoryController)
+  .then(testTaskSnapshot)
+  .then(testAuxiliaryCloseFailures)
+  .then(testTranscodeCloseFailure))
   .catch(error => { console.error(error); process.exitCode = 1; });

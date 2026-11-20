@@ -27,10 +27,26 @@ let context: Context;
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
+    /**
+     * @tc.number    SUB_WINDOWMANAGE_LEGACY_0001
+     * @tc.name      assertContain
+     * @tc.desc      Verify legacy case assertContain runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
     it('assertContain', 0, () => {
       /**
        * 打开应用
        */
+    /**
+     * @tc.number    SUB_WINDOWMANAGE_LEG_0001
+     * @tc.name      StartAbility_001
+     * @tc.desc      Verify legacy case StartAbility_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
       it(BUNDLE + 'StartAbility_001', 0, async (done: Function) => {
         Logger.info(TAG, BUNDLE + 'StartAbility_001 begin');
         let driver = Driver.create();
@@ -58,7 +74,15 @@ export default function abilityTest() {
       /**
        * 打开获取系统栏属性测试页
        */
-      it(BUNDLE + 'OpenGetPropertiesOfSystemBarPage_001', 6, async () => {
+    /**
+     * @tc.number    SUB_WINDOWMANAGE_LEG_0002
+     * @tc.name      OpenGetPropertiesOfSystemBarPage_001
+     * @tc.desc      Verify legacy case OpenGetPropertiesOfSystemBarPage_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it(BUNDLE + 'OpenGetPropertiesOfSystemBarPage_001', 0, async () => {
         Logger.info(TAG, BUNDLE + 'OpenGetPropertiesOfSystemBarPage_001 begin');
         let driver = Driver.create();
         // 检查是否有窗口文字
@@ -75,7 +99,15 @@ export default function abilityTest() {
       /**
        * 点击获取系统栏属性按钮
        */
-      it(BUNDLE + 'GetPropertiesOfSystemBarPage_001', 6, async () => {
+    /**
+     * @tc.number    SUB_WINDOWMANAGE_LEG_0003
+     * @tc.name      GetPropertiesOfSystemBarPage_001
+     * @tc.desc      Verify legacy case GetPropertiesOfSystemBarPage_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it(BUNDLE + 'GetPropertiesOfSystemBarPage_001', 0, async () => {
         Logger.info(TAG, BUNDLE + 'GetPropertiesOfSystemBarPage_001 begin');
         let driver = Driver.create();
         // 判断是否有按键
@@ -103,7 +135,15 @@ export default function abilityTest() {
       /**
        * 打开设置可触摸区域测试页
        */
-      it(BUNDLE + 'OpenSetTouchableAreasPage_001', 7, async () => {
+    /**
+     * @tc.number    SUB_WINDOWMANAGE_LEG_0004
+     * @tc.name      OpenSetTouchableAreasPage_001
+     * @tc.desc      Verify legacy case OpenSetTouchableAreasPage_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it(BUNDLE + 'OpenSetTouchableAreasPage_001', 0, async () => {
         Logger.info(TAG, BUNDLE + 'OpenSetTouchableAreasPage_001 begin');
         let driver = Driver.create();
         // 检查是否有窗口文字
@@ -120,7 +160,15 @@ export default function abilityTest() {
       /**
        * 设置可触摸区域功能测试
        */
-      it(BUNDLE + 'SetTouchableAreas_001', 7, async () => {
+    /**
+     * @tc.number    SUB_WINDOWMANAGE_LEG_0005
+     * @tc.name      SetTouchableAreas_001
+     * @tc.desc      Verify legacy case SetTouchableAreas_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it(BUNDLE + 'SetTouchableAreas_001', 0, async () => {
         Logger.info(TAG, BUNDLE + 'SetTouchableAreas_001 begin');
         let driver = Driver.create();
         // 区域1检查
@@ -182,7 +230,15 @@ export default function abilityTest() {
       /**
        * 跳转窗口视频播放页
        */
-      it(BUNDLE + 'OpenVideoPage_001', 1, async () => {
+    /**
+     * @tc.number    SUB_WINDOWMANAGE_LEG_0006
+     * @tc.name      OpenVideoPage_001
+     * @tc.desc      Verify legacy case OpenVideoPage_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it(BUNDLE + 'OpenVideoPage_001', 0, async () => {
         Logger.info(TAG, BUNDLE + 'OpenVideoPage_001 begin');
         let driver = Driver.create();
         // 检查是否有窗口文字
@@ -200,7 +256,15 @@ export default function abilityTest() {
       /**
        * 点击按钮切换窗口方向
        */
-      it(BUNDLE + 'VideoPage_001', 2, async () => {
+    /**
+     * @tc.number    SUB_WINDOWMANAGE_LEG_0007
+     * @tc.name      VideoPage_001
+     * @tc.desc      Verify legacy case VideoPage_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it(BUNDLE + 'VideoPage_001', 0, async () => {
         Logger.info(TAG, BUNDLE + 'VideoPage_001 begin');
         let driver = Driver.create();
         // 判断是否有按键
@@ -229,7 +293,15 @@ export default function abilityTest() {
       /**
        * 检查视频小窗是否正常显示与隐藏
        */
-      it(BUNDLE + 'SmallVideo_001', 3, async () => {
+    /**
+     * @tc.number    SUB_WINDOWMANAGE_LEG_0008
+     * @tc.name      SmallVideo_001
+     * @tc.desc      Verify legacy case SmallVideo_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it(BUNDLE + 'SmallVideo_001', 0, async () => {
         Logger.info(TAG, BUNDLE + 'SmallVideo_001 begin');
         let driver = Driver.create();
         // 找到视频窗口
@@ -254,7 +326,15 @@ export default function abilityTest() {
       /**
        * 检查视频小窗是否能正常拖拽
        */
-      it(BUNDLE + 'DragSmallVideo_001', 4, async () => {
+    /**
+     * @tc.number    SUB_WINDOWMANAGE_LEG_0009
+     * @tc.name      DragSmallVideo_001
+     * @tc.desc      Verify legacy case DragSmallVideo_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it(BUNDLE + 'DragSmallVideo_001', 0, async () => {
         Logger.info(TAG, BUNDLE + 'DragSmallVideo_001 begin');
         let driver = Driver.create();
         // 找到视频窗口
@@ -289,7 +369,15 @@ export default function abilityTest() {
       /**
        * 检查是否正常获焦
        */
-      it(BUNDLE + 'GetFocus_001', 5, async () => {
+    /**
+     * @tc.number    SUB_WINDOWMANAGE_LEG_0010
+     * @tc.name      GetFocus_001
+     * @tc.desc      Verify legacy case GetFocus_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it(BUNDLE + 'GetFocus_001', 0, async () => {
         Logger.info(TAG, BUNDLE + 'GetFocus_001 begin');
         let driver = Driver.create();
         // 找到视频窗口
@@ -314,7 +402,15 @@ export default function abilityTest() {
       /**
        * 检查是否正常失焦
        */
-      it(BUNDLE + 'LoseFocus_001', 5, async () => {
+    /**
+     * @tc.number    SUB_WINDOWMANAGE_LEG_0011
+     * @tc.name      LoseFocus_001
+     * @tc.desc      Verify legacy case LoseFocus_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it(BUNDLE + 'LoseFocus_001', 0, async () => {
         Logger.info(TAG, BUNDLE + 'LoseFocus_001 begin');
         let driver = Driver.create();
         // 找到视频窗口
@@ -333,7 +429,15 @@ export default function abilityTest() {
       /**
        * 检查是否正常拉起悬浮应用
        */
-      it(BUNDLE + 'StartNewAbility_001', 5, async () => {
+    /**
+     * @tc.number    SUB_WINDOWMANAGE_LEG_0012
+     * @tc.name      StartNewAbility_001
+     * @tc.desc      Verify legacy case StartNewAbility_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+      it(BUNDLE + 'StartNewAbility_001', 0, async () => {
         Logger.info(TAG, BUNDLE + BUNDLE + 'StartNewAbility_001 begin');
         let driver = Driver.create();
         // 找到视频窗口

@@ -21,12 +21,12 @@
 
 | 首页 | 扩展信息 |
 | --- | --- |
-| ![首页](screenshot/01_home.jpeg) | ![扩展信息](screenshot/02_extra_config.jpeg) |
+| ![首页](screenshot/readme_home.svg) | ![扩展信息](screenshot/readme_extra_config.svg) |
 | 系统能力已声明、3 个演示入口共 11 个接口、搜索过滤与首页日志 | 4 个键 / 125 字节、压线 32768、越界 32769（401）、JSON 往返 |
 
 | 输入法列表 | 面板与模式 |
 | --- | --- |
-| ![输入法列表](screenshot/03_input_method_list.jpeg) | ![面板与模式](screenshot/04_panel.jpeg) |
+| ![输入法列表](screenshot/readme_input_method_list.svg) | ![面板与模式](screenshot/readme_panel.svg) |
 | 两个模式项（中文输入 / 英文输入）、默认选中第 1 项、重置选择 | 面板枚举对照、扩展注册检查、`createPanel` 实测、软键盘预览与候选 |
 
 输入法列表点「打开输入法列表」后弹出的是**系统**输入法列表（系统渲染的独立弹窗，不在应用窗口内），

@@ -339,7 +339,6 @@ int32_t VideoDecoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
             return AVCODEC_SAMPLE_ERR_OK;
         }
         case AV_ERR_TRY_AGAIN_LATER: {
-            AVCODEC_SAMPLE_LOGE("Get input buffer timeout.");
             return AVCODEC_SAMPLE_ERR_AGAIN;
         }
         default: {
@@ -394,7 +393,6 @@ int32_t VideoDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
             return AVCODEC_SAMPLE_ERR_OK;
         }
         case AV_ERR_TRY_AGAIN_LATER: {
-            AVCODEC_SAMPLE_LOGD("Get output buffer timeout.");
             return AVCODEC_SAMPLE_ERR_AGAIN;
         }
         case AV_ERR_STREAM_CHANGED: {
@@ -672,8 +670,10 @@ int32_t VideoDecoder::OnThermalWarningReceived(double ratio)
 int32_t VideoDecoder::Release()
 {
     if (decoder_ != nullptr) {
-        OH_VideoDecoder_Destroy(decoder_);
+        const int32_t ret = OH_VideoDecoder_Destroy(decoder_);
         decoder_ = nullptr;
+        CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+            "Destroy video decoder failed, ret: %{public}d", ret);
     }
     return AVCODEC_SAMPLE_ERR_OK;
 }

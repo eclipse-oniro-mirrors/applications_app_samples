@@ -1,0 +1,21 @@
+{
+  "devices": {
+    "general": [
+      "default",
+      "tablet"
+    ]
+  },
+  "development": {
+    "addedSysCaps": [
+      "SystemCapability.Location.Location.Core",
+      "SystemCapability.Location.Location.Gnss"
+    ]
+  },
+  "production": {
+    "addedSysCaps": [
+      "SystemCapability.Location.Location.Core",
+      "SystemCapability.Location.Location.Gnss"
+    ],
+    "removedSysCaps": []
+  }
+}

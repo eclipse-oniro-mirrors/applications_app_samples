@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,29 +13,60 @@
  * limitations under the License.
  */
 
-import camera from '@ohos.multimedia.camera';
-import deviceInfo from '@ohos.deviceInfo';
-import fileio from '@ohos.file.fs';
-import image from '@ohos.multimedia.image';
-import media from '@ohos.multimedia.media';
-import userFileManager from '@ohos.filemanagement.userFileManager';
+import { camera } from '@kit.CameraKit';
+import { deviceInfo } from '@kit.BasicServicesKit';
+import { fileIo as fileio } from '@kit.CoreFileKit';
+import { image } from '@kit.ImageKit';
+import { media } from '@kit.MediaKit';
+
 import Logger from '../model/Logger';
-import MediaUtils, { FileType } from '../model/MediaUtils';
+import MediaUtils, { FileType, MediaAssetHandle } from '../model/MediaUtils';
 import { Size } from '@kit.ArkUI';
+import type { common } from '@kit.AbilityKit';
 
 const CameraMode = {
   MODE_PHOTO: 0, // 拍照模式
   MODE_VIDEO: 1 // 录像模式
-}
+};
 
 const CameraSize = {
   WIDTH: 1920,
   HEIGHT: 1080
+};
+
+interface VideoRecorderConfigValues {
+  audioSourceType: number;
+  videoSourceType: number;
+  profile: VideoRecorderProfileValues;
+  url: string;
+  orientationHint: number;
+  location: VideoRecorderLocation;
+  maxSize: number;
+  maxDuration: number;
+}
+
+interface VideoRecorderProfileValues {
+  audioBitrate: number;
+  audioChannels: number;
+  audioCodec: string;
+  audioSampleRate: number;
+  durationTime: number;
+  fileFormat: string;
+  videoBitrate: number;
+  videoCodec: string;
+  videoFrameWidth: number;
+  videoFrameHeight: number;
+  videoFrameRate: number;
+}
+
+interface VideoRecorderLocation {
+  latitude: number;
+  longitude: number;
 }
 
 export default class CameraService {
   private tag: string = 'CameraService';
-  private context: any = undefined;
+  private context: common.Context = undefined;
   private mediaUtil: MediaUtils = undefined;
   private cameraManager: camera.CameraManager = undefined;
   private cameras: Array<camera.CameraDevice> = undefined;
@@ -46,7 +77,7 @@ export default class CameraService {
   private captureSession: camera.CaptureSession = undefined;
   private mReceiver: image.ImageReceiver = undefined;
   private photoUri: string = '';
-  private fileAsset: userFileManager.FileAsset = undefined;
+  private fileAsset: MediaAssetHandle = undefined;
   private fd: number = -1;
   private curMode = CameraMode.MODE_PHOTO;
   private videoRecorder: media.VideoRecorder = undefined;
@@ -54,7 +85,7 @@ export default class CameraService {
   private handleTakePicture: (photoUri: string) => void = undefined;
   private cameraOutputCapability: camera.CameraOutputCapability = undefined;
   private previewSize: Size = undefined;
-  private videoConfig: any = {
+  private videoConfig: VideoRecorderConfigValues = {
     audioSourceType: 1,
     videoSourceType: 0,
     profile: {
@@ -79,50 +110,55 @@ export default class CameraService {
     maxDuration: 10000
   };
 
-  constructor(context: any) {
-    this.context = context
-    this.mediaUtil = MediaUtils.getInstance(context)
-    this.mReceiver = image.createImageReceiver(CameraSize.WIDTH, CameraSize.HEIGHT, 4, 8)
-    Logger.info(this.tag, 'createImageReceiver')
-    this.mReceiver.on('imageArrival', () => {
-      Logger.info(this.tag, 'imageArrival')
-      this.mReceiver.readNextImage((err, image) => {
-        Logger.info(this.tag, 'readNextImage')
-        if (err || image === undefined) {
-          Logger.error(this.tag, 'failed to get valid image')
-          return
+  constructor(context: common.Context) {
+    this.context = context;
+    this.mediaUtil = MediaUtils.getInstance(context);
+    this.mReceiver = image.createImageReceiver(CameraSize.WIDTH, CameraSize.HEIGHT, 4, 8);
+    Logger.info(this.tag, 'createImageReceiver');
+    this.mReceiver.on('imageArrival', () => this.handleImageArrival());
+  }
+
+  private handleImageArrival(): void {
+    Logger.info(this.tag, 'imageArrival');
+    this.mReceiver.readNextImage((err, image) => {
+      Logger.info(this.tag, 'readNextImage');
+      if (err || image === undefined) {
+        Logger.error(this.tag, 'failed to get valid image');
+        return;
+      }
+      image.getComponent(4, (errMsg, img) => {
+        Logger.info(this.tag, 'getComponent');
+        if (errMsg || img === undefined) {
+          Logger.info(this.tag, 'failed to get valid buffer');
+          return;
         }
-        image.getComponent(4, (errMsg, img) => {
-          Logger.info(this.tag, 'getComponent')
-          if (errMsg || img === undefined) {
-            Logger.info(this.tag, 'failed to get valid buffer')
-            return
-          }
-          let buffer = new ArrayBuffer(4096)
-          if (img.byteBuffer) {
-            buffer = img.byteBuffer
-          } else {
-            Logger.error(this.tag, 'img.byteBuffer is undefined')
-          }
-          this.savePicture(buffer, image)
-        })
-      })
-    })
+        let buffer = new ArrayBuffer(4096);
+        if (img.byteBuffer) {
+          buffer = img.byteBuffer;
+        } else {
+          Logger.error(this.tag, 'img.byteBuffer is undefined');
+        }
+        this.savePicture(buffer, image);
+      });
+    });
   }
 
   async savePicture(buffer: ArrayBuffer, img: image.Image) {
-    Logger.info(this.tag, 'savePicture')
-    this.fileAsset = await this.mediaUtil.createAndGetUri(FileType.IMAGE)
-    this.photoUri = this.fileAsset.uri
-    Logger.info(this.tag, `this.photoUri = ${this.photoUri}`)
-    this.fd = await this.mediaUtil.getFdPath(this.fileAsset)
-    Logger.info(this.tag, `this.fd = ${this.fd}`)
-    await fileio.write(this.fd, buffer)
-    await this.fileAsset.close(this.fd)
-    await img.release()
-    Logger.info(this.tag, 'save image done')
+    Logger.info(this.tag, 'savePicture');
+    this.fileAsset = await this.mediaUtil.createAndGetUri(FileType.IMAGE);
+    this.photoUri = this.fileAsset.uri;
+    Logger.info(this.tag, `this.photoUri = ${this.photoUri}`);
+    this.fd = await this.mediaUtil.getFdPath(this.fileAsset);
+    Logger.info(this.tag, `this.fd = ${this.fd}`);
+    try {
+      await fileio.write(this.fd, buffer);
+    } finally {
+      await this.fileAsset.close(this.fd);
+      await img.release();
+    }
+    Logger.info(this.tag, 'save image done');
     if (this.handleTakePicture) {
-      this.handleTakePicture(this.photoUri)
+      this.handleTakePicture(this.photoUri);
     }
   }
 
@@ -148,8 +184,9 @@ export default class CameraService {
     this.cameraInput = this.cameraManager.createCameraInput(cameraDevice);
     this.cameraInput.open();
     Logger.info(this.tag, 'createCameraInput');
-    this.cameraOutputCapability = this.cameraManager.getSupportedOutputCapability(cameraDevice, camera.SceneMode.NORMAL_VIDEO);
-    let previewProfile = this.cameraOutputCapability.previewProfiles[0];
+    this.cameraOutputCapability =
+      this.cameraManager.getSupportedOutputCapability(cameraDevice, camera.SceneMode.NORMAL_VIDEO);
+    const previewProfile = this.cameraOutputCapability.previewProfiles[0];
     this.previewSize = previewProfile.size;
     this.previewOutput = this.cameraManager.createPreviewOutput(previewProfile, surfaceId);
     Logger.info(this.tag, 'createPreviewOutput');
@@ -168,16 +205,16 @@ export default class CameraService {
     Logger.info(this.tag, 'captureSession start');
   }
 
-  setTakePictureCallback(callback) {
-    this.handleTakePicture = callback
+  setTakePictureCallback(callback: (photoUri: string) => void): void {
+    this.handleTakePicture = callback;
   }
 
   async takePicture() {
-    Logger.info(this.tag, 'takePicture')
+    Logger.info(this.tag, 'takePicture');
     if (this.curMode === CameraMode.MODE_VIDEO) {
-      this.curMode = CameraMode.MODE_PHOTO
+      this.curMode = CameraMode.MODE_PHOTO;
     }
-    let photoSettings = {
+    const photoSettings = {
       rotation: camera.ImageRotation.ROTATION_0,
       quality: camera.QualityLevel.QUALITY_LEVEL_MEDIUM,
       location: { // 位置信息，经纬度
@@ -186,9 +223,9 @@ export default class CameraService {
         altitude: 1000
       },
       mirror: false
-    }
-    await this.photoOutPut.capture(photoSettings)
-    Logger.info(this.tag, 'takePicture done')
+    };
+    await this.photoOutPut.capture(photoSettings);
+    Logger.info(this.tag, 'takePicture done');
   }
 
   async startVideo() {
@@ -228,7 +265,7 @@ export default class CameraService {
     this.videoConfig.url = `fd://${this.fd}`;
     this.videoConfig.profile.videoFrameWidth = this.previewSize.width;
     this.videoConfig.profile.videoFrameHeight = this.previewSize.height;
-    await this.videoRecorder.prepare(this.videoConfig);
+    await this.videoRecorder.prepare(this.videoConfig as media.VideoRecorderConfig);
     let videoId = await this.videoRecorder.getInputSurface();
     let profile = this.cameraOutputCapability.videoProfiles[0];
     this.videoOutput = this.cameraManager.createVideoOutput(profile, videoId);

@@ -13,11 +13,18 @@
  * limitations under the License.
  */
 
-import { MediaSessionReport, MediaSessionMetric } from './MediaSessionReport';
+import { MediaReports, MediaSessionReport, MediaSessionMetric } from './MediaSessionReport';
 
 export class MediaPerformanceBaseline {
+  static eligible(report: MediaSessionReport): boolean {
+    return report.outcome === 'completed' && report.input !== undefined && MediaReports.validInput(report.input) &&
+      typeof report.input.sha256 === 'string' && /^[0-9a-f]{64}$/.test(report.input.sha256);
+  }
+
   static matches(first: MediaSessionReport, second: MediaSessionReport): boolean {
-    return first.operation === second.operation && first.device === second.device && first.api === second.api &&
+    return MediaPerformanceBaseline.eligible(first) && MediaPerformanceBaseline.eligible(second) &&
+      first.input?.sha256 === second.input?.sha256 && first.input?.bytes === second.input?.bytes &&
+      first.operation === second.operation && first.device === second.device && first.api === second.api &&
       first.requested === second.requested && first.observed === second.observed;
   }
 

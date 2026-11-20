@@ -37,16 +37,20 @@ let priKeyPkcs1EncodingStr : string =
   '-----END RSA PRIVATE KEY-----';
 
 async function prikeyDecoding() {
-  let asyKeyGenerator = cryptoFramework.createAsyKeyGenerator('RSA1024');
-  asyKeyGenerator.convertPemKey(null, priKeyPkcs1EncodingStr, '123456')
-    .then(keyPair => {
-      let priKey = keyPair.priKey;
-      if (priKey) {
-        console.info('convertPemKey result: success.');
-      }
-    }).catch((error: BusinessError) => {
-    console.error(`convertPemKey failed: errCode: ${error.code}, message: ${error.message}`);
-  });
+  try {
+    let asyKeyGenerator = cryptoFramework.createAsyKeyGenerator('RSA1024');
+    let keyPair = await asyKeyGenerator.convertPemKey(null, priKeyPkcs1EncodingStr, '123456');
+    let priKey = keyPair.priKey;
+    if (priKey) {
+      console.info('convertPemKey result: success.');
+    }
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`convertPemKey failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude prikey_decoding]
+    throw new Error(`convertPemKey failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude prikey_decoding]
+  }
 }
 // [End prikey_decoding]
 

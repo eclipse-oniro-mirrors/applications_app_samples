@@ -16,7 +16,6 @@
 #ifndef VIDEO_CODEC_PLAYER_H
 #define VIDEO_CODEC_PLAYER_H
 
-#include <bits/alltypes.h>
 #include <cstdint>
 #include <chrono>
 #include <mutex>
@@ -32,6 +31,7 @@
 #include "output/video/renderer/BufferRenderer.h"
 #include "AvSyncController.h"
 #include "PlaybackClock.h"
+#include "VideoFramePacer.h"
 #include "PlaybackDiagnostics.h"
 #include "DumpSession.h"
 #include "SeekController.h"
@@ -51,6 +51,7 @@ class AudioOutputPump;
 
 struct PlaybackInfo {
     OperationFailureInfo failure;
+    OperationFailureInfo cleanupFailure;
     PlayerState state = PLAYER_STATE_IDLE;
     float speed = 1.0f;
     int64_t durationUs = 0;
@@ -108,7 +109,7 @@ public:
     Player() = default;
     ~Player();
 
-    int32_t Init(SampleInfo &sampleInfo);
+    int32_t Init(SampleInfo &sampleInfo, bool *completionOwned = nullptr);
     int32_t Start();
     int32_t Stop();
     int32_t Pause();
@@ -139,6 +140,7 @@ private:
     void AudioDecInputSyncThread();
     void AudioDecOutputSyncThread();
     void Release();
+    void RecordCleanup(const char *stage, int32_t result);
     void StartRelease();
     void ReleaseWorker();
     void JoinReleaseThread();
@@ -197,18 +199,14 @@ private:
     void StartAudioAfterVideoSeek();
     AudioOutputPump CreateAudioOutputPump();
     void FinishAudioOutput(bool stopRenderer);
-    bool ProcessVideoWithoutAudio(CodecBufferInfo& bufferInfo,
-        std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
-    bool ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
-        std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
+    bool WaitForVideoPresentation(int64_t ptsUs, VideoFramePacer &pacer);
+    bool ProcessVideoWithoutAudio(CodecBufferInfo& bufferInfo, VideoFramePacer &pacer);
+    bool ProcessVideoWithAudio(CodecBufferInfo& bufferInfo, VideoFramePacer &pacer);
     bool GetAudioTimestampForVideo(CodecBufferInfo& bufferInfo, int64_t& framePosition, int64_t& timestamp,
         int32_t& result);
-    bool ProcessVideoWithAudioWithoutTimestamp(CodecBufferInfo& bufferInfo,
-        std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
-    bool ProcessVideoAfterSeek(CodecBufferInfo& bufferInfo,
-        std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
-    bool ProcessVideoDuringTrackSwitch(CodecBufferInfo& bufferInfo,
-        std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
+    bool ProcessVideoWithAudioWithoutTimestamp(CodecBufferInfo& bufferInfo, VideoFramePacer &pacer);
+    bool ProcessVideoAfterSeek(CodecBufferInfo& bufferInfo, VideoFramePacer &pacer);
+    bool ProcessVideoDuringTrackSwitch(CodecBufferInfo& bufferInfo, VideoFramePacer &pacer);
     void InitSyncVideoOutputContext();
     void FinishVideoOutput();
     void CancelWorkerWaits();
@@ -229,10 +227,11 @@ private:
     int32_t RebuildPlaybackForSeek(bool hadVideo, bool hadAudio, float speedSnapshot, int64_t targetUs,
         bool forwardSeek);
     void ResetReleasedPlaybackState();
+    // 调用方持有mutex_，与初始化、起播及前后台状态变更串行。
     void PauseForBackground();
     void ResumeFromBackground();
     bool CalculateSyncParameters(CodecBufferInfo& bufferInfo, int64_t framePosition, AvSyncDecision& decision);
-    bool RenderAndRelease(CodecBufferInfo& bufferInfo, int64_t waitTimeUs, bool dropFrame);
+    bool RenderAndRelease(CodecBufferInfo& bufferInfo, int64_t waitTimeUs, bool dropFrame, VideoFramePacer &pacer);
 
     std::unique_ptr<std::ofstream> outputFile_ = nullptr;
     std::chrono::steady_clock::time_point dumpStarted_;
@@ -243,6 +242,7 @@ private:
     std::unique_ptr<Demuxer> demuxer_ = nullptr;
 
     OperationFailure failure_;
+    OperationFailure cleanupFailure_;
     mutable std::mutex mutex_;
     PlaybackInfo completedPlaybackInfo_;
     // 切换音轨会暂时释放mutex_ 并等待音频线程退出。
@@ -253,12 +253,7 @@ private:
     std::atomic<bool> isAudioDone { false };
     std::atomic<bool> isVideoDone { false };
     std::atomic<bool> playbackFailed_ { false };
-    std::atomic<bool> audioInterrupted_ { false };
-    std::atomic<bool> audioResumePending_ { false };
-    std::atomic<uint64_t> audioInterruptCount_ { 0 };
-    std::atomic<int32_t> audioInterruptHint_ { 0 };
-    std::atomic<float> audioVolume_ { 1.0f };
-    std::atomic<bool> audioDucked_ { false };
+    // 应用状态跨播放任务保留；原子写入先记录事件，持有mutex_后按最新状态执行策略。
     std::atomic<bool> appBackgrounded_ { false };
     std::atomic<bool> backgroundPlaybackEnabled_ { false };
     // 仅当后台播放关闭且播放器主动暂停时为true，用于区分用户暂停与后台暂停。
@@ -279,6 +274,8 @@ private:
     std::atomic<bool> audioTrackSwitching_ { false };
     std::mutex pauseMutex_;
     std::condition_variable pauseCond_;
+    std::atomic<uint64_t> videoTimingRevision_{0};
+    void NotifyPlaybackTimingChanged();
     std::mutex audioStartMutex_;
     std::condition_variable audioStartCond_;
     bool resumeAfterSeek_ = true;
@@ -331,6 +328,8 @@ private:
     PlaybackDiagnostics diagnostics_;
     AvSyncController avSyncController_;
     SeekController seekController_;
+    AudioPlaybackCallbackContext audioCallbackContext_ { paused_, audioWorkerRunning_, pauseCond_,
+        diagnostics_.audioUnderruns, diagnostics_.audioQueueDurationUs, playbackPositionUs_ };
 };
 
 #endif // VIDEO_CODEC_PLAYER_H

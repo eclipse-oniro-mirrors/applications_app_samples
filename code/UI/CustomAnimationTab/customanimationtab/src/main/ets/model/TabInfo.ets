@@ -12,6 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file customanimationtab/src/main/ets/model/TabInfo.ets
+ * 文件职责：TabInfo 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：TabInfo。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { TabBarItemInterface } from './TabBarItemInterface';
 
 /**
@@ -21,10 +29,13 @@ import { TabBarItemInterface } from './TabBarItemInterface';
 export class TabInfo {
   // tab项标题(页签内容)
   public title: string;
+
   // tab项内容
   public contentBuilder: WrappedBuilder<[ESObject]>;
+
   // tabBar(页签样式)
   public barBuilder?: WrappedBuilder<[TabBarItemInterface]>;
+
   // tabBarIndex
   public params?: ESObject;
 

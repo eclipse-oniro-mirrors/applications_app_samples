@@ -13,11 +13,27 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/model/PositionModel.ets
+ * 文件职责：PositionModel 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：PositionModel。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
+// @Observed：可观察对象
+/**
+ * PositionModel：类定义，承载本文件对应的逻辑与数据。
+ */
+// @Observed：可观察对象
+/**
+ * PositionModel：类定义，承载本文件对应的逻辑与数据。
+ */
 @Observed
 export class PositionModel {
   private x: number;
   private y: number;
 
+  /** 构造 PositionModel 实例。 */
   constructor(x: number = 0, y: number = 0) {
     this.x = x;
     this.y = y;

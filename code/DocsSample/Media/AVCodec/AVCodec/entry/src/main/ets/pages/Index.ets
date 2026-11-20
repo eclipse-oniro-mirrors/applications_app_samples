@@ -13,12 +13,18 @@
  * limitations under the License.
  */
 
+import { PlaybackFlowController, PlaybackFlowHost, PlaybackFlowOptions, PlaybackFlowProgress } from
+  '../controller/PlaybackFlowController';
+import { PlaybackFlowView } from '../controller/PlaybackFlowState';
+import { PlaybackFlowEvent, PlaybackFlowNotice, PlaybackPreparingEvent, PlaybackLaunchingEvent,
+  PlaybackNoticeEvent } from '../controller/PlaybackFlowEvent';
+import { ConfigurationController } from '../controller/ConfigurationController';
+import { RecorderCapabilityController } from '../controller/RecorderCapabilityController';
 import { LocalizedText } from '../common/LocalizedText';
 import { RecorderSettingsController } from '../controller/RecorderSettingsController';
 import { MediaSettingsLabels } from '../model/MediaSettingsLabels';
 import { fileIo, picker } from '@kit.CoreFileKit'
 import { PiPWindow, UIContext } from '@kit.ArkUI'
-import { camera } from '@kit.CameraKit'
 import { deviceInfo, thermal } from '@kit.BasicServicesKit'
 import player, { DeviceCodecCapability, MediaInfo } from 'libplayer.so'
 import recorder from 'librecorder.so'
@@ -35,19 +41,24 @@ import { PlaybackHistoryEntry, PlaybackHistoryModel, getPlaybackTitle } from '..
 import { PlaybackSubtitleController } from '../controller/PlaybackSubtitleController'
 import { PlaybackControlsController } from '../controller/PlaybackControlsController'
 import { PlaybackMode } from '../model/PlaybackModeModel'
-import { PlaybackRecoveryModel, PlaybackRecoverySnapshot, PlaybackRecoveryReason } from '../model/PlaybackRecoveryModel'
+import { PlaybackRecoveryReason } from '../model/PlaybackRecoveryModel'
 import { SubtitleStyleModel } from '../model/SubtitleStyleModel'
 import { PlaybackQueueController } from '../controller/PlaybackQueueController'
 import { RecorderLaunchController } from '../controller/RecorderLaunchController'
 import { SeekPreviewController } from '../controller/SeekPreviewController'
 import { SeekRequestController, SeekRequestResult } from '../controller/SeekRequestController'
-import { PlayerPictureInPictureController } from '../controller/PlayerPictureInPictureController'
+import { PlayerPictureInPictureController, BackgroundPlaybackResult } from
+  '../controller/PlayerPictureInPictureController'
 import { PlaybackSessionCallbacks, PlaybackSessionController, PlaybackSessionMedia } from
   '../controller/PlaybackSessionController'
 import { PlaybackWindowController } from '../controller/PlaybackWindowController'
 import { PlaybackAudioController } from '../controller/PlaybackAudioController'
 import { PlaybackAbLoopController } from '../controller/PlaybackAbLoopController'
-import { PlaybackSourceController } from '../controller/PlaybackSourceController'
+import { PlaybackSourceController } from '../controller/PlaybackSourceController';
+import { PlaybackHistoryCoordinator } from '../controller/PlaybackHistoryCoordinator';
+import { SystemPlaybackFlowRuntime } from '../controller/PlaybackFlowRuntime';
+import { PlaybackCommandController, PlaybackControlHost, PlaybackControlEvent, PlaybackControlSnapshot } from
+  '../controller/PlaybackCommandController';
 import { SubtitleSettingsPanel } from '../components/SubtitleSettingsPanel'
 import { MediaInfoPanel as MediaInfoPanelComponent } from '../components/MediaInfoPanel'
 import { PlaybackProgressPanel as PlaybackProgressPanelComponent } from '../components/PlaybackProgressPanel'
@@ -66,19 +77,15 @@ import { LibraryPage } from './LibraryPage'
 import { DeviceDiagnosticsPage } from './DeviceDiagnosticsPage'
 import { TranscodePage } from './TranscodePage'
 import { TranscodeModel } from '../model/TranscodeModel'
-import { bufferProfileCameraCheck, encoderProfileCameraCheck, setFirstCameraProfile } from '../common/utils/CameraCheck'
 import { requestRecordPermissions } from '../common/utils/PermissionUtil'
 import {
-  getPickerSelectedIndex, isMediaFileEmpty, isPickerIndexValid
+  getPickerSelectedIndex, isPickerIndexValid
 } from '../common/utils/MediaUtils'
 import { common } from '@kit.AbilityKit'
-import { ConfigurationStore, ConfigurationSnapshot } from '../model/ConfigurationStore'
+import { ConfigurationSnapshot } from '../model/ConfigurationStore'
 import { UserConfiguration } from '../model/UserConfiguration'
 import { ConfigurationFeedback } from '../model/ConfigurationFeedback'
 import { MediaFileActivity } from '../model/MediaFileActivity'
-import { MediaTaskCoordinator, MediaTaskLease } from '../model/MediaTaskCoordinator';
-import { MediaReports } from '../model/MediaSessionReport';
-import { MediaSessionStore } from '../model/MediaSessionStore';
 
 const TAG: string = 'Sample_Player';
 const DATETIME: DateTimeUtil = new DateTimeUtil();
@@ -91,15 +98,13 @@ export struct Player {
   @State configurationNotice: string = '';
   @State configurationRevision: number = 0;
   @State recorderCapabilityHint: string = LocalizedText.get($r('app.string.configuration_recorder_requirements'));
-  private configurationTouched: boolean = false;
+  private configurationController: ConfigurationController = new ConfigurationController();
   @State activeMainTab: number = 0;
   @State transcodeModel: TranscodeModel = new TranscodeModel();
-  @State buttonEnabled: boolean = true;
   @State isShow: boolean = false;
   @State isSmartFluencySupported: boolean = false;
   @State isAdvancedRecorderSupported: boolean = false;
   @State thermalWarningActive: boolean = false;
-  @State isStopping: boolean = false;
   @State playbackViewModel: PlaybackViewModel = new PlaybackViewModel();
   @State isPlaybackProgressVisible: boolean = false;
   @State isMediaInfoVisible: boolean = false;
@@ -134,13 +139,8 @@ export struct Player {
   private seekRequests: SeekRequestController = new SeekRequestController(
     (targetUs: number): Promise<boolean> => player.seekToAsync(targetUs));
   private playbackSessionController: PlaybackSessionController = new PlaybackSessionController();
-  private recovery: PlaybackRecoveryModel = new PlaybackRecoveryModel();
-  private playbackSession: number = 0;
-  private playbackLease: MediaTaskLease | undefined = undefined;
-  private seekRequestId: number = 0;
   private sliderDragging: boolean = false;
   private pageActive: boolean = true;
-  private requestedSpeed: number = 1;
   private seekPreview: SeekPreviewController = new SeekPreviewController(this.playbackViewModel,
     (): string | null => this.selectFilePath, (): MediaInfo | undefined => this.currentMediaInfo);
   private currentMediaInfo: MediaInfo | undefined = undefined;
@@ -159,8 +159,10 @@ export struct Player {
   private playbackHistory: PlaybackHistoryModel = new PlaybackHistoryModel();
   @State playbackQueue: PlaybackQueueController = new PlaybackQueueController();
   private recorderLaunch: RecorderLaunchController = new RecorderLaunchController();
-  private lastHistoryPositionUs: number = -1;
-  private resumeSeekTimer: number = 0;
+  private recordingRequestRevision: number = 0;
+  private recordingPageVisible: boolean = true;
+  private isPreparingRecording: boolean = false;
+  private isSavingRecording: boolean = false;
   private playbackControls: PlaybackControlsController = new PlaybackControlsController();
   private playbackWindow: PlaybackWindowController = new PlaybackWindowController(
     (): UIContext => this.getUIContext(),
@@ -179,13 +181,17 @@ export struct Player {
     (): boolean => this.audioMuted,
     (muted: boolean): void => { this.audioMuted = muted; },
     (): number => this.volumeBeforeMute,
-    (volume: number): void => { this.volumeBeforeMute = volume; });
+    (volume: number): void => { this.volumeBeforeMute = volume; },
+    (): number => this.pageActive && this.playbackFlowState.canControl ?
+      this.playbackFlowState.session : -1,
+    (index: number): Promise<boolean> => this.playbackCommands.selectTrack(
+      (): Promise<boolean> => player.selectAudioTrackAsync(index)));
   private playbackAbLoop: PlaybackAbLoopController = new PlaybackAbLoopController(
     this.playbackViewModel,
     this.seekRequests,
     (positionUs: number): Promise<SeekRequestResult> => this.requestSeek(positionUs),
     (message: Resource): void => this.showControlToast(message),
-    (): boolean => this.isStopping,
+    (): boolean => this.playbackFlowState.isStopping,
     (startUs: number, endUs: number, enabled: boolean): void => {
       this.abLoopStartUs = startUs;
       this.abLoopEndUs = endUs;
@@ -202,10 +208,10 @@ export struct Player {
     this.playbackHistory,
     {
       activatePlayer: (): void => { this.activeMainTab = 0; },
-      play: (positionUs?: number): void => this.play(positionUs),
+      play: (positionUs?: number): void => { void this.play(positionUs); },
       stop: (): void => { void this.stopPlayback(); },
-      isButtonEnabled: (): boolean => this.buttonEnabled,
-      isStopping: (): boolean => this.isStopping,
+      isButtonEnabled: (): boolean => this.playbackFlowState.buttonEnabled,
+      isStopping: (): boolean => this.playbackFlowState.isStopping,
       isPageActive: (): boolean => this.pageActive,
       setPath: (path: string | null): void => { this.selectFilePath = path; },
       getPath: (): string | null => this.selectFilePath,
@@ -215,13 +221,23 @@ export struct Player {
       showNoMediaSelected: (): void => this.showNoMediaSelectedPrompt()
     });
 
+  private playbackHistoryCoordinator: PlaybackHistoryCoordinator = new PlaybackHistoryCoordinator(
+    this.playbackHistory, (): void => this.refreshPlaybackHistory());
+  private playbackRuntime: SystemPlaybackFlowRuntime = new SystemPlaybackFlowRuntime();
+  private playbackFlow: PlaybackFlowController = new PlaybackFlowController(
+    this.createPlaybackFlowHost(), this.playbackQueue, this.playbackHistoryCoordinator,
+    this.seekRequests, this.playbackSessionController, this.playbackRuntime);
+  @State private playbackFlowState: PlaybackFlowView = this.playbackFlow.view;
+  private playbackCommands: PlaybackCommandController = new PlaybackCommandController(this.playbackFlow.commandState,
+    this.seekRequests, this.createPlaybackControlHost(), this.playbackRuntime);
+
   aboutToAppear(): void {
     this.pageActive = true;
+    this.recordingPageVisible = true;
     this.transcodeModel.activate();
     void this.loadConfiguration();
     this.ensurePictureInPictureController();
     this.prepareVulkanShaders();
-    player.setBackgroundPlaybackEnabled(this.isBackgroundPlaybackEnabled);
     player.setAppBackground(false);
     void this.playbackSources.loadHistory();
     this.recordingHistoryRevision++;
@@ -231,8 +247,8 @@ export struct Player {
       this.checkAbLoop(positionUs);
       if (this.playbackViewModel.state === player.PlayerState.PLAYING ||
         this.playbackViewModel.state === player.PlayerState.PAUSED) {
-      void this.persistPlaybackProgress(positionUs, this.playbackViewModel.durationUs);
-        this.recovery.observe(positionUs, this.requestedSpeed,
+        void this.persistPlaybackProgress(positionUs, this.playbackViewModel.durationUs);
+        this.playbackFlow.observe(positionUs,
           this.playbackViewModel.state === player.PlayerState.PAUSED,
           this.playbackViewModel.videoOutputFrames > 0 || this.playbackViewModel.audioOutputBuffers > 0);
       }
@@ -260,56 +276,37 @@ export struct Player {
   }
 
   private async loadConfiguration(): Promise<void> {
-    if (this.configurationReady) {
-      return;
-    }
     const context = this.getUIContext().getHostContext();
-    if (context === undefined) {
-      return;
-    }
-    try {
-      await ConfigurationStore.open(context);
-      const saved = await ConfigurationStore.load();
-      if (this.pageActive && !this.configurationTouched && this.buttonEnabled &&
-        player.getState() === player.PlayerState.IDLE && !recorder.getDiagnostics().active &&
-        !this.isPlayerSettingsVisible && !this.isRecorderSettingsVisible) {
-        UserConfiguration.restore(saved, this.playerSettings, this.cameraData);
+    if (context === undefined || this.configurationReady) { return; }
+    const notice: string = await this.configurationController.load(context,
+      (): boolean => this.pageActive && this.playbackFlowState.buttonEnabled &&
+        player.getState() === player.PlayerState.IDLE &&
+        !recorder.getDiagnostics().active && !this.isPlayerSettingsVisible && !this.isRecorderSettingsVisible,
+      (snapshot: ConfigurationSnapshot): void => {
+        UserConfiguration.restore(snapshot, this.playerSettings, this.cameraData);
         this.configurationRevision++;
-      }
-      this.configurationReady = true;
-    } catch (_error) {
-      this.configurationReady = true;
-      this.configurationNotice = LocalizedText.get($r('app.string.configuration_load_default'));
-    }
+      });
+    this.configurationReady = this.configurationController.ready;
+    if (notice.length > 0) { this.configurationNotice = notice; }
   }
 
   private async persistConfiguration(custom: boolean = false): Promise<void> {
-    this.configurationTouched = true;
+    this.configurationController.touched = true;
     const context = this.getUIContext().getHostContext();
-    if (context === undefined) {
-      return;
-    }
-    const snapshot = UserConfiguration.capture(this.playerSettings, this.cameraData);
-    try {
-      await ConfigurationStore.open(context);
-      await ConfigurationStore.save(snapshot, custom);
-      this.configurationNotice = custom ? LocalizedText.get($r('app.string.configuration_custom_saved')) :
-        LocalizedText.get($r('app.string.configuration_saved'));
-    } catch (_error) {
-      this.configurationNotice = LocalizedText.get($r('app.string.configuration_save_failed'));
-    }
+    if (context === undefined) { return; }
+    this.configurationNotice = await this.configurationController.save(context, this.playerSettings,
+      this.cameraData, custom);
   }
 
   private async selectConfiguration(index: number): Promise<void> {
-    if (!this.buttonEnabled || recorder.getDiagnostics().active) {
+    if (!this.playbackFlowState.buttonEnabled || recorder.getDiagnostics().active) {
       this.configurationNotice = LocalizedText.get($r('app.string.configuration_wait_idle'));
       return;
     }
-    this.configurationTouched = true;
+    this.configurationController.touched = true;
     try {
-      const snapshot: ConfigurationSnapshot = index < 0 ? await ConfigurationStore.load(true) :
-        UserConfiguration.preset(index);
-      if (!this.buttonEnabled || recorder.getDiagnostics().active) {
+      const snapshot: ConfigurationSnapshot = await this.configurationController.select(index);
+      if (!this.playbackFlowState.buttonEnabled || recorder.getDiagnostics().active) {
         return;
       }
       if (snapshot.player.length === 0) {
@@ -374,27 +371,19 @@ export struct Player {
   }
 
   aboutToDisappear(): void {
+    this.recordingPageVisible = false;
+    this.cancelRecordingStartup();
     // 进入系统PiP时页面也会触发消失回调；播放器仍由小窗承载，不能按离页流程停止。
     if (this.isPictureInPictureHoldingPlayback()) {
       void this.persistPlaybackProgress(this.playbackViewModel.positionUs, this.playbackViewModel.durationUs, true);
       return;
     }
     this.pageActive = false;
-    this.playbackSources.clearSelectionTimer();
+    void this.stopPictureInPicture();
+    this.playbackSources.cancelSelection();
     this.transcodeModel.dispose();
-    this.recovery.cancel();
-    this.seekRequests.cancel();
-    void this.playbackSessionController.stop();
-    this.stopPlayback();
+    this.playbackFlow.leave();
     this.clearPlaybackControlsTimer();
-    if (this.resumeSeekTimer !== 0) {
-      clearTimeout(this.resumeSeekTimer);
-      this.resumeSeekTimer = 0;
-    }
-    if (this.playbackViewModel.state === player.PlayerState.PLAYING ||
-      this.playbackViewModel.state === player.PlayerState.PAUSED) {
-      this.persistPlaybackProgress(this.playbackViewModel.positionUs, this.playbackViewModel.durationUs, true);
-    }
     this.stopPlaybackInfoUpdates();
     this.resetPlaybackProgress();
     this.playbackViewModel.isHdrVividConfirmed = false;
@@ -402,7 +391,13 @@ export struct Player {
     this.resetAbLoop();
   }
 
+  onPageHide(): void {
+    this.recordingPageVisible = false;
+    this.cancelRecordingStartup();
+  }
+
   onPageShow(): void {
+    this.recordingPageVisible = true;
     this.recordingHistoryRevision++;
     const recordingUri: string = AppStorage.get<string>('recordingResultPlayback') ?? '';
     if (recordingUri.length > 0) {
@@ -417,16 +412,7 @@ export struct Player {
   }
 
   private async persistPlaybackProgress(positionUs: number, durationUs: number, force: boolean = false): Promise<void> {
-    if (this.selectFilePath === null || durationUs <= 0 || positionUs < 0) {
-      return;
-    }
-    if (!force && this.lastHistoryPositionUs >= 0 && Math.abs(positionUs - this.lastHistoryPositionUs) < 2000000) {
-      return;
-    }
-    // 常规进度按2秒粒度落盘；停止和后台等收尾场景通过force写入最后位置，
-    // 避免高频持久化影响播放期间的界面响应。
-    this.lastHistoryPositionUs = await this.playbackSources.persistProgress(positionUs, durationUs, force,
-      this.lastHistoryPositionUs);
+    await this.playbackFlow.persistProgress(positionUs, durationUs, force);
   }
 
   private createPlaybackSessionCallbacks(): PlaybackSessionCallbacks {
@@ -468,25 +454,21 @@ export struct Player {
   }
 
   private handleSessionPlay(): void {
-    if (!this.buttonEnabled && this.playbackViewModel.state === player.PlayerState.PAUSED) {
-      this.togglePlaybackPause();
-    }
+    this.playbackCommands.setPaused(false);
   }
 
   private handleSessionPause(): void {
-    if (!this.buttonEnabled && this.playbackViewModel.state === player.PlayerState.PLAYING) {
-      this.togglePlaybackPause();
-    }
+    this.playbackCommands.setPaused(true);
   }
 
   private handleSessionStop(): void {
-    if (!this.buttonEnabled) {
+    if (!this.playbackFlowState.buttonEnabled) {
       void this.stopPlayback();
     }
   }
 
   private handleSessionSeek(positionMs: number): void {
-    if (this.buttonEnabled || this.isStopping) {
+    if (!this.playbackFlowState.canControl) {
       return;
     }
     const requestedUs = Math.max(0, Math.round(positionMs * 1000));
@@ -504,31 +486,7 @@ export struct Player {
   }
 
   private requestQueueSwitch(direction: number): void {
-    if (this.buttonEnabled || this.isStopping || this.playbackQueue.paths.length < 2) {
-      return;
-    }
-    const targetIndex = this.getAdjacentQueueIndex(direction);
-    if (targetIndex < 0 || targetIndex === this.playbackQueue.index) {
-      return;
-    }
-    this.playbackQueue.pendingIndex = targetIndex;
-    void this.stopPlayback();
-  }
-
-  private getAdjacentQueueIndex(direction: number): number {
-    return this.playbackQueue.adjacent(direction, this.playbackMode);
-  }
-
-  private async continuePendingQueuePlayback(): Promise<void> {
-    const targetIndex = this.playbackQueue.pendingIndex;
-    this.playbackQueue.pendingIndex = -1;
-    if (targetIndex < 0 || targetIndex >= this.playbackQueue.paths.length || !this.pageActive) {
-      return;
-    }
-    await this.playbackSessionController.stop();
-    this.playbackQueue.index = targetIndex;
-    this.queueEntries = this.playbackQueue.paths.slice();
-    await this.continuePlayback(this.playbackSession, this.playbackQueue.paths[targetIndex], 0);
+    this.playbackFlow.switchQueue(direction);
   }
 
   private clearPlaybackControlsTimer(): void {
@@ -543,7 +501,8 @@ export struct Player {
     }
     this.playbackControls.schedule(PLAYBACK_CONTROLS_HIDE_DELAY_MS,
       (): boolean => this.isPlaybackToolsVisible || this.isQueueVisible || this.isMediaInfoVisible,
-      (): boolean => this.playerSettings.autoHideControls && (this.isFullscreen || !this.buttonEnabled),
+      (): boolean => this.playerSettings.autoHideControls &&
+        (this.isFullscreen || !this.playbackFlowState.buttonEnabled),
       (): void => {
         this.isPlaybackControlsVisible = false;
         this.getUIContext().getPromptAction().showToast({
@@ -555,7 +514,7 @@ export struct Player {
   }
 
   private handlePlaybackControlInteraction(): void {
-    if (!this.buttonEnabled && !this.isStopping) {
+    if (this.playbackFlowState.canControl) {
       this.showPlaybackControls();
     }
   }
@@ -571,7 +530,7 @@ export struct Player {
       return;
     }
     const playbackState = this.playbackViewModel.state;
-    const canTogglePlayback = !this.buttonEnabled && !this.isStopping && !this.sliderDragging &&
+    const canTogglePlayback = this.playbackFlowState.canControl && !this.sliderDragging &&
       (playbackState === player.PlayerState.PLAYING || playbackState === player.PlayerState.PAUSED);
     if (canTogglePlayback) {
       this.togglePlaybackPause(true);
@@ -589,7 +548,7 @@ export struct Player {
       return;
     }
     const playbackState = this.playbackViewModel.state;
-    const canSeek = !this.buttonEnabled && !this.isStopping && !this.sliderDragging &&
+    const canSeek = this.playbackFlowState.canControl && !this.sliderDragging &&
       this.playbackViewModel.hasVideo && this.playbackWindowWidth > 0 &&
       (playbackState === player.PlayerState.PLAYING || playbackState === player.PlayerState.PAUSED ||
         this.seekRequests.isBusy());
@@ -613,7 +572,7 @@ export struct Player {
   }
 
   private selectDisplayScaleMode(): void {
-    TextPickerDialog.show({
+    this.getUIContext().showTextPickerDialog({
       range: [
         this.getSettingText($r('app.string.playback_display_scale_fit')),
         this.getSettingText($r('app.string.playback_display_scale_fill'))
@@ -653,6 +612,7 @@ export struct Player {
 
   async selectSubtitleFile(): Promise<void> {
     const sourcePath: string | null = this.selectFilePath;
+    const session: number = this.playbackFlowState.session;
     if (sourcePath === null) {
       this.showNoMediaSelectedPrompt();
       return;
@@ -660,6 +620,7 @@ export struct Player {
     try {
       const subtitleName: string = await this.subtitles.selectAndLoad();
       if (subtitleName.length === 0) { return; }
+      if (session !== this.playbackFlowState.session) { return; }
       if (!this.pageActive || this.selectFilePath !== sourcePath) {
         this.subtitles.clear();
         return;
@@ -673,7 +634,8 @@ export struct Player {
         bottom: Const.BOTTOM
       });
     } catch (error) {
-      if (this.selectFilePath !== sourcePath) { return; }
+      if (!this.pageActive || session !== this.playbackFlowState.session ||
+        this.selectFilePath !== sourcePath) { return; }
       Logger.error(TAG, 'Load SRT subtitle failed: ' + JSON.stringify(error));
       this.getUIContext().getPromptAction().showToast({
         message: $r('app.string.playback_subtitle_failed'), duration: Const.DURATION, bottom: Const.BOTTOM
@@ -743,36 +705,59 @@ export struct Player {
   }
 
   private async requestSeek(targetUs: number): Promise<SeekRequestResult> {
-    if (this.buttonEnabled || this.isStopping || !this.pageActive) {
-      return 'cancelled';
-    }
-    const requestId = ++this.seekRequestId;
-    const session = this.playbackSession;
-    this.playbackViewModel.setSeekPosition(targetUs);
-    this.playbackViewModel.isSeeking = true;
-    const pending = this.seekRequests.request(targetUs);
-    this.updateSeekStatistics();
-    const result = await pending;
-    if (session !== this.playbackSession || requestId !== this.seekRequestId || !this.pageActive) {
-      return result;
-    }
-    this.updateSeekStatistics();
-    if (!this.seekRequests.isBusy() && !this.sliderDragging) {
-      this.playbackViewModel.isSeeking = false;
-      if (!this.isStopping) {
-        player.setPlaybackSpeed(this.requestedSpeed);
-        if (this.thermalWarningActive) {
-          player.onThermalWarningReceived(0.3);
-        } else {
-          player.onThermalLevelRecovered();
-        }
+    return await this.playbackCommands.seek(targetUs);
+  }
+
+  private createPlaybackControlHost(): PlaybackControlHost {
+    return {
+      getSnapshot: (): PlaybackControlSnapshot => ({
+        active: this.pageActive,
+        dragging: this.sliderDragging,
+        thermalWarning: this.thermalWarningActive
+      }),
+      onEvent: (event: PlaybackControlEvent): void => this.handlePlaybackControlEvent(event)
+    };
+  }
+
+  private handlePlaybackControlEvent(event: PlaybackControlEvent): void {
+    switch (event.type) {
+      case 'seek_started':
+        this.playbackViewModel.setSeekPosition(event.positionUs ?? 0);
+        this.playbackViewModel.isSeeking = true;
+        break;
+      case 'seek_updated':
+        this.updateSeekStatistics();
+        break;
+      case 'seek_settled':
+        this.playbackViewModel.isSeeking = false;
+        break;
+      case 'updated':
         this.updatePlaybackInfo();
-      }
+        break;
+      case 'busy':
+        this.showControlToast($r('app.string.playback_seek_busy'));
+        break;
+      case 'seek_failed':
+        this.showControlToast($r('app.string.seek_failed'));
+        break;
+      case 'frame_step_failed':
+        this.showControlToast($r('app.string.playback_frame_step_failed'));
+        break;
+      case 'paused':
+      case 'resumed':
+        this.showPlaybackPauseResult(event);
+        break;
     }
-    if (result === 'failed' && !this.isStopping) {
-      this.showControlToast($r('app.string.seek_failed'));
+  }
+
+  private showPlaybackPauseResult(event: PlaybackControlEvent): void {
+    this.playbackViewModel.update();
+    this.playbackSessionController.updateState(this.playbackViewModel.state,
+      this.playbackViewModel.speed, this.playbackViewModel.positionUs, this.playbackViewModel.durationUs);
+    if (event.showPrompt) {
+      this.showControlToast(event.type === 'resumed' ? $r('app.string.playback_gesture_play') :
+        $r('app.string.playback_pause'));
     }
-    return result;
   }
 
   private updateSeekStatistics(): void {
@@ -800,14 +785,14 @@ export struct Player {
   }
 
   private setAbLoopStart(): void {
-    if (this.buttonEnabled) {
+    if (!this.playbackFlowState.canControl) {
       return;
     }
     this.playbackAbLoop.setStart();
   }
 
   private setAbLoopEnd(): void {
-    if (!this.buttonEnabled) {
+    if (this.playbackFlowState.canControl) {
       this.playbackAbLoop.setEnd();
     }
   }
@@ -824,7 +809,7 @@ export struct Player {
     if (this.rejectWhileSeeking()) {
       return;
     }
-    if (this.buttonEnabled || this.isStopping || this.playbackViewModel.durationUs <= 0) {
+    if (!this.playbackFlowState.canControl || this.playbackViewModel.durationUs <= 0) {
       return;
     }
     const mediaInfo = player.getMediaInfo();
@@ -833,11 +818,7 @@ export struct Player {
     const positionUs = this.currentPlaybackPositionUs();
     const targetUs = Math.max(0, Math.min(this.playbackViewModel.durationUs,
       positionUs + direction * frameDurationUs));
-    if (this.playbackViewModel.state === player.PlayerState.PLAYING && !player.pause()) {
-      this.showControlToast($r('app.string.playback_frame_step_failed'));
-      return;
-    }
-    this.requestSeek(targetUs);
+    void this.playbackCommands.stepFrame(targetUs);
   }
 
   private showControlToast(message: Resource): void {
@@ -864,7 +845,10 @@ export struct Player {
         onSeekBySeconds: (seconds: number): void => {
           this.seekBySeconds(seconds);
         },
-        isBackgroundPlaybackEnabled: (): boolean => this.isBackgroundPlaybackEnabled
+        getPlaybackSession: (): number => this.pageActive && this.playbackFlowState.canControl ?
+          this.playbackFlowState.session : -1,
+        setPaused: (paused: boolean): boolean => this.playbackCommands.setPaused(paused),
+        onBackgroundChanged: (enabled: boolean): void => { this.isBackgroundPlaybackEnabled = enabled; }
       });
     }
     return this.pictureInPictureController;
@@ -879,7 +863,7 @@ export struct Player {
     if (this.rejectWhileSeeking()) {
       return;
     }
-    if (this.buttonEnabled || this.playbackViewModel.durationUs <= 0) {
+    if (!this.playbackFlowState.canControl || this.playbackViewModel.durationUs <= 0) {
       return;
     }
     if (!PiPWindow.isPiPEnabled()) {
@@ -890,9 +874,12 @@ export struct Player {
     if (hostContext === undefined) {
       return;
     }
+    const session: number = this.playbackFlowState.session;
+    const commandRevision: number = this.playbackFlowState.commandRevision;
     const started: boolean = await this.ensurePictureInPictureController().start(hostContext,
       this.xComponentController);
-    if (!started) {
+    if (!started && this.pageActive && this.playbackFlowState.canControl &&
+      session === this.playbackFlowState.session && commandRevision === this.playbackFlowState.commandRevision) {
       this.showControlToast($r('app.string.playback_pip_failed'));
     }
   }
@@ -910,42 +897,34 @@ export struct Player {
   }
 
   private async toggleBackgroundPlayback(): Promise<void> {
-    this.isBackgroundPlaybackEnabled = !this.isBackgroundPlaybackEnabled;
-    player.setBackgroundPlaybackEnabled(this.isBackgroundPlaybackEnabled);
-    if (this.isBackgroundPlaybackEnabled &&
-      (this.pictureInPictureController === undefined || !this.pictureInPictureController.isCreated)) {
-      await this.togglePictureInPicture();
-      if (!this.isPipActive) {
-        this.isBackgroundPlaybackEnabled = false;
-        player.setBackgroundPlaybackEnabled(false);
-        return;
-      }
+    const controller: PlayerPictureInPictureController = this.ensurePictureInPictureController();
+    const enabled: boolean = !controller.isBackgroundRequested;
+    if (enabled && (this.rejectWhileSeeking() || !this.playbackFlowState.canControl ||
+      this.playbackViewModel.durationUs <= 0)) { return; }
+    if (enabled && !PiPWindow.isPiPEnabled()) {
+      this.showControlToast($r('app.string.playback_pip_unsupported'));
+      return;
     }
-    if (this.pictureInPictureController !== undefined) {
-      this.pictureInPictureController.setAutoStartEnabled(this.isBackgroundPlaybackEnabled);
+    const session: number = this.playbackFlowState.session;
+    const revision: number = this.playbackFlowState.commandRevision;
+    const pending: Promise<BackgroundPlaybackResult> = controller.setBackgroundPlayback(enabled,
+      this.getUIContext().getHostContext(), this.xComponentController);
+    const requestRevision: number = controller.backgroundRequestRevision;
+    const result: BackgroundPlaybackResult = await pending;
+    if (!this.pageActive || session !== this.playbackFlowState.session ||
+      revision !== this.playbackFlowState.commandRevision || result === 'cancelled' ||
+      requestRevision !== controller.backgroundRequestRevision) { return; }
+    if ((result === 'enabled' || result === 'disabled') && enabled !== controller.isBackgroundRequested) { return; }
+    if (result === 'cleanup_pending' || result === 'failed') {
+      this.showControlToast($r('app.string.playback_pip_failed'));
+      return;
     }
-    this.showControlToast(this.isBackgroundPlaybackEnabled ?
+    this.showControlToast(result === 'enabled' ?
       $r('app.string.playback_background_enabled') : $r('app.string.playback_background_disabled'));
   }
 
   private togglePlaybackPause(showPrompt: boolean = false): void {
-    if (this.rejectWhileSeeking()) {
-      return;
-    }
-    const paused = this.playbackViewModel.state === player.PlayerState.PAUSED;
-    const success = paused ? player.resume() : player.pause();
-    if (!success) {
-      Logger.error(TAG, (paused ? 'Resume' : 'Pause') + ' playback failed');
-      return;
-    }
-    this.playbackViewModel.update();
-    this.playbackSessionController.updateState(this.playbackViewModel.state,
-      this.playbackViewModel.speed, this.playbackViewModel.positionUs,
-      this.playbackViewModel.durationUs);
-    if (showPrompt) {
-      this.showControlToast(paused ? $r('app.string.playback_gesture_play') :
-        $r('app.string.playback_pause'));
-    }
+    this.playbackCommands.togglePause(showPrompt);
   }
 
   private replaySelectedFile(): void {
@@ -992,11 +971,7 @@ export struct Player {
   }
 
   setPlaybackSpeed(speed: number): void {
-    this.requestedSpeed = speed;
-    if (!this.seekRequests.isBusy()) {
-      player.setPlaybackSpeed(speed);
-    }
-    this.updatePlaybackInfo();
+    this.playbackCommands.setSpeed(speed);
   }
 
   setTransform(transformHint: number): void {
@@ -1008,28 +983,7 @@ export struct Player {
   }
 
   async stopPlayback(): Promise<void> {
-    if (this.isStopping) {
-      return;
-    }
-    this.isStopping = true;
-    if (this.playbackLease !== undefined) { MediaTaskCoordinator.cancelling(this.playbackLease); }
-    this.sliderDragging = false;
-    this.recovery.cancel();
-    this.seekRequests.cancel();
-    this.playbackSessionController.updateState(player.PlayerState.STOPPING,
-      this.requestedSpeed, this.playbackViewModel.positionUs, this.playbackViewModel.durationUs);
-    if (this.resumeSeekTimer !== 0) {
-      clearTimeout(this.resumeSeekTimer);
-      this.resumeSeekTimer = 0;
-    }
-    await this.seekRequests.waitForIdle();
-    if (player.stop()) {
-      Logger.info(TAG, 'Player stop requested');
-    } else {
-      this.isStopping = false;
-      Logger.error(TAG, 'Player stop request rejected, state: ' + player.getState());
-      this.updatePlaybackInfo();
-    }
+    await this.playbackFlow.stop();
   }
 
   private capturePlaybackFailure(): void {
@@ -1041,364 +995,211 @@ export struct Player {
       LocalizedText.get($r('app.string.playback_failed_hint'));
   }
 
-  play(startPositionUs: number = -1, recoverySnapshot?: PlaybackRecoverySnapshot): void {
-    if (MediaFileActivity.isTranscoding()) {
-      this.getUIContext().getPromptAction().showToast({ message: $r('app.string.transcode_resource_busy') });
-      return;
-    }
-    if (!this.buttonEnabled || this.seekRequests.isBusy() || !this.pageActive || this.isStopping) {
-      return;
-    }
-    if (this.selectFilePath === null) {
-      this.getUIContext().getPromptAction().showToast({
-        message: $r('app.string.alert'),
-        duration: Const.DURATION,
-        bottom: Const.BOTTOM
-      });
-      return;
-    }
+  async play(startPositionUs: number = -1): Promise<void> {
+    await this.playbackFlow.play(startPositionUs);
+  }
 
-    this.playbackFailureText = '';
-    const playbackPath = this.selectFilePath;
-    if (this.subtitleSourcePath.length > 0 && this.subtitleSourcePath !== playbackPath) {
-      this.clearSubtitle();
-    }
-    if (recoverySnapshot === undefined) {
-      this.recovery.reset();
-      this.playbackViewModel.clearRecoveryDiagnostics();
-      this.requestedSpeed = 1;
-    }
-    this.seekRequests.resetStatistics();
-    // 启动新任务前清除上个任务的断点跳转计时器。
-    if (this.resumeSeekTimer !== 0) {
-      clearTimeout(this.resumeSeekTimer);
-      this.resumeSeekTimer = 0;
-    }
+  private refreshPlaybackHistory(): void {
+    if (this.pageActive) { this.recentEntries = this.playbackHistory.getEntries(); }
+  }
 
-    if (!MediaFileActivity.beginLaunch()) {
-      this.getUIContext().getPromptAction().showToast({
-        message: LocalizedText.get($r('app.string.playback_cleanup_busy'))
-      });
-      return;
-    }
-    const lease: MediaTaskLease | undefined = MediaTaskCoordinator.acquire('playback');
-    if (lease === undefined) { MediaFileActivity.endLaunch(); return; }
-    const session: number = ++this.playbackSession;
-    this.playbackLease = lease;
-    const reportContext = this.getUIContext().getHostContext();
-    if (reportContext !== undefined) {
-      void MediaSessionStore.begin(reportContext, { id: lease.id, operation: 'playback', startedAt: lease.startedAt })
-        .catch((error: Error): void => Logger.warn(TAG, 'Session journal: ' + error.message));
-    }
-    let nativeOwnsLease: boolean = false;
-    this.configurationTouched = true;
-    try {
-      const inputFile = fileIo.openSync(playbackPath, fileIo.OpenMode.READ_ONLY);
-      let inputFileClosed = false;
-      const closeInputFile = (): void => {
-        if (inputFileClosed) {
-          return;
-        }
-        try {
-          fileIo.closeSync(inputFile);
-          inputFileClosed = true;
-        } catch (error) {
-          Logger.error(TAG, 'Close player input file failed: ' + JSON.stringify(error));
-        }
-      };
-      let closeInCallback = false;
-      try {
-        const inputFileState = fileIo.statSync(inputFile.fd);
-        if (isMediaFileEmpty(inputFileState.size)) {
-          Logger.error(TAG, 'Player input file is empty');
-          this.getUIContext().getPromptAction().showToast({
-            message: $r('app.string.media_file_empty'),
-            duration: Const.DURATION,
-            bottom: Const.BOTTOM
-          });
-          return;
-        }
+  private createPlaybackFlowHost(): PlaybackFlowHost {
+    return {
+      getContext: (): common.Context | undefined => this.getUIContext().getHostContext(),
+      isActive: (): boolean => this.pageActive,
+      getPath: (): string | null => this.selectFilePath,
+      setPath: (path: string): void => { this.selectFilePath = path; },
+      getOptions: (): PlaybackFlowOptions => this.getPlaybackFlowOptions(),
+      getProgress: (): PlaybackFlowProgress => ({ positionUs: this.playbackViewModel.positionUs,
+        durationUs: this.playbackViewModel.durationUs,
+        mediaDurationUs: this.currentMediaInfo?.durationUs ?? 0 }),
+      seekTo: (positionUs: number): Promise<SeekRequestResult> => this.requestSeek(positionUs),
+      onEvent: (event: PlaybackFlowEvent): void => this.handlePlaybackFlowEvent(event)
+    };
+  }
 
-        this.buttonEnabled = false;
-        this.resetAbLoop();
-        this.showPlaybackControls(false);
-        if (recoverySnapshot === undefined) {
-          this.audioMuted = false;
-        }
-        this.volumeBeforeMute = this.playerSettings.audioVolume;
-        this.lastHistoryPositionUs = -1;
-        this.playbackViewModel.isHdrVividConfirmed = false;
-        this.resetPlaybackProgress();
-        this.transformType = 0;
-        let failurePromptShown = false;
-        const started: boolean = player.play(this.playerSettings.createPlayOptions({
-          inputFileFd: inputFile.fd,
-          inputFileOffset: Const.DEFAULT_VALUE,
-          inputFileSize: inputFileState.size,
-          isSmartFluencySupported: this.isSmartFluencySupported
-        }), (result) => {
-          Logger.info(TAG, 'Player JS callback, success: ' + result.success + ', reason: ' + result.reason);
-          closeInputFile();
-          try {
-            if (reportContext !== undefined && MediaTaskCoordinator.owns(lease)) {
-              void MediaSessionStore.finish(reportContext, lease.id,
-                MediaReports.playback(lease.id, player.getCompletedPlaybackInfo(), result.reason))
-                .catch((error: Error): void => Logger.warn(TAG, 'Session report: ' + error.message));
-            }
-          } catch (error) {
-            Logger.warn(TAG, 'Session snapshot: ' + JSON.stringify(error));
-          } finally {
-            MediaTaskCoordinator.release(lease);
-          }
-          if (session !== this.playbackSession) {
-            return;
-          }
-          this.playbackLease = undefined;
-          if (result.reason === 'error') { this.capturePlaybackFailure(); }
-          const retry = result.reason === 'error' && this.autoRecoveryEnabled &&
-            !this.isStopping && this.pageActive ? this.recovery.takeRetry() : undefined;
-          if (result.reason === 'error' && retry !== undefined) {
-            this.playbackViewModel.markRecoveryPending(PlaybackRecoveryReason.RUNTIME_ERROR);
-          }
-          const completedPath = playbackPath;
-          const completedPositionUs = this.playbackViewModel.positionUs;
-          const completedDurationUs = this.playbackViewModel.durationUs;
-          if (completedPath !== null && completedDurationUs > 0) {
-            if (result.reason === 'completed') {
-              this.playbackHistory.markCompleted(completedPath);
-            } else {
-              this.persistPlaybackProgress(completedPositionUs, completedDurationUs, true);
-            }
-          }
-          this.playbackSessionController.updateState(player.PlayerState.STOPPING,
-            this.requestedSpeed, completedPositionUs, completedDurationUs);
-          const requestedQueueIndex = this.playbackQueue.pendingIndex;
-          this.buttonEnabled = true;
-          this.isStopping = false;
-          this.playbackViewModel.isSmartFluencyAvailable = false;
-          this.playbackViewModel.isHdrVividConfirmed = false;
-          this.stopPlaybackInfoUpdates();
-          this.resetPlaybackProgress();
-          this.resetAbLoop();
-          this.stopPictureInPicture();
-          this.isMediaInfoVisible = false;
-          this.mediaInfoSections = [];
-          this.seekRequests.cancel();
-          this.seekRequestId++;
-          if (!this.pageActive) {
-            void this.playbackSessionController.stop();
-            return;
-          }
-          if (retry !== undefined) {
-            this.showControlToast($r('app.string.playback_recovering'));
-            this.continuePlayback(session, playbackPath, retry.positionUs, retry);
-            return;
-          }
-          if (result.reason === 'error' && this.playbackViewModel.recoveryAttemptCount > 0) {
-            this.playbackViewModel.markRecoveryFailed();
-          }
-          if (requestedQueueIndex >= 0) {
-            void this.continuePendingQueuePlayback();
-            return;
-          }
-          // 切换音轨触发的stop() 不视为播放失败。
-          if (!result.success && result.reason !== 'stopped' && !failurePromptShown) {
-            failurePromptShown = true;
-            this.getUIContext().getPromptAction().showToast({
-              message: $r('app.string.media_file_invalid'),
-              duration: Const.DURATION,
-              bottom: Const.BOTTOM
-            });
-          }
-          const nextIndex = result.reason === 'completed' ?
-            this.playbackQueue.next(this.playbackMode) : -1;
-          if (nextIndex >= 0) {
-            this.playbackQueue.index = nextIndex;
-            this.queueEntries = this.playbackQueue.paths.slice();
-            this.continuePlayback(session, this.playbackQueue.paths[nextIndex], 0);
-          } else {
-            void this.playbackSessionController.stop();
-          }
-        });
-        // A failed initialization may still be draining Native resources asynchronously.
-        nativeOwnsLease = started || player.getState() !== player.PlayerState.IDLE;
-        closeInCallback = nativeOwnsLease;
-        if (started) {
-          MediaTaskCoordinator.running(lease);
-        } else if (nativeOwnsLease) {
-          MediaTaskCoordinator.cancelling(lease);
-        }
-        if (!started) {
-          this.buttonEnabled = !nativeOwnsLease;
-          this.playbackViewModel.isSmartFluencyAvailable = false;
-          this.playbackViewModel.isHdrVividConfirmed = false;
-          if (recoverySnapshot !== undefined) {
-            this.playbackViewModel.markRecoveryFailed();
-          }
-          this.resetPlaybackProgress();
-          failurePromptShown = true;
-          this.capturePlaybackFailure();
-          Logger.error(TAG, 'Player initialization or startup failed');
-          this.getUIContext().getPromptAction().showToast({
-            message: $r('app.string.media_file_invalid'),
-            duration: Const.DURATION,
-            bottom: Const.BOTTOM
-          });
-        } else {
-          if (recoverySnapshot !== undefined) {
-            this.playbackViewModel.markRecoverySucceeded();
-          }
-          this.playbackViewModel.isSmartFluencyAvailable = player.isSmartFluencyAvailable();
-          this.updateMediaInfo();
-          this.startPlaybackInfoUpdates();
-          // 起播成功后才开始自动隐藏计时。
-          this.showPlaybackControls();
-          this.startPlaybackSession();
-          const mediaDurationUs = this.currentMediaInfo?.durationUs ?? 0;
-          const resumePositionUs = startPositionUs >= 0 ? startPositionUs :
-            this.playbackHistory.getResumePosition(this.selectFilePath ?? '', mediaDurationUs);
-          if (recoverySnapshot !== undefined) {
-            this.requestedSpeed = recoverySnapshot.speed;
-            player.setVolume(this.audioMuted ? 0 : this.playerSettings.audioVolume / 100);
-            player.setPlaybackSpeed(recoverySnapshot.speed);
-            if (recoverySnapshot.paused) {
-              player.pause();
-            }
-          }
-          if (resumePositionUs > 0 || recoverySnapshot !== undefined) {
-            if (this.resumeSeekTimer !== 0) {
-              clearTimeout(this.resumeSeekTimer);
-            }
-            this.resumeSeekTimer = setTimeout(async () => {
-              this.resumeSeekTimer = 0;
-              if (!this.isStopping && session === this.playbackSession &&
-                await this.requestSeek(Math.max(0, resumePositionUs)) === 'completed') {
-                this.getUIContext().getPromptAction().showToast({
-                  message: recoverySnapshot === undefined ? $r('app.string.playback_resume_position') :
-                    $r('app.string.playback_recovered'), duration: Const.DURATION, bottom: Const.BOTTOM
-                });
-              }
-            }, 300);
-          }
-          Logger.info(TAG, 'Smart fluency available: ' + this.playbackViewModel.isSmartFluencyAvailable);
-        }
-      } finally {
-        if (!closeInCallback) {
-          closeInputFile();
-        }
-      }
-    } catch (error) {
-      this.buttonEnabled = true;
-      this.isStopping = false;
-      this.playbackViewModel.isSmartFluencyAvailable = false;
-      this.playbackViewModel.isHdrVividConfirmed = false;
-      if (recoverySnapshot !== undefined) {
+  private getPlaybackFlowOptions(): PlaybackFlowOptions {
+    return { settings: this.playerSettings,
+      smartFluency: this.isSmartFluencySupported,
+      autoRecovery: this.autoRecoveryEnabled,
+      mode: this.playbackMode,
+      muted: this.audioMuted };
+  }
+
+  private handlePlaybackFlowEvent(event: PlaybackFlowEvent): void {
+    if (event instanceof PlaybackPreparingEvent) { this.preparePlaybackView(event); return; }
+    if (event instanceof PlaybackLaunchingEvent) { this.initializePlaybackView(event.recovering); return; }
+    if (event instanceof PlaybackNoticeEvent) { this.showPlaybackFlowNotice(event.notice); return; }
+    switch (event.type) {
+      case 'started':
+        this.showStartedPlayback();
+        break;
+      case 'finished':
+        this.clearFinishedPlayback();
+        break;
+      case 'stopping':
+        this.sliderDragging = false;
+        break;
+      case 'stop_rejected':
+        this.playbackViewModel.isSeeking = false;
+        this.updatePlaybackInfo();
+        break;
+      case 'failure':
+        this.capturePlaybackFailure();
+        break;
+      case 'start_failed':
+        this.showPlaybackStartFailure();
+        break;
+      case 'recovery_pending':
+        this.playbackViewModel.markRecoveryPending(PlaybackRecoveryReason.RUNTIME_ERROR);
+        break;
+      case 'recovery_failed':
         this.playbackViewModel.markRecoveryFailed();
-      }
-      this.resetPlaybackProgress();
-      Logger.error(TAG, 'Open or inspect player input file failed: ' + JSON.stringify(error));
-      this.getUIContext().getPromptAction().showToast({
-        message: $r('app.string.media_file_open_failed'),
-        duration: Const.DURATION,
-        bottom: Const.BOTTOM
-      });
-    } finally {
-      if (!nativeOwnsLease) {
-        try {
-          if (reportContext !== undefined) {
-            const report = MediaReports.base(lease.id, 'playback', 'failed');
-            report.error = MediaReports.error('playback.prepare', -1, 'Playback preparation did not complete');
-            void MediaSessionStore.finish(reportContext, lease.id, report)
-              .catch((error: Error): void => Logger.warn(TAG, 'Session report: ' + error.message));
-          }
-        } catch (error) {
-          Logger.warn(TAG, 'Session snapshot: ' + JSON.stringify(error));
-        } finally {
-          MediaTaskCoordinator.release(lease);
-        }
-        if (this.playbackLease?.id === lease.id) { this.playbackLease = undefined; }
-      }
-      MediaFileActivity.endLaunch();
+        break;
+      case 'recovery_succeeded':
+        this.playbackViewModel.markRecoverySucceeded();
+        break;
+      case 'queue_changed':
+        this.queueEntries = this.playbackQueue.paths.slice();
+        break;
     }
   }
 
-  private async continuePlayback(session: number, path: string, positionUs: number,
-    snapshot?: PlaybackRecoverySnapshot): Promise<void> {
-    await this.seekRequests.waitForIdle();
-    if (session !== this.playbackSession || !this.pageActive || this.isStopping) {
+  private preparePlaybackView(event: PlaybackPreparingEvent): void {
+    this.playbackFailureText = '';
+    if (this.subtitleSourcePath.length > 0 && this.subtitleSourcePath !== event.path) { this.clearSubtitle(); }
+    if (!event.recovering) { this.playbackViewModel.clearRecoveryDiagnostics(); }
+    this.configurationController.touched = true;
+  }
+
+  private showPlaybackStartFailure(): void {
+    this.playbackViewModel.isSmartFluencyAvailable = false;
+    this.playbackViewModel.isHdrVividConfirmed = false;
+    this.resetPlaybackProgress();
+    this.capturePlaybackFailure();
+  }
+
+  private initializePlaybackView(recovering: boolean): void {
+    this.resetAbLoop();
+    this.showPlaybackControls(false);
+    if (!recovering) { this.audioMuted = false; }
+    this.volumeBeforeMute = this.playerSettings.audioVolume;
+    this.playbackViewModel.isHdrVividConfirmed = false;
+    this.resetPlaybackProgress();
+    this.transformType = 0;
+  }
+
+  private showStartedPlayback(): void {
+    this.playbackViewModel.isSmartFluencyAvailable = player.isSmartFluencyAvailable();
+    this.updateMediaInfo();
+    this.startPlaybackInfoUpdates();
+    this.showPlaybackControls();
+    this.startPlaybackSession();
+    Logger.info(TAG, 'Smart fluency available: ' + this.playbackViewModel.isSmartFluencyAvailable);
+  }
+
+  private clearFinishedPlayback(): void {
+    this.playbackViewModel.isSmartFluencyAvailable = false;
+    this.playbackViewModel.isHdrVividConfirmed = false;
+    this.stopPlaybackInfoUpdates();
+    this.resetPlaybackProgress();
+    this.resetAbLoop();
+    this.stopPictureInPicture();
+    this.isMediaInfoVisible = false;
+    this.mediaInfoSections = [];
+  }
+
+  private showPlaybackFlowNotice(notice: PlaybackFlowNotice): void {
+    if (notice === 'recovering') { this.showControlToast($r('app.string.playback_recovering')); return; }
+    if (notice === 'transcoding') {
+      this.getUIContext().getPromptAction().showToast({ message: $r('app.string.transcode_resource_busy') });
       return;
     }
-    this.selectFilePath = path;
-    this.play(positionUs, snapshot);
+    const message: Resource = this.getPlaybackFlowMessage(notice);
+    this.getUIContext().getPromptAction().showToast({
+      message: message, duration: notice === 'close_unconfirmed' ? 5000 : Const.DURATION, bottom: Const.BOTTOM
+    });
+  }
+
+  private getPlaybackFlowMessage(notice: PlaybackFlowNotice): Resource {
+    switch (notice) {
+      case 'no_source':
+        return $r('app.string.alert');
+      case 'close_unconfirmed':
+        return $r('app.string.playback_close_unconfirmed');
+      case 'busy':
+        return $r('app.string.playback_cleanup_busy');
+      case 'empty':
+        return $r('app.string.media_file_empty');
+      case 'invalid':
+        return $r('app.string.media_file_invalid');
+      case 'recovered':
+        return $r('app.string.playback_recovered');
+      case 'resumed':
+        return $r('app.string.playback_resume_position');
+      default:
+        return $r('app.string.media_file_open_failed');
+    }
+  }
+
+  private cancelRecordingStartup(): void {
+    ++this.recordingRequestRevision;
+    this.isShow = false;
+    this.recorderLaunch.cancel();
+  }
+
+  private dismissRecordingSheet(action: DismissSheetAction): void {
+    this.cancelRecordingStartup();
+    action.dismiss();
+  }
+
+  private isRecordingRequestCurrent(request: number): boolean {
+    return request === this.recordingRequestRevision && this.pageActive && this.recordingPageVisible;
   }
 
   async prepareRecording(): Promise<void> {
+    if (!this.pageActive || !this.recordingPageVisible || this.isPreparingRecording ||
+      this.isSavingRecording || this.isShow) { return; }
     if (MediaFileActivity.isTranscoding()) {
       this.getUIContext().getPromptAction().showToast({ message: $r('app.string.transcode_resource_busy') });
       return;
     }
-    this.configurationTouched = true;
-    const context = this.getUIContext().getHostContext();
-    if (context === undefined || !await requestRecordPermissions(context)) {
-      this.getUIContext().getPromptAction().showToast({
-        message: $r('app.string.record_permission_required'),
-        duration: Const.DURATION,
-        bottom: Const.BOTTOM
-      });
-      return;
+    const request: number = ++this.recordingRequestRevision;
+    this.isPreparingRecording = true;
+    this.configurationController.touched = true;
+    try {
+      const context = this.getUIContext().getHostContext();
+      const granted: boolean = context !== undefined &&
+        await requestRecordPermissions(context, this.cameraData.recordAudio);
+      if (!this.isRecordingRequestCurrent(request)) { return; }
+      if (!granted) {
+        this.getUIContext().getPromptAction().showToast({
+          message: $r('app.string.record_permission_required'),
+          duration: Const.DURATION,
+          bottom: Const.BOTTOM
+        });
+        return;
+      }
+      this.isShow = true;
+    } finally {
+      this.isPreparingRecording = false;
     }
-
-    this.isShow = true;
   }
 
   async checkIsProfileSupport(): Promise<void> {
-    let cameraManager: camera.CameraManager = camera.getCameraManager(getContext(this));
-    if (!cameraManager) {
-      Logger.error(TAG, 'camera.getCameraManager error!');
-    }
-
-    if (this.cameraData.bufferInput) {
-      if (bufferProfileCameraCheck(cameraManager, this.cameraData) === undefined) {
-        this.getUIContext().getPromptAction().showToast({
-          message: $r('app.string.recorder_buffer_profile_unavailable'), duration: 5000
-        });
-      }
-      return;
-    }
-    let encoderProfile = await encoderProfileCameraCheck(cameraManager, this.cameraData);
-    if (!encoderProfile) {
-      Logger.error(TAG, 'encoderProfile is not found');
+    const request: number = this.recordingRequestRevision;
+    const context = this.getUIContext().getHostContext();
+    if (context === undefined) { return; }
+    try {
+      const message: Resource = await RecorderCapabilityController.check(context, this.cameraData);
+      if (!this.isRecordingRequestCurrent(request)) { return; }
       this.getUIContext().getPromptAction().showToast({
-        message: $r('app.string.alert1'),
-        duration: Const.DURATION,
-        bottom: Const.BOTTOM,
-        backgroundColor: Color.White,
-        backgroundBlurStyle: BlurStyle.NONE
+        message: message, duration: Const.DURATION, bottom: Const.BOTTOM
       });
-      this.cameraData = new CameraDataModel();
-      encoderProfile = await encoderProfileCameraCheck(cameraManager, this.cameraData);
-      if (!encoderProfile) {
-        Logger.error(TAG, '1080P video profile is not found, set first camera profile');
-        let encoderProfile = await setFirstCameraProfile(cameraManager);
-        if (!encoderProfile) {
-          Logger.error(TAG, 'No fallback video profile is available');
-          return;
-        }
-        this.cameraData.cameraWidth = encoderProfile.size.width;
-        this.cameraData.cameraHeight = encoderProfile.size.height;
-        this.cameraData.frameRate = encoderProfile.frameRateRange.max;
-        this.cameraData.bitRate = Const.BITRATE_VIDEO_2M;
-        this.cameraData.format = encoderProfile.format;
-      }
-      return;
-    } else {
-      this.getUIContext().getPromptAction().showToast({
-        message: $r('app.string.success'),
-        duration: Const.DURATION,
-        bottom: Const.BOTTOM,
-        backgroundColor: Color.White,
-        backgroundBlurStyle: BlurStyle.NONE
-      });
+    } catch (error) {
+      if (!this.isRecordingRequestCurrent(request)) { return; }
+      Logger.error(TAG, 'Check recording capabilities failed: ' + String(error));
+      this.getUIContext().getPromptAction().showToast({ message: $r('app.string.alert1') });
     }
   }
 
@@ -1516,7 +1317,7 @@ export struct Player {
       return;
     }
     // 相机查询会让出执行权；先标记用户已应用，防止启动时的异步读取覆盖刚改的设置。
-    this.configurationTouched = true;
+    this.configurationController.touched = true;
     this.isRecorderSettingsVisible = false;
     void this.checkIsProfileSupport().then((): void => { void this.persistConfiguration(); })
       .catch((_error: Error): void => {
@@ -1565,6 +1366,7 @@ export struct Player {
       advancedExpanded: this.isAdvancedPlayerSettingsExpanded,
       audioLowLatencyEnabled: this.playerDraft.audioLowLatency,
       autoHideControlsEnabled: this.playerDraft.autoHideControls,
+      resumeLastPositionEnabled: this.playerDraft.resumeLastPosition,
       retainLastFrameEnabled: this.playerDraft.retainLastFrame,
       retainLastFrameAvailable: this.playerDraft.runMode === 0,
       lowLatencyEnabled: this.playerDraft.lowLatency,
@@ -1581,6 +1383,7 @@ export struct Player {
       },
       onAudioLowLatencyChanged: (enabled: boolean): void => { this.playerDraft.audioLowLatency = enabled; },
       onAutoHideControlsChanged: (enabled: boolean): void => { this.playerDraft.autoHideControls = enabled; },
+      onResumeLastPositionChanged: (enabled: boolean): void => { this.playerDraft.resumeLastPosition = enabled; },
       onRetainLastFrameChanged: (enabled: boolean): void => { this.playerDraft.retainLastFrame = enabled; },
       onLowLatencyChanged: (enabled: boolean): void => { this.playerDraft.lowLatency = enabled; },
       onDecodingOrderOutputChanged: (enabled: boolean): void => {
@@ -1673,7 +1476,7 @@ export struct Player {
   @Builder
   RecorderSettingButton() {
     Button($r('app.string.setting'))
-      .enabled(this.buttonEnabled)
+      .enabled(this.playbackFlowState.buttonEnabled)
       .fontSize('12fp')
       .backgroundColor('#E67E22')
       .fontColor(Color.White)
@@ -1697,14 +1500,23 @@ export struct Player {
   @Builder
   Authorized() {
     RecorderSaveAuthorizationPanel({
-      onCancel: (): void => { this.isShow = false; },
+      onCancel: (): void => { this.cancelRecordingStartup(); },
       onSave: async (): Promise<void> => { await this.saveRecorderOutput(); }
     })
   }
 
   private async saveRecorderOutput(): Promise<void> {
-    await this.checkIsProfileSupport();
-    await this.recorderLaunch.launch(this.getUIContext(), this.cameraData);
+    if (!this.pageActive || !this.recordingPageVisible || !this.isShow ||
+      this.isPreparingRecording || this.isSavingRecording) { return; }
+    const request: number = ++this.recordingRequestRevision;
+    this.isSavingRecording = true;
+    try {
+      await this.checkIsProfileSupport();
+      if (!this.isRecordingRequestCurrent(request)) { return; }
+      await this.recorderLaunch.launch(this.getUIContext(), this.cameraData);
+    } finally {
+      this.isSavingRecording = false;
+    }
   }
 
   @Builder
@@ -1718,7 +1530,7 @@ export struct Player {
       recentEntries: this.recentEntries,
       queueEntries: this.queueEntries,
       queueIndex: this.playbackQueue.index,
-      buttonEnabled: this.buttonEnabled,
+      buttonEnabled: this.playbackFlowState.buttonEnabled,
       recentPositionPrefix: this.getSettingText($r('app.string.playback_recent_position')),
       recentCompletedText: this.getSettingText($r('app.string.playback_recent_completed')),
       onOpenFiles: (): void => {
@@ -1743,7 +1555,7 @@ export struct Player {
         cameraWidth: this.cameraData.cameraWidth,
         cameraHeight: this.cameraData.cameraHeight,
         frameRate: this.cameraData.frameRate,
-        buttonEnabled: this.buttonEnabled,
+        buttonEnabled: this.playbackFlowState.buttonEnabled,
         refreshToken: this.recordingHistoryRevision,
         onOpenSettings: (): void => {
           this.prepareRecorderSettings();
@@ -1769,7 +1581,8 @@ export struct Player {
         .height(1)
         .bindSheet($$this.isShow, this.Authorized, {
           height: 210,
-          title: { title: $r('app.string.saveButtonTitle') }
+          title: { title: $r('app.string.saveButtonTitle') },
+          onWillDismiss: (action: DismissSheetAction): void => this.dismissRecordingSheet(action)
         })
     }
     .width('100%')
@@ -1778,8 +1591,11 @@ export struct Player {
 
   @Builder
   TranscodeHomePage() {
-    TranscodePage({ model: this.transcodeModel, quality: this.transcodeModel.quality,
-      onPlayResult: (uri: string): void => this.playbackSources.playRecording(uri) })
+    TranscodePage({
+      model: this.transcodeModel,
+      quality: this.transcodeModel.quality,
+      onPlayResult: (uri: string): void => this.playbackSources.playRecording(uri)
+    })
   }
 
   @Builder
@@ -1839,7 +1655,7 @@ export struct Player {
       recentEntries: this.recentEntries,
       playbackMode: this.playbackMode,
       autoRecoveryEnabled: this.autoRecoveryEnabled,
-      buttonEnabled: this.buttonEnabled,
+      buttonEnabled: this.playbackFlowState.buttonEnabled,
       recentPositionPrefix: this.getSettingText($r('app.string.playback_recent_position')),
       recentCompletedText: this.getSettingText($r('app.string.playback_recent_completed')),
       onModeChanged: (index: number): void => { this.playbackMode = index; },
@@ -1856,8 +1672,8 @@ export struct Player {
   @Builder
   PlaybackToolsPanel() {
     PlaybackMoreActionsPanel({
-      buttonEnabled: this.buttonEnabled,
-      isStopping: this.isStopping,
+      buttonEnabled: this.playbackFlowState.buttonEnabled,
+      isStopping: this.playbackFlowState.isStopping,
       hasVideo: this.playbackViewModel.hasVideo,
       hasAudio: this.playbackViewModel.hasAudio,
       audioMuted: this.audioMuted,
@@ -1945,7 +1761,7 @@ export struct Player {
 
 
   private showPlaybackSpeedPicker(): void {
-    TextPickerDialog.show({
+    this.getUIContext().showTextPickerDialog({
       range: Const.PLAYBACK_SPEED,
       canLoop: false,
       onAccept: (value: TextPickerResult): void => {
@@ -1954,20 +1770,22 @@ export struct Player {
             this.setPlaybackSpeed(1);
             this.getUIContext().getPromptAction().showToast({ message: 'X1' });
             break;
-          case Const.PLAYBACK_SPEED[1]: {
-            this.setPlaybackSpeed(2);
-            const message: Resource | string = this.playbackViewModel.isSmartFluencyAvailable ?
-              $r('app.string.smart_fluency_x2') : 'X2';
-            this.getUIContext().getPromptAction().showToast({ message: message });
-            break;
-          }
-          case Const.PLAYBACK_SPEED[2]: {
-            this.setPlaybackSpeed(3);
-            const message: Resource | string = this.playbackViewModel.isSmartFluencyAvailable ?
-              $r('app.string.smart_fluency_x3') : 'X3';
-            this.getUIContext().getPromptAction().showToast({ message: message });
-            break;
-          }
+          case Const.PLAYBACK_SPEED[1]:
+            {
+              this.setPlaybackSpeed(2);
+              const message: Resource | string = this.playbackViewModel.isSmartFluencyAvailable ?
+                $r('app.string.smart_fluency_x2') : 'X2';
+              this.getUIContext().getPromptAction().showToast({ message: message });
+              break;
+            }
+          case Const.PLAYBACK_SPEED[2]:
+            {
+              this.setPlaybackSpeed(3);
+              const message: Resource | string = this.playbackViewModel.isSmartFluencyAvailable ?
+                $r('app.string.smart_fluency_x3') : 'X3';
+              this.getUIContext().getPromptAction().showToast({ message: message });
+              break;
+            }
           default:
             break;
         }
@@ -2003,7 +1821,7 @@ export struct Player {
 
   private handlePlaybackLongPress(): void {
     this.showPlaybackControls();
-    if (!this.buttonEnabled && !this.isStopping && this.playbackViewModel.hasVideo) {
+    if (this.playbackFlowState.canControl && this.playbackViewModel.hasVideo) {
       this.setPlaybackSpeed(2);
       const message = this.playbackViewModel.isSmartFluencyAvailable ?
         $r('app.string.smart_fluency_x2') : $r('app.string.playback_speed_x2');
@@ -2012,7 +1830,7 @@ export struct Player {
   }
 
   private handlePlaybackLongPressEnd(): void {
-    if (!this.buttonEnabled && !this.isStopping && this.playbackViewModel.hasVideo) {
+    if (this.playbackFlowState.canControl && this.playbackViewModel.hasVideo) {
       this.setPlaybackSpeed(1);
       this.getUIContext().getPromptAction().showToast({ message: $r('app.string.playback_speed_x1') });
     }
@@ -2026,7 +1844,7 @@ export struct Player {
       diagnosticsVisible: this.isDiagnosticsVisible,
       seekEnabled: (this.playbackViewModel.state === player.PlayerState.PLAYING ||
         this.playbackViewModel.state === player.PlayerState.PAUSED || this.seekRequests.isBusy()) &&
-        !this.isStopping && this.playbackViewModel.durationUs > 0,
+        this.playbackFlowState.canControl && this.playbackViewModel.durationUs > 0,
       onShowMediaInfo: () => {
         this.handlePlaybackControlInteraction();
         this.showMediaInfo();
@@ -2053,8 +1871,8 @@ export struct Player {
   @Builder
   PlaybackControlBar() {
     PlayerControlBarComponent({
-      buttonEnabled: this.buttonEnabled,
-      stopping: this.isStopping,
+      buttonEnabled: this.playbackFlowState.buttonEnabled,
+      stopping: this.playbackFlowState.isStopping,
       hasVideo: this.playbackViewModel.hasVideo,
       paused: this.playbackViewModel.state === player.PlayerState.PAUSED,
       fullscreen: this.isFullscreen,
@@ -2079,7 +1897,7 @@ export struct Player {
         this.seekBySeconds(15);
       },
       onPlayOrStop: (): void => {
-        if (this.buttonEnabled) {
+        if (this.playbackFlowState.buttonEnabled) {
           void this.selectFile();
         } else {
           void this.stopPlayback();

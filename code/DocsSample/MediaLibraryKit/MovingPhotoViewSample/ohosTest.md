@@ -1,9 +1,50 @@
-# MovingPhotoView测试用例
+# MovingPhotoViewSample 测试用例说明
 
-## 用例表
+## 测试环境
 
-| 测试功能                             |预置条件|输入|预期输出|测试结果|
-|----------------------------------|--------------------------------|--------------------------------|------------------------------|--------------------------------|
-| 拉起应用并验证动态照片自动加载                   |	设备正常运行|		|动态照片加载成功显示|Pass|
-| 点击start按钮开始播放                   |	设备正常运行|		|动态照片开始播放|Pass|
-| 点击stop按钮停止播放                   |	设备正常运行|		|动态照片停止播放|Pass|
+- Bundle：`com.example.movingphotoviewsample`
+- 测试模块：`entry_test`
+- 测试框架：`OpenHarmonyTestRunner`
+- SDK：API version 26.0.0
+
+## 自动化测试套件
+
+| 测试文件 | 用例数 |
+|---|---:|
+| `MovingPhotoBundleLongMatrix.test.ets` | 30 |
+| `MovingPhotoConfigMatrix.test.ets` | 30 |
+| `MovingPhotoControllerContract.test.ets` | 50 |
+| `MovingPhotoControllerInstances.test.ets` | 40 |
+| `MovingPhotoMediaDeep.test.ets` | 50 |
+| `MovingPhotoMuteLongMatrix.test.ets` | 40 |
+| `MovingPhotoMuteMatrix.test.ets` | 40 |
+| `MovingPhotoPlaybackControl.test.ets` | 60 |
+| `MovingPhotoPlaybackLongMatrix.test.ets` | 60 |
+| `MovingPhotoPlaybackMatrix.test.ets` | 40 |
+| `MovingPhotoPlaybackSequence.test.ets` | 60 |
+| `MovingPhotoPlusBundle.test.ets` | 60 |
+| `MovingPhotoPlusBundleDeep.test.ets` | 60 |
+| `MovingPhotoPlusConfig.test.ets` | 60 |
+| `MovingPhotoPlusConfigDeep.test.ets` | 60 |
+| `MovingPhotoPlusController.test.ets` | 60 |
+| `MovingPhotoPlusControllerDeep.test.ets` | 60 |
+| `MovingPhotoPlusLifecycle.test.ets` | 60 |
+| `MovingPhotoPlusLifecycleDeep.test.ets` | 60 |
+| `MovingPhotoPlusMediaDeep.test.ets` | 60 |
+| `MovingPhotoPlusResource.test.ets` | 60 |
+| `MovingPhotoPlusUi.test.ets` | 60 |
+| `MovingPhotoTextMatrix.test.ets` | 40 |
+| `MovingPhotoUiContract.test.ets` | 50 |
+| `MovingPhotoUiElements.test.ets` | 50 |
+| `MovingPhotoView.test.ets` | 7 |
+| `MovingPhotoViewExtended.test.ets` | 12 |
+
+合计：**27 个测试套件，1319 条用例**。
+
+> 以上用例数与 `List.test.ets` 中实际注册的套件和用例数一致。
+
+## 运行入口
+
+- 测试模块：`entry_test`
+- 测试运行器：`OpenHarmonyTestRunner`
+- 命令参数请参考 OpenHarmony 测试框架文档，按工程实际 bundleName 执行。

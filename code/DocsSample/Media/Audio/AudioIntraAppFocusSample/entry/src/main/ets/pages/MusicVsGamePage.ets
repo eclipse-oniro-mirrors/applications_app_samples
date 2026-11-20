@@ -15,6 +15,7 @@
 import { router, PromptAction } from '@kit.ArkUI';
 import { AudioStreamController } from '../common/utils/AudioStreamController';
 import { InterruptMode, StreamUsageType, AudioStreamState } from '../common/constants/AudioConstants';
+import { StreamCardView } from '../common/components/StreamCardView';
 
 const TOAST_DURATION = 2000; // Toast display duration (ms)
 const MUSIC_FREQ = 440; // Default frequency for MUSIC stream (Hz)
@@ -111,6 +112,7 @@ struct MusicVsGamePage {
           .fontWeight(FontWeight.Bold)
         Blank()
         Text(this.modeLabel)
+          .id('pageModeLabelMG')
           .fontSize(12)
           .fontColor(this.currentMode === InterruptMode.SHARE_MODE ? '#4CAF50' : '#F44336')
       }
@@ -141,68 +143,27 @@ struct MusicVsGamePage {
       .borderRadius(12)
       .margin({ left: 16, right: 16, bottom: 12 })
 
-      this.StreamCard(`MUSIC (${MUSIC_FREQ}Hz)`, this.musicPlaying, this.musicLog,
-        () => { this.toggleMusic(); },
-        () => { this.musicStream.clearInterruptLog(); this.musicLog = []; })
+      StreamCardView({
+        title: `MUSIC (${MUSIC_FREQ}Hz)`,
+        isPlaying: this.musicPlaying,
+        logs: this.musicLog,
+        idPrefix: 'musicG',
+        onPlayStop: () => { this.toggleMusic(); },
+        onClearLog: () => { this.musicStream.clearInterruptLog(); this.musicLog = []; }
+      })
 
-      this.StreamCard(`GAME (${GAME_FREQ}Hz)`, this.gamePlaying, this.gameLog,
-        () => { this.toggleGame(); },
-        () => { this.gameStream.clearInterruptLog(); this.gameLog = []; })
+      StreamCardView({
+        title: `GAME (${GAME_FREQ}Hz)`,
+        isPlaying: this.gamePlaying,
+        logs: this.gameLog,
+        idPrefix: 'gameG',
+        onPlayStop: () => { this.toggleGame(); },
+        onClearLog: () => { this.gameStream.clearInterruptLog(); this.gameLog = []; }
+      })
     }
     .width('100%')
     .height('100%')
     .backgroundColor('#F0F0F0')
   }
 
-  @Builder
-  StreamCard(title: string, isPlaying: boolean, logs: string[], onPlayStop: () => void, onClearLog: () => void) {
-    Column() {
-      Text(title)
-        .fontSize(16)
-        .fontWeight(FontWeight.Medium)
-        .margin({ bottom: 8 })
-
-      Row() {
-        Button(isPlaying ? $r('app.string.stop_btn') : $r('app.string.play_btn'))
-          .fontSize(14)
-          .height(40)
-          .backgroundColor(isPlaying ? '#F44336' : '#4CAF50')
-          .fontColor('#FFFFFF')
-          .borderRadius(8)
-          .onClick(onPlayStop)
-
-        Button($r('app.string.clear_log_btn'))
-          .fontSize(14)
-          .height(40)
-          .backgroundColor('#E0E0E0')
-          .fontColor('#333')
-          .borderRadius(8)
-          .margin({ left: 12 })
-          .onClick(onClearLog)
-      }
-      .margin({ bottom: 8 })
-
-      Scroll() {
-        Column() {
-          ForEach(logs, (log: string, index: number) => {
-            Text(log)
-              .fontSize(12)
-              .fontColor('#F44336')
-              .width('100%')
-              .padding(4)
-          }, (log: string, index: number) => `${index}`)
-        }
-      }
-      .width('100%')
-      .height(80)
-      .backgroundColor('#F5F5F5')
-      .borderRadius(8)
-      .padding(8)
-    }
-    .width('100%')
-    .padding(16)
-    .backgroundColor('#FFFFFF')
-    .borderRadius(12)
-    .margin({ left: 16, right: 16, bottom: 12 })
-  }
 }

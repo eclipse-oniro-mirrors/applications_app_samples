@@ -78,10 +78,16 @@ async function rsaEncryptLongMessage() {
       console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
     } else {
       console.error('decrypt failed.');
+      // [StartExclude rsa_segmentation_encrypt_decrypt_async]
+      throw new Error('decrypt failed.');
+      // [EndExclude rsa_segmentation_encrypt_decrypt_async]
     }
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude rsa_segmentation_encrypt_decrypt_async]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude rsa_segmentation_encrypt_decrypt_async]
   }
 }
 

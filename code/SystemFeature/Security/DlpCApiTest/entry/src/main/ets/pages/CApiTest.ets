@@ -39,7 +39,8 @@ struct CApiTest {
       .height(40)
       .margin(20)
       .onClick(() => {
-        const result: number = testNapi.GetOriginalFileName();
+        // Returns the original file name on success, or an error code on failure
+        const result: string | number = testNapi.GetOriginalFileName();
         this.message = result.toString();
       })
 
@@ -47,7 +48,8 @@ struct CApiTest {
       .height(40)
       .margin(20)
       .onClick(() => {
-        const result: boolean = testNapi.IsInSandbox();
+        // Returns the sandbox state on success, or an error code on failure
+        const result: boolean | number = testNapi.IsInSandbox();
         this.message = result.toString();
       })
 
@@ -63,7 +65,8 @@ struct CApiTest {
       .height(40)
       .margin(20)
       .onClick(() => {
-        const result: number = testNapi.GetSandboxAppConfig();
+        // Returns the config info on success, or an error code on failure
+        const result: string | number = testNapi.GetSandboxAppConfig();
         this.message = result.toString();
       })
 

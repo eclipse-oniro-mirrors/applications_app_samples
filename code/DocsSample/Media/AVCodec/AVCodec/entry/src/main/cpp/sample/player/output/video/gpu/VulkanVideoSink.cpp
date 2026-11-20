@@ -453,7 +453,8 @@ bool VulkanVideoSink::CreateConfiguredSwapchain(const VkSurfaceCapabilitiesKHR &
     }
     createInfo.presentMode = SelectPresentMode();
     createInfo.clipped = VK_TRUE;
-    return vkCreateSwapchainKHR(device_, &createInfo, nullptr, &swapchain_) == VK_SUCCESS && LoadSwapchainImages();
+    return vkCreateSwapchainKHR(device_, &createInfo, nullptr, &swapchainResources_.handle) == VK_SUCCESS &&
+        LoadSwapchainImages();
 }
 
 bool VulkanVideoSink::SelectSwapchainFormat(VkSurfaceFormatKHR &surfaceFormat)
@@ -551,19 +552,21 @@ VkPresentModeKHR VulkanVideoSink::SelectPresentMode() const
 bool VulkanVideoSink::LoadSwapchainImages()
 {
     uint32_t imageCount = 0;
-    if (vkGetSwapchainImagesKHR(device_, swapchain_, &imageCount, nullptr) != VK_SUCCESS || imageCount == 0) {
+    if (vkGetSwapchainImagesKHR(device_, swapchainResources_.handle, &imageCount, nullptr) != VK_SUCCESS ||
+        imageCount == 0) {
         return false;
     }
-    swapchainImages_.resize(imageCount);
+    swapchainResources_.images.resize(imageCount);
     const bool loaded =
-        vkGetSwapchainImagesKHR(device_, swapchain_, &imageCount, swapchainImages_.data()) == VK_SUCCESS &&
-        !swapchainImages_.empty();
+        vkGetSwapchainImagesKHR(device_, swapchainResources_.handle, &imageCount,
+            swapchainResources_.images.data()) == VK_SUCCESS &&
+        !swapchainResources_.images.empty();
     if (loaded) {
-        swapchainImageLayouts_.assign(imageCount, VK_IMAGE_LAYOUT_UNDEFINED);
-        renderFinishedSemaphores_.assign(imageCount, VK_NULL_HANDLE);
+        swapchainResources_.layouts.assign(imageCount, VK_IMAGE_LAYOUT_UNDEFINED);
+        swapchainResources_.renderFinished.assign(imageCount, VK_NULL_HANDLE);
         VkSemaphoreCreateInfo semaphoreInfo{};
         semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
-        for (VkSemaphore &semaphore : renderFinishedSemaphores_) {
+        for (VkSemaphore &semaphore : swapchainResources_.renderFinished) {
             if (vkCreateSemaphore(device_, &semaphoreInfo, nullptr, &semaphore) != VK_SUCCESS) {
                 return false;
             }
@@ -578,26 +581,26 @@ bool VulkanVideoSink::CreateCommandResources()
     poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
     poolInfo.queueFamilyIndex = queueFamilyIndex_;
     poolInfo.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
-    if (vkCreateCommandPool(device_, &poolInfo, nullptr, &commandPool_) != VK_SUCCESS) {
+    if (vkCreateCommandPool(device_, &poolInfo, nullptr, &frameResources_.commandPool) != VK_SUCCESS) {
         return false;
     }
     VkCommandBufferAllocateInfo allocationInfo{};
     allocationInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
-    allocationInfo.commandPool = commandPool_;
+    allocationInfo.commandPool = frameResources_.commandPool;
     allocationInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
     allocationInfo.commandBufferCount = 1;
-    if (vkAllocateCommandBuffers(device_, &allocationInfo, &commandBuffer_) != VK_SUCCESS) {
+    if (vkAllocateCommandBuffers(device_, &allocationInfo, &frameResources_.commandBuffer) != VK_SUCCESS) {
         return false;
     }
     VkSemaphoreCreateInfo semaphoreInfo{};
     semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
-    if (vkCreateSemaphore(device_, &semaphoreInfo, nullptr, &imageAvailable_) != VK_SUCCESS) {
+    if (vkCreateSemaphore(device_, &semaphoreInfo, nullptr, &frameResources_.imageAvailable) != VK_SUCCESS) {
         return false;
     }
     VkFenceCreateInfo fenceInfo{};
     fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
     fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
-    return vkCreateFence(device_, &fenceInfo, nullptr, &frameFence_) == VK_SUCCESS;
+    return vkCreateFence(device_, &fenceInfo, nullptr, &frameResources_.fence) == VK_SUCCESS;
 }
 
 bool VulkanVideoSink::LoadShaderModule(const uint32_t *code, size_t wordCount, VkShaderModule &module)
@@ -705,7 +708,8 @@ bool VulkanVideoSink::EnsureStagingBuffer(size_t size)
 
 bool VulkanVideoSink::EnsureUploadImage(uint32_t width, uint32_t height)
 {
-    if (uploadImage_ != VK_NULL_HANDLE && uploadImageExtent_.width == width && uploadImageExtent_.height == height) {
+    if (uploadResources_.image != VK_NULL_HANDLE && uploadResources_.extent.width == width &&
+        uploadResources_.extent.height == height) {
         return true;
     }
     if (device_ == VK_NULL_HANDLE || width == 0 || height == 0) {
@@ -716,8 +720,8 @@ bool VulkanVideoSink::EnsureUploadImage(uint32_t width, uint32_t height)
         ReleaseUploadImage();
         return false;
     }
-    uploadImageExtent_ = { width, height };
-    uploadImageLayout_ = VK_IMAGE_LAYOUT_UNDEFINED;
+    uploadResources_.extent = { width, height };
+    uploadResources_.layout = VK_IMAGE_LAYOUT_UNDEFINED;
     return true;
 }
 
@@ -743,13 +747,13 @@ bool VulkanVideoSink::CreateUploadImage(uint32_t width, uint32_t height)
     imageInfo.usage = VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT;
     imageInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
     imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-    return vkCreateImage(device_, &imageInfo, nullptr, &uploadImage_) == VK_SUCCESS;
+    return vkCreateImage(device_, &imageInfo, nullptr, &uploadResources_.image) == VK_SUCCESS;
 }
 
 bool VulkanVideoSink::AllocateUploadImageMemory()
 {
     VkMemoryRequirements requirements {};
-    vkGetImageMemoryRequirements(device_, uploadImage_, &requirements);
+    vkGetImageMemoryRequirements(device_, uploadResources_.image, &requirements);
     const uint32_t memoryType = FindMemoryType(requirements.memoryTypeBits, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
     if (memoryType == UINT32_MAX) {
         return false;
@@ -758,25 +762,13 @@ bool VulkanVideoSink::AllocateUploadImageMemory()
     allocationInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
     allocationInfo.allocationSize = requirements.size;
     allocationInfo.memoryTypeIndex = memoryType;
-    return vkAllocateMemory(device_, &allocationInfo, nullptr, &uploadImageMemory_) == VK_SUCCESS &&
-        vkBindImageMemory(device_, uploadImage_, uploadImageMemory_, 0) == VK_SUCCESS;
+    return vkAllocateMemory(device_, &allocationInfo, nullptr, &uploadResources_.memory) == VK_SUCCESS &&
+        vkBindImageMemory(device_, uploadResources_.image, uploadResources_.memory, 0) == VK_SUCCESS;
 }
 
 void VulkanVideoSink::ReleaseUploadImage()
 {
-    if (device_ == VK_NULL_HANDLE) {
-        return;
-    }
-    if (uploadImage_ != VK_NULL_HANDLE) {
-        vkDestroyImage(device_, uploadImage_, nullptr);
-        uploadImage_ = VK_NULL_HANDLE;
-    }
-    if (uploadImageMemory_ != VK_NULL_HANDLE) {
-        vkFreeMemory(device_, uploadImageMemory_, nullptr);
-        uploadImageMemory_ = VK_NULL_HANDLE;
-    }
-    uploadImageExtent_ = {};
-    uploadImageLayout_ = VK_IMAGE_LAYOUT_UNDEFINED;
+    uploadResources_.Reset();
 }
 
 bool VulkanVideoSink::RenderFrame(const std::vector<uint8_t> &rgba, int32_t width, int32_t height,
@@ -792,8 +784,8 @@ bool VulkanVideoSink::RenderFrame(const std::vector<uint8_t> &rgba, int32_t widt
         return false;
     }
     uint32_t imageIndex = 0;
-    const VkResult acquire = vkAcquireNextImageKHR(device_, swapchain_, IMAGE_ACQUIRE_WAIT_NS, imageAvailable_,
-        VK_NULL_HANDLE, &imageIndex);
+    const VkResult acquire = vkAcquireNextImageKHR(device_, swapchainResources_.handle, IMAGE_ACQUIRE_WAIT_NS,
+        frameResources_.imageAvailable, VK_NULL_HANDLE, &imageIndex);
     if (acquire == VK_NOT_READY || acquire == VK_TIMEOUT) {
         return true;
     }
@@ -801,13 +793,13 @@ bool VulkanVideoSink::RenderFrame(const std::vector<uint8_t> &rgba, int32_t widt
         swapchainRecreatePending_ = true;
         return true;
     }
-    if ((acquire != VK_SUCCESS && acquire != VK_SUBOPTIMAL_KHR) || imageIndex >= swapchainImageLayouts_.size()) {
+    if ((acquire != VK_SUCCESS && acquire != VK_SUBOPTIMAL_KHR) || imageIndex >= swapchainResources_.layouts.size()) {
         return false;
     }
-    vkResetCommandBuffer(commandBuffer_, 0);
+    vkResetCommandBuffer(frameResources_.commandBuffer, 0);
     VkCommandBufferBeginInfo beginInfo{};
     beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-    if (vkBeginCommandBuffer(commandBuffer_, &beginInfo) != VK_SUCCESS) {
+    if (vkBeginCommandBuffer(frameResources_.commandBuffer, &beginInfo) != VK_SUCCESS) {
         return false;
     }
     if (!RecordUploadCommands(uploadFrame.width, uploadFrame.height) ||
@@ -857,19 +849,20 @@ bool VulkanVideoSink::UploadStagingData(const std::vector<uint8_t> &uploadData)
 
 bool VulkanVideoSink::RecordUploadCommands(int32_t uploadWidth, int32_t uploadHeight)
 {
-    const VkPipelineStageFlags sourceStage = uploadImageLayout_ == VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL ?
+    const VkPipelineStageFlags sourceStage = uploadResources_.layout == VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL ?
         VK_PIPELINE_STAGE_TRANSFER_BIT : VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
-    const VkAccessFlags sourceAccess = uploadImageLayout_ == VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL ?
+    const VkAccessFlags sourceAccess = uploadResources_.layout == VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL ?
         VK_ACCESS_TRANSFER_READ_BIT : 0;
-    TransitionImage(commandBuffer_, { uploadImage_, uploadImageLayout_, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+    TransitionImage(frameResources_.commandBuffer, { uploadResources_.image, uploadResources_.layout,
+        VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
         sourceAccess, VK_ACCESS_TRANSFER_WRITE_BIT, sourceStage, VK_PIPELINE_STAGE_TRANSFER_BIT });
     VkBufferImageCopy copy {};
     copy.imageSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
     copy.imageSubresource.layerCount = IMAGE_SUBRESOURCE_LAYER_COUNT;
     copy.imageExtent = { static_cast<uint32_t>(uploadWidth), static_cast<uint32_t>(uploadHeight), IMAGE_EXTENT_DEPTH };
-    vkCmdCopyBufferToImage(commandBuffer_, stagingBuffer_, uploadImage_, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1,
-        &copy);
-    TransitionImage(commandBuffer_, { uploadImage_, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+    vkCmdCopyBufferToImage(frameResources_.commandBuffer, stagingBuffer_, uploadResources_.image,
+        VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &copy);
+    TransitionImage(frameResources_.commandBuffer, { uploadResources_.image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
         VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, VK_ACCESS_TRANSFER_WRITE_BIT, VK_ACCESS_TRANSFER_READ_BIT,
         VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT });
     return true;
@@ -881,20 +874,20 @@ bool VulkanVideoSink::RecordPresentCommands(uint32_t imageIndex, int32_t uploadW
     if (!CalculatePresentRegion(uploadWidth, uploadHeight, region)) {
         return false;
     }
-    const VkImageLayout swapchainLayout = swapchainImageLayouts_[imageIndex];
+    const VkImageLayout swapchainLayout = swapchainResources_.layouts[imageIndex];
     const VkPipelineStageFlags sourceStage = swapchainLayout == VK_IMAGE_LAYOUT_PRESENT_SRC_KHR ?
         VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT : VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
     const VkAccessFlags sourceAccess = swapchainLayout == VK_IMAGE_LAYOUT_PRESENT_SRC_KHR ?
         VK_ACCESS_MEMORY_READ_BIT : 0;
-    TransitionImage(commandBuffer_, { swapchainImages_[imageIndex], swapchainLayout,
+    TransitionImage(frameResources_.commandBuffer, { swapchainResources_.images[imageIndex], swapchainLayout,
         VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, sourceAccess, VK_ACCESS_TRANSFER_WRITE_BIT, sourceStage,
         VK_PIPELINE_STAGE_TRANSFER_BIT });
     VkImageSubresourceRange colorRange {};
     colorRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
     colorRange.levelCount = IMAGE_SUBRESOURCE_LEVEL_COUNT;
     colorRange.layerCount = IMAGE_SUBRESOURCE_LAYER_COUNT;
-    vkCmdClearColorImage(commandBuffer_, swapchainImages_[imageIndex], VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, &BLACK,
-        1, &colorRange);
+    vkCmdClearColorImage(frameResources_.commandBuffer, swapchainResources_.images[imageIndex],
+        VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, &BLACK, 1, &colorRange);
     VkImageBlit blit {};
     blit.srcSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
     blit.srcSubresource.layerCount = IMAGE_SUBRESOURCE_LAYER_COUNT;
@@ -903,12 +896,13 @@ bool VulkanVideoSink::RecordPresentCommands(uint32_t imageIndex, int32_t uploadW
     blit.dstSubresource.layerCount = IMAGE_SUBRESOURCE_LAYER_COUNT;
     blit.dstOffsets[0] = { region.left, region.top, 0 };
     blit.dstOffsets[1] = { region.left + region.width, region.top + region.height, IMAGE_EXTENT_DEPTH };
-    vkCmdBlitImage(commandBuffer_, uploadImage_, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, swapchainImages_[imageIndex],
-        VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &blit, VK_FILTER_LINEAR);
-    TransitionImage(commandBuffer_, { swapchainImages_[imageIndex], VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+    vkCmdBlitImage(frameResources_.commandBuffer, uploadResources_.image, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
+        swapchainResources_.images[imageIndex], VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &blit, VK_FILTER_LINEAR);
+    TransitionImage(frameResources_.commandBuffer, { swapchainResources_.images[imageIndex],
+        VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
         VK_IMAGE_LAYOUT_PRESENT_SRC_KHR, VK_ACCESS_TRANSFER_WRITE_BIT, 0, VK_PIPELINE_STAGE_TRANSFER_BIT,
         VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT });
-    return vkEndCommandBuffer(commandBuffer_) == VK_SUCCESS;
+    return vkEndCommandBuffer(frameResources_.commandBuffer) == VK_SUCCESS;
 }
 
 bool VulkanVideoSink::CalculatePresentRegion(int32_t uploadWidth, int32_t uploadHeight, PresentRegion &region) const
@@ -968,30 +962,30 @@ bool VulkanVideoSink::UpdateExternalTransform()
 
 bool VulkanVideoSink::SubmitFrame(uint32_t imageIndex)
 {
-    if (imageIndex >= renderFinishedSemaphores_.size()) {
+    if (imageIndex >= swapchainResources_.renderFinished.size()) {
         return false;
     }
-    if (vkResetFences(device_, 1, &frameFence_) != VK_SUCCESS) {
+    if (vkResetFences(device_, 1, &frameResources_.fence) != VK_SUCCESS) {
         return false;
     }
     constexpr VkPipelineStageFlags waitStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
     VkSubmitInfo submit{};
     submit.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
     submit.waitSemaphoreCount = 1;
-    submit.pWaitSemaphores = &imageAvailable_;
+    submit.pWaitSemaphores = &frameResources_.imageAvailable;
     submit.pWaitDstStageMask = &waitStage;
     submit.commandBufferCount = 1;
-    submit.pCommandBuffers = &commandBuffer_;
+    submit.pCommandBuffers = &frameResources_.commandBuffer;
     submit.signalSemaphoreCount = 1;
-    submit.pSignalSemaphores = &renderFinishedSemaphores_[imageIndex];
-    const bool submitted = vkQueueSubmit(queue_, 1, &submit, frameFence_) == VK_SUCCESS;
+    submit.pSignalSemaphores = &swapchainResources_.renderFinished[imageIndex];
+    const bool submitted = vkQueueSubmit(queue_, 1, &submit, frameResources_.fence) == VK_SUCCESS;
     frameInFlight_ = submitted;
     VkPresentInfoKHR present{};
     present.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
     present.waitSemaphoreCount = 1;
-    present.pWaitSemaphores = &renderFinishedSemaphores_[imageIndex];
+    present.pWaitSemaphores = &swapchainResources_.renderFinished[imageIndex];
     present.swapchainCount = 1;
-    present.pSwapchains = &swapchain_;
+    present.pSwapchains = &swapchainResources_.handle;
     present.pImageIndices = &imageIndex;
     const VkResult presentResult = submitted ? vkQueuePresentKHR(queue_, &present) : VK_ERROR_DEVICE_LOST;
     if (presentResult == VK_ERROR_OUT_OF_DATE_KHR) {
@@ -1000,8 +994,8 @@ bool VulkanVideoSink::SubmitFrame(uint32_t imageIndex)
     const bool presented = submitted && (presentResult == VK_SUCCESS || presentResult == VK_SUBOPTIMAL_KHR ||
         presentResult == VK_ERROR_OUT_OF_DATE_KHR);
     if (presented) {
-        uploadImageLayout_ = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
-        swapchainImageLayouts_[imageIndex] = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+        uploadResources_.layout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
+        swapchainResources_.layouts[imageIndex] = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
     }
     return presented;
 }
@@ -1031,7 +1025,7 @@ void VulkanVideoSink::PresentBlackFrame()
 
 bool VulkanVideoSink::CanClearCurrentSwapchain() const
 {
-    if (!initialized_ || device_ == VK_NULL_HANDLE || swapchain_ == VK_NULL_HANDLE) {
+    if (!initialized_ || device_ == VK_NULL_HANDLE || swapchainResources_.handle == VK_NULL_HANDLE) {
         return false;
     }
     if (swapchainRecreatePending_) {
@@ -1052,8 +1046,8 @@ bool VulkanVideoSink::WaitForVulkanDeviceForClear()
 
 bool VulkanVideoSink::EnsureBlackFramebuffers()
 {
-    const bool framebuffersMatch = externalFramebuffers_.size() == swapchainImages_.size() &&
-        externalFrameBufferViews_.size() == swapchainImages_.size();
+    const bool framebuffersMatch = externalFramebuffers_.size() == swapchainResources_.images.size() &&
+        externalFrameBufferViews_.size() == swapchainResources_.images.size();
     if (externalRenderPass_ != VK_NULL_HANDLE && framebuffersMatch) {
         return true;
     }
@@ -1070,8 +1064,8 @@ bool VulkanVideoSink::EnsureBlackFramebuffers()
 
 bool VulkanVideoSink::AcquireBlackFrameImage(uint32_t &imageIndex)
 {
-    const VkResult result = vkAcquireNextImageKHR(device_, swapchain_, NATIVE_IMAGE_WAIT_NS, imageAvailable_,
-        VK_NULL_HANDLE, &imageIndex);
+    const VkResult result = vkAcquireNextImageKHR(device_, swapchainResources_.handle, NATIVE_IMAGE_WAIT_NS,
+        frameResources_.imageAvailable, VK_NULL_HANDLE, &imageIndex);
     if ((result == VK_SUCCESS || result == VK_SUBOPTIMAL_KHR) && imageIndex < externalFramebuffers_.size()) {
         return true;
     }
@@ -1085,18 +1079,18 @@ bool VulkanVideoSink::AcquireBlackFrameImage(uint32_t &imageIndex)
 
 bool VulkanVideoSink::RecordAndSubmitBlackFrame(uint32_t imageIndex)
 {
-    if (vkResetCommandBuffer(commandBuffer_, 0) != VK_SUCCESS) {
+    if (vkResetCommandBuffer(frameResources_.commandBuffer, 0) != VK_SUCCESS) {
         swapchainRecreatePending_ = true;
         return false;
     }
     VkCommandBufferBeginInfo beginInfo{};
     beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-    if (vkBeginCommandBuffer(commandBuffer_, &beginInfo) != VK_SUCCESS) {
+    if (vkBeginCommandBuffer(frameResources_.commandBuffer, &beginInfo) != VK_SUCCESS) {
         swapchainRecreatePending_ = true;
         return false;
     }
     RecordBlackClearPass(imageIndex);
-    const bool recorded = vkEndCommandBuffer(commandBuffer_) == VK_SUCCESS;
+    const bool recorded = vkEndCommandBuffer(frameResources_.commandBuffer) == VK_SUCCESS;
     if (!recorded) {
         swapchainRecreatePending_ = true;
     }
@@ -1121,8 +1115,8 @@ void VulkanVideoSink::RecordBlackClearPass(uint32_t imageIndex)
     passInfo.renderArea.extent = swapchainExtent_;
     passInfo.clearValueCount = 1;
     passInfo.pClearValues = &clearValue;
-    vkCmdBeginRenderPass(commandBuffer_, &passInfo, VK_SUBPASS_CONTENTS_INLINE);
-    vkCmdEndRenderPass(commandBuffer_);
+    vkCmdBeginRenderPass(frameResources_.commandBuffer, &passInfo, VK_SUBPASS_CONTENTS_INLINE);
+    vkCmdEndRenderPass(frameResources_.commandBuffer);
 }
 
 bool VulkanVideoSink::Quiesce()
@@ -1299,18 +1293,7 @@ OHNativeWindow *VulkanVideoSink::PrepareForPlayback(const SampleInfo &sampleInfo
 
 void VulkanVideoSink::DestroySwapchain()
 {
-    for (VkSemaphore semaphore : renderFinishedSemaphores_) {
-        if (semaphore != VK_NULL_HANDLE) {
-            vkDestroySemaphore(device_, semaphore, nullptr);
-        }
-    }
-    renderFinishedSemaphores_.clear();
-    if (swapchain_ != VK_NULL_HANDLE) {
-        vkDestroySwapchainKHR(device_, swapchain_, nullptr);
-        swapchain_ = VK_NULL_HANDLE;
-    }
-    swapchainImages_.clear();
-    swapchainImageLayouts_.clear();
+    swapchainResources_.Reset();
 }
 
 void VulkanVideoSink::ReleaseVulkanResources()
@@ -1347,19 +1330,7 @@ void VulkanVideoSink::ReleaseVulkanResources()
 
 void VulkanVideoSink::DestroyFrameResources()
 {
-    if (frameFence_ != VK_NULL_HANDLE) {
-        vkDestroyFence(device_, frameFence_, nullptr);
-        frameFence_ = VK_NULL_HANDLE;
-    }
-    if (imageAvailable_ != VK_NULL_HANDLE) {
-        vkDestroySemaphore(device_, imageAvailable_, nullptr);
-        imageAvailable_ = VK_NULL_HANDLE;
-    }
-    if (commandPool_ != VK_NULL_HANDLE) {
-        vkDestroyCommandPool(device_, commandPool_, nullptr);
-        commandPool_ = VK_NULL_HANDLE;
-    }
-    commandBuffer_ = VK_NULL_HANDLE;
+    frameResources_.Reset();
 }
 
 void VulkanVideoSink::DestroyStagingBuffer()

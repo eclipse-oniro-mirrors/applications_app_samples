@@ -14,6 +14,7 @@
  */
 
 import { image } from '@kit.ImageKit';
+import { resourceManager } from '@kit.LocalizationKit';
 
 /**
  * 图片信息类
@@ -33,26 +34,16 @@ export class ImageInfo {
 }
 
 // HEIF图片资源链接
-export const heifUrls: string[] = [
-  getContext(this)
-    .resourceManager
-    .getStringSync($r('app.string.decode_heif_image_url1')),
-  getContext(this)
-    .resourceManager
-    .getStringSync($r('app.string.decode_heif_image_url2')),
-  getContext(this)
-    .resourceManager
-    .getStringSync($r('app.string.decode_heif_image_url3')),
-  getContext(this)
-    .resourceManager
-    .getStringSync($r('app.string.decode_heif_image_url4')),
-  getContext(this)
-    .resourceManager
-    .getStringSync($r('app.string.decode_heif_image_url5')),
-  getContext(this)
-    .resourceManager
-    .getStringSync($r('app.string.decode_heif_image_url6'))
-];
+export function getHeifUrls(mgr: resourceManager.ResourceManager): string[] {
+  return [
+    mgr.getStringSync($r('app.string.decode_heif_image_url1')),
+    mgr.getStringSync($r('app.string.decode_heif_image_url2')),
+    mgr.getStringSync($r('app.string.decode_heif_image_url3')),
+    mgr.getStringSync($r('app.string.decode_heif_image_url4')),
+    mgr.getStringSync($r('app.string.decode_heif_image_url5')),
+    mgr.getStringSync($r('app.string.decode_heif_image_url6'))
+  ];
+}
 
 /**
  * 实现IDataSource接口的对象，用于瀑布流组件加载数据

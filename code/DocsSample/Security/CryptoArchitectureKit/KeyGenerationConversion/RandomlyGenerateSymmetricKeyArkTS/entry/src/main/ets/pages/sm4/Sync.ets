@@ -29,6 +29,9 @@ function testSyncGenerateSm4Key() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`testSyncGenerateSm4Key failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude generate_sm4_key_sync]
+    throw new Error(`testSyncGenerateSm4Key failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude generate_sm4_key_sync]
   }
 }
 // [End generate_sm4_key_sync]

@@ -113,6 +113,10 @@
       "value": "Allow access to the network"
     },
     {
+      "name": "media_write_permission",
+      "value": "Allows the app to save downloaded images or videos to the media library"
+    },
+    {
       "name": "background_tips",
       "value": "Whether to start background tasks"
     },

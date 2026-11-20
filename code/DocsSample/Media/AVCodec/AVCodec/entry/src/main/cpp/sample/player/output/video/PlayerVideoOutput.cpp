@@ -27,8 +27,6 @@
 #define LOG_TAG "samplePlayer"
 
 namespace {
-constexpr int32_t TRIPLE_SPEED_MULTIPLIER = 3;
-constexpr int32_t DOUBLE_SPEED_MULTIPLIER = 2;
 constexpr int64_t US_PER_SECOND = 1000000;
 constexpr int64_t NS_PER_US = 1000;
 constexpr int64_t CODEC_BUFFER_TIMEOUT_US = 100000;
@@ -156,8 +154,31 @@ void Player::VideoDecInputAsyncThread()
     }
 }
 
+bool Player::WaitForVideoPresentation(int64_t ptsUs, VideoFramePacer &pacer)
+{
+    while (isStarted_.load()) {
+        const uint64_t revision = videoTimingRevision_.load();
+        pacer.SetRevision(revision);
+        if (paused_.load() || audioCallbackContext_.interrupted.load()) {
+            pacer.Reset();
+            WaitIfPaused();
+            if (!isStarted_.load()) { return false; }
+        }
+        const float currentSpeed = speed.load();
+        const auto deadline = pacer.Deadline(ptsUs, currentSpeed);
+        std::unique_lock<std::mutex> lock(pauseMutex_);
+        const bool interrupted = pauseCond_.wait_until(lock, deadline, [this, currentSpeed, revision]() {
+            return !isStarted_.load() || videoTimingRevision_.load() != revision || speed.load() != currentSpeed ||
+                ((paused_.load() || audioCallbackContext_.interrupted.load()) && !renderSingleFrameAfterSeek_.load());
+        });
+        if (!interrupted) { return isStarted_.load(); }
+        pacer.Reset();
+    }
+    return false;
+}
+
 bool Player::ProcessVideoWithoutAudio(CodecBufferInfo& bufferInfo,
-    std::chrono::time_point<std::chrono::system_clock>& lastPushTime)
+    VideoFramePacer &pacer)
 {
     bool discarded = false;
     if (!DiscardVideoOutputBeforeSeekTarget(bufferInfo, discarded)) {
@@ -166,21 +187,16 @@ bool Player::ProcessVideoWithoutAudio(CodecBufferInfo& bufferInfo,
     if (discarded) {
         return true;
     }
+    if (!WaitForVideoPresentation(bufferInfo.attr.pts, pacer)) {
+        // 停止或Seek已结束本轮输出，Buffer由后续Destroy或Flush回收。
+        return false;
+    }
     if (!PresentAndReleaseVideoBuffer(bufferInfo, true, GetCurrentTime())) {
         playbackFailed_ = true;
         isStarted_ = false;
         return false;
     }
     renderSingleFrameAfterSeek_ = false;
-    const float speedSnapshot = speed.load();
-    sampleInfo_.video.frameInterval = US_PER_SECOND / sampleInfo_.video.frameRate;
-    if (speedSnapshot == DOUBLE_SPEED_MULTIPLIER) {
-        sampleInfo_.video.frameInterval /= DOUBLE_SPEED_MULTIPLIER;
-    } else if (speedSnapshot != 1.0f) {
-        sampleInfo_.video.frameInterval /= TRIPLE_SPEED_MULTIPLIER;
-    }
-    std::this_thread::sleep_until(lastPushTime + std::chrono::microseconds(sampleInfo_.video.frameInterval));
-    lastPushTime = std::chrono::system_clock::now();
     return true;
 }
 
@@ -218,7 +234,7 @@ void Player::SetVolume(float volume)
 {
     const float clampedVolume = std::clamp(volume, 0.0f, 1.0f);
     sampleInfo_.audioPlayback.volume = clampedVolume;
-    audioVolume_.store(clampedVolume);
+    audioCallbackContext_.volume.store(clampedVolume);
     std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
     if (audioRenderer_ == nullptr) {
         return;
@@ -229,22 +245,44 @@ void Player::SetVolume(float volume)
     }
 }
 
-bool Player::RenderAndRelease(CodecBufferInfo& bufferInfo, int64_t waitTimeUs, bool dropFrame)
+bool Player::RenderAndRelease(CodecBufferInfo& bufferInfo, int64_t waitTimeUs, bool dropFrame, VideoFramePacer &pacer)
 {
+    if (isAudioDone.load()) {
+        return ProcessVideoWithoutAudio(bufferInfo, pacer);
+    }
     // 60fps时提前渲染两帧是合理的，但在240fps时会占用约八个解码器输出buffer。
     // 将提前量限制为两个源帧，使硬件解码器在高帧率下仍可及时收回输出buffer。
     const int64_t sourceFrameIntervalUs = std::max<int64_t>(1, sampleInfo_.video.frameInterval);
     const int64_t maxRenderLeadUs = std::min(AvSyncController::renderAheadUs, sourceFrameIntervalUs * 2);
     const int64_t renderLeadUs = std::clamp(waitTimeUs, int64_t { 0 }, maxRenderLeadUs);
     if (waitTimeUs > maxRenderLeadUs) {
-        std::this_thread::sleep_for(std::chrono::microseconds(waitTimeUs - maxRenderLeadUs));
+        const uint64_t revision = videoTimingRevision_.load();
+        std::unique_lock<std::mutex> lock(pauseMutex_);
+        if (pauseCond_.wait_for(lock, std::chrono::microseconds(waitTimeUs - maxRenderLeadUs), [this, revision]() {
+            if (!isStarted_.load() || paused_.load() || audioCallbackContext_.interrupted.load()) {
+                return true;
+            }
+            return isAudioDone.load() || videoTimingRevision_.load() != revision;
+        })) {
+            lock.unlock();
+            if (!isStarted_.load()) {
+                // 停止或Seek已结束本轮输出，Buffer由后续Destroy或Flush回收。
+                return false;
+            }
+            if (isStarted_.load() && isAudioDone.load() && !seekInProgress_.load() && !audioTrackSwitching_.load()) {
+                // 音频排空后保留当前帧，改用单调时钟，避免继续等待冻结的音频PTS。
+                return ProcessVideoWithoutAudio(bufferInfo, pacer);
+            }
+            // 暂停、Seek等状态变化仍按原逻辑归还当前帧。
+            return PresentAndReleaseVideoBuffer(bufferInfo, false, GetCurrentTime());
+        }
     }
     // 无论送显还是丢帧，该调用都会归还同一bufferIndex；返回后不能访问bufferInfo.buffer。
     return PresentAndReleaseVideoBuffer(bufferInfo, !dropFrame, renderLeadUs * NS_PER_US + GetCurrentTime());
 }
 
 bool Player::ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
-    std::chrono::time_point<std::chrono::system_clock>& lastPushTime)
+    VideoFramePacer &pacer)
 {
     bool discarded = false;
     if (!DiscardVideoOutputBeforeSeekTarget(bufferInfo, discarded)) {
@@ -254,10 +292,13 @@ bool Player::ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
         return true;
     }
     if (audioStartPendingAfterVideoSeek_.load()) {
-        return ProcessVideoAfterSeek(bufferInfo, lastPushTime);
+        return ProcessVideoAfterSeek(bufferInfo, pacer);
     }
     if (audioTrackSwitching_.load()) {
-        return ProcessVideoDuringTrackSwitch(bufferInfo, lastPushTime);
+        return ProcessVideoDuringTrackSwitch(bufferInfo, pacer);
+    }
+    if (isAudioDone.load()) {
+        return ProcessVideoWithoutAudio(bufferInfo, pacer);
     }
     int64_t framePosition = 0;
     int64_t timestamp = 0;
@@ -266,8 +307,9 @@ bool Player::ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
         return false;
     }
     if (ret != AUDIOSTREAM_SUCCESS || timestamp == 0 || framePosition == 0) {
-        return ProcessVideoWithAudioWithoutTimestamp(bufferInfo, lastPushTime);
+        return ProcessVideoWithAudioWithoutTimestamp(bufferInfo, pacer);
     }
+    pacer.Reset();
     AvSyncDecision decision;
     if (!CalculateSyncParameters(bufferInfo, framePosition, decision)) {
         // 同步参数无效时没有送显路径会接管该buffer，直接丢弃并归还。
@@ -276,7 +318,7 @@ bool Player::ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
         isStarted_ = false;
         return false;
     }
-    const bool rendered = RenderAndRelease(bufferInfo, decision.waitTimeUs, decision.dropFrame);
+    const bool rendered = RenderAndRelease(bufferInfo, decision.waitTimeUs, decision.dropFrame, pacer);
     if (rendered && !decision.dropFrame) {
         StartAudioAfterVideoSeek();
     }
@@ -304,38 +346,41 @@ bool Player::GetAudioTimestampForVideo(CodecBufferInfo& bufferInfo, int64_t& fra
 }
 
 bool Player::ProcessVideoWithAudioWithoutTimestamp(CodecBufferInfo& bufferInfo,
-    std::chrono::time_point<std::chrono::system_clock>& lastPushTime)
+    VideoFramePacer &pacer)
 {
+    if (!WaitForVideoPresentation(bufferInfo.attr.pts, pacer)) {
+        // 停止或Seek已结束本轮输出，Buffer由后续Destroy或Flush回收。
+        return false;
+    }
     if (!PresentAndReleaseVideoBuffer(bufferInfo, true, GetCurrentTime())) {
         return false;
     }
     StartAudioAfterVideoSeek();
-    std::this_thread::sleep_until(lastPushTime + std::chrono::microseconds(sampleInfo_.video.frameInterval));
-    lastPushTime = std::chrono::system_clock::now();
     return true;
 }
 
 bool Player::ProcessVideoAfterSeek(CodecBufferInfo& bufferInfo,
-    std::chrono::time_point<std::chrono::system_clock>& lastPushTime)
+    VideoFramePacer &pacer)
 {
     if (!PresentAndReleaseVideoBuffer(bufferInfo, true, GetCurrentTime())) {
         return false;
     }
     renderSingleFrameAfterSeek_ = false;
     StartAudioAfterVideoSeek();
-    lastPushTime = std::chrono::system_clock::now();
+    pacer.Reset();
     return true;
 }
 
 bool Player::ProcessVideoDuringTrackSwitch(CodecBufferInfo& bufferInfo,
-    std::chrono::time_point<std::chrono::system_clock>& lastPushTime)
+    VideoFramePacer &pacer)
 {
+    if (!WaitForVideoPresentation(bufferInfo.attr.pts, pacer)) {
+        // 停止或Seek已结束本轮输出，Buffer由后续Destroy或Flush回收。
+        return false;
+    }
     if (!PresentAndReleaseVideoBuffer(bufferInfo, true, GetCurrentTime())) {
         return false;
     }
-    const auto frameInterval = std::chrono::microseconds(sampleInfo_.video.frameInterval);
-    std::this_thread::sleep_until(lastPushTime + frameInterval);
-    lastPushTime = std::chrono::system_clock::now();
     return true;
 }
 
@@ -377,7 +422,7 @@ void Player::FinishVideoOutput()
 void Player::VideoDecOutputSyncThread()
 {
     sampleInfo_.video.frameInterval = US_PER_SECOND / sampleInfo_.video.frameRate;
-    thread_local auto lastPushTime = std::chrono::system_clock::now();
+    VideoFramePacer pacer;
     // [Start decoder_sync_output_buffer]
     while (isStarted_) {
         // [StartExclude decoder_sync_output_buffer]
@@ -387,10 +432,7 @@ void Player::VideoDecOutputSyncThread()
         CodecBufferInfo bufferInfo;
         const int32_t ret = videoDecoder_->GetOutputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
         if (!isStarted_) {
-            if (ret == AVCODEC_SAMPLE_ERR_OK &&
-                videoDecoder_->FreeOutputBuffer(bufferInfo, false) != AVCODEC_SAMPLE_ERR_OK) {
-                playbackFailed_ = true;
-            }
+            // 停止或Seek结束本轮输出，Buffer由后续Destroy或Flush统一回收。
             break;
         }
         CHECK_AND_CONTINUE_LOG(ret != AVCODEC_SAMPLE_ERR_AGAIN, "Get output buffer timeout, retry");
@@ -401,10 +443,7 @@ void Player::VideoDecOutputSyncThread()
             break;
         }
         if (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
-            if (videoDecoder_->FreeOutputBuffer(bufferInfo, false) != AVCODEC_SAMPLE_ERR_OK) {
-                playbackFailed_ = true;
-                isStarted_ = false;
-            }
+            // EOS结束本轮输出，Buffer由后续Destroy或Seek时的Flush统一回收。
             AVCODEC_SAMPLE_LOGI("Catch EOS, video output thread out");
             break;
         }
@@ -413,9 +452,10 @@ void Player::VideoDecOutputSyncThread()
         videoDecContext_->outputFrameCount++;
         AVCODEC_SAMPLE_LOGD_LIMIT(PLAYBACK_LOG_FREQUENCY,
             "Out buffer count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
-            videoDecContext_->outputFrameCount, bufferInfo.attr.size, bufferInfo.attr.flags, bufferInfo.attr.pts);
-        const bool success = audioDecContext_ == nullptr ? ProcessVideoWithoutAudio(bufferInfo, lastPushTime) :
-            ProcessVideoWithAudio(bufferInfo, lastPushTime);
+            videoDecContext_->outputFrameCount.load(), bufferInfo.attr.size, bufferInfo.attr.flags,
+            bufferInfo.attr.pts);
+        const bool success = audioDecContext_ == nullptr ? ProcessVideoWithoutAudio(bufferInfo, pacer) :
+            ProcessVideoWithAudio(bufferInfo, pacer);
         if (!success) {
             break;
         }
@@ -428,8 +468,8 @@ void Player::VideoDecOutputSyncThread()
 void Player::VideoDecOutputAsyncThread()
 {
     sampleInfo_.video.frameInterval = US_PER_SECOND / sampleInfo_.video.frameRate;
+    VideoFramePacer pacer;
     while (isStarted_) {
-        thread_local auto lastPushTime = std::chrono::system_clock::now();
         WaitIfPaused();
         CHECK_AND_BREAK_LOG(isStarted_, "VD Decoder output thread out");
         // [Start decoder_output_buffer]
@@ -440,25 +480,21 @@ void Player::VideoDecOutputAsyncThread()
         // [End decoder_output_buffer]
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
         if (!isStarted_) {
-            if (videoDecoder_->FreeOutputBuffer(*bufferInfo, false) != AVCODEC_SAMPLE_ERR_OK) {
-                playbackFailed_ = true;
-            }
+            // 停止或Seek结束本轮输出，Buffer由后续Destroy或Flush统一回收。
             break;
         }
         if (bufferInfo->attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
-            if (videoDecoder_->FreeOutputBuffer(*bufferInfo, false) != AVCODEC_SAMPLE_ERR_OK) {
-                playbackFailed_ = true;
-                isStarted_ = false;
-            }
+            // EOS结束本轮输出，Buffer由后续Destroy或Seek时的Flush统一回收。
             AVCODEC_SAMPLE_LOGI("Catch EOS, video output thread out");
             break;
         }
         videoDecContext_->outputFrameCount++;
         AVCODEC_SAMPLE_LOGD_LIMIT(PLAYBACK_LOG_FREQUENCY,
             "Out buffer count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
-            videoDecContext_->outputFrameCount, bufferInfo->attr.size, bufferInfo->attr.flags, bufferInfo->attr.pts);
+            videoDecContext_->outputFrameCount.load(), bufferInfo->attr.size, bufferInfo->attr.flags,
+            bufferInfo->attr.pts);
         const bool success = audioDecContext_ == nullptr ?
-            ProcessVideoWithoutAudio(*bufferInfo, lastPushTime) : ProcessVideoWithAudio(*bufferInfo, lastPushTime);
+            ProcessVideoWithoutAudio(*bufferInfo, pacer) : ProcessVideoWithAudio(*bufferInfo, pacer);
         if (!success) {
             break;
         }

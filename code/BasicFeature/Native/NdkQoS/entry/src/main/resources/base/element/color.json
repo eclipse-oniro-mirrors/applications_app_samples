@@ -3,6 +3,34 @@
     {
       "name": "start_window_background",
       "value": "#FFFFFF"
+    },
+    {
+      "name": "qos_page_bg",
+      "value": "#F1F3F5"
+    },
+    {
+      "name": "qos_card_bg",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "qos_button_bg",
+      "value": "#AABBCC"
+    },
+    {
+      "name": "qos_button_selected",
+      "value": "#4A6FA5"
+    },
+    {
+      "name": "qos_text_primary",
+      "value": "#182431"
+    },
+    {
+      "name": "qos_text_secondary",
+      "value": "#66000000"
+    },
+    {
+      "name": "qos_text_light",
+      "value": "#FFFFFF"
     }
   ]
 }

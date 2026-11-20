@@ -36,23 +36,28 @@ void Recorder::VideoEncOutputSyncThread()
         CodecBufferInfo bufferInfo;
         const int32_t ret = videoEncoder_->GetOutputBuffer(bufferInfo, codecBufferTimeoutUs);
         if (!isStarted_) {
-            if (ret == AVCODEC_SAMPLE_ERR_OK &&
-                videoEncoder_->FreeOutputBuffer(bufferInfo) != AVCODEC_SAMPLE_ERR_OK) {
-                failure_.Record("recorder.video.release", AVCODEC_SAMPLE_ERR_ERROR,
-                    "Return video output while stopping failed");
-            }
+            // 输出线程退出后，由编码器Destroy统一回收未归还的Buffer。
             break;
         }
         if (ret == AVCODEC_SAMPLE_ERR_AGAIN) {
             continue;
         }
+        // [StartExclude encoder_sync_output_buffer]
         if (ret != AVCODEC_SAMPLE_ERR_OK) {
             AbortRecording("Video output buffer retrieval failed");
             break;
         }
-        // [StartExclude encoder_sync_output_buffer]
         const int64_t receivedAtUs = RecorderClockUs();
         primaryStats_.RecordRetrieval(receivedAtUs - waitStart);
+        // [EndExclude encoder_sync_output_buffer]
+        if (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
+            // [StartExclude encoder_sync_output_buffer]
+            RecordVideoOutputEos(bufferInfo, true, receivedAtUs);
+            // [EndExclude encoder_sync_output_buffer]
+            AVCODEC_SAMPLE_LOGI("Catch EOS, primary video output thread out");
+            break;
+        }
+        // [StartExclude encoder_sync_output_buffer]
         if (!ProcessVideoOutputBuffer(bufferInfo, true, receivedAtUs)) {
             break;
         }
@@ -64,21 +69,18 @@ void Recorder::VideoEncOutputSyncThread()
 
 void Recorder::VideoEncOutputAsyncThread()
 {
-    // [Start encoder_output_buffer]
     while (isStarted_) {
-        // 获取输出buffer。
         const int64_t waitStart = RecorderClockUs();
+        // [Start encoder_output_buffer]
+        // 获取输出buffer。
         std::shared_ptr<CodecBufferInfo> bufferInfo = encContext_->outputBufferQueue.Dequeue();
         // 开发者可根据业务需要，对输出数据进行保存/释放处理。
         // 示例：将编码完成帧数据buffer写入到对应输出文件中。
         // outputFile->write(reinterpret_cast<char *>(OH_AVBuffer_GetAddr(bufferInfo->buffer)), bufferInfo->attr.size);
-        // [StartExclude encoder_output_buffer]
+        // [End encoder_output_buffer]
         const int64_t receivedAtUs = RecorderClockUs();
         if (!isStarted_ || encContext_->hasError.load()) {
-            if (bufferInfo != nullptr && videoEncoder_->FreeOutputBuffer(*bufferInfo) != AVCODEC_SAMPLE_ERR_OK) {
-                failure_.Record("recorder.video.release", AVCODEC_SAMPLE_ERR_ERROR,
-                    "Return video output while stopping failed");
-            }
+            // 停止或故障后不再消费输出，未归还的Buffer由Destroy统一回收。
             if (isStarted_) {
                 AbortRecording("Video codec callback failed");
             }
@@ -87,11 +89,17 @@ void Recorder::VideoEncOutputAsyncThread()
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
         primaryStats_.RecordRetrieval(receivedAtUs - waitStart);
         // [EndExclude encoder_output_buffer]
+        if (bufferInfo->attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
+            // [StartExclude encoder_output_buffer]
+            RecordVideoOutputEos(*bufferInfo, true, receivedAtUs);
+            // [EndExclude encoder_output_buffer]
+            AVCODEC_SAMPLE_LOGI("Catch EOS, primary video output thread out");
+            break;
+        }
         if (!ProcessVideoOutputBuffer(*bufferInfo, true, receivedAtUs)) {
             break;
         }
     }
-    // [End encoder_output_buffer]
     FinishVideoOutputThread(encContext_.get(), true);
 }
 
@@ -117,12 +125,11 @@ bool Recorder::ProcessVideoOutputBuffer(CodecBufferInfo &bufferInfo, bool isPrim
     auto *muxer = isPrimary ? muxer_.get() : secondaryMuxer_.get();
     NormalizeVideoOutputTimestamp(*context, bufferInfo);
     RecordVideoOutput(context, bufferInfo, isPrimary);
-    const bool isEosBuffer = (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
     auto &stats = isPrimary ? primaryStats_ : secondaryStats_;
     int64_t dumpUs = -1;
     int64_t muxerUs = -1;
     int32_t writeRet = AVCODEC_SAMPLE_ERR_OK;
-    if (!isEosBuffer && bufferInfo.attr.size > 0) {
+    if (bufferInfo.attr.size > 0) {
         if ((isPrimary ? primaryDump_ : secondaryDump_).IsWriting()) {
             const int64_t start = RecorderClockUs();
             DumpVideoOutput(bufferInfo, isPrimary);
@@ -135,7 +142,7 @@ bool Recorder::ProcessVideoOutputBuffer(CodecBufferInfo &bufferInfo, bool isPrim
             stats.Record(bufferInfo.attr);
         }
     }
-    // 每个输出buffer都必须按原索引归还，包括EOS和Muxer写入失败的情况。
+    // 普通输出按原索引归还以供复用；EOS由输出线程退出后的Destroy统一回收。
     const int32_t freeRet = encoder->FreeOutputBuffer(bufferInfo);
     stats.RecordStages(muxerUs, dumpUs, RecorderClockUs() - receivedAtUs);
     RefreshStreamStorage(isPrimary);
@@ -148,13 +155,20 @@ bool Recorder::ProcessVideoOutputBuffer(CodecBufferInfo &bufferInfo, bool isPrim
         AbortRecording("Write encoded video sample failed");
         return false;
     }
-    if (isEosBuffer) {
-        sessionReport_.Event(isPrimary ? "primary.eos" : "secondary.eos");
-        (isPrimary ? videoOutputEosReceived_ : secondaryVideoOutputEosReceived_).store(true);
-        outputDoneCond_.notify_all();
-        return false;
-    }
     return true;
+}
+
+void Recorder::RecordVideoOutputEos(CodecBufferInfo &bufferInfo, bool isPrimary, int64_t receivedAtUs)
+{
+    auto *context = isPrimary ? encContext_.get() : secondaryEncContext_.get();
+    NormalizeVideoOutputTimestamp(*context, bufferInfo);
+    RecordVideoOutput(context, bufferInfo, isPrimary);
+    (isPrimary ? primaryStats_ : secondaryStats_).RecordStages(-1, -1, RecorderClockUs() - receivedAtUs);
+    RefreshStreamStorage(isPrimary);
+    sessionReport_.Event(isPrimary ? "primary.eos" : "secondary.eos");
+    (isPrimary ? videoOutputEosReceived_ : secondaryVideoOutputEosReceived_).store(true);
+    outputDoneCond_.notify_all();
+    // EOS不再交给编码器复用，保留至输出线程结束后由Destroy回收。
 }
 
 void Recorder::FinishVideoOutputThread(CodecUserData *context, bool isPrimary)
@@ -162,7 +176,7 @@ void Recorder::FinishVideoOutputThread(CodecUserData *context, bool isPrimary)
     sessionReport_.Event(isPrimary ? "primary.thread_end" : "secondary.thread_end");
     (isPrimary ? primaryStats_ : secondaryStats_).Stop();
     RefreshStreamStorage(isPrimary, true);
-    AVCODEC_SAMPLE_LOGI("Exit, frame count: %{public}u", context->outputFrameCount);
+    AVCODEC_SAMPLE_LOGI("Exit, frame count: %{public}u", context->outputFrameCount.load());
     {
         std::lock_guard<std::mutex> lock(outputDoneMutex_);
         (isPrimary ? videoOutputDone_ : secondaryVideoOutputDone_).store(true);

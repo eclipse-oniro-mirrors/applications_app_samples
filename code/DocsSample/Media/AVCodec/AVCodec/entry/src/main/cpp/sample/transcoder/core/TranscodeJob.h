@@ -28,6 +28,8 @@
 #include <multimedia/player_framework/native_avmuxer.h>
 #include <multimedia/player_framework/native_avsource.h>
 #include "../process/video/TranscodeFrameProcessor.h"
+#include "../../../common/NativeHandle.h"
+#include "../../../common/OperationFailure.h"
 #include "../diagnostics/TranscodeDiagnostics.h"
 #include "../process/audio/TranscodeAudioPipeline.h"
 #include "../codec/TranscodeCodecCallbacks.h"
@@ -68,6 +70,7 @@ struct TranscodeOptions {
 };
 
 struct TranscodeSnapshot {
+    OperationFailureInfo cleanupFailure;
     int32_t state = 1;
     std::string stage = "prepare";
     std::string detail;
@@ -197,6 +200,7 @@ private:
     bool DiscardOutsideRange(bool &advanced);
     void Complete(bool success);
     void ReleaseCodecs();
+    void RecordCleanup(const char *stage, int32_t result);
     void Cleanup();
     void PublishDiagnostics();
     bool RunPreview();
@@ -213,18 +217,19 @@ private:
     TranscodeSnapshot snapshot_;
     std::atomic<bool> cancelled_ { false };
     // Kept alive through Stop/Destroy, including callbacks racing with cancellation.
+    TranscodeWakeSignal wakeSignal_;
     TranscodeCodecCallbacks codecCallbacks_;
-    OH_AVSource *source_ = nullptr;
-    OH_AVDemuxer *demuxer_ = nullptr;
-    OH_AVCodec *decoder_ = nullptr;
-    OH_AVCodec *encoder_ = nullptr;
-    OH_AVMuxer *muxer_ = nullptr;
-    OHNativeWindow *encoderWindow_ = nullptr;
+    NativeHandle<OH_AVSource, OH_AVSource_Destroy> source_;
+    NativeHandle<OH_AVDemuxer, OH_AVDemuxer_Destroy> demuxer_;
+    NativeHandle<OH_AVCodec, OH_VideoDecoder_Destroy> decoder_;
+    NativeHandle<OH_AVCodec, OH_VideoEncoder_Destroy> encoder_;
+    NativeHandle<OH_AVMuxer, OH_AVMuxer_Destroy> muxer_;
+    NativeHandle<OHNativeWindow, OH_NativeWindow_DestroyNativeWindow> encoderWindow_;
     std::unique_ptr<TranscodeGpuProcessor> gpu_;
     bool gpuPending_ = false;
     bool gpuEos_ = false;
     int64_t gpuPts_ = 0;
-    OH_AVBuffer *audioBuffer_ = nullptr;
+    NativeHandle<OH_AVBuffer, OH_AVBuffer_Destroy> audioBuffer_;
     Format videoFormat_ { nullptr, OH_AVFormat_Destroy };
     Format audioFormat_ { nullptr, OH_AVFormat_Destroy };
     int32_t videoTrack_ = -1;
@@ -249,7 +254,7 @@ private:
     int32_t rotation_ = 0;
     double frameRate_ = 30;
     int64_t lastSubmittedPts_ = -1;
-    OH_AVBuffer *videoCopyBuffer_ = nullptr;
+    NativeHandle<OH_AVBuffer, OH_AVBuffer_Destroy> videoCopyBuffer_;
     bool decoderInputDone_ = false;
     bool decoderOutputDone_ = false;
     bool encoderOutputDone_ = false;

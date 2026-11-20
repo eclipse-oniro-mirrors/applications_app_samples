@@ -16,6 +16,9 @@
 import { fileIo, picker } from '@kit.CoreFileKit';
 import { MediaPendingSession, MediaSessionStore } from '../model/MediaSessionStore';
 import { MediaReports, MediaSessionReport } from '../model/MediaSessionReport';
+import { MediaInputFingerprint } from '../model/MediaInputFingerprint';
+import { MediaInputIdentity } from '../model/MediaSessionReport';
+import { LocalizedText } from '../common/LocalizedText';
 import { MediaPerformanceBaseline } from '../model/MediaPerformanceBaseline';
 import { MediaStateFiles } from '../model/MediaStateFiles';
 import { MediaTaskCoordinator } from '../model/MediaTaskCoordinator';
@@ -58,9 +61,27 @@ export struct MediaSessionsPanel {
     return base === undefined ? '' : MediaPerformanceBaseline.compare(report, base);
   }
 
+  private async fingerprint(report: MediaSessionReport): Promise<void> {
+    const context = this.getUIContext().getHostContext();
+    if (context === undefined || this.working || report.input === undefined) { return; }
+    this.working = true;
+    this.notice = LocalizedText.get($r('app.string.task_checksum_running'));
+    try {
+      const input: MediaInputIdentity = await MediaInputFingerprint.calculate(context, report.input);
+      const updated: MediaSessionReport = MediaReports.parseList(JSON.stringify([report]))[0];
+      updated.input = input;
+      await MediaSessionStore.finish(context, report.id, updated);
+      this.reports = this.reports.map((item: MediaSessionReport): MediaSessionReport =>
+        item.id === report.id ? updated : item);
+      this.notice = '';
+    } catch (_error) {
+      this.notice = LocalizedText.get($r('app.string.task_checksum_failed'));
+    } finally { this.working = false; }
+  }
+
   private async baseline(report: MediaSessionReport): Promise<void> {
     const context = this.getUIContext().getHostContext();
-    if (context === undefined || this.working || report.outcome !== 'completed') { return; }
+    if (context === undefined || this.working || !MediaPerformanceBaseline.eligible(report)) { return; }
     this.working = true;
     try {
       const next: MediaSessionReport[] = [report].concat(this.baselines.filter((item: MediaSessionReport): boolean =>
@@ -171,8 +192,13 @@ export struct MediaSessionsPanel {
             Text(MediaReports.text(MediaReports.shareable(report))).fontSize(11).copyOption(CopyOptions.InApp)
             Text(this.comparison(report).length > 0 ? this.comparison(report) : $r('app.string.task_no_baseline'))
               .fontSize(11).fontColor('#475467')
+            if (report.input?.sourceUri && !report.input?.sha256) {
+              Button($r('app.string.task_checksum')).fontSize(12)
+                .enabled(!this.working && !MediaTaskCoordinator.busy())
+                .onClick((): void => { void this.fingerprint(report); })
+            }
             Button($r('app.string.task_save_baseline')).fontSize(12)
-              .enabled(!this.working && report.outcome === 'completed')
+              .enabled(!this.working && MediaPerformanceBaseline.eligible(report))
               .onClick((): void => { void this.baseline(report); })
             Row({ space: 6 }) {
               Button($r('app.string.task_export_text')).fontSize(12).layoutWeight(1).enabled(!this.working)

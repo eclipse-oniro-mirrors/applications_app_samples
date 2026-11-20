@@ -132,9 +132,10 @@ struct Index {
 
   async aboutToAppear() {
     Logger.info('aboutToAppear Start');
+    this.decode = new Decode(this.getUIContext().getHostContext());
     this.pixelMap = await this.loadPixelMap();
     this.oldPixelMap = await clonePixelMap(this.pixelMap);
-    encodeToStreamByPixelMap(this.pixelMap, false);
+    encodeToStreamByPixelMap(this.pixelMap, false, this.getUIContext().getHostContext());
     await this.updateImageInfo();
     Logger.info('aboutToAppear End');
   }
@@ -256,7 +257,7 @@ struct Index {
               this.functionButton($r('app.media.ic_save_image'), $r('app.string.save_image'),
                 (): void => {
                   if (this.pixelMap != undefined) {
-                    encodeToStreamByPixelMap(this.pixelMap, false);
+                    encodeToStreamByPixelMap(this.pixelMap, false, this.getUIContext().getHostContext());
                   }
                 })
               this.functionButton($r('app.media.ic_open_image'), $r('app.string.open_image'),

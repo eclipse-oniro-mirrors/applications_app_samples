@@ -164,7 +164,7 @@ export class ResourceManager {
       callback(appName)
     } else {
       const cacheKey = labelId + bundleName
-      const name = this.getCacheFromMemory(cacheKey, KEY_ICON)
+      const name = this.getCacheFromMemory(cacheKey, KEY_NAME)
       if (CheckEmptyUtils.isEmpty(name)) {
         if (this.isResourceManagerEmpty()) {
           Logger.info(TAG, 'getAppNameWithCache resourceManager is empty')

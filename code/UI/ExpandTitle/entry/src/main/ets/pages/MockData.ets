@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/MockData.ets
+ * 文件职责：MockData 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：（无顶层声明）。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { MemoInfo } from './MemoInfo';
 
 // 模拟记事本数据
@@ -21,7 +28,7 @@ export const MEMO_DATA: MemoInfo[] = [
   new MemoInfo('1646121972444', 'Love is love', '5 min ago', '', 'Start whenever you want.'),
   new MemoInfo('1646121972445', 'To solve a problem', 'Yesterday', 'app.media.expanded_title_drink_coffee', 'To solve a problem. First, you need to gain empty mind.'),
   new MemoInfo('1646121972446', 'Lunches', '02.18.2024', 'app.media.expanded_title_cook_picture', 'Sweet and sour ribs potato shreds'),
-  new MemoInfo('1646121972447', 'Computer Lessons', '02.22.2024', '', 'Learning HarmonyOS'),
+  new MemoInfo('1646121972447', 'Computer Lessons', '02.22.2024', '', 'Practice typing daily'),
   new MemoInfo('1646121972448', 'Morning Exercise', '02.20.2024', 'app.media.expanded_title_ic_public_app12', 'Long run 3 km'),
   new MemoInfo('1646121972449', 'Breakfast', '02.17.2024', 'app.media.expanded_title_dinner_food', 'Milk and bread'),
   new MemoInfo('1646121972450', 'Go to work', '02.15.2024', 'app.media.expanded_title_ic_public_game1', 'Take the 11th bus')

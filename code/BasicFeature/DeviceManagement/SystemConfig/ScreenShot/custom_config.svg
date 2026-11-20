@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 780" width="100%" height="100%">
+    <defs>
+        <style>
+            .bg { fill: #f5f6f8; }
+            .card { fill: #ffffff; rx: 12; }
+            .text-main { font-family: -apple-system, sans-serif; fill: #1a1a1a; }
+            .text-sub { font-family: -apple-system, sans-serif; fill: #666666; }
+            .text-gray { font-family: -apple-system, sans-serif; fill: #999999; }
+            .text-blue { font-family: -apple-system, sans-serif; fill: #0a59f7; }
+            .btn-blue { fill: #0a59f7; rx: 20; }
+            .btn-outline { fill: none; stroke: #0a59f7; stroke-width: 1.5; rx: 20; }
+            .btn-red { fill: #f54a45; rx: 20; }
+            .btn-text-white { font-family: -apple-system, sans-serif; fill: #ffffff; font-size: 15px; font-weight: 500; text-anchor: middle; dominant-baseline: middle; }
+            .btn-text-blue { font-family: -apple-system, sans-serif; fill: #0a59f7; font-size: 15px; font-weight: 500; text-anchor: middle; dominant-baseline: middle; }
+            .tag-green { fill: #e8f5e9; rx: 4; }
+            .json-text { font-family: monospace; fill: #333333; font-size: 13px; }
+            .log-text { font-family: -apple-system, sans-serif; fill: #666666; font-size: 12px; }
+        </style>
+    </defs>
+
+    <!-- 状态栏与背景 -->
+    <rect width="360" height="780" class="bg"/>
+    <text x="20" y="30" class="text-main" font-size="14">没有 SIM 卡 <tspan font-size="10">📶</tspan></text>
+    <text x="340" y="30" class="text-main" font-size="14" text-anchor="end">11% 🔋 19:32</text>
+
+    <!-- 标题 -->
+    <text x="180" y="85" class="text-main" font-size="20" font-weight="bold" text-anchor="middle">定制配置</text>
+
+    <!-- 渠道配置信息卡片 -->
+    <rect x="15" y="110" width="330" height="160" class="card"/>
+    <text x="30" y="140" class="text-main" font-size="16" font-weight="bold">渠道配置信息</text>
+    <text x="30" y="165" class="text-gray" font-size="13">customConfig.getChannelId() 接口调用结果</text>
+    <line x1="30" y1="180" x2="330" y2="180" stroke="#eeeeee" stroke-width="1"/>
+
+    <text x="30" y="205" class="text-sub" font-size="14">渠道号:</text>
+    <text x="85" y="205" class="text-main" font-size="14" font-weight="bold">未获取</text>
+
+    <text x="30" y="235" class="text-sub" font-size="14">状态:</text>
+    <rect x="85" y="220" width="60" height="22" class="tag-green"/>
+    <text x="115" y="235" fill="#2e7d32" font-size="12" text-anchor="middle" dominant-baseline="middle">获取成功</text>
+
+    <!-- 按钮区域 -->
+    <rect x="15" y="285" width="330" height="40" class="btn-blue"/>
+    <text x="180" y="305" class="btn-text-white">获取渠道号</text>
+
+    <rect x="15" y="340" width="330" height="40" class="btn-outline"/>
+    <text x="180" y="360" class="btn-text-blue">查看详情</text>
+
+    <rect x="15" y="395" width="330" height="40" class="btn-red"/>
+    <text x="180" y="415" class="btn-text-white">重置</text>
+
+    <!-- 详细数据卡片 -->
+    <rect x="15" y="455" width="330" height="220" class="card"/>
+    <text x="30" y="485" class="text-main" font-size="16" font-weight="bold">详细数据</text>
+    <text x="30" y="510" class="text-gray" font-size="13">ChannelConfigModel JSON 表示</text>
+    <line x1="30" y1="525" x2="330" y2="525" stroke="#eeeeee" stroke-width="1"/>
+
+    <text x="30" y="550" class="json-text">{</text>
+    <text x="40" y="570" class="json-text">"channelId": "",</text>
+    <text x="40" y="590" class="json-text">"status": "success",</text>
+    <text x="40" y="610" class="json-text">"lastFetchTime": 1502883141988,</text>
+    <text x="40" y="630" class="json-text">"errorMessage": "",</text>
+    <text x="40" y="650" class="json-text">"errorCode": 0,</text>
+    <text x="40" y="670" class="json-text">"fetchCount": 1</text>
+    <text x="30" y="690" class="json-text">}</text>
+
+    <!-- 操作日志卡片 -->
+    <rect x="15" y="690" width="330" height="150" class="card"/>
+    <text x="30" y="720" class="text-main" font-size="16" font-weight="bold">操作日志</text>
+    <text x="330" y="720" class="text-gray" font-size="12" text-anchor="end">共 3 条</text>
+    <line x1="15" y1="735" x2="345" y2="735" stroke="#eeeeee" stroke-width="1"/>
+
+    <rect x="15" y="740" width="330" height="30" fill="#f9f9f9"/>
+    <text x="30" y="760" class="log-text">[7:32:11 PM] 视图模型初始化完成</text>
+
+    <rect x="15" y="775" width="330" height="30" fill="#f9f9f9"/>
+    <text x="30" y="795" class="log-text">[7:32:21 PM] 正在获取渠道号...</text>
+
+    <text x="30" y="830" class="log-text">[7:32:21 PM] 获取渠道号失败:</text>
+
+    <!-- 底部导航栏 -->
+    <polygon points="110,750 120,760 100,760" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="180" cy="755" r="8" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="245" y="747" width="14" height="14" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+</svg>

@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/entryability/EntryAbility.ets
+ * 文件职责：EntryAbility 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：EntryAbility。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import AbilityConstant from '@ohos.app.ability.AbilityConstant';
 import UIAbility from '@ohos.app.ability.UIAbility';
 import Want from '@ohos.app.ability.Want';
@@ -21,56 +28,94 @@ import { BusinessError } from '@ohos.base';
 import abilityAccessCtrl , { Permissions } from '@ohos.abilityAccessCtrl';
 import MediaFileUri from '../media/MediaFileUri';
 import Logger from '../utils/Logger';
+import { setTextResolver } from '../core/TextCatalog';
 
 const TAG = '[dlpmanager_EntryAbility]';
 
+/**
+ * EntryAbility：类定义，承载本文件对应的逻辑与数据。
+ */
 export default class EntryAbility extends UIAbility {
   private mediaFileUri: MediaFileUri = new MediaFileUri();
 
+  /**
+   * onCreate：Ability 创建时回调。
+   */
   onCreate( want : Want , launchParam : AbilityConstant.LaunchParam ) : void {
-    Logger.info( TAG , '%{public}s' , 'Ability onCreate' );
+    Logger.info(TAG, 'Ability onCreate' );
+    this.setTextResolver();
     this.getPermission( want );
   }
 
-  onDestroy(): void {
-    Logger.info( TAG , '%{public}s' , 'Ability onDestroy' );
+  private setTextResolver(): void {
+    const manager = this.context.resourceManager;
+    setTextResolver((key: string): string => {
+      try {
+        return manager.getStringByNameSync(key);
+      } catch (err) {
+        Logger.error(TAG, 'getStringByNameSync failed: ' + key);
+        return key;
+      }
+    });
   }
 
+  /**
+   * onDestroy：Ability 销毁时回调。
+   */
+  onDestroy(): void {
+    Logger.info(TAG, 'Ability onDestroy' );
+  }
+
+  /**
+   * onWindowStageCreate：窗口舞台创建时回调。
+   */
   onWindowStageCreate( windowStage: window.WindowStage ): void {
     // Main window is created, set main page for this ability
-    Logger.info( TAG , 'testTag' , '%{public}s' , 'Ability onWindowStageCreate' );
+    Logger.info(TAG, 'Ability onWindowStageCreate' );
     windowStage.loadContent( 'pages/Index' , ( err , data ) => {
       if ( err.code ) {
-        Logger.error( TAG , 'testTag' , 'Failed to load the content. Cause: %{public}s' , JSON.stringify( err ) ?? '' );
+        Logger.error(TAG, 'Failed to load the content. Cause: ' + (JSON.stringify(err) ?? ''));
         return;
       }
-      Logger.info( TAG , 'testTag' , 'Succeeded in loading the content. Data: %{public}s' , JSON.stringify( data ) ?? '' );
+      Logger.info(TAG, 'Succeeded in loading the content. Data: ' + (JSON.stringify(data) ?? ''));
     } );
     let context = this.context;
     let pathDir = context.filesDir;
     AppStorage.setOrCreate( 'pathDir' , pathDir );
     AppStorage.setOrCreate( 'context' , context );
-    Logger.info( TAG , 'context type:' + typeof ( this.context ) );
+    Logger.info(TAG, 'context type:' + typeof ( this.context ) );
 
   }
 
+  /**
+   * onWindowStageDestroy：窗口舞台销毁时回调。
+   */
   onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources
-    Logger.info( TAG , 'testTag' , '%{public}s' , 'Ability onWindowStageDestroy' );
+    Logger.info(TAG, 'Ability onWindowStageDestroy' );
   }
 
+  /**
+   * onForeground：应用进入前台时回调。
+   */
   onForeground(): void {
     // Ability has brought to foreground
-    Logger.info( TAG , 'testTag' , '%{public}s' , 'Ability onForeground' );
+    Logger.info(TAG, 'Ability onForeground' );
   }
 
+  /**
+   * onBackground：应用退到后台时回调。
+   */
   onBackground(): void {
     // Ability has back to background
-    Logger.info( TAG , 'testTag' , '%{public}s' , 'Ability onBackground' );
+    Logger.info(TAG, 'Ability onBackground' );
   }
-  
+
+  /**
+   * getPermission：执行 getPermission 相关逻辑。
+   */
   getPermission( want: Want ): void {
-    let array: Array<Permissions> = [
+    let array: Permissions[] = [
       'ohos.permission.ACCESS_DLP_FILE',
       'ohos.permission.MEDIA_LOCATION',
       'ohos.permission.FILE_ACCESS_MANAGER',
@@ -78,16 +123,34 @@ export default class EntryAbility extends UIAbility {
     ];
     let context = this.context;
     let atManager = abilityAccessCtrl.createAtManager();
-    atManager.requestPermissionsFromUser( context , array ).then( ( data ) => {
-      Logger.info( TAG , 'data type:' + typeof ( data ) );
-      Logger.info( TAG , 'data:' + JSON.stringify( data ) );
-      Logger.info( TAG , 'data permissions:' + data.permissions );
-      Logger.info( TAG , 'data result:' + data.authResults );
+    let missing: Permissions[] = [];
+    try {
+      let tokenId: number = context.applicationInfo.accessTokenId;
+      for (let index = 0; index < array.length; index++) {
+        let status: abilityAccessCtrl.GrantStatus = atManager.checkAccessTokenSync(tokenId, array[index]);
+        if (status !== abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED) {
+          missing.push(array[index]);
+        }
+      }
+    } catch (err) {
+      Logger.error(TAG, 'checkAccessTokenSync failed: ' + err);
+      missing = array;
+    }
+    if (missing.length === 0) {
+      Logger.info(TAG, 'all permissions granted, skip request dialog');
+      this.mediaFileUri.getAllFiles(context);
+      return;
+    }
+    atManager.requestPermissionsFromUser( context , missing ).then( ( data ) => {
+      Logger.info(TAG, 'data type:' + typeof ( data ) );
+      Logger.info(TAG, 'data:' + JSON.stringify( data ) );
+      Logger.info(TAG, 'data permissions:' + data.permissions );
+      Logger.info(TAG, 'data result:' + data.authResults );
 
       this.mediaFileUri.getAllFiles( context );
-      Logger.info( TAG , 'getPermission getWantInfo' );
+      Logger.info(TAG, 'getPermission getWantInfo' );
     } ).catch( ( err: BusinessError ) => {
-      Logger.error( TAG , 'Failed to start ability' + err.code );
+      Logger.error(TAG, 'Failed to start ability' + err.code );
     } );
   }
 }

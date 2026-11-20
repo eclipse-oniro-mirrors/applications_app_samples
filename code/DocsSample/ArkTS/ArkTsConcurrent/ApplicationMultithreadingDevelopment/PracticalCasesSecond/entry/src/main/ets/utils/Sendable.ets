@@ -13,7 +13,7 @@
 * limitations under the License.
 */
 // [Start define_sendable]
-// sendable.ets
+// Sendable.ets
 @Sendable
 export class SendableTest {
   // 存储任务ID

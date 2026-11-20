@@ -16,6 +16,7 @@
 // [Start ecc_onlysign_onlyverify_signature_verification_synchronous]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function signMessageSync(priKey: cryptoFramework.PriKey, digestBlob: cryptoFramework.DataBlob) {
   let signAlg = 'ECC|SHA1|OnlySign';
@@ -36,20 +37,31 @@ function verifyMessageSync(digestBlob: cryptoFramework.DataBlob, signMessageBlob
 }
 
 function main() {
-  let messageData: cryptoFramework.DataBlob =
-    { data: new Uint8Array(buffer.from('This is ecc onlySign test', 'utf-8').buffer) };
-  let md = cryptoFramework.createMd('SHA1');
-  md.updateSync(messageData);
-  let digestBlob = md.digestSync();
-  let keyGenAlg = 'ECC224';
-  let generator = cryptoFramework.createAsyKeyGenerator(keyGenAlg);
-  let keyPair = generator.generateKeyPairSync();
-  let signData = signMessageSync(keyPair.priKey, digestBlob);
-  let verifyResult = verifyMessageSync(digestBlob, signData, keyPair.pubKey);
-  if (verifyResult === true) {
-    console.info('verify result: success.');
-  } else {
-    console.error('verify result: failed.');
+  try {
+    let messageData: cryptoFramework.DataBlob =
+      { data: new Uint8Array(buffer.from('This is ecc onlySign test', 'utf-8').buffer) };
+    let md = cryptoFramework.createMd('SHA1');
+    md.updateSync(messageData);
+    let digestBlob = md.digestSync();
+    let keyGenAlg = 'ECC224';
+    let generator = cryptoFramework.createAsyKeyGenerator(keyGenAlg);
+    let keyPair = generator.generateKeyPairSync();
+    let signData = signMessageSync(keyPair.priKey, digestBlob);
+    let verifyResult = verifyMessageSync(digestBlob, signData, keyPair.pubKey);
+    if (verifyResult === true) {
+      console.info('verify result: success.');
+    } else {
+      console.error('verify result: failed.');
+      // [StartExclude ecc_onlysign_onlyverify_signature_verification_synchronous]
+      throw new Error('verify result: failed.');
+      // [EndExclude ecc_onlysign_onlyverify_signature_verification_synchronous]
+    }
+  } catch (error) {
+    let e: BusinessError = error as BusinessError;
+    console.error(`verify failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude ecc_onlysign_onlyverify_signature_verification_synchronous]
+    throw new Error(`verify failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude ecc_onlysign_onlyverify_signature_verification_synchronous]
   }
 }
 

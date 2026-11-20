@@ -32,9 +32,15 @@ function generateAsyKeySync() {
       console.info('sk bin data: ' + skBlob.data);
     } else {
       console.error('[Sync]: get key pair result: fail!');
+      // [StartExclude generate_rsa_keypair_sync]
+      throw new Error('[Sync]: get key pair result: fail!');
+      // [EndExclude generate_rsa_keypair_sync]
     }
   } catch (e) {
     console.error(`get key pair failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude generate_rsa_keypair_sync]
+    throw new Error(`get key pair failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude generate_rsa_keypair_sync]
   }
 }
 // [End generate_rsa_keypair_sync]

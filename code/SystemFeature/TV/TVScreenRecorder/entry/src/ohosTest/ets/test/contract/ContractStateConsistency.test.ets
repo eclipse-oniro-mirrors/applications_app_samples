@@ -47,7 +47,7 @@ export default function contractStateConsistencyTest(): void {
       assertArrayLength(harness.getRecords(), 2);
     });
 
-    it('ContractState_GrayKeysFormStableSchemaSurface_003', 0, () => {
+    it('ContractState_GrayKeysFormStableSchemaShape_003', 0, () => {
       const harness = new SchemaContractHarness();
       const keys = buildFoundationGrayReleaseKeys();
       for (let index = 0; index < keys.length; index++) {

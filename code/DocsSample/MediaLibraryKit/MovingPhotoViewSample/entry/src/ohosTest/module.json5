@@ -16,7 +16,7 @@
 {
   "module": {
     "name": "entry_test",
-    "type": "entry",
+    "type": "feature",
     "description": "$string:description",
     "deviceTypes": [
       "default"
