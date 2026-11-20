@@ -1564,7 +1564,635 @@ function LruCacheWindowPart091() {
     });
 }
 
-export function registerLruCacheWindowExtra2() {
+function LruCacheWindowPart092() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2362
+     * @tc.name    JsCache122
+     * @tc.desc    LRU capacity 4 after 6 accesses keeps k2,k5 seed 122
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsCache122', 0, async function () {
+      await yieldThread();
+      const order = [];
+      expect(model.lruAccess(order, 'k2', 4)).assertEqual(false);
+      expect(order.length).assertEqual(1);
+      expect(model.lruAccess(order, 'k5', 4)).assertEqual(false);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k2', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k5', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k2', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k5', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(order.join(',')).assertEqual('k2,k5');
+      expect(order.length <= 4).assertEqual(true);
+      expect(order[order.length - 1]).assertEqual('k5');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsCache122 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2363
+     * @tc.name    JsCache123
+     * @tc.desc    LRU capacity 5 after 7 accesses keeps k0,k3 seed 123
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsCache123', 0, async function () {
+      await yieldThread();
+      const order = [];
+      expect(model.lruAccess(order, 'k3', 5)).assertEqual(false);
+      expect(order.length).assertEqual(1);
+      expect(model.lruAccess(order, 'k0', 5)).assertEqual(false);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k3', 5)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k0', 5)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k3', 5)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k0', 5)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k3', 5)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(order.join(',')).assertEqual('k0,k3');
+      expect(order.length <= 5).assertEqual(true);
+      expect(order[order.length - 1]).assertEqual('k3');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsCache123 done');
+    });
+}
+
+function LruCacheWindowPart093() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2364
+     * @tc.name    JsCache124
+     * @tc.desc    LRU capacity 6 after 8 accesses keeps k4,k1 seed 124
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsCache124', 0, async function () {
+      await yieldThread();
+      const order = [];
+      expect(model.lruAccess(order, 'k4', 6)).assertEqual(false);
+      expect(order.length).assertEqual(1);
+      expect(model.lruAccess(order, 'k1', 6)).assertEqual(false);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k4', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k1', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k4', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k1', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k4', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k1', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(order.join(',')).assertEqual('k4,k1');
+      expect(order.length <= 6).assertEqual(true);
+      expect(order[order.length - 1]).assertEqual('k1');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsCache124 done');
+    });
+}
+
+function LruCacheWindowPart094() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2365
+     * @tc.name    JsCache125
+     * @tc.desc    LRU capacity 2 after 9 accesses keeps k2,k5 seed 125
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsCache125', 0, async function () {
+      await yieldThread();
+      const order = [];
+      expect(model.lruAccess(order, 'k5', 2)).assertEqual(false);
+      expect(order.length).assertEqual(1);
+      expect(model.lruAccess(order, 'k2', 2)).assertEqual(false);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k5', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k2', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k5', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k2', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k5', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k2', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k5', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(order.join(',')).assertEqual('k2,k5');
+      expect(order.length <= 2).assertEqual(true);
+      expect(order[order.length - 1]).assertEqual('k5');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsCache125 done');
+    });
+}
+
+function LruCacheWindowPart095() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2366
+     * @tc.name    JsCache126
+     * @tc.desc    LRU capacity 3 after 10 accesses keeps k0,k3 seed 126
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsCache126', 0, async function () {
+      await yieldThread();
+      const order = [];
+      expect(model.lruAccess(order, 'k0', 3)).assertEqual(false);
+      expect(order.length).assertEqual(1);
+      expect(model.lruAccess(order, 'k3', 3)).assertEqual(false);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k0', 3)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k3', 3)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k0', 3)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k3', 3)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k0', 3)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k3', 3)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k0', 3)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k3', 3)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(order.join(',')).assertEqual('k0,k3');
+      expect(order.length <= 3).assertEqual(true);
+      expect(order[order.length - 1]).assertEqual('k3');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsCache126 done');
+    });
+}
+
+function LruCacheWindowPart096() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2367
+     * @tc.name    JsCache127
+     * @tc.desc    LRU capacity 4 after 11 accesses keeps k4,k1 seed 127
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsCache127', 0, async function () {
+      await yieldThread();
+      const order = [];
+      expect(model.lruAccess(order, 'k1', 4)).assertEqual(false);
+      expect(order.length).assertEqual(1);
+      expect(model.lruAccess(order, 'k4', 4)).assertEqual(false);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k1', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k4', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k1', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k4', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k1', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k4', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k1', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k4', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k1', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(order.join(',')).assertEqual('k4,k1');
+      expect(order.length <= 4).assertEqual(true);
+      expect(order[order.length - 1]).assertEqual('k1');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsCache127 done');
+    });
+}
+
+function LruCacheWindowPart097() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2368
+     * @tc.name    JsCache128
+     * @tc.desc    LRU capacity 5 after 4 accesses keeps k2,k5 seed 128
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsCache128', 0, async function () {
+      await yieldThread();
+      const order = [];
+      expect(model.lruAccess(order, 'k2', 5)).assertEqual(false);
+      expect(order.length).assertEqual(1);
+      expect(model.lruAccess(order, 'k5', 5)).assertEqual(false);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k2', 5)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k5', 5)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(order.join(',')).assertEqual('k2,k5');
+      expect(order.length <= 5).assertEqual(true);
+      expect(order[order.length - 1]).assertEqual('k5');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsCache128 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2369
+     * @tc.name    JsCache129
+     * @tc.desc    LRU capacity 6 after 5 accesses keeps k0,k3 seed 129
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsCache129', 0, async function () {
+      await yieldThread();
+      const order = [];
+      expect(model.lruAccess(order, 'k3', 6)).assertEqual(false);
+      expect(order.length).assertEqual(1);
+      expect(model.lruAccess(order, 'k0', 6)).assertEqual(false);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k3', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k0', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k3', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(order.join(',')).assertEqual('k0,k3');
+      expect(order.length <= 6).assertEqual(true);
+      expect(order[order.length - 1]).assertEqual('k3');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsCache129 done');
+    });
+}
+
+function LruCacheWindowPart098() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2370
+     * @tc.name    JsCache130
+     * @tc.desc    LRU capacity 2 after 6 accesses keeps k4,k1 seed 130
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsCache130', 0, async function () {
+      await yieldThread();
+      const order = [];
+      expect(model.lruAccess(order, 'k4', 2)).assertEqual(false);
+      expect(order.length).assertEqual(1);
+      expect(model.lruAccess(order, 'k1', 2)).assertEqual(false);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k4', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k1', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k4', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k1', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(order.join(',')).assertEqual('k4,k1');
+      expect(order.length <= 2).assertEqual(true);
+      expect(order[order.length - 1]).assertEqual('k1');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsCache130 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2371
+     * @tc.name    JsCache131
+     * @tc.desc    LRU capacity 3 after 7 accesses keeps k2,k5 seed 131
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsCache131', 0, async function () {
+      await yieldThread();
+      const order = [];
+      expect(model.lruAccess(order, 'k5', 3)).assertEqual(false);
+      expect(order.length).assertEqual(1);
+      expect(model.lruAccess(order, 'k2', 3)).assertEqual(false);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k5', 3)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k2', 3)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k5', 3)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k2', 3)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k5', 3)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(order.join(',')).assertEqual('k2,k5');
+      expect(order.length <= 3).assertEqual(true);
+      expect(order[order.length - 1]).assertEqual('k5');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsCache131 done');
+    });
+}
+
+function LruCacheWindowPart099() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2372
+     * @tc.name    JsCache132
+     * @tc.desc    LRU capacity 4 after 8 accesses keeps k0,k3 seed 132
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsCache132', 0, async function () {
+      await yieldThread();
+      const order = [];
+      expect(model.lruAccess(order, 'k0', 4)).assertEqual(false);
+      expect(order.length).assertEqual(1);
+      expect(model.lruAccess(order, 'k3', 4)).assertEqual(false);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k0', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k3', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k0', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k3', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k0', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k3', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(order.join(',')).assertEqual('k0,k3');
+      expect(order.length <= 4).assertEqual(true);
+      expect(order[order.length - 1]).assertEqual('k3');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsCache132 done');
+    });
+}
+
+function LruCacheWindowPart100() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2373
+     * @tc.name    JsCache133
+     * @tc.desc    LRU capacity 5 after 9 accesses keeps k4,k1 seed 133
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsCache133', 0, async function () {
+      await yieldThread();
+      const order = [];
+      expect(model.lruAccess(order, 'k1', 5)).assertEqual(false);
+      expect(order.length).assertEqual(1);
+      expect(model.lruAccess(order, 'k4', 5)).assertEqual(false);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k1', 5)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k4', 5)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k1', 5)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k4', 5)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k1', 5)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k4', 5)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k1', 5)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(order.join(',')).assertEqual('k4,k1');
+      expect(order.length <= 5).assertEqual(true);
+      expect(order[order.length - 1]).assertEqual('k1');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsCache133 done');
+    });
+}
+
+function LruCacheWindowPart101() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2374
+     * @tc.name    JsCache134
+     * @tc.desc    LRU capacity 6 after 10 accesses keeps k2,k5 seed 134
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsCache134', 0, async function () {
+      await yieldThread();
+      const order = [];
+      expect(model.lruAccess(order, 'k2', 6)).assertEqual(false);
+      expect(order.length).assertEqual(1);
+      expect(model.lruAccess(order, 'k5', 6)).assertEqual(false);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k2', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k5', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k2', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k5', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k2', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k5', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k2', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k5', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(order.join(',')).assertEqual('k2,k5');
+      expect(order.length <= 6).assertEqual(true);
+      expect(order[order.length - 1]).assertEqual('k5');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsCache134 done');
+    });
+}
+
+function LruCacheWindowPart102() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2375
+     * @tc.name    JsCache135
+     * @tc.desc    LRU capacity 2 after 11 accesses keeps k0,k3 seed 135
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsCache135', 0, async function () {
+      await yieldThread();
+      const order = [];
+      expect(model.lruAccess(order, 'k3', 2)).assertEqual(false);
+      expect(order.length).assertEqual(1);
+      expect(model.lruAccess(order, 'k0', 2)).assertEqual(false);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k3', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k0', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k3', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k0', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k3', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k0', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k3', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k0', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k3', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(order.join(',')).assertEqual('k0,k3');
+      expect(order.length <= 2).assertEqual(true);
+      expect(order[order.length - 1]).assertEqual('k3');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsCache135 done');
+    });
+}
+
+function LruCacheWindowPart103() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2376
+     * @tc.name    JsCache136
+     * @tc.desc    LRU capacity 3 after 4 accesses keeps k4,k1 seed 136
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsCache136', 0, async function () {
+      await yieldThread();
+      const order = [];
+      expect(model.lruAccess(order, 'k4', 3)).assertEqual(false);
+      expect(order.length).assertEqual(1);
+      expect(model.lruAccess(order, 'k1', 3)).assertEqual(false);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k4', 3)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k1', 3)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(order.join(',')).assertEqual('k4,k1');
+      expect(order.length <= 3).assertEqual(true);
+      expect(order[order.length - 1]).assertEqual('k1');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsCache136 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2377
+     * @tc.name    JsCache137
+     * @tc.desc    LRU capacity 4 after 5 accesses keeps k2,k5 seed 137
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsCache137', 0, async function () {
+      await yieldThread();
+      const order = [];
+      expect(model.lruAccess(order, 'k5', 4)).assertEqual(false);
+      expect(order.length).assertEqual(1);
+      expect(model.lruAccess(order, 'k2', 4)).assertEqual(false);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k5', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k2', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k5', 4)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(order.join(',')).assertEqual('k2,k5');
+      expect(order.length <= 4).assertEqual(true);
+      expect(order[order.length - 1]).assertEqual('k5');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsCache137 done');
+    });
+}
+
+function LruCacheWindowPart104() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2378
+     * @tc.name    JsCache138
+     * @tc.desc    LRU capacity 5 after 6 accesses keeps k0,k3 seed 138
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsCache138', 0, async function () {
+      await yieldThread();
+      const order = [];
+      expect(model.lruAccess(order, 'k0', 5)).assertEqual(false);
+      expect(order.length).assertEqual(1);
+      expect(model.lruAccess(order, 'k3', 5)).assertEqual(false);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k0', 5)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k3', 5)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k0', 5)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k3', 5)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(order.join(',')).assertEqual('k0,k3');
+      expect(order.length <= 5).assertEqual(true);
+      expect(order[order.length - 1]).assertEqual('k3');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsCache138 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2379
+     * @tc.name    JsCache139
+     * @tc.desc    LRU capacity 6 after 7 accesses keeps k4,k1 seed 139
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsCache139', 0, async function () {
+      await yieldThread();
+      const order = [];
+      expect(model.lruAccess(order, 'k1', 6)).assertEqual(false);
+      expect(order.length).assertEqual(1);
+      expect(model.lruAccess(order, 'k4', 6)).assertEqual(false);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k1', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k4', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k1', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k4', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k1', 6)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(order.join(',')).assertEqual('k4,k1');
+      expect(order.length <= 6).assertEqual(true);
+      expect(order[order.length - 1]).assertEqual('k1');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsCache139 done');
+    });
+}
+
+function LruCacheWindowPart105() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2380
+     * @tc.name    JsCache140
+     * @tc.desc    LRU capacity 2 after 8 accesses keeps k2,k5 seed 140
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsCache140', 0, async function () {
+      await yieldThread();
+      const order = [];
+      expect(model.lruAccess(order, 'k2', 2)).assertEqual(false);
+      expect(order.length).assertEqual(1);
+      expect(model.lruAccess(order, 'k5', 2)).assertEqual(false);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k2', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k5', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k2', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k5', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k2', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(model.lruAccess(order, 'k5', 2)).assertEqual(true);
+      expect(order.length).assertEqual(2);
+      expect(order.join(',')).assertEqual('k2,k5');
+      expect(order.length <= 2).assertEqual(true);
+      expect(order[order.length - 1]).assertEqual('k5');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsCache140 done');
+    });
+}
+
+function LruCacheWindowGroup003() {
   LruCacheWindowPart057();
   LruCacheWindowPart058();
   LruCacheWindowPart059();
@@ -1600,4 +2228,26 @@ export function registerLruCacheWindowExtra2() {
   LruCacheWindowPart089();
   LruCacheWindowPart090();
   LruCacheWindowPart091();
+  LruCacheWindowPart092();
+  LruCacheWindowPart093();
+  LruCacheWindowPart094();
+  LruCacheWindowPart095();
+  LruCacheWindowPart096();
+}
+
+function LruCacheWindowGroup004() {
+  LruCacheWindowPart097();
+  LruCacheWindowPart098();
+  LruCacheWindowPart099();
+  LruCacheWindowPart100();
+  LruCacheWindowPart101();
+  LruCacheWindowPart102();
+  LruCacheWindowPart103();
+  LruCacheWindowPart104();
+  LruCacheWindowPart105();
+}
+
+export function registerLruCacheWindowExtra2() {
+  LruCacheWindowGroup003();
+  LruCacheWindowGroup004();
 }
