@@ -1,10 +1,10 @@
 # Eraser 测试用例
 
-Eraser 橡皮擦样例的测试归档，自动化部分覆盖画笔模式与线宽、画布缩放、触摸轨迹裁剪、文本宽度与页面配置事实。
+Eraser 橡皮擦样例的测试归档。真实 API 冒烟调用业务 RenderNode.draw，读回真实 PixelMap 验证涂鸦、CLEAR 擦除和历史重绘；原有矩阵仅验证算术与字符串推算，不代表实际触摸或绘制结果覆盖。
 
 ## 自动化用例
 
-用例位于 `entry/src/ohosTest/ets/test`，由 `test/List.test.ets` 统一注册，共 39 个套件文件 2695 条；`test/Ability.test.ets` 另有 5 条环境自检，合计 2700 条，已在 RK3568 真机上分批执行通过。
+用例位于 `entry/src/ohosTest/ets/test`，由 `test/List.test.ets` 统一注册，共 40 个业务套件、2697 条；`test/Ability.test.ets` 另有 5 条环境自检，合计 2702 条。本轮主包、测试包编译及 RK3568 真机全量均通过：Tests run 2702、Pass 2702、Failure 0、Error 0、Ignore 0，包含两条真实 API 冒烟。
 
 用例写法与元数据约定如下：
 
@@ -19,6 +19,7 @@ Eraser 橡皮擦样例的测试归档，自动化部分覆盖画笔模式与线�
 
 | 套件 | 文件 | 用例数 | 覆盖内容 |
 | ---- | ---- | ------ | -------- |
+| EraserApiSmoke | EraserApiSmoke.test.ets | 2 | 调用 MyRenderNode.draw 验证涂鸦中心 RGBA 与 CLEAR 擦除；调用 MyImageRenderNode.draw 验证历史栈顶及撤销后的真实像素 |
 | EraserStrokeMatrix1 .. 13 | EraserStrokeMatrixN.test.ets | 960 | free / line / circle / rect / pixel 五种画笔模式，直径 4 ~ 64，画布 256x256 ~ 1440x2560，逐组推算笔触覆盖率、覆盖画布所需笔数与比例 |
 | EraserCanvasMatrix1 .. 12 | EraserCanvasMatrixN.test.ets | 864 | 360x240 ~ 1920x1080 共 12 种画布在 1/1、1/2、1/3、1/4、1/6、1/8 缩放下的绘制尺寸与居中偏移推算 |
 | EraserTraceMatrix1 .. 9 | EraserTraceMatrixN.test.ets | 640 | 360x640 ~ 1080x1920 画布上 3 ~ 400 个采样点、间距 1 ~ 12 的轨迹长度、段数与越界裁剪 |
@@ -31,7 +32,8 @@ Eraser 橡皮擦样例的测试归档，自动化部分覆盖画笔模式与线�
 
 - `test/List.test.ets`：注册全部套件；
 - `test/Ability.test.ets`：应用上下文、包信息、模块入口、能力列表、应用级上下文共 5 条环境自检；
-- `util/TestTick.ets`：每 10 条用例插入一次 1ms 定时器，让主线程回到事件循环；
+- `util/TestTick.ets`：每 10 条矩阵用例插入一次 1ms 定时器，让主线程回到事件循环；
+- `test/EraserApiSmoke.test.ets`：通过 erasercomponent 包路径调用业务绘制实现，使用真实 Canvas/PixelMap，finally 释放像素资源与 RenderNode；
 - `testability/TestAbility.ets`：`onForeground` 后延迟 1 秒注册 hypium，`onDestroy` 以 -2 结束；
 - `testrunner/OpenHarmonyTestRunner.ts`：拉起 `TestAbility`，开发者模式未解锁时以 -3 结束。
 
@@ -46,7 +48,7 @@ Eraser 橡皮擦样例的测试归档，自动化部分覆盖画笔模式与线�
 | 点击撤销按钮撤销上一步绘制 | 1. 启动橡皮擦样例<br />2. 已进行涂鸦或擦除操作 | 点击撤销按钮 | 1. 上一笔涂鸦或擦除被撤销<br />2. 右上角恢复按钮高亮<br />3. 撤销到初始状态时撤销按钮取消高亮 | 否 | Pass |
 | 点击恢复按钮恢复上一次撤销 | 1. 启动橡皮擦样例<br />2. 点击撤销按钮后未进行涂鸦或擦除 | 点击恢复按钮 | 1. 上一次撤销被恢复<br />2. 左上角撤销按钮高亮<br />3. 恢复到最新绘制状态时恢复按钮取消高亮 | 否 | Pass |
 
-手工用例的原因：涂鸦与擦除依赖真实触摸轨迹和历史栈状态，自动化改为对画笔覆盖率、轨迹裁剪与画布缩放做参数化推算。
+手工用例保留触摸轨迹、按钮高亮及撤销/恢复的页面交互验证。新增自动化直接调用业务绘制实现并读取像素；参数矩阵不能替代真实绘制或触摸交互覆盖。
 
 ## 运行方式
 
@@ -65,5 +67,5 @@ hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 2. 用例注册放在 `TestAbility.onForeground` 之后延迟 1 秒执行，避免注册阶段同步写日志导致前台超时并回收测试进程。
 3. `-s unittest` 的入口路径必须写成小写的 `/ets/testrunner/OpenHarmonyTestRunner`，设备端大小写敏感，写成 `TestRunner` 会报 `Cannot find module`。
 4. 开发者模式未解锁屏幕时，启动应用命令返回 `10106102`，`OpenHarmonyTestRunner` 会以 -3 直接结束测试，跑测前先解锁屏幕。
-5. 像素级覆盖率按面积比推算，与设备屏幕密度无关；断言只比对推算值，不要在用例里截图比对实际像素。
+5. 原有覆盖率矩阵仅断言面积推算。真实绘制冒烟在固定尺寸离屏 PixelMap 的笔触内部读取 RGBA，避免抗锯齿边缘与屏幕密度影响；DrawContext 仅适配目标 Canvas 和尺寸，不宣称触发了真实 UI 绘制回调。
 6. hilog 的 tag 超过 31 字节会截断，所有套件只使用一个短 tag `[Sample_Eraser]`，用例归属靠日志正文中的 `it` 名称区分。

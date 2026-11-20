@@ -148,6 +148,10 @@ None.
 
 None.
 
+### Tests
+
+The latest RK3568 run passed all 2702 cases (Failure/Error/Ignore: 0). Two smoke cases import the business RenderNodeModel through the HAR package, perform real offscreen drawing, and read PixelMap pixels to verify the orange stroke, CLEAR blending and history redraw. Resources are released in finally blocks; touch interactions still need separate verification. See [test coverage and execution](ohosTest.md). Generated BuildProfile files and local signing material are excluded from repository changes.
+
 ### Constraints and Limitations
 
 1. This sample can run only on standard-system devices and has been verified on an RK3568 board.

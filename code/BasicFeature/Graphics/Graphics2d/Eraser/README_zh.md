@@ -2,7 +2,7 @@
 
 ### 介绍
 
-本示例通过[@ohos.graphics.drawing](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkgraphics2d/js-apis-graphics-drawing.md)库和[blendMode颜色混合](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-universal-attributes-image-effect.md#blendmode11)实现了橡皮擦功能，能够根据手指移动轨迹擦除之前绘制的内容，并且可以进行图案的撤销和恢复。
+本示例通过[@ohos.graphics.drawing](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkgraphics2d/js-apis-graphics-drawing.md)库和[blendMode颜色混合](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-universal-attributes-image-effect.md#blendmode11)实现了橡皮擦功能，能够根据手指移动轨迹擦除之前绘制的内容，并且可以进行图案的撤销和恢复。
 
 ### 效果图预览
 
@@ -377,15 +377,15 @@
 
 ### 参考资料
 
-[@ohos.graphics.drawing (绘制模块)](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkgraphics2d/js-apis-graphics-drawing.md)
+[@ohos.graphics.drawing (绘制模块)](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkgraphics2d/js-apis-graphics-drawing.md)
 
-[NodeController](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/js-apis-arkui-nodeController.md)
+[NodeController](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/js-apis-arkui-nodeController.md)
 
-[自渲染节点RenderNode](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/js-apis-arkui-renderNode.md)
+[自渲染节点RenderNode](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/js-apis-arkui-renderNode.md)
 
-[RelativeContainer相对布局](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-container-relativecontainer.md)
+[RelativeContainer相对布局](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-container-relativecontainer.md)
 
-[blendMode](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-universal-attributes-image-effect.md#blendmode11)
+[blendMode](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-universal-attributes-image-effect.md#blendmode11)
 
 ### 相关权限
 
@@ -394,6 +394,10 @@
 ### 依赖
 
 不涉及
+
+### 测试
+
+本轮 RK3568 全量 2702/2702 通过，Failure/Error/Ignore 均为 0。两条冒烟通过 HAR 包导入业务 RenderNodeModel，执行真实离屏绘制并读回 PixelMap，验证橙色笔触、CLEAR 混合与历史图像重绘。资源在 finally 释放，触摸交互仍需独立验证；详见 [测试覆盖与运行](ohosTest.md)。生成的 BuildProfile 文件和本地签名材料不纳入仓库改动。
 
 ### 约束与限制
 
@@ -410,6 +414,6 @@
 git init
 git config core.sparsecheckout true
 echo /code/BasicFeature/Graphics/Graphics2d/Eraser > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
