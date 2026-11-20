@@ -12,9 +12,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file entry/src/main/ets/common/ToastReport.ets
+ * 文件职责：ToastReport 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ToastReport。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { promptAction } from '@kit.ArkUI'
 
+/**
+ * ToastReport：类定义，承载本文件对应的逻辑与数据。
+ */
 export class ToastReport {
+  /**
+   * showResult：执行 showResult 相关逻辑。
+   */
   public showResult(message: string) {
     promptAction.showToast({
       message: message,
