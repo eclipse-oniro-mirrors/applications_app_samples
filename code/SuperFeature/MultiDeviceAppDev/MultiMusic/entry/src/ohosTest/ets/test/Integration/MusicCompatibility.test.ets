@@ -1982,3 +1982,653 @@ export default function musicCompatibilitySuite() {
       expect(m.getPlaylistByIndex(1000 + 441) === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0442
+     * @tc.name    MusicCompatibility442
+     * @tc.desc    Music title uniqueness probe 442 probe 442
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility442', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing442')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 442) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0443
+     * @tc.name    MusicCompatibility443
+     * @tc.desc    Music title uniqueness probe 443 probe 443
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility443', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing443')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 443) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0444
+     * @tc.name    MusicCompatibility444
+     * @tc.desc    Music title uniqueness probe 444 probe 444
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility444', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing444')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 444) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0445
+     * @tc.name    MusicCompatibility445
+     * @tc.desc    Music title uniqueness probe 445 probe 445
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility445', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing445')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 445) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0446
+     * @tc.name    MusicCompatibility446
+     * @tc.desc    Music title uniqueness probe 446 probe 446
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility446', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing446')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 446) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0447
+     * @tc.name    MusicCompatibility447
+     * @tc.desc    Music title uniqueness probe 447 probe 447
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility447', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing447')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 447) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0448
+     * @tc.name    MusicCompatibility448
+     * @tc.desc    Music title uniqueness probe 448 probe 448
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility448', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing448')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 448) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0449
+     * @tc.name    MusicCompatibility449
+     * @tc.desc    Music title uniqueness probe 449 probe 449
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility449', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing449')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 449) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0450
+     * @tc.name    MusicCompatibility450
+     * @tc.desc    Music title uniqueness probe 450 probe 450
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility450', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing450')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 450) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0451
+     * @tc.name    MusicCompatibility451
+     * @tc.desc    Music title uniqueness probe 451 probe 451
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility451', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing451')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 451) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0452
+     * @tc.name    MusicCompatibility452
+     * @tc.desc    Music title uniqueness probe 452 probe 452
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility452', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing452')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 452) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0453
+     * @tc.name    MusicCompatibility453
+     * @tc.desc    Music title uniqueness probe 453 probe 453
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility453', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing453')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 453) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0454
+     * @tc.name    MusicCompatibility454
+     * @tc.desc    Music title uniqueness probe 454 probe 454
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility454', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing454')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 454) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0455
+     * @tc.name    MusicCompatibility455
+     * @tc.desc    Music title uniqueness probe 455 probe 455
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility455', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing455')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 455) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0456
+     * @tc.name    MusicCompatibility456
+     * @tc.desc    Music title uniqueness probe 456 probe 456
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility456', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing456')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 456) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0457
+     * @tc.name    MusicCompatibility457
+     * @tc.desc    Music title uniqueness probe 457 probe 457
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility457', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing457')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 457) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0458
+     * @tc.name    MusicCompatibility458
+     * @tc.desc    Music title uniqueness probe 458 probe 458
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility458', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing458')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 458) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0459
+     * @tc.name    MusicCompatibility459
+     * @tc.desc    Music title uniqueness probe 459 probe 459
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility459', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing459')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 459) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0460
+     * @tc.name    MusicCompatibility460
+     * @tc.desc    Music title uniqueness probe 460 probe 460
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility460', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing460')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 460) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0461
+     * @tc.name    MusicCompatibility461
+     * @tc.desc    Music title uniqueness probe 461 probe 461
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility461', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing461')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 461) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0462
+     * @tc.name    MusicCompatibility462
+     * @tc.desc    Music title uniqueness probe 462 probe 462
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility462', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing462')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 462) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0463
+     * @tc.name    MusicCompatibility463
+     * @tc.desc    Music title uniqueness probe 463 probe 463
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility463', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing463')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 463) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0464
+     * @tc.name    MusicCompatibility464
+     * @tc.desc    Music title uniqueness probe 464 probe 464
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility464', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing464')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 464) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0465
+     * @tc.name    MusicCompatibility465
+     * @tc.desc    Music title uniqueness probe 465 probe 465
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility465', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing465')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 465) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0466
+     * @tc.name    MusicCompatibility466
+     * @tc.desc    Music title uniqueness probe 466 probe 466
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility466', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing466')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 466) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0467
+     * @tc.name    MusicCompatibility467
+     * @tc.desc    Music title uniqueness probe 467 probe 467
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility467', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing467')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 467) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0468
+     * @tc.name    MusicCompatibility468
+     * @tc.desc    Music title uniqueness probe 468 probe 468
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility468', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing468')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 468) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0469
+     * @tc.name    MusicCompatibility469
+     * @tc.desc    Music title uniqueness probe 469 probe 469
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility469', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing469')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 469) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0470
+     * @tc.name    MusicCompatibility470
+     * @tc.desc    Music title uniqueness probe 470 probe 470
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility470', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing470')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 470) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0471
+     * @tc.name    MusicCompatibility471
+     * @tc.desc    Music title uniqueness probe 471 probe 471
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility471', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing471')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 471) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0472
+     * @tc.name    MusicCompatibility472
+     * @tc.desc    Music title uniqueness probe 472 probe 472
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility472', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing472')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 472) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0473
+     * @tc.name    MusicCompatibility473
+     * @tc.desc    Music title uniqueness probe 473 probe 473
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility473', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing473')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 473) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0474
+     * @tc.name    MusicCompatibility474
+     * @tc.desc    Music title uniqueness probe 474 probe 474
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility474', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing474')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 474) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0475
+     * @tc.name    MusicCompatibility475
+     * @tc.desc    Music title uniqueness probe 475 probe 475
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility475', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing475')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 475) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0476
+     * @tc.name    MusicCompatibility476
+     * @tc.desc    Music title uniqueness probe 476 probe 476
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility476', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing476')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 476) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0477
+     * @tc.name    MusicCompatibility477
+     * @tc.desc    Music title uniqueness probe 477 probe 477
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility477', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing477')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 477) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0478
+     * @tc.name    MusicCompatibility478
+     * @tc.desc    Music title uniqueness probe 478 probe 478
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility478', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing478')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 478) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_0479
+     * @tc.name    MusicCompatibility479
+     * @tc.desc    Music title uniqueness probe 479 probe 479
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicCompatibility479', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.hasUniqueTitles()).assertEqual(true);
+      expect(m.searchTitle('missing479')).assertEqual(0);
+      expect(m.getPlaylistByIndex(1000 + 479) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
