@@ -1990,3 +1990,385 @@ export default function navAppOperationWorkflowSuite() {
       expect(m.getNode(1000 + 212) === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0213
+     * @tc.name    NavAppOperationWorkflow213
+     * @tc.desc    NavBar sub count for top 3 probe 213
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppOperationWorkflow213', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.getSubCount(idx)).assertEqual(NAV_SUB_COUNTS[idx]);
+      expect(m.countChildrenOf(idx)).assertEqual(0);
+      expect(m.getNode(1000 + 213) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0214
+     * @tc.name    NavAppOperationWorkflow214
+     * @tc.desc    NavBar sub count for top 4 probe 214
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppOperationWorkflow214', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.getSubCount(idx)).assertEqual(NAV_SUB_COUNTS[idx]);
+      expect(m.countChildrenOf(idx)).assertEqual(0);
+      expect(m.getNode(1000 + 214) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0215
+     * @tc.name    NavAppOperationWorkflow215
+     * @tc.desc    NavBar sub count for top 0 probe 215
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppOperationWorkflow215', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.getSubCount(idx)).assertEqual(NAV_SUB_COUNTS[idx]);
+      expect(m.countChildrenOf(idx)).assertEqual(0);
+      expect(m.getNode(1000 + 215) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0216
+     * @tc.name    NavAppOperationWorkflow216
+     * @tc.desc    NavBar sub count for top 1 probe 216
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppOperationWorkflow216', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.getSubCount(idx)).assertEqual(NAV_SUB_COUNTS[idx]);
+      expect(m.countChildrenOf(idx)).assertEqual(0);
+      expect(m.getNode(1000 + 216) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0217
+     * @tc.name    NavAppOperationWorkflow217
+     * @tc.desc    NavBar sub count for top 2 probe 217
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppOperationWorkflow217', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.getSubCount(idx)).assertEqual(NAV_SUB_COUNTS[idx]);
+      expect(m.countChildrenOf(idx)).assertEqual(0);
+      expect(m.getNode(1000 + 217) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0218
+     * @tc.name    NavAppOperationWorkflow218
+     * @tc.desc    NavBar sub count for top 3 probe 218
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppOperationWorkflow218', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.getSubCount(idx)).assertEqual(NAV_SUB_COUNTS[idx]);
+      expect(m.countChildrenOf(idx)).assertEqual(0);
+      expect(m.getNode(1000 + 218) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0219
+     * @tc.name    NavAppOperationWorkflow219
+     * @tc.desc    NavBar sub count for top 4 probe 219
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppOperationWorkflow219', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.getSubCount(idx)).assertEqual(NAV_SUB_COUNTS[idx]);
+      expect(m.countChildrenOf(idx)).assertEqual(0);
+      expect(m.getNode(1000 + 219) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0220
+     * @tc.name    NavAppOperationWorkflow220
+     * @tc.desc    NavBar sub count for top 0 probe 220
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppOperationWorkflow220', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.getSubCount(idx)).assertEqual(NAV_SUB_COUNTS[idx]);
+      expect(m.countChildrenOf(idx)).assertEqual(0);
+      expect(m.getNode(1000 + 220) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0221
+     * @tc.name    NavAppOperationWorkflow221
+     * @tc.desc    NavBar sub count for top 1 probe 221
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppOperationWorkflow221', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.getSubCount(idx)).assertEqual(NAV_SUB_COUNTS[idx]);
+      expect(m.countChildrenOf(idx)).assertEqual(0);
+      expect(m.getNode(1000 + 221) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0222
+     * @tc.name    NavAppOperationWorkflow222
+     * @tc.desc    NavBar sub count for top 2 probe 222
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppOperationWorkflow222', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.getSubCount(idx)).assertEqual(NAV_SUB_COUNTS[idx]);
+      expect(m.countChildrenOf(idx)).assertEqual(0);
+      expect(m.getNode(1000 + 222) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0223
+     * @tc.name    NavAppOperationWorkflow223
+     * @tc.desc    NavBar sub count for top 3 probe 223
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppOperationWorkflow223', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.getSubCount(idx)).assertEqual(NAV_SUB_COUNTS[idx]);
+      expect(m.countChildrenOf(idx)).assertEqual(0);
+      expect(m.getNode(1000 + 223) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0224
+     * @tc.name    NavAppOperationWorkflow224
+     * @tc.desc    NavBar sub count for top 4 probe 224
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppOperationWorkflow224', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.getSubCount(idx)).assertEqual(NAV_SUB_COUNTS[idx]);
+      expect(m.countChildrenOf(idx)).assertEqual(0);
+      expect(m.getNode(1000 + 224) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0225
+     * @tc.name    NavAppOperationWorkflow225
+     * @tc.desc    NavBar sub count for top 0 probe 225
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppOperationWorkflow225', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.getSubCount(idx)).assertEqual(NAV_SUB_COUNTS[idx]);
+      expect(m.countChildrenOf(idx)).assertEqual(0);
+      expect(m.getNode(1000 + 225) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0226
+     * @tc.name    NavAppOperationWorkflow226
+     * @tc.desc    NavBar sub count for top 1 probe 226
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppOperationWorkflow226', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.getSubCount(idx)).assertEqual(NAV_SUB_COUNTS[idx]);
+      expect(m.countChildrenOf(idx)).assertEqual(0);
+      expect(m.getNode(1000 + 226) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0227
+     * @tc.name    NavAppOperationWorkflow227
+     * @tc.desc    NavBar sub count for top 2 probe 227
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppOperationWorkflow227', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.getSubCount(idx)).assertEqual(NAV_SUB_COUNTS[idx]);
+      expect(m.countChildrenOf(idx)).assertEqual(0);
+      expect(m.getNode(1000 + 227) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0228
+     * @tc.name    NavAppOperationWorkflow228
+     * @tc.desc    NavBar sub count for top 3 probe 228
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppOperationWorkflow228', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.getSubCount(idx)).assertEqual(NAV_SUB_COUNTS[idx]);
+      expect(m.countChildrenOf(idx)).assertEqual(0);
+      expect(m.getNode(1000 + 228) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0229
+     * @tc.name    NavAppOperationWorkflow229
+     * @tc.desc    NavBar sub count for top 4 probe 229
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppOperationWorkflow229', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      expect(m.getSubCount(idx)).assertEqual(NAV_SUB_COUNTS[idx]);
+      expect(m.countChildrenOf(idx)).assertEqual(0);
+      expect(m.getNode(1000 + 229) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0230
+     * @tc.name    NavAppOperationWorkflow230
+     * @tc.desc    NavBar sub count for top 0 probe 230
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppOperationWorkflow230', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      expect(m.getSubCount(idx)).assertEqual(NAV_SUB_COUNTS[idx]);
+      expect(m.countChildrenOf(idx)).assertEqual(0);
+      expect(m.getNode(1000 + 230) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0231
+     * @tc.name    NavAppOperationWorkflow231
+     * @tc.desc    NavBar sub count for top 1 probe 231
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppOperationWorkflow231', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      expect(m.getSubCount(idx)).assertEqual(NAV_SUB_COUNTS[idx]);
+      expect(m.countChildrenOf(idx)).assertEqual(0);
+      expect(m.getNode(1000 + 231) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0232
+     * @tc.name    NavAppOperationWorkflow232
+     * @tc.desc    NavBar sub count for top 2 probe 232
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppOperationWorkflow232', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      expect(m.getSubCount(idx)).assertEqual(NAV_SUB_COUNTS[idx]);
+      expect(m.countChildrenOf(idx)).assertEqual(0);
+      expect(m.getNode(1000 + 232) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_0233
+     * @tc.name    NavAppOperationWorkflow233
+     * @tc.desc    NavBar sub count for top 3 probe 233
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('NavAppOperationWorkflow233', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      expect(m.getSubCount(idx)).assertEqual(NAV_SUB_COUNTS[idx]);
+      expect(m.countChildrenOf(idx)).assertEqual(0);
+      expect(m.getNode(1000 + 233) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
