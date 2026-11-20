@@ -15,6 +15,7 @@
 
 {
   "app": {
+    "signingConfigs": [],
     "products": [
       {
         "name": "default",
@@ -23,8 +24,7 @@
         "compatibleSdkVersion": "26.0.0",
         "runtimeOS": "OpenHarmony"
       }
-    ],
-    "signingConfigs": []
+    ]
   },
   "modules": [
     {
