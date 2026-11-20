@@ -1,0 +1,339 @@
+﻿/*
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import {
+  DEFAULT_SLOT_ID,
+  DEFAULT_DESTINATION_PORT,
+  DEFAULT_DESTINATION_HOST,
+  DEFAULT_SERVICE_CENTER,
+  SLOT_ID_MIN,
+  SLOT_ID_MAX,
+  CONTENT_MAX_LENGTH,
+  CONTENT_EMPTY,
+  DESTINATION_PORT_MIN,
+  DESTINATION_PORT_MAX,
+  validateSmsParameters,
+  validateSmsContentLength,
+  validatePhoneNumber,
+  logTestProgress,
+} from '../Shared/SharedSmsDriver';
+import { yieldToEventLoop } from '../Shared/TestScheduling';
+
+const TAG: string = 'SmsMenuConfiguration';
+
+/**
+ * SmsTracker: singleton test execution tracker for recording pure-logic test metrics
+ */
+class SmsTracker {
+  private static instance: SmsTracker | null = null;
+  private operationCount: number = 0;
+  private validationHistory: boolean[] = [];
+  private timestampHistory: number[] = [];
+
+  private constructor() {
+    hilog.info(0x0000, TAG, '%{public}s', 'SmsTracker: instance created');
+  }
+
+  public static getInstance(): SmsTracker {
+    if (SmsTracker.instance === null) {
+      SmsTracker.instance = new SmsTracker();
+    }
+    return SmsTracker.instance;
+  }
+
+  public recordVisible(visible: boolean): void {
+    this.validationHistory.push(visible);
+    this.operationCount++;
+    this.timestampHistory.push(Date.now());
+    hilog.info(0x0000, TAG, '%{public}s', 'SmsTracker: validation recorded: ' + visible);
+  }
+
+  public getOperationCount(): number {
+    return this.operationCount;
+  }
+
+  public reset(): void {
+    this.operationCount = 0;
+    this.validationHistory = [];
+    this.timestampHistory = [];
+    hilog.info(0x0000, TAG, '%{public}s', 'SmsTracker: state reset');
+  }
+}
+
+export default function smsSmsMenuConfigurationTest() {
+  describe('SmsMenuConfiguration_Test', () => {
+    let tracker: SmsTracker;
+
+    beforeAll(async () => {
+      hilog.info(0x0000, TAG, '%{public}s', 'beforeAll: SmsMenuConfiguration test suite start');
+      tracker = SmsTracker.getInstance();
+      tracker.reset();
+    })
+
+    afterAll(async () => {
+      hilog.info(0x0000, TAG, '%{public}s', 'afterAll: SmsMenuConfiguration test suite end');
+      hilog.info(0x0000, TAG, '%{public}s', 'afterAll: Operations: ' + tracker.getOperationCount());
+      await yieldToEventLoop();
+    })
+
+    /**
+     * 测试用例：testSmsSlotIdValidBoundary24810
+     * 验证 slotId 边界值 0 的参数校验逻辑
+     */
+    it('testSmsSlotIdValidBoundary24810', 0, async (done: Function) => {
+      hilog.info(0x0000, TAG, '%{public}s', 'testSmsSlotIdValidBoundary24810 begin');
+      const testSlotId: number = 0;
+      const testContent: string = 'Hello SMS 24810';
+      const testPort: number = DEFAULT_DESTINATION_PORT;
+      const isValid: boolean = validateSmsParameters(testSlotId, testContent, testPort);
+      tracker.recordVisible(isValid);
+      hilog.info(0x0000, TAG, '%{public}s', 'slotId: ' + testSlotId + ' valid: ' + isValid);
+      expect(isValid).assertTrue();
+      done();
+    })
+
+    /**
+     * 测试用例：testSmsSlotIdInvalidBoundary24811
+     * 验证 slotId 非法值 3 被参数校验逻辑正确拒绝
+     */
+    it('testSmsSlotIdInvalidBoundary24811', 0, async (done: Function) => {
+      hilog.info(0x0000, TAG, '%{public}s', 'testSmsSlotIdInvalidBoundary24811 begin');
+      const testSlotId: number = 3;
+      const testContent: string = 'Boundary test 24811';
+      const testPort: number = DEFAULT_DESTINATION_PORT;
+      const isValid: boolean = validateSmsParameters(testSlotId, testContent, testPort);
+      tracker.recordVisible(!isValid);
+      hilog.info(0x0000, TAG, '%{public}s', 'slotId: ' + testSlotId + ' valid: ' + isValid);
+      expect(isValid).assertFalse();
+      done();
+    })
+
+    /**
+     * 测试用例：testSmsContentLengthValid24812
+     * 验证短信内容长度 140 通过内容长度校验
+     */
+    it('testSmsContentLengthValid24812', 0, async (done: Function) => {
+      hilog.info(0x0000, TAG, '%{public}s', 'testSmsContentLengthValid24812 begin');
+      const testContent: string = 'A'.repeat(140);
+      const isValid: boolean = validateSmsContentLength(testContent);
+      tracker.recordVisible(isValid);
+      hilog.info(0x0000, TAG, '%{public}s', 'content length: ' + testContent.length + ' valid: ' + isValid);
+      expect(isValid).assertTrue();
+      done();
+    })
+
+    /**
+     * 测试用例：testSmsContentLengthInvalid24813
+     * 验证短信内容长度 141 被内容长度校验正确拒绝
+     */
+    it('testSmsContentLengthInvalid24813', 0, async (done: Function) => {
+      hilog.info(0x0000, TAG, '%{public}s', 'testSmsContentLengthInvalid24813 begin');
+      const testContent: string = 'A'.repeat(141);
+      const isValid: boolean = validateSmsContentLength(testContent);
+      tracker.recordVisible(!isValid);
+      hilog.info(0x0000, TAG, '%{public}s', 'content length: ' + testContent.length + ' valid: ' + isValid);
+      expect(isValid).assertFalse();
+      done();
+    })
+
+    /**
+     * 测试用例：testSmsDestinationPortValid24814
+     * 验证 destinationPort 边界值 100 通过参数校验
+     */
+    it('testSmsDestinationPortValid24814', 0, async (done: Function) => {
+      hilog.info(0x0000, TAG, '%{public}s', 'testSmsDestinationPortValid24814 begin');
+      const testPort: number = 100;
+      const testContent: string = 'Port test 24814';
+      const testSlotId: number = DEFAULT_SLOT_ID;
+      const isValid: boolean = validateSmsParameters(testSlotId, testContent, testPort);
+      tracker.recordVisible(isValid);
+      hilog.info(0x0000, TAG, '%{public}s', 'port: ' + testPort + ' valid: ' + isValid);
+      expect(isValid).assertTrue();
+      done();
+    })
+
+    /**
+     * 测试用例：testSmsCombinedParamsValid24831
+     * 验证 slotId=0 content 和 port=0 的组合参数校验
+     */
+    it('testSmsCombinedParamsValid24831', 0, async (done: Function) => {
+      hilog.info(0x0000, TAG, '%{public}s', 'testSmsCombinedParamsValid24831 begin');
+      const testSlotId: number = 0;
+      const testContent: string = 'Combined valid 24831';
+      const testPort: number = 0;
+      const isValid: boolean = validateSmsParameters(testSlotId, testContent, testPort);
+      tracker.recordVisible(isValid);
+      hilog.info(0x0000, TAG, '%{public}s', 'combined params valid: ' + isValid);
+      expect(isValid).assertTrue();
+      done();
+    })
+
+    /**
+     * 测试用例：testSmsSlotIdMaxBoundary24847
+     * 验证 slotId 最大值 2 的边界校验
+     */
+    it('testSmsSlotIdMaxBoundary24847', 0, async (done: Function) => {
+      hilog.info(0x0000, TAG, '%{public}s', 'testSmsSlotIdMaxBoundary24847 begin');
+      const testSlotId: number = 2;
+      const testContent: string = 'Boundary 24847';
+      const testPort: number = DEFAULT_DESTINATION_PORT;
+      const isValid: boolean = validateSmsParameters(testSlotId, testContent, testPort);
+      tracker.recordVisible(isValid);
+      hilog.info(0x0000, TAG, '%{public}s', 'slotId: ' + testSlotId + ' valid: ' + isValid);
+      expect(isValid).assertTrue();
+      done();
+    })
+
+    /**
+     * 测试用例：testSmsContentLengthExactMax24848
+     * 验证短信内容长度恰好为最大值时的校验行为
+     */
+    it('testSmsContentLengthExactMax24848', 0, async (done: Function) => {
+      hilog.info(0x0000, TAG, '%{public}s', 'testSmsContentLengthExactMax24848 begin');
+      const testContent: string = 'B'.repeat(140);
+      const isValid: boolean = validateSmsContentLength(testContent);
+      const lengthMatches: boolean = testContent.length === 140;
+      tracker.recordVisible(isValid && lengthMatches);
+      hilog.info(0x0000, TAG, '%{public}s', 'length: ' + testContent.length + ' matches: ' + lengthMatches);
+      expect(isValid && lengthMatches).assertTrue();
+      done();
+    })
+
+    /**
+     * 测试用例：testSmsPhoneNumberVariations24849
+     * 验证号码 +8613800000001 的格式校验
+     */
+    it('testSmsPhoneNumberVariations24849', 0, async (done: Function) => {
+      hilog.info(0x0000, TAG, '%{public}s', 'testSmsPhoneNumberVariations24849 begin');
+      const testPhone: string = '+8613800000001';
+      const isValid: boolean = validatePhoneNumber(testPhone);
+      const lengthOk: boolean = testPhone.length === 14;
+      tracker.recordVisible(isValid && lengthOk);
+      hilog.info(0x0000, TAG, '%{public}s', 'phone: ' + testPhone + ' valid: ' + isValid + ' lengthOk: ' + lengthOk);
+      expect(isValid).assertTrue();
+      expect(testPhone.length).assertEqual(14);
+      done();
+    })
+
+    /**
+     * 测试用例：testSmsPortMinBoundary24850
+     * 验证 destinationPort 最小值 0 的边界校验
+     */
+    it('testSmsPortMinBoundary24850', 0, async (done: Function) => {
+      hilog.info(0x0000, TAG, '%{public}s', 'testSmsPortMinBoundary24850 begin');
+      const testPort: number = 0;
+      const testContent: string = 'Port boundary 24850';
+      const testSlotId: number = DEFAULT_SLOT_ID;
+      const isValid: boolean = validateSmsParameters(testSlotId, testContent, testPort);
+      tracker.recordVisible(isValid);
+      hilog.info(0x0000, TAG, '%{public}s', 'port: ' + testPort + ' valid: ' + isValid);
+      expect(isValid).assertTrue();
+      done();
+    })
+
+    /**
+     * 测试用例：testSmsValidateContentWithEmoji24851
+     * 验证含 emoji 的短信内容通过长度校验
+     */
+    it('testSmsValidateContentWithEmoji24851', 0, async (done: Function) => {
+      hilog.info(0x0000, TAG, '%{public}s', 'testSmsValidateContentWithEmoji24851 begin');
+      const testContent: string = 'Mixed 🎉 content';
+      const isValid: boolean = validateSmsContentLength(testContent);
+      tracker.recordVisible(isValid);
+      hilog.info(0x0000, TAG, '%{public}s', 'emoji content valid: ' + isValid);
+      expect(isValid).assertTrue();
+      done();
+    })
+
+    /**
+     * 测试用例：testSmsSlotIdValidBoundary24852
+     * 验证 slotId 边界值 0 的参数校验逻辑
+     */
+    it('testSmsSlotIdValidBoundary24852', 0, async (done: Function) => {
+      hilog.info(0x0000, TAG, '%{public}s', 'testSmsSlotIdValidBoundary24852 begin');
+      const testSlotId: number = 0;
+      const testContent: string = 'Hello SMS 24852';
+      const testPort: number = DEFAULT_DESTINATION_PORT;
+      const isValid: boolean = validateSmsParameters(testSlotId, testContent, testPort);
+      tracker.recordVisible(isValid);
+      hilog.info(0x0000, TAG, '%{public}s', 'slotId: ' + testSlotId + ' valid: ' + isValid);
+      expect(isValid).assertTrue();
+      done();
+    })
+
+    /**
+     * 测试用例：testSmsSlotIdInvalidBoundary24853
+     * 验证 slotId 非法值 3 被参数校验逻辑正确拒绝
+     */
+    it('testSmsSlotIdInvalidBoundary24853', 0, async (done: Function) => {
+      hilog.info(0x0000, TAG, '%{public}s', 'testSmsSlotIdInvalidBoundary24853 begin');
+      const testSlotId: number = 3;
+      const testContent: string = 'Boundary test 24853';
+      const testPort: number = DEFAULT_DESTINATION_PORT;
+      const isValid: boolean = validateSmsParameters(testSlotId, testContent, testPort);
+      tracker.recordVisible(!isValid);
+      hilog.info(0x0000, TAG, '%{public}s', 'slotId: ' + testSlotId + ' valid: ' + isValid);
+      expect(isValid).assertFalse();
+      done();
+    })
+
+    /**
+     * 测试用例：testSmsContentLengthValid24854
+     * 验证短信内容长度 140 通过内容长度校验
+     */
+    it('testSmsContentLengthValid24854', 0, async (done: Function) => {
+      hilog.info(0x0000, TAG, '%{public}s', 'testSmsContentLengthValid24854 begin');
+      const testContent: string = 'A'.repeat(140);
+      const isValid: boolean = validateSmsContentLength(testContent);
+      tracker.recordVisible(isValid);
+      hilog.info(0x0000, TAG, '%{public}s', 'content length: ' + testContent.length + ' valid: ' + isValid);
+      expect(isValid).assertTrue();
+      done();
+    })
+
+    /**
+     * 测试用例：testSmsContentLengthInvalid24855
+     * 验证短信内容长度 141 被内容长度校验正确拒绝
+     */
+    it('testSmsContentLengthInvalid24855', 0, async (done: Function) => {
+      hilog.info(0x0000, TAG, '%{public}s', 'testSmsContentLengthInvalid24855 begin');
+      const testContent: string = 'A'.repeat(141);
+      const isValid: boolean = validateSmsContentLength(testContent);
+      tracker.recordVisible(!isValid);
+      hilog.info(0x0000, TAG, '%{public}s', 'content length: ' + testContent.length + ' valid: ' + isValid);
+      expect(isValid).assertFalse();
+      done();
+    })
+
+    /**
+     * 测试用例：testSmsDestinationPortValid24856
+     * 验证 destinationPort 边界值 100 通过参数校验
+     */
+    it('testSmsDestinationPortValid24856', 0, async (done: Function) => {
+      hilog.info(0x0000, TAG, '%{public}s', 'testSmsDestinationPortValid24856 begin');
+      const testPort: number = 100;
+      const testContent: string = 'Port test 24856';
+      const testSlotId: number = DEFAULT_SLOT_ID;
+      const isValid: boolean = validateSmsParameters(testSlotId, testContent, testPort);
+      tracker.recordVisible(isValid);
+      hilog.info(0x0000, TAG, '%{public}s', 'port: ' + testPort + ' valid: ' + isValid);
+      expect(isValid).assertTrue();
+      done();
+    })
+
+  })
+}
