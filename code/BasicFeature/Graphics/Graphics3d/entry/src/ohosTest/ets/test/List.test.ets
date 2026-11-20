@@ -14,6 +14,7 @@
  */
 
 import abilityTest from './Ability.test';
+import g3dApiSmokeTest from './G3dApiSmoke.test';
 import g3dCameraMatrix1Test from './G3dCameraMatrix1.test';
 import g3dCameraMatrix2Test from './G3dCameraMatrix2.test';
 import g3dCameraMatrix3Test from './G3dCameraMatrix3.test';
@@ -58,6 +59,7 @@ import g3dRouteMatrix1Test from './G3dRouteFactsMatrix1.test';
 
 export default function testsuite(): void {
   abilityTest();
+  g3dApiSmokeTest();
   g3dCameraMatrix1Test();
   g3dCameraMatrix2Test();
   g3dCameraMatrix3Test();
