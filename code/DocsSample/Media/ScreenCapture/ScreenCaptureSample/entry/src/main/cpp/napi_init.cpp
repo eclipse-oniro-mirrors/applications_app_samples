@@ -189,13 +189,13 @@ void OnBufferAvailable(OH_AVScreenCapture *capture, OH_AVBuffer *buffer, OH_AVSc
     OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnBufferAvailable bufferType is %{public}d",
         bufferType);
     if (bufferType == OH_SCREEN_CAPTURE_BUFFERTYPE_VIDEO) {
-        // 处理视频buffer。
+        // 处理视频Buffer。
         HandleVideoBuffer(buffer);
     } else if (bufferType == OH_SCREEN_CAPTURE_BUFFERTYPE_AUDIO_INNER) {
-        // 处理内录buffer。
+        // 处理内录Buffer。
         HandleAudioBuffer(buffer, g_innerFile, "ScreenCapture OnBufferAvailable inner audio");
     } else if (bufferType == OH_SCREEN_CAPTURE_BUFFERTYPE_AUDIO_MIC) {
-        // 处理麦克风buffer。
+        // 处理麦克风Buffer。
         HandleAudioBuffer(buffer, g_micFile, "ScreenCapture OnBufferAvailable mic audio");
     }
     return;
@@ -364,7 +364,7 @@ void SetConfig03(OH_AVScreenCaptureConfig &config)
 
     OH_AudioCaptureInfo innerCapInfo = {.audioSampleRate = 48000, .audioChannels = 2, .audioSource = OH_ALL_PLAYBACK};
     // 录屏音频输出规格配置。audioBitrate保证输出文件的比特率为设置的预期比特率，和audioSampleRate无强关联。
-    // 为保证音频质量，此处音频比特率取值128000。如果录屏内容以语音为主，不包含音乐、游戏音效等，可以降低为96000或48000。
+    // 为保证音频质量，此处音频比特率取值128000bit/s。如果录屏内容以语音为主，不包含音乐、游戏音效等，可以降低为96000bit/s或48000bit/s。
     OH_AudioEncInfo audioEncInfo = {
         .audioBitrate = 128000,
         .audioCodecformat = OH_AAC_LC
@@ -805,7 +805,7 @@ int SetFormat()
     int32_t profile = static_cast<int32_t>(OH_AVCProfile::AVC_PROFILE_BASELINE);
     // 配置编码比特率模式。
     int32_t rateMode = static_cast<int32_t>(OH_VideoEncodeBitrateMode::CBR);
-    // 配置关键帧的间隔，单位为毫秒。
+    // 配置关键帧的间隔，单位为毫秒（ms）。
     int32_t iFrameInterval = 23000;
     // 配置所需的编码质量。只有在恒定质量模式下配置的编码器才支持此配置。
     int32_t quality = 0;
