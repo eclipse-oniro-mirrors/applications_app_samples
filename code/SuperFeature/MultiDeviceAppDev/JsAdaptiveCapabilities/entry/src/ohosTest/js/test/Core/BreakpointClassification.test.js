@@ -1541,31 +1541,1491 @@ function BreakpointClassificationPart024() {
     });
 }
 
+function BreakpointClassificationPart025() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0073
+     * @tc.name    JsBreakpoint073
+     * @tc.desc    Width 781 mapped to md with 3 columns seed 73
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint073', 0, async function () {
+      await yieldThread();
+      const width = 781;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsOf(bp)).assertEqual(3);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.1);
+      expect(model.contentWidthOf(width)).assertEqual(717);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint073 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0074
+     * @tc.name    JsBreakpoint074
+     * @tc.desc    Width 818 mapped to md with 3 columns seed 74
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint074', 0, async function () {
+      await yieldThread();
+      const width = 818;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsOf(bp)).assertEqual(3);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.1);
+      expect(model.contentWidthOf(width)).assertEqual(754);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint074 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0075
+     * @tc.name    JsBreakpoint075
+     * @tc.desc    Width 855 mapped to lg with 4 columns seed 75
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint075', 0, async function () {
+      await yieldThread();
+      const width = 855;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(791);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint075 done');
+    });
+}
+
+function BreakpointClassificationPart026() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0076
+     * @tc.name    JsBreakpoint076
+     * @tc.desc    Width 892 mapped to lg with 4 columns seed 76
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint076', 0, async function () {
+      await yieldThread();
+      const width = 892;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(828);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint076 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0077
+     * @tc.name    JsBreakpoint077
+     * @tc.desc    Width 929 mapped to lg with 4 columns seed 77
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint077', 0, async function () {
+      await yieldThread();
+      const width = 929;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(865);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint077 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0078
+     * @tc.name    JsBreakpoint078
+     * @tc.desc    Width 966 mapped to lg with 4 columns seed 78
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint078', 0, async function () {
+      await yieldThread();
+      const width = 966;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(902);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint078 done');
+    });
+}
+
+function BreakpointClassificationPart027() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0079
+     * @tc.name    JsBreakpoint079
+     * @tc.desc    Width 1003 mapped to lg with 4 columns seed 79
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint079', 0, async function () {
+      await yieldThread();
+      const width = 1003;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(939);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint079 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0080
+     * @tc.name    JsBreakpoint080
+     * @tc.desc    Width 1040 mapped to lg with 4 columns seed 80
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint080', 0, async function () {
+      await yieldThread();
+      const width = 1040;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(976);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint080 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0081
+     * @tc.name    JsBreakpoint081
+     * @tc.desc    Width 1077 mapped to lg with 4 columns seed 81
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint081', 0, async function () {
+      await yieldThread();
+      const width = 1077;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(1013);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint081 done');
+    });
+}
+
+function BreakpointClassificationPart028() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0082
+     * @tc.name    JsBreakpoint082
+     * @tc.desc    Width 1114 mapped to lg with 4 columns seed 82
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint082', 0, async function () {
+      await yieldThread();
+      const width = 1114;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(1050);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint082 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0083
+     * @tc.name    JsBreakpoint083
+     * @tc.desc    Width 1151 mapped to lg with 4 columns seed 83
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint083', 0, async function () {
+      await yieldThread();
+      const width = 1151;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(1087);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint083 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0084
+     * @tc.name    JsBreakpoint084
+     * @tc.desc    Width 1188 mapped to lg with 4 columns seed 84
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint084', 0, async function () {
+      await yieldThread();
+      const width = 1188;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(1124);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint084 done');
+    });
+}
+
+function BreakpointClassificationPart029() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0085
+     * @tc.name    JsBreakpoint085
+     * @tc.desc    Width 1225 mapped to lg with 4 columns seed 85
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint085', 0, async function () {
+      await yieldThread();
+      const width = 1225;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(1161);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint085 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0086
+     * @tc.name    JsBreakpoint086
+     * @tc.desc    Width 1262 mapped to lg with 4 columns seed 86
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint086', 0, async function () {
+      await yieldThread();
+      const width = 1262;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(1198);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint086 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0087
+     * @tc.name    JsBreakpoint087
+     * @tc.desc    Width 1299 mapped to lg with 4 columns seed 87
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint087', 0, async function () {
+      await yieldThread();
+      const width = 1299;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(1235);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint087 done');
+    });
+}
+
+function BreakpointClassificationPart030() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0088
+     * @tc.name    JsBreakpoint088
+     * @tc.desc    Width 1336 mapped to lg with 4 columns seed 88
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint088', 0, async function () {
+      await yieldThread();
+      const width = 1336;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(1272);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint088 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0089
+     * @tc.name    JsBreakpoint089
+     * @tc.desc    Width 1373 mapped to lg with 4 columns seed 89
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint089', 0, async function () {
+      await yieldThread();
+      const width = 1373;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(1309);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint089 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0090
+     * @tc.name    JsBreakpoint090
+     * @tc.desc    Width 1410 mapped to lg with 4 columns seed 90
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint090', 0, async function () {
+      await yieldThread();
+      const width = 1410;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(1346);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint090 done');
+    });
+}
+
+function BreakpointClassificationPart031() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0091
+     * @tc.name    JsBreakpoint091
+     * @tc.desc    Width 327 mapped to sm with 2 columns seed 91
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint091', 0, async function () {
+      await yieldThread();
+      const width = 327;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsOf(bp)).assertEqual(2);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.fontScaleOf(bp)).assertEqual(1.0);
+      expect(model.contentWidthOf(width)).assertEqual(295);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint091 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0092
+     * @tc.name    JsBreakpoint092
+     * @tc.desc    Width 364 mapped to sm with 2 columns seed 92
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint092', 0, async function () {
+      await yieldThread();
+      const width = 364;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsOf(bp)).assertEqual(2);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.fontScaleOf(bp)).assertEqual(1.0);
+      expect(model.contentWidthOf(width)).assertEqual(332);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint092 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0093
+     * @tc.name    JsBreakpoint093
+     * @tc.desc    Width 401 mapped to sm with 2 columns seed 93
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint093', 0, async function () {
+      await yieldThread();
+      const width = 401;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsOf(bp)).assertEqual(2);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.fontScaleOf(bp)).assertEqual(1.0);
+      expect(model.contentWidthOf(width)).assertEqual(369);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint093 done');
+    });
+}
+
+function BreakpointClassificationPart032() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0094
+     * @tc.name    JsBreakpoint094
+     * @tc.desc    Width 438 mapped to sm with 2 columns seed 94
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint094', 0, async function () {
+      await yieldThread();
+      const width = 438;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsOf(bp)).assertEqual(2);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.fontScaleOf(bp)).assertEqual(1.0);
+      expect(model.contentWidthOf(width)).assertEqual(406);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint094 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0095
+     * @tc.name    JsBreakpoint095
+     * @tc.desc    Width 475 mapped to sm with 2 columns seed 95
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint095', 0, async function () {
+      await yieldThread();
+      const width = 475;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsOf(bp)).assertEqual(2);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.fontScaleOf(bp)).assertEqual(1.0);
+      expect(model.contentWidthOf(width)).assertEqual(443);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint095 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0096
+     * @tc.name    JsBreakpoint096
+     * @tc.desc    Width 512 mapped to sm with 2 columns seed 96
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint096', 0, async function () {
+      await yieldThread();
+      const width = 512;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsOf(bp)).assertEqual(2);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.fontScaleOf(bp)).assertEqual(1.0);
+      expect(model.contentWidthOf(width)).assertEqual(480);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint096 done');
+    });
+}
+
+function BreakpointClassificationPart033() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0097
+     * @tc.name    JsBreakpoint097
+     * @tc.desc    Width 549 mapped to sm with 2 columns seed 97
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint097', 0, async function () {
+      await yieldThread();
+      const width = 549;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsOf(bp)).assertEqual(2);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.fontScaleOf(bp)).assertEqual(1.0);
+      expect(model.contentWidthOf(width)).assertEqual(517);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint097 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0098
+     * @tc.name    JsBreakpoint098
+     * @tc.desc    Width 586 mapped to sm with 2 columns seed 98
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint098', 0, async function () {
+      await yieldThread();
+      const width = 586;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsOf(bp)).assertEqual(2);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.fontScaleOf(bp)).assertEqual(1.0);
+      expect(model.contentWidthOf(width)).assertEqual(554);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint098 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0099
+     * @tc.name    JsBreakpoint099
+     * @tc.desc    Width 623 mapped to md with 3 columns seed 99
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint099', 0, async function () {
+      await yieldThread();
+      const width = 623;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsOf(bp)).assertEqual(3);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.1);
+      expect(model.contentWidthOf(width)).assertEqual(559);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint099 done');
+    });
+}
+
+function BreakpointClassificationPart034() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0100
+     * @tc.name    JsBreakpoint100
+     * @tc.desc    Width 660 mapped to md with 3 columns seed 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint100', 0, async function () {
+      await yieldThread();
+      const width = 660;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsOf(bp)).assertEqual(3);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.1);
+      expect(model.contentWidthOf(width)).assertEqual(596);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint100 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0101
+     * @tc.name    JsBreakpoint101
+     * @tc.desc    Width 697 mapped to md with 3 columns seed 101
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint101', 0, async function () {
+      await yieldThread();
+      const width = 697;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsOf(bp)).assertEqual(3);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.1);
+      expect(model.contentWidthOf(width)).assertEqual(633);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint101 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0102
+     * @tc.name    JsBreakpoint102
+     * @tc.desc    Width 734 mapped to md with 3 columns seed 102
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint102', 0, async function () {
+      await yieldThread();
+      const width = 734;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsOf(bp)).assertEqual(3);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.1);
+      expect(model.contentWidthOf(width)).assertEqual(670);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint102 done');
+    });
+}
+
+function BreakpointClassificationPart035() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0103
+     * @tc.name    JsBreakpoint103
+     * @tc.desc    Width 771 mapped to md with 3 columns seed 103
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint103', 0, async function () {
+      await yieldThread();
+      const width = 771;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsOf(bp)).assertEqual(3);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.1);
+      expect(model.contentWidthOf(width)).assertEqual(707);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint103 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0104
+     * @tc.name    JsBreakpoint104
+     * @tc.desc    Width 808 mapped to md with 3 columns seed 104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint104', 0, async function () {
+      await yieldThread();
+      const width = 808;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsOf(bp)).assertEqual(3);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.1);
+      expect(model.contentWidthOf(width)).assertEqual(744);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint104 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0105
+     * @tc.name    JsBreakpoint105
+     * @tc.desc    Width 845 mapped to lg with 4 columns seed 105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint105', 0, async function () {
+      await yieldThread();
+      const width = 845;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(781);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint105 done');
+    });
+}
+
+function BreakpointClassificationPart036() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0106
+     * @tc.name    JsBreakpoint106
+     * @tc.desc    Width 882 mapped to lg with 4 columns seed 106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint106', 0, async function () {
+      await yieldThread();
+      const width = 882;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(818);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint106 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0107
+     * @tc.name    JsBreakpoint107
+     * @tc.desc    Width 919 mapped to lg with 4 columns seed 107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint107', 0, async function () {
+      await yieldThread();
+      const width = 919;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(855);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint107 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0108
+     * @tc.name    JsBreakpoint108
+     * @tc.desc    Width 956 mapped to lg with 4 columns seed 108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint108', 0, async function () {
+      await yieldThread();
+      const width = 956;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(892);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint108 done');
+    });
+}
+
+function BreakpointClassificationPart037() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0109
+     * @tc.name    JsBreakpoint109
+     * @tc.desc    Width 993 mapped to lg with 4 columns seed 109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint109', 0, async function () {
+      await yieldThread();
+      const width = 993;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(929);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint109 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0110
+     * @tc.name    JsBreakpoint110
+     * @tc.desc    Width 1030 mapped to lg with 4 columns seed 110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint110', 0, async function () {
+      await yieldThread();
+      const width = 1030;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(966);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint110 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0111
+     * @tc.name    JsBreakpoint111
+     * @tc.desc    Width 1067 mapped to lg with 4 columns seed 111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint111', 0, async function () {
+      await yieldThread();
+      const width = 1067;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(1003);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint111 done');
+    });
+}
+
+function BreakpointClassificationPart038() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0112
+     * @tc.name    JsBreakpoint112
+     * @tc.desc    Width 1104 mapped to lg with 4 columns seed 112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint112', 0, async function () {
+      await yieldThread();
+      const width = 1104;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(1040);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint112 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0113
+     * @tc.name    JsBreakpoint113
+     * @tc.desc    Width 1141 mapped to lg with 4 columns seed 113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint113', 0, async function () {
+      await yieldThread();
+      const width = 1141;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(1077);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint113 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0114
+     * @tc.name    JsBreakpoint114
+     * @tc.desc    Width 1178 mapped to lg with 4 columns seed 114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint114', 0, async function () {
+      await yieldThread();
+      const width = 1178;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(1114);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint114 done');
+    });
+}
+
+function BreakpointClassificationPart039() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0115
+     * @tc.name    JsBreakpoint115
+     * @tc.desc    Width 1215 mapped to lg with 4 columns seed 115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint115', 0, async function () {
+      await yieldThread();
+      const width = 1215;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(1151);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint115 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0116
+     * @tc.name    JsBreakpoint116
+     * @tc.desc    Width 1252 mapped to lg with 4 columns seed 116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint116', 0, async function () {
+      await yieldThread();
+      const width = 1252;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(1188);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint116 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0117
+     * @tc.name    JsBreakpoint117
+     * @tc.desc    Width 1289 mapped to lg with 4 columns seed 117
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint117', 0, async function () {
+      await yieldThread();
+      const width = 1289;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(1225);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint117 done');
+    });
+}
+
+function BreakpointClassificationPart040() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0118
+     * @tc.name    JsBreakpoint118
+     * @tc.desc    Width 1326 mapped to lg with 4 columns seed 118
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint118', 0, async function () {
+      await yieldThread();
+      const width = 1326;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(1262);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint118 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0119
+     * @tc.name    JsBreakpoint119
+     * @tc.desc    Width 1363 mapped to lg with 4 columns seed 119
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint119', 0, async function () {
+      await yieldThread();
+      const width = 1363;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(1299);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint119 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0120
+     * @tc.name    JsBreakpoint120
+     * @tc.desc    Width 1400 mapped to lg with 4 columns seed 120
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint120', 0, async function () {
+      await yieldThread();
+      const width = 1400;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(1336);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint120 done');
+    });
+}
+
+function BreakpointClassificationPart041() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0121
+     * @tc.name    JsBreakpoint121
+     * @tc.desc    Width 1437 mapped to lg with 4 columns seed 121
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint121', 0, async function () {
+      await yieldThread();
+      const width = 1437;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(1373);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint121 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0122
+     * @tc.name    JsBreakpoint122
+     * @tc.desc    Width 354 mapped to sm with 2 columns seed 122
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint122', 0, async function () {
+      await yieldThread();
+      const width = 354;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsOf(bp)).assertEqual(2);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.fontScaleOf(bp)).assertEqual(1.0);
+      expect(model.contentWidthOf(width)).assertEqual(322);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint122 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0123
+     * @tc.name    JsBreakpoint123
+     * @tc.desc    Width 391 mapped to sm with 2 columns seed 123
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint123', 0, async function () {
+      await yieldThread();
+      const width = 391;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsOf(bp)).assertEqual(2);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.fontScaleOf(bp)).assertEqual(1.0);
+      expect(model.contentWidthOf(width)).assertEqual(359);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint123 done');
+    });
+}
+
+function BreakpointClassificationPart042() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0124
+     * @tc.name    JsBreakpoint124
+     * @tc.desc    Width 428 mapped to sm with 2 columns seed 124
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint124', 0, async function () {
+      await yieldThread();
+      const width = 428;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsOf(bp)).assertEqual(2);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.fontScaleOf(bp)).assertEqual(1.0);
+      expect(model.contentWidthOf(width)).assertEqual(396);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint124 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0125
+     * @tc.name    JsBreakpoint125
+     * @tc.desc    Width 465 mapped to sm with 2 columns seed 125
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint125', 0, async function () {
+      await yieldThread();
+      const width = 465;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsOf(bp)).assertEqual(2);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.fontScaleOf(bp)).assertEqual(1.0);
+      expect(model.contentWidthOf(width)).assertEqual(433);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint125 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0126
+     * @tc.name    JsBreakpoint126
+     * @tc.desc    Width 502 mapped to sm with 2 columns seed 126
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint126', 0, async function () {
+      await yieldThread();
+      const width = 502;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsOf(bp)).assertEqual(2);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.fontScaleOf(bp)).assertEqual(1.0);
+      expect(model.contentWidthOf(width)).assertEqual(470);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint126 done');
+    });
+}
+
+function BreakpointClassificationPart043() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0127
+     * @tc.name    JsBreakpoint127
+     * @tc.desc    Width 539 mapped to sm with 2 columns seed 127
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint127', 0, async function () {
+      await yieldThread();
+      const width = 539;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsOf(bp)).assertEqual(2);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.fontScaleOf(bp)).assertEqual(1.0);
+      expect(model.contentWidthOf(width)).assertEqual(507);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint127 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0128
+     * @tc.name    JsBreakpoint128
+     * @tc.desc    Width 576 mapped to sm with 2 columns seed 128
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint128', 0, async function () {
+      await yieldThread();
+      const width = 576;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('sm');
+      expect(model.columnsOf(bp)).assertEqual(2);
+      expect(model.gutterOf(width)).assertEqual(12);
+      expect(model.marginOf(width)).assertEqual(16);
+      expect(model.fontScaleOf(bp)).assertEqual(1.0);
+      expect(model.contentWidthOf(width)).assertEqual(544);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint128 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0129
+     * @tc.name    JsBreakpoint129
+     * @tc.desc    Width 613 mapped to md with 3 columns seed 129
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint129', 0, async function () {
+      await yieldThread();
+      const width = 613;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsOf(bp)).assertEqual(3);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.1);
+      expect(model.contentWidthOf(width)).assertEqual(549);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint129 done');
+    });
+}
+
+function BreakpointClassificationPart044() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0130
+     * @tc.name    JsBreakpoint130
+     * @tc.desc    Width 650 mapped to md with 3 columns seed 130
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint130', 0, async function () {
+      await yieldThread();
+      const width = 650;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsOf(bp)).assertEqual(3);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.1);
+      expect(model.contentWidthOf(width)).assertEqual(586);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint130 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0131
+     * @tc.name    JsBreakpoint131
+     * @tc.desc    Width 687 mapped to md with 3 columns seed 131
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint131', 0, async function () {
+      await yieldThread();
+      const width = 687;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsOf(bp)).assertEqual(3);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.1);
+      expect(model.contentWidthOf(width)).assertEqual(623);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint131 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0132
+     * @tc.name    JsBreakpoint132
+     * @tc.desc    Width 724 mapped to md with 3 columns seed 132
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint132', 0, async function () {
+      await yieldThread();
+      const width = 724;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsOf(bp)).assertEqual(3);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.1);
+      expect(model.contentWidthOf(width)).assertEqual(660);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint132 done');
+    });
+}
+
+function BreakpointClassificationPart045() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0133
+     * @tc.name    JsBreakpoint133
+     * @tc.desc    Width 761 mapped to md with 3 columns seed 133
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint133', 0, async function () {
+      await yieldThread();
+      const width = 761;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsOf(bp)).assertEqual(3);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.1);
+      expect(model.contentWidthOf(width)).assertEqual(697);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint133 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0134
+     * @tc.name    JsBreakpoint134
+     * @tc.desc    Width 798 mapped to md with 3 columns seed 134
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint134', 0, async function () {
+      await yieldThread();
+      const width = 798;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsOf(bp)).assertEqual(3);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.1);
+      expect(model.contentWidthOf(width)).assertEqual(734);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint134 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0135
+     * @tc.name    JsBreakpoint135
+     * @tc.desc    Width 835 mapped to md with 3 columns seed 135
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint135', 0, async function () {
+      await yieldThread();
+      const width = 835;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('md');
+      expect(model.columnsOf(bp)).assertEqual(3);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.1);
+      expect(model.contentWidthOf(width)).assertEqual(771);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint135 done');
+    });
+}
+
+function BreakpointClassificationPart046() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0136
+     * @tc.name    JsBreakpoint136
+     * @tc.desc    Width 872 mapped to lg with 4 columns seed 136
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint136', 0, async function () {
+      await yieldThread();
+      const width = 872;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(808);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint136 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0137
+     * @tc.name    JsBreakpoint137
+     * @tc.desc    Width 909 mapped to lg with 4 columns seed 137
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint137', 0, async function () {
+      await yieldThread();
+      const width = 909;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(845);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint137 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0138
+     * @tc.name    JsBreakpoint138
+     * @tc.desc    Width 946 mapped to lg with 4 columns seed 138
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint138', 0, async function () {
+      await yieldThread();
+      const width = 946;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(882);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint138 done');
+    });
+}
+
+function BreakpointClassificationPart047() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0139
+     * @tc.name    JsBreakpoint139
+     * @tc.desc    Width 983 mapped to lg with 4 columns seed 139
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint139', 0, async function () {
+      await yieldThread();
+      const width = 983;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(919);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint139 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0140
+     * @tc.name    JsBreakpoint140
+     * @tc.desc    Width 1020 mapped to lg with 4 columns seed 140
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsBreakpoint140', 0, async function () {
+      await yieldThread();
+      const width = 1020;
+      const bp = model.breakpointOf(width);
+      expect(bp).assertEqual('lg');
+      expect(model.columnsOf(bp)).assertEqual(4);
+      expect(model.gutterOf(width)).assertEqual(24);
+      expect(model.marginOf(width)).assertEqual(32);
+      expect(model.fontScaleOf(bp)).assertEqual(1.2);
+      expect(model.contentWidthOf(width)).assertEqual(956);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsBreakpoint140 done');
+    });
+}
+
+function BreakpointClassificationGroup001() {
+  BreakpointClassificationPart001();
+  BreakpointClassificationPart002();
+  BreakpointClassificationPart003();
+  BreakpointClassificationPart004();
+  BreakpointClassificationPart005();
+  BreakpointClassificationPart006();
+  BreakpointClassificationPart007();
+  BreakpointClassificationPart008();
+  BreakpointClassificationPart009();
+  BreakpointClassificationPart010();
+  BreakpointClassificationPart011();
+  BreakpointClassificationPart012();
+  BreakpointClassificationPart013();
+  BreakpointClassificationPart014();
+  BreakpointClassificationPart015();
+  BreakpointClassificationPart016();
+  BreakpointClassificationPart017();
+  BreakpointClassificationPart018();
+  BreakpointClassificationPart019();
+  BreakpointClassificationPart020();
+  BreakpointClassificationPart021();
+  BreakpointClassificationPart022();
+  BreakpointClassificationPart023();
+  BreakpointClassificationPart024();
+  BreakpointClassificationPart025();
+  BreakpointClassificationPart026();
+  BreakpointClassificationPart027();
+  BreakpointClassificationPart028();
+  BreakpointClassificationPart029();
+  BreakpointClassificationPart030();
+  BreakpointClassificationPart031();
+  BreakpointClassificationPart032();
+  BreakpointClassificationPart033();
+  BreakpointClassificationPart034();
+  BreakpointClassificationPart035();
+  BreakpointClassificationPart036();
+  BreakpointClassificationPart037();
+  BreakpointClassificationPart038();
+  BreakpointClassificationPart039();
+  BreakpointClassificationPart040();
+}
+
+function BreakpointClassificationGroup002() {
+  BreakpointClassificationPart041();
+  BreakpointClassificationPart042();
+  BreakpointClassificationPart043();
+  BreakpointClassificationPart044();
+  BreakpointClassificationPart045();
+  BreakpointClassificationPart046();
+  BreakpointClassificationPart047();
+}
+
 export default function breakpointClassificationSuite() {
   describe('BreakpointClassificationSuite', function () {
-    BreakpointClassificationPart001();
-    BreakpointClassificationPart002();
-    BreakpointClassificationPart003();
-    BreakpointClassificationPart004();
-    BreakpointClassificationPart005();
-    BreakpointClassificationPart006();
-    BreakpointClassificationPart007();
-    BreakpointClassificationPart008();
-    BreakpointClassificationPart009();
-    BreakpointClassificationPart010();
-    BreakpointClassificationPart011();
-    BreakpointClassificationPart012();
-    BreakpointClassificationPart013();
-    BreakpointClassificationPart014();
-    BreakpointClassificationPart015();
-    BreakpointClassificationPart016();
-    BreakpointClassificationPart017();
-    BreakpointClassificationPart018();
-    BreakpointClassificationPart019();
-    BreakpointClassificationPart020();
-    BreakpointClassificationPart021();
-    BreakpointClassificationPart022();
-    BreakpointClassificationPart023();
-    BreakpointClassificationPart024();
+    BreakpointClassificationGroup001();
+    BreakpointClassificationGroup002();
   });
 }
