@@ -1289,6 +1289,7 @@
     {"name":"recorder_pause_failed","value":"暂停或继续失败，请重试或结束录制"},
     {"name":"task_checksum","value":"计算素材校验值"},
     {"name":"task_checksum_running","value":"正在计算SHA256，大文件需要一些时间。"},
-    {"name":"task_checksum_failed","value":"校验失败。请确认原文件未改动且可访问，待媒体任务结束后重试；文件已变更时请重新运行任务。"}
+    {"name":"task_checksum_failed","value":"校验失败。请确认原文件未改动且可访问，待媒体任务结束后重试；文件已变更时请重新运行任务。"},
+    {"name": "transcode_close_unconfirmed", "value": "文件关闭结果不明，请重启应用后再开始媒体任务。"}
   ]
 }

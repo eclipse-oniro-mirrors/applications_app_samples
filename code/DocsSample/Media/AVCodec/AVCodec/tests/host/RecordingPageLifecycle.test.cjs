@@ -119,9 +119,10 @@ function fixture() {
   Object.assign(page, { pageActive: true, recordingPageVisible: true, recordingRequestRevision: 0,
     isPreparingRecording: false, isSavingRecording: false, isShow: false, configurationController: {},
     cameraData: { recordAudio: true, outputfd: -1, secondaryOutputfd: -1 }, recordingHistoryRevision: 0,
-    getUIContext: () => ui, recorderLaunch: controller, resumeSeekTimer: 0,
+    getUIContext: () => ui, recorderLaunch: controller,
     isPictureInPictureHoldingPlayback: () => f.pictureInPicture, persistPlaybackProgress: async () => {},
-    playbackSources: { cancelSelection: noOp }, transcodeModel: { dispose: noOp }, recovery: { cancel: noOp },
+    stopPictureInPicture: async () => {},
+    playbackFlow: { leave: noOp }, playbackSources: { cancelSelection: noOp }, transcodeModel: { dispose: noOp },
     seekRequests: { cancel: noOp }, playbackSessionController: { stop: async () => {} }, stopPlayback: async () => {},
     clearPlaybackControlsTimer: noOp, stopPlaybackInfoUpdates: noOp, resetPlaybackProgress: noOp,
     clearSubtitle: noOp, resetAbLoop: noOp, playbackViewModel: { state: 0, positionUs: 0, durationUs: 0 } });

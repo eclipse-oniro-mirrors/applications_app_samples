@@ -30,6 +30,7 @@
 namespace {
 constexpr auto STALL_LIMIT = std::chrono::seconds(30);
 constexpr auto POLL_INTERVAL = std::chrono::milliseconds(2);
+constexpr auto ASYNC_IDLE_LIMIT = std::chrono::milliseconds(100);
 constexpr int64_t MS_PER_SECOND = 1000;
 constexpr int64_t US_PER_SECOND = 1000000;
 constexpr int64_t US_PER_MS = US_PER_SECOND / MS_PER_SECOND;
@@ -37,7 +38,10 @@ constexpr int64_t DIAGNOSTIC_INTERVAL_MS = 250;
 using TranscodeMetrics::WaitChannel;
 } // namespace
 
-TranscodeJob::TranscodeJob(TranscodeOptions options) : options_(std::move(options)) {}
+TranscodeJob::TranscodeJob(TranscodeOptions options) : options_(std::move(options))
+{
+    codecCallbacks_.SetWakeSignal(&wakeSignal_);
+}
 TranscodeJob::~TranscodeJob()
 {
     Cleanup();
@@ -88,7 +92,7 @@ void TranscodeJob::Run()
     auto lastProgress = std::chrono::steady_clock::now();
     // 输入EOS只结束输入；编码输出EOS和音轨都处理完，才能停止封装并报告完成。
     while (success && !cancelled_.load() && !(encoderOutputDone_ && audioDone_)) {
-        const uint64_t revision = options_.codecMode == 1 ? codecCallbacks_.Revision() : 0;
+        const uint64_t revision = wakeSignal_.Revision();
         bool advanced = false;
         success = CheckCodecCallbacks() && CheckStorage(false) && DrainEncoder(advanced) &&
             SubmitDecodedFrame(advanced) && DrainDecoder(advanced) && FeedDecoder(advanced) && CopyAudio(advanced);
@@ -100,8 +104,8 @@ void TranscodeJob::Run()
         } else if (std::chrono::steady_clock::now() - lastProgress > STALL_LIMIT) {
             success = Fail("Codec pipeline made no progress for 30 seconds");
         } else if (options_.codecMode == 1) {
-            // Audio conversion still polls; bound the wait even when no video callback arrives.
-            codecCallbacks_.Wait(revision, POLL_INTERVAL);
+            // 音视频codec共用唤醒源；超时仅用于检查取消、存储和诊断。
+            wakeSignal_.Wait(revision, ASYNC_IDLE_LIMIT);
         } else {
             std::this_thread::sleep_for(POLL_INTERVAL);
         }

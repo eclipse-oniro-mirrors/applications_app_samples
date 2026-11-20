@@ -549,13 +549,28 @@ OH_AVFormat *TranscodeAudioPipeline::OutputFormat() const
 
 TranscodeAudioPipeline::~TranscodeAudioPipeline()
 {
+    (void)Close();
+}
+
+int32_t TranscodeAudioPipeline::Close()
+{
     callbacks_.Close();
+    int32_t result = AV_ERR_OK;
+    const auto record = [&result](int32_t status) {
+        if (result == AV_ERR_OK) { result = status; }
+    };
     if (decoder_ != nullptr) {
-        if (decoderStarted_) { (void)OH_AudioCodec_Stop(decoder_); }
-        OH_AudioCodec_Destroy(decoder_);
+        if (decoderStarted_) { record(OH_AudioCodec_Stop(decoder_)); }
+        record(OH_AudioCodec_Destroy(decoder_));
+        decoder_ = nullptr;
     }
     if (encoder_ != nullptr) {
-        if (encoderStarted_) { (void)OH_AudioCodec_Stop(encoder_); }
-        OH_AudioCodec_Destroy(encoder_);
+        if (encoderStarted_) { record(OH_AudioCodec_Stop(encoder_)); }
+        record(OH_AudioCodec_Destroy(encoder_));
+        encoder_ = nullptr;
     }
+    pcm_ = nullptr;
+    pendingOutput_ = nullptr;
+    ready_ = false;
+    return result;
 }

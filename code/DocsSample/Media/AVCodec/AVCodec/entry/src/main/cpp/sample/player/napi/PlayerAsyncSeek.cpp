@@ -24,19 +24,27 @@ struct AsyncSeekWork {
     napi_deferred deferred = nullptr;
     int64_t positionUs = 0;
     bool success = false;
+    bool track = false;
+    bool executed = false;
 };
 
 void ExecuteSeek(napi_env env, void *data)
 {
     (void)env;
     auto *work = static_cast<AsyncSeekWork *>(data);
-    work->success = work->session->player.SeekTo(work->positionUs) == AVCODEC_SAMPLE_ERR_OK;
+    if (!work->session->StopPending()) {
+        work->success = (work->track ?
+            work->session->player.SelectAudioTrack(static_cast<int32_t>(work->positionUs)) :
+            work->session->player.SeekTo(work->positionUs)) == AVCODEC_SAMPLE_ERR_OK;
+    }
+    work->session->Finish();
+    work->executed = true;
 }
 
 void CompleteSeek(napi_env env, napi_status status, void *data)
 {
     std::unique_ptr<AsyncSeekWork> work(static_cast<AsyncSeekWork *>(data));
-    work->session->seeking = false;
+    if (!work->executed) { work->session->Finish(); }
     napi_value result = nullptr;
     if (napi_get_boolean(env, status == napi_ok && work->success, &result) == napi_ok) {
         napi_resolve_deferred(env, work->deferred, result);
@@ -53,30 +61,35 @@ void RejectSeek(napi_env env, napi_deferred deferred)
 }
 } // 匿名命名空间
 
-napi_value SeekToAsync(napi_env env, napi_callback_info info)
+napi_value QueuePlayerOperation(napi_env env, napi_callback_info info, bool track)
 {
     auto work = std::make_unique<AsyncSeekWork>();
-    if (!PlayerNapiParser::ParseSeekPosition(env, info, work->positionUs)) {
+    int32_t index = -1;
+    work->track = track;
+    if (track ? !PlayerNapiParser::ParseTrackIndex(env, info, index) :
+        !PlayerNapiParser::ParseSeekPosition(env, info, work->positionUs)) {
         return nullptr;
     }
+    if (track) { work->positionUs = index; }
     napi_value promise = nullptr;
     if (napi_create_promise(env, &work->deferred, &promise) != napi_ok) {
         return nullptr;
     }
     work->session = GetNativePlayerSession(env);
-    if (work->session == nullptr || work->session->seeking.load()) {
+    if (work->session == nullptr || !work->session->Begin(track ?
+        NativePlayerSession::Operation::TRACK : NativePlayerSession::Operation::SEEK)) {
         RejectSeek(env, work->deferred);
         return promise;
     }
     napi_value name = nullptr;
     if (napi_create_string_utf8(env, "PlayerSeek", NAPI_AUTO_LENGTH, &name) != napi_ok ||
         napi_create_async_work(env, nullptr, name, ExecuteSeek, CompleteSeek, work.get(), &work->work) != napi_ok) {
+        work->session->Finish();
         RejectSeek(env, work->deferred);
         return promise;
     }
-    work->session->seeking = true;
     if (napi_queue_async_work(env, work->work) != napi_ok) {
-        work->session->seeking = false;
+        work->session->Finish();
         napi_delete_async_work(env, work->work);
         RejectSeek(env, work->deferred);
         return promise;
@@ -84,4 +97,14 @@ napi_value SeekToAsync(napi_env env, napi_callback_info info)
     // 完成回调接管work的所有权，并在工作线程结束前保持Player存活。
     work.release();
     return promise;
+}
+
+napi_value SeekToAsync(napi_env env, napi_callback_info info)
+{
+    return QueuePlayerOperation(env, info, false);
+}
+
+napi_value SelectAudioTrackAsync(napi_env env, napi_callback_info info)
+{
+    return QueuePlayerOperation(env, info, true);
 }

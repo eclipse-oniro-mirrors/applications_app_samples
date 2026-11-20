@@ -50,6 +50,11 @@ bool TranscodeJob::FinalizeOutput()
 void TranscodeJob::Complete(bool success)
 {
     std::lock_guard<std::mutex> lock(snapshotMutex_);
+    if (success && !snapshot_.cleanupFailure.stage.empty()) {
+        success = false;
+        snapshot_.detail = snapshot_.cleanupFailure.stage;
+        snapshot_.errorCode = snapshot_.cleanupFailure.code;
+    }
     snapshot_.state = cancelled_.load() ? STATE_CANCELLED : (success ? STATE_FINISHED : STATE_FAILED);
     snapshot_.stage = cancelled_.load() ? "cancelled" : (success ? "complete" : "failed");
     if (snapshot_.state == STATE_FINISHED) {
@@ -59,28 +64,37 @@ void TranscodeJob::Complete(bool success)
     }
 }
 
+void TranscodeJob::RecordCleanup(const char *stage, int32_t result)
+{
+    if (result == 0) { return; }
+    std::lock_guard<std::mutex> lock(snapshotMutex_);
+    if (snapshot_.cleanupFailure.stage.empty()) {
+        snapshot_.cleanupFailure.stage = stage;
+        snapshot_.cleanupFailure.code = result;
+        snapshot_.cleanupFailure.message = "Native resource cleanup failed";
+    }
+    AVCODEC_SAMPLE_LOGW("Transcode cleanup failed: %{public}s, ret: %{public}d", stage, result);
+}
+
 void TranscodeJob::ReleaseCodecs()
 {
     // Surface由编码器创建，解码器借用。先销毁解码器，再销毁编码器和窗口引用。
     if (decoder_ != nullptr) {
         if (decoderStarted_) {
-            (void)OH_VideoDecoder_Stop(decoder_);
+            RecordCleanup("decoder.stop", OH_VideoDecoder_Stop(decoder_));
         }
-        OH_VideoDecoder_Destroy(decoder_);
-        decoder_ = nullptr;
+        RecordCleanup("decoder.destroy", decoder_.Close());
         pendingDecoded_ = nullptr;
     }
     gpu_.reset();
     if (encoder_ != nullptr) {
         if (encoderStarted_) {
-            (void)OH_VideoEncoder_Stop(encoder_);
+            RecordCleanup("encoder.stop", OH_VideoEncoder_Stop(encoder_));
         }
-        OH_VideoEncoder_Destroy(encoder_);
-        encoder_ = nullptr;
+        RecordCleanup("encoder.destroy", encoder_.Close());
     }
     if (encoderWindow_ != nullptr) {
-        OH_NativeWindow_DestroyNativeWindow(encoderWindow_);
-        encoderWindow_ = nullptr;
+        RecordCleanup("encoder.window", encoderWindow_.Close());
     }
 }
 
@@ -88,34 +102,30 @@ void TranscodeJob::Cleanup()
 {
     // Reject late events before Stop, but retain callback contexts until both codecs are destroyed.
     codecCallbacks_.Close();
+    if (audioPipeline_ != nullptr) { RecordCleanup("audio.pipeline.close", audioPipeline_->Close()); }
     audioPipeline_.reset();
     ReleaseCodecs();
     if (muxer_ != nullptr) {
-        OH_AVMuxer_Destroy(muxer_);
-        muxer_ = nullptr;
+        RecordCleanup("muxer.destroy", muxer_.Close());
     }
     if (audioBuffer_ != nullptr) {
-        OH_AVBuffer_Destroy(audioBuffer_);
-        audioBuffer_ = nullptr;
+        RecordCleanup("audio.buffer", audioBuffer_.Close());
     }
     if (videoCopyBuffer_ != nullptr) {
-        OH_AVBuffer_Destroy(videoCopyBuffer_);
-        videoCopyBuffer_ = nullptr;
+        RecordCleanup("video.buffer", videoCopyBuffer_.Close());
     }
     if (demuxer_ != nullptr) {
-        OH_AVDemuxer_Destroy(demuxer_);
-        demuxer_ = nullptr;
+        RecordCleanup("demuxer.destroy", demuxer_.Close());
     }
     if (source_ != nullptr) {
-        OH_AVSource_Destroy(source_);
-        source_ = nullptr;
+        RecordCleanup("source.destroy", source_.Close());
     }
     if (options_.inputFd >= 0) {
-        close(options_.inputFd);
+        if (close(options_.inputFd) != 0) { RecordCleanup("input.close", errno); }
         options_.inputFd = -1;
     }
     if (options_.outputFd >= 0) {
-        close(options_.outputFd);
+        if (close(options_.outputFd) != 0) { RecordCleanup("output.close", errno); }
         options_.outputFd = -1;
     }
 }

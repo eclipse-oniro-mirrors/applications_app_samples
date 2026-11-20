@@ -15,8 +15,19 @@
 
 import { TranscodeAudioMode, TranscodeQualityModel, TranscodeQualitySnapshot } from './TranscodeQualityModel';
 
+export interface TranscodeQueueSettings {
+  codecIndex: number;
+  modeIndex: number;
+  sizeIndex: number;
+  bitrateIndex: number;
+  encoderCategory: number;
+  audioMode: number;
+  audioTrack: number;
+  resizeMode: number;
+}
+
 export interface TranscodeQueueItem {
-  id: string; uri: string; title: string; options: number[]; grayscale: boolean;
+  id: string; uri: string; title: string; options?: number[]; settings?: TranscodeQueueSettings; grayscale: boolean;
   state: string; progress: number; resultPath: string;
   startTimeMs?: number; endTimeMs?: number;
   quality?: TranscodeQualitySnapshot;
@@ -33,7 +44,7 @@ export class TranscodeQueueModel {
   static validated(entries: TranscodeQueueItem[]): TranscodeQueueItem[] {
     if (!Array.isArray(entries)) { throw new Error('Invalid transcode queue'); }
     const seen: Set<string> = new Set<string>();
-    return entries.filter((item: TranscodeQueueItem): boolean => {
+    return entries.map(TranscodeQueueModel.normalize).filter((item: TranscodeQueueItem): boolean => {
       if (item === null || typeof item !== 'object' || typeof item.id !== 'string' ||
         !/^queue_[0-9]+_[0-9]+$/.test(item.id) || seen.has(item.id) ||
         typeof item.uri !== 'string' || item.uri.length === 0 || item.uri.length > 8192 ||
@@ -61,7 +72,7 @@ export class TranscodeQueueModel {
       id: item.id,
       uri: item.uri,
       title: item.title,
-      options: item.options.slice(),
+      settings: TranscodeQueueModel.settings(item),
       grayscale: item.grayscale,
       state: item.state,
       progress: item.progress,
@@ -70,6 +81,46 @@ export class TranscodeQueueModel {
       endTimeMs: item.endTimeMs,
       quality: TranscodeQueueModel.copyQuality(item.quality)
     }));
+  }
+
+  static settings(item: TranscodeQueueItem): TranscodeQueueSettings {
+    return TranscodeQueueModel.fromLegacy(item.options ?? TranscodeQueueModel.legacy(item.settings));
+  }
+
+  private static normalize(item: TranscodeQueueItem): TranscodeQueueItem {
+    if (item === null || typeof item !== 'object' || item.options !== undefined) { return item; }
+    return {
+      id: item.id,
+      uri: item.uri,
+      title: item.title,
+      options: TranscodeQueueModel.legacy(item.settings),
+      grayscale: item.grayscale,
+      state: item.state,
+      progress: item.progress,
+      resultPath: item.resultPath,
+      startTimeMs: item.startTimeMs,
+      endTimeMs: item.endTimeMs,
+      quality: item.quality
+    };
+  }
+
+  private static legacy(settings: TranscodeQueueSettings | undefined): number[] {
+    if (settings === undefined || settings === null || typeof settings !== 'object') { return []; }
+    return [settings.codecIndex, settings.modeIndex, settings.sizeIndex, settings.bitrateIndex,
+      settings.encoderCategory, settings.audioMode, settings.audioTrack, settings.resizeMode];
+  }
+
+  private static fromLegacy(options: number[]): TranscodeQueueSettings {
+    return {
+      codecIndex: options[0],
+      modeIndex: options[1],
+      sizeIndex: options[2],
+      bitrateIndex: options[3],
+      encoderCategory: options[4],
+      audioMode: options[5],
+      audioTrack: options[6],
+      resizeMode: options[7] ?? 0
+    };
   }
 
   private static copyQuality(quality: TranscodeQualitySnapshot | undefined): TranscodeQualitySnapshot | undefined {
@@ -96,17 +147,17 @@ export class TranscodeQueueModel {
     const end: number = item.endTimeMs ?? 0;
     return Number.isInteger(start) && Number.isInteger(end) && start >= 0 && end >= 0 &&
       start <= 2147483647 && end <= 2147483647 && (end === 0 || end > start) &&
-      (item.options[1] !== 1 || (start === 0 && end === 0));
+      (TranscodeQueueModel.settings(item).modeIndex !== 1 || (start === 0 && end === 0));
   }
 
-  add(uri: string, title: string, options: number[], grayscale: boolean, startTimeMs: number = 0,
+  add(uri: string, title: string, settings: TranscodeQueueSettings, grayscale: boolean, startTimeMs: number = 0,
     endTimeMs: number = 0, quality?: TranscodeQualitySnapshot): void {
     if (this.items.length >= 30) { return; }
     this.items = this.items.concat([{
       id: 'queue_' + Date.now() + '_' + (++this.sequence),
       uri: uri,
       title: title,
-      options: options.slice(),
+      settings: TranscodeQueueModel.fromLegacy(TranscodeQueueModel.legacy(settings)),
       grayscale: grayscale,
       state: 'waiting',
       progress: 0,
@@ -122,7 +173,7 @@ export class TranscodeQueueModel {
         id: item.id,
         uri: item.uri,
         title: item.title,
-        options: item.options,
+        settings: TranscodeQueueModel.settings(item),
         grayscale: item.grayscale,
         state: state,
         progress: progress,
@@ -134,7 +185,11 @@ export class TranscodeQueueModel {
   reassociate(id: string, uri: string, title: string): void {
     if (this.activeId.length > 0 || uri.length === 0) { return; }
     this.items = this.items.map((item: TranscodeQueueItem): TranscodeQueueItem => item.id !== id ? item : ({
-      id: item.id, uri: uri, title: title, options: item.options, grayscale: item.grayscale,
+      id: item.id,
+      uri: uri,
+      title: title,
+      settings: TranscodeQueueModel.settings(item),
+      grayscale: item.grayscale,
       state: 'waiting', progress: 0, resultPath: '', startTimeMs: item.startTimeMs, endTimeMs: item.endTimeMs,
       quality: item.quality
     }));

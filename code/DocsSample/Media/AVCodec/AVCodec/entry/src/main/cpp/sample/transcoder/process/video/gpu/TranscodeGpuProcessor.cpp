@@ -87,7 +87,9 @@ bool TranscodeGpuProcessor::CreateImage(int32_t width, int32_t height)
 void TranscodeGpuProcessor::OnFrame(void *context)
 {
     // No GL work or codec operations on the callback thread.
-    static_cast<TranscodeGpuProcessor *>(context)->available_.fetch_add(1);
+    auto *processor = static_cast<TranscodeGpuProcessor *>(context);
+    processor->available_.fetch_add(1);
+    if (processor->wakeSignal_ != nullptr) { processor->wakeSignal_->Notify(); }
 }
 
 bool TranscodeGpuProcessor::DrawTexture()

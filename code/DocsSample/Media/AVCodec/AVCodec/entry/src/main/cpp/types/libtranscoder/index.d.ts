@@ -56,6 +56,8 @@ export interface TranscodeMeasurement {
 }
 
 export interface TranscodeStatus {
+  cleanupStage?: string;
+  cleanupCode?: number;
   state: number;
   stage: string;
   detail: string;

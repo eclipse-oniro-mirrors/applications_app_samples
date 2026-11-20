@@ -36,12 +36,14 @@ public:
     using Error = std::function<bool(const char *, int32_t)>;
     explicit TranscodeAudioPipeline(Error error) : error_(std::move(error)) {}
     ~TranscodeAudioPipeline();
+    int32_t Close();
     bool Configure(OH_AVFormat *source, OH_AVDemuxer *demuxer, int32_t track, int64_t rangeStartUs = 0,
         int64_t rangeEndUs = 0, int32_t targetRate = 0, int32_t targetChannels = 0, int64_t bitrate = 128000,
         bool lowPass = false, bool asynchronous = false,
         int32_t sourceLayout = TRANSCODE_SOURCE_AUDIO_LAYOUT_UNSPECIFIED);
     bool Pump(OH_AVMuxer *muxer, int32_t muxTrack, bool &advanced);
     bool Ready() const { return ready_; }
+    void SetWakeSignal(TranscodeWakeSignal *signal) { callbacks_.SetWakeSignal(signal); }
     bool Done() const { return outputDone_; }
     OH_AVFormat *OutputFormat() const;
     int64_t Bytes() const { return bytes_; }
