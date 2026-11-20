@@ -1934,3 +1934,1939 @@ export default function storageRoutingSuite04Test(): void {
       async (): Promise<void> => {
         const name: string = 'AppFsSpace_Routing_0337';
         logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeBytes = 1024;
+          const actualFirstBytes: number =
+            await queryStorage(StorageOperation.FREE, "/data/storage/el2/base/files", api);
+          logAssertion(name, "first FREE; initial query reads 1024", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFirstCalls: string = api.events.join('|');
+          logAssertion(name, "first FREE; only the first dependency has run", actualFirstCalls, "free");
+          expect(actualFirstCalls).assertEqual("free");
+          api.freeSyncBytes = 4096;
+          const actualSecondBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/cache", api);
+          logAssertion(name, "second FREE_SYNC; fresh state is read after the first query", actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "first FREE then FREE_SYNC; ordered independent invocation record", actualFinalCalls, "free|freeSync");
+          expect(actualFinalCalls).assertEqual("free|freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_SECOND_CALL_G1_3100
+     * @tc.name AppFsSpace_Routing_0338
+     * @tc.desc Verify same probe first FREE_SYNC=1024 then BUNDLE=4096 has no cached result or route.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0338', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0338';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 1024;
+          const actualFirstBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name, "first FREE_SYNC; initial query reads 1024", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFirstCalls: string = api.events.join('|');
+          logAssertion(name, "first FREE_SYNC; only the first dependency has run", actualFirstCalls, "freeSync");
+          expect(actualFirstCalls).assertEqual("freeSync");
+          api.bundleStats.appSize = 4096;
+          const actualSecondBytes: number =
+            await queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/cache", api);
+          logAssertion(name, "second BUNDLE; fresh state is read after the first query", actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "first FREE_SYNC then BUNDLE; ordered independent invocation record", actualFinalCalls, "freeSync|bundle");
+          expect(actualFinalCalls).assertEqual("freeSync|bundle");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_SECOND_CALL_G1_3200
+     * @tc.name AppFsSpace_Routing_0339
+     * @tc.desc Verify same probe first FREE_SYNC=1024 then FILESYSTEM_FREE=4096 has no cached result or route.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0339', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0339';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 1024;
+          const actualFirstBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name, "first FREE_SYNC; initial query reads 1024", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFirstCalls: string = api.events.join('|');
+          logAssertion(name, "first FREE_SYNC; only the first dependency has run", actualFirstCalls, "freeSync");
+          expect(actualFirstCalls).assertEqual("freeSync");
+          api.filesystemBytes = 4096;
+          const actualSecondBytes: number =
+            await queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/cache", api);
+          logAssertion(name,
+            "second FILESYSTEM_FREE; fresh state is read after the first query", actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "first FREE_SYNC then FILESYSTEM_FREE; ordered independent invocation record",
+            actualFinalCalls, "freeSync|filesystem:/data/storage/el2/base/cache");
+          expect(actualFinalCalls).assertEqual("freeSync|filesystem:/data/storage/el2/base/cache");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_SECOND_CALL_G1_3300
+     * @tc.name AppFsSpace_Routing_0340
+     * @tc.desc Verify same probe first FREE_SYNC=1024 then TOTAL=4096 has no cached result or route.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0340', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0340';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 1024;
+          const actualFirstBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name, "first FREE_SYNC; initial query reads 1024", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFirstCalls: string = api.events.join('|');
+          logAssertion(name, "first FREE_SYNC; only the first dependency has run", actualFirstCalls, "freeSync");
+          expect(actualFirstCalls).assertEqual("freeSync");
+          api.totalBytes = 4096;
+          const actualSecondBytes: number =
+            await queryStorage(StorageOperation.TOTAL, "/data/storage/el2/base/cache", api);
+          logAssertion(name, "second TOTAL; fresh state is read after the first query", actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "first FREE_SYNC then TOTAL; ordered independent invocation record", actualFinalCalls, "freeSync|total");
+          expect(actualFinalCalls).assertEqual("freeSync|total");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_SECOND_CALL_G1_3400
+     * @tc.name AppFsSpace_Routing_0341
+     * @tc.desc Verify same probe first FREE_SYNC=1024 then TOTAL_SYNC=4096 has no cached result or route.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0341', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0341';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 1024;
+          const actualFirstBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name, "first FREE_SYNC; initial query reads 1024", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFirstCalls: string = api.events.join('|');
+          logAssertion(name, "first FREE_SYNC; only the first dependency has run", actualFirstCalls, "freeSync");
+          expect(actualFirstCalls).assertEqual("freeSync");
+          api.totalSyncBytes = 4096;
+          const actualSecondBytes: number =
+            await queryStorage(StorageOperation.TOTAL_SYNC, "/data/storage/el2/base/cache", api);
+          logAssertion(name, "second TOTAL_SYNC; fresh state is read after the first query", actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "first FREE_SYNC then TOTAL_SYNC; ordered independent invocation record",
+            actualFinalCalls, "freeSync|totalSync");
+          expect(actualFinalCalls).assertEqual("freeSync|totalSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_SECOND_CALL_G1_3500
+     * @tc.name AppFsSpace_Routing_0342
+     * @tc.desc Verify same probe first FREE_SYNC=1024 then FREE=4096 has no cached result or route.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0342', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0342';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 1024;
+          const actualFirstBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name, "first FREE_SYNC; initial query reads 1024", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFirstCalls: string = api.events.join('|');
+          logAssertion(name, "first FREE_SYNC; only the first dependency has run", actualFirstCalls, "freeSync");
+          expect(actualFirstCalls).assertEqual("freeSync");
+          api.freeBytes = 4096;
+          const actualSecondBytes: number =
+            await queryStorage(StorageOperation.FREE, "/data/storage/el2/base/cache", api);
+          logAssertion(name, "second FREE; fresh state is read after the first query", actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "first FREE_SYNC then FREE; ordered independent invocation record", actualFinalCalls, "freeSync|free");
+          expect(actualFinalCalls).assertEqual("freeSync|free");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_SECOND_CALL_G1_3600
+     * @tc.name AppFsSpace_Routing_0343
+     * @tc.desc Verify same probe first FREE_SYNC=1024 then FREE_SYNC=4096 has no cached result or route.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0343', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0343';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 1024;
+          const actualFirstBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name, "first FREE_SYNC; initial query reads 1024", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFirstCalls: string = api.events.join('|');
+          logAssertion(name, "first FREE_SYNC; only the first dependency has run", actualFirstCalls, "freeSync");
+          expect(actualFirstCalls).assertEqual("freeSync");
+          api.freeSyncBytes = 4096;
+          const actualSecondBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/cache", api);
+          logAssertion(name, "second FREE_SYNC; fresh state is read after the first query", actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "first FREE_SYNC then FREE_SYNC; ordered independent invocation record",
+            actualFinalCalls, "freeSync|freeSync");
+          expect(actualFinalCalls).assertEqual("freeSync|freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_RECOVERY_BUNDLE_G1_0100
+     * @tc.name AppFsSpace_Routing_0344
+     * @tc.desc Verify BUNDLE succeeds with 4096 on a second call after its first dependency error.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0344', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0344';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.bundleStats.appSize = 1024;
+          const sdkError: Error = new Error("bundle first request failed");
+          sdkError.name = "Error";
+          api.bundleError = sdkError;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'BUNDLE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'BUNDLE; captured error name', failureName, "Error");
+          expect(failureName).assertEqual("Error");
+          logAssertion(name, 'BUNDLE; captured error message',
+            failureMessage, "bundle first request failed");
+          expect(failureMessage).assertEqual("bundle first request failed");
+          const failureIdentity: boolean = failureError === sdkError;
+          logAssertion(name, "BUNDLE; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "BUNDLE; error does not fall through to another method", failureCalls, "bundle");
+          expect(failureCalls).assertEqual("bundle");
+          api.bundleError = undefined;
+          api.bundleStats.appSize = 4096;
+          const actualRecoveredBytes: number =
+            await queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/cache", api);
+          logAssertion(name,
+            "BUNDLE; second request recovers after clearing only its own error", actualRecoveredBytes, 4096);
+          expect(actualRecoveredBytes).assertEqual(4096);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "BUNDLE; failed first request does not suppress the recovery call", actualFinalCalls, "bundle|bundle");
+          expect(actualFinalCalls).assertEqual("bundle|bundle");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_RECOVERY_BUNDLE_G1_0200
+     * @tc.name AppFsSpace_Routing_0345
+     * @tc.desc Verify BUNDLE rejects NaN then accepts zero after its byte field is corrected.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0345', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0345';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.bundleStats.appSize = Number.NaN;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'BUNDLE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'BUNDLE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'BUNDLE; captured error message',
+            failureMessage, "Bundle app size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Bundle app size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "BUNDLE; error does not fall through to another method", failureCalls, "bundle");
+          expect(failureCalls).assertEqual("bundle");
+          api.bundleStats.appSize = 0;
+          const actualRecoveredBytes: number =
+            await queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/cache", api);
+          logAssertion(name, "BUNDLE; zero is accepted after the earlier validation failure", actualRecoveredBytes, 0);
+          expect(actualRecoveredBytes).assertEqual(0);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "BUNDLE; validation failure leaves the next invocation independent", actualFinalCalls, "bundle|bundle");
+          expect(actualFinalCalls).assertEqual("bundle|bundle");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_RECOVERY_BUNDLE_G1_0300
+     * @tc.name AppFsSpace_Routing_0346
+     * @tc.desc Verify BUNDLE does not reuse a first success when its second request fails.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0346', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0346';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.bundleStats.appSize = 1024;
+          const actualFirstBytes: number =
+            await queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/files", api);
+          logAssertion(name, "BUNDLE; first request succeeds before error injection", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const sdkError: Error = new Error("bundle second request failed");
+          sdkError.name = "Error";
+          api.bundleError = sdkError;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/cache", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'BUNDLE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'BUNDLE; captured error name', failureName, "Error");
+          expect(failureName).assertEqual("Error");
+          logAssertion(name, 'BUNDLE; captured error message',
+            failureMessage, "bundle second request failed");
+          expect(failureMessage).assertEqual("bundle second request failed");
+          const failureIdentity: boolean = failureError === sdkError;
+          logAssertion(name, "BUNDLE; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "BUNDLE; error does not fall through to another method", failureCalls, "bundle|bundle");
+          expect(failureCalls).assertEqual("bundle|bundle");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_RECOVERY_FILESYSTEM_FREE_G1_0100
+     * @tc.name AppFsSpace_Routing_0347
+     * @tc.desc Verify FILESYSTEM_FREE succeeds with 4096 on a second call after its first dependency error.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0347', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0347';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemBytes = 1024;
+          const sdkError: BusinessError = {
+            name: 'BusinessError', code: 13900002, message: "filesystem first request failed"
+          };
+          api.filesystemError = sdkError;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "BusinessError");
+          expect(failureName).assertEqual("BusinessError");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "filesystem first request failed");
+          expect(failureMessage).assertEqual("filesystem first request failed");
+          const failureIdentity: boolean = failureError === sdkError;
+          logAssertion(name, "FILESYSTEM_FREE; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          api.filesystemError = undefined;
+          api.filesystemBytes = 4096;
+          const actualRecoveredBytes: number =
+            await queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/cache", api);
+          logAssertion(name,
+            "FILESYSTEM_FREE; second request recovers after clearing only its own error", actualRecoveredBytes, 4096);
+          expect(actualRecoveredBytes).assertEqual(4096);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; failed first request does not suppress the recovery call",
+            actualFinalCalls, "filesystem:/data/storage/el2/base/files|filesystem:/data/storage/el2/base/cache");
+          expect(actualFinalCalls).assertEqual(
+            "filesystem:/data/storage/el2/base/files|filesystem:/data/storage/el2/base/cache");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_RECOVERY_FILESYSTEM_FREE_G1_0200
+     * @tc.name AppFsSpace_Routing_0348
+     * @tc.desc Verify FILESYSTEM_FREE rejects NaN then accepts zero after its byte field is corrected.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0348', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0348';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemBytes = Number.NaN;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "Filesystem free size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Filesystem free size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+          api.filesystemBytes = 0;
+          const actualRecoveredBytes: number =
+            await queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/cache", api);
+          logAssertion(name,
+            "FILESYSTEM_FREE; zero is accepted after the earlier validation failure", actualRecoveredBytes, 0);
+          expect(actualRecoveredBytes).assertEqual(0);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; validation failure leaves the next invocation independent",
+            actualFinalCalls, "filesystem:/data/storage/el2/base/files|filesystem:/data/storage/el2/base/cache");
+          expect(actualFinalCalls).assertEqual(
+            "filesystem:/data/storage/el2/base/files|filesystem:/data/storage/el2/base/cache");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_RECOVERY_FILESYSTEM_FREE_G1_0300
+     * @tc.name AppFsSpace_Routing_0349
+     * @tc.desc Verify FILESYSTEM_FREE does not reuse a first success when its second request fails.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0349', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0349';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemBytes = 1024;
+          const actualFirstBytes: number =
+            await queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api);
+          logAssertion(name, "FILESYSTEM_FREE; first request succeeds before error injection", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const sdkError: BusinessError = {
+            name: 'BusinessError', code: 13900002, message: "filesystem second request failed"
+          };
+          api.filesystemError = sdkError;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/cache", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "BusinessError");
+          expect(failureName).assertEqual("BusinessError");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "filesystem second request failed");
+          expect(failureMessage).assertEqual("filesystem second request failed");
+          const failureIdentity: boolean = failureError === sdkError;
+          logAssertion(name, "FILESYSTEM_FREE; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files|filesystem:/data/storage/el2/base/cache");
+          expect(failureCalls).assertEqual(
+            "filesystem:/data/storage/el2/base/files|filesystem:/data/storage/el2/base/cache");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_RECOVERY_TOTAL_G1_0100
+     * @tc.name AppFsSpace_Routing_0350
+     * @tc.desc Verify TOTAL succeeds with 4096 on a second call after its first dependency error.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0350', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0350';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.totalBytes = 1024;
+          const sdkError: Error = new Error("total first request failed");
+          sdkError.name = "Error";
+          api.totalError = sdkError;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await queryStorage(StorageOperation.TOTAL, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'TOTAL; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'TOTAL; captured error name', failureName, "Error");
+          expect(failureName).assertEqual("Error");
+          logAssertion(name, 'TOTAL; captured error message',
+            failureMessage, "total first request failed");
+          expect(failureMessage).assertEqual("total first request failed");
+          const failureIdentity: boolean = failureError === sdkError;
+          logAssertion(name, "TOTAL; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "TOTAL; error does not fall through to another method", failureCalls, "total");
+          expect(failureCalls).assertEqual("total");
+          api.totalError = undefined;
+          api.totalBytes = 4096;
+          const actualRecoveredBytes: number =
+            await queryStorage(StorageOperation.TOTAL, "/data/storage/el2/base/cache", api);
+          logAssertion(name,
+            "TOTAL; second request recovers after clearing only its own error", actualRecoveredBytes, 4096);
+          expect(actualRecoveredBytes).assertEqual(4096);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "TOTAL; failed first request does not suppress the recovery call", actualFinalCalls, "total|total");
+          expect(actualFinalCalls).assertEqual("total|total");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_RECOVERY_TOTAL_G1_0200
+     * @tc.name AppFsSpace_Routing_0351
+     * @tc.desc Verify TOTAL rejects NaN then accepts zero after its byte field is corrected.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0351', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0351';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.totalBytes = Number.NaN;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(StorageOperation.TOTAL, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'TOTAL; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'TOTAL; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'TOTAL; captured error message',
+            failureMessage, "Total size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Total size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "TOTAL; error does not fall through to another method", failureCalls, "total");
+          expect(failureCalls).assertEqual("total");
+          api.totalBytes = 0;
+          const actualRecoveredBytes: number =
+            await queryStorage(StorageOperation.TOTAL, "/data/storage/el2/base/cache", api);
+          logAssertion(name, "TOTAL; zero is accepted after the earlier validation failure", actualRecoveredBytes, 0);
+          expect(actualRecoveredBytes).assertEqual(0);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "TOTAL; validation failure leaves the next invocation independent", actualFinalCalls, "total|total");
+          expect(actualFinalCalls).assertEqual("total|total");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_RECOVERY_TOTAL_G1_0300
+     * @tc.name AppFsSpace_Routing_0352
+     * @tc.desc Verify TOTAL does not reuse a first success when its second request fails.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0352', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0352';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.totalBytes = 1024;
+          const actualFirstBytes: number =
+            await queryStorage(StorageOperation.TOTAL, "/data/storage/el2/base/files", api);
+          logAssertion(name, "TOTAL; first request succeeds before error injection", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const sdkError: Error = new Error("total second request failed");
+          sdkError.name = "Error";
+          api.totalError = sdkError;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await queryStorage(StorageOperation.TOTAL, "/data/storage/el2/base/cache", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'TOTAL; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'TOTAL; captured error name', failureName, "Error");
+          expect(failureName).assertEqual("Error");
+          logAssertion(name, 'TOTAL; captured error message',
+            failureMessage, "total second request failed");
+          expect(failureMessage).assertEqual("total second request failed");
+          const failureIdentity: boolean = failureError === sdkError;
+          logAssertion(name, "TOTAL; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "TOTAL; error does not fall through to another method", failureCalls, "total|total");
+          expect(failureCalls).assertEqual("total|total");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_RECOVERY_TOTAL_SYNC_G1_0100
+     * @tc.name AppFsSpace_Routing_0353
+     * @tc.desc Verify TOTAL_SYNC succeeds with 4096 on a second call after its first dependency error.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0353', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0353';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.totalSyncBytes = 1024;
+          const sdkError: Error = new Error("totalSync first request failed");
+          sdkError.name = "Error";
+          api.totalSyncError = sdkError;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await queryStorage(StorageOperation.TOTAL_SYNC, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'TOTAL_SYNC; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'TOTAL_SYNC; captured error name', failureName, "Error");
+          expect(failureName).assertEqual("Error");
+          logAssertion(name, 'TOTAL_SYNC; captured error message',
+            failureMessage, "totalSync first request failed");
+          expect(failureMessage).assertEqual("totalSync first request failed");
+          const failureIdentity: boolean = failureError === sdkError;
+          logAssertion(name, "TOTAL_SYNC; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "TOTAL_SYNC; error does not fall through to another method", failureCalls, "totalSync");
+          expect(failureCalls).assertEqual("totalSync");
+          api.totalSyncError = undefined;
+          api.totalSyncBytes = 4096;
+          const actualRecoveredBytes: number =
+            await queryStorage(StorageOperation.TOTAL_SYNC, "/data/storage/el2/base/cache", api);
+          logAssertion(name,
+            "TOTAL_SYNC; second request recovers after clearing only its own error", actualRecoveredBytes, 4096);
+          expect(actualRecoveredBytes).assertEqual(4096);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "TOTAL_SYNC; failed first request does not suppress the recovery call",
+            actualFinalCalls, "totalSync|totalSync");
+          expect(actualFinalCalls).assertEqual("totalSync|totalSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_RECOVERY_TOTAL_SYNC_G1_0200
+     * @tc.name AppFsSpace_Routing_0354
+     * @tc.desc Verify TOTAL_SYNC rejects NaN then accepts zero after its byte field is corrected.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0354', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0354';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.totalSyncBytes = Number.NaN;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(StorageOperation.TOTAL_SYNC, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'TOTAL_SYNC; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'TOTAL_SYNC; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'TOTAL_SYNC; captured error message',
+            failureMessage, "Total size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Total size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "TOTAL_SYNC; error does not fall through to another method", failureCalls, "totalSync");
+          expect(failureCalls).assertEqual("totalSync");
+          api.totalSyncBytes = 0;
+          const actualRecoveredBytes: number =
+            await queryStorage(StorageOperation.TOTAL_SYNC, "/data/storage/el2/base/cache", api);
+          logAssertion(name,
+            "TOTAL_SYNC; zero is accepted after the earlier validation failure", actualRecoveredBytes, 0);
+          expect(actualRecoveredBytes).assertEqual(0);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "TOTAL_SYNC; validation failure leaves the next invocation independent",
+            actualFinalCalls, "totalSync|totalSync");
+          expect(actualFinalCalls).assertEqual("totalSync|totalSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_RECOVERY_TOTAL_SYNC_G1_0300
+     * @tc.name AppFsSpace_Routing_0355
+     * @tc.desc Verify TOTAL_SYNC does not reuse a first success when its second request fails.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0355', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0355';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.totalSyncBytes = 1024;
+          const actualFirstBytes: number =
+            await queryStorage(StorageOperation.TOTAL_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name, "TOTAL_SYNC; first request succeeds before error injection", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const sdkError: Error = new Error("totalSync second request failed");
+          sdkError.name = "Error";
+          api.totalSyncError = sdkError;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await queryStorage(StorageOperation.TOTAL_SYNC, "/data/storage/el2/base/cache", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'TOTAL_SYNC; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'TOTAL_SYNC; captured error name', failureName, "Error");
+          expect(failureName).assertEqual("Error");
+          logAssertion(name, 'TOTAL_SYNC; captured error message',
+            failureMessage, "totalSync second request failed");
+          expect(failureMessage).assertEqual("totalSync second request failed");
+          const failureIdentity: boolean = failureError === sdkError;
+          logAssertion(name, "TOTAL_SYNC; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "TOTAL_SYNC; error does not fall through to another method", failureCalls, "totalSync|totalSync");
+          expect(failureCalls).assertEqual("totalSync|totalSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_RECOVERY_FREE_G1_0100
+     * @tc.name AppFsSpace_Routing_0356
+     * @tc.desc Verify FREE succeeds with 4096 on a second call after its first dependency error.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0356', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0356';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeBytes = 1024;
+          const sdkError: Error = new Error("free first request failed");
+          sdkError.name = "Error";
+          api.freeError = sdkError;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await queryStorage(StorageOperation.FREE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FREE; captured error name', failureName, "Error");
+          expect(failureName).assertEqual("Error");
+          logAssertion(name, 'FREE; captured error message',
+            failureMessage, "free first request failed");
+          expect(failureMessage).assertEqual("free first request failed");
+          const failureIdentity: boolean = failureError === sdkError;
+          logAssertion(name, "FREE; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "FREE; error does not fall through to another method", failureCalls, "free");
+          expect(failureCalls).assertEqual("free");
+          api.freeError = undefined;
+          api.freeBytes = 4096;
+          const actualRecoveredBytes: number =
+            await queryStorage(StorageOperation.FREE, "/data/storage/el2/base/cache", api);
+          logAssertion(name,
+            "FREE; second request recovers after clearing only its own error", actualRecoveredBytes, 4096);
+          expect(actualRecoveredBytes).assertEqual(4096);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FREE; failed first request does not suppress the recovery call", actualFinalCalls, "free|free");
+          expect(actualFinalCalls).assertEqual("free|free");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_RECOVERY_FREE_G1_0200
+     * @tc.name AppFsSpace_Routing_0357
+     * @tc.desc Verify FREE rejects NaN then accepts zero after its byte field is corrected.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0357', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0357';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeBytes = Number.NaN;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(StorageOperation.FREE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FREE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'FREE; captured error message',
+            failureMessage, "Free size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Free size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "FREE; error does not fall through to another method", failureCalls, "free");
+          expect(failureCalls).assertEqual("free");
+          api.freeBytes = 0;
+          const actualRecoveredBytes: number =
+            await queryStorage(StorageOperation.FREE, "/data/storage/el2/base/cache", api);
+          logAssertion(name, "FREE; zero is accepted after the earlier validation failure", actualRecoveredBytes, 0);
+          expect(actualRecoveredBytes).assertEqual(0);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FREE; validation failure leaves the next invocation independent", actualFinalCalls, "free|free");
+          expect(actualFinalCalls).assertEqual("free|free");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_RECOVERY_FREE_G1_0300
+     * @tc.name AppFsSpace_Routing_0358
+     * @tc.desc Verify FREE does not reuse a first success when its second request fails.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0358', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0358';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeBytes = 1024;
+          const actualFirstBytes: number =
+            await queryStorage(StorageOperation.FREE, "/data/storage/el2/base/files", api);
+          logAssertion(name, "FREE; first request succeeds before error injection", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const sdkError: Error = new Error("free second request failed");
+          sdkError.name = "Error";
+          api.freeError = sdkError;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await queryStorage(StorageOperation.FREE, "/data/storage/el2/base/cache", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FREE; captured error name', failureName, "Error");
+          expect(failureName).assertEqual("Error");
+          logAssertion(name, 'FREE; captured error message',
+            failureMessage, "free second request failed");
+          expect(failureMessage).assertEqual("free second request failed");
+          const failureIdentity: boolean = failureError === sdkError;
+          logAssertion(name, "FREE; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "FREE; error does not fall through to another method", failureCalls, "free|free");
+          expect(failureCalls).assertEqual("free|free");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_RECOVERY_FREE_SYNC_G1_0100
+     * @tc.name AppFsSpace_Routing_0359
+     * @tc.desc Verify FREE_SYNC succeeds with 4096 on a second call after its first dependency error.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0359', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0359';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 1024;
+          const sdkError: Error = new Error("freeSync first request failed");
+          sdkError.name = "Error";
+          api.freeSyncError = sdkError;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'FREE_SYNC; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FREE_SYNC; captured error name', failureName, "Error");
+          expect(failureName).assertEqual("Error");
+          logAssertion(name, 'FREE_SYNC; captured error message',
+            failureMessage, "freeSync first request failed");
+          expect(failureMessage).assertEqual("freeSync first request failed");
+          const failureIdentity: boolean = failureError === sdkError;
+          logAssertion(name, "FREE_SYNC; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "FREE_SYNC; error does not fall through to another method", failureCalls, "freeSync");
+          expect(failureCalls).assertEqual("freeSync");
+          api.freeSyncError = undefined;
+          api.freeSyncBytes = 4096;
+          const actualRecoveredBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/cache", api);
+          logAssertion(name,
+            "FREE_SYNC; second request recovers after clearing only its own error", actualRecoveredBytes, 4096);
+          expect(actualRecoveredBytes).assertEqual(4096);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FREE_SYNC; failed first request does not suppress the recovery call",
+            actualFinalCalls, "freeSync|freeSync");
+          expect(actualFinalCalls).assertEqual("freeSync|freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_RECOVERY_FREE_SYNC_G1_0200
+     * @tc.name AppFsSpace_Routing_0360
+     * @tc.desc Verify FREE_SYNC rejects NaN then accepts zero after its byte field is corrected.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0360', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0360';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = Number.NaN;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'FREE_SYNC; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FREE_SYNC; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'FREE_SYNC; captured error message',
+            failureMessage, "Free size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Free size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "FREE_SYNC; error does not fall through to another method", failureCalls, "freeSync");
+          expect(failureCalls).assertEqual("freeSync");
+          api.freeSyncBytes = 0;
+          const actualRecoveredBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/cache", api);
+          logAssertion(name,
+            "FREE_SYNC; zero is accepted after the earlier validation failure", actualRecoveredBytes, 0);
+          expect(actualRecoveredBytes).assertEqual(0);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FREE_SYNC; validation failure leaves the next invocation independent",
+            actualFinalCalls, "freeSync|freeSync");
+          expect(actualFinalCalls).assertEqual("freeSync|freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_RECOVERY_FREE_SYNC_G1_0300
+     * @tc.name AppFsSpace_Routing_0361
+     * @tc.desc Verify FREE_SYNC does not reuse a first success when its second request fails.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0361', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0361';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 1024;
+          const actualFirstBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name, "FREE_SYNC; first request succeeds before error injection", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const sdkError: Error = new Error("freeSync second request failed");
+          sdkError.name = "Error";
+          api.freeSyncError = sdkError;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          let failureError: Error | undefined = undefined;
+          try {
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/cache", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+            failureError = caughtError;
+          }
+          logAssertion(name, 'FREE_SYNC; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FREE_SYNC; captured error name', failureName, "Error");
+          expect(failureName).assertEqual("Error");
+          logAssertion(name, 'FREE_SYNC; captured error message',
+            failureMessage, "freeSync second request failed");
+          expect(failureMessage).assertEqual("freeSync second request failed");
+          const failureIdentity: boolean = failureError === sdkError;
+          logAssertion(name, "FREE_SYNC; preserve the exact dependency error object", failureIdentity, true);
+          expect(failureIdentity).assertEqual(true);
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FREE_SYNC; error does not fall through to another method", failureCalls, "freeSync|freeSync");
+          expect(failureCalls).assertEqual("freeSync|freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_BUNDLE_G1_0100
+     * @tc.name AppFsSpace_Routing_0362
+     * @tc.desc Verify concurrent independent BUNDLE probes isolate valid 1024 from invalid Number.NaN.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0362', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0362';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          const peer: StorageQueryProbe = new StorageQueryProbe();
+          api.bundleStats.appSize = 1024;
+          peer.bundleStats.appSize = Number.NaN;
+          const pendingGood: Promise<number> =
+            queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/files", api);
+          const pendingBad: Promise<number> =
+            queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/cache", peer);
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await pendingBad;
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'BUNDLE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'BUNDLE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'BUNDLE; captured error message',
+            failureMessage, "Bundle app size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Bundle app size must be a nonnegative safe integer");
+          const failureCalls: string = peer.events.join('|');
+          logAssertion(name, "BUNDLE; error does not fall through to another method", failureCalls, "bundle");
+          expect(failureCalls).assertEqual("bundle");
+          const actualGoodBytes: number = await pendingGood;
+          logAssertion(name,
+            "BUNDLE; valid peer result survives concurrent invalid bytes=Number.NaN", actualGoodBytes, 1024);
+          expect(actualGoodBytes).assertEqual(1024);
+          const actualGoodCalls: string = api.events.join('|');
+          logAssertion(name, "BUNDLE; successful probe retains only its own invocation", actualGoodCalls, "bundle");
+          expect(actualGoodCalls).assertEqual("bundle");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_FILESYSTEM_FREE_G1_0100
+     * @tc.name AppFsSpace_Routing_0363
+     * @tc.desc Verify concurrent independent FILESYSTEM_FREE probes isolate valid 1024 from invalid Number.NaN.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0363', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0363';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          const peer: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemBytes = 1024;
+          peer.filesystemBytes = Number.NaN;
+          const pendingGood: Promise<number> =
+            queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api);
+          const pendingBad: Promise<number> =
+            queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/cache", peer);
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await pendingBad;
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "Filesystem free size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Filesystem free size must be a nonnegative safe integer");
+          const failureCalls: string = peer.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/cache");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/cache");
+          const actualGoodBytes: number = await pendingGood;
+          logAssertion(name,
+            "FILESYSTEM_FREE; valid peer result survives concurrent invalid bytes=Number.NaN", actualGoodBytes, 1024);
+          expect(actualGoodBytes).assertEqual(1024);
+          const actualGoodCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; successful probe retains only its own invocation",
+            actualGoodCalls, "filesystem:/data/storage/el2/base/files");
+          expect(actualGoodCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_TOTAL_G1_0100
+     * @tc.name AppFsSpace_Routing_0364
+     * @tc.desc Verify concurrent independent TOTAL probes isolate valid 1024 from invalid Number.NaN.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0364', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0364';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          const peer: StorageQueryProbe = new StorageQueryProbe();
+          api.totalBytes = 1024;
+          peer.totalBytes = Number.NaN;
+          const pendingGood: Promise<number> =
+            queryStorage(StorageOperation.TOTAL, "/data/storage/el2/base/files", api);
+          const pendingBad: Promise<number> =
+            queryStorage(StorageOperation.TOTAL, "/data/storage/el2/base/cache", peer);
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await pendingBad;
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'TOTAL; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'TOTAL; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'TOTAL; captured error message',
+            failureMessage, "Total size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Total size must be a nonnegative safe integer");
+          const failureCalls: string = peer.events.join('|');
+          logAssertion(name, "TOTAL; error does not fall through to another method", failureCalls, "total");
+          expect(failureCalls).assertEqual("total");
+          const actualGoodBytes: number = await pendingGood;
+          logAssertion(name,
+            "TOTAL; valid peer result survives concurrent invalid bytes=Number.NaN", actualGoodBytes, 1024);
+          expect(actualGoodBytes).assertEqual(1024);
+          const actualGoodCalls: string = api.events.join('|');
+          logAssertion(name, "TOTAL; successful probe retains only its own invocation", actualGoodCalls, "total");
+          expect(actualGoodCalls).assertEqual("total");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_TOTAL_SYNC_G1_0100
+     * @tc.name AppFsSpace_Routing_0365
+     * @tc.desc Verify concurrent independent TOTAL_SYNC probes isolate valid 1024 from invalid Number.NaN.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0365', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0365';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          const peer: StorageQueryProbe = new StorageQueryProbe();
+          api.totalSyncBytes = 1024;
+          peer.totalSyncBytes = Number.NaN;
+          const pendingGood: Promise<number> =
+            queryStorage(StorageOperation.TOTAL_SYNC, "/data/storage/el2/base/files", api);
+          const pendingBad: Promise<number> =
+            queryStorage(StorageOperation.TOTAL_SYNC, "/data/storage/el2/base/cache", peer);
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await pendingBad;
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'TOTAL_SYNC; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'TOTAL_SYNC; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'TOTAL_SYNC; captured error message',
+            failureMessage, "Total size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Total size must be a nonnegative safe integer");
+          const failureCalls: string = peer.events.join('|');
+          logAssertion(name, "TOTAL_SYNC; error does not fall through to another method", failureCalls, "totalSync");
+          expect(failureCalls).assertEqual("totalSync");
+          const actualGoodBytes: number = await pendingGood;
+          logAssertion(name,
+            "TOTAL_SYNC; valid peer result survives concurrent invalid bytes=Number.NaN", actualGoodBytes, 1024);
+          expect(actualGoodBytes).assertEqual(1024);
+          const actualGoodCalls: string = api.events.join('|');
+          logAssertion(name,
+            "TOTAL_SYNC; successful probe retains only its own invocation", actualGoodCalls, "totalSync");
+          expect(actualGoodCalls).assertEqual("totalSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_FREE_G1_0100
+     * @tc.name AppFsSpace_Routing_0366
+     * @tc.desc Verify concurrent independent FREE probes isolate valid 1024 from invalid Number.NaN.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0366', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0366';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          const peer: StorageQueryProbe = new StorageQueryProbe();
+          api.freeBytes = 1024;
+          peer.freeBytes = Number.NaN;
+          const pendingGood: Promise<number> = queryStorage(StorageOperation.FREE, "/data/storage/el2/base/files", api);
+          const pendingBad: Promise<number> = queryStorage(StorageOperation.FREE, "/data/storage/el2/base/cache", peer);
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await pendingBad;
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FREE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'FREE; captured error message',
+            failureMessage, "Free size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Free size must be a nonnegative safe integer");
+          const failureCalls: string = peer.events.join('|');
+          logAssertion(name, "FREE; error does not fall through to another method", failureCalls, "free");
+          expect(failureCalls).assertEqual("free");
+          const actualGoodBytes: number = await pendingGood;
+          logAssertion(name,
+            "FREE; valid peer result survives concurrent invalid bytes=Number.NaN", actualGoodBytes, 1024);
+          expect(actualGoodBytes).assertEqual(1024);
+          const actualGoodCalls: string = api.events.join('|');
+          logAssertion(name, "FREE; successful probe retains only its own invocation", actualGoodCalls, "free");
+          expect(actualGoodCalls).assertEqual("free");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_FREE_SYNC_G1_0100
+     * @tc.name AppFsSpace_Routing_0367
+     * @tc.desc Verify concurrent independent FREE_SYNC probes isolate valid 1024 from invalid Number.NaN.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0367', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0367';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          const peer: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 1024;
+          peer.freeSyncBytes = Number.NaN;
+          const pendingGood: Promise<number> =
+            queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          const pendingBad: Promise<number> =
+            queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/cache", peer);
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await pendingBad;
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'FREE_SYNC; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FREE_SYNC; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'FREE_SYNC; captured error message',
+            failureMessage, "Free size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Free size must be a nonnegative safe integer");
+          const failureCalls: string = peer.events.join('|');
+          logAssertion(name, "FREE_SYNC; error does not fall through to another method", failureCalls, "freeSync");
+          expect(failureCalls).assertEqual("freeSync");
+          const actualGoodBytes: number = await pendingGood;
+          logAssertion(name,
+            "FREE_SYNC; valid peer result survives concurrent invalid bytes=Number.NaN", actualGoodBytes, 1024);
+          expect(actualGoodBytes).assertEqual(1024);
+          const actualGoodCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FREE_SYNC; successful probe retains only its own invocation", actualGoodCalls, "freeSync");
+          expect(actualGoodCalls).assertEqual("freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_PAIR_G1_0100
+     * @tc.name AppFsSpace_Routing_0368
+     * @tc.desc Verify concurrent BUNDLE=1024 and FILESYSTEM_FREE=4096 on one probe preserve route-specific bytes.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0368', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0368';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.bundleStats.appSize = 1024;
+          api.filesystemBytes = 4096;
+          const pendingFirst: Promise<number> =
+            queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/files", api);
+          const pendingSecond: Promise<number> =
+            queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/cache", api);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent BUNDLE and FILESYSTEM_FREE; both SDK calls start before awaiting",
+            actualStartedCalls, "bundle|filesystem:/data/storage/el2/base/cache");
+          expect(actualStartedCalls).assertEqual("bundle|filesystem:/data/storage/el2/base/cache");
+          const actualSecondBytes: number = await pendingSecond;
+          logAssertion(name,
+            "concurrent FILESYSTEM_FREE; awaiting second first cannot consume the first result",
+            actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFirstBytes: number = await pendingFirst;
+          logAssertion(name, "concurrent BUNDLE; first promise retains its own result", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent BUNDLE and FILESYSTEM_FREE; settlement adds no hidden dependency calls",
+            actualFinalCalls, "bundle|filesystem:/data/storage/el2/base/cache");
+          expect(actualFinalCalls).assertEqual("bundle|filesystem:/data/storage/el2/base/cache");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_PAIR_G1_0200
+     * @tc.name AppFsSpace_Routing_0369
+     * @tc.desc Verify concurrent BUNDLE=1024 and TOTAL=4096 on one probe preserve route-specific bytes.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0369', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0369';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.bundleStats.appSize = 1024;
+          api.totalBytes = 4096;
+          const pendingFirst: Promise<number> =
+            queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/files", api);
+          const pendingSecond: Promise<number> =
+            queryStorage(StorageOperation.TOTAL, "/data/storage/el2/base/cache", api);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent BUNDLE and TOTAL; both SDK calls start before awaiting", actualStartedCalls, "bundle|total");
+          expect(actualStartedCalls).assertEqual("bundle|total");
+          const actualSecondBytes: number = await pendingSecond;
+          logAssertion(name,
+            "concurrent TOTAL; awaiting second first cannot consume the first result", actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFirstBytes: number = await pendingFirst;
+          logAssertion(name, "concurrent BUNDLE; first promise retains its own result", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent BUNDLE and TOTAL; settlement adds no hidden dependency calls",
+            actualFinalCalls, "bundle|total");
+          expect(actualFinalCalls).assertEqual("bundle|total");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_PAIR_G1_0300
+     * @tc.name AppFsSpace_Routing_0370
+     * @tc.desc Verify concurrent BUNDLE=1024 and TOTAL_SYNC=4096 on one probe preserve route-specific bytes.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0370', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0370';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.bundleStats.appSize = 1024;
+          api.totalSyncBytes = 4096;
+          const pendingFirst: Promise<number> =
+            queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/files", api);
+          const pendingSecond: Promise<number> =
+            queryStorage(StorageOperation.TOTAL_SYNC, "/data/storage/el2/base/cache", api);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent BUNDLE and TOTAL_SYNC; both SDK calls start before awaiting",
+            actualStartedCalls, "bundle|totalSync");
+          expect(actualStartedCalls).assertEqual("bundle|totalSync");
+          const actualSecondBytes: number = await pendingSecond;
+          logAssertion(name,
+            "concurrent TOTAL_SYNC; awaiting second first cannot consume the first result", actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFirstBytes: number = await pendingFirst;
+          logAssertion(name, "concurrent BUNDLE; first promise retains its own result", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent BUNDLE and TOTAL_SYNC; settlement adds no hidden dependency calls",
+            actualFinalCalls, "bundle|totalSync");
+          expect(actualFinalCalls).assertEqual("bundle|totalSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_PAIR_G1_0400
+     * @tc.name AppFsSpace_Routing_0371
+     * @tc.desc Verify concurrent BUNDLE=1024 and FREE=4096 on one probe preserve route-specific bytes.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0371', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0371';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.bundleStats.appSize = 1024;
+          api.freeBytes = 4096;
+          const pendingFirst: Promise<number> =
+            queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/files", api);
+          const pendingSecond: Promise<number> =
+            queryStorage(StorageOperation.FREE, "/data/storage/el2/base/cache", api);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent BUNDLE and FREE; both SDK calls start before awaiting", actualStartedCalls, "bundle|free");
+          expect(actualStartedCalls).assertEqual("bundle|free");
+          const actualSecondBytes: number = await pendingSecond;
+          logAssertion(name,
+            "concurrent FREE; awaiting second first cannot consume the first result", actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFirstBytes: number = await pendingFirst;
+          logAssertion(name, "concurrent BUNDLE; first promise retains its own result", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent BUNDLE and FREE; settlement adds no hidden dependency calls", actualFinalCalls, "bundle|free");
+          expect(actualFinalCalls).assertEqual("bundle|free");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_PAIR_G1_0500
+     * @tc.name AppFsSpace_Routing_0372
+     * @tc.desc Verify concurrent BUNDLE=1024 and FREE_SYNC=4096 on one probe preserve route-specific bytes.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0372', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0372';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.bundleStats.appSize = 1024;
+          api.freeSyncBytes = 4096;
+          const pendingFirst: Promise<number> =
+            queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/files", api);
+          const pendingSecond: Promise<number> =
+            queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/cache", api);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent BUNDLE and FREE_SYNC; both SDK calls start before awaiting",
+            actualStartedCalls, "bundle|freeSync");
+          expect(actualStartedCalls).assertEqual("bundle|freeSync");
+          const actualSecondBytes: number = await pendingSecond;
+          logAssertion(name,
+            "concurrent FREE_SYNC; awaiting second first cannot consume the first result", actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFirstBytes: number = await pendingFirst;
+          logAssertion(name, "concurrent BUNDLE; first promise retains its own result", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent BUNDLE and FREE_SYNC; settlement adds no hidden dependency calls",
+            actualFinalCalls, "bundle|freeSync");
+          expect(actualFinalCalls).assertEqual("bundle|freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_PAIR_G1_0600
+     * @tc.name AppFsSpace_Routing_0373
+     * @tc.desc Verify concurrent FILESYSTEM_FREE=1024 and TOTAL=4096 on one probe preserve route-specific bytes.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0373', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0373';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemBytes = 1024;
+          api.totalBytes = 4096;
+          const pendingFirst: Promise<number> =
+            queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api);
+          const pendingSecond: Promise<number> =
+            queryStorage(StorageOperation.TOTAL, "/data/storage/el2/base/cache", api);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent FILESYSTEM_FREE and TOTAL; both SDK calls start before awaiting",
+            actualStartedCalls, "filesystem:/data/storage/el2/base/files|total");
+          expect(actualStartedCalls).assertEqual("filesystem:/data/storage/el2/base/files|total");
+          const actualSecondBytes: number = await pendingSecond;
+          logAssertion(name,
+            "concurrent TOTAL; awaiting second first cannot consume the first result", actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFirstBytes: number = await pendingFirst;
+          logAssertion(name,
+            "concurrent FILESYSTEM_FREE; first promise retains its own result", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent FILESYSTEM_FREE and TOTAL; settlement adds no hidden dependency calls",
+            actualFinalCalls, "filesystem:/data/storage/el2/base/files|total");
+          expect(actualFinalCalls).assertEqual("filesystem:/data/storage/el2/base/files|total");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_PAIR_G1_0700
+     * @tc.name AppFsSpace_Routing_0374
+     * @tc.desc Verify concurrent FILESYSTEM_FREE=1024 and TOTAL_SYNC=4096 on one probe preserve route-specific bytes.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0374', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0374';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemBytes = 1024;
+          api.totalSyncBytes = 4096;
+          const pendingFirst: Promise<number> =
+            queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api);
+          const pendingSecond: Promise<number> =
+            queryStorage(StorageOperation.TOTAL_SYNC, "/data/storage/el2/base/cache", api);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent FILESYSTEM_FREE and TOTAL_SYNC; both SDK calls start before awaiting",
+            actualStartedCalls, "filesystem:/data/storage/el2/base/files|totalSync");
+          expect(actualStartedCalls).assertEqual("filesystem:/data/storage/el2/base/files|totalSync");
+          const actualSecondBytes: number = await pendingSecond;
+          logAssertion(name,
+            "concurrent TOTAL_SYNC; awaiting second first cannot consume the first result", actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFirstBytes: number = await pendingFirst;
+          logAssertion(name,
+            "concurrent FILESYSTEM_FREE; first promise retains its own result", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent FILESYSTEM_FREE and TOTAL_SYNC; settlement adds no hidden dependency calls",
+            actualFinalCalls, "filesystem:/data/storage/el2/base/files|totalSync");
+          expect(actualFinalCalls).assertEqual("filesystem:/data/storage/el2/base/files|totalSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_PAIR_G1_0800
+     * @tc.name AppFsSpace_Routing_0375
+     * @tc.desc Verify concurrent FILESYSTEM_FREE=1024 and FREE=4096 on one probe preserve route-specific bytes.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0375', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0375';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemBytes = 1024;
+          api.freeBytes = 4096;
+          const pendingFirst: Promise<number> =
+            queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api);
+          const pendingSecond: Promise<number> =
+            queryStorage(StorageOperation.FREE, "/data/storage/el2/base/cache", api);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent FILESYSTEM_FREE and FREE; both SDK calls start before awaiting",
+            actualStartedCalls, "filesystem:/data/storage/el2/base/files|free");
+          expect(actualStartedCalls).assertEqual("filesystem:/data/storage/el2/base/files|free");
+          const actualSecondBytes: number = await pendingSecond;
+          logAssertion(name,
+            "concurrent FREE; awaiting second first cannot consume the first result", actualSecondBytes, 4096);
+          expect(actualSecondBytes).assertEqual(4096);
+          const actualFirstBytes: number = await pendingFirst;
+          logAssertion(name,
+            "concurrent FILESYSTEM_FREE; first promise retains its own result", actualFirstBytes, 1024);
+          expect(actualFirstBytes).assertEqual(1024);
+          const actualFinalCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent FILESYSTEM_FREE and FREE; settlement adds no hidden dependency calls",
+            actualFinalCalls, "filesystem:/data/storage/el2/base/files|free");
+          expect(actualFinalCalls).assertEqual("filesystem:/data/storage/el2/base/files|free");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_CONCURRENT_PAIR_G1_0900
+     * @tc.name AppFsSpace_Routing_0376
+     * @tc.desc Verify concurrent FILESYSTEM_FREE=1024 and FREE_SYNC=4096 on one probe preserve route-specific bytes.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0376', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0376';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemBytes = 1024;
+          api.freeSyncBytes = 4096;
+          const pendingFirst: Promise<number> =
+            queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api);
+          const pendingSecond: Promise<number> =
+            queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/cache", api);
+          const actualStartedCalls: string = api.events.join('|');
+          logAssertion(name,
+            "concurrent FILESYSTEM_FREE and FREE_SYNC; both SDK calls start before awaiting",
+            actualStartedCalls, "filesystem:/data/storage/el2/base/files|freeSync");
+          expect(actualStartedCalls).assertEqual("filesystem:/data/storage/el2/base/files|freeSync");
+          const actualSecondBytes: number = await pendingSecond;
+          logAssertion(name,
