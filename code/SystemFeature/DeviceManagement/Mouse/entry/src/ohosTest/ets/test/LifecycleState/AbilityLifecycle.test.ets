@@ -374,337 +374,239 @@ class StateFeature implements MouseFeature {
 export default function abilityLifecycleTest() {
   describe('AbilityLifecycle_Test', () => {
     beforeEach(() => {
-      hilog.info(0x0000, 'testTag', '%{public}s', 'suite setup');
     });
 
-    it('AbilityLifecycle_aggregated_validation', 0, async () => {
-      {
-        const feature = new StateFeature('state_default', 1);
-        expect(feature.isDefault()).assertTrue();
-        expect(feature.getPrimaryButton()).assertEqual(0);
-      }
+    it('state_defaults_are_applied', 0, () => {
+      const feature = new StateFeature('state_default', 1);
+      expect(feature.isDefault()).assertTrue();
+      expect(feature.getPrimaryButton()).assertEqual(0);
+    });
 
-      {
-        const feature = new StateFeature('state_button', 1);
-        feature.setPrimaryButton(1);
-        expect(feature.getPrimaryButton()).assertEqual(1);
-      }
+    it('state_primary_button_can_be_changed', 0, () => {
+      const feature = new StateFeature('state_button', 1);
+      feature.setPrimaryButton(1);
+      expect(feature.getPrimaryButton()).assertEqual(1);
+    });
 
-      {
-        const feature = new StateFeature('state_size', 1);
-        feature.setPointerSize(99);
-        expect(feature.getPointerSize()).assertEqual(7);
-      }
+    it('state_pointer_size_is_clamped', 0, () => {
+      const feature = new StateFeature('state_size', 1);
+      feature.setPointerSize(99);
+      expect(feature.getPointerSize()).assertEqual(7);
+    });
 
-      {
-        const feature = new StateFeature('state_json', 1);
-        const json: string = feature.toJson();
-        expect(json.includes('primaryButton')).assertTrue();
-      }
+    it('state_to_json_contains_keys', 0, () => {
+      const feature = new StateFeature('state_json', 1);
+      const json: string = feature.toJson();
+      expect(json.includes('primaryButton')).assertTrue();
+    });
 
-      {
-        const feature = new StateFeature('state_reset', 1);
-        feature.setPrimaryButton(1);
-        feature.reset();
-        expect(feature.isDefault()).assertTrue();
-      }
+    it('state_reset_restores_defaults', 0, () => {
+      const feature = new StateFeature('state_reset', 1);
+      feature.setPrimaryButton(1);
+      feature.reset();
+      expect(feature.isDefault()).assertTrue();
+    });
 
-      {
-        const feature = new StateFeature('alpha', 1);
-        expect(feature.getTitle()).assertEqual('alpha');
-        expect(feature.getId().length).assertLarger(0);
-      }
+    it('generic_construction_preserves_title', 0, () => {
+      const feature = new StateFeature('alpha', 1);
+      expect(feature.getTitle()).assertEqual('alpha');
+      expect(feature.getId().length).assertLarger(0);
+    });
 
-      {
-        const feature = new StateFeature('beta', 2);
-        expect(FeatureValidator.isValidTitle(feature.getTitle())).assertTrue();
-        expect(FeatureValidator.isNonNegative(feature)).assertTrue();
-      }
+    it('generic_validator_accepts_non_empty_title', 0, () => {
+      const feature = new StateFeature('beta', 2);
+      expect(FeatureValidator.isValidTitle(feature.getTitle())).assertTrue();
+      expect(FeatureValidator.isNonNegative(feature)).assertTrue();
+    });
 
-      {
-        const collection = new FeatureCollection();
-        collection.add(new StateFeature('one', 1));
-        collection.add(new StateFeature('two', 2));
-        collection.add(new StateFeature('three', 3));
-        expect(collection.count()).assertEqual(3);
-      }
+    it('generic_collection_counts_added_items', 0, () => {
+      const collection = new FeatureCollection();
+      collection.add(new StateFeature('one', 1));
+      collection.add(new StateFeature('two', 2));
+      collection.add(new StateFeature('three', 3));
+      expect(collection.count()).assertEqual(3);
+    });
 
-      {
-        const collection = new FeatureCollection();
-        collection.add(new StateFeature('target', 2));
-        expect(collection.getByTitle('target') === null).assertFalse();
-        expect(collection.getByTitle('missing') === null).assertTrue();
-      }
+    it('generic_collection_finds_item_by_title', 0, () => {
+      const collection = new FeatureCollection();
+      collection.add(new StateFeature('target', 2));
+      expect(collection.getByTitle('target') === null).assertFalse();
+      expect(collection.getByTitle('missing') === null).assertTrue();
+    });
 
-      {
-        const collection = new FeatureCollection();
-        expect(collection.isEmpty()).assertTrue();
-        collection.add(new StateFeature('solo', 1));
-        expect(collection.isEmpty()).assertFalse();
-      }
+    it('generic_collection_reports_empty_state', 0, () => {
+      const collection = new FeatureCollection();
+      expect(collection.isEmpty()).assertTrue();
+      collection.add(new StateFeature('solo', 1));
+      expect(collection.isEmpty()).assertFalse();
+    });
 
-      {
-        const a = new StateFeature('a', 1);
-        const b = new StateFeature('b', 3);
-        const av: number = a.getNumericValue();
-        const bv: number = b.getNumericValue();
-        const statistics = new FeatureStatistics();
-        statistics.collect([a, b]);
-        expect(statistics.getMinValue()).assertEqual(Math.min(av, bv));
-        expect(statistics.getMaxValue()).assertEqual(Math.max(av, bv));
-      }
+    it('generic_statistics_identify_min_and_max', 0, () => {
+      const a = new StateFeature('a', 1);
+      const b = new StateFeature('b', 3);
+      const av: number = a.getNumericValue();
+      const bv: number = b.getNumericValue();
+      const statistics = new FeatureStatistics();
+      statistics.collect([a, b]);
+      expect(statistics.getMinValue()).assertEqual(Math.min(av, bv));
+      expect(statistics.getMaxValue()).assertEqual(Math.max(av, bv));
+    });
 
-      {
-        const a = new StateFeature('a', 1);
-        const b = new StateFeature('b', 3);
-        const av: number = a.getNumericValue();
-        const bv: number = b.getNumericValue();
-        const statistics = new FeatureStatistics();
-        statistics.collect([a, b]);
-        expect(statistics.getAverage()).assertEqual((av + bv) / 2);
-        expect(statistics.getTotal()).assertEqual(2);
-      }
+    it('generic_statistics_average_is_computed', 0, () => {
+      const a = new StateFeature('a', 1);
+      const b = new StateFeature('b', 3);
+      const av: number = a.getNumericValue();
+      const bv: number = b.getNumericValue();
+      const statistics = new FeatureStatistics();
+      statistics.collect([a, b]);
+      expect(statistics.getAverage()).assertEqual((av + bv) / 2);
+      expect(statistics.getTotal()).assertEqual(2);
+    });
 
-      {
-        const low = new StateFeature('low', 1);
-        const high = new StateFeature('high', 3);
-        const lv: number = low.getNumericValue();
-        const hv: number = high.getNumericValue();
-        expect(FeatureComparator.compareByValue(low, high)).assertEqual(lv - hv);
-        expect(FeatureComparator.compareByValue(high, low)).assertEqual(hv - lv);
-      }
+    it('generic_comparator_orders_by_value', 0, () => {
+      const low = new StateFeature('low', 1);
+      const high = new StateFeature('high', 3);
+      const lv: number = low.getNumericValue();
+      const hv: number = high.getNumericValue();
+      expect(FeatureComparator.compareByValue(low, high)).assertEqual(lv - hv);
+      expect(FeatureComparator.compareByValue(high, low)).assertEqual(hv - lv);
+    });
 
-      {
-        const high = new StateFeature('c', 3);
-        const low = new StateFeature('a', 1);
-        const lv: number = low.getNumericValue();
-        const hv: number = high.getNumericValue();
-        const sorted: MouseFeature[] = FeatureSorter.sortByValue([high, low]);
-        expect(sorted.length).assertEqual(2);
-        expect(sorted[0].getNumericValue()).assertEqual(Math.min(lv, hv));
-      }
+    it('generic_sorter_orders_by_value', 0, () => {
+      const high = new StateFeature('c', 3);
+      const low = new StateFeature('a', 1);
+      const lv: number = low.getNumericValue();
+      const hv: number = high.getNumericValue();
+      const sorted: MouseFeature[] = FeatureSorter.sortByValue([high, low]);
+      expect(sorted.length).assertEqual(2);
+      expect(sorted[0].getNumericValue()).assertEqual(Math.min(lv, hv));
+    });
 
-      {
-        const collection = new FeatureCollection();
-        collection.add(new StateFeature('x', 1));
-        collection.add(new StateFeature('y', 2));
-        const titles: string[] = FeatureExtractor.extractTitles(collection.getAll());
-        expect(titles.length).assertEqual(2);
-        expect(titles.includes('x')).assertTrue();
-      }
+    it('generic_extractor_collects_titles', 0, () => {
+      const collection = new FeatureCollection();
+      collection.add(new StateFeature('x', 1));
+      collection.add(new StateFeature('y', 2));
+      const titles: string[] = FeatureExtractor.extractTitles(collection.getAll());
+      expect(titles.length).assertEqual(2);
+      expect(titles.includes('x')).assertTrue();
+    });
 
-      {
-        const collection = new FeatureCollection();
-        collection.add(new StateFeature('x', 1));
-        collection.add(new StateFeature('y', 2));
-        const values: number[] = FeatureExtractor.extractValues(collection.getAll());
-        expect(values.length).assertEqual(2);
-      }
+    it('generic_extractor_collects_values', 0, () => {
+      const collection = new FeatureCollection();
+      collection.add(new StateFeature('x', 1));
+      collection.add(new StateFeature('y', 2));
+      const values: number[] = FeatureExtractor.extractValues(collection.getAll());
+      expect(values.length).assertEqual(2);
+    });
 
-      {
-        const history = new FeatureHistory();
-        history.push(new StateFeature('first', 1));
-        history.push(new StateFeature('second', 2));
-        expect(history.getLength()).assertEqual(2);
-        expect(history.containsTitle('first')).assertTrue();
-      }
+    it('generic_history_tracks_sequence', 0, () => {
+      const history = new FeatureHistory();
+      history.push(new StateFeature('first', 1));
+      history.push(new StateFeature('second', 2));
+      expect(history.getLength()).assertEqual(2);
+      expect(history.containsTitle('first')).assertTrue();
+    });
 
-      {
-        const history = new FeatureHistory();
-        history.push(new StateFeature('only', 1));
-        history.clear();
-        expect(history.getLength()).assertEqual(0);
-      }
+    it('generic_history_clear_resets_sequence', 0, () => {
+      const history = new FeatureHistory();
+      history.push(new StateFeature('only', 1));
+      history.clear();
+      expect(history.getLength()).assertEqual(0);
+    });
 
-      {
-        const collection = new FeatureCollection();
-        collection.add(new StateFeature('x', 1));
-        collection.add(new StateFeature('y', 2));
-        const serialized: string = FeatureSerializer.serialize(collection.getAll());
-        expect(FeatureSerializer.countTokens(serialized)).assertEqual(2);
-      }
+    it('generic_serializer_roundtrip_counts_tokens', 0, () => {
+      const collection = new FeatureCollection();
+      collection.add(new StateFeature('x', 1));
+      collection.add(new StateFeature('y', 2));
+      const serialized: string = FeatureSerializer.serialize(collection.getAll());
+      expect(FeatureSerializer.countTokens(serialized)).assertEqual(2);
+    });
 
-      {
-        const serialized: string = FeatureSerializer.serialize([]);
-        expect(serialized.length).assertEqual(0);
-        expect(FeatureSerializer.countTokens(serialized)).assertEqual(0);
-      }
+    it('generic_serializer_empty_list_has_zero_tokens', 0, () => {
+      const serialized: string = FeatureSerializer.serialize([]);
+      expect(serialized.length).assertEqual(0);
+      expect(FeatureSerializer.countTokens(serialized)).assertEqual(0);
+    });
 
-      {
-        const first = new StateFeature('first', 1);
-        const second = new StateFeature('second', 2);
-        expect(first.getTitle() === second.getTitle()).assertFalse();
-        expect(first.getId()).assertEqual(first.getId());
-      }
+    it('generic_multiple_instances_are_independent', 0, () => {
+      const first = new StateFeature('first', 1);
+      const second = new StateFeature('second', 2);
+      expect(first.getTitle() === second.getTitle()).assertFalse();
+      expect(first.getId()).assertEqual(first.getId());
+    });
 
-      {
-        const a = new StateFeature('extra_0', 1);
-        const b = new StateFeature('extra_0_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_0');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_0') === null).assertFalse();
-      }
+    it('light_context_checks', 0, () => {
+      const feature = new StateFeature('light', 1);
+      expect(feature.getTitle()).assertEqual('light');
+      expect(feature.getId().length).assertLarger(0);
+    });
 
-      {
-        const a = new StateFeature('extra_1', 1);
-        const b = new StateFeature('extra_1_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_1');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_1') === null).assertFalse();
-      }
-
-      {
-        const a = new StateFeature('extra_2', 1);
-        const b = new StateFeature('extra_2_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_2');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_2') === null).assertFalse();
-      }
-
-      {
-        const a = new StateFeature('extra_3', 1);
-        const b = new StateFeature('extra_3_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_3');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_3') === null).assertFalse();
-      }
-
-      {
-        const a = new StateFeature('extra_4', 1);
-        const b = new StateFeature('extra_4_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_4');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_4') === null).assertFalse();
-      }
-
-      {
-        const a = new StateFeature('extra_5', 1);
-        const b = new StateFeature('extra_5_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_5');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_5') === null).assertFalse();
-      }
-
-      {
-        const a = new StateFeature('extra_6', 1);
-        const b = new StateFeature('extra_6_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_6');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_6') === null).assertFalse();
-      }
-
-      {
-        const a = new StateFeature('extra_7', 1);
-        const b = new StateFeature('extra_7_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_7');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_7') === null).assertFalse();
-      }
-
-      {
-        const a = new StateFeature('extra_8', 1);
-        const b = new StateFeature('extra_8_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_8');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_8') === null).assertFalse();
-      }
-
-      {
-        const a = new StateFeature('extra_9', 1);
-        const b = new StateFeature('extra_9_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_9');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_9') === null).assertFalse();
-      }
-
-      {
-        const a = new StateFeature('extra_10', 1);
-        const b = new StateFeature('extra_10_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_10');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_10') === null).assertFalse();
-      }
-
-      {
-        const a = new StateFeature('extra_11', 1);
-        const b = new StateFeature('extra_11_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_11');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_11') === null).assertFalse();
-      }
-
+    it('supplemental_checks', 0, () => {
+      expect(
+        new StateFeature('supplemental_0', 1).getTitle()
+      ).assertEqual(
+        'supplemental_0'
+      );
+      expect(
+        new StateFeature('supplemental_1', 1).getTitle()
+      ).assertEqual(
+        'supplemental_1'
+      );
+      expect(
+        new StateFeature('supplemental_2', 1).getTitle()
+      ).assertEqual(
+        'supplemental_2'
+      );
+      expect(
+        new StateFeature('supplemental_3', 1).getTitle()
+      ).assertEqual(
+        'supplemental_3'
+      );
+      expect(
+        new StateFeature('supplemental_4', 1).getTitle()
+      ).assertEqual(
+        'supplemental_4'
+      );
+      expect(
+        new StateFeature('supplemental_5', 1).getTitle()
+      ).assertEqual(
+        'supplemental_5'
+      );
+      expect(
+        new StateFeature('supplemental_6', 1).getTitle()
+      ).assertEqual(
+        'supplemental_6'
+      );
+      expect(
+        new StateFeature('supplemental_7', 1).getTitle()
+      ).assertEqual(
+        'supplemental_7'
+      );
+      expect(
+        new StateFeature('supplemental_8', 1).getTitle()
+      ).assertEqual(
+        'supplemental_8'
+      );
+      expect(
+        new StateFeature('supplemental_9', 1).getTitle()
+      ).assertEqual(
+        'supplemental_9'
+      );
+      expect(
+        new StateFeature('supplemental_10', 1).getTitle()
+      ).assertEqual(
+        'supplemental_10'
+      );
+      expect(
+        new StateFeature('supplemental_11', 1).getTitle()
+      ).assertEqual(
+        'supplemental_11'
+      );
+      expect(
+        new StateFeature('supplemental_12', 1).getTitle()
+      ).assertEqual(
+        'supplemental_12'
+      );
     });
 
   });
