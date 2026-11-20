@@ -1035,3 +1035,176 @@ export default function textSenseMatrixTest() {
   it('testTextSense0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
     logCase('testTextSense0073', 'text hotel slice equals substring');
     const text: string = 'hotel';
+    expect(text.slice(2)).assertEqual('tel');
+    expect(text.substring(2)).assertEqual('tel');
+    expect(text.slice(2).length + 2).assertEqual(5);
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_TXT_0074
+   * @tc.name      testTextSense0074
+   * @tc.desc      Text hotel keeps case pairs
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0074', 'text hotel case pairs');
+    const text: string = 'hotel';
+    expect(text.toUpperCase()).assertEqual('HOTEL');
+    expect(text.toLowerCase()).assertEqual('hotel');
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_TXT_0075
+   * @tc.name      testTextSense0075
+   * @tc.desc      Text hotel keeps search edges
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0075', 'text hotel search edges');
+    const text: string = 'hotel';
+    expect(text.indexOf('h')).assertEqual(0);
+    expect(text.lastIndexOf('l')).assertEqual(4);
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_TXT_0076
+   * @tc.name      testTextSense0076
+   * @tc.desc      Text hotel keeps prefix and suffix
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0076', 'text hotel prefix and suffix');
+    const text: string = 'hotel';
+    expect(text.startsWith('ho')).assertTrue();
+    expect(text.endsWith('el')).assertTrue();
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_TXT_0077
+   * @tc.name      testTextSense0077
+   * @tc.desc      Text hotel keeps split join
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0077', 'text hotel split join');
+    const text: string = 'hotel';
+    expect(text.split('').join('')).assertEqual(text);
+    expect(text.split('').length).assertEqual(5);
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_TXT_0078
+   * @tc.name      testTextSense0078
+   * @tc.desc      Text hotel keeps pad edges
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0078', 'text hotel pad edges');
+    const text: string = 'hotel';
+    expect(text.padStart(8, '0').length).assertEqual(8);
+    expect(text.padEnd(7, '~').startsWith(text)).assertTrue();
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_TXT_0079
+   * @tc.name      testTextSense0079
+   * @tc.desc      Text hotel keeps replace first
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0079', 'text hotel replace first');
+    const text: string = 'hotel';
+    expect(text.replace('h', '#')).assertEqual('#otel');
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_TXT_0080
+   * @tc.name      testTextSense0080
+   * @tc.desc      Text hotel keeps repeat twice
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0080', 'text hotel repeat twice');
+    const text: string = 'hotel';
+    expect(text.repeat(2)).assertEqual('hotelhotel');
+    expect(text.repeat(2).length).assertEqual(10);
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_TXT_0081
+   * @tc.name      testTextSense0081
+   * @tc.desc      Text india keeps length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0081', 'text india length');
+    const text: string = 'india';
+    expect(text.length).assertEqual(5);
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_TXT_0082
+   * @tc.name      testTextSense0082
+   * @tc.desc      Text india keeps middle char
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0082', 'text india middle char');
+    const text: string = 'india';
+    expect(text.charAt(2)).assertEqual('d');
+    expect(text.charCodeAt(2)).assertEqual(100);
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_TXT_0083
+   * @tc.name      testTextSense0083
+   * @tc.desc      Text india keeps slice equals substring
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTextSense0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTextSense0083', 'text india slice equals substring');
+    const text: string = 'india';
+    expect(text.slice(2)).assertEqual('dia');
+    expect(text.substring(2)).assertEqual('dia');
+    expect(text.slice(2).length + 2).assertEqual(5);
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_TXT_0084
+   * @tc.name      testTextSense0084
+   * @tc.desc      Text india keeps case pairs
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTextSense0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTextSense0084', 'text india case pairs');
+    const text: string = 'india';
+    expect(text.toUpperCase()).assertEqual('INDIA');
+    expect(text.toLowerCase()).assertEqual('india');
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_TXT_0085
+   * @tc.name      testTextSense0085
+   * @tc.desc      Text india keeps search edges
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTextSense0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTextSense0085', 'text india search edges');
+    const text: string = 'india';
+    expect(text.indexOf('i')).assertEqual(0);
+    expect(text.lastIndexOf('a')).assertEqual(4);
+  });
+  });
+}
