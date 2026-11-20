@@ -1934,3 +1934,26 @@ export default function storageFormat01Test(): void {
         expect(actual).assertEqual(expected);
       } finally {
         logCase(name, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_FORMAT_THRESHOLD_10300
+     * @tc.name AppFsSpace_Format_0103
+     * @tc.desc bytes=1099511627775 precision=2; GiB upper threshold one byte below
+     */
+    it('AppFsSpace_Format_0103', 0, (): void => {
+      const name: string = 'AppFsSpace_Format_0103';
+      const bytes: number = 1099511627775;
+      const precision: number = 2;
+      const expected: string = '1024.00 GiB';
+      logCase(name, 'begin');
+      try {
+        const actual: string = formatStorageSize(bytes, precision);
+        logAssertion(name, `bytes=${bytes} precision=${precision} formatted`, actual, expected);
+        expect(actual).assertEqual(expected);
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+  });
+}

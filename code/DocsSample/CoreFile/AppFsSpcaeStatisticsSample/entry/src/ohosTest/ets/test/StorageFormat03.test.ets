@@ -1934,3 +1934,30 @@ export default function storageFormat03Test(): void {
       logCase(name, 'begin');
       try {
         const actual: string = formatStorageSize(bytes);
+        logAssertion(name, `bytes=${bytes} precision=default formatted`, actual, expected);
+        expect(actual).assertEqual(expected);
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_FORMAT_ROUND_SIDE_2900
+     * @tc.name AppFsSpace_Format_0309
+     * @tc.desc bytes=1966079 precision=2; MiB 1 plus seven eighths; one byte below tie
+     */
+    it('AppFsSpace_Format_0309', 0, (): void => {
+      const name: string = 'AppFsSpace_Format_0309';
+      const bytes: number = 1966079;
+      const precision: number = 2;
+      const expected: string = '1.87 MiB';
+      logCase(name, 'begin');
+      try {
+        const actual: string = formatStorageSize(bytes, precision);
+        logAssertion(name, `bytes=${bytes} precision=${precision} formatted`, actual, expected);
+        expect(actual).assertEqual(expected);
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+  });
+}

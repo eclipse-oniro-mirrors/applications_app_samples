@@ -1934,3 +1934,30 @@ export default function storageFormat07Test(): void {
       logCase(name, 'begin');
       try {
         const actual: string = formatStorageSize(bytes);
+        logAssertion(name, `bytes=${bytes} precision=default formatted`, actual, expected);
+        expect(actual).assertEqual(expected);
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_FORMAT_BYTE_1600
+     * @tc.name AppFsSpace_Format_0721
+     * @tc.desc bytes=255 precision=0; byte interval stays integral regardless of precision
+     */
+    it('AppFsSpace_Format_0721', 0, (): void => {
+      const name: string = 'AppFsSpace_Format_0721';
+      const bytes: number = 255;
+      const precision: number = 0;
+      const expected: string = '255 B';
+      logCase(name, 'begin');
+      try {
+        const actual: string = formatStorageSize(bytes, precision);
+        logAssertion(name, `bytes=${bytes} precision=${precision} formatted`, actual, expected);
+        expect(actual).assertEqual(expected);
+      } finally {
+        logCase(name, 'end');
+      }
+    });
+  });
+}
