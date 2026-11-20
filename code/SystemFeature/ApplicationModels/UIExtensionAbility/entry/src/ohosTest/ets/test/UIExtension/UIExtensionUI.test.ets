@@ -433,30 +433,65 @@ export default function uIExtensionUITest(): void {
       hilog.info(0x0000, 'testTag', '%{public}s', 'UIExtensionUI afterAll');
     });
 
+    // Coverage case: proxy_should_become_ready_0
+    // Suite: UIExtensionUI
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('proxy_should_become_ready_0', 0, async () => {
       model.onRemoteReady();
       expect(model.isProxyReady()).assertTrue();
       expect(model.getEventCount(ProxyEventType.REMOTE_READY)).assertEqual(1);
     });
 
+    // Coverage case: proxy_should_receive_message_1
+    // Suite: UIExtensionUI
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('proxy_should_receive_message_1', 0, async () => {
       model.onReceive('payload_1');
       expect(model.getLastMessage()).assertEqual('payload_1');
       expect(model.getEventCount(ProxyEventType.RECEIVE)).assertEqual(1);
     });
 
+    // Coverage case: proxy_should_handle_result_2
+    // Suite: UIExtensionUI
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('proxy_should_handle_result_2', 0, async () => {
       model.onResult('{"result":2}');
       expect(model.getEventCount(ProxyEventType.RESULT)).assertEqual(1);
       expect(model.getLastMessage().length > 0).assertTrue();
     });
 
+    // Coverage case: proxy_should_release_with_code_3
+    // Suite: UIExtensionUI
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('proxy_should_release_with_code_3', 0, async () => {
       model.onRelease(3);
       expect(model.isProxyReleased()).assertTrue();
       expect(model.getReleaseCode()).assertEqual(3);
     });
 
+    // Coverage case: proxy_should_keep_event_order_4
+    // Suite: UIExtensionUI
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('proxy_should_keep_event_order_4', 0, async () => {
       model.onRemoteReady();
       model.onReceive('first_4');
@@ -466,6 +501,13 @@ export default function uIExtensionUITest(): void {
       expect(model.getEventPayload(2)).assertEqual('second_4');
     });
 
+    // Coverage case: proxy_should_count_repeated_messages_5
+    // Suite: UIExtensionUI
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('proxy_should_count_repeated_messages_5', 0, async () => {
       for (let index = 0; index < 3; index++) {
         model.onReceive('msg_5_' + index);
@@ -473,6 +515,13 @@ export default function uIExtensionUITest(): void {
       expect(model.getEventCount(ProxyEventType.RECEIVE)).assertEqual(3);
     });
 
+    // Coverage case: proxy_should_stop_after_release_6
+    // Suite: UIExtensionUI
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('proxy_should_stop_after_release_6', 0, async () => {
       model.onRelease(7);
       const released: boolean = model.isProxyReleased();
@@ -481,18 +530,39 @@ export default function uIExtensionUITest(): void {
       expect(model.getEventCount(ProxyEventType.RECEIVE)).assertEqual(1);
     });
 
+    // Coverage case: ui_message_should_reflect_received_data_7
+    // Suite: UIExtensionUI
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('ui_message_should_reflect_received_data_7', 0, async () => {
       model.onReceive('UIExtension User 7');
       expect(model.getLastMessage()).assertEqual('UIExtension User 7');
       expect(model.getLastMessage().indexOf('UIExtension')).assertEqual(0);
     });
 
+    // Coverage case: interaction_should_support_storage_binding_8
+    // Suite: UIExtensionUI
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('interaction_should_support_storage_binding_8', 0, async () => {
       model.getStorage().setOrCreate('message', 'bound_8');
       expect(model.getStorage().get('message')).assertEqual('bound_8');
       expect(model.getStorage().size()).assertEqual(1);
     });
 
+    // Coverage case: interaction_should_reset_proxy_state_9
+    // Suite: UIExtensionUI
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('interaction_should_reset_proxy_state_9', 0, async () => {
       model.onRemoteReady();
       model.onRelease(0);
@@ -501,25 +571,6 @@ export default function uIExtensionUITest(): void {
       expect(model.isProxyReleased()).assertFalse();
     });
 
-    /*
-     * Supplementary coverage matrix for UIExtensionUI:
-     *   - scenario 0: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 1: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 2: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 3: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 4: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 5: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 6: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 7: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 8: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 9: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 10: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 11: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 12: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 13: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 14: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 15: lifecycle, session, storage, proxy and validation behavior
-     */
 
   });
 }

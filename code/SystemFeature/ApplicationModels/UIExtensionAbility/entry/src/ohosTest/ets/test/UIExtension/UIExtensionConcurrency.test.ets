@@ -433,6 +433,13 @@ export default function uIExtensionConcurrencyTest(): void {
       hilog.info(0x0000, 'testTag', '%{public}s', 'UIExtensionConcurrency afterAll');
     });
 
+    // Coverage case: extension_should_handle_create_phase_0
+    // Suite: UIExtensionConcurrency
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('extension_should_handle_create_phase_0', 0, async () => {
       model.onCreate();
       expect(model.isCreated()).assertTrue();
@@ -440,6 +447,13 @@ export default function uIExtensionConcurrencyTest(): void {
       expect(model.getPhaseAt(0)).assertEqual('create');
     });
 
+    // Coverage case: extension_should_switch_foreground_1
+    // Suite: UIExtensionConcurrency
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('extension_should_switch_foreground_1', 0, async () => {
       model.onCreate();
       model.onForeground();
@@ -447,6 +461,13 @@ export default function uIExtensionConcurrencyTest(): void {
       expect(model.getPhaseAt(1)).assertEqual('foreground');
     });
 
+    // Coverage case: extension_should_switch_background_2
+    // Suite: UIExtensionConcurrency
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('extension_should_switch_background_2', 0, async () => {
       model.onForeground();
       model.onBackground();
@@ -454,6 +475,13 @@ export default function uIExtensionConcurrencyTest(): void {
       expect(model.getPhaseAt(model.getPhaseCount() - 1)).assertEqual('background');
     });
 
+    // Coverage case: extension_should_destroy_cleanly_3
+    // Suite: UIExtensionConcurrency
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('extension_should_destroy_cleanly_3', 0, async () => {
       model.onCreate();
       model.onDestroy();
@@ -461,6 +489,13 @@ export default function uIExtensionConcurrencyTest(): void {
       expect(model.getPhaseAt(model.getPhaseCount() - 1)).assertEqual('destroy');
     });
 
+    // Coverage case: extension_should_create_session_4
+    // Suite: UIExtensionConcurrency
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('extension_should_create_session_4', 0, async () => {
       const ok: boolean = model.onSessionCreate('session_4', 'com.samples.uiextensionability',
         'UIExtensionProvider', 'entry', 'sys/commonUI');
@@ -469,6 +504,13 @@ export default function uIExtensionConcurrencyTest(): void {
       expect(model.getActiveSessionCount()).assertEqual(1);
     });
 
+    // Coverage case: extension_should_destroy_session_5
+    // Suite: UIExtensionConcurrency
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('extension_should_destroy_session_5', 0, async () => {
       model.onSessionCreate('session_5', 'com.samples.uiextensionability',
         'UIExtensionProvider', 'entry', 'sys/commonUI');
@@ -477,6 +519,13 @@ export default function uIExtensionConcurrencyTest(): void {
       expect(model.getPhaseAt(model.getPhaseCount() - 1)).assertEqual('sessionDestroy');
     });
 
+    // Coverage case: extension_should_store_local_storage_6
+    // Suite: UIExtensionConcurrency
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('extension_should_store_local_storage_6', 0, async () => {
       const storage: ExtensionStorage = model.getStorage();
       storage.setOrCreate('session', 'session_value_6');
@@ -485,6 +534,13 @@ export default function uIExtensionConcurrencyTest(): void {
       expect(storage.has('session')).assertTrue();
     });
 
+    // Coverage case: extension_should_delete_local_storage_7
+    // Suite: UIExtensionConcurrency
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('extension_should_delete_local_storage_7', 0, async () => {
       const storage: ExtensionStorage = model.getStorage();
       storage.setOrCreate('key_7', 'value');
@@ -493,12 +549,26 @@ export default function uIExtensionConcurrencyTest(): void {
       expect(storage.size()).assertEqual(0);
     });
 
+    // Coverage case: extension_should_load_extension_page_8
+    // Suite: UIExtensionConcurrency
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('extension_should_load_extension_page_8', 0, async () => {
       expect(model.loadContent('pages/Extension')).assertTrue();
       expect(model.getLoadedPageCount()).assertEqual(1);
       expect(model.getLoadedPageAt(0)).assertEqual('pages/Extension');
     });
 
+    // Coverage case: extension_should_reject_duplicate_session_9
+    // Suite: UIExtensionConcurrency
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('extension_should_reject_duplicate_session_9', 0, async () => {
       const first: boolean = model.onSessionCreate('dup_9', 'com.samples.uiextensionability',
         'UIExtensionProvider', 'entry', 'sys/commonUI');
@@ -509,6 +579,13 @@ export default function uIExtensionConcurrencyTest(): void {
       expect(model.getSessionCount()).assertEqual(1);
     });
 
+    // Coverage case: extension_should_reject_empty_session_id_10
+    // Suite: UIExtensionConcurrency
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('extension_should_reject_empty_session_id_10', 0, async () => {
       const ok: boolean = model.onSessionCreate('', 'com.samples.uiextensionability',
         'UIExtensionProvider', 'entry', 'sys/commonUI');
@@ -516,37 +593,6 @@ export default function uIExtensionConcurrencyTest(): void {
       expect(model.getSessionCount()).assertEqual(0);
     });
 
-    /*
-     * Supplementary coverage matrix for UIExtensionConcurrency:
-     *   - scenario 0: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 1: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 2: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 3: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 4: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 5: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 6: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 7: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 8: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 9: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 10: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 11: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 12: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 13: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 14: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 15: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 16: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 17: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 18: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 19: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 20: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 21: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 22: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 23: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 24: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 25: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 26: lifecycle, session, storage, proxy and validation behavior
-     *   - scenario 27: lifecycle, session, storage, proxy and validation behavior
-     */
 
   });
 }
