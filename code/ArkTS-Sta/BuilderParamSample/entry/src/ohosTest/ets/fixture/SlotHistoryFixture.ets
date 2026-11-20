@@ -160,7 +160,6 @@ export struct SlotHistoryFixture {
       }
         .width(this.narrow ? '64%' : '100%')
     }
-    .id('slots-surface')
     .width('100%')
   }
 }

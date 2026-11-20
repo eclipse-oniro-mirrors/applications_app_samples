@@ -52,7 +52,6 @@ export struct PropHistoryFixture {
       CustomCard({ testId: 'props-sibling', title: this.siblingTitle, description: this.siblingDescription })
         .width('100%')
     }
-    .id('props-surface')
     .width('100%')
   }
 }

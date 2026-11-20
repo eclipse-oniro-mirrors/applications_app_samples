@@ -79,7 +79,6 @@ export struct OwnerHistoryFixture {
       }
       OwnedHistoryCard({ prefix: 'owners-sibling', caption: 'Sibling owner' })
     }
-    .id('owners-surface')
     .width('100%')
   }
 }
