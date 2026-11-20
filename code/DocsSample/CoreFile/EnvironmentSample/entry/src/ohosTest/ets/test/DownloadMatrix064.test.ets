@@ -711,3 +711,538 @@ export default function downloadMatrix064Test(): void {
         logAssertion(caseName, "result", result, []);
         expect(JSON.stringify(result)).assertEqual(JSON.stringify([]));
         logAssertion(caseName, "api.events", api.events, ["list:/download"]);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(["list:/download"]));
+        logAssertion(caseName, "api.copied", api.copied, []);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.sandboxEntries", api.sandboxEntries, ["preexisting.txt"]);
+        expect(JSON.stringify(api.sandboxEntries)).assertEqual(JSON.stringify(["preexisting.txt"]));
+        sourceAlias.splice(0, sourceAlias.length, 'repaired.txt');
+        api.regularPaths = ['/download/repaired.txt'];
+        const repaired: string[] = importDownloadFiles('/download', '/sandbox', api);
+        logAssertion(caseName, "repaired", repaired, ["preexisting.txt", "repaired.txt"]);
+        expect(JSON.stringify(repaired)).assertEqual(JSON.stringify(["preexisting.txt", "repaired.txt"]));
+        const expected07: string[] = [
+          "list:/download", "list:/download", "stat:/download/repaired.txt",
+          "copy:/download/repaired.txt->/sandbox/repaired.txt", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected07);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected07));
+        const expected08: string[] = ["/download/repaired.txt->/sandbox/repaired.txt"];
+        logAssertion(caseName, "api.copied", api.copied, expected08);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify(expected08));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_001527
+     * @tc.name EnvironmentSample_wholeList_slash_2_1526
+     * @tc.desc Reject slash name at index 2, prefix FF, before any stat/copy; repair to repaired.txt and retry
+     * successfully.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_wholeList_slash_2_1526", 0, (): void => {
+      const caseName: string = "EnvironmentSample_wholeList_slash_2_1526";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "nested/file", " spaced "];
+        api.regularPaths = ["/download/report.txt", "/download/.hidden", "/download/nested/file"];
+        const sourceAlias: string[] = api.entries;
+        let message: string = "";
+        let result: string[] = [];
+        try {
+          result = importDownloadFiles('/download', '/sandbox', api);
+        } catch (error) {
+          message = (error as Error).message;
+        }
+        logAssertion(caseName, "message", message, "Invalid download entry");
+        expect(message).assertEqual("Invalid download entry");
+        logAssertion(caseName, "result", result, []);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.events", api.events, ["list:/download"]);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(["list:/download"]));
+        logAssertion(caseName, "api.copied", api.copied, []);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.sandboxEntries", api.sandboxEntries, ["preexisting.txt"]);
+        expect(JSON.stringify(api.sandboxEntries)).assertEqual(JSON.stringify(["preexisting.txt"]));
+        sourceAlias.splice(0, sourceAlias.length, 'repaired.txt');
+        api.regularPaths = ['/download/repaired.txt'];
+        const repaired: string[] = importDownloadFiles('/download', '/sandbox', api);
+        logAssertion(caseName, "repaired", repaired, ["preexisting.txt", "repaired.txt"]);
+        expect(JSON.stringify(repaired)).assertEqual(JSON.stringify(["preexisting.txt", "repaired.txt"]));
+        const expected07: string[] = [
+          "list:/download", "list:/download", "stat:/download/repaired.txt",
+          "copy:/download/repaired.txt->/sandbox/repaired.txt", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected07);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected07));
+        const expected08: string[] = ["/download/repaired.txt->/sandbox/repaired.txt"];
+        logAssertion(caseName, "api.copied", api.copied, expected08);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify(expected08));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_001528
+     * @tc.name EnvironmentSample_wholeList_slash_3_1527
+     * @tc.desc Reject slash name at index 3, prefix DDD, before any stat/copy; repair to repaired.txt and retry
+     * successfully.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_wholeList_slash_3_1527", 0, (): void => {
+      const caseName: string = "EnvironmentSample_wholeList_slash_3_1527";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", "nested/file"];
+        api.regularPaths = ["/download/nested/file"];
+        const sourceAlias: string[] = api.entries;
+        let message: string = "";
+        let result: string[] = [];
+        try {
+          result = importDownloadFiles('/download', '/sandbox', api);
+        } catch (error) {
+          message = (error as Error).message;
+        }
+        logAssertion(caseName, "message", message, "Invalid download entry");
+        expect(message).assertEqual("Invalid download entry");
+        logAssertion(caseName, "result", result, []);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.events", api.events, ["list:/download"]);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(["list:/download"]));
+        logAssertion(caseName, "api.copied", api.copied, []);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.sandboxEntries", api.sandboxEntries, ["preexisting.txt"]);
+        expect(JSON.stringify(api.sandboxEntries)).assertEqual(JSON.stringify(["preexisting.txt"]));
+        sourceAlias.splice(0, sourceAlias.length, 'repaired.txt');
+        api.regularPaths = ['/download/repaired.txt'];
+        const repaired: string[] = importDownloadFiles('/download', '/sandbox', api);
+        logAssertion(caseName, "repaired", repaired, ["preexisting.txt", "repaired.txt"]);
+        expect(JSON.stringify(repaired)).assertEqual(JSON.stringify(["preexisting.txt", "repaired.txt"]));
+        const expected07: string[] = [
+          "list:/download", "list:/download", "stat:/download/repaired.txt",
+          "copy:/download/repaired.txt->/sandbox/repaired.txt", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected07);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected07));
+        const expected08: string[] = ["/download/repaired.txt->/sandbox/repaired.txt"];
+        logAssertion(caseName, "api.copied", api.copied, expected08);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify(expected08));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_001529
+     * @tc.name EnvironmentSample_wholeList_slash_3_1528
+     * @tc.desc Reject slash name at index 3, prefix DDF, before any stat/copy; repair to repaired.txt and retry
+     * successfully.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_wholeList_slash_3_1528", 0, (): void => {
+      const caseName: string = "EnvironmentSample_wholeList_slash_3_1528";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", "nested/file"];
+        api.regularPaths = ["/download/资料.txt", "/download/nested/file"];
+        const sourceAlias: string[] = api.entries;
+        let message: string = "";
+        let result: string[] = [];
+        try {
+          result = importDownloadFiles('/download', '/sandbox', api);
+        } catch (error) {
+          message = (error as Error).message;
+        }
+        logAssertion(caseName, "message", message, "Invalid download entry");
+        expect(message).assertEqual("Invalid download entry");
+        logAssertion(caseName, "result", result, []);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.events", api.events, ["list:/download"]);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(["list:/download"]));
+        logAssertion(caseName, "api.copied", api.copied, []);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.sandboxEntries", api.sandboxEntries, ["preexisting.txt"]);
+        expect(JSON.stringify(api.sandboxEntries)).assertEqual(JSON.stringify(["preexisting.txt"]));
+        sourceAlias.splice(0, sourceAlias.length, 'repaired.txt');
+        api.regularPaths = ['/download/repaired.txt'];
+        const repaired: string[] = importDownloadFiles('/download', '/sandbox', api);
+        logAssertion(caseName, "repaired", repaired, ["preexisting.txt", "repaired.txt"]);
+        expect(JSON.stringify(repaired)).assertEqual(JSON.stringify(["preexisting.txt", "repaired.txt"]));
+        const expected07: string[] = [
+          "list:/download", "list:/download", "stat:/download/repaired.txt",
+          "copy:/download/repaired.txt->/sandbox/repaired.txt", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected07);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected07));
+        const expected08: string[] = ["/download/repaired.txt->/sandbox/repaired.txt"];
+        logAssertion(caseName, "api.copied", api.copied, expected08);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify(expected08));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_001530
+     * @tc.name EnvironmentSample_wholeList_slash_3_1529
+     * @tc.desc Reject slash name at index 3, prefix DFD, before any stat/copy; repair to repaired.txt and retry
+     * successfully.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_wholeList_slash_3_1529", 0, (): void => {
+      const caseName: string = "EnvironmentSample_wholeList_slash_3_1529";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", "nested/file"];
+        api.regularPaths = ["/download/.hidden", "/download/nested/file"];
+        const sourceAlias: string[] = api.entries;
+        let message: string = "";
+        let result: string[] = [];
+        try {
+          result = importDownloadFiles('/download', '/sandbox', api);
+        } catch (error) {
+          message = (error as Error).message;
+        }
+        logAssertion(caseName, "message", message, "Invalid download entry");
+        expect(message).assertEqual("Invalid download entry");
+        logAssertion(caseName, "result", result, []);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.events", api.events, ["list:/download"]);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(["list:/download"]));
+        logAssertion(caseName, "api.copied", api.copied, []);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.sandboxEntries", api.sandboxEntries, ["preexisting.txt"]);
+        expect(JSON.stringify(api.sandboxEntries)).assertEqual(JSON.stringify(["preexisting.txt"]));
+        sourceAlias.splice(0, sourceAlias.length, 'repaired.txt');
+        api.regularPaths = ['/download/repaired.txt'];
+        const repaired: string[] = importDownloadFiles('/download', '/sandbox', api);
+        logAssertion(caseName, "repaired", repaired, ["preexisting.txt", "repaired.txt"]);
+        expect(JSON.stringify(repaired)).assertEqual(JSON.stringify(["preexisting.txt", "repaired.txt"]));
+        const expected07: string[] = [
+          "list:/download", "list:/download", "stat:/download/repaired.txt",
+          "copy:/download/repaired.txt->/sandbox/repaired.txt", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected07);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected07));
+        const expected08: string[] = ["/download/repaired.txt->/sandbox/repaired.txt"];
+        logAssertion(caseName, "api.copied", api.copied, expected08);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify(expected08));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_001531
+     * @tc.name EnvironmentSample_wholeList_slash_3_1530
+     * @tc.desc Reject slash name at index 3, prefix DFF, before any stat/copy; repair to repaired.txt and retry
+     * successfully.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_wholeList_slash_3_1530", 0, (): void => {
+      const caseName: string = "EnvironmentSample_wholeList_slash_3_1530";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", "nested/file"];
+        api.regularPaths = ["/download/.hidden", "/download/资料.txt", "/download/nested/file"];
+        const sourceAlias: string[] = api.entries;
+        let message: string = "";
+        let result: string[] = [];
+        try {
+          result = importDownloadFiles('/download', '/sandbox', api);
+        } catch (error) {
+          message = (error as Error).message;
+        }
+        logAssertion(caseName, "message", message, "Invalid download entry");
+        expect(message).assertEqual("Invalid download entry");
+        logAssertion(caseName, "result", result, []);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.events", api.events, ["list:/download"]);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(["list:/download"]));
+        logAssertion(caseName, "api.copied", api.copied, []);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.sandboxEntries", api.sandboxEntries, ["preexisting.txt"]);
+        expect(JSON.stringify(api.sandboxEntries)).assertEqual(JSON.stringify(["preexisting.txt"]));
+        sourceAlias.splice(0, sourceAlias.length, 'repaired.txt');
+        api.regularPaths = ['/download/repaired.txt'];
+        const repaired: string[] = importDownloadFiles('/download', '/sandbox', api);
+        logAssertion(caseName, "repaired", repaired, ["preexisting.txt", "repaired.txt"]);
+        expect(JSON.stringify(repaired)).assertEqual(JSON.stringify(["preexisting.txt", "repaired.txt"]));
+        const expected07: string[] = [
+          "list:/download", "list:/download", "stat:/download/repaired.txt",
+          "copy:/download/repaired.txt->/sandbox/repaired.txt", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected07);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected07));
+        const expected08: string[] = ["/download/repaired.txt->/sandbox/repaired.txt"];
+        logAssertion(caseName, "api.copied", api.copied, expected08);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify(expected08));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_001532
+     * @tc.name EnvironmentSample_wholeList_slash_3_1531
+     * @tc.desc Reject slash name at index 3, prefix FDD, before any stat/copy; repair to repaired.txt and retry
+     * successfully.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_wholeList_slash_3_1531", 0, (): void => {
+      const caseName: string = "EnvironmentSample_wholeList_slash_3_1531";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", "nested/file"];
+        api.regularPaths = ["/download/report.txt", "/download/nested/file"];
+        const sourceAlias: string[] = api.entries;
+        let message: string = "";
+        let result: string[] = [];
+        try {
+          result = importDownloadFiles('/download', '/sandbox', api);
+        } catch (error) {
+          message = (error as Error).message;
+        }
+        logAssertion(caseName, "message", message, "Invalid download entry");
+        expect(message).assertEqual("Invalid download entry");
+        logAssertion(caseName, "result", result, []);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.events", api.events, ["list:/download"]);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(["list:/download"]));
+        logAssertion(caseName, "api.copied", api.copied, []);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.sandboxEntries", api.sandboxEntries, ["preexisting.txt"]);
+        expect(JSON.stringify(api.sandboxEntries)).assertEqual(JSON.stringify(["preexisting.txt"]));
+        sourceAlias.splice(0, sourceAlias.length, 'repaired.txt');
+        api.regularPaths = ['/download/repaired.txt'];
+        const repaired: string[] = importDownloadFiles('/download', '/sandbox', api);
+        logAssertion(caseName, "repaired", repaired, ["preexisting.txt", "repaired.txt"]);
+        expect(JSON.stringify(repaired)).assertEqual(JSON.stringify(["preexisting.txt", "repaired.txt"]));
+        const expected07: string[] = [
+          "list:/download", "list:/download", "stat:/download/repaired.txt",
+          "copy:/download/repaired.txt->/sandbox/repaired.txt", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected07);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected07));
+        const expected08: string[] = ["/download/repaired.txt->/sandbox/repaired.txt"];
+        logAssertion(caseName, "api.copied", api.copied, expected08);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify(expected08));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_001533
+     * @tc.name EnvironmentSample_wholeList_slash_3_1532
+     * @tc.desc Reject slash name at index 3, prefix FDF, before any stat/copy; repair to repaired.txt and retry
+     * successfully.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_wholeList_slash_3_1532", 0, (): void => {
+      const caseName: string = "EnvironmentSample_wholeList_slash_3_1532";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", "nested/file"];
+        api.regularPaths = ["/download/report.txt", "/download/资料.txt", "/download/nested/file"];
+        const sourceAlias: string[] = api.entries;
+        let message: string = "";
+        let result: string[] = [];
+        try {
+          result = importDownloadFiles('/download', '/sandbox', api);
+        } catch (error) {
+          message = (error as Error).message;
+        }
+        logAssertion(caseName, "message", message, "Invalid download entry");
+        expect(message).assertEqual("Invalid download entry");
+        logAssertion(caseName, "result", result, []);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.events", api.events, ["list:/download"]);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(["list:/download"]));
+        logAssertion(caseName, "api.copied", api.copied, []);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.sandboxEntries", api.sandboxEntries, ["preexisting.txt"]);
+        expect(JSON.stringify(api.sandboxEntries)).assertEqual(JSON.stringify(["preexisting.txt"]));
+        sourceAlias.splice(0, sourceAlias.length, 'repaired.txt');
+        api.regularPaths = ['/download/repaired.txt'];
+        const repaired: string[] = importDownloadFiles('/download', '/sandbox', api);
+        logAssertion(caseName, "repaired", repaired, ["preexisting.txt", "repaired.txt"]);
+        expect(JSON.stringify(repaired)).assertEqual(JSON.stringify(["preexisting.txt", "repaired.txt"]));
+        const expected07: string[] = [
+          "list:/download", "list:/download", "stat:/download/repaired.txt",
+          "copy:/download/repaired.txt->/sandbox/repaired.txt", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected07);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected07));
+        const expected08: string[] = ["/download/repaired.txt->/sandbox/repaired.txt"];
+        logAssertion(caseName, "api.copied", api.copied, expected08);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify(expected08));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_001534
+     * @tc.name EnvironmentSample_wholeList_slash_3_1533
+     * @tc.desc Reject slash name at index 3, prefix FFD, before any stat/copy; repair to repaired.txt and retry
+     * successfully.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_wholeList_slash_3_1533", 0, (): void => {
+      const caseName: string = "EnvironmentSample_wholeList_slash_3_1533";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", "nested/file"];
+        api.regularPaths = ["/download/report.txt", "/download/.hidden", "/download/nested/file"];
+        const sourceAlias: string[] = api.entries;
+        let message: string = "";
+        let result: string[] = [];
+        try {
+          result = importDownloadFiles('/download', '/sandbox', api);
+        } catch (error) {
+          message = (error as Error).message;
+        }
+        logAssertion(caseName, "message", message, "Invalid download entry");
+        expect(message).assertEqual("Invalid download entry");
+        logAssertion(caseName, "result", result, []);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.events", api.events, ["list:/download"]);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(["list:/download"]));
+        logAssertion(caseName, "api.copied", api.copied, []);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.sandboxEntries", api.sandboxEntries, ["preexisting.txt"]);
+        expect(JSON.stringify(api.sandboxEntries)).assertEqual(JSON.stringify(["preexisting.txt"]));
+        sourceAlias.splice(0, sourceAlias.length, 'repaired.txt');
+        api.regularPaths = ['/download/repaired.txt'];
+        const repaired: string[] = importDownloadFiles('/download', '/sandbox', api);
+        logAssertion(caseName, "repaired", repaired, ["preexisting.txt", "repaired.txt"]);
+        expect(JSON.stringify(repaired)).assertEqual(JSON.stringify(["preexisting.txt", "repaired.txt"]));
+        const expected07: string[] = [
+          "list:/download", "list:/download", "stat:/download/repaired.txt",
+          "copy:/download/repaired.txt->/sandbox/repaired.txt", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected07);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected07));
+        const expected08: string[] = ["/download/repaired.txt->/sandbox/repaired.txt"];
+        logAssertion(caseName, "api.copied", api.copied, expected08);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify(expected08));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_001535
+     * @tc.name EnvironmentSample_wholeList_slash_3_1534
+     * @tc.desc Reject slash name at index 3, prefix FFF, before any stat/copy; repair to repaired.txt and retry
+     * successfully.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_wholeList_slash_3_1534", 0, (): void => {
+      const caseName: string = "EnvironmentSample_wholeList_slash_3_1534";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["report.txt", ".hidden", "资料.txt", "nested/file"];
+        api.regularPaths = ["/download/report.txt", "/download/.hidden", "/download/资料.txt", "/download/nested/file"];
+        const sourceAlias: string[] = api.entries;
+        let message: string = "";
+        let result: string[] = [];
+        try {
+          result = importDownloadFiles('/download', '/sandbox', api);
+        } catch (error) {
+          message = (error as Error).message;
+        }
+        logAssertion(caseName, "message", message, "Invalid download entry");
+        expect(message).assertEqual("Invalid download entry");
+        logAssertion(caseName, "result", result, []);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.events", api.events, ["list:/download"]);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(["list:/download"]));
+        logAssertion(caseName, "api.copied", api.copied, []);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.sandboxEntries", api.sandboxEntries, ["preexisting.txt"]);
+        expect(JSON.stringify(api.sandboxEntries)).assertEqual(JSON.stringify(["preexisting.txt"]));
+        sourceAlias.splice(0, sourceAlias.length, 'repaired.txt');
+        api.regularPaths = ['/download/repaired.txt'];
+        const repaired: string[] = importDownloadFiles('/download', '/sandbox', api);
+        logAssertion(caseName, "repaired", repaired, ["preexisting.txt", "repaired.txt"]);
+        expect(JSON.stringify(repaired)).assertEqual(JSON.stringify(["preexisting.txt", "repaired.txt"]));
+        const expected07: string[] = [
+          "list:/download", "list:/download", "stat:/download/repaired.txt",
+          "copy:/download/repaired.txt->/sandbox/repaired.txt", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected07);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected07));
+        const expected08: string[] = ["/download/repaired.txt->/sandbox/repaired.txt"];
+        logAssertion(caseName, "api.copied", api.copied, expected08);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify(expected08));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+    /**
+     * @tc.number SUB_CORE_FILE_ENVIRONMENT_MATRIX_001536
+     * @tc.name EnvironmentSample_wholeList_backslash_0_1535
+     * @tc.desc Reject backslash name at index 0, prefix empty, before any stat/copy; repair to repaired.txt and
+     * retry successfully.
+     * @tc.type FUNC
+     * @tc.level Level 1
+     */
+    it("EnvironmentSample_wholeList_backslash_0_1535", 0, (): void => {
+      const caseName: string = "EnvironmentSample_wholeList_backslash_0_1535";
+      logCase(caseName, 'begin');
+      try {
+        const api: DownloadMatrixProbe = new DownloadMatrixProbe();
+        api.entries = ["nested\\file", ".hidden", "资料.txt", " spaced "];
+        api.regularPaths = ["/download/nested\\file"];
+        const sourceAlias: string[] = api.entries;
+        let message: string = "";
+        let result: string[] = [];
+        try {
+          result = importDownloadFiles('/download', '/sandbox', api);
+        } catch (error) {
+          message = (error as Error).message;
+        }
+        logAssertion(caseName, "message", message, "Invalid download entry");
+        expect(message).assertEqual("Invalid download entry");
+        logAssertion(caseName, "result", result, []);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.events", api.events, ["list:/download"]);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(["list:/download"]));
+        logAssertion(caseName, "api.copied", api.copied, []);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.sandboxEntries", api.sandboxEntries, ["preexisting.txt"]);
+        expect(JSON.stringify(api.sandboxEntries)).assertEqual(JSON.stringify(["preexisting.txt"]));
+        sourceAlias.splice(0, sourceAlias.length, 'repaired.txt');
+        api.regularPaths = ['/download/repaired.txt'];
+        const repaired: string[] = importDownloadFiles('/download', '/sandbox', api);
+        logAssertion(caseName, "repaired", repaired, ["preexisting.txt", "repaired.txt"]);
+        expect(JSON.stringify(repaired)).assertEqual(JSON.stringify(["preexisting.txt", "repaired.txt"]));
+        const expected07: string[] = [
+          "list:/download", "list:/download", "stat:/download/repaired.txt",
+          "copy:/download/repaired.txt->/sandbox/repaired.txt", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected07);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected07));
+        const expected08: string[] = ["/download/repaired.txt->/sandbox/repaired.txt"];
+        logAssertion(caseName, "api.copied", api.copied, expected08);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify(expected08));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+  });
+}
