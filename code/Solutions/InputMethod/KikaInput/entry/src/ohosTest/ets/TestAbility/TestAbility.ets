@@ -27,6 +27,14 @@ const TAG: string = 'TestAbility';
 export default class TestAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     logger.info(TAG, `TestAbility onCreate, want param: ${JSON.stringify(want)},launchParam: ${JSON.stringify(launchParam)}`);
+
+    // The framework starts TestAbility twice: first without a want (auto start) and then
+    // with the test arguments. Running the suite on the first start duplicates its heads.
+    if (want === undefined || want === null) {
+      logger.info(TAG, 'skip test run for the start without want');
+      return;
+    }
+    
     let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
     let abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
     logger.info(TAG, 'start run testcase!!!');
