@@ -764,3 +764,191 @@ export default function calendarResult05Test(): void {
       expect(manager.calendar.updates.length).assertEqual(0);
       expect(first[0] === events[0]).assertEqual(true);
       expect(first[0].id).assertEqual(0);
+      expect(first[0].title).assertEqual('');
+      expect(manager.calendar.trace.join(',')).assertEqual('config,add,all,all');
+    });
+
+    /**
+     * @tc.number SUB_CALENDAR_RESULT_ALL_11500
+     * @tc.name CalendarEventResult05_0019
+     * @tc.desc Return single all-event data without copying or reordering in deleted state.
+     * @tc.type FUNC
+     */
+    it('CalendarEventResult05_0019', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 0);
+      const events: calendarManager.Event[] = [
+        fixtureEvent(0, '', 0)
+      ];
+      manager.calendar.results = events;
+      await session.createCalendar();
+      await session.addEvent();
+      await session.deleteEvent();
+      const first: calendarManager.Event[] = await session.getEvents();
+      const second: calendarManager.Event[] = await session.getEvents();
+      expect(first === events).assertEqual(true);
+      expect(second === events).assertEqual(true);
+      expect(first.length).assertEqual(1);
+      expect(manager.calendar.ids.length).assertEqual(0);
+      expect(manager.calendar.titles.length).assertEqual(0);
+      expect(manager.calendar.starts.length).assertEqual(0);
+      expect(manager.calendar.updates.length).assertEqual(0);
+      expect(first[0] === events[0]).assertEqual(true);
+      expect(first[0].id).assertEqual(0);
+      expect(first[0].title).assertEqual('');
+      expect(manager.calendar.trace.join(',')).assertEqual('config,add,delete,all,all');
+    });
+
+    /**
+     * @tc.number SUB_CALENDAR_RESULT_ALL_11600
+     * @tc.name CalendarEventResult05_0020
+     * @tc.desc Return single all-event data without copying or reordering in reopened state.
+     * @tc.type FUNC
+     */
+    it('CalendarEventResult05_0020', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 0);
+      const events: calendarManager.Event[] = [
+        fixtureEvent(0, '', 0)
+      ];
+      manager.calendar.results = events;
+      await session.createCalendar();
+      session.clear();
+      await session.createCalendar();
+      const first: calendarManager.Event[] = await session.getEvents();
+      const second: calendarManager.Event[] = await session.getEvents();
+      expect(first === events).assertEqual(true);
+      expect(second === events).assertEqual(true);
+      expect(first.length).assertEqual(1);
+      expect(manager.calendar.ids.length).assertEqual(0);
+      expect(manager.calendar.titles.length).assertEqual(0);
+      expect(manager.calendar.starts.length).assertEqual(0);
+      expect(manager.calendar.updates.length).assertEqual(0);
+      expect(first[0] === events[0]).assertEqual(true);
+      expect(first[0].id).assertEqual(0);
+      expect(first[0].title).assertEqual('');
+      expect(manager.calendar.trace.join(',')).assertEqual('config,config,all,all');
+    });
+
+    /**
+     * @tc.number SUB_CALENDAR_RESULT_ALL_11700
+     * @tc.name CalendarEventResult05_0021
+     * @tc.desc Return unicode all-event data without copying or reordering in ready state.
+     * @tc.type FUNC
+     */
+    it('CalendarEventResult05_0021', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 0);
+      const events: calendarManager.Event[] = [
+        fixtureEvent(1, '日程标题', 1709164800000)
+      ];
+      manager.calendar.results = events;
+      await session.createCalendar();
+      const first: calendarManager.Event[] = await session.getEvents();
+      const second: calendarManager.Event[] = await session.getEvents();
+      expect(first === events).assertEqual(true);
+      expect(second === events).assertEqual(true);
+      expect(first.length).assertEqual(1);
+      expect(manager.calendar.ids.length).assertEqual(0);
+      expect(manager.calendar.titles.length).assertEqual(0);
+      expect(manager.calendar.starts.length).assertEqual(0);
+      expect(manager.calendar.updates.length).assertEqual(0);
+      expect(first[0] === events[0]).assertEqual(true);
+      expect(first[0].id).assertEqual(1);
+      expect(first[0].title).assertEqual('日程标题');
+      expect(manager.calendar.trace.join(',')).assertEqual('config,all,all');
+    });
+
+    /**
+     * @tc.number SUB_CALENDAR_RESULT_ALL_11800
+     * @tc.name CalendarEventResult05_0022
+     * @tc.desc Return unicode all-event data without copying or reordering in selected state.
+     * @tc.type FUNC
+     */
+    it('CalendarEventResult05_0022', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 0);
+      const events: calendarManager.Event[] = [
+        fixtureEvent(1, '日程标题', 1709164800000)
+      ];
+      manager.calendar.results = events;
+      await session.createCalendar();
+      await session.addEvent();
+      const first: calendarManager.Event[] = await session.getEvents();
+      const second: calendarManager.Event[] = await session.getEvents();
+      expect(first === events).assertEqual(true);
+      expect(second === events).assertEqual(true);
+      expect(first.length).assertEqual(1);
+      expect(manager.calendar.ids.length).assertEqual(0);
+      expect(manager.calendar.titles.length).assertEqual(0);
+      expect(manager.calendar.starts.length).assertEqual(0);
+      expect(manager.calendar.updates.length).assertEqual(0);
+      expect(first[0] === events[0]).assertEqual(true);
+      expect(first[0].id).assertEqual(1);
+      expect(first[0].title).assertEqual('日程标题');
+      expect(manager.calendar.trace.join(',')).assertEqual('config,add,all,all');
+    });
+
+    /**
+     * @tc.number SUB_CALENDAR_RESULT_ALL_11900
+     * @tc.name CalendarEventResult05_0023
+     * @tc.desc Return unicode all-event data without copying or reordering in deleted state.
+     * @tc.type FUNC
+     */
+    it('CalendarEventResult05_0023', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 0);
+      const events: calendarManager.Event[] = [
+        fixtureEvent(1, '日程标题', 1709164800000)
+      ];
+      manager.calendar.results = events;
+      await session.createCalendar();
+      await session.addEvent();
+      await session.deleteEvent();
+      const first: calendarManager.Event[] = await session.getEvents();
+      const second: calendarManager.Event[] = await session.getEvents();
+      expect(first === events).assertEqual(true);
+      expect(second === events).assertEqual(true);
+      expect(first.length).assertEqual(1);
+      expect(manager.calendar.ids.length).assertEqual(0);
+      expect(manager.calendar.titles.length).assertEqual(0);
+      expect(manager.calendar.starts.length).assertEqual(0);
+      expect(manager.calendar.updates.length).assertEqual(0);
+      expect(first[0] === events[0]).assertEqual(true);
+      expect(first[0].id).assertEqual(1);
+      expect(first[0].title).assertEqual('日程标题');
+      expect(manager.calendar.trace.join(',')).assertEqual('config,add,delete,all,all');
+    });
+
+    /**
+     * @tc.number SUB_CALENDAR_RESULT_ALL_12000
+     * @tc.name CalendarEventResult05_0024
+     * @tc.desc Return unicode all-event data without copying or reordering in reopened state.
+     * @tc.type FUNC
+     */
+    it('CalendarEventResult05_0024', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 0);
+      const events: calendarManager.Event[] = [
+        fixtureEvent(1, '日程标题', 1709164800000)
+      ];
+      manager.calendar.results = events;
+      await session.createCalendar();
+      session.clear();
+      await session.createCalendar();
+      const first: calendarManager.Event[] = await session.getEvents();
+      const second: calendarManager.Event[] = await session.getEvents();
+      expect(first === events).assertEqual(true);
+      expect(second === events).assertEqual(true);
+      expect(first.length).assertEqual(1);
+      expect(manager.calendar.ids.length).assertEqual(0);
+      expect(manager.calendar.titles.length).assertEqual(0);
+      expect(manager.calendar.starts.length).assertEqual(0);
+      expect(manager.calendar.updates.length).assertEqual(0);
+      expect(first[0] === events[0]).assertEqual(true);
+      expect(first[0].id).assertEqual(1);
+      expect(first[0].title).assertEqual('日程标题');
+      expect(manager.calendar.trace.join(',')).assertEqual('config,config,all,all');
+    });
+  });
+}
