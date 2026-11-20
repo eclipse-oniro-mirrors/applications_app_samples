@@ -1292,3 +1292,587 @@ export default function timeSenseMatrixTest() {
    * @tc.desc      Date hour shift 7
    * @tc.size      MEDIUMTEST
    * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTimeSense0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTimeSense0089', 'hours 7');
+    const offset: number = 25200 * 1000;
+    const date: Date = new Date(Date.UTC(2023, 5, 15, 12, 0, 0));
+    const shifted: Date = new Date(date.getTime() + offset);
+    expect((shifted.getTime() - date.getTime()) / 1000).assertEqual(25200);
+    expect(shifted.getUTCDate()).assertEqual(15 + Math.floor(7 / 24));
+    expect(shifted.getUTCHours()).assertEqual((12 + 7) % 24);
+    expect(shifted.getUTCFullYear()).assertEqual(2023);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0090
+   * @tc.name      testTimeSense0090
+   * @tc.desc      Date hour shift 8
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTimeSense0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTimeSense0090', 'hours 8');
+    const offset: number = 28800 * 1000;
+    const date: Date = new Date(Date.UTC(2023, 5, 15, 12, 0, 0));
+    const shifted: Date = new Date(date.getTime() + offset);
+    expect((shifted.getTime() - date.getTime()) / 1000).assertEqual(28800);
+    expect(shifted.getUTCDate()).assertEqual(15 + Math.floor(8 / 24));
+    expect(shifted.getUTCHours()).assertEqual((12 + 8) % 24);
+    expect(shifted.getUTCFullYear()).assertEqual(2023);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0091
+   * @tc.name      testTimeSense0091
+   * @tc.desc      Date hour shift 9
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTimeSense0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTimeSense0091', 'hours 9');
+    const offset: number = 32400 * 1000;
+    const date: Date = new Date(Date.UTC(2023, 5, 15, 12, 0, 0));
+    const shifted: Date = new Date(date.getTime() + offset);
+    expect((shifted.getTime() - date.getTime()) / 1000).assertEqual(32400);
+    expect(shifted.getUTCDate()).assertEqual(15 + Math.floor(9 / 24));
+    expect(shifted.getUTCHours()).assertEqual((12 + 9) % 24);
+    expect(shifted.getUTCFullYear()).assertEqual(2023);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0092
+   * @tc.name      testTimeSense0092
+   * @tc.desc      Date hour shift 10
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTimeSense0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTimeSense0092', 'hours 10');
+    const offset: number = 36000 * 1000;
+    const date: Date = new Date(Date.UTC(2023, 5, 15, 12, 0, 0));
+    const shifted: Date = new Date(date.getTime() + offset);
+    expect((shifted.getTime() - date.getTime()) / 1000).assertEqual(36000);
+    expect(shifted.getUTCDate()).assertEqual(15 + Math.floor(10 / 24));
+    expect(shifted.getUTCHours()).assertEqual((12 + 10) % 24);
+    expect(shifted.getUTCFullYear()).assertEqual(2023);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0093
+   * @tc.name      testTimeSense0093
+   * @tc.desc      Date hour shift 11
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTimeSense0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTimeSense0093', 'hours 11');
+    const offset: number = 39600 * 1000;
+    const date: Date = new Date(Date.UTC(2023, 5, 15, 12, 0, 0));
+    const shifted: Date = new Date(date.getTime() + offset);
+    expect((shifted.getTime() - date.getTime()) / 1000).assertEqual(39600);
+    expect(shifted.getUTCDate()).assertEqual(15 + Math.floor(11 / 24));
+    expect(shifted.getUTCHours()).assertEqual((12 + 11) % 24);
+    expect(shifted.getUTCFullYear()).assertEqual(2023);
+  });
+
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0106
+   * @tc.name      testTimeSense0106
+   * @tc.desc      Date hour shift 24
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTimeSense0106', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTimeSense0106', 'hours 24');
+    const offset: number = 86400 * 1000;
+    const date: Date = new Date(Date.UTC(2023, 5, 15, 12, 0, 0));
+    const shifted: Date = new Date(date.getTime() + offset);
+    expect((shifted.getTime() - date.getTime()) / 1000).assertEqual(86400);
+    expect(shifted.getUTCDate()).assertEqual(15 + Math.floor(24 / 24));
+    expect(shifted.getUTCHours()).assertEqual((12 + 24) % 24);
+    expect(shifted.getUTCFullYear()).assertEqual(2023);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0107
+   * @tc.name      testTimeSense0107
+   * @tc.desc      Date hour shift 25
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTimeSense0107', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTimeSense0107', 'hours 25');
+    const offset: number = 90000 * 1000;
+    const date: Date = new Date(Date.UTC(2023, 5, 15, 12, 0, 0));
+    const shifted: Date = new Date(date.getTime() + offset);
+    expect((shifted.getTime() - date.getTime()) / 1000).assertEqual(90000);
+    expect(shifted.getUTCDate()).assertEqual(15 + Math.floor(25 / 24));
+    expect(shifted.getUTCHours()).assertEqual((12 + 25) % 24);
+    expect(shifted.getUTCFullYear()).assertEqual(2023);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0108
+   * @tc.name      testTimeSense0108
+   * @tc.desc      Date hour shift 26
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTimeSense0108', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTimeSense0108', 'hours 26');
+    const offset: number = 93600 * 1000;
+    const date: Date = new Date(Date.UTC(2023, 5, 15, 12, 0, 0));
+    const shifted: Date = new Date(date.getTime() + offset);
+    expect((shifted.getTime() - date.getTime()) / 1000).assertEqual(93600);
+    expect(shifted.getUTCDate()).assertEqual(15 + Math.floor(26 / 24));
+    expect(shifted.getUTCHours()).assertEqual((12 + 26) % 24);
+    expect(shifted.getUTCFullYear()).assertEqual(2023);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0109
+   * @tc.name      testTimeSense0109
+   * @tc.desc      Date hour shift 27
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTimeSense0109', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTimeSense0109', 'hours 27');
+    const offset: number = 97200 * 1000;
+    const date: Date = new Date(Date.UTC(2023, 5, 15, 12, 0, 0));
+    const shifted: Date = new Date(date.getTime() + offset);
+    expect((shifted.getTime() - date.getTime()) / 1000).assertEqual(97200);
+    expect(shifted.getUTCDate()).assertEqual(15 + Math.floor(27 / 24));
+    expect(shifted.getUTCHours()).assertEqual((12 + 27) % 24);
+    expect(shifted.getUTCFullYear()).assertEqual(2023);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0110
+   * @tc.name      testTimeSense0110
+   * @tc.desc      Date hour shift 28
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTimeSense0110', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTimeSense0110', 'hours 28');
+    const offset: number = 100800 * 1000;
+    const date: Date = new Date(Date.UTC(2023, 5, 15, 12, 0, 0));
+    const shifted: Date = new Date(date.getTime() + offset);
+    expect((shifted.getTime() - date.getTime()) / 1000).assertEqual(100800);
+    expect(shifted.getUTCDate()).assertEqual(15 + Math.floor(28 / 24));
+    expect(shifted.getUTCHours()).assertEqual((12 + 28) % 24);
+    expect(shifted.getUTCFullYear()).assertEqual(2023);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0111
+   * @tc.name      testTimeSense0111
+   * @tc.desc      Date hour shift 29
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTimeSense0111', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTimeSense0111', 'hours 29');
+    const offset: number = 104400 * 1000;
+    const date: Date = new Date(Date.UTC(2023, 5, 15, 12, 0, 0));
+    const shifted: Date = new Date(date.getTime() + offset);
+    expect((shifted.getTime() - date.getTime()) / 1000).assertEqual(104400);
+    expect(shifted.getUTCDate()).assertEqual(15 + Math.floor(29 / 24));
+    expect(shifted.getUTCHours()).assertEqual((12 + 29) % 24);
+    expect(shifted.getUTCFullYear()).assertEqual(2023);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0112
+   * @tc.name      testTimeSense0112
+   * @tc.desc      Date hour shift 30
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTimeSense0112', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTimeSense0112', 'hours 30');
+    const offset: number = 108000 * 1000;
+    const date: Date = new Date(Date.UTC(2023, 5, 15, 12, 0, 0));
+    const shifted: Date = new Date(date.getTime() + offset);
+    expect((shifted.getTime() - date.getTime()) / 1000).assertEqual(108000);
+    expect(shifted.getUTCDate()).assertEqual(15 + Math.floor(30 / 24));
+    expect(shifted.getUTCHours()).assertEqual((12 + 30) % 24);
+    expect(shifted.getUTCFullYear()).assertEqual(2023);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0113
+   * @tc.name      testTimeSense0113
+   * @tc.desc      Year 2001 starts on a valid weekday
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTimeSense0113', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTimeSense0113', 'weekday 1');
+    const date: Date = new Date(Date.UTC(2001, 0, 1));
+    expect(date.getUTCDay()).assertEqual(1);
+    expect(date.getUTCMonth()).assertEqual(0);
+    expect(date.getUTCDate()).assertEqual(1);
+    expect(date.getUTCFullYear()).assertEqual(2001);
+    expect(date.toISOString().startsWith('2001-01-01')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0114
+   * @tc.name      testTimeSense0114
+   * @tc.desc      Year 2002 starts on a valid weekday
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTimeSense0114', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTimeSense0114', 'weekday 2');
+    const date: Date = new Date(Date.UTC(2002, 0, 1));
+    expect(date.getUTCDay()).assertEqual(2);
+    expect(date.getUTCMonth()).assertEqual(0);
+    expect(date.getUTCDate()).assertEqual(1);
+    expect(date.getUTCFullYear()).assertEqual(2002);
+    expect(date.toISOString().startsWith('2002-01-01')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0115
+   * @tc.name      testTimeSense0115
+   * @tc.desc      Year 2003 starts on a valid weekday
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTimeSense0115', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTimeSense0115', 'weekday 3');
+    const date: Date = new Date(Date.UTC(2003, 0, 1));
+    expect(date.getUTCDay()).assertEqual(3);
+    expect(date.getUTCMonth()).assertEqual(0);
+    expect(date.getUTCDate()).assertEqual(1);
+    expect(date.getUTCFullYear()).assertEqual(2003);
+    expect(date.toISOString().startsWith('2003-01-01')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0116
+   * @tc.name      testTimeSense0116
+   * @tc.desc      Year 2004 starts on a valid weekday
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTimeSense0116', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTimeSense0116', 'weekday 4');
+    const date: Date = new Date(Date.UTC(2004, 0, 1));
+    expect(date.getUTCDay()).assertEqual(4);
+    expect(date.getUTCMonth()).assertEqual(0);
+    expect(date.getUTCDate()).assertEqual(1);
+    expect(date.getUTCFullYear()).assertEqual(2004);
+    expect(date.toISOString().startsWith('2004-01-01')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0117
+   * @tc.name      testTimeSense0117
+   * @tc.desc      Year 2005 starts on a valid weekday
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTimeSense0117', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTimeSense0117', 'weekday 5');
+    const date: Date = new Date(Date.UTC(2005, 0, 1));
+    expect(date.getUTCDay()).assertEqual(6);
+    expect(date.getUTCMonth()).assertEqual(0);
+    expect(date.getUTCDate()).assertEqual(1);
+    expect(date.getUTCFullYear()).assertEqual(2005);
+    expect(date.toISOString().startsWith('2005-01-01')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0118
+   * @tc.name      testTimeSense0118
+   * @tc.desc      Year 2006 starts on a valid weekday
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTimeSense0118', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTimeSense0118', 'weekday 6');
+    const date: Date = new Date(Date.UTC(2006, 0, 1));
+    expect(date.getUTCDay()).assertEqual(0);
+    expect(date.getUTCMonth()).assertEqual(0);
+    expect(date.getUTCDate()).assertEqual(1);
+    expect(date.getUTCFullYear()).assertEqual(2006);
+    expect(date.toISOString().startsWith('2006-01-01')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0119
+   * @tc.name      testTimeSense0119
+   * @tc.desc      Year 2007 starts on a valid weekday
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTimeSense0119', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTimeSense0119', 'weekday 7');
+    const date: Date = new Date(Date.UTC(2007, 0, 1));
+    expect(date.getUTCDay()).assertEqual(1);
+    expect(date.getUTCMonth()).assertEqual(0);
+    expect(date.getUTCDate()).assertEqual(1);
+    expect(date.getUTCFullYear()).assertEqual(2007);
+    expect(date.toISOString().startsWith('2007-01-01')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0120
+   * @tc.name      testTimeSense0120
+   * @tc.desc      Year 2008 starts on a valid weekday
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTimeSense0120', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTimeSense0120', 'weekday 8');
+    const date: Date = new Date(Date.UTC(2008, 0, 1));
+    expect(date.getUTCDay()).assertEqual(2);
+    expect(date.getUTCMonth()).assertEqual(0);
+    expect(date.getUTCDate()).assertEqual(1);
+    expect(date.getUTCFullYear()).assertEqual(2008);
+    expect(date.toISOString().startsWith('2008-01-01')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0121
+   * @tc.name      testTimeSense0121
+   * @tc.desc      Year 2009 starts on a valid weekday
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTimeSense0121', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTimeSense0121', 'weekday 9');
+    const date: Date = new Date(Date.UTC(2009, 0, 1));
+    expect(date.getUTCDay()).assertEqual(4);
+    expect(date.getUTCMonth()).assertEqual(0);
+    expect(date.getUTCDate()).assertEqual(1);
+    expect(date.getUTCFullYear()).assertEqual(2009);
+    expect(date.toISOString().startsWith('2009-01-01')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0122
+   * @tc.name      testTimeSense0122
+   * @tc.desc      Year 2010 starts on a valid weekday
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTimeSense0122', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTimeSense0122', 'weekday 10');
+    const date: Date = new Date(Date.UTC(2010, 0, 1));
+    expect(date.getUTCDay()).assertEqual(5);
+    expect(date.getUTCMonth()).assertEqual(0);
+    expect(date.getUTCDate()).assertEqual(1);
+    expect(date.getUTCFullYear()).assertEqual(2010);
+    expect(date.toISOString().startsWith('2010-01-01')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0123
+   * @tc.name      testTimeSense0123
+   * @tc.desc      Year 2011 starts on a valid weekday
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTimeSense0123', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTimeSense0123', 'weekday 11');
+    const date: Date = new Date(Date.UTC(2011, 0, 1));
+    expect(date.getUTCDay()).assertEqual(6);
+    expect(date.getUTCMonth()).assertEqual(0);
+    expect(date.getUTCDate()).assertEqual(1);
+    expect(date.getUTCFullYear()).assertEqual(2011);
+    expect(date.toISOString().startsWith('2011-01-01')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0124
+   * @tc.name      testTimeSense0124
+   * @tc.desc      Year 2012 starts on a valid weekday
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTimeSense0124', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTimeSense0124', 'weekday 12');
+    const date: Date = new Date(Date.UTC(2012, 0, 1));
+    expect(date.getUTCDay()).assertEqual(0);
+    expect(date.getUTCMonth()).assertEqual(0);
+    expect(date.getUTCDate()).assertEqual(1);
+    expect(date.getUTCFullYear()).assertEqual(2012);
+    expect(date.toISOString().startsWith('2012-01-01')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0125
+   * @tc.name      testTimeSense0125
+   * @tc.desc      Year 2013 starts on a valid weekday
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTimeSense0125', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTimeSense0125', 'weekday 13');
+    const date: Date = new Date(Date.UTC(2013, 0, 1));
+    expect(date.getUTCDay()).assertEqual(2);
+    expect(date.getUTCMonth()).assertEqual(0);
+    expect(date.getUTCDate()).assertEqual(1);
+    expect(date.getUTCFullYear()).assertEqual(2013);
+    expect(date.toISOString().startsWith('2013-01-01')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0126
+   * @tc.name      testTimeSense0126
+   * @tc.desc      Year 2014 starts on a valid weekday
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTimeSense0126', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTimeSense0126', 'weekday 14');
+    const date: Date = new Date(Date.UTC(2014, 0, 1));
+    expect(date.getUTCDay()).assertEqual(3);
+    expect(date.getUTCMonth()).assertEqual(0);
+    expect(date.getUTCDate()).assertEqual(1);
+    expect(date.getUTCFullYear()).assertEqual(2014);
+    expect(date.toISOString().startsWith('2014-01-01')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0127
+   * @tc.name      testTimeSense0127
+   * @tc.desc      Year 2015 starts on a valid weekday
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTimeSense0127', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTimeSense0127', 'weekday 15');
+    const date: Date = new Date(Date.UTC(2015, 0, 1));
+    expect(date.getUTCDay()).assertEqual(4);
+    expect(date.getUTCMonth()).assertEqual(0);
+    expect(date.getUTCDate()).assertEqual(1);
+    expect(date.getUTCFullYear()).assertEqual(2015);
+    expect(date.toISOString().startsWith('2015-01-01')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0128
+   * @tc.name      testTimeSense0128
+   * @tc.desc      Year 2016 starts on a valid weekday
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTimeSense0128', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTimeSense0128', 'weekday 16');
+    const date: Date = new Date(Date.UTC(2016, 0, 1));
+    expect(date.getUTCDay()).assertEqual(5);
+    expect(date.getUTCMonth()).assertEqual(0);
+    expect(date.getUTCDate()).assertEqual(1);
+    expect(date.getUTCFullYear()).assertEqual(2016);
+    expect(date.toISOString().startsWith('2016-01-01')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0129
+   * @tc.name      testTimeSense0129
+   * @tc.desc      Year 2017 starts on a valid weekday
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTimeSense0129', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTimeSense0129', 'weekday 17');
+    const date: Date = new Date(Date.UTC(2017, 0, 1));
+    expect(date.getUTCDay()).assertEqual(0);
+    expect(date.getUTCMonth()).assertEqual(0);
+    expect(date.getUTCDate()).assertEqual(1);
+    expect(date.getUTCFullYear()).assertEqual(2017);
+    expect(date.toISOString().startsWith('2017-01-01')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0130
+   * @tc.name      testTimeSense0130
+   * @tc.desc      Year 2018 starts on a valid weekday
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testTimeSense0130', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testTimeSense0130', 'weekday 18');
+    const date: Date = new Date(Date.UTC(2018, 0, 1));
+    expect(date.getUTCDay()).assertEqual(1);
+    expect(date.getUTCMonth()).assertEqual(0);
+    expect(date.getUTCDate()).assertEqual(1);
+    expect(date.getUTCFullYear()).assertEqual(2018);
+    expect(date.toISOString().startsWith('2018-01-01')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0131
+   * @tc.name      testTimeSense0131
+   * @tc.desc      Year 2019 starts on a valid weekday
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testTimeSense0131', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testTimeSense0131', 'weekday 19');
+    const date: Date = new Date(Date.UTC(2019, 0, 1));
+    expect(date.getUTCDay()).assertEqual(2);
+    expect(date.getUTCMonth()).assertEqual(0);
+    expect(date.getUTCDate()).assertEqual(1);
+    expect(date.getUTCFullYear()).assertEqual(2019);
+    expect(date.toISOString().startsWith('2019-01-01')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HSPTOHAR_TIME_0132
+   * @tc.name      testTimeSense0132
+   * @tc.desc      Year 2020 starts on a valid weekday
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testTimeSense0132', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testTimeSense0132', 'weekday 20');
+    const date: Date = new Date(Date.UTC(2020, 0, 1));
+    expect(date.getUTCDay()).assertEqual(3);
+    expect(date.getUTCMonth()).assertEqual(0);
+    expect(date.getUTCDate()).assertEqual(1);
+    expect(date.getUTCFullYear()).assertEqual(2020);
+    expect(date.toISOString().startsWith('2020-01-01')).assertTrue();
+  });
+  });
+}
