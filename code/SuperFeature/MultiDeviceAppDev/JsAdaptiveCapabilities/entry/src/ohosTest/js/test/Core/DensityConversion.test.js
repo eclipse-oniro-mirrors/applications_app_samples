@@ -1523,25 +1523,869 @@ function DensityConversionPart018() {
     });
 }
 
+function DensityConversionPart019() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1491
+     * @tc.name    JsDensity091
+     * @tc.desc    Density 3 converts vp 73 to px 219 seed 91
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity091', 0, async function () {
+      await yieldThread();
+      const vp = 73;
+      const density = 3;
+      expect(model.pxOf(vp, density)).assertEqual(219);
+      expect(model.vpOf(219, density)).assertEqual(73);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity091 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1492
+     * @tc.name    JsDensity092
+     * @tc.desc    Density 1 converts vp 80 to px 80 seed 92
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity092', 0, async function () {
+      await yieldThread();
+      const vp = 80;
+      const density = 1;
+      expect(model.pxOf(vp, density)).assertEqual(80);
+      expect(model.vpOf(80, density)).assertEqual(80);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity092 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1493
+     * @tc.name    JsDensity093
+     * @tc.desc    Density 1.5 converts vp 87 to px 131 seed 93
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity093', 0, async function () {
+      await yieldThread();
+      const vp = 87;
+      const density = 1.5;
+      expect(model.pxOf(vp, density)).assertEqual(131);
+      expect(model.vpOf(131, density)).assertEqual(87);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity093 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1494
+     * @tc.name    JsDensity094
+     * @tc.desc    Density 2 converts vp 94 to px 188 seed 94
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity094', 0, async function () {
+      await yieldThread();
+      const vp = 94;
+      const density = 2;
+      expect(model.pxOf(vp, density)).assertEqual(188);
+      expect(model.vpOf(188, density)).assertEqual(94);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity094 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1495
+     * @tc.name    JsDensity095
+     * @tc.desc    Density 3 converts vp 101 to px 303 seed 95
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity095', 0, async function () {
+      await yieldThread();
+      const vp = 101;
+      const density = 3;
+      expect(model.pxOf(vp, density)).assertEqual(303);
+      expect(model.vpOf(303, density)).assertEqual(101);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity095 done');
+    });
+}
+
+function DensityConversionPart020() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1496
+     * @tc.name    JsDensity096
+     * @tc.desc    Density 1 converts vp 108 to px 108 seed 96
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity096', 0, async function () {
+      await yieldThread();
+      const vp = 108;
+      const density = 1;
+      expect(model.pxOf(vp, density)).assertEqual(108);
+      expect(model.vpOf(108, density)).assertEqual(108);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity096 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1497
+     * @tc.name    JsDensity097
+     * @tc.desc    Density 1.5 converts vp 115 to px 173 seed 97
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity097', 0, async function () {
+      await yieldThread();
+      const vp = 115;
+      const density = 1.5;
+      expect(model.pxOf(vp, density)).assertEqual(173);
+      expect(model.vpOf(173, density)).assertEqual(115);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity097 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1498
+     * @tc.name    JsDensity098
+     * @tc.desc    Density 2 converts vp 122 to px 244 seed 98
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity098', 0, async function () {
+      await yieldThread();
+      const vp = 122;
+      const density = 2;
+      expect(model.pxOf(vp, density)).assertEqual(244);
+      expect(model.vpOf(244, density)).assertEqual(122);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity098 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1499
+     * @tc.name    JsDensity099
+     * @tc.desc    Density 3 converts vp 129 to px 387 seed 99
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity099', 0, async function () {
+      await yieldThread();
+      const vp = 129;
+      const density = 3;
+      expect(model.pxOf(vp, density)).assertEqual(387);
+      expect(model.vpOf(387, density)).assertEqual(129);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity099 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1500
+     * @tc.name    JsDensity100
+     * @tc.desc    Density 1 converts vp 136 to px 136 seed 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity100', 0, async function () {
+      await yieldThread();
+      const vp = 136;
+      const density = 1;
+      expect(model.pxOf(vp, density)).assertEqual(136);
+      expect(model.vpOf(136, density)).assertEqual(136);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity100 done');
+    });
+}
+
+function DensityConversionPart021() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1501
+     * @tc.name    JsDensity101
+     * @tc.desc    Density 1.5 converts vp 143 to px 215 seed 101
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity101', 0, async function () {
+      await yieldThread();
+      const vp = 143;
+      const density = 1.5;
+      expect(model.pxOf(vp, density)).assertEqual(215);
+      expect(model.vpOf(215, density)).assertEqual(143);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity101 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1502
+     * @tc.name    JsDensity102
+     * @tc.desc    Density 2 converts vp 150 to px 300 seed 102
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity102', 0, async function () {
+      await yieldThread();
+      const vp = 150;
+      const density = 2;
+      expect(model.pxOf(vp, density)).assertEqual(300);
+      expect(model.vpOf(300, density)).assertEqual(150);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity102 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1503
+     * @tc.name    JsDensity103
+     * @tc.desc    Density 3 converts vp 157 to px 471 seed 103
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity103', 0, async function () {
+      await yieldThread();
+      const vp = 157;
+      const density = 3;
+      expect(model.pxOf(vp, density)).assertEqual(471);
+      expect(model.vpOf(471, density)).assertEqual(157);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity103 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1504
+     * @tc.name    JsDensity104
+     * @tc.desc    Density 1 converts vp 164 to px 164 seed 104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity104', 0, async function () {
+      await yieldThread();
+      const vp = 164;
+      const density = 1;
+      expect(model.pxOf(vp, density)).assertEqual(164);
+      expect(model.vpOf(164, density)).assertEqual(164);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity104 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1505
+     * @tc.name    JsDensity105
+     * @tc.desc    Density 1.5 converts vp 171 to px 257 seed 105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity105', 0, async function () {
+      await yieldThread();
+      const vp = 171;
+      const density = 1.5;
+      expect(model.pxOf(vp, density)).assertEqual(257);
+      expect(model.vpOf(257, density)).assertEqual(171);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity105 done');
+    });
+}
+
+function DensityConversionPart022() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1506
+     * @tc.name    JsDensity106
+     * @tc.desc    Density 2 converts vp 178 to px 356 seed 106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity106', 0, async function () {
+      await yieldThread();
+      const vp = 178;
+      const density = 2;
+      expect(model.pxOf(vp, density)).assertEqual(356);
+      expect(model.vpOf(356, density)).assertEqual(178);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity106 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1507
+     * @tc.name    JsDensity107
+     * @tc.desc    Density 3 converts vp 185 to px 555 seed 107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity107', 0, async function () {
+      await yieldThread();
+      const vp = 185;
+      const density = 3;
+      expect(model.pxOf(vp, density)).assertEqual(555);
+      expect(model.vpOf(555, density)).assertEqual(185);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity107 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1508
+     * @tc.name    JsDensity108
+     * @tc.desc    Density 1 converts vp 192 to px 192 seed 108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity108', 0, async function () {
+      await yieldThread();
+      const vp = 192;
+      const density = 1;
+      expect(model.pxOf(vp, density)).assertEqual(192);
+      expect(model.vpOf(192, density)).assertEqual(192);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity108 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1509
+     * @tc.name    JsDensity109
+     * @tc.desc    Density 1.5 converts vp 199 to px 299 seed 109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity109', 0, async function () {
+      await yieldThread();
+      const vp = 199;
+      const density = 1.5;
+      expect(model.pxOf(vp, density)).assertEqual(299);
+      expect(model.vpOf(299, density)).assertEqual(199);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity109 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1510
+     * @tc.name    JsDensity110
+     * @tc.desc    Density 2 converts vp 206 to px 412 seed 110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity110', 0, async function () {
+      await yieldThread();
+      const vp = 206;
+      const density = 2;
+      expect(model.pxOf(vp, density)).assertEqual(412);
+      expect(model.vpOf(412, density)).assertEqual(206);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity110 done');
+    });
+}
+
+function DensityConversionPart023() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1511
+     * @tc.name    JsDensity111
+     * @tc.desc    Density 3 converts vp 213 to px 639 seed 111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity111', 0, async function () {
+      await yieldThread();
+      const vp = 213;
+      const density = 3;
+      expect(model.pxOf(vp, density)).assertEqual(639);
+      expect(model.vpOf(639, density)).assertEqual(213);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity111 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1512
+     * @tc.name    JsDensity112
+     * @tc.desc    Density 1 converts vp 220 to px 220 seed 112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity112', 0, async function () {
+      await yieldThread();
+      const vp = 220;
+      const density = 1;
+      expect(model.pxOf(vp, density)).assertEqual(220);
+      expect(model.vpOf(220, density)).assertEqual(220);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity112 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1513
+     * @tc.name    JsDensity113
+     * @tc.desc    Density 1.5 converts vp 227 to px 341 seed 113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity113', 0, async function () {
+      await yieldThread();
+      const vp = 227;
+      const density = 1.5;
+      expect(model.pxOf(vp, density)).assertEqual(341);
+      expect(model.vpOf(341, density)).assertEqual(227);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity113 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1514
+     * @tc.name    JsDensity114
+     * @tc.desc    Density 2 converts vp 234 to px 468 seed 114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity114', 0, async function () {
+      await yieldThread();
+      const vp = 234;
+      const density = 2;
+      expect(model.pxOf(vp, density)).assertEqual(468);
+      expect(model.vpOf(468, density)).assertEqual(234);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity114 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1515
+     * @tc.name    JsDensity115
+     * @tc.desc    Density 3 converts vp 241 to px 723 seed 115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity115', 0, async function () {
+      await yieldThread();
+      const vp = 241;
+      const density = 3;
+      expect(model.pxOf(vp, density)).assertEqual(723);
+      expect(model.vpOf(723, density)).assertEqual(241);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity115 done');
+    });
+}
+
+function DensityConversionPart024() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1516
+     * @tc.name    JsDensity116
+     * @tc.desc    Density 1 converts vp 248 to px 248 seed 116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity116', 0, async function () {
+      await yieldThread();
+      const vp = 248;
+      const density = 1;
+      expect(model.pxOf(vp, density)).assertEqual(248);
+      expect(model.vpOf(248, density)).assertEqual(248);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity116 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1517
+     * @tc.name    JsDensity117
+     * @tc.desc    Density 1.5 converts vp 255 to px 383 seed 117
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity117', 0, async function () {
+      await yieldThread();
+      const vp = 255;
+      const density = 1.5;
+      expect(model.pxOf(vp, density)).assertEqual(383);
+      expect(model.vpOf(383, density)).assertEqual(255);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity117 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1518
+     * @tc.name    JsDensity118
+     * @tc.desc    Density 2 converts vp 262 to px 524 seed 118
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity118', 0, async function () {
+      await yieldThread();
+      const vp = 262;
+      const density = 2;
+      expect(model.pxOf(vp, density)).assertEqual(524);
+      expect(model.vpOf(524, density)).assertEqual(262);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity118 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1519
+     * @tc.name    JsDensity119
+     * @tc.desc    Density 3 converts vp 269 to px 807 seed 119
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity119', 0, async function () {
+      await yieldThread();
+      const vp = 269;
+      const density = 3;
+      expect(model.pxOf(vp, density)).assertEqual(807);
+      expect(model.vpOf(807, density)).assertEqual(269);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity119 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1520
+     * @tc.name    JsDensity120
+     * @tc.desc    Density 1 converts vp 276 to px 276 seed 120
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity120', 0, async function () {
+      await yieldThread();
+      const vp = 276;
+      const density = 1;
+      expect(model.pxOf(vp, density)).assertEqual(276);
+      expect(model.vpOf(276, density)).assertEqual(276);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity120 done');
+    });
+}
+
+function DensityConversionPart025() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1521
+     * @tc.name    JsDensity121
+     * @tc.desc    Density 1.5 converts vp 283 to px 425 seed 121
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity121', 0, async function () {
+      await yieldThread();
+      const vp = 283;
+      const density = 1.5;
+      expect(model.pxOf(vp, density)).assertEqual(425);
+      expect(model.vpOf(425, density)).assertEqual(283);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity121 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1522
+     * @tc.name    JsDensity122
+     * @tc.desc    Density 2 converts vp 290 to px 580 seed 122
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity122', 0, async function () {
+      await yieldThread();
+      const vp = 290;
+      const density = 2;
+      expect(model.pxOf(vp, density)).assertEqual(580);
+      expect(model.vpOf(580, density)).assertEqual(290);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity122 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1523
+     * @tc.name    JsDensity123
+     * @tc.desc    Density 3 converts vp 297 to px 891 seed 123
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity123', 0, async function () {
+      await yieldThread();
+      const vp = 297;
+      const density = 3;
+      expect(model.pxOf(vp, density)).assertEqual(891);
+      expect(model.vpOf(891, density)).assertEqual(297);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity123 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1524
+     * @tc.name    JsDensity124
+     * @tc.desc    Density 1 converts vp 16 to px 16 seed 124
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity124', 0, async function () {
+      await yieldThread();
+      const vp = 16;
+      const density = 1;
+      expect(model.pxOf(vp, density)).assertEqual(16);
+      expect(model.vpOf(16, density)).assertEqual(16);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity124 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1525
+     * @tc.name    JsDensity125
+     * @tc.desc    Density 1.5 converts vp 23 to px 35 seed 125
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity125', 0, async function () {
+      await yieldThread();
+      const vp = 23;
+      const density = 1.5;
+      expect(model.pxOf(vp, density)).assertEqual(35);
+      expect(model.vpOf(35, density)).assertEqual(23);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity125 done');
+    });
+}
+
+function DensityConversionPart026() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1526
+     * @tc.name    JsDensity126
+     * @tc.desc    Density 2 converts vp 30 to px 60 seed 126
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity126', 0, async function () {
+      await yieldThread();
+      const vp = 30;
+      const density = 2;
+      expect(model.pxOf(vp, density)).assertEqual(60);
+      expect(model.vpOf(60, density)).assertEqual(30);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity126 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1527
+     * @tc.name    JsDensity127
+     * @tc.desc    Density 3 converts vp 37 to px 111 seed 127
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity127', 0, async function () {
+      await yieldThread();
+      const vp = 37;
+      const density = 3;
+      expect(model.pxOf(vp, density)).assertEqual(111);
+      expect(model.vpOf(111, density)).assertEqual(37);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity127 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1528
+     * @tc.name    JsDensity128
+     * @tc.desc    Density 1 converts vp 44 to px 44 seed 128
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity128', 0, async function () {
+      await yieldThread();
+      const vp = 44;
+      const density = 1;
+      expect(model.pxOf(vp, density)).assertEqual(44);
+      expect(model.vpOf(44, density)).assertEqual(44);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity128 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1529
+     * @tc.name    JsDensity129
+     * @tc.desc    Density 1.5 converts vp 51 to px 77 seed 129
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity129', 0, async function () {
+      await yieldThread();
+      const vp = 51;
+      const density = 1.5;
+      expect(model.pxOf(vp, density)).assertEqual(77);
+      expect(model.vpOf(77, density)).assertEqual(51);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity129 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1530
+     * @tc.name    JsDensity130
+     * @tc.desc    Density 2 converts vp 58 to px 116 seed 130
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity130', 0, async function () {
+      await yieldThread();
+      const vp = 58;
+      const density = 2;
+      expect(model.pxOf(vp, density)).assertEqual(116);
+      expect(model.vpOf(116, density)).assertEqual(58);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity130 done');
+    });
+}
+
+function DensityConversionPart027() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1531
+     * @tc.name    JsDensity131
+     * @tc.desc    Density 3 converts vp 65 to px 195 seed 131
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity131', 0, async function () {
+      await yieldThread();
+      const vp = 65;
+      const density = 3;
+      expect(model.pxOf(vp, density)).assertEqual(195);
+      expect(model.vpOf(195, density)).assertEqual(65);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity131 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1532
+     * @tc.name    JsDensity132
+     * @tc.desc    Density 1 converts vp 72 to px 72 seed 132
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity132', 0, async function () {
+      await yieldThread();
+      const vp = 72;
+      const density = 1;
+      expect(model.pxOf(vp, density)).assertEqual(72);
+      expect(model.vpOf(72, density)).assertEqual(72);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity132 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1533
+     * @tc.name    JsDensity133
+     * @tc.desc    Density 1.5 converts vp 79 to px 119 seed 133
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity133', 0, async function () {
+      await yieldThread();
+      const vp = 79;
+      const density = 1.5;
+      expect(model.pxOf(vp, density)).assertEqual(119);
+      expect(model.vpOf(119, density)).assertEqual(79);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity133 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1534
+     * @tc.name    JsDensity134
+     * @tc.desc    Density 2 converts vp 86 to px 172 seed 134
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity134', 0, async function () {
+      await yieldThread();
+      const vp = 86;
+      const density = 2;
+      expect(model.pxOf(vp, density)).assertEqual(172);
+      expect(model.vpOf(172, density)).assertEqual(86);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity134 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1535
+     * @tc.name    JsDensity135
+     * @tc.desc    Density 3 converts vp 93 to px 279 seed 135
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity135', 0, async function () {
+      await yieldThread();
+      const vp = 93;
+      const density = 3;
+      expect(model.pxOf(vp, density)).assertEqual(279);
+      expect(model.vpOf(279, density)).assertEqual(93);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity135 done');
+    });
+}
+
+function DensityConversionPart028() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1536
+     * @tc.name    JsDensity136
+     * @tc.desc    Density 1 converts vp 100 to px 100 seed 136
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity136', 0, async function () {
+      await yieldThread();
+      const vp = 100;
+      const density = 1;
+      expect(model.pxOf(vp, density)).assertEqual(100);
+      expect(model.vpOf(100, density)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity136 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1537
+     * @tc.name    JsDensity137
+     * @tc.desc    Density 1.5 converts vp 107 to px 161 seed 137
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity137', 0, async function () {
+      await yieldThread();
+      const vp = 107;
+      const density = 1.5;
+      expect(model.pxOf(vp, density)).assertEqual(161);
+      expect(model.vpOf(161, density)).assertEqual(107);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity137 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1538
+     * @tc.name    JsDensity138
+     * @tc.desc    Density 2 converts vp 114 to px 228 seed 138
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity138', 0, async function () {
+      await yieldThread();
+      const vp = 114;
+      const density = 2;
+      expect(model.pxOf(vp, density)).assertEqual(228);
+      expect(model.vpOf(228, density)).assertEqual(114);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity138 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1539
+     * @tc.name    JsDensity139
+     * @tc.desc    Density 3 converts vp 121 to px 363 seed 139
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity139', 0, async function () {
+      await yieldThread();
+      const vp = 121;
+      const density = 3;
+      expect(model.pxOf(vp, density)).assertEqual(363);
+      expect(model.vpOf(363, density)).assertEqual(121);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity139 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1540
+     * @tc.name    JsDensity140
+     * @tc.desc    Density 1 converts vp 128 to px 128 seed 140
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsDensity140', 0, async function () {
+      await yieldThread();
+      const vp = 128;
+      const density = 1;
+      expect(model.pxOf(vp, density)).assertEqual(128);
+      expect(model.vpOf(128, density)).assertEqual(128);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsDensity140 done');
+    });
+}
+
+function DensityConversionGroup001() {
+  DensityConversionPart001();
+  DensityConversionPart002();
+  DensityConversionPart003();
+  DensityConversionPart004();
+  DensityConversionPart005();
+  DensityConversionPart006();
+  DensityConversionPart007();
+  DensityConversionPart008();
+  DensityConversionPart009();
+  DensityConversionPart010();
+  DensityConversionPart011();
+  DensityConversionPart012();
+  DensityConversionPart013();
+  DensityConversionPart014();
+  DensityConversionPart015();
+  DensityConversionPart016();
+  DensityConversionPart017();
+  DensityConversionPart018();
+  DensityConversionPart019();
+  DensityConversionPart020();
+  DensityConversionPart021();
+  DensityConversionPart022();
+  DensityConversionPart023();
+  DensityConversionPart024();
+  DensityConversionPart025();
+  DensityConversionPart026();
+  DensityConversionPart027();
+  DensityConversionPart028();
+}
+
 export default function densityConversionSuite() {
   describe('DensityConversionSuite', function () {
-    DensityConversionPart001();
-    DensityConversionPart002();
-    DensityConversionPart003();
-    DensityConversionPart004();
-    DensityConversionPart005();
-    DensityConversionPart006();
-    DensityConversionPart007();
-    DensityConversionPart008();
-    DensityConversionPart009();
-    DensityConversionPart010();
-    DensityConversionPart011();
-    DensityConversionPart012();
-    DensityConversionPart013();
-    DensityConversionPart014();
-    DensityConversionPart015();
-    DensityConversionPart016();
-    DensityConversionPart017();
-    DensityConversionPart018();
+    DensityConversionGroup001();
   });
 }
