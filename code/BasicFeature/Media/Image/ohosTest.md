@@ -112,3 +112,36 @@
 | 验证imagesouce编码成file(native)      | 进入应用主页 | 点击多图操作-native接口-编码-sourceToBuffer       | Sourcegraph显示原图片 <br/>Resultgraph显示编码后的多图    | 是 | Pass |
 | 验证多图对象编码成buffer(native)          | 进入应用主页 | 点击多图操作-native接口-编码-pictureToFile        | Sourcegraph显示原图片 <br/>Resultgraph显示编码后的多图    | 是 | Pass |
 | 验证多图对象编码成file(native)            | 进入应用主页 | 点击多图操作-native接口-编码-pictureToBuffer      | Sourcegraph显示原图片 <br/>Resultgraph显示编码后的多图    | 是 | Pass |
+
+## 逻辑用例（数据驱动）
+
+以下 1991 条用例位于 `entry/src/ohosTest/ets/test/logic`，每条用例记录 begin/end 日志，断言前打印入参与实际值；
+期望值由被测逻辑在对应输入下的确定性结果给出，覆盖典型值、边界值与非法值。
+
+| 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
+| -------- | -------- | ---- | -------- | -------- | -------- |
+| transformCoordinates（函数） | 无 | 120 组输入（Image_TransformCoordinates_0001~0120） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| offsetOrigin（函数） | 无 | 229 组输入（Image_OffsetOrigin_0001~0229） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| new Point（构造） | 无 | 129 组输入（Image_PointCtor_0001~0129） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| getContainSize（函数） | 无 | 229 组输入（Image_GetContainSize_0001~0229） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| new SizeModel（构造） | 无 | 1 组输入（Image_SizeCtor_0001~0001） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| Tasks（常量契约） | 无 | 15 组输入（Image_TasksValues_0001~0015） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| CropTasks（常量契约） | 无 | 5 组输入（Image_CropTasksValues_0001~0005） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| ScaleTasks（常量契约） | 无 | 3 组输入（Image_ScaleTasksValues_0001~0003） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| ColorSpaceTasks（常量契约） | 无 | 5 组输入（Image_ColorSpaceTasksValues_0001~0005） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| new TaskData（构造） | 无 | 8 组输入（Image_TaskDataCtor_0001~0008） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| FontColorData.getResource（实例方法） | 无 | 1 组输入（Image_FontColorDataGetResource_0001~0001） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| FontColorData.getName（实例方法） | 无 | 1 组输入（Image_FontColorDataGetName_0001~0001） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| FontColorData flow（调用序列） | 无 | 100 组输入（Image_FontColorDataFlow_0001~0100） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| ImageData.getResource（实例方法） | 无 | 1 组输入（Image_ImageDataGetResource_0001~0001） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| ImageData.getName（实例方法） | 无 | 1 组输入（Image_ImageDataGetName_0001~0001） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| ImageData flow（调用序列） | 无 | 100 组输入（Image_ImageDataFlow_0001~0100） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| new ComputeFeature（构造） | 无 | 1 组输入（Image_ComputeFeatureCtor_0001~0001） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| ComputeFeature.setMaterialAndImageSize（实例方法） | 无 | 229 组输入（Image_ComputeFeatureSetMaterialAndImageSize_0001~0229） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| ComputeFeature.setOriginMaterialSize（实例方法） | 无 | 228 组输入（Image_ComputeFeatureSetOriginMaterialSize_0001~0228） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| ComputeFeature.setFontSize（实例方法） | 无 | 119 组输入（Image_ComputeFeatureSetFontSize_0001~0119） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| ComputeFeature.startDrag（实例方法） | 无 | 4 组输入（Image_ComputeFeatureStartDrag_0001~0004） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| ComputeFeature.onDragMaterial（实例方法） | 无 | 228 组输入（Image_ComputeFeatureOnDragMaterial_0001~0228） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| ComputeFeature flow（调用序列） | 无 | 228 组输入（Image_ComputeFeatureFlow_0001~0228） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| NodeType（常量契约） | 无 | 5 组输入（Image_NodeTypeValues_0001~0005） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| PixelMapQueue.pop（实例方法） | 无 | 1 组输入（Image_PixelMapQueuePop_0001~0001） | 返回值与状态逐条符合预期 | 是 | 待执行 |
