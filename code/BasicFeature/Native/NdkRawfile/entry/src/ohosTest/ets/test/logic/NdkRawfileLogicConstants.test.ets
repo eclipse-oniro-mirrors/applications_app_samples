@@ -35,7 +35,7 @@ export default function ndkRawfileLogicConstantsTest(): void {
     beforeEach(yieldToEventLoop);
 
     /**
-     * @tc.number    SUB_NDKRAWFILE_NDK_RAWFILE_LOGIC_CONSTANTS_0001
+     * @tc.number    SUB_NDKRAWFILE_RAWFILE_LOGIC_CONSTANTS_0001
      * @tc.name      NdkRawfile_NdkRawfileLogicConstants_0001
      * @tc.desc      RAW_FILE keeps value "rawfile.txt"
      * @tc.type      FUNCTION
@@ -51,7 +51,7 @@ export default function ndkRawfileLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKRAWFILE_NDK_RAWFILE_LOGIC_CONSTANTS_0002
+     * @tc.number    SUB_NDKRAWFILE_RAWFILE_LOGIC_CONSTANTS_0002
      * @tc.name      NdkRawfile_NdkRawfileLogicConstants_0002
      * @tc.desc      RAW_FILE_64 keeps value "rawfile1.txt"
      * @tc.type      FUNCTION
@@ -67,7 +67,7 @@ export default function ndkRawfileLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKRAWFILE_NDK_RAWFILE_LOGIC_CONSTANTS_0003
+     * @tc.number    SUB_NDKRAWFILE_RAWFILE_LOGIC_CONSTANTS_0003
      * @tc.name      NdkRawfile_NdkRawfileLogicConstants_0003
      * @tc.desc      RAW_CONTENT keeps value "rawfile1 content"
      * @tc.type      FUNCTION
@@ -83,7 +83,7 @@ export default function ndkRawfileLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKRAWFILE_NDK_RAWFILE_LOGIC_CONSTANTS_0004
+     * @tc.number    SUB_NDKRAWFILE_RAWFILE_LOGIC_CONSTANTS_0004
      * @tc.name      NdkRawfile_NdkRawfileLogicConstants_0004
      * @tc.desc      RAW_CONTENT_64 keeps value "rawfile content for 64"
      * @tc.type      FUNCTION
@@ -99,7 +99,7 @@ export default function ndkRawfileLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKRAWFILE_NDK_RAWFILE_LOGIC_CONSTANTS_0005
+     * @tc.number    SUB_NDKRAWFILE_RAWFILE_LOGIC_CONSTANTS_0005
      * @tc.name      NdkRawfile_NdkRawfileLogicConstants_0005
      * @tc.desc      PAGE_OFFSET keeps value 3
      * @tc.type      FUNCTION
@@ -115,7 +115,7 @@ export default function ndkRawfileLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKRAWFILE_NDK_RAWFILE_LOGIC_CONSTANTS_0006
+     * @tc.number    SUB_NDKRAWFILE_RAWFILE_LOGIC_CONSTANTS_0006
      * @tc.name      NdkRawfile_NdkRawfileLogicConstants_0006
      * @tc.desc      PAGE_OFFSET_64 keeps value 8
      * @tc.type      FUNCTION
@@ -131,7 +131,7 @@ export default function ndkRawfileLogicConstantsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDKRAWFILE_NDK_RAWFILE_LOGIC_CONSTANTS_0007
+     * @tc.number    SUB_NDKRAWFILE_RAWFILE_LOGIC_CONSTANTS_0007
      * @tc.name      NdkRawfile_NdkRawfileLogicConstants_0007
      * @tc.desc      NAME_BUFFER_SIZE keeps value 256
      * @tc.type      FUNCTION
