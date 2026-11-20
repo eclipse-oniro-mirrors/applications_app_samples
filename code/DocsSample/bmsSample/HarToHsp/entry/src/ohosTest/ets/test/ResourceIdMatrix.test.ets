@@ -246,3 +246,52 @@ export default function resourceIdMatrixTest() {
     expect(ref.id > 0).assertTrue();
   });
 
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_RID_0015
+   * @tc.name      testResourceId0015
+   * @tc.desc      Color id keeps color alpha
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testResourceId0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testResourceId0015', 'color color alpha');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const ref: Resource = $r('app.color.start_window_background');
+    const color: number = res.getColorSync(ref);
+    expect((color >>> 24) & 0xFF).assertEqual(255);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_RID_0016
+   * @tc.name      testResourceId0016
+   * @tc.desc      Color id keeps color stable
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testResourceId0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testResourceId0016', 'color color stable');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const ref: Resource = $r('app.color.start_window_background');
+    expect(res.getColorSync(ref)).assertEqual(res.getColorSync(ref));
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HARTOHSP_RID_0017
+   * @tc.name      testResourceId0017
+   * @tc.desc      Color id keeps color channels
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testResourceId0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testResourceId0017', 'color color channels');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const ref: Resource = $r('app.color.start_window_background');
+    const color: number = res.getColorSync(ref);
+    expect((color >>> 16) & 0xFF).assertEqual((color >>> 8) & 0xFF);
+  });
+
+  });
+}
