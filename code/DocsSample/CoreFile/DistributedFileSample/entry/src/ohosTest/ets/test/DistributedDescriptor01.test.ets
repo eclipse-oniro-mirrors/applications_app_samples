@@ -946,3 +946,153 @@ export default function distributedDescriptor01Test(): void {
           expect(step2Outcome.threw).assertEqual(true);
           expect(api.events.slice(step2EventCount).join('|')).assertEqual('open');
           expect(api.paths.length - step2PathCount).assertEqual(1);
+          expect(api.paths[step2PathCount]).assertEqual('/sandbox/file-2.txt');
+          expect(api.descriptors.length - step2WriteCount).assertEqual(0);
+          expect(api.closed.length - step2CloseCount).assertEqual(0);
+          expect(step2Outcome.error).assertEqual(step2Error);
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+
+    /**
+     * @tc.number SUB_DISTRIBUTED_FILE_DESCRIPTOR01_1600
+     * @tc.name testDistributedFileDescriptor010016
+     * @tc.desc Verify descriptor lifecycle recovery from ordinary to writeFailure.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testDistributedFileDescriptor010016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const TAG: string = 'testDistributedFileDescriptor010016';
+        console.info(`${TAG} start`);
+        try {
+          const api: RecordingDescriptorApi = new RecordingDescriptorApi();
+          const step1Error: Error = new Error('primary step 1');
+          const step1CloseError: Error = new Error('release step 1');
+          api.fd = 19;
+          api.openError = undefined;
+          api.writeError = undefined;
+          api.closeError = undefined;
+          const step1EventCount: number = api.events.length;
+          const step1PathCount: number = api.paths.length;
+          const step1WriteCount: number = api.descriptors.length;
+          const step1CloseCount: number = api.closed.length;
+          const step1Outcome: DistributedOutcome = captureDescriptor(
+            (): void => writeTextFile(' /sandbox/file-1.txt ', 'payload-1', api));
+          expect(step1Outcome.threw).assertEqual(false);
+          expect(api.events.slice(step1EventCount).join('|')).assertEqual('open|write|close');
+          expect(api.paths.length - step1PathCount).assertEqual(1);
+          expect(api.paths[step1PathCount]).assertEqual('/sandbox/file-1.txt');
+          expect(api.descriptors.length - step1WriteCount).assertEqual(1);
+          expect(api.closed.length - step1CloseCount).assertEqual(1);
+          expect(step1Outcome.error).assertEqual(undefined);
+          expect(api.descriptors[step1WriteCount]).assertEqual(19);
+          expect(api.contents[step1WriteCount]).assertEqual('payload-1');
+          expect(api.closed[step1CloseCount]).assertEqual(19);
+          const step2Error: Error = new Error('primary step 2');
+          const step2CloseError: Error = new Error('release step 2');
+          api.fd = 7;
+          api.openError = undefined;
+          api.writeError = step2Error;
+          api.closeError = undefined;
+          const step2EventCount: number = api.events.length;
+          const step2PathCount: number = api.paths.length;
+          const step2WriteCount: number = api.descriptors.length;
+          const step2CloseCount: number = api.closed.length;
+          const step2Outcome: DistributedOutcome = captureDescriptor(
+            (): void => writeTextFile(' /sandbox/file-2.txt ', 'payload-2', api));
+          expect(step2Outcome.threw).assertEqual(true);
+          expect(api.events.slice(step2EventCount).join('|')).assertEqual('open|write|close');
+          expect(api.paths.length - step2PathCount).assertEqual(1);
+          expect(api.paths[step2PathCount]).assertEqual('/sandbox/file-2.txt');
+          expect(api.descriptors.length - step2WriteCount).assertEqual(1);
+          expect(api.closed.length - step2CloseCount).assertEqual(1);
+          expect(step2Outcome.error).assertEqual(step2Error);
+          expect(api.descriptors[step2WriteCount]).assertEqual(7);
+          expect(api.contents[step2WriteCount]).assertEqual('payload-2');
+          expect(api.closed[step2CloseCount]).assertEqual(7);
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+
+    /**
+     * @tc.number SUB_DISTRIBUTED_FILE_DESCRIPTOR01_1700
+     * @tc.name testDistributedFileDescriptor010017
+     * @tc.desc Verify descriptor lifecycle recovery from ordinary to closeFailure.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testDistributedFileDescriptor010017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const TAG: string = 'testDistributedFileDescriptor010017';
+        console.info(`${TAG} start`);
+        try {
+          const api: RecordingDescriptorApi = new RecordingDescriptorApi();
+          const step1Error: Error = new Error('primary step 1');
+          const step1CloseError: Error = new Error('release step 1');
+          api.fd = 19;
+          api.openError = undefined;
+          api.writeError = undefined;
+          api.closeError = undefined;
+          const step1EventCount: number = api.events.length;
+          const step1PathCount: number = api.paths.length;
+          const step1WriteCount: number = api.descriptors.length;
+          const step1CloseCount: number = api.closed.length;
+          const step1Outcome: DistributedOutcome = captureDescriptor(
+            (): void => writeTextFile(' /sandbox/file-1.txt ', 'payload-1', api));
+          expect(step1Outcome.threw).assertEqual(false);
+          expect(api.events.slice(step1EventCount).join('|')).assertEqual('open|write|close');
+          expect(api.paths.length - step1PathCount).assertEqual(1);
+          expect(api.paths[step1PathCount]).assertEqual('/sandbox/file-1.txt');
+          expect(api.descriptors.length - step1WriteCount).assertEqual(1);
+          expect(api.closed.length - step1CloseCount).assertEqual(1);
+          expect(step1Outcome.error).assertEqual(undefined);
+          expect(api.descriptors[step1WriteCount]).assertEqual(19);
+          expect(api.contents[step1WriteCount]).assertEqual('payload-1');
+          expect(api.closed[step1CloseCount]).assertEqual(19);
+          const step2Error: Error = new Error('primary step 2');
+          const step2CloseError: Error = new Error('release step 2');
+          api.fd = 7;
+          api.openError = undefined;
+          api.writeError = undefined;
+          api.closeError = step2CloseError;
+          const step2EventCount: number = api.events.length;
+          const step2PathCount: number = api.paths.length;
+          const step2WriteCount: number = api.descriptors.length;
+          const step2CloseCount: number = api.closed.length;
+          const step2Outcome: DistributedOutcome = captureDescriptor(
+            (): void => writeTextFile(' /sandbox/file-2.txt ', 'payload-2', api));
+          expect(step2Outcome.threw).assertEqual(true);
+          expect(api.events.slice(step2EventCount).join('|')).assertEqual('open|write|close');
+          expect(api.paths.length - step2PathCount).assertEqual(1);
+          expect(api.paths[step2PathCount]).assertEqual('/sandbox/file-2.txt');
+          expect(api.descriptors.length - step2WriteCount).assertEqual(1);
+          expect(api.closed.length - step2CloseCount).assertEqual(1);
+          expect(step2Outcome.error).assertEqual(step2CloseError);
+          expect(api.descriptors[step2WriteCount]).assertEqual(7);
+          expect(api.contents[step2WriteCount]).assertEqual('payload-2');
+          expect(api.closed[step2CloseCount]).assertEqual(7);
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+
+    /**
+     * @tc.number SUB_DISTRIBUTED_FILE_DESCRIPTOR01_1800
+     * @tc.name testDistributedFileDescriptor010018
+     * @tc.desc Verify descriptor lifecycle recovery from ordinary to doubleFailure.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testDistributedFileDescriptor010018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const TAG: string = 'testDistributedFileDescriptor010018';
+        console.info(`${TAG} start`);
+        try {
+          const api: RecordingDescriptorApi = new RecordingDescriptorApi();
+          const step1Error: Error = new Error('primary step 1');
