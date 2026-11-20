@@ -112,9 +112,9 @@ const runner = fs.readFileSync(runnerPath, 'utf8');
 const checkpoints = [
   'abilityDelegatorArguments = abilityDelegatorRegistry.getArguments();',
   'abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();',
-  'global.__savePath__ =',
-  'global.__readPath__ =',
-  'global.__testMode__ =',
+  'global[SAVE_PATH_KEY] =',
+  'global[READ_PATH_KEY] =',
+  'global[TEST_MODE_KEY] =',
   'await application.createModuleContext(',
   'await checkMock(abilityDelegator, context.resourceManager);',
   "const testList = await import('../test/List.test');",

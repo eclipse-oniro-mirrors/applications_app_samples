@@ -20,12 +20,6 @@ import { resourceManager } from '@kit.LocalizationKit';
 import { util } from '@kit.ArkTS';
 import { Hypium } from '@ohos/hypium';
 
-interface CoverageGlobal {
-  __savePath__: string;
-  __readPath__: string;
-  __testMode__: string;
-}
-
 interface MockConfig {
   source: string;
 }
@@ -35,7 +29,10 @@ let abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs;
 const JSON_PATH: string = 'mock/mock-config.json';
 const DOMAIN: number = 0x0000;
 const TAG: string = 'testTag';
-const global: CoverageGlobal = new Function('return this')();
+const SAVE_PATH_KEY: string = '__savePath__';
+const READ_PATH_KEY: string = '__readPath__';
+const TEST_MODE_KEY: string = '__testMode__';
+const global: Record<string, string> = new Function('return this')();
 
 export default class OpenHarmonyTestRunner implements TestRunner {
   onPrepare(): void {
@@ -49,9 +46,9 @@ export default class OpenHarmonyTestRunner implements TestRunner {
     const moduleName: string = abilityDelegatorArguments.parameters['-m'];
     const uid: number = Math.floor(abilityDelegator.getAppContext().applicationInfo.uid / 200000);
     const bundleName: string = abilityDelegatorArguments.bundleName;
-    global.__savePath__ = '/data/storage/el2/base/js_coverage.json';
-    global.__readPath__ = '/data/app/el2/' + uid + '/base/' + bundleName + '/js_coverage.json';
-    global.__testMode__ = 'ohostest';
+    global[SAVE_PATH_KEY] = '/data/storage/el2/base/js_coverage.json';
+    global[READ_PATH_KEY] = '/data/app/el2/' + uid + '/base/' + bundleName + '/js_coverage.json';
+    global[TEST_MODE_KEY] = 'ohostest';
 
     try {
       const context: common.Context = await application.createModuleContext(
