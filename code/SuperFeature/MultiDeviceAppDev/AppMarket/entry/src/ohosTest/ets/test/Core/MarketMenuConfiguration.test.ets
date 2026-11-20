@@ -1287,6 +1287,1308 @@ export default function marketMenuConfigurationSuite() {
       expect(m.searchTitle('nohit161')).assertEqual(0);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0162
+     * @tc.name    MarketMenuConfiguration162
+     * @tc.desc    Market slice partition with page size 0 probe 162
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration162', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 0;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit162')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0163
+     * @tc.name    MarketMenuConfiguration163
+     * @tc.desc    Market entry fields for index 16 probe 163
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration163', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 16;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit163')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0164
+     * @tc.name    MarketMenuConfiguration164
+     * @tc.desc    Market slice partition with page size 2 probe 164
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration164', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit164')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0165
+     * @tc.name    MarketMenuConfiguration165
+     * @tc.desc    Market entry fields for index 18 probe 165
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration165', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 18;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit165')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0166
+     * @tc.name    MarketMenuConfiguration166
+     * @tc.desc    Market slice partition with page size 4 probe 166
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration166', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit166')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0167
+     * @tc.name    MarketMenuConfiguration167
+     * @tc.desc    Market entry fields for index 20 probe 167
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration167', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 20;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit167')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0168
+     * @tc.name    MarketMenuConfiguration168
+     * @tc.desc    Market slice partition with page size 6 probe 168
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration168', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit168')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0169
+     * @tc.name    MarketMenuConfiguration169
+     * @tc.desc    Market entry fields for index 1 probe 169
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration169', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit169')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0170
+     * @tc.name    MarketMenuConfiguration170
+     * @tc.desc    Market slice partition with page size 8 probe 170
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration170', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 8;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit170')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0171
+     * @tc.name    MarketMenuConfiguration171
+     * @tc.desc    Market entry fields for index 3 probe 171
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration171', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit171')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0172
+     * @tc.name    MarketMenuConfiguration172
+     * @tc.desc    Market slice partition with page size 1 probe 172
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration172', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit172')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0173
+     * @tc.name    MarketMenuConfiguration173
+     * @tc.desc    Market entry fields for index 5 probe 173
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration173', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 5;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit173')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0174
+     * @tc.name    MarketMenuConfiguration174
+     * @tc.desc    Market slice partition with page size 3 probe 174
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration174', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit174')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0175
+     * @tc.name    MarketMenuConfiguration175
+     * @tc.desc    Market entry fields for index 7 probe 175
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration175', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 7;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit175')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0176
+     * @tc.name    MarketMenuConfiguration176
+     * @tc.desc    Market slice partition with page size 5 probe 176
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration176', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit176')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0177
+     * @tc.name    MarketMenuConfiguration177
+     * @tc.desc    Market entry fields for index 9 probe 177
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration177', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 9;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit177')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0178
+     * @tc.name    MarketMenuConfiguration178
+     * @tc.desc    Market slice partition with page size 7 probe 178
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration178', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit178')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0179
+     * @tc.name    MarketMenuConfiguration179
+     * @tc.desc    Market entry fields for index 11 probe 179
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration179', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 11;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit179')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0180
+     * @tc.name    MarketMenuConfiguration180
+     * @tc.desc    Market slice partition with page size 0 probe 180
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration180', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 0;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit180')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0181
+     * @tc.name    MarketMenuConfiguration181
+     * @tc.desc    Market entry fields for index 13 probe 181
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration181', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 13;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit181')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0182
+     * @tc.name    MarketMenuConfiguration182
+     * @tc.desc    Market slice partition with page size 2 probe 182
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration182', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit182')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0183
+     * @tc.name    MarketMenuConfiguration183
+     * @tc.desc    Market entry fields for index 15 probe 183
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration183', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 15;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit183')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0184
+     * @tc.name    MarketMenuConfiguration184
+     * @tc.desc    Market slice partition with page size 4 probe 184
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration184', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit184')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0185
+     * @tc.name    MarketMenuConfiguration185
+     * @tc.desc    Market entry fields for index 17 probe 185
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration185', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 17;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit185')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0186
+     * @tc.name    MarketMenuConfiguration186
+     * @tc.desc    Market slice partition with page size 6 probe 186
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration186', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit186')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0187
+     * @tc.name    MarketMenuConfiguration187
+     * @tc.desc    Market entry fields for index 19 probe 187
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration187', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 19;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit187')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0188
+     * @tc.name    MarketMenuConfiguration188
+     * @tc.desc    Market slice partition with page size 8 probe 188
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration188', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 8;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit188')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0189
+     * @tc.name    MarketMenuConfiguration189
+     * @tc.desc    Market entry fields for index 0 probe 189
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration189', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit189')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0190
+     * @tc.name    MarketMenuConfiguration190
+     * @tc.desc    Market slice partition with page size 1 probe 190
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration190', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit190')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0191
+     * @tc.name    MarketMenuConfiguration191
+     * @tc.desc    Market entry fields for index 2 probe 191
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration191', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit191')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0192
+     * @tc.name    MarketMenuConfiguration192
+     * @tc.desc    Market slice partition with page size 3 probe 192
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration192', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit192')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0193
+     * @tc.name    MarketMenuConfiguration193
+     * @tc.desc    Market entry fields for index 4 probe 193
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration193', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit193')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0194
+     * @tc.name    MarketMenuConfiguration194
+     * @tc.desc    Market slice partition with page size 5 probe 194
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration194', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit194')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0195
+     * @tc.name    MarketMenuConfiguration195
+     * @tc.desc    Market entry fields for index 6 probe 195
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration195', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 6;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit195')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0196
+     * @tc.name    MarketMenuConfiguration196
+     * @tc.desc    Market slice partition with page size 7 probe 196
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration196', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit196')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0197
+     * @tc.name    MarketMenuConfiguration197
+     * @tc.desc    Market entry fields for index 8 probe 197
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration197', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 8;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit197')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0198
+     * @tc.name    MarketMenuConfiguration198
+     * @tc.desc    Market slice partition with page size 0 probe 198
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration198', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 0;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit198')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0199
+     * @tc.name    MarketMenuConfiguration199
+     * @tc.desc    Market entry fields for index 10 probe 199
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration199', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 10;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit199')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0200
+     * @tc.name    MarketMenuConfiguration200
+     * @tc.desc    Market slice partition with page size 2 probe 200
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration200', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit200')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0201
+     * @tc.name    MarketMenuConfiguration201
+     * @tc.desc    Market entry fields for index 12 probe 201
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration201', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 12;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit201')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0202
+     * @tc.name    MarketMenuConfiguration202
+     * @tc.desc    Market slice partition with page size 4 probe 202
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration202', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit202')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0203
+     * @tc.name    MarketMenuConfiguration203
+     * @tc.desc    Market entry fields for index 14 probe 203
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration203', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 14;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit203')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0204
+     * @tc.name    MarketMenuConfiguration204
+     * @tc.desc    Market slice partition with page size 6 probe 204
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration204', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit204')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0205
+     * @tc.name    MarketMenuConfiguration205
+     * @tc.desc    Market entry fields for index 16 probe 205
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration205', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 16;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit205')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0206
+     * @tc.name    MarketMenuConfiguration206
+     * @tc.desc    Market slice partition with page size 8 probe 206
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration206', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 8;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit206')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0207
+     * @tc.name    MarketMenuConfiguration207
+     * @tc.desc    Market entry fields for index 18 probe 207
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration207', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 18;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit207')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0208
+     * @tc.name    MarketMenuConfiguration208
+     * @tc.desc    Market slice partition with page size 1 probe 208
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration208', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit208')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0209
+     * @tc.name    MarketMenuConfiguration209
+     * @tc.desc    Market entry fields for index 20 probe 209
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration209', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 20;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit209')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0210
+     * @tc.name    MarketMenuConfiguration210
+     * @tc.desc    Market slice partition with page size 3 probe 210
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration210', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit210')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0211
+     * @tc.name    MarketMenuConfiguration211
+     * @tc.desc    Market entry fields for index 1 probe 211
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration211', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit211')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0212
+     * @tc.name    MarketMenuConfiguration212
+     * @tc.desc    Market slice partition with page size 5 probe 212
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration212', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit212')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0213
+     * @tc.name    MarketMenuConfiguration213
+     * @tc.desc    Market entry fields for index 3 probe 213
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration213', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit213')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0214
+     * @tc.name    MarketMenuConfiguration214
+     * @tc.desc    Market slice partition with page size 7 probe 214
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration214', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit214')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0215
+     * @tc.name    MarketMenuConfiguration215
+     * @tc.desc    Market entry fields for index 5 probe 215
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration215', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 5;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit215')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0216
+     * @tc.name    MarketMenuConfiguration216
+     * @tc.desc    Market slice partition with page size 0 probe 216
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration216', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 0;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit216')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0217
+     * @tc.name    MarketMenuConfiguration217
+     * @tc.desc    Market entry fields for index 7 probe 217
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration217', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 7;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit217')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0218
+     * @tc.name    MarketMenuConfiguration218
+     * @tc.desc    Market slice partition with page size 2 probe 218
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration218', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit218')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0219
+     * @tc.name    MarketMenuConfiguration219
+     * @tc.desc    Market entry fields for index 9 probe 219
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration219', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 9;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit219')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0220
+     * @tc.name    MarketMenuConfiguration220
+     * @tc.desc    Market slice partition with page size 4 probe 220
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration220', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit220')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0221
+     * @tc.name    MarketMenuConfiguration221
+     * @tc.desc    Market entry fields for index 11 probe 221
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration221', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 11;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit221')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0222
+     * @tc.name    MarketMenuConfiguration222
+     * @tc.desc    Market slice partition with page size 6 probe 222
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration222', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1 + 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.totalCount());
+      expect(m.slicePage(pages, ps).length).assertEqual(0);
+      expect(m.getData(0) !== undefined).assertEqual(true);
+      expect(m.searchTitle('nohit222')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MARKET_0223
+     * @tc.name    MarketMenuConfiguration223
+     * @tc.desc    Market entry fields for index 13 probe 223
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MarketMenuConfiguration223', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 13;
+      const item = m.getData(idx);
+      expect(item !== undefined).assertEqual(true);
+      expect((item?.id ?? '')).assertEqual(String(idx));
+      expect((item?.title.length ?? 0) > 0).assertEqual(true);
+      expect(m.searchTitle('nohit223')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
   });
 }
 
