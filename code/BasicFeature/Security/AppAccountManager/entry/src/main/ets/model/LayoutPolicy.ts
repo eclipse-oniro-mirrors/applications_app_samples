@@ -22,11 +22,11 @@ export class LayoutPolicy {
     /**
      * 单栏与双栏的宽度分界值，单位 vp。
      */
-    public static readonly SPLIT_THRESHOLD: number = 840
+    public static readonly SPLIT_THRESHOLD: number = 840;
     /**
      * 未从路由参数拿到应用名时使用的默认示例应用。
      */
-    public static readonly DEFAULT_BUNDLE_NAME: string = 'Music'
+    public static readonly DEFAULT_BUNDLE_NAME: string = 'Music';
 
     /**
      * 给定可用宽度是否为宽屏布局。
@@ -35,7 +35,7 @@ export class LayoutPolicy {
      * @returns 大于等于分界值返回 true
      */
     public static isWideLayout(width: number): boolean {
-        return width >= LayoutPolicy.SPLIT_THRESHOLD
+        return width >= LayoutPolicy.SPLIT_THRESHOLD;
     }
 
     /**
@@ -45,6 +45,6 @@ export class LayoutPolicy {
      * @returns 应用名，缺省为空串
      */
     public static resolveBundleName(param: string | undefined): string {
-        return param ?? ''
+        return param ?? '';
     }
 }

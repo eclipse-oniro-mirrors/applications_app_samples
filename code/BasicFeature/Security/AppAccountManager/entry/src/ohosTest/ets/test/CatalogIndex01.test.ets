@@ -31,7 +31,7 @@ export default function catalogIndexTest() {
         /**
          * @tc.name   testCatalogIndex0031
          * @tc.number SUB_ACCT_META_0031
-         * @tc.desc   三个合法下标依次取回音乐、视频、地图，名称与顺序表一致
+         * @tc.desc   三个合法下标依次取回各应用，名称与顺序表一致
          * @tc.type   FUNCTION
          * @tc.size   MEDIUMTEST
          * @tc.level  LEVEL1

@@ -23,19 +23,19 @@ export class AccountKeyBuilder {
     /**
      * 邮箱凭据类型前缀。
      */
-    public static readonly EMAIL_FIELD: string = 'email'
+    public static readonly EMAIL_FIELD: string = 'email';
     /**
      * 个性签名凭据类型前缀。
      */
-    public static readonly SIGNATURE_FIELD: string = 'signature'
+    public static readonly SIGNATURE_FIELD: string = 'signature';
     /**
      * 关联数据键前缀。
      */
-    public static readonly ASSOCIATED_KEY_PREFIX: string = 'key'
+    public static readonly ASSOCIATED_KEY_PREFIX: string = 'key';
     /**
      * 登录标记的取值。
      */
-    public static readonly LOGIN_FLAG: string = 'true'
+    public static readonly LOGIN_FLAG: string = 'true';
 
     /**
      * 拼装应用账号名，形如 `tom_Music`。
@@ -45,7 +45,7 @@ export class AccountKeyBuilder {
      * @returns 账号名
      */
     public static accountName(username: string, bundleName: string): string {
-        return `${username}_${bundleName}`
+        return `${username}_${bundleName}`;
     }
 
     /**
@@ -56,7 +56,7 @@ export class AccountKeyBuilder {
      * @returns 凭据类型
      */
     public static credentialType(field: string, bundleName: string): string {
-        return `${field}_${bundleName}`
+        return `${field}_${bundleName}`;
     }
 
     /**
@@ -66,6 +66,6 @@ export class AccountKeyBuilder {
      * @returns 关联数据键
      */
     public static associatedKey(bundleName: string): string {
-        return `${AccountKeyBuilder.ASSOCIATED_KEY_PREFIX}_${bundleName}`
+        return `${AccountKeyBuilder.ASSOCIATED_KEY_PREFIX}_${bundleName}`;
     }
 }

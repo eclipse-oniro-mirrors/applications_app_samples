@@ -26,15 +26,15 @@ function translateParamsToString(parameters: Record<string, string>): string {
         '-s class', '-s notClass', '-s suite', '-s it',
         '-s level', '-s testType', '-s size', '-s timeout',
         '-s dryRun'
-    ])
-    let targetParams: string = ''
-    const keys: string[] = Object.keys(parameters)
+    ]);
+    let targetParams: string = '';
+    const keys: string[] = Object.keys(parameters);
     keys.forEach((key: string) => {
         if (keySet.has(key)) {
-            targetParams = `${targetParams} ${key} ${parameters[key]}`
+            targetParams = `${targetParams} ${key} ${parameters[key]}`;
         }
-    })
-    return targetParams.trim()
+    });
+    return targetParams.trim();
 }
 
 function onAbilityCreateCallback(): void {
@@ -56,20 +56,20 @@ export default class OpenHarmonyTestRunner implements TestRunner {
     async onRun(): Promise<void> {
         hilog.info(DOMAIN, TAG, '%{public}s', 'OpenHarmonyTestRunner onRun run');
         const abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs =
-            AbilityDelegatorRegistry.getArguments()
+            AbilityDelegatorRegistry.getArguments();
         const abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator =
-            AbilityDelegatorRegistry.getAbilityDelegator()
-        const testAbilityName: string = abilityDelegatorArguments.bundleName + '.TestAbility'
+            AbilityDelegatorRegistry.getAbilityDelegator();
+        const testAbilityName: string = abilityDelegatorArguments.bundleName + '.TestAbility';
         const lMonitor: AbilityDelegatorRegistry.AbilityMonitor = {
             abilityName: testAbilityName,
             onAbilityCreate: onAbilityCreateCallback
         };
-        abilityDelegator.addAbilityMonitor(lMonitor, addAbilityMonitorCallback)
-        let cmd: string = 'a' + 'a start -d 0 -a TestAbility' + ' -b ' + abilityDelegatorArguments.bundleName
-        cmd += ' ' + translateParamsToString(abilityDelegatorArguments.parameters)
-        const debug: string = abilityDelegatorArguments.parameters['-D']
+        abilityDelegator.addAbilityMonitor(lMonitor, addAbilityMonitorCallback);
+        let cmd: string = 'a' + 'a start -d 0 -a TestAbility' + ' -b ' + abilityDelegatorArguments.bundleName;
+        cmd += ' ' + translateParamsToString(abilityDelegatorArguments.parameters);
+        const debug: string = abilityDelegatorArguments.parameters['-D'];
         if (debug === 'true') {
-            cmd += ' -D'
+            cmd += ' -D';
         }
         hilog.info(DOMAIN, TAG, 'cmd : %{public}s', cmd);
         abilityDelegator.executeShellCommand(cmd,
@@ -77,7 +77,7 @@ export default class OpenHarmonyTestRunner implements TestRunner {
                 hilog.info(DOMAIN, TAG, 'executeShellCommand : err : %{public}s', JSON.stringify(err) ?? '');
                 hilog.info(DOMAIN, TAG, 'executeShellCommand : data : %{public}s', d.stdResult ?? '');
                 hilog.info(DOMAIN, TAG, 'executeShellCommand : data : %{public}s', d.exitCode ?? '');
-            })
+            });
         hilog.info(DOMAIN, TAG, '%{public}s', 'OpenHarmonyTestRunner onRun end');
     }
 }

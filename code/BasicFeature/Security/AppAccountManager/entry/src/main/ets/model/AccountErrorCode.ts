@@ -28,8 +28,8 @@ export enum AccountServiceError {
 /**
  * 部分设备版本上 AppAccount 服务直接透出内部错误码，这里登记已观测到的取值。
  */
-const DEVICE_ACCOUNT_NOT_FOUND: number = 10002
-const DEVICE_ACCOUNT_ALREADY_EXISTS: number = 10004
+const DEVICE_ACCOUNT_NOT_FOUND: number = 10002;
+const DEVICE_ACCOUNT_ALREADY_EXISTS: number = 10004;
 
 /**
  * appAccount 业务错误码的判定与描述。
@@ -44,21 +44,21 @@ export class AccountErrorCode {
     public static of(code: number): AccountServiceError {
         switch (code) {
             case AccountServiceError.SYSTEM_SERVICE_EXCEPTION:
-                return AccountServiceError.SYSTEM_SERVICE_EXCEPTION
+                return AccountServiceError.SYSTEM_SERVICE_EXCEPTION;
             case AccountServiceError.INVALID_PARAM:
-                return AccountServiceError.INVALID_PARAM
+                return AccountServiceError.INVALID_PARAM;
             case AccountServiceError.ACCOUNT_NOT_FOUND:
-                return AccountServiceError.ACCOUNT_NOT_FOUND
+                return AccountServiceError.ACCOUNT_NOT_FOUND;
             case AccountServiceError.ACCOUNT_ALREADY_EXISTS:
-                return AccountServiceError.ACCOUNT_ALREADY_EXISTS
+                return AccountServiceError.ACCOUNT_ALREADY_EXISTS;
             case AccountServiceError.ACCOUNT_NUMBER_REACHES_LIMIT:
-                return AccountServiceError.ACCOUNT_NUMBER_REACHES_LIMIT
+                return AccountServiceError.ACCOUNT_NUMBER_REACHES_LIMIT;
             case DEVICE_ACCOUNT_NOT_FOUND:
-                return AccountServiceError.ACCOUNT_NOT_FOUND
+                return AccountServiceError.ACCOUNT_NOT_FOUND;
             case DEVICE_ACCOUNT_ALREADY_EXISTS:
-                return AccountServiceError.ACCOUNT_ALREADY_EXISTS
+                return AccountServiceError.ACCOUNT_ALREADY_EXISTS;
             default:
-                return AccountServiceError.UNKNOWN
+                return AccountServiceError.UNKNOWN;
         }
     }
 
@@ -69,7 +69,7 @@ export class AccountErrorCode {
      * @returns 已存在返回 true
      */
     public static isAccountAlreadyExists(code: number): boolean {
-        return AccountErrorCode.of(code) === AccountServiceError.ACCOUNT_ALREADY_EXISTS
+        return AccountErrorCode.of(code) === AccountServiceError.ACCOUNT_ALREADY_EXISTS;
     }
 
     /**
@@ -79,7 +79,7 @@ export class AccountErrorCode {
      * @returns 不存在返回 true
      */
     public static isAccountNotFound(code: number): boolean {
-        return AccountErrorCode.of(code) === AccountServiceError.ACCOUNT_NOT_FOUND
+        return AccountErrorCode.of(code) === AccountServiceError.ACCOUNT_NOT_FOUND;
     }
 
     /**
@@ -89,10 +89,10 @@ export class AccountErrorCode {
      * @returns 可重试返回 true
      */
     public static isRecoverable(code: number): boolean {
-        let error: AccountServiceError = AccountErrorCode.of(code)
+        let error: AccountServiceError = AccountErrorCode.of(code);
         return error === AccountServiceError.INVALID_PARAM ||
             error === AccountServiceError.ACCOUNT_ALREADY_EXISTS ||
-            error === AccountServiceError.ACCOUNT_NOT_FOUND
+            error === AccountServiceError.ACCOUNT_NOT_FOUND;
     }
 
     /**
@@ -104,17 +104,17 @@ export class AccountErrorCode {
     public static describe(code: number): string {
         switch (AccountErrorCode.of(code)) {
             case AccountServiceError.SYSTEM_SERVICE_EXCEPTION:
-                return 'system service exception'
+                return 'system service exception';
             case AccountServiceError.INVALID_PARAM:
-                return 'invalid name, key or value'
+                return 'invalid name, key or value';
             case AccountServiceError.ACCOUNT_NOT_FOUND:
-                return 'account not found'
+                return 'account not found';
             case AccountServiceError.ACCOUNT_ALREADY_EXISTS:
-                return 'account already exists'
+                return 'account already exists';
             case AccountServiceError.ACCOUNT_NUMBER_REACHES_LIMIT:
-                return 'the number of accounts reaches the upper limit'
+                return 'the number of accounts reaches the upper limit';
             default:
-                return `unexpected account error, code is ${code}`
+                return `unexpected account error, code is ${code}`;
         }
     }
 }

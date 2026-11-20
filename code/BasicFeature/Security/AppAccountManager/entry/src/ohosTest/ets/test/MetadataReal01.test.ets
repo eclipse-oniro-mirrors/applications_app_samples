@@ -106,7 +106,7 @@ export default function metadataTest() {
         /**
          * @tc.name   testMetadata0001
          * @tc.number SUB_ACCT_META_0001
-         * @tc.desc   示例应用目录固定为三个条目，顺序为音乐、视频、地图
+         * @tc.desc   示例应用目录固定为三个条目，顺序与目录一致
          * @tc.type   FUNCTION
          * @tc.size   MEDIUMTEST
          * @tc.level  Level0
