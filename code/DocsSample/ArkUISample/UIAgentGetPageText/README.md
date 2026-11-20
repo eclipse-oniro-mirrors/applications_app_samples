@@ -4,7 +4,7 @@
 
 本示例包名为 `com.samples.uiagentgetpagetext`。示例使用 `OH_ArkUI_NativeModule_UIAgentGetPageText` 同步采集当前 ArkUI 页面中的文本，通过 Node-API 将结果传回 ArkTS，并展示文本项数和原始 JSON。返回值包含 `schemaVersion` 和 `texts` 数组，每个文本项包含节点 `id`、相对于目标窗口的 `rect` 和文本 `content`。
 
-本示例使用 [ui_info_collection.h](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/capi-ui-info-collection-h.md)、[ui_json_wrapper.h](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/capi-ui-json-wrapper-h.md) 和 [native_node_napi.h](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/capi-native-node-napi-h.md) 等 C API，链接 `libace_ndk.z.so`。
+本示例使用 [ui_info_collection.h](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/capi-ui-info-collection-h.md)、[ui_json_wrapper.h](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/capi-ui-json-wrapper-h.md) 和 [native_node_napi.h](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/capi-native-node-napi-h.md) 等 C API。
 
 ### 效果预览
 
