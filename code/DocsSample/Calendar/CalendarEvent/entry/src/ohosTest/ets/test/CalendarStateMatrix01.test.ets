@@ -1392,3 +1392,411 @@ export default function calendarStateMatrix01Test(): void {
       expect(manager.accounts.length).assertEqual(1);
     });
     /**
+     * @tc.number SUB_CALENDAR_STATE_STATEMATRIX01_4400
+     * @tc.name CalendarEventStateMatrix01_0044
+     * @tc.desc configFailed state: update is guarded without SDK calls; readiness recovery works.
+     * @tc.type FUNC
+     */
+    it('CalendarEventStateMatrix01_0044', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      manager.calendar.failMethod = 'config';
+      const original: Error = new Error('201: Configuration permission denied');
+      manager.calendar.error = original;
+      const configurationFailure: Error | undefined = await captureFailure(() => session.createCalendar());
+      expect(configurationFailure === original).assertTrue();
+      const traceBefore: string = manager.calendar.trace.join(",");
+      const accountsBefore: number = manager.accounts.length;
+      const editsBefore: number = manager.edits.length;
+      const failure: Error | undefined = await captureFailure(() => session.updateEvent());
+      expect(failure?.message).assertEqual('Calendar is not ready');
+      expect(manager.calendar.trace.join(",")).assertEqual(traceBefore);
+      expect(manager.accounts.length).assertEqual(accountsBefore);
+      expect(manager.edits.length).assertEqual(editsBefore);
+      expect(manager.calendar.updates.length).assertEqual(0);
+      expect(manager.calendar.ids.length).assertEqual(0);
+      expect(manager.calendar.titles.length).assertEqual(0);
+      expect(manager.calendar.starts.length).assertEqual(0);
+      expect(manager.calendar.ends.length).assertEqual(0);
+      manager.calendar.failMethod = '';
+      await session.createCalendar();
+      manager.calendar.nextId = 1;
+      expect(await session.addEvent()).assertEqual(1);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(1);
+      expect(manager.calendar.configs.length).assertEqual(2);
+      expect(manager.accounts.length).assertEqual(1);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_STATE_STATEMATRIX01_4500
+     * @tc.name CalendarEventStateMatrix01_0045
+     * @tc.desc configFailed state: all is guarded without SDK calls; readiness recovery works.
+     * @tc.type FUNC
+     */
+    it('CalendarEventStateMatrix01_0045', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      manager.calendar.failMethod = 'config';
+      const original: Error = new Error('201: Configuration permission denied');
+      manager.calendar.error = original;
+      const configurationFailure: Error | undefined = await captureFailure(() => session.createCalendar());
+      expect(configurationFailure === original).assertTrue();
+      const traceBefore: string = manager.calendar.trace.join(",");
+      const accountsBefore: number = manager.accounts.length;
+      const editsBefore: number = manager.edits.length;
+      const failure: Error | undefined = await captureFailure(() => session.getEvents());
+      expect(failure?.message).assertEqual('Calendar is not ready');
+      expect(manager.calendar.trace.join(",")).assertEqual(traceBefore);
+      expect(manager.accounts.length).assertEqual(accountsBefore);
+      expect(manager.edits.length).assertEqual(editsBefore);
+      expect(manager.calendar.updates.length).assertEqual(0);
+      expect(manager.calendar.ids.length).assertEqual(0);
+      expect(manager.calendar.titles.length).assertEqual(0);
+      expect(manager.calendar.starts.length).assertEqual(0);
+      expect(manager.calendar.ends.length).assertEqual(0);
+      manager.calendar.failMethod = '';
+      await session.createCalendar();
+      manager.calendar.nextId = 1;
+      expect(await session.addEvent()).assertEqual(1);
+      const recoveredresult: calendarManager.Event[] = await session.getEvents();
+      expect(recoveredresult === manager.calendar.results).assertTrue();
+      expect(manager.calendar.configs.length).assertEqual(2);
+      expect(manager.accounts.length).assertEqual(1);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_STATE_STATEMATRIX01_4600
+     * @tc.name CalendarEventStateMatrix01_0046
+     * @tc.desc configFailed state: id is guarded without SDK calls; readiness recovery works.
+     * @tc.type FUNC
+     */
+    it('CalendarEventStateMatrix01_0046', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      manager.calendar.failMethod = 'config';
+      const original: Error = new Error('201: Configuration permission denied');
+      manager.calendar.error = original;
+      const configurationFailure: Error | undefined = await captureFailure(() => session.createCalendar());
+      expect(configurationFailure === original).assertTrue();
+      const traceBefore: string = manager.calendar.trace.join(",");
+      const accountsBefore: number = manager.accounts.length;
+      const editsBefore: number = manager.edits.length;
+      const failure: Error | undefined = await captureFailure(() => session.getEvent());
+      expect(failure?.message).assertEqual('Calendar is not ready');
+      expect(manager.calendar.trace.join(",")).assertEqual(traceBefore);
+      expect(manager.accounts.length).assertEqual(accountsBefore);
+      expect(manager.edits.length).assertEqual(editsBefore);
+      expect(manager.calendar.updates.length).assertEqual(0);
+      expect(manager.calendar.ids.length).assertEqual(0);
+      expect(manager.calendar.titles.length).assertEqual(0);
+      expect(manager.calendar.starts.length).assertEqual(0);
+      expect(manager.calendar.ends.length).assertEqual(0);
+      manager.calendar.failMethod = '';
+      await session.createCalendar();
+      manager.calendar.nextId = 1;
+      expect(await session.addEvent()).assertEqual(1);
+      const recoveredresult: calendarManager.Event[][] = await session.getEvent();
+      expect(recoveredresult.length).assertEqual(3);
+      expect(manager.calendar.ids[manager.calendar.ids.length - 1]).assertEqual(1);
+      expect(manager.calendar.configs.length).assertEqual(2);
+      expect(manager.accounts.length).assertEqual(1);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_STATE_STATEMATRIX01_4700
+     * @tc.name CalendarEventStateMatrix01_0047
+     * @tc.desc configFailed state: delete is guarded without SDK calls; readiness recovery works.
+     * @tc.type FUNC
+     */
+    it('CalendarEventStateMatrix01_0047', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      manager.calendar.failMethod = 'config';
+      const original: Error = new Error('201: Configuration permission denied');
+      manager.calendar.error = original;
+      const configurationFailure: Error | undefined = await captureFailure(() => session.createCalendar());
+      expect(configurationFailure === original).assertTrue();
+      const traceBefore: string = manager.calendar.trace.join(",");
+      const accountsBefore: number = manager.accounts.length;
+      const editsBefore: number = manager.edits.length;
+      const failure: Error | undefined = await captureFailure(() => session.deleteEvent());
+      expect(failure?.message).assertEqual('Calendar is not ready');
+      expect(manager.calendar.trace.join(",")).assertEqual(traceBefore);
+      expect(manager.accounts.length).assertEqual(accountsBefore);
+      expect(manager.edits.length).assertEqual(editsBefore);
+      expect(manager.calendar.updates.length).assertEqual(0);
+      expect(manager.calendar.ids.length).assertEqual(0);
+      expect(manager.calendar.titles.length).assertEqual(0);
+      expect(manager.calendar.starts.length).assertEqual(0);
+      expect(manager.calendar.ends.length).assertEqual(0);
+      manager.calendar.failMethod = '';
+      await session.createCalendar();
+      manager.calendar.nextId = 1;
+      expect(await session.addEvent()).assertEqual(1);
+      await session.deleteEvent();
+      expect(manager.calendar.deletions[manager.calendar.deletions.length - 1]).assertEqual(1);
+      const recoveredafterupdateGuard: Error | undefined = await captureFailure(() => session.updateEvent());
+      expect(recoveredafterupdateGuard?.message).assertEqual('Event has not been created');
+      const recoveredafterqueryGuard: Error | undefined = await captureFailure(() => session.getEvent());
+      expect(recoveredafterqueryGuard?.message).assertEqual('Event has not been created');
+      const recoveredafterdeleteGuard: Error | undefined = await captureFailure(() => session.deleteEvent());
+      expect(recoveredafterdeleteGuard?.message).assertEqual('Event has not been created');
+      expect(manager.calendar.configs.length).assertEqual(2);
+      expect(manager.accounts.length).assertEqual(1);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_STATE_STATEMATRIX01_4800
+     * @tc.name CalendarEventStateMatrix01_0048
+     * @tc.desc configFailed state: edit is allowed; readiness recovery works.
+     * @tc.type FUNC
+     */
+    it('CalendarEventStateMatrix01_0048', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      manager.calendar.failMethod = 'config';
+      const original: Error = new Error('201: Configuration permission denied');
+      manager.calendar.error = original;
+      const configurationFailure: Error | undefined = await captureFailure(() => session.createCalendar());
+      expect(configurationFailure === original).assertTrue();
+      const traceBefore: string = manager.calendar.trace.join(",");
+      const accountsBefore: number = manager.accounts.length;
+      const editsBefore: number = manager.edits.length;
+      expect(await session.editEvent()).assertEqual(manager.editId);
+      expect(manager.accounts.length).assertEqual(accountsBefore);
+      expect(manager.edits.length).assertEqual(editsBefore + 1);
+      expect(manager.calendar.trace.join(",")).assertEqual(traceBefore);
+      manager.calendar.failMethod = '';
+      await session.createCalendar();
+      manager.calendar.nextId = 1;
+      expect(await session.addEvent()).assertEqual(1);
+      expect(await session.editEvent()).assertEqual(manager.editId);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(1);
+      expect(manager.calendar.configs.length).assertEqual(2);
+      expect(manager.accounts.length).assertEqual(1);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_STATE_STATEMATRIX01_4900
+     * @tc.name CalendarEventStateMatrix01_0049
+     * @tc.desc reconfigure with zero ID: add obeys readiness and selection lifetime; no implicit deletion.
+     * @tc.type FUNC
+     */
+    it('CalendarEventStateMatrix01_0049', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      await session.createCalendar();
+      manager.calendar.nextId = 0;
+      expect(await session.addEvent()).assertEqual(0);
+      const config: Pending<void> = new Pending<void>();
+      manager.calendar.configQueue.push(config);
+      const reopening: Promise<void> = session.createCalendar();
+      const traceBefore: string = manager.calendar.trace.join(",");
+      const duringConfig: Error | undefined = await captureFailure(() => session.addEvent());
+      expect(duringConfig?.message).assertEqual('Calendar is not ready');
+      expect(manager.calendar.trace.join(",")).assertEqual(traceBefore);
+      expect(manager.calendar.deletions.length).assertEqual(0);
+      expect(manager.calendar.updates.length).assertEqual(0);
+      expect(manager.calendar.ids.length).assertEqual(0);
+      expect(manager.calendar.additions.length).assertEqual(1);
+      config.resolve(undefined);
+      await reopening;
+      manager.calendar.nextId = 1;
+      expect(await session.addEvent()).assertEqual(1);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(1);
+      expect(manager.accounts.length).assertEqual(1);
+      expect(manager.calendar.configs.length).assertEqual(2);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_STATE_STATEMATRIX01_5000
+     * @tc.name CalendarEventStateMatrix01_0050
+     * @tc.desc reconfigure with zero ID: update obeys readiness and selection lifetime; no implicit deletion.
+     * @tc.type FUNC
+     */
+    it('CalendarEventStateMatrix01_0050', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      await session.createCalendar();
+      manager.calendar.nextId = 0;
+      expect(await session.addEvent()).assertEqual(0);
+      const config: Pending<void> = new Pending<void>();
+      manager.calendar.configQueue.push(config);
+      const reopening: Promise<void> = session.createCalendar();
+      const traceBefore: string = manager.calendar.trace.join(",");
+      const duringConfig: Error | undefined = await captureFailure(() => session.updateEvent());
+      expect(duringConfig?.message).assertEqual('Calendar is not ready');
+      expect(manager.calendar.trace.join(",")).assertEqual(traceBefore);
+      expect(manager.calendar.deletions.length).assertEqual(0);
+      expect(manager.calendar.updates.length).assertEqual(0);
+      expect(manager.calendar.ids.length).assertEqual(0);
+      expect(manager.calendar.additions.length).assertEqual(1);
+      config.resolve(undefined);
+      await reopening;
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(0);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(0);
+      expect(manager.accounts.length).assertEqual(1);
+      expect(manager.calendar.configs.length).assertEqual(2);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_STATE_STATEMATRIX01_5100
+     * @tc.name CalendarEventStateMatrix01_0051
+     * @tc.desc reconfigure with zero ID: all obeys readiness and selection lifetime; no implicit deletion.
+     * @tc.type FUNC
+     */
+    it('CalendarEventStateMatrix01_0051', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      await session.createCalendar();
+      manager.calendar.nextId = 0;
+      expect(await session.addEvent()).assertEqual(0);
+      const config: Pending<void> = new Pending<void>();
+      manager.calendar.configQueue.push(config);
+      const reopening: Promise<void> = session.createCalendar();
+      const traceBefore: string = manager.calendar.trace.join(",");
+      const duringConfig: Error | undefined = await captureFailure(() => session.getEvents());
+      expect(duringConfig?.message).assertEqual('Calendar is not ready');
+      expect(manager.calendar.trace.join(",")).assertEqual(traceBefore);
+      expect(manager.calendar.deletions.length).assertEqual(0);
+      expect(manager.calendar.updates.length).assertEqual(0);
+      expect(manager.calendar.ids.length).assertEqual(0);
+      expect(manager.calendar.additions.length).assertEqual(1);
+      config.resolve(undefined);
+      await reopening;
+      const reconfiguredresult: calendarManager.Event[] = await session.getEvents();
+      expect(reconfiguredresult === manager.calendar.results).assertTrue();
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(0);
+      expect(manager.accounts.length).assertEqual(1);
+      expect(manager.calendar.configs.length).assertEqual(2);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_STATE_STATEMATRIX01_5200
+     * @tc.name CalendarEventStateMatrix01_0052
+     * @tc.desc reconfigure with zero ID: id obeys readiness and selection lifetime; no implicit deletion.
+     * @tc.type FUNC
+     */
+    it('CalendarEventStateMatrix01_0052', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      await session.createCalendar();
+      manager.calendar.nextId = 0;
+      expect(await session.addEvent()).assertEqual(0);
+      const config: Pending<void> = new Pending<void>();
+      manager.calendar.configQueue.push(config);
+      const reopening: Promise<void> = session.createCalendar();
+      const traceBefore: string = manager.calendar.trace.join(",");
+      const duringConfig: Error | undefined = await captureFailure(() => session.getEvent());
+      expect(duringConfig?.message).assertEqual('Calendar is not ready');
+      expect(manager.calendar.trace.join(",")).assertEqual(traceBefore);
+      expect(manager.calendar.deletions.length).assertEqual(0);
+      expect(manager.calendar.updates.length).assertEqual(0);
+      expect(manager.calendar.ids.length).assertEqual(0);
+      expect(manager.calendar.additions.length).assertEqual(1);
+      config.resolve(undefined);
+      await reopening;
+      const reconfiguredresult: calendarManager.Event[][] = await session.getEvent();
+      expect(reconfiguredresult.length).assertEqual(3);
+      expect(manager.calendar.ids[manager.calendar.ids.length - 1]).assertEqual(0);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(0);
+      expect(manager.accounts.length).assertEqual(1);
+      expect(manager.calendar.configs.length).assertEqual(2);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_STATE_STATEMATRIX01_5300
+     * @tc.name CalendarEventStateMatrix01_0053
+     * @tc.desc reconfigure with zero ID: delete obeys readiness and selection lifetime; no implicit deletion.
+     * @tc.type FUNC
+     */
+    it('CalendarEventStateMatrix01_0053', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      await session.createCalendar();
+      manager.calendar.nextId = 0;
+      expect(await session.addEvent()).assertEqual(0);
+      const config: Pending<void> = new Pending<void>();
+      manager.calendar.configQueue.push(config);
+      const reopening: Promise<void> = session.createCalendar();
+      const traceBefore: string = manager.calendar.trace.join(",");
+      const duringConfig: Error | undefined = await captureFailure(() => session.deleteEvent());
+      expect(duringConfig?.message).assertEqual('Calendar is not ready');
+      expect(manager.calendar.trace.join(",")).assertEqual(traceBefore);
+      expect(manager.calendar.deletions.length).assertEqual(0);
+      expect(manager.calendar.updates.length).assertEqual(0);
+      expect(manager.calendar.ids.length).assertEqual(0);
+      expect(manager.calendar.additions.length).assertEqual(1);
+      config.resolve(undefined);
+      await reopening;
+      await session.deleteEvent();
+      expect(manager.calendar.deletions[manager.calendar.deletions.length - 1]).assertEqual(0);
+      const reconfiguredafterupdateGuard: Error | undefined = await captureFailure(() => session.updateEvent());
+      expect(reconfiguredafterupdateGuard?.message).assertEqual('Event has not been created');
+      const reconfiguredafterqueryGuard: Error | undefined = await captureFailure(() => session.getEvent());
+      expect(reconfiguredafterqueryGuard?.message).assertEqual('Event has not been created');
+      const reconfiguredafterdeleteGuard: Error | undefined = await captureFailure(() => session.deleteEvent());
+      expect(reconfiguredafterdeleteGuard?.message).assertEqual('Event has not been created');
+      expect(manager.accounts.length).assertEqual(1);
+      expect(manager.calendar.configs.length).assertEqual(2);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_STATE_STATEMATRIX01_5400
+     * @tc.name CalendarEventStateMatrix01_0054
+     * @tc.desc reconfigure with zero ID: edit obeys readiness and selection lifetime; no implicit deletion.
+     * @tc.type FUNC
+     */
+    it('CalendarEventStateMatrix01_0054', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      await session.createCalendar();
+      manager.calendar.nextId = 0;
+      expect(await session.addEvent()).assertEqual(0);
+      manager.editId = 1;
+      const config: Pending<void> = new Pending<void>();
+      manager.calendar.configQueue.push(config);
+      const reopening: Promise<void> = session.createCalendar();
+      const traceBefore: string = manager.calendar.trace.join(",");
+      expect(await session.editEvent()).assertEqual(manager.editId);
+      expect(manager.calendar.trace.join(",")).assertEqual(traceBefore);
+      config.resolve(undefined);
+      await reopening;
+      expect(await session.editEvent()).assertEqual(manager.editId);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(0);
+      expect(manager.accounts.length).assertEqual(1);
+      expect(manager.calendar.configs.length).assertEqual(2);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_STATE_STATEMATRIX01_5500
+     * @tc.name CalendarEventStateMatrix01_0055
+     * @tc.desc deleteThenReopen with zero ID: add obeys readiness and selection lifetime; no implicit deletion.
+     * @tc.type FUNC
+     */
+    it('CalendarEventStateMatrix01_0055', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      await session.createCalendar();
+      manager.calendar.nextId = 0;
+      expect(await session.addEvent()).assertEqual(0);
+      await session.deleteEvent();
+      expect(manager.calendar.deletions[0]).assertEqual(0);
+      await session.createCalendar();
+      const traceBefore: string = manager.calendar.trace.join(",");
+      manager.calendar.nextId = 1;
+      expect(await session.addEvent()).assertEqual(1);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(1);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(1);
+      await session.deleteEvent();
+      expect(manager.calendar.deletions[1]).assertEqual(1);
+      const finalupdateGuard: Error | undefined = await captureFailure(() => session.updateEvent());
+      expect(finalupdateGuard?.message).assertEqual('Event has not been created');
+      const finalqueryGuard: Error | undefined = await captureFailure(() => session.getEvent());
+      expect(finalqueryGuard?.message).assertEqual('Event has not been created');
+      const finaldeleteGuard: Error | undefined = await captureFailure(() => session.deleteEvent());
+      expect(finaldeleteGuard?.message).assertEqual('Event has not been created');
+      expect(manager.accounts.length).assertEqual(1);
+      expect(manager.calendar.configs.length).assertEqual(2);
+    });
+  });
+}
