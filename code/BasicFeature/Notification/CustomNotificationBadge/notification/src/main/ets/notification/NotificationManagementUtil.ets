@@ -61,19 +61,24 @@ class NotificationManagementUtil {
     this.badgeNum = 0;
   }
 
-  // 取消属于该类型的通知
-  cancelNotificationType(typeId: number): void {
+  // 取消属于该类型的通知，同步清空该类型分组与计数，并同步系统角标
+  async cancelNotificationType(typeId: number): Promise<void> {
     if (typeId < 0 || typeId >= this.typeNotifications.length) {
       return;
     }
+    const cancelledCount: number = this.countsByType[typeId];
     this.typeNotifications[typeId].forEach((item: notification.NotificationRequest) => {
       notification.cancel(item.id);
     })
     // 同步清空本地缓存，避免取消后仍从本地列表中查询到已取消的通知
-    this.badgeNum -= this.countsByType[typeId];
+    this.badgeNum -= cancelledCount;
     this.badgeNum = this.badgeNum < 0 ? 0 : this.badgeNum;
     this.countsByType[typeId] = 0;
     this.typeNotifications[typeId] = [];
+    // 取消后同步系统角标，桌面角标随取消减少
+    if (cancelledCount > 0) {
+      await this.syncBadgeNumber(this.badgeNum);
+    }
   }
 
   // 设置角标
@@ -111,6 +116,16 @@ class NotificationManagementUtil {
       countsByType: this.countsByType
     }
     return result;
+  }
+
+  // 同步系统角标；系统拒绝时只记录日志，不打断本地计数
+  private async syncBadgeNumber(num: number): Promise<void> {
+    try {
+      await notification.setBadgeNumber(num);
+      logger.info(`sync badge success, num: ${num}`);
+    } catch (err) {
+      logger.error(`sync badge err ${JSON.stringify(err)}`);
+    }
   }
 }
 

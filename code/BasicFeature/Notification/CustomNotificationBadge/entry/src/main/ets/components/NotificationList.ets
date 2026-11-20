@@ -43,11 +43,10 @@ export struct NotificationList {
                 notificationNum: this.countsByType[index],
               })
                 .id(`notificationGroup${index}`)
-                .onClick(() => {
+                .onClick(async () => {
                   if (this.countsByType[index]) {
-                    notificationManagement.cancelNotificationType(index);
+                    await notificationManagement.cancelNotificationType(index);
                     this.countsByType[index] = 0;
-                    notificationManagement.setBadgeNumber(notificationManagement.getBadgeNumber());
                   }
                 })
             }
