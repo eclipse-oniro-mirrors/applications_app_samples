@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,7 +14,29 @@
  */
 
 import abilityTest from './Ability.test';
+import musicDialogLifecycleSuite from './Core/MusicDialogLifecycle.test';
+import musicOperationFlowSuite from './Core/MusicOperationFlow.test';
+import musicLoggerValidationSuite from './Validation/MusicLoggerValidation.test';
+import musicSessionValidationSuite from './Validation/MusicSessionValidation.test';
+import musicEventPropagationSuite from './Interaction/MusicEventPropagation.test';
+import musicCompatibilitySuite from './Integration/MusicCompatibility.test';
+import musicCatalogAggregationSuite from './Integration/MusicCatalogAggregation.test';
+import musicLifecycleSuite from './LifecycleState/MusicLifecycle.test';
+import musicAnimationPerformanceSuite from './PerformanceStability/MusicAnimationPerformance.test';
+import musicSecurityValidationSuite from './Security/MusicSecurityValidation.test';
+import musicExtensionSuite from './MusicExtension.test';
 
 export default function testsuite() {
   abilityTest();
+  musicDialogLifecycleSuite();
+  musicOperationFlowSuite();
+  musicLoggerValidationSuite();
+  musicSessionValidationSuite();
+  musicEventPropagationSuite();
+  musicCompatibilitySuite();
+  musicCatalogAggregationSuite();
+  musicLifecycleSuite();
+  musicAnimationPerformanceSuite();
+  musicSecurityValidationSuite();
+  musicExtensionSuite();
 }
