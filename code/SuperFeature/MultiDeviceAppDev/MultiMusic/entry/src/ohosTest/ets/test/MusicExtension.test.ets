@@ -1987,3 +1987,1331 @@ export default function musicExtensionSuite() {
       const model: MusicModel = new MusicModel();
       expect(model.totalPages(6)).assertEqual(2);
     })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1453
+     * @tc.name    MusicExtension1453
+     * @tc.desc    Page size 7 yields 2 pages
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5tp12', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.totalPages(7)).assertEqual(2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1454
+     * @tc.name    MusicExtension1454
+     * @tc.desc    Page size 8 yields 2 pages
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5tp13', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.totalPages(8)).assertEqual(2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1455
+     * @tc.name    MusicExtension1455
+     * @tc.desc    Page size 9 yields 2 pages
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5tp14', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.totalPages(9)).assertEqual(2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1456
+     * @tc.name    MusicExtension1456
+     * @tc.desc    Page size 10 yields 2 pages
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5tp15', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.totalPages(10)).assertEqual(2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1457
+     * @tc.name    MusicExtension1457
+     * @tc.desc    Page size 11 yields 2 pages
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5tp16', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.totalPages(11)).assertEqual(2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1458
+     * @tc.name    MusicExtension1458
+     * @tc.desc    Page size 12 yields 1 pages
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5tp17', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.totalPages(12)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1459
+     * @tc.name    MusicExtension1459
+     * @tc.desc    Page size 13 yields 1 pages
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5tp18', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.totalPages(13)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1460
+     * @tc.name    MusicExtension1460
+     * @tc.desc    Page size 25 yields 1 pages
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5tp20', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.totalPages(25)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1461
+     * @tc.name    MusicExtension1461
+     * @tc.desc    Page size 100 yields 1 pages
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5tp21', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.totalPages(100)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1462
+     * @tc.name    MusicExtension1462
+     * @tc.desc    Page 0 of size 1 keeps 1 entries from list1 to list1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl1_0', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(0, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('list1');
+      expect(page[page.length - 1].title).assertEqual('list1');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1463
+     * @tc.name    MusicExtension1463
+     * @tc.desc    Page 1 of size 1 keeps 1 entries from list2 to list2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl1_1', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(1, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('list2');
+      expect(page[page.length - 1].title).assertEqual('list2');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1464
+     * @tc.name    MusicExtension1464
+     * @tc.desc    Page 2 of size 1 keeps 1 entries from list3 to list3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl1_2', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(2, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('list3');
+      expect(page[page.length - 1].title).assertEqual('list3');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1465
+     * @tc.name    MusicExtension1465
+     * @tc.desc    Page 3 of size 1 keeps 1 entries from list4 to list4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl1_3', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(3, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('list4');
+      expect(page[page.length - 1].title).assertEqual('list4');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1466
+     * @tc.name    MusicExtension1466
+     * @tc.desc    Page 4 of size 1 keeps 1 entries from list5 to list5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl1_4', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(4, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('list5');
+      expect(page[page.length - 1].title).assertEqual('list5');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1467
+     * @tc.name    MusicExtension1467
+     * @tc.desc    Page 5 of size 1 keeps 1 entries from list6 to list6
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl1_5', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(5, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('list6');
+      expect(page[page.length - 1].title).assertEqual('list6');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1468
+     * @tc.name    MusicExtension1468
+     * @tc.desc    Page 0 of size 2 keeps 2 entries from list1 to list2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl2_0', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(0, 2);
+      expect(page.length).assertEqual(2);
+      expect(page[0].title).assertEqual('list1');
+      expect(page[page.length - 1].title).assertEqual('list2');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1469
+     * @tc.name    MusicExtension1469
+     * @tc.desc    Page 1 of size 2 keeps 2 entries from list3 to list4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl2_1', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(1, 2);
+      expect(page.length).assertEqual(2);
+      expect(page[0].title).assertEqual('list3');
+      expect(page[page.length - 1].title).assertEqual('list4');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1470
+     * @tc.name    MusicExtension1470
+     * @tc.desc    Page 2 of size 2 keeps 2 entries from list5 to list6
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl2_2', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(2, 2);
+      expect(page.length).assertEqual(2);
+      expect(page[0].title).assertEqual('list5');
+      expect(page[page.length - 1].title).assertEqual('list6');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1471
+     * @tc.name    MusicExtension1471
+     * @tc.desc    Page 3 of size 2 keeps 2 entries from list7 to list8
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl2_3', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(3, 2);
+      expect(page.length).assertEqual(2);
+      expect(page[0].title).assertEqual('list7');
+      expect(page[page.length - 1].title).assertEqual('list8');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1472
+     * @tc.name    MusicExtension1472
+     * @tc.desc    Page 4 of size 2 keeps 2 entries from list9 to list10
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl2_4', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(4, 2);
+      expect(page.length).assertEqual(2);
+      expect(page[0].title).assertEqual('list9');
+      expect(page[page.length - 1].title).assertEqual('list10');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1473
+     * @tc.name    MusicExtension1473
+     * @tc.desc    Page 5 of size 2 keeps 2 entries from list11 to list12
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl2_5', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(5, 2);
+      expect(page.length).assertEqual(2);
+      expect(page[0].title).assertEqual('list11');
+      expect(page[page.length - 1].title).assertEqual('list12');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1474
+     * @tc.name    MusicExtension1474
+     * @tc.desc    Page 0 of size 3 keeps 3 entries from list1 to list3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl3_0', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(0, 3);
+      expect(page.length).assertEqual(3);
+      expect(page[0].title).assertEqual('list1');
+      expect(page[page.length - 1].title).assertEqual('list3');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1475
+     * @tc.name    MusicExtension1475
+     * @tc.desc    Page 1 of size 3 keeps 3 entries from list4 to list6
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl3_1', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(1, 3);
+      expect(page.length).assertEqual(3);
+      expect(page[0].title).assertEqual('list4');
+      expect(page[page.length - 1].title).assertEqual('list6');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1476
+     * @tc.name    MusicExtension1476
+     * @tc.desc    Page 2 of size 3 keeps 3 entries from list7 to list9
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl3_2', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(2, 3);
+      expect(page.length).assertEqual(3);
+      expect(page[0].title).assertEqual('list7');
+      expect(page[page.length - 1].title).assertEqual('list9');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1477
+     * @tc.name    MusicExtension1477
+     * @tc.desc    Page 3 of size 3 keeps 3 entries from list10 to list12
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl3_3', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(3, 3);
+      expect(page.length).assertEqual(3);
+      expect(page[0].title).assertEqual('list10');
+      expect(page[page.length - 1].title).assertEqual('list12');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1478
+     * @tc.name    MusicExtension1478
+     * @tc.desc    Page 4 of size 3 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl3_4', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.slicePage(4, 3).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1479
+     * @tc.name    MusicExtension1479
+     * @tc.desc    Page 5 of size 3 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl3_5', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.slicePage(5, 3).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1480
+     * @tc.name    MusicExtension1480
+     * @tc.desc    Page 0 of size 4 keeps 4 entries from list1 to list4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl4_0', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(0, 4);
+      expect(page.length).assertEqual(4);
+      expect(page[0].title).assertEqual('list1');
+      expect(page[page.length - 1].title).assertEqual('list4');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1481
+     * @tc.name    MusicExtension1481
+     * @tc.desc    Page 1 of size 4 keeps 4 entries from list5 to list8
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl4_1', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(1, 4);
+      expect(page.length).assertEqual(4);
+      expect(page[0].title).assertEqual('list5');
+      expect(page[page.length - 1].title).assertEqual('list8');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1482
+     * @tc.name    MusicExtension1482
+     * @tc.desc    Page 2 of size 4 keeps 4 entries from list9 to list12
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl4_2', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(2, 4);
+      expect(page.length).assertEqual(4);
+      expect(page[0].title).assertEqual('list9');
+      expect(page[page.length - 1].title).assertEqual('list12');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1483
+     * @tc.name    MusicExtension1483
+     * @tc.desc    Page 3 of size 4 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl4_3', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.slicePage(3, 4).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1484
+     * @tc.name    MusicExtension1484
+     * @tc.desc    Page 4 of size 4 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl4_4', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.slicePage(4, 4).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1485
+     * @tc.name    MusicExtension1485
+     * @tc.desc    Page 5 of size 4 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl4_5', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.slicePage(5, 4).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1486
+     * @tc.name    MusicExtension1486
+     * @tc.desc    Page 0 of size 5 keeps 5 entries from list1 to list5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl5_0', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(0, 5);
+      expect(page.length).assertEqual(5);
+      expect(page[0].title).assertEqual('list1');
+      expect(page[page.length - 1].title).assertEqual('list5');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1487
+     * @tc.name    MusicExtension1487
+     * @tc.desc    Page 1 of size 5 keeps 5 entries from list6 to list10
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl5_1', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(1, 5);
+      expect(page.length).assertEqual(5);
+      expect(page[0].title).assertEqual('list6');
+      expect(page[page.length - 1].title).assertEqual('list10');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1488
+     * @tc.name    MusicExtension1488
+     * @tc.desc    Page 2 of size 5 keeps 2 entries from list11 to list12
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl5_2', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const page: MusicPlaylistItem[] = model.slicePage(2, 5);
+      expect(page.length).assertEqual(2);
+      expect(page[0].title).assertEqual('list11');
+      expect(page[page.length - 1].title).assertEqual('list12');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1489
+     * @tc.name    MusicExtension1489
+     * @tc.desc    Page 3 of size 5 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl5_3', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.slicePage(3, 5).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1490
+     * @tc.name    MusicExtension1490
+     * @tc.desc    Page 4 of size 5 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl5_4', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.slicePage(4, 5).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1491
+     * @tc.name    MusicExtension1491
+     * @tc.desc    Page 5 of size 5 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl5_5', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.slicePage(5, 5).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1492
+     * @tc.name    MusicExtension1492
+     * @tc.desc    Offset accumulation 1 keeps both sums
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5acc00', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const sum: MusicOffset = model.accumulateOffset({ x: 1, y: 2 }, { x: 3, y: 4 });
+      expect(sum.x).assertEqual(4);
+      expect(sum.y).assertEqual(6);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1493
+     * @tc.name    MusicExtension1493
+     * @tc.desc    Offset accumulation 2 keeps both sums
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5acc01', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const sum: MusicOffset = model.accumulateOffset({ x: -1, y: -2 }, { x: -3, y: -4 });
+      expect(sum.x).assertEqual(-4);
+      expect(sum.y).assertEqual(-6);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1494
+     * @tc.name    MusicExtension1494
+     * @tc.desc    Offset accumulation 3 keeps both sums
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5acc02', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const sum: MusicOffset = model.accumulateOffset({ x: 0, y: 0 }, { x: 0, y: 0 });
+      expect(sum.x).assertEqual(0);
+      expect(sum.y).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1495
+     * @tc.name    MusicExtension1495
+     * @tc.desc    Offset accumulation 4 keeps both sums
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5acc03', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const sum: MusicOffset = model.accumulateOffset({ x: 1.5, y: 2.5 }, { x: 0.5, y: 0.5 });
+      expect(sum.x).assertEqual(2);
+      expect(sum.y).assertEqual(3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1496
+     * @tc.name    MusicExtension1496
+     * @tc.desc    Offset accumulation 5 keeps both sums
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5acc04', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const sum: MusicOffset = model.accumulateOffset({ x: 10, y: -10 }, { x: -5, y: 5 });
+      expect(sum.x).assertEqual(5);
+      expect(sum.y).assertEqual(-5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1497
+     * @tc.name    MusicExtension1497
+     * @tc.desc    Offset accumulation 6 keeps both sums
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5acc05', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const sum: MusicOffset = model.accumulateOffset({ x: 0.1, y: 0.2 }, { x: 0.3, y: 0.4 });
+      /* Binary floating point adds rounding error here: 0.2 + 0.4 = 0.6000000000000001, so compare with tolerance */
+      expect(Math.abs(sum.x - 0.4) < 1e-9).assertTrue();
+      expect(Math.abs(sum.y - 0.6) < 1e-9).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1498
+     * @tc.name    MusicExtension1498
+     * @tc.desc    Offset accumulation 7 keeps both sums
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5acc06', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const sum: MusicOffset = model.accumulateOffset({ x: 100, y: 200 }, { x: 300, y: 400 });
+      expect(sum.x).assertEqual(400);
+      expect(sum.y).assertEqual(600);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1499
+     * @tc.name    MusicExtension1499
+     * @tc.desc    Offset accumulation 8 keeps both sums
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5acc07', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const sum: MusicOffset = model.accumulateOffset({ x: -5, y: 7 }, { x: 5, y: -7 });
+      expect(sum.x).assertEqual(0);
+      expect(sum.y).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1500
+     * @tc.name    MusicExtension1500
+     * @tc.desc    Offset accumulation 9 keeps both sums
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5acc08', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const sum: MusicOffset = model.accumulateOffset({ x: 2, y: 2 }, { x: 2, y: 2 });
+      expect(sum.x).assertEqual(4);
+      expect(sum.y).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1501
+     * @tc.name    MusicExtension1501
+     * @tc.desc    Offset accumulation 10 keeps both sums
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5acc09', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const sum: MusicOffset = model.accumulateOffset({ x: 999, y: -999 }, { x: 1, y: -1 });
+      expect(sum.x).assertEqual(1000);
+      expect(sum.y).assertEqual(-1000);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1502
+     * @tc.name    MusicExtension1502
+     * @tc.desc    Clamped offset 1 keeps both axes inside the box
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cl00', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const clamped: MusicOffset = model.clampOffset({ x: 3, y: 4 }, 5, 5);
+      expect(clamped.x).assertEqual(3);
+      expect(clamped.y).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1503
+     * @tc.name    MusicExtension1503
+     * @tc.desc    Clamped offset 2 keeps both axes inside the box
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cl01', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const clamped: MusicOffset = model.clampOffset({ x: -3, y: -4 }, 5, 5);
+      expect(clamped.x).assertEqual(0);
+      expect(clamped.y).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1504
+     * @tc.name    MusicExtension1504
+     * @tc.desc    Clamped offset 3 keeps both axes inside the box
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cl02', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const clamped: MusicOffset = model.clampOffset({ x: 10, y: 10 }, 5, 5);
+      expect(clamped.x).assertEqual(5);
+      expect(clamped.y).assertEqual(5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1505
+     * @tc.name    MusicExtension1505
+     * @tc.desc    Clamped offset 4 keeps both axes inside the box
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cl03', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const clamped: MusicOffset = model.clampOffset({ x: 5, y: 5 }, 5, 5);
+      expect(clamped.x).assertEqual(5);
+      expect(clamped.y).assertEqual(5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1506
+     * @tc.name    MusicExtension1506
+     * @tc.desc    Clamped offset 5 keeps both axes inside the box
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cl04', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const clamped: MusicOffset = model.clampOffset({ x: 0, y: 0 }, 0, 0);
+      expect(clamped.x).assertEqual(0);
+      expect(clamped.y).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1507
+     * @tc.name    MusicExtension1507
+     * @tc.desc    Clamped offset 6 keeps both axes inside the box
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cl05', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const clamped: MusicOffset = model.clampOffset({ x: 2, y: 8 }, 5, 4);
+      expect(clamped.x).assertEqual(2);
+      expect(clamped.y).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1508
+     * @tc.name    MusicExtension1508
+     * @tc.desc    Clamped offset 7 keeps both axes inside the box
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cl06', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const clamped: MusicOffset = model.clampOffset({ x: 8, y: 2 }, 5, 4);
+      expect(clamped.x).assertEqual(5);
+      expect(clamped.y).assertEqual(2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1509
+     * @tc.name    MusicExtension1509
+     * @tc.desc    Clamped offset 8 keeps both axes inside the box
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cl07', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const clamped: MusicOffset = model.clampOffset({ x: 2.5, y: 2.5 }, 2.5, 2.5);
+      expect(clamped.x).assertEqual(2.5);
+      expect(clamped.y).assertEqual(2.5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1510
+     * @tc.name    MusicExtension1510
+     * @tc.desc    Clamped offset 9 keeps both axes inside the box
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cl08', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const clamped: MusicOffset = model.clampOffset({ x: 1, y: 9 }, 100, 3.5);
+      expect(clamped.x).assertEqual(1);
+      expect(clamped.y).assertEqual(3.5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1511
+     * @tc.name    MusicExtension1511
+     * @tc.desc    Padding pair 1 reports valid with sum 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pad00', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const padding: MusicPadding = model.makePadding(0, 0);
+      expect(model.horizontalPadding(padding)).assertEqual(0);
+      expect(model.isValidPadding(padding)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1512
+     * @tc.name    MusicExtension1512
+     * @tc.desc    Padding pair 2 reports valid with sum 2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pad01', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const padding: MusicPadding = model.makePadding(1, 1);
+      expect(model.horizontalPadding(padding)).assertEqual(2);
+      expect(model.isValidPadding(padding)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1513
+     * @tc.name    MusicExtension1513
+     * @tc.desc    Padding pair 3 reports valid with sum 24
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pad02', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const padding: MusicPadding = model.makePadding(12, 12);
+      expect(model.horizontalPadding(padding)).assertEqual(24);
+      expect(model.isValidPadding(padding)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1514
+     * @tc.name    MusicExtension1514
+     * @tc.desc    Padding pair 4 reports valid with sum 24
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pad03', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const padding: MusicPadding = model.makePadding(0, 24);
+      expect(model.horizontalPadding(padding)).assertEqual(24);
+      expect(model.isValidPadding(padding)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1515
+     * @tc.name    MusicExtension1515
+     * @tc.desc    Padding pair 5 reports valid with sum 10
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pad04', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const padding: MusicPadding = model.makePadding(7.5, 2.5);
+      expect(model.horizontalPadding(padding)).assertEqual(10);
+      expect(model.isValidPadding(padding)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1516
+     * @tc.name    MusicExtension1516
+     * @tc.desc    Padding pair 6 reports invalid with sum 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pad05', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const padding: MusicPadding = model.makePadding(-1, 1);
+      expect(model.horizontalPadding(padding)).assertEqual(0);
+      expect(model.isValidPadding(padding)).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1517
+     * @tc.name    MusicExtension1517
+     * @tc.desc    Padding pair 7 reports invalid with sum 0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pad06', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const padding: MusicPadding = model.makePadding(1, -1);
+      expect(model.horizontalPadding(padding)).assertEqual(0);
+      expect(model.isValidPadding(padding)).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1518
+     * @tc.name    MusicExtension1518
+     * @tc.desc    Padding pair 8 reports invalid with sum -4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pad07', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const padding: MusicPadding = model.makePadding(-2, -2);
+      expect(model.horizontalPadding(padding)).assertEqual(-4);
+      expect(model.isValidPadding(padding)).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1519
+     * @tc.name    MusicExtension1519
+     * @tc.desc    Padding pair 9 reports valid with sum 300
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pad08', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const padding: MusicPadding = model.makePadding(100, 200);
+      expect(model.horizontalPadding(padding)).assertEqual(300);
+      expect(model.isValidPadding(padding)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1520
+     * @tc.name    MusicExtension1520
+     * @tc.desc    Padding pair 10 reports valid with sum 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pad09', 0, () => {
+      const model: MusicModel = new MusicModel();
+      const padding: MusicPadding = model.makePadding(0.5, 0.5);
+      expect(model.horizontalPadding(padding)).assertEqual(1);
+      expect(model.isValidPadding(padding)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1521
+     * @tc.name    MusicExtension1521
+     * @tc.desc    Keyword 1 matches 12 playlist titles
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5search00', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.searchTitle('')).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1522
+     * @tc.name    MusicExtension1522
+     * @tc.desc    Keyword 2 matches 12 playlist titles
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5search01', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.searchTitle('list')).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1523
+     * @tc.name    MusicExtension1523
+     * @tc.desc    Keyword 3 matches 4 playlist titles
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5search02', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.searchTitle('1')).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1524
+     * @tc.name    MusicExtension1524
+     * @tc.desc    Keyword 6 matches 1 playlist titles
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5search05', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.searchTitle('list12')).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1525
+     * @tc.name    MusicExtension1525
+     * @tc.desc    Keyword 7 matches 0 playlist titles
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5search06', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.searchTitle('L')).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1526
+     * @tc.name    MusicExtension1526
+     * @tc.desc    Keyword 8 matches 0 playlist titles
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5search07', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.searchTitle('13')).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1527
+     * @tc.name    MusicExtension1527
+     * @tc.desc    Keyword 9 matches 12 playlist titles
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5search08', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.searchTitle('st')).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1528
+     * @tc.name    MusicExtension1528
+     * @tc.desc    Keyword 10 matches 2 playlist titles
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5search09', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.searchTitle('2')).assertEqual(2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1529
+     * @tc.name    MusicExtension1529
+     * @tc.desc    Padding data type 1 keeps its constructor values
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5padtype0', 0, () => {
+      const padding: PaddingDataType = new PaddingDataType(0, 1);
+      expect(padding.left).assertEqual(0);
+      expect(padding.right).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1530
+     * @tc.name    MusicExtension1530
+     * @tc.desc    Padding data type 2 keeps its constructor values
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5padtype1', 0, () => {
+      const padding: PaddingDataType = new PaddingDataType(1, 2);
+      expect(padding.left).assertEqual(1);
+      expect(padding.right).assertEqual(2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1531
+     * @tc.name    MusicExtension1531
+     * @tc.desc    Padding data type 3 keeps its constructor values
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5padtype2', 0, () => {
+      const padding: PaddingDataType = new PaddingDataType(2, 3);
+      expect(padding.left).assertEqual(2);
+      expect(padding.right).assertEqual(3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1532
+     * @tc.name    MusicExtension1532
+     * @tc.desc    Padding data type 4 keeps its constructor values
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5padtype3', 0, () => {
+      const padding: PaddingDataType = new PaddingDataType(3, 4);
+      expect(padding.left).assertEqual(3);
+      expect(padding.right).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1533
+     * @tc.name    MusicExtension1533
+     * @tc.desc    Padding data type 5 keeps its constructor values
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5padtype4', 0, () => {
+      const padding: PaddingDataType = new PaddingDataType(4, 5);
+      expect(padding.left).assertEqual(4);
+      expect(padding.right).assertEqual(5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1534
+     * @tc.name    MusicExtension1534
+     * @tc.desc    Icon item 1 keeps the caption string
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5icon0', 0, () => {
+      const item: IconItem = new IconItem($r('app.media.list1'), 'caption0');
+      expect(item.description as string).assertEqual('caption0');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1535
+     * @tc.name    MusicExtension1535
+     * @tc.desc    Icon item 2 keeps the caption string
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5icon1', 0, () => {
+      const item: IconItem = new IconItem($r('app.media.list1'), 'caption1');
+      expect(item.description as string).assertEqual('caption1');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1536
+     * @tc.name    MusicExtension1536
+     * @tc.desc    Icon item 3 keeps the caption string
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5icon2', 0, () => {
+      const item: IconItem = new IconItem($r('app.media.list1'), 'caption2');
+      expect(item.description as string).assertEqual('caption2');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1537
+     * @tc.name    MusicExtension1537
+     * @tc.desc    Song type keeps the play count 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5song1', 0, () => {
+      const song: SongType = new SongType($r('app.media.list1'), $r('app.media.list2'), 1);
+      expect(song.count).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1538
+     * @tc.name    MusicExtension1538
+     * @tc.desc    Song type keeps the play count 99
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5song2', 0, () => {
+      const song: SongType = new SongType($r('app.media.list1'), $r('app.media.list2'), 99);
+      expect(song.count).assertEqual(99);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1539
+     * @tc.name    MusicExtension1539
+     * @tc.desc    Song type keeps the play count 1000000
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5song3', 0, () => {
+      const song: SongType = new SongType($r('app.media.list1'), $r('app.media.list2'), 1000000);
+      expect(song.count).assertEqual(1000000);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1540
+     * @tc.name    MusicExtension1540
+     * @tc.desc    The playlist holds twelve entries
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5count', 0, () => {
+      expect(MUSIC_PLAYLIST_COUNT).assertEqual(12);
+      expect(new MusicModel().getPlaylistCount()).assertEqual(MUSIC_PLAYLIST_COUNT);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1541
+     * @tc.name    MusicExtension1541
+     * @tc.desc    The shared prefix is four characters long
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5prefix', 0, () => {
+      expect(MUSIC_TITLE_PREFIX.length).assertEqual(4);
+      expect(MUSIC_TITLE_PREFIX).assertEqual('list');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1542
+     * @tc.name    MusicExtension1542
+     * @tc.desc    Duplicating a title breaks title uniqueness
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5duptitle', 0, () => {
+      const model: MusicModel = new MusicModel();
+      model.getPlaylists()[1].title = model.getPlaylists()[0].title;
+      expect(model.hasUniqueTitles()).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1543
+     * @tc.name    MusicExtension1543
+     * @tc.desc    The seeded song list is not empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5songs', 0, () => {
+      expect(songsList.length > 0).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1544
+     * @tc.name    MusicExtension1544
+     * @tc.desc    A negative page size reports no page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pagesNeg', 0, () => {
+      const model: MusicModel = new MusicModel();
+      expect(model.totalPages(-5)).assertEqual(0);
+    })
+  })
+}
