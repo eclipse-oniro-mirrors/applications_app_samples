@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,16 +15,19 @@
 
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import testsuite from '../test/List.test';
-import UIAbility from '@ohos.app.ability.UIAbility';
 import type window from '@ohos.window';
+import { UIAbility, Want, AbilityConstant } from '@kit.AbilityKit';
 import { Hypium } from '@ohos/hypium';
 import { logger } from '../util/Logger';
 
-const TAG: string = 'TestAbility';
+const TAG: string = '[Sample_MobileNetwork_Test]';
 
 export default class TestAbility extends UIAbility {
-  onCreate(want, launchParam): void {
-    logger.info(TAG, `TestAbility onCreate, want param: ${JSON.stringify(want)},launchParam: ${JSON.stringify(launchParam)}`);
+  private testStarted: boolean = false;
+
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    logger.info(TAG, `TestAbility onCreate, want param: ${JSON.stringify(want)},` +
+      `launchParam: ${JSON.stringify(launchParam)}`);
   }
 
   onDestroy(): void {
@@ -33,17 +36,11 @@ export default class TestAbility extends UIAbility {
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
     logger.info(TAG, 'TestAbility onWindowStageCreate');
-    let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    let abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
-    logger.info(TAG, 'start run testcase!!!');
-    Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
-    windowStage.loadContent('TestAbility/pages/Index', (err, data) => {
-      if (err.code) {
-        logger.error(TAG, `Failed to load the content. Cause: ${JSON.stringify(err)}`);
-        return;
-      }
-      logger.info(TAG, `Succeeded in loading the content. Data: ${JSON.stringify(data) ?? ''}`);
-    });
+    try {
+      windowStage.loadContent('TestAbility/pages/Index');
+    } catch (err) {
+      logger.error(TAG, `TestAbility loadContent failed, err is ${JSON.stringify(err)}`);
+    }
   }
 
   onWindowStageDestroy(): void {
@@ -52,6 +49,17 @@ export default class TestAbility extends UIAbility {
 
   onForeground(): void {
     logger.info(TAG, 'TestAbility onForeground');
+    if (this.testStarted) {
+      return;
+    }
+    this.testStarted = true;
+    const abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+    const abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs =
+      AbilityDelegatorRegistry.getArguments();
+    logger.info(TAG, 'start run testcase!!!');
+    setTimeout(() => {
+      Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+    }, 300);
   }
 
   onBackground(): void {

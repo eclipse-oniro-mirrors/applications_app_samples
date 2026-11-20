@@ -14,52 +14,53 @@
  */
 
 import Logger from '../model/Logger'
-import UIAbility from '@ohos.app.ability.UIAbility'
-import abilityAccessCtrl from '@ohos.abilityAccessCtrl'
-import type { Permissions } from '@ohos.abilityAccessCtrl'
+import {
+  UIAbility, Want, AbilityConstant, abilityAccessCtrl, Permissions, PermissionRequestResult
+} from '@kit.AbilityKit'
+import type window from '@ohos.window'
 
-const TAG: string = '[MainAbility]'
+const TAG: string = '[Sample_MobileNetwork]'
 
 export default class MainAbility extends UIAbility {
-  async onCreate(want, launchParam) {
+  async onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): Promise<void> {
     Logger.info(TAG, `[Demo] MainAbility onCreate`)
-    const PERMISSIONS: Array<Permissions> = ['ohos.permission.GET_NETWORK_INFO']
+    const PERMISSIONS: Permissions[] = ['ohos.permission.GET_NETWORK_INFO']
 
-    let atManager = abilityAccessCtrl.createAtManager()
+    let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager()
     try {
-      atManager.requestPermissionsFromUser(this.context, PERMISSIONS).then((data) => {
+      atManager.requestPermissionsFromUser(this.context, PERMISSIONS).then((data: PermissionRequestResult) => {
         Logger.info(TAG, `data: ${JSON.stringify(data)}`)
-      }).catch((err) => {
+      }).catch((err: Error) => {
         Logger.info(TAG, `err: ${JSON.stringify(err)}`)
       })
     } catch (err) {
-      Logger.info(TAG, `catch err->${JSON.stringify(err)}`);
+      Logger.info(TAG, `catch err->${JSON.stringify(err)}`)
     }
   }
 
-  onDestroy() {
+  onDestroy(): void {
     Logger.info(TAG, `[Demo] MainAbility onDestroy`)
   }
 
-  onWindowStageCreate(windowStage) {
+  onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
     Logger.info(TAG, `[Demo] MainAbility onWindowStageCreate`)
 
-    windowStage.setUIContent(this.context, 'pages/Index', null)
+    windowStage.loadContent('pages/Index')
   }
 
-  onWindowStageDestroy() {
+  onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources
     Logger.info(TAG, `[Demo] MainAbility onWindowStageDestroy`)
   }
 
-  onForeground() {
+  onForeground(): void {
     // Ability has brought to foreground
     Logger.info(TAG, `[Demo] MainAbility onForeground`)
   }
 
-  onBackground() {
+  onBackground(): void {
     // Ability has back to background
     Logger.info(TAG, `[Demo] MainAbility onBackground`)
   }
-};
+}

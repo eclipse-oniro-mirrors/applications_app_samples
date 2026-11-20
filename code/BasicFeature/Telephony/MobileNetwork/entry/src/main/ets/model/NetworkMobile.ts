@@ -16,10 +16,10 @@
 import Logger from './Logger'
 import data from '@ohos.telephony.data'
 
-const TAG: string = '[NetworkMobile]'
+const TAG: string = '[Sample_MobileNetwork]'
 
 export class NetworkMobile {
-  async getDefaultCellularDataSlotId() {
+  async getDefaultCellularDataSlotId(): Promise<number> {
     let slotId: number = -1
     try {
       slotId = await data.getDefaultCellularDataSlotId()
@@ -30,7 +30,7 @@ export class NetworkMobile {
     return slotId
   }
 
-  async isCellularDataEnabled() {
+  async isCellularDataEnabled(): Promise<boolean> {
     let dataEnabled: boolean = false
     try {
       dataEnabled = await data.isCellularDataEnabled()
@@ -41,7 +41,7 @@ export class NetworkMobile {
     return dataEnabled
   }
 
-  async isCellularDataRoamingEnabled(slotId: number) {
+  async isCellularDataRoamingEnabled(slotId: number): Promise<boolean> {
     let dataRoamingEnabled: boolean = false
     try {
       dataRoamingEnabled = await data.isCellularDataRoamingEnabled(slotId)
@@ -52,15 +52,8 @@ export class NetworkMobile {
     return dataRoamingEnabled
   }
 
-  async getCellularDataFlowType() {
-    let dataFlow: data.DataFlowType = data.DataFlowType.DATA_FLOW_TYPE_NONE
+  getDataFlowTypeResource(dataFlow: data.DataFlowType): Resource {
     let result: Resource = $r('app.string.none')
-    try {
-      dataFlow = await data.getCellularDataFlowType()
-      Logger.info(TAG, `getCellularDataFlowType dataFlow = ${JSON.stringify(dataFlow)}`)
-    } catch (err) {
-      Logger.info(TAG, `getCellularDataFlowType failed err is ${JSON.stringify(err)}`)
-    }
     switch (dataFlow) {
       case data.DataFlowType.DATA_FLOW_TYPE_NONE:
         result = $r('app.string.none')
@@ -84,16 +77,9 @@ export class NetworkMobile {
     return result
   }
 
-  async getCellularDataState() {
-    let dataConnectState: data.DataConnectState = data.DataConnectState.DATA_STATE_UNKNOWN
+  getDataStateResource(state: data.DataConnectState): Resource {
     let result: Resource = $r('app.string.unknown')
-    try {
-      dataConnectState = await data.getCellularDataState()
-      Logger.info(TAG, `getCellularDataState dataConnectState = ${JSON.stringify(dataConnectState)}`)
-    } catch (err) {
-      Logger.info(TAG, `getCellularDataState failed err is ${JSON.stringify(err)}`)
-    }
-    switch (dataConnectState) {
+    switch (state) {
       case data.DataConnectState.DATA_STATE_UNKNOWN:
         result = $r('app.string.unknown')
         break
@@ -114,5 +100,27 @@ export class NetworkMobile {
         break
     }
     return result
+  }
+
+  async getCellularDataFlowType(): Promise<Resource> {
+    let dataFlow: data.DataFlowType = data.DataFlowType.DATA_FLOW_TYPE_NONE
+    try {
+      dataFlow = await data.getCellularDataFlowType()
+      Logger.info(TAG, `getCellularDataFlowType dataFlow = ${JSON.stringify(dataFlow)}`)
+    } catch (err) {
+      Logger.info(TAG, `getCellularDataFlowType failed err is ${JSON.stringify(err)}`)
+    }
+    return this.getDataFlowTypeResource(dataFlow)
+  }
+
+  async getCellularDataState(): Promise<Resource> {
+    let dataConnectState: data.DataConnectState = data.DataConnectState.DATA_STATE_UNKNOWN
+    try {
+      dataConnectState = await data.getCellularDataState()
+      Logger.info(TAG, `getCellularDataState dataConnectState = ${JSON.stringify(dataConnectState)}`)
+    } catch (err) {
+      Logger.info(TAG, `getCellularDataState failed err is ${JSON.stringify(err)}`)
+    }
+    return this.getDataStateResource(dataConnectState)
   }
 }

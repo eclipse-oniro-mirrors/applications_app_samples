@@ -37,7 +37,7 @@
     "abilities": [
       {
         "name": "MainAbility",
-        "srcEntrance": "./ets/MainAbility/MainAbility.ts",
+        "srcEntry": "./ets/MainAbility/MainAbility.ts",
         "description": "$string:description_mainability",
         "icon": "$media:icon",
         "label": "$string:entry_MainAbility",

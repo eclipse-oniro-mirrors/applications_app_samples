@@ -16,10 +16,10 @@
 import Logger from '../model/Logger'
 import AbilityStage from '@ohos.app.ability.AbilityStage'
 
-const TAG: string = '[AbilityStage]'
+const TAG: string = '[Sample_MobileNetwork]'
 
 export default class MyAbilityStage extends AbilityStage {
-  onCreate() {
+  onCreate(): void {
     Logger.info(TAG, `[Demo] MyAbilityStage onCreate`)
   }
 }
