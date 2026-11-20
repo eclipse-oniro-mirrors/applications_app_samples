@@ -1180,3 +1180,943 @@ export default function fileErrorMatrixTest() {
     } catch (error) {
       failed = Number((error as BusinessError).code) !== 0;
     }
+    expect(failed).assertTrue();
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0043
+   * @tc.name      testFileError0043
+   * @tc.desc      Missing unlink 3 fails cleanly
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testFileError0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testFileError0043', 'missing unlink %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/unlink_absent_03.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    let failed: boolean = false;
+    try {
+      fs.unlinkSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0044
+   * @tc.name      testFileError0044
+   * @tc.desc      Missing unlink 4 fails cleanly
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testFileError0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testFileError0044', 'missing unlink %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/unlink_absent_04.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    let failed: boolean = false;
+    try {
+      fs.unlinkSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0045
+   * @tc.name      testFileError0045
+   * @tc.desc      Missing unlink 5 fails cleanly
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testFileError0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testFileError0045', 'missing unlink %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/unlink_absent_05.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    let failed: boolean = false;
+    try {
+      fs.unlinkSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0046
+   * @tc.name      testFileError0046
+   * @tc.desc      Missing unlink 6 fails cleanly
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testFileError0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testFileError0046', 'missing unlink %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/unlink_absent_06.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    let failed: boolean = false;
+    try {
+      fs.unlinkSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0047
+   * @tc.name      testFileError0047
+   * @tc.desc      Missing unlink 7 fails cleanly
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testFileError0047', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testFileError0047', 'missing unlink %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/unlink_absent_07.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    let failed: boolean = false;
+    try {
+      fs.unlinkSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0048
+   * @tc.name      testFileError0048
+   * @tc.desc      Missing unlink 8 fails cleanly
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testFileError0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testFileError0048', 'missing unlink %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/unlink_absent_08.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    let failed: boolean = false;
+    try {
+      fs.unlinkSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0049
+   * @tc.name      testFileError0049
+   * @tc.desc      Missing unlink 9 fails cleanly
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testFileError0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testFileError0049', 'missing unlink %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/unlink_absent_09.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    let failed: boolean = false;
+    try {
+      fs.unlinkSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0050
+   * @tc.name      testFileError0050
+   * @tc.desc      Missing unlink 10 fails cleanly
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testFileError0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testFileError0050', 'missing unlink %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/unlink_absent_10.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    let failed: boolean = false;
+    try {
+      fs.unlinkSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0051
+   * @tc.name      testFileError0051
+   * @tc.desc      Missing unlink 11 fails cleanly
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testFileError0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testFileError0051', 'missing unlink %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/unlink_absent_11.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    let failed: boolean = false;
+    try {
+      fs.unlinkSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0052
+   * @tc.name      testFileError0052
+   * @tc.desc      Missing unlink 12 fails cleanly
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testFileError0052', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testFileError0052', 'missing unlink %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/unlink_absent_12.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    let failed: boolean = false;
+    try {
+      fs.unlinkSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0053
+   * @tc.name      testFileError0053
+   * @tc.desc      Missing unlink 13 fails cleanly
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testFileError0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testFileError0053', 'missing unlink %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/unlink_absent_13.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    let failed: boolean = false;
+    try {
+      fs.unlinkSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0054
+   * @tc.name      testFileError0054
+   * @tc.desc      Missing unlink 14 fails cleanly
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testFileError0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testFileError0054', 'missing unlink %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/unlink_absent_14.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    let failed: boolean = false;
+    try {
+      fs.unlinkSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0055
+   * @tc.name      testFileError0055
+   * @tc.desc      Missing unlink 15 fails cleanly
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testFileError0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testFileError0055', 'missing unlink %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/unlink_absent_15.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    let failed: boolean = false;
+    try {
+      fs.unlinkSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0056
+   * @tc.name      testFileError0056
+   * @tc.desc      Missing unlink 16 fails cleanly
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testFileError0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testFileError0056', 'missing unlink %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/unlink_absent_16.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    let failed: boolean = false;
+    try {
+      fs.unlinkSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0057
+   * @tc.name      testFileError0057
+   * @tc.desc      Missing unlink 17 fails cleanly
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testFileError0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testFileError0057', 'missing unlink %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/unlink_absent_17.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    let failed: boolean = false;
+    try {
+      fs.unlinkSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0058
+   * @tc.name      testFileError0058
+   * @tc.desc      Missing unlink 18 fails cleanly
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testFileError0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testFileError0058', 'missing unlink %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/unlink_absent_18.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    let failed: boolean = false;
+    try {
+      fs.unlinkSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0059
+   * @tc.name      testFileError0059
+   * @tc.desc      Missing unlink 19 fails cleanly
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testFileError0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testFileError0059', 'missing unlink %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/unlink_absent_19.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    let failed: boolean = false;
+    try {
+      fs.unlinkSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0060
+   * @tc.name      testFileError0060
+   * @tc.desc      Missing unlink 20 fails cleanly
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testFileError0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testFileError0060', 'missing unlink %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/unlink_absent_20.txt';
+    if (fs.accessSync(path)) {
+      fs.unlinkSync(path);
+    }
+    let failed: boolean = false;
+    try {
+      fs.unlinkSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0061
+   * @tc.name      testFileError0061
+   * @tc.desc      Duplicate mkdir 1 reports failure
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testFileError0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testFileError0061', 'mkdir existing %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/dup_dir_01';
+    if (fs.accessSync(path)) {
+      fs.rmdirSync(path);
+    }
+    fs.mkdirSync(path);
+    expect(fs.statSync(path).isDirectory()).assertTrue();
+    let failed: boolean = false;
+    try {
+      fs.mkdirSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+    fs.rmdirSync(path);
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0062
+   * @tc.name      testFileError0062
+   * @tc.desc      Duplicate mkdir 2 reports failure
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testFileError0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testFileError0062', 'mkdir existing %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/dup_dir_02';
+    if (fs.accessSync(path)) {
+      fs.rmdirSync(path);
+    }
+    fs.mkdirSync(path);
+    expect(fs.statSync(path).isDirectory()).assertTrue();
+    let failed: boolean = false;
+    try {
+      fs.mkdirSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+    fs.rmdirSync(path);
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0063
+   * @tc.name      testFileError0063
+   * @tc.desc      Duplicate mkdir 3 reports failure
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testFileError0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testFileError0063', 'mkdir existing %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/dup_dir_03';
+    if (fs.accessSync(path)) {
+      fs.rmdirSync(path);
+    }
+    fs.mkdirSync(path);
+    expect(fs.statSync(path).isDirectory()).assertTrue();
+    let failed: boolean = false;
+    try {
+      fs.mkdirSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+    fs.rmdirSync(path);
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0064
+   * @tc.name      testFileError0064
+   * @tc.desc      Duplicate mkdir 4 reports failure
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testFileError0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testFileError0064', 'mkdir existing %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/dup_dir_04';
+    if (fs.accessSync(path)) {
+      fs.rmdirSync(path);
+    }
+    fs.mkdirSync(path);
+    expect(fs.statSync(path).isDirectory()).assertTrue();
+    let failed: boolean = false;
+    try {
+      fs.mkdirSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+    fs.rmdirSync(path);
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0065
+   * @tc.name      testFileError0065
+   * @tc.desc      Duplicate mkdir 5 reports failure
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testFileError0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testFileError0065', 'mkdir existing %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/dup_dir_05';
+    if (fs.accessSync(path)) {
+      fs.rmdirSync(path);
+    }
+    fs.mkdirSync(path);
+    expect(fs.statSync(path).isDirectory()).assertTrue();
+    let failed: boolean = false;
+    try {
+      fs.mkdirSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+    fs.rmdirSync(path);
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0066
+   * @tc.name      testFileError0066
+   * @tc.desc      Duplicate mkdir 6 reports failure
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testFileError0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testFileError0066', 'mkdir existing %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/dup_dir_06';
+    if (fs.accessSync(path)) {
+      fs.rmdirSync(path);
+    }
+    fs.mkdirSync(path);
+    expect(fs.statSync(path).isDirectory()).assertTrue();
+    let failed: boolean = false;
+    try {
+      fs.mkdirSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+    fs.rmdirSync(path);
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0067
+   * @tc.name      testFileError0067
+   * @tc.desc      Duplicate mkdir 7 reports failure
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testFileError0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testFileError0067', 'mkdir existing %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/dup_dir_07';
+    if (fs.accessSync(path)) {
+      fs.rmdirSync(path);
+    }
+    fs.mkdirSync(path);
+    expect(fs.statSync(path).isDirectory()).assertTrue();
+    let failed: boolean = false;
+    try {
+      fs.mkdirSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+    fs.rmdirSync(path);
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0068
+   * @tc.name      testFileError0068
+   * @tc.desc      Duplicate mkdir 8 reports failure
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testFileError0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testFileError0068', 'mkdir existing %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/dup_dir_08';
+    if (fs.accessSync(path)) {
+      fs.rmdirSync(path);
+    }
+    fs.mkdirSync(path);
+    expect(fs.statSync(path).isDirectory()).assertTrue();
+    let failed: boolean = false;
+    try {
+      fs.mkdirSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+    fs.rmdirSync(path);
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0069
+   * @tc.name      testFileError0069
+   * @tc.desc      Duplicate mkdir 9 reports failure
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testFileError0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testFileError0069', 'mkdir existing %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/dup_dir_09';
+    if (fs.accessSync(path)) {
+      fs.rmdirSync(path);
+    }
+    fs.mkdirSync(path);
+    expect(fs.statSync(path).isDirectory()).assertTrue();
+    let failed: boolean = false;
+    try {
+      fs.mkdirSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+    fs.rmdirSync(path);
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0070
+   * @tc.name      testFileError0070
+   * @tc.desc      Duplicate mkdir 10 reports failure
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testFileError0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testFileError0070', 'mkdir existing %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/dup_dir_10';
+    if (fs.accessSync(path)) {
+      fs.rmdirSync(path);
+    }
+    fs.mkdirSync(path);
+    expect(fs.statSync(path).isDirectory()).assertTrue();
+    let failed: boolean = false;
+    try {
+      fs.mkdirSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+    fs.rmdirSync(path);
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0071
+   * @tc.name      testFileError0071
+   * @tc.desc      Duplicate mkdir 11 reports failure
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testFileError0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testFileError0071', 'mkdir existing %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/dup_dir_11';
+    if (fs.accessSync(path)) {
+      fs.rmdirSync(path);
+    }
+    fs.mkdirSync(path);
+    expect(fs.statSync(path).isDirectory()).assertTrue();
+    let failed: boolean = false;
+    try {
+      fs.mkdirSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+    fs.rmdirSync(path);
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0072
+   * @tc.name      testFileError0072
+   * @tc.desc      Duplicate mkdir 12 reports failure
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testFileError0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testFileError0072', 'mkdir existing %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/dup_dir_12';
+    if (fs.accessSync(path)) {
+      fs.rmdirSync(path);
+    }
+    fs.mkdirSync(path);
+    expect(fs.statSync(path).isDirectory()).assertTrue();
+    let failed: boolean = false;
+    try {
+      fs.mkdirSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+    fs.rmdirSync(path);
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0073
+   * @tc.name      testFileError0073
+   * @tc.desc      Duplicate mkdir 13 reports failure
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testFileError0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testFileError0073', 'mkdir existing %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/dup_dir_13';
+    if (fs.accessSync(path)) {
+      fs.rmdirSync(path);
+    }
+    fs.mkdirSync(path);
+    expect(fs.statSync(path).isDirectory()).assertTrue();
+    let failed: boolean = false;
+    try {
+      fs.mkdirSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+    fs.rmdirSync(path);
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0074
+   * @tc.name      testFileError0074
+   * @tc.desc      Duplicate mkdir 14 reports failure
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testFileError0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testFileError0074', 'mkdir existing %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/dup_dir_14';
+    if (fs.accessSync(path)) {
+      fs.rmdirSync(path);
+    }
+    fs.mkdirSync(path);
+    expect(fs.statSync(path).isDirectory()).assertTrue();
+    let failed: boolean = false;
+    try {
+      fs.mkdirSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+    fs.rmdirSync(path);
+  });
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_FERR_0075
+   * @tc.name      testFileError0075
+   * @tc.desc      Duplicate mkdir 15 reports failure
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testFileError0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testFileError0075', 'mkdir existing %d');
+    const context: common.Context = entryContext();
+    const dir: string = context.filesDir + '/error_work';
+    if (!fs.accessSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const path: string = dir + '/dup_dir_15';
+    if (fs.accessSync(path)) {
+      fs.rmdirSync(path);
+    }
+    fs.mkdirSync(path);
+    expect(fs.statSync(path).isDirectory()).assertTrue();
+    let failed: boolean = false;
+    try {
+      fs.mkdirSync(path);
+    } catch (error) {
+      failed = Number((error as BusinessError).code) !== 0;
+    }
+    expect(failed).assertTrue();
+    fs.rmdirSync(path);
+  });
+  });
+}
