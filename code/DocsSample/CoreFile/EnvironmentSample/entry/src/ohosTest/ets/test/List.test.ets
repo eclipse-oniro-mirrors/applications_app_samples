@@ -14,7 +14,11 @@
  */
 
 import abilityTest from './Ability.test';
+import downloadFilesTest from './DownloadFiles.test';
+import downloadMatrixTests from './DownloadMatrixList.test';
 
-export default function testsuite() {
+export default function testsuite(): void {
   abilityTest();
+  downloadFilesTest();
+  downloadMatrixTests();
 }
