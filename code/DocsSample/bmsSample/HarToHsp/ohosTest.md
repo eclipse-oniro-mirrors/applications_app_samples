@@ -69,13 +69,9 @@
    - `entry-default-signed.hap`
    - `entry-ohosTest-signed.hap`
    - 可选：`library-default-signed.hsp`（用于覆盖 HSP 已安装分支的用例）
-3. 执行全量用例：
 
-   ```
-   hdc shell aa test -b ohos.app.hap.myapplication -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 600000
-   ```
 
-4. 也可在 DevEco Studio 中右键 `entry/src/ohosTest/ets/test/List.test.ets`，选择 `Run 'List.test.ets'` 运行全部套件。
+3可在 DevEco Studio 中右键 `entry/src/ohosTest/ets/test/List.test.ets`，选择 `Run 'List.test.ets'` 运行全部套件。
 
 ## 测试结果
 
