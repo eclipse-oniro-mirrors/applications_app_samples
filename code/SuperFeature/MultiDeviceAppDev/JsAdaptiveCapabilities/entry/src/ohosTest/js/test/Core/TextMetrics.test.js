@@ -1529,27 +1529,1171 @@ function TextMetricsPart020() {
     });
 }
 
+function TextMetricsPart021() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1621
+     * @tc.name    JsTextMetrics081
+     * @tc.desc    Font 174 line 261 spacing 348 seed 81
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics081', 0, async function () {
+      await yieldThread();
+      const fontSize = 174;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(261);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(348);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(264);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(352);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics081 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1622
+     * @tc.name    JsTextMetrics082
+     * @tc.desc    Font 176 line 264 spacing 352 seed 82
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics082', 0, async function () {
+      await yieldThread();
+      const fontSize = 176;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(264);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(352);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(267);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(356);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics082 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1623
+     * @tc.name    JsTextMetrics083
+     * @tc.desc    Font 178 line 267 spacing 356 seed 83
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics083', 0, async function () {
+      await yieldThread();
+      const fontSize = 178;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(267);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(356);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(270);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(360);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics083 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1624
+     * @tc.name    JsTextMetrics084
+     * @tc.desc    Font 180 line 270 spacing 360 seed 84
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics084', 0, async function () {
+      await yieldThread();
+      const fontSize = 180;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(270);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(360);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(273);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(364);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics084 done');
+    });
+}
+
+function TextMetricsPart022() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1625
+     * @tc.name    JsTextMetrics085
+     * @tc.desc    Font 182 line 273 spacing 364 seed 85
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics085', 0, async function () {
+      await yieldThread();
+      const fontSize = 182;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(273);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(364);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(276);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(368);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics085 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1626
+     * @tc.name    JsTextMetrics086
+     * @tc.desc    Font 184 line 276 spacing 368 seed 86
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics086', 0, async function () {
+      await yieldThread();
+      const fontSize = 184;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(276);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(368);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(279);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(372);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics086 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1627
+     * @tc.name    JsTextMetrics087
+     * @tc.desc    Font 186 line 279 spacing 372 seed 87
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics087', 0, async function () {
+      await yieldThread();
+      const fontSize = 186;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(279);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(372);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(282);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(376);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics087 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1628
+     * @tc.name    JsTextMetrics088
+     * @tc.desc    Font 188 line 282 spacing 376 seed 88
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics088', 0, async function () {
+      await yieldThread();
+      const fontSize = 188;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(282);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(376);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(285);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(380);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics088 done');
+    });
+}
+
+function TextMetricsPart023() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1629
+     * @tc.name    JsTextMetrics089
+     * @tc.desc    Font 190 line 285 spacing 380 seed 89
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics089', 0, async function () {
+      await yieldThread();
+      const fontSize = 190;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(285);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(380);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(288);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(384);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics089 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1630
+     * @tc.name    JsTextMetrics090
+     * @tc.desc    Font 192 line 288 spacing 384 seed 90
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics090', 0, async function () {
+      await yieldThread();
+      const fontSize = 192;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(288);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(384);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(291);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(388);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics090 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1631
+     * @tc.name    JsTextMetrics091
+     * @tc.desc    Font 194 line 291 spacing 388 seed 91
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics091', 0, async function () {
+      await yieldThread();
+      const fontSize = 194;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(291);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(388);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(294);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(392);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics091 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1632
+     * @tc.name    JsTextMetrics092
+     * @tc.desc    Font 196 line 294 spacing 392 seed 92
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics092', 0, async function () {
+      await yieldThread();
+      const fontSize = 196;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(294);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(392);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(297);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(396);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics092 done');
+    });
+}
+
+function TextMetricsPart024() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1633
+     * @tc.name    JsTextMetrics093
+     * @tc.desc    Font 198 line 297 spacing 396 seed 93
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics093', 0, async function () {
+      await yieldThread();
+      const fontSize = 198;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(297);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(396);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(300);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(400);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics093 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1634
+     * @tc.name    JsTextMetrics094
+     * @tc.desc    Font 200 line 300 spacing 400 seed 94
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics094', 0, async function () {
+      await yieldThread();
+      const fontSize = 200;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(300);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(400);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(303);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(404);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics094 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1635
+     * @tc.name    JsTextMetrics095
+     * @tc.desc    Font 202 line 303 spacing 404 seed 95
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics095', 0, async function () {
+      await yieldThread();
+      const fontSize = 202;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(303);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(404);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(306);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(408);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics095 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1636
+     * @tc.name    JsTextMetrics096
+     * @tc.desc    Font 204 line 306 spacing 408 seed 96
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics096', 0, async function () {
+      await yieldThread();
+      const fontSize = 204;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(306);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(408);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(309);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(412);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics096 done');
+    });
+}
+
+function TextMetricsPart025() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1637
+     * @tc.name    JsTextMetrics097
+     * @tc.desc    Font 206 line 309 spacing 412 seed 97
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics097', 0, async function () {
+      await yieldThread();
+      const fontSize = 206;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(309);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(412);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(312);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(416);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics097 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1638
+     * @tc.name    JsTextMetrics098
+     * @tc.desc    Font 208 line 312 spacing 416 seed 98
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics098', 0, async function () {
+      await yieldThread();
+      const fontSize = 208;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(312);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(416);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(315);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(420);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics098 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1639
+     * @tc.name    JsTextMetrics099
+     * @tc.desc    Font 210 line 315 spacing 420 seed 99
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics099', 0, async function () {
+      await yieldThread();
+      const fontSize = 210;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(315);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(420);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(318);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(424);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics099 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1640
+     * @tc.name    JsTextMetrics100
+     * @tc.desc    Font 212 line 318 spacing 424 seed 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics100', 0, async function () {
+      await yieldThread();
+      const fontSize = 212;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(318);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(424);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(321);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(428);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics100 done');
+    });
+}
+
+function TextMetricsPart026() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1641
+     * @tc.name    JsTextMetrics101
+     * @tc.desc    Font 214 line 321 spacing 428 seed 101
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics101', 0, async function () {
+      await yieldThread();
+      const fontSize = 214;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(321);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(428);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(324);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(432);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics101 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1642
+     * @tc.name    JsTextMetrics102
+     * @tc.desc    Font 216 line 324 spacing 432 seed 102
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics102', 0, async function () {
+      await yieldThread();
+      const fontSize = 216;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(324);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(432);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(327);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(436);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics102 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1643
+     * @tc.name    JsTextMetrics103
+     * @tc.desc    Font 218 line 327 spacing 436 seed 103
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics103', 0, async function () {
+      await yieldThread();
+      const fontSize = 218;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(327);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(436);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(330);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(440);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics103 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1644
+     * @tc.name    JsTextMetrics104
+     * @tc.desc    Font 220 line 330 spacing 440 seed 104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics104', 0, async function () {
+      await yieldThread();
+      const fontSize = 220;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(330);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(440);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(333);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(444);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics104 done');
+    });
+}
+
+function TextMetricsPart027() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1645
+     * @tc.name    JsTextMetrics105
+     * @tc.desc    Font 222 line 333 spacing 444 seed 105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics105', 0, async function () {
+      await yieldThread();
+      const fontSize = 222;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(333);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(444);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(336);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(448);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics105 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1646
+     * @tc.name    JsTextMetrics106
+     * @tc.desc    Font 224 line 336 spacing 448 seed 106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics106', 0, async function () {
+      await yieldThread();
+      const fontSize = 224;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(336);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(448);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(339);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(452);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics106 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1647
+     * @tc.name    JsTextMetrics107
+     * @tc.desc    Font 226 line 339 spacing 452 seed 107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics107', 0, async function () {
+      await yieldThread();
+      const fontSize = 226;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(339);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(452);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(342);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(456);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics107 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1648
+     * @tc.name    JsTextMetrics108
+     * @tc.desc    Font 228 line 342 spacing 456 seed 108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics108', 0, async function () {
+      await yieldThread();
+      const fontSize = 228;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(342);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(456);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(345);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(460);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics108 done');
+    });
+}
+
+function TextMetricsPart028() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1649
+     * @tc.name    JsTextMetrics109
+     * @tc.desc    Font 230 line 345 spacing 460 seed 109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics109', 0, async function () {
+      await yieldThread();
+      const fontSize = 230;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(345);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(460);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(348);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(464);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics109 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1650
+     * @tc.name    JsTextMetrics110
+     * @tc.desc    Font 232 line 348 spacing 464 seed 110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics110', 0, async function () {
+      await yieldThread();
+      const fontSize = 232;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(348);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(464);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(351);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(468);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics110 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1651
+     * @tc.name    JsTextMetrics111
+     * @tc.desc    Font 234 line 351 spacing 468 seed 111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics111', 0, async function () {
+      await yieldThread();
+      const fontSize = 234;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(351);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(468);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(354);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(472);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics111 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1652
+     * @tc.name    JsTextMetrics112
+     * @tc.desc    Font 236 line 354 spacing 472 seed 112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics112', 0, async function () {
+      await yieldThread();
+      const fontSize = 236;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(354);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(472);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(357);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(476);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics112 done');
+    });
+}
+
+function TextMetricsPart029() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1653
+     * @tc.name    JsTextMetrics113
+     * @tc.desc    Font 238 line 357 spacing 476 seed 113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics113', 0, async function () {
+      await yieldThread();
+      const fontSize = 238;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(357);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(476);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(360);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(480);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics113 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1654
+     * @tc.name    JsTextMetrics114
+     * @tc.desc    Font 240 line 360 spacing 480 seed 114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics114', 0, async function () {
+      await yieldThread();
+      const fontSize = 240;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(360);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(480);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(363);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(484);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics114 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1655
+     * @tc.name    JsTextMetrics115
+     * @tc.desc    Font 242 line 363 spacing 484 seed 115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics115', 0, async function () {
+      await yieldThread();
+      const fontSize = 242;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(363);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(484);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(366);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(488);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics115 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1656
+     * @tc.name    JsTextMetrics116
+     * @tc.desc    Font 244 line 366 spacing 488 seed 116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics116', 0, async function () {
+      await yieldThread();
+      const fontSize = 244;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(366);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(488);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(369);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(492);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics116 done');
+    });
+}
+
+function TextMetricsPart030() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1657
+     * @tc.name    JsTextMetrics117
+     * @tc.desc    Font 246 line 369 spacing 492 seed 117
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics117', 0, async function () {
+      await yieldThread();
+      const fontSize = 246;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(369);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(492);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(372);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(496);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics117 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1658
+     * @tc.name    JsTextMetrics118
+     * @tc.desc    Font 248 line 372 spacing 496 seed 118
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics118', 0, async function () {
+      await yieldThread();
+      const fontSize = 248;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(372);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(496);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(375);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(500);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics118 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1659
+     * @tc.name    JsTextMetrics119
+     * @tc.desc    Font 250 line 375 spacing 500 seed 119
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics119', 0, async function () {
+      await yieldThread();
+      const fontSize = 250;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(375);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(500);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(378);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(504);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics119 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1660
+     * @tc.name    JsTextMetrics120
+     * @tc.desc    Font 252 line 378 spacing 504 seed 120
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics120', 0, async function () {
+      await yieldThread();
+      const fontSize = 252;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(378);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(504);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(381);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(508);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics120 done');
+    });
+}
+
+function TextMetricsPart031() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1661
+     * @tc.name    JsTextMetrics121
+     * @tc.desc    Font 254 line 381 spacing 508 seed 121
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics121', 0, async function () {
+      await yieldThread();
+      const fontSize = 254;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(381);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(508);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(384);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(512);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics121 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1662
+     * @tc.name    JsTextMetrics122
+     * @tc.desc    Font 256 line 384 spacing 512 seed 122
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics122', 0, async function () {
+      await yieldThread();
+      const fontSize = 256;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(384);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(512);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(387);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(516);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics122 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1663
+     * @tc.name    JsTextMetrics123
+     * @tc.desc    Font 258 line 387 spacing 516 seed 123
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics123', 0, async function () {
+      await yieldThread();
+      const fontSize = 258;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(387);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(516);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(390);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(520);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics123 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1664
+     * @tc.name    JsTextMetrics124
+     * @tc.desc    Font 260 line 390 spacing 520 seed 124
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics124', 0, async function () {
+      await yieldThread();
+      const fontSize = 260;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(390);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(520);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(393);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(524);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics124 done');
+    });
+}
+
+function TextMetricsPart032() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1665
+     * @tc.name    JsTextMetrics125
+     * @tc.desc    Font 262 line 393 spacing 524 seed 125
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics125', 0, async function () {
+      await yieldThread();
+      const fontSize = 262;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(393);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(524);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(396);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(528);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics125 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1666
+     * @tc.name    JsTextMetrics126
+     * @tc.desc    Font 264 line 396 spacing 528 seed 126
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics126', 0, async function () {
+      await yieldThread();
+      const fontSize = 264;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(396);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(528);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(399);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(532);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics126 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1667
+     * @tc.name    JsTextMetrics127
+     * @tc.desc    Font 266 line 399 spacing 532 seed 127
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics127', 0, async function () {
+      await yieldThread();
+      const fontSize = 266;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(399);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(532);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(402);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(536);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics127 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1668
+     * @tc.name    JsTextMetrics128
+     * @tc.desc    Font 268 line 402 spacing 536 seed 128
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics128', 0, async function () {
+      await yieldThread();
+      const fontSize = 268;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(402);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(536);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(405);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(540);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics128 done');
+    });
+}
+
+function TextMetricsPart033() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1669
+     * @tc.name    JsTextMetrics129
+     * @tc.desc    Font 270 line 405 spacing 540 seed 129
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics129', 0, async function () {
+      await yieldThread();
+      const fontSize = 270;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(405);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(540);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(408);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(544);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics129 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1670
+     * @tc.name    JsTextMetrics130
+     * @tc.desc    Font 272 line 408 spacing 544 seed 130
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics130', 0, async function () {
+      await yieldThread();
+      const fontSize = 272;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(408);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(544);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(411);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(548);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics130 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1671
+     * @tc.name    JsTextMetrics131
+     * @tc.desc    Font 274 line 411 spacing 548 seed 131
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics131', 0, async function () {
+      await yieldThread();
+      const fontSize = 274;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(411);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(548);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(414);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(552);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics131 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1672
+     * @tc.name    JsTextMetrics132
+     * @tc.desc    Font 276 line 414 spacing 552 seed 132
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics132', 0, async function () {
+      await yieldThread();
+      const fontSize = 276;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(414);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(552);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(417);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(556);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics132 done');
+    });
+}
+
+function TextMetricsPart034() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1673
+     * @tc.name    JsTextMetrics133
+     * @tc.desc    Font 278 line 417 spacing 556 seed 133
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics133', 0, async function () {
+      await yieldThread();
+      const fontSize = 278;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(417);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(556);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(420);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(560);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics133 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1674
+     * @tc.name    JsTextMetrics134
+     * @tc.desc    Font 280 line 420 spacing 560 seed 134
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics134', 0, async function () {
+      await yieldThread();
+      const fontSize = 280;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(420);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(560);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(423);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(564);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics134 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1675
+     * @tc.name    JsTextMetrics135
+     * @tc.desc    Font 282 line 423 spacing 564 seed 135
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics135', 0, async function () {
+      await yieldThread();
+      const fontSize = 282;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(423);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(564);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(426);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(568);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics135 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1676
+     * @tc.name    JsTextMetrics136
+     * @tc.desc    Font 284 line 426 spacing 568 seed 136
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics136', 0, async function () {
+      await yieldThread();
+      const fontSize = 284;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(426);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(568);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(429);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(572);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics136 done');
+    });
+}
+
+function TextMetricsPart035() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1677
+     * @tc.name    JsTextMetrics137
+     * @tc.desc    Font 286 line 429 spacing 572 seed 137
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics137', 0, async function () {
+      await yieldThread();
+      const fontSize = 286;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(429);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(572);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(432);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(576);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics137 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1678
+     * @tc.name    JsTextMetrics138
+     * @tc.desc    Font 288 line 432 spacing 576 seed 138
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics138', 0, async function () {
+      await yieldThread();
+      const fontSize = 288;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(432);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(576);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(435);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(580);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics138 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1679
+     * @tc.name    JsTextMetrics139
+     * @tc.desc    Font 290 line 435 spacing 580 seed 139
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics139', 0, async function () {
+      await yieldThread();
+      const fontSize = 290;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(435);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(580);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(438);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(584);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics139 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1680
+     * @tc.name    JsTextMetrics140
+     * @tc.desc    Font 292 line 438 spacing 584 seed 140
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTextMetrics140', 0, async function () {
+      await yieldThread();
+      const fontSize = 292;
+      const lineHeight = model.lineHeightOf(fontSize);
+      expect(lineHeight).assertEqual(438);
+      expect(model.letterSpacingOf(fontSize)).assertEqual(584);
+      expect(model.lineHeightOf(fontSize + 2)).assertEqual(441);
+      expect(model.letterSpacingOf(fontSize + 2)).assertEqual(588);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTextMetrics140 done');
+    });
+}
+
+function TextMetricsGroup001() {
+  TextMetricsPart001();
+  TextMetricsPart002();
+  TextMetricsPart003();
+  TextMetricsPart004();
+  TextMetricsPart005();
+  TextMetricsPart006();
+  TextMetricsPart007();
+  TextMetricsPart008();
+  TextMetricsPart009();
+  TextMetricsPart010();
+  TextMetricsPart011();
+  TextMetricsPart012();
+  TextMetricsPart013();
+  TextMetricsPart014();
+  TextMetricsPart015();
+  TextMetricsPart016();
+  TextMetricsPart017();
+  TextMetricsPart018();
+  TextMetricsPart019();
+  TextMetricsPart020();
+  TextMetricsPart021();
+  TextMetricsPart022();
+  TextMetricsPart023();
+  TextMetricsPart024();
+  TextMetricsPart025();
+  TextMetricsPart026();
+  TextMetricsPart027();
+  TextMetricsPart028();
+  TextMetricsPart029();
+  TextMetricsPart030();
+  TextMetricsPart031();
+  TextMetricsPart032();
+  TextMetricsPart033();
+  TextMetricsPart034();
+  TextMetricsPart035();
+}
+
 export default function textMetricsSuite() {
   describe('TextMetricsSuite', function () {
-    TextMetricsPart001();
-    TextMetricsPart002();
-    TextMetricsPart003();
-    TextMetricsPart004();
-    TextMetricsPart005();
-    TextMetricsPart006();
-    TextMetricsPart007();
-    TextMetricsPart008();
-    TextMetricsPart009();
-    TextMetricsPart010();
-    TextMetricsPart011();
-    TextMetricsPart012();
-    TextMetricsPart013();
-    TextMetricsPart014();
-    TextMetricsPart015();
-    TextMetricsPart016();
-    TextMetricsPart017();
-    TextMetricsPart018();
-    TextMetricsPart019();
-    TextMetricsPart020();
+    TextMetricsGroup001();
   });
 }
