@@ -3979,3 +3979,444 @@ export default function columnsOperationCatalogSuite() {
       expect(m.getMailByType('nohit329') === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0330
+     * @tc.name    ColumnsOperationCatalog330
+     * @tc.desc    Columns navbar width for 650 probe 330
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog330', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 650;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit330') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0331
+     * @tc.name    ColumnsOperationCatalog331
+     * @tc.desc    Columns navbar width for 651 probe 331
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog331', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 651;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit331') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0332
+     * @tc.name    ColumnsOperationCatalog332
+     * @tc.desc    Columns navbar width for 652 probe 332
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog332', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 652;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit332') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0333
+     * @tc.name    ColumnsOperationCatalog333
+     * @tc.desc    Columns navbar width for 653 probe 333
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog333', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 653;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit333') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0334
+     * @tc.name    ColumnsOperationCatalog334
+     * @tc.desc    Columns navbar width for 654 probe 334
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog334', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 654;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit334') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0335
+     * @tc.name    ColumnsOperationCatalog335
+     * @tc.desc    Columns navbar width for 655 probe 335
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog335', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 655;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit335') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0336
+     * @tc.name    ColumnsOperationCatalog336
+     * @tc.desc    Columns navbar width for 656 probe 336
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog336', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 656;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit336') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0337
+     * @tc.name    ColumnsOperationCatalog337
+     * @tc.desc    Columns navbar width for 657 probe 337
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog337', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 657;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit337') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0338
+     * @tc.name    ColumnsOperationCatalog338
+     * @tc.desc    Columns navbar width for 658 probe 338
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog338', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 658;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit338') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0339
+     * @tc.name    ColumnsOperationCatalog339
+     * @tc.desc    Columns navbar width for 659 probe 339
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog339', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 659;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit339') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0340
+     * @tc.name    ColumnsOperationCatalog340
+     * @tc.desc    Columns navbar width for 660 probe 340
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog340', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 660;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit340') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0341
+     * @tc.name    ColumnsOperationCatalog341
+     * @tc.desc    Columns navbar width for 661 probe 341
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog341', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 661;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit341') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0342
+     * @tc.name    ColumnsOperationCatalog342
+     * @tc.desc    Columns navbar width for 662 probe 342
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog342', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 662;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit342') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0343
+     * @tc.name    ColumnsOperationCatalog343
+     * @tc.desc    Columns navbar width for 663 probe 343
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog343', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 663;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit343') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0344
+     * @tc.name    ColumnsOperationCatalog344
+     * @tc.desc    Columns navbar width for 664 probe 344
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog344', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 664;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit344') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0345
+     * @tc.name    ColumnsOperationCatalog345
+     * @tc.desc    Columns navbar width for 665 probe 345
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog345', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 665;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit345') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0346
+     * @tc.name    ColumnsOperationCatalog346
+     * @tc.desc    Columns navbar width for 666 probe 346
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog346', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 666;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit346') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0347
+     * @tc.name    ColumnsOperationCatalog347
+     * @tc.desc    Columns navbar width for 667 probe 347
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog347', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 667;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit347') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0348
+     * @tc.name    ColumnsOperationCatalog348
+     * @tc.desc    Columns navbar width for 668 probe 348
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog348', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 668;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit348') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0349
+     * @tc.name    ColumnsOperationCatalog349
+     * @tc.desc    Columns navbar width for 669 probe 349
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog349', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 669;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit349') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0350
+     * @tc.name    ColumnsOperationCatalog350
+     * @tc.desc    Columns navbar width for 670 probe 350
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog350', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 670;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit350') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0351
+     * @tc.name    ColumnsOperationCatalog351
+     * @tc.desc    Columns navbar width for 671 probe 351
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog351', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 671;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit351') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0352
+     * @tc.name    ColumnsOperationCatalog352
+     * @tc.desc    Columns navbar width for 672 probe 352
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsOperationCatalog352', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 672;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit352') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
