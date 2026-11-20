@@ -13,62 +13,77 @@
  * limitations under the License.
  */
 
-import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
-import { abilityDelegatorRegistry } from '@kit.TestKit';
-import { hilog } from '@kit.PerformanceAnalysisKit';
+import UIAbility from '@ohos.app.ability.UIAbility';
+import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import AbilityConstant from '@ohos.app.ability.AbilityConstant';
+import Want from '@ohos.app.ability.Want';
+import window from '@ohos.window';
+import hilog from '@ohos.hilog';
 import { Hypium } from '@ohos/hypium';
 import testsuite from '../test/List.test';
 
-const DOMAIN: number = 0xF811;
-const TAG: string = '[Sample_StartMode]';
-const ON_DESTROY_ERROR: number = -2;
-/**
- * 从前台回调返回后再做用例注册。hypium 每注册一条用例都会同步写日志，
- * 大量套件注册会占用主线程，AAFWK 可能因此判定前台超时并回收测试进程。
- */
-const REGISTER_DELAY_MS: number = 1000;
+const DOMAIN: number = 0x0000;
+const TAG: string = 'StartModeTest';
+
+/** Starts the main ability of the sample so that the home page is rendered. */
+async function startMainAbility(): Promise<void> {
+  const delegator: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+  const args: AbilityDelegatorRegistry.AbilityDelegatorArgs = AbilityDelegatorRegistry.getArguments();
+  const want: Want = {
+    bundleName: args.bundleName,
+    abilityName: 'MainAbility'
+  };
+  hilog.info(DOMAIN, TAG, '%{public}s', `startMainAbility: ${JSON.stringify(want)}`);
+  await delegator.startAbility(want);
+}
 
 export default class TestAbility extends UIAbility {
-  private abilityDelegator: abilityDelegatorRegistry.AbilityDelegator;
-  private registerScheduled: boolean = false;
-
-  constructor() {
-    super();
-    this.abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-  }
-
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
     hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onCreate');
-    try {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'want param:' + JSON.stringify(want));
-    } catch (error) {
-      hilog.warn(DOMAIN, TAG, '%{public}s', 'want param cannot be serialized');
-      hilog.warn(DOMAIN, TAG, '%{public}s', String(error));
-    }
-  }
+    hilog.info(DOMAIN, TAG, 'TestAbility want: %{public}s', JSON.stringify(want) ?? '');
+    hilog.info(DOMAIN, TAG, 'TestAbility launchParam: %{public}s', JSON.stringify(launchParam) ?? '');
 
-  onForeground(): void {
-    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onForeground');
-    if (this.registerScheduled) {
-      return;
-    }
-    this.registerScheduled = true;
+    const abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+    const abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs =
+      AbilityDelegatorRegistry.getArguments();
+
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility start run testcase');
     setTimeout(() => {
-      const abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs =
-        abilityDelegatorRegistry.getArguments();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'start run testcase!!!');
-      Hypium.hypiumTest(this.abilityDelegator, abilityDelegatorArguments, testsuite);
-      hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility register end');
-    }, REGISTER_DELAY_MS);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility timer fired');
+      startMainAbility().then(() => {
+        hilog.info(DOMAIN, TAG, '%{public}s', 'MainAbility launched');
+        Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+      }).catch((err: Error) => {
+        hilog.error(DOMAIN, TAG, 'Failed to launch MainAbility: %{public}s', JSON.stringify(err) ?? '');
+        Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+      });
+    }, 1000);
   }
 
-  onDestroy(): void {
+  onDestroy() {
     hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onDestroy');
-    this.abilityDelegator.finishTest('TestAbility onDestroy unexpectedly!', ON_DESTROY_ERROR, () => {
+  }
+
+  onWindowStageCreate(windowStage: window.WindowStage) {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onWindowStageCreate');
+    windowStage.loadContent('testability/pages/Index', (err, data) => {
+      if (err.code) {
+        hilog.error(DOMAIN, TAG, 'Failed to load the content: %{public}s', JSON.stringify(err) ?? '');
+        return;
+      }
+      hilog.info(DOMAIN, TAG, 'Succeeded in loading the content: %{public}s', JSON.stringify(data) ?? '');
     });
   }
 
-  onBackground(): void {
+  onWindowStageDestroy() {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onWindowStageDestroy');
+  }
+
+  onForeground() {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onForeground');
+  }
+
+  onBackground() {
     hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onBackground');
   }
 }
