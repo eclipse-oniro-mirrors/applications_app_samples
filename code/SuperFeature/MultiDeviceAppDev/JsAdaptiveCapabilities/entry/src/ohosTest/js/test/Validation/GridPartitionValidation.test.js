@@ -1568,32 +1568,1394 @@ function GridPartitionValidationPart025() {
     });
 }
 
+function GridPartitionValidationPart026() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0356
+     * @tc.name    JsPartition076
+     * @tc.desc    Partition 87 into 1 parts extra 0 seed 76
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition076', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(87, 1);
+      expect(sizes.length).assertEqual(1);
+      expect(model.spanSum(sizes)).assertEqual(87);
+      expect(sizes[0]).assertEqual(87);
+      expect(model.offsetOf(sizes, 1)).assertEqual(87);
+      expect(model.isValidSpan(sizes, 87)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition076 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0357
+     * @tc.name    JsPartition077
+     * @tc.desc    Partition 94 into 4 parts extra 2 seed 77
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition077', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(94, 4);
+      expect(sizes.length).assertEqual(4);
+      expect(model.spanSum(sizes)).assertEqual(94);
+      expect(sizes[0]).assertEqual(24);
+      expect(sizes[1]).assertEqual(24);
+      expect(sizes[2]).assertEqual(23);
+      expect(model.offsetOf(sizes, 3)).assertEqual(71);
+      expect(model.isValidSpan(sizes, 94)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition077 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0358
+     * @tc.name    JsPartition078
+     * @tc.desc    Partition 10 into 7 parts extra 3 seed 78
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition078', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(10, 7);
+      expect(sizes.length).assertEqual(7);
+      expect(model.spanSum(sizes)).assertEqual(10);
+      expect(sizes[0]).assertEqual(2);
+      expect(sizes[1]).assertEqual(2);
+      expect(sizes[2]).assertEqual(2);
+      expect(model.offsetOf(sizes, 3)).assertEqual(6);
+      expect(model.isValidSpan(sizes, 10)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition078 done');
+    });
+}
+
+function GridPartitionValidationPart027() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0359
+     * @tc.name    JsPartition079
+     * @tc.desc    Partition 17 into 10 parts extra 7 seed 79
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition079', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(17, 10);
+      expect(sizes.length).assertEqual(10);
+      expect(model.spanSum(sizes)).assertEqual(17);
+      expect(sizes[0]).assertEqual(2);
+      expect(sizes[1]).assertEqual(2);
+      expect(sizes[2]).assertEqual(2);
+      expect(model.offsetOf(sizes, 3)).assertEqual(6);
+      expect(model.isValidSpan(sizes, 17)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition079 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0360
+     * @tc.name    JsPartition080
+     * @tc.desc    Partition 24 into 1 parts extra 0 seed 80
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition080', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(24, 1);
+      expect(sizes.length).assertEqual(1);
+      expect(model.spanSum(sizes)).assertEqual(24);
+      expect(sizes[0]).assertEqual(24);
+      expect(model.offsetOf(sizes, 1)).assertEqual(24);
+      expect(model.isValidSpan(sizes, 24)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition080 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0361
+     * @tc.name    JsPartition081
+     * @tc.desc    Partition 31 into 4 parts extra 3 seed 81
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition081', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(31, 4);
+      expect(sizes.length).assertEqual(4);
+      expect(model.spanSum(sizes)).assertEqual(31);
+      expect(sizes[0]).assertEqual(8);
+      expect(sizes[1]).assertEqual(8);
+      expect(sizes[2]).assertEqual(8);
+      expect(model.offsetOf(sizes, 3)).assertEqual(24);
+      expect(model.isValidSpan(sizes, 31)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition081 done');
+    });
+}
+
+function GridPartitionValidationPart028() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0362
+     * @tc.name    JsPartition082
+     * @tc.desc    Partition 38 into 7 parts extra 3 seed 82
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition082', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(38, 7);
+      expect(sizes.length).assertEqual(7);
+      expect(model.spanSum(sizes)).assertEqual(38);
+      expect(sizes[0]).assertEqual(6);
+      expect(sizes[1]).assertEqual(6);
+      expect(sizes[2]).assertEqual(6);
+      expect(model.offsetOf(sizes, 3)).assertEqual(18);
+      expect(model.isValidSpan(sizes, 38)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition082 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0363
+     * @tc.name    JsPartition083
+     * @tc.desc    Partition 45 into 10 parts extra 5 seed 83
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition083', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(45, 10);
+      expect(sizes.length).assertEqual(10);
+      expect(model.spanSum(sizes)).assertEqual(45);
+      expect(sizes[0]).assertEqual(5);
+      expect(sizes[1]).assertEqual(5);
+      expect(sizes[2]).assertEqual(5);
+      expect(model.offsetOf(sizes, 3)).assertEqual(15);
+      expect(model.isValidSpan(sizes, 45)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition083 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0364
+     * @tc.name    JsPartition084
+     * @tc.desc    Partition 52 into 1 parts extra 0 seed 84
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition084', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(52, 1);
+      expect(sizes.length).assertEqual(1);
+      expect(model.spanSum(sizes)).assertEqual(52);
+      expect(sizes[0]).assertEqual(52);
+      expect(model.offsetOf(sizes, 1)).assertEqual(52);
+      expect(model.isValidSpan(sizes, 52)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition084 done');
+    });
+}
+
+function GridPartitionValidationPart029() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0365
+     * @tc.name    JsPartition085
+     * @tc.desc    Partition 59 into 4 parts extra 3 seed 85
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition085', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(59, 4);
+      expect(sizes.length).assertEqual(4);
+      expect(model.spanSum(sizes)).assertEqual(59);
+      expect(sizes[0]).assertEqual(15);
+      expect(sizes[1]).assertEqual(15);
+      expect(sizes[2]).assertEqual(15);
+      expect(model.offsetOf(sizes, 3)).assertEqual(45);
+      expect(model.isValidSpan(sizes, 59)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition085 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0366
+     * @tc.name    JsPartition086
+     * @tc.desc    Partition 66 into 7 parts extra 3 seed 86
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition086', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(66, 7);
+      expect(sizes.length).assertEqual(7);
+      expect(model.spanSum(sizes)).assertEqual(66);
+      expect(sizes[0]).assertEqual(10);
+      expect(sizes[1]).assertEqual(10);
+      expect(sizes[2]).assertEqual(10);
+      expect(model.offsetOf(sizes, 3)).assertEqual(30);
+      expect(model.isValidSpan(sizes, 66)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition086 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0367
+     * @tc.name    JsPartition087
+     * @tc.desc    Partition 73 into 10 parts extra 3 seed 87
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition087', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(73, 10);
+      expect(sizes.length).assertEqual(10);
+      expect(model.spanSum(sizes)).assertEqual(73);
+      expect(sizes[0]).assertEqual(8);
+      expect(sizes[1]).assertEqual(8);
+      expect(sizes[2]).assertEqual(8);
+      expect(model.offsetOf(sizes, 3)).assertEqual(24);
+      expect(model.isValidSpan(sizes, 73)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition087 done');
+    });
+}
+
+function GridPartitionValidationPart030() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0368
+     * @tc.name    JsPartition088
+     * @tc.desc    Partition 80 into 1 parts extra 0 seed 88
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition088', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(80, 1);
+      expect(sizes.length).assertEqual(1);
+      expect(model.spanSum(sizes)).assertEqual(80);
+      expect(sizes[0]).assertEqual(80);
+      expect(model.offsetOf(sizes, 1)).assertEqual(80);
+      expect(model.isValidSpan(sizes, 80)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition088 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0369
+     * @tc.name    JsPartition089
+     * @tc.desc    Partition 87 into 4 parts extra 3 seed 89
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition089', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(87, 4);
+      expect(sizes.length).assertEqual(4);
+      expect(model.spanSum(sizes)).assertEqual(87);
+      expect(sizes[0]).assertEqual(22);
+      expect(sizes[1]).assertEqual(22);
+      expect(sizes[2]).assertEqual(22);
+      expect(model.offsetOf(sizes, 3)).assertEqual(66);
+      expect(model.isValidSpan(sizes, 87)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition089 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0370
+     * @tc.name    JsPartition090
+     * @tc.desc    Partition 94 into 7 parts extra 3 seed 90
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition090', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(94, 7);
+      expect(sizes.length).assertEqual(7);
+      expect(model.spanSum(sizes)).assertEqual(94);
+      expect(sizes[0]).assertEqual(14);
+      expect(sizes[1]).assertEqual(14);
+      expect(sizes[2]).assertEqual(14);
+      expect(model.offsetOf(sizes, 3)).assertEqual(42);
+      expect(model.isValidSpan(sizes, 94)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition090 done');
+    });
+}
+
+function GridPartitionValidationPart031() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0371
+     * @tc.name    JsPartition091
+     * @tc.desc    Partition 10 into 10 parts extra 0 seed 91
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition091', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(10, 10);
+      expect(sizes.length).assertEqual(10);
+      expect(model.spanSum(sizes)).assertEqual(10);
+      expect(sizes[0]).assertEqual(1);
+      expect(sizes[1]).assertEqual(1);
+      expect(sizes[2]).assertEqual(1);
+      expect(model.offsetOf(sizes, 3)).assertEqual(3);
+      expect(model.isValidSpan(sizes, 10)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition091 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0372
+     * @tc.name    JsPartition092
+     * @tc.desc    Partition 17 into 1 parts extra 0 seed 92
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition092', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(17, 1);
+      expect(sizes.length).assertEqual(1);
+      expect(model.spanSum(sizes)).assertEqual(17);
+      expect(sizes[0]).assertEqual(17);
+      expect(model.offsetOf(sizes, 1)).assertEqual(17);
+      expect(model.isValidSpan(sizes, 17)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition092 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0373
+     * @tc.name    JsPartition093
+     * @tc.desc    Partition 24 into 4 parts extra 0 seed 93
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition093', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(24, 4);
+      expect(sizes.length).assertEqual(4);
+      expect(model.spanSum(sizes)).assertEqual(24);
+      expect(sizes[0]).assertEqual(6);
+      expect(sizes[1]).assertEqual(6);
+      expect(sizes[2]).assertEqual(6);
+      expect(model.offsetOf(sizes, 3)).assertEqual(18);
+      expect(model.isValidSpan(sizes, 24)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition093 done');
+    });
+}
+
+function GridPartitionValidationPart032() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0374
+     * @tc.name    JsPartition094
+     * @tc.desc    Partition 31 into 7 parts extra 3 seed 94
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition094', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(31, 7);
+      expect(sizes.length).assertEqual(7);
+      expect(model.spanSum(sizes)).assertEqual(31);
+      expect(sizes[0]).assertEqual(5);
+      expect(sizes[1]).assertEqual(5);
+      expect(sizes[2]).assertEqual(5);
+      expect(model.offsetOf(sizes, 3)).assertEqual(15);
+      expect(model.isValidSpan(sizes, 31)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition094 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0375
+     * @tc.name    JsPartition095
+     * @tc.desc    Partition 38 into 10 parts extra 8 seed 95
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition095', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(38, 10);
+      expect(sizes.length).assertEqual(10);
+      expect(model.spanSum(sizes)).assertEqual(38);
+      expect(sizes[0]).assertEqual(4);
+      expect(sizes[1]).assertEqual(4);
+      expect(sizes[2]).assertEqual(4);
+      expect(model.offsetOf(sizes, 3)).assertEqual(12);
+      expect(model.isValidSpan(sizes, 38)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition095 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0376
+     * @tc.name    JsPartition096
+     * @tc.desc    Partition 45 into 1 parts extra 0 seed 96
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition096', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(45, 1);
+      expect(sizes.length).assertEqual(1);
+      expect(model.spanSum(sizes)).assertEqual(45);
+      expect(sizes[0]).assertEqual(45);
+      expect(model.offsetOf(sizes, 1)).assertEqual(45);
+      expect(model.isValidSpan(sizes, 45)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition096 done');
+    });
+}
+
+function GridPartitionValidationPart033() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0377
+     * @tc.name    JsPartition097
+     * @tc.desc    Partition 52 into 4 parts extra 0 seed 97
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition097', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(52, 4);
+      expect(sizes.length).assertEqual(4);
+      expect(model.spanSum(sizes)).assertEqual(52);
+      expect(sizes[0]).assertEqual(13);
+      expect(sizes[1]).assertEqual(13);
+      expect(sizes[2]).assertEqual(13);
+      expect(model.offsetOf(sizes, 3)).assertEqual(39);
+      expect(model.isValidSpan(sizes, 52)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition097 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0378
+     * @tc.name    JsPartition098
+     * @tc.desc    Partition 59 into 7 parts extra 3 seed 98
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition098', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(59, 7);
+      expect(sizes.length).assertEqual(7);
+      expect(model.spanSum(sizes)).assertEqual(59);
+      expect(sizes[0]).assertEqual(9);
+      expect(sizes[1]).assertEqual(9);
+      expect(sizes[2]).assertEqual(9);
+      expect(model.offsetOf(sizes, 3)).assertEqual(27);
+      expect(model.isValidSpan(sizes, 59)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition098 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0379
+     * @tc.name    JsPartition099
+     * @tc.desc    Partition 66 into 10 parts extra 6 seed 99
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition099', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(66, 10);
+      expect(sizes.length).assertEqual(10);
+      expect(model.spanSum(sizes)).assertEqual(66);
+      expect(sizes[0]).assertEqual(7);
+      expect(sizes[1]).assertEqual(7);
+      expect(sizes[2]).assertEqual(7);
+      expect(model.offsetOf(sizes, 3)).assertEqual(21);
+      expect(model.isValidSpan(sizes, 66)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition099 done');
+    });
+}
+
+function GridPartitionValidationPart034() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0380
+     * @tc.name    JsPartition100
+     * @tc.desc    Partition 73 into 1 parts extra 0 seed 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition100', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(73, 1);
+      expect(sizes.length).assertEqual(1);
+      expect(model.spanSum(sizes)).assertEqual(73);
+      expect(sizes[0]).assertEqual(73);
+      expect(model.offsetOf(sizes, 1)).assertEqual(73);
+      expect(model.isValidSpan(sizes, 73)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition100 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0381
+     * @tc.name    JsPartition101
+     * @tc.desc    Partition 80 into 4 parts extra 0 seed 101
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition101', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(80, 4);
+      expect(sizes.length).assertEqual(4);
+      expect(model.spanSum(sizes)).assertEqual(80);
+      expect(sizes[0]).assertEqual(20);
+      expect(sizes[1]).assertEqual(20);
+      expect(sizes[2]).assertEqual(20);
+      expect(model.offsetOf(sizes, 3)).assertEqual(60);
+      expect(model.isValidSpan(sizes, 80)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition101 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0382
+     * @tc.name    JsPartition102
+     * @tc.desc    Partition 87 into 7 parts extra 3 seed 102
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition102', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(87, 7);
+      expect(sizes.length).assertEqual(7);
+      expect(model.spanSum(sizes)).assertEqual(87);
+      expect(sizes[0]).assertEqual(13);
+      expect(sizes[1]).assertEqual(13);
+      expect(sizes[2]).assertEqual(13);
+      expect(model.offsetOf(sizes, 3)).assertEqual(39);
+      expect(model.isValidSpan(sizes, 87)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition102 done');
+    });
+}
+
+function GridPartitionValidationPart035() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0383
+     * @tc.name    JsPartition103
+     * @tc.desc    Partition 94 into 10 parts extra 4 seed 103
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition103', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(94, 10);
+      expect(sizes.length).assertEqual(10);
+      expect(model.spanSum(sizes)).assertEqual(94);
+      expect(sizes[0]).assertEqual(10);
+      expect(sizes[1]).assertEqual(10);
+      expect(sizes[2]).assertEqual(10);
+      expect(model.offsetOf(sizes, 3)).assertEqual(30);
+      expect(model.isValidSpan(sizes, 94)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition103 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0384
+     * @tc.name    JsPartition104
+     * @tc.desc    Partition 10 into 1 parts extra 0 seed 104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition104', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(10, 1);
+      expect(sizes.length).assertEqual(1);
+      expect(model.spanSum(sizes)).assertEqual(10);
+      expect(sizes[0]).assertEqual(10);
+      expect(model.offsetOf(sizes, 1)).assertEqual(10);
+      expect(model.isValidSpan(sizes, 10)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition104 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0385
+     * @tc.name    JsPartition105
+     * @tc.desc    Partition 17 into 4 parts extra 1 seed 105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition105', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(17, 4);
+      expect(sizes.length).assertEqual(4);
+      expect(model.spanSum(sizes)).assertEqual(17);
+      expect(sizes[0]).assertEqual(5);
+      expect(sizes[1]).assertEqual(4);
+      expect(sizes[2]).assertEqual(4);
+      expect(model.offsetOf(sizes, 3)).assertEqual(13);
+      expect(model.isValidSpan(sizes, 17)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition105 done');
+    });
+}
+
+function GridPartitionValidationPart036() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0386
+     * @tc.name    JsPartition106
+     * @tc.desc    Partition 24 into 7 parts extra 3 seed 106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition106', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(24, 7);
+      expect(sizes.length).assertEqual(7);
+      expect(model.spanSum(sizes)).assertEqual(24);
+      expect(sizes[0]).assertEqual(4);
+      expect(sizes[1]).assertEqual(4);
+      expect(sizes[2]).assertEqual(4);
+      expect(model.offsetOf(sizes, 3)).assertEqual(12);
+      expect(model.isValidSpan(sizes, 24)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition106 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0387
+     * @tc.name    JsPartition107
+     * @tc.desc    Partition 31 into 10 parts extra 1 seed 107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition107', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(31, 10);
+      expect(sizes.length).assertEqual(10);
+      expect(model.spanSum(sizes)).assertEqual(31);
+      expect(sizes[0]).assertEqual(4);
+      expect(sizes[1]).assertEqual(3);
+      expect(sizes[2]).assertEqual(3);
+      expect(model.offsetOf(sizes, 3)).assertEqual(10);
+      expect(model.isValidSpan(sizes, 31)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition107 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0388
+     * @tc.name    JsPartition108
+     * @tc.desc    Partition 38 into 1 parts extra 0 seed 108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition108', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(38, 1);
+      expect(sizes.length).assertEqual(1);
+      expect(model.spanSum(sizes)).assertEqual(38);
+      expect(sizes[0]).assertEqual(38);
+      expect(model.offsetOf(sizes, 1)).assertEqual(38);
+      expect(model.isValidSpan(sizes, 38)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition108 done');
+    });
+}
+
+function GridPartitionValidationPart037() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0389
+     * @tc.name    JsPartition109
+     * @tc.desc    Partition 45 into 4 parts extra 1 seed 109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition109', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(45, 4);
+      expect(sizes.length).assertEqual(4);
+      expect(model.spanSum(sizes)).assertEqual(45);
+      expect(sizes[0]).assertEqual(12);
+      expect(sizes[1]).assertEqual(11);
+      expect(sizes[2]).assertEqual(11);
+      expect(model.offsetOf(sizes, 3)).assertEqual(34);
+      expect(model.isValidSpan(sizes, 45)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition109 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0390
+     * @tc.name    JsPartition110
+     * @tc.desc    Partition 52 into 7 parts extra 3 seed 110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition110', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(52, 7);
+      expect(sizes.length).assertEqual(7);
+      expect(model.spanSum(sizes)).assertEqual(52);
+      expect(sizes[0]).assertEqual(8);
+      expect(sizes[1]).assertEqual(8);
+      expect(sizes[2]).assertEqual(8);
+      expect(model.offsetOf(sizes, 3)).assertEqual(24);
+      expect(model.isValidSpan(sizes, 52)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition110 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0391
+     * @tc.name    JsPartition111
+     * @tc.desc    Partition 59 into 10 parts extra 9 seed 111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition111', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(59, 10);
+      expect(sizes.length).assertEqual(10);
+      expect(model.spanSum(sizes)).assertEqual(59);
+      expect(sizes[0]).assertEqual(6);
+      expect(sizes[1]).assertEqual(6);
+      expect(sizes[2]).assertEqual(6);
+      expect(model.offsetOf(sizes, 3)).assertEqual(18);
+      expect(model.isValidSpan(sizes, 59)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition111 done');
+    });
+}
+
+function GridPartitionValidationPart038() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0392
+     * @tc.name    JsPartition112
+     * @tc.desc    Partition 66 into 1 parts extra 0 seed 112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition112', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(66, 1);
+      expect(sizes.length).assertEqual(1);
+      expect(model.spanSum(sizes)).assertEqual(66);
+      expect(sizes[0]).assertEqual(66);
+      expect(model.offsetOf(sizes, 1)).assertEqual(66);
+      expect(model.isValidSpan(sizes, 66)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition112 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0393
+     * @tc.name    JsPartition113
+     * @tc.desc    Partition 73 into 4 parts extra 1 seed 113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition113', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(73, 4);
+      expect(sizes.length).assertEqual(4);
+      expect(model.spanSum(sizes)).assertEqual(73);
+      expect(sizes[0]).assertEqual(19);
+      expect(sizes[1]).assertEqual(18);
+      expect(sizes[2]).assertEqual(18);
+      expect(model.offsetOf(sizes, 3)).assertEqual(55);
+      expect(model.isValidSpan(sizes, 73)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition113 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0394
+     * @tc.name    JsPartition114
+     * @tc.desc    Partition 80 into 7 parts extra 3 seed 114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition114', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(80, 7);
+      expect(sizes.length).assertEqual(7);
+      expect(model.spanSum(sizes)).assertEqual(80);
+      expect(sizes[0]).assertEqual(12);
+      expect(sizes[1]).assertEqual(12);
+      expect(sizes[2]).assertEqual(12);
+      expect(model.offsetOf(sizes, 3)).assertEqual(36);
+      expect(model.isValidSpan(sizes, 80)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition114 done');
+    });
+}
+
+function GridPartitionValidationPart039() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0395
+     * @tc.name    JsPartition115
+     * @tc.desc    Partition 87 into 10 parts extra 7 seed 115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition115', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(87, 10);
+      expect(sizes.length).assertEqual(10);
+      expect(model.spanSum(sizes)).assertEqual(87);
+      expect(sizes[0]).assertEqual(9);
+      expect(sizes[1]).assertEqual(9);
+      expect(sizes[2]).assertEqual(9);
+      expect(model.offsetOf(sizes, 3)).assertEqual(27);
+      expect(model.isValidSpan(sizes, 87)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition115 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0396
+     * @tc.name    JsPartition116
+     * @tc.desc    Partition 94 into 1 parts extra 0 seed 116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition116', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(94, 1);
+      expect(sizes.length).assertEqual(1);
+      expect(model.spanSum(sizes)).assertEqual(94);
+      expect(sizes[0]).assertEqual(94);
+      expect(model.offsetOf(sizes, 1)).assertEqual(94);
+      expect(model.isValidSpan(sizes, 94)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition116 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0397
+     * @tc.name    JsPartition117
+     * @tc.desc    Partition 10 into 4 parts extra 2 seed 117
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition117', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(10, 4);
+      expect(sizes.length).assertEqual(4);
+      expect(model.spanSum(sizes)).assertEqual(10);
+      expect(sizes[0]).assertEqual(3);
+      expect(sizes[1]).assertEqual(3);
+      expect(sizes[2]).assertEqual(2);
+      expect(model.offsetOf(sizes, 3)).assertEqual(8);
+      expect(model.isValidSpan(sizes, 10)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition117 done');
+    });
+}
+
+function GridPartitionValidationPart040() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0398
+     * @tc.name    JsPartition118
+     * @tc.desc    Partition 17 into 7 parts extra 3 seed 118
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition118', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(17, 7);
+      expect(sizes.length).assertEqual(7);
+      expect(model.spanSum(sizes)).assertEqual(17);
+      expect(sizes[0]).assertEqual(3);
+      expect(sizes[1]).assertEqual(3);
+      expect(sizes[2]).assertEqual(3);
+      expect(model.offsetOf(sizes, 3)).assertEqual(9);
+      expect(model.isValidSpan(sizes, 17)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition118 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0399
+     * @tc.name    JsPartition119
+     * @tc.desc    Partition 24 into 10 parts extra 4 seed 119
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition119', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(24, 10);
+      expect(sizes.length).assertEqual(10);
+      expect(model.spanSum(sizes)).assertEqual(24);
+      expect(sizes[0]).assertEqual(3);
+      expect(sizes[1]).assertEqual(3);
+      expect(sizes[2]).assertEqual(3);
+      expect(model.offsetOf(sizes, 3)).assertEqual(9);
+      expect(model.isValidSpan(sizes, 24)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition119 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0400
+     * @tc.name    JsPartition120
+     * @tc.desc    Partition 31 into 1 parts extra 0 seed 120
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition120', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(31, 1);
+      expect(sizes.length).assertEqual(1);
+      expect(model.spanSum(sizes)).assertEqual(31);
+      expect(sizes[0]).assertEqual(31);
+      expect(model.offsetOf(sizes, 1)).assertEqual(31);
+      expect(model.isValidSpan(sizes, 31)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition120 done');
+    });
+}
+
+function GridPartitionValidationPart041() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0401
+     * @tc.name    JsPartition121
+     * @tc.desc    Partition 38 into 4 parts extra 2 seed 121
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition121', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(38, 4);
+      expect(sizes.length).assertEqual(4);
+      expect(model.spanSum(sizes)).assertEqual(38);
+      expect(sizes[0]).assertEqual(10);
+      expect(sizes[1]).assertEqual(10);
+      expect(sizes[2]).assertEqual(9);
+      expect(model.offsetOf(sizes, 3)).assertEqual(29);
+      expect(model.isValidSpan(sizes, 38)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition121 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0402
+     * @tc.name    JsPartition122
+     * @tc.desc    Partition 45 into 7 parts extra 3 seed 122
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition122', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(45, 7);
+      expect(sizes.length).assertEqual(7);
+      expect(model.spanSum(sizes)).assertEqual(45);
+      expect(sizes[0]).assertEqual(7);
+      expect(sizes[1]).assertEqual(7);
+      expect(sizes[2]).assertEqual(7);
+      expect(model.offsetOf(sizes, 3)).assertEqual(21);
+      expect(model.isValidSpan(sizes, 45)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition122 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0403
+     * @tc.name    JsPartition123
+     * @tc.desc    Partition 52 into 10 parts extra 2 seed 123
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition123', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(52, 10);
+      expect(sizes.length).assertEqual(10);
+      expect(model.spanSum(sizes)).assertEqual(52);
+      expect(sizes[0]).assertEqual(6);
+      expect(sizes[1]).assertEqual(6);
+      expect(sizes[2]).assertEqual(5);
+      expect(model.offsetOf(sizes, 3)).assertEqual(17);
+      expect(model.isValidSpan(sizes, 52)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition123 done');
+    });
+}
+
+function GridPartitionValidationPart042() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0404
+     * @tc.name    JsPartition124
+     * @tc.desc    Partition 59 into 1 parts extra 0 seed 124
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition124', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(59, 1);
+      expect(sizes.length).assertEqual(1);
+      expect(model.spanSum(sizes)).assertEqual(59);
+      expect(sizes[0]).assertEqual(59);
+      expect(model.offsetOf(sizes, 1)).assertEqual(59);
+      expect(model.isValidSpan(sizes, 59)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition124 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0405
+     * @tc.name    JsPartition125
+     * @tc.desc    Partition 66 into 4 parts extra 2 seed 125
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition125', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(66, 4);
+      expect(sizes.length).assertEqual(4);
+      expect(model.spanSum(sizes)).assertEqual(66);
+      expect(sizes[0]).assertEqual(17);
+      expect(sizes[1]).assertEqual(17);
+      expect(sizes[2]).assertEqual(16);
+      expect(model.offsetOf(sizes, 3)).assertEqual(50);
+      expect(model.isValidSpan(sizes, 66)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition125 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0406
+     * @tc.name    JsPartition126
+     * @tc.desc    Partition 73 into 7 parts extra 3 seed 126
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition126', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(73, 7);
+      expect(sizes.length).assertEqual(7);
+      expect(model.spanSum(sizes)).assertEqual(73);
+      expect(sizes[0]).assertEqual(11);
+      expect(sizes[1]).assertEqual(11);
+      expect(sizes[2]).assertEqual(11);
+      expect(model.offsetOf(sizes, 3)).assertEqual(33);
+      expect(model.isValidSpan(sizes, 73)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition126 done');
+    });
+}
+
+function GridPartitionValidationPart043() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0407
+     * @tc.name    JsPartition127
+     * @tc.desc    Partition 80 into 10 parts extra 0 seed 127
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition127', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(80, 10);
+      expect(sizes.length).assertEqual(10);
+      expect(model.spanSum(sizes)).assertEqual(80);
+      expect(sizes[0]).assertEqual(8);
+      expect(sizes[1]).assertEqual(8);
+      expect(sizes[2]).assertEqual(8);
+      expect(model.offsetOf(sizes, 3)).assertEqual(24);
+      expect(model.isValidSpan(sizes, 80)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition127 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0408
+     * @tc.name    JsPartition128
+     * @tc.desc    Partition 87 into 1 parts extra 0 seed 128
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition128', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(87, 1);
+      expect(sizes.length).assertEqual(1);
+      expect(model.spanSum(sizes)).assertEqual(87);
+      expect(sizes[0]).assertEqual(87);
+      expect(model.offsetOf(sizes, 1)).assertEqual(87);
+      expect(model.isValidSpan(sizes, 87)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition128 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0409
+     * @tc.name    JsPartition129
+     * @tc.desc    Partition 94 into 4 parts extra 2 seed 129
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition129', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(94, 4);
+      expect(sizes.length).assertEqual(4);
+      expect(model.spanSum(sizes)).assertEqual(94);
+      expect(sizes[0]).assertEqual(24);
+      expect(sizes[1]).assertEqual(24);
+      expect(sizes[2]).assertEqual(23);
+      expect(model.offsetOf(sizes, 3)).assertEqual(71);
+      expect(model.isValidSpan(sizes, 94)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition129 done');
+    });
+}
+
+function GridPartitionValidationPart044() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0410
+     * @tc.name    JsPartition130
+     * @tc.desc    Partition 10 into 7 parts extra 3 seed 130
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition130', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(10, 7);
+      expect(sizes.length).assertEqual(7);
+      expect(model.spanSum(sizes)).assertEqual(10);
+      expect(sizes[0]).assertEqual(2);
+      expect(sizes[1]).assertEqual(2);
+      expect(sizes[2]).assertEqual(2);
+      expect(model.offsetOf(sizes, 3)).assertEqual(6);
+      expect(model.isValidSpan(sizes, 10)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition130 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0411
+     * @tc.name    JsPartition131
+     * @tc.desc    Partition 17 into 10 parts extra 7 seed 131
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition131', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(17, 10);
+      expect(sizes.length).assertEqual(10);
+      expect(model.spanSum(sizes)).assertEqual(17);
+      expect(sizes[0]).assertEqual(2);
+      expect(sizes[1]).assertEqual(2);
+      expect(sizes[2]).assertEqual(2);
+      expect(model.offsetOf(sizes, 3)).assertEqual(6);
+      expect(model.isValidSpan(sizes, 17)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition131 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0412
+     * @tc.name    JsPartition132
+     * @tc.desc    Partition 24 into 1 parts extra 0 seed 132
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition132', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(24, 1);
+      expect(sizes.length).assertEqual(1);
+      expect(model.spanSum(sizes)).assertEqual(24);
+      expect(sizes[0]).assertEqual(24);
+      expect(model.offsetOf(sizes, 1)).assertEqual(24);
+      expect(model.isValidSpan(sizes, 24)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition132 done');
+    });
+}
+
+function GridPartitionValidationPart045() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0413
+     * @tc.name    JsPartition133
+     * @tc.desc    Partition 31 into 4 parts extra 3 seed 133
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition133', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(31, 4);
+      expect(sizes.length).assertEqual(4);
+      expect(model.spanSum(sizes)).assertEqual(31);
+      expect(sizes[0]).assertEqual(8);
+      expect(sizes[1]).assertEqual(8);
+      expect(sizes[2]).assertEqual(8);
+      expect(model.offsetOf(sizes, 3)).assertEqual(24);
+      expect(model.isValidSpan(sizes, 31)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition133 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0414
+     * @tc.name    JsPartition134
+     * @tc.desc    Partition 38 into 7 parts extra 3 seed 134
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition134', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(38, 7);
+      expect(sizes.length).assertEqual(7);
+      expect(model.spanSum(sizes)).assertEqual(38);
+      expect(sizes[0]).assertEqual(6);
+      expect(sizes[1]).assertEqual(6);
+      expect(sizes[2]).assertEqual(6);
+      expect(model.offsetOf(sizes, 3)).assertEqual(18);
+      expect(model.isValidSpan(sizes, 38)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition134 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0415
+     * @tc.name    JsPartition135
+     * @tc.desc    Partition 45 into 10 parts extra 5 seed 135
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition135', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(45, 10);
+      expect(sizes.length).assertEqual(10);
+      expect(model.spanSum(sizes)).assertEqual(45);
+      expect(sizes[0]).assertEqual(5);
+      expect(sizes[1]).assertEqual(5);
+      expect(sizes[2]).assertEqual(5);
+      expect(model.offsetOf(sizes, 3)).assertEqual(15);
+      expect(model.isValidSpan(sizes, 45)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition135 done');
+    });
+}
+
+function GridPartitionValidationPart046() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0416
+     * @tc.name    JsPartition136
+     * @tc.desc    Partition 52 into 1 parts extra 0 seed 136
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition136', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(52, 1);
+      expect(sizes.length).assertEqual(1);
+      expect(model.spanSum(sizes)).assertEqual(52);
+      expect(sizes[0]).assertEqual(52);
+      expect(model.offsetOf(sizes, 1)).assertEqual(52);
+      expect(model.isValidSpan(sizes, 52)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition136 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0417
+     * @tc.name    JsPartition137
+     * @tc.desc    Partition 59 into 4 parts extra 3 seed 137
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition137', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(59, 4);
+      expect(sizes.length).assertEqual(4);
+      expect(model.spanSum(sizes)).assertEqual(59);
+      expect(sizes[0]).assertEqual(15);
+      expect(sizes[1]).assertEqual(15);
+      expect(sizes[2]).assertEqual(15);
+      expect(model.offsetOf(sizes, 3)).assertEqual(45);
+      expect(model.isValidSpan(sizes, 59)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition137 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0418
+     * @tc.name    JsPartition138
+     * @tc.desc    Partition 66 into 7 parts extra 3 seed 138
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition138', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(66, 7);
+      expect(sizes.length).assertEqual(7);
+      expect(model.spanSum(sizes)).assertEqual(66);
+      expect(sizes[0]).assertEqual(10);
+      expect(sizes[1]).assertEqual(10);
+      expect(sizes[2]).assertEqual(10);
+      expect(model.offsetOf(sizes, 3)).assertEqual(30);
+      expect(model.isValidSpan(sizes, 66)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition138 done');
+    });
+}
+
+function GridPartitionValidationPart047() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0419
+     * @tc.name    JsPartition139
+     * @tc.desc    Partition 73 into 10 parts extra 3 seed 139
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition139', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(73, 10);
+      expect(sizes.length).assertEqual(10);
+      expect(model.spanSum(sizes)).assertEqual(73);
+      expect(sizes[0]).assertEqual(8);
+      expect(sizes[1]).assertEqual(8);
+      expect(sizes[2]).assertEqual(8);
+      expect(model.offsetOf(sizes, 3)).assertEqual(24);
+      expect(model.isValidSpan(sizes, 73)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition139 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0420
+     * @tc.name    JsPartition140
+     * @tc.desc    Partition 80 into 1 parts extra 0 seed 140
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsPartition140', 0, async function () {
+      await yieldThread();
+      const sizes = model.partition(80, 1);
+      expect(sizes.length).assertEqual(1);
+      expect(model.spanSum(sizes)).assertEqual(80);
+      expect(sizes[0]).assertEqual(80);
+      expect(model.offsetOf(sizes, 1)).assertEqual(80);
+      expect(model.isValidSpan(sizes, 80)).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsPartition140 done');
+    });
+}
+
+function GridPartitionValidationGroup001() {
+  GridPartitionValidationPart001();
+  GridPartitionValidationPart002();
+  GridPartitionValidationPart003();
+  GridPartitionValidationPart004();
+  GridPartitionValidationPart005();
+  GridPartitionValidationPart006();
+  GridPartitionValidationPart007();
+  GridPartitionValidationPart008();
+  GridPartitionValidationPart009();
+  GridPartitionValidationPart010();
+  GridPartitionValidationPart011();
+  GridPartitionValidationPart012();
+  GridPartitionValidationPart013();
+  GridPartitionValidationPart014();
+  GridPartitionValidationPart015();
+  GridPartitionValidationPart016();
+  GridPartitionValidationPart017();
+  GridPartitionValidationPart018();
+  GridPartitionValidationPart019();
+  GridPartitionValidationPart020();
+  GridPartitionValidationPart021();
+  GridPartitionValidationPart022();
+  GridPartitionValidationPart023();
+  GridPartitionValidationPart024();
+  GridPartitionValidationPart025();
+  GridPartitionValidationPart026();
+  GridPartitionValidationPart027();
+  GridPartitionValidationPart028();
+  GridPartitionValidationPart029();
+  GridPartitionValidationPart030();
+  GridPartitionValidationPart031();
+  GridPartitionValidationPart032();
+  GridPartitionValidationPart033();
+  GridPartitionValidationPart034();
+  GridPartitionValidationPart035();
+  GridPartitionValidationPart036();
+  GridPartitionValidationPart037();
+  GridPartitionValidationPart038();
+  GridPartitionValidationPart039();
+  GridPartitionValidationPart040();
+}
+
+function GridPartitionValidationGroup002() {
+  GridPartitionValidationPart041();
+  GridPartitionValidationPart042();
+  GridPartitionValidationPart043();
+  GridPartitionValidationPart044();
+  GridPartitionValidationPart045();
+  GridPartitionValidationPart046();
+  GridPartitionValidationPart047();
+}
+
 export default function gridPartitionValidationSuite() {
   describe('GridPartitionValidationSuite', function () {
-    GridPartitionValidationPart001();
-    GridPartitionValidationPart002();
-    GridPartitionValidationPart003();
-    GridPartitionValidationPart004();
-    GridPartitionValidationPart005();
-    GridPartitionValidationPart006();
-    GridPartitionValidationPart007();
-    GridPartitionValidationPart008();
-    GridPartitionValidationPart009();
-    GridPartitionValidationPart010();
-    GridPartitionValidationPart011();
-    GridPartitionValidationPart012();
-    GridPartitionValidationPart013();
-    GridPartitionValidationPart014();
-    GridPartitionValidationPart015();
-    GridPartitionValidationPart016();
-    GridPartitionValidationPart017();
-    GridPartitionValidationPart018();
-    GridPartitionValidationPart019();
-    GridPartitionValidationPart020();
-    GridPartitionValidationPart021();
-    GridPartitionValidationPart022();
-    GridPartitionValidationPart023();
-    GridPartitionValidationPart024();
-    GridPartitionValidationPart025();
+    GridPartitionValidationGroup001();
+    GridPartitionValidationGroup002();
   });
 }
