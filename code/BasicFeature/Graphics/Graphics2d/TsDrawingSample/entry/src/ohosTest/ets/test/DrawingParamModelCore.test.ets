@@ -971,5 +971,980 @@ export default function drawingParamModelCoreTest(): void {
       log('testDrawingParam0450 end');
     })
 
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0451
+     * @tc.name      testDrawingParam0451
+     * @tc.desc      Verify moveTo lineTo close sequence completes without throwing.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0451', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0451 begin');
+      const path: drawing.Path = new drawing.Path();
+      path.moveTo(150, 80);
+      path.lineTo(210, 194);
+      path.close();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse path.isEmpty()=${path.isEmpty()}`);
+      expect(path.isEmpty()).assertFalse();
+      log('testDrawingParam0451 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0452
+     * @tc.name      testDrawingParam0452
+     * @tc.desc      Verify addRect with sample rect bounds produces a non empty path.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0452', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0452 begin');
+      const path: drawing.Path = new drawing.Path();
+      path.addRect(makeSampleRect());
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse path.isEmpty()=${path.isEmpty()}`);
+      expect(path.isEmpty()).assertFalse();
+      log('testDrawingParam0452 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0453
+     * @tc.name      testDrawingParam0453
+     * @tc.desc      Verify addOval with sample rect completes without throwing.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0453', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0453 begin');
+      const path: drawing.Path = new drawing.Path();
+      path.addOval(makeSampleRect(), 0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse path.isEmpty()=${path.isEmpty()}`);
+      expect(path.isEmpty()).assertFalse();
+      log('testDrawingParam0453 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0454
+     * @tc.name      testDrawingParam0454
+     * @tc.desc      Verify addRoundRect with sample round rect completes.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0454', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0454 begin');
+      const roundRect: drawing.RoundRect = new drawing.RoundRect(makeSampleRect(), 20, 20);
+      const path: drawing.Path = new drawing.Path();
+      path.addRoundRect(roundRect);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse path.isEmpty()=${path.isEmpty()}`);
+      expect(path.isEmpty()).assertFalse();
+      log('testDrawingParam0454 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0455
+     * @tc.name      testDrawingParam0455
+     * @tc.desc      Verify addPolygon with three closed points completes.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0455', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0455 begin');
+      const path: drawing.Path = new drawing.Path();
+      const p1: common2D.Point = { x: 10, y: 160 };
+      const p2: common2D.Point = { x: 110, y: 160 };
+      const p3: common2D.Point = { x: 60, y: 100 };
+      const points: common2D.Point[] = [p1, p2, p3];
+      path.addPolygon(points, true);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse path.isEmpty()=${path.isEmpty()}`);
+      expect(path.isEmpty()).assertFalse();
+      log('testDrawingParam0455 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0456
+     * @tc.name      testDrawingParam0456
+     * @tc.desc      Verify addPolygon with three open points completes.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0456', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0456 begin');
+      const path: drawing.Path = new drawing.Path();
+      const p1: common2D.Point = { x: 10, y: 160 };
+      const p2: common2D.Point = { x: 110, y: 160 };
+      const p3: common2D.Point = { x: 60, y: 100 };
+      const points: common2D.Point[] = [p1, p2, p3];
+      path.addPolygon(points, false);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse path.isEmpty()=${path.isEmpty()}`);
+      expect(path.isEmpty()).assertFalse();
+      log('testDrawingParam0456 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0457
+     * @tc.name      testDrawingParam0457
+     * @tc.desc      Verify addArc with sample angles completes.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0457', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0457 begin');
+      const path: drawing.Path = new drawing.Path();
+      path.addArc(makeSampleRect(), 0, -90);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse path.isEmpty()=${path.isEmpty()}`);
+      expect(path.isEmpty()).assertFalse();
+      log('testDrawingParam0457 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0458
+     * @tc.name      testDrawingParam0458
+     * @tc.desc      Verify addCircle with clockwise direction completes.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0458', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0458 begin');
+      const path: drawing.Path = new drawing.Path();
+      path.addCircle(380, 750, 100, drawing.PathDirection.CLOCKWISE);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse path.isEmpty()=${path.isEmpty()}`);
+      expect(path.isEmpty()).assertFalse();
+      log('testDrawingParam0458 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0459
+     * @tc.name      testDrawingParam0459
+     * @tc.desc      Verify addCircle with omitted optional direction completes.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0459', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0459 begin');
+      const path: drawing.Path = new drawing.Path();
+      path.addCircle(100, 100, 50);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse path.isEmpty()=${path.isEmpty()}`);
+      expect(path.isEmpty()).assertFalse();
+      log('testDrawingParam0459 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0460
+     * @tc.name      testDrawingParam0460
+     * @tc.desc      Verify cubicTo with sample curve values completes.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0460', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0460 begin');
+      const path: drawing.Path = new drawing.Path();
+      path.moveTo(400, 350);
+      path.cubicTo(400, 420, 550, 380, 450, 500);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse path.isEmpty()=${path.isEmpty()}`);
+      expect(path.isEmpty()).assertFalse();
+      log('testDrawingParam0460 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0461
+     * @tc.name      testDrawingParam0461
+     * @tc.desc      Verify rCubicTo with sample curve values completes.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0461', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0461 begin');
+      const path: drawing.Path = new drawing.Path();
+      path.moveTo(100, 380);
+      path.rCubicTo(200, 200, 200, 100, 200, 50);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse path.isEmpty()=${path.isEmpty()}`);
+      expect(path.isEmpty()).assertFalse();
+      log('testDrawingParam0461 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0462
+     * @tc.name      testDrawingParam0462
+     * @tc.desc      Verify quadTo builds a non empty path.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0462', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0462 begin');
+      const path: drawing.Path = new drawing.Path();
+      path.moveTo(0, 0);
+      path.quadTo(50, 100, 100, 0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse path.isEmpty()=${path.isEmpty()}`);
+      expect(path.isEmpty()).assertFalse();
+      log('testDrawingParam0462 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0463
+     * @tc.name      testDrawingParam0463
+     * @tc.desc      Verify calling close twice completes without throwing.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0463', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0463 begin');
+      const path: drawing.Path = new drawing.Path();
+      path.moveTo(10, 10);
+      path.lineTo(50, 10);
+      path.close();
+      path.close();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse path.isEmpty()=${path.isEmpty()}`);
+      expect(path.isEmpty()).assertFalse();
+      log('testDrawingParam0463 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0464
+     * @tc.name      testDrawingParam0464
+     * @tc.desc      Verify offset returns a new Path object.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0464', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0464 begin');
+      const path: drawing.Path = new drawing.Path();
+      path.addRect(makeSampleRect());
+      const moved: drawing.Path = path.offset(10, 20);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue actual=${moved !== undefined && moved !== null}`);
+      expect(moved !== undefined && moved !== null).assertTrue();
+      log('testDrawingParam0464 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0465
+     * @tc.name      testDrawingParam0465
+     * @tc.desc      Verify offset result path is not empty.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0465', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0465 begin');
+      const path: drawing.Path = new drawing.Path();
+      path.addRect(makeSampleRect());
+      const moved: drawing.Path = path.offset(10, 20);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse moved.isEmpty()=${moved.isEmpty()}`);
+      expect(moved.isEmpty()).assertFalse();
+      log('testDrawingParam0465 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0466
+     * @tc.name      testDrawingParam0466
+     * @tc.desc      Verify setFillType EVEN_ODD round trips through getFillType.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0466', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0466 begin');
+      const path: drawing.Path = new drawing.Path();
+      path.setFillType(drawing.PathFillType.EVEN_ODD);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual path.getFillType()=${path.getFillType()}`);
+      expect(path.getFillType()).assertEqual(drawing.PathFillType.EVEN_ODD);
+      log('testDrawingParam0466 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0467
+     * @tc.name      testDrawingParam0467
+     * @tc.desc      Verify setFillType WINDING round trips through getFillType.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0467', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0467 begin');
+      const path: drawing.Path = new drawing.Path();
+      path.setFillType(drawing.PathFillType.EVEN_ODD);
+      path.setFillType(drawing.PathFillType.WINDING);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual path.getFillType()=${path.getFillType()}`);
+      expect(path.getFillType()).assertEqual(drawing.PathFillType.WINDING);
+      log('testDrawingParam0467 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0468
+     * @tc.name      testDrawingParam0468
+     * @tc.desc      Verify isEqual returns true for identical simple geometry.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0468', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0468 begin');
+      const pathA: drawing.Path = new drawing.Path();
+      pathA.moveTo(0, 0);
+      pathA.lineTo(100, 0);
+      const pathB: drawing.Path = new drawing.Path();
+      pathB.moveTo(0, 0);
+      pathB.lineTo(100, 0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue pathA.isEqual(pathB)=${pathA.isEqual(pathB)}`);
+      expect(pathA.isEqual(pathB)).assertTrue();
+      log('testDrawingParam0468 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0469
+     * @tc.name      testDrawingParam0469
+     * @tc.desc      Verify isEqual returns false for different geometry.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0469', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0469 begin');
+      const pathA: drawing.Path = new drawing.Path();
+      pathA.moveTo(0, 0);
+      pathA.lineTo(100, 0);
+      const pathB: drawing.Path = new drawing.Path();
+      pathB.moveTo(0, 0);
+      pathB.lineTo(50, 50);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse pathA.isEqual(pathB)=${pathA.isEqual(pathB)}`);
+      expect(pathA.isEqual(pathB)).assertFalse();
+      log('testDrawingParam0469 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0470
+     * @tc.name      testDrawingParam0470
+     * @tc.desc      Verify Path op with union returns a boolean result.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0470', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0470 begin');
+      const pathA: drawing.Path = new drawing.Path();
+      pathA.addRect(makeSampleRect());
+      const pathB: drawing.Path = new drawing.Path();
+      pathB.addCircle(160, 200, 50, drawing.PathDirection.CLOCKWISE);
+      const result: boolean = pathA.op(pathB, drawing.PathOp.UNION);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual typeof result=${typeof result}, expected='boolean'`);
+      expect(typeof result).assertEqual('boolean');
+      log('testDrawingParam0470 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0471
+     * @tc.name      testDrawingParam0471
+     * @tc.desc      Verify the sample pentagon region path builds without throwing.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0471', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0471 begin');
+      const centerX = 70;
+      const centerY = 600;
+      const sideLength = 60;
+      const angleIncrement = 2 * Math.PI / 5;
+      const regionPath: drawing.Path = new drawing.Path();
+      for (let i: number = 0; i < 5; ++i) {
+        const angle: number = angleIncrement * i;
+        const x: number = centerX + sideLength * Math.cos(angle - 60);
+        const y: number = centerY - sideLength * Math.sin(angle - 60);
+        if (i === 0) {
+          regionPath.moveTo(x, y);
+        } else {
+          regionPath.lineTo(x, y);
+        }
+      }
+      regionPath.close();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse regionPath.isEmpty()=${regionPath.isEmpty()}`);
+      expect(regionPath.isEmpty()).assertFalse();
+      log('testDrawingParam0471 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0472
+     * @tc.name      testDrawingParam0472
+     * @tc.desc      Verify the sample cat face and ear path builds without throwing.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0472', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0472 begin');
+      const path: drawing.Path = new drawing.Path();
+      path.addCircle(380, 750, 100, drawing.PathDirection.CLOCKWISE);
+      path.moveTo(280, 560);
+      path.lineTo(290, 710);
+      path.moveTo(280, 560);
+      path.lineTo(360, 650);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse path.isEmpty()=${path.isEmpty()}`);
+      expect(path.isEmpty()).assertFalse();
+      log('testDrawingParam0472 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0473
+     * @tc.name      testDrawingParam0473
+     * @tc.desc      Verify the sample five point star path builds without throwing.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0473', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0473 begin');
+      const path: drawing.Path = new drawing.Path();
+      const centerX = 450.0;
+      const centerY = 180.0;
+      const outerRadius = 80;
+      const innerRadius = 30;
+      const points = 5;
+      for (let i: number = 0; i < points * 2; i++) {
+        const angle: number = (i * Math.PI) / points;
+        const radius: number = i % 2 === 0 ? outerRadius : innerRadius;
+        const x: number = centerX + radius * Math.cos(angle + 60.0);
+        const y: number = centerY + radius * Math.sin(angle + 60.0);
+        if (i === 0) {
+          path.moveTo(x, y);
+        } else {
+          path.lineTo(x, y);
+        }
+      }
+      path.close();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse path.isEmpty()=${path.isEmpty()}`);
+      expect(path.isEmpty()).assertFalse();
+      log('testDrawingParam0473 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0474
+     * @tc.name      testDrawingParam0474
+     * @tc.desc      Verify the sample cat whisker paths build without throwing.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0474', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0474 begin');
+      const clen = 150.0;
+      const path: drawing.Path = new drawing.Path();
+      path.moveTo(330, 750);
+      path.lineTo(330 - clen, 730);
+      path.moveTo(330, 770);
+      path.lineTo(330 - clen, 770);
+      path.moveTo(420, 750);
+      path.lineTo(420 + clen, 730);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse path.isEmpty()=${path.isEmpty()}`);
+      expect(path.isEmpty()).assertFalse();
+      log('testDrawingParam0474 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0475
+     * @tc.name      testDrawingParam0475
+     * @tc.desc      Verify the sample unclosed cubic curve path builds without throwing.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0475', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0475 begin');
+      const path: drawing.Path = new drawing.Path();
+      path.moveTo(400, 350);
+      path.cubicTo(400, 420, 550, 380, 450, 500);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse path.isEmpty()=${path.isEmpty()}`);
+      expect(path.isEmpty()).assertFalse();
+      log('testDrawingParam0475 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0476
+     * @tc.name      testDrawingParam0476
+     * @tc.desc      Verify combined rect and circle path builds without throwing.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0476', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0476 begin');
+      const path: drawing.Path = new drawing.Path();
+      path.addRect(makeSampleRect());
+      path.addCircle(160, 200, 40, drawing.PathDirection.COUNTER_CLOCKWISE);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse path.isEmpty()=${path.isEmpty()}`);
+      expect(path.isEmpty()).assertFalse();
+      log('testDrawingParam0476 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0477
+     * @tc.name      testDrawingParam0477
+     * @tc.desc      Verify RoundRect can be constructed with sample radii.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0477', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0477 begin');
+      const roundRect: drawing.RoundRect = new drawing.RoundRect(makeSampleRect(), 20, 20);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue actual=${roundRect !== undefined && roundRect !== null}`);
+      expect(roundRect !== undefined && roundRect !== null).assertTrue();
+      log('testDrawingParam0477 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0478
+     * @tc.name      testDrawingParam0478
+     * @tc.desc      Verify RoundRect construction returns an object value.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0478', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0478 begin');
+      const roundRect: drawing.RoundRect = new drawing.RoundRect(makeSampleRect(), 20, 20);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual typeof roundRect=${typeof roundRect}, expected='object'`);
+      expect(typeof roundRect).assertEqual('object');
+      log('testDrawingParam0478 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0479
+     * @tc.name      testDrawingParam0479
+     * @tc.desc      Verify RoundRect accepts zero radii.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0479', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0479 begin');
+      const roundRect: drawing.RoundRect = new drawing.RoundRect(makeSampleRect(), 0, 0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue actual=${roundRect !== undefined && roundRect !== null}`);
+      expect(roundRect !== undefined && roundRect !== null).assertTrue();
+      log('testDrawingParam0479 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0480
+     * @tc.name      testDrawingParam0480
+     * @tc.desc      Verify RoundRect accepts a degenerate zero size rect.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0480', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0480 begin');
+      const rect: common2D.Rect = { left: 10, top: 10, right: 10, bottom: 10 };
+      const roundRect: drawing.RoundRect = new drawing.RoundRect(rect, 5, 5);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue actual=${roundRect !== undefined && roundRect !== null}`);
+      expect(roundRect !== undefined && roundRect !== null).assertTrue();
+      log('testDrawingParam0480 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0481
+     * @tc.name      testDrawingParam0481
+     * @tc.desc      Verify RoundRect accepts fractional radii.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0481', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0481 begin');
+      const roundRect: drawing.RoundRect = new drawing.RoundRect(makeSampleRect(), 12.5, 8.25);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue actual=${roundRect !== undefined && roundRect !== null}`);
+      expect(roundRect !== undefined && roundRect !== null).assertTrue();
+      log('testDrawingParam0481 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0482
+     * @tc.name      testDrawingParam0482
+     * @tc.desc      Verify RoundRect can be consumed by path addRoundRect.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0482', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0482 begin');
+      const roundRect: drawing.RoundRect = new drawing.RoundRect(makeSampleRect(), 20, 20);
+      const path: drawing.Path = new drawing.Path();
+      path.addRoundRect(roundRect, drawing.PathDirection.CLOCKWISE);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse path.isEmpty()=${path.isEmpty()}`);
+      expect(path.isEmpty()).assertFalse();
+      log('testDrawingParam0482 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0483
+     * @tc.name      testDrawingParam0483
+     * @tc.desc      Verify Region can be constructed standalone.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0483', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0483 begin');
+      const region: drawing.Region = new drawing.Region();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue actual=${region !== undefined && region !== null}`);
+      expect(region !== undefined && region !== null).assertTrue();
+      log('testDrawingParam0483 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0484
+     * @tc.name      testDrawingParam0484
+     * @tc.desc      Verify Region.setRect with sample clip bounds returns true.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0484', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0484 begin');
+      const clip: drawing.Region = new drawing.Region();
+      const result: boolean = clip.setRect(10, 400, 690, 650);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue result=${result}`);
+      expect(result).assertTrue();
+      log('testDrawingParam0484 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0485
+     * @tc.name      testDrawingParam0485
+     * @tc.desc      Verify Region.setRect degenerate bounds returns a boolean result.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0485', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0485 begin');
+      const clip: drawing.Region = new drawing.Region();
+      const result: boolean = clip.setRect(10, 10, 10, 10);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual typeof result=${typeof result}, expected='boolean'`);
+      expect(typeof result).assertEqual('boolean');
+      log('testDrawingParam0485 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0486
+     * @tc.name      testDrawingParam0486
+     * @tc.desc      Verify Region.setPath with sample pentagon inside clip returns true.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0486', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0486 begin');
+      const centerX = 70;
+      const centerY = 600;
+      const sideLength = 60;
+      const angleIncrement = 2 * Math.PI / 5;
+      const regionPath: drawing.Path = new drawing.Path();
+      for (let i: number = 0; i < 5; ++i) {
+        const angle: number = angleIncrement * i;
+        const x: number = centerX + sideLength * Math.cos(angle - 60);
+        const y: number = centerY - sideLength * Math.sin(angle - 60);
+        if (i === 0) {
+          regionPath.moveTo(x, y);
+        } else {
+          regionPath.lineTo(x, y);
+        }
+      }
+      regionPath.close();
+      const region: drawing.Region = new drawing.Region();
+      const clip: drawing.Region = new drawing.Region();
+      clip.setRect(10, 400, 690, 650);
+      const result: boolean = region.setPath(regionPath, clip);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue result=${result}`);
+      expect(result).assertTrue();
+      log('testDrawingParam0486 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0487
+     * @tc.name      testDrawingParam0487
+     * @tc.desc      Verify Region.setPath with an empty path reports an empty region.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0487', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0487 begin');
+      const emptyPath: drawing.Path = new drawing.Path();
+      const region: drawing.Region = new drawing.Region();
+      const clip: drawing.Region = new drawing.Region();
+      clip.setRect(10, 400, 690, 650);
+      const result: boolean = region.setPath(emptyPath, clip);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse result=${result}`);
+      expect(result).assertFalse();
+      log('testDrawingParam0487 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0488
+     * @tc.name      testDrawingParam0488
+     * @tc.desc      Verify Region.setPath returns a boolean type result.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0488', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0488 begin');
+      const path: drawing.Path = new drawing.Path();
+      path.addCircle(70, 600, 40, drawing.PathDirection.CLOCKWISE);
+      const region: drawing.Region = new drawing.Region();
+      const clip: drawing.Region = new drawing.Region();
+      clip.setRect(10, 400, 690, 650);
+      const result: boolean = region.setPath(path, clip);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual typeof result=${typeof result}, expected='boolean'`);
+      expect(typeof result).assertEqual('boolean');
+      log('testDrawingParam0488 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0489
+     * @tc.name      testDrawingParam0489
+     * @tc.desc      Verify two regions keep independent state after setRect.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0489', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0489 begin');
+      const regionA: drawing.Region = new drawing.Region();
+      const regionB: drawing.Region = new drawing.Region();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue regionA.setRect(0, 0, 100, 100)`);
+      expect(regionA.setRect(0, 0, 100, 100)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue regionB.setRect(200, 200, 300, 300)`);
+      expect(regionB.setRect(200, 200, 300, 300)).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual typeof regionA=${typeof regionA}, expected='object'`);
+      expect(typeof regionA).assertEqual('object');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual typeof regionB=${typeof regionB}, expected='object'`);
+      expect(typeof regionB).assertEqual('object');
+      log('testDrawingParam0489 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0490
+     * @tc.name      testDrawingParam0490
+     * @tc.desc      Verify calling setPath twice on one region completes.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0490', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0490 begin');
+      const pathA: drawing.Path = new drawing.Path();
+      pathA.addCircle(70, 600, 40, drawing.PathDirection.CLOCKWISE);
+      const pathB: drawing.Path = new drawing.Path();
+      pathB.addRect(makeSampleRect());
+      const region: drawing.Region = new drawing.Region();
+      const clip: drawing.Region = new drawing.Region();
+      clip.setRect(10, 400, 690, 650);
+      region.setPath(pathA, clip);
+      region.setPath(pathB, clip);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue actual=${region !== undefined && region !== null}`);
+      expect(region !== undefined && region !== null).assertTrue();
+      log('testDrawingParam0490 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0491
+     * @tc.name      testDrawingParam0491
+     * @tc.desc      Verify linear gradient shader with two colors builds.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0491', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0491 begin');
+      const startPt: common2D.Point = { x: 0, y: 0 };
+      const endPt: common2D.Point = { x: 0, y: 60 };
+      const colors: number[] = [0xFFF8FA12, 0xFFACC3DD];
+      const shader: drawing.ShaderEffect =
+        drawing.ShaderEffect.createLinearGradient(startPt, endPt, colors, drawing.TileMode.CLAMP);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue actual=${shader !== undefined && shader !== null}`);
+      expect(shader !== undefined && shader !== null).assertTrue();
+      log('testDrawingParam0491 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0492
+     * @tc.name      testDrawingParam0492
+     * @tc.desc      Verify linear gradient shader with sample three colors builds.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0492', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0492 begin');
+      const startPt: common2D.Point = { x: 100, y: 100 };
+      const endPt: common2D.Point = { x: 400, y: 400 };
+      const colors: number[] = [0xFFFFFF00, 0xFFFF0000, 0xFF0000FF];
+      const shader: drawing.ShaderEffect =
+        drawing.ShaderEffect.createLinearGradient(startPt, endPt, colors, drawing.TileMode.CLAMP);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue actual=${shader !== undefined && shader !== null}`);
+      expect(shader !== undefined && shader !== null).assertTrue();
+      log('testDrawingParam0492 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0493
+     * @tc.name      testDrawingParam0493
+     * @tc.desc      Verify linear gradient shader with four colors builds.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0493', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0493 begin');
+      const startPt: common2D.Point = { x: 0, y: 0 };
+      const endPt: common2D.Point = { x: 100, y: 0 };
+      const colors: number[] = [0xFFFF0000, 0xFF00FF00, 0xFF0000FF, 0xFFFFFFFF];
+      const shader: drawing.ShaderEffect =
+        drawing.ShaderEffect.createLinearGradient(startPt, endPt, colors, drawing.TileMode.CLAMP);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue actual=${shader !== undefined && shader !== null}`);
+      expect(shader !== undefined && shader !== null).assertTrue();
+      log('testDrawingParam0493 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0494
+     * @tc.name      testDrawingParam0494
+     * @tc.desc      Verify linear gradient shader with repeat tile mode builds.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0494', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0494 begin');
+      const startPt: common2D.Point = { x: 0, y: 0 };
+      const endPt: common2D.Point = { x: 50, y: 0 };
+      const colors: number[] = [0xFFFF0000, 0xFF0000FF];
+      const shader: drawing.ShaderEffect =
+        drawing.ShaderEffect.createLinearGradient(startPt, endPt, colors, drawing.TileMode.REPEAT);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue actual=${shader !== undefined && shader !== null}`);
+      expect(shader !== undefined && shader !== null).assertTrue();
+      log('testDrawingParam0494 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0495
+     * @tc.name      testDrawingParam0495
+     * @tc.desc      Verify linear gradient shader with mirror tile mode builds.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0495', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0495 begin');
+      const startPt: common2D.Point = { x: 0, y: 0 };
+      const endPt: common2D.Point = { x: 50, y: 0 };
+      const colors: number[] = [0xFFFF0000, 0xFF0000FF];
+      const shader: drawing.ShaderEffect =
+        drawing.ShaderEffect.createLinearGradient(startPt, endPt, colors, drawing.TileMode.MIRROR);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue actual=${shader !== undefined && shader !== null}`);
+      expect(shader !== undefined && shader !== null).assertTrue();
+      log('testDrawingParam0495 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0496
+     * @tc.name      testDrawingParam0496
+     * @tc.desc      Verify linear gradient shader with explicit position array builds.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0496', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0496 begin');
+      const startPt: common2D.Point = { x: 0, y: 0 };
+      const endPt: common2D.Point = { x: 100, y: 0 };
+      const colors: number[] = [0xFFFF0000, 0xFF00FF00, 0xFF0000FF];
+      const pos: number[] = [0, 0.5, 1];
+      const shader: drawing.ShaderEffect =
+        drawing.ShaderEffect.createLinearGradient(startPt, endPt, colors, drawing.TileMode.CLAMP, pos);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue actual=${shader !== undefined && shader !== null}`);
+      expect(shader !== undefined && shader !== null).assertTrue();
+      log('testDrawingParam0496 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0497
+     * @tc.name      testDrawingParam0497
+     * @tc.desc      Verify dash path effect with sample intervals builds.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0497', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0497 begin');
+      const intervals: number[] = [20.0, 10.0];
+      const effect: drawing.PathEffect = drawing.PathEffect.createDashPathEffect(intervals, 0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue actual=${effect !== undefined && effect !== null}`);
+      expect(effect !== undefined && effect !== null).assertTrue();
+      log('testDrawingParam0497 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0500
+     * @tc.name      testDrawingParam0500
+     * @tc.desc      Verify dash path effect with fractional phase builds.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0500', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0500 begin');
+      const intervals: number[] = [20.0, 10.0];
+      const effect: drawing.PathEffect = drawing.PathEffect.createDashPathEffect(intervals, 0.5);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue actual=${effect !== undefined && effect !== null}`);
+      expect(effect !== undefined && effect !== null).assertTrue();
+      log('testDrawingParam0500 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0501
+     * @tc.name      testDrawingParam0501
+     * @tc.desc      Verify blur image filter with sample sigma and clamp mode builds.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0501', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0501 begin');
+      const filter: drawing.ImageFilter =
+        drawing.ImageFilter.createBlurImageFilter(20, 20, drawing.TileMode.CLAMP);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue actual=${filter !== undefined && filter !== null}`);
+      expect(filter !== undefined && filter !== null).assertTrue();
+      log('testDrawingParam0501 end');
+    })
+
+    /**
+     * @tc.number    SUB_TSDRAWING_PARAM_0502
+     * @tc.name      testDrawingParam0502
+     * @tc.desc      Verify blur image filter with fractional sigma and repeat mode builds.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDrawingParam0502', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      log('testDrawingParam0502 begin');
+      const filter: drawing.ImageFilter =
+        drawing.ImageFilter.createBlurImageFilter(2.5, 4.5, drawing.TileMode.REPEAT);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue actual=${filter !== undefined && filter !== null}`);
+      expect(filter !== undefined && filter !== null).assertTrue();
+      log('testDrawingParam0502 end');
+    })
   })
 }
