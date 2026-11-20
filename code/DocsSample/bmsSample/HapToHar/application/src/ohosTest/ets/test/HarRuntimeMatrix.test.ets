@@ -575,3 +575,60 @@ export default function harRuntimeMatrixTest() {
    * @tc.level     LEVEL0
    */
   it('testHarRuntime0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testHarRuntime0033', 'only ability labels resolve to positive ids');
+    const info: bundleManager.BundleInfo = await selfBundle();
+    const moduleInfo: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE) as bundleManager.HapModuleInfo;
+    expect(moduleInfo.abilitiesInfo[0].labelId > 0).assertTrue();
+    expect(moduleInfo.abilitiesInfo[0].descriptionId > 0).assertTrue();
+    expect(moduleInfo.abilitiesInfo[0].iconId > 0).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARRT_0034
+   * @tc.name      testHarRuntime0034
+   * @tc.desc      Only ability carries the home skill
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testHarRuntime0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testHarRuntime0034', 'only ability carries the home skill');
+    const info: bundleManager.BundleInfo = await selfBundle();
+    const moduleInfo: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE) as bundleManager.HapModuleInfo;
+    expect(moduleInfo.abilitiesInfo[0].skills.length).assertEqual(1);
+    expect(moduleInfo.abilitiesInfo[0].skills[0].entities.includes('entity.system.home')).assertTrue();
+    expect(moduleInfo.abilitiesInfo[0].skills[0].actions.includes('ohos.want.action.home')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARRT_0035
+   * @tc.name      testHarRuntime0035
+   * @tc.desc      Only ability reports its own module
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testHarRuntime0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testHarRuntime0035', 'only ability reports its own module');
+    const info: bundleManager.BundleInfo = await selfBundle();
+    const moduleInfo: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE) as bundleManager.HapModuleInfo;
+    expect(moduleInfo.abilitiesInfo[0].moduleName).assertEqual(ENTRY_MODULE);
+    expect(moduleInfo.abilitiesInfo[0].bundleName).assertEqual(BUNDLE_NAME);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARRT_0036
+   * @tc.name      testHarRuntime0036
+   * @tc.desc      Packed module dependencies stay empty after har merge
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testHarRuntime0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testHarRuntime0036', 'packed module dependencies stay empty after har merge');
+    const info: bundleManager.BundleInfo = await selfBundle();
+    const moduleInfo: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE) as bundleManager.HapModuleInfo;
+    expect(moduleInfo.dependencies.length).assertEqual(0);
+  });
+  });
+}
