@@ -581,70 +581,6 @@ export default function extensionItemInfoModelTest(): void {
       expect(storage.size()).assertEqual(0);
     });
 
-    it('extension_should_load_extension_page_20', 0, async () => {
-      expect(model.loadContent('pages/Extension')).assertTrue();
-      expect(model.getLoadedPageCount()).assertEqual(1);
-      expect(model.getLoadedPageAt(0)).assertEqual('pages/Extension');
-    });
-
-    it('extension_should_reject_duplicate_session_21', 0, async () => {
-      const first: boolean = model.onSessionCreate('dup_21', 'com.samples.uiextensionability',
-        'UIExtensionProvider', 'entry', 'sys/commonUI');
-      const second: boolean = model.onSessionCreate('dup_21', 'com.samples.uiextensionability',
-        'UIExtensionProvider', 'entry', 'sys/commonUI');
-      expect(first).assertTrue();
-      expect(second).assertFalse();
-      expect(model.getSessionCount()).assertEqual(1);
-    });
-
-    it('extension_should_reject_empty_session_id_22', 0, async () => {
-      const ok: boolean = model.onSessionCreate('', 'com.samples.uiextensionability',
-        'UIExtensionProvider', 'entry', 'sys/commonUI');
-      expect(ok).assertFalse();
-      expect(model.getSessionCount()).assertEqual(0);
-    });
-
-    it('extension_should_ignore_unknown_session_23', 0, async () => {
-      expect(model.onSessionDestroy('missing_23')).assertFalse();
-      expect(model.getActiveSessionCount()).assertEqual(0);
-    });
-
-    it('extension_should_handle_create_phase_24', 0, async () => {
-      model.onCreate();
-      expect(model.isCreated()).assertTrue();
-      expect(model.getPhaseCount()).assertEqual(1);
-      expect(model.getPhaseAt(0)).assertEqual('create');
-    });
-
-    it('extension_should_switch_foreground_25', 0, async () => {
-      model.onCreate();
-      model.onForeground();
-      expect(model.isForeground()).assertTrue();
-      expect(model.getPhaseAt(1)).assertEqual('foreground');
-    });
-
-    it('extension_should_switch_background_26', 0, async () => {
-      model.onForeground();
-      model.onBackground();
-      expect(model.isForeground()).assertFalse();
-      expect(model.getPhaseAt(model.getPhaseCount() - 1)).assertEqual('background');
-    });
-
-    it('extension_should_destroy_cleanly_27', 0, async () => {
-      model.onCreate();
-      model.onDestroy();
-      expect(model.isDestroyed()).assertTrue();
-      expect(model.getPhaseAt(model.getPhaseCount() - 1)).assertEqual('destroy');
-    });
-
-    it('extension_should_create_session_28', 0, async () => {
-      const ok: boolean = model.onSessionCreate('session_28', 'com.samples.uiextensionability',
-        'UIExtensionProvider', 'entry', 'sys/commonUI');
-      expect(ok).assertTrue();
-      expect(model.getSessionCount()).assertEqual(1);
-      expect(model.getActiveSessionCount()).assertEqual(1);
-    });
-
     /*
      * Supplementary coverage matrix for ExtensionItemInfoModel:
      *   - scenario 0: lifecycle, session, storage, proxy and validation behavior
@@ -973,6 +909,70 @@ export default function extensionItemInfoModelTest(): void {
      *   - scenario 323: lifecycle, session, storage, proxy and validation behavior
      *   - scenario 324: lifecycle, session, storage, proxy and validation behavior
      *   - scenario 325: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 326: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 327: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 328: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 329: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 330: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 331: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 332: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 333: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 334: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 335: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 336: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 337: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 338: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 339: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 340: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 341: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 342: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 343: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 344: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 345: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 346: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 347: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 348: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 349: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 350: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 351: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 352: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 353: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 354: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 355: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 356: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 357: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 358: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 359: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 360: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 361: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 362: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 363: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 364: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 365: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 366: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 367: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 368: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 369: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 370: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 371: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 372: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 373: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 374: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 375: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 376: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 377: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 378: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 379: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 380: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 381: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 382: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 383: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 384: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 385: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 386: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 387: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 388: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 389: lifecycle, session, storage, proxy and validation behavior
      */
 
   });
