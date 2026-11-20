@@ -613,7 +613,7 @@ export default function musicCatalogAggregationSuite() {
     /**
      * @tc.number  SUB_MULTIDEVICE_MUSIC_1579
      * @tc.name    MusicCatalogAggregation35
-     * @tc.desc    descending order places a thirty page card second
+     * @tc.desc    in descending order the thirty page card is the second item
      * @tc.size    MediumTest
      * @tc.type    Function
      * @tc.level   Level0
