@@ -81,7 +81,7 @@ ohosTest.md                            测试用例归档
 ### 约束与限制
 
 1. 本示例支持标准系统，支持设备：手机、平板。
-2. `OH_ArkUI_NativeModule_UIAgentGetPageText` 从 **26.2.0** 起提供。本示例需要使用 26.2.0 或后续匹配版本 SDK，运行设备需提供与 SDK 匹配的实现。
+2. `OH_ArkUI_NativeModule_UIAgentGetPageText` 从 **26.1.0** 起提供。本示例需要使用 26.1.0 或后续匹配版本 SDK，运行设备需提供与 SDK 匹配的实现。
 3. 使用 DevEco Studio 26.0.0.461 或后续支持目标 SDK 的版本打开本工程，构建并运行 `entry` 模块。
 4. 页面文本采集必须在目标 UI 实例的 UI 线程同步调用。
 

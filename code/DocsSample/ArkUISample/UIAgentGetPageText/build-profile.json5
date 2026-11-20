@@ -18,9 +18,9 @@
     "products": [
       {
         "name": "default",
-        "compileSdkVersion": "26.2.0",
-        "compatibleSdkVersion": "26.2.0",
-        "targetSdkVersion": "26.2.0",
+        "compileSdkVersion": "26.1.0",
+        "compatibleSdkVersion": "26.1.0",
+        "targetSdkVersion": "26.1.0",
         "runtimeOS": "OpenHarmony"
       }
     ],
