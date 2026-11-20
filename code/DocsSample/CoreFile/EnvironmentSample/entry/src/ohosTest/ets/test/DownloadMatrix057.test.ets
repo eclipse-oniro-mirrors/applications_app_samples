@@ -1137,3 +1137,21 @@ export default function downloadMatrix057Test(): void {
         }
         logAssertion(caseName, "caught === injected", caught === injected, true);
         expect(caught === injected).assertEqual(true);
+        logAssertion(caseName, "result", result, []);
+        expect(JSON.stringify(result)).assertEqual(JSON.stringify([]));
+        const expected03: string[] = [
+          "list:/download", "stat:/download/report.txt", "stat:/download/.hidden", "stat:/download/资料.txt",
+          "stat:/download/ spaced ", "list:/sandbox",
+        ];
+        logAssertion(caseName, "api.events", api.events, expected03);
+        expect(JSON.stringify(api.events)).assertEqual(JSON.stringify(expected03));
+        logAssertion(caseName, "api.copied", api.copied, []);
+        expect(JSON.stringify(api.copied)).assertEqual(JSON.stringify([]));
+        logAssertion(caseName, "api.sandboxEntries", api.sandboxEntries, ["preexisting.txt"]);
+        expect(JSON.stringify(api.sandboxEntries)).assertEqual(JSON.stringify(["preexisting.txt"]));
+      } finally {
+        logCase(caseName, 'end');
+      }
+    });
+  });
+}
