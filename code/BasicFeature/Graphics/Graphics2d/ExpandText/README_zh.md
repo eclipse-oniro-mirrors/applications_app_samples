@@ -2,7 +2,7 @@
 
 ### 介绍
 
-本实例主要测试了当前2D引擎提供的接口功能，主要调用了[@ohos.graphics.drawing](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkgraphics2d/js-apis-graphics-drawing.md)和[@kit.ArkGraphics2D](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkgraphics2d/js-apis-effectKit.md)中的接口，测试了每一个接口的功能。2D引擎渲染的画面会被显示在[Text](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-basic-components-text.md)这一控件中。点击“...展开”会有评论区展开效果，点击“...收起”会展示收起效果。
+本实例主要测试了当前2D引擎提供的接口功能，主要调用了[@ohos.graphics.drawing](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkgraphics2d/js-apis-graphics-drawing.md)和[@kit.ArkGraphics2D](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkgraphics2d/js-apis-effectKit.md)中的接口，测试了每一个接口的功能。2D引擎渲染的画面会被显示在[Text](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-basic-components-text.md)这一控件中。点击“...展开”会有评论区展开效果，点击“...收起”会展示收起效果。
 
 ### 使用说明
 
@@ -57,6 +57,10 @@ entry/src/main/
 
 暂无
 
+### 测试
+
+本轮 RK3568 全量 2881/2881 通过，Failure/Error/Ignore 均为 0。两条冒烟实际调用 Paragraph 布局、glyph/word 与占位符查询，paint 到 PixelMap 后检查非透明像素。用例不复制业务折叠算法，也不代表展开/收起按钮交互已验证；详见 [测试覆盖与运行](ohosTest.md)。签名材料仅保留本地，不纳入仓库改动。
+
 ### 约束与限制
 
 1. 本示例仅支持标准系统上运行，支持设备：RK3568;
@@ -69,6 +73,6 @@ entry/src/main/
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/Graphics/Graphics2d/ExpandText/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
