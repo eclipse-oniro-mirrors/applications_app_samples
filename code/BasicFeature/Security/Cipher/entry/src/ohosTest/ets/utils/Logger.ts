@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const DOMAIN: number = 0xF811;
 
@@ -25,19 +25,19 @@ class Logger {
     this.prefix = prefix;
   }
 
-  debug(...args: string[]): void {
+  public debug(...args: string[]): void {
     hilog.debug(DOMAIN, this.prefix, this.format, args);
   }
 
-  info(...args: string[]): void {
+  public info(...args: string[]): void {
     hilog.info(DOMAIN, this.prefix, this.format, args);
   }
 
-  warn(...args: string[]): void {
+  public warn(...args: string[]): void {
     hilog.warn(DOMAIN, this.prefix, this.format, args);
   }
 
-  error(...args: string[]): void {
+  public error(...args: string[]): void {
     hilog.error(DOMAIN, this.prefix, this.format, args);
   }
 }

@@ -18,11 +18,11 @@ import Logger from '../../utils/Logger';
 @Entry
 @Component
 struct Index {
-  aboutToAppear() {
+  aboutToAppear(): void {
     Logger.info('TestAbility index aboutToAppear');
   }
 
-  @State message: string = 'Hello World'
+  @State message: ResourceStr = $r('app.string.testability_title')
 
   build() {
     Row() {
@@ -31,7 +31,7 @@ struct Index {
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
         Button() {
-          Text('next page')
+          Text($r('app.string.testability_next'))
             .fontSize(20)
             .fontWeight(FontWeight.Bold)
         }
@@ -39,7 +39,7 @@ struct Index {
         .margin({
           top: 20
         })
-        .backgroundColor('#0D9FFB')
+        .backgroundColor($r('app.color.title_background'))
         .width('35%')
         .height('5%')
         .onClick(() => {
