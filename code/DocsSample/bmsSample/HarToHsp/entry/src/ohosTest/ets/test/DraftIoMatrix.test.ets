@@ -5597,3 +5597,9 @@ export default function draftIoMatrixTest() {
     writeText(path, '');
     expect(fs.accessSync(path)).assertTrue();
     expect(fs.statSync(path).size).assertEqual(0);
+    expect(readText(path)).assertEqual('');
+    expect(readText(path).length).assertEqual(0);
+    fs.unlinkSync(path);
+  });
+  });
+}
