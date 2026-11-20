@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,44 +19,58 @@ import { CommonMainTabs } from '../common/CommonMainTabs';
 import { StyleConfiguration } from '../common/Configuration';
 import { SideBarController } from '../common/SideBarController';
 import { BreakpointType, SideBarMode } from '../common/BreakpointSystem';
+import {
+  BreakpointKey,
+  Color,
+  Dimen,
+  DimenText,
+  DurationMs,
+  GridColumns,
+  SideBarModeKey
+} from '../common/Constants';
 
 let storage = LocalStorage.GetShared();
 
 @Entry(storage)
 @Component
-struct AppStore {
-  @LocalStorageLink("currentBreakpoint") currentBreakpoint: string = 'md';
-  @LocalStorageLink("currentSideBarMode") @Watch('onCurrentSideBarModeChange') currentSideBarMode: string = 'tabs';
+struct Index {
+  // @LocalStorageLink 的键名在 ArkTS 中必须是字符串字面量，无法引用 StorageKey。
+  @LocalStorageLink('currentBreakpoint') currentBreakpoint: string = BreakpointKey.MD;
+  @LocalStorageLink('currentSideBarMode') @Watch('onCurrentSideBarModeChange')
+  currentSideBarMode: string = SideBarModeKey.TABS;
   @State sideListData: MenuType[] = sideListData;
   @State currentMainIndex: number = 0;
   @State currentSubIndex: number = 0;
   mainController: TabsController = new TabsController();
-  @State sideBarWidth: number = 64;
+  @State sideBarWidth: number = Dimen.SIDE_BAR_WIDTH_MD;
 
   onCurrentSideBarModeChange() {
-    animateTo({ duration: 300 }, () => {
-      if (this.currentSideBarMode === 'list') {
-        let sideBarWidth = new BreakpointType(0, 64, 96).GetValue(this.currentBreakpoint);
+    animateTo({ duration: DurationMs.ANIMATION }, () => {
+      if (this.currentSideBarMode === SideBarModeKey.LIST) {
+        let sideBarWidth: number | undefined = new BreakpointType(Dimen.SIDE_BAR_WIDTH_SM, Dimen.SIDE_BAR_WIDTH_MD,
+          Dimen.SIDE_BAR_WIDTH_LG).GetValue(this.currentBreakpoint);
         this.sideBarWidth = sideBarWidth === undefined ? this.sideBarWidth : sideBarWidth;
       } else {
-        this.sideBarWidth = 240;
+        this.sideBarWidth = Dimen.SIDE_BAR_WIDTH_TABS;
       }
     })
   }
 
-  getMinSideBarWidth() {
-    let sideBarWidth = new SideBarMode(this.sideBarWidth, 240).GetValue(this.currentSideBarMode);
+  getMinSideBarWidth(): number {
+    let sideBarWidth: number | undefined = new SideBarMode(this.sideBarWidth, Dimen.SIDE_BAR_MIN_WIDTH_TABS)
+      .GetValue(this.currentSideBarMode);
     return sideBarWidth === undefined ? this.sideBarWidth : sideBarWidth;
   }
 
-  getMaxSideBarWidth() {
-    let sideBarWidth = new SideBarMode(this.sideBarWidth, 280).GetValue(this.currentSideBarMode);
+  getMaxSideBarWidth(): number {
+    let sideBarWidth: number | undefined = new SideBarMode(this.sideBarWidth, Dimen.SIDE_BAR_MAX_WIDTH_TABS)
+      .GetValue(this.currentSideBarMode);
     return sideBarWidth === undefined ? this.sideBarWidth : sideBarWidth;
   }
 
   build() {
-    GridRow({ columns: { sm: 3, md: 6, lg: 9 } }) {
-      GridCol({ span: { sm: 3, md: 6, lg: 9 } }) {
+    GridRow({ columns: GridColumns.MAIN }) {
+      GridCol({ span: GridColumns.MAIN }) {
         Column() {
           // md、lg模式
           Column() {
@@ -77,10 +91,10 @@ struct AppStore {
                   subTabsController: this.sideListData[this.currentMainIndex].subController,
                   mainTabsContentList: this.sideListData,
                 })
-              }.width('100%').height('100%').backgroundColor($r('sys.color.ohos_id_color_background'))
+              }.width(DimenText.FULL).height(DimenText.FULL).backgroundColor($r('sys.color.ohos_id_color_background'))
             }
             .showControlButton(false)
-            .backgroundColor('#f1f3f5')
+            .backgroundColor(Color.PAGE_BACKGROUND)
             .controlButton(StyleConfiguration.getBreakpointStyle(this.currentBreakpoint)
               .controlButtonStyle)
             .autoHide(false)
@@ -88,7 +102,7 @@ struct AppStore {
             .minSideBarWidth(this.getMinSideBarWidth())
             .maxSideBarWidth(this.getMaxSideBarWidth())
           }
-          .visibility(this.currentBreakpoint !== 'sm' ? Visibility.Visible : Visibility.None)
+          .visibility(this.currentBreakpoint !== BreakpointKey.SM ? Visibility.Visible : Visibility.None)
 
           // sm模式
           Column() {
@@ -104,21 +118,22 @@ struct AppStore {
               currentMainIndex: $currentMainIndex,
               currentSubIndex: $currentSubIndex,
               mainController: this.mainController
-            }).height(56)
+            }).height(Dimen.NAV_ROW_HEIGHT)
           }
-          .visibility(this.currentBreakpoint === 'sm' ? Visibility.Visible : Visibility.None)
+          .visibility(this.currentBreakpoint === BreakpointKey.SM ? Visibility.Visible : Visibility.None)
         }
       }
     }.onBreakpointChange((breakpoints: string) => {
       this.currentBreakpoint = breakpoints;
       setTimeout(() => {
-        animateTo({ duration: 300 }, () => {
-          if (this.currentSideBarMode === 'list') {
-            let sideBarWidth = new BreakpointType(0, 64, 96).GetValue(this.currentBreakpoint);
+        animateTo({ duration: DurationMs.ANIMATION }, () => {
+          if (this.currentSideBarMode === SideBarModeKey.LIST) {
+            let sideBarWidth: number | undefined = new BreakpointType(Dimen.SIDE_BAR_WIDTH_SM, Dimen.SIDE_BAR_WIDTH_MD,
+              Dimen.SIDE_BAR_WIDTH_LG).GetValue(this.currentBreakpoint);
             this.sideBarWidth = sideBarWidth === undefined ? this.sideBarWidth : sideBarWidth;
           }
         })
-      }, 100)
+      }, DurationMs.LAYOUT_SYNC)
     })
   }
 }

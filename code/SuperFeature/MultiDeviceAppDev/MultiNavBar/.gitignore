@@ -9,3 +9,7 @@
 /.clang-format
 /.clang-tidy
 **/.test
+/.qoder
+/package-lock.json
+**/package-lock.json
+**/oh-package-lock.json5

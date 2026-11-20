@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,10 +13,11 @@
  * limitations under the License.
  */
 
-export interface  MenuType {
+export interface MenuType {
   name: Resource;
   icon?: Resource;
   subController?: TabsController;
+  // 字段名沿用存量下划线写法，已有数十处用例按此名断言，改名收益低于改动成本，故保留。
   subController_sm?: TabsController;
   subTitleList?: MenuType[];
   menuContent?: string;
