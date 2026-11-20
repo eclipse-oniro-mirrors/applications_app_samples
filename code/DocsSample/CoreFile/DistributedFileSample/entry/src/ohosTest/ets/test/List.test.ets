@@ -15,8 +15,12 @@
 
 import readyTest from './Ready.test';
 import DistributedFileSampleTest from './DistributedFileSample.test';
+import distributedCopyTest from './DistributedCopy.test';
+import distributedMatrixTest from './DistributedMatrix.test';
 
-export default function testsuite() {
+export default function testsuite(): void {
   readyTest();
   DistributedFileSampleTest();
+  distributedCopyTest();
+  distributedMatrixTest();
 }
