@@ -40,16 +40,7 @@ export default class TestAbility extends UIAbility {
     let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
     let abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
     hilog.info(0x0000, 'testTag', '%{public}s', 'start run testcase!!!');
-    setTimeout(() => {
-      hilog.info(0x0000, 'testTag', '%{public}s', 'start run testcase!!!');
-      startMouseSettingsApp().then(() => {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'Mouse settings app launched');
-        Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
-      }).catch((err: Error) => {
-        hilog.error(0x0000, 'testTag', 'Failed to launch Mouse settings app: %{public}s', JSON.stringify(err) ?? '');
-        Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
-      });
-    }, 1000);
+    Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
   }
 
   onDestroy() {
