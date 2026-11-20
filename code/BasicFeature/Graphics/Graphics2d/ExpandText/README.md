@@ -58,6 +58,10 @@ None.
 
 None.
 
+### Tests
+
+The latest RK3568 run passed all 2881 cases (Failure/Error/Ignore: 0). Two smoke cases call real Paragraph layout, glyph/word and placeholder queries, paint into a PixelMap, and check non-transparent pixels. These checks do not duplicate the business folding algorithm or verify expand/collapse button interactions. See [test coverage and execution](ohosTest.md). Local signing material is excluded from repository changes.
+
 ### Constraints and Limitations
 
 1. This sample can run only on standard-system devices and has been verified on an RK3568 board.
