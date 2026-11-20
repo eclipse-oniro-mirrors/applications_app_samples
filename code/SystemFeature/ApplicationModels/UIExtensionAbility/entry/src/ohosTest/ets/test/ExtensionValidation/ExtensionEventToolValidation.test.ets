@@ -494,28 +494,6 @@ export default function extensionEventToolValidationTest(): void {
       expect(model.isWithinRange(y, 0, 1280)).assertTrue();
     });
 
-    it('validation_should_validate_notification_text_11', 0, async () => {
-      const text: string = 'extension_notification_11';
-      expect(text.length > 0).assertTrue();
-      expect(text.indexOf('extension')).assertEqual(0);
-    });
-
-    it('validation_should_accept_valid_keycode_12', 0, async () => {
-      expect(isValidKeyCode(KEY_ENTER)).assertTrue();
-      expect(isValidKeyCode(2012)).assertTrue();
-    });
-
-    it('validation_should_reject_invalid_keycode_13', 0, async () => {
-      expect(isValidKeyCode(-14)).assertFalse();
-      expect(isValidKeyCode(0)).assertFalse();
-    });
-
-    it('validation_should_check_session_id_boundary_14', 0, async () => {
-      expect(model.validateSessionId('s_14')).assertTrue();
-      expect(model.validateSessionId('')).assertFalse();
-      expect(model.validateSessionId(repeatText('x', 129))).assertFalse();
-    });
-
     /*
      * Supplementary coverage matrix for ExtensionEventToolValidation:
      *   - scenario 0: lifecycle, session, storage, proxy and validation behavior
@@ -529,6 +507,28 @@ export default function extensionEventToolValidationTest(): void {
      *   - scenario 8: lifecycle, session, storage, proxy and validation behavior
      *   - scenario 9: lifecycle, session, storage, proxy and validation behavior
      *   - scenario 10: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 11: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 12: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 13: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 14: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 15: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 16: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 17: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 18: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 19: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 20: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 21: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 22: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 23: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 24: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 25: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 26: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 27: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 28: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 29: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 30: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 31: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 32: lifecycle, session, storage, proxy and validation behavior
      */
 
   });

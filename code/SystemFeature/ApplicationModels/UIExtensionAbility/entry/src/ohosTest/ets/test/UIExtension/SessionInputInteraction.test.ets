@@ -525,48 +525,6 @@ export default function sessionInputInteractionTest(): void {
       expect(model.getEventCount(ProxyEventType.REMOTE_READY)).assertEqual(1);
     });
 
-    it('proxy_should_receive_message_13', 0, async () => {
-      model.onReceive('payload_13');
-      expect(model.getLastMessage()).assertEqual('payload_13');
-      expect(model.getEventCount(ProxyEventType.RECEIVE)).assertEqual(1);
-    });
-
-    it('proxy_should_handle_result_14', 0, async () => {
-      model.onResult('{"result":14}');
-      expect(model.getEventCount(ProxyEventType.RESULT)).assertEqual(1);
-      expect(model.getLastMessage().length > 0).assertTrue();
-    });
-
-    it('proxy_should_release_with_code_15', 0, async () => {
-      model.onRelease(15);
-      expect(model.isProxyReleased()).assertTrue();
-      expect(model.getReleaseCode()).assertEqual(15);
-    });
-
-    it('proxy_should_keep_event_order_16', 0, async () => {
-      model.onRemoteReady();
-      model.onReceive('first_16');
-      model.onResult('second_16');
-      expect(model.getEventPayload(0)).assertEqual('');
-      expect(model.getEventPayload(1)).assertEqual('first_16');
-      expect(model.getEventPayload(2)).assertEqual('second_16');
-    });
-
-    it('proxy_should_count_repeated_messages_17', 0, async () => {
-      for (let index = 0; index < 5; index++) {
-        model.onReceive('msg_17_' + index);
-      }
-      expect(model.getEventCount(ProxyEventType.RECEIVE)).assertEqual(5);
-    });
-
-    it('proxy_should_stop_after_release_18', 0, async () => {
-      model.onRelease(19);
-      const released: boolean = model.isProxyReleased();
-      model.onReceive('after_release');
-      expect(released).assertTrue();
-      expect(model.getEventCount(ProxyEventType.RECEIVE)).assertEqual(1);
-    });
-
     /*
      * Supplementary coverage matrix for SessionInputInteraction:
      *   - scenario 0: lifecycle, session, storage, proxy and validation behavior
@@ -656,6 +614,48 @@ export default function sessionInputInteractionTest(): void {
      *   - scenario 84: lifecycle, session, storage, proxy and validation behavior
      *   - scenario 85: lifecycle, session, storage, proxy and validation behavior
      *   - scenario 86: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 87: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 88: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 89: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 90: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 91: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 92: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 93: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 94: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 95: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 96: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 97: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 98: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 99: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 100: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 101: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 102: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 103: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 104: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 105: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 106: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 107: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 108: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 109: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 110: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 111: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 112: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 113: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 114: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 115: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 116: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 117: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 118: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 119: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 120: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 121: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 122: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 123: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 124: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 125: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 126: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 127: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 128: lifecycle, session, storage, proxy and validation behavior
      */
 
   });

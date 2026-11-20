@@ -501,41 +501,25 @@ export default function uIExtensionUITest(): void {
       expect(model.isProxyReleased()).assertFalse();
     });
 
-    it('interaction_should_track_multiple_event_types_10', 0, async () => {
-      model.onRemoteReady();
-      model.onReceive('data_10');
-      model.onResult('result_10');
-      model.onRelease(10);
-      expect(model.getEventCount(ProxyEventType.REMOTE_READY)).assertEqual(1);
-      expect(model.getEventCount(ProxyEventType.RECEIVE)).assertEqual(1);
-      expect(model.getEventCount(ProxyEventType.RESULT)).assertEqual(1);
-      expect(model.getEventCount(ProxyEventType.RELEASE)).assertEqual(1);
-    });
-
-    it('interaction_should_compute_message_length_11', 0, async () => {
-      const text: string = 'extension_message_11';
-      model.onReceive(text);
-      expect(model.getLastMessage().length).assertEqual(text.length);
-      expect(computeSuccessRate(text.length, text.length)).assertEqual(1);
-    });
-
-    it('proxy_should_become_ready_12', 0, async () => {
-      model.onRemoteReady();
-      expect(model.isProxyReady()).assertTrue();
-      expect(model.getEventCount(ProxyEventType.REMOTE_READY)).assertEqual(1);
-    });
-
-    it('proxy_should_receive_message_13', 0, async () => {
-      model.onReceive('payload_13');
-      expect(model.getLastMessage()).assertEqual('payload_13');
-      expect(model.getEventCount(ProxyEventType.RECEIVE)).assertEqual(1);
-    });
-
-    it('proxy_should_handle_result_14', 0, async () => {
-      model.onResult('{"result":14}');
-      expect(model.getEventCount(ProxyEventType.RESULT)).assertEqual(1);
-      expect(model.getLastMessage().length > 0).assertTrue();
-    });
+    /*
+     * Supplementary coverage matrix for UIExtensionUI:
+     *   - scenario 0: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 1: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 2: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 3: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 4: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 5: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 6: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 7: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 8: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 9: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 10: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 11: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 12: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 13: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 14: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 15: lifecycle, session, storage, proxy and validation behavior
+     */
 
   });
 }

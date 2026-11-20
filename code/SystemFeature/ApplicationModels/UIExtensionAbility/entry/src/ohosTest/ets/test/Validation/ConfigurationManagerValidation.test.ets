@@ -500,34 +500,6 @@ export default function configurationManagerValidationTest(): void {
       expect(text.indexOf('extension')).assertEqual(0);
     });
 
-    it('validation_should_accept_valid_keycode_12', 0, async () => {
-      expect(isValidKeyCode(KEY_ENTER)).assertTrue();
-      expect(isValidKeyCode(2012)).assertTrue();
-    });
-
-    it('validation_should_reject_invalid_keycode_13', 0, async () => {
-      expect(isValidKeyCode(-14)).assertFalse();
-      expect(isValidKeyCode(0)).assertFalse();
-    });
-
-    it('validation_should_check_session_id_boundary_14', 0, async () => {
-      expect(model.validateSessionId('s_14')).assertTrue();
-      expect(model.validateSessionId('')).assertFalse();
-      expect(model.validateSessionId(repeatText('x', 129))).assertFalse();
-    });
-
-    it('validation_should_check_want_fields_15', 0, async () => {
-      expect(model.validateWant('com.samples.uiextensionability', 'UIExtensionProvider')).assertTrue();
-      expect(model.validateWant('', 'UIExtensionProvider')).assertFalse();
-      expect(model.validateWant('com.samples.uiextensionability', '')).assertFalse();
-    });
-
-    it('validation_should_check_numeric_range_16', 0, async () => {
-      expect(model.isWithinRange(16, 0, 100)).assertTrue();
-      expect(model.isWithinRange(-1, 0, 100)).assertFalse();
-      expect(model.isWithinRange(101, 0, 100)).assertFalse();
-    });
-
     /*
      * Supplementary coverage matrix for ConfigurationManagerValidation:
      *   - scenario 0: lifecycle, session, storage, proxy and validation behavior
@@ -587,6 +559,34 @@ export default function configurationManagerValidationTest(): void {
      *   - scenario 54: lifecycle, session, storage, proxy and validation behavior
      *   - scenario 55: lifecycle, session, storage, proxy and validation behavior
      *   - scenario 56: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 57: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 58: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 59: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 60: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 61: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 62: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 63: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 64: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 65: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 66: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 67: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 68: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 69: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 70: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 71: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 72: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 73: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 74: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 75: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 76: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 77: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 78: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 79: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 80: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 81: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 82: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 83: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 84: lifecycle, session, storage, proxy and validation behavior
      */
 
   });

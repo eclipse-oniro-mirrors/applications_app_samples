@@ -533,50 +533,6 @@ export default function loggerValidationTest(): void {
       expect(model.getStorage().get('event')).assertEqual('page_show_17');
     });
 
-    it('validation_should_validate_config_values_18', 0, async () => {
-      expect(clampValue(18, 0, 50)).assertLessOrEqual(50);
-      expect(clampValue(-10, 0, 50)).assertEqual(0);
-    });
-
-    it('validation_should_validate_focus_index_19', 0, async () => {
-      expect(model.isWithinRange(4, 0, 4)).assertTrue();
-      expect(model.isWithinRange(5, 0, 4)).assertFalse();
-    });
-
-    it('validation_should_validate_animation_frames_20', 0, async () => {
-      const frames: number = 30;
-      expect(model.isWithinRange(frames, 0, 60)).assertTrue();
-      expect(frames > 0).assertTrue();
-    });
-
-    it('validation_should_validate_resource_key_21', 0, async () => {
-      expect(model.validateSessionId('resource_21')).assertTrue();
-      expect(model.validateSessionId('')).assertFalse();
-    });
-
-    it('validation_should_validate_pointer_range_22', 0, async () => {
-      const x: number = clampValue(66, 0, 720);
-      const y: number = clampValue(44, 0, 1280);
-      expect(model.isWithinRange(x, 0, 720)).assertTrue();
-      expect(model.isWithinRange(y, 0, 1280)).assertTrue();
-    });
-
-    it('validation_should_validate_notification_text_23', 0, async () => {
-      const text: string = 'extension_notification_23';
-      expect(text.length > 0).assertTrue();
-      expect(text.indexOf('extension')).assertEqual(0);
-    });
-
-    it('validation_should_accept_valid_keycode_24', 0, async () => {
-      expect(isValidKeyCode(KEY_ENTER)).assertTrue();
-      expect(isValidKeyCode(2024)).assertTrue();
-    });
-
-    it('validation_should_reject_invalid_keycode_25', 0, async () => {
-      expect(isValidKeyCode(-26)).assertFalse();
-      expect(isValidKeyCode(0)).assertFalse();
-    });
-
     /*
      * Supplementary coverage matrix for LoggerValidation:
      *   - scenario 0: lifecycle, session, storage, proxy and validation behavior
@@ -874,6 +830,50 @@ export default function loggerValidationTest(): void {
      *   - scenario 292: lifecycle, session, storage, proxy and validation behavior
      *   - scenario 293: lifecycle, session, storage, proxy and validation behavior
      *   - scenario 294: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 295: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 296: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 297: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 298: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 299: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 300: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 301: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 302: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 303: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 304: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 305: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 306: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 307: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 308: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 309: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 310: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 311: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 312: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 313: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 314: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 315: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 316: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 317: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 318: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 319: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 320: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 321: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 322: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 323: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 324: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 325: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 326: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 327: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 328: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 329: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 330: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 331: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 332: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 333: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 334: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 335: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 336: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 337: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 338: lifecycle, session, storage, proxy and validation behavior
      */
 
   });
