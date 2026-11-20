@@ -1548,3 +1548,350 @@ export default function calendarManagerSequence09Test(): void {
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0
+     */
+    it('testCalendarManagerSequence090024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const TAG: string = 'testCalendarManagerSequence090024';
+        console.info(`${TAG} start`);
+        try {
+          const manager: MatrixManager = new MatrixManager();
+          const session: CalendarAccountSession = new CalendarAccountSession(manager);
+          const seed: MatrixCalendar = manager.nextCalendar;
+          const seeded: AccountCalendarPort = await session.createCalendar();
+          expect(seeded === seed).assertEqual(true);
+          {
+            const returned: AccountCalendarPort[] = await session.getAllCalendars();
+            expect(returned === manager.all).assertEqual(true);
+            expect(returned.length).assertEqual(3);
+            expect(returned[0] === manager.defaultCalendar).assertEqual(true);
+            expect(returned[1] === manager.named).assertEqual(true);
+            expect(returned[2] === manager.defaultCalendar).assertEqual(true);
+            expect(manager.trace.join(',')).assertEqual('create,list');
+            expect(manager.deleted.length).assertEqual(0);
+          }
+          {
+            const created2: MatrixCalendar = new MatrixCalendar('created2');
+            manager.nextCalendar = created2;
+            const returned: AccountCalendarPort = await session.createCalendar();
+            expect(returned === created2).assertEqual(true);
+            expect(returned.getAccount().name).assertEqual('created2');
+            expect(manager.creationAccounts[1].name).assertEqual('MyCalendar');
+            expect(manager.creationAccounts[1].displayName).assertEqual('MyCalendar');
+            expect(manager.creationAccounts[1].type).assertEqual(calendarManager.CalendarType.LOCAL);
+            expect(manager.creationAccounts[1] === manager.creationAccounts[0]).assertEqual(false);
+            expect(manager.trace.join(',')).assertEqual('create,list,create');
+            expect(manager.deleted.length).assertEqual(0);
+          }
+          {
+            session.clear();
+            expect(manager.creationAccounts.length).assertEqual(2);
+            expect(manager.trace.join(',')).assertEqual('create,list,create');
+            expect(manager.deleted.length).assertEqual(0);
+          }
+          {
+            let rejected: boolean = false;
+            try {
+              await session.deleteCalendar();
+            } catch (error) {
+              rejected = true;
+              expect((error as Error).message).assertEqual('Calendar has not been created');
+            }
+            expect(rejected).assertEqual(true);
+            expect(manager.trace.join(',')).assertEqual('create,list,create');
+            expect(manager.deleted.length).assertEqual(0);
+          }
+          const recovered: MatrixCalendar = new MatrixCalendar('recovered');
+          manager.nextCalendar = recovered;
+          const recreated: AccountCalendarPort = await session.createCalendar();
+          expect(recreated === recovered).assertEqual(true);
+          await session.deleteCalendar();
+          expect(manager.deleted[0].getAccount().name).assertEqual('recovered');
+          expect(manager.deleted[0] === recovered).assertEqual(true);
+          expect(manager.deleted.length).assertEqual(1);
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+
+    /**
+     * @tc.number SUB_CALENDAR_MANAGER_SEQUENCE_09_2500
+     * @tc.name testCalendarManagerSequence090025
+     * @tc.desc list then create then named; verify ownership and recovery.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testCalendarManagerSequence090025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const TAG: string = 'testCalendarManagerSequence090025';
+        console.info(`${TAG} start`);
+        try {
+          const manager: MatrixManager = new MatrixManager();
+          const session: CalendarAccountSession = new CalendarAccountSession(manager);
+          const seed: MatrixCalendar = manager.nextCalendar;
+          const seeded: AccountCalendarPort = await session.createCalendar();
+          expect(seeded === seed).assertEqual(true);
+          {
+            const returned: AccountCalendarPort[] = await session.getAllCalendars();
+            expect(returned === manager.all).assertEqual(true);
+            expect(returned.length).assertEqual(3);
+            expect(returned[0] === manager.defaultCalendar).assertEqual(true);
+            expect(returned[1] === manager.named).assertEqual(true);
+            expect(returned[2] === manager.defaultCalendar).assertEqual(true);
+            expect(manager.trace.join(',')).assertEqual('create,list');
+            expect(manager.deleted.length).assertEqual(0);
+          }
+          {
+            const created2: MatrixCalendar = new MatrixCalendar('created2');
+            manager.nextCalendar = created2;
+            const returned: AccountCalendarPort = await session.createCalendar();
+            expect(returned === created2).assertEqual(true);
+            expect(returned.getAccount().name).assertEqual('created2');
+            expect(manager.creationAccounts[1].name).assertEqual('MyCalendar');
+            expect(manager.creationAccounts[1].displayName).assertEqual('MyCalendar');
+            expect(manager.creationAccounts[1].type).assertEqual(calendarManager.CalendarType.LOCAL);
+            expect(manager.creationAccounts[1] === manager.creationAccounts[0]).assertEqual(false);
+            expect(manager.trace.join(',')).assertEqual('create,list,create');
+            expect(manager.deleted.length).assertEqual(0);
+          }
+          {
+            const returned: AccountCalendarPort = await session.getCalendarByParam();
+            expect(returned === manager.named).assertEqual(true);
+            expect(returned.getAccount().name).assertEqual('named');
+            expect(manager.lookupAccounts[0]?.name).assertEqual('MyCalendar');
+            expect(manager.lookupAccounts[0]?.displayName).assertEqual('MyCalendar');
+            expect(manager.lookupAccounts[0]?.type).assertEqual(calendarManager.CalendarType.LOCAL);
+            expect(manager.trace.join(',')).assertEqual('create,list,create,named');
+            expect(manager.deleted.length).assertEqual(0);
+          }
+          {
+            await session.deleteCalendar();
+            expect(manager.deleted[0].getAccount().name).assertEqual('created2');
+            expect(manager.deleted[0] === manager.creationHandles[1]).assertEqual(true);
+            expect(manager.trace.join(',')).assertEqual('create,list,create,named,delete');
+            expect(manager.deleted.length).assertEqual(1);
+          }
+          const recovered: MatrixCalendar = new MatrixCalendar('recovered');
+          manager.nextCalendar = recovered;
+          const recreated: AccountCalendarPort = await session.createCalendar();
+          expect(recreated === recovered).assertEqual(true);
+          await session.deleteCalendar();
+          expect(manager.deleted[1].getAccount().name).assertEqual('recovered');
+          expect(manager.deleted[1] === recovered).assertEqual(true);
+          expect(manager.deleted.length).assertEqual(2);
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+
+    /**
+     * @tc.number SUB_CALENDAR_MANAGER_SEQUENCE_09_2600
+     * @tc.name testCalendarManagerSequence090026
+     * @tc.desc list then create then default; verify ownership and recovery.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testCalendarManagerSequence090026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const TAG: string = 'testCalendarManagerSequence090026';
+        console.info(`${TAG} start`);
+        try {
+          const manager: MatrixManager = new MatrixManager();
+          const session: CalendarAccountSession = new CalendarAccountSession(manager);
+          const seed: MatrixCalendar = manager.nextCalendar;
+          const seeded: AccountCalendarPort = await session.createCalendar();
+          expect(seeded === seed).assertEqual(true);
+          {
+            const returned: AccountCalendarPort[] = await session.getAllCalendars();
+            expect(returned === manager.all).assertEqual(true);
+            expect(returned.length).assertEqual(3);
+            expect(returned[0] === manager.defaultCalendar).assertEqual(true);
+            expect(returned[1] === manager.named).assertEqual(true);
+            expect(returned[2] === manager.defaultCalendar).assertEqual(true);
+            expect(manager.trace.join(',')).assertEqual('create,list');
+            expect(manager.deleted.length).assertEqual(0);
+          }
+          {
+            const created2: MatrixCalendar = new MatrixCalendar('created2');
+            manager.nextCalendar = created2;
+            const returned: AccountCalendarPort = await session.createCalendar();
+            expect(returned === created2).assertEqual(true);
+            expect(returned.getAccount().name).assertEqual('created2');
+            expect(manager.creationAccounts[1].name).assertEqual('MyCalendar');
+            expect(manager.creationAccounts[1].displayName).assertEqual('MyCalendar');
+            expect(manager.creationAccounts[1].type).assertEqual(calendarManager.CalendarType.LOCAL);
+            expect(manager.creationAccounts[1] === manager.creationAccounts[0]).assertEqual(false);
+            expect(manager.trace.join(',')).assertEqual('create,list,create');
+            expect(manager.deleted.length).assertEqual(0);
+          }
+          {
+            const returned: AccountCalendarPort = await session.getDefaultCalendar();
+            expect(returned === manager.defaultCalendar).assertEqual(true);
+            expect(returned.getAccount().name).assertEqual('default');
+            expect(manager.lookupAccounts[0] === undefined).assertEqual(true);
+            expect(manager.trace.join(',')).assertEqual('create,list,create,default');
+            expect(manager.deleted.length).assertEqual(0);
+          }
+          {
+            await session.deleteCalendar();
+            expect(manager.deleted[0].getAccount().name).assertEqual('created2');
+            expect(manager.deleted[0] === manager.creationHandles[1]).assertEqual(true);
+            expect(manager.trace.join(',')).assertEqual('create,list,create,default,delete');
+            expect(manager.deleted.length).assertEqual(1);
+          }
+          const recovered: MatrixCalendar = new MatrixCalendar('recovered');
+          manager.nextCalendar = recovered;
+          const recreated: AccountCalendarPort = await session.createCalendar();
+          expect(recreated === recovered).assertEqual(true);
+          await session.deleteCalendar();
+          expect(manager.deleted[1].getAccount().name).assertEqual('recovered');
+          expect(manager.deleted[1] === recovered).assertEqual(true);
+          expect(manager.deleted.length).assertEqual(2);
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+
+    /**
+     * @tc.number SUB_CALENDAR_MANAGER_SEQUENCE_09_2700
+     * @tc.name testCalendarManagerSequence090027
+     * @tc.desc list then create then list; verify ownership and recovery.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testCalendarManagerSequence090027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const TAG: string = 'testCalendarManagerSequence090027';
+        console.info(`${TAG} start`);
+        try {
+          const manager: MatrixManager = new MatrixManager();
+          const session: CalendarAccountSession = new CalendarAccountSession(manager);
+          const seed: MatrixCalendar = manager.nextCalendar;
+          const seeded: AccountCalendarPort = await session.createCalendar();
+          expect(seeded === seed).assertEqual(true);
+          {
+            const returned: AccountCalendarPort[] = await session.getAllCalendars();
+            expect(returned === manager.all).assertEqual(true);
+            expect(returned.length).assertEqual(3);
+            expect(returned[0] === manager.defaultCalendar).assertEqual(true);
+            expect(returned[1] === manager.named).assertEqual(true);
+            expect(returned[2] === manager.defaultCalendar).assertEqual(true);
+            expect(manager.trace.join(',')).assertEqual('create,list');
+            expect(manager.deleted.length).assertEqual(0);
+          }
+          {
+            const created2: MatrixCalendar = new MatrixCalendar('created2');
+            manager.nextCalendar = created2;
+            const returned: AccountCalendarPort = await session.createCalendar();
+            expect(returned === created2).assertEqual(true);
+            expect(returned.getAccount().name).assertEqual('created2');
+            expect(manager.creationAccounts[1].name).assertEqual('MyCalendar');
+            expect(manager.creationAccounts[1].displayName).assertEqual('MyCalendar');
+            expect(manager.creationAccounts[1].type).assertEqual(calendarManager.CalendarType.LOCAL);
+            expect(manager.creationAccounts[1] === manager.creationAccounts[0]).assertEqual(false);
+            expect(manager.trace.join(',')).assertEqual('create,list,create');
+            expect(manager.deleted.length).assertEqual(0);
+          }
+          {
+            const returned: AccountCalendarPort[] = await session.getAllCalendars();
+            expect(returned === manager.all).assertEqual(true);
+            expect(returned.length).assertEqual(3);
+            expect(returned[0] === manager.defaultCalendar).assertEqual(true);
+            expect(returned[1] === manager.named).assertEqual(true);
+            expect(returned[2] === manager.defaultCalendar).assertEqual(true);
+            expect(manager.trace.join(',')).assertEqual('create,list,create,list');
+            expect(manager.deleted.length).assertEqual(0);
+          }
+          {
+            await session.deleteCalendar();
+            expect(manager.deleted[0].getAccount().name).assertEqual('created2');
+            expect(manager.deleted[0] === manager.creationHandles[1]).assertEqual(true);
+            expect(manager.trace.join(',')).assertEqual('create,list,create,list,delete');
+            expect(manager.deleted.length).assertEqual(1);
+          }
+          const recovered: MatrixCalendar = new MatrixCalendar('recovered');
+          manager.nextCalendar = recovered;
+          const recreated: AccountCalendarPort = await session.createCalendar();
+          expect(recreated === recovered).assertEqual(true);
+          await session.deleteCalendar();
+          expect(manager.deleted[1].getAccount().name).assertEqual('recovered');
+          expect(manager.deleted[1] === recovered).assertEqual(true);
+          expect(manager.deleted.length).assertEqual(2);
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+
+    /**
+     * @tc.number SUB_CALENDAR_MANAGER_SEQUENCE_09_2800
+     * @tc.name testCalendarManagerSequence090028
+     * @tc.desc list then create then config; verify ownership and recovery.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testCalendarManagerSequence090028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const TAG: string = 'testCalendarManagerSequence090028';
+        console.info(`${TAG} start`);
+        try {
+          const manager: MatrixManager = new MatrixManager();
+          const session: CalendarAccountSession = new CalendarAccountSession(manager);
+          const seed: MatrixCalendar = manager.nextCalendar;
+          const seeded: AccountCalendarPort = await session.createCalendar();
+          expect(seeded === seed).assertEqual(true);
+          {
+            const returned: AccountCalendarPort[] = await session.getAllCalendars();
+            expect(returned === manager.all).assertEqual(true);
+            expect(returned.length).assertEqual(3);
+            expect(returned[0] === manager.defaultCalendar).assertEqual(true);
+            expect(returned[1] === manager.named).assertEqual(true);
+            expect(returned[2] === manager.defaultCalendar).assertEqual(true);
+            expect(manager.trace.join(',')).assertEqual('create,list');
+            expect(manager.deleted.length).assertEqual(0);
+          }
+          {
+            const created2: MatrixCalendar = new MatrixCalendar('created2');
+            manager.nextCalendar = created2;
+            const returned: AccountCalendarPort = await session.createCalendar();
+            expect(returned === created2).assertEqual(true);
+            expect(returned.getAccount().name).assertEqual('created2');
+            expect(manager.creationAccounts[1].name).assertEqual('MyCalendar');
+            expect(manager.creationAccounts[1].displayName).assertEqual('MyCalendar');
+            expect(manager.creationAccounts[1].type).assertEqual(calendarManager.CalendarType.LOCAL);
+            expect(manager.creationAccounts[1] === manager.creationAccounts[0]).assertEqual(false);
+            expect(manager.trace.join(',')).assertEqual('create,list,create');
+            expect(manager.deleted.length).assertEqual(0);
+          }
+          {
+            await session.setConfig();
+            expect(manager.lookupAccounts[0]?.name).assertEqual('MyCalendar');
+            expect(manager.named.configurations[0].enableReminder).assertEqual(true);
+            expect(manager.named.configurations[0].color).assertEqual('#aabbcc');
+            expect(manager.defaultCalendar.configurations.length).assertEqual(0);
+            expect(manager.trace.join(',')).assertEqual('create,list,create,named');
+            expect(manager.deleted.length).assertEqual(0);
+          }
+          {
+            await session.deleteCalendar();
+            expect(manager.deleted[0].getAccount().name).assertEqual('created2');
+            expect(manager.deleted[0] === manager.creationHandles[1]).assertEqual(true);
+            expect(manager.trace.join(',')).assertEqual('create,list,create,named,delete');
+            expect(manager.deleted.length).assertEqual(1);
+          }
+          const recovered: MatrixCalendar = new MatrixCalendar('recovered');
+          manager.nextCalendar = recovered;
+          const recreated: AccountCalendarPort = await session.createCalendar();
+          expect(recreated === recovered).assertEqual(true);
+          await session.deleteCalendar();
+          expect(manager.deleted[1].getAccount().name).assertEqual('recovered');
+          expect(manager.deleted[1] === recovered).assertEqual(true);
+          expect(manager.deleted.length).assertEqual(2);
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+  });
+}
