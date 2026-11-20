@@ -412,7 +412,7 @@ void SetSpecifiedScreenConfigBuffer(OH_AVScreenCaptureConfig &config)
     if (ret != DISPLAY_MANAGER_OK || !displayInfo) {
         return;
     }
-    // 根据设备分辨率在config中配置录屏的宽度、高度。
+    // 根据设备分辨率在config中配置录屏的宽度（px）、高度（px）。
     config.videoInfo.videoCapInfo.videoFrameWidth = displayInfo->width;
     config.videoInfo.videoCapInfo.videoFrameHeight = displayInfo->height;
     OH_NativeDisplayManager_DestroyDisplay(displayInfo);
@@ -435,7 +435,7 @@ void SetHomeScreenConfigBuffer(OH_AVScreenCaptureConfig &config)
     if (ret != DISPLAY_MANAGER_OK || !displayInfo) {
         return;
     }
-    // 根据设备分辨率在config中配置录屏的宽度、高度。
+    // 根据设备分辨率在config中配置录屏的宽度（px）、高度（px）。
     config.videoInfo.videoCapInfo.videoFrameWidth = displayInfo->width;
     config.videoInfo.videoCapInfo.videoFrameHeight = displayInfo->height;
     OH_NativeDisplayManager_DestroyDisplay(displayInfo);
@@ -456,7 +456,7 @@ void SetSpecifiedWindowScreenConfigBuffer(OH_AVScreenCaptureConfig &config)
     if (ret != DISPLAY_MANAGER_OK || !displayInfo) {
         return;
     }
-    // 根据设备分辨率在config中配置录屏的宽度、高度。
+    // 根据设备分辨率在config中配置录屏的宽度（px）、高度（px）。
     config.videoInfo.videoCapInfo.videoFrameWidth = displayInfo->width;
     config.videoInfo.videoCapInfo.videoFrameHeight = displayInfo->height;
     OH_NativeDisplayManager_DestroyDisplay(displayInfo);
@@ -466,12 +466,12 @@ void SetSpecifiedWindowScreenConfigBuffer(OH_AVScreenCaptureConfig &config)
     config.captureMode = OH_CAPTURE_SPECIFIED_WINDOW;
     config.videoInfo.videoCapInfo.displayId = 0;
 
-    // (可选)若有期望录制的窗口，可传入单个窗口ID。
+    // （可选）若有期望录制的窗口，可传入单个窗口ID。
     g_missionIds = {61}; // 表示弹出的Picker默认选中61号窗口。
     config.videoInfo.videoCapInfo.missionIDs = g_missionIds.data();
     config.videoInfo.videoCapInfo.missionIDsLen = static_cast<int32_t>(g_missionIds.size());
 
-    // 在配置参数结束后执行"g_missionIds.clear()"。
+    // 在配置参数结束后执行“g_missionIds.clear()”。
     // [End SetPCSpecifiedWindowScreenConfigBuffer]
 }
 
@@ -486,7 +486,7 @@ void SetSpecifiedWindowScreenConfigBuffer2(OH_AVScreenCaptureConfig &config)
     if (ret != DISPLAY_MANAGER_OK || !displayInfo) {
         return;
     }
-    // 根据设备分辨率在config中配置录屏的宽度、高度。
+    // 根据设备分辨率在config中配置录屏的宽度（px）、高度（px）。
     config.videoInfo.videoCapInfo.videoFrameWidth = displayInfo->width;
     config.videoInfo.videoCapInfo.videoFrameHeight = displayInfo->height;
     OH_NativeDisplayManager_DestroyDisplay(displayInfo);
@@ -500,7 +500,7 @@ void SetSpecifiedWindowScreenConfigBuffer2(OH_AVScreenCaptureConfig &config)
     config.videoInfo.videoCapInfo.missionIDs = g_missionIds2.data();
     config.videoInfo.videoCapInfo.missionIDsLen = static_cast<int32_t>(g_missionIds2.size());
 
-    // 在配置参数结束后执行"g_missionIds2.clear()"。
+    // 在配置参数结束后执行“g_missionIds2.clear()”。
     // [End SetPCSpecifiedWindowScreenConfigBuffer2]
 }
 
@@ -848,7 +848,7 @@ int GetInputSurface()
     g_muxer->Create(g_surfaceOutputFd);
     g_encContext = new CodecUserData;
     g_encContext->sampleInfo = &g_sampleInfo;
-    // 配置异步回调，调用 OH_VideoEncoder_SetCallback 接口。
+    // 配置异步回调，调用OH_VideoEncoder_SetCallback接口。
     OH_VideoEncoder_RegisterCallback(g_videoEnc,
                                      {SampleCallback::OnError, SampleCallback::OnStreamChanged,
                                      SampleCallback::OnNeedInputBuffer, SampleCallback::OnNewOutputBuffer},
@@ -872,7 +872,7 @@ int GetInputSurface()
     g_lastFrameTimestampPts = 0;
     g_lastFrameEncodePts = 0;
     g_inputVideoThread = std::make_unique<std::thread>(ThreadVideoRunMethod);
-    // 指定surface开始录屏。
+    // 指定Surface开始录屏。
     // [Start screenCapture_surface_start]
     result = OH_AVScreenCapture_StartScreenCaptureWithSurface(g_avCapture, nativeWindow);
     // [End screenCapture_surface_start]
