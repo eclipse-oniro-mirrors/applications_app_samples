@@ -1541,31 +1541,1491 @@ function RepeatedLayoutStabilityPart024() {
     });
 }
 
+function RepeatedLayoutStabilityPart025() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1053
+     * @tc.name    JsStability073
+     * @tc.desc    Repeated layout for width 1073 stays 234 seed 73
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability073', 0, async function () {
+      await yieldThread();
+      const width = 1073;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(234);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1009);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability073 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1054
+     * @tc.name    JsStability074
+     * @tc.desc    Repeated layout for width 1114 stays 244 seed 74
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability074', 0, async function () {
+      await yieldThread();
+      const width = 1114;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(244);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1050);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability074 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1055
+     * @tc.name    JsStability075
+     * @tc.desc    Repeated layout for width 1155 stays 254 seed 75
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability075', 0, async function () {
+      await yieldThread();
+      const width = 1155;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(254);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1091);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability075 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart026() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1056
+     * @tc.name    JsStability076
+     * @tc.desc    Repeated layout for width 1196 stays 265 seed 76
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability076', 0, async function () {
+      await yieldThread();
+      const width = 1196;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(265);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1132);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability076 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1057
+     * @tc.name    JsStability077
+     * @tc.desc    Repeated layout for width 1237 stays 275 seed 77
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability077', 0, async function () {
+      await yieldThread();
+      const width = 1237;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(275);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1173);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability077 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1058
+     * @tc.name    JsStability078
+     * @tc.desc    Repeated layout for width 1278 stays 285 seed 78
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability078', 0, async function () {
+      await yieldThread();
+      const width = 1278;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(285);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1214);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability078 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart027() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1059
+     * @tc.name    JsStability079
+     * @tc.desc    Repeated layout for width 1319 stays 295 seed 79
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability079', 0, async function () {
+      await yieldThread();
+      const width = 1319;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(295);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1255);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability079 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1060
+     * @tc.name    JsStability080
+     * @tc.desc    Repeated layout for width 1360 stays 306 seed 80
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability080', 0, async function () {
+      await yieldThread();
+      const width = 1360;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(306);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1296);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability080 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1061
+     * @tc.name    JsStability081
+     * @tc.desc    Repeated layout for width 1401 stays 316 seed 81
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability081', 0, async function () {
+      await yieldThread();
+      const width = 1401;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(316);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1337);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability081 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart028() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1062
+     * @tc.name    JsStability082
+     * @tc.desc    Repeated layout for width 322 stays 139 seed 82
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability082', 0, async function () {
+      await yieldThread();
+      const width = 322;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(139);
+      expect(model.breakpointOf(width)).assertEqual('sm');
+      expect(model.contentWidthOf(width)).assertEqual(290);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability082 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1063
+     * @tc.name    JsStability083
+     * @tc.desc    Repeated layout for width 363 stays 159 seed 83
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability083', 0, async function () {
+      await yieldThread();
+      const width = 363;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(159);
+      expect(model.breakpointOf(width)).assertEqual('sm');
+      expect(model.contentWidthOf(width)).assertEqual(331);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability083 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1064
+     * @tc.name    JsStability084
+     * @tc.desc    Repeated layout for width 404 stays 180 seed 84
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability084', 0, async function () {
+      await yieldThread();
+      const width = 404;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(180);
+      expect(model.breakpointOf(width)).assertEqual('sm');
+      expect(model.contentWidthOf(width)).assertEqual(372);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability084 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart029() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1065
+     * @tc.name    JsStability085
+     * @tc.desc    Repeated layout for width 445 stays 200 seed 85
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability085', 0, async function () {
+      await yieldThread();
+      const width = 445;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(200);
+      expect(model.breakpointOf(width)).assertEqual('sm');
+      expect(model.contentWidthOf(width)).assertEqual(413);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability085 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1066
+     * @tc.name    JsStability086
+     * @tc.desc    Repeated layout for width 486 stays 221 seed 86
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability086', 0, async function () {
+      await yieldThread();
+      const width = 486;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(221);
+      expect(model.breakpointOf(width)).assertEqual('sm');
+      expect(model.contentWidthOf(width)).assertEqual(454);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability086 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1067
+     * @tc.name    JsStability087
+     * @tc.desc    Repeated layout for width 527 stays 241 seed 87
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability087', 0, async function () {
+      await yieldThread();
+      const width = 527;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(241);
+      expect(model.breakpointOf(width)).assertEqual('sm');
+      expect(model.contentWidthOf(width)).assertEqual(495);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability087 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart030() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1068
+     * @tc.name    JsStability088
+     * @tc.desc    Repeated layout for width 568 stays 262 seed 88
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability088', 0, async function () {
+      await yieldThread();
+      const width = 568;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(262);
+      expect(model.breakpointOf(width)).assertEqual('sm');
+      expect(model.contentWidthOf(width)).assertEqual(536);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability088 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1069
+     * @tc.name    JsStability089
+     * @tc.desc    Repeated layout for width 609 stays 165 seed 89
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability089', 0, async function () {
+      await yieldThread();
+      const width = 609;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(165);
+      expect(model.breakpointOf(width)).assertEqual('md');
+      expect(model.contentWidthOf(width)).assertEqual(545);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability089 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1070
+     * @tc.name    JsStability090
+     * @tc.desc    Repeated layout for width 650 stays 179 seed 90
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability090', 0, async function () {
+      await yieldThread();
+      const width = 650;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(179);
+      expect(model.breakpointOf(width)).assertEqual('md');
+      expect(model.contentWidthOf(width)).assertEqual(586);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability090 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart031() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1071
+     * @tc.name    JsStability091
+     * @tc.desc    Repeated layout for width 691 stays 193 seed 91
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability091', 0, async function () {
+      await yieldThread();
+      const width = 691;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(193);
+      expect(model.breakpointOf(width)).assertEqual('md');
+      expect(model.contentWidthOf(width)).assertEqual(627);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability091 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1072
+     * @tc.name    JsStability092
+     * @tc.desc    Repeated layout for width 732 stays 206 seed 92
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability092', 0, async function () {
+      await yieldThread();
+      const width = 732;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(206);
+      expect(model.breakpointOf(width)).assertEqual('md');
+      expect(model.contentWidthOf(width)).assertEqual(668);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability092 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1073
+     * @tc.name    JsStability093
+     * @tc.desc    Repeated layout for width 773 stays 220 seed 93
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability093', 0, async function () {
+      await yieldThread();
+      const width = 773;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(220);
+      expect(model.breakpointOf(width)).assertEqual('md');
+      expect(model.contentWidthOf(width)).assertEqual(709);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability093 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart032() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1074
+     * @tc.name    JsStability094
+     * @tc.desc    Repeated layout for width 814 stays 234 seed 94
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability094', 0, async function () {
+      await yieldThread();
+      const width = 814;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(234);
+      expect(model.breakpointOf(width)).assertEqual('md');
+      expect(model.contentWidthOf(width)).assertEqual(750);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability094 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1075
+     * @tc.name    JsStability095
+     * @tc.desc    Repeated layout for width 855 stays 179 seed 95
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability095', 0, async function () {
+      await yieldThread();
+      const width = 855;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(179);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(791);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability095 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1076
+     * @tc.name    JsStability096
+     * @tc.desc    Repeated layout for width 896 stays 190 seed 96
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability096', 0, async function () {
+      await yieldThread();
+      const width = 896;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(190);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(832);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability096 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart033() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1077
+     * @tc.name    JsStability097
+     * @tc.desc    Repeated layout for width 937 stays 200 seed 97
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability097', 0, async function () {
+      await yieldThread();
+      const width = 937;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(200);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(873);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability097 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1078
+     * @tc.name    JsStability098
+     * @tc.desc    Repeated layout for width 978 stays 210 seed 98
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability098', 0, async function () {
+      await yieldThread();
+      const width = 978;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(210);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(914);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability098 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1079
+     * @tc.name    JsStability099
+     * @tc.desc    Repeated layout for width 1019 stays 220 seed 99
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability099', 0, async function () {
+      await yieldThread();
+      const width = 1019;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(220);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(955);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability099 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart034() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1080
+     * @tc.name    JsStability100
+     * @tc.desc    Repeated layout for width 1060 stays 231 seed 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability100', 0, async function () {
+      await yieldThread();
+      const width = 1060;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(231);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(996);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability100 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1081
+     * @tc.name    JsStability101
+     * @tc.desc    Repeated layout for width 1101 stays 241 seed 101
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability101', 0, async function () {
+      await yieldThread();
+      const width = 1101;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(241);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1037);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability101 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1082
+     * @tc.name    JsStability102
+     * @tc.desc    Repeated layout for width 1142 stays 251 seed 102
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability102', 0, async function () {
+      await yieldThread();
+      const width = 1142;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(251);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1078);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability102 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart035() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1083
+     * @tc.name    JsStability103
+     * @tc.desc    Repeated layout for width 1183 stays 261 seed 103
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability103', 0, async function () {
+      await yieldThread();
+      const width = 1183;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(261);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1119);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability103 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1084
+     * @tc.name    JsStability104
+     * @tc.desc    Repeated layout for width 1224 stays 272 seed 104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability104', 0, async function () {
+      await yieldThread();
+      const width = 1224;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(272);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1160);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability104 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1085
+     * @tc.name    JsStability105
+     * @tc.desc    Repeated layout for width 1265 stays 282 seed 105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability105', 0, async function () {
+      await yieldThread();
+      const width = 1265;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(282);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1201);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability105 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart036() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1086
+     * @tc.name    JsStability106
+     * @tc.desc    Repeated layout for width 1306 stays 292 seed 106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability106', 0, async function () {
+      await yieldThread();
+      const width = 1306;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(292);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1242);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability106 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1087
+     * @tc.name    JsStability107
+     * @tc.desc    Repeated layout for width 1347 stays 302 seed 107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability107', 0, async function () {
+      await yieldThread();
+      const width = 1347;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(302);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1283);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability107 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1088
+     * @tc.name    JsStability108
+     * @tc.desc    Repeated layout for width 1388 stays 313 seed 108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability108', 0, async function () {
+      await yieldThread();
+      const width = 1388;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(313);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1324);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability108 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart037() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1089
+     * @tc.name    JsStability109
+     * @tc.desc    Repeated layout for width 1429 stays 323 seed 109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability109', 0, async function () {
+      await yieldThread();
+      const width = 1429;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(323);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1365);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability109 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1090
+     * @tc.name    JsStability110
+     * @tc.desc    Repeated layout for width 350 stays 153 seed 110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability110', 0, async function () {
+      await yieldThread();
+      const width = 350;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(153);
+      expect(model.breakpointOf(width)).assertEqual('sm');
+      expect(model.contentWidthOf(width)).assertEqual(318);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability110 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1091
+     * @tc.name    JsStability111
+     * @tc.desc    Repeated layout for width 391 stays 173 seed 111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability111', 0, async function () {
+      await yieldThread();
+      const width = 391;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(173);
+      expect(model.breakpointOf(width)).assertEqual('sm');
+      expect(model.contentWidthOf(width)).assertEqual(359);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability111 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart038() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1092
+     * @tc.name    JsStability112
+     * @tc.desc    Repeated layout for width 432 stays 194 seed 112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability112', 0, async function () {
+      await yieldThread();
+      const width = 432;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(194);
+      expect(model.breakpointOf(width)).assertEqual('sm');
+      expect(model.contentWidthOf(width)).assertEqual(400);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability112 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1093
+     * @tc.name    JsStability113
+     * @tc.desc    Repeated layout for width 473 stays 214 seed 113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability113', 0, async function () {
+      await yieldThread();
+      const width = 473;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(214);
+      expect(model.breakpointOf(width)).assertEqual('sm');
+      expect(model.contentWidthOf(width)).assertEqual(441);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability113 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1094
+     * @tc.name    JsStability114
+     * @tc.desc    Repeated layout for width 514 stays 235 seed 114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability114', 0, async function () {
+      await yieldThread();
+      const width = 514;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(235);
+      expect(model.breakpointOf(width)).assertEqual('sm');
+      expect(model.contentWidthOf(width)).assertEqual(482);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability114 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart039() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1095
+     * @tc.name    JsStability115
+     * @tc.desc    Repeated layout for width 555 stays 255 seed 115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability115', 0, async function () {
+      await yieldThread();
+      const width = 555;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(255);
+      expect(model.breakpointOf(width)).assertEqual('sm');
+      expect(model.contentWidthOf(width)).assertEqual(523);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability115 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1096
+     * @tc.name    JsStability116
+     * @tc.desc    Repeated layout for width 596 stays 276 seed 116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability116', 0, async function () {
+      await yieldThread();
+      const width = 596;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(276);
+      expect(model.breakpointOf(width)).assertEqual('sm');
+      expect(model.contentWidthOf(width)).assertEqual(564);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability116 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1097
+     * @tc.name    JsStability117
+     * @tc.desc    Repeated layout for width 637 stays 175 seed 117
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability117', 0, async function () {
+      await yieldThread();
+      const width = 637;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(175);
+      expect(model.breakpointOf(width)).assertEqual('md');
+      expect(model.contentWidthOf(width)).assertEqual(573);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability117 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart040() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1098
+     * @tc.name    JsStability118
+     * @tc.desc    Repeated layout for width 678 stays 188 seed 118
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability118', 0, async function () {
+      await yieldThread();
+      const width = 678;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(188);
+      expect(model.breakpointOf(width)).assertEqual('md');
+      expect(model.contentWidthOf(width)).assertEqual(614);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability118 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1099
+     * @tc.name    JsStability119
+     * @tc.desc    Repeated layout for width 719 stays 202 seed 119
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability119', 0, async function () {
+      await yieldThread();
+      const width = 719;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(202);
+      expect(model.breakpointOf(width)).assertEqual('md');
+      expect(model.contentWidthOf(width)).assertEqual(655);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability119 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1100
+     * @tc.name    JsStability120
+     * @tc.desc    Repeated layout for width 760 stays 216 seed 120
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability120', 0, async function () {
+      await yieldThread();
+      const width = 760;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(216);
+      expect(model.breakpointOf(width)).assertEqual('md');
+      expect(model.contentWidthOf(width)).assertEqual(696);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability120 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart041() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1101
+     * @tc.name    JsStability121
+     * @tc.desc    Repeated layout for width 801 stays 229 seed 121
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability121', 0, async function () {
+      await yieldThread();
+      const width = 801;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(229);
+      expect(model.breakpointOf(width)).assertEqual('md');
+      expect(model.contentWidthOf(width)).assertEqual(737);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability121 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1102
+     * @tc.name    JsStability122
+     * @tc.desc    Repeated layout for width 842 stays 176 seed 122
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability122', 0, async function () {
+      await yieldThread();
+      const width = 842;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(176);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(778);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability122 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1103
+     * @tc.name    JsStability123
+     * @tc.desc    Repeated layout for width 883 stays 186 seed 123
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability123', 0, async function () {
+      await yieldThread();
+      const width = 883;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(186);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(819);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability123 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart042() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1104
+     * @tc.name    JsStability124
+     * @tc.desc    Repeated layout for width 924 stays 197 seed 124
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability124', 0, async function () {
+      await yieldThread();
+      const width = 924;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(197);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(860);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability124 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1105
+     * @tc.name    JsStability125
+     * @tc.desc    Repeated layout for width 965 stays 207 seed 125
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability125', 0, async function () {
+      await yieldThread();
+      const width = 965;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(207);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(901);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability125 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1106
+     * @tc.name    JsStability126
+     * @tc.desc    Repeated layout for width 1006 stays 217 seed 126
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability126', 0, async function () {
+      await yieldThread();
+      const width = 1006;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(217);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(942);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability126 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart043() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1107
+     * @tc.name    JsStability127
+     * @tc.desc    Repeated layout for width 1047 stays 227 seed 127
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability127', 0, async function () {
+      await yieldThread();
+      const width = 1047;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(227);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(983);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability127 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1108
+     * @tc.name    JsStability128
+     * @tc.desc    Repeated layout for width 1088 stays 238 seed 128
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability128', 0, async function () {
+      await yieldThread();
+      const width = 1088;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(238);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1024);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability128 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1109
+     * @tc.name    JsStability129
+     * @tc.desc    Repeated layout for width 1129 stays 248 seed 129
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability129', 0, async function () {
+      await yieldThread();
+      const width = 1129;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(248);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1065);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability129 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart044() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1110
+     * @tc.name    JsStability130
+     * @tc.desc    Repeated layout for width 1170 stays 258 seed 130
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability130', 0, async function () {
+      await yieldThread();
+      const width = 1170;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(258);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1106);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability130 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1111
+     * @tc.name    JsStability131
+     * @tc.desc    Repeated layout for width 1211 stays 268 seed 131
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability131', 0, async function () {
+      await yieldThread();
+      const width = 1211;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(268);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1147);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability131 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1112
+     * @tc.name    JsStability132
+     * @tc.desc    Repeated layout for width 1252 stays 279 seed 132
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability132', 0, async function () {
+      await yieldThread();
+      const width = 1252;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(279);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1188);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability132 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart045() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1113
+     * @tc.name    JsStability133
+     * @tc.desc    Repeated layout for width 1293 stays 289 seed 133
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability133', 0, async function () {
+      await yieldThread();
+      const width = 1293;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(289);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1229);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability133 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1114
+     * @tc.name    JsStability134
+     * @tc.desc    Repeated layout for width 1334 stays 299 seed 134
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability134', 0, async function () {
+      await yieldThread();
+      const width = 1334;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(299);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1270);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability134 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1115
+     * @tc.name    JsStability135
+     * @tc.desc    Repeated layout for width 1375 stays 309 seed 135
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability135', 0, async function () {
+      await yieldThread();
+      const width = 1375;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(309);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1311);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability135 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart046() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1116
+     * @tc.name    JsStability136
+     * @tc.desc    Repeated layout for width 1416 stays 320 seed 136
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability136', 0, async function () {
+      await yieldThread();
+      const width = 1416;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(320);
+      expect(model.breakpointOf(width)).assertEqual('lg');
+      expect(model.contentWidthOf(width)).assertEqual(1352);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability136 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1117
+     * @tc.name    JsStability137
+     * @tc.desc    Repeated layout for width 337 stays 146 seed 137
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability137', 0, async function () {
+      await yieldThread();
+      const width = 337;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(146);
+      expect(model.breakpointOf(width)).assertEqual('sm');
+      expect(model.contentWidthOf(width)).assertEqual(305);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability137 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1118
+     * @tc.name    JsStability138
+     * @tc.desc    Repeated layout for width 378 stays 167 seed 138
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability138', 0, async function () {
+      await yieldThread();
+      const width = 378;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(167);
+      expect(model.breakpointOf(width)).assertEqual('sm');
+      expect(model.contentWidthOf(width)).assertEqual(346);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability138 done');
+    });
+}
+
+function RepeatedLayoutStabilityPart047() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1119
+     * @tc.name    JsStability139
+     * @tc.desc    Repeated layout for width 419 stays 187 seed 139
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability139', 0, async function () {
+      await yieldThread();
+      const width = 419;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(187);
+      expect(model.breakpointOf(width)).assertEqual('sm');
+      expect(model.contentWidthOf(width)).assertEqual(387);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability139 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1120
+     * @tc.name    JsStability140
+     * @tc.desc    Repeated layout for width 460 stays 208 seed 140
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsStability140', 0, async function () {
+      await yieldThread();
+      const width = 460;
+      const first = model.itemWidthOf(width);
+      for (let i = 0; i < 4; i++) {
+        expect(model.itemWidthOf(width)).assertEqual(first);
+      }
+      expect(first).assertEqual(208);
+      expect(model.breakpointOf(width)).assertEqual('sm');
+      expect(model.contentWidthOf(width)).assertEqual(428);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsStability140 done');
+    });
+}
+
+function RepeatedLayoutStabilityGroup001() {
+  RepeatedLayoutStabilityPart001();
+  RepeatedLayoutStabilityPart002();
+  RepeatedLayoutStabilityPart003();
+  RepeatedLayoutStabilityPart004();
+  RepeatedLayoutStabilityPart005();
+  RepeatedLayoutStabilityPart006();
+  RepeatedLayoutStabilityPart007();
+  RepeatedLayoutStabilityPart008();
+  RepeatedLayoutStabilityPart009();
+  RepeatedLayoutStabilityPart010();
+  RepeatedLayoutStabilityPart011();
+  RepeatedLayoutStabilityPart012();
+  RepeatedLayoutStabilityPart013();
+  RepeatedLayoutStabilityPart014();
+  RepeatedLayoutStabilityPart015();
+  RepeatedLayoutStabilityPart016();
+  RepeatedLayoutStabilityPart017();
+  RepeatedLayoutStabilityPart018();
+  RepeatedLayoutStabilityPart019();
+  RepeatedLayoutStabilityPart020();
+  RepeatedLayoutStabilityPart021();
+  RepeatedLayoutStabilityPart022();
+  RepeatedLayoutStabilityPart023();
+  RepeatedLayoutStabilityPart024();
+  RepeatedLayoutStabilityPart025();
+  RepeatedLayoutStabilityPart026();
+  RepeatedLayoutStabilityPart027();
+  RepeatedLayoutStabilityPart028();
+  RepeatedLayoutStabilityPart029();
+  RepeatedLayoutStabilityPart030();
+  RepeatedLayoutStabilityPart031();
+  RepeatedLayoutStabilityPart032();
+  RepeatedLayoutStabilityPart033();
+  RepeatedLayoutStabilityPart034();
+  RepeatedLayoutStabilityPart035();
+  RepeatedLayoutStabilityPart036();
+  RepeatedLayoutStabilityPart037();
+  RepeatedLayoutStabilityPart038();
+  RepeatedLayoutStabilityPart039();
+  RepeatedLayoutStabilityPart040();
+}
+
+function RepeatedLayoutStabilityGroup002() {
+  RepeatedLayoutStabilityPart041();
+  RepeatedLayoutStabilityPart042();
+  RepeatedLayoutStabilityPart043();
+  RepeatedLayoutStabilityPart044();
+  RepeatedLayoutStabilityPart045();
+  RepeatedLayoutStabilityPart046();
+  RepeatedLayoutStabilityPart047();
+}
+
 export default function repeatedLayoutStabilitySuite() {
   describe('RepeatedLayoutStabilitySuite', function () {
-    RepeatedLayoutStabilityPart001();
-    RepeatedLayoutStabilityPart002();
-    RepeatedLayoutStabilityPart003();
-    RepeatedLayoutStabilityPart004();
-    RepeatedLayoutStabilityPart005();
-    RepeatedLayoutStabilityPart006();
-    RepeatedLayoutStabilityPart007();
-    RepeatedLayoutStabilityPart008();
-    RepeatedLayoutStabilityPart009();
-    RepeatedLayoutStabilityPart010();
-    RepeatedLayoutStabilityPart011();
-    RepeatedLayoutStabilityPart012();
-    RepeatedLayoutStabilityPart013();
-    RepeatedLayoutStabilityPart014();
-    RepeatedLayoutStabilityPart015();
-    RepeatedLayoutStabilityPart016();
-    RepeatedLayoutStabilityPart017();
-    RepeatedLayoutStabilityPart018();
-    RepeatedLayoutStabilityPart019();
-    RepeatedLayoutStabilityPart020();
-    RepeatedLayoutStabilityPart021();
-    RepeatedLayoutStabilityPart022();
-    RepeatedLayoutStabilityPart023();
-    RepeatedLayoutStabilityPart024();
+    RepeatedLayoutStabilityGroup001();
+    RepeatedLayoutStabilityGroup002();
   });
 }
