@@ -92,7 +92,8 @@ export default function abilityTest() {
     it('ArkTsChildProcess_startChildProcess_Promise_001', 0, async (done: () => void) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'startChildProcess_Promise_001 begin');
       if (!uiReady) {
-        hilog.info(DOMAIN, TAG, BUNDLE + 'ui not ready, skip startChildProcess_Promise_001');
+        hilog.info(DOMAIN, TAG, BUNDLE + 'ui not ready, startChildProcess_Promise_001 failed');
+        expect(uiReady).assertTrue();
         done();
         return;
       }
@@ -104,14 +105,15 @@ export default function abilityTest() {
         done();
       } catch (err) {
         hilog.info(DOMAIN, TAG, `${BUNDLE} ${err}`);
-        expect(true).assertTrue();
+        expect().assertFail();
         done();
       }
     })
     it('ArkTsChildProcess_startChildProcess_Callback_001', 0, async (done: () => void) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'startChildProcess_Callback_001 begin');
       if (!uiReady) {
-        hilog.info(DOMAIN, TAG, BUNDLE + 'ui not ready, skip startChildProcess_Callback_001');
+        hilog.info(DOMAIN, TAG, BUNDLE + 'ui not ready, startChildProcess_Callback_001 failed');
+        expect(uiReady).assertTrue();
         done();
         return;
       }
@@ -123,14 +125,15 @@ export default function abilityTest() {
         done();
       } catch (err) {
         hilog.info(DOMAIN, TAG, `${BUNDLE} ${err}`);
-        expect(true).assertTrue();
+        expect().assertFail();
         done();
       }
     })
     it('ArkTsChildProcess_startArkChildProcess_WithArg_001', 0, async (done: () => void) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'startArkChildProcess_WithArg_001 begin');
       if (!uiReady) {
-        hilog.info(DOMAIN, TAG, BUNDLE + 'ui not ready, skip startArkChildProcess_WithArg_001');
+        hilog.info(DOMAIN, TAG, BUNDLE + 'ui not ready, startArkChildProcess_WithArg_001 failed');
+        expect(uiReady).assertTrue();
         done();
         return;
       }
@@ -142,7 +145,7 @@ export default function abilityTest() {
         done();
       } catch (err) {
         hilog.info(DOMAIN, TAG, `${BUNDLE} ${err}`);
-        expect(true).assertTrue();
+        expect().assertFail();
         done();
       }
     })

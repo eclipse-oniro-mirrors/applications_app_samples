@@ -50,11 +50,11 @@ export default function arkTsChildProcessSecurityTest(): void {
       }
       {
         const path: string = './ets/process/Child|cat.ets';
-        expect(ChildProcessModel.isValidPath(path)).assertTrue();
+        expect(ChildProcessModel.isValidPath(path)).assertFalse();
       }
       {
         const path: string = 'module1/ets/process/`id`.ets';
-        expect(ChildProcessModel.isValidPath(path)).assertTrue();
+        expect(ChildProcessModel.isValidPath(path)).assertFalse();
       }
       {
         const path: string = './ets/process/Child.ets\n';

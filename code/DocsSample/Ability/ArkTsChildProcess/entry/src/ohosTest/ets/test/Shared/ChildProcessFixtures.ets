@@ -60,7 +60,14 @@ export class ChildProcessModel {
   }
 
   static isValidPath(path: string): boolean {
-    return path.length > 0 && path.endsWith('.ets') && !path.includes('..');
+    if (path.length === 0 || !path.endsWith('.ets') || path.includes('..')) {
+      return false;
+    }
+    if (path.includes('|') || path.includes('`') || path.includes(';') || path.includes('&') ||
+      path.includes('$') || path.includes('<') || path.includes('>')) {
+      return false;
+    }
+    return !path.includes('\n') && !path.includes('\r') && !path.includes('\t');
   }
 
   static isArkTsProcessPath(path: string): boolean {

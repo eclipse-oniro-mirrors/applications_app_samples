@@ -11,7 +11,7 @@
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| 启动EntryAbility | 设备正常运行 | 通过abilityDelegator启动com.sample.arktschildprocess的EntryAbility，并用UiTest查找首页组件 | 成功拉起首页，能定位到首页按钮组件（UiTest不可用时安全跳过） | 是 | Pass |
+| 启动EntryAbility | 设备正常运行 | 通过abilityDelegator启动com.sample.arktschildprocess的EntryAbility，并用UiTest查找首页组件 | 成功拉起首页，能定位到首页按钮组件（UiTest不可用时用例断言失败，不静默跳过） | 是 | Pass |
 | 使用Promise方式创建无参数ArkTS子进程 | 位于应用主页面 | 1、点击"StartArkChildProcessNoArg_Promise"按钮<br/>2、等待1秒 | 调用childProcessManager.startChildProcess以SELF_FORK模式启动子进程，通过Promise回调返回子进程pid | 是 | Pass |
 | 使用Callback方式创建无参数ArkTS子进程 | 位于应用主页面 | 1、点击"StartArkChildProcessNoArg_Callback"按钮<br/>2、等待1秒 | 调用childProcessManager.startChildProcess以SELF_FORK模式启动子进程，通过callback回调返回子进程pid | 是 | Pass |
 | 创建带参数的ArkTS子进程 | 位于应用主页面 | 1、点击"StartArkChildProcessWithArg"按钮<br/>2、等待1秒 | 调用childProcessManager.startArkChildProcess，传递entryParams和fd句柄，通过Promise回调返回子进程pid | 是 | Pass |
@@ -90,4 +90,4 @@ DevEco Studio 的「Run all」只发一条测试命令，不传 `-s batch`，因
 ### 四、设备限制说明
 
 实测本设备（OpenHarmony 7.1.0.23，API 26）单次测试命令稳定上限约 600 条：605 条稳定，705 条临界，900 条以上进程被杀。故采用六批拆分。
-`List.test.ets` 通过 `-s batch` 每次只注册一批；UiTest Driver 采用懒加载，UiTest 不可用时相关 UI 用例安全跳过，避免 jscrash。
+`List.test.ets` 通过 `-s batch` 每次只注册一批；UiTest Driver 采用懒加载，UiTest 不可用时相关 UI 用例以断言失败显式暴露，避免静默通过。
