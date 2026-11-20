@@ -65,7 +65,7 @@
       | start(): void | DisplaySync使能 |
       | stop(): void | DisplaySync失能 |
     
-* 属性动画：通过[animation](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-animatorproperty.md)和[animateTo](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-explicit-animation.md)接口新增的参数expectedFrameRateRange，设置动画刷新率的区间，预期设置的刷新率，作为动画的属性之一，作用于动画场景
+* 属性动画：通过[animation](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-animatorproperty.md)和[animateTo](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-explicit-animation.md)接口新增的参数expectedFrameRateRange，设置动画刷新率的区间，预期设置的刷新率，作为动画的属性之一，作用于动画场景
     * 涉及到的相关接口：
       
       | 新增动画属性 | 描述 |
@@ -73,7 +73,7 @@
       | expectedFrameRateRange | animation和animateTo接口的动画属性参数中可选配置expectedFrameRateRange参数 |
 
 * XComponent：通过在IDE中的Native c++ 工程，在c++代码中定义对外接口为register和unregister，并调用新增的CAPI接口,可在页面上使用drawing根据设定的期望帧率来绘制
-    * 涉及到的相关接口([CAPI接口链接](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/_o_h___native_x_component.md))：
+    * 涉及到的相关接口([CAPI接口链接](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/_o_h___native_x_component.md))：
 
       | 接口名 | 描述 | 
       | -------- | -------- |
@@ -81,7 +81,7 @@
       | OH_NativeXComponent_RegisterOnFrameCallback  | 注册更新回调 |
       | OH_NativeXComponent_UnregisterOnFrameCallback  | 取消更新回调 |
 
-* 动画：通过[animator](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/js-apis-animator.md)新增的接口setExpectedFrameRateRange，设置期望的帧率范围，作用于动画场景
+* 动画：通过[animator](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/js-apis-animator.md)新增的接口setExpectedFrameRateRange，设置期望的帧率范围，作用于动画场景
     * 涉及到的相关接口：
       
       | 接口名 | 描述 |
@@ -96,6 +96,10 @@
 ### 依赖
 
 不涉及
+
+### 测试
+
+本轮 RK3568 全量 2023/2023 通过，Failure/Error/Ignore 均为 0。用例采集真实 JS displaySync 帧回调、读取实际页面 profile 和字符串资源，并清理回调注册；该范围不包含 XComponent native 帧回调。详见 [测试覆盖与运行](ohosTest.md)。签名材料仅保留本地，不纳入仓库改动。
 
 ### 约束与限制
 
@@ -113,7 +117,7 @@
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/Graphics/DisplaySync/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 
 ```

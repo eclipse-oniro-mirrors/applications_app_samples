@@ -96,6 +96,10 @@ None.
 
 None.
 
+### Tests
+
+The latest RK3568 run passed all 2023 cases (Failure/Error/Ignore: 0). Tests collect real JS displaySync frame callbacks, read the actual page profile and string resources, and clean up callback registration. These checks do not cover XComponent native callbacks. See [test coverage and execution](ohosTest.md). Local signing material is excluded from repository changes.
+
 ### Constraints and Limitations
 
 1. This sample can run only on standard-system devices and has been verified on an RK3568 board.

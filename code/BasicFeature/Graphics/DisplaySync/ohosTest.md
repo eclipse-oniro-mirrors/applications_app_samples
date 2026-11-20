@@ -4,7 +4,7 @@ DisplaySync 分层帧率控制样例的测试归档，自动化部分直接调�
 
 ## 自动化用例
 
-用例位于 `entry/src/ohosTest/ets/test`，由 `test/List.test.ets` 统一注册，共 34 个套件文件 2058 条；`test/Ability.test.ets` 另有 3 条环境自检，合计 2061 条，已在 RK3568 真机上分批执行通过。
+用例位于 `entry/src/ohosTest/ets/test`，由 `test/List.test.ets` 统一注册，共 34 个业务套件文件 2020 条；`test/Ability.test.ets` 另有 3 条环境自检，合计 2023 条。本轮主包、测试包编译与 RK3568 真机全量跑测通过：2023 条，Failure 0、Error 0、Ignore 0。
 
 用例写法与元数据约定如下：
 
@@ -22,18 +22,20 @@ DisplaySync 分层帧率控制样例的测试归档，自动化部分直接调�
 | DsSequenceMatrix1 .. 21 | DsSequenceMatrixN.test.ets | 1365 | `startThenSet`、`setTwiceAlternating`、`startStopCycle` 三种调用序列与 21 组合法帧率区间（min 1 ~ 90、expected 1 ~ 120、max 20 ~ 144）的组合，校验区间可设置且实例可用 |
 | DsFrameRateMatrix1 .. 7 | DsFrameRateMatrixN.test.ets | 455 | 7 组合法帧率区间（含 min=1 expected=1 max=1 与 min=60 expected=60 max=120）的 `setExpectedFrameRateRange` 设置与回调触发 |
 | DsApiMatrix1 | DsApiMatrix1.test.ets | 48 | `displaySync.create`、`on`、`off`、`start`、`stop` 的多轮契约检查 |
-| DsNativeMatrix1 | DsNativeMatrix1.test.ets | 40 | 1 / 5 / 10fps 持续 1000 ~ 4000ms 的帧间隔与帧数推算，前四帧时间戳单调递增且首帧为 0 |
+| DsNativeMatrix1 | DsNativeMatrix1.test.ets | 2 | 真实 `displaySync.on('frame')` + `start()` 采集至少四帧纳秒时间戳，验证时间戳递增、目标时间戳及 `stop` / 运行中 `off` 后不再投递；本套件不是 XComponent NAPI 测试 |
 | DsInvalidMatrix1 | DsInvalidMatrix1.test.ets | 40 | 非法帧率区间（min=-1、expected 小于 min、max=0 等）不破坏实例，且之后仍可设置合法区间 |
 | DsConfigMatrix1 | DsConfigMatrix1.test.ets | 30 | `bundleName`、`mainElement`、`deviceTypes` 等配置事实与清单常量一致（`com.samples.displaySync`、`EntryAbility`、`tablet`） |
-| DsPageMatrix1 | DsPageMatrix1.test.ets | 40 | `pages/Index`、`pages/CustomDraw`、`pages/PropertyAnimation`、`pages/XComponent`、`pages/AnimatorDisplaySync` 的路径结构检查 |
-| DsTextMatrix1 | DsTextMatrix1.test.ets | 40 | 各页面文案字符串检查（DisplaySync、CustomDraw、Animator 等标题与按钮文案） |
+| DsPageMatrix1 | DsPageMatrix1.test.ets | 40 | 通过 `bundleManager.getProfileByAbility` 读取 entry 实际 `main_pages`，校验五个路由的存在性、数量、唯一性和结构 |
+| DsTextMatrix1 | DsTextMatrix1.test.ets | 40 | 通过 entry 的 `resourceManager` 读取页面实际使用的标题及按钮资源，校验实际文案与预期一致 |
 
 测试入口与辅助文件：
 
 - `test/List.test.ets`：注册全部套件；
 - `test/Ability.test.ets`：应用上下文、包信息、模块入口共 3 条环境自检；
 - `util/TestTick.ets`：每 10 条用例插入一次 1ms 定时器，让主线程回到事件循环；
-- `testability/TestAbility.ets`：`onForeground` 后延迟 1 秒注册 hypium，`onDestroy` 以 -2 结束；
+- `testability/TestAbility.ets`：加载前台测试页面以接收真实帧事件，`onForeground` 后延迟 1 秒注册 hypium，`onDestroy` 以 -2 结束；
+- `util/DisplaySyncProbe.ets`：限时收集真实帧，检查停止/退订效果，并在 `finally` 中保证 `stop` 和 `off` 清理；
+- `util/MainResources.ets`：读取业务模块实际 profile 和 string，不使用测试资源副本或硬编码自检。
 - `testrunner/OpenHarmonyTestRunner.ts`：拉起 `TestAbility`，开发者模式未解锁时以 -3 结束；
 - `utils/Logger.ets`：测试侧日志封装，沿用同一 `DOMAIN` / `TAG`。
 
