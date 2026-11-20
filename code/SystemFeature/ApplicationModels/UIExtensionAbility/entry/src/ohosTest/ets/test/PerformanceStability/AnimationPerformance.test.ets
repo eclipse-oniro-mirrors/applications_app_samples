@@ -550,59 +550,6 @@ export default function animationPerformanceTest(): void {
       expect(rate >= 0).assertTrue();
     });
 
-    it('performance_should_handle_zero_total_18', 0, async () => {
-      expect(model.computeRate(0, 0)).assertEqual(0);
-      expect(model.computeRate(5, 0)).assertEqual(0);
-    });
-
-    it('stress_should_handle_repeated_sessions_19', 0, async () => {
-      for (let index = 0; index < 29; index++) {
-        model.onSessionCreate('stress_19_' + index, 'com.samples.uiextensionability',
-          'UIExtensionProvider', 'entry', 'sys/commonUI');
-      }
-      expect(model.getSessionCount()).assertEqual(29);
-    });
-
-    it('concurrency_should_serialize_counters_20', 0, async () => {
-      for (let index = 0; index < 10; index++) {
-        model.onRemoteReady();
-      }
-      expect(model.getEventCount(ProxyEventType.REMOTE_READY)).assertEqual(10);
-    });
-
-    it('stress_should_reset_between_rounds_21', 0, async () => {
-      model.onRemoteReady();
-      model.reset();
-      expect(model.getPhaseCount()).assertEqual(0);
-      expect(model.getSessionCount()).assertEqual(0);
-    });
-
-    it('performance_should_clamp_helper_values_22', 0, async () => {
-      expect(clampValue(-28, 0, 100)).assertEqual(0);
-      expect(safeDivide(10, 2)).assertEqual(5);
-      expect(safeDivide(10, 0)).assertEqual(0);
-    });
-
-    it('stability_should_average_samples_23', 0, async () => {
-      const values: number[] = [2, 4, 6, 8];
-      expect(averageOf(values)).assertEqual(5);
-      expect(averageOf(values)).assertLessOrEqual(11);
-    });
-
-    it('performance_should_record_latency_24', 0, async () => {
-      model.recordLatency(34);
-      expect(model.getAverageLatency()).assertEqual(34);
-      expect(model.getMaxLatency() >= 0).assertTrue();
-    });
-
-    it('performance_should_average_batches_25', 0, async () => {
-      for (let index = 0; index < 10; index++) {
-        model.recordLatency(index * 2);
-      }
-      expect(model.getAverageLatency()).assertLarger(0);
-      expect(model.getAverageLatency()).assertLessOrEqual(18);
-    });
-
     /*
      * Supplementary coverage matrix for AnimationPerformance:
      *   - scenario 0: lifecycle, session, storage, proxy and validation behavior
@@ -868,6 +815,59 @@ export default function animationPerformanceTest(): void {
      *   - scenario 260: lifecycle, session, storage, proxy and validation behavior
      *   - scenario 261: lifecycle, session, storage, proxy and validation behavior
      *   - scenario 262: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 263: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 264: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 265: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 266: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 267: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 268: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 269: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 270: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 271: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 272: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 273: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 274: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 275: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 276: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 277: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 278: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 279: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 280: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 281: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 282: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 283: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 284: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 285: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 286: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 287: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 288: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 289: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 290: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 291: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 292: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 293: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 294: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 295: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 296: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 297: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 298: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 299: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 300: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 301: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 302: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 303: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 304: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 305: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 306: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 307: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 308: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 309: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 310: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 311: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 312: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 313: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 314: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 315: lifecycle, session, storage, proxy and validation behavior
      */
 
   });

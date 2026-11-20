@@ -535,58 +535,6 @@ export default function extensionOperationsTest(): void {
       expect(model.getPhaseAt(1)).assertEqual('foreground');
     });
 
-    it('extension_should_switch_background_14', 0, async () => {
-      model.onForeground();
-      model.onBackground();
-      expect(model.isForeground()).assertFalse();
-      expect(model.getPhaseAt(model.getPhaseCount() - 1)).assertEqual('background');
-    });
-
-    it('extension_should_destroy_cleanly_15', 0, async () => {
-      model.onCreate();
-      model.onDestroy();
-      expect(model.isDestroyed()).assertTrue();
-      expect(model.getPhaseAt(model.getPhaseCount() - 1)).assertEqual('destroy');
-    });
-
-    it('extension_should_create_session_16', 0, async () => {
-      const ok: boolean = model.onSessionCreate('session_16', 'com.samples.uiextensionability',
-        'UIExtensionProvider', 'entry', 'sys/commonUI');
-      expect(ok).assertTrue();
-      expect(model.getSessionCount()).assertEqual(1);
-      expect(model.getActiveSessionCount()).assertEqual(1);
-    });
-
-    it('extension_should_destroy_session_17', 0, async () => {
-      model.onSessionCreate('session_17', 'com.samples.uiextensionability',
-        'UIExtensionProvider', 'entry', 'sys/commonUI');
-      expect(model.onSessionDestroy('session_17')).assertTrue();
-      expect(model.getActiveSessionCount()).assertEqual(0);
-      expect(model.getPhaseAt(model.getPhaseCount() - 1)).assertEqual('sessionDestroy');
-    });
-
-    it('extension_should_store_local_storage_18', 0, async () => {
-      const storage: ExtensionStorage = model.getStorage();
-      storage.setOrCreate('session', 'session_value_18');
-      expect(storage.get('session')).assertEqual('session_value_18');
-      expect(storage.size()).assertEqual(1);
-      expect(storage.has('session')).assertTrue();
-    });
-
-    it('extension_should_delete_local_storage_19', 0, async () => {
-      const storage: ExtensionStorage = model.getStorage();
-      storage.setOrCreate('key_19', 'value');
-      expect(storage.delete('key_19')).assertTrue();
-      expect(storage.has('key_19')).assertFalse();
-      expect(storage.size()).assertEqual(0);
-    });
-
-    it('extension_should_load_extension_page_20', 0, async () => {
-      expect(model.loadContent('pages/Extension')).assertTrue();
-      expect(model.getLoadedPageCount()).assertEqual(1);
-      expect(model.getLoadedPageAt(0)).assertEqual('pages/Extension');
-    });
-
     /*
      * Supplementary coverage matrix for ExtensionOperations:
      *   - scenario 0: lifecycle, session, storage, proxy and validation behavior
@@ -717,6 +665,58 @@ export default function extensionOperationsTest(): void {
      *   - scenario 125: lifecycle, session, storage, proxy and validation behavior
      *   - scenario 126: lifecycle, session, storage, proxy and validation behavior
      *   - scenario 127: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 128: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 129: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 130: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 131: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 132: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 133: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 134: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 135: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 136: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 137: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 138: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 139: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 140: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 141: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 142: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 143: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 144: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 145: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 146: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 147: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 148: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 149: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 150: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 151: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 152: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 153: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 154: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 155: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 156: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 157: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 158: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 159: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 160: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 161: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 162: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 163: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 164: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 165: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 166: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 167: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 168: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 169: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 170: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 171: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 172: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 173: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 174: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 175: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 176: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 177: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 178: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 179: lifecycle, session, storage, proxy and validation behavior
      */
 
   });

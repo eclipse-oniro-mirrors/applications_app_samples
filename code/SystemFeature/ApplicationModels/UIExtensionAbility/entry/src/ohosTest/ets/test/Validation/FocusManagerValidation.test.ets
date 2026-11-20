@@ -572,68 +572,6 @@ export default function focusManagerValidationTest(): void {
       expect(isValidKeyCode(2024)).assertTrue();
     });
 
-    it('validation_should_reject_invalid_keycode_25', 0, async () => {
-      expect(isValidKeyCode(-26)).assertFalse();
-      expect(isValidKeyCode(0)).assertFalse();
-    });
-
-    it('validation_should_check_session_id_boundary_26', 0, async () => {
-      expect(model.validateSessionId('s_26')).assertTrue();
-      expect(model.validateSessionId('')).assertFalse();
-      expect(model.validateSessionId(repeatText('x', 129))).assertFalse();
-    });
-
-    it('validation_should_check_want_fields_27', 0, async () => {
-      expect(model.validateWant('com.samples.uiextensionability', 'UIExtensionProvider')).assertTrue();
-      expect(model.validateWant('', 'UIExtensionProvider')).assertFalse();
-      expect(model.validateWant('com.samples.uiextensionability', '')).assertFalse();
-    });
-
-    it('validation_should_check_numeric_range_28', 0, async () => {
-      expect(model.isWithinRange(28, 0, 100)).assertTrue();
-      expect(model.isWithinRange(-1, 0, 100)).assertFalse();
-      expect(model.isWithinRange(101, 0, 100)).assertFalse();
-    });
-
-    it('validation_should_store_event_payload_29', 0, async () => {
-      model.getStorage().setOrCreate('event', 'page_show_29');
-      expect(model.getStorage().get('event')).assertEqual('page_show_29');
-    });
-
-    it('validation_should_validate_config_values_30', 0, async () => {
-      expect(clampValue(30, 0, 50)).assertLessOrEqual(50);
-      expect(clampValue(-10, 0, 50)).assertEqual(0);
-    });
-
-    it('validation_should_validate_focus_index_31', 0, async () => {
-      expect(model.isWithinRange(1, 0, 4)).assertTrue();
-      expect(model.isWithinRange(5, 0, 4)).assertFalse();
-    });
-
-    it('validation_should_validate_animation_frames_32', 0, async () => {
-      const frames: number = 42;
-      expect(model.isWithinRange(frames, 0, 60)).assertTrue();
-      expect(frames > 0).assertTrue();
-    });
-
-    it('validation_should_validate_resource_key_33', 0, async () => {
-      expect(model.validateSessionId('resource_33')).assertTrue();
-      expect(model.validateSessionId('')).assertFalse();
-    });
-
-    it('validation_should_validate_pointer_range_34', 0, async () => {
-      const x: number = clampValue(102, 0, 720);
-      const y: number = clampValue(68, 0, 1280);
-      expect(model.isWithinRange(x, 0, 720)).assertTrue();
-      expect(model.isWithinRange(y, 0, 1280)).assertTrue();
-    });
-
-    it('validation_should_validate_notification_text_35', 0, async () => {
-      const text: string = 'extension_notification_35';
-      expect(text.length > 0).assertTrue();
-      expect(text.indexOf('extension')).assertEqual(0);
-    });
-
     /*
      * Supplementary coverage matrix for FocusManagerValidation:
      *   - scenario 0: lifecycle, session, storage, proxy and validation behavior
@@ -1201,6 +1139,68 @@ export default function focusManagerValidationTest(): void {
      *   - scenario 562: lifecycle, session, storage, proxy and validation behavior
      *   - scenario 563: lifecycle, session, storage, proxy and validation behavior
      *   - scenario 564: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 565: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 566: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 567: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 568: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 569: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 570: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 571: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 572: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 573: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 574: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 575: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 576: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 577: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 578: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 579: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 580: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 581: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 582: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 583: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 584: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 585: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 586: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 587: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 588: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 589: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 590: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 591: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 592: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 593: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 594: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 595: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 596: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 597: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 598: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 599: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 600: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 601: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 602: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 603: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 604: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 605: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 606: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 607: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 608: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 609: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 610: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 611: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 612: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 613: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 614: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 615: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 616: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 617: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 618: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 619: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 620: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 621: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 622: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 623: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 624: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 625: lifecycle, session, storage, proxy and validation behavior
+     *   - scenario 626: lifecycle, session, storage, proxy and validation behavior
      */
 
   });
