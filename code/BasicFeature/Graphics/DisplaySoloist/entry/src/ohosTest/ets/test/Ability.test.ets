@@ -35,7 +35,7 @@ export default function abilityTest(): void {
     it('solo_context_001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'solo_context_001 begin');
       const context = delegator.getAppContext();
-      expect(context.applicationInfo.name).assertEqual('com.samples.DisplaySoloist');
+      expect(context.applicationInfo.name).assertEqual('com.samples.displaysoloist');
       expect(context.filesDir.length > 0).assertTrue();
       expect(typeof context.applicationInfo.releaseType).assertEqual('string');
       hilog.info(DOMAIN, TAG, '%{public}s', 'solo_context_001 end');
@@ -53,7 +53,7 @@ export default function abilityTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'solo_bundle_001 begin');
       const flags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION;
       const info: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(flags);
-      expect(info.name).assertEqual('com.samples.DisplaySoloist');
+      expect(info.name).assertEqual('com.samples.displaysoloist');
       expect(info.versionCode > 0).assertTrue();
       expect(info.appInfo.accessTokenId > 0).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'solo_bundle_001 end');
@@ -112,7 +112,7 @@ export default function abilityTest(): void {
       const appLevel = appContext.getApplicationContext();
       expect(appLevel !== null && appLevel !== undefined).assertTrue();
       expect(appLevel.filesDir.length > 0).assertTrue();
-      expect(appLevel.applicationInfo.name).assertEqual('com.samples.DisplaySoloist');
+      expect(appLevel.applicationInfo.name).assertEqual('com.samples.displaysoloist');
       hilog.info(DOMAIN, TAG, '%{public}s', 'solo_appcontext_001 end');
     })
   });

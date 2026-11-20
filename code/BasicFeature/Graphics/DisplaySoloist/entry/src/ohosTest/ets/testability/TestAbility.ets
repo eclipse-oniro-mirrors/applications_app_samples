@@ -17,6 +17,7 @@ import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Hypium } from '@ohos/hypium';
+import { window } from '@kit.ArkUI';
 import testsuite from '../test/List.test';
 
 const DOMAIN: number = 0xF811;
@@ -39,6 +40,14 @@ export default class TestAbility extends UIAbility {
 
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onCreate');
+  }
+
+  onWindowStageCreate(windowStage: window.WindowStage): void {
+    windowStage.loadContent('testability/pages/Index', (error) => {
+      if (error.code !== 0) {
+        hilog.error(DOMAIN, TAG, 'native 测试页面加载失败 code=%{public}d', error.code);
+      }
+    });
   }
 
   onForeground(): void {

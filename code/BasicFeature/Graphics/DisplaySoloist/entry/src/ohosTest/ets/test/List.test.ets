@@ -14,6 +14,7 @@
  */
 
 import abilityTest from './Ability.test';
+import soloNativeSmokeTest from './SoloNativeSmoke.test';
 import soloFrameRateMatrix1Test from './SoloFrameRateMatrix1.test';
 import soloFrameRateMatrix2Test from './SoloFrameRateMatrix2.test';
 import soloFrameRateMatrix3Test from './SoloFrameRateMatrix3.test';
@@ -50,6 +51,7 @@ import soloRouteFactsMatrix1Test from './SoloRouteFactsMatrix1.test';
 
 export default function testsuite(): void {
   abilityTest();
+  soloNativeSmokeTest();
   soloFrameRateMatrix1Test();
   soloFrameRateMatrix2Test();
   soloFrameRateMatrix3Test();
