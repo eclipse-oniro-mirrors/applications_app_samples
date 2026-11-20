@@ -1191,3 +1191,229 @@ export default function calendarManagerLifecycleTest(): void {
           const nextHandlers: PermissionRecorder=new PermissionRecorder();
           const granted: PermissionRequestResult=permissionResult(0,0);
           const pending: Pending<PermissionRequestResult>=new Pending(granted);
+          const old: Promise<Outcome<PermissionRequestResult>>=
+            observe(gate.request(() => pending.promise,oldHandlers));
+          await gate.request(() => Promise.resolve(granted),nextHandlers);
+          const error: Error=new Error('obsolete permission failure');
+          pending.reject(error);
+          expect((await old).error===error).assertEqual(true);
+          expect((await old).error?.message).assertEqual('obsolete permission failure');
+          expect(oldHandlers.trace.length).assertEqual(0);
+          expect(nextHandlers.trace.join(',')).assertEqual('granted');
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+
+    /**
+     * @tc.number SUB_CALENDAR_MANAGER_REQUEST_0400
+     * @tc.name testCalendarManagerRequest0004
+     * @tc.desc Report the latest request failure and suppress callbacks for an earlier request that later denies.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testCalendarManagerRequest0004',
+      TestType.FUNCTION|Size.MEDIUMTEST|Level.LEVEL0,async (): Promise<void> => {
+        const TAG: string='testCalendarManagerRequest0004';
+        console.info(`${TAG} start`);
+        try {
+          const gate: CalendarPermissionGate=new CalendarPermissionGate();
+          const oldHandlers: PermissionRecorder=new PermissionRecorder();
+          const nextHandlers: PermissionRecorder=new PermissionRecorder();
+          const denied: PermissionRequestResult=permissionResult(0,-1);
+          const pending: Pending<PermissionRequestResult>=new Pending(denied);
+          const old: Promise<Outcome<PermissionRequestResult>>=
+            observe(gate.request(() => pending.promise,oldHandlers));
+          const error: Error=new Error('latest permission failure');
+          const next: Outcome<PermissionRequestResult>=
+            await observe(gate.request(() => Promise.reject(error),nextHandlers));
+          expect(next.error===error).assertEqual(true);
+          expect(next.error?.message).assertEqual('latest permission failure');
+          pending.resolve(denied);
+          expect((await old).value===denied).assertEqual(true);
+          expect(oldHandlers.trace.length).assertEqual(0);
+          expect(nextHandlers.trace.join(',')).assertEqual('failed');
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+
+    /**
+     * @tc.number SUB_CALENDAR_MANAGER_REQUEST_0500
+     * @tc.name testCalendarManagerRequest0005
+     * @tc.desc Preserve the rejection of an invalidated request without invoking its handlers.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testCalendarManagerRequest0005',
+      TestType.FUNCTION|Size.MEDIUMTEST|Level.LEVEL0,async (): Promise<void> => {
+        const TAG: string='testCalendarManagerRequest0005';
+        console.info(`${TAG} start`);
+        try {
+          const gate: CalendarPermissionGate=new CalendarPermissionGate();
+          const handlers: PermissionRecorder=new PermissionRecorder();
+          const pending: Pending<PermissionRequestResult>=new Pending(permissionResult(0,0));
+          const request: Promise<Outcome<PermissionRequestResult>>=
+            observe(gate.request(() => pending.promise,handlers));
+          gate.invalidate();
+          const error: Error=new Error('destroyed permission request');
+          pending.reject(error);
+          expect((await request).error===error).assertEqual(true);
+          expect((await request).error?.message).assertEqual('destroyed permission request');
+          expect(handlers.trace.length).assertEqual(0);
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+
+    /**
+     * @tc.number SUB_CALENDAR_MANAGER_INVALIDATE_0100
+     * @tc.name testCalendarManagerInvalidate0001
+     * @tc.desc Keep a new request active after repeated invalidation while suppressing the older request callback.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testCalendarManagerInvalidate0001',
+      TestType.FUNCTION|Size.MEDIUMTEST|Level.LEVEL0,async (): Promise<void> => {
+        const TAG: string='testCalendarManagerInvalidate0001';
+        console.info(`${TAG} start`);
+        try {
+          const gate: CalendarPermissionGate=new CalendarPermissionGate();
+          const oldHandlers: PermissionRecorder=new PermissionRecorder();
+          const nextHandlers: PermissionRecorder=new PermissionRecorder();
+          const granted: PermissionRequestResult=permissionResult(0,0);
+          const pending: Pending<PermissionRequestResult>=new Pending(granted);
+          const old: Promise<Outcome<PermissionRequestResult>>=
+            observe(gate.request(() => pending.promise,oldHandlers));
+          gate.invalidate();
+          gate.invalidate();
+          await gate.request(() => Promise.resolve(granted),nextHandlers);
+          pending.resolve(granted);
+          await old;
+          expect(oldHandlers.trace.length).assertEqual(0);
+          expect(nextHandlers.trace.join(',')).assertEqual('granted');
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+
+    /**
+     * @tc.number SUB_CALENDAR_MANAGER_REQUEST_0600
+     * @tc.name testCalendarManagerRequest0006
+     * @tc.desc Convert a synchronous requester throw into rejection and allow a later request to grant.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testCalendarManagerRequest0006',
+      TestType.FUNCTION|Size.MEDIUMTEST|Level.LEVEL0,async (): Promise<void> => {
+        const TAG: string='testCalendarManagerRequest0006';
+        console.info(`${TAG} start`);
+        try {
+          const gate: CalendarPermissionGate=new CalendarPermissionGate();
+          const handlers: PermissionRecorder=new PermissionRecorder();
+          const error: Error=new Error('requester threw');
+          const result: Outcome<PermissionRequestResult>=
+            await observe(gate.request((): Promise<PermissionRequestResult> => {
+              throw error;
+            },handlers));
+          expect(result.error===error).assertEqual(true);
+          expect(result.error?.message).assertEqual('requester threw');
+          expect(handlers.trace.join(',')).assertEqual('failed');
+          await gate.request(() => Promise.resolve(permissionResult(0,0)),handlers);
+          expect(handlers.trace.join(',')).assertEqual('failed,granted');
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+
+    /**
+     * @tc.number SUB_CALENDAR_MANAGER_INVALIDATE_0200
+     * @tc.name testCalendarManagerInvalidate0002
+     * @tc.desc Suppress handlers when a requester invalidates its own generation before resolving.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testCalendarManagerInvalidate0002',
+      TestType.FUNCTION|Size.MEDIUMTEST|Level.LEVEL0,async (): Promise<void> => {
+        const TAG: string='testCalendarManagerInvalidate0002';
+        console.info(`${TAG} start`);
+        try {
+          const gate: CalendarPermissionGate=new CalendarPermissionGate();
+          const handlers: PermissionRecorder=new PermissionRecorder();
+          const granted: PermissionRequestResult=permissionResult(0,0);
+          const result: PermissionRequestResult=await gate.request((): Promise<PermissionRequestResult> => {
+            gate.invalidate();
+            return Promise.resolve(granted);
+          },handlers);
+          expect(result===granted).assertEqual(true);
+          expect(handlers.trace.length).assertEqual(0);
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+
+    /**
+     * @tc.number SUB_CALENDAR_MANAGER_REQUEST_0700
+     * @tc.name testCalendarManagerRequest0007
+     * @tc.desc Keep requests on separate gates independent when one gate invalidates and then denies.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testCalendarManagerRequest0007',
+      TestType.FUNCTION|Size.MEDIUMTEST|Level.LEVEL0,async (): Promise<void> => {
+        const TAG: string='testCalendarManagerRequest0007';
+        console.info(`${TAG} start`);
+        try {
+          const first: CalendarPermissionGate=new CalendarPermissionGate();
+          const second: CalendarPermissionGate=new CalendarPermissionGate();
+          const firstHandlers: PermissionRecorder=new PermissionRecorder();
+          const secondHandlers: PermissionRecorder=new PermissionRecorder();
+          const granted: PermissionRequestResult=permissionResult(0,0);
+          const pending: Pending<PermissionRequestResult>=new Pending(granted);
+          const request: Promise<Outcome<PermissionRequestResult>>=observe(second.request(() => pending.promise,
+            secondHandlers));
+          first.invalidate();
+          await first.request(() => Promise.resolve(permissionResult(-1,0)),firstHandlers);
+          pending.resolve(granted);
+          await request;
+          expect(firstHandlers.trace.join(',')).assertEqual('denied');
+          expect(secondHandlers.trace.join(',')).assertEqual('granted');
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+
+    /**
+     * @tc.number SUB_CALENDAR_MANAGER_REQUEST_0800
+     * @tc.name testCalendarManagerRequest0008
+     * @tc.desc Deliver consecutive denial and grant results to reused handlers without returning stale results.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testCalendarManagerRequest0008',
+      TestType.FUNCTION|Size.MEDIUMTEST|Level.LEVEL0,async (): Promise<void> => {
+        const TAG: string='testCalendarManagerRequest0008';
+        console.info(`${TAG} start`);
+        try {
+          const gate: CalendarPermissionGate=new CalendarPermissionGate();
+          const handlers: PermissionRecorder=new PermissionRecorder();
+          const denied: PermissionRequestResult=permissionResult(0,-1);
+          const granted: PermissionRequestResult=permissionResult(0,0);
+          expect((await gate.request(() => Promise.resolve(denied),handlers))===denied).assertEqual(true);
+          expect((await gate.request(() => Promise.resolve(granted),handlers))===granted).assertEqual(true);
+          expect(handlers.trace.join(',')).assertEqual('denied,granted');
+          expect(handlers.denied===denied).assertEqual(true);
+          expect(handlers.granted===granted).assertEqual(true);
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+  });
+}
