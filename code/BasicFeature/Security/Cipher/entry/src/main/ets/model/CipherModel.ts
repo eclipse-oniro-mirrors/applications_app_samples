@@ -13,10 +13,14 @@
  * limitations under the License.
  */
 
-import cipher from '@system.cipher'
+import cipher, { CipherResponse } from '@system.cipher'
+import { util } from '@kit.ArkTS'
 import Logger from './Logger'
 
-const TAG: string = '[CipherModel]'
+const TAG: string = '[Sample_Cipher]'
+const RSA_OAEP_MAX_PLAINTEXT_BYTES: number = 62
+const RSA_CIPHERTEXT_BASE64_LENGTH: number = 172
+const BASE64_ALPHABET: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='
 const AES_ENCRYPT_KEY: string = 'NDM5Qjk2UjAzMEE0NzVCRjlFMkQwQkVGOFc1NkM1QkQ='
 const RSA_ENCRYPT_KEY: string = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCx414QSP3RsYWYzf9mkBMiBAXo\n' +
 '6S7Lpva1fKlcuVxjoFC1iMnzD4mC0uiL4k5MNi43J64c7dbqi3qAJjdAtuwQ6NZJ\n' +
@@ -37,8 +41,14 @@ const RSA_DECRYPT_KEY: string = 'MIICXgIBAAKBgQCx414QSP3RsYWYzf9mkBMiBAXo6S7Lpva
 '8GfqIdUNf+aCG5TZK/kXBF1sqcsi7jXMAf4jBlejVbSVZg=='
 
 export class CipherModel {
-  rsaEncrypt(message: string, callback) {
-    let result: Object | string = undefined
+  public rsaEncrypt(message: string, callback: (result: CipherResponse) => void): void {
+    const inputBytes: number = this.utf8ByteLength(message)
+    if (inputBytes > RSA_OAEP_MAX_PLAINTEXT_BYTES) {
+      Logger.info(TAG, `rsaEncrypt input exceeds OAEP limit: ${inputBytes} bytes`)
+      callback({ text: 'Error!' })
+      return
+    }
+    let result: CipherResponse = { text: '' }
     cipher.rsa({
       // 加密
       action: 'encrypt',
@@ -47,13 +57,18 @@ export class CipherModel {
       // base64编码后的加密公钥
       key: RSA_ENCRYPT_KEY,
       transformation: 'RSA/None/OAEPWithSHA256AndMGF1Padding',
-      success: (info) => {
+      success: (info: CipherResponse) => {
         result = info
+        if (info.text !== undefined) {
+          result.text = this.trimTrailingNull(info.text)
+        } else {
+          result.text = 'Error!'
+        }
         Logger.info(TAG, `result = ${JSON.stringify(result)}`)
         callback(result)
       },
-      fail: (data, code) => {
-        result = 'Error!'
+      fail: (data: string, code: number) => {
+        result = { text: 'Error!' }
         Logger.debug(TAG, `cipher.rsa encrypt fail ${JSON.stringify(code)}: ${JSON.stringify(data)}`)
         callback(result)
       },
@@ -63,22 +78,29 @@ export class CipherModel {
     })
   }
 
-  rsaDecrypt(message: string, callback) {
-    let result: Object | string = undefined
+  public rsaDecrypt(message: string, callback: (result: CipherResponse) => void): void {
+    let result: CipherResponse = { text: '' }
+    const input: string = this.trimTrailingNull(message)
+    if (!this.isRsaCiphertext(input)) {
+      result = { text: 'Error!' }
+      Logger.info(TAG, `rsaDecrypt input is not a valid RSA ciphertext, length = ${input.length}`)
+      callback(result)
+      return
+    }
     cipher.rsa({
       // 解密：
       action: 'decrypt',
       // 待解密的内容
-      text: message,
+      text: input,
       // base64编码后的解密私钥
       key: RSA_DECRYPT_KEY,
-      success: (info) => {
+      success: (info: CipherResponse) => {
         result = info
         Logger.info(TAG, `result = ${JSON.stringify(result)}`)
         callback(result)
       },
-      fail: (data, code) => {
-        result = 'Error!'
+      fail: (data: string, code: number) => {
+        result = { text: 'Error!' }
         Logger.debug(TAG, `cipher.rsa decrypt fail ${JSON.stringify(code)}: ${JSON.stringify(data)}`)
         callback(result)
       },
@@ -88,8 +110,8 @@ export class CipherModel {
     })
   }
 
-  aesEncrypt(message: string, callback) {
-    let result: Object | string = undefined
+  public aesEncrypt(message: string, callback: (result: CipherResponse) => void): void {
+    let result: CipherResponse = { text: '' }
     cipher.aes({
       // 加密
       action: 'encrypt',
@@ -100,13 +122,13 @@ export class CipherModel {
       transformation: 'AES/CBC/PKCS5Padding',
       ivOffset: '0',
       ivLen: '16',
-      success: (info) => {
+      success: (info: CipherResponse) => {
         result = info
         Logger.info(TAG, `result = ${JSON.stringify(result)}`)
         callback(result)
       },
-      fail: (data, code) => {
-        result = 'Error!'
+      fail: (data: string, code: number) => {
+        result = { text: 'Error!' }
         Logger.debug(TAG, `cipher.aes encrypt fail ${JSON.stringify(code)}: ${JSON.stringify(data)}`)
         callback(result)
       },
@@ -116,8 +138,8 @@ export class CipherModel {
     })
   }
 
-  aesDecrypt(message: string, callback) {
-    let result: Object | string = undefined
+  public aesDecrypt(message: string, callback: (result: CipherResponse) => void): void {
+    let result: CipherResponse = { text: '' }
     cipher.aes({
       // 解密：
       action: 'decrypt',
@@ -128,13 +150,13 @@ export class CipherModel {
       transformation: 'AES/CBC/PKCS5Padding',
       ivOffset: '0',
       ivLen: '16',
-      success: (info) => {
+      success: (info: CipherResponse) => {
         result = info
         Logger.info(TAG, `data = ${JSON.stringify(result)}`)
         callback(result)
       },
-      fail: (data, code) => {
-        result = 'Error!'
+      fail: (data: string, code: number) => {
+        result = { text: 'Error!' }
         Logger.debug(TAG, `cipher.aes encrypt fail ${JSON.stringify(code)}: ${JSON.stringify(data)}`)
         callback(result)
       },
@@ -142,5 +164,36 @@ export class CipherModel {
         Logger.info(TAG, `encrypt is success`)
       }
     })
+  }
+
+  private trimTrailingNull(text: string): string {
+    let end: number = text.length
+    while (end > 0 && text.charCodeAt(end - 1) === 0) {
+      end--
+    }
+    return text.substring(0, end)
+  }
+
+  private utf8ByteLength(text: string): number {
+    if (text.length === 0) {
+      return 0
+    }
+    const encoded: Uint8Array = new util.TextEncoder().encodeInto(text)
+    if (encoded === undefined) {
+      return 0
+    }
+    return encoded.length
+  }
+
+  private isRsaCiphertext(text: string): boolean {
+    if (text.length !== RSA_CIPHERTEXT_BASE64_LENGTH) {
+      return false
+    }
+    for (let i: number = 0; i < text.length; i++) {
+      if (BASE64_ALPHABET.indexOf(text.charAt(i)) < 0) {
+        return false
+      }
+    }
+    return true
   }
 }
