@@ -1529,27 +1529,1171 @@ function TransitionProgressPart020() {
     });
 }
 
+function TransitionProgressPart021() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2041
+     * @tc.name    JsTransition081
+     * @tc.desc    Transition elapsed 593 of 397 reaches 100 seed 81
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition081', 0, async function () {
+      await yieldThread();
+      const duration = 397;
+      const elapsed = 593;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(593, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition081 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2042
+     * @tc.name    JsTransition082
+     * @tc.desc    Transition elapsed 646 of 434 reaches 100 seed 82
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition082', 0, async function () {
+      await yieldThread();
+      const duration = 434;
+      const elapsed = 646;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(646, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition082 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2043
+     * @tc.name    JsTransition083
+     * @tc.desc    Transition elapsed 699 of 471 reaches 100 seed 83
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition083', 0, async function () {
+      await yieldThread();
+      const duration = 471;
+      const elapsed = 699;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(699, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition083 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2044
+     * @tc.name    JsTransition084
+     * @tc.desc    Transition elapsed 752 of 508 reaches 100 seed 84
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition084', 0, async function () {
+      await yieldThread();
+      const duration = 508;
+      const elapsed = 752;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(752, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition084 done');
+    });
+}
+
+function TransitionProgressPart022() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2045
+     * @tc.name    JsTransition085
+     * @tc.desc    Transition elapsed 805 of 545 reaches 100 seed 85
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition085', 0, async function () {
+      await yieldThread();
+      const duration = 545;
+      const elapsed = 805;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(805, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition085 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2046
+     * @tc.name    JsTransition086
+     * @tc.desc    Transition elapsed 858 of 582 reaches 100 seed 86
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition086', 0, async function () {
+      await yieldThread();
+      const duration = 582;
+      const elapsed = 858;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(858, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition086 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2047
+     * @tc.name    JsTransition087
+     * @tc.desc    Transition elapsed 911 of 619 reaches 100 seed 87
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition087', 0, async function () {
+      await yieldThread();
+      const duration = 619;
+      const elapsed = 911;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(911, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition087 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2048
+     * @tc.name    JsTransition088
+     * @tc.desc    Transition elapsed 964 of 656 reaches 100 seed 88
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition088', 0, async function () {
+      await yieldThread();
+      const duration = 656;
+      const elapsed = 964;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(964, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition088 done');
+    });
+}
+
+function TransitionProgressPart023() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2049
+     * @tc.name    JsTransition089
+     * @tc.desc    Transition elapsed 1017 of 693 reaches 100 seed 89
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition089', 0, async function () {
+      await yieldThread();
+      const duration = 693;
+      const elapsed = 1017;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(1017, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition089 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2050
+     * @tc.name    JsTransition090
+     * @tc.desc    Transition elapsed 1070 of 730 reaches 100 seed 90
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition090', 0, async function () {
+      await yieldThread();
+      const duration = 730;
+      const elapsed = 1070;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(1070, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition090 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2051
+     * @tc.name    JsTransition091
+     * @tc.desc    Transition elapsed -77 of 767 reaches 0 seed 91
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition091', 0, async function () {
+      await yieldThread();
+      const duration = 767;
+      const elapsed = -77;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(0);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(-77, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition091 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2052
+     * @tc.name    JsTransition092
+     * @tc.desc    Transition elapsed -24 of 804 reaches 0 seed 92
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition092', 0, async function () {
+      await yieldThread();
+      const duration = 804;
+      const elapsed = -24;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(0);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(-24, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition092 done');
+    });
+}
+
+function TransitionProgressPart024() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2053
+     * @tc.name    JsTransition093
+     * @tc.desc    Transition elapsed 29 of 841 reaches 3 seed 93
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition093', 0, async function () {
+      await yieldThread();
+      const duration = 841;
+      const elapsed = 29;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(3);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(29, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition093 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2054
+     * @tc.name    JsTransition094
+     * @tc.desc    Transition elapsed 82 of 878 reaches 9 seed 94
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition094', 0, async function () {
+      await yieldThread();
+      const duration = 878;
+      const elapsed = 82;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(9);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(82, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition094 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2055
+     * @tc.name    JsTransition095
+     * @tc.desc    Transition elapsed 135 of 915 reaches 14 seed 95
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition095', 0, async function () {
+      await yieldThread();
+      const duration = 915;
+      const elapsed = 135;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(14);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(135, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition095 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2056
+     * @tc.name    JsTransition096
+     * @tc.desc    Transition elapsed 188 of 952 reaches 19 seed 96
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition096', 0, async function () {
+      await yieldThread();
+      const duration = 952;
+      const elapsed = 188;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(19);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(188, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition096 done');
+    });
+}
+
+function TransitionProgressPart025() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2057
+     * @tc.name    JsTransition097
+     * @tc.desc    Transition elapsed 241 of 989 reaches 24 seed 97
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition097', 0, async function () {
+      await yieldThread();
+      const duration = 989;
+      const elapsed = 241;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(24);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(241, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition097 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2058
+     * @tc.name    JsTransition098
+     * @tc.desc    Transition elapsed 294 of 126 reaches 100 seed 98
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition098', 0, async function () {
+      await yieldThread();
+      const duration = 126;
+      const elapsed = 294;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(294, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition098 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2059
+     * @tc.name    JsTransition099
+     * @tc.desc    Transition elapsed 347 of 163 reaches 100 seed 99
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition099', 0, async function () {
+      await yieldThread();
+      const duration = 163;
+      const elapsed = 347;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(347, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition099 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2060
+     * @tc.name    JsTransition100
+     * @tc.desc    Transition elapsed 400 of 200 reaches 100 seed 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition100', 0, async function () {
+      await yieldThread();
+      const duration = 200;
+      const elapsed = 400;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(400, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition100 done');
+    });
+}
+
+function TransitionProgressPart026() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2061
+     * @tc.name    JsTransition101
+     * @tc.desc    Transition elapsed 453 of 237 reaches 100 seed 101
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition101', 0, async function () {
+      await yieldThread();
+      const duration = 237;
+      const elapsed = 453;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(453, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition101 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2062
+     * @tc.name    JsTransition102
+     * @tc.desc    Transition elapsed 506 of 274 reaches 100 seed 102
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition102', 0, async function () {
+      await yieldThread();
+      const duration = 274;
+      const elapsed = 506;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(506, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition102 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2063
+     * @tc.name    JsTransition103
+     * @tc.desc    Transition elapsed 559 of 311 reaches 100 seed 103
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition103', 0, async function () {
+      await yieldThread();
+      const duration = 311;
+      const elapsed = 559;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(559, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition103 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2064
+     * @tc.name    JsTransition104
+     * @tc.desc    Transition elapsed 612 of 348 reaches 100 seed 104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition104', 0, async function () {
+      await yieldThread();
+      const duration = 348;
+      const elapsed = 612;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(612, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition104 done');
+    });
+}
+
+function TransitionProgressPart027() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2065
+     * @tc.name    JsTransition105
+     * @tc.desc    Transition elapsed 665 of 385 reaches 100 seed 105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition105', 0, async function () {
+      await yieldThread();
+      const duration = 385;
+      const elapsed = 665;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(665, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition105 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2066
+     * @tc.name    JsTransition106
+     * @tc.desc    Transition elapsed 718 of 422 reaches 100 seed 106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition106', 0, async function () {
+      await yieldThread();
+      const duration = 422;
+      const elapsed = 718;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(718, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition106 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2067
+     * @tc.name    JsTransition107
+     * @tc.desc    Transition elapsed 771 of 459 reaches 100 seed 107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition107', 0, async function () {
+      await yieldThread();
+      const duration = 459;
+      const elapsed = 771;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(771, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition107 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2068
+     * @tc.name    JsTransition108
+     * @tc.desc    Transition elapsed 824 of 496 reaches 100 seed 108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition108', 0, async function () {
+      await yieldThread();
+      const duration = 496;
+      const elapsed = 824;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(824, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition108 done');
+    });
+}
+
+function TransitionProgressPart028() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2069
+     * @tc.name    JsTransition109
+     * @tc.desc    Transition elapsed 877 of 533 reaches 100 seed 109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition109', 0, async function () {
+      await yieldThread();
+      const duration = 533;
+      const elapsed = 877;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(877, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition109 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2070
+     * @tc.name    JsTransition110
+     * @tc.desc    Transition elapsed 930 of 570 reaches 100 seed 110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition110', 0, async function () {
+      await yieldThread();
+      const duration = 570;
+      const elapsed = 930;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(930, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition110 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2071
+     * @tc.name    JsTransition111
+     * @tc.desc    Transition elapsed 983 of 607 reaches 100 seed 111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition111', 0, async function () {
+      await yieldThread();
+      const duration = 607;
+      const elapsed = 983;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(983, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition111 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2072
+     * @tc.name    JsTransition112
+     * @tc.desc    Transition elapsed 1036 of 644 reaches 100 seed 112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition112', 0, async function () {
+      await yieldThread();
+      const duration = 644;
+      const elapsed = 1036;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(1036, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition112 done');
+    });
+}
+
+function TransitionProgressPart029() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2073
+     * @tc.name    JsTransition113
+     * @tc.desc    Transition elapsed 1089 of 681 reaches 100 seed 113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition113', 0, async function () {
+      await yieldThread();
+      const duration = 681;
+      const elapsed = 1089;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(1089, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition113 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2074
+     * @tc.name    JsTransition114
+     * @tc.desc    Transition elapsed -58 of 718 reaches 0 seed 114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition114', 0, async function () {
+      await yieldThread();
+      const duration = 718;
+      const elapsed = -58;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(0);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(-58, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition114 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2075
+     * @tc.name    JsTransition115
+     * @tc.desc    Transition elapsed -5 of 755 reaches 0 seed 115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition115', 0, async function () {
+      await yieldThread();
+      const duration = 755;
+      const elapsed = -5;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(0);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(-5, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition115 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2076
+     * @tc.name    JsTransition116
+     * @tc.desc    Transition elapsed 48 of 792 reaches 6 seed 116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition116', 0, async function () {
+      await yieldThread();
+      const duration = 792;
+      const elapsed = 48;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(6);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(48, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition116 done');
+    });
+}
+
+function TransitionProgressPart030() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2077
+     * @tc.name    JsTransition117
+     * @tc.desc    Transition elapsed 101 of 829 reaches 12 seed 117
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition117', 0, async function () {
+      await yieldThread();
+      const duration = 829;
+      const elapsed = 101;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(12);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(101, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition117 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2078
+     * @tc.name    JsTransition118
+     * @tc.desc    Transition elapsed 154 of 866 reaches 17 seed 118
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition118', 0, async function () {
+      await yieldThread();
+      const duration = 866;
+      const elapsed = 154;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(17);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(154, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition118 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2079
+     * @tc.name    JsTransition119
+     * @tc.desc    Transition elapsed 207 of 903 reaches 22 seed 119
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition119', 0, async function () {
+      await yieldThread();
+      const duration = 903;
+      const elapsed = 207;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(22);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(207, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition119 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2080
+     * @tc.name    JsTransition120
+     * @tc.desc    Transition elapsed 260 of 940 reaches 27 seed 120
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition120', 0, async function () {
+      await yieldThread();
+      const duration = 940;
+      const elapsed = 260;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(27);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(260, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition120 done');
+    });
+}
+
+function TransitionProgressPart031() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2081
+     * @tc.name    JsTransition121
+     * @tc.desc    Transition elapsed 313 of 977 reaches 32 seed 121
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition121', 0, async function () {
+      await yieldThread();
+      const duration = 977;
+      const elapsed = 313;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(32);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(313, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition121 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2082
+     * @tc.name    JsTransition122
+     * @tc.desc    Transition elapsed 366 of 114 reaches 100 seed 122
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition122', 0, async function () {
+      await yieldThread();
+      const duration = 114;
+      const elapsed = 366;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(366, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition122 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2083
+     * @tc.name    JsTransition123
+     * @tc.desc    Transition elapsed 419 of 151 reaches 100 seed 123
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition123', 0, async function () {
+      await yieldThread();
+      const duration = 151;
+      const elapsed = 419;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(419, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition123 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2084
+     * @tc.name    JsTransition124
+     * @tc.desc    Transition elapsed 472 of 188 reaches 100 seed 124
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition124', 0, async function () {
+      await yieldThread();
+      const duration = 188;
+      const elapsed = 472;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(472, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition124 done');
+    });
+}
+
+function TransitionProgressPart032() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2085
+     * @tc.name    JsTransition125
+     * @tc.desc    Transition elapsed 525 of 225 reaches 100 seed 125
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition125', 0, async function () {
+      await yieldThread();
+      const duration = 225;
+      const elapsed = 525;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(525, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition125 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2086
+     * @tc.name    JsTransition126
+     * @tc.desc    Transition elapsed 578 of 262 reaches 100 seed 126
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition126', 0, async function () {
+      await yieldThread();
+      const duration = 262;
+      const elapsed = 578;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(578, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition126 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2087
+     * @tc.name    JsTransition127
+     * @tc.desc    Transition elapsed 631 of 299 reaches 100 seed 127
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition127', 0, async function () {
+      await yieldThread();
+      const duration = 299;
+      const elapsed = 631;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(631, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition127 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2088
+     * @tc.name    JsTransition128
+     * @tc.desc    Transition elapsed 684 of 336 reaches 100 seed 128
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition128', 0, async function () {
+      await yieldThread();
+      const duration = 336;
+      const elapsed = 684;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(684, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition128 done');
+    });
+}
+
+function TransitionProgressPart033() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2089
+     * @tc.name    JsTransition129
+     * @tc.desc    Transition elapsed 737 of 373 reaches 100 seed 129
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition129', 0, async function () {
+      await yieldThread();
+      const duration = 373;
+      const elapsed = 737;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(737, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition129 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2090
+     * @tc.name    JsTransition130
+     * @tc.desc    Transition elapsed 790 of 410 reaches 100 seed 130
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition130', 0, async function () {
+      await yieldThread();
+      const duration = 410;
+      const elapsed = 790;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(790, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition130 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2091
+     * @tc.name    JsTransition131
+     * @tc.desc    Transition elapsed 843 of 447 reaches 100 seed 131
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition131', 0, async function () {
+      await yieldThread();
+      const duration = 447;
+      const elapsed = 843;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(843, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition131 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2092
+     * @tc.name    JsTransition132
+     * @tc.desc    Transition elapsed 896 of 484 reaches 100 seed 132
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition132', 0, async function () {
+      await yieldThread();
+      const duration = 484;
+      const elapsed = 896;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(896, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition132 done');
+    });
+}
+
+function TransitionProgressPart034() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2093
+     * @tc.name    JsTransition133
+     * @tc.desc    Transition elapsed 949 of 521 reaches 100 seed 133
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition133', 0, async function () {
+      await yieldThread();
+      const duration = 521;
+      const elapsed = 949;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(949, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition133 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2094
+     * @tc.name    JsTransition134
+     * @tc.desc    Transition elapsed 1002 of 558 reaches 100 seed 134
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition134', 0, async function () {
+      await yieldThread();
+      const duration = 558;
+      const elapsed = 1002;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(1002, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition134 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2095
+     * @tc.name    JsTransition135
+     * @tc.desc    Transition elapsed 1055 of 595 reaches 100 seed 135
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition135', 0, async function () {
+      await yieldThread();
+      const duration = 595;
+      const elapsed = 1055;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(100);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(1055, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition135 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2096
+     * @tc.name    JsTransition136
+     * @tc.desc    Transition elapsed -92 of 632 reaches 0 seed 136
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition136', 0, async function () {
+      await yieldThread();
+      const duration = 632;
+      const elapsed = -92;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(0);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(-92, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition136 done');
+    });
+}
+
+function TransitionProgressPart035() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2097
+     * @tc.name    JsTransition137
+     * @tc.desc    Transition elapsed -39 of 669 reaches 0 seed 137
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition137', 0, async function () {
+      await yieldThread();
+      const duration = 669;
+      const elapsed = -39;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(0);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(-39, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition137 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2098
+     * @tc.name    JsTransition138
+     * @tc.desc    Transition elapsed 14 of 706 reaches 1 seed 138
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition138', 0, async function () {
+      await yieldThread();
+      const duration = 706;
+      const elapsed = 14;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(1);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(14, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition138 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2099
+     * @tc.name    JsTransition139
+     * @tc.desc    Transition elapsed 67 of 743 reaches 9 seed 139
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition139', 0, async function () {
+      await yieldThread();
+      const duration = 743;
+      const elapsed = 67;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(9);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(67, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition139 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2100
+     * @tc.name    JsTransition140
+     * @tc.desc    Transition elapsed 120 of 780 reaches 15 seed 140
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsTransition140', 0, async function () {
+      await yieldThread();
+      const duration = 780;
+      const elapsed = 120;
+      expect(model.transitionProgress(elapsed, duration)).assertEqual(15);
+      expect(model.transitionProgress(0, duration)).assertEqual(0);
+      expect(model.transitionProgress(duration, duration)).assertEqual(100);
+      expect(model.transitionProgress(120, 0)).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsTransition140 done');
+    });
+}
+
+function TransitionProgressGroup001() {
+  TransitionProgressPart001();
+  TransitionProgressPart002();
+  TransitionProgressPart003();
+  TransitionProgressPart004();
+  TransitionProgressPart005();
+  TransitionProgressPart006();
+  TransitionProgressPart007();
+  TransitionProgressPart008();
+  TransitionProgressPart009();
+  TransitionProgressPart010();
+  TransitionProgressPart011();
+  TransitionProgressPart012();
+  TransitionProgressPart013();
+  TransitionProgressPart014();
+  TransitionProgressPart015();
+  TransitionProgressPart016();
+  TransitionProgressPart017();
+  TransitionProgressPart018();
+  TransitionProgressPart019();
+  TransitionProgressPart020();
+  TransitionProgressPart021();
+  TransitionProgressPart022();
+  TransitionProgressPart023();
+  TransitionProgressPart024();
+  TransitionProgressPart025();
+  TransitionProgressPart026();
+  TransitionProgressPart027();
+  TransitionProgressPart028();
+  TransitionProgressPart029();
+  TransitionProgressPart030();
+  TransitionProgressPart031();
+  TransitionProgressPart032();
+  TransitionProgressPart033();
+  TransitionProgressPart034();
+  TransitionProgressPart035();
+}
+
 export default function transitionProgressSuite() {
   describe('TransitionProgressSuite', function () {
-    TransitionProgressPart001();
-    TransitionProgressPart002();
-    TransitionProgressPart003();
-    TransitionProgressPart004();
-    TransitionProgressPart005();
-    TransitionProgressPart006();
-    TransitionProgressPart007();
-    TransitionProgressPart008();
-    TransitionProgressPart009();
-    TransitionProgressPart010();
-    TransitionProgressPart011();
-    TransitionProgressPart012();
-    TransitionProgressPart013();
-    TransitionProgressPart014();
-    TransitionProgressPart015();
-    TransitionProgressPart016();
-    TransitionProgressPart017();
-    TransitionProgressPart018();
-    TransitionProgressPart019();
-    TransitionProgressPart020();
+    TransitionProgressGroup001();
   });
 }
