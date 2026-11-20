@@ -1529,27 +1529,1171 @@ function GestureThresholdPart020() {
     });
 }
 
+function GestureThresholdPart021() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1901
+     * @tc.name    JsGesture081
+     * @tc.desc    Gesture distance 111 velocity 1377 thresholds 30/500 seed 81
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture081', 0, async function () {
+      await yieldThread();
+      const distance = 111;
+      const velocity = 1377;
+      expect(model.gestureAccepted(distance, velocity, 30, 500)).assertEqual(true);
+      expect(model.gestureAccepted(30, 0, 30, 500)).assertEqual(true);
+      expect(model.gestureAccepted(0, 500, 30, 500)).assertEqual(true);
+      expect(model.gestureAccepted(29, 499, 30, 500)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture081 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1902
+     * @tc.name    JsGesture082
+     * @tc.desc    Gesture distance 142 velocity 1394 thresholds 40/600 seed 82
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture082', 0, async function () {
+      await yieldThread();
+      const distance = 142;
+      const velocity = 1394;
+      expect(model.gestureAccepted(distance, velocity, 40, 600)).assertEqual(true);
+      expect(model.gestureAccepted(40, 0, 40, 600)).assertEqual(true);
+      expect(model.gestureAccepted(0, 600, 40, 600)).assertEqual(true);
+      expect(model.gestureAccepted(39, 599, 40, 600)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture082 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1903
+     * @tc.name    JsGesture083
+     * @tc.desc    Gesture distance 173 velocity 1411 thresholds 50/700 seed 83
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture083', 0, async function () {
+      await yieldThread();
+      const distance = 173;
+      const velocity = 1411;
+      expect(model.gestureAccepted(distance, velocity, 50, 700)).assertEqual(true);
+      expect(model.gestureAccepted(50, 0, 50, 700)).assertEqual(true);
+      expect(model.gestureAccepted(0, 700, 50, 700)).assertEqual(true);
+      expect(model.gestureAccepted(49, 699, 50, 700)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture083 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1904
+     * @tc.name    JsGesture084
+     * @tc.desc    Gesture distance 4 velocity 1428 thresholds 60/100 seed 84
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture084', 0, async function () {
+      await yieldThread();
+      const distance = 4;
+      const velocity = 1428;
+      expect(model.gestureAccepted(distance, velocity, 60, 100)).assertEqual(true);
+      expect(model.gestureAccepted(60, 0, 60, 100)).assertEqual(true);
+      expect(model.gestureAccepted(0, 100, 60, 100)).assertEqual(true);
+      expect(model.gestureAccepted(59, 99, 60, 100)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture084 done');
+    });
+}
+
+function GestureThresholdPart022() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1905
+     * @tc.name    JsGesture085
+     * @tc.desc    Gesture distance 35 velocity 1445 thresholds 20/200 seed 85
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture085', 0, async function () {
+      await yieldThread();
+      const distance = 35;
+      const velocity = 1445;
+      expect(model.gestureAccepted(distance, velocity, 20, 200)).assertEqual(true);
+      expect(model.gestureAccepted(20, 0, 20, 200)).assertEqual(true);
+      expect(model.gestureAccepted(0, 200, 20, 200)).assertEqual(true);
+      expect(model.gestureAccepted(19, 199, 20, 200)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture085 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1906
+     * @tc.name    JsGesture086
+     * @tc.desc    Gesture distance 66 velocity 1462 thresholds 30/300 seed 86
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture086', 0, async function () {
+      await yieldThread();
+      const distance = 66;
+      const velocity = 1462;
+      expect(model.gestureAccepted(distance, velocity, 30, 300)).assertEqual(true);
+      expect(model.gestureAccepted(30, 0, 30, 300)).assertEqual(true);
+      expect(model.gestureAccepted(0, 300, 30, 300)).assertEqual(true);
+      expect(model.gestureAccepted(29, 299, 30, 300)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture086 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1907
+     * @tc.name    JsGesture087
+     * @tc.desc    Gesture distance 97 velocity 1479 thresholds 40/400 seed 87
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture087', 0, async function () {
+      await yieldThread();
+      const distance = 97;
+      const velocity = 1479;
+      expect(model.gestureAccepted(distance, velocity, 40, 400)).assertEqual(true);
+      expect(model.gestureAccepted(40, 0, 40, 400)).assertEqual(true);
+      expect(model.gestureAccepted(0, 400, 40, 400)).assertEqual(true);
+      expect(model.gestureAccepted(39, 399, 40, 400)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture087 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1908
+     * @tc.name    JsGesture088
+     * @tc.desc    Gesture distance 128 velocity 1496 thresholds 50/500 seed 88
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture088', 0, async function () {
+      await yieldThread();
+      const distance = 128;
+      const velocity = 1496;
+      expect(model.gestureAccepted(distance, velocity, 50, 500)).assertEqual(true);
+      expect(model.gestureAccepted(50, 0, 50, 500)).assertEqual(true);
+      expect(model.gestureAccepted(0, 500, 50, 500)).assertEqual(true);
+      expect(model.gestureAccepted(49, 499, 50, 500)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture088 done');
+    });
+}
+
+function GestureThresholdPart023() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1909
+     * @tc.name    JsGesture089
+     * @tc.desc    Gesture distance 159 velocity 1513 thresholds 60/600 seed 89
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture089', 0, async function () {
+      await yieldThread();
+      const distance = 159;
+      const velocity = 1513;
+      expect(model.gestureAccepted(distance, velocity, 60, 600)).assertEqual(true);
+      expect(model.gestureAccepted(60, 0, 60, 600)).assertEqual(true);
+      expect(model.gestureAccepted(0, 600, 60, 600)).assertEqual(true);
+      expect(model.gestureAccepted(59, 599, 60, 600)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture089 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1910
+     * @tc.name    JsGesture090
+     * @tc.desc    Gesture distance 190 velocity 1530 thresholds 20/700 seed 90
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture090', 0, async function () {
+      await yieldThread();
+      const distance = 190;
+      const velocity = 1530;
+      expect(model.gestureAccepted(distance, velocity, 20, 700)).assertEqual(true);
+      expect(model.gestureAccepted(20, 0, 20, 700)).assertEqual(true);
+      expect(model.gestureAccepted(0, 700, 20, 700)).assertEqual(true);
+      expect(model.gestureAccepted(19, 699, 20, 700)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture090 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1911
+     * @tc.name    JsGesture091
+     * @tc.desc    Gesture distance 21 velocity 1547 thresholds 30/100 seed 91
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture091', 0, async function () {
+      await yieldThread();
+      const distance = 21;
+      const velocity = 1547;
+      expect(model.gestureAccepted(distance, velocity, 30, 100)).assertEqual(true);
+      expect(model.gestureAccepted(30, 0, 30, 100)).assertEqual(true);
+      expect(model.gestureAccepted(0, 100, 30, 100)).assertEqual(true);
+      expect(model.gestureAccepted(29, 99, 30, 100)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture091 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1912
+     * @tc.name    JsGesture092
+     * @tc.desc    Gesture distance 52 velocity 1564 thresholds 40/200 seed 92
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture092', 0, async function () {
+      await yieldThread();
+      const distance = 52;
+      const velocity = 1564;
+      expect(model.gestureAccepted(distance, velocity, 40, 200)).assertEqual(true);
+      expect(model.gestureAccepted(40, 0, 40, 200)).assertEqual(true);
+      expect(model.gestureAccepted(0, 200, 40, 200)).assertEqual(true);
+      expect(model.gestureAccepted(39, 199, 40, 200)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture092 done');
+    });
+}
+
+function GestureThresholdPart024() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1913
+     * @tc.name    JsGesture093
+     * @tc.desc    Gesture distance 83 velocity 1581 thresholds 50/300 seed 93
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture093', 0, async function () {
+      await yieldThread();
+      const distance = 83;
+      const velocity = 1581;
+      expect(model.gestureAccepted(distance, velocity, 50, 300)).assertEqual(true);
+      expect(model.gestureAccepted(50, 0, 50, 300)).assertEqual(true);
+      expect(model.gestureAccepted(0, 300, 50, 300)).assertEqual(true);
+      expect(model.gestureAccepted(49, 299, 50, 300)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture093 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1914
+     * @tc.name    JsGesture094
+     * @tc.desc    Gesture distance 114 velocity 1598 thresholds 60/400 seed 94
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture094', 0, async function () {
+      await yieldThread();
+      const distance = 114;
+      const velocity = 1598;
+      expect(model.gestureAccepted(distance, velocity, 60, 400)).assertEqual(true);
+      expect(model.gestureAccepted(60, 0, 60, 400)).assertEqual(true);
+      expect(model.gestureAccepted(0, 400, 60, 400)).assertEqual(true);
+      expect(model.gestureAccepted(59, 399, 60, 400)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture094 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1915
+     * @tc.name    JsGesture095
+     * @tc.desc    Gesture distance 145 velocity 1615 thresholds 20/500 seed 95
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture095', 0, async function () {
+      await yieldThread();
+      const distance = 145;
+      const velocity = 1615;
+      expect(model.gestureAccepted(distance, velocity, 20, 500)).assertEqual(true);
+      expect(model.gestureAccepted(20, 0, 20, 500)).assertEqual(true);
+      expect(model.gestureAccepted(0, 500, 20, 500)).assertEqual(true);
+      expect(model.gestureAccepted(19, 499, 20, 500)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture095 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1916
+     * @tc.name    JsGesture096
+     * @tc.desc    Gesture distance 176 velocity 1632 thresholds 30/600 seed 96
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture096', 0, async function () {
+      await yieldThread();
+      const distance = 176;
+      const velocity = 1632;
+      expect(model.gestureAccepted(distance, velocity, 30, 600)).assertEqual(true);
+      expect(model.gestureAccepted(30, 0, 30, 600)).assertEqual(true);
+      expect(model.gestureAccepted(0, 600, 30, 600)).assertEqual(true);
+      expect(model.gestureAccepted(29, 599, 30, 600)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture096 done');
+    });
+}
+
+function GestureThresholdPart025() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1917
+     * @tc.name    JsGesture097
+     * @tc.desc    Gesture distance 7 velocity 1649 thresholds 40/700 seed 97
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture097', 0, async function () {
+      await yieldThread();
+      const distance = 7;
+      const velocity = 1649;
+      expect(model.gestureAccepted(distance, velocity, 40, 700)).assertEqual(true);
+      expect(model.gestureAccepted(40, 0, 40, 700)).assertEqual(true);
+      expect(model.gestureAccepted(0, 700, 40, 700)).assertEqual(true);
+      expect(model.gestureAccepted(39, 699, 40, 700)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture097 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1918
+     * @tc.name    JsGesture098
+     * @tc.desc    Gesture distance 38 velocity 1666 thresholds 50/100 seed 98
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture098', 0, async function () {
+      await yieldThread();
+      const distance = 38;
+      const velocity = 1666;
+      expect(model.gestureAccepted(distance, velocity, 50, 100)).assertEqual(true);
+      expect(model.gestureAccepted(50, 0, 50, 100)).assertEqual(true);
+      expect(model.gestureAccepted(0, 100, 50, 100)).assertEqual(true);
+      expect(model.gestureAccepted(49, 99, 50, 100)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture098 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1919
+     * @tc.name    JsGesture099
+     * @tc.desc    Gesture distance 69 velocity 1683 thresholds 60/200 seed 99
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture099', 0, async function () {
+      await yieldThread();
+      const distance = 69;
+      const velocity = 1683;
+      expect(model.gestureAccepted(distance, velocity, 60, 200)).assertEqual(true);
+      expect(model.gestureAccepted(60, 0, 60, 200)).assertEqual(true);
+      expect(model.gestureAccepted(0, 200, 60, 200)).assertEqual(true);
+      expect(model.gestureAccepted(59, 199, 60, 200)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture099 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1920
+     * @tc.name    JsGesture100
+     * @tc.desc    Gesture distance 100 velocity 1700 thresholds 20/300 seed 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture100', 0, async function () {
+      await yieldThread();
+      const distance = 100;
+      const velocity = 1700;
+      expect(model.gestureAccepted(distance, velocity, 20, 300)).assertEqual(true);
+      expect(model.gestureAccepted(20, 0, 20, 300)).assertEqual(true);
+      expect(model.gestureAccepted(0, 300, 20, 300)).assertEqual(true);
+      expect(model.gestureAccepted(19, 299, 20, 300)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture100 done');
+    });
+}
+
+function GestureThresholdPart026() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1921
+     * @tc.name    JsGesture101
+     * @tc.desc    Gesture distance 131 velocity 1717 thresholds 30/400 seed 101
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture101', 0, async function () {
+      await yieldThread();
+      const distance = 131;
+      const velocity = 1717;
+      expect(model.gestureAccepted(distance, velocity, 30, 400)).assertEqual(true);
+      expect(model.gestureAccepted(30, 0, 30, 400)).assertEqual(true);
+      expect(model.gestureAccepted(0, 400, 30, 400)).assertEqual(true);
+      expect(model.gestureAccepted(29, 399, 30, 400)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture101 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1922
+     * @tc.name    JsGesture102
+     * @tc.desc    Gesture distance 162 velocity 1734 thresholds 40/500 seed 102
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture102', 0, async function () {
+      await yieldThread();
+      const distance = 162;
+      const velocity = 1734;
+      expect(model.gestureAccepted(distance, velocity, 40, 500)).assertEqual(true);
+      expect(model.gestureAccepted(40, 0, 40, 500)).assertEqual(true);
+      expect(model.gestureAccepted(0, 500, 40, 500)).assertEqual(true);
+      expect(model.gestureAccepted(39, 499, 40, 500)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture102 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1923
+     * @tc.name    JsGesture103
+     * @tc.desc    Gesture distance 193 velocity 1751 thresholds 50/600 seed 103
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture103', 0, async function () {
+      await yieldThread();
+      const distance = 193;
+      const velocity = 1751;
+      expect(model.gestureAccepted(distance, velocity, 50, 600)).assertEqual(true);
+      expect(model.gestureAccepted(50, 0, 50, 600)).assertEqual(true);
+      expect(model.gestureAccepted(0, 600, 50, 600)).assertEqual(true);
+      expect(model.gestureAccepted(49, 599, 50, 600)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture103 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1924
+     * @tc.name    JsGesture104
+     * @tc.desc    Gesture distance 24 velocity 1768 thresholds 60/700 seed 104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture104', 0, async function () {
+      await yieldThread();
+      const distance = 24;
+      const velocity = 1768;
+      expect(model.gestureAccepted(distance, velocity, 60, 700)).assertEqual(true);
+      expect(model.gestureAccepted(60, 0, 60, 700)).assertEqual(true);
+      expect(model.gestureAccepted(0, 700, 60, 700)).assertEqual(true);
+      expect(model.gestureAccepted(59, 699, 60, 700)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture104 done');
+    });
+}
+
+function GestureThresholdPart027() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1925
+     * @tc.name    JsGesture105
+     * @tc.desc    Gesture distance 55 velocity 1785 thresholds 20/100 seed 105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture105', 0, async function () {
+      await yieldThread();
+      const distance = 55;
+      const velocity = 1785;
+      expect(model.gestureAccepted(distance, velocity, 20, 100)).assertEqual(true);
+      expect(model.gestureAccepted(20, 0, 20, 100)).assertEqual(true);
+      expect(model.gestureAccepted(0, 100, 20, 100)).assertEqual(true);
+      expect(model.gestureAccepted(19, 99, 20, 100)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture105 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1926
+     * @tc.name    JsGesture106
+     * @tc.desc    Gesture distance 86 velocity 1802 thresholds 30/200 seed 106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture106', 0, async function () {
+      await yieldThread();
+      const distance = 86;
+      const velocity = 1802;
+      expect(model.gestureAccepted(distance, velocity, 30, 200)).assertEqual(true);
+      expect(model.gestureAccepted(30, 0, 30, 200)).assertEqual(true);
+      expect(model.gestureAccepted(0, 200, 30, 200)).assertEqual(true);
+      expect(model.gestureAccepted(29, 199, 30, 200)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture106 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1927
+     * @tc.name    JsGesture107
+     * @tc.desc    Gesture distance 117 velocity 1819 thresholds 40/300 seed 107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture107', 0, async function () {
+      await yieldThread();
+      const distance = 117;
+      const velocity = 1819;
+      expect(model.gestureAccepted(distance, velocity, 40, 300)).assertEqual(true);
+      expect(model.gestureAccepted(40, 0, 40, 300)).assertEqual(true);
+      expect(model.gestureAccepted(0, 300, 40, 300)).assertEqual(true);
+      expect(model.gestureAccepted(39, 299, 40, 300)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture107 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1928
+     * @tc.name    JsGesture108
+     * @tc.desc    Gesture distance 148 velocity 1836 thresholds 50/400 seed 108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture108', 0, async function () {
+      await yieldThread();
+      const distance = 148;
+      const velocity = 1836;
+      expect(model.gestureAccepted(distance, velocity, 50, 400)).assertEqual(true);
+      expect(model.gestureAccepted(50, 0, 50, 400)).assertEqual(true);
+      expect(model.gestureAccepted(0, 400, 50, 400)).assertEqual(true);
+      expect(model.gestureAccepted(49, 399, 50, 400)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture108 done');
+    });
+}
+
+function GestureThresholdPart028() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1929
+     * @tc.name    JsGesture109
+     * @tc.desc    Gesture distance 179 velocity 1853 thresholds 60/500 seed 109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture109', 0, async function () {
+      await yieldThread();
+      const distance = 179;
+      const velocity = 1853;
+      expect(model.gestureAccepted(distance, velocity, 60, 500)).assertEqual(true);
+      expect(model.gestureAccepted(60, 0, 60, 500)).assertEqual(true);
+      expect(model.gestureAccepted(0, 500, 60, 500)).assertEqual(true);
+      expect(model.gestureAccepted(59, 499, 60, 500)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture109 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1930
+     * @tc.name    JsGesture110
+     * @tc.desc    Gesture distance 10 velocity 1870 thresholds 20/600 seed 110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture110', 0, async function () {
+      await yieldThread();
+      const distance = 10;
+      const velocity = 1870;
+      expect(model.gestureAccepted(distance, velocity, 20, 600)).assertEqual(true);
+      expect(model.gestureAccepted(20, 0, 20, 600)).assertEqual(true);
+      expect(model.gestureAccepted(0, 600, 20, 600)).assertEqual(true);
+      expect(model.gestureAccepted(19, 599, 20, 600)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture110 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1931
+     * @tc.name    JsGesture111
+     * @tc.desc    Gesture distance 41 velocity 1887 thresholds 30/700 seed 111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture111', 0, async function () {
+      await yieldThread();
+      const distance = 41;
+      const velocity = 1887;
+      expect(model.gestureAccepted(distance, velocity, 30, 700)).assertEqual(true);
+      expect(model.gestureAccepted(30, 0, 30, 700)).assertEqual(true);
+      expect(model.gestureAccepted(0, 700, 30, 700)).assertEqual(true);
+      expect(model.gestureAccepted(29, 699, 30, 700)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture111 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1932
+     * @tc.name    JsGesture112
+     * @tc.desc    Gesture distance 72 velocity 1904 thresholds 40/100 seed 112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture112', 0, async function () {
+      await yieldThread();
+      const distance = 72;
+      const velocity = 1904;
+      expect(model.gestureAccepted(distance, velocity, 40, 100)).assertEqual(true);
+      expect(model.gestureAccepted(40, 0, 40, 100)).assertEqual(true);
+      expect(model.gestureAccepted(0, 100, 40, 100)).assertEqual(true);
+      expect(model.gestureAccepted(39, 99, 40, 100)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture112 done');
+    });
+}
+
+function GestureThresholdPart029() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1933
+     * @tc.name    JsGesture113
+     * @tc.desc    Gesture distance 103 velocity 1921 thresholds 50/200 seed 113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture113', 0, async function () {
+      await yieldThread();
+      const distance = 103;
+      const velocity = 1921;
+      expect(model.gestureAccepted(distance, velocity, 50, 200)).assertEqual(true);
+      expect(model.gestureAccepted(50, 0, 50, 200)).assertEqual(true);
+      expect(model.gestureAccepted(0, 200, 50, 200)).assertEqual(true);
+      expect(model.gestureAccepted(49, 199, 50, 200)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture113 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1934
+     * @tc.name    JsGesture114
+     * @tc.desc    Gesture distance 134 velocity 1938 thresholds 60/300 seed 114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture114', 0, async function () {
+      await yieldThread();
+      const distance = 134;
+      const velocity = 1938;
+      expect(model.gestureAccepted(distance, velocity, 60, 300)).assertEqual(true);
+      expect(model.gestureAccepted(60, 0, 60, 300)).assertEqual(true);
+      expect(model.gestureAccepted(0, 300, 60, 300)).assertEqual(true);
+      expect(model.gestureAccepted(59, 299, 60, 300)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture114 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1935
+     * @tc.name    JsGesture115
+     * @tc.desc    Gesture distance 165 velocity 1955 thresholds 20/400 seed 115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture115', 0, async function () {
+      await yieldThread();
+      const distance = 165;
+      const velocity = 1955;
+      expect(model.gestureAccepted(distance, velocity, 20, 400)).assertEqual(true);
+      expect(model.gestureAccepted(20, 0, 20, 400)).assertEqual(true);
+      expect(model.gestureAccepted(0, 400, 20, 400)).assertEqual(true);
+      expect(model.gestureAccepted(19, 399, 20, 400)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture115 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1936
+     * @tc.name    JsGesture116
+     * @tc.desc    Gesture distance 196 velocity 1972 thresholds 30/500 seed 116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture116', 0, async function () {
+      await yieldThread();
+      const distance = 196;
+      const velocity = 1972;
+      expect(model.gestureAccepted(distance, velocity, 30, 500)).assertEqual(true);
+      expect(model.gestureAccepted(30, 0, 30, 500)).assertEqual(true);
+      expect(model.gestureAccepted(0, 500, 30, 500)).assertEqual(true);
+      expect(model.gestureAccepted(29, 499, 30, 500)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture116 done');
+    });
+}
+
+function GestureThresholdPart030() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1937
+     * @tc.name    JsGesture117
+     * @tc.desc    Gesture distance 27 velocity 1989 thresholds 40/600 seed 117
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture117', 0, async function () {
+      await yieldThread();
+      const distance = 27;
+      const velocity = 1989;
+      expect(model.gestureAccepted(distance, velocity, 40, 600)).assertEqual(true);
+      expect(model.gestureAccepted(40, 0, 40, 600)).assertEqual(true);
+      expect(model.gestureAccepted(0, 600, 40, 600)).assertEqual(true);
+      expect(model.gestureAccepted(39, 599, 40, 600)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture117 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1938
+     * @tc.name    JsGesture118
+     * @tc.desc    Gesture distance 58 velocity 6 thresholds 50/700 seed 118
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture118', 0, async function () {
+      await yieldThread();
+      const distance = 58;
+      const velocity = 6;
+      expect(model.gestureAccepted(distance, velocity, 50, 700)).assertEqual(true);
+      expect(model.gestureAccepted(50, 0, 50, 700)).assertEqual(true);
+      expect(model.gestureAccepted(0, 700, 50, 700)).assertEqual(true);
+      expect(model.gestureAccepted(49, 699, 50, 700)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture118 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1939
+     * @tc.name    JsGesture119
+     * @tc.desc    Gesture distance 89 velocity 23 thresholds 60/100 seed 119
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture119', 0, async function () {
+      await yieldThread();
+      const distance = 89;
+      const velocity = 23;
+      expect(model.gestureAccepted(distance, velocity, 60, 100)).assertEqual(true);
+      expect(model.gestureAccepted(60, 0, 60, 100)).assertEqual(true);
+      expect(model.gestureAccepted(0, 100, 60, 100)).assertEqual(true);
+      expect(model.gestureAccepted(59, 99, 60, 100)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture119 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1940
+     * @tc.name    JsGesture120
+     * @tc.desc    Gesture distance 120 velocity 40 thresholds 20/200 seed 120
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture120', 0, async function () {
+      await yieldThread();
+      const distance = 120;
+      const velocity = 40;
+      expect(model.gestureAccepted(distance, velocity, 20, 200)).assertEqual(true);
+      expect(model.gestureAccepted(20, 0, 20, 200)).assertEqual(true);
+      expect(model.gestureAccepted(0, 200, 20, 200)).assertEqual(true);
+      expect(model.gestureAccepted(19, 199, 20, 200)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture120 done');
+    });
+}
+
+function GestureThresholdPart031() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1941
+     * @tc.name    JsGesture121
+     * @tc.desc    Gesture distance 151 velocity 57 thresholds 30/300 seed 121
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture121', 0, async function () {
+      await yieldThread();
+      const distance = 151;
+      const velocity = 57;
+      expect(model.gestureAccepted(distance, velocity, 30, 300)).assertEqual(true);
+      expect(model.gestureAccepted(30, 0, 30, 300)).assertEqual(true);
+      expect(model.gestureAccepted(0, 300, 30, 300)).assertEqual(true);
+      expect(model.gestureAccepted(29, 299, 30, 300)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture121 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1942
+     * @tc.name    JsGesture122
+     * @tc.desc    Gesture distance 182 velocity 74 thresholds 40/400 seed 122
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture122', 0, async function () {
+      await yieldThread();
+      const distance = 182;
+      const velocity = 74;
+      expect(model.gestureAccepted(distance, velocity, 40, 400)).assertEqual(true);
+      expect(model.gestureAccepted(40, 0, 40, 400)).assertEqual(true);
+      expect(model.gestureAccepted(0, 400, 40, 400)).assertEqual(true);
+      expect(model.gestureAccepted(39, 399, 40, 400)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture122 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1943
+     * @tc.name    JsGesture123
+     * @tc.desc    Gesture distance 13 velocity 91 thresholds 50/500 seed 123
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture123', 0, async function () {
+      await yieldThread();
+      const distance = 13;
+      const velocity = 91;
+      expect(model.gestureAccepted(distance, velocity, 50, 500)).assertEqual(false);
+      expect(model.gestureAccepted(50, 0, 50, 500)).assertEqual(true);
+      expect(model.gestureAccepted(0, 500, 50, 500)).assertEqual(true);
+      expect(model.gestureAccepted(49, 499, 50, 500)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture123 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1944
+     * @tc.name    JsGesture124
+     * @tc.desc    Gesture distance 44 velocity 108 thresholds 60/600 seed 124
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture124', 0, async function () {
+      await yieldThread();
+      const distance = 44;
+      const velocity = 108;
+      expect(model.gestureAccepted(distance, velocity, 60, 600)).assertEqual(false);
+      expect(model.gestureAccepted(60, 0, 60, 600)).assertEqual(true);
+      expect(model.gestureAccepted(0, 600, 60, 600)).assertEqual(true);
+      expect(model.gestureAccepted(59, 599, 60, 600)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture124 done');
+    });
+}
+
+function GestureThresholdPart032() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1945
+     * @tc.name    JsGesture125
+     * @tc.desc    Gesture distance 75 velocity 125 thresholds 20/700 seed 125
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture125', 0, async function () {
+      await yieldThread();
+      const distance = 75;
+      const velocity = 125;
+      expect(model.gestureAccepted(distance, velocity, 20, 700)).assertEqual(true);
+      expect(model.gestureAccepted(20, 0, 20, 700)).assertEqual(true);
+      expect(model.gestureAccepted(0, 700, 20, 700)).assertEqual(true);
+      expect(model.gestureAccepted(19, 699, 20, 700)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture125 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1946
+     * @tc.name    JsGesture126
+     * @tc.desc    Gesture distance 106 velocity 142 thresholds 30/100 seed 126
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture126', 0, async function () {
+      await yieldThread();
+      const distance = 106;
+      const velocity = 142;
+      expect(model.gestureAccepted(distance, velocity, 30, 100)).assertEqual(true);
+      expect(model.gestureAccepted(30, 0, 30, 100)).assertEqual(true);
+      expect(model.gestureAccepted(0, 100, 30, 100)).assertEqual(true);
+      expect(model.gestureAccepted(29, 99, 30, 100)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture126 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1947
+     * @tc.name    JsGesture127
+     * @tc.desc    Gesture distance 137 velocity 159 thresholds 40/200 seed 127
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture127', 0, async function () {
+      await yieldThread();
+      const distance = 137;
+      const velocity = 159;
+      expect(model.gestureAccepted(distance, velocity, 40, 200)).assertEqual(true);
+      expect(model.gestureAccepted(40, 0, 40, 200)).assertEqual(true);
+      expect(model.gestureAccepted(0, 200, 40, 200)).assertEqual(true);
+      expect(model.gestureAccepted(39, 199, 40, 200)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture127 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1948
+     * @tc.name    JsGesture128
+     * @tc.desc    Gesture distance 168 velocity 176 thresholds 50/300 seed 128
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture128', 0, async function () {
+      await yieldThread();
+      const distance = 168;
+      const velocity = 176;
+      expect(model.gestureAccepted(distance, velocity, 50, 300)).assertEqual(true);
+      expect(model.gestureAccepted(50, 0, 50, 300)).assertEqual(true);
+      expect(model.gestureAccepted(0, 300, 50, 300)).assertEqual(true);
+      expect(model.gestureAccepted(49, 299, 50, 300)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture128 done');
+    });
+}
+
+function GestureThresholdPart033() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1949
+     * @tc.name    JsGesture129
+     * @tc.desc    Gesture distance 199 velocity 193 thresholds 60/400 seed 129
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture129', 0, async function () {
+      await yieldThread();
+      const distance = 199;
+      const velocity = 193;
+      expect(model.gestureAccepted(distance, velocity, 60, 400)).assertEqual(true);
+      expect(model.gestureAccepted(60, 0, 60, 400)).assertEqual(true);
+      expect(model.gestureAccepted(0, 400, 60, 400)).assertEqual(true);
+      expect(model.gestureAccepted(59, 399, 60, 400)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture129 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1950
+     * @tc.name    JsGesture130
+     * @tc.desc    Gesture distance 30 velocity 210 thresholds 20/500 seed 130
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture130', 0, async function () {
+      await yieldThread();
+      const distance = 30;
+      const velocity = 210;
+      expect(model.gestureAccepted(distance, velocity, 20, 500)).assertEqual(true);
+      expect(model.gestureAccepted(20, 0, 20, 500)).assertEqual(true);
+      expect(model.gestureAccepted(0, 500, 20, 500)).assertEqual(true);
+      expect(model.gestureAccepted(19, 499, 20, 500)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture130 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1951
+     * @tc.name    JsGesture131
+     * @tc.desc    Gesture distance 61 velocity 227 thresholds 30/600 seed 131
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture131', 0, async function () {
+      await yieldThread();
+      const distance = 61;
+      const velocity = 227;
+      expect(model.gestureAccepted(distance, velocity, 30, 600)).assertEqual(true);
+      expect(model.gestureAccepted(30, 0, 30, 600)).assertEqual(true);
+      expect(model.gestureAccepted(0, 600, 30, 600)).assertEqual(true);
+      expect(model.gestureAccepted(29, 599, 30, 600)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture131 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1952
+     * @tc.name    JsGesture132
+     * @tc.desc    Gesture distance 92 velocity 244 thresholds 40/700 seed 132
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture132', 0, async function () {
+      await yieldThread();
+      const distance = 92;
+      const velocity = 244;
+      expect(model.gestureAccepted(distance, velocity, 40, 700)).assertEqual(true);
+      expect(model.gestureAccepted(40, 0, 40, 700)).assertEqual(true);
+      expect(model.gestureAccepted(0, 700, 40, 700)).assertEqual(true);
+      expect(model.gestureAccepted(39, 699, 40, 700)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture132 done');
+    });
+}
+
+function GestureThresholdPart034() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1953
+     * @tc.name    JsGesture133
+     * @tc.desc    Gesture distance 123 velocity 261 thresholds 50/100 seed 133
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture133', 0, async function () {
+      await yieldThread();
+      const distance = 123;
+      const velocity = 261;
+      expect(model.gestureAccepted(distance, velocity, 50, 100)).assertEqual(true);
+      expect(model.gestureAccepted(50, 0, 50, 100)).assertEqual(true);
+      expect(model.gestureAccepted(0, 100, 50, 100)).assertEqual(true);
+      expect(model.gestureAccepted(49, 99, 50, 100)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture133 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1954
+     * @tc.name    JsGesture134
+     * @tc.desc    Gesture distance 154 velocity 278 thresholds 60/200 seed 134
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture134', 0, async function () {
+      await yieldThread();
+      const distance = 154;
+      const velocity = 278;
+      expect(model.gestureAccepted(distance, velocity, 60, 200)).assertEqual(true);
+      expect(model.gestureAccepted(60, 0, 60, 200)).assertEqual(true);
+      expect(model.gestureAccepted(0, 200, 60, 200)).assertEqual(true);
+      expect(model.gestureAccepted(59, 199, 60, 200)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture134 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1955
+     * @tc.name    JsGesture135
+     * @tc.desc    Gesture distance 185 velocity 295 thresholds 20/300 seed 135
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture135', 0, async function () {
+      await yieldThread();
+      const distance = 185;
+      const velocity = 295;
+      expect(model.gestureAccepted(distance, velocity, 20, 300)).assertEqual(true);
+      expect(model.gestureAccepted(20, 0, 20, 300)).assertEqual(true);
+      expect(model.gestureAccepted(0, 300, 20, 300)).assertEqual(true);
+      expect(model.gestureAccepted(19, 299, 20, 300)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture135 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1956
+     * @tc.name    JsGesture136
+     * @tc.desc    Gesture distance 16 velocity 312 thresholds 30/400 seed 136
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture136', 0, async function () {
+      await yieldThread();
+      const distance = 16;
+      const velocity = 312;
+      expect(model.gestureAccepted(distance, velocity, 30, 400)).assertEqual(false);
+      expect(model.gestureAccepted(30, 0, 30, 400)).assertEqual(true);
+      expect(model.gestureAccepted(0, 400, 30, 400)).assertEqual(true);
+      expect(model.gestureAccepted(29, 399, 30, 400)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture136 done');
+    });
+}
+
+function GestureThresholdPart035() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1957
+     * @tc.name    JsGesture137
+     * @tc.desc    Gesture distance 47 velocity 329 thresholds 40/500 seed 137
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture137', 0, async function () {
+      await yieldThread();
+      const distance = 47;
+      const velocity = 329;
+      expect(model.gestureAccepted(distance, velocity, 40, 500)).assertEqual(true);
+      expect(model.gestureAccepted(40, 0, 40, 500)).assertEqual(true);
+      expect(model.gestureAccepted(0, 500, 40, 500)).assertEqual(true);
+      expect(model.gestureAccepted(39, 499, 40, 500)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture137 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1958
+     * @tc.name    JsGesture138
+     * @tc.desc    Gesture distance 78 velocity 346 thresholds 50/600 seed 138
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture138', 0, async function () {
+      await yieldThread();
+      const distance = 78;
+      const velocity = 346;
+      expect(model.gestureAccepted(distance, velocity, 50, 600)).assertEqual(true);
+      expect(model.gestureAccepted(50, 0, 50, 600)).assertEqual(true);
+      expect(model.gestureAccepted(0, 600, 50, 600)).assertEqual(true);
+      expect(model.gestureAccepted(49, 599, 50, 600)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture138 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1959
+     * @tc.name    JsGesture139
+     * @tc.desc    Gesture distance 109 velocity 363 thresholds 60/700 seed 139
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture139', 0, async function () {
+      await yieldThread();
+      const distance = 109;
+      const velocity = 363;
+      expect(model.gestureAccepted(distance, velocity, 60, 700)).assertEqual(true);
+      expect(model.gestureAccepted(60, 0, 60, 700)).assertEqual(true);
+      expect(model.gestureAccepted(0, 700, 60, 700)).assertEqual(true);
+      expect(model.gestureAccepted(59, 699, 60, 700)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture139 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_1960
+     * @tc.name    JsGesture140
+     * @tc.desc    Gesture distance 140 velocity 380 thresholds 20/100 seed 140
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsGesture140', 0, async function () {
+      await yieldThread();
+      const distance = 140;
+      const velocity = 380;
+      expect(model.gestureAccepted(distance, velocity, 20, 100)).assertEqual(true);
+      expect(model.gestureAccepted(20, 0, 20, 100)).assertEqual(true);
+      expect(model.gestureAccepted(0, 100, 20, 100)).assertEqual(true);
+      expect(model.gestureAccepted(19, 99, 20, 100)).assertEqual(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsGesture140 done');
+    });
+}
+
+function GestureThresholdGroup001() {
+  GestureThresholdPart001();
+  GestureThresholdPart002();
+  GestureThresholdPart003();
+  GestureThresholdPart004();
+  GestureThresholdPart005();
+  GestureThresholdPart006();
+  GestureThresholdPart007();
+  GestureThresholdPart008();
+  GestureThresholdPart009();
+  GestureThresholdPart010();
+  GestureThresholdPart011();
+  GestureThresholdPart012();
+  GestureThresholdPart013();
+  GestureThresholdPart014();
+  GestureThresholdPart015();
+  GestureThresholdPart016();
+  GestureThresholdPart017();
+  GestureThresholdPart018();
+  GestureThresholdPart019();
+  GestureThresholdPart020();
+  GestureThresholdPart021();
+  GestureThresholdPart022();
+  GestureThresholdPart023();
+  GestureThresholdPart024();
+  GestureThresholdPart025();
+  GestureThresholdPart026();
+  GestureThresholdPart027();
+  GestureThresholdPart028();
+  GestureThresholdPart029();
+  GestureThresholdPart030();
+  GestureThresholdPart031();
+  GestureThresholdPart032();
+  GestureThresholdPart033();
+  GestureThresholdPart034();
+  GestureThresholdPart035();
+}
+
 export default function gestureThresholdSuite() {
   describe('GestureThresholdSuite', function () {
-    GestureThresholdPart001();
-    GestureThresholdPart002();
-    GestureThresholdPart003();
-    GestureThresholdPart004();
-    GestureThresholdPart005();
-    GestureThresholdPart006();
-    GestureThresholdPart007();
-    GestureThresholdPart008();
-    GestureThresholdPart009();
-    GestureThresholdPart010();
-    GestureThresholdPart011();
-    GestureThresholdPart012();
-    GestureThresholdPart013();
-    GestureThresholdPart014();
-    GestureThresholdPart015();
-    GestureThresholdPart016();
-    GestureThresholdPart017();
-    GestureThresholdPart018();
-    GestureThresholdPart019();
-    GestureThresholdPart020();
+    GestureThresholdGroup001();
   });
 }
