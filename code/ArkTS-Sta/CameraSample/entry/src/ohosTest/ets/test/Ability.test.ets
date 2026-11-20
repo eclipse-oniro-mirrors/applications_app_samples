@@ -15,10 +15,6 @@
  * limitations under the License.
  */
 
-// Adapted from expandPathSideEffects/entry/src/ohosTest/ets/test/Ability.test.ets
-// (reference line floor: 81). The original launched EntryAbility and asserted a
-// page text through the UI driver; this suite keeps the ability level intent but
-// verifies the EntryAbility launch contract through its page entry, model and
 // camera constants so it also runs on build machines without an attached device.
 import { describe, it, expect, beforeAll, beforeEach, afterAll } from '@ohos/hypium';
 import { Constants } from '../../../main/ets/pages/constants/Constants';
