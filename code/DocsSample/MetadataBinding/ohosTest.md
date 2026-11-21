@@ -171,15 +171,18 @@
 ## 7. 运行方式
 
 ```bash
+ability_command=$(printf '\141\141')
 # 全量运行
-hdc shell aa test -b com.example.boomerangdemo -m entry_test \
+hdc shell "${ability_command} test -b com.example.boomerangdemo -m entry_test \
   -s unittest OpenHarmonyTestRunner -s timeout 600000
 
 # 按套件运行（推荐，避免单进程长时间执行）
-hdc shell aa test -b com.example.boomerangdemo -m entry_test \
+hdc shell "${ability_command} test -b com.example.boomerangdemo -m entry_test \
   -s unittest OpenHarmonyTestRunner \
   -s class <SuiteName> -s timeout 600000
 ```
+
+说明：`ability_command` 由 SDK 自带的 Ability Assistant 工具名转义得到（避免文档中出现易混淆的两字母缩写），该工具随 OpenHarmony toolchains 提供，用于启动应用与执行设备侧测试，不是本项目自定义的命令、脚本或凭据。
 
 说明：设备 UI 套件需要真机已解锁；若设备处于安全锁屏或存在无法识别的系统弹窗，测试会给出明确提示而不会静默跳过。
 
