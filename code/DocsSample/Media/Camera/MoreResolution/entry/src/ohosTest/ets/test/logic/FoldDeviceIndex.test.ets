@@ -461,3 +461,379 @@ export default function foldDeviceIndexTest(): void {
       logInfo('actual=' + String(actual) + ', expected=' + "-1");
       expect(actual).assertEqual(-1);
       logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}FoldIndex_0025 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_FOLD_INDEX_0026
+     * @tc.name      Resolution_FoldIndex_0026
+     * @tc.desc      foldDeviceIndex(0, 1, [1,2]) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_FoldIndex_0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FoldIndex_0026 begin`);
+      logInfo("foldDeviceIndex(0, 1, [1,2])");
+      const actual: number = foldDeviceIndex(0, 1, [1,2]);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo(`${BUNDLE}FoldIndex_0026 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_FOLD_INDEX_0027
+     * @tc.name      Resolution_FoldIndex_0027
+     * @tc.desc      foldDeviceIndex(0, 2, [1,2]) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_FoldIndex_0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FoldIndex_0027 begin`);
+      logInfo("foldDeviceIndex(0, 2, [1,2])");
+      const actual: number = foldDeviceIndex(0, 2, [1,2]);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo(`${BUNDLE}FoldIndex_0027 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_FOLD_INDEX_0028
+     * @tc.name      Resolution_FoldIndex_0028
+     * @tc.desc      foldDeviceIndex(1, 0, [1,2]) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_FoldIndex_0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FoldIndex_0028 begin`);
+      logInfo("foldDeviceIndex(1, 0, [1,2])");
+      const actual: number = foldDeviceIndex(1, 0, [1,2]);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}FoldIndex_0028 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_FOLD_INDEX_0029
+     * @tc.name      Resolution_FoldIndex_0029
+     * @tc.desc      foldDeviceIndex(1, 1, [1,2]) returns 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_FoldIndex_0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FoldIndex_0029 begin`);
+      logInfo("foldDeviceIndex(1, 1, [1,2])");
+      const actual: number = foldDeviceIndex(1, 1, [1,2]);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo(`${BUNDLE}FoldIndex_0029 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_FOLD_INDEX_0030
+     * @tc.name      Resolution_FoldIndex_0030
+     * @tc.desc      foldDeviceIndex(1, 2, [1,2]) returns 1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_FoldIndex_0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FoldIndex_0030 begin`);
+      logInfo("foldDeviceIndex(1, 2, [1,2])");
+      const actual: number = foldDeviceIndex(1, 2, [1,2]);
+      logInfo('actual=' + String(actual) + ', expected=' + "1");
+      expect(actual).assertEqual(1);
+      logInfo(`${BUNDLE}FoldIndex_0030 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_FOLD_INDEX_0031
+     * @tc.name      Resolution_FoldIndex_0031
+     * @tc.desc      foldDeviceIndex(2, 0, [1,2]) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_FoldIndex_0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FoldIndex_0031 begin`);
+      logInfo("foldDeviceIndex(2, 0, [1,2])");
+      const actual: number = foldDeviceIndex(2, 0, [1,2]);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}FoldIndex_0031 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_FOLD_INDEX_0032
+     * @tc.name      Resolution_FoldIndex_0032
+     * @tc.desc      foldDeviceIndex(2, 1, [1,2]) returns 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_FoldIndex_0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FoldIndex_0032 begin`);
+      logInfo("foldDeviceIndex(2, 1, [1,2])");
+      const actual: number = foldDeviceIndex(2, 1, [1,2]);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo(`${BUNDLE}FoldIndex_0032 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_FOLD_INDEX_0033
+     * @tc.name      Resolution_FoldIndex_0033
+     * @tc.desc      foldDeviceIndex(2, 2, [1,2]) returns 1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_FoldIndex_0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FoldIndex_0033 begin`);
+      logInfo("foldDeviceIndex(2, 2, [1,2])");
+      const actual: number = foldDeviceIndex(2, 2, [1,2]);
+      logInfo('actual=' + String(actual) + ', expected=' + "1");
+      expect(actual).assertEqual(1);
+      logInfo(`${BUNDLE}FoldIndex_0033 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_FOLD_INDEX_0034
+     * @tc.name      Resolution_FoldIndex_0034
+     * @tc.desc      foldDeviceIndex(3, 0, [1,2]) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_FoldIndex_0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}FoldIndex_0034 begin`);
+      logInfo("foldDeviceIndex(3, 0, [1,2])");
+      const actual: number = foldDeviceIndex(3, 0, [1,2]);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}FoldIndex_0034 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_FOLD_INDEX_0035
+     * @tc.name      Resolution_FoldIndex_0035
+     * @tc.desc      foldDeviceIndex(3, 1, [1,2]) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Resolution_FoldIndex_0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}FoldIndex_0035 begin`);
+      logInfo("foldDeviceIndex(3, 1, [1,2])");
+      const actual: number = foldDeviceIndex(3, 1, [1,2]);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo(`${BUNDLE}FoldIndex_0035 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_FOLD_INDEX_0036
+     * @tc.name      Resolution_FoldIndex_0036
+     * @tc.desc      foldDeviceIndex(3, 2, [1,2]) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_FoldIndex_0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FoldIndex_0036 begin`);
+      logInfo("foldDeviceIndex(3, 2, [1,2])");
+      const actual: number = foldDeviceIndex(3, 2, [1,2]);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo(`${BUNDLE}FoldIndex_0036 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_FOLD_INDEX_0037
+     * @tc.name      Resolution_FoldIndex_0037
+     * @tc.desc      foldDeviceIndex(0, 0, [2,1]) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_FoldIndex_0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FoldIndex_0037 begin`);
+      logInfo("foldDeviceIndex(0, 0, [2,1])");
+      const actual: number = foldDeviceIndex(0, 0, [2,1]);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}FoldIndex_0037 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_FOLD_INDEX_0038
+     * @tc.name      Resolution_FoldIndex_0038
+     * @tc.desc      foldDeviceIndex(0, 1, [2,1]) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_FoldIndex_0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FoldIndex_0038 begin`);
+      logInfo("foldDeviceIndex(0, 1, [2,1])");
+      const actual: number = foldDeviceIndex(0, 1, [2,1]);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo(`${BUNDLE}FoldIndex_0038 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_FOLD_INDEX_0039
+     * @tc.name      Resolution_FoldIndex_0039
+     * @tc.desc      foldDeviceIndex(0, 2, [2,1]) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_FoldIndex_0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FoldIndex_0039 begin`);
+      logInfo("foldDeviceIndex(0, 2, [2,1])");
+      const actual: number = foldDeviceIndex(0, 2, [2,1]);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo(`${BUNDLE}FoldIndex_0039 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_FOLD_INDEX_0040
+     * @tc.name      Resolution_FoldIndex_0040
+     * @tc.desc      foldDeviceIndex(1, 0, [2,1]) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_FoldIndex_0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FoldIndex_0040 begin`);
+      logInfo("foldDeviceIndex(1, 0, [2,1])");
+      const actual: number = foldDeviceIndex(1, 0, [2,1]);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}FoldIndex_0040 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_FOLD_INDEX_0041
+     * @tc.name      Resolution_FoldIndex_0041
+     * @tc.desc      foldDeviceIndex(1, 1, [2,1]) returns 1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_FoldIndex_0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FoldIndex_0041 begin`);
+      logInfo("foldDeviceIndex(1, 1, [2,1])");
+      const actual: number = foldDeviceIndex(1, 1, [2,1]);
+      logInfo('actual=' + String(actual) + ', expected=' + "1");
+      expect(actual).assertEqual(1);
+      logInfo(`${BUNDLE}FoldIndex_0041 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_FOLD_INDEX_0042
+     * @tc.name      Resolution_FoldIndex_0042
+     * @tc.desc      foldDeviceIndex(1, 2, [2,1]) returns 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_FoldIndex_0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FoldIndex_0042 begin`);
+      logInfo("foldDeviceIndex(1, 2, [2,1])");
+      const actual: number = foldDeviceIndex(1, 2, [2,1]);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo(`${BUNDLE}FoldIndex_0042 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_FOLD_INDEX_0043
+     * @tc.name      Resolution_FoldIndex_0043
+     * @tc.desc      foldDeviceIndex(2, 0, [2,1]) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_FoldIndex_0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FoldIndex_0043 begin`);
+      logInfo("foldDeviceIndex(2, 0, [2,1])");
+      const actual: number = foldDeviceIndex(2, 0, [2,1]);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}FoldIndex_0043 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_FOLD_INDEX_0044
+     * @tc.name      Resolution_FoldIndex_0044
+     * @tc.desc      foldDeviceIndex(2, 1, [2,1]) returns 1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_FoldIndex_0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FoldIndex_0044 begin`);
+      logInfo("foldDeviceIndex(2, 1, [2,1])");
+      const actual: number = foldDeviceIndex(2, 1, [2,1]);
+      logInfo('actual=' + String(actual) + ', expected=' + "1");
+      expect(actual).assertEqual(1);
+      logInfo(`${BUNDLE}FoldIndex_0044 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_FOLD_INDEX_0045
+     * @tc.name      Resolution_FoldIndex_0045
+     * @tc.desc      foldDeviceIndex(2, 2, [2,1]) returns 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_FoldIndex_0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}FoldIndex_0045 begin`);
+      logInfo("foldDeviceIndex(2, 2, [2,1])");
+      const actual: number = foldDeviceIndex(2, 2, [2,1]);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo(`${BUNDLE}FoldIndex_0045 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_FOLD_INDEX_0046
+     * @tc.name      Resolution_FoldIndex_0046
+     * @tc.desc      foldDeviceIndex(3, 0, [2,1]) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_FoldIndex_0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FoldIndex_0046 begin`);
+      logInfo("foldDeviceIndex(3, 0, [2,1])");
+      const actual: number = foldDeviceIndex(3, 0, [2,1]);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}FoldIndex_0046 end`);
+    });
+  });
+}
