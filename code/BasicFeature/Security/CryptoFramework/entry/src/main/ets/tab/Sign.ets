@@ -13,14 +13,14 @@
  * limitations under the License.
  */
 
-import promptAction from '@ohos.promptAction';
+import { promptAction } from '@kit.ArkUI';
 import Logger from '../util/Logger';
-import picker from '@ohos.file.picker';
+import { picker } from '@kit.CoreFileKit';
 import { CryptoOperation } from '../cryptoframework/CryptoOperation';
 import TextFileManager from '../textfilemanager/TextFileManager';
-import common from '@ohos.app.ability.common';
+import { common, Want } from '@kit.AbilityKit';
 
-const TAG: string = '[Crypto_Framework]';
+const TAG: string = '[Sample_CryptoFramework]';
 
 @Component
 export struct Sign {
@@ -68,7 +68,7 @@ export struct Sign {
                   .padding({ top: 4, left: 12, right: 12 })
                 }.onClick(() => {
                   this.selectTextFileAndRead();
-                })
+                });
 
                 ListItem() {
                   Row() {
@@ -95,7 +95,7 @@ export struct Sign {
                   .padding({ left: 12, right: 12 })
                 }.onClick(() => {
                   this.selectRsaKeyFileAndRead();
-                })
+                });
               }
               .width('100%')
               .height('100%')
@@ -126,7 +126,7 @@ export struct Sign {
                     Span(this.plainText)
                       .fontSize(16)
                       .fontWeight(400)
-                      .fontColor('#182431')
+                      .fontColor($r('app.color.text_primary'))
                   }.textAlign(TextAlign.Start)
                 }
                 .padding({ left: 12, right: 12, bottom: 4 })
@@ -150,7 +150,7 @@ export struct Sign {
                 Button() {
                   Text($r('app.string.generate_rsa_key_randomly')).fontSize(16).fontWeight(500)
                     .lineHeight(22)
-                    .fontColor('#FFFFFF')
+                    .fontColor($r('app.color.button_text'))
                 }
                 .id('encryptRsaGenKey')
                 .borderRadius(20)
@@ -158,7 +158,7 @@ export struct Sign {
                 .width('100%')
                 .height('40vp')
                 .margin({ bottom: 16 })
-                .backgroundColor('#007DFF')
+                .backgroundColor($r('app.color.button_background'))
                 .onClick(() => {
                   this.genRsaKey();
                 });
@@ -166,7 +166,7 @@ export struct Sign {
                 Button() {
                   Text($r('app.string.sign')).fontSize(16).fontWeight(500)
                     .lineHeight(22)
-                    .fontColor('#FFFFFF')
+                    .fontColor($r('app.color.button_text'))
                 }
                 .borderRadius(20)
                 .id('signBtn')
@@ -174,7 +174,7 @@ export struct Sign {
                 .margin({ left: 24, right: 24 })
                 .width('100%')
                 .height('40vp')
-                .backgroundColor('#007DFF')
+                .backgroundColor($r('app.color.button_background'))
                 .onClick(() => {
                   if (this.textFileUri === '' || this.keyFileUri === '') {
                     promptAction.showToast({
@@ -186,7 +186,7 @@ export struct Sign {
                 });
               }
             }
-          }.margin({ left: 24, right: 24 })
+          }.margin({ left: 24, right: 24 });
         }.width('100%').height('412vp').justifyContent(FlexAlign.End)
       }
       .width('100%')
@@ -194,87 +194,107 @@ export struct Sign {
     }
   }
 
-  async selectRsaKeyFileAndRead() {
-    let config = {
+  async selectRsaKeyFileAndRead(): Promise<void> {
+    let config: Want = {
       action: 'ohos.want.action.OPEN_FILE',
       parameters: {
         startMode: 'choose',
       }
     }
-    let context = getContext(this) as common.UIAbilityContext;
-    let result = await context.startAbilityForResult(config);
+    let context: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
+    let result: common.AbilityResult = await context.startAbilityForResult(config);
     if (result === null || result === undefined) {
       Logger.error(TAG, `result is null or undefined!`);
       return;
     }
-    if (result.resultCode !== 0) {
-      Logger.error(TAG, `DocumentPicker.select failed, code is ${result.resultCode}, message is ${result.want.parameters.message}`);
+    let want: Want | undefined = result.want;
+    if (want === null || want === undefined) {
+      Logger.error(TAG, `result want is null or undefined!`);
       return;
     }
-    if (result.want.parameters.select_item_list === null || result.want.parameters.select_item_list === undefined) {
+    let parameters: Record<string, Object> | undefined = want.parameters;
+    if (parameters === null || parameters === undefined) {
+      Logger.error(TAG, `result parameters is null or undefined!`);
+      return;
+    }
+    if (result.resultCode !== 0) {
+      Logger.error(TAG, `DocumentPicker.select failed, code is ${result.resultCode}, message is ${parameters.message}`);
+      return;
+    }
+    if (parameters.select_item_list === null || parameters.select_item_list === undefined) {
       Logger.error(TAG, `result uri is null or undefined!`);
       return;
     }
-    if (result.want.parameters.file_name_list === null || result.want.parameters.file_name_list === undefined) {
+    if (parameters.file_name_list === null || parameters.file_name_list === undefined) {
       Logger.error(TAG, `result file name is null or undefined!`);
       return;
     }
     // 获取到密钥文档文件的URI
-    this.keyFileUri = result.want.parameters.select_item_list.toString();
+    this.keyFileUri = parameters.select_item_list.toString();
     // 获取到密钥文档文件的文件名称
-    this.keyFileName = result.want.parameters.file_name_list.toString();
+    this.keyFileName = parameters.file_name_list.toString();
     await TextFileManager.readTextFile(this.keyFileUri);
     this.keyString = TextFileManager.getString();
   }
 
-  async selectTextFileAndRead() {
-    let config = {
+  async selectTextFileAndRead(): Promise<void> {
+    let config: Want = {
       action: 'ohos.want.action.OPEN_FILE',
       parameters: {
         startMode: 'choose',
       }
     }
-    let context = getContext(this) as common.UIAbilityContext;
-    let result = await context.startAbilityForResult(config);
+    let context: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
+    let result: common.AbilityResult = await context.startAbilityForResult(config);
     if (result === null || result === undefined) {
       Logger.error(TAG, `result is null or undefined!`);
       return;
     }
-    if (result.resultCode !== 0) {
-      Logger.error(TAG, `DocumentPicker.select failed, code is ${result.resultCode}, message is ${result.want.parameters.message}`);
+    let want: Want | undefined = result.want;
+    if (want === null || want === undefined) {
+      Logger.error(TAG, `result want is null or undefined!`);
       return;
     }
-    if (result.want.parameters.select_item_list === null || result.want.parameters.select_item_list === undefined) {
+    let parameters: Record<string, Object> | undefined = want.parameters;
+    if (parameters === null || parameters === undefined) {
+      Logger.error(TAG, `result parameters is null or undefined!`);
+      return;
+    }
+    if (result.resultCode !== 0) {
+      Logger.error(TAG, `DocumentPicker.select failed, code is ${result.resultCode}, message is ${parameters.message}`);
+      return;
+    }
+    if (parameters.select_item_list === null || parameters.select_item_list === undefined) {
       Logger.error(TAG, `result uri is null or undefined!`);
       return;
     }
-    if (result.want.parameters.file_name_list === null || result.want.parameters.file_name_list === undefined) {
+    if (parameters.file_name_list === null || parameters.file_name_list === undefined) {
       Logger.error(TAG, `result file name is null or undefined!`);
       return;
     }
     // 获取到文档文件的URI
-    this.textFileUri = result.want.parameters.select_item_list.toString();
+    this.textFileUri = parameters.select_item_list.toString();
     // 获取到文档文件的文件名称
-    this.textFileName = result.want.parameters.file_name_list.toString();
+    this.textFileName = parameters.file_name_list.toString();
     await TextFileManager.readTextFile(this.textFileUri);
     this.plainText = TextFileManager.getString();
   }
 
-  async createTextFileAndWrite() {
-    let documentSaveOptions = new picker.DocumentSaveOptions();
+  async createTextFileAndWrite(): Promise<void> {
+    let documentSaveOptions: picker.DocumentSaveOptions = new picker.DocumentSaveOptions();
     documentSaveOptions.newFileNames = ['signText.txt'];
-    let documentPicker = new picker.DocumentViewPicker();
-    let documentSaveResult = await documentPicker.save(documentSaveOptions);
+    let documentPicker: picker.DocumentViewPicker = new picker.DocumentViewPicker();
+    let documentSaveResult: Array<string> = await documentPicker.save(documentSaveOptions);
     this.signFileUri = documentSaveResult[0];
     await TextFileManager.writeTextFile(this.signFileUri, this.cipherText);
   }
 
-  async createKeyFileAndWrite() {
-    let documentSaveOptions = new picker.DocumentSaveOptions();
+  async createKeyFileAndWrite(): Promise<void> {
+    let documentSaveOptions: picker.DocumentSaveOptions = new picker.DocumentSaveOptions();
     documentSaveOptions.newFileNames = ['rsaKey.txt'];
-    let documentPicker = new picker.DocumentViewPicker();
+    let documentPicker: picker.DocumentViewPicker = new picker.DocumentViewPicker();
     try {
-      let documentSaveResult = await documentPicker.save(documentSaveOptions);
+      let documentSaveResult: Array<string> = await documentPicker.save(documentSaveOptions);
       this.createKeyUri = documentSaveResult[0];
       await TextFileManager.writeTextFile(this.createKeyUri, this.keyString);
     } catch (error) {
@@ -283,7 +303,7 @@ export struct Sign {
 
   }
 
-  async signFunc() {
+  async signFunc(): Promise<void> {
     if (this.plainText === '' || this.keyFileUri === '') {
       promptAction.showToast({
         message: $r('app.string.null_message')
@@ -317,7 +337,7 @@ export struct Sign {
     }
   }
 
-  async genRsaKey() {
+  async genRsaKey(): Promise<void> {
     promptAction.showToast({
       message: $r('app.string.slow_rsa_key_gen')
     });
