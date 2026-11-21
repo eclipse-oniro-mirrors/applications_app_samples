@@ -1980,3 +1980,679 @@ export default function weatherComprehensiveRegressionSuite() {
       expect(m.getCity('nohit260') === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0261
+     * @tc.name    WeatherComprehensiveRegression261
+     * @tc.desc    Weather hottest and coldest bounds 261 probe 261
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression261', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-59)).assertEqual(-59 >= -50 && -59 <= 60);
+      expect(m.getCity('nohit261') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0262
+     * @tc.name    WeatherComprehensiveRegression262
+     * @tc.desc    Weather hottest and coldest bounds 262 probe 262
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression262', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-58)).assertEqual(-58 >= -50 && -58 <= 60);
+      expect(m.getCity('nohit262') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0263
+     * @tc.name    WeatherComprehensiveRegression263
+     * @tc.desc    Weather hottest and coldest bounds 263 probe 263
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression263', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-57)).assertEqual(-57 >= -50 && -57 <= 60);
+      expect(m.getCity('nohit263') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0264
+     * @tc.name    WeatherComprehensiveRegression264
+     * @tc.desc    Weather hottest and coldest bounds 264 probe 264
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression264', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-56)).assertEqual(-56 >= -50 && -56 <= 60);
+      expect(m.getCity('nohit264') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0265
+     * @tc.name    WeatherComprehensiveRegression265
+     * @tc.desc    Weather hottest and coldest bounds 265 probe 265
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression265', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-55)).assertEqual(-55 >= -50 && -55 <= 60);
+      expect(m.getCity('nohit265') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0266
+     * @tc.name    WeatherComprehensiveRegression266
+     * @tc.desc    Weather hottest and coldest bounds 266 probe 266
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression266', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-54)).assertEqual(-54 >= -50 && -54 <= 60);
+      expect(m.getCity('nohit266') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0267
+     * @tc.name    WeatherComprehensiveRegression267
+     * @tc.desc    Weather hottest and coldest bounds 267 probe 267
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression267', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-53)).assertEqual(-53 >= -50 && -53 <= 60);
+      expect(m.getCity('nohit267') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0268
+     * @tc.name    WeatherComprehensiveRegression268
+     * @tc.desc    Weather hottest and coldest bounds 268 probe 268
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression268', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-52)).assertEqual(-52 >= -50 && -52 <= 60);
+      expect(m.getCity('nohit268') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0269
+     * @tc.name    WeatherComprehensiveRegression269
+     * @tc.desc    Weather hottest and coldest bounds 269 probe 269
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression269', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-51)).assertEqual(-51 >= -50 && -51 <= 60);
+      expect(m.getCity('nohit269') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0270
+     * @tc.name    WeatherComprehensiveRegression270
+     * @tc.desc    Weather hottest and coldest bounds 270 probe 270
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression270', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-50)).assertEqual(-50 >= -50 && -50 <= 60);
+      expect(m.getCity('nohit270') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0271
+     * @tc.name    WeatherComprehensiveRegression271
+     * @tc.desc    Weather hottest and coldest bounds 271 probe 271
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression271', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-49)).assertEqual(-49 >= -50 && -49 <= 60);
+      expect(m.getCity('nohit271') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0272
+     * @tc.name    WeatherComprehensiveRegression272
+     * @tc.desc    Weather hottest and coldest bounds 272 probe 272
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression272', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-48)).assertEqual(-48 >= -50 && -48 <= 60);
+      expect(m.getCity('nohit272') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0273
+     * @tc.name    WeatherComprehensiveRegression273
+     * @tc.desc    Weather hottest and coldest bounds 273 probe 273
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression273', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-47)).assertEqual(-47 >= -50 && -47 <= 60);
+      expect(m.getCity('nohit273') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0274
+     * @tc.name    WeatherComprehensiveRegression274
+     * @tc.desc    Weather hottest and coldest bounds 274 probe 274
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression274', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-46)).assertEqual(-46 >= -50 && -46 <= 60);
+      expect(m.getCity('nohit274') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0275
+     * @tc.name    WeatherComprehensiveRegression275
+     * @tc.desc    Weather hottest and coldest bounds 275 probe 275
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression275', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-45)).assertEqual(-45 >= -50 && -45 <= 60);
+      expect(m.getCity('nohit275') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0276
+     * @tc.name    WeatherComprehensiveRegression276
+     * @tc.desc    Weather hottest and coldest bounds 276 probe 276
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression276', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-44)).assertEqual(-44 >= -50 && -44 <= 60);
+      expect(m.getCity('nohit276') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0277
+     * @tc.name    WeatherComprehensiveRegression277
+     * @tc.desc    Weather hottest and coldest bounds 277 probe 277
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression277', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-43)).assertEqual(-43 >= -50 && -43 <= 60);
+      expect(m.getCity('nohit277') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0278
+     * @tc.name    WeatherComprehensiveRegression278
+     * @tc.desc    Weather hottest and coldest bounds 278 probe 278
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression278', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-42)).assertEqual(-42 >= -50 && -42 <= 60);
+      expect(m.getCity('nohit278') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0279
+     * @tc.name    WeatherComprehensiveRegression279
+     * @tc.desc    Weather hottest and coldest bounds 279 probe 279
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression279', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-41)).assertEqual(-41 >= -50 && -41 <= 60);
+      expect(m.getCity('nohit279') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0280
+     * @tc.name    WeatherComprehensiveRegression280
+     * @tc.desc    Weather hottest and coldest bounds 280 probe 280
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression280', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-40)).assertEqual(-40 >= -50 && -40 <= 60);
+      expect(m.getCity('nohit280') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0281
+     * @tc.name    WeatherComprehensiveRegression281
+     * @tc.desc    Weather hottest and coldest bounds 281 probe 281
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression281', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-39)).assertEqual(-39 >= -50 && -39 <= 60);
+      expect(m.getCity('nohit281') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0282
+     * @tc.name    WeatherComprehensiveRegression282
+     * @tc.desc    Weather hottest and coldest bounds 282 probe 282
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression282', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-38)).assertEqual(-38 >= -50 && -38 <= 60);
+      expect(m.getCity('nohit282') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0283
+     * @tc.name    WeatherComprehensiveRegression283
+     * @tc.desc    Weather hottest and coldest bounds 283 probe 283
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression283', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-37)).assertEqual(-37 >= -50 && -37 <= 60);
+      expect(m.getCity('nohit283') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0284
+     * @tc.name    WeatherComprehensiveRegression284
+     * @tc.desc    Weather hottest and coldest bounds 284 probe 284
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression284', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-36)).assertEqual(-36 >= -50 && -36 <= 60);
+      expect(m.getCity('nohit284') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0285
+     * @tc.name    WeatherComprehensiveRegression285
+     * @tc.desc    Weather hottest and coldest bounds 285 probe 285
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression285', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-35)).assertEqual(-35 >= -50 && -35 <= 60);
+      expect(m.getCity('nohit285') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0286
+     * @tc.name    WeatherComprehensiveRegression286
+     * @tc.desc    Weather hottest and coldest bounds 286 probe 286
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression286', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-34)).assertEqual(-34 >= -50 && -34 <= 60);
+      expect(m.getCity('nohit286') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0287
+     * @tc.name    WeatherComprehensiveRegression287
+     * @tc.desc    Weather hottest and coldest bounds 287 probe 287
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression287', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-33)).assertEqual(-33 >= -50 && -33 <= 60);
+      expect(m.getCity('nohit287') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0288
+     * @tc.name    WeatherComprehensiveRegression288
+     * @tc.desc    Weather hottest and coldest bounds 288 probe 288
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression288', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-32)).assertEqual(-32 >= -50 && -32 <= 60);
+      expect(m.getCity('nohit288') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0289
+     * @tc.name    WeatherComprehensiveRegression289
+     * @tc.desc    Weather hottest and coldest bounds 289 probe 289
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression289', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-31)).assertEqual(-31 >= -50 && -31 <= 60);
+      expect(m.getCity('nohit289') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0290
+     * @tc.name    WeatherComprehensiveRegression290
+     * @tc.desc    Weather hottest and coldest bounds 290 probe 290
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression290', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-30)).assertEqual(-30 >= -50 && -30 <= 60);
+      expect(m.getCity('nohit290') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0291
+     * @tc.name    WeatherComprehensiveRegression291
+     * @tc.desc    Weather hottest and coldest bounds 291 probe 291
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression291', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-29)).assertEqual(-29 >= -50 && -29 <= 60);
+      expect(m.getCity('nohit291') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0292
+     * @tc.name    WeatherComprehensiveRegression292
+     * @tc.desc    Weather hottest and coldest bounds 292 probe 292
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherComprehensiveRegression292', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const hot = m.hottestIndex();
+      const cold = m.coldestIndex();
+      expect(hot >= 0 && hot < m.getCityCount()).assertEqual(true);
+      expect(cold >= 0 && cold < m.getCityCount()).assertEqual(true);
+      expect(m.averageTemp() >= -50).assertEqual(true);
+      expect(m.isTempValid(-28)).assertEqual(-28 >= -50 && -28 <= 60);
+      expect(m.getCity('nohit292') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
