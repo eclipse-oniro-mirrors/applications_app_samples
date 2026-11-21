@@ -477,3 +477,310 @@ export default function resolutionHeightTest(): void {
       logInfo(`${BUNDLE}ResHeight_0026 begin`);
       logInfo("resolutionHeight(70)");
       const actual: number = resolutionHeight(70);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo(`${BUNDLE}ResHeight_0026 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_HEIGHT_0027
+     * @tc.name      Resolution_ResHeight_0027
+     * @tc.desc      resolutionHeight(80) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResHeight_0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResHeight_0027 begin`);
+      logInfo("resolutionHeight(80)");
+      const actual: number = resolutionHeight(80);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo(`${BUNDLE}ResHeight_0027 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_HEIGHT_0028
+     * @tc.name      Resolution_ResHeight_0028
+     * @tc.desc      resolutionHeight(90) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResHeight_0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResHeight_0028 begin`);
+      logInfo("resolutionHeight(90)");
+      const actual: number = resolutionHeight(90);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}ResHeight_0028 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_HEIGHT_0029
+     * @tc.name      Resolution_ResHeight_0029
+     * @tc.desc      resolutionHeight(100) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResHeight_0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResHeight_0029 begin`);
+      logInfo("resolutionHeight(100)");
+      const actual: number = resolutionHeight(100);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo(`${BUNDLE}ResHeight_0029 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_HEIGHT_0030
+     * @tc.name      Resolution_ResHeight_0030
+     * @tc.desc      resolutionHeight(200) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResHeight_0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResHeight_0030 begin`);
+      logInfo("resolutionHeight(200)");
+      const actual: number = resolutionHeight(200);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo(`${BUNDLE}ResHeight_0030 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_HEIGHT_0031
+     * @tc.name      Resolution_ResHeight_0031
+     * @tc.desc      resolutionHeight(255) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResHeight_0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResHeight_0031 begin`);
+      logInfo("resolutionHeight(255)");
+      const actual: number = resolutionHeight(255);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}ResHeight_0031 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_HEIGHT_0032
+     * @tc.name      Resolution_ResHeight_0032
+     * @tc.desc      resolutionHeight(360) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResHeight_0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResHeight_0032 begin`);
+      logInfo("resolutionHeight(360)");
+      const actual: number = resolutionHeight(360);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo(`${BUNDLE}ResHeight_0032 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_HEIGHT_0033
+     * @tc.name      Resolution_ResHeight_0033
+     * @tc.desc      resolutionHeight(720) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResHeight_0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResHeight_0033 begin`);
+      logInfo("resolutionHeight(720)");
+      const actual: number = resolutionHeight(720);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo(`${BUNDLE}ResHeight_0033 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_HEIGHT_0034
+     * @tc.name      Resolution_ResHeight_0034
+     * @tc.desc      resolutionHeight(1080) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_ResHeight_0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}ResHeight_0034 begin`);
+      logInfo("resolutionHeight(1080)");
+      const actual: number = resolutionHeight(1080);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}ResHeight_0034 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_HEIGHT_0035
+     * @tc.name      Resolution_ResHeight_0035
+     * @tc.desc      resolutionHeight(1280) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Resolution_ResHeight_0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}ResHeight_0035 begin`);
+      logInfo("resolutionHeight(1280)");
+      const actual: number = resolutionHeight(1280);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo(`${BUNDLE}ResHeight_0035 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_HEIGHT_0036
+     * @tc.name      Resolution_ResHeight_0036
+     * @tc.desc      resolutionHeight(1920) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResHeight_0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResHeight_0036 begin`);
+      logInfo("resolutionHeight(1920)");
+      const actual: number = resolutionHeight(1920);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo(`${BUNDLE}ResHeight_0036 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_HEIGHT_0037
+     * @tc.name      Resolution_ResHeight_0037
+     * @tc.desc      resolutionHeight(3840) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResHeight_0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResHeight_0037 begin`);
+      logInfo("resolutionHeight(3840)");
+      const actual: number = resolutionHeight(3840);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}ResHeight_0037 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_HEIGHT_0038
+     * @tc.name      Resolution_ResHeight_0038
+     * @tc.desc      resolutionHeight(4096) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResHeight_0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResHeight_0038 begin`);
+      logInfo("resolutionHeight(4096)");
+      const actual: number = resolutionHeight(4096);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo(`${BUNDLE}ResHeight_0038 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_HEIGHT_0039
+     * @tc.name      Resolution_ResHeight_0039
+     * @tc.desc      resolutionHeight(999) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResHeight_0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResHeight_0039 begin`);
+      logInfo("resolutionHeight(999)");
+      const actual: number = resolutionHeight(999);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo(`${BUNDLE}ResHeight_0039 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_HEIGHT_0040
+     * @tc.name      Resolution_ResHeight_0040
+     * @tc.desc      resolutionHeight(1000) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResHeight_0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResHeight_0040 begin`);
+      logInfo("resolutionHeight(1000)");
+      const actual: number = resolutionHeight(1000);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}ResHeight_0040 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_HEIGHT_0041
+     * @tc.name      Resolution_ResHeight_0041
+     * @tc.desc      resolutionHeight(24) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResHeight_0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResHeight_0041 begin`);
+      logInfo("resolutionHeight(24)");
+      const actual: number = resolutionHeight(24);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo(`${BUNDLE}ResHeight_0041 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_HEIGHT_0042
+     * @tc.name      Resolution_ResHeight_0042
+     * @tc.desc      resolutionHeight(25) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResHeight_0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResHeight_0042 begin`);
+      logInfo("resolutionHeight(25)");
+      const actual: number = resolutionHeight(25);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo(`${BUNDLE}ResHeight_0042 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_HEIGHT_0043
+     * @tc.name      Resolution_ResHeight_0043
+     * @tc.desc      resolutionHeight(28) returns -1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResHeight_0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResHeight_0043 begin`);
+      logInfo("resolutionHeight(28)");
+      const actual: number = resolutionHeight(28);
+      logInfo('actual=' + String(actual) + ', expected=' + "-1");
+      expect(actual).assertEqual(-1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}ResHeight_0043 end`);
+    });
+  });
+}
