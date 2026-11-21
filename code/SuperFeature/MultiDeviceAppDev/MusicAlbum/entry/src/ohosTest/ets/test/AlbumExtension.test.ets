@@ -5975,3 +5975,1191 @@ export default function albumExtensionSuite() {
       expect(source.totalCount()).assertEqual(2);
       expect(source.getData(1).id).assertEqual(2);
     })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1691
+     * @tc.name    AlbumExtension1691
+     * @tc.desc    Pushing 3 tracks raises the count accordingly
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5dsPush3', 0, () => {
+      const source: MyDataSource = new MyDataSource([]);
+      for (let k = 0; k < 3; k++) {
+        source.pushData(makeTrack(k + 1, 'p' + String(k)));
+      }
+      expect(source.totalCount()).assertEqual(3);
+      expect(source.getData(2).id).assertEqual(3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1692
+     * @tc.name    AlbumExtension1692
+     * @tc.desc    Adding a track at index 0 keeps the order
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5dsAdd_head', 0, () => {
+      const source: MyDataSource = new MyDataSource([makeTrack(1, 'a'), makeTrack(2, 'b')]);
+      source.addData(0, makeTrack(9, 'x'));
+      expect(source.totalCount()).assertEqual(3);
+      expect(source.getData(0).id).assertEqual(9);
+      expect(source.getData(1).id).assertEqual(1);
+      expect(source.getData(2).id).assertEqual(2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1693
+     * @tc.name    AlbumExtension1693
+     * @tc.desc    Adding a track at index 1 keeps the order
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5dsAdd_mid', 0, () => {
+      const source: MyDataSource = new MyDataSource([makeTrack(1, 'a'), makeTrack(2, 'b')]);
+      source.addData(1, makeTrack(9, 'x'));
+      expect(source.totalCount()).assertEqual(3);
+      expect(source.getData(1).id).assertEqual(9);
+      expect(source.getData(0).id).assertEqual(1);
+      expect(source.getData(2).id).assertEqual(2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1694
+     * @tc.name    AlbumExtension1694
+     * @tc.desc    Adding a track at index 2 keeps the order
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5dsAdd_tail', 0, () => {
+      const source: MyDataSource = new MyDataSource([makeTrack(1, 'a'), makeTrack(2, 'b')]);
+      source.addData(2, makeTrack(9, 'x'));
+      expect(source.totalCount()).assertEqual(3);
+      expect(source.getData(2).id).assertEqual(9);
+      expect(source.getData(0).id).assertEqual(1);
+      expect(source.getData(1).id).assertEqual(2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1695
+     * @tc.name    AlbumExtension1695
+     * @tc.desc    A registered listener receives the push callback once
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5dsListener', 0, () => {
+      const source: MyDataSource = new MyDataSource([makeTrack(1, 'a')]);
+      const listener: AlbumListener = new AlbumListener('one', []);
+      source.registerDataChangeListener(listener);
+      source.pushData(makeTrack(2, 'b'));
+      expect(listener.addCount).assertEqual(1);
+      expect(listener.lastAddIndex).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1696
+     * @tc.name    AlbumExtension1696
+     * @tc.desc    Two listeners each receive the push callback
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5dsTwo', 0, () => {
+      const source: MyDataSource = new MyDataSource([makeTrack(1, 'a')]);
+      const first: AlbumListener = new AlbumListener('a', []);
+      const second: AlbumListener = new AlbumListener('b', []);
+      source.registerDataChangeListener(first);
+      source.registerDataChangeListener(second);
+      source.pushData(makeTrack(2, 'b'));
+      expect(first.addCount).assertEqual(1);
+      expect(second.addCount).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1697
+     * @tc.name    AlbumExtension1697
+     * @tc.desc    An unregistered listener stops receiving callbacks
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5dsUnregister', 0, () => {
+      const source: MyDataSource = new MyDataSource([makeTrack(1, 'a')]);
+      const listener: AlbumListener = new AlbumListener('one', []);
+      source.registerDataChangeListener(listener);
+      source.unregisterDataChangeListener(listener);
+      source.pushData(makeTrack(2, 'b'));
+      expect(listener.addCount).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1698
+     * @tc.name    AlbumExtension1698
+     * @tc.desc    Unregistering an unknown listener is a no-op
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5dsUnregisterUnknown', 0, () => {
+      const source: MyDataSource = new MyDataSource([makeTrack(1, 'a')]);
+      const listener: AlbumListener = new AlbumListener('one', []);
+      source.unregisterDataChangeListener(listener);
+      source.pushData(makeTrack(2, 'b'));
+      expect(source.totalCount()).assertEqual(2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1699
+     * @tc.name    AlbumExtension1699
+     * @tc.desc    A reload notification reaches every listener
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5dsReload', 0, () => {
+      const source: MyDataSource = new MyDataSource([makeTrack(1, 'a')]);
+      const listener: AlbumListener = new AlbumListener('one', []);
+      source.registerDataChangeListener(listener);
+      source.notifyDataReload();
+      expect(listener.reloadCount).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1700
+     * @tc.name    AlbumExtension1700
+     * @tc.desc    A change notification reaches a registered listener
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ds_change', 0, () => {
+      const source: MyDataSource = new MyDataSource([makeTrack(1, 'a'), makeTrack(2, 'b')]);
+      const listener: AlbumListener = new AlbumListener('one', []);
+      source.registerDataChangeListener(listener);
+      source.notifyDataChange(0);
+      expect(listener.changeCount).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1701
+     * @tc.name    AlbumExtension1701
+     * @tc.desc    A delete notification reaches a registered listener
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ds_delete', 0, () => {
+      const source: MyDataSource = new MyDataSource([makeTrack(1, 'a'), makeTrack(2, 'b')]);
+      const listener: AlbumListener = new AlbumListener('one', []);
+      source.registerDataChangeListener(listener);
+      source.notifyDataDelete(0);
+      expect(listener.deleteCount).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1702
+     * @tc.name    AlbumExtension1702
+     * @tc.desc    A move notification reaches a registered listener
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5ds_move', 0, () => {
+      const source: MyDataSource = new MyDataSource([makeTrack(1, 'a'), makeTrack(2, 'b')]);
+      const listener: AlbumListener = new AlbumListener('one', []);
+      source.registerDataChangeListener(listener);
+      source.notifyDataMove(0, 1);
+      expect(listener.moveCount).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1703
+     * @tc.name    AlbumExtension1703
+     * @tc.desc    A move notification forwards both indexes
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5dsMoveArgs', 0, () => {
+      const source: MyDataSource = new MyDataSource([makeTrack(1, 'a'), makeTrack(2, 'b')]);
+      const listener: AlbumListener = new AlbumListener('one', []);
+      source.registerDataChangeListener(listener);
+      source.notifyDataMove(0, 1);
+      expect(listener.lastMoveFrom).assertEqual(0);
+      expect(listener.lastMoveTo).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1704
+     * @tc.name    AlbumExtension1704
+     * @tc.desc    Two notifications append two log entries
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5dsLog', 0, () => {
+      const source: MyDataSource = new MyDataSource([makeTrack(1, 'a')]);
+      const listener: AlbumListener = new AlbumListener('one', []);
+      source.registerDataChangeListener(listener);
+      source.notifyDataChange(0);
+      source.notifyDataChange(0);
+      expect(listener.log.length).assertEqual(2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1705
+     * @tc.name    AlbumExtension1705
+     * @tc.desc    Page 0 of size 6 keeps 6 tracks starting at 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx6_00', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(0, 6);
+      expect(page.length).assertEqual(6);
+      expect(page[0].title).assertEqual('track1');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1706
+     * @tc.name    AlbumExtension1706
+     * @tc.desc    Page 1 of size 6 keeps 6 tracks starting at 7
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx6_01', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(1, 6);
+      expect(page.length).assertEqual(6);
+      expect(page[0].title).assertEqual('track7');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1707
+     * @tc.name    AlbumExtension1707
+     * @tc.desc    Page 2 of size 6 keeps 6 tracks starting at 13
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx6_02', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(2, 6);
+      expect(page.length).assertEqual(6);
+      expect(page[0].title).assertEqual('track13');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1708
+     * @tc.name    AlbumExtension1708
+     * @tc.desc    Page 3 of size 6 keeps 6 tracks starting at 19
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx6_03', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(3, 6);
+      expect(page.length).assertEqual(6);
+      expect(page[0].title).assertEqual('track19');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1709
+     * @tc.name    AlbumExtension1709
+     * @tc.desc    Page 4 of size 6 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx6_04', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.slicePage(4, 6).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1710
+     * @tc.name    AlbumExtension1710
+     * @tc.desc    Page 5 of size 6 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx6_05', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.slicePage(5, 6).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1711
+     * @tc.name    AlbumExtension1711
+     * @tc.desc    Page 6 of size 6 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx6_06', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.slicePage(6, 6).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1712
+     * @tc.name    AlbumExtension1712
+     * @tc.desc    Page 7 of size 6 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx6_07', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.slicePage(7, 6).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1713
+     * @tc.name    AlbumExtension1713
+     * @tc.desc    Page 8 of size 6 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx6_08', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.slicePage(8, 6).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1714
+     * @tc.name    AlbumExtension1714
+     * @tc.desc    Page 9 of size 6 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx6_09', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.slicePage(9, 6).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1715
+     * @tc.name    AlbumExtension1715
+     * @tc.desc    Page 10 of size 6 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx6_10', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.slicePage(10, 6).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1716
+     * @tc.name    AlbumExtension1716
+     * @tc.desc    Page 11 of size 6 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx6_11', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.slicePage(11, 6).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1717
+     * @tc.name    AlbumExtension1717
+     * @tc.desc    Page 0 of size 8 keeps 8 tracks starting at 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx8_00', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(0, 8);
+      expect(page.length).assertEqual(8);
+      expect(page[0].title).assertEqual('track1');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1718
+     * @tc.name    AlbumExtension1718
+     * @tc.desc    Page 1 of size 8 keeps 8 tracks starting at 9
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx8_01', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(1, 8);
+      expect(page.length).assertEqual(8);
+      expect(page[0].title).assertEqual('track9');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1719
+     * @tc.name    AlbumExtension1719
+     * @tc.desc    Page 2 of size 8 keeps 8 tracks starting at 17
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx8_02', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(2, 8);
+      expect(page.length).assertEqual(8);
+      expect(page[0].title).assertEqual('track17');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1720
+     * @tc.name    AlbumExtension1720
+     * @tc.desc    Page 3 of size 8 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx8_03', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.slicePage(3, 8).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1721
+     * @tc.name    AlbumExtension1721
+     * @tc.desc    Page 4 of size 8 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx8_04', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.slicePage(4, 8).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1722
+     * @tc.name    AlbumExtension1722
+     * @tc.desc    Page 5 of size 8 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx8_05', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.slicePage(5, 8).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1723
+     * @tc.name    AlbumExtension1723
+     * @tc.desc    Page 6 of size 8 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx8_06', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.slicePage(6, 8).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1724
+     * @tc.name    AlbumExtension1724
+     * @tc.desc    Page 7 of size 8 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx8_07', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.slicePage(7, 8).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1725
+     * @tc.name    AlbumExtension1725
+     * @tc.desc    Page 8 of size 8 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx8_08', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.slicePage(8, 8).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1726
+     * @tc.name    AlbumExtension1726
+     * @tc.desc    Page 9 of size 8 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx8_09', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.slicePage(9, 8).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1727
+     * @tc.name    AlbumExtension1727
+     * @tc.desc    Page 10 of size 8 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx8_10', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.slicePage(10, 8).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1728
+     * @tc.name    AlbumExtension1728
+     * @tc.desc    Page 11 of size 8 is empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sx8_11', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.slicePage(11, 8).length).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1729
+     * @tc.name    AlbumExtension1729
+     * @tc.desc    Page size 49 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px49', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(49)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1730
+     * @tc.name    AlbumExtension1730
+     * @tc.desc    Page size 50 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px50', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(50)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1731
+     * @tc.name    AlbumExtension1731
+     * @tc.desc    Page size 51 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px51', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(51)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1732
+     * @tc.name    AlbumExtension1732
+     * @tc.desc    Page size 52 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px52', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(52)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1733
+     * @tc.name    AlbumExtension1733
+     * @tc.desc    Page size 53 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px53', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(53)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1734
+     * @tc.name    AlbumExtension1734
+     * @tc.desc    Page size 54 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px54', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(54)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1735
+     * @tc.name    AlbumExtension1735
+     * @tc.desc    Page size 55 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px55', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(55)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1736
+     * @tc.name    AlbumExtension1736
+     * @tc.desc    Page size 56 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px56', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(56)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1737
+     * @tc.name    AlbumExtension1737
+     * @tc.desc    Page size 57 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px57', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(57)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1738
+     * @tc.name    AlbumExtension1738
+     * @tc.desc    Page size 58 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px58', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(58)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1739
+     * @tc.name    AlbumExtension1739
+     * @tc.desc    Page size 59 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px59', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(59)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1740
+     * @tc.name    AlbumExtension1740
+     * @tc.desc    Page size 60 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px60', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(60)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1741
+     * @tc.name    AlbumExtension1741
+     * @tc.desc    Page size 61 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px61', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(61)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1742
+     * @tc.name    AlbumExtension1742
+     * @tc.desc    Page size 62 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px62', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(62)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1743
+     * @tc.name    AlbumExtension1743
+     * @tc.desc    Page size 63 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px63', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(63)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1744
+     * @tc.name    AlbumExtension1744
+     * @tc.desc    Page size 64 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px64', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(64)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1745
+     * @tc.name    AlbumExtension1745
+     * @tc.desc    Page size 65 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px65', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(65)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1746
+     * @tc.name    AlbumExtension1746
+     * @tc.desc    Page size 66 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px66', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(66)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1747
+     * @tc.name    AlbumExtension1747
+     * @tc.desc    Page size 67 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px67', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(67)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1748
+     * @tc.name    AlbumExtension1748
+     * @tc.desc    Page size 68 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px68', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(68)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1749
+     * @tc.name    AlbumExtension1749
+     * @tc.desc    Page size 69 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px69', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(69)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1750
+     * @tc.name    AlbumExtension1750
+     * @tc.desc    Page size 70 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px70', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(70)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1751
+     * @tc.name    AlbumExtension1751
+     * @tc.desc    Page size 71 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px71', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(71)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1752
+     * @tc.name    AlbumExtension1752
+     * @tc.desc    Page size 72 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px72', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(72)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1753
+     * @tc.name    AlbumExtension1753
+     * @tc.desc    Page size 73 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px73', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(73)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1754
+     * @tc.name    AlbumExtension1754
+     * @tc.desc    Page size 74 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px74', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(74)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1755
+     * @tc.name    AlbumExtension1755
+     * @tc.desc    Page size 75 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px75', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(75)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1756
+     * @tc.name    AlbumExtension1756
+     * @tc.desc    Page size 76 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px76', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(76)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1757
+     * @tc.name    AlbumExtension1757
+     * @tc.desc    Page size 77 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px77', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(77)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1758
+     * @tc.name    AlbumExtension1758
+     * @tc.desc    Page size 78 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px78', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(78)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1759
+     * @tc.name    AlbumExtension1759
+     * @tc.desc    Page size 79 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px79', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(79)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1760
+     * @tc.name    AlbumExtension1760
+     * @tc.desc    Page size 80 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px80', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(80)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1761
+     * @tc.name    AlbumExtension1761
+     * @tc.desc    Page size 81 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px81', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(81)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1762
+     * @tc.name    AlbumExtension1762
+     * @tc.desc    Page size 82 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px82', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(82)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1763
+     * @tc.name    AlbumExtension1763
+     * @tc.desc    Page size 83 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px83', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(83)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1764
+     * @tc.name    AlbumExtension1764
+     * @tc.desc    Page size 84 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px84', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(84)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1765
+     * @tc.name    AlbumExtension1765
+     * @tc.desc    Page size 85 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px85', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(85)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1766
+     * @tc.name    AlbumExtension1766
+     * @tc.desc    Page size 86 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px86', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(86)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1767
+     * @tc.name    AlbumExtension1767
+     * @tc.desc    Page size 87 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px87', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(87)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1768
+     * @tc.name    AlbumExtension1768
+     * @tc.desc    Page size 88 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px88', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(88)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1769
+     * @tc.name    AlbumExtension1769
+     * @tc.desc    Page size 89 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px89', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(89)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1770
+     * @tc.name    AlbumExtension1770
+     * @tc.desc    Page size 90 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px90', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(90)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1771
+     * @tc.name    AlbumExtension1771
+     * @tc.desc    Page size 91 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px91', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(91)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1772
+     * @tc.name    AlbumExtension1772
+     * @tc.desc    Page size 92 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px92', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(92)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1773
+     * @tc.name    AlbumExtension1773
+     * @tc.desc    Page size 93 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px93', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(93)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1774
+     * @tc.name    AlbumExtension1774
+     * @tc.desc    Page size 94 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px94', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(94)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1775
+     * @tc.name    AlbumExtension1775
+     * @tc.desc    Page size 95 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px95', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(95)).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1776
+     * @tc.name    AlbumExtension1776
+     * @tc.desc    Page size 96 still yields a single page
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5px96', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.totalPages(96)).assertEqual(1);
+    })
+
+  })
+}
