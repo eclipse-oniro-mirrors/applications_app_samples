@@ -679,3 +679,195 @@ export default function resolutionChangeTest(): void {
 
     /**
      * @tc.number    SUB_MORE_RESOLUTION_RES_CHANGE_0038
+     * @tc.name      Resolution_ResChange_0038
+     * @tc.desc      changeResolutionIndex(13, 11) resolves to 11.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResChange_0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResChange_0038 begin`);
+      logInfo("changeResolutionIndex(13, 11)");
+      const actual: number = changeResolutionIndex(13, 11);
+      logInfo('actual=' + String(actual) + ', expected=' + "11");
+      expect(actual).assertEqual(11);
+      logInfo(`${BUNDLE}ResChange_0038 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_CHANGE_0039
+     * @tc.name      Resolution_ResChange_0039
+     * @tc.desc      changeResolutionIndex(14, -1) resolves to 14.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResChange_0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResChange_0039 begin`);
+      logInfo("changeResolutionIndex(14, -1)");
+      const actual: number = changeResolutionIndex(14, -1);
+      logInfo('actual=' + String(actual) + ', expected=' + "14");
+      expect(actual).assertEqual(14);
+      logInfo(`${BUNDLE}ResChange_0039 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_CHANGE_0040
+     * @tc.name      Resolution_ResChange_0040
+     * @tc.desc      changeResolutionIndex(14, 7) resolves to 7.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResChange_0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResChange_0040 begin`);
+      logInfo("changeResolutionIndex(14, 7)");
+      const actual: number = changeResolutionIndex(14, 7);
+      logInfo('actual=' + String(actual) + ', expected=' + "7");
+      expect(actual).assertEqual(7);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}ResChange_0040 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_CHANGE_0041
+     * @tc.name      Resolution_ResChange_0041
+     * @tc.desc      changeResolutionIndex(14, 15) resolves to 15.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResChange_0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResChange_0041 begin`);
+      logInfo("changeResolutionIndex(14, 15)");
+      const actual: number = changeResolutionIndex(14, 15);
+      logInfo('actual=' + String(actual) + ', expected=' + "15");
+      expect(actual).assertEqual(15);
+      logInfo(`${BUNDLE}ResChange_0041 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_CHANGE_0042
+     * @tc.name      Resolution_ResChange_0042
+     * @tc.desc      changeResolutionIndex(15, 3) resolves to 3.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResChange_0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResChange_0042 begin`);
+      logInfo("changeResolutionIndex(15, 3)");
+      const actual: number = changeResolutionIndex(15, 3);
+      logInfo('actual=' + String(actual) + ', expected=' + "3");
+      expect(actual).assertEqual(3);
+      logInfo(`${BUNDLE}ResChange_0042 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_CHANGE_0043
+     * @tc.name      Resolution_ResChange_0043
+     * @tc.desc      changeResolutionIndex(15, 11) resolves to 11.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResChange_0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResChange_0043 begin`);
+      logInfo("changeResolutionIndex(15, 11)");
+      const actual: number = changeResolutionIndex(15, 11);
+      logInfo('actual=' + String(actual) + ', expected=' + "11");
+      expect(actual).assertEqual(11);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}ResChange_0043 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_CHANGE_0044
+     * @tc.name      Resolution_ResChange_0044
+     * @tc.desc      changeResolutionIndex(16, -1) resolves to 16.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResChange_0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResChange_0044 begin`);
+      logInfo("changeResolutionIndex(16, -1)");
+      const actual: number = changeResolutionIndex(16, -1);
+      logInfo('actual=' + String(actual) + ', expected=' + "16");
+      expect(actual).assertEqual(16);
+      logInfo(`${BUNDLE}ResChange_0044 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_CHANGE_0045
+     * @tc.name      Resolution_ResChange_0045
+     * @tc.desc      changeResolutionIndex(16, 7) resolves to 7.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_ResChange_0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}ResChange_0045 begin`);
+      logInfo("changeResolutionIndex(16, 7)");
+      const actual: number = changeResolutionIndex(16, 7);
+      logInfo('actual=' + String(actual) + ', expected=' + "7");
+      expect(actual).assertEqual(7);
+      logInfo(`${BUNDLE}ResChange_0045 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_CHANGE_0046
+     * @tc.name      Resolution_ResChange_0046
+     * @tc.desc      changeResolutionIndex(16, 15) resolves to 15.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResChange_0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResChange_0046 begin`);
+      logInfo("changeResolutionIndex(16, 15)");
+      const actual: number = changeResolutionIndex(16, 15);
+      logInfo('actual=' + String(actual) + ', expected=' + "15");
+      expect(actual).assertEqual(15);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}ResChange_0046 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_CHANGE_0047
+     * @tc.name      Resolution_ResChange_0047
+     * @tc.desc      changeResolutionIndex(17, 3) resolves to 3.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResChange_0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResChange_0047 begin`);
+      logInfo("changeResolutionIndex(17, 3)");
+      const actual: number = changeResolutionIndex(17, 3);
+      logInfo('actual=' + String(actual) + ', expected=' + "3");
+      expect(actual).assertEqual(3);
+      logInfo(`${BUNDLE}ResChange_0047 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_CHANGE_0048
+     * @tc.name      Resolution_ResChange_0048
+     * @tc.desc      changeResolutionIndex(17, 11) resolves to 11.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResChange_0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResChange_0048 begin`);
+      logInfo("changeResolutionIndex(17, 11)");
+      const actual: number = changeResolutionIndex(17, 11);
+      logInfo('actual=' + String(actual) + ', expected=' + "11");
+      expect(actual).assertEqual(11);
+      logInfo(`${BUNDLE}ResChange_0048 end`);
+    });
+  });
+}
