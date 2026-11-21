@@ -1984,3 +1984,1998 @@ export default function albumAppVersionSuite() {
       expect(m.getTrackById(1000 + 1148) === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1149
+     * @tc.name    AlbumAppVersion1149
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1149
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1149', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1149) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1150
+     * @tc.name    AlbumAppVersion1150
+     * @tc.desc    Album breakpoint font mapping 2 probe 1150
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1150', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1150) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1151
+     * @tc.name    AlbumAppVersion1151
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1151
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1151', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1151) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1152
+     * @tc.name    AlbumAppVersion1152
+     * @tc.desc    Album breakpoint font mapping 0 probe 1152
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1152', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1152) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1153
+     * @tc.name    AlbumAppVersion1153
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1153
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1153', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1153) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1154
+     * @tc.name    AlbumAppVersion1154
+     * @tc.desc    Album breakpoint font mapping 2 probe 1154
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1154', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1154) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1155
+     * @tc.name    AlbumAppVersion1155
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1155
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1155', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1155) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1156
+     * @tc.name    AlbumAppVersion1156
+     * @tc.desc    Album breakpoint font mapping 0 probe 1156
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1156', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1156) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1157
+     * @tc.name    AlbumAppVersion1157
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1157
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1157', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1157) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1158
+     * @tc.name    AlbumAppVersion1158
+     * @tc.desc    Album breakpoint font mapping 2 probe 1158
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1158', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1158) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1159
+     * @tc.name    AlbumAppVersion1159
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1159
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1159', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1159) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1160
+     * @tc.name    AlbumAppVersion1160
+     * @tc.desc    Album breakpoint font mapping 0 probe 1160
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1160', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1160) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1161
+     * @tc.name    AlbumAppVersion1161
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1161
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1161', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1161) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1162
+     * @tc.name    AlbumAppVersion1162
+     * @tc.desc    Album breakpoint font mapping 2 probe 1162
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1162', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1162) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1163
+     * @tc.name    AlbumAppVersion1163
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1163
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1163', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1163) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1164
+     * @tc.name    AlbumAppVersion1164
+     * @tc.desc    Album breakpoint font mapping 0 probe 1164
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1164', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1164) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1165
+     * @tc.name    AlbumAppVersion1165
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1165
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1165', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1165) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1166
+     * @tc.name    AlbumAppVersion1166
+     * @tc.desc    Album breakpoint font mapping 2 probe 1166
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1166', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1166) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1167
+     * @tc.name    AlbumAppVersion1167
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1167
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1167', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1167) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1168
+     * @tc.name    AlbumAppVersion1168
+     * @tc.desc    Album breakpoint font mapping 0 probe 1168
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1168', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1168) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1169
+     * @tc.name    AlbumAppVersion1169
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1169
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1169', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1169) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1170
+     * @tc.name    AlbumAppVersion1170
+     * @tc.desc    Album breakpoint font mapping 2 probe 1170
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1170', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1170) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1171
+     * @tc.name    AlbumAppVersion1171
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1171
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1171', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1171) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1172
+     * @tc.name    AlbumAppVersion1172
+     * @tc.desc    Album breakpoint font mapping 0 probe 1172
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1172', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1172) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1173
+     * @tc.name    AlbumAppVersion1173
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1173
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1173', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1173) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1174
+     * @tc.name    AlbumAppVersion1174
+     * @tc.desc    Album breakpoint font mapping 2 probe 1174
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1174', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1174) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1175
+     * @tc.name    AlbumAppVersion1175
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1175
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1175', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1175) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1176
+     * @tc.name    AlbumAppVersion1176
+     * @tc.desc    Album breakpoint font mapping 0 probe 1176
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1176', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1176) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1177
+     * @tc.name    AlbumAppVersion1177
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1177
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1177', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1177) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1178
+     * @tc.name    AlbumAppVersion1178
+     * @tc.desc    Album breakpoint font mapping 2 probe 1178
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1178', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1178) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1179
+     * @tc.name    AlbumAppVersion1179
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1179
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1179', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1179) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1180
+     * @tc.name    AlbumAppVersion1180
+     * @tc.desc    Album breakpoint font mapping 0 probe 1180
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1180', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1180) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1181
+     * @tc.name    AlbumAppVersion1181
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1181
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1181', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1181) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1182
+     * @tc.name    AlbumAppVersion1182
+     * @tc.desc    Album breakpoint font mapping 2 probe 1182
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1182', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1182) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1183
+     * @tc.name    AlbumAppVersion1183
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1183
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1183', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1183) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1184
+     * @tc.name    AlbumAppVersion1184
+     * @tc.desc    Album breakpoint font mapping 0 probe 1184
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1184', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1184) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1185
+     * @tc.name    AlbumAppVersion1185
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1185
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1185', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1185) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1186
+     * @tc.name    AlbumAppVersion1186
+     * @tc.desc    Album breakpoint font mapping 2 probe 1186
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1186', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1186) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1187
+     * @tc.name    AlbumAppVersion1187
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1187
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1187', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1187) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1188
+     * @tc.name    AlbumAppVersion1188
+     * @tc.desc    Album breakpoint font mapping 0 probe 1188
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1188', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1188) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1189
+     * @tc.name    AlbumAppVersion1189
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1189
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1189', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1189) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1190
+     * @tc.name    AlbumAppVersion1190
+     * @tc.desc    Album breakpoint font mapping 2 probe 1190
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1190', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1190) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1191
+     * @tc.name    AlbumAppVersion1191
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1191
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1191', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1191) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1192
+     * @tc.name    AlbumAppVersion1192
+     * @tc.desc    Album breakpoint font mapping 0 probe 1192
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1192', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1192) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1193
+     * @tc.name    AlbumAppVersion1193
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1193
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1193', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1193) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1194
+     * @tc.name    AlbumAppVersion1194
+     * @tc.desc    Album breakpoint font mapping 2 probe 1194
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1194', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1194) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1195
+     * @tc.name    AlbumAppVersion1195
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1195
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1195', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1195) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1196
+     * @tc.name    AlbumAppVersion1196
+     * @tc.desc    Album breakpoint font mapping 0 probe 1196
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1196', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1196) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1197
+     * @tc.name    AlbumAppVersion1197
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1197
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1197', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1197) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1198
+     * @tc.name    AlbumAppVersion1198
+     * @tc.desc    Album breakpoint font mapping 2 probe 1198
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1198', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1198) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1199
+     * @tc.name    AlbumAppVersion1199
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1199
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1199', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1199) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1200
+     * @tc.name    AlbumAppVersion1200
+     * @tc.desc    Album breakpoint font mapping 0 probe 1200
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1200', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1200) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1201
+     * @tc.name    AlbumAppVersion1201
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1201
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1201', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1201) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1202
+     * @tc.name    AlbumAppVersion1202
+     * @tc.desc    Album breakpoint font mapping 2 probe 1202
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1202', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1202) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1203
+     * @tc.name    AlbumAppVersion1203
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1203
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1203', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1203) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1204
+     * @tc.name    AlbumAppVersion1204
+     * @tc.desc    Album breakpoint font mapping 0 probe 1204
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1204', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1204) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1205
+     * @tc.name    AlbumAppVersion1205
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1205
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1205', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1205) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1206
+     * @tc.name    AlbumAppVersion1206
+     * @tc.desc    Album breakpoint font mapping 2 probe 1206
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1206', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1206) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1207
+     * @tc.name    AlbumAppVersion1207
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1207
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1207', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1207) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1208
+     * @tc.name    AlbumAppVersion1208
+     * @tc.desc    Album breakpoint font mapping 0 probe 1208
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1208', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1208) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1209
+     * @tc.name    AlbumAppVersion1209
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1209
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1209', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1209) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1210
+     * @tc.name    AlbumAppVersion1210
+     * @tc.desc    Album breakpoint font mapping 2 probe 1210
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1210', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1210) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1211
+     * @tc.name    AlbumAppVersion1211
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1211
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1211', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1211) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1212
+     * @tc.name    AlbumAppVersion1212
+     * @tc.desc    Album breakpoint font mapping 0 probe 1212
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1212', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1212) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1213
+     * @tc.name    AlbumAppVersion1213
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1213
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1213', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1213) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1214
+     * @tc.name    AlbumAppVersion1214
+     * @tc.desc    Album breakpoint font mapping 2 probe 1214
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1214', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1214) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1215
+     * @tc.name    AlbumAppVersion1215
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1215
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1215', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1215) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1216
+     * @tc.name    AlbumAppVersion1216
+     * @tc.desc    Album breakpoint font mapping 0 probe 1216
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1216', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1216) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1217
+     * @tc.name    AlbumAppVersion1217
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1217
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1217', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1217) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1218
+     * @tc.name    AlbumAppVersion1218
+     * @tc.desc    Album breakpoint font mapping 2 probe 1218
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1218', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1218) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1219
+     * @tc.name    AlbumAppVersion1219
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1219
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1219', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1219) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1220
+     * @tc.name    AlbumAppVersion1220
+     * @tc.desc    Album breakpoint font mapping 0 probe 1220
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1220', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1220) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1221
+     * @tc.name    AlbumAppVersion1221
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1221
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1221', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1221) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1222
+     * @tc.name    AlbumAppVersion1222
+     * @tc.desc    Album breakpoint font mapping 2 probe 1222
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1222', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1222) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1223
+     * @tc.name    AlbumAppVersion1223
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1223
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1223', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1223) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1224
+     * @tc.name    AlbumAppVersion1224
+     * @tc.desc    Album breakpoint font mapping 0 probe 1224
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1224', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1224) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1225
+     * @tc.name    AlbumAppVersion1225
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1225
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1225', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1225) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1226
+     * @tc.name    AlbumAppVersion1226
+     * @tc.desc    Album breakpoint font mapping 2 probe 1226
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1226', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1226) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1227
+     * @tc.name    AlbumAppVersion1227
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1227
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1227', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1227) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1228
+     * @tc.name    AlbumAppVersion1228
+     * @tc.desc    Album breakpoint font mapping 0 probe 1228
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1228', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1228) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1229
+     * @tc.name    AlbumAppVersion1229
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1229
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1229', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1229) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1230
+     * @tc.name    AlbumAppVersion1230
+     * @tc.desc    Album breakpoint font mapping 2 probe 1230
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1230', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1230) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1231
+     * @tc.name    AlbumAppVersion1231
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1231
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1231', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1231) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1232
+     * @tc.name    AlbumAppVersion1232
+     * @tc.desc    Album breakpoint font mapping 0 probe 1232
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1232', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1232) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1233
+     * @tc.name    AlbumAppVersion1233
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1233
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1233', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1233) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1234
+     * @tc.name    AlbumAppVersion1234
+     * @tc.desc    Album breakpoint font mapping 2 probe 1234
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1234', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1234) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1235
+     * @tc.name    AlbumAppVersion1235
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1235
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1235', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1235) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1236
+     * @tc.name    AlbumAppVersion1236
+     * @tc.desc    Album breakpoint font mapping 0 probe 1236
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1236', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1236) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1237
+     * @tc.name    AlbumAppVersion1237
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1237
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1237', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1237) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1238
+     * @tc.name    AlbumAppVersion1238
+     * @tc.desc    Album breakpoint font mapping 2 probe 1238
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1238', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1238) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1239
+     * @tc.name    AlbumAppVersion1239
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1239
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1239', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1239) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1240
+     * @tc.name    AlbumAppVersion1240
+     * @tc.desc    Album breakpoint font mapping 0 probe 1240
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1240', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1240) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1241
+     * @tc.name    AlbumAppVersion1241
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1241
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1241', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1241) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1242
+     * @tc.name    AlbumAppVersion1242
+     * @tc.desc    Album breakpoint font mapping 2 probe 1242
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1242', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1242) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1243
+     * @tc.name    AlbumAppVersion1243
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1243
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1243', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1243) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1244
+     * @tc.name    AlbumAppVersion1244
+     * @tc.desc    Album breakpoint font mapping 0 probe 1244
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1244', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1244) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1245
+     * @tc.name    AlbumAppVersion1245
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1245
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1245', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1245) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1246
+     * @tc.name    AlbumAppVersion1246
+     * @tc.desc    Album breakpoint font mapping 2 probe 1246
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1246', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1246) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1247
+     * @tc.name    AlbumAppVersion1247
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1247
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1247', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1247) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1248
+     * @tc.name    AlbumAppVersion1248
+     * @tc.desc    Album breakpoint font mapping 0 probe 1248
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1248', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1248) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1249
+     * @tc.name    AlbumAppVersion1249
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1249
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1249', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1249) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1250
+     * @tc.name    AlbumAppVersion1250
+     * @tc.desc    Album breakpoint font mapping 2 probe 1250
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1250', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[2];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1250) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1251
+     * @tc.name    AlbumAppVersion1251
+     * @tc.desc    Album breakpoint margin mapping 3 probe 1251
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1251', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[3];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1251) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1252
+     * @tc.name    AlbumAppVersion1252
+     * @tc.desc    Album breakpoint font mapping 0 probe 1252
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1252', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[0];
+      const expected: number = bp === "sm" ? 14 : (bp === "lg" ? 18 : 16);
+      expect(m.fontOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1252) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1253
+     * @tc.name    AlbumAppVersion1253
+     * @tc.desc    Album breakpoint margin mapping 1 probe 1253
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumAppVersion1253', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const bps: string[] = ["sm", "md", "lg", "unknown"];
+      const bp: string = bps[1];
+      const expected: number = bp === "sm" ? 10 : (bp === "lg" ? 40 : 30);
+      expect(m.marginOf(bp)).assertEqual(expected);
+      expect(m.getTrackById(1000 + 1253) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
