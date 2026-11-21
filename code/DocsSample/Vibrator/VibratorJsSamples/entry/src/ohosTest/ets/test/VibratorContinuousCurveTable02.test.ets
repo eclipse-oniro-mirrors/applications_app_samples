@@ -711,3 +711,969 @@ function runMatrix1088(): MatrixReport {
             time: 0,
             intensity: 0,
             frequency: -100,
+          },
+          {
+            time: 64,
+            intensity: 75,
+            frequency: -67,
+          },
+          {
+            time: 128,
+            intensity: 50,
+            frequency: -34,
+          },
+          {
+            time: 192,
+            intensity: 50,
+            frequency: 0,
+          },
+          {
+            time: 256,
+            intensity: 25,
+            frequency: 33,
+          },
+          {
+            time: 320,
+            intensity: 25,
+            frequency: 66,
+          },
+          {
+            time: 384,
+            intensity: 0,
+            frequency: 100,
+          },
+        ],
+      },
+    },
+  ];
+  return checkBuilderRows(rows);
+}
+
+function runMatrix1089(): MatrixReport {
+  const rows: BuilderRow[] = [
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 42,
+        duration: 448,
+        intensity: 97,
+        frequency: 34,
+        index: 0,
+        points: [
+          {
+            time: 0,
+            frequency: -100,
+            intensity: 0,
+          },
+          {
+            time: 64,
+            frequency: -72,
+            intensity: 0.25,
+          },
+          {
+            time: 128,
+            frequency: -43,
+            intensity: 0.5,
+          },
+          {
+            time: 192,
+            frequency: -15,
+            intensity: 0.5,
+          },
+          {
+            time: 256,
+            frequency: 14,
+            intensity: 0.75,
+          },
+          {
+            time: 320,
+            frequency: 42,
+            intensity: 0.75,
+          },
+          {
+            time: 384,
+            frequency: 71,
+            intensity: 0.75,
+          },
+          {
+            time: 448,
+            frequency: 100,
+            intensity: 0,
+          },
+        ],
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 42,
+        duration: 448,
+        intensity: 97,
+        frequency: 34,
+        index: 0,
+        points: [
+          {
+            time: 0,
+            intensity: 0,
+            frequency: -100,
+          },
+          {
+            time: 64,
+            intensity: 25,
+            frequency: -72,
+          },
+          {
+            time: 128,
+            intensity: 50,
+            frequency: -43,
+          },
+          {
+            time: 192,
+            intensity: 50,
+            frequency: -15,
+          },
+          {
+            time: 256,
+            intensity: 75,
+            frequency: 14,
+          },
+          {
+            time: 320,
+            intensity: 75,
+            frequency: 42,
+          },
+          {
+            time: 384,
+            intensity: 75,
+            frequency: 71,
+          },
+          {
+            time: 448,
+            intensity: 0,
+            frequency: 100,
+          },
+        ],
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 42,
+        duration: 448,
+        intensity: 80,
+        frequency: 70,
+        index: 0,
+        points: [
+          {
+            time: 0,
+            frequency: -100,
+            intensity: 0,
+          },
+          {
+            time: 64,
+            frequency: -72,
+            intensity: 0.75,
+          },
+          {
+            time: 128,
+            frequency: -43,
+            intensity: 0.5,
+          },
+          {
+            time: 192,
+            frequency: -15,
+            intensity: 0.5,
+          },
+          {
+            time: 256,
+            frequency: 14,
+            intensity: 0.25,
+          },
+          {
+            time: 320,
+            frequency: 42,
+            intensity: 0.25,
+          },
+          {
+            time: 384,
+            frequency: 71,
+            intensity: 0.25,
+          },
+          {
+            time: 448,
+            frequency: 100,
+            intensity: 0,
+          },
+        ],
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 42,
+        duration: 448,
+        intensity: 80,
+        frequency: 70,
+        index: 0,
+        points: [
+          {
+            time: 0,
+            intensity: 0,
+            frequency: -100,
+          },
+          {
+            time: 64,
+            intensity: 75,
+            frequency: -72,
+          },
+          {
+            time: 128,
+            intensity: 50,
+            frequency: -43,
+          },
+          {
+            time: 192,
+            intensity: 50,
+            frequency: -15,
+          },
+          {
+            time: 256,
+            intensity: 25,
+            frequency: 14,
+          },
+          {
+            time: 320,
+            intensity: 25,
+            frequency: 42,
+          },
+          {
+            time: 384,
+            intensity: 25,
+            frequency: 71,
+          },
+          {
+            time: 448,
+            intensity: 0,
+            frequency: 100,
+          },
+        ],
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 42,
+        duration: 448,
+        intensity: 97,
+        frequency: 34,
+        index: 1,
+        points: [
+          {
+            time: 0,
+            frequency: -100,
+            intensity: 0,
+          },
+          {
+            time: 64,
+            frequency: -72,
+            intensity: 0.25,
+          },
+          {
+            time: 128,
+            frequency: -43,
+            intensity: 0.5,
+          },
+          {
+            time: 192,
+            frequency: -15,
+            intensity: 0.5,
+          },
+          {
+            time: 256,
+            frequency: 14,
+            intensity: 0.75,
+          },
+          {
+            time: 320,
+            frequency: 42,
+            intensity: 0.75,
+          },
+          {
+            time: 384,
+            frequency: 71,
+            intensity: 0.75,
+          },
+          {
+            time: 448,
+            frequency: 100,
+            intensity: 0,
+          },
+        ],
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 42,
+        duration: 448,
+        intensity: 97,
+        frequency: 34,
+        index: 1,
+        points: [
+          {
+            time: 0,
+            intensity: 0,
+            frequency: -100,
+          },
+          {
+            time: 64,
+            intensity: 25,
+            frequency: -72,
+          },
+          {
+            time: 128,
+            intensity: 50,
+            frequency: -43,
+          },
+          {
+            time: 192,
+            intensity: 50,
+            frequency: -15,
+          },
+          {
+            time: 256,
+            intensity: 75,
+            frequency: 14,
+          },
+          {
+            time: 320,
+            intensity: 75,
+            frequency: 42,
+          },
+          {
+            time: 384,
+            intensity: 75,
+            frequency: 71,
+          },
+          {
+            time: 448,
+            intensity: 0,
+            frequency: 100,
+          },
+        ],
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 42,
+        duration: 448,
+        intensity: 80,
+        frequency: 70,
+        index: 1,
+        points: [
+          {
+            time: 0,
+            frequency: -100,
+            intensity: 0,
+          },
+          {
+            time: 64,
+            frequency: -72,
+            intensity: 0.75,
+          },
+          {
+            time: 128,
+            frequency: -43,
+            intensity: 0.5,
+          },
+          {
+            time: 192,
+            frequency: -15,
+            intensity: 0.5,
+          },
+          {
+            time: 256,
+            frequency: 14,
+            intensity: 0.25,
+          },
+          {
+            time: 320,
+            frequency: 42,
+            intensity: 0.25,
+          },
+          {
+            time: 384,
+            frequency: 71,
+            intensity: 0.25,
+          },
+          {
+            time: 448,
+            frequency: 100,
+            intensity: 0,
+          },
+        ],
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 42,
+        duration: 448,
+        intensity: 80,
+        frequency: 70,
+        index: 1,
+        points: [
+          {
+            time: 0,
+            intensity: 0,
+            frequency: -100,
+          },
+          {
+            time: 64,
+            intensity: 75,
+            frequency: -72,
+          },
+          {
+            time: 128,
+            intensity: 50,
+            frequency: -43,
+          },
+          {
+            time: 192,
+            intensity: 50,
+            frequency: -15,
+          },
+          {
+            time: 256,
+            intensity: 25,
+            frequency: 14,
+          },
+          {
+            time: 320,
+            intensity: 25,
+            frequency: 42,
+          },
+          {
+            time: 384,
+            intensity: 25,
+            frequency: 71,
+          },
+          {
+            time: 448,
+            intensity: 0,
+            frequency: 100,
+          },
+        ],
+      },
+    },
+  ];
+  return checkBuilderRows(rows);
+}
+
+function runMatrix1090(): MatrixReport {
+  const rows: BuilderRow[] = [
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 42,
+        duration: 448,
+        intensity: 97,
+        frequency: 34,
+        index: 2,
+        points: [
+          {
+            time: 0,
+            frequency: -100,
+            intensity: 0,
+          },
+          {
+            time: 64,
+            frequency: -72,
+            intensity: 0.25,
+          },
+          {
+            time: 128,
+            frequency: -43,
+            intensity: 0.5,
+          },
+          {
+            time: 192,
+            frequency: -15,
+            intensity: 0.5,
+          },
+          {
+            time: 256,
+            frequency: 14,
+            intensity: 0.75,
+          },
+          {
+            time: 320,
+            frequency: 42,
+            intensity: 0.75,
+          },
+          {
+            time: 384,
+            frequency: 71,
+            intensity: 0.75,
+          },
+          {
+            time: 448,
+            frequency: 100,
+            intensity: 0,
+          },
+        ],
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 42,
+        duration: 448,
+        intensity: 97,
+        frequency: 34,
+        index: 2,
+        points: [
+          {
+            time: 0,
+            intensity: 0,
+            frequency: -100,
+          },
+          {
+            time: 64,
+            intensity: 25,
+            frequency: -72,
+          },
+          {
+            time: 128,
+            intensity: 50,
+            frequency: -43,
+          },
+          {
+            time: 192,
+            intensity: 50,
+            frequency: -15,
+          },
+          {
+            time: 256,
+            intensity: 75,
+            frequency: 14,
+          },
+          {
+            time: 320,
+            intensity: 75,
+            frequency: 42,
+          },
+          {
+            time: 384,
+            intensity: 75,
+            frequency: 71,
+          },
+          {
+            time: 448,
+            intensity: 0,
+            frequency: 100,
+          },
+        ],
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 42,
+        duration: 448,
+        intensity: 80,
+        frequency: 70,
+        index: 2,
+        points: [
+          {
+            time: 0,
+            frequency: -100,
+            intensity: 0,
+          },
+          {
+            time: 64,
+            frequency: -72,
+            intensity: 0.75,
+          },
+          {
+            time: 128,
+            frequency: -43,
+            intensity: 0.5,
+          },
+          {
+            time: 192,
+            frequency: -15,
+            intensity: 0.5,
+          },
+          {
+            time: 256,
+            frequency: 14,
+            intensity: 0.25,
+          },
+          {
+            time: 320,
+            frequency: 42,
+            intensity: 0.25,
+          },
+          {
+            time: 384,
+            frequency: 71,
+            intensity: 0.25,
+          },
+          {
+            time: 448,
+            frequency: 100,
+            intensity: 0,
+          },
+        ],
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 42,
+        duration: 448,
+        intensity: 80,
+        frequency: 70,
+        index: 2,
+        points: [
+          {
+            time: 0,
+            intensity: 0,
+            frequency: -100,
+          },
+          {
+            time: 64,
+            intensity: 75,
+            frequency: -72,
+          },
+          {
+            time: 128,
+            intensity: 50,
+            frequency: -43,
+          },
+          {
+            time: 192,
+            intensity: 50,
+            frequency: -15,
+          },
+          {
+            time: 256,
+            intensity: 25,
+            frequency: 14,
+          },
+          {
+            time: 320,
+            intensity: 25,
+            frequency: 42,
+          },
+          {
+            time: 384,
+            intensity: 25,
+            frequency: 71,
+          },
+          {
+            time: 448,
+            intensity: 0,
+            frequency: 100,
+          },
+        ],
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 42,
+        duration: 512,
+        intensity: 97,
+        frequency: 34,
+        index: 0,
+        points: [
+          {
+            time: 0,
+            frequency: -100,
+            intensity: 0,
+          },
+          {
+            time: 64,
+            frequency: -75,
+            intensity: 0.25,
+          },
+          {
+            time: 128,
+            frequency: -50,
+            intensity: 0.25,
+          },
+          {
+            time: 192,
+            frequency: -25,
+            intensity: 0.5,
+          },
+          {
+            time: 256,
+            frequency: 0,
+            intensity: 0.5,
+          },
+          {
+            time: 320,
+            frequency: 25,
+            intensity: 0.75,
+          },
+          {
+            time: 384,
+            frequency: 50,
+            intensity: 0.75,
+          },
+          {
+            time: 448,
+            frequency: 75,
+            intensity: 0.75,
+          },
+          {
+            time: 512,
+            frequency: 100,
+            intensity: 0,
+          },
+        ],
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 42,
+        duration: 512,
+        intensity: 97,
+        frequency: 34,
+        index: 0,
+        points: [
+          {
+            time: 0,
+            intensity: 0,
+            frequency: -100,
+          },
+          {
+            time: 64,
+            intensity: 25,
+            frequency: -75,
+          },
+          {
+            time: 128,
+            intensity: 25,
+            frequency: -50,
+          },
+          {
+            time: 192,
+            intensity: 50,
+            frequency: -25,
+          },
+          {
+            time: 256,
+            intensity: 50,
+            frequency: 0,
+          },
+          {
+            time: 320,
+            intensity: 75,
+            frequency: 25,
+          },
+          {
+            time: 384,
+            intensity: 75,
+            frequency: 50,
+          },
+          {
+            time: 448,
+            intensity: 75,
+            frequency: 75,
+          },
+          {
+            time: 512,
+            intensity: 0,
+            frequency: 100,
+          },
+        ],
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 42,
+        duration: 512,
+        intensity: 80,
+        frequency: 70,
+        index: 0,
+        points: [
+          {
+            time: 0,
+            frequency: -100,
+            intensity: 0,
+          },
+          {
+            time: 64,
+            frequency: -75,
+            intensity: 0.75,
+          },
+          {
+            time: 128,
+            frequency: -50,
+            intensity: 0.75,
+          },
+          {
+            time: 192,
+            frequency: -25,
+            intensity: 0.5,
+          },
+          {
+            time: 256,
+            frequency: 0,
+            intensity: 0.5,
+          },
+          {
+            time: 320,
+            frequency: 25,
+            intensity: 0.25,
+          },
+          {
+            time: 384,
+            frequency: 50,
+            intensity: 0.25,
+          },
+          {
+            time: 448,
+            frequency: 75,
+            intensity: 0.25,
+          },
+          {
+            time: 512,
+            frequency: 100,
+            intensity: 0,
+          },
+        ],
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 42,
+        duration: 512,
+        intensity: 80,
+        frequency: 70,
+        index: 0,
+        points: [
+          {
+            time: 0,
+            intensity: 0,
+            frequency: -100,
+          },
+          {
+            time: 64,
+            intensity: 75,
+            frequency: -75,
+          },
+          {
+            time: 128,
+            intensity: 75,
+            frequency: -50,
+          },
+          {
+            time: 192,
+            intensity: 50,
+            frequency: -25,
+          },
+          {
+            time: 256,
+            intensity: 50,
+            frequency: 0,
+          },
+          {
+            time: 320,
+            intensity: 25,
+            frequency: 25,
+          },
+          {
+            time: 384,
+            intensity: 25,
+            frequency: 50,
+          },
+          {
+            time: 448,
+            intensity: 25,
+            frequency: 75,
+          },
+          {
+            time: 512,
+            intensity: 0,
+            frequency: 100,
+          },
+        ],
+      },
+    },
+  ];
+  return checkBuilderRows(rows);
+}
+
+export default function vibratorContinuousCurveTable02(): void {
+  describe('VibratorContinuousCurveTable02', (): void => {
+    beforeEach(async (): Promise<void> => {
+      await paceTurn();
+    });
+
+    /**
+     * @tc.number SUB_VIBRATOR_MATRIX_1087
+     * @tc.name testVibratorMatrix1087
+     * @tc.desc 四至十六点升降包络及相对频移组合，逐项核对4组输出及累计时长和通道加权强度。
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testVibratorMatrix1087', 0, (): void => {
+      const report: MatrixReport = runMatrix1087();
+      hilog.info(DOMAIN, TAG, 'Event count=%{public}d', report.eventCount);
+      expect(report.eventCount).assertEqual(4);
+      hilog.info(DOMAIN, TAG, 'Duration sum=%{public}d', report.durationSum);
+      expect(report.durationSum).assertEqual(1408);
+      hilog.info(DOMAIN, TAG, 'Channel intensity sum=%{public}d', report.channelIntensitySum);
+      expect(report.channelIntensitySum).assertEqual(708);
+    });
+
+    /**
+     * @tc.number SUB_VIBRATOR_MATRIX_1088
+     * @tc.name testVibratorMatrix1088
+     * @tc.desc 四至十六点升降包络及相对频移组合，逐项核对4组输出及累计时长和通道加权强度。
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testVibratorMatrix1088', 0, (): void => {
+      const report: MatrixReport = runMatrix1088();
+      hilog.info(DOMAIN, TAG, 'Event count=%{public}d', report.eventCount);
+      expect(report.eventCount).assertEqual(4);
+      hilog.info(DOMAIN, TAG, 'Duration sum=%{public}d', report.durationSum);
+      expect(report.durationSum).assertEqual(1536);
+      hilog.info(DOMAIN, TAG, 'Channel intensity sum=%{public}d', report.channelIntensitySum);
+      expect(report.channelIntensitySum).assertEqual(885);
+    });
+
+    /**
+     * @tc.number SUB_VIBRATOR_MATRIX_1089
+     * @tc.name testVibratorMatrix1089
+     * @tc.desc 四至十六点升降包络及相对频移组合，逐项核对4组输出及累计时长和通道加权强度。
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testVibratorMatrix1089', 0, (): void => {
+      const report: MatrixReport = runMatrix1089();
+      hilog.info(DOMAIN, TAG, 'Event count=%{public}d', report.eventCount);
+      expect(report.eventCount).assertEqual(4);
+      hilog.info(DOMAIN, TAG, 'Duration sum=%{public}d', report.durationSum);
+      expect(report.durationSum).assertEqual(1792);
+      hilog.info(DOMAIN, TAG, 'Channel intensity sum=%{public}d', report.channelIntensitySum);
+      expect(report.channelIntensitySum).assertEqual(531);
+    });
+
+    /**
+     * @tc.number SUB_VIBRATOR_MATRIX_1090
+     * @tc.name testVibratorMatrix1090
+     * @tc.desc 四至十六点升降包络及相对频移组合，逐项核对4组输出及累计时长和通道加权强度。
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testVibratorMatrix1090', 0, (): void => {
+      const report: MatrixReport = runMatrix1090();
+      hilog.info(DOMAIN, TAG, 'Event count=%{public}d', report.eventCount);
+      expect(report.eventCount).assertEqual(4);
+      hilog.info(DOMAIN, TAG, 'Duration sum=%{public}d', report.durationSum);
+      expect(report.durationSum).assertEqual(1920);
+      hilog.info(DOMAIN, TAG, 'Channel intensity sum=%{public}d', report.channelIntensitySum);
+      expect(report.channelIntensitySum).assertEqual(708);
+    });
+
+  });
+}
