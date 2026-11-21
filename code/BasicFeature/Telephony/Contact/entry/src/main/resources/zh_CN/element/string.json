@@ -127,6 +127,22 @@
     {
       "name": "note",
       "value": "备注"
+    },
+    {
+      "name": "permission_write_contacts_reason",
+      "value": "用于写入联系人"
+    },
+    {
+      "name": "permission_read_contacts_reason",
+      "value": "用于读取联系人"
+    },
+    {
+      "name": "contact_error",
+      "value": "错误！"
+    },
+    {
+      "name": "phone_number_invalid",
+      "value": "请输入手机号。"
     }
   ]
 }

@@ -127,6 +127,22 @@
     {
       "name": "note",
       "value": "remarks"
+    },
+    {
+      "name": "permission_write_contacts_reason",
+      "value": "Used to write contacts"
+    },
+    {
+      "name": "permission_read_contacts_reason",
+      "value": "Used to read contacts"
+    },
+    {
+      "name": "contact_error",
+      "value": "Error!"
+    },
+    {
+      "name": "phone_number_invalid",
+      "value": "Please input phone number."
     }
   ]
 }
