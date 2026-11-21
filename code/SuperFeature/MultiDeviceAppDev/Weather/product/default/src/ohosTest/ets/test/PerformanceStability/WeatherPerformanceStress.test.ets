@@ -1984,3 +1984,1204 @@ export default function weatherPerformanceStressSuite() {
       expect(m.getCity('nohit933') === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0934
+     * @tc.name    WeatherPerformanceStress934
+     * @tc.desc    Weather repeated validity sweep 934 probe 934
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress934', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 4) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit934') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0935
+     * @tc.name    WeatherPerformanceStress935
+     * @tc.desc    Weather repeated validity sweep 935 probe 935
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress935', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 0) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit935') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0936
+     * @tc.name    WeatherPerformanceStress936
+     * @tc.desc    Weather repeated validity sweep 936 probe 936
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress936', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 1) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit936') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0937
+     * @tc.name    WeatherPerformanceStress937
+     * @tc.desc    Weather repeated validity sweep 937 probe 937
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress937', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 2) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit937') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0938
+     * @tc.name    WeatherPerformanceStress938
+     * @tc.desc    Weather repeated validity sweep 938 probe 938
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress938', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 3) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit938') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0939
+     * @tc.name    WeatherPerformanceStress939
+     * @tc.desc    Weather repeated validity sweep 939 probe 939
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress939', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 4) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit939') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0940
+     * @tc.name    WeatherPerformanceStress940
+     * @tc.desc    Weather repeated validity sweep 940 probe 940
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress940', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 0) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit940') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0941
+     * @tc.name    WeatherPerformanceStress941
+     * @tc.desc    Weather repeated validity sweep 941 probe 941
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress941', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 1) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit941') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0942
+     * @tc.name    WeatherPerformanceStress942
+     * @tc.desc    Weather repeated validity sweep 942 probe 942
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress942', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 2) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit942') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0943
+     * @tc.name    WeatherPerformanceStress943
+     * @tc.desc    Weather repeated validity sweep 943 probe 943
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress943', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 3) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit943') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0944
+     * @tc.name    WeatherPerformanceStress944
+     * @tc.desc    Weather repeated validity sweep 944 probe 944
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress944', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 4) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit944') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0945
+     * @tc.name    WeatherPerformanceStress945
+     * @tc.desc    Weather repeated validity sweep 945 probe 945
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress945', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 0) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit945') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0946
+     * @tc.name    WeatherPerformanceStress946
+     * @tc.desc    Weather repeated validity sweep 946 probe 946
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress946', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 1) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit946') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0947
+     * @tc.name    WeatherPerformanceStress947
+     * @tc.desc    Weather repeated validity sweep 947 probe 947
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress947', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 2) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit947') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0948
+     * @tc.name    WeatherPerformanceStress948
+     * @tc.desc    Weather repeated validity sweep 948 probe 948
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress948', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 3) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit948') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0949
+     * @tc.name    WeatherPerformanceStress949
+     * @tc.desc    Weather repeated validity sweep 949 probe 949
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress949', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 4) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit949') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0950
+     * @tc.name    WeatherPerformanceStress950
+     * @tc.desc    Weather repeated validity sweep 950 probe 950
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress950', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 0) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit950') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0951
+     * @tc.name    WeatherPerformanceStress951
+     * @tc.desc    Weather repeated validity sweep 951 probe 951
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress951', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 1) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit951') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0952
+     * @tc.name    WeatherPerformanceStress952
+     * @tc.desc    Weather repeated validity sweep 952 probe 952
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress952', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 2) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit952') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0953
+     * @tc.name    WeatherPerformanceStress953
+     * @tc.desc    Weather repeated validity sweep 953 probe 953
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress953', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 3) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit953') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0954
+     * @tc.name    WeatherPerformanceStress954
+     * @tc.desc    Weather repeated validity sweep 954 probe 954
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress954', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 4) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit954') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0955
+     * @tc.name    WeatherPerformanceStress955
+     * @tc.desc    Weather repeated validity sweep 955 probe 955
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress955', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 0) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit955') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0956
+     * @tc.name    WeatherPerformanceStress956
+     * @tc.desc    Weather repeated validity sweep 956 probe 956
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress956', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 1) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit956') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0957
+     * @tc.name    WeatherPerformanceStress957
+     * @tc.desc    Weather repeated validity sweep 957 probe 957
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress957', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 2) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit957') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0958
+     * @tc.name    WeatherPerformanceStress958
+     * @tc.desc    Weather repeated validity sweep 958 probe 958
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress958', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 3) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit958') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0959
+     * @tc.name    WeatherPerformanceStress959
+     * @tc.desc    Weather repeated validity sweep 959 probe 959
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress959', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 4) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit959') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0960
+     * @tc.name    WeatherPerformanceStress960
+     * @tc.desc    Weather repeated validity sweep 960 probe 960
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress960', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 0) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit960') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0961
+     * @tc.name    WeatherPerformanceStress961
+     * @tc.desc    Weather repeated validity sweep 961 probe 961
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress961', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 1) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit961') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0962
+     * @tc.name    WeatherPerformanceStress962
+     * @tc.desc    Weather repeated validity sweep 962 probe 962
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress962', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 2) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit962') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0963
+     * @tc.name    WeatherPerformanceStress963
+     * @tc.desc    Weather repeated validity sweep 963 probe 963
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress963', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 3) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit963') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0964
+     * @tc.name    WeatherPerformanceStress964
+     * @tc.desc    Weather repeated validity sweep 964 probe 964
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress964', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 4) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit964') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0965
+     * @tc.name    WeatherPerformanceStress965
+     * @tc.desc    Weather repeated validity sweep 965 probe 965
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress965', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 0) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit965') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0966
+     * @tc.name    WeatherPerformanceStress966
+     * @tc.desc    Weather repeated validity sweep 966 probe 966
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress966', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 1) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit966') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0967
+     * @tc.name    WeatherPerformanceStress967
+     * @tc.desc    Weather repeated validity sweep 967 probe 967
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress967', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 2) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit967') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0968
+     * @tc.name    WeatherPerformanceStress968
+     * @tc.desc    Weather repeated validity sweep 968 probe 968
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress968', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 3) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit968') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0969
+     * @tc.name    WeatherPerformanceStress969
+     * @tc.desc    Weather repeated validity sweep 969 probe 969
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress969', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 4) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit969') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0970
+     * @tc.name    WeatherPerformanceStress970
+     * @tc.desc    Weather repeated validity sweep 970 probe 970
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress970', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 0) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit970') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0971
+     * @tc.name    WeatherPerformanceStress971
+     * @tc.desc    Weather repeated validity sweep 971 probe 971
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress971', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 1) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit971') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0972
+     * @tc.name    WeatherPerformanceStress972
+     * @tc.desc    Weather repeated validity sweep 972 probe 972
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress972', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 2) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit972') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0973
+     * @tc.name    WeatherPerformanceStress973
+     * @tc.desc    Weather repeated validity sweep 973 probe 973
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress973', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 3) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit973') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0974
+     * @tc.name    WeatherPerformanceStress974
+     * @tc.desc    Weather repeated validity sweep 974 probe 974
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress974', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 4) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit974') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0975
+     * @tc.name    WeatherPerformanceStress975
+     * @tc.desc    Weather repeated validity sweep 975 probe 975
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress975', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 0) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit975') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0976
+     * @tc.name    WeatherPerformanceStress976
+     * @tc.desc    Weather repeated validity sweep 976 probe 976
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress976', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 1) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit976') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0977
+     * @tc.name    WeatherPerformanceStress977
+     * @tc.desc    Weather repeated validity sweep 977 probe 977
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress977', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 2) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit977') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0978
+     * @tc.name    WeatherPerformanceStress978
+     * @tc.desc    Weather repeated validity sweep 978 probe 978
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress978', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 3) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit978') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0979
+     * @tc.name    WeatherPerformanceStress979
+     * @tc.desc    Weather repeated validity sweep 979 probe 979
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress979', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 4) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit979') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0980
+     * @tc.name    WeatherPerformanceStress980
+     * @tc.desc    Weather repeated validity sweep 980 probe 980
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress980', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 0) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit980') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0981
+     * @tc.name    WeatherPerformanceStress981
+     * @tc.desc    Weather repeated validity sweep 981 probe 981
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress981', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 1) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit981') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0982
+     * @tc.name    WeatherPerformanceStress982
+     * @tc.desc    Weather repeated validity sweep 982 probe 982
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress982', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 2) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit982') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0983
+     * @tc.name    WeatherPerformanceStress983
+     * @tc.desc    Weather repeated validity sweep 983 probe 983
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress983', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 3) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit983') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0984
+     * @tc.name    WeatherPerformanceStress984
+     * @tc.desc    Weather repeated validity sweep 984 probe 984
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress984', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 4) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit984') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0985
+     * @tc.name    WeatherPerformanceStress985
+     * @tc.desc    Weather repeated validity sweep 985 probe 985
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress985', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 0) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit985') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0986
+     * @tc.name    WeatherPerformanceStress986
+     * @tc.desc    Weather repeated validity sweep 986 probe 986
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress986', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 1) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit986') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0987
+     * @tc.name    WeatherPerformanceStress987
+     * @tc.desc    Weather repeated validity sweep 987 probe 987
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress987', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 2) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit987') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0988
+     * @tc.name    WeatherPerformanceStress988
+     * @tc.desc    Weather repeated validity sweep 988 probe 988
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress988', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 3) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit988') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0989
+     * @tc.name    WeatherPerformanceStress989
+     * @tc.desc    Weather repeated validity sweep 989 probe 989
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress989', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 4) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit989') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0990
+     * @tc.name    WeatherPerformanceStress990
+     * @tc.desc    Weather repeated validity sweep 990 probe 990
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress990', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 0) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit990') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0991
+     * @tc.name    WeatherPerformanceStress991
+     * @tc.desc    Weather repeated validity sweep 991 probe 991
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress991', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 1) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit991') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0992
+     * @tc.name    WeatherPerformanceStress992
+     * @tc.desc    Weather repeated validity sweep 992 probe 992
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress992', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 2) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit992') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0993
+     * @tc.name    WeatherPerformanceStress993
+     * @tc.desc    Weather repeated validity sweep 993 probe 993
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress993', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 3) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit993') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0994
+     * @tc.name    WeatherPerformanceStress994
+     * @tc.desc    Weather repeated validity sweep 994 probe 994
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress994', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 4) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit994') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0995
+     * @tc.name    WeatherPerformanceStress995
+     * @tc.desc    Weather repeated validity sweep 995 probe 995
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress995', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 0) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit995') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0996
+     * @tc.name    WeatherPerformanceStress996
+     * @tc.desc    Weather repeated validity sweep 996 probe 996
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherPerformanceStress996', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      for (let k = 0; k < m.getCityCount(); k++) {
+        const city = m.getData((k + 1) % m.getCityCount());
+        expect(city !== undefined).assertEqual(true);
+      }
+      expect(m.getCity('nohit996') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
