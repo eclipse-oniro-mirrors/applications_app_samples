@@ -1757,3 +1757,110 @@ async function runAssertion0076(): Promise<void> {
         0.75,
         0.75,
         0.75,
+        0.75,
+        0.75,
+        0.75,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1.25,
+        1.25,
+        1.25,
+        1.25,
+        1.25,
+        1.25,
+        1.25,
+        1.5,
+        1.5,
+        1.5,
+        1.5,
+        1.5,
+        1.5,
+        1.5,
+        1.75,
+        1.75,
+        1.75,
+        1.75,
+        1.75,
+        1.75,
+        1.75
+      ],
+      message:
+        'expect [-1.75,-1.75,-1.75,-1.75,-1.75,-1.75,-1.75,-1.5,-1.5,-1.5,-1.5,-1.5,-1.5,-1.5,' +
+        '-1.25,-1.25,-1.25,-1.25,-1.25,-1.25,-1.25,-1,-1,-1,-1,-1,-1,-1,-0.75,-0.75,-0.75,' +
+        '-0.75,-0.75,-0.75,-0.75,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.25,-0.25,-0.25,-0.25,' +
+        '-0.25,-0.25,-0.25,0,0,0,0,0,0,0,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.5,0.5,0.5,0.5,' +
+        '0.5,0.5,0.5,0.75,0.75,0.75,0.75,0.75,0.75,0.75,1,1,1,1,1,1,1,1.25,1.25,1.25,1.25,' +
+        '1.25,1.25,1.25,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.75,1.75,1.75,1.75,1.75,1.75,' +
+        '1.75] deep equals [-1.75,-1.75,-1.75,-1.75,-1.75,-1.75,-1.75,-1.5,-1.5,-1.5,-1.5,' +
+        '-1.5,-1.5,-1.5,-1.25,-1.25,-1.25,-1.25,-1.25,-1.25,-1.25,-1,-1,-1,-1,-1,-1,-1,-0.75,' +
+        '-0.75,-0.75,-0.75,-0.75,-0.75,-0.75,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.25,-0.25,' +
+        '-0.25,-0.25,-0.25,-0.25,-0.25,0,0,0,0,0,0,0,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.5,' +
+        '0.5,0.5,0.5,0.5,0.5,0.5,0.75,0.75,0.75,0.75,0.75,0.75,0.75,1,1,1,1,1,1,1,1.25,1.25,' +
+        '1.25,1.25,1.25,1.25,1.25,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.75,1.75,1.75,1.75,1.75,1.75,' +
+        '1.75]'
+    }
+  ];
+  await runArrayRows(rows);
+}
+
+export default function arrayPlateauQuarterBoundary(): void {
+  describe('ArrayPlateauQuarterBoundary', (): void => {
+    beforeEach(async (): Promise<void> => {
+      await paceTurn();
+    });
+
+    /**
+     * @tc.number testJsunitAssertion0073
+     * @tc.name testJsunitAssertion0073
+     * @tc.desc PlateauQuarterHeadValue: observe acceptance, rejection and record recovery
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertion0073', 0, async (): Promise<void> => {
+      await runAssertion0073();
+    });
+
+    /**
+     * @tc.number testJsunitAssertion0074
+     * @tc.name testJsunitAssertion0074
+     * @tc.desc PlateauQuarterTailInversion: observe acceptance, rejection and record recovery
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertion0074', 0, async (): Promise<void> => {
+      await runAssertion0074();
+    });
+
+    /**
+     * @tc.number testJsunitAssertion0075
+     * @tc.name testJsunitAssertion0075
+     * @tc.desc PlateauQuarterLengthBoundary: observe acceptance, rejection and record recovery
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertion0075', 0, async (): Promise<void> => {
+      await runAssertion0075();
+    });
+
+    /**
+     * @tc.number testJsunitAssertion0076
+     * @tc.name testJsunitAssertion0076
+     * @tc.desc PlateauQuarterInteriorOrder: observe acceptance, rejection and record recovery
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertion0076', 0, async (): Promise<void> => {
+      await runAssertion0076();
+    });
+
+  });
+}
