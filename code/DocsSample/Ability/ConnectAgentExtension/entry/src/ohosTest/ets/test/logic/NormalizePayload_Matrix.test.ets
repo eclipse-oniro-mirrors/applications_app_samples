@@ -247,16 +247,16 @@ export default function normalizePayloadMatrixTest(): void {
     /**
      * @tc.number    SUB_CONNECT_AGENT_EXTENSION_NORMALIZE_PAYLOAD_MATRIX_0015
      * @tc.name      ConnectAgentExtension_normalizePayload_Matrix_0015
-     * @tc.desc      [WhitespaceString] Verify normalizePayload(  v8  ) returns v8.
+     * @tc.desc      [WhitespaceString] Verify normalizePayload(  abc  ) returns abc.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL2
      */
     it('ConnectAgentExtension_normalizePayload_Matrix_0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
-      // Category: WhitespaceString; expected: v8
-      const actual: string = AgentModel.normalizePayload('  v8  ');
-      expect(actual).assertEqual('v8');
-      expect(actual.length).assertEqual(2);
+      // Category: WhitespaceString; expected: abc
+      const actual: string = AgentModel.normalizePayload('  abc  ');
+      expect(actual).assertEqual('abc');
+      expect(actual.length).assertEqual(3);
     });
 
     /**

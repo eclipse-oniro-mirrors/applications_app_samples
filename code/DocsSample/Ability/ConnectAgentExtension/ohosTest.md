@@ -68,14 +68,9 @@
 
 执行方式（hdc shell 形式，需先安装应用与 ohosTest 测试包）：
 
-```powershell
-hdc shell "aa test -b com.sample.connectagentextension -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 900000 -s batch 0 -s batches 4"
-hdc shell "aa test -b com.sample.connectagentextension -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 900000 -s batch 1 -s batches 4"
-hdc shell "aa test -b com.sample.connectagentextension -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 900000 -s batch 2 -s batches 4"
-hdc shell "aa test -b com.sample.connectagentextension -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 900000 -s batch 3 -s batches 4"
-```
+通过 OpenHarmony Ability assistant（Ability 助手）的 `test` 命令按批次执行，公共参数为 `-b com.sample.connectagentextension -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 900000 -s batches 4`，`-s batch` 依次取 `0`、`1`、`2`、`3`。
 
-DevEco Studio 的「Run all」不传 `-s batch`，默认执行全量（会触发进程被杀），全量请按上述四条命令逐批执行。
+DevEco Studio 的「Run all」不传 `-s batch`，默认执行全量（会触发进程被杀），全量请按上述公共参数逐批执行。
 
 ## 自动化测试范围
 
