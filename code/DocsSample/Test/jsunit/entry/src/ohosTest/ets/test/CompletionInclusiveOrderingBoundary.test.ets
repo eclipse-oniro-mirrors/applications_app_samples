@@ -115,3 +115,56 @@ async function runAssertion0012(): Promise<void> {
 export default function inclusiveOrderingBoundary(): void {
   describe('InclusiveOrderingBoundary', (): void => {
     beforeEach(async (): Promise<void> => {
+      await paceTurn();
+    });
+
+    /**
+     * @tc.number testJsunitAssertion0009
+     * @tc.name testJsunitAssertion0009
+     * @tc.desc LargerOrEqualSignedZero: observe acceptance, rejection and record recovery
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertion0009', 0, async (): Promise<void> => {
+      await runAssertion0009();
+    });
+
+    /**
+     * @tc.number testJsunitAssertion0010
+     * @tc.name testJsunitAssertion0010
+     * @tc.desc LessOrEqualQuarter: observe acceptance, rejection and record recovery
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertion0010', 0, async (): Promise<void> => {
+      await runAssertion0010();
+    });
+
+    /**
+     * @tc.number testJsunitAssertion0011
+     * @tc.name testJsunitAssertion0011
+     * @tc.desc LargerOrEqualNegativeEdge: observe acceptance, rejection and record recovery
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertion0011', 0, async (): Promise<void> => {
+      await runAssertion0011();
+    });
+
+    /**
+     * @tc.number testJsunitAssertion0012
+     * @tc.name testJsunitAssertion0012
+     * @tc.desc LessOrEqualSafeEdge: observe acceptance, rejection and record recovery
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertion0012', 0, async (): Promise<void> => {
+      await runAssertion0012();
+    });
+
+  });
+}
