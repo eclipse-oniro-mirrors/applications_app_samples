@@ -85,7 +85,7 @@ entry/src/main/ets/
 
 ### 测试
 
-本工程提供 ohosTest 测试用例，共 34 个测试套件、2258 条用例，覆盖合法/边界/非法/极值/组合/状态六个维度，套件清单与用例编号详见 [ohosTest.md](ohosTest.md)。
+本工程提供 ohosTest 测试用例，共 45 个测试套件、2258 条用例，覆盖合法/边界/非法/极值/组合/状态六个维度，套件清单与用例编号详见 [ohosTest.md](ohosTest.md)。
 
 在真机环境执行全量测试：在 DevEco Studio 中选择 `entry@ohosTest` 运行配置执行，运行参数如下，依次对应命令行参数 `-b`、`-m`、`-s unittest`、`-s timeout`：
 

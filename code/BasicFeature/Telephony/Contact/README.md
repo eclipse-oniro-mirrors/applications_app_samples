@@ -79,7 +79,7 @@ N/A
 
 ### Testing
 
-This project provides ohosTest test cases: 34 test suites and 2,258 cases covering six dimensions (valid/boundary/invalid/extreme/combination/state). See [ohosTest.md](ohosTest.md) for the suite list and case numbers.
+This project provides ohosTest test cases: 45 test suites and 2,258 cases covering six dimensions (valid/boundary/invalid/extreme/combination/state). See [ohosTest.md](ohosTest.md) for the suite list and case numbers.
 
 To run all tests on a real device, select the `entry@ohosTest` run configuration in DevEco Studio. The run parameters map to the `-b`, `-m`, `-s unittest`, and `-s timeout` command-line parameters, respectively:
 
