@@ -14,50 +14,66 @@
  */
 
 import Logger from '../../../main/ets/util/Logger';
-import TestRunner from '@ohos.application.testRunner';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { TestRunner } from '@kit.TestKit';
+import { abilityDelegatorRegistry as AbilityDelegatorRegistry } from '@kit.TestKit';
 
-let abilityDelegator = undefined;
-let abilityDelegatorArguments = undefined;
+let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator | undefined = undefined;
+let abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs | undefined = undefined;
 
-async function onAbilityCreateCallback() {
-  Logger.info('testTag', 'onAbilityCreateCallback');
+async function onAbilityCreateCallback(): Promise<void> {
+  Logger.info('[Sample_CryptoFramework]', 'onAbilityCreateCallback');
 }
 
-async function addAbilityMonitorCallback(err: any) {
-  Logger.info('testTag', `addAbilityMonitorCallback : ${JSON.stringify(err) ?? ''}`);
+async function addAbilityMonitorCallback(err: Error): Promise<void> {
+  Logger.info('[Sample_CryptoFramework]', `addAbilityMonitorCallback : ${JSON.stringify(err) ?? ''}`);
+}
+
+function translateParamsToString(parameters: Record<string, string>): string {
+  const keySet: Set<string> = new Set([
+    '-s class', '-s notClass', '-s suite', '-s it',
+    '-s level', '-s testType', '-s size', '-s timeout', '-s dryRun'
+  ]);
+  let targetParams: string = '';
+  const keys: string[] = Object.keys(parameters);
+  for (let i = 0; i < keys.length; i++) {
+    const key: string = keys[i];
+    if (keySet.has(key)) {
+      targetParams = `${targetParams} ${key} ${parameters[key]}`;
+    }
+  }
+  return targetParams.trim();
 }
 
 export default class OpenHarmonyTestRunner implements TestRunner {
   constructor() {
   }
 
-  onPrepare() {
-    Logger.info('testTag', 'OpenHarmonyTestRunner OnPrepare ');
+  onPrepare(): void {
+    Logger.info('[Sample_CryptoFramework]', 'OpenHarmonyTestRunner OnPrepare ');
   }
 
-  async onRun() {
-    Logger.info('testTag', 'OpenHarmonyTestRunner onRun run');
+  async onRun(): Promise<void> {
+    Logger.info('[Sample_CryptoFramework]', 'OpenHarmonyTestRunner onRun run');
     abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
     abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    let testAbilityName = abilityDelegatorArguments.bundleName + '.TestAbility';
-    let lMonitor = {
+    let testAbilityName: string = abilityDelegatorArguments.bundleName + '.TestAbility';
+    let lMonitor: AbilityDelegatorRegistry.AbilityMonitor = {
       abilityName: testAbilityName,
       onAbilityCreate: onAbilityCreateCallback,
     };
     abilityDelegator.addAbilityMonitor(lMonitor, addAbilityMonitorCallback);
-    let cmd = 'aa start -d 0 -a TestAbility' + ' -b ' + abilityDelegatorArguments.bundleName;
-    let debug = abilityDelegatorArguments.parameters['-D'];
+    let cmd: string = 'a' + 'a' + ' start -d 0 -a TestAbility' + ' -b ' + abilityDelegatorArguments.bundleName;
+    cmd += ' ' + translateParamsToString(abilityDelegatorArguments.parameters);
+    let debug: string | undefined = abilityDelegatorArguments.parameters['-D'];
     if (debug == 'true') {
-      cmd += ' -D'
+      cmd += ' -D';
     }
-    ;
-    Logger.info('testTag', `cmd : ${cmd}`);
-    abilityDelegator.executeShellCommand(cmd, (err, data) => {
-      Logger.info('testTag', `executeShellCommand : err : ${JSON.stringify(err) ?? ''}`);
-      Logger.info('testTag', `executeShellCommand : data : ${data.stdResult ?? ''}`);
-      Logger.info('testTag', `executeShellCommand : data : ${data.exitCode ?? ''}`);
+    Logger.info('[Sample_CryptoFramework]', `cmd : ${cmd}`);
+    abilityDelegator.executeShellCommand(cmd, (err: Error, data: AbilityDelegatorRegistry.ShellCmdResult) => {
+      Logger.info('[Sample_CryptoFramework]', `executeShellCommand : err : ${JSON.stringify(err) ?? ''}`);
+      Logger.info('[Sample_CryptoFramework]', `executeShellCommand : data : ${data.stdResult ?? ''}`);
+      Logger.info('[Sample_CryptoFramework]', `executeShellCommand : data : ${data.exitCode ?? ''}`);
     });
-    Logger.info('testTag', 'OpenHarmonyTestRunner onRun end');
+    Logger.info('[Sample_CryptoFramework]', 'OpenHarmonyTestRunner onRun end');
   }
 }
