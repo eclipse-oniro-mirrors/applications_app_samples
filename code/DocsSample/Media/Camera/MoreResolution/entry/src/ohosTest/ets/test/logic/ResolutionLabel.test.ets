@@ -399,3 +399,388 @@ export default function resolutionLabelTest(): void {
      * @tc.desc      resolutionLabel(30) renders "".
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResLabel_0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResLabel_0022 begin`);
+      logInfo("resolutionLabel(30)");
+      const actual: string = resolutionLabel(30);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ResLabel_0022 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_LABEL_0023
+     * @tc.name      Resolution_ResLabel_0023
+     * @tc.desc      resolutionLabel(40) renders "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_ResLabel_0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}ResLabel_0023 begin`);
+      logInfo("resolutionLabel(40)");
+      const actual: string = resolutionLabel(40);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo(`${BUNDLE}ResLabel_0023 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_LABEL_0024
+     * @tc.name      Resolution_ResLabel_0024
+     * @tc.desc      resolutionLabel(50) renders "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResLabel_0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResLabel_0024 begin`);
+      logInfo("resolutionLabel(50)");
+      const actual: string = resolutionLabel(50);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo(`${BUNDLE}ResLabel_0024 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_LABEL_0025
+     * @tc.name      Resolution_ResLabel_0025
+     * @tc.desc      resolutionLabel(60) renders "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResLabel_0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResLabel_0025 begin`);
+      logInfo("resolutionLabel(60)");
+      const actual: string = resolutionLabel(60);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ResLabel_0025 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_LABEL_0026
+     * @tc.name      Resolution_ResLabel_0026
+     * @tc.desc      resolutionLabel(70) renders "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResLabel_0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResLabel_0026 begin`);
+      logInfo("resolutionLabel(70)");
+      const actual: string = resolutionLabel(70);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo(`${BUNDLE}ResLabel_0026 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_LABEL_0027
+     * @tc.name      Resolution_ResLabel_0027
+     * @tc.desc      resolutionLabel(80) renders "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResLabel_0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResLabel_0027 begin`);
+      logInfo("resolutionLabel(80)");
+      const actual: string = resolutionLabel(80);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo(`${BUNDLE}ResLabel_0027 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_LABEL_0028
+     * @tc.name      Resolution_ResLabel_0028
+     * @tc.desc      resolutionLabel(90) renders "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResLabel_0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResLabel_0028 begin`);
+      logInfo("resolutionLabel(90)");
+      const actual: string = resolutionLabel(90);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ResLabel_0028 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_LABEL_0029
+     * @tc.name      Resolution_ResLabel_0029
+     * @tc.desc      resolutionLabel(100) renders "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResLabel_0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResLabel_0029 begin`);
+      logInfo("resolutionLabel(100)");
+      const actual: string = resolutionLabel(100);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo(`${BUNDLE}ResLabel_0029 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_LABEL_0030
+     * @tc.name      Resolution_ResLabel_0030
+     * @tc.desc      resolutionLabel(200) renders "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResLabel_0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResLabel_0030 begin`);
+      logInfo("resolutionLabel(200)");
+      const actual: string = resolutionLabel(200);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo(`${BUNDLE}ResLabel_0030 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_LABEL_0031
+     * @tc.name      Resolution_ResLabel_0031
+     * @tc.desc      resolutionLabel(255) renders "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResLabel_0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResLabel_0031 begin`);
+      logInfo("resolutionLabel(255)");
+      const actual: string = resolutionLabel(255);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ResLabel_0031 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_LABEL_0032
+     * @tc.name      Resolution_ResLabel_0032
+     * @tc.desc      resolutionLabel(360) renders "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResLabel_0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResLabel_0032 begin`);
+      logInfo("resolutionLabel(360)");
+      const actual: string = resolutionLabel(360);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo(`${BUNDLE}ResLabel_0032 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_LABEL_0033
+     * @tc.name      Resolution_ResLabel_0033
+     * @tc.desc      resolutionLabel(720) renders "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResLabel_0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResLabel_0033 begin`);
+      logInfo("resolutionLabel(720)");
+      const actual: string = resolutionLabel(720);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo(`${BUNDLE}ResLabel_0033 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_LABEL_0034
+     * @tc.name      Resolution_ResLabel_0034
+     * @tc.desc      resolutionLabel(1080) renders "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_ResLabel_0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}ResLabel_0034 begin`);
+      logInfo("resolutionLabel(1080)");
+      const actual: string = resolutionLabel(1080);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ResLabel_0034 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_LABEL_0035
+     * @tc.name      Resolution_ResLabel_0035
+     * @tc.desc      resolutionLabel(1280) renders "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Resolution_ResLabel_0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}ResLabel_0035 begin`);
+      logInfo("resolutionLabel(1280)");
+      const actual: string = resolutionLabel(1280);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo(`${BUNDLE}ResLabel_0035 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_LABEL_0036
+     * @tc.name      Resolution_ResLabel_0036
+     * @tc.desc      resolutionLabel(1920) renders "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResLabel_0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResLabel_0036 begin`);
+      logInfo("resolutionLabel(1920)");
+      const actual: string = resolutionLabel(1920);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo(`${BUNDLE}ResLabel_0036 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_LABEL_0037
+     * @tc.name      Resolution_ResLabel_0037
+     * @tc.desc      resolutionLabel(3840) renders "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResLabel_0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResLabel_0037 begin`);
+      logInfo("resolutionLabel(3840)");
+      const actual: string = resolutionLabel(3840);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ResLabel_0037 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_LABEL_0038
+     * @tc.name      Resolution_ResLabel_0038
+     * @tc.desc      resolutionLabel(4096) renders "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResLabel_0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResLabel_0038 begin`);
+      logInfo("resolutionLabel(4096)");
+      const actual: string = resolutionLabel(4096);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo(`${BUNDLE}ResLabel_0038 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_LABEL_0039
+     * @tc.name      Resolution_ResLabel_0039
+     * @tc.desc      resolutionLabel(999) renders "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResLabel_0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResLabel_0039 begin`);
+      logInfo("resolutionLabel(999)");
+      const actual: string = resolutionLabel(999);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo(`${BUNDLE}ResLabel_0039 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_LABEL_0040
+     * @tc.name      Resolution_ResLabel_0040
+     * @tc.desc      resolutionLabel(1000) renders "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResLabel_0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResLabel_0040 begin`);
+      logInfo("resolutionLabel(1000)");
+      const actual: string = resolutionLabel(1000);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ResLabel_0040 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_LABEL_0041
+     * @tc.name      Resolution_ResLabel_0041
+     * @tc.desc      resolutionLabel(24) renders "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResLabel_0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResLabel_0041 begin`);
+      logInfo("resolutionLabel(24)");
+      const actual: string = resolutionLabel(24);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo(`${BUNDLE}ResLabel_0041 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_LABEL_0042
+     * @tc.name      Resolution_ResLabel_0042
+     * @tc.desc      resolutionLabel(25) renders "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResLabel_0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResLabel_0042 begin`);
+      logInfo("resolutionLabel(25)");
+      const actual: string = resolutionLabel(25);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo(`${BUNDLE}ResLabel_0042 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_RES_LABEL_0043
+     * @tc.name      Resolution_ResLabel_0043
+     * @tc.desc      resolutionLabel(28) renders "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ResLabel_0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResLabel_0043 begin`);
+      logInfo("resolutionLabel(28)");
+      const actual: string = resolutionLabel(28);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ResLabel_0043 end`);
+    });
+  });
+}
