@@ -15,7 +15,7 @@
 
 // [Start deflate_and_inflate_004]
 import { fileIo as fs} from '@kit.CoreFileKit';
-import { zlib } from '@kit.BasicServicesKit';
+import { BusinessError, zlib } from '@kit.BasicServicesKit';
 
 @Entry
 @Component
@@ -31,6 +31,8 @@ struct Index {
           console.info('deflateFile success');
           fs.closeSync(inFile.fd);
           fs.closeSync(outFile.fd);
+        }).catch((error: BusinessError) => {
+          console.error(`deflateFile failed, code: ${error.code}, message: ${error.message}`);
         })
       })
 
@@ -43,6 +45,8 @@ struct Index {
           console.info('inflateFile success');
           fs.closeSync(inFile.fd);
           fs.closeSync(outFile.fd);
+        }).catch((error: BusinessError) => {
+          console.error(`inflateFile failed, code: ${error.code}, message: ${error.message}`);
         })
       })
     }
@@ -109,7 +113,7 @@ async function deflateFile(src: fs.File, dest: fs.File) {
   } while (flush != zlib.CompressFlushMode.FINISH); // 循环从文件中读取数据，直到数据全部读取
   try {
     // 释放资源
-    zip.deflateEnd(strm);
+    await zip.deflateEnd(strm);
   } catch (err) {
     console.error('deflateEnd err: ' + JSON.stringify(err));
   }
@@ -176,7 +180,7 @@ async function inflateFile(src: fs.File, dest: fs.File) {
   } while (status != zlib.ReturnStatus.STREAM_END.valueOf())  // 循环从文件中读取数据，直到数据全部读取
   try {
     // 释放资源
-    zip.inflateEnd(strm);
+    await zip.inflateEnd(strm);
   } catch (err) {
     console.error('inflateEnd err: ' + JSON.stringify(err));
   }
