@@ -559,3 +559,347 @@ export default function resolutionTableCoreTest(): void {
       expect(typeof actual).assertEqual('number');
       logInfo(`${BUNDLE}TableCore_0028 end`);
     });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_TABLE_CORE_0029
+     * @tc.name      Resolution_TableCore_0029
+     * @tc.desc      ratio(12) keeps the resolution table contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_TableCore_0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}TableCore_0029 begin`);
+      logInfo("ratio(12)");
+      const actual: number = resolutionRatio(12);
+      logInfo('actual=' + String(actual) + ', expected=' + "1");
+      expect(actual).assertEqual(1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}TableCore_0029 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_TABLE_CORE_0030
+     * @tc.name      Resolution_TableCore_0030
+     * @tc.desc      ratio(13) keeps the resolution table contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_TableCore_0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}TableCore_0030 begin`);
+      logInfo("ratio(13)");
+      const actual: number = resolutionRatio(13);
+      logInfo('actual=' + String(actual) + ', expected=' + "1");
+      expect(actual).assertEqual(1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}TableCore_0030 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_TABLE_CORE_0031
+     * @tc.name      Resolution_TableCore_0031
+     * @tc.desc      ratio(14) keeps the resolution table contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_TableCore_0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}TableCore_0031 begin`);
+      logInfo("ratio(14)");
+      const actual: number = resolutionRatio(14);
+      logInfo('actual=' + String(actual) + ', expected=' + "1.333333");
+      expect(actual).assertEqual(1.333333);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}TableCore_0031 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_TABLE_CORE_0032
+     * @tc.name      Resolution_TableCore_0032
+     * @tc.desc      ratio(15) keeps the resolution table contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_TableCore_0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}TableCore_0032 begin`);
+      logInfo("ratio(15)");
+      const actual: number = resolutionRatio(15);
+      logInfo('actual=' + String(actual) + ', expected=' + "1");
+      expect(actual).assertEqual(1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}TableCore_0032 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_TABLE_CORE_0033
+     * @tc.name      Resolution_TableCore_0033
+     * @tc.desc      find(0) keeps the resolution table contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_TableCore_0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}TableCore_0033 begin`);
+      logInfo("find(0)");
+      const actual: number = findResolutionIndex(4096, 3072);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}TableCore_0033 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_TABLE_CORE_0034
+     * @tc.name      Resolution_TableCore_0034
+     * @tc.desc      find(1) keeps the resolution table contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_TableCore_0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}TableCore_0034 begin`);
+      logInfo("find(1)");
+      const actual: number = findResolutionIndex(4096, 2304);
+      logInfo('actual=' + String(actual) + ', expected=' + "1");
+      expect(actual).assertEqual(1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}TableCore_0034 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_TABLE_CORE_0035
+     * @tc.name      Resolution_TableCore_0035
+     * @tc.desc      find(2) keeps the resolution table contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Resolution_TableCore_0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}TableCore_0035 begin`);
+      logInfo("find(2)");
+      const actual: number = findResolutionIndex(3840, 2160);
+      logInfo('actual=' + String(actual) + ', expected=' + "2");
+      expect(actual).assertEqual(2);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}TableCore_0035 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_TABLE_CORE_0036
+     * @tc.name      Resolution_TableCore_0036
+     * @tc.desc      find(3) keeps the resolution table contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_TableCore_0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}TableCore_0036 begin`);
+      logInfo("find(3)");
+      const actual: number = findResolutionIndex(2880, 2160);
+      logInfo('actual=' + String(actual) + ', expected=' + "3");
+      expect(actual).assertEqual(3);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}TableCore_0036 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_TABLE_CORE_0037
+     * @tc.name      Resolution_TableCore_0037
+     * @tc.desc      find(4) keeps the resolution table contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_TableCore_0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}TableCore_0037 begin`);
+      logInfo("find(4)");
+      const actual: number = findResolutionIndex(2560, 1440);
+      logInfo('actual=' + String(actual) + ', expected=' + "4");
+      expect(actual).assertEqual(4);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}TableCore_0037 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_TABLE_CORE_0038
+     * @tc.name      Resolution_TableCore_0038
+     * @tc.desc      find(5) keeps the resolution table contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_TableCore_0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}TableCore_0038 begin`);
+      logInfo("find(5)");
+      const actual: number = findResolutionIndex(2408, 1080);
+      logInfo('actual=' + String(actual) + ', expected=' + "5");
+      expect(actual).assertEqual(5);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}TableCore_0038 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_TABLE_CORE_0039
+     * @tc.name      Resolution_TableCore_0039
+     * @tc.desc      find(6) keeps the resolution table contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_TableCore_0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}TableCore_0039 begin`);
+      logInfo("find(6)");
+      const actual: number = findResolutionIndex(2384, 1080);
+      logInfo('actual=' + String(actual) + ', expected=' + "6");
+      expect(actual).assertEqual(6);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}TableCore_0039 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_TABLE_CORE_0040
+     * @tc.name      Resolution_TableCore_0040
+     * @tc.desc      find(7) keeps the resolution table contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_TableCore_0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}TableCore_0040 begin`);
+      logInfo("find(7)");
+      const actual: number = findResolutionIndex(1920, 1440);
+      logInfo('actual=' + String(actual) + ', expected=' + "7");
+      expect(actual).assertEqual(7);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}TableCore_0040 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_TABLE_CORE_0041
+     * @tc.name      Resolution_TableCore_0041
+     * @tc.desc      find(8) keeps the resolution table contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_TableCore_0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}TableCore_0041 begin`);
+      logInfo("find(8)");
+      const actual: number = findResolutionIndex(1920, 1080);
+      logInfo('actual=' + String(actual) + ', expected=' + "8");
+      expect(actual).assertEqual(8);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}TableCore_0041 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_TABLE_CORE_0042
+     * @tc.name      Resolution_TableCore_0042
+     * @tc.desc      find(9) keeps the resolution table contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_TableCore_0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}TableCore_0042 begin`);
+      logInfo("find(9)");
+      const actual: number = findResolutionIndex(1440, 1080);
+      logInfo('actual=' + String(actual) + ', expected=' + "9");
+      expect(actual).assertEqual(9);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}TableCore_0042 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_TABLE_CORE_0043
+     * @tc.name      Resolution_TableCore_0043
+     * @tc.desc      find(10) keeps the resolution table contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_TableCore_0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}TableCore_0043 begin`);
+      logInfo("find(10)");
+      const actual: number = findResolutionIndex(1280, 720);
+      logInfo('actual=' + String(actual) + ', expected=' + "10");
+      expect(actual).assertEqual(10);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}TableCore_0043 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_TABLE_CORE_0044
+     * @tc.name      Resolution_TableCore_0044
+     * @tc.desc      find(11) keeps the resolution table contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_TableCore_0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}TableCore_0044 begin`);
+      logInfo("find(11)");
+      const actual: number = findResolutionIndex(1088, 1088);
+      logInfo('actual=' + String(actual) + ', expected=' + "11");
+      expect(actual).assertEqual(11);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}TableCore_0044 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_TABLE_CORE_0045
+     * @tc.name      Resolution_TableCore_0045
+     * @tc.desc      find(12) keeps the resolution table contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_TableCore_0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}TableCore_0045 begin`);
+      logInfo("find(12)");
+      const actual: number = findResolutionIndex(1080, 1080);
+      logInfo('actual=' + String(actual) + ', expected=' + "12");
+      expect(actual).assertEqual(12);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}TableCore_0045 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_TABLE_CORE_0046
+     * @tc.name      Resolution_TableCore_0046
+     * @tc.desc      find(13) keeps the resolution table contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_TableCore_0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}TableCore_0046 begin`);
+      logInfo("find(13)");
+      const actual: number = findResolutionIndex(720, 720);
+      logInfo('actual=' + String(actual) + ', expected=' + "13");
+      expect(actual).assertEqual(13);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}TableCore_0046 end`);
+    });
+  });
+}
