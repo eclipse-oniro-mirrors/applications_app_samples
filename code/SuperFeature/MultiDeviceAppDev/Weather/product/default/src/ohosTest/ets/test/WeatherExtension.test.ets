@@ -5984,3 +5984,1813 @@ export default function weatherExtensionSuite() {
       expect(life[6].desc).assertEqual('\u611f\u5192');
       expect(life[6].value).assertEqual('\u5bb9\u6613');
     })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1725
+     * @tc.name    WeatherExtension1725
+     * @tc.desc    City 4 life slot 7 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life03_07', 0, () => {
+      const life: SuitData[] = getLifeData(3);
+      expect(life[7].desc).assertEqual('\u7d2b\u5916\u7ebf');
+      expect(life[7].value).assertEqual('\u5f31');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1726
+     * @tc.name    WeatherExtension1726
+     * @tc.desc    City 5 life slot 0 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life04_00', 0, () => {
+      const life: SuitData[] = getLifeData(4);
+      expect(life[0].desc).assertEqual('\u6e7f\u5ea6');
+      expect(life[0].value).assertEqual('42%');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1727
+     * @tc.name    WeatherExtension1727
+     * @tc.desc    City 5 life slot 1 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life04_01', 0, () => {
+      const life: SuitData[] = getLifeData(4);
+      expect(life[1].desc).assertEqual('\u4f53\u611f\u6e29\u5ea6');
+      expect(life[1].value).assertEqual('25\u00b0');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1728
+     * @tc.name    WeatherExtension1728
+     * @tc.desc    City 5 life slot 2 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life04_02', 0, () => {
+      const life: SuitData[] = getLifeData(4);
+      expect(life[2].desc).assertEqual('\u98ce\u529b');
+      expect(life[2].value).assertEqual('\u5fae\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1729
+     * @tc.name    WeatherExtension1729
+     * @tc.desc    City 5 life slot 3 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life04_03', 0, () => {
+      const life: SuitData[] = getLifeData(4);
+      expect(life[3].desc).assertEqual('\u98ce\u5411');
+      expect(life[3].value).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1730
+     * @tc.name    WeatherExtension1730
+     * @tc.desc    City 5 life slot 4 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life04_04', 0, () => {
+      const life: SuitData[] = getLifeData(4);
+      expect(life[4].desc).assertEqual('\u7a7f\u8863');
+      expect(life[4].value).assertEqual('\u77ed\u8896');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1731
+     * @tc.name    WeatherExtension1731
+     * @tc.desc    City 5 life slot 5 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life04_05', 0, () => {
+      const life: SuitData[] = getLifeData(4);
+      expect(life[5].desc).assertEqual('\u8fd0\u52a8');
+      expect(life[5].value).assertEqual('\u5b9c\u5ba4\u5916');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1732
+     * @tc.name    WeatherExtension1732
+     * @tc.desc    City 5 life slot 6 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life04_06', 0, () => {
+      const life: SuitData[] = getLifeData(4);
+      expect(life[6].desc).assertEqual('\u611f\u5192');
+      expect(life[6].value).assertEqual('\u5bb9\u6613');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1733
+     * @tc.name    WeatherExtension1733
+     * @tc.desc    City 5 life slot 7 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life04_07', 0, () => {
+      const life: SuitData[] = getLifeData(4);
+      expect(life[7].desc).assertEqual('\u7d2b\u5916\u7ebf');
+      expect(life[7].value).assertEqual('\u5f31');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1734
+     * @tc.name    WeatherExtension1734
+     * @tc.desc    Header of city 1 keeps its identity and range
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5head00', 0, () => {
+      const header: HeaderData = getHeaderDate(0);
+      expect(header.city).assertEqual('\u5317\u4eac');
+      expect(header.weatherType).assertEqual('\u6674');
+      expect(header.max).assertEqual('35');
+      expect(header.min).assertEqual('25');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1735
+     * @tc.name    WeatherExtension1735
+     * @tc.desc    Header of city 2 keeps its identity and range
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5head01', 0, () => {
+      const header: HeaderData = getHeaderDate(1);
+      expect(header.city).assertEqual('\u4e0a\u6d77');
+      expect(header.weatherType).assertEqual('\u9634');
+      expect(header.max).assertEqual('32');
+      expect(header.min).assertEqual('25');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1736
+     * @tc.name    WeatherExtension1736
+     * @tc.desc    Header of city 3 keeps its identity and range
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5head02', 0, () => {
+      const header: HeaderData = getHeaderDate(2);
+      expect(header.city).assertEqual('\u5e7f\u5dde');
+      expect(header.weatherType).assertEqual('\u5c0f\u96e8');
+      expect(header.max).assertEqual('30');
+      expect(header.min).assertEqual('22');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1737
+     * @tc.name    WeatherExtension1737
+     * @tc.desc    Header of city 4 keeps its identity and range
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5head03', 0, () => {
+      const header: HeaderData = getHeaderDate(3);
+      expect(header.city).assertEqual('\u5929\u6d25');
+      expect(header.weatherType).assertEqual('\u4e2d\u96e8');
+      expect(header.max).assertEqual('32');
+      expect(header.min).assertEqual('25');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1738
+     * @tc.name    WeatherExtension1738
+     * @tc.desc    Header of city 5 keeps its identity and range
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5head04', 0, () => {
+      const header: HeaderData = getHeaderDate(4);
+      expect(header.city).assertEqual('\u6b66\u6c49');
+      expect(header.weatherType).assertEqual('\u591a\u4e91');
+      expect(header.max).assertEqual('29');
+      expect(header.min).assertEqual('22');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1739
+     * @tc.name    WeatherExtension1739
+     * @tc.desc    Air quality -10 maps to the excellent band
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aqi00', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.aqiLevel(-10)).assertEqual('excellent');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1740
+     * @tc.name    WeatherExtension1740
+     * @tc.desc    Air quality 0 maps to the excellent band
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aqi02', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.aqiLevel(0)).assertEqual('excellent');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1741
+     * @tc.name    WeatherExtension1741
+     * @tc.desc    Air quality 1 maps to the excellent band
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aqi03', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.aqiLevel(1)).assertEqual('excellent');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1742
+     * @tc.name    WeatherExtension1742
+     * @tc.desc    Air quality 25 maps to the excellent band
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aqi04', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.aqiLevel(25)).assertEqual('excellent');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1743
+     * @tc.name    WeatherExtension1743
+     * @tc.desc    Air quality 49 maps to the excellent band
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aqi05', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.aqiLevel(49)).assertEqual('excellent');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1744
+     * @tc.name    WeatherExtension1744
+     * @tc.desc    Air quality 50 maps to the excellent band
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aqi06', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.aqiLevel(50)).assertEqual('excellent');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1745
+     * @tc.name    WeatherExtension1745
+     * @tc.desc    Air quality 51 maps to the good band
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aqi07', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.aqiLevel(51)).assertEqual('good');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1746
+     * @tc.name    WeatherExtension1746
+     * @tc.desc    Air quality 60 maps to the good band
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aqi08', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.aqiLevel(60)).assertEqual('good');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1747
+     * @tc.name    WeatherExtension1747
+     * @tc.desc    Air quality 75 maps to the good band
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aqi09', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.aqiLevel(75)).assertEqual('good');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1748
+     * @tc.name    WeatherExtension1748
+     * @tc.desc    Air quality 99 maps to the good band
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aqi10', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.aqiLevel(99)).assertEqual('good');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1749
+     * @tc.name    WeatherExtension1749
+     * @tc.desc    Air quality 100 maps to the good band
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aqi11', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.aqiLevel(100)).assertEqual('good');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1750
+     * @tc.name    WeatherExtension1750
+     * @tc.desc    Air quality 101 maps to the light band
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aqi12', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.aqiLevel(101)).assertEqual('light');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1751
+     * @tc.name    WeatherExtension1751
+     * @tc.desc    Air quality 120 maps to the light band
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aqi13', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.aqiLevel(120)).assertEqual('light');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1752
+     * @tc.name    WeatherExtension1752
+     * @tc.desc    Air quality 149 maps to the light band
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aqi14', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.aqiLevel(149)).assertEqual('light');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1753
+     * @tc.name    WeatherExtension1753
+     * @tc.desc    Air quality 150 maps to the light band
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aqi15', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.aqiLevel(150)).assertEqual('light');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1754
+     * @tc.name    WeatherExtension1754
+     * @tc.desc    Air quality 151 maps to the moderate band
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aqi16', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.aqiLevel(151)).assertEqual('moderate');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1755
+     * @tc.name    WeatherExtension1755
+     * @tc.desc    Air quality 200 maps to the moderate band
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aqi17', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.aqiLevel(200)).assertEqual('moderate');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1756
+     * @tc.name    WeatherExtension1756
+     * @tc.desc    Air quality 300 maps to the moderate band
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aqi18', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.aqiLevel(300)).assertEqual('moderate');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1757
+     * @tc.name    WeatherExtension1757
+     * @tc.desc    Air quality 500 maps to the moderate band
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aqi19', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.aqiLevel(500)).assertEqual('moderate');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1758
+     * @tc.name    WeatherExtension1758
+     * @tc.desc    Humidity -100 validation returns False
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5hum00', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.isHumidityValid(-100)).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1759
+     * @tc.name    WeatherExtension1759
+     * @tc.desc    Humidity -1 validation returns False
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5hum01', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.isHumidityValid(-1)).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1760
+     * @tc.name    WeatherExtension1760
+     * @tc.desc    Humidity 0 validation returns True
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5hum02', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.isHumidityValid(0)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1761
+     * @tc.name    WeatherExtension1761
+     * @tc.desc    Humidity 1 validation returns True
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5hum03', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.isHumidityValid(1)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1762
+     * @tc.name    WeatherExtension1762
+     * @tc.desc    Humidity 25 validation returns True
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5hum04', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.isHumidityValid(25)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1763
+     * @tc.name    WeatherExtension1763
+     * @tc.desc    Humidity 50 validation returns True
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5hum05', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.isHumidityValid(50)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1764
+     * @tc.name    WeatherExtension1764
+     * @tc.desc    Humidity 75 validation returns True
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5hum06', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.isHumidityValid(75)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1765
+     * @tc.name    WeatherExtension1765
+     * @tc.desc    Humidity 99 validation returns True
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5hum07', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.isHumidityValid(99)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1766
+     * @tc.name    WeatherExtension1766
+     * @tc.desc    Humidity 100 validation returns True
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5hum08', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.isHumidityValid(100)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1767
+     * @tc.name    WeatherExtension1767
+     * @tc.desc    Humidity 101 validation returns False
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5hum09', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.isHumidityValid(101)).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1768
+     * @tc.name    WeatherExtension1768
+     * @tc.desc    Humidity 200 validation returns False
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5hum10', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.isHumidityValid(200)).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1769
+     * @tc.name    WeatherExtension1769
+     * @tc.desc    Temperature -100 validation returns False
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5tv00', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.isTempValid(-100)).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1770
+     * @tc.name    WeatherExtension1770
+     * @tc.desc    Temperature -51 validation returns False
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5tv01', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.isTempValid(-51)).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1771
+     * @tc.name    WeatherExtension1771
+     * @tc.desc    Temperature -49 validation returns True
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5tv03', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.isTempValid(-49)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1772
+     * @tc.name    WeatherExtension1772
+     * @tc.desc    Temperature 0 validation returns True
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5tv04', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.isTempValid(0)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1773
+     * @tc.name    WeatherExtension1773
+     * @tc.desc    Temperature 25 validation returns True
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5tv05', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.isTempValid(25)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1774
+     * @tc.name    WeatherExtension1774
+     * @tc.desc    Temperature 59 validation returns True
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5tv06', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.isTempValid(59)).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1775
+     * @tc.name    WeatherExtension1775
+     * @tc.desc    Temperature 61 validation returns False
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5tv08', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.isTempValid(61)).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1776
+     * @tc.name    WeatherExtension1776
+     * @tc.desc    Temperature 100 validation returns False
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5tv09', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.isTempValid(100)).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1777
+     * @tc.name    WeatherExtension1777
+     * @tc.desc    Model lookup resolves city beijing and its temperature
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5getcity0', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      const city: WeatherCity | undefined = model.getCity('beijing');
+      expect(city !== undefined).assertTrue();
+      expect((city as WeatherCity).temp).assertEqual(26);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1778
+     * @tc.name    WeatherExtension1778
+     * @tc.desc    Model lookup resolves city shanghai and its temperature
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5getcity1', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      const city: WeatherCity | undefined = model.getCity('shanghai');
+      expect(city !== undefined).assertTrue();
+      expect((city as WeatherCity).temp).assertEqual(29);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1779
+     * @tc.name    WeatherExtension1779
+     * @tc.desc    Model lookup resolves city guangzhou and its temperature
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5getcity2', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      const city: WeatherCity | undefined = model.getCity('guangzhou');
+      expect(city !== undefined).assertTrue();
+      expect((city as WeatherCity).temp).assertEqual(33);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1780
+     * @tc.name    WeatherExtension1780
+     * @tc.desc    Model lookup resolves city shenzhen and its temperature
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5getcity3', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      const city: WeatherCity | undefined = model.getCity('shenzhen');
+      expect(city !== undefined).assertTrue();
+      expect((city as WeatherCity).temp).assertEqual(32);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1781
+     * @tc.name    WeatherExtension1781
+     * @tc.desc    Model lookup resolves city hangzhou and its temperature
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5getcity4', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      const city: WeatherCity | undefined = model.getCity('hangzhou');
+      expect(city !== undefined).assertTrue();
+      expect((city as WeatherCity).temp).assertEqual(28);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1782
+     * @tc.name    WeatherExtension1782
+     * @tc.desc    Model lookup reports undefined for absent city 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5getmiss0', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.getCity('beijing ') === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1783
+     * @tc.name    WeatherExtension1783
+     * @tc.desc    Model lookup reports undefined for absent city 2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5getmiss1', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.getCity('BEIJING') === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1784
+     * @tc.name    WeatherExtension1784
+     * @tc.desc    Model lookup reports undefined for absent city 3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5getmiss2', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.getCity('') === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1785
+     * @tc.name    WeatherExtension1785
+     * @tc.desc    Model lookup reports undefined for absent city 4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5getmiss3', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.getCity('xian') === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1786
+     * @tc.name    WeatherExtension1786
+     * @tc.desc    Model lookup reports undefined for absent city 5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5getmiss4', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.getCity('chengdu') === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1787
+     * @tc.name    WeatherExtension1787
+     * @tc.desc    Indexed access rejects index -1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5data0', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.getData(-1) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1788
+     * @tc.name    WeatherExtension1788
+     * @tc.desc    Indexed access returns city 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5data1', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect((model.getData(0) as WeatherCity).temp).assertEqual(26);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1789
+     * @tc.name    WeatherExtension1789
+     * @tc.desc    Indexed access returns city 2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5data2', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect((model.getData(1) as WeatherCity).temp).assertEqual(29);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1790
+     * @tc.name    WeatherExtension1790
+     * @tc.desc    Indexed access returns city 3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5data3', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect((model.getData(2) as WeatherCity).temp).assertEqual(33);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1791
+     * @tc.name    WeatherExtension1791
+     * @tc.desc    Indexed access returns city 4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5data4', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect((model.getData(3) as WeatherCity).temp).assertEqual(32);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1792
+     * @tc.name    WeatherExtension1792
+     * @tc.desc    Indexed access returns city 5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5data5', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect((model.getData(4) as WeatherCity).temp).assertEqual(28);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1793
+     * @tc.name    WeatherExtension1793
+     * @tc.desc    Indexed access rejects index 5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5data6', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.getData(5) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1794
+     * @tc.name    WeatherExtension1794
+     * @tc.desc    Seeded aggregates report the hottest, coldest and average temperature
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aggBase', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.getCityCount()).assertEqual(WEATHER_CITY_COUNT);
+      expect(model.totalCount()).assertEqual(5);
+      expect(model.hottestIndex()).assertEqual(2);
+      expect(model.coldestIndex()).assertEqual(0);
+      expect(model.averageTemp()).assertEqual(29.6);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1795
+     * @tc.name    WeatherExtension1795
+     * @tc.desc    Raising city 1 above thirty three makes it the hottest
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aggHot0', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.getCities()[0].temp = 40;
+      expect(model.hottestIndex()).assertEqual(0);
+      expect(model.averageTemp()).assertEqual(32.4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1796
+     * @tc.name    WeatherExtension1796
+     * @tc.desc    Raising city 2 above thirty three makes it the hottest
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aggHot1', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.getCities()[1].temp = 40;
+      expect(model.hottestIndex()).assertEqual(1);
+      expect(model.averageTemp()).assertEqual(31.8);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1797
+     * @tc.name    WeatherExtension1797
+     * @tc.desc    Raising city 3 above thirty three makes it the hottest
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aggHot2', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.getCities()[2].temp = 40;
+      expect(model.hottestIndex()).assertEqual(2);
+      expect(model.averageTemp()).assertEqual(31);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1798
+     * @tc.name    WeatherExtension1798
+     * @tc.desc    Raising city 4 above thirty three makes it the hottest
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aggHot3', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.getCities()[3].temp = 40;
+      expect(model.hottestIndex()).assertEqual(3);
+      expect(model.averageTemp()).assertEqual(31.2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1799
+     * @tc.name    WeatherExtension1799
+     * @tc.desc    Raising city 5 above thirty three makes it the hottest
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aggHot4', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.getCities()[4].temp = 40;
+      expect(model.hottestIndex()).assertEqual(4);
+      expect(model.averageTemp()).assertEqual(32);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1800
+     * @tc.name    WeatherExtension1800
+     * @tc.desc    Lowering city 1 below twenty six makes it the coldest
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aggCold0', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.getCities()[0].temp = -10;
+      expect(model.coldestIndex()).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1801
+     * @tc.name    WeatherExtension1801
+     * @tc.desc    Lowering city 2 below twenty six makes it the coldest
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aggCold1', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.getCities()[1].temp = -10;
+      expect(model.coldestIndex()).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1802
+     * @tc.name    WeatherExtension1802
+     * @tc.desc    Lowering city 3 below twenty six makes it the coldest
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aggCold2', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.getCities()[2].temp = -10;
+      expect(model.coldestIndex()).assertEqual(2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1803
+     * @tc.name    WeatherExtension1803
+     * @tc.desc    Lowering city 4 below twenty six makes it the coldest
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aggCold3', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.getCities()[3].temp = -10;
+      expect(model.coldestIndex()).assertEqual(3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1804
+     * @tc.name    WeatherExtension1804
+     * @tc.desc    Lowering city 5 below twenty six makes it the coldest
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aggCold4', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.getCities()[4].temp = -10;
+      expect(model.coldestIndex()).assertEqual(4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1805
+     * @tc.name    WeatherExtension1805
+     * @tc.desc    A later equal temperature does not displace the hottest index
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aggTie', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.getCities()[4].temp = 33;
+      expect(model.hottestIndex()).assertEqual(2);
+      expect(model.coldestIndex()).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1806
+     * @tc.name    WeatherExtension1806
+     * @tc.desc    A single city is both hottest and coldest
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5aggSingle', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.getCities().splice(1, model.getCityCount() - 1);
+      expect(model.hottestIndex()).assertEqual(0);
+      expect(model.coldestIndex()).assertEqual(0);
+      expect(model.averageTemp()).assertEqual(26);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1807
+     * @tc.name    WeatherExtension1807
+     * @tc.desc    A reload notification increments only its counter
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5st_reload', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.notifyReload();
+      expect(model.getState().reloads).assertEqual(1);
+      expect(model.getState().total).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1808
+     * @tc.name    WeatherExtension1808
+     * @tc.desc    A add notification increments only its counter
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5st_add', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.notifyAdd();
+      expect(model.getState().adds).assertEqual(1);
+      expect(model.getState().total).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1809
+     * @tc.name    WeatherExtension1809
+     * @tc.desc    A change notification increments only its counter
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5st_change', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.notifyChange();
+      expect(model.getState().changes).assertEqual(1);
+      expect(model.getState().total).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1810
+     * @tc.name    WeatherExtension1810
+     * @tc.desc    A delete notification increments only its counter
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5st_delete', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.notifyDelete();
+      expect(model.getState().deletes).assertEqual(1);
+      expect(model.getState().total).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1811
+     * @tc.name    WeatherExtension1811
+     * @tc.desc    A move notification increments only its counter
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5st_move', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.notifyMove();
+      expect(model.getState().moves).assertEqual(1);
+      expect(model.getState().total).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1812
+     * @tc.name    WeatherExtension1812
+     * @tc.desc    Bursting every notification increments each counter once
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stAll', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.notifyReload();
+      model.notifyAdd();
+      model.notifyChange();
+      model.notifyDelete();
+      model.notifyMove();
+      expect(model.getState().reloads).assertEqual(1);
+      expect(model.getState().adds).assertEqual(1);
+      expect(model.getState().changes).assertEqual(1);
+      expect(model.getState().deletes).assertEqual(1);
+      expect(model.getState().moves).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1813
+     * @tc.name    WeatherExtension1813
+     * @tc.desc    Repeating one notification accumulates its counter
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5stRepeat', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      for (let i = 0; i < 5; i++) {
+        model.notifyReload();
+      }
+      expect(model.getState().reloads).assertEqual(5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1814
+     * @tc.name    WeatherExtension1814
+     * @tc.desc    Duplicating the name of city 2 breaks uniqueness
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5uniq1', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.getCities()[1].name = model.getCities()[0].name;
+      expect(model.hasUniqueNames()).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1815
+     * @tc.name    WeatherExtension1815
+     * @tc.desc    Duplicating the name of city 3 breaks uniqueness
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5uniq2', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.getCities()[2].name = model.getCities()[0].name;
+      expect(model.hasUniqueNames()).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1816
+     * @tc.name    WeatherExtension1816
+     * @tc.desc    Duplicating the name of city 4 breaks uniqueness
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5uniq3', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.getCities()[3].name = model.getCities()[0].name;
+      expect(model.hasUniqueNames()).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1817
+     * @tc.name    WeatherExtension1817
+     * @tc.desc    Duplicating the name of city 5 breaks uniqueness
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5uniq4', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      model.getCities()[4].name = model.getCities()[0].name;
+      expect(model.hasUniqueNames()).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1818
+     * @tc.name    WeatherExtension1818
+     * @tc.desc    The seeded city names stay unique
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5uniqok', 0, () => {
+      const model: WeatherModel = new WeatherModel();
+      expect(model.hasUniqueNames()).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1819
+     * @tc.name    WeatherExtension1819
+     * @tc.desc    Style constant CARD_HEIGHT keeps the value 192
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5styleCARD_HEIGHT', 0, () => {
+      expect(Style.CARD_HEIGHT).assertEqual(192);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1820
+     * @tc.name    WeatherExtension1820
+     * @tc.desc    Style constant WEATHER_ITEM_WIDTH keeps the value 80
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5styleWEATHER_ITEM_WIDTH', 0, () => {
+      expect(Style.WEATHER_ITEM_WIDTH).assertEqual(80);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1821
+     * @tc.name    WeatherExtension1821
+     * @tc.desc    Style constant NORMAL_PADDING keeps the value 14
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5styleNORMAL_PADDING', 0, () => {
+      expect(Style.NORMAL_PADDING).assertEqual(14);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1822
+     * @tc.name    WeatherExtension1822
+     * @tc.desc    Style constant NORMAL_MARGIN keeps the value 14
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5styleNORMAL_MARGIN', 0, () => {
+      expect(Style.NORMAL_MARGIN).assertEqual(14);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1823
+     * @tc.name    WeatherExtension1823
+     * @tc.desc    Style constant NORMAL_SPACE keeps the value 12
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5styleNORMAL_SPACE', 0, () => {
+      expect(Style.NORMAL_SPACE).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1824
+     * @tc.name    WeatherExtension1824
+     * @tc.desc    Style constant GRID_GUTTER keeps the value 12
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5styleGRID_GUTTER', 0, () => {
+      expect(Style.GRID_GUTTER).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1825
+     * @tc.name    WeatherExtension1825
+     * @tc.desc    Style constant NORMAL_RADIUS keeps the value 16
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5styleNORMAL_RADIUS', 0, () => {
+      expect(Style.NORMAL_RADIUS).assertEqual(16);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1826
+     * @tc.name    WeatherExtension1826
+     * @tc.desc    Style constant CITY_TEXT_RADIUS keeps the value 18
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5styleCITY_TEXT_RADIUS', 0, () => {
+      expect(Style.CITY_TEXT_RADIUS).assertEqual(18);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1827
+     * @tc.name    WeatherExtension1827
+     * @tc.desc    Style constant ADD_CITY_BOTTOM keeps the value 6
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5styleADD_CITY_BOTTOM', 0, () => {
+      expect(Style.ADD_CITY_BOTTOM).assertEqual(6);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1828
+     * @tc.name    WeatherExtension1828
+     * @tc.desc    Style constant ADD_CITY_BOTTOM_LG keeps the value 28
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5styleADD_CITY_BOTTOM_LG', 0, () => {
+      expect(Style.ADD_CITY_BOTTOM_LG).assertEqual(28);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1829
+     * @tc.name    WeatherExtension1829
+     * @tc.desc    Style constant DIALOG_PADDING_OUT keeps the value 42
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5styleDIALOG_PADDING_OUT', 0, () => {
+      expect(Style.DIALOG_PADDING_OUT).assertEqual(42);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1830
+     * @tc.name    WeatherExtension1830
+     * @tc.desc    Style constant DIALOG_PADDING keeps the value 24
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5styleDIALOG_PADDING', 0, () => {
+      expect(Style.DIALOG_PADDING).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1831
+     * @tc.name    WeatherExtension1831
+     * @tc.desc    Style constant BIG_FONT_WEIGHT keeps the value 300
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5styleBIG_FONT_WEIGHT', 0, () => {
+      expect(Style.BIG_FONT_WEIGHT).assertEqual(300);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1832
+     * @tc.name    WeatherExtension1832
+     * @tc.desc    Style constant TIME_LIST_HEIGHT keeps the value 48
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5styleTIME_LIST_HEIGHT', 0, () => {
+      expect(Style.TIME_LIST_HEIGHT).assertEqual(48);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1833
+     * @tc.name    WeatherExtension1833
+     * @tc.desc    Style constant TIME_LIST_MARGIN keeps the value 22
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5styleTIME_LIST_MARGIN', 0, () => {
+      expect(Style.TIME_LIST_MARGIN).assertEqual(22);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1834
+     * @tc.name    WeatherExtension1834
+     * @tc.desc    Card background colour keeps its translucent value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5styleColor', 0, () => {
+      expect(Style.CARD_BACKGROUND_COLOR).assertEqual('#24FFFFFF');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1835
+     * @tc.name    WeatherExtension1835
+     * @tc.desc    Style spacing constants add up consistently
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5styleSum', 0, () => {
+      expect(Style.NORMAL_SPACE + Style.GRID_GUTTER).assertEqual(24);
+      expect(Style.ADD_CITY_BOTTOM_LG - Style.ADD_CITY_BOTTOM).assertEqual(22);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1836
+     * @tc.name    WeatherExtension1836
+     * @tc.desc    Page background comparison sunnyVsRain
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bg_sunnyVsRain', 0, () => {
+      expect(getBg('\u6674').id === getBg('\u5c0f\u96e8').id).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1837
+     * @tc.name    WeatherExtension1837
+     * @tc.desc    Page background comparison lightVsMid
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bg_lightVsMid', 0, () => {
+      expect(getBg('\u5c0f\u96e8').id === getBg('\u4e2d\u96e8').id).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1838
+     * @tc.name    WeatherExtension1838
+     * @tc.desc    Page background comparison midVsStorm
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bg_midVsStorm', 0, () => {
+      expect(getBg('\u4e2d\u96e8').id === getBg('\u96f7\u9635\u96e8').id).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1839
+     * @tc.name    WeatherExtension1839
+     * @tc.desc    Page background comparison cloudyVsOvercast
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bg_cloudyVsOvercast', 0, () => {
+      expect(getBg('\u591a\u4e91').id === getBg('\u9634').id).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1840
+     * @tc.name    WeatherExtension1840
+     * @tc.desc    Page background comparison emptyVsCloudy
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bg_emptyVsCloudy', 0, () => {
+      expect(getBg('').id === getBg('\u591a\u4e91').id).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1841
+     * @tc.name    WeatherExtension1841
+     * @tc.desc    Page background comparison rainVsCloudy
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bg_rainVsCloudy', 0, () => {
+      expect(getBg('\u5c0f\u96e8').id === getBg('\u591a\u4e91').id).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1842
+     * @tc.name    WeatherExtension1842
+     * @tc.desc    Side background comparison sunnyVsRain
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sbg_sunnyVsRain', 0, () => {
+      expect(getSideBg('\u6674').id === getSideBg('\u5c0f\u96e8').id).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1843
+     * @tc.name    WeatherExtension1843
+     * @tc.desc    Side background comparison lightVsMid
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sbg_lightVsMid', 0, () => {
+      expect(getSideBg('\u5c0f\u96e8').id === getSideBg('\u4e2d\u96e8').id).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1844
+     * @tc.name    WeatherExtension1844
+     * @tc.desc    Side background comparison midVsStorm
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sbg_midVsStorm', 0, () => {
+      expect(getSideBg('\u4e2d\u96e8').id === getSideBg('\u96f7\u9635\u96e8').id).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1845
+     * @tc.name    WeatherExtension1845
+     * @tc.desc    Side background comparison cloudyVsOvercast
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sbg_cloudyVsOvercast', 0, () => {
+      expect(getSideBg('\u591a\u4e91').id === getSideBg('\u9634').id).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1846
+     * @tc.name    WeatherExtension1846
+     * @tc.desc    Side background comparison emptyVsCloudy
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sbg_emptyVsCloudy', 0, () => {
+      expect(getSideBg('').id === getSideBg('\u591a\u4e91').id).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1847
+     * @tc.name    WeatherExtension1847
+     * @tc.desc    Side background comparison rainVsCloudy
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sbg_rainVsCloudy', 0, () => {
+      expect(getSideBg('\u5c0f\u96e8').id === getSideBg('\u591a\u4e91').id).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1848
+     * @tc.name    WeatherExtension1848
+     * @tc.desc    Page and side backgrounds differ for the sunny label
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bgdiff_sunny', 0, () => {
+      expect(getBg('\u6674').id === getSideBg('\u6674').id).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1849
+     * @tc.name    WeatherExtension1849
+     * @tc.desc    Page and side backgrounds differ for the rain label
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bgdiff_rain', 0, () => {
+      expect(getBg('\u5c0f\u96e8').id === getSideBg('\u5c0f\u96e8').id).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1850
+     * @tc.name    WeatherExtension1850
+     * @tc.desc    Page and side backgrounds differ for the cloudy label
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bgdiff_cloudy', 0, () => {
+      expect(getBg('\u591a\u4e91').id === getSideBg('\u591a\u4e91').id).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1851
+     * @tc.name    WeatherExtension1851
+     * @tc.desc    Menu exposes exactly two entries
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5menuCount', 0, () => {
+      const menu = getMenuInfo();
+      expect(menu.length).assertEqual(2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1852
+     * @tc.name    WeatherExtension1852
+     * @tc.desc    The first menu entry keeps its page url
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5menuTitle', 0, () => {
+      const menu = getMenuInfo();
+      expect(menu[0].url).assertEqual('pages/CityList');
+      expect(menu[1].url).assertEqual('');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1853
+     * @tc.name    WeatherExtension1853
+     * @tc.desc    Update time list exposes seven slots
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5updateLen', 0, () => {
+      expect(getUpdateTimes().length).assertEqual(7);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1854
+     * @tc.name    WeatherExtension1854
+     * @tc.desc    Update time slot 1 keeps its hour prefix
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5update0', 0, () => {
+      const times: string[] = getUpdateTimes();
+      expect(times[0].indexOf('1') === 0).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1855
+     * @tc.name    WeatherExtension1855
+     * @tc.desc    Update time slot 2 keeps its hour prefix
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5update1', 0, () => {
+      const times: string[] = getUpdateTimes();
+      expect(times[1].indexOf('2') === 0).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1856
+     * @tc.name    WeatherExtension1856
+     * @tc.desc    Update time slot 3 keeps its hour prefix
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5update2', 0, () => {
+      const times: string[] = getUpdateTimes();
+      expect(times[2].indexOf('4') === 0).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1857
+     * @tc.name    WeatherExtension1857
+     * @tc.desc    Update time slot 4 keeps its hour prefix
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5update3', 0, () => {
+      const times: string[] = getUpdateTimes();
+      expect(times[3].indexOf('6') === 0).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1858
+     * @tc.name    WeatherExtension1858
+     * @tc.desc    Update time slot 5 keeps its hour prefix
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5update4', 0, () => {
+      const times: string[] = getUpdateTimes();
+      expect(times[4].indexOf('12') === 0).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1859
+     * @tc.name    WeatherExtension1859
+     * @tc.desc    Update time slot 6 keeps its hour prefix
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5update5', 0, () => {
+      const times: string[] = getUpdateTimes();
+      expect(times[5].indexOf('24') === 0).assertTrue();
+    })
+  })
+}
