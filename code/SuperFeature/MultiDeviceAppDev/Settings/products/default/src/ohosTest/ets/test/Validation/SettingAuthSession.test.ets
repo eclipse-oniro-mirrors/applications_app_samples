@@ -1987,3 +1987,1757 @@ export default function settingAuthSessionSuite() {
       expect(m.getEntry('nohit1229') === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1230
+     * @tc.name    SettingAuthSession1230
+     * @tc.desc    Settings navbar width for 1550 probe 1230
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1230', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1550;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1230') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1231
+     * @tc.name    SettingAuthSession1231
+     * @tc.desc    Settings split mode at 231 probe 1231
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1231', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 231;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1231') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1232
+     * @tc.name    SettingAuthSession1232
+     * @tc.desc    Settings navbar width for 1552 probe 1232
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1232', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1552;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1232') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1233
+     * @tc.name    SettingAuthSession1233
+     * @tc.desc    Settings split mode at 233 probe 1233
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1233', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 233;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1233') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1234
+     * @tc.name    SettingAuthSession1234
+     * @tc.desc    Settings navbar width for 1554 probe 1234
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1234', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1554;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1234') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1235
+     * @tc.name    SettingAuthSession1235
+     * @tc.desc    Settings split mode at 235 probe 1235
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1235', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 235;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1235') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1236
+     * @tc.name    SettingAuthSession1236
+     * @tc.desc    Settings navbar width for 1556 probe 1236
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1236', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1556;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1236') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1237
+     * @tc.name    SettingAuthSession1237
+     * @tc.desc    Settings split mode at 237 probe 1237
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1237', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 237;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1237') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1238
+     * @tc.name    SettingAuthSession1238
+     * @tc.desc    Settings navbar width for 1558 probe 1238
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1238', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1558;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1238') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1239
+     * @tc.name    SettingAuthSession1239
+     * @tc.desc    Settings split mode at 239 probe 1239
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1239', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 239;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1239') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1240
+     * @tc.name    SettingAuthSession1240
+     * @tc.desc    Settings navbar width for 1560 probe 1240
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1240', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1560;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1240') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1241
+     * @tc.name    SettingAuthSession1241
+     * @tc.desc    Settings split mode at 241 probe 1241
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1241', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 241;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1241') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1242
+     * @tc.name    SettingAuthSession1242
+     * @tc.desc    Settings navbar width for 1562 probe 1242
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1242', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1562;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1242') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1243
+     * @tc.name    SettingAuthSession1243
+     * @tc.desc    Settings split mode at 243 probe 1243
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1243', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 243;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1243') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1244
+     * @tc.name    SettingAuthSession1244
+     * @tc.desc    Settings navbar width for 1564 probe 1244
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1244', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1564;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1244') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1245
+     * @tc.name    SettingAuthSession1245
+     * @tc.desc    Settings split mode at 245 probe 1245
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1245', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 245;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1245') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1246
+     * @tc.name    SettingAuthSession1246
+     * @tc.desc    Settings navbar width for 1566 probe 1246
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1246', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1566;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1246') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1247
+     * @tc.name    SettingAuthSession1247
+     * @tc.desc    Settings split mode at 247 probe 1247
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1247', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 247;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1247') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1248
+     * @tc.name    SettingAuthSession1248
+     * @tc.desc    Settings navbar width for 1568 probe 1248
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1248', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1568;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1248') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1249
+     * @tc.name    SettingAuthSession1249
+     * @tc.desc    Settings split mode at 249 probe 1249
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1249', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 249;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1249') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1250
+     * @tc.name    SettingAuthSession1250
+     * @tc.desc    Settings navbar width for 1570 probe 1250
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1250', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1570;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1250') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1251
+     * @tc.name    SettingAuthSession1251
+     * @tc.desc    Settings split mode at 251 probe 1251
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1251', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 251;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1251') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1252
+     * @tc.name    SettingAuthSession1252
+     * @tc.desc    Settings navbar width for 1572 probe 1252
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1252', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1572;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1252') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1253
+     * @tc.name    SettingAuthSession1253
+     * @tc.desc    Settings split mode at 253 probe 1253
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1253', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 253;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1253') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1254
+     * @tc.name    SettingAuthSession1254
+     * @tc.desc    Settings navbar width for 1574 probe 1254
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1254', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1574;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1254') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1255
+     * @tc.name    SettingAuthSession1255
+     * @tc.desc    Settings split mode at 255 probe 1255
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1255', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 255;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1255') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1256
+     * @tc.name    SettingAuthSession1256
+     * @tc.desc    Settings navbar width for 1576 probe 1256
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1256', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1576;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1256') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1257
+     * @tc.name    SettingAuthSession1257
+     * @tc.desc    Settings split mode at 257 probe 1257
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1257', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 257;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1257') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1258
+     * @tc.name    SettingAuthSession1258
+     * @tc.desc    Settings navbar width for 1578 probe 1258
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1258', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1578;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1258') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1259
+     * @tc.name    SettingAuthSession1259
+     * @tc.desc    Settings split mode at 259 probe 1259
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1259', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 259;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1259') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1260
+     * @tc.name    SettingAuthSession1260
+     * @tc.desc    Settings navbar width for 1580 probe 1260
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1260', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1580;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1260') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1261
+     * @tc.name    SettingAuthSession1261
+     * @tc.desc    Settings split mode at 261 probe 1261
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1261', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 261;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1261') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1262
+     * @tc.name    SettingAuthSession1262
+     * @tc.desc    Settings navbar width for 1582 probe 1262
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1262', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1582;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1262') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1263
+     * @tc.name    SettingAuthSession1263
+     * @tc.desc    Settings split mode at 263 probe 1263
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1263', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 263;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1263') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1264
+     * @tc.name    SettingAuthSession1264
+     * @tc.desc    Settings navbar width for 1584 probe 1264
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1264', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1584;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1264') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1265
+     * @tc.name    SettingAuthSession1265
+     * @tc.desc    Settings split mode at 265 probe 1265
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1265', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 265;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1265') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1266
+     * @tc.name    SettingAuthSession1266
+     * @tc.desc    Settings navbar width for 1586 probe 1266
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1266', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1586;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1266') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1267
+     * @tc.name    SettingAuthSession1267
+     * @tc.desc    Settings split mode at 267 probe 1267
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1267', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 267;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1267') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1268
+     * @tc.name    SettingAuthSession1268
+     * @tc.desc    Settings navbar width for 1588 probe 1268
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1268', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1588;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1268') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1269
+     * @tc.name    SettingAuthSession1269
+     * @tc.desc    Settings split mode at 269 probe 1269
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1269', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 269;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1269') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1270
+     * @tc.name    SettingAuthSession1270
+     * @tc.desc    Settings navbar width for 1590 probe 1270
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1270', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1590;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1270') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1271
+     * @tc.name    SettingAuthSession1271
+     * @tc.desc    Settings split mode at 271 probe 1271
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1271', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 271;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1271') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1272
+     * @tc.name    SettingAuthSession1272
+     * @tc.desc    Settings navbar width for 1592 probe 1272
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1272', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1592;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1272') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1273
+     * @tc.name    SettingAuthSession1273
+     * @tc.desc    Settings split mode at 273 probe 1273
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1273', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 273;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1273') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1274
+     * @tc.name    SettingAuthSession1274
+     * @tc.desc    Settings navbar width for 1594 probe 1274
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1274', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1594;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1274') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1275
+     * @tc.name    SettingAuthSession1275
+     * @tc.desc    Settings split mode at 275 probe 1275
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1275', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 275;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1275') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1276
+     * @tc.name    SettingAuthSession1276
+     * @tc.desc    Settings navbar width for 1596 probe 1276
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1276', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1596;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1276') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1277
+     * @tc.name    SettingAuthSession1277
+     * @tc.desc    Settings split mode at 277 probe 1277
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1277', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 277;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1277') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1278
+     * @tc.name    SettingAuthSession1278
+     * @tc.desc    Settings navbar width for 1598 probe 1278
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1278', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1598;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1278') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1279
+     * @tc.name    SettingAuthSession1279
+     * @tc.desc    Settings split mode at 279 probe 1279
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1279', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 279;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1279') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1280
+     * @tc.name    SettingAuthSession1280
+     * @tc.desc    Settings navbar width for 1600 probe 1280
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1280', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1600;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1280') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1281
+     * @tc.name    SettingAuthSession1281
+     * @tc.desc    Settings split mode at 281 probe 1281
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1281', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 281;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1281') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1282
+     * @tc.name    SettingAuthSession1282
+     * @tc.desc    Settings navbar width for 1602 probe 1282
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1282', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1602;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1282') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1283
+     * @tc.name    SettingAuthSession1283
+     * @tc.desc    Settings split mode at 283 probe 1283
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1283', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 283;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1283') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1284
+     * @tc.name    SettingAuthSession1284
+     * @tc.desc    Settings navbar width for 1604 probe 1284
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1284', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1604;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1284') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1285
+     * @tc.name    SettingAuthSession1285
+     * @tc.desc    Settings split mode at 285 probe 1285
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1285', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 285;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1285') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1286
+     * @tc.name    SettingAuthSession1286
+     * @tc.desc    Settings navbar width for 1606 probe 1286
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1286', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1606;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1286') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1287
+     * @tc.name    SettingAuthSession1287
+     * @tc.desc    Settings split mode at 287 probe 1287
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1287', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 287;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1287') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1288
+     * @tc.name    SettingAuthSession1288
+     * @tc.desc    Settings navbar width for 1608 probe 1288
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1288', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1608;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1288') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1289
+     * @tc.name    SettingAuthSession1289
+     * @tc.desc    Settings split mode at 289 probe 1289
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1289', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 289;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1289') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1290
+     * @tc.name    SettingAuthSession1290
+     * @tc.desc    Settings navbar width for 1610 probe 1290
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1290', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1610;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1290') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1291
+     * @tc.name    SettingAuthSession1291
+     * @tc.desc    Settings split mode at 291 probe 1291
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1291', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 291;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1291') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1292
+     * @tc.name    SettingAuthSession1292
+     * @tc.desc    Settings navbar width for 1612 probe 1292
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1292', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1612;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1292') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1293
+     * @tc.name    SettingAuthSession1293
+     * @tc.desc    Settings split mode at 293 probe 1293
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1293', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 293;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1293') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1294
+     * @tc.name    SettingAuthSession1294
+     * @tc.desc    Settings navbar width for 1614 probe 1294
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1294', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1614;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1294') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1295
+     * @tc.name    SettingAuthSession1295
+     * @tc.desc    Settings split mode at 295 probe 1295
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1295', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 295;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1295') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1296
+     * @tc.name    SettingAuthSession1296
+     * @tc.desc    Settings navbar width for 1616 probe 1296
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1296', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1616;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1296') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1297
+     * @tc.name    SettingAuthSession1297
+     * @tc.desc    Settings split mode at 297 probe 1297
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1297', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 297;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1297') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1298
+     * @tc.name    SettingAuthSession1298
+     * @tc.desc    Settings navbar width for 1618 probe 1298
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1298', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1618;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1298') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1299
+     * @tc.name    SettingAuthSession1299
+     * @tc.desc    Settings split mode at 299 probe 1299
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1299', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 299;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1299') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1300
+     * @tc.name    SettingAuthSession1300
+     * @tc.desc    Settings navbar width for 1620 probe 1300
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1300', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1620;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1300') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1301
+     * @tc.name    SettingAuthSession1301
+     * @tc.desc    Settings split mode at 301 probe 1301
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1301', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 301;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1301') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1302
+     * @tc.name    SettingAuthSession1302
+     * @tc.desc    Settings navbar width for 1622 probe 1302
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1302', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1622;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1302') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1303
+     * @tc.name    SettingAuthSession1303
+     * @tc.desc    Settings split mode at 303 probe 1303
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1303', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 303;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1303') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1304
+     * @tc.name    SettingAuthSession1304
+     * @tc.desc    Settings navbar width for 1624 probe 1304
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1304', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1624;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1304') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1305
+     * @tc.name    SettingAuthSession1305
+     * @tc.desc    Settings split mode at 305 probe 1305
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1305', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 305;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1305') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1306
+     * @tc.name    SettingAuthSession1306
+     * @tc.desc    Settings navbar width for 1626 probe 1306
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1306', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1626;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1306') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1307
+     * @tc.name    SettingAuthSession1307
+     * @tc.desc    Settings split mode at 307 probe 1307
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1307', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 307;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1307') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1308
+     * @tc.name    SettingAuthSession1308
+     * @tc.desc    Settings navbar width for 1628 probe 1308
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1308', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1628;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1308') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1309
+     * @tc.name    SettingAuthSession1309
+     * @tc.desc    Settings split mode at 309 probe 1309
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1309', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 309;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1309') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1310
+     * @tc.name    SettingAuthSession1310
+     * @tc.desc    Settings navbar width for 1630 probe 1310
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1310', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1630;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1310') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1311
+     * @tc.name    SettingAuthSession1311
+     * @tc.desc    Settings split mode at 311 probe 1311
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1311', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 311;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1311') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1312
+     * @tc.name    SettingAuthSession1312
+     * @tc.desc    Settings navbar width for 1632 probe 1312
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1312', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1632;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1312') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1313
+     * @tc.name    SettingAuthSession1313
+     * @tc.desc    Settings split mode at 313 probe 1313
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1313', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 313;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1313') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1314
+     * @tc.name    SettingAuthSession1314
+     * @tc.desc    Settings navbar width for 1634 probe 1314
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1314', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1634;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1314') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1315
+     * @tc.name    SettingAuthSession1315
+     * @tc.desc    Settings split mode at 315 probe 1315
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1315', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 315;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1315') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1316
+     * @tc.name    SettingAuthSession1316
+     * @tc.desc    Settings navbar width for 1636 probe 1316
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1316', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1636;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1316') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1317
+     * @tc.name    SettingAuthSession1317
+     * @tc.desc    Settings split mode at 317 probe 1317
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1317', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 317;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1317') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1318
+     * @tc.name    SettingAuthSession1318
+     * @tc.desc    Settings navbar width for 1638 probe 1318
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1318', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1638;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1318') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1319
+     * @tc.name    SettingAuthSession1319
+     * @tc.desc    Settings split mode at 319 probe 1319
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1319', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 319;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1319') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1320
+     * @tc.name    SettingAuthSession1320
+     * @tc.desc    Settings navbar width for 1640 probe 1320
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1320', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1640;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1320') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1321
+     * @tc.name    SettingAuthSession1321
+     * @tc.desc    Settings split mode at 321 probe 1321
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1321', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 321;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1321') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1322
+     * @tc.name    SettingAuthSession1322
+     * @tc.desc    Settings navbar width for 1642 probe 1322
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1322', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1642;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1322') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1323
+     * @tc.name    SettingAuthSession1323
+     * @tc.desc    Settings split mode at 323 probe 1323
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1323', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 323;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1323') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1324
+     * @tc.name    SettingAuthSession1324
+     * @tc.desc    Settings navbar width for 1644 probe 1324
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1324', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1644;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1324') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1325
+     * @tc.name    SettingAuthSession1325
+     * @tc.desc    Settings split mode at 325 probe 1325
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1325', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 325;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1325') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1326
+     * @tc.name    SettingAuthSession1326
+     * @tc.desc    Settings navbar width for 1646 probe 1326
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1326', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1646;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1326') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1327
+     * @tc.name    SettingAuthSession1327
+     * @tc.desc    Settings split mode at 327 probe 1327
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1327', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 327;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1327') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1328
+     * @tc.name    SettingAuthSession1328
+     * @tc.desc    Settings navbar width for 1648 probe 1328
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1328', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1648;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1328') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1329
+     * @tc.name    SettingAuthSession1329
+     * @tc.desc    Settings split mode at 329 probe 1329
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingAuthSession1329', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 329;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1329') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
