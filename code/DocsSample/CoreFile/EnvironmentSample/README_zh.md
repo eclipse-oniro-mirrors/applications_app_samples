@@ -64,7 +64,7 @@ ohos.permission.READ_WRITE_DOWNLOAD_DIRECTORY
 
 ## 约束与限制
 
-1. 现有设备配置为 PC/2in1（`deviceTypes: ["2in1"]`），未扩展为 default/tablet；不声称适配其它设备。
+1. 现有设备配置为 PC/2in1（`deviceTypes: ["2in1"]`），未扩展为 default/tablet；不声称适配其他设备。
 2. 使用 Stage 模型、动态 ArkTS、OpenHarmony runtimeOS；三个 SDK 版本字段均为 `26.0.0`，本机 SDK 为 API26 Release，ETS 组件版本 `26.0.0.38`。
 3. 本次实际使用 DevEco Studio `26.0.0.24`（构建号 `261.23567.38.36.260024`）的 Hvigor 和 bundled JBR 完成主包、测试包编译。
 4. 本次构建产物未签名。Host 依赖注入回归不代表真实 SDK、设备、ArkUI 或权限集成通过，详见 [ohosTest.md](./ohosTest.md)。
@@ -79,4 +79,4 @@ git remote add origin https://gitcode.com/openharmony/applications_app_samples.g
 git pull origin master
 ```
 
-`master` 为下载示例分支；若用于其它目标分支的 PR，请使用对应分支。本次为本地工程检视，未提交代码或 PR。
+`master` 为下载示例分支；若用于其他目标分支的 PR，请使用对应分支。本次为本地工程检视，未提交代码或 PR。

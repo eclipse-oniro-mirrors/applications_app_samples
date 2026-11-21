@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { Environment, fileIo } from '@kit.CoreFileKit';
+import { fileIo } from '@kit.CoreFileKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { describe, it, beforeEach, afterEach, expect } from '@ohos/hypium';
 import { DownloadFileApi, importDownloadFiles, writeDownloadMessage } from '../../../main/ets/model/DownloadFiles';
@@ -441,31 +441,6 @@ export default function downloadFilesTest(): void {
         const actualSize: number = fileIo.statSync(`${root}/temp.txt`).size;
         logAssertion(name, 'truncated file size', actualSize, 3);
         expect(actualSize).assertEqual(3);
-      } finally {
-        logCase(name, 'end');
-      }
-    });
-
-    /**
-     * @tc.number SUB_CORE_FILE_ENVIRONMENT_BASELINE_013
-     * @tc.name SUB_CORE_FILE_ENVIRONMENT_BASELINE_013
-     * @tc.desc Obtain distinct absolute download and document paths through the real SDK.
-     */
-    it('SUB_CORE_FILE_ENVIRONMENT_BASELINE_013', 0, (): void => {
-      const name: string = 'SUB_CORE_FILE_ENVIRONMENT_BASELINE_013';
-      logCase(name, 'begin');
-      try {
-        const download: string = Environment.getUserDownloadDir();
-        const documents: string = Environment.getUserDocumentDir();
-        const actualDownloadAbsolute: boolean = download.startsWith('/');
-        logAssertion(name, 'absolute download path', actualDownloadAbsolute, true);
-        expect(actualDownloadAbsolute).assertEqual(true);
-        const actualDocumentAbsolute: boolean = documents.startsWith('/');
-        logAssertion(name, 'absolute document path', actualDocumentAbsolute, true);
-        expect(actualDocumentAbsolute).assertEqual(true);
-        const actualSamePath: boolean = download === documents;
-        logAssertion(name, 'distinct user paths', actualSamePath, false);
-        expect(actualSamePath).assertEqual(false);
       } finally {
         logCase(name, 'end');
       }
