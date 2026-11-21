@@ -1987,3 +1987,1387 @@ export default function albumFocusRingBehaviorSuite() {
       expect(m.getTrackById(1000 + 480) === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0481
+     * @tc.name    AlbumFocusRingBehavior481
+     * @tc.desc    Album page partition 2 probe 481
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior481', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 481) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0482
+     * @tc.name    AlbumFocusRingBehavior482
+     * @tc.desc    Album page partition 3 probe 482
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior482', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 482) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0483
+     * @tc.name    AlbumFocusRingBehavior483
+     * @tc.desc    Album page partition 4 probe 483
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior483', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 483) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0484
+     * @tc.name    AlbumFocusRingBehavior484
+     * @tc.desc    Album page partition 5 probe 484
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior484', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 484) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0485
+     * @tc.name    AlbumFocusRingBehavior485
+     * @tc.desc    Album page partition 6 probe 485
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior485', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 485) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0486
+     * @tc.name    AlbumFocusRingBehavior486
+     * @tc.desc    Album page partition 7 probe 486
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior486', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 486) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0487
+     * @tc.name    AlbumFocusRingBehavior487
+     * @tc.desc    Album page partition 8 probe 487
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior487', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 8;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 487) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0488
+     * @tc.name    AlbumFocusRingBehavior488
+     * @tc.desc    Album page partition 1 probe 488
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior488', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 488) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0489
+     * @tc.name    AlbumFocusRingBehavior489
+     * @tc.desc    Album page partition 2 probe 489
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior489', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 489) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0490
+     * @tc.name    AlbumFocusRingBehavior490
+     * @tc.desc    Album page partition 3 probe 490
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior490', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 490) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0491
+     * @tc.name    AlbumFocusRingBehavior491
+     * @tc.desc    Album page partition 4 probe 491
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior491', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 491) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0492
+     * @tc.name    AlbumFocusRingBehavior492
+     * @tc.desc    Album page partition 5 probe 492
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior492', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 492) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0493
+     * @tc.name    AlbumFocusRingBehavior493
+     * @tc.desc    Album page partition 6 probe 493
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior493', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 493) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0494
+     * @tc.name    AlbumFocusRingBehavior494
+     * @tc.desc    Album page partition 7 probe 494
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior494', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 494) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0495
+     * @tc.name    AlbumFocusRingBehavior495
+     * @tc.desc    Album page partition 8 probe 495
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior495', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 8;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 495) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0496
+     * @tc.name    AlbumFocusRingBehavior496
+     * @tc.desc    Album page partition 1 probe 496
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior496', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 496) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0497
+     * @tc.name    AlbumFocusRingBehavior497
+     * @tc.desc    Album page partition 2 probe 497
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior497', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 497) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0498
+     * @tc.name    AlbumFocusRingBehavior498
+     * @tc.desc    Album page partition 3 probe 498
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior498', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 498) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0499
+     * @tc.name    AlbumFocusRingBehavior499
+     * @tc.desc    Album page partition 4 probe 499
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior499', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 499) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0500
+     * @tc.name    AlbumFocusRingBehavior500
+     * @tc.desc    Album page partition 5 probe 500
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior500', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 500) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0501
+     * @tc.name    AlbumFocusRingBehavior501
+     * @tc.desc    Album page partition 6 probe 501
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior501', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 501) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0502
+     * @tc.name    AlbumFocusRingBehavior502
+     * @tc.desc    Album page partition 7 probe 502
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior502', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 502) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0503
+     * @tc.name    AlbumFocusRingBehavior503
+     * @tc.desc    Album page partition 8 probe 503
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior503', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 8;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 503) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0504
+     * @tc.name    AlbumFocusRingBehavior504
+     * @tc.desc    Album page partition 1 probe 504
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior504', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 504) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0505
+     * @tc.name    AlbumFocusRingBehavior505
+     * @tc.desc    Album page partition 2 probe 505
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior505', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 505) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0506
+     * @tc.name    AlbumFocusRingBehavior506
+     * @tc.desc    Album page partition 3 probe 506
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior506', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 506) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0507
+     * @tc.name    AlbumFocusRingBehavior507
+     * @tc.desc    Album page partition 4 probe 507
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior507', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 507) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0508
+     * @tc.name    AlbumFocusRingBehavior508
+     * @tc.desc    Album page partition 5 probe 508
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior508', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 508) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0509
+     * @tc.name    AlbumFocusRingBehavior509
+     * @tc.desc    Album page partition 6 probe 509
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior509', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 509) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0510
+     * @tc.name    AlbumFocusRingBehavior510
+     * @tc.desc    Album page partition 7 probe 510
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior510', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 510) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0511
+     * @tc.name    AlbumFocusRingBehavior511
+     * @tc.desc    Album page partition 8 probe 511
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior511', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 8;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 511) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0512
+     * @tc.name    AlbumFocusRingBehavior512
+     * @tc.desc    Album page partition 1 probe 512
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior512', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 512) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0513
+     * @tc.name    AlbumFocusRingBehavior513
+     * @tc.desc    Album page partition 2 probe 513
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior513', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 513) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0514
+     * @tc.name    AlbumFocusRingBehavior514
+     * @tc.desc    Album page partition 3 probe 514
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior514', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 514) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0515
+     * @tc.name    AlbumFocusRingBehavior515
+     * @tc.desc    Album page partition 4 probe 515
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior515', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 515) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0516
+     * @tc.name    AlbumFocusRingBehavior516
+     * @tc.desc    Album page partition 5 probe 516
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior516', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 516) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0517
+     * @tc.name    AlbumFocusRingBehavior517
+     * @tc.desc    Album page partition 6 probe 517
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior517', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 517) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0518
+     * @tc.name    AlbumFocusRingBehavior518
+     * @tc.desc    Album page partition 7 probe 518
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior518', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 518) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0519
+     * @tc.name    AlbumFocusRingBehavior519
+     * @tc.desc    Album page partition 8 probe 519
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior519', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 8;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 519) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0520
+     * @tc.name    AlbumFocusRingBehavior520
+     * @tc.desc    Album page partition 1 probe 520
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior520', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 520) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0521
+     * @tc.name    AlbumFocusRingBehavior521
+     * @tc.desc    Album page partition 2 probe 521
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior521', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 521) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0522
+     * @tc.name    AlbumFocusRingBehavior522
+     * @tc.desc    Album page partition 3 probe 522
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior522', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 522) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0523
+     * @tc.name    AlbumFocusRingBehavior523
+     * @tc.desc    Album page partition 4 probe 523
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior523', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 523) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0524
+     * @tc.name    AlbumFocusRingBehavior524
+     * @tc.desc    Album page partition 5 probe 524
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior524', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 524) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0525
+     * @tc.name    AlbumFocusRingBehavior525
+     * @tc.desc    Album page partition 6 probe 525
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior525', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 525) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0526
+     * @tc.name    AlbumFocusRingBehavior526
+     * @tc.desc    Album page partition 7 probe 526
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior526', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 526) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0527
+     * @tc.name    AlbumFocusRingBehavior527
+     * @tc.desc    Album page partition 8 probe 527
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior527', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 8;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 527) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0528
+     * @tc.name    AlbumFocusRingBehavior528
+     * @tc.desc    Album page partition 1 probe 528
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior528', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 528) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0529
+     * @tc.name    AlbumFocusRingBehavior529
+     * @tc.desc    Album page partition 2 probe 529
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior529', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 529) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0530
+     * @tc.name    AlbumFocusRingBehavior530
+     * @tc.desc    Album page partition 3 probe 530
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior530', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 530) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0531
+     * @tc.name    AlbumFocusRingBehavior531
+     * @tc.desc    Album page partition 4 probe 531
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior531', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 531) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0532
+     * @tc.name    AlbumFocusRingBehavior532
+     * @tc.desc    Album page partition 5 probe 532
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior532', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 532) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0533
+     * @tc.name    AlbumFocusRingBehavior533
+     * @tc.desc    Album page partition 6 probe 533
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior533', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 533) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0534
+     * @tc.name    AlbumFocusRingBehavior534
+     * @tc.desc    Album page partition 7 probe 534
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior534', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 534) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0535
+     * @tc.name    AlbumFocusRingBehavior535
+     * @tc.desc    Album page partition 8 probe 535
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior535', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 8;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 535) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0536
+     * @tc.name    AlbumFocusRingBehavior536
+     * @tc.desc    Album page partition 1 probe 536
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior536', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 536) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0537
+     * @tc.name    AlbumFocusRingBehavior537
+     * @tc.desc    Album page partition 2 probe 537
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior537', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 537) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0538
+     * @tc.name    AlbumFocusRingBehavior538
+     * @tc.desc    Album page partition 3 probe 538
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior538', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 538) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0539
+     * @tc.name    AlbumFocusRingBehavior539
+     * @tc.desc    Album page partition 4 probe 539
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior539', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 539) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0540
+     * @tc.name    AlbumFocusRingBehavior540
+     * @tc.desc    Album page partition 5 probe 540
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior540', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 540) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0541
+     * @tc.name    AlbumFocusRingBehavior541
+     * @tc.desc    Album page partition 6 probe 541
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior541', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 541) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0542
+     * @tc.name    AlbumFocusRingBehavior542
+     * @tc.desc    Album page partition 7 probe 542
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior542', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 7;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 542) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0543
+     * @tc.name    AlbumFocusRingBehavior543
+     * @tc.desc    Album page partition 8 probe 543
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior543', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 8;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 543) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0544
+     * @tc.name    AlbumFocusRingBehavior544
+     * @tc.desc    Album page partition 1 probe 544
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior544', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 1;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 544) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0545
+     * @tc.name    AlbumFocusRingBehavior545
+     * @tc.desc    Album page partition 2 probe 545
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior545', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 2;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 545) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0546
+     * @tc.name    AlbumFocusRingBehavior546
+     * @tc.desc    Album page partition 3 probe 546
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior546', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 3;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 546) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0547
+     * @tc.name    AlbumFocusRingBehavior547
+     * @tc.desc    Album page partition 4 probe 547
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior547', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 4;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 547) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0548
+     * @tc.name    AlbumFocusRingBehavior548
+     * @tc.desc    Album page partition 5 probe 548
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior548', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 5;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 548) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0549
+     * @tc.name    AlbumFocusRingBehavior549
+     * @tc.desc    Album page partition 6 probe 549
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumFocusRingBehavior549', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const ps: number = 6;
+      const pages = m.totalPages(ps);
+      let covered = 0;
+      for (let k = 0; k < pages; k++) { covered += m.slicePage(k, ps).length; }
+      expect(covered).assertEqual(m.getTrackCount());
+      expect(m.getTrackById(1000 + 549) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
