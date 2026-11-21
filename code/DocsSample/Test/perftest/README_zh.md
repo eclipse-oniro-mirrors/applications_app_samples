@@ -53,7 +53,19 @@ perfTest
 ### 约束与限制
 1.本示例仅支持标准系统上运行。
 
-2.本示例从API version 20版本SDK起开始支持，SDK版本号(API Version 20),镜像版本号6.0.0.37)。
+2.本示例为Stage模型，最低兼容API 20版本，使用API 26版本SDK编译。
+
+3.本示例需要使用DevEco Studio 6.1.1 Release 及以上版本才可编译运行。
+
+### 测试
+
+`entry/src/ohosTest` 下共 32 个测试套件、2737 条用例，其中保留原有 3 个性能测试套件（PerfTest、CPUMetric、SlideFps），新增 29 个逻辑测试套件，覆盖 Utils 计算逻辑、BundleInfo 与模块信息、应用信息、entry 资源、文件与首选项、显示、Want、Ability 与 UI 等场景。用例设计与执行方式见 [ohosTest.md](ohosTest.md)。
+
+执行命令：
+
+```
+hdc shell aa test -b com.samples.test.perftest -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 600000
+```
 
 ### 下载
 
@@ -62,7 +74,7 @@ perfTest
 ```
 git init
 git config core.sparsecheckout true
-echo code/Project/Test/perftest > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+echo code/DocsSample/Test/perftest > .git/info/sparse-checkout
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

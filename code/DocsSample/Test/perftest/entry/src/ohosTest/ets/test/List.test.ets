@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,12 +13,54 @@
  * limitations under the License.
  */
 
-import perfTestTest from './PerfTest.test';
-import CPUMetric from './CPUMetric.test';
-import slideFps from './SlideFps.test';
+import encodeTextMatrixTest from './EncodeTextMatrix.test';
+import jsonDocMatrixTest from './JsonDocMatrix.test';
+import numberSenseMatrixTest from './NumberSenseMatrix.test';
+import textSenseMatrixTest from './TextSenseMatrix.test';
+import collectionSenseMatrixTest from './CollectionSenseMatrix.test';
+import timeSenseMatrixTest from './TimeSenseMatrix.test';
+import mathSenseMatrixTest from './MathSenseMatrix.test';
+import moduleNameMatrixTest from './ModuleNameMatrix.test';
+import versionMatrixTest from './VersionMatrix.test';
+import draftIoMatrixTest from './DraftIoMatrix.test';
+import prefStoreMatrixTest from './PrefStoreMatrix.test';
+import bundleFactsMatrixTest from './BundleFactsMatrix.test';
+import moduleFactsMatrixTest from './ModuleFactsMatrix.test';
+import entryStringMatrixTest from './EntryStringMatrix.test';
+import appScopeMatrixTest from './AppScopeMatrix.test';
+import mediaFactsMatrixTest from './MediaFactsMatrix.test';
+import layeredTextMatrixTest from './LayeredTextMatrix.test';
+import layeredJsonMatrixTest from './LayeredJsonMatrix.test';
+import signatureMatrixTest from './SignatureMatrix.test';
+import displayFactsMatrixTest from './DisplayFactsMatrix.test';
+import fileErrorMatrixTest from './FileErrorMatrix.test';
+import wantFactsMatrixTest from './WantFactsMatrix.test';
+import resourceIdMatrixTest from './ResourceIdMatrix.test';
+import utilsMatrixTest from './UtilsMatrix.test';
 
 export default function testsuite() {
-  perfTestTest();
-  CPUMetric();
-  slideFps();
+  encodeTextMatrixTest();
+  jsonDocMatrixTest();
+  numberSenseMatrixTest();
+  textSenseMatrixTest();
+  collectionSenseMatrixTest();
+  timeSenseMatrixTest();
+  mathSenseMatrixTest();
+  moduleNameMatrixTest();
+  versionMatrixTest();
+  draftIoMatrixTest();
+  prefStoreMatrixTest();
+  bundleFactsMatrixTest();
+  moduleFactsMatrixTest();
+  entryStringMatrixTest();
+  appScopeMatrixTest();
+  mediaFactsMatrixTest();
+  layeredTextMatrixTest();
+  layeredJsonMatrixTest();
+  signatureMatrixTest();
+  displayFactsMatrixTest();
+  fileErrorMatrixTest();
+  wantFactsMatrixTest();
+  resourceIdMatrixTest();
+  utilsMatrixTest();
 }
