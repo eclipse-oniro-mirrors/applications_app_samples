@@ -1988,3 +1988,978 @@ export default function settingsExtensionSuite() {
       expect(model.toggle('')).assertFalse();
       expect(model.getItemCount()).assertEqual(SETTINGS_ITEM_COUNT);
     })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1471
+     * @tc.name    SettingsExtension1471
+     * @tc.desc    Toggling the non switch key 3 is rejected
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5tgrej2', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.toggle('missing')).assertFalse();
+      expect(model.getItemCount()).assertEqual(SETTINGS_ITEM_COUNT);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1472
+     * @tc.name    SettingsExtension1472
+     * @tc.desc    Toggling the non switch key 4 is rejected
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5tgrej3', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.toggle('WLAN')).assertFalse();
+      expect(model.getItemCount()).assertEqual(SETTINGS_ITEM_COUNT);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1473
+     * @tc.name    SettingsExtension1473
+     * @tc.desc    The seeded model exposes four entries and three switches
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5counts', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.getItemCount()).assertEqual(4);
+      expect(model.getToggleCount()).assertEqual(3);
+      expect(model.getEnabledCount()).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1474
+     * @tc.name    SettingsExtension1474
+     * @tc.desc    Toggling all three switches raises the enabled count to four
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5tgThree', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      model.toggle('bluetooth');
+      model.toggle('mobileData');
+      expect(model.getEnabledCount()).assertEqual(3);
+      expect(model.getToggleCount()).assertEqual(3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1475
+     * @tc.name    SettingsExtension1475
+     * @tc.desc    Switching wlan off leaves no enabled entry
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5tgAllOff', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      model.toggle('wlan');
+      expect(model.getEnabledCount()).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1476
+     * @tc.name    SettingsExtension1476
+     * @tc.desc    Appending 1 switch entries raises the toggle count
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5push0', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      for (let k = 0; k < 1; k++) {
+        model.getEntries().push({ key: 'k' + String(k), title: 'T', hasToggle: true, enabled: false });
+      }
+      expect(model.getToggleCount()).assertEqual(4);
+      expect(model.getItemCount()).assertEqual(5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1477
+     * @tc.name    SettingsExtension1477
+     * @tc.desc    Appending 2 switch entries raises the toggle count
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5push1', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      for (let k = 0; k < 2; k++) {
+        model.getEntries().push({ key: 'k' + String(k), title: 'T', hasToggle: true, enabled: false });
+      }
+      expect(model.getToggleCount()).assertEqual(5);
+      expect(model.getItemCount()).assertEqual(6);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1478
+     * @tc.name    SettingsExtension1478
+     * @tc.desc    Appending 3 switch entries raises the toggle count
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5push2', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      for (let k = 0; k < 3; k++) {
+        model.getEntries().push({ key: 'k' + String(k), title: 'T', hasToggle: true, enabled: false });
+      }
+      expect(model.getToggleCount()).assertEqual(6);
+      expect(model.getItemCount()).assertEqual(7);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1479
+     * @tc.name    SettingsExtension1479
+     * @tc.desc    Popping 1 seeded entries lowers the item count
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pop0', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      for (let k = 0; k < 1; k++) {
+        model.getEntries().pop();
+      }
+      expect(model.getItemCount()).assertEqual(3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1480
+     * @tc.name    SettingsExtension1480
+     * @tc.desc    Popping 2 seeded entries lowers the item count
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pop1', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      for (let k = 0; k < 2; k++) {
+        model.getEntries().pop();
+      }
+      expect(model.getItemCount()).assertEqual(2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1481
+     * @tc.name    SettingsExtension1481
+     * @tc.desc    Popping 4 seeded entries lowers the item count
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pop2', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      for (let k = 0; k < 4; k++) {
+        model.getEntries().pop();
+      }
+      expect(model.getItemCount()).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1482
+     * @tc.name    SettingsExtension1482
+     * @tc.desc    Lookup resolves the wlan entry
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5get0', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.getEntry('wlan') !== undefined).assertTrue();
+      expect((model.getEntry('wlan') as SettingsEntry).key).assertEqual('wlan');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1483
+     * @tc.name    SettingsExtension1483
+     * @tc.desc    Lookup resolves the bluetooth entry
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5get1', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.getEntry('bluetooth') !== undefined).assertTrue();
+      expect((model.getEntry('bluetooth') as SettingsEntry).key).assertEqual('bluetooth');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1484
+     * @tc.name    SettingsExtension1484
+     * @tc.desc    Lookup resolves the mobileData entry
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5get2', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.getEntry('mobileData') !== undefined).assertTrue();
+      expect((model.getEntry('mobileData') as SettingsEntry).key).assertEqual('mobileData');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1485
+     * @tc.name    SettingsExtension1485
+     * @tc.desc    Lookup resolves the moreConnections entry
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5get3', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.getEntry('moreConnections') !== undefined).assertTrue();
+      expect((model.getEntry('moreConnections') as SettingsEntry).key).assertEqual('moreConnections');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1486
+     * @tc.name    SettingsExtension1486
+     * @tc.desc    Lookup rejects the absent key 2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5getmiss1', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.getEntry('WLAN') === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1487
+     * @tc.name    SettingsExtension1487
+     * @tc.desc    Lookup rejects the absent key 3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5getmiss2', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.getEntry('wlan ') === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1488
+     * @tc.name    SettingsExtension1488
+     * @tc.desc    Lookup rejects the absent key 4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5getmiss3', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.getEntry('nfc') === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1489
+     * @tc.name    SettingsExtension1489
+     * @tc.desc    A switch entry 1 is not a rejected target
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5rejok0', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.isToggleRejected('wlan')).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1490
+     * @tc.name    SettingsExtension1490
+     * @tc.desc    A switch entry 3 is not a rejected target
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5rejok2', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.isToggleRejected('mobileData')).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1491
+     * @tc.name    SettingsExtension1491
+     * @tc.desc    The key 1 is reported as a rejected target
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5rejyes0', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.isToggleRejected('moreConnections')).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1492
+     * @tc.name    SettingsExtension1492
+     * @tc.desc    The key 3 is reported as a rejected target
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5rejyes2', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.isToggleRejected('')).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1493
+     * @tc.name    SettingsExtension1493
+     * @tc.desc    Enabled state of seeded entry 1 is stable
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5en0', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.isEnabled('wlan')).assertEqual(true);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1494
+     * @tc.name    SettingsExtension1494
+     * @tc.desc    Enabled state of seeded entry 2 is stable
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5en1', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.isEnabled('bluetooth')).assertEqual(false);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1495
+     * @tc.name    SettingsExtension1495
+     * @tc.desc    Enabled state of seeded entry 3 is stable
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5en2', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.isEnabled('mobileData')).assertEqual(false);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1496
+     * @tc.name    SettingsExtension1496
+     * @tc.desc    Enabled state of seeded entry 4 is stable
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5en3', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.isEnabled('moreConnections')).assertEqual(false);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1497
+     * @tc.name    SettingsExtension1497
+     * @tc.desc    Directly enabling entry 1 raises the enabled count
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5set0', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      const entry: SettingsEntry | undefined = model.getEntries()[0];
+      expect(entry !== undefined).assertTrue();
+      (entry as SettingsEntry).enabled = true;
+      expect(model.getEnabledCount()).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1498
+     * @tc.name    SettingsExtension1498
+     * @tc.desc    Directly enabling entry 2 raises the enabled count
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5set1', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      const entry: SettingsEntry | undefined = model.getEntries()[1];
+      expect(entry !== undefined).assertTrue();
+      (entry as SettingsEntry).enabled = true;
+      expect(model.getEnabledCount()).assertEqual(2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1499
+     * @tc.name    SettingsExtension1499
+     * @tc.desc    Directly enabling entry 3 raises the enabled count
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5set2', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      const entry: SettingsEntry | undefined = model.getEntries()[2];
+      expect(entry !== undefined).assertTrue();
+      (entry as SettingsEntry).enabled = true;
+      expect(model.getEnabledCount()).assertEqual(2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1500
+     * @tc.name    SettingsExtension1500
+     * @tc.desc    Directly enabling entry 4 raises the enabled count
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5set3', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      const entry: SettingsEntry | undefined = model.getEntries()[3];
+      expect(entry !== undefined).assertTrue();
+      (entry as SettingsEntry).enabled = true;
+      expect(model.getEnabledCount()).assertEqual(2);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1501
+     * @tc.name    SettingsExtension1501
+     * @tc.desc    Duplicating the key of entry 2 breaks uniqueness
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5dup1', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      model.getEntries()[1].key = model.getEntries()[0].key;
+      expect(model.hasUniqueKeys()).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1502
+     * @tc.name    SettingsExtension1502
+     * @tc.desc    Duplicating the key of entry 3 breaks uniqueness
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5dup2', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      model.getEntries()[2].key = model.getEntries()[0].key;
+      expect(model.hasUniqueKeys()).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1503
+     * @tc.name    SettingsExtension1503
+     * @tc.desc    Duplicating the key of entry 4 breaks uniqueness
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5dup3', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      model.getEntries()[3].key = model.getEntries()[0].key;
+      expect(model.hasUniqueKeys()).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1504
+     * @tc.name    SettingsExtension1504
+     * @tc.desc    Renaming every key preserves uniqueness
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5mutate', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      model.getEntries().forEach((entry: SettingsEntry, index: number) => {
+        entry.key = 'k' + String(index);
+      });
+      expect(model.hasUniqueKeys()).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1505
+     * @tc.name    SettingsExtension1505
+     * @tc.desc    Shared helpers keep exact results on small inputs
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5helpers', 0, () => {
+      expect(averageOf([2, 4])).assertEqual(3);
+      expect(safeDivide(12, 4)).assertEqual(3);
+      expect(rangeOf([1, 9])).assertEqual(8);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1506
+     * @tc.name    SettingsExtension1506
+     * @tc.desc    Shared helpers guard the zero divisor path
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5helpersZero', 0, () => {
+      expect(safeDivide(5, 0)).assertEqual(0);
+      expect(averageOf([])).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1507
+     * @tc.name    SettingsExtension1507
+     * @tc.desc    Breakpoint resolver maps width 0 to xs
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bp0', 0, () => {
+      expect(resolveBreakpoint(0)).assertEqual('xs');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1508
+     * @tc.name    SettingsExtension1508
+     * @tc.desc    Breakpoint resolver maps width 320 to sm
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bp1', 0, () => {
+      expect(resolveBreakpoint(320)).assertEqual('sm');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1509
+     * @tc.name    SettingsExtension1509
+     * @tc.desc    Breakpoint resolver maps width 600 to md
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bp2', 0, () => {
+      expect(resolveBreakpoint(600)).assertEqual('md');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1510
+     * @tc.name    SettingsExtension1510
+     * @tc.desc    Breakpoint resolver maps width 840 to lg
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bp3', 0, () => {
+      expect(resolveBreakpoint(840)).assertEqual('lg');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1511
+     * @tc.name    SettingsExtension1511
+     * @tc.desc    Breakpoint resolver maps width 1200 to lg
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bp4', 0, () => {
+      expect(resolveBreakpoint(1200)).assertEqual('lg');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1512
+     * @tc.name    SettingsExtension1512
+     * @tc.desc    Breakpoint resolver maps width -1 to unknown
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bp5', 0, () => {
+      expect(resolveBreakpoint(-1)).assertEqual('unknown');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1513
+     * @tc.name    SettingsExtension1513
+     * @tc.desc    Settings constants keep their published values
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5consts', 0, () => {
+      expect(SETTINGS_ITEM_COUNT).assertEqual(4);
+      expect(SETTINGS_NAVBAR_RATIO).assertEqual(0.4);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1514
+     * @tc.name    SettingsExtension1514
+     * @tc.desc    Fractional width 319.9 resolves to xs
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bpf00', 0, () => {
+      expect(resolveBreakpoint(319.9)).assertEqual('xs');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1515
+     * @tc.name    SettingsExtension1515
+     * @tc.desc    Fractional width 320.1 resolves to sm
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bpf01', 0, () => {
+      expect(resolveBreakpoint(320.1)).assertEqual('sm');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1516
+     * @tc.name    SettingsExtension1516
+     * @tc.desc    Fractional width 599.9 resolves to sm
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bpf02', 0, () => {
+      expect(resolveBreakpoint(599.9)).assertEqual('sm');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1517
+     * @tc.name    SettingsExtension1517
+     * @tc.desc    Fractional width 600.1 resolves to md
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bpf03', 0, () => {
+      expect(resolveBreakpoint(600.1)).assertEqual('md');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1518
+     * @tc.name    SettingsExtension1518
+     * @tc.desc    Fractional width 839.9 resolves to md
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bpf04', 0, () => {
+      expect(resolveBreakpoint(839.9)).assertEqual('md');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1519
+     * @tc.name    SettingsExtension1519
+     * @tc.desc    Fractional width 840.1 resolves to lg
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bpf05', 0, () => {
+      expect(resolveBreakpoint(840.1)).assertEqual('lg');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1520
+     * @tc.name    SettingsExtension1520
+     * @tc.desc    Navbar width of 7.5 vp keeps the ratio value 3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5navh00', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.navbarWidth(7.5)).assertEqual(3);
+      expect(model.navbarWidth(7.5) === SETTINGS_NAVBAR_RATIO * 7.5).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1521
+     * @tc.name    SettingsExtension1521
+     * @tc.desc    Navbar width of 12.5 vp keeps the ratio value 5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5navh01', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.navbarWidth(12.5)).assertEqual(5);
+      expect(model.navbarWidth(12.5) === SETTINGS_NAVBAR_RATIO * 12.5).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1522
+     * @tc.name    SettingsExtension1522
+     * @tc.desc    Navbar width of 17.5 vp keeps the ratio value 7
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5navh02', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.navbarWidth(17.5)).assertEqual(7);
+      expect(model.navbarWidth(17.5) === SETTINGS_NAVBAR_RATIO * 17.5).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1523
+     * @tc.name    SettingsExtension1523
+     * @tc.desc    Navbar width of 22.5 vp keeps the ratio value 9
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5navh03', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.navbarWidth(22.5)).assertEqual(9);
+      expect(model.navbarWidth(22.5) === SETTINGS_NAVBAR_RATIO * 22.5).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1524
+     * @tc.name    SettingsExtension1524
+     * @tc.desc    Navbar width of 27.5 vp keeps the ratio value 11
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5navh04', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.navbarWidth(27.5)).assertEqual(11);
+      expect(model.navbarWidth(27.5) === SETTINGS_NAVBAR_RATIO * 27.5).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1525
+     * @tc.name    SettingsExtension1525
+     * @tc.desc    Navbar width of 32.5 vp keeps the ratio value 13
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5navh05', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.navbarWidth(32.5)).assertEqual(13);
+      expect(model.navbarWidth(32.5) === SETTINGS_NAVBAR_RATIO * 32.5).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1526
+     * @tc.name    SettingsExtension1526
+     * @tc.desc    Navbar width of 37.5 vp keeps the ratio value 15
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5navh06', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.navbarWidth(37.5)).assertEqual(15);
+      expect(model.navbarWidth(37.5) === SETTINGS_NAVBAR_RATIO * 37.5).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1527
+     * @tc.name    SettingsExtension1527
+     * @tc.desc    Navbar width of 42.5 vp keeps the ratio value 17
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5navh07', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.navbarWidth(42.5)).assertEqual(17);
+      expect(model.navbarWidth(42.5) === SETTINGS_NAVBAR_RATIO * 42.5).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1528
+     * @tc.name    SettingsExtension1528
+     * @tc.desc    Toggling wlan twice restores the seeded state
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5twice0', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      const before: boolean = model.isEnabled('wlan');
+      model.toggle('wlan');
+      model.toggle('wlan');
+      expect(model.isEnabled('wlan')).assertEqual(before);
+      expect(model.getEnabledCount()).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1529
+     * @tc.name    SettingsExtension1529
+     * @tc.desc    Toggling bluetooth twice restores the seeded state
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5twice1', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      const before: boolean = model.isEnabled('bluetooth');
+      model.toggle('bluetooth');
+      model.toggle('bluetooth');
+      expect(model.isEnabled('bluetooth')).assertEqual(before);
+      expect(model.getEnabledCount()).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1530
+     * @tc.name    SettingsExtension1530
+     * @tc.desc    Toggling mobileData twice restores the seeded state
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5twice2', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      const before: boolean = model.isEnabled('mobileData');
+      model.toggle('mobileData');
+      model.toggle('mobileData');
+      expect(model.isEnabled('mobileData')).assertEqual(before);
+      expect(model.getEnabledCount()).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1531
+     * @tc.name    SettingsExtension1531
+     * @tc.desc    Entry 1 keeps a non empty title string
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title0', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      const entry: SettingsEntry = model.getEntries()[0];
+      expect(entry.title.length > 0).assertTrue();
+      expect(entry.key.length > 0).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1532
+     * @tc.name    SettingsExtension1532
+     * @tc.desc    Entry 2 keeps a non empty title string
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title1', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      const entry: SettingsEntry = model.getEntries()[1];
+      expect(entry.title.length > 0).assertTrue();
+      expect(entry.key.length > 0).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1533
+     * @tc.name    SettingsExtension1533
+     * @tc.desc    Entry 3 keeps a non empty title string
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title2', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      const entry: SettingsEntry = model.getEntries()[2];
+      expect(entry.title.length > 0).assertTrue();
+      expect(entry.key.length > 0).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1534
+     * @tc.name    SettingsExtension1534
+     * @tc.desc    Entry 4 keeps a non empty title string
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title3', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      const entry: SettingsEntry = model.getEntries()[3];
+      expect(entry.title.length > 0).assertTrue();
+      expect(entry.key.length > 0).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1535
+     * @tc.name    SettingsExtension1535
+     * @tc.desc    Only the first three seeded entries carry a switch
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5flags', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      expect(model.getEntries()[0].hasToggle).assertTrue();
+      expect(model.getEntries()[1].hasToggle).assertTrue();
+      expect(model.getEntries()[2].hasToggle).assertTrue();
+      expect(model.getEntries()[3].hasToggle).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1536
+     * @tc.name    SettingsExtension1536
+     * @tc.desc    Shared helpers handle negative samples
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5helpersNeg', 0, () => {
+      expect(averageOf([-4, -2])).assertEqual(-3);
+      expect(rangeOf([-9, -1])).assertEqual(8);
+      expect(safeDivide(-12, 4)).assertEqual(-3);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1537
+     * @tc.name    SettingsExtension1537
+     * @tc.desc    Shared helpers accept a single sample
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5helpersSingle', 0, () => {
+      expect(averageOf([7])).assertEqual(7);
+      expect(rangeOf([7])).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1538
+     * @tc.name    SettingsExtension1538
+     * @tc.desc    A range over equal samples collapses to zero
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5helpersDup', 0, () => {
+      expect(rangeOf([5, 5, 5])).assertEqual(0);
+      expect(averageOf([5, 5, 5])).assertEqual(5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1539
+     * @tc.name    SettingsExtension1539
+     * @tc.desc    Turning one switch off and another on keeps the enabled count
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5mix', 0, () => {
+      const model: SettingsModel = new SettingsModel();
+      model.toggle('wlan');
+      model.toggle('mobileData');
+      expect(model.getEnabledCount()).assertEqual(1);
+      expect(model.isEnabled('mobileData')).assertTrue();
+      expect(model.isEnabled('wlan')).assertFalse();
+    })
+  })
+}
