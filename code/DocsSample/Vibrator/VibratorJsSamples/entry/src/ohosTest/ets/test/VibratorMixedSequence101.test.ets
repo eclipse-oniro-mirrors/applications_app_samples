@@ -78,3 +78,194 @@ function runMatrix1103(): MatrixReport {
       },
     },
     {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 60153,
+        duration: 1,
+        intensity: 60,
+        frequency: 70,
+        index: 0,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 60153,
+        duration: 1,
+        intensity: 60,
+        frequency: 70,
+        index: 0,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 60204,
+        duration: 1,
+        intensity: 80,
+        frequency: 50,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 60204,
+        duration: 1,
+        intensity: 80,
+        frequency: 50,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 60255,
+        duration: 1,
+        intensity: 100,
+        frequency: 34,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 60255,
+        duration: 1,
+        intensity: 100,
+        frequency: 34,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 60306,
+        duration: 48,
+        intensity: 99,
+        frequency: 20,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 60306,
+        duration: 48,
+        intensity: 99,
+        frequency: 20,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 60357,
+        duration: 48,
+        intensity: 97,
+        frequency: 10,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 60357,
+        duration: 48,
+        intensity: 97,
+        frequency: 10,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 60408,
+        duration: 48,
+        intensity: 70,
+        frequency: 2,
+        index: 2,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 60408,
+        duration: 48,
+        intensity: 70,
+        frequency: 2,
+        index: 2,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 60459,
+        duration: 48,
+        intensity: 50,
+        frequency: 1,
+        index: 2,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 60459,
+        duration: 48,
+        intensity: 50,
+        frequency: 1,
+        index: 2,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 60510,
+        duration: 48,
+        intensity: 34,
+        frequency: 0,
+        index: 2,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 60510,
+        duration: 48,
+        intensity: 34,
+        frequency: 0,
+        index: 2,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 60561,
+        duration: 48,
+        intensity: 1,
+        frequency: 97,
+        index: 2,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 60561,
+        duration: 48,
+        intensity: 1,
+        frequency: 97,
+        index: 2,
+      },
+    },
+  ];
+  return checkBuilderRows(rows);
+}
+
+export default function vibratorMixedSequence101(): void {
+  describe('VibratorMixedSequence101', (): void => {
+    beforeEach(async (): Promise<void> => {
+      await paceTurn();
+    });
+
+    /**
+     * @tc.number SUB_VIBRATOR_MATRIX_1103
+     * @tc.name testVibratorMatrix1103
+     * @tc.desc 混合序列前后交替，逐项核对12组输出及累计时长和通道加权强度。
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testVibratorMatrix1103', 0, (): void => {
+      const report: MatrixReport = runMatrix1103();
+      hilog.info(DOMAIN, TAG, 'Event count=%{public}d', report.eventCount);
+      expect(report.eventCount).assertEqual(12);
+      hilog.info(DOMAIN, TAG, 'Duration sum=%{public}d', report.durationSum);
+      expect(report.durationSum).assertEqual(294);
+      hilog.info(DOMAIN, TAG, 'Channel intensity sum=%{public}d', report.channelIntensitySum);
+      expect(report.channelIntensitySum).assertEqual(1337);
+    });
+
+  });
+}
