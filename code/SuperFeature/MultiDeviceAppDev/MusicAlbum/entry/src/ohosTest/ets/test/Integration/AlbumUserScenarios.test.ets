@@ -1980,3 +1980,1708 @@ export default function albumUserScenariosSuite() {
       expect(m.getTrackById(1000 + 301) === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0302
+     * @tc.name    AlbumUserScenarios302
+     * @tc.desc    Album vip and singer counts 302 probe 302
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios302', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(14) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 302) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0303
+     * @tc.name    AlbumUserScenarios303
+     * @tc.desc    Album vip and singer counts 303 probe 303
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios303', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(15) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 303) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0304
+     * @tc.name    AlbumUserScenarios304
+     * @tc.desc    Album vip and singer counts 304 probe 304
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios304', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(16) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 304) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0305
+     * @tc.name    AlbumUserScenarios305
+     * @tc.desc    Album vip and singer counts 305 probe 305
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios305', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(17) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 305) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0306
+     * @tc.name    AlbumUserScenarios306
+     * @tc.desc    Album vip and singer counts 306 probe 306
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios306', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(18) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 306) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0307
+     * @tc.name    AlbumUserScenarios307
+     * @tc.desc    Album vip and singer counts 307 probe 307
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios307', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(19) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 307) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0308
+     * @tc.name    AlbumUserScenarios308
+     * @tc.desc    Album vip and singer counts 308 probe 308
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios308', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(20) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 308) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0309
+     * @tc.name    AlbumUserScenarios309
+     * @tc.desc    Album vip and singer counts 309 probe 309
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios309', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(21) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 309) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0310
+     * @tc.name    AlbumUserScenarios310
+     * @tc.desc    Album vip and singer counts 310 probe 310
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios310', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(23) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 310) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0311
+     * @tc.name    AlbumUserScenarios311
+     * @tc.desc    Album vip and singer counts 311 probe 311
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios311', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(23) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 311) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0312
+     * @tc.name    AlbumUserScenarios312
+     * @tc.desc    Album vip and singer counts 312 probe 312
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios312', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(23) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 312) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0313
+     * @tc.name    AlbumUserScenarios313
+     * @tc.desc    Album vip and singer counts 313 probe 313
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios313', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(1) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 313) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0314
+     * @tc.name    AlbumUserScenarios314
+     * @tc.desc    Album vip and singer counts 314 probe 314
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios314', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(2) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 314) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0315
+     * @tc.name    AlbumUserScenarios315
+     * @tc.desc    Album vip and singer counts 315 probe 315
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios315', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(3) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 315) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0316
+     * @tc.name    AlbumUserScenarios316
+     * @tc.desc    Album vip and singer counts 316 probe 316
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios316', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(4) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 316) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0317
+     * @tc.name    AlbumUserScenarios317
+     * @tc.desc    Album vip and singer counts 317 probe 317
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios317', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(5) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 317) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0318
+     * @tc.name    AlbumUserScenarios318
+     * @tc.desc    Album vip and singer counts 318 probe 318
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios318', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(6) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 318) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0319
+     * @tc.name    AlbumUserScenarios319
+     * @tc.desc    Album vip and singer counts 319 probe 319
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios319', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(7) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 319) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0320
+     * @tc.name    AlbumUserScenarios320
+     * @tc.desc    Album vip and singer counts 320 probe 320
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios320', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(8) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 320) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0321
+     * @tc.name    AlbumUserScenarios321
+     * @tc.desc    Album vip and singer counts 321 probe 321
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios321', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(9) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 321) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0322
+     * @tc.name    AlbumUserScenarios322
+     * @tc.desc    Album vip and singer counts 322 probe 322
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios322', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(10) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 322) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0323
+     * @tc.name    AlbumUserScenarios323
+     * @tc.desc    Album vip and singer counts 323 probe 323
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios323', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(11) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 323) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0324
+     * @tc.name    AlbumUserScenarios324
+     * @tc.desc    Album vip and singer counts 324 probe 324
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios324', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(12) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 324) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0325
+     * @tc.name    AlbumUserScenarios325
+     * @tc.desc    Album vip and singer counts 325 probe 325
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios325', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(13) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 325) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0326
+     * @tc.name    AlbumUserScenarios326
+     * @tc.desc    Album vip and singer counts 326 probe 326
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios326', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(14) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 326) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0327
+     * @tc.name    AlbumUserScenarios327
+     * @tc.desc    Album vip and singer counts 327 probe 327
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios327', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(15) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 327) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0328
+     * @tc.name    AlbumUserScenarios328
+     * @tc.desc    Album vip and singer counts 328 probe 328
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios328', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(16) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 328) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0329
+     * @tc.name    AlbumUserScenarios329
+     * @tc.desc    Album vip and singer counts 329 probe 329
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios329', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(17) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 329) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0330
+     * @tc.name    AlbumUserScenarios330
+     * @tc.desc    Album vip and singer counts 330 probe 330
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios330', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(18) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 330) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0331
+     * @tc.name    AlbumUserScenarios331
+     * @tc.desc    Album vip and singer counts 331 probe 331
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios331', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(19) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 331) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0332
+     * @tc.name    AlbumUserScenarios332
+     * @tc.desc    Album vip and singer counts 332 probe 332
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios332', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(20) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 332) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0333
+     * @tc.name    AlbumUserScenarios333
+     * @tc.desc    Album vip and singer counts 333 probe 333
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios333', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(21) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 333) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0334
+     * @tc.name    AlbumUserScenarios334
+     * @tc.desc    Album vip and singer counts 334 probe 334
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios334', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(23) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 334) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0335
+     * @tc.name    AlbumUserScenarios335
+     * @tc.desc    Album vip and singer counts 335 probe 335
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios335', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(23) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 335) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0336
+     * @tc.name    AlbumUserScenarios336
+     * @tc.desc    Album vip and singer counts 336 probe 336
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios336', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(23) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 336) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0337
+     * @tc.name    AlbumUserScenarios337
+     * @tc.desc    Album vip and singer counts 337 probe 337
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios337', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(1) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 337) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0338
+     * @tc.name    AlbumUserScenarios338
+     * @tc.desc    Album vip and singer counts 338 probe 338
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios338', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(2) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 338) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0339
+     * @tc.name    AlbumUserScenarios339
+     * @tc.desc    Album vip and singer counts 339 probe 339
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios339', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(3) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 339) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0340
+     * @tc.name    AlbumUserScenarios340
+     * @tc.desc    Album vip and singer counts 340 probe 340
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios340', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(4) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 340) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0341
+     * @tc.name    AlbumUserScenarios341
+     * @tc.desc    Album vip and singer counts 341 probe 341
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios341', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(5) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 341) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0342
+     * @tc.name    AlbumUserScenarios342
+     * @tc.desc    Album vip and singer counts 342 probe 342
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios342', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(6) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 342) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0343
+     * @tc.name    AlbumUserScenarios343
+     * @tc.desc    Album vip and singer counts 343 probe 343
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios343', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(7) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 343) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0344
+     * @tc.name    AlbumUserScenarios344
+     * @tc.desc    Album vip and singer counts 344 probe 344
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios344', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(8) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 344) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0345
+     * @tc.name    AlbumUserScenarios345
+     * @tc.desc    Album vip and singer counts 345 probe 345
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios345', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(9) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 345) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0346
+     * @tc.name    AlbumUserScenarios346
+     * @tc.desc    Album vip and singer counts 346 probe 346
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios346', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(10) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 346) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0347
+     * @tc.name    AlbumUserScenarios347
+     * @tc.desc    Album vip and singer counts 347 probe 347
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios347', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(11) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 347) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0348
+     * @tc.name    AlbumUserScenarios348
+     * @tc.desc    Album vip and singer counts 348 probe 348
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios348', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(12) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 348) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0349
+     * @tc.name    AlbumUserScenarios349
+     * @tc.desc    Album vip and singer counts 349 probe 349
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios349', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(13) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 349) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0350
+     * @tc.name    AlbumUserScenarios350
+     * @tc.desc    Album vip and singer counts 350 probe 350
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios350', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(14) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 350) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0351
+     * @tc.name    AlbumUserScenarios351
+     * @tc.desc    Album vip and singer counts 351 probe 351
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios351', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(15) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 351) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0352
+     * @tc.name    AlbumUserScenarios352
+     * @tc.desc    Album vip and singer counts 352 probe 352
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios352', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(16) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 352) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0353
+     * @tc.name    AlbumUserScenarios353
+     * @tc.desc    Album vip and singer counts 353 probe 353
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios353', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(17) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 353) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0354
+     * @tc.name    AlbumUserScenarios354
+     * @tc.desc    Album vip and singer counts 354 probe 354
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios354', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(18) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 354) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0355
+     * @tc.name    AlbumUserScenarios355
+     * @tc.desc    Album vip and singer counts 355 probe 355
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios355', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(19) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 355) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0356
+     * @tc.name    AlbumUserScenarios356
+     * @tc.desc    Album vip and singer counts 356 probe 356
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios356', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(20) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 356) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0357
+     * @tc.name    AlbumUserScenarios357
+     * @tc.desc    Album vip and singer counts 357 probe 357
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios357', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(21) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 357) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0358
+     * @tc.name    AlbumUserScenarios358
+     * @tc.desc    Album vip and singer counts 358 probe 358
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios358', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(23) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 358) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0359
+     * @tc.name    AlbumUserScenarios359
+     * @tc.desc    Album vip and singer counts 359 probe 359
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios359', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(23) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 359) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0360
+     * @tc.name    AlbumUserScenarios360
+     * @tc.desc    Album vip and singer counts 360 probe 360
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios360', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(23) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 360) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0361
+     * @tc.name    AlbumUserScenarios361
+     * @tc.desc    Album vip and singer counts 361 probe 361
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios361', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(1) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 361) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0362
+     * @tc.name    AlbumUserScenarios362
+     * @tc.desc    Album vip and singer counts 362 probe 362
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios362', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(2) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 362) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0363
+     * @tc.name    AlbumUserScenarios363
+     * @tc.desc    Album vip and singer counts 363 probe 363
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios363', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(3) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 363) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0364
+     * @tc.name    AlbumUserScenarios364
+     * @tc.desc    Album vip and singer counts 364 probe 364
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios364', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(4) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 364) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0365
+     * @tc.name    AlbumUserScenarios365
+     * @tc.desc    Album vip and singer counts 365 probe 365
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios365', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(5) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 365) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0366
+     * @tc.name    AlbumUserScenarios366
+     * @tc.desc    Album vip and singer counts 366 probe 366
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios366', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(6) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 366) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0367
+     * @tc.name    AlbumUserScenarios367
+     * @tc.desc    Album vip and singer counts 367 probe 367
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios367', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(7) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 367) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0368
+     * @tc.name    AlbumUserScenarios368
+     * @tc.desc    Album vip and singer counts 368 probe 368
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios368', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(8) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 368) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0369
+     * @tc.name    AlbumUserScenarios369
+     * @tc.desc    Album vip and singer counts 369 probe 369
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios369', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(9) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 369) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0370
+     * @tc.name    AlbumUserScenarios370
+     * @tc.desc    Album vip and singer counts 370 probe 370
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios370', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(10) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 370) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0371
+     * @tc.name    AlbumUserScenarios371
+     * @tc.desc    Album vip and singer counts 371 probe 371
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios371', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(11) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 371) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0372
+     * @tc.name    AlbumUserScenarios372
+     * @tc.desc    Album vip and singer counts 372 probe 372
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios372', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(12) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 372) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0373
+     * @tc.name    AlbumUserScenarios373
+     * @tc.desc    Album vip and singer counts 373 probe 373
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios373', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(13) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 373) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0374
+     * @tc.name    AlbumUserScenarios374
+     * @tc.desc    Album vip and singer counts 374 probe 374
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios374', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(14) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 374) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0375
+     * @tc.name    AlbumUserScenarios375
+     * @tc.desc    Album vip and singer counts 375 probe 375
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios375', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(15) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 375) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0376
+     * @tc.name    AlbumUserScenarios376
+     * @tc.desc    Album vip and singer counts 376 probe 376
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios376', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(16) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 376) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0377
+     * @tc.name    AlbumUserScenarios377
+     * @tc.desc    Album vip and singer counts 377 probe 377
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios377', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(17) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 377) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0378
+     * @tc.name    AlbumUserScenarios378
+     * @tc.desc    Album vip and singer counts 378 probe 378
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios378', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(18) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 378) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0379
+     * @tc.name    AlbumUserScenarios379
+     * @tc.desc    Album vip and singer counts 379 probe 379
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios379', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(19) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 379) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0380
+     * @tc.name    AlbumUserScenarios380
+     * @tc.desc    Album vip and singer counts 380 probe 380
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios380', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(20) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 380) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0381
+     * @tc.name    AlbumUserScenarios381
+     * @tc.desc    Album vip and singer counts 381 probe 381
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios381', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(21) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 381) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0382
+     * @tc.name    AlbumUserScenarios382
+     * @tc.desc    Album vip and singer counts 382 probe 382
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumUserScenarios382', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.countVip() >= 0).assertEqual(true);
+      expect(m.singerCount() > 0).assertEqual(true);
+      expect(m.hasUniqueIds()).assertEqual(true);
+      expect(m.hasMissingId()).assertEqual(true);
+      expect(m.getTrackById(22)).assertEqual(undefined);
+      expect(m.getTrackById(23) !== undefined).assertEqual(true);
+      expect(m.getTrackById(1000 + 382) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
