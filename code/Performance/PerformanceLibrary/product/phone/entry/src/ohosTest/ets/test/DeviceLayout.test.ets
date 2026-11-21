@@ -74,7 +74,7 @@ export default function deviceLayoutTest(): void {
 
     // @tc.number SUB_PERFORMANCE_DEVICELAYOUT_0300
     // @tc.name backgroundTaskDestinationsHaveNonoverlappingHitAreas
-    // @tc.desc Verify getBounds places the transient and long-term task links in separate vertical hit areas.
+    // @tc.desc Verify getBounds returns separate vertical hit areas for the transient and long-term task links.
     // @tc.size MEDIUMTEST
     // @tc.type FUNCTION
     // @tc.level LEVEL2
