@@ -944,3 +944,297 @@ export default function globalContextModelFlowTest(): void {
       const actual: number = subject.size();
       logInfo('actual=' + String(actual) + ', expected=' + "1");
       expect(actual).assertEqual(1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}GlobalContextModelFlow_0036 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_GLOBAL_CONTEXT_FLOW_0037
+     * @tc.name      Camera_GlobalContextModelFlow_0037
+     * @tc.desc      global context size after 5 applies (removed=true, extra=false) is 1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_GlobalContextModelFlow_0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}GlobalContextModelFlow_0037 begin`);
+      const subject: GlobalContextModel = new GlobalContextModel();
+      subject.setString('surfaceId', 'surface');
+      subject.setNumber('index', 3);
+      subject.remove('index');
+      subject.apply('surfaceId');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      logInfo("apply x5 removed=true extra=false stringFirst=true");
+      const actual: number = subject.size();
+      logInfo('actual=' + String(actual) + ', expected=' + "1");
+      expect(actual).assertEqual(1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}GlobalContextModelFlow_0037 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_GLOBAL_CONTEXT_FLOW_0038
+     * @tc.name      Camera_GlobalContextModelFlow_0038
+     * @tc.desc      global context size after 5 applies (removed=true, extra=true) is 2.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_GlobalContextModelFlow_0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}GlobalContextModelFlow_0038 begin`);
+      const subject: GlobalContextModel = new GlobalContextModel();
+      subject.setString('surfaceId', 'surface');
+      subject.setNumber('index', 3);
+      subject.remove('index');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      subject.apply('index');
+      subject.setString('mode', 'video');
+      logInfo("apply x5 removed=true extra=true stringFirst=false");
+      const actual: number = subject.size();
+      logInfo('actual=' + String(actual) + ', expected=' + "2");
+      expect(actual).assertEqual(2);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}GlobalContextModelFlow_0038 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_GLOBAL_CONTEXT_FLOW_0039
+     * @tc.name      Camera_GlobalContextModelFlow_0039
+     * @tc.desc      global context size after 5 applies (removed=true, extra=true) is 2.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_GlobalContextModelFlow_0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}GlobalContextModelFlow_0039 begin`);
+      const subject: GlobalContextModel = new GlobalContextModel();
+      subject.setString('surfaceId', 'surface');
+      subject.setNumber('index', 3);
+      subject.remove('index');
+      subject.apply('surfaceId');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      subject.setString('mode', 'video');
+      logInfo("apply x5 removed=true extra=true stringFirst=true");
+      const actual: number = subject.size();
+      logInfo('actual=' + String(actual) + ', expected=' + "2");
+      expect(actual).assertEqual(2);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}GlobalContextModelFlow_0039 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_GLOBAL_CONTEXT_FLOW_0040
+     * @tc.name      Camera_GlobalContextModelFlow_0040
+     * @tc.desc      global context size after 6 applies (removed=false, extra=false) is 2.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_GlobalContextModelFlow_0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}GlobalContextModelFlow_0040 begin`);
+      const subject: GlobalContextModel = new GlobalContextModel();
+      subject.setString('surfaceId', 'surface');
+      subject.setNumber('index', 3);
+      subject.apply('index');
+      subject.apply('surfaceId');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      logInfo("apply x6 removed=false extra=false stringFirst=false");
+      const actual: number = subject.size();
+      logInfo('actual=' + String(actual) + ', expected=' + "2");
+      expect(actual).assertEqual(2);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}GlobalContextModelFlow_0040 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_GLOBAL_CONTEXT_FLOW_0041
+     * @tc.name      Camera_GlobalContextModelFlow_0041
+     * @tc.desc      global context size after 6 applies (removed=false, extra=false) is 2.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_GlobalContextModelFlow_0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}GlobalContextModelFlow_0041 begin`);
+      const subject: GlobalContextModel = new GlobalContextModel();
+      subject.setString('surfaceId', 'surface');
+      subject.setNumber('index', 3);
+      subject.apply('surfaceId');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      subject.apply('index');
+      logInfo("apply x6 removed=false extra=false stringFirst=true");
+      const actual: number = subject.size();
+      logInfo('actual=' + String(actual) + ', expected=' + "2");
+      expect(actual).assertEqual(2);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}GlobalContextModelFlow_0041 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_GLOBAL_CONTEXT_FLOW_0042
+     * @tc.name      Camera_GlobalContextModelFlow_0042
+     * @tc.desc      global context size after 6 applies (removed=false, extra=true) is 3.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_GlobalContextModelFlow_0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}GlobalContextModelFlow_0042 begin`);
+      const subject: GlobalContextModel = new GlobalContextModel();
+      subject.setString('surfaceId', 'surface');
+      subject.setNumber('index', 3);
+      subject.apply('index');
+      subject.apply('surfaceId');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      subject.setString('mode', 'video');
+      logInfo("apply x6 removed=false extra=true stringFirst=false");
+      const actual: number = subject.size();
+      logInfo('actual=' + String(actual) + ', expected=' + "3");
+      expect(actual).assertEqual(3);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}GlobalContextModelFlow_0042 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_GLOBAL_CONTEXT_FLOW_0043
+     * @tc.name      Camera_GlobalContextModelFlow_0043
+     * @tc.desc      global context size after 6 applies (removed=false, extra=true) is 3.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_GlobalContextModelFlow_0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}GlobalContextModelFlow_0043 begin`);
+      const subject: GlobalContextModel = new GlobalContextModel();
+      subject.setString('surfaceId', 'surface');
+      subject.setNumber('index', 3);
+      subject.apply('surfaceId');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      subject.apply('index');
+      subject.setString('mode', 'video');
+      logInfo("apply x6 removed=false extra=true stringFirst=true");
+      const actual: number = subject.size();
+      logInfo('actual=' + String(actual) + ', expected=' + "3");
+      expect(actual).assertEqual(3);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}GlobalContextModelFlow_0043 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_GLOBAL_CONTEXT_FLOW_0044
+     * @tc.name      Camera_GlobalContextModelFlow_0044
+     * @tc.desc      global context size after 6 applies (removed=true, extra=false) is 1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_GlobalContextModelFlow_0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}GlobalContextModelFlow_0044 begin`);
+      const subject: GlobalContextModel = new GlobalContextModel();
+      subject.setString('surfaceId', 'surface');
+      subject.setNumber('index', 3);
+      subject.remove('index');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      logInfo("apply x6 removed=true extra=false stringFirst=false");
+      const actual: number = subject.size();
+      logInfo('actual=' + String(actual) + ', expected=' + "1");
+      expect(actual).assertEqual(1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}GlobalContextModelFlow_0044 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_GLOBAL_CONTEXT_FLOW_0045
+     * @tc.name      Camera_GlobalContextModelFlow_0045
+     * @tc.desc      global context size after 6 applies (removed=true, extra=false) is 1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Camera_GlobalContextModelFlow_0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}GlobalContextModelFlow_0045 begin`);
+      const subject: GlobalContextModel = new GlobalContextModel();
+      subject.setString('surfaceId', 'surface');
+      subject.setNumber('index', 3);
+      subject.remove('index');
+      subject.apply('surfaceId');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      subject.apply('index');
+      logInfo("apply x6 removed=true extra=false stringFirst=true");
+      const actual: number = subject.size();
+      logInfo('actual=' + String(actual) + ', expected=' + "1");
+      expect(actual).assertEqual(1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}GlobalContextModelFlow_0045 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_GLOBAL_CONTEXT_FLOW_0046
+     * @tc.name      Camera_GlobalContextModelFlow_0046
+     * @tc.desc      global context size after 6 applies (removed=true, extra=true) is 2.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_GlobalContextModelFlow_0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}GlobalContextModelFlow_0046 begin`);
+      const subject: GlobalContextModel = new GlobalContextModel();
+      subject.setString('surfaceId', 'surface');
+      subject.setNumber('index', 3);
+      subject.remove('index');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      subject.apply('index');
+      subject.apply('surfaceId');
+      subject.setString('mode', 'video');
+      logInfo("apply x6 removed=true extra=true stringFirst=false");
+      const actual: number = subject.size();
+      logInfo('actual=' + String(actual) + ', expected=' + "2");
+      expect(actual).assertEqual(2);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}GlobalContextModelFlow_0046 end`);
+    });
+  });
+}
