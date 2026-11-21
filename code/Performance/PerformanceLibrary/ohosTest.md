@@ -328,7 +328,7 @@ PerformanceLibrary/
 |---|---|---:|---|---|---|
 | `SUB_PERFORMANCE_RGBASHARDS_0100 ~ SUB_PERFORMANCE_RGBASHARDS_0400` | 分片基础边界 | 4 | 奇数像素、任务过量、空图和分片写入 | 尾像素完整、无空任务、空图不派发、写入互不污染 | Pass |
 | `SUB_PERFORMANCE_RGBASHARDS_0500 ~ SUB_PERFORMANCE_RGBASHARDS_0600` | 非法分片输入 | 2 | 非法任务数或不完整 RGBA 尾部 | 分片前拒绝错误输入，不静默丢弃字节 | Pass |
-| `SUB_PERFORMANCE_RGBASHARDS_0700 ~ SUB_PERFORMANCE_RGBASHARDS_0800` | 均衡和偏移 | 2 | 遍历支持任务数及跨首个完整字节范围的图像 | 分片均衡且偏移保持正确 | Pass |
+| `SUB_PERFORMANCE_RGBASHARDS_0700 ~ SUB_PERFORMANCE_RGBASHARDS_0800` | 均衡和偏移 | 2 | 遍历支持任务数及跨第一个完整字节范围的图像 | 分片均衡且偏移保持正确 | Pass |
 
 ### PerformanceStateInteraction（8 条）
 
@@ -359,7 +359,7 @@ PerformanceLibrary/
 | 编号范围 | 测试功能 | 条数 | 输入/操作 | 预期输出 | 测试结果 |
 |---|---|---:|---|---|---|
 | `SUB_PERFORMANCE_TRACEDATASOURCE_0100 ~ SUB_PERFORMANCE_TRACEDATASOURCE_2000` | 五类事件基础矩阵 | 20 | Reload/Add/Change/Delete/Move 各执行参数、注册顺序、重复注册、退订四类检查 | 参数精确，按注册顺序分发，同一监听器去重，退订后不再接收 | Pass |
-| `SUB_PERFORMANCE_TRACEDATASOURCE_2100 ~ SUB_PERFORMANCE_TRACEDATASOURCE_2400` | 监听器生命周期 | 4 | 未知/重复退订、重新订阅以及独立源 | 其他监听器不受影响，重订阅追加到尾部，实例互相隔离 | Pass |
+| `SUB_PERFORMANCE_TRACEDATASOURCE_2100 ~ SUB_PERFORMANCE_TRACEDATASOURCE_2400` | 监听器生命周期 | 4 | 未知/重复退订、重新订阅以及独立源 | 未退订的监听器不受影响，重订阅追加到尾部，实例互相隔离 | Pass |
 | `SUB_PERFORMANCE_TRACEDATASOURCE_2500 ~ SUB_PERFORMANCE_TRACEDATASOURCE_2800` | 事件与数据语义 | 4 | 无订阅通知、混合事件、反向移动和延迟订阅 | 数据不被通知改变，事件顺序与端点正确，旧事件不重播 | Pass |
 
 ### PerformanceWaterFlowDataSource（36 条）
@@ -369,7 +369,7 @@ PerformanceLibrary/
 | 编号范围 | 测试功能 | 条数 | 输入/操作 | 预期输出 | 测试结果 |
 |---|---|---:|---|---|---|
 | `SUB_PERFORMANCE_WATERFLOWDATASOURCE_0100 ~ SUB_PERFORMANCE_WATERFLOWDATASOURCE_0800` | 基础增删重载 | 8 | 初始读取、头尾/中间插入、首/第二/尾删除和 Reload | 完整序列、数量和回调索引正确 | Pass |
-| `SUB_PERFORMANCE_WATERFLOWDATASOURCE_0900 ~ SUB_PERFORMANCE_WATERFLOWDATASOURCE_1300` | 监听器与实例 | 5 | 重复注册、退订重入、取消单监听器、移动通知和多实例 | 通知无重复，其他订阅保留，移动参数及实例隔离正确 | Pass |
+| `SUB_PERFORMANCE_WATERFLOWDATASOURCE_0900 ~ SUB_PERFORMANCE_WATERFLOWDATASOURCE_1300` | 监听器与实例 | 5 | 重复注册、退订重入、取消单监听器、移动通知和多实例 | 通知无重复，未取消的订阅保留，移动参数及实例隔离正确 | Pass |
 | `SUB_PERFORMANCE_WATERFLOWDATASOURCE_1400 ~ SUB_PERFORMANCE_WATERFLOWDATASOURCE_1800` | 插入边界与连续追加 | 5 | 索引 0/数量/尾前插入，连续头插和尾插 | 原序列与边界值保留，索引随当前数量推进 | Pass |
 | `SUB_PERFORMANCE_WATERFLOWDATASOURCE_1900 ~ SUB_PERFORMANCE_WATERFLOWDATASOURCE_2700` | 逆操作、清空和恢复 | 9 | 插入后删除、重复删除至空、空源重新插入 | 可恢复原序列，清空结果正确，空源可重新填充 | Pass |
 | `SUB_PERFORMANCE_WATERFLOWDATASOURCE_2800 ~ SUB_PERFORMANCE_WATERFLOWDATASOURCE_3000` | 连续重载与混合事件 | 3 | 连续 Reload、混合变更与全部通知类型 | 基于当前数据操作，数据和事件顺序一致 | Pass |
@@ -427,7 +427,7 @@ PerformanceLibrary/
 | 验证项 | 归档结果 | 证据 |
 |---|---|---|
 | 最终测试 HAP 构建 | assembleHap 成功；完成 PackageHap、SignHap，日志为 BUILD SUCCESSFUL | [hap-result.json](docs/test-runs/final-build-home/compile/hap-result.json)、[原始日志](docs/test-runs/final-build-home/compile/20261121_121059_full.log) |
-| 同进程全量设备测试 | 73 套件、3216 用例全通过；失败/错误/超时/忽略均为 0 | [summary.json](docs/test-runs/round9-15000/summary.json)、[aa 原始日志](docs/test-runs/round9-15000/all-suites.aa.log) |
+| 同进程全量设备测试 | 73 套件、3216 用例全通过；失败/错误/超时/忽略均为 0 | [summary.json](docs/test-runs/round9-15000/summary.json)、[执行日志归档](docs/test-runs/round9-15000/) |
 | 源码与执行集合交叉核对 | exactCaseSetVerified=true；duplicateExecutions=0 | [final-verification.json](docs/test-runs/final-verification.json) |
 | 注册结构 | 3216 条用例直接注册于 describe，无重复选择器或失效本地导入 | [registration-validation.json](docs/test-runs/registration-validation.json) |
 | 修复与历史删例说明 | 原始 76 套件、3241 条；删除 25 条后为当前 73 套件、3216 条 | [修复记录](docs/test-runs/20261121-fix-report.md)、[删除清单](docs/test-runs/deleted-cases/manifest.json) |
@@ -501,16 +501,7 @@ e936b7a0c7174489eb2f4cb3f995d36ed1c94430cf76910eb4c5f24e7bf86098
 
    脚本将执行日志和 `summary.json` 保存到 `docs/test-runs/<round>/`。复跑时选择新的轮次名称以保留既有归档；脚本内 `HDC` 常量固定为 SDK 12 的工具路径。`--suite-seconds` 是整批执行的主机看门狗，不改变每例 15000 毫秒的超时。
 
-5. 也可直接执行 `aa test`，省略 `-s class` 运行全部已注册套件：
-
-   ```powershell
-   & $hdcPath shell "aa test -b com.samples.performancelibrary -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 15000 -w 3600000"
-
-   # 指定套件；单例选择器格式为 Suite#case
-   & $hdcPath shell "aa test -b com.samples.performancelibrary -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s class PerformancePixelContract -s timeout 15000 -w 600000"
-   ```
-
-   `-w` 为整次执行等待时限，不能代替 `-s timeout 15000`。套件名使用总览中的 `describe` 名称，例如 `PerformancePixelContract`，与文件名可能不同。
+5. 单例选择器格式为 `Suite#case`，通过脚本的 `--select` 参数指定；套件名使用总览中的 `describe` 名称，例如 `PerformancePixelContract`，与文件名可能不同。`--suite-seconds` 控制主机等待时限，每例超时仍固定为 15000 毫秒。
 
 6. 在另一终端查看日志，运行结束后核对数量、失败、错误、忽略及超时：
 
