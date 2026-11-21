@@ -13,13 +13,20 @@
  * limitations under the License.
  */
 
-import router from '@ohos.router'
-import prompt from '@ohos.promptAction'
-import contact from '@ohos.contact'
-import { ItemContainer } from '../component/ItemContainer'
-import Logger from '../data/Logger'
+import router from '@ohos.router';
+import prompt from '@ohos.promptAction';
+import contact from '@ohos.contact';
+import { ItemContainer } from '../component/ItemContainer';
+import Logger from '../data/Logger';
+import { ContactLetterComparator } from '../utils/ContactLetterComparator';
 
-const TAG: string = 'Contact'
+const TAG: string = '[Sample_Contact]';
+
+interface SortItem {
+  index: number
+  value: string
+  key: string
+}
 
 @Component
 export struct Contact {
@@ -30,18 +37,18 @@ export struct Contact {
   @State myPosition: string = ''
   @State contactNumber: number = 0
   @State contacts: contact.Contact[] = []
-  private scroller: Scroller = new Scroller()
-  private controller: TextInputController = new TextInputController()
+  private scroller: Scroller = new Scroller();
+  private controller: TextInputController = new TextInputController();
   private alphabetical: string[] =
     [
       'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
       'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-    ]
+    ];
 
   build() {
     Column() {
       Row() {
-        Blank()
+        Blank();
         Image($r('app.media.add'))
           .width(32)
           .height(32)
@@ -51,8 +58,8 @@ export struct Contact {
           .onClick(() => {
             router.pushUrl({
               url: 'pages/AddContact'
-            })
-          })
+            });
+          });
         Image($r('app.media.setting'))
           .width(32)
           .height(32)
@@ -62,28 +69,28 @@ export struct Contact {
           .onClick(() => {
             router.pushUrl({
               url: 'pages/Setting'
-            })
-          })
+            });
+          });
       }
       .height('6%')
       .width('100%')
-      .constraintSize({ minHeight: 50 })
+      .constraintSize({ minHeight: 50 });
 
       Row() {
         Text($r('app.string.contact'))
           .fontSize(40)
           .fontWeight(600)
-          .margin({ left: 32, top: 22 })
+          .margin({ left: 32, top: 22 });
       }
-      .width('100%')
+      .width('100%');
 
       Row() {
         Text(`${this.contactNumber}${this.myPosition}`)
           .fontSize(20)
           .fontColor(Color.Gray)
-          .margin({ left: 32, bottom: 22 })
+          .margin({ left: 32, bottom: 22 });
       }
-      .width('100%')
+      .width('100%');
 
       Stack({ alignContent: Alignment.TopStart }) {
         TextInput({ placeholder: $r('app.string.search'), text: this.result, controller: this.controller })
@@ -95,72 +102,77 @@ export struct Contact {
           .borderRadius(26)
           .placeholderFont({ size: 20 })
           .onChange(async (value: string) => {
-            this.result = value
+            this.result = value;
           })
           .onSubmit(async (enterKey: EnterKeyType) => {
-            let phoneData = await contact.queryContactsByPhoneNumber(this.result)
-            Logger.info(TAG, `this phoneData is ${JSON.stringify(phoneData)}`)
-            let emailData = await contact.queryContactsByEmail(this.result)
-            Logger.info(TAG, `this emailData is ${JSON.stringify(emailData)}`)
-            if (JSON.stringify(phoneData) !== '[]' || JSON.stringify(emailData) !== '[]') {
-              let result: contact.Contact = undefined
-              result = (JSON.stringify(phoneData) !== '[]' ? await contact.queryContact(phoneData[0].key) : await contact.queryContact(emailData[0].key))
-              Logger.info(TAG, `this phoneDat query result is ${JSON.stringify(result)}`)
+            let phoneData: contact.Contact[] = await contact.queryContactsByPhoneNumber(this.result);
+            Logger.info(TAG, `this phoneData is ${JSON.stringify(phoneData)}`);
+            let emailData: contact.Contact[] = await contact.queryContactsByEmail(this.result);
+            Logger.info(TAG, `this emailData is ${JSON.stringify(emailData)}`);
+            let first: contact.Contact | undefined = undefined;
+            if (phoneData.length > 0) {
+              first = phoneData[0];
+            } else if (emailData.length > 0) {
+              first = emailData[0];
+            }
+            if (first !== undefined && first.key !== undefined) {
+              let result: contact.Contact | undefined = await contact.queryContact(first.key);
+              Logger.info(TAG, `this phoneDat query result is ${JSON.stringify(result)}`);
               router.pushUrl({
                 url: 'pages/NameCard',
                 params: { data: result }
-              })
+              });
             } else {
-              Logger.info(TAG, `333`)
+              Logger.info(TAG, `333`);
               prompt.showToast({
-                message: 'Error!',
+                message: $r('app.string.contact_error'),
                 duration: 1500 // 提示弹窗持续时间，单位ms
-              })
+              });
             }
-          })
+          });
         Image($r('app.media.search'))
           .width(24)
           .height(24)
-          .margin({ left: 12, top: 16 })
+          .margin({ left: 12, top: 16 });
       }
-      .margin({ left: 32, right: 32 })
+      .margin({ left: 32, right: 32 });
 
       Column() {
         Row() {
           Image($r('app.media.heads'))
             .width(52)
             .height(52)
-            .margin({ left: 32 })
+            .margin({ left: 32 });
 
           Text($r('app.string.group'))
             .fontSize(20)
-            .margin({ left: 16 })
+            .margin({ left: 16 });
         }
         .margin({ top: 22, bottom: 22 })
         .width('100%')
-        .borderRadius(15)
+        .borderRadius(15);
 
         Row() {
           Image($r('app.media.heads'))
             .width(52)
             .height(52)
-            .margin({ left: 32 })
+            .margin({ left: 32 });
 
           Text($r('app.string.name_card'))
             .fontSize(20)
-            .margin({ left: 16 })
+            .margin({ left: 16 });
         }
         .width('100%')
-        .borderRadius(15)
+        .borderRadius(15);
       }
 
       Row() {
         Column() {
           if (this.contacts.length > 0) {
-            ItemContainer({ contacts: $contacts, selected: $selected })
+            ItemContainer({ contacts: $contacts, selected: $selected });
           }
         }
-        .width('90%')
+        .width('90%');
 
         Column() {
           AlphabetIndexer({ arrayValue: this.alphabetical, selected: this.selected })
@@ -174,39 +186,45 @@ export struct Contact {
             .selectedFont({ size: 14, weight: FontWeight.Bolder })
             .onSelect((selected: number) => {
               // 跳转到指定索引位置
-              this.scroller.scrollToIndex(selected)
-            })
+              this.scroller.scrollToIndex(selected);
+            });
         }
         .width('10%')
         .height('100%')
-        .margin({ top: 20 })
+        .margin({ top: 20 });
       }
-      .width('100%')
+      .width('100%');
     }
     .width('100%')
     .height('100%')
-    .backgroundColor($r('app.color.index_bg'))
+    .backgroundColor($r('app.color.index_bg'));
   }
 
-  async queryContact() {
-    this.myPosition = await getContext(this).resourceManager.getStringValue($r('app.string.contacts').id)
-    this.contacts = await contact.queryContacts()
-    Logger.info(TAG, `this contact is ${JSON.stringify(this.contacts)}`)
-    this.contactNumber = this.contacts.length
+  async queryContact(): Promise<void> {
+    this.myPosition = await getContext(this).resourceManager.getStringValue($r('app.string.contacts').id);
+    this.contacts = await contact.queryContacts();
+    Logger.info(TAG, `this contact is ${JSON.stringify(this.contacts)}`);
+    this.contactNumber = this.contacts.length;
     // 对获取到的联系人数组根据姓名首字母排序
-    let sortContact = this.contacts.map(function (a, b) {
-      return { index: b, value: a.name.fullName.substr(0, 1), key: a.key }
-    })
-    sortContact.sort(function (a, b) {
-      return +(a.value > b.value) || +(a.value === b.value) - 1
-    })
-    for (let i = 0; i < sortContact.length; i++) {
-      let contactInfo = await contact.queryContact(sortContact[i].key)
-      this.contacts[i] = contactInfo
+    let sortContact: SortItem[] = this.contacts.map((item: contact.Contact, index: number): SortItem => {
+      let fullName: string = item.name === undefined ? '' : item.name.fullName;
+      return { index: index, value: fullName.substr(0, 1), key: item.key === undefined ? '' : item.key };
+    });
+    sortContact.sort((a: SortItem, b: SortItem): number => {
+      return ContactLetterComparator.compare(a.value, b.value);
+    });
+    for (let i: number = 0; i < sortContact.length; i++) {
+      let item: SortItem | undefined = sortContact[i];
+      if (item !== undefined) {
+        let contactInfo: contact.Contact | undefined = await contact.queryContact(item.key);
+        if (contactInfo !== undefined) {
+          this.contacts[i] = contactInfo;
+        }
+      }
     }
   }
 
-  async aboutToAppear() {
-    await this.queryContact()
+  async aboutToAppear(): Promise<void> {
+    await this.queryContact();
   }
 }

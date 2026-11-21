@@ -13,28 +13,34 @@
  * limitations under the License.
  */
 
-import { Contact } from '../component/Contact'
+import { Contact } from '../component/Contact';
+import { TabConfig } from '../utils/TabConfig';
+
+interface TabItemInfo {
+  image: Resource
+  text: Resource
+}
 
 @Component
 export struct Home {
   @State currentIndex: number = 1
-  private controller: TabsController = new TabsController()
+  private controller: TabsController = new TabsController();
 
   build() {
     Column() {
       Tabs({ barPosition: BarPosition.End, index: 1, controller: this.controller }) {
         TabContent() {
         }
-        .tabBar(this.TabBuilder(0))
+        .tabBar(this.TabBuilder(0));
 
         TabContent() {
-          Contact()
+          Contact();
         }
-        .tabBar(this.TabBuilder(1))
+        .tabBar(this.TabBuilder(1));
 
         TabContent() {
         }
-        .tabBar(this.TabBuilder(2))
+        .tabBar(this.TabBuilder(2));
       }
       .height('100%')
       .barWidth('100%')
@@ -43,11 +49,11 @@ export struct Home {
       .barMode(BarMode.Fixed)
       .backgroundColor($r('app.color.index_bg'))
       .onChange((index: number) => {
-        this.currentIndex = index
-      })
+        this.currentIndex = index;
+      });
     }
     .width('100%')
-    .height('100%')
+    .height('100%');
   }
 
   @Builder TabBuilder(index: number) {
@@ -55,27 +61,27 @@ export struct Home {
       Image(this.TabItem(index).image)
         .objectFit(ImageFit.Contain)
         .width(32)
-        .height(32)
+        .height(32);
 
       Text(this.TabItem(index).text)
         .fontSize(16)
         .margin({ left: 10, right: 10 })
-        .fontColor(this.currentIndex === index ? $r('app.color.table_selected') : $r('app.color.table_normal'))
+        .fontColor(this.currentIndex === index ? $r('app.color.table_selected') : $r('app.color.table_normal'));
     }
     .width('100%')
-    .id('tab' + index)
+    .id(TabConfig.tabId(index));
   }
 
-  TabItem(index: number) {
-    if (index === 0) {
-      return { image: $r('app.media.call'), text: $r('app.string.phone') }
-    } else if (index === 1) {
+  TabItem(index: number): TabItemInfo {
+    if (TabConfig.kindOf(index) === 'call') {
+      return { image: $r('app.media.call'), text: $r('app.string.phone') };
+    } else if (TabConfig.kindOf(index) === 'contact') {
       return {
         image: this.currentIndex === index ? $r('app.media.contact1') : $r('app.media.contact'),
         text: $r('app.string.contact')
-      }
+      };
     } else {
-      return { image: $r('app.media.collection'), text: $r('app.string.collection') }
+      return { image: $r('app.media.collection'), text: $r('app.string.collection') };
     }
   }
 }

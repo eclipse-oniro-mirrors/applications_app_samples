@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
-import Logger from '../data/Logger'
+import Logger from '../data/Logger';
 
-const TAG: string = 'NewContact'
+const TAG: string = '[Sample_Contact]';
 
 @Component
 export struct NewContact {
@@ -32,22 +32,22 @@ export struct NewContact {
           .width(76)
           .height(74)
           .margin({ top: 52 })
-          .objectFit(ImageFit.Contain)
+          .objectFit(ImageFit.Contain);
 
         Text($r('app.string.save'))
           .fontSize(22)
-          .margin({ top: 22, bottom: 32 })
+          .margin({ top: 22, bottom: 32 });
 
         Column() {
-          this.newContact($r('app.string.user_name'), $r('app.media.name'), 'Name')
-          this.newContact($r('app.string.address'), $r('app.media.address'), 'Address')
-          this.newContact($r('app.string.phone'), $r('app.media.phone'), 'Telephone')
-          this.newContact($r('app.string.email'), $r('app.media.email'), 'Mail')
-          this.newContact($r('app.string.note'), $r('app.media.nickname'), 'Remarks')
+          this.newContact($r('app.string.user_name'), $r('app.media.name'), 'Name');
+          this.newContact($r('app.string.address'), $r('app.media.address'), 'Address');
+          this.newContact($r('app.string.phone'), $r('app.media.phone'), 'Telephone');
+          this.newContact($r('app.string.email'), $r('app.media.email'), 'Mail');
+          this.newContact($r('app.string.note'), $r('app.media.nickname'), 'Remarks');
         }
-        .height('80%')
+        .height('80%');
       }
-      .width('100%')
+      .width('100%');
     }
   }
 
@@ -58,7 +58,7 @@ export struct NewContact {
         .width(32)
         .height(32)
         .margin({ left: 16, right: 18 })
-        .objectFit(ImageFit.Contain)
+        .objectFit(ImageFit.Contain);
 
       TextInput({ placeholder: editText })
         .id('input' + (id))
@@ -70,30 +70,30 @@ export struct NewContact {
         .onChange((value: string) => {
           switch (JSON.stringify(editText)) {
             case JSON.stringify($r('app.string.user_name')):
-              this.name = value
-              break
+              this.name = value;
+              break;
             case JSON.stringify($r('app.string.note')):
-              this.nickName = value
-              break
+              this.nickName = value;
+              break;
             case JSON.stringify($r('app.string.phone')):
-              this.phoneNumber = value
-              break
+              this.phoneNumber = value;
+              break;
             case JSON.stringify($r('app.string.email')):
-              this.email = value
-              break
+              this.email = value;
+              break;
             case JSON.stringify($r('app.string.address')):
-              this.postalAddress = value
-              break
+              this.postalAddress = value;
+              break;
             default:
-              break
+              break;
           }
-          Logger.info(TAG, `this name is ${this.name} this number is ${this.phoneNumber}`)
-        })
+          Logger.info(TAG, `this name is ${this.name} this number is ${this.phoneNumber}`);
+        });
     }
     .margin({ bottom: 16 })
     .width('94%')
     .height(84)
     .borderRadius(32)
-    .backgroundColor(Color.White)
+    .backgroundColor(Color.White);
   }
 }

@@ -13,13 +13,14 @@
  * limitations under the License.
  */
 
-import router from '@ohos.router'
-import prompt from '@ohos.promptAction'
-import contact from '@ohos.contact'
-import Logger from '../data/Logger'
-import { NewContact } from '../component/NewContact'
+import router from '@ohos.router';
+import prompt from '@ohos.promptAction';
+import contact from '@ohos.contact';
+import Logger from '../data/Logger';
+import { NewContact } from '../component/NewContact';
+import { PhoneNumberValidator } from '../utils/PhoneNumberValidator';
 
-const TAG: string = 'AddContact'
+const TAG: string = '[Sample_Contact]';
 
 @Entry
 @Component
@@ -40,16 +41,16 @@ struct AddContact {
           .objectFit(ImageFit.Contain)
           .id('cancel')
           .onClick(() => {
-            router.back()
-          })
+            router.back();
+          });
 
         Text($r('app.string.newContact'))
           .fontSize(26)
           .fontWeight(400)
           .textAlign(TextAlign.End)
-          .fontColor(Color.Black)
+          .fontColor(Color.Black);
 
-        Blank()
+        Blank();
 
         Image($r('app.media.yes'))
           .id('confirm')
@@ -58,33 +59,33 @@ struct AddContact {
           .margin({ right: 32 })
           .objectFit(ImageFit.Contain)
           .onClick(async () => {
-            const TEST_RULER = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}/
-            Logger.info(TAG, `this number is ${this.phoneNumber} this test result ${TEST_RULER.test(this.phoneNumber)}`)
-            if (TEST_RULER.test(this.phoneNumber) === true) {
-              let contacts = {
+            Logger.info(TAG, `this number is ${this.phoneNumber} this test result ` +
+              `${PhoneNumberValidator.isValid(this.phoneNumber)}`);
+            if (PhoneNumberValidator.isValid(this.phoneNumber) === true) {
+              let contacts: contact.Contact = {
                 name: { fullName: this.name },
                 nickName: { nickName: this.nickName },
                 phoneNumbers: [{ phoneNumber: this.phoneNumber }],
                 emails: [{ email: this.email }],
                 postalAddresses: [{ postalAddress: this.postalAddress }]
-              }
-              let id = await contact.addContact(contacts)
+              };
+              await contact.addContact(contacts);
               router.replaceUrl({
                 url: 'pages/Index'
-              })
-              router.clear()
+              });
+              router.clear();
             } else {
               prompt.showToast({
-                message: 'Please input phone number.',
+                message: $r('app.string.phone_number_invalid'),
                 duration: 2000,
-              })
+              });
             }
-          })
+          });
       }
       .height('6%')
       .width('100%')
       .margin({ top: 32 })
-      .constraintSize({ minHeight: 50 })
+      .constraintSize({ minHeight: 50 });
 
       NewContact({
         name: $name,
@@ -92,10 +93,10 @@ struct AddContact {
         postalAddress: $postalAddress,
         nickName: $nickName,
         phoneNumber: $phoneNumber
-      })
+      });
     }
     .width('100%')
     .height('100%')
-    .backgroundColor($r('app.color.add_contact_bg'))
+    .backgroundColor($r('app.color.add_contact_bg'));
   }
 }

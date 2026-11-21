@@ -28,22 +28,22 @@ export struct UpdateContact {
           .width(76)
           .height(74)
           .margin({ top: 52 })
-          .objectFit(ImageFit.Contain)
+          .objectFit(ImageFit.Contain);
 
         Text($r('app.string.save'))
           .fontSize(22)
-          .margin({ top: 22, bottom: 32 })
+          .margin({ top: 22, bottom: 32 });
 
         Column() {
-          this.updateContact($r('app.string.user_name'), this.name, $r('app.media.name'), 'Name')
-          this.updateContact($r('app.string.address'), this.postalAddress, $r('app.media.address'), 'Address')
-          this.updateContact($r('app.string.phone'), this.phoneNumber, $r('app.media.email'), 'Telephone')
-          this.updateContact($r('app.string.email'), this.email, $r('app.media.nickname'), 'Mail')
-          this.updateContact($r('app.string.note'), this.nickName, $r('app.media.phone'), 'Remark')
+          this.updateContact($r('app.string.user_name'), this.name, $r('app.media.name'), 'Name');
+          this.updateContact($r('app.string.address'), this.postalAddress, $r('app.media.address'), 'Address');
+          this.updateContact($r('app.string.phone'), this.phoneNumber, $r('app.media.email'), 'Telephone');
+          this.updateContact($r('app.string.email'), this.email, $r('app.media.nickname'), 'Mail');
+          this.updateContact($r('app.string.note'), this.nickName, $r('app.media.phone'), 'Remark');
         }
-        .height('80%')
+        .height('80%');
       }
-      .width('100%')
+      .width('100%');
     }
   }
 
@@ -54,7 +54,7 @@ export struct UpdateContact {
         .width(32)
         .height(32)
         .margin({ left: 16, right: 18 })
-        .objectFit(ImageFit.Contain)
+        .objectFit(ImageFit.Contain);
 
       TextInput({ placeholder: editText, text: info })
         .id('update' + (id))
@@ -66,29 +66,29 @@ export struct UpdateContact {
         .onChange((value: string) => {
           switch (JSON.stringify(editText)) {
             case JSON.stringify($r('app.string.user_name')):
-              this.name = value
-              break
+              this.name = value;
+              break;
             case JSON.stringify($r('app.string.note')):
-              this.nickName = value
-              break
+              this.nickName = value;
+              break;
             case JSON.stringify($r('app.string.phone')):
-              this.phoneNumber = value
-              break
+              this.phoneNumber = value;
+              break;
             case JSON.stringify($r('app.string.email')):
-              this.email = value
-              break
+              this.email = value;
+              break;
             case JSON.stringify($r('app.string.address')):
-              this.postalAddress = value
-              break
+              this.postalAddress = value;
+              break;
             default:
-              break
+              break;
           }
-        })
+        });
     }
     .margin({ bottom: 16 })
     .width('94%')
     .height(84)
     .borderRadius(32)
-    .backgroundColor(Color.White)
+    .backgroundColor(Color.White);
   }
 }
