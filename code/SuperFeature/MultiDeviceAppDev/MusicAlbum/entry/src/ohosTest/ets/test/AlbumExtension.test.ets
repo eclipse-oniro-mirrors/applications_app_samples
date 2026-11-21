@@ -1990,3 +1990,1990 @@ export default function albumExtensionSuite() {
       expect(track.id).assertEqual(5);
       expect(track.title).assertEqual('track5');
     })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1404
+     * @tc.name    AlbumExtension1404
+     * @tc.desc    Identifier 5 resolves back to track 5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5find04', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const found: AlbumTrack | undefined = model.getTrackById(5);
+      expect(found === model.getTracks()[4]).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1405
+     * @tc.name    AlbumExtension1405
+     * @tc.desc    Track 6 exposes the shifted identifier 6
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5id05', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[5].id).assertEqual(6);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1406
+     * @tc.name    AlbumExtension1406
+     * @tc.desc    Track 6 exposes the generated title track6
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title05', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[5].title).assertEqual('track6');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1407
+     * @tc.name    AlbumExtension1407
+     * @tc.desc    Track 6 exposes the singer singer1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5singer05', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[5].singer).assertEqual('singer1');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1408
+     * @tc.name    AlbumExtension1408
+     * @tc.desc    Track 6 exposes the label ic_vip
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5label05', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[5].label).assertEqual('ic_vip');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1409
+     * @tc.name    AlbumExtension1409
+     * @tc.desc    Track 6 keeps the identifier and title pair
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pair05', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const track: AlbumTrack = model.getTracks()[5];
+      expect(track.id).assertEqual(6);
+      expect(track.title).assertEqual('track6');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1410
+     * @tc.name    AlbumExtension1410
+     * @tc.desc    Identifier 6 resolves back to track 6
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5find05', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const found: AlbumTrack | undefined = model.getTrackById(6);
+      expect(found === model.getTracks()[5]).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1411
+     * @tc.name    AlbumExtension1411
+     * @tc.desc    Track 7 exposes the shifted identifier 7
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5id06', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[6].id).assertEqual(7);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1412
+     * @tc.name    AlbumExtension1412
+     * @tc.desc    Track 7 exposes the generated title track7
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title06', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[6].title).assertEqual('track7');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1413
+     * @tc.name    AlbumExtension1413
+     * @tc.desc    Track 7 exposes the singer singer2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5singer06', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[6].singer).assertEqual('singer2');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1414
+     * @tc.name    AlbumExtension1414
+     * @tc.desc    Track 7 exposes the label ic_SQ
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5label06', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[6].label).assertEqual('ic_SQ');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1415
+     * @tc.name    AlbumExtension1415
+     * @tc.desc    Track 7 keeps the identifier and title pair
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pair06', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const track: AlbumTrack = model.getTracks()[6];
+      expect(track.id).assertEqual(7);
+      expect(track.title).assertEqual('track7');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1416
+     * @tc.name    AlbumExtension1416
+     * @tc.desc    Identifier 7 resolves back to track 7
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5find06', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const found: AlbumTrack | undefined = model.getTrackById(7);
+      expect(found === model.getTracks()[6]).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1417
+     * @tc.name    AlbumExtension1417
+     * @tc.desc    Track 8 exposes the shifted identifier 8
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5id07', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[7].id).assertEqual(8);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1418
+     * @tc.name    AlbumExtension1418
+     * @tc.desc    Track 8 exposes the generated title track8
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title07', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[7].title).assertEqual('track8');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1419
+     * @tc.name    AlbumExtension1419
+     * @tc.desc    Track 8 exposes the singer singer3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5singer07', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[7].singer).assertEqual('singer3');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1420
+     * @tc.name    AlbumExtension1420
+     * @tc.desc    Track 8 exposes the label ic_SQ
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5label07', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[7].label).assertEqual('ic_SQ');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1421
+     * @tc.name    AlbumExtension1421
+     * @tc.desc    Track 8 keeps the identifier and title pair
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pair07', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const track: AlbumTrack = model.getTracks()[7];
+      expect(track.id).assertEqual(8);
+      expect(track.title).assertEqual('track8');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1422
+     * @tc.name    AlbumExtension1422
+     * @tc.desc    Identifier 8 resolves back to track 8
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5find07', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const found: AlbumTrack | undefined = model.getTrackById(8);
+      expect(found === model.getTracks()[7]).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1423
+     * @tc.name    AlbumExtension1423
+     * @tc.desc    Track 9 exposes the shifted identifier 9
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5id08', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[8].id).assertEqual(9);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1424
+     * @tc.name    AlbumExtension1424
+     * @tc.desc    Track 9 exposes the generated title track9
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title08', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[8].title).assertEqual('track9');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1425
+     * @tc.name    AlbumExtension1425
+     * @tc.desc    Track 9 exposes the singer singer4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5singer08', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[8].singer).assertEqual('singer4');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1426
+     * @tc.name    AlbumExtension1426
+     * @tc.desc    Track 9 exposes the label ic_SQ
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5label08', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[8].label).assertEqual('ic_SQ');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1427
+     * @tc.name    AlbumExtension1427
+     * @tc.desc    Track 9 keeps the identifier and title pair
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pair08', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const track: AlbumTrack = model.getTracks()[8];
+      expect(track.id).assertEqual(9);
+      expect(track.title).assertEqual('track9');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1428
+     * @tc.name    AlbumExtension1428
+     * @tc.desc    Identifier 9 resolves back to track 9
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5find08', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const found: AlbumTrack | undefined = model.getTrackById(9);
+      expect(found === model.getTracks()[8]).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1429
+     * @tc.name    AlbumExtension1429
+     * @tc.desc    Track 10 exposes the shifted identifier 10
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5id09', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[9].id).assertEqual(10);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1430
+     * @tc.name    AlbumExtension1430
+     * @tc.desc    Track 10 exposes the generated title track10
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title09', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[9].title).assertEqual('track10');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1431
+     * @tc.name    AlbumExtension1431
+     * @tc.desc    Track 10 exposes the singer singer0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5singer09', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[9].singer).assertEqual('singer0');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1432
+     * @tc.name    AlbumExtension1432
+     * @tc.desc    Track 10 exposes the label ic_SQ
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5label09', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[9].label).assertEqual('ic_SQ');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1433
+     * @tc.name    AlbumExtension1433
+     * @tc.desc    Track 10 keeps the identifier and title pair
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pair09', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const track: AlbumTrack = model.getTracks()[9];
+      expect(track.id).assertEqual(10);
+      expect(track.title).assertEqual('track10');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1434
+     * @tc.name    AlbumExtension1434
+     * @tc.desc    Identifier 10 resolves back to track 10
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5find09', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const found: AlbumTrack | undefined = model.getTrackById(10);
+      expect(found === model.getTracks()[9]).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1435
+     * @tc.name    AlbumExtension1435
+     * @tc.desc    Track 11 exposes the shifted identifier 11
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5id10', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[10].id).assertEqual(11);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1436
+     * @tc.name    AlbumExtension1436
+     * @tc.desc    Track 11 exposes the generated title track11
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title10', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[10].title).assertEqual('track11');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1437
+     * @tc.name    AlbumExtension1437
+     * @tc.desc    Track 11 exposes the singer singer1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5singer10', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[10].singer).assertEqual('singer1');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1438
+     * @tc.name    AlbumExtension1438
+     * @tc.desc    Track 11 exposes the label ic_SQ
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5label10', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[10].label).assertEqual('ic_SQ');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1439
+     * @tc.name    AlbumExtension1439
+     * @tc.desc    Track 11 keeps the identifier and title pair
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pair10', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const track: AlbumTrack = model.getTracks()[10];
+      expect(track.id).assertEqual(11);
+      expect(track.title).assertEqual('track11');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1440
+     * @tc.name    AlbumExtension1440
+     * @tc.desc    Identifier 11 resolves back to track 11
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5find10', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const found: AlbumTrack | undefined = model.getTrackById(11);
+      expect(found === model.getTracks()[10]).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1441
+     * @tc.name    AlbumExtension1441
+     * @tc.desc    Track 12 exposes the shifted identifier 12
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5id11', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[11].id).assertEqual(12);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1442
+     * @tc.name    AlbumExtension1442
+     * @tc.desc    Track 12 exposes the generated title track12
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title11', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[11].title).assertEqual('track12');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1443
+     * @tc.name    AlbumExtension1443
+     * @tc.desc    Track 12 exposes the singer singer2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5singer11', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[11].singer).assertEqual('singer2');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1444
+     * @tc.name    AlbumExtension1444
+     * @tc.desc    Track 12 exposes the label ic_vip
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5label11', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[11].label).assertEqual('ic_vip');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1445
+     * @tc.name    AlbumExtension1445
+     * @tc.desc    Track 12 keeps the identifier and title pair
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pair11', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const track: AlbumTrack = model.getTracks()[11];
+      expect(track.id).assertEqual(12);
+      expect(track.title).assertEqual('track12');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1446
+     * @tc.name    AlbumExtension1446
+     * @tc.desc    Identifier 12 resolves back to track 12
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5find11', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const found: AlbumTrack | undefined = model.getTrackById(12);
+      expect(found === model.getTracks()[11]).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1447
+     * @tc.name    AlbumExtension1447
+     * @tc.desc    Track 13 exposes the shifted identifier 13
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5id12', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[12].id).assertEqual(13);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1448
+     * @tc.name    AlbumExtension1448
+     * @tc.desc    Track 13 exposes the generated title track13
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title12', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[12].title).assertEqual('track13');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1449
+     * @tc.name    AlbumExtension1449
+     * @tc.desc    Track 13 exposes the singer singer3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5singer12', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[12].singer).assertEqual('singer3');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1450
+     * @tc.name    AlbumExtension1450
+     * @tc.desc    Track 13 exposes the label ic_SQ
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5label12', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[12].label).assertEqual('ic_SQ');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1451
+     * @tc.name    AlbumExtension1451
+     * @tc.desc    Track 13 keeps the identifier and title pair
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pair12', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const track: AlbumTrack = model.getTracks()[12];
+      expect(track.id).assertEqual(13);
+      expect(track.title).assertEqual('track13');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1452
+     * @tc.name    AlbumExtension1452
+     * @tc.desc    Identifier 13 resolves back to track 13
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5find12', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const found: AlbumTrack | undefined = model.getTrackById(13);
+      expect(found === model.getTracks()[12]).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1453
+     * @tc.name    AlbumExtension1453
+     * @tc.desc    Track 14 exposes the shifted identifier 14
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5id13', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[13].id).assertEqual(14);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1454
+     * @tc.name    AlbumExtension1454
+     * @tc.desc    Track 14 exposes the generated title track14
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title13', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[13].title).assertEqual('track14');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1455
+     * @tc.name    AlbumExtension1455
+     * @tc.desc    Track 14 exposes the singer singer4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5singer13', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[13].singer).assertEqual('singer4');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1456
+     * @tc.name    AlbumExtension1456
+     * @tc.desc    Track 14 exposes the label ic_SQ
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5label13', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[13].label).assertEqual('ic_SQ');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1457
+     * @tc.name    AlbumExtension1457
+     * @tc.desc    Track 14 keeps the identifier and title pair
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pair13', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const track: AlbumTrack = model.getTracks()[13];
+      expect(track.id).assertEqual(14);
+      expect(track.title).assertEqual('track14');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1458
+     * @tc.name    AlbumExtension1458
+     * @tc.desc    Identifier 14 resolves back to track 14
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5find13', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const found: AlbumTrack | undefined = model.getTrackById(14);
+      expect(found === model.getTracks()[13]).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1459
+     * @tc.name    AlbumExtension1459
+     * @tc.desc    Track 15 exposes the shifted identifier 15
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5id14', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[14].id).assertEqual(15);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1460
+     * @tc.name    AlbumExtension1460
+     * @tc.desc    Track 15 exposes the generated title track15
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title14', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[14].title).assertEqual('track15');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1461
+     * @tc.name    AlbumExtension1461
+     * @tc.desc    Track 15 exposes the singer singer0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5singer14', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[14].singer).assertEqual('singer0');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1462
+     * @tc.name    AlbumExtension1462
+     * @tc.desc    Track 15 exposes the label ic_SQ
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5label14', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[14].label).assertEqual('ic_SQ');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1463
+     * @tc.name    AlbumExtension1463
+     * @tc.desc    Track 15 keeps the identifier and title pair
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pair14', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const track: AlbumTrack = model.getTracks()[14];
+      expect(track.id).assertEqual(15);
+      expect(track.title).assertEqual('track15');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1464
+     * @tc.name    AlbumExtension1464
+     * @tc.desc    Identifier 15 resolves back to track 15
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5find14', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const found: AlbumTrack | undefined = model.getTrackById(15);
+      expect(found === model.getTracks()[14]).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1465
+     * @tc.name    AlbumExtension1465
+     * @tc.desc    Track 16 exposes the shifted identifier 16
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5id15', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[15].id).assertEqual(16);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1466
+     * @tc.name    AlbumExtension1466
+     * @tc.desc    Track 16 exposes the generated title track16
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title15', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[15].title).assertEqual('track16');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1467
+     * @tc.name    AlbumExtension1467
+     * @tc.desc    Track 16 exposes the singer singer1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5singer15', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[15].singer).assertEqual('singer1');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1468
+     * @tc.name    AlbumExtension1468
+     * @tc.desc    Track 16 exposes the label ic_SQ
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5label15', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[15].label).assertEqual('ic_SQ');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1469
+     * @tc.name    AlbumExtension1469
+     * @tc.desc    Track 16 keeps the identifier and title pair
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pair15', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const track: AlbumTrack = model.getTracks()[15];
+      expect(track.id).assertEqual(16);
+      expect(track.title).assertEqual('track16');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1470
+     * @tc.name    AlbumExtension1470
+     * @tc.desc    Identifier 16 resolves back to track 16
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5find15', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const found: AlbumTrack | undefined = model.getTrackById(16);
+      expect(found === model.getTracks()[15]).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1471
+     * @tc.name    AlbumExtension1471
+     * @tc.desc    Track 17 exposes the shifted identifier 17
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5id16', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[16].id).assertEqual(17);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1472
+     * @tc.name    AlbumExtension1472
+     * @tc.desc    Track 17 exposes the generated title track17
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title16', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[16].title).assertEqual('track17');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1473
+     * @tc.name    AlbumExtension1473
+     * @tc.desc    Track 17 exposes the singer singer2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5singer16', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[16].singer).assertEqual('singer2');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1474
+     * @tc.name    AlbumExtension1474
+     * @tc.desc    Track 17 exposes the label ic_SQ
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5label16', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[16].label).assertEqual('ic_SQ');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1475
+     * @tc.name    AlbumExtension1475
+     * @tc.desc    Track 17 keeps the identifier and title pair
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pair16', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const track: AlbumTrack = model.getTracks()[16];
+      expect(track.id).assertEqual(17);
+      expect(track.title).assertEqual('track17');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1476
+     * @tc.name    AlbumExtension1476
+     * @tc.desc    Identifier 17 resolves back to track 17
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5find16', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const found: AlbumTrack | undefined = model.getTrackById(17);
+      expect(found === model.getTracks()[16]).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1477
+     * @tc.name    AlbumExtension1477
+     * @tc.desc    Track 18 exposes the shifted identifier 18
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5id17', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[17].id).assertEqual(18);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1478
+     * @tc.name    AlbumExtension1478
+     * @tc.desc    Track 18 exposes the generated title track18
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title17', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[17].title).assertEqual('track18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1479
+     * @tc.name    AlbumExtension1479
+     * @tc.desc    Track 18 exposes the singer singer3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5singer17', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[17].singer).assertEqual('singer3');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1480
+     * @tc.name    AlbumExtension1480
+     * @tc.desc    Track 18 exposes the label ic_vip
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5label17', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[17].label).assertEqual('ic_vip');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1481
+     * @tc.name    AlbumExtension1481
+     * @tc.desc    Track 18 keeps the identifier and title pair
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pair17', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const track: AlbumTrack = model.getTracks()[17];
+      expect(track.id).assertEqual(18);
+      expect(track.title).assertEqual('track18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1482
+     * @tc.name    AlbumExtension1482
+     * @tc.desc    Identifier 18 resolves back to track 18
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5find17', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const found: AlbumTrack | undefined = model.getTrackById(18);
+      expect(found === model.getTracks()[17]).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1483
+     * @tc.name    AlbumExtension1483
+     * @tc.desc    Track 19 exposes the shifted identifier 19
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5id18', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[18].id).assertEqual(19);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1484
+     * @tc.name    AlbumExtension1484
+     * @tc.desc    Track 19 exposes the generated title track19
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title18', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[18].title).assertEqual('track19');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1485
+     * @tc.name    AlbumExtension1485
+     * @tc.desc    Track 19 exposes the singer singer4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5singer18', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[18].singer).assertEqual('singer4');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1486
+     * @tc.name    AlbumExtension1486
+     * @tc.desc    Track 19 exposes the label ic_SQ
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5label18', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[18].label).assertEqual('ic_SQ');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1487
+     * @tc.name    AlbumExtension1487
+     * @tc.desc    Track 19 keeps the identifier and title pair
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pair18', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const track: AlbumTrack = model.getTracks()[18];
+      expect(track.id).assertEqual(19);
+      expect(track.title).assertEqual('track19');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1488
+     * @tc.name    AlbumExtension1488
+     * @tc.desc    Identifier 19 resolves back to track 19
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5find18', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const found: AlbumTrack | undefined = model.getTrackById(19);
+      expect(found === model.getTracks()[18]).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1489
+     * @tc.name    AlbumExtension1489
+     * @tc.desc    Track 20 exposes the shifted identifier 20
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5id19', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[19].id).assertEqual(20);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1490
+     * @tc.name    AlbumExtension1490
+     * @tc.desc    Track 20 exposes the generated title track20
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title19', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[19].title).assertEqual('track20');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1491
+     * @tc.name    AlbumExtension1491
+     * @tc.desc    Track 20 exposes the singer singer0
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5singer19', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[19].singer).assertEqual('singer0');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1492
+     * @tc.name    AlbumExtension1492
+     * @tc.desc    Track 20 exposes the label ic_SQ
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5label19', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[19].label).assertEqual('ic_SQ');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1493
+     * @tc.name    AlbumExtension1493
+     * @tc.desc    Track 20 keeps the identifier and title pair
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pair19', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const track: AlbumTrack = model.getTracks()[19];
+      expect(track.id).assertEqual(20);
+      expect(track.title).assertEqual('track20');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1494
+     * @tc.name    AlbumExtension1494
+     * @tc.desc    Identifier 20 resolves back to track 20
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5find19', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const found: AlbumTrack | undefined = model.getTrackById(20);
+      expect(found === model.getTracks()[19]).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1495
+     * @tc.name    AlbumExtension1495
+     * @tc.desc    Track 21 exposes the shifted identifier 21
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5id20', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[20].id).assertEqual(21);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1496
+     * @tc.name    AlbumExtension1496
+     * @tc.desc    Track 21 exposes the generated title track21
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title20', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[20].title).assertEqual('track21');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1497
+     * @tc.name    AlbumExtension1497
+     * @tc.desc    Track 21 exposes the singer singer1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5singer20', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[20].singer).assertEqual('singer1');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1498
+     * @tc.name    AlbumExtension1498
+     * @tc.desc    Track 21 exposes the label ic_SQ
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5label20', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[20].label).assertEqual('ic_SQ');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1499
+     * @tc.name    AlbumExtension1499
+     * @tc.desc    Track 21 keeps the identifier and title pair
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pair20', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const track: AlbumTrack = model.getTracks()[20];
+      expect(track.id).assertEqual(21);
+      expect(track.title).assertEqual('track21');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1500
+     * @tc.name    AlbumExtension1500
+     * @tc.desc    Identifier 21 resolves back to track 21
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5find20', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const found: AlbumTrack | undefined = model.getTrackById(21);
+      expect(found === model.getTracks()[20]).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1501
+     * @tc.name    AlbumExtension1501
+     * @tc.desc    Track 22 exposes the shifted identifier 23
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5id21', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[21].id).assertEqual(23);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1502
+     * @tc.name    AlbumExtension1502
+     * @tc.desc    Track 22 exposes the generated title track22
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title21', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[21].title).assertEqual('track22');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1503
+     * @tc.name    AlbumExtension1503
+     * @tc.desc    Track 22 exposes the singer singer2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5singer21', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[21].singer).assertEqual('singer2');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1504
+     * @tc.name    AlbumExtension1504
+     * @tc.desc    Track 22 exposes the label ic_SQ
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5label21', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[21].label).assertEqual('ic_SQ');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1505
+     * @tc.name    AlbumExtension1505
+     * @tc.desc    Track 22 keeps the identifier and title pair
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pair21', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const track: AlbumTrack = model.getTracks()[21];
+      expect(track.id).assertEqual(23);
+      expect(track.title).assertEqual('track22');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1506
+     * @tc.name    AlbumExtension1506
+     * @tc.desc    Identifier 23 resolves back to track 22
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5find21', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const found: AlbumTrack | undefined = model.getTrackById(23);
+      expect(found === model.getTracks()[21]).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1507
+     * @tc.name    AlbumExtension1507
+     * @tc.desc    Track 23 exposes the shifted identifier 24
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5id22', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[22].id).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1508
+     * @tc.name    AlbumExtension1508
+     * @tc.desc    Track 23 exposes the generated title track23
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title22', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[22].title).assertEqual('track23');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1509
+     * @tc.name    AlbumExtension1509
+     * @tc.desc    Track 23 exposes the singer singer3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5singer22', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[22].singer).assertEqual('singer3');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1510
+     * @tc.name    AlbumExtension1510
+     * @tc.desc    Track 23 exposes the label ic_SQ
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5label22', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[22].label).assertEqual('ic_SQ');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1511
+     * @tc.name    AlbumExtension1511
+     * @tc.desc    Track 23 keeps the identifier and title pair
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pair22', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const track: AlbumTrack = model.getTracks()[22];
+      expect(track.id).assertEqual(24);
+      expect(track.title).assertEqual('track23');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1512
+     * @tc.name    AlbumExtension1512
+     * @tc.desc    Identifier 24 resolves back to track 23
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5find22', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const found: AlbumTrack | undefined = model.getTrackById(24);
+      expect(found === model.getTracks()[22]).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1513
+     * @tc.name    AlbumExtension1513
+     * @tc.desc    Track 24 exposes the shifted identifier 25
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5id23', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[23].id).assertEqual(25);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1514
+     * @tc.name    AlbumExtension1514
+     * @tc.desc    Track 24 exposes the generated title track24
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5title23', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[23].title).assertEqual('track24');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1515
+     * @tc.name    AlbumExtension1515
+     * @tc.desc    Track 24 exposes the singer singer4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5singer23', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[23].singer).assertEqual('singer4');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1516
+     * @tc.name    AlbumExtension1516
+     * @tc.desc    Track 24 exposes the label ic_vip
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5label23', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTracks()[23].label).assertEqual('ic_vip');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1517
+     * @tc.name    AlbumExtension1517
+     * @tc.desc    Track 24 keeps the identifier and title pair
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pair23', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const track: AlbumTrack = model.getTracks()[23];
+      expect(track.id).assertEqual(25);
+      expect(track.title).assertEqual('track24');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1518
+     * @tc.name    AlbumExtension1518
+     * @tc.desc    Identifier 25 resolves back to track 24
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5find23', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const found: AlbumTrack | undefined = model.getTrackById(25);
+      expect(found === model.getTracks()[23]).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1519
+     * @tc.name    AlbumExtension1519
+     * @tc.desc    Lookup of invalid identifier 0 returns undefined
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bydge00', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTrackById(0) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1520
+     * @tc.name    AlbumExtension1520
+     * @tc.desc    Lookup of invalid identifier -1 returns undefined
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bydge01', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTrackById(-1) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1521
+     * @tc.name    AlbumExtension1521
+     * @tc.desc    Lookup of invalid identifier 22 returns undefined
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bydge02', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTrackById(22) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1522
+     * @tc.name    AlbumExtension1522
+     * @tc.desc    Lookup of invalid identifier 26 returns undefined
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bydge03', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTrackById(26) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1523
+     * @tc.name    AlbumExtension1523
+     * @tc.desc    Lookup of invalid identifier 100 returns undefined
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bydge04', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTrackById(100) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1524
+     * @tc.name    AlbumExtension1524
+     * @tc.desc    Lookup of invalid identifier 1.5 returns undefined
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bydge05', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTrackById(1.5) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1525
+     * @tc.name    AlbumExtension1525
+     * @tc.desc    Lookup of valid identifier 1 returns a track
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bydge06', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTrackById(1) !== undefined).assertTrue();
+      expect((model.getTrackById(1) as AlbumTrack).id).assertEqual(1);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1526
+     * @tc.name    AlbumExtension1526
+     * @tc.desc    Lookup of valid identifier 21 returns a track
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bydge07', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTrackById(21) !== undefined).assertTrue();
+      expect((model.getTrackById(21) as AlbumTrack).id).assertEqual(21);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1527
+     * @tc.name    AlbumExtension1527
+     * @tc.desc    Lookup of valid identifier 23 returns a track
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bydge08', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTrackById(23) !== undefined).assertTrue();
+      expect((model.getTrackById(23) as AlbumTrack).id).assertEqual(23);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1528
+     * @tc.name    AlbumExtension1528
+     * @tc.desc    Lookup of valid identifier 25 returns a track
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bydge09', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      expect(model.getTrackById(25) !== undefined).assertTrue();
+      expect((model.getTrackById(25) as AlbumTrack).id).assertEqual(25);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1529
+     * @tc.name    AlbumExtension1529
+     * @tc.desc    Single track page 0 returns track 1
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl00', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(0, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('track1');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1530
+     * @tc.name    AlbumExtension1530
+     * @tc.desc    Single track page 1 returns track 2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl01', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(1, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('track2');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1531
+     * @tc.name    AlbumExtension1531
+     * @tc.desc    Single track page 2 returns track 3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl02', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(2, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('track3');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1532
+     * @tc.name    AlbumExtension1532
+     * @tc.desc    Single track page 3 returns track 4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl03', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(3, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('track4');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1533
+     * @tc.name    AlbumExtension1533
+     * @tc.desc    Single track page 4 returns track 5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl04', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(4, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('track5');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1534
+     * @tc.name    AlbumExtension1534
+     * @tc.desc    Single track page 5 returns track 6
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl05', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(5, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('track6');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1535
+     * @tc.name    AlbumExtension1535
+     * @tc.desc    Single track page 6 returns track 7
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl06', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(6, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('track7');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1536
+     * @tc.name    AlbumExtension1536
+     * @tc.desc    Single track page 7 returns track 8
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl07', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(7, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('track8');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1537
+     * @tc.name    AlbumExtension1537
+     * @tc.desc    Single track page 8 returns track 9
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl08', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(8, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('track9');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1538
+     * @tc.name    AlbumExtension1538
+     * @tc.desc    Single track page 9 returns track 10
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl09', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(9, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('track10');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1539
+     * @tc.name    AlbumExtension1539
+     * @tc.desc    Single track page 10 returns track 11
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl10', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(10, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('track11');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1540
+     * @tc.name    AlbumExtension1540
+     * @tc.desc    Single track page 11 returns track 12
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl11', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(11, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('track12');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1541
+     * @tc.name    AlbumExtension1541
+     * @tc.desc    Single track page 12 returns track 13
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl12', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(12, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('track13');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1542
+     * @tc.name    AlbumExtension1542
+     * @tc.desc    Single track page 13 returns track 14
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl13', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(13, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('track14');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1543
+     * @tc.name    AlbumExtension1543
+     * @tc.desc    Single track page 14 returns track 15
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl14', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(14, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('track15');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1544
+     * @tc.name    AlbumExtension1544
+     * @tc.desc    Single track page 15 returns track 16
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl15', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(15, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('track16');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1545
+     * @tc.name    AlbumExtension1545
+     * @tc.desc    Single track page 16 returns track 17
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl16', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(16, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('track17');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1546
+     * @tc.name    AlbumExtension1546
+     * @tc.desc    Single track page 17 returns track 18
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl17', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(17, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('track18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1547
+     * @tc.name    AlbumExtension1547
+     * @tc.desc    Single track page 18 returns track 19
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl18', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(18, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('track19');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_1548
+     * @tc.name    AlbumExtension1548
+     * @tc.desc    Single track page 19 returns track 20
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sl19', 0, () => {
+      const model: AlbumModel = new AlbumModel();
+      const page: AlbumTrack[] = model.slicePage(19, 1);
+      expect(page.length).assertEqual(1);
+      expect(page[0].title).assertEqual('track20');
+    })
