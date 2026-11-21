@@ -651,7 +651,7 @@ export default function runRecoveryMatrixTest(): void {
 
     /**
      * @tc.name   runRecoveryCompletionOrderIsTopological
-     * @tc.desc   The recorded completion order always places C after both shared rows, as the gate demands.
+     * @tc.desc   The recorded completion order always positions C after both shared rows, as the gate demands.
      * @tc.precondition  The shared driver is loaded and the graph runs the full three row sequence.
      * @tc.steps         1. Start the graph, complete A and B and poll for C.
      *                   2. Complete row C.

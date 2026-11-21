@@ -24,7 +24,7 @@
  *   144-147  create failure is logged and the task never exists
  *   174-198  startAllTasks keeps going for the healthy branch
  *
- * The suite exercises the failure surface of the page: creation errors, start
+ * The suite exercises the failure behavior of the page: creation errors, start
  * errors, retry classification, and the rule that one broken branch must not
  * complete the A && B gate on behalf of the other branch.
  */

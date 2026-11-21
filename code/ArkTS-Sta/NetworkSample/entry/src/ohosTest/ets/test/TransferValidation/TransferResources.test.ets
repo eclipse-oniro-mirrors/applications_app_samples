@@ -1116,7 +1116,7 @@ export default function transferResourcesTest(): void {
       }
       expect(URL_TASK_A.length).assertLarger(URL_TASK_B.length);
       expect(URL_TASK_B.length).assertLarger(80);
-      expect(URL_TASK_C.indexOf('blob/master')).assertLarger(0);
+      expect(URL_TASK_C.indexOf('raw/fdb9d48cacd1083f17b7c3e569b39f36db8a26aa')).assertLarger(0);
       expect(TASK_URLS[0].length).assertEqual(URL_TASK_A.length);
     });
 

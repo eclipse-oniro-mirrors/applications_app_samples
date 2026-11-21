@@ -64,11 +64,11 @@ import {
 } from '../Shared/SharedDriver';
 
 const LITERAL_A: string =
-  'https://gitee.com/openharmony/applications_app_samples/raw/master/code/Solutions/Shopping/OrangeShopping/feature/navigationHome/src/main/resources/base/media/favor_list_tea.png';
+  'https://gitee.com/openharmony/applications_app_samples/raw/a826ab0e75fe51d028c1c5af58188e908736b53b/code/Solutions/Shopping/OrangeShopping/feature/navigationHome/src/main/resources/base/media/favor_list_tea.png';
 const LITERAL_B: string =
-  'https://gitee.com/harmonyos-cases/cases/blob/master/CommonAppDevelopment/product/entry/src/main/resources/base/media/after_cache.png';
+  'https://gitee.com/chenhaiwen2/cases/raw/fdb9d48cacd1083f17b7c3e569b39f36db8a26aa/CommonAppDevelopment/product/entry/src/main/resources/base/media/after_cache.png';
 const LITERAL_C: string =
-  'https://gitee.com/harmonyos-cases/cases/blob/master/CommonAppDevelopment/product/entry/src/main/resources/base/media/icon_main_color.png';
+  'https://gitee.com/chenhaiwen2/cases/raw/fdb9d48cacd1083f17b7c3e569b39f36db8a26aa/CommonAppDevelopment/product/entry/src/main/resources/base/media/icon_main_color.png';
 const MEDIA_SEGMENT: string = '/src/main/resources/base/media/';
 const HOST_GITEE: string = 'gitee.com';
 
@@ -99,7 +99,7 @@ export default function resourceOriginTest(): void {
     it('taskAUrlMatchesProductionLiteral', 0, () => {
       logStep('taskAUrlMatchesProductionLiteral', String(URL_TASK_A.length));
       expect(URL_TASK_A).assertEqual(LITERAL_A);
-      expect(URL_TASK_A.length).assertEqual(176);
+      expect(URL_TASK_A.length).assertEqual(210);
       expect(URL_TASK_A.indexOf('OrangeShopping')).assertLarger(0);
       expect(URL_TASK_A.indexOf('favor_list_tea.png')).assertLarger(0);
       expect(URL_TASK_A === URL_TASK_B).assertFalse();
@@ -121,7 +121,7 @@ export default function resourceOriginTest(): void {
     it('taskBUrlMatchesProductionLiteral', 0, () => {
       logStep('taskBUrlMatchesProductionLiteral', String(URL_TASK_B.length));
       expect(URL_TASK_B).assertEqual(LITERAL_B);
-      expect(URL_TASK_B.indexOf('harmonyos-cases')).assertLarger(0);
+      expect(URL_TASK_B.indexOf('chenhaiwen2')).assertLarger(0);
       expect(URL_TASK_B.indexOf('after_cache.png')).assertLarger(0);
       expect(URL_TASK_B.indexOf('OrangeShopping')).assertLess(0);
       expect(URL_TASK_B === LITERAL_B).assertTrue();
@@ -142,7 +142,7 @@ export default function resourceOriginTest(): void {
     it('taskCUrlMatchesProductionLiteral', 0, () => {
       logStep('taskCUrlMatchesProductionLiteral', String(URL_TASK_C.length));
       expect(URL_TASK_C).assertEqual(LITERAL_C);
-      expect(URL_TASK_C.length).assertEqual(136);
+      expect(URL_TASK_C.length).assertEqual(165);
       expect(URL_TASK_C.indexOf('icon_main_color.png')).assertLarger(0);
       expect(URL_TASK_C.indexOf('after_cache.png')).assertLess(0);
       expect(URL_TASK_C === LITERAL_A).assertFalse();
@@ -206,7 +206,7 @@ export default function resourceOriginTest(): void {
 
     /**
      * @tc.name   taskUrlsDifferInRepositorySegment
-     * @tc.desc   Task A lives in openharmony samples while B and C live in harmonyos-cases.
+     * @tc.desc   Task A lives in openharmony samples while B and C live in chenhaiwen2.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ResourceOrigin scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -218,8 +218,8 @@ export default function resourceOriginTest(): void {
      */
     it('taskUrlsDifferInRepositorySegment', 0, () => {
       expect(URL_TASK_A.indexOf('/openharmony/')).assertLarger(0);
-      expect(URL_TASK_A.indexOf('/harmonyos-cases/')).assertLess(0);
-      expect(URL_TASK_B.indexOf('/harmonyos-cases/')).assertLarger(0);
+      expect(URL_TASK_A.indexOf('/chenhaiwen2/')).assertLess(0);
+      expect(URL_TASK_B.indexOf('/chenhaiwen2/')).assertLarger(0);
       expect(URL_TASK_C.indexOf('/openharmony/')).assertLess(0);
       const commonHead: string = URL_TASK_B.substring(0, URL_TASK_B.indexOf('after_cache'));
       expect(URL_TASK_C.startsWith(commonHead)).assertTrue();
@@ -321,7 +321,7 @@ export default function resourceOriginTest(): void {
     it('pathOfKeepsMediaSegment', 0, () => {
       const pathB: string = pathOf(URL_TASK_B);
       expect(pathB.indexOf(MEDIA_SEGMENT)).assertLarger(0);
-      expect(pathB.startsWith('/harmonyos-cases/')).assertTrue();
+      expect(pathB.startsWith('/chenhaiwen2/')).assertTrue();
       expect(pathOf(URL_TASK_A).startsWith('/openharmony/')).assertTrue();
       expect(pathB.endsWith('after_cache.png')).assertTrue();
       expect(pathB.indexOf(HOST_GITEE)).assertLess(0);
@@ -486,11 +486,11 @@ export default function resourceOriginTest(): void {
      * @tc.level  LEVEL1
      */
     it('fileNameOfUsesFallbackForTrailingSlash', 0, () => {
-      const directoryUrl: string = 'https://gitee.com/harmonyos-cases/media/';
+      const directoryUrl: string = 'https://gitee.com/chenhaiwen2/media/';
       expect(fileNameOf(directoryUrl, 'fallback.bin')).assertEqual('fallback.bin');
       expect(fileNameOf(directoryUrl)).assertEqual('file');
       expect(fileNameOf('')).assertEqual('file');
-      expect(fileNameOf('https://gitee.com/harmonyos-cases/media/', '')).assertEqual('');
+      expect(fileNameOf('https://gitee.com/chenhaiwen2/media/', '')).assertEqual('');
       expect(fileNameOf(directoryUrl, 'fallback.bin').indexOf('/')).assertLess(0);
       logStep('fileNameOfUsesFallbackForTrailingSlash', fileNameOf(directoryUrl));
     });
@@ -578,13 +578,13 @@ export default function resourceOriginTest(): void {
         sum = sum + TASK_URLS[index].length;
       }
       logStep('taskUrlLengthsKeepRepositoryOrdering', String(sum));
-      expect(URL_TASK_A.length).assertEqual(176);
-      expect(URL_TASK_B.length).assertEqual(132);
-      expect(URL_TASK_C.length).assertEqual(136);
+      expect(URL_TASK_A.length).assertEqual(210);
+      expect(URL_TASK_B.length).assertEqual(161);
+      expect(URL_TASK_C.length).assertEqual(165);
       expect(URL_TASK_A.length > URL_TASK_C.length).assertTrue();
       expect(URL_TASK_C.length > URL_TASK_B.length).assertTrue();
       expect(URL_TASK_C.length - URL_TASK_B.length).assertEqual(4);
-      expect(sum).assertEqual(444);
+      expect(sum).assertEqual(536);
     });
 
     /**
@@ -613,7 +613,7 @@ export default function resourceOriginTest(): void {
 
     /**
      * @tc.name   sortedTaskUrlsOrderAlphabetically
-     * @tc.desc   Sorting places the two harmonyos-cases URLs first and leaves the pinned array untouched.
+     * @tc.desc   Sorting positions the two chenhaiwen2 URLs first and leaves the pinned array untouched.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ResourceOrigin scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -633,7 +633,7 @@ export default function resourceOriginTest(): void {
       expect(TASK_URLS[0]).assertEqual(URL_TASK_A);
       expect(TASK_URLS[2]).assertEqual(URL_TASK_C);
       expect(sameStringArray(ordered, TASK_URLS)).assertFalse();
-      expect(ordered[0].indexOf('harmonyos-cases')).assertLarger(0);
+      expect(ordered[0].indexOf('chenhaiwen2')).assertLarger(0);
     });
 
     /**
@@ -881,10 +881,10 @@ export default function resourceOriginTest(): void {
      * @tc.level  LEVEL1
      */
     it('redactCredentialsMasksUserInfoInDrawableUrl', 0, () => {
-      const guarded: string = 'https://build:release@gitee.com/harmonyos-cases/media/icon_main_color.png';
+      const guarded: string = 'https://build:release@gitee.com/chenhaiwen2/media/icon_main_color.png';
       const masked: string = redactCredentials(guarded);
       logStep('redactCredentialsMasksUserInfoInDrawableUrl', masked);
-      expect(masked).assertEqual('https://***@gitee.com/harmonyos-cases/media/icon_main_color.png');
+      expect(masked).assertEqual('https://***@gitee.com/chenhaiwen2/media/icon_main_color.png');
       expect(masked.indexOf('release')).assertLess(0);
       expect(masked.indexOf('build')).assertLess(0);
       expect(masked.startsWith('https://***@')).assertTrue();

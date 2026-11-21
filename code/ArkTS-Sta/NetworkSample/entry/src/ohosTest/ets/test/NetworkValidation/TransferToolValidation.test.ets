@@ -68,7 +68,7 @@ import {
   startButtonBackground
 } from '../Shared/SharedDriver';
 
-const MEDIA_URL: string = 'https://gitee.com/harmonyos-cases/cases/blob/master/media/after_cache.png';
+const MEDIA_URL: string = 'https://gitee.com/chenhaiwen2/cases/raw/fdb9d48cacd1083f17b7c3e569b39f36db8a26aa/media/after_cache.png';
 
 export default function transferToolValidationTest(): void {
   describe('TransferToolValidation', () => {
@@ -547,7 +547,7 @@ export default function transferToolValidationTest(): void {
     it('pathOfDropsQueryAndAuthority', 0, () => {
       logStep('pathOfDropsQueryAndAuthority', pathOf(MEDIA_URL));
       expect(pathOf('https://gitee.com/a/b.png?x=1')).assertEqual('/a/b.png');
-      expect(pathOf(MEDIA_URL)).assertEqual('/harmonyos-cases/cases/blob/master/media/after_cache.png');
+      expect(pathOf(MEDIA_URL)).assertEqual('/chenhaiwen2/cases/raw/fdb9d48cacd1083f17b7c3e569b39f36db8a26aa/media/after_cache.png');
       expect(pathOf('https://gitee.com')).assertEqual('');
       expect(pathOf('')).assertEqual('');
       expect(pathOf(MEDIA_URL).startsWith('/')).assertTrue();

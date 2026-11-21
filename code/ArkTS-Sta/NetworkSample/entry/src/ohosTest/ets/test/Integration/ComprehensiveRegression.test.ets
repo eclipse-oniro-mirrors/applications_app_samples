@@ -450,7 +450,7 @@ export default function comprehensiveRegressionTest(): void {
 
     /**
      * @tc.name   isTopologicalRejectsCBeforeB
-     * @tc.desc   Any order that places the exclusive task before a dependency is rejected.
+     * @tc.desc   Any order that positions the exclusive task before a dependency is rejected.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ComprehensiveRegression scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.

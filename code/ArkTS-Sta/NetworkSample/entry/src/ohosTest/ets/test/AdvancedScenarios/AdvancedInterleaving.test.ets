@@ -424,7 +424,7 @@ export default function advancedInterleavingTest(): void {
 
     /**
      * @tc.name   progressAfterCompletionIsFrozenInInterleavedRun
-     * @tc.desc   Once A completed, a later stale progress callback cannot lower the row during B activity.
+     * @tc.desc   Once A completed, a later stale progress callback cannot lower the row while B runs.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the AdvancedInterleaving scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.

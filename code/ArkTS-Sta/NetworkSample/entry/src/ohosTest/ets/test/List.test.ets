@@ -28,14 +28,14 @@
 //   Interleavings            lock matrix and simultaneous completion
 //   FaultInjection           create failure and callback loss
 //   DataMatrix               URL structure and progress percentages
-//   Accessibility            semantic order and readable labels
+//   Semantics                semantic order and readable labels
 //   ResourceContract         exported constant contract
 //   Regression               fingerprint, snapshot and cross-module regression
 //
 // All cases are pure logic. No UI automation or ArkUI component is imported.
 
 import abilityTest from './Ability.test';
-import accessibilitySemanticOrderModelSuite from './Accessibility/SemanticOrderModel.test';
+import semanticOrderModelSuite from './Semantics/SemanticOrderModel.test';
 import advancedScenariosAdvancedInterleavingSuite from './AdvancedScenarios/AdvancedInterleaving.test';
 import advancedScenariosRestartAndRetrySuite from './AdvancedScenarios/RestartAndRetry.test';
 import advancedScenariosTimeoutRecoverySuite from './AdvancedScenarios/TimeoutRecovery.test';
@@ -97,7 +97,7 @@ import regressionCrossModuleRegressionSuite from './Regression/CrossModuleRegres
 import regressionFingerprintRegressionSuite from './Regression/FingerprintRegression.test';
 import regressionSnapshotConsistencySuite from './Regression/SnapshotConsistency.test';
 import resourceContractConstantContractSuite from './ResourceContract/ConstantContract.test';
-import securityAccessibilitySecuritySuite from './Security/AccessibilitySecurity.test';
+import securitySemanticSecuritySuite from './Security/SemanticSecurity.test';
 import securitySecurityValidationSuite from './Security/SecurityValidation.test';
 import securityTransferSecuritySuite from './Security/TransferSecurity.test';
 import transferValidationBoundaryTransfersSuite from './TransferValidation/BoundaryTransfers.test';
@@ -111,7 +111,7 @@ import transferValidationTransferStateMachineSuite from './TransferValidation/Tr
 
 export default function testsuite(): void {
   abilityTest();
-  accessibilitySemanticOrderModelSuite();
+  semanticOrderModelSuite();
   advancedScenariosAdvancedInterleavingSuite();
   advancedScenariosRestartAndRetrySuite();
   advancedScenariosTimeoutRecoverySuite();
@@ -173,7 +173,7 @@ export default function testsuite(): void {
   regressionFingerprintRegressionSuite();
   regressionSnapshotConsistencySuite();
   resourceContractConstantContractSuite();
-  securityAccessibilitySecuritySuite();
+  securitySemanticSecuritySuite();
   securitySecurityValidationSuite();
   securityTransferSecuritySuite();
   transferValidationBoundaryTransfersSuite();

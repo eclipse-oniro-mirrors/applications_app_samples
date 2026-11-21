@@ -835,7 +835,7 @@ export default function networkCoreLifecycleTest(): void {
      * @tc.level  LEVEL2
      */
     it('resetKeepsTaskNumberAndUrl', 0, () => {
-      const url = 'https://gitee.com/samples/raw/master/icon_main_color.png';
+      const url = 'https://gitee.com/samples/raw/main/icon_main_color.png';
       const task = new DownloadTask(TASK_C, url);
       task.start(10);
       task.reportProgress(88);

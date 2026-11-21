@@ -173,11 +173,11 @@ export default function constantContractTest(): void {
      */
     it('urlConstantsHaveProductionPrefixes', 0, () => {
       expect(URL_TASK_A.startsWith('https://gitee.com/openharmony/')).assertTrue();
-      expect(URL_TASK_B.startsWith('https://gitee.com/harmonyos-cases/')).assertTrue();
-      expect(URL_TASK_C.startsWith('https://gitee.com/harmonyos-cases/')).assertTrue();
+      expect(URL_TASK_B.startsWith('https://gitee.com/chenhaiwen2/')).assertTrue();
+      expect(URL_TASK_C.startsWith('https://gitee.com/chenhaiwen2/')).assertTrue();
       expect(schemeOf(URL_TASK_A)).assertEqual('https');
       expect(hostOf(URL_TASK_A)).assertEqual('gitee.com');
-      expect(URL_TASK_B.indexOf('/blob/master/')).assertLarger(0);
+      expect(URL_TASK_B.indexOf('/raw/fdb9d48cacd1083f17b7c3e569b39f36db8a26aa/')).assertLarger(0);
       expect(URL_TASK_C.indexOf('/CommonAppDevelopment/')).assertLarger(0);
     });
 

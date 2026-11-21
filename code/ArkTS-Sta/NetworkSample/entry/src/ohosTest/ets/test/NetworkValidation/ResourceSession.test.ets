@@ -691,7 +691,7 @@ export default function resourceSessionTest(): void {
      * @tc.level  LEVEL1
      */
     it('validationRejectsHttpSourceUrl', 0, () => {
-      const httpUrl: string = 'http://gitee.com/harmonyos-cases/media/after_cache.png';
+      const httpUrl: string = 'http://gitee.com/chenhaiwen2/media/after_cache.png';
       const config: DownloadConfig = new DownloadConfig('DOWNLOAD', httpUrl, true, 'GET', './');
       const errors: string[] = config.validate();
       logStep('validationRejectsHttpSourceUrl', joined(errors, ','));
@@ -718,7 +718,7 @@ export default function resourceSessionTest(): void {
      * @tc.level  LEVEL2
      */
     it('validationRejectsUppercaseHttpsSource', 0, () => {
-      const upper: string = 'HTTPS://GITEE.COM/HARMONYOS-CASES/MEDIA/ICON_MAIN_COLOR.PNG';
+      const upper: string = 'HTTPS://GITEE.COM/CHENHAIWEN2/MEDIA/ICON_MAIN_COLOR.PNG';
       const config: DownloadConfig = new DownloadConfig('DOWNLOAD', upper, true, 'GET', './');
       logStep('validationRejectsUppercaseHttpsSource', config.url.substring(0, 8));
       expect(isHttpsUrl(upper)).assertFalse();

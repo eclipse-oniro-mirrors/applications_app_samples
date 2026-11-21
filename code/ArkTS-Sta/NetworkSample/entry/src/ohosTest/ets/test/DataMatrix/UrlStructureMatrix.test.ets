@@ -183,7 +183,7 @@ export default function urlStructureMatrixTest(): void {
      */
     it('taskAFileNameAndPathExact', 0, () => {
       expect(fileNameOf(URL_TASK_A)).assertEqual('favor_list_tea.png');
-      expect(pathOf(URL_TASK_A)).assertEqual('/openharmony/applications_app_samples/raw/master/code/Solutions/' +
+      expect(pathOf(URL_TASK_A)).assertEqual('/openharmony/applications_app_samples/raw/a826ab0e75fe51d028c1c5af58188e908736b53b/code/Solutions/' +
         'Shopping/OrangeShopping/feature/navigationHome/src/main/resources/base/media/favor_list_tea.png');
       expect(pathOf(URL_TASK_A).startsWith('/openharmony/')).assertTrue();
       expect(pathOf(URL_TASK_A).indexOf('feature/navigationHome') > 0).assertTrue();

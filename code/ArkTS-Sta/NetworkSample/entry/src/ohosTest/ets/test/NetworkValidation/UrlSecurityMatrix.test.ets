@@ -63,9 +63,9 @@ import {
   uniqueStrings
 } from '../Shared/SharedDriver';
 
-const HTTPS_SAMPLE: string = 'https://gitee.com/harmonyos-cases/cases/raw/master/icon_main_color.png';
-const HTTP_SAMPLE: string = 'http://gitee.com/harmonyos-cases/cases/raw/master/icon_main_color.png';
-const FTP_SAMPLE: string = 'ftp://gitee.com/harmonyos-cases/cases/raw/master/icon_main_color.png';
+const HTTPS_SAMPLE: string = 'https://gitee.com/chenhaiwen2/cases/raw/main/icon_main_color.png';
+const HTTP_SAMPLE: string = 'http://gitee.com/chenhaiwen2/cases/raw/main/icon_main_color.png';
+const FTP_SAMPLE: string = 'ftp://gitee.com/chenhaiwen2/cases/raw/main/icon_main_color.png';
 const FILE_SAMPLE: string = 'file:///tmp/media/icon_main_color.png';
 
 export default function urlSecurityMatrixTest(): void {
@@ -142,7 +142,7 @@ export default function urlSecurityMatrixTest(): void {
       const config: DownloadConfig = DownloadConfig.forUrl(FTP_SAMPLE);
       expect(schemeOf(FTP_SAMPLE)).assertEqual('ftp');
       expect(hostOf(FTP_SAMPLE)).assertEqual('gitee.com');
-      expect(pathOf(FTP_SAMPLE)).assertEqual('/harmonyos-cases/cases/raw/master/icon_main_color.png');
+      expect(pathOf(FTP_SAMPLE)).assertEqual('/chenhaiwen2/cases/raw/main/icon_main_color.png');
       expect(isHttpUrl(FTP_SAMPLE)).assertFalse();
       expect(isHttpsUrl(FTP_SAMPLE)).assertFalse();
       expect(config.validate()[0]).assertEqual('url-not-https');
@@ -185,8 +185,8 @@ export default function urlSecurityMatrixTest(): void {
      * @tc.level  LEVEL2
      */
     it('urlMatrixSchemeIsCaseSensitive', 0, () => {
-      const upper: string = 'HTTPS://gitee.com/harmonyos-cases/cases/raw/master/icon_main_color.png';
-      const mixed: string = 'Https://gitee.com/harmonyos-cases/cases/raw/master/icon_main_color.png';
+      const upper: string = 'HTTPS://gitee.com/chenhaiwen2/cases/raw/main/icon_main_color.png';
+      const mixed: string = 'Https://gitee.com/chenhaiwen2/cases/raw/main/icon_main_color.png';
       expect(schemeOf(upper)).assertEqual('HTTPS');
       expect(schemeOf(mixed)).assertEqual('Https');
       expect(isHttpsUrl(upper)).assertFalse();
@@ -209,10 +209,10 @@ export default function urlSecurityMatrixTest(): void {
      * @tc.level  LEVEL3
      */
     it('urlMatrixSchemeRequiresDoubleSlash', 0, () => {
-      const single: string = 'https:/gitee.com/harmonyos-cases/icon_main_color.png';
+      const single: string = 'https:/gitee.com/chenhaiwen2/icon_main_color.png';
       expect(schemeOf(single)).assertEqual('');
       expect(hostOf(single)).assertEqual('');
-      expect(pathOf(single)).assertEqual('/gitee.com/harmonyos-cases/icon_main_color.png');
+      expect(pathOf(single)).assertEqual('/gitee.com/chenhaiwen2/icon_main_color.png');
       expect(fileNameOf(single)).assertEqual('icon_main_color.png');
       expect(isHttpsUrl(single)).assertFalse();
       expect(DownloadConfig.forUrl('https://').isValid()).assertTrue();

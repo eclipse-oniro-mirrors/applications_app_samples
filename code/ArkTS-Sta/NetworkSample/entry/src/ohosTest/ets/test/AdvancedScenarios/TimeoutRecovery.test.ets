@@ -17,7 +17,7 @@
 /**
  * TimeoutRecovery suite.
  *
- * Models the timeout surface of the download branch: the dedicated error code,
+ * Models the timeout behavior of the download branch: the dedicated error code,
  * the retry backoff that grows per attempt, exhaustion of the attempt budget,
  * the reset and retry that follow, poll behaviour while a branch is timed out
  * and the metrics reported at that moment.

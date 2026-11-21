@@ -115,7 +115,7 @@ URL 检查处理字符串与配置，不访问远程资源。
 | `Connectivity` | 测试侧 URL 配置、错误分类与网络失败状态；未建立网络连接 | 30 |
 | `PipelineTesting` | 测试侧配置、启动、进度、依赖、轮询和汇总的分阶段流程 | 30 |
 | `SystemIntegration` | 测试侧任务图、锁、按钮状态投影、指标与事件组合 | 30 |
-| `UserScenarios` | 测试侧首次启动、重复启动、任务完成和失败后重置场景 | 30 |
+| `UserScenarios` | 测试侧初次启动、重复启动、任务完成和失败后重置场景 | 30 |
 
 ### 测试侧交错、重启与超时场景：3 个套件，82 条
 
@@ -164,7 +164,7 @@ URL 检查处理字符串与配置，不访问远程资源。
 
 | 测试套件 | 覆盖点 | 用例数 |
 | --- | --- | ---: |
-| `AccessibilitySecurity` | 测试侧任务标签可区分性、百分号、按钮状态和文案字符串 | 30 |
+| `SemanticSecurity` | 测试侧任务标签可区分性、百分号、按钮状态和文案字符串 | 30 |
 | `SecurityValidation` | 测试侧 URL、action、method、overwrite 和保存路径校验 | 30 |
 | `TransferSecurity` | 测试侧 URL 查询串与凭据脱敏及日志字符串保持 | 30 |
 

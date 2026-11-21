@@ -150,14 +150,14 @@ struct MyStateSample {
   // 运行任务A
   runTaskA(context: common.UIAbilityContext): void {
     let urlA =
-      'https://gitee.com/openharmony/applications_app_samples/raw/master/code/Solutions/Shopping/OrangeShopping/feature/navigationHome/src/main/resources/base/media/favor_list_tea.png'
+      'https://gitee.com/openharmony/applications_app_samples/raw/a826ab0e75fe51d028c1c5af58188e908736b53b/code/Solutions/Shopping/OrangeShopping/feature/navigationHome/src/main/resources/base/media/favor_list_tea.png'
     this.download(context, 'A', urlA);
   }
 
   // 运行任务B
   runTaskB(context: common.UIAbilityContext): void {
     let urlB =
-      'https://gitee.com/harmonyos-cases/cases/blob/master/CommonAppDevelopment/product/entry/src/main/resources/base/media/after_cache.png'
+      'https://gitee.com/chenhaiwen2/cases/raw/fdb9d48cacd1083f17b7c3e569b39f36db8a26aa/CommonAppDevelopment/product/entry/src/main/resources/base/media/after_cache.png'
     this.download(context, 'B', urlB);
   }
 
@@ -165,7 +165,7 @@ struct MyStateSample {
   runTaskC(context: common.UIAbilityContext): void {
     if (this.canRunTaskC()) {
       let url =
-        'https://gitee.com/harmonyos-cases/cases/blob/master/CommonAppDevelopment/product/entry/src/main/resources/base/media/icon_main_color.png'
+        'https://gitee.com/chenhaiwen2/cases/raw/fdb9d48cacd1083f17b7c3e569b39f36db8a26aa/CommonAppDevelopment/product/entry/src/main/resources/base/media/icon_main_color.png'
       this.download(context, 'C', url);
     }
   }

@@ -303,7 +303,7 @@ export default function connectivityTest(): void {
       expect(hostOf('https://gitee.com/a/b/c.png').indexOf('/')).assertEqual(-1);
       expect(hostOf('https://gitee.com/a/b/c.png').indexOf('a')).assertEqual(-1);
       expect(pathOf(URL_TASK_B).startsWith('/')).assertTrue();
-      expect(pathOf(URL_TASK_B).indexOf('harmonyos-cases')).assertEqual(1);
+      expect(pathOf(URL_TASK_B).indexOf('chenhaiwen2')).assertEqual(1);
       expect(pathOf('https://gitee.com')).assertEqual('');
       expect(pathOf('https://gitee.com/')).assertEqual('/');
       expect(hostOf('https://gitee.com/').length).assertEqual(9);

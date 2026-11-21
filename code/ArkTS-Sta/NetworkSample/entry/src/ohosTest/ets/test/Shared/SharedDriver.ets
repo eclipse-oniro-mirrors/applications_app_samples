@@ -46,11 +46,11 @@ export const TASK_C: string = 'C';
 export const TASK_NUMBERS: string[] = [TASK_A, TASK_B, TASK_C];
 
 export const URL_TASK_A: string =
-  'https://gitee.com/openharmony/applications_app_samples/raw/master/code/Solutions/Shopping/OrangeShopping/feature/navigationHome/src/main/resources/base/media/favor_list_tea.png';
+  'https://gitee.com/openharmony/applications_app_samples/raw/a826ab0e75fe51d028c1c5af58188e908736b53b/code/Solutions/Shopping/OrangeShopping/feature/navigationHome/src/main/resources/base/media/favor_list_tea.png';
 export const URL_TASK_B: string =
-  'https://gitee.com/harmonyos-cases/cases/blob/master/CommonAppDevelopment/product/entry/src/main/resources/base/media/after_cache.png';
+  'https://gitee.com/chenhaiwen2/cases/raw/fdb9d48cacd1083f17b7c3e569b39f36db8a26aa/CommonAppDevelopment/product/entry/src/main/resources/base/media/after_cache.png';
 export const URL_TASK_C: string =
-  'https://gitee.com/harmonyos-cases/cases/blob/master/CommonAppDevelopment/product/entry/src/main/resources/base/media/icon_main_color.png';
+  'https://gitee.com/chenhaiwen2/cases/raw/fdb9d48cacd1083f17b7c3e569b39f36db8a26aa/CommonAppDevelopment/product/entry/src/main/resources/base/media/icon_main_color.png';
 export const TASK_URLS: string[] = [URL_TASK_A, URL_TASK_B, URL_TASK_C];
 
 export const PROGRESS_TOTAL: number = 100;

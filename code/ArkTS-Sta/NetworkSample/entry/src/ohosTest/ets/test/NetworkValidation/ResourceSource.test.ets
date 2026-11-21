@@ -19,7 +19,7 @@
  *
  * Source anchors (entry/src/main/ets/pages/Index.ets):
  *   109-116  download() builds the request.agent.Config from the caller URL
- *   151-171  runTaskA / runTaskB / runTaskC are the only places that create URLs
+ *   151-171  runTaskA / runTaskB / runTaskC are the only positions that create URLs
  *   612-637  DownloadConfig.validate() is the gate that decides whether a source is usable
  *   170-201  isHttpUrl / isHttpsUrl / hasQuery / redactQuery / redactCredentials
  *   203-278  array helpers that detect duplicate or unsorted source lists
@@ -65,7 +65,7 @@ const PRESET_ACTION: string = 'DOWNLOAD';
 const PRESET_METHOD: string = 'GET';
 const PRESET_SAVEAS: string = './';
 const LITERAL_C: string =
-  'https://gitee.com/harmonyos-cases/cases/blob/master/CommonAppDevelopment/product/entry/src/main/resources/base/media/icon_main_color.png';
+  'https://gitee.com/chenhaiwen2/cases/raw/fdb9d48cacd1083f17b7c3e569b39f36db8a26aa/CommonAppDevelopment/product/entry/src/main/resources/base/media/icon_main_color.png';
 
 function sourceConfig(url: string): DownloadConfig {
   return new DownloadConfig(PRESET_ACTION, url, true, PRESET_METHOD, PRESET_SAVEAS);
@@ -148,7 +148,7 @@ export default function resourceSourceTest(): void {
      * @tc.level  LEVEL1
      */
     it('plainHttpSourceIsRejected', 0, () => {
-      const config: DownloadConfig = sourceConfig('http://gitee.com/harmonyos-cases/media/after_cache.png');
+      const config: DownloadConfig = sourceConfig('http://gitee.com/chenhaiwen2/media/after_cache.png');
       logStep('plainHttpSourceIsRejected', schemeOf(config.url));
       expect(isHttpUrl(config.url)).assertTrue();
       expect(isHttpsUrl(config.url)).assertFalse();
@@ -173,7 +173,7 @@ export default function resourceSourceTest(): void {
      * @tc.level  LEVEL1
      */
     it('uppercaseHttpsSchemeIsRejected', 0, () => {
-      const config: DownloadConfig = sourceConfig('HTTPS://GITEE.COM/HARMONYOS-CASES/MEDIA/ICON_MAIN_COLOR.PNG');
+      const config: DownloadConfig = sourceConfig('HTTPS://GITEE.COM/CHENHAIWEN2/MEDIA/ICON_MAIN_COLOR.PNG');
       logStep('uppercaseHttpsSchemeIsRejected', schemeOf(config.url));
       expect(schemeOf(config.url)).assertEqual('HTTPS');
       expect(hostOf(config.url)).assertEqual('GITEE.COM');
@@ -198,7 +198,7 @@ export default function resourceSourceTest(): void {
      * @tc.level  LEVEL2
      */
     it('ftpSchemeIsRejectedByHttpsGuard', 0, () => {
-      const config: DownloadConfig = sourceConfig('ftp://gitee.com/harmonyos-cases/media/after_cache.png');
+      const config: DownloadConfig = sourceConfig('ftp://gitee.com/chenhaiwen2/media/after_cache.png');
       logStep('ftpSchemeIsRejectedByHttpsGuard', schemeOf(config.url));
       expect(schemeOf(config.url)).assertEqual('ftp');
       expect(hostOf(config.url)).assertEqual('gitee.com');
@@ -760,10 +760,10 @@ export default function resourceSourceTest(): void {
      * @tc.level  LEVEL1
      */
     it('credentialedSourceMasksUserInfo', 0, () => {
-      const guarded: string = 'https://robot:token@gitee.com/harmonyos-cases/media/after_cache.png';
+      const guarded: string = 'https://robot:token@gitee.com/chenhaiwen2/media/after_cache.png';
       const masked: string = redactCredentials(guarded);
       logStep('credentialedSourceMasksUserInfo', masked);
-      expect(masked).assertEqual('https://***@gitee.com/harmonyos-cases/media/after_cache.png');
+      expect(masked).assertEqual('https://***@gitee.com/chenhaiwen2/media/after_cache.png');
       expect(masked.indexOf('token')).assertLess(0);
       expect(masked.indexOf('robot')).assertLess(0);
       expect(masked.endsWith('after_cache.png')).assertTrue();

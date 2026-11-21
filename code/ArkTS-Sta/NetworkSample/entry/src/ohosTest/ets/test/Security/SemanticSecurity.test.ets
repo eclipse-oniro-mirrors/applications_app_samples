@@ -15,7 +15,7 @@
  */
 
 /**
- * AccessibilitySecurity suite.
+ * SemanticSecurity suite.
  *
  * The three progress rows are read out by a screen reader and the start button
  * must be announced as disabled while a run is active. This suite checks that
@@ -68,23 +68,23 @@ import {
   TaskGraph
 } from '../Shared/SharedDriver';
 
-export default function accessibilitySecurityTest(): void {
-  describe('AccessibilitySecurity', () => {
+export default function semanticSecurityTest(): void {
+  describe('SemanticSecurity', () => {
     beforeAll(() => {
-      logSuite('AccessibilitySecurity', 'begin');
+      logSuite('SemanticSecurity', 'begin');
     });
     beforeEach(async () => {
       await new Promise<void>((resolve) => { setTimeout(() => { resolve(undefined); }, 1); });
     });
     afterAll(() => {
-      logSuite('AccessibilitySecurity', 'end');
+      logSuite('SemanticSecurity', 'end');
     });
 
     /**
      * @tc.name   labelContainsTaskLetterAndPercent
      * @tc.desc   A row label names its task and ends with the percentage sign the bar shows.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -109,7 +109,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   labelsAreDistinctPerTaskAtSameProgress
      * @tc.desc   Three rows at the same percentage still read differently because the task letter differs.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -147,7 +147,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   labelAtZeroAndHundred
      * @tc.desc   The two boundary percentages render with one and three digits without truncation.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -171,7 +171,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   labelTracksEveryProgressValue
      * @tc.desc   Each decile the bar reports appears verbatim in the label for that task.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -201,7 +201,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   labelNeverShowsNegativePercent
      * @tc.desc   Task labels derive from the clamped progress, so a negative callback cannot be read aloud.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -233,7 +233,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   labelNeverExceedsHundred
      * @tc.desc   A server value above the total is clamped before rendering, so no label reads 140 percent.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -260,7 +260,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   buttonEnabledOnlyWhenFlagTrue
      * @tc.desc   The enabled state is a direct function of isTaskFinished and nothing else.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -287,7 +287,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   buttonBackgroundMatchesEnabledState
      * @tc.desc   The active and disabled colours are distinct constants chosen by the same flag.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -315,7 +315,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   buttonDisabledAfterStart
      * @tc.desc   The moment a run starts the button is announced disabled and its colour greys out.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -343,7 +343,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   buttonRemainsDisabledAfterCompletionUntilReset
      * @tc.desc   The page never flips the flag back on completion, so only a reset re-enables the button.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -373,7 +373,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   buttonSemanticsIndependentOfTaskStatuses
      * @tc.desc   Even with failed or completed rows the announcement follows only isTaskFinished.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -407,7 +407,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   logMessagesUseEnglishOnly
      * @tc.desc   Every diagnostic line produced by the suites is plain ASCII English, so log readers need no locale.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -440,7 +440,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   logMessagesContainNoControlCharacters
      * @tc.desc   A production safe message has no carriage return, so one call writes exactly one readable line.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -471,7 +471,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   logLevelPrefixMatchesEntry
      * @tc.desc   The stored line always starts with the level of the call that created it.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -511,7 +511,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   logTraceIsFlatAndPipeDelimited
      * @tc.desc   The trace joins entries with a pipe, so a reader can split it without parsing nested text.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -539,7 +539,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   noHiddenPayloadInAccessibleText
      * @tc.desc   Labels and log lines never include a URL, token or newline that a screen reader could echo.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -574,7 +574,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   screenReaderTextForEachRowIsUnique
      * @tc.desc   A reader walking the three rows hears three different strings at any shared percentage.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -607,7 +607,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   statusConstantsAreDistinctAndReadable
      * @tc.desc   The four status words are unique, lowercase English and usable as spoken state names.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -637,7 +637,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   statusWordsMatchTaskLifecycle
      * @tc.desc   Each lifecycle step reports the status word a reader would expect at that point.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -666,7 +666,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   levelConstantsAreUpperEnglish
      * @tc.desc   INFO, WARN and ERROR are the three distinct uppercase level words the buffer accepts.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -694,7 +694,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   taskNumbersAreSingleAsciiLetters
      * @tc.desc   The three task identifiers are the single uppercase letters the labels and logs quote.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -727,7 +727,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   pageTitleIsReadableAndStable
      * @tc.desc   The header literal above the rows is unchanged, four characters long and free of markup.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -751,7 +751,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   errorConstantsAreDistinctAndReadable
      * @tc.desc   The five numeric codes are unique, ordered and printable, so a log reader can quote them.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -782,7 +782,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   labelsUseIntegerPercentagesOnly
      * @tc.desc   A spoken label never contains a decimal point or a stray plus sign.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -820,7 +820,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   configIsNotExposedInAccessibleText
      * @tc.desc   Neither a row label nor a status line mentions the transfer verb, method or saveas path.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -851,7 +851,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   buttonPairHasNoThirdState
      * @tc.desc   The button helper resolves to exactly one of the two documented constants for any flag.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -880,7 +880,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.name   logBufferLimitDoesNotSplitEntry
      * @tc.desc   Trimming removes whole entries only, so a retained line keeps its level and full text.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -906,10 +906,10 @@ export default function accessibilitySecurityTest(): void {
     });
 
     /**
-     * @tc.name   accessibilitySummaryOfFullRun
+     * @tc.name   semanticsSummaryOfFullRun
      * @tc.desc   At the end of a run all three labels read 100 percent, statuses are completed and the button is off.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -917,7 +917,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL1
      */
-    it('accessibilitySummaryOfFullRun', 0, () => {
+    it('semanticsSummaryOfFullRun', 0, () => {
       const graph = createTaskGraph();
       graph.startAll();
       graph.completeTask(TASK_A);
@@ -947,10 +947,10 @@ export default function accessibilitySecurityTest(): void {
     });
 
     /**
-     * @tc.name   accessibilityStateAfterResetIsFresh
+     * @tc.name   semanticsStateAfterResetIsFresh
      * @tc.desc   After a reset every spoken label and status returns to the initial reading.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -958,7 +958,7 @@ export default function accessibilitySecurityTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('accessibilityStateAfterResetIsFresh', 0, () => {
+    it('semanticsStateAfterResetIsFresh', 0, () => {
       const graph: TaskGraph = createTaskGraph();
       graph.startAll();
       graph.completeTask(TASK_A);
@@ -984,9 +984,9 @@ export default function accessibilitySecurityTest(): void {
 
     /**
      * @tc.name   statusWordReachesTheLogUnchanged
-     * @tc.desc   The status constant quoted in a log line is the same word the accessibility layer announces.
+     * @tc.desc   The status constant quoted in a log line is the same word the semantics layer announces.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
- * @tc.steps         1. Build the AccessibilitySecurity scenario from suite constants and factory helpers.
+ * @tc.steps         1. Build the SemanticSecurity scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
  *                   3. Compare every captured value with the independent oracle.
  * @tc.expected      All assertions in the case body hold and no residual state leaks into the next case.
@@ -1014,6 +1014,6 @@ export default function accessibilitySecurityTest(): void {
       expect(log.trace().indexOf(STATUS_IDLE)).assertEqual(-1);
     });
 
-    // End of accessibility security suite.
+    // End of semantics security suite.
   });
 }

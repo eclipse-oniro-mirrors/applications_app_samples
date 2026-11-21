@@ -206,7 +206,7 @@ export default function offlineResourceTest(): void {
      * @tc.level  LEVEL1
      */
     it('plainHttpSourceRejectedOffline', 0, () => {
-      const httpUrl: string = 'http://gitee.com/harmonyos-cases/media/icon_main_color.png';
+      const httpUrl: string = 'http://gitee.com/chenhaiwen2/media/icon_main_color.png';
       const config: DownloadConfig = offlineConfig(httpUrl);
       logStep('plainHttpSourceRejectedOffline', String(config.validate().length));
       expect(isHttpUrl(httpUrl)).assertTrue();
