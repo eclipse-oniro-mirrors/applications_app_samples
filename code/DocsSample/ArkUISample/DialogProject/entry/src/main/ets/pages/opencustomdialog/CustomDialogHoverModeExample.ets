@@ -34,13 +34,13 @@ struct CustomDialogHoverModeDialog {
       Flex({ justifyContent: FlexAlign.SpaceAround }) {
         Button('cancel')
           .onClick(() => {
-            if (this.controller != undefined) {
+            if (this.controller !== undefined) {
               this.controller.close();
             }
           }).backgroundColor(0xffffff).fontColor(Color.Black)
         Button('confirm')
           .onClick(() => {
-            if (this.controller != undefined) {
+            if (this.controller !== undefined) {
               this.inputValue = this.textValue;
               this.controller.close();
             }
@@ -66,10 +66,10 @@ export struct CustomDialogHoverModeExample {
     onWillDismiss: (dismissDialogAction: DismissDialogAction) => {
       console.info(`reason= ${dismissDialogAction.reason}`);
       console.info('dialog onWillDismiss');
-      if (dismissDialogAction.reason == DismissReason.PRESS_BACK) {
+      if (dismissDialogAction.reason === DismissReason.PRESS_BACK) {
         dismissDialogAction.dismiss();
       }
-      if (dismissDialogAction.reason == DismissReason.TOUCH_OUTSIDE) {
+      if (dismissDialogAction.reason === DismissReason.TOUCH_OUTSIDE) {
         dismissDialogAction.dismiss();
       }
     },
@@ -95,7 +95,7 @@ export struct CustomDialogHoverModeExample {
       Column() {
         Button(this.inputValue)
           .onClick(() => {
-            if (this.dialogController != null) {
+            if (this.dialogController !== null) {
               this.dialogController.open();
             }
           }).backgroundColor(0x317aff)
