@@ -112,6 +112,14 @@ bool PopulateDiagnostics(napi_env env, napi_value object, const PlaybackDiagnost
 bool PopulatePlaybackFailure(napi_env env, napi_value object, const PlaybackInfo &info)
 {
     napi_value failure = nullptr;
+    napi_value cleanup = nullptr;
+    if (napi_create_object(env, &cleanup) != napi_ok ||
+        !SetStringProperty(env, cleanup, "stage", info.cleanupFailure.stage) ||
+        !SetInt32Property(env, cleanup, "code", info.cleanupFailure.code) ||
+        !SetStringProperty(env, cleanup, "message", info.cleanupFailure.message) ||
+        napi_set_named_property(env, object, "cleanupFailure", cleanup) != napi_ok) {
+        return false;
+    }
     if (napi_create_object(env, &failure) != napi_ok ||
         !SetStringProperty(env, failure, "stage", info.failure.stage) ||
         !SetInt32Property(env, failure, "code", info.failure.code) ||

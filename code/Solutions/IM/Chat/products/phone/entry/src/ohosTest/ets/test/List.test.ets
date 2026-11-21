@@ -13,8 +13,24 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test'
+import abilityTest from './AbilityTest.test'
+import msgModelTest from './model/MsgModelTest.test'
+import dataSourceTest from './model/DataSourceTest.test'
+import dataFactoryTest from './util/DataFactoryTest.test'
+import chatFlowTest from './page/ChatFlowTest.test'
+import secondaryPagesTest from './page/SecondaryPagesTest.test'
+import mediaFlowTest from './page/MediaFlowTest.test'
+import interactionMatrixTest from './page/InteractionMatrixTest.test'
 
 export default function testsuite() {
+  // 逻辑测试：模型、数据源、数据工厂
+  msgModelTest()
+  dataSourceTest()
+  dataFactoryTest()
+  // UI测试：聊天主链路 -> 次级页面 -> 媒体链路 -> 交互矩阵 -> 冒烟
+  chatFlowTest()
+  secondaryPagesTest()
+  mediaFlowTest()
+  interactionMatrixTest()
   abilityTest()
 }

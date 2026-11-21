@@ -17,6 +17,7 @@ import { MediaTaskCoordinator, MediaTaskLease } from './MediaTaskCoordinator';
 
 // Compatibility gate for existing launch and cleanup callers.
 export class MediaFileActivity {
+  private static cleanupUnconfirmed: boolean = false;
   private static launches: number = 0;
   private static cleaning: boolean = false;
   private static transcoding: boolean = false;
@@ -24,7 +25,8 @@ export class MediaFileActivity {
   private static cleanupLease: MediaTaskLease | undefined = undefined;
 
   static beginLaunch(): boolean {
-    if (MediaFileActivity.cleaning || MediaFileActivity.transcoding || MediaTaskCoordinator.busy()) {
+    if (MediaFileActivity.cleanupUnconfirmed || MediaFileActivity.cleaning || MediaFileActivity.transcoding ||
+      MediaTaskCoordinator.busy()) {
       return false;
     }
     MediaFileActivity.launches++;
@@ -36,7 +38,8 @@ export class MediaFileActivity {
   }
 
   static beginCleanup(): boolean {
-    if (MediaFileActivity.cleaning || MediaFileActivity.launches > 0 || MediaFileActivity.transcoding) {
+    if (MediaFileActivity.cleanupUnconfirmed || MediaFileActivity.cleaning || MediaFileActivity.launches > 0 ||
+      MediaFileActivity.transcoding) {
       return false;
     }
     MediaFileActivity.cleanupLease = MediaTaskCoordinator.acquire('cleanup');
@@ -46,6 +49,7 @@ export class MediaFileActivity {
   }
 
   static endCleanup(): void {
+    if (MediaFileActivity.cleanupUnconfirmed) { return; }
     MediaFileActivity.cleaning = false;
     if (MediaFileActivity.cleanupLease !== undefined) {
       MediaTaskCoordinator.release(MediaFileActivity.cleanupLease);
@@ -54,19 +58,29 @@ export class MediaFileActivity {
   }
 
   static beginTranscode(): boolean {
-    if (MediaFileActivity.cleaning || MediaFileActivity.transcoding || MediaFileActivity.launches > 0) { return false; }
+    if (MediaFileActivity.cleanupUnconfirmed || MediaFileActivity.cleaning || MediaFileActivity.transcoding ||
+      MediaFileActivity.launches > 0) { return false; }
     MediaFileActivity.transcodeLease = MediaTaskCoordinator.acquire('transcode');
     if (MediaFileActivity.transcodeLease === undefined) { return false; }
     MediaFileActivity.transcoding = true;
     return true;
   }
 
+  static blockUnconfirmedCleanup(): void {
+    MediaFileActivity.cleanupUnconfirmed = true;
+    const lease: MediaTaskLease | undefined = MediaTaskCoordinator.current() ??
+      MediaTaskCoordinator.acquire('cleanup');
+    if (lease !== undefined) { MediaTaskCoordinator.cancelling(lease); }
+  }
+
   static endTranscode(): void {
+    if (MediaFileActivity.cleanupUnconfirmed) { return; }
     MediaFileActivity.transcoding = false;
     if (MediaFileActivity.transcodeLease !== undefined) {
       MediaTaskCoordinator.release(MediaFileActivity.transcodeLease);
       MediaFileActivity.transcodeLease = undefined;
     }
   }
+  static isCleanupUnconfirmed(): boolean { return MediaFileActivity.cleanupUnconfirmed; }
   static isTranscoding(): boolean { return MediaFileActivity.transcoding; }
 }

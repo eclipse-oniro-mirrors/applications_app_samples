@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { TranscodeQueueModel, TranscodeQueueItem } from '../../model/TranscodeQueueModel';
+import { TranscodeQueueModel, TranscodeQueueItem, TranscodeQueueSettings } from '../../model/TranscodeQueueModel';
 import { TranscodeExportController, TranscodeExportResult } from '../../controller/TranscodeExportController';
 import { LocalizedText } from '../../common/LocalizedText';
 
@@ -32,14 +32,15 @@ export struct TranscodeQueuePanel {
   @Prop canBatch: boolean = false;
 
   private summary(item: TranscodeQueueItem): string {
-    const mode: string = item.options[1] === 0 ? 'Buffer' : item.options[1] === 2 ? 'OpenGL' :
+    const settings: TranscodeQueueSettings = TranscodeQueueModel.settings(item);
+    const mode: string = settings.modeIndex === 0 ? 'Buffer' : settings.modeIndex === 2 ? 'OpenGL' :
       LocalizedText.get($r('app.string.transcode_window_mode'));
-    return (item.quality?.operation === 1 ? 'Remux' : item.options[0] === 0 ? 'H.264' : 'H.265') +
-      ' · ' + mode + ' · ' + ([0, 1920, 1080, 720][item.options[2]] || 'Original') +
-      ' · ' + [2, 4, 8, 16][item.options[3]] + ' Mbps · ' +
+    return (item.quality?.operation === 1 ? 'Remux' : settings.codecIndex === 0 ? 'H.264' : 'H.265') +
+      ' · ' + mode + ' · ' + ([0, 1920, 1080, 720][settings.sizeIndex] || 'Original') +
+      ' · ' + [2, 4, 8, 16][settings.bitrateIndex] + ' Mbps · ' +
       (item.quality?.codecMode === 1 ? 'Async' : 'Sync') + '\n' +
       ['Nearest', 'Bilinear', 'Area'][item.quality?.filter ?? 0] + ' · ' +
-      ['Fit', 'Crop', 'Letterbox'][item.options[7] ?? 0] + ' · ' +
+      ['Fit', 'Crop', 'Letterbox'][settings.resizeMode ?? 0] + ' · ' +
       ((item.startTimeMs ?? 0) / 1000) + '–' + ((item.endTimeMs ?? 0) > 0 ? item.endTimeMs! / 1000 : 'End') + ' s';
   }
 

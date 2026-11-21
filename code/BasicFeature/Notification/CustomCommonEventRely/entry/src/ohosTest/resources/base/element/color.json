@@ -1,0 +1,12 @@
+{
+    "color": [
+        {
+            "name": "test_window_background",
+            "value": "#FFFFFF"
+        },
+        {
+            "name": "test_text",
+            "value": "#E6000000"
+        }
+    ]
+}

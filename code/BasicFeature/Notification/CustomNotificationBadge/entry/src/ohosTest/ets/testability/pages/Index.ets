@@ -13,16 +13,19 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_CustomNotificationBadge]';
 
 @Entry
 @Component
 struct Index {
-  aboutToAppear() {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility index aboutToAppear');
-  }
+  @State message: ResourceStr = $r('app.string.module_test_desc')
 
-  @State message: string = 'Hello World'
+  aboutToAppear(): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility index aboutToAppear');
+  }
 
   build() {
     Row() {
@@ -31,7 +34,7 @@ struct Index {
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
         Button() {
-          Text('next page')
+          Text($r('app.string.test_page_button'))
             .fontSize(20)
             .fontWeight(FontWeight.Bold)
         }
@@ -39,7 +42,7 @@ struct Index {
         .margin({
           top: 20
         })
-        .backgroundColor('#0D9FFB')
+        .backgroundColor($r('app.color.test_button_background'))
         .width('35%')
         .height('5%')
         .onClick(() => {

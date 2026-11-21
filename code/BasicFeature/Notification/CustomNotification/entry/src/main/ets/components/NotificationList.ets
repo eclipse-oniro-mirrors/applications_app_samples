@@ -13,17 +13,17 @@
  * limitations under the License.
  */
 
-import notification from '@ohos.notificationManager';
-import { notificationManagement } from '@ohos/notification';
+import { notificationManager as notification } from '@kit.NotificationKit';
+import { notificationContentUtil, notificationManagement } from '@ohos/notification';
 import { logger } from '@ohos/notification';
-import { TitleBar } from './/TitleBar';
+import { TitleBar } from './TitleBar';
 
 @Component
 export struct NotificationList {
-  @State groupNotifications: Array<Array<notification.NotificationRequest>> = [];
-  @State countsByType: Array<number> = [];
+  @State groupNotifications: notification.NotificationRequest[][] = [];
+  @State countsByType: number[] = [];
 
-  aboutToAppear() {
+  aboutToAppear(): void {
     notificationManagement.getAllNotifications().then((data) => {
       this.groupNotifications = data.groupNotifications;
       this.countsByType = data.countsByType;
@@ -42,16 +42,13 @@ export struct NotificationList {
                 notifications: this.groupNotifications[index],
                 notificationNum: this.countsByType[index],
               })
-                .onClick(() => {
+                .onClick(async () => {
                   if (this.countsByType[index]) {
-                    notificationManagement.cancelNotificationType(this.groupNotifications[index][0].content.contentType);
-                    let currentBadgeNum = notificationManagement.getBadgeNumber();
-                    currentBadgeNum -= this.countsByType[index];
-                    this.countsByType[index] = 0;
-                    notificationManagement.setBadgeNumber(currentBadgeNum);
+                    await notificationManagement.cancelNotificationType(index);
                   }
                 })
             }
+            .id('notificationGroup' + index)
           }
         })
       }.width('100%')
@@ -68,8 +65,8 @@ export struct NotificationItem {
   private title: Resource | undefined = undefined;
   private content: string = '';
 
-  aboutToAppear() {
-    switch (this.notifications[0].content.contentType) {
+  aboutToAppear(): void {
+    switch (notificationContentUtil.getContentTypeId(this.notifications[0].content)) {
       case notification.ContentType.NOTIFICATION_CONTENT_BASIC_TEXT: {
         this.title = $r('app.string.basic_notification');
         if (this.notifications[0].content.normal) {
@@ -121,14 +118,14 @@ export struct NotificationItem {
             .lineHeight(19)
             .opacity(0.6)
         }.width('100%')
-        .height(64)
+          .height(64)
       }.width('95%')
-      .margin({ left: 10, right: 15 })
+        .margin({ left: 10, right: 15 })
     }
-    .backgroundColor(Color.White)
-    .borderRadius(24)
-    .height(72)
-    .margin({ left: 10, right: 10 })
-    .padding(16)
+    .backgroundColor($r('app.color.white'))
+      .borderRadius(24)
+      .height(72)
+      .margin({ left: 10, right: 10 })
+      .padding(16)
   }
 }

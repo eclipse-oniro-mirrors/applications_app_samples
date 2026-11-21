@@ -12,6 +12,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+@Component
+export struct LocalExtendVersionCondition {
+  @State egLanes: LengthConstrain = { minLength: 200, maxLength: 300 };
+
+  build() {
+    NavDestination() {
+      VersionConditionUseDemo()
+    }
+    .backgroundColor('#f1f2f3')
+    .title($r('app.string.extend_version_condition'))
+  }
+}
+
 // [Start Extend_Version_Condition]
 const lowVersionExtendText: string = 'Lower version performance';
 const hightVersionExtendText: string = 'Higher version performance';

@@ -1,0 +1,24 @@
+{
+    "string": [
+        {
+            "name": "module_test_desc",
+            "value": "CustomCommonEventRely 自动化测试模块",
+            "description": "测试模块的描述信息"
+        },
+        {
+            "name": "TestAbility_desc",
+            "value": "自动化测试入口",
+            "description": "测试 Ability 的描述信息"
+        },
+        {
+            "name": "TestAbility_label",
+            "value": "CustomCommonEventRelyTest",
+            "description": "测试 Ability 的标签"
+        },
+        {
+            "name": "test_running",
+            "value": "自动化测试运行中",
+            "description": "测试页面提示"
+        }
+    ]
+}

@@ -421,7 +421,10 @@ function sourceFixture(history = { update: async () => true, getEntries: () => [
   const f = { active: true, path: null, plays: [], prompts: 0, mutations: 0, recent: [],
     documents: [], albums: [], permissions: [], dialogs: [], pendingTimers: new Map() };
   let timerId = 0;
-  const queue = { paths: [], index: -1, pendingIndex: -1, append(uri) { this.paths.push(uri); } };
+  const { PlaybackQueueController } = load('controller/PlaybackQueueController.ets', {
+    '../model/PlaybackModeModel': load('model/PlaybackModeModel.ets', {})
+  }, { Observed: target => target });
+  const queue = new PlaybackQueueController();
   const pickerRequest = requests => { const request = deferred(); requests.push(request); return request.promise; };
   const { PlaybackSourceController } = load('controller/PlaybackSourceController.ets', {
     '@kit.CoreFileKit': { picker: { DocumentSelectOptions: class {},
@@ -448,6 +451,25 @@ function sourceFixture(history = { update: async () => true, getEntries: () => [
     showTextPickerDialog: options => f.dialogs.push(options) }), queue, history, callbacks);
   return Object.assign(f, { controller, queue,
     runTimers() { const pending = [...f.pendingTimers.values()]; f.pendingTimers.clear(); pending.forEach(fn => fn()); } });
+}
+
+async function testCoordinatorBackoff() {
+  const progress = historyFixture(); await progress.history.load({});
+  const { PlaybackHistoryCoordinator } = load('controller/PlaybackHistoryCoordinator.ets', {
+    '../model/PlaybackHistoryModel': { getPlaybackTitle: uri => uri },
+    '../common/utils/Logger': { default: { warn() {} } }
+  });
+  const saving = new PlaybackHistoryCoordinator(progress.history, () => {});
+  saving.activate('progress'); progress.failures = 20;
+  await saving.persistProgress(3_000_000, 60_000_000);
+  progress.failures = 0;
+  await saving.persistProgress(3_500_000, 60_000_000);
+  checkEqual(progress.writes, 2, 'Coordinator polling respects model failed-save backoff');
+  await saving.persistProgress(3_000_000, 60_000_000, true);
+  assert.equal(JSON.parse(progress.saved)[0].positionUs, 3_000_000, 'Forced stop save bypasses backoff');
+  const writes = progress.writes;
+  await saving.persistProgress(3_500_000, 60_000_000);
+  assert.equal(progress.writes, writes, 'Successful save throttles nearby progress');
 }
 
 async function testSourceSelections() {
@@ -510,21 +532,6 @@ async function testSourceSelections() {
   const selecting = active.controller.selectQueueFiles();
   active.documents[0].resolve(['one', 'two']); await selecting;
   assert.equal(active.queue.paths.join(','), 'one,two'); assert.deepEqual(active.plays, [0]);
-
-  const progress = historyFixture(); await progress.history.load({});
-  const source = sourceFixture(progress.history); source.path = 'progress'; progress.failures = 20;
-  assert.equal(await source.controller.persistProgress(3_000_000, 60_000_000, false, 1_000_000), 1_000_000,
-    'Failed saves do not advance the last saved position');
-  progress.failures = 0;
-  checkEqual(await source.controller.persistProgress(3_500_000, 60_000_000, false, 1_000_000), 1_000_000,
-    'Ordinary source progress respects failed-save backoff');
-  checkEqual(progress.writes, 2, 'Source polling does not retry storage during backoff');
-  console.info('Playback source: forced stop progress bypasses failed-save backoff');
-  assert.equal(await source.controller.persistProgress(3_000_000, 60_000_000, true, 1_000_000), 3_000_000,
-    'The same position can retry after storage recovers');
-  const writes = progress.writes;
-  assert.equal(await source.controller.persistProgress(3_500_000, 60_000_000, false, 3_000_000), 3_000_000);
-  assert.equal(progress.writes, writes, 'Successful saves still throttle nearby progress');
 
   const historyGate = deferred();
   const leaving = sourceFixture({ load: () => historyGate.promise, getEntries: () => ['entry'] });
@@ -748,6 +755,7 @@ const completionGuard = setTimeout(() => {
   await testCorruptHistoryProtection();
   await testHistorySaveBackoff();
   await testSourceSelections();
+  await testCoordinatorBackoff();
   await testSessionListenerFailure();
   await testStaleSessionEvents();
   await testSessions();

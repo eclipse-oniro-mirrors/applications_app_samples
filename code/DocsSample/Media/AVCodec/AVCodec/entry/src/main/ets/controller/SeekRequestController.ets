@@ -41,6 +41,23 @@ export class SeekRequestController {
     return this.active || this.pending !== undefined;
   }
 
+  // 切轨与Seek共用占用状态；停止仅使结果失效，已提交的Native操作仍须完成。
+  async runExclusive(execute: () => Promise<boolean>): Promise<boolean> {
+    if (this.isBusy()) { return false; }
+    const generation: number = this.generation;
+    this.active = true;
+    let success: boolean = false;
+    try {
+      success = await execute();
+    } catch (error) {
+      success = false;
+    } finally {
+      this.active = false;
+      if (this.pending !== undefined) { this.drain(); } else { this.notifyIdle(); }
+    }
+    return generation === this.generation && success;
+  }
+
   request(targetUs: number): Promise<SeekRequestResult> {
     this.submitted++;
     if (this.pending !== undefined) {

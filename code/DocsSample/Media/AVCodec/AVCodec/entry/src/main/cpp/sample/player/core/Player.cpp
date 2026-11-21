@@ -16,6 +16,7 @@
 #include "Player.h"
 
 #include <algorithm>
+#include <cmath>
 #include <queue>
 
 #include "av_codec_sample_log.h"
@@ -53,6 +54,7 @@ PlaybackInfo Player::GetPlaybackInfo() const
     PlaybackInfo info;
     info.state = stateMachine_.GetState();
     info.failure = failure_.Snapshot();
+    info.cleanupFailure = cleanupFailure_.Snapshot();
     info.diagnostics = diagnostics_.Snapshot();
     if (info.state == PLAYER_STATE_IDLE) {
         return info;
@@ -81,9 +83,9 @@ PlaybackInfo Player::GetPlaybackInfo() const
         std::lock_guard<std::mutex> lock(videoSinkDiagnosticsMutex_);
         info.videoSinkDiagnostics = videoSinkDiagnostics_;
     }
-    info.diagnostics.audioInterrupted = audioInterrupted_.load();
-    info.diagnostics.audioInterruptions = audioInterruptCount_.load();
-    info.diagnostics.lastAudioInterruptHint = audioInterruptHint_.load();
+    info.diagnostics.audioInterrupted = audioCallbackContext_.interrupted.load();
+    info.diagnostics.audioInterruptions = audioCallbackContext_.interruptCount.load();
+    info.diagnostics.lastAudioInterruptHint = audioCallbackContext_.interruptHint.load();
     info.diagnostics.backgroundPaused = backgroundPausedPlayback_.load();
     if (info.durationUs > 0) {
         info.positionUs = std::clamp(info.positionUs, int64_t { 0 }, info.durationUs);
@@ -118,8 +120,9 @@ int32_t Player::Stop()
     if (currentState == PLAYER_STATE_STOPPING) {
         return AVCODEC_SAMPLE_ERR_OK;
     }
-    CHECK_AND_RETURN_RET_LOG(currentState == PLAYER_STATE_PLAYING || currentState == PLAYER_STATE_PAUSED,
-        AVCODEC_SAMPLE_ERR_ERROR, "Stop is only allowed while playing or paused, state: %{public}d",
+    CHECK_AND_RETURN_RET_LOG(currentState == PLAYER_STATE_PLAYING || currentState == PLAYER_STATE_PAUSED ||
+        currentState == PLAYER_STATE_READY,
+        AVCODEC_SAMPLE_ERR_ERROR, "Stop requires ready, playing or paused state: %{public}d",
         static_cast<int32_t>(currentState));
     CHECK_AND_RETURN_RET_LOG(!playbackFailed_.load(), AVCODEC_SAMPLE_ERR_ERROR,
         "Playback is already failing");
@@ -146,6 +149,11 @@ int32_t Player::Stop()
         audioDecContext_->renderCond.notify_all();
     }
     doneCond_.notify_all();
+    if (currentState == PLAYER_STATE_READY) {
+        isAudioDone = true;
+        isVideoDone = true;
+        StartRelease();
+    }
     AVCODEC_SAMPLE_LOGI("Stop requested");
     diagnostics_.RecordEvent("playback.stop.request", playbackPositionUs_.load());
     return AVCODEC_SAMPLE_ERR_OK;
@@ -198,26 +206,16 @@ int32_t Player::Resume()
 void Player::SetBackgroundPlaybackEnabled(bool enabled)
 {
     backgroundPlaybackEnabled_ = enabled;
-    if (!enabled || !appBackgrounded_.load() || !backgroundPausedPlayback_.load()) {
-        return;
-    }
     std::lock_guard<std::mutex> lock(mutex_);
-    if (stateMachine_.GetState() != PLAYER_STATE_PAUSED) {
+    if (!appBackgrounded_.load()) {
         return;
     }
-    {
-        std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
-        if (audioRenderer_ != nullptr && OH_AudioRenderer_Start(audioRenderer_) != AUDIOSTREAM_SUCCESS) {
-            AVCODEC_SAMPLE_LOGW("Resume audio renderer after enabling background playback failed");
-            return;
-        }
+    if (!backgroundPlaybackEnabled_.load()) {
+        PauseForBackground();
+    } else if (backgroundPausedPlayback_.load()) {
+        ResumeFromBackground();
     }
-    if (stateMachine_.BeginResume()) {
-        paused_ = false;
-        backgroundPausedPlayback_ = false;
-        diagnostics_.SetBackgroundPaused(false);
-        NotifyPlaybackTimingChanged();
-    }
+    NotifyPlaybackTimingChanged();
 }
 
 void Player::PauseForBackground()
@@ -225,7 +223,6 @@ void Player::PauseForBackground()
     if (backgroundPlaybackEnabled_.load()) {
         return;
     }
-    std::lock_guard<std::mutex> lock(mutex_);
     if (stateMachine_.GetState() != PLAYER_STATE_PLAYING) {
         return;
     }
@@ -248,7 +245,6 @@ void Player::PauseForBackground()
 
 void Player::ResumeFromBackground()
 {
-    std::lock_guard<std::mutex> lock(mutex_);
     if (stateMachine_.GetState() != PLAYER_STATE_PAUSED) {
         backgroundPausedPlayback_ = false;
         diagnostics_.SetBackgroundPaused(false);
@@ -269,7 +265,8 @@ void Player::ResumeFromBackground()
 void Player::SetAppBackground(bool background)
 {
     appBackgrounded_ = background;
-    if (background) {
+    std::lock_guard<std::mutex> lock(mutex_);
+    if (appBackgrounded_.load()) {
         PauseForBackground();
     } else if (backgroundPausedPlayback_.load()) {
         ResumeFromBackground();
@@ -336,7 +333,11 @@ int32_t Player::RestorePreviousAudioTrackAfterFailedSwitch(std::unique_lock<std:
     const int32_t restoreRet = RestoreAudioTrack(oldTrackIndex, resumeRenderer, speedSnapshot);
     if (restoreRet != AVCODEC_SAMPLE_ERR_OK) {
         CleanupAudioTrackFailure(lock);
+        failure_.Record("audio.track.restore", restoreRet, "Restore previous audio track failed");
+        playbackFailed_ = true;
         isStarted_ = false;
+        CancelWorkerWaits();
+        doneCond_.notify_all();
         AVCODEC_SAMPLE_LOGE("Restore previous audio track failed, ret: %{public}d", restoreRet);
     }
     UpdateMediaInfoSnapshot();
@@ -397,8 +398,7 @@ void Player::ReleaseAudioTrackResources()
     audioDecContext_->outputBufferQueue.Reset();
     {
         std::lock_guard<std::mutex> outputLock(audioDecContext_->outputMutex);
-        std::queue<unsigned char> emptyQueue;
-        audioDecContext_->renderQueue.swap(emptyQueue);
+        audioDecContext_->renderQueue.Clear();
     }
     audioDecContext_->isDestroyed = false;
     audioDecContext_->audioFramesWritten = 0;
@@ -456,10 +456,11 @@ int32_t Player::RestoreAudioTrack(int32_t oldTrackIndex, bool resumeRenderer, fl
 
 void Player::SetSpeed(float multiplier)
 {
+    std::lock_guard<std::mutex> lock(mutex_);
     const PlayerState currentState = stateMachine_.GetState();
     CHECK_AND_RETURN_LOG(currentState == PLAYER_STATE_PLAYING || currentState == PLAYER_STATE_PAUSED,
         "Set speed is only allowed while playing or paused");
-    CHECK_AND_RETURN_LOG(multiplier > 0.0f, "Playback speed must be positive");
+    CHECK_AND_RETURN_LOG(std::isfinite(multiplier) && multiplier > 0.0f, "Playback speed must be finite and positive");
     if (speed.load() == multiplier) {
         AVCODEC_SAMPLE_LOGW("Same speed value");
         return;
@@ -480,12 +481,15 @@ void Player::SetSpeed(float multiplier)
 
 void Player::SetSmartFluencySupported(bool supported)
 {
+    std::lock_guard<std::mutex> lock(mutex_);
     isSmartFluencySupported_ = supported;
     AVCODEC_SAMPLE_LOGI("SetSmartFluencySupported: %{public}d", supported);
 }
 
 void Player::OnThermalWarningReceived(double ratio)
 {
+    CHECK_AND_RETURN_LOG(std::isfinite(ratio) && ratio > 0.0 && ratio <= 1.0, "Invalid thermal retention ratio");
+    std::lock_guard<std::mutex> lock(mutex_);
     if (!smartFluencyAvailable_.load() || videoDecoder_ == nullptr) {
         AVCODEC_SAMPLE_LOGW("Smart frame retention is disabled for this playback, skip thermal warning");
         return;
@@ -498,6 +502,7 @@ void Player::OnThermalWarningReceived(double ratio)
 
 void Player::OnThermalLevelRecovered()
 {
+    std::lock_guard<std::mutex> lock(mutex_);
     if (!thermalWarningActive_) {
         return;
     }
@@ -510,6 +515,7 @@ void Player::OnThermalLevelRecovered()
 
 void Player::SetTransform(int32_t hint)
 {
+    std::lock_guard<std::mutex> lock(mutex_);
     const PlayerState currentState = stateMachine_.GetState();
     CHECK_AND_RETURN_LOG(currentState == PLAYER_STATE_PLAYING || currentState == PLAYER_STATE_PAUSED,
         "Set transform is only allowed while playing or paused");

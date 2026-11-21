@@ -94,6 +94,7 @@ void Recorder::ResetSessionState()
     audioOutputEosReceived_ = false;
     isAudioEncFirstFrame_ = true;
     audioSubmittedFrames_ = 0;
+    // videoInputStopping_控制Buffer视频输入停止；新会话清零，允许输入线程重新取帧。
     videoInputStopping_ = false;
     captureStartedUs_ = 0;
     audioCaptureOffsetUs_ = 0;
@@ -223,7 +224,8 @@ void Recorder::AudioEncOutputThread()
         audioEncContext_->outputFrameCount++;
         AVCODEC_SAMPLE_LOGW(
             "Audio Out buffer count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
-            audioEncContext_->outputFrameCount, bufferInfo->attr.size, bufferInfo->attr.flags, bufferInfo->attr.pts);
+            audioEncContext_->outputFrameCount.load(), bufferInfo->attr.size, bufferInfo->attr.flags,
+            bufferInfo->attr.pts);
         const bool isEosBuffer = (bufferInfo->attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
         int32_t writeRet = AVCODEC_SAMPLE_ERR_OK;
         if (!isEosBuffer && bufferInfo->attr.size > 0) {

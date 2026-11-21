@@ -83,7 +83,8 @@ struct Index {
           }
           .height('100%')
         }
-        .tabBar(this.TabBarBuilder(TAB_INDEX.NOTIFICATION_TAB, NOTIFICATION_TAB, $r('app.string.notification_publish_title')),)
+        .tabBar(this.TabBarBuilder(TAB_INDEX.NOTIFICATION_TAB, NOTIFICATION_TAB,
+          $r('app.string.notification_publish_title')))
       }
       .barHeight(74)
       .barWidth('100%')

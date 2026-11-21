@@ -105,6 +105,10 @@
       "value": "@Extend使用版本隔离"
     },
     {
+      "name": "extend_nested",
+      "value": "@Extend同类嵌套"
+    },
+    {
       "name": "local",
       "value": "@Local装饰器：组件内部状态"
     },

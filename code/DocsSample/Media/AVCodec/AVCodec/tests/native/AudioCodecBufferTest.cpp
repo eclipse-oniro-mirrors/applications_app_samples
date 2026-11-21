@@ -137,6 +137,34 @@ void TestOutputOwnership(int32_t eosStatus, bool eosReturned)
     Require(wrapper.FreeOutputBuffer(info) == AVCODEC_SAMPLE_ERR_ERROR, "Output return errors propagate");
 }
 
+void TestEncoderOutputIndexRelease()
+{
+    g_codec = {};
+    AudioEncoder encoder;
+    Require(encoder.FreeOutputData(BUFFER_INDEX) == AVCODEC_SAMPLE_ERR_ERROR && g_codec.frees == 0,
+        "Index release rejects an encoder that has not been created");
+    Require(encoder.Create("audio/mp4a-latm") == AVCODEC_SAMPLE_ERR_OK, "Create encoder for index release");
+    const uint32_t outputFlags[] = {AVCODEC_BUFFER_FLAGS_NONE, AVCODEC_BUFFER_FLAGS_EOS};
+    for (uint32_t flags : outputFlags) {
+        g_codec.output.attr.flags = flags;
+        CodecBufferInfo info;
+        Require(encoder.GetOutputBuffer(info, QUERY_TIMEOUT_US) == AVCODEC_SAMPLE_ERR_OK,
+            "Acquire regular or EOS output before returning its index");
+        const int32_t before = g_codec.frees;
+        Require(encoder.FreeOutputData(info.bufferIndex) == AVCODEC_SAMPLE_ERR_OK && g_codec.frees == before + 1,
+            "Index release returns the original Buffer to the codec exactly once");
+    }
+    g_codec.freeStatus = AV_ERR_UNKNOWN;
+    const int32_t before = g_codec.frees;
+    Require(encoder.FreeOutputData(BUFFER_INDEX) == AVCODEC_SAMPLE_ERR_ERROR && g_codec.frees == before + 1,
+        "Index release reports the codec error without retrying");
+    g_codec.freeStatus = AV_ERR_OK;
+    Require(encoder.Release() == AVCODEC_SAMPLE_ERR_OK, "Release encoder after index return");
+    const int32_t after = g_codec.frees;
+    Require(encoder.FreeOutputData(BUFFER_INDEX) == AVCODEC_SAMPLE_ERR_ERROR && g_codec.frees == after,
+        "Index release does not call the codec after destruction");
+}
+
 template<typename AudioCodec>
 void TestLifecycle(int32_t stopFlushes, int32_t releaseFlushes)
 {
@@ -260,10 +288,11 @@ void TestPlaybackEos(bool asynchronous, int32_t eosSize)
     Require(g_codec.frees == PCM_AND_EOS_FREE_CALLS && prepareCalls == 1 && outputCalls == 1 &&
         dumpCalls == (asynchronous ? 1 : 0) && context.outputFrameCount == 1,
         "EOS is returned once and bypasses PCM preparation, rendering and dumping");
-    Require(context.renderQueue.size() == FRAME_BYTES, "EOS preserves queued tail audio without adding bytes");
+    Require(context.renderQueue.Size() == FRAME_BYTES, "EOS preserves queued tail audio without adding bytes");
     for (int32_t i = 0; i < FRAME_BYTES; ++i) {
-        Require(context.renderQueue.front() == static_cast<uint8_t>(i), "Tail PCM order is preserved");
-        context.renderQueue.pop();
+        uint8_t value = 0;
+        Require(context.renderQueue.Read(&value, 1) == 1 && value == static_cast<uint8_t>(i),
+            "Tail PCM order is preserved");
     }
 }
 
@@ -297,7 +326,7 @@ void TestPlaybackEosFreeContract(bool asynchronous)
     g_codec.freeStatus = AV_ERR_UNKNOWN;
     Require(!ProcessPlaybackOutput(pump, context, asynchronous) && playbackFailed == asynchronous &&
         running != asynchronous &&
-        g_codec.frees == 1 && context.renderQueue.empty(),
+        g_codec.frees == 1 && context.renderQueue.Empty(),
         "EOS Free is attempted once; async reports failure while sync preserves the decoder END contract");
 }
 
@@ -319,7 +348,7 @@ void TestPlaybackStoppedDuringQuery(OH_AVErrCode queryStatus, bool eos, bool fre
         "Stop returns acquired PCM and END Buffers once, and never frees a timeout result");
     const bool queryFailed = queryStatus != AV_ERR_OK && queryStatus != AV_ERR_TRY_AGAIN_LATER;
     Require(playbackFailed == (queryFailed || (queryStatus == AV_ERR_OK && freeFails && !eos)) &&
-        context.renderQueue.empty(),
+        context.renderQueue.Empty(),
         "Stop bypasses PCM callbacks and preserves query and PCM return errors");
 }
 
@@ -551,6 +580,7 @@ int main()
     TestInputStatus<AudioDecoder>();
     TestOutputOwnership<AudioEncoder>(AVCODEC_SAMPLE_ERR_OK, false);
     TestOutputOwnership<AudioDecoder>(AVCODEC_SAMPLE_ERR_END, true);
+    TestEncoderOutputIndexRelease();
     TestLifecycle<AudioEncoder>(ENCODER_STOP_FLUSHES, ENCODER_RELEASE_FLUSHES);
     TestLifecycle<AudioDecoder>(DECODER_STOP_FLUSHES, DECODER_RELEASE_FLUSHES);
     TestReleaseAfterCleanupFailure<AudioEncoder>();

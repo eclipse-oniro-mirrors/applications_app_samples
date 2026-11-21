@@ -13,7 +13,9 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const DOMAIN: number = 0xF811;
 
 class Logger {
   private domain: number;
@@ -22,28 +24,28 @@ class Logger {
 
   constructor(prefix: string) {
     this.prefix = prefix;
-    this.domain = 0x0000;
+    this.domain = DOMAIN;
     hilog.isLoggable(this.domain, prefix, hilog.LogLevel.INFO);
     hilog.isLoggable(this.domain, prefix, hilog.LogLevel.DEBUG);
     hilog.isLoggable(this.domain, prefix, hilog.LogLevel.WARN);
     hilog.isLoggable(this.domain, prefix, hilog.LogLevel.ERROR);
   }
 
-  debug(...args: string[]) {
+  debug(...args: string[]): void {
     hilog.debug(this.domain, this.prefix, this.format, args);
   }
 
-  info(...args: string[]) {
+  info(...args: string[]): void {
     hilog.info(this.domain, this.prefix, this.format, args);
   }
 
-  warn(...args: string[]) {
+  warn(...args: string[]): void {
     hilog.warn(this.domain, this.prefix, this.format, args);
   }
 
-  error(...args: string[]) {
+  error(...args: string[]): void {
     hilog.error(this.domain, this.prefix, this.format, args);
   }
 }
 
-export let logger = new Logger('[Sample_CustomNotificationBadge]');
+export let logger: Logger = new Logger('[Sample_CustomNotificationBadge]');

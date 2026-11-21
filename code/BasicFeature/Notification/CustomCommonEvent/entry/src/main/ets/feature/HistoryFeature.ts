@@ -18,39 +18,64 @@ import consts from '../module/Consts';
 import dataPreferences from '@ohos.data.preferences';
 import Logger from '../module/Logger';
 
-const TAG: string = '[Sample_CustomCommonEvent_HistoryFeature]';
+const TAG: string = '[Sample_CustomCommonEvent]';
 
 export default class HistoryFeature {
   constructor(abilityContext: common.UIAbilityContext) {
     this.innerContext = abilityContext;
   }
 
-  async getData() {
+  static shouldKeep(detail: Array<string>): boolean {
+    return JSON.stringify(detail) !== '[]';
+  }
+
+  static assemble(records: Array<string>, details: Array<Array<string>>): Array<Array<string>> {
+    const kept: Array<Array<string>> = [];
+    for (let index = 0; index < records.length; index++) {
+      if (HistoryFeature.shouldKeep(details[index])) {
+        kept.push(details[index]);
+      }
+    }
+    return kept;
+  }
+
+  static isCompleteRecord(detail: Array<string>): boolean {
+    if (detail.length < 4) {
+      return false;
+    }
+    for (let index = 0; index < 4; index++) {
+      let field: string = detail[index];
+      if (!field) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  async getData(): Promise<Array<Array<string>>> {
     await this.init();
-    return new Promise((resolve) => {
+    return new Promise<Array<Array<string>>>((resolve) => {
       resolve(this.dataSource);
     });
   }
 
-  private async init() {
-    let prefer = null;
-    await dataPreferences.getPreferences(this.innerContext, consts.DATA_BASE_NAME).then((pref) => {
-      prefer = pref;
-    });
-    let records: Array<string>;
+  private async init(): Promise<void> {
+    const prefer: dataPreferences.Preferences =
+      await dataPreferences.getPreferences(this.innerContext, consts.DATA_BASE_NAME);
+    let records: Array<string> = [];
     await prefer.get(consts.DATA_BASE_KEY_TOTAL_TIMES, []).then((value: Array<string>) => {
       records = value;
     });
-    this.dataSource = [];
+    let details: Array<Array<string>> = [];
     for (let item of records) {
       await prefer.get(item, []).then((detail: Array<string>) => {
-        if (JSON.stringify(detail) !== '[]') {
-          this.dataSource.push(detail);
-        }
+        details.push(detail);
       }).catch((error) => {
         Logger.info(TAG, `Failed to get value code is ${error.code}`);
+        details.push([]);
       });
     }
+    this.dataSource = HistoryFeature.assemble(records, details);
   }
 
   private dataSource: Array<Array<string>> = [];

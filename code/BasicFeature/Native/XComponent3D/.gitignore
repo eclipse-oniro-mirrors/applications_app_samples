@@ -9,3 +9,9 @@
 /.clang-format
 /.clang-tidy
 **/.test
+/oh-package-lock.json5
+/entry/oh-package-lock.json5
+/wecode-cpp.db
+/wecode-cpp.db-shm
+/wecode-cpp.db-wal
+/.qoder

@@ -107,7 +107,23 @@ export default function IndexTest() {
       await button1.click();
       let button2 = await driver.findComponent(ON.text('change height', MatchPattern.CONTAINS));
       await button2.click();
+      await driver.pressBack();
       hilog.info(DOMAIN, TAG, BUNDLE + 'ComponentExtension_004 end');
+      done();
+    })
+
+    /**
+     * @tc.number ComponentExtension_005
+     * @tc.name testComponentExtension
+     * @tc.desc 测试ComponentExtension显示是否显示正常
+     */
+    it(BUNDLE + 'ComponentExtension_005', 0, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'ComponentExtension_005 begin');
+      let driver = Driver.create();
+      let button1 = await driver.findComponent(ON.text('StylesNested', MatchPattern.CONTAINS));
+      await button1.click();
+      await driver.pressBack();
+      hilog.info(DOMAIN, TAG, BUNDLE + 'ComponentExtension_005 end');
       done();
     })
   })

@@ -5,20 +5,44 @@
       "value": "#FFFFFF"
     },
     {
-      "name": "item_title_font",
+      "name": "page_background",
+      "value": "#F1F3F5"
+    },
+    {
+      "name": "card_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "record_background",
+      "value": "#F5F7FA"
+    },
+    {
+      "name": "primary_text",
       "value": "#E6000000"
     },
     {
-      "name": "fount_color",
-      "value": "#FF182431"
+      "name": "secondary_text",
+      "value": "#99000000"
     },
     {
-      "name": "subscribe_events_background",
-      "value": "#FF007DFF"
+      "name": "primary_button_background",
+      "value": "#0A59F7"
     },
     {
-      "name": "subscribe_events_fount",
-      "value": "#FFFFFFFF"
+      "name": "primary_button_font",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "secondary_button_background",
+      "value": "#E5E8EC"
+    },
+    {
+      "name": "secondary_button_font",
+      "value": "#E6000000"
+    },
+    {
+      "name": "state_active",
+      "value": "#0E9F6E"
     }
   ]
 }

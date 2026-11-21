@@ -2,15 +2,98 @@
   "string": [
     {
       "name": "module_test_desc",
-      "value": "test ability description"
+      "value": "test ability description",
+      "description": "测试模块描述"
     },
     {
       "name": "TestAbility_desc",
-      "value": "the test ability"
+      "value": "the test ability",
+      "description": "测试 Ability 描述"
     },
     {
       "name": "TestAbility_label",
-      "value": "test label"
+      "value": "test label",
+      "description": "测试 Ability 名称"
+    },
+    {
+      "name": "index",
+      "value": "首页",
+      "description": "首页页签名称"
+    },
+    {
+      "name": "app",
+      "value": "应用",
+      "description": "应用页签名称"
+    },
+    {
+      "name": "game",
+      "value": "游戏",
+      "description": "游戏页签名称"
+    },
+    {
+      "name": "explore",
+      "value": "探索",
+      "description": "探索页签名称"
+    },
+    {
+      "name": "mine",
+      "value": "我的",
+      "description": "我的页签名称"
+    },
+    {
+      "name": "recommend",
+      "value": "推荐",
+      "description": "推荐栏目名称"
+    },
+    {
+      "name": "appList",
+      "value": "应用榜",
+      "description": "应用列表栏目名称"
+    },
+    {
+      "name": "gameList",
+      "value": "游戏榜",
+      "description": "游戏列表栏目名称"
+    },
+    {
+      "name": "video",
+      "value": "影音",
+      "description": "影音栏目名称"
+    },
+    {
+      "name": "shopping",
+      "value": "购物",
+      "description": "购物栏目名称"
+    },
+    {
+      "name": "category",
+      "value": "分类",
+      "description": "分类栏目名称"
+    },
+    {
+      "name": "rank",
+      "value": "排行",
+      "description": "排行栏目名称"
+    },
+    {
+      "name": "discovery",
+      "value": "今日发现",
+      "description": "今日发现栏目名称"
+    },
+    {
+      "name": "hot",
+      "value": "热门专题",
+      "description": "热门专题栏目名称"
+    },
+    {
+      "name": "search",
+      "value": "搜索...",
+      "description": "搜索框提示语"
+    },
+    {
+      "name": "nullString",
+      "value": " ",
+      "description": "空字符串占位"
     }
   ]
 }

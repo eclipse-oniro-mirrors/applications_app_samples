@@ -92,7 +92,9 @@ bool TranscodeJob::DropFrame(bool &advanced)
         lastSubmittedPts_ = pts;
         return true;
     }
-    if (!Check(OH_VideoDecoder_FreeOutputBuffer(decoder_, pendingDecodedIndex_), "Return rate-limited frame")) {
+    // 丢弃的普通帧仍需归还；带EOS的输出不再复用，由Destroy回收。
+    if (!eos && !Check(OH_VideoDecoder_FreeOutputBuffer(decoder_, pendingDecodedIndex_),
+        "Return rate-limited frame")) {
         return false;
     }
     pendingDecoded_ = nullptr;
@@ -179,7 +181,8 @@ bool TranscodeJob::RunPreview()
         if (pendingDecoded_ != nullptr) {
             const bool success = pendingDecodedAttr_.size > 0 ? CapturePreview() :
                 Fail("No decoded frame within the selected preview range");
-            const bool returned = Check(OH_VideoDecoder_FreeOutputBuffer(decoder_, pendingDecodedIndex_),
+            const bool eos = (pendingDecodedAttr_.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
+            const bool returned = eos || Check(OH_VideoDecoder_FreeOutputBuffer(decoder_, pendingDecodedIndex_),
                 "Return preview frame");
             pendingDecoded_ = nullptr;
             return success && returned;

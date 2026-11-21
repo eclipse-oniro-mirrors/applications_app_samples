@@ -44,6 +44,7 @@ void TranscodeCodecCallbacks::RecordError(Channel &channel, int32_t error)
         ++revision_;
     }
     changed_.notify_all();
+    if (wake_ != nullptr) { wake_->Notify(); }
 }
 
 void TranscodeCodecCallbacks::Enqueue(Channel &channel, bool input, const Event &event)
@@ -61,6 +62,7 @@ void TranscodeCodecCallbacks::Enqueue(Channel &channel, bool input, const Event 
         ++revision_;
     }
     changed_.notify_all();
+    if (wake_ != nullptr) { wake_->Notify(); }
 }
 
 void TranscodeCodecCallbacks::OnError(OH_AVCodec *, int32_t error, void *userData)
@@ -137,4 +139,5 @@ void TranscodeCodecCallbacks::Close()
         ++revision_;
     }
     changed_.notify_all();
+    if (wake_ != nullptr) { wake_->Notify(); }
 }

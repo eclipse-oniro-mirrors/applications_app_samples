@@ -67,6 +67,14 @@
     {
       "name": "OutAppSendSubmitEventSuccess",
       "value": "接收非指定应用事件成功"
+    },
+    {
+      "name": "test_page_message",
+      "value": "Hello World"
+    },
+    {
+      "name": "test_page_next",
+      "value": "next page"
     }
   ]
 }

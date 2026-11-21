@@ -18,6 +18,8 @@ import { existsSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runVerification } from './VerificationRunner.mjs';
+import { nativeBuildOptions } from './NativeBuildOptions.mjs';
+import { verifyDeviceRun } from './DeviceVerification.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -59,46 +61,65 @@ function linuxPath(value) {
   if (result.status !== 0) { throw new Error('Cannot convert WSL path: ' + value); }
   return result.stdout.trim();
 }
+function nativeRun(command, values, label, duration, options = {}) {
+  if (process.platform !== 'win32') { return run(command, values, label, duration, options); }
+  return run('wsl.exe',
+    ['-d', distro, '--exec', 'timeout', '--signal=KILL', duration / 1000 + 's', command, ...values],
+    label, duration + 5000, { ...options, timeoutExitCodes: [124, 137] });
+}
+function nativeFlags(sdkRoot, profile) {
+  const source = path.join(root, 'entry/src/main/cpp');
+  const includes = ['', 'common', 'common/dfx/log', 'capabilities/include', 'render/include',
+    'sample/player', 'sample/player/core', 'sample/player/sync', 'sample/recorder/core'].map(part =>
+    '-I' + linuxPath(path.join(source, part)));
+  return [...profile.flags, '-std=c++17', '-pthread', '-ferror-limit=5', '-ffunction-sections', '-fdata-sections',
+    '-Wl,--gc-sections', '-Wno-ignored-attributes',
+    ...includes, '-idirafter', linuxPath(path.join(sdkRoot, 'native/sysroot/usr/include'))];
+}
+async function nativeTarget(name, sources, compiler, flags, binaryDirectory) {
+  const source = path.join(root, 'entry/src/main/cpp');
+  const binary = linuxPath(path.join(binaryDirectory, name));
+  const compile = [...flags, linuxPath(path.join(root, 'tests/native', name + '.cpp')),
+    ...sources.map(file => linuxPath(path.join(source, file))), '-o', binary];
+  console.info('Native: ' + name);
+  await nativeRun(compiler, compile, 'compile-' + name, compileTimeoutMs);
+  await nativeRun(binary, [], 'native-' + name, testTimeoutMs);
+  if (name === 'NativeCheckTest') {
+    await nativeRun(binary, ['--fail-check'], 'native-negative-check', testTimeoutMs, { acceptedExitCodes: [1] });
+  }
+}
 async function native() {
   const sdkRoot = required(sdk, '--sdk or OHOS_SDK_HOME');
   if (process.platform === 'win32' && !distro) { throw new Error('Set --wsl-distro or AVCODEC_WSL_DISTRO'); }
   const targets = JSON.parse(readFileSync(path.join(root, 'tests/native/targets.json'), 'utf8'));
   const compiler = option('--cxx', process.env.CXX || 'clang++');
-  const source = path.join(root, 'entry/src/main/cpp');
-  const includes = ['', 'common', 'common/dfx/log', 'capabilities/include'].map(part =>
-    '-I' + linuxPath(path.join(source, part)));
-  const flags = ['-std=c++17', '-pthread', '-ferror-limit=5', '-ffunction-sections', '-fdata-sections',
-    '-Wl,--gc-sections', '-Wno-ignored-attributes',
-    ...includes, '-idirafter', linuxPath(path.join(sdkRoot, 'native/sysroot/usr/include'))];
+  const profile = nativeBuildOptions(option('--native-build', 'debug'), option('--sanitizer', 'none'));
+  const binaryDirectory = path.join(output, 'native', profile.directory);
+  mkdirSync(binaryDirectory, { recursive: true });
+  const flags = nativeFlags(sdkRoot, profile);
   const selection = option('--native-test', '');
   if (selection && !targets[selection]) { throw new Error('Unknown Native test: ' + selection); }
   for (const [name, sources] of Object.entries(targets)) {
-    if (selection && name !== selection) { continue; }
-    const binary = linuxPath(path.join(output, name));
-    const compile = [...flags, linuxPath(path.join(root, 'tests/native', name + '.cpp')),
-      ...sources.map(file => linuxPath(path.join(source, file))), '-o', binary];
-    console.log('Native: ' + name);
-    if (process.platform === 'win32') {
-      const bounded = (command, values, label, duration) => run('wsl.exe',
-        ['-d', distro, '--exec', 'timeout', '--signal=KILL', duration / 1000 + 's', command, ...values],
-        label, duration + 5000, { timeoutExitCodes: [124, 137] });
-      await bounded(compiler, compile, 'compile-' + name, compileTimeoutMs);
-      await bounded(binary, [], 'native-' + name, testTimeoutMs);
-    } else {
-      await run(compiler, compile, 'compile-' + name, compileTimeoutMs);
-      await run(binary, [], 'native-' + name, testTimeoutMs);
+    if (!selection || name === selection) {
+      await nativeTarget(name, sources, compiler, flags, binaryDirectory);
     }
   }
-  console.log('Native: ' + (selection ? 1 : Object.keys(targets).length) + ' executables passed');
+  console.info('Native profile: ' + profile.directory);
+  console.info('Native: ' + (selection ? 1 : Object.keys(targets).length) + ' executables passed');
 }
 async function host() {
   const compiler = path.join(required(sdk, '--sdk or OHOS_SDK_HOME'),
     'ets/build-tools/ets-loader/node_modules/typescript/lib/typescript.js');
-  for (const file of ['RecorderModels', 'TranscodeModels', 'PlaybackConcurrency', 'PlaybackStartup', 'PlaybackPageLifecycle',
-    'RecordingPageLifecycle', 'RecordingPersistence', 'PlaybackReview']) {
+  for (const file of ['RecorderModels', 'TranscodeModels', 'PlaybackConcurrency', 'PlaybackStartup',
+    'PlaybackFlow', 'PlaybackQueueState', 'PlaybackCommand', 'PlaybackOrdering', 'PlaybackHistoryCoordinator',
+    'PlaybackSourceFlow', 'PlaybackPageLifecycle', 'PlaybackPictureInPicture', 'PlaybackControlFlow',
+    'PlaybackContracts',
+    'RecordingPageLifecycle', 'RecordingPersistence', 'PlaybackReview', 'PlaybackTrackSwitch', 'PlaybackBenchmark']) {
     await run(process.execPath, ['tests/host/' + file + '.test.cjs', compiler], 'host-' + file, testTimeoutMs);
   }
   await run(process.execPath, ['tests/host/VerificationRunner.test.mjs'], 'host-VerificationRunner', testTimeoutMs);
+  await run(process.execPath, ['tests/host/NativeBuildOptions.test.mjs'], 'host-NativeBuildOptions', testTimeoutMs);
+  await run(process.execPath, ['tests/host/DeviceVerification.test.mjs'], 'host-DeviceVerification', testTimeoutMs);
 }
 async function lint() {
   const entry = path.join(required(studio, '--studio or DEVECO_STUDIO_HOME'), 'plugins/codelinter/run/index.js');
@@ -111,7 +132,10 @@ async function lint() {
   const baseline = JSON.parse(readFileSync(path.join(root, 'tests/lint-baseline.json'), 'utf8'));
   const signature = item => JSON.stringify([item.file, item.rule, item.severity, item.message, item.source]);
   const remaining = new Map();
-  for (const item of baseline) { const key = signature(item); remaining.set(key, (remaining.get(key) || 0) + item.count); }
+  for (const item of baseline) {
+    const key = signature(item);
+    remaining.set(key, (remaining.get(key) || 0) + item.count);
+  }
   let existing = 0;
   const added = [];
   for (const file of findings) {
@@ -124,7 +148,7 @@ async function lint() {
       else { added.push(relative + ':' + message.line + ' ' + message.rule + ' ' + message.message); }
     }
   }
-  console.log('CodeLinter: ' + existing + ' existing findings; ' + added.length + ' new findings (.validation/lint.json)');
+  console.info(`CodeLinter: ${existing} existing findings; ${added.length} new findings (.validation/lint.json)`);
   if (added.length) { throw new Error(added.join('\n')); }
 }
 async function build() {
@@ -134,12 +158,35 @@ async function build() {
   const pathKey = Object.keys(env).find(key => key.toLowerCase() === 'path') || 'PATH';
   env[pathKey] = path.join(javaHome, 'bin') + path.delimiter + (env[pathKey] || '');
   await run(process.execPath, [path.join(studioRoot, 'tools/hvigor/bin/hvigorw.js'), '--mode', 'module',
-    '-p', 'product=default', '-p', 'module=entry@default', 'assembleHap', '--no-daemon'], 'build', buildTimeoutMs, { env });
+    '-p', 'product=default', '-p', 'module=entry@default', 'assembleHap', '--no-daemon'],
+  'build', buildTimeoutMs, { env });
+}
+async function device() {
+  const studioRoot = required(studio, '--studio or DEVECO_STUDIO_HOME');
+  const javaHome = path.join(studioRoot, 'jbr');
+  const env = { ...process.env, JAVA_HOME: javaHome };
+  const pathKey = Object.keys(env).find(key => key.toLowerCase() === 'path') || 'PATH';
+  env[pathKey] = path.join(javaHome, 'bin') + path.delimiter + (env[pathKey] || '');
+  const scope = option('--device-scope', '');
+  const expectedCount = Number(option('--expected-device-tests', scope ? '' : '49'));
+  if (!Number.isSafeInteger(expectedCount) || expectedCount <= 0) {
+    throw new Error('Set --expected-device-tests to the expected positive case count for the selected scope');
+  }
+  const values = [path.join(studioRoot, 'tools/hvigor/bin/hvigorw.js'), '--mode', 'module',
+    '-p', 'product=default', '-p', 'module=entry', '-p', 'coverage=true'];
+  if (scope) { values.push('-p', 'scope=' + scope); }
+  values.push('onDeviceTest', '--no-daemon');
+  const result = await verifyDeviceRun({ expectedCount, scope,
+    reportPath: path.join(root, 'entry/.test/default/intermediates/ohosTest/coverage_data/test_result.txt'),
+    resultPath: path.join(output, 'device-result.json'),
+    execute: () => run(process.execPath, values, 'device', buildTimeoutMs, { env }) });
+  console.info(`Device: ${result.pass}/${result.run} passed; report: ${result.reportPath}`);
 }
 try {
   const stage = option('--only', 'all');
   const stages = { host, native, lint, build };
-  if (stage === 'all') { for (const action of Object.values(stages)) { await action(); } }
+  if (stage === 'device') { await device(); }
+  else if (stage === 'all') { for (const action of Object.values(stages)) { await action(); } }
   else if (stages[stage]) { await stages[stage](); }
   else { throw new Error('Unknown --only stage: ' + stage); }
   console.log('Verification passed: ' + stage);

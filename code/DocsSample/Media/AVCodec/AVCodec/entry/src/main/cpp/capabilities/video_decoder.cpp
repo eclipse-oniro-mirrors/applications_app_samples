@@ -670,8 +670,10 @@ int32_t VideoDecoder::OnThermalWarningReceived(double ratio)
 int32_t VideoDecoder::Release()
 {
     if (decoder_ != nullptr) {
-        OH_VideoDecoder_Destroy(decoder_);
+        const int32_t ret = OH_VideoDecoder_Destroy(decoder_);
         decoder_ = nullptr;
+        CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+            "Destroy video decoder failed, ret: %{public}d", ret);
     }
     return AVCODEC_SAMPLE_ERR_OK;
 }

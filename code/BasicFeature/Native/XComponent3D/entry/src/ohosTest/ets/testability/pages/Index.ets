@@ -16,17 +16,20 @@
 @Entry
 @Component
 struct Index {
-  @State message: string = 'Hello World';
-
   build() {
-    Row() {
-      Column() {
-        Text(this.message)
-          .fontSize(50)
-          .fontWeight(FontWeight.Bold)
-      }
-      .width('100%')
+    Column() {
+      // 固定 200x100 vp 的绘制区，并用 margin 固定左上角位置，
+      // 便于断言 GetXComponentSize / GetXComponentOffset 的缓存值。
+      XComponent({ id: 'testXComponentId', type: 'surface', libraryname: 'nativerender' })
+        .width(200)
+        .height(100)
+        .margin({ left: 16, top: 24 })
+        .id('testXComponent')
+        .backgroundColor(Color.Blue)
     }
-    .height('100%')
+    .width('100%')
+      .height('100%')
+      .alignItems(HorizontalAlign.Start)
+      .justifyContent(FlexAlign.Start)
   }
 }

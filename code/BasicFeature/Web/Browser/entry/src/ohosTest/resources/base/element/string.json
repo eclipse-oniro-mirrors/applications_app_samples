@@ -2,15 +2,43 @@
   "string": [
     {
       "name": "entry_test_desc",
-      "value": "test ability description"
+      "value": "browser ohosTest ability description"
     },
     {
       "name": "TestAbility_desc",
-      "value": "the test ability"
+      "value": "browser test ability"
     },
     {
       "name": "TestAbility_label",
-      "value": "test label"
+      "value": "browser test label"
+    },
+    {
+      "name": "test_runner_title",
+      "value": "Browser test runner"
+    },
+    {
+      "name": "test_runner_detail",
+      "value": "Executing ohosTest suites"
+    },
+    {
+      "name": "test_runner_hint",
+      "value": "See hilog tag BrowserTest for details"
+    },
+    {
+      "name": "test_suite_browser",
+      "value": "Browser model suites"
+    },
+    {
+      "name": "test_suite_validation",
+      "value": "Browser validation suites"
+    },
+    {
+      "name": "test_suite_performance",
+      "value": "Browser performance suites"
+    },
+    {
+      "name": "test_suite_security",
+      "value": "Browser security suites"
     }
   ]
 }

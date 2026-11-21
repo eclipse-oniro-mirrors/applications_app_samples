@@ -68,7 +68,7 @@ export default function recorderSettingsModelTest(): void {
         const cameraData = new CameraDataModel();
         const applied = settings.applyPickerValues([
           Const.OUTPUT_FORMAT[0], Const.VIDEO_MIMETYPE[1], Const.VIDEO_RESOLUTION[1],
-          Const.VIDEO_FRAMERATE[0], Const.VIDEO_DECODER_SYNC_MODE[0], Const.VIDEO_BITRATE[1],
+          Const.VIDEO_FRAMERATE[1], Const.VIDEO_DECODER_SYNC_MODE[0], Const.VIDEO_BITRATE[1],
           Const.VIDEO_BITRATE_MODE[0], Const.VIDEO_I_FRAME_INTERVAL[0], Const.AUDIO_SAMPLE_RATE[1],
           Const.AUDIO_CHANNEL_COUNT[1], Const.AUDIO_BITRATE[1], Const.AUDIO_CAPTURE_LATENCY_MODE[0],
           Const.VIDEO_STABILIZATION_MODE[1], Const.VIDEO_PREPROC_MODE[1], Const.VIDEO_DROP_FRAME_RATE[1],

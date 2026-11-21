@@ -75,7 +75,7 @@ void Recorder::RecordVideoOutput(CodecUserData *context, const CodecBufferInfo &
     }
     AVCODEC_SAMPLE_LOGD_LIMIT(VIDEO_OUTPUT_LOG_FREQUENCY,
         "Out buffer count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
-        context->outputFrameCount, bufferInfo.attr.size, bufferInfo.attr.flags, bufferInfo.attr.pts);
+        context->outputFrameCount.load(), bufferInfo.attr.size, bufferInfo.attr.flags, bufferInfo.attr.pts);
     const bool isEosBuffer = (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
     if (context->outputFrameCount == 1 && !isEosBuffer && bufferInfo.attr.size > 0 &&
         (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_CODEC_DATA) == 0) {

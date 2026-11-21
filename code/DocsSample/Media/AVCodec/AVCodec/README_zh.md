@@ -240,7 +240,7 @@ flowchart LR
 
 布局只在首帧读取，解码输出格式变化后重新读取，避免每帧重复申请和销毁 Format。同尺寸 NV12 按行复制 Y、UV，两边 stride 不同时分别计算行地址，不复制源填充区。只有目标 padding 和灰度 UV 需要额外填充，正常彩色像素不再先清空再覆盖。缩放、NV21 和 I420 仍走各自分支。没有增加整帧中间副本，也不将解码 Buffer 的所有权转给编码器。
 
-等待编码器输入时，最多持有一帧解码输出。处理后的图像提交给编码器后，再归还原解码输出索引。每轮先尝试取走编码输出，避免输入、输出队列互相堵住。输入遇到 EOS 只结束投喂，仍要等编码输出 EOS 才能结束。最后一帧同时带有像素和 EOS 时，先送像素，再单独送一个空 EOS，避免漏掉尾帧。
+等待编码器输入时，最多持有一帧解码输出。处理后的图像提交给编码器后，再归还普通解码输出索引；带EOS的输出由解码器销毁时回收。每轮先尝试取走编码输出，避免输入、输出队列互相堵住。输入遇到 EOS 只结束投喂，仍要等编码输出 EOS 才能结束。最后一帧同时带有像素和 EOS 时，先送像素，再单独送一个空 EOS，避免漏掉尾帧。
 
 <a id="transcode-preview"></a>
 
@@ -293,7 +293,7 @@ AAC 转换另有“快速线性”和“低通滤波降采样”两档。后者�
 
 每帧先经过时间段与帧率筛选。`SubmitGpuFrame()` 保存归零后的 PTS，再 Render 解码输出索引，最多保留一帧等待 NativeImage 通知。等待期间，工作线程仍可取走编码输出、处理音轨。帧可用回调只增加原子计数，不操作 GL。工作线程执行 `UpdateSurfaceImage()`，叠加 NativeImage 纹理矩阵与共用的 `PlanGeometry()` 裁剪范围，清空黑边、按内容区域绘制，然后用纳秒单位的展示时间戳提交编码 Surface。纹理采样支持最近邻与双线性；面积采样保留在 Buffer 路径。
 
-带画面的 EOS 要等绘制提交后才通知编码器结束；空 EOS 直接归还。GPU 提交的 PTS 已经归零，封装时不会再减一次起点。释放时先停止并销毁解码器，再完成 GPU 在途工作、注销监听、释放 NativeImage 与 GL/EGL 对象，最后销毁编码器和窗口引用。
+带画面的EOS要等绘制提交后才通知编码器结束；空EOS不绘制，由解码器销毁时回收。GPU 提交的 PTS 已经归零，封装时不会再减一次起点。释放时先停止并销毁解码器，再完成 GPU 在途工作、注销监听、释放 NativeImage 与 GL/EGL 对象，最后销毁编码器和窗口引用。
 
 源文件检查会拒绝 HDR Vivid、PQ/HLG 和不支持的 HEVC Profile。GPU 路径也拒绝明确标为非 BT.709 的 SDR 色域、传递函数或矩阵；缺少或未指定这些描述时，按 BT.709 工作空间处理。编码输入窗口使用 RGBA8888、BT.709 全范围标签，保留原有分配用途并增加 GPU 绘制用途。输入 YUV 到 RGB 的采样由 NativeImage 处理，这里没有通用色彩空间转换、色调映射或动态 HDR 元数据保留。流中分辨率变化会明确失败，不沿用旧裁剪坐标。
 
@@ -597,9 +597,11 @@ Native目录沿用播放器按职责分层的方式。录制和转码的`core/`�
 
 可在 DevEco Studio 中选择 `entry > ohosTest` 目标并执行测试。当前入口注册 13 个套件、49 个用例。
 
-`tests/host`中的回归使用SDK的TypeScript加载器和系统接口替身，检查录制、转码、历史保存和媒体会话交错调用；另有验证入口测试检查进程失败、日志和超时清理。`tests/native`中的15个C++测试入口检查编解码封装的错误分支、Buffer布局、几何变换、帧处理、PCM转换、回调队列、统计计算及生命周期组件；其中部分系统接口由测试替身实现。Host测试通过不能代替ArkTS构建，Native替身也不验证设备codec和驱动的内部行为。
+`tests/host`中的回归使用SDK的TypeScript加载器和系统接口替身，检查录制、转码、历史保存和媒体会话交错调用；另有验证入口测试检查进程失败、日志和超时清理。`tests/native`中的20个C++测试入口检查编解码封装的错误分支、Buffer布局、几何变换、帧处理、PCM转换、回调队列、统计计算及生命周期组件；其中部分系统接口由测试替身实现。Host测试通过不能代替ArkTS构建，Native替身也不验证设备codec和驱动的内部行为。
 
-音视频解封装、软硬件编解码、送显、权限、相机流和文件提供方需要结合目标设备验证。[测试指南](./ohosTest.md)记录了256条通过的手工用例，其中包括12条播放、时钟、录制与成品校验回归。结果适用于本轮测试环境，跨设备和跨系统版本的兼容性仍需分别验证。
+音视频解封装、软硬件编解码、送显、权限、相机流和文件提供方需要结合目标设备验证。[测试指南](./ohosTest.md)记录了324条通过的手工用例，覆盖播放、时钟、录制与成品校验回归。结果适用于本轮测试环境，跨设备和跨系统版本的兼容性仍需分别验证。
+
+也可运行`node scripts/verify.mjs --only device --studio <DevEco安装目录>`，完成构建、安装和默认设备测试，并核对本次报告的49条逐项结果。缺失、过期、零用例或失败报告会使命令失败，结构化结果在`.validation/device-result.json`；指定套件与预期条数的用法见[验证说明](tests/README.md#设备报告校验)。
 
 也可以连接设备后通过命令行构建并执行：
 
@@ -635,6 +637,8 @@ AVCodec/
     │   │   ├── common                        # Native 公共模块
     │   │   │   ├── dfx                       # 日志和错误码
     │   │   │   ├── codec_buffer.h            # codec Buffer 描述和线程安全队列
+    │   │   │   ├── NativeHandle.h            # Native SDK 句柄的独占所有权封装
+    │   │   │   ├── PcmQueue.h                # 播放音频使用的字节环形队列
     │   │   │   ├── codec_user_data.h         # codec 回调与工作线程的运行时上下文
     │   │   │   ├── sample_callback.cpp       # codec 和 AudioRenderer 回调实现
     │   │   │   ├── sample_callback.h         # 公共回调定义
@@ -681,7 +685,8 @@ AVCodec/
     │   │   │   │   └── napi                  # ArkTS 与 Native 的接口边界
     │   │   │   │       ├── PlayerNative.cpp/.h # NAPI 注册、回调和业务分发
     │   │   │   │       ├── NativePlayerContext.h # NAPI 环境播放会话持有者
-    │   │   │   │       ├── PlayerAsyncSeek.cpp # Promise 异步 Seek 工作项
+    │   │   │   │       ├── PlayerAsyncSeek.cpp # Promise 异步 Seek 和切轨工作项
+    │   │   │   │       ├── PlayerControlParser.cpp, PlayerStartup.cpp
     │   │   │   │       ├── PlayerNapiParser.cpp/.h # 播放和 Seek 参数解析
     │   │   │   │       └── PlayerNapiSerializer.cpp/.h # 播放状态和媒体信息序列化
     │   │   │   ├── transcoder/
@@ -847,13 +852,17 @@ AVCodec/
 
 `CodecBufferInfo` 保存 codec 借出的 `OH_AVBuffer*`、交还所需 index 和属性快照，不拥有 SDK Buffer，也不缓存像素地址。队列只传递描述对象；输入提交后停止访问，输出处理完后按所属 codec 交还。各模式的交接时点、线程和图形资源寿命见[所有权与释放顺序](#buffer-ownership)。
 
+播放PCM使用`PcmQueue`字节环形缓冲区。解码工作线程在持有`outputMutex`时写入，AudioRenderer回调一次读取当前可用数据，缺少的部分填静音。队列初始容量为64KiB，数据生产侧按需扩容，音频回调不分配内存。`tests/native/PcmQueueBenchmark.cpp`将该实现与旧有`std::queue`逐字节操作对比；Host基准只测队列操作，不代表设备codec、AudioRenderer或GPU性能。
+
+转码任务使用`NativeHandle`独占持有Native SDK句柄。调用方通过`Close()`检查销毁结果，提前返回时析构函数兜底释放。`TranscodeJob`还把带版本号的唤醒信号共享给codec回调和GPU处理，让工作线程在有新任务或状态变化时及时醒来。
+
 #### 播放、录制和转码的处理顺序
 
 后续章节按模块展开接口细节。先从一次操作的过程看起：页面负责准备参数和显示结果，Native 负责创建媒体对象、调度线程并回收资源。出现失败时，页面恢复可操作状态，Native 不保留半初始化的 codec 或线程。
 
 | 功能 | 触发与输入 | 核心处理 | 完成、失败和状态边界 |
 |---|---|---|---|
-| 打开媒体 | 用户从文件管理器或图库确认文件 | UI 校验文件大小、打开 fd，`PlayerSettingsModel` 将当前设置生成 `PlayOptions`，`PlayerNative` 解析对象并启动 `Player::Init()` | 取消选择只保留当前页面；空文件在 UI 层提示；建源、解封装、能力校验或解码器配置失败都返回 `error`，不会留下半初始化的播放线程 |
+| 打开媒体 | 用户从文件管理器或图库确认文件 | UI 校验文件大小、打开 fd 并生成 `PlayOptions`，再调用 `playAsync`；NAPI 校验字段并把 `Player::Init()` / `Player::Start()` 放入工作线程 | 取消选择只保留当前页面；空文件在 UI 层提示；建源、解封装、能力校验或解码器配置失败都返回 `error`，不会留下半初始化的播放线程 |
 | 转码或原码流转封装 | 转码页选择源文件和参数，或执行队列项 | `TranscodeModel` → `TranscoderNative::StartWork()` → `TranscodeJob::Run()`，按模式处理解码/编码或直接复制压缩样本 | 收齐输出并完成 MP4 校验后才将 `.part` 改名；取消等待 Native 清理，完整顺序见[转码调用链](#transcode-call-flow) |
 | 解封装与媒体信息 | Native 收到 fd、offset、size | `OH_AVSource` 读取源格式，`OH_AVDemuxer` 枚举轨道；常用字段写入结构化快照，原始 Format 文本复制后保存 | 信息面板读取冻结快照，不会在播放中重复读文件；没有可播放视频或音频轨时初始化失败，页面恢复操作按钮 |
 | 视频解码 | 选定视频轨和播放设置 | 根据自动/硬件/软件策略创建解码器，写入经过能力校验的格式字段，按 Sync/Async 路径持续推送压缩帧和取回输出帧 | 自动模式在创建、能力或配置失败时仅尝试一次软件回退；显式硬解失败直接反馈，避免用户以为正在使用硬解 |
@@ -869,29 +878,25 @@ AVCodec/
 | 诊断、状态机和释放 | 周期查询、自然结束、停止或错误 | Native 原子计数提供只读快照；页面记录一次异常恢复的原因、次数和结果；状态机约束转换；`ReleaseWorker` 按固定顺序停止 worker、释放 renderer/codec 和通知 UI | 诊断不参与调度；重复 Stop 可安全返回；初始化失败、主动停止和离开页面不会被记录为异常恢复；完成回调在 Player 锁外触发，避免 UI 回调反向调用播放器造成死锁 |
 | 相机录制和封装 | 用户确认录制配置、获取权限并进入录制页 | UI 创建媒体库 fd；相机预览流和编码 Surface 分流，视频/音频编码输出在 Muxer 中串行写入 | 配置先经相机和 codec 能力检查；停止时先结束输入，再等待双路 EOS、停止封装并关闭 fd |
 
-**播放初始化。** 文件选定后，UI 会先把 URI 打开为 fd，并把 offset/size 一同传入。图库和文件管理器的内容因此共用同一条 Native 输入路径。`PlayerNapiParser` 校验字段的类型和范围，再填充按职责拆分的 `SampleInfo`。`Player::Init()` 只允许从 `IDLE` 进入：先建立 Source/Demuxer 和媒体快照，选择有效轨道，再创建视频/音频解码器、AudioRenderer 和输出策略。成功后进入 `READY`；任一步失败都走同一条释放路径，并将原因返回 ArkTS，下一轮播放不会复用残缺对象。
+**播放起播。** 文件选定后，UI 会先把 URI 打开为 fd，并把 offset/size 一同传入。图库和文件管理器的内容因此共用同一条 Native 输入路径。`PlayerNapiParser` 校验字段的类型和范围，再填充按职责拆分的 `SampleInfo`。页面调用 `playAsync`，由 `PlayerNative` 把 `Player::Init()` 和 `Player::Start()` 放入 NAPI 工作线程。`Init()` 只允许从 `IDLE` 进入：先建立 Source/Demuxer 和媒体快照，选择有效轨道，再创建视频/音频解码器、AudioRenderer 和输出策略。成功后进入 `READY`；任一步失败都走同一条释放路径，并将原因返回 ArkTS，下一轮播放不会复用残缺对象。
 
-初始化只负责准备资源，不会在 `Init()` 里提前读完整个文件。`Start()` 会先让 Demuxer 回到 0 位置，再按实际存在的轨道启动 Decoder 和输入/输出线程；有音频时，AudioRenderer 在音频流水线启动后才开始消费 PCM，全部启动步骤成功后状态才变成 `PLAYING`。没有视频轨时不会创建视频 Decoder、视频线程或视频送显资源；没有音频轨时也不会创建 AudioRenderer。任一侧启动失败，已经启动的另一侧会被停止，并交给和 Stop 相同的释放路径。
+初始化只负责准备资源，不会在 `Init()` 里提前读完整个文件。`Start()` 会先让 Demuxer 回到 0 位置，再按实际存在的轨道启动 Decoder 和输入/输出线程；有音频时，AudioRenderer 在音频流水线启动后才开始消费 PCM，全部启动步骤成功后状态才变成 `PLAYING`。没有视频轨时不会创建视频 Decoder、视频线程或视频送显资源；没有音频轨时也不会创建 AudioRenderer。任一侧启动失败，已经启动的另一侧会被停止，并交给和 Stop 相同的释放路径。`playAsync()`返回启动是否成功，完成回调会在资源释放后另行到达；当`completionOwned`为`true`时，输入fd要保留到该回调执行。
+
+每个 NAPI 环境的`NativePlayerSession`会串行化起播、Seek和切轨操作。操作进行中收到 Stop 时，会先记下停止请求，待当前操作到达安全边界后再调用`Player::Stop()`。`stop()`返回只表示请求已受理；完成回调才表示播放资源已经收尾。
 
 起播最初几帧的音频硬件时间戳可能还是 0 或尚未稳定。此时视频暂时按名义帧间隔推进，等 AudioRenderer 提供有效的时间戳和已消费帧数后，才切换到音频主时钟。纯视频没有音频主时钟，进度直接使用成功送显帧的 PTS。解码输出计数与播放位置分开统计：音频进度以Renderer实际消费的数据为准。
 
 ```text
-选择文件 -> fd 与 PlayOptions -> Init / 解封装 / 能力校验 -> READY
-                                                    |
-                                                    v
-                         定位到 0 -> 启动 Decoder/Worker -> PLAYING
-                                                    |
-                  ┌─────────────────────────────────┴──────────────────┐
-                  v                                                    v
-           两条存在的轨道完成 EOS                              Stop 或播放错误
-                  └──────────────────────┬─────────────────────────────┘
-                                         v
-                         ReleaseWorker -> 完成回调 -> IDLE
+选择文件 -> fd 与 PlayOptions -> playAsync -> NAPI 工作线程
+                                      -> Init / 解封装 / 能力校验 -> READY
+                                      -> Start / Decoder 与 Worker -> PLAYING
+起播、Seek或切轨期间收到 Stop -> 记录请求 -> Player::Stop()
+PLAYING -> EOS、Stop或错误 -> ReleaseWorker -> 完成回调 -> IDLE
 ```
 
 **解码与队列。** Async 模式中，系统回调只负责把 buffer 索引和地址写入线程安全队列，避免在 codec 回调线程执行文件 I/O、睡眠或图形调用；Sync 模式由 worker 主动查询 buffer。两种模式最终都会走同一组输入、输出和释放函数。输入 worker 从 Demuxer 读取一个压缩样本，保留它的 PTS、flags 和 EOS 标志后推给 codec；输入侧 EOS 只表示不会再有压缩样本，codec 仍可能把内部缓存的帧继续输出，因此必须等输出 worker 也收到 EOS 后才能把对应轨道标记为完成。输出 worker 取得解码结果后先识别 EOS、Seek 预滚或普通帧，再进行音画同步与送显。队列结束、错误、Stop 和 Surface 销毁都会唤醒等待者，防止线程永久等待一个不可能到来的 Buffer。
 
-**图形与 Buffer 所有权。** SurfaceMode 的图像所有权始终在 decoder 与 Surface 之间，应用仅使用 Render/Free 接口选择是否显示；BufferMode 中应用只在输出回调期间借用 decoder Buffer，不能把其地址保存到下一帧。`BufferRenderer` 申请的是另一个由 NativeWindow 管理的目标 Buffer：等 fence、map、逐行拷贝、unmap、设置期望显示时间、flush 后，目标 Buffer 已交回图形系统，而 decoder Buffer 随即归还 codec。两者没有 attach/detach 或跨帧共享所有权，因此不会因为显示完成时间不确定而阻塞 decoder 复用。无论是正常送显、同步丢帧、Seek 预滚，还是布局/送显失败，每个输出索引都必须经过一次归还；失败只改变播放结果，不会把 Buffer 所有权留在应用侧。
+**图形与 Buffer 所有权。** SurfaceMode 的图像所有权始终在 decoder 与 Surface 之间，应用仅使用 Render/Free 接口选择是否显示；BufferMode 中应用只在输出回调期间借用 decoder Buffer，不能把其地址保存到下一帧。`BufferRenderer` 申请的是另一个由 NativeWindow 管理的目标 Buffer：等 fence、map、逐行拷贝、unmap、设置期望显示时间、flush 后，目标 Buffer 已交回图形系统，而 decoder Buffer 随即归还 codec。两者没有 attach/detach 或跨帧共享所有权，因此不会因为显示完成时间不确定而阻塞 decoder 复用。正常送显、同步丢帧、Seek预滚和布局/送显失败的普通输出索引都经过一次归还。EOS以及输出线程停止时仍持有的Buffer，由后续codec Destroy或Seek时的Flush回收。
 
 **音频主时钟。** PCM 被写入 `renderQueue` 并不代表已经播放。只有 AudioRenderer 的写回调实际从队列取走的完整采样帧才会累计到 `audioFramesWritten`。播放器同时读取 AudioRenderer 的时间戳、硬件已消费帧数和单调时钟锚点，估算真实播放位置；当时间戳刚启动、路由切换或 Flush 后尚不可靠时，临时退回名义视频间隔，避免用无效值大量丢帧。视频 PTS 相对音频落后过多会被丢弃，提前则等待到接近显示时刻；所有墙上等待时间都按目标倍速换算，避免 X2/X3 把媒体时间误当作真实时间。
 
@@ -911,7 +916,7 @@ AVCodec/
 
 4. **解码器创建和软件回退。** 自动选择先使用系统推荐 decoder，并用它自己的能力对象校验宽高、帧率和像素格式。创建失败、查询不到能力或 `Configure` 失败时，`Player` 才销毁这次失败实例，按 SOFTWARE 类别重新查询、创建和校验一次。回退结果会写入播放信息和媒体信息；它不是每帧重试，也不会覆盖用户明确选择的硬件/软件策略。低时延、按解码顺序输出、停止黑帧等可选 Key 在其适用模式和能力前提满足时才写入 Format，避免将某机型不支持的增强项变成全局播放失败。
 
-5. **Sync/Async 的统一输出。** Async 回调由 `SampleCallback` 把 `CodecBufferInfo` 放进 `inputBufferQueue` 或 `outputBufferQueue`；Sync worker 以可中断的超时主动查询。`VideoPipeline`、`AudioPipeline` 只封装线程创建、启动回滚和 join，不改变两种 codec 模式的处理策略。无论来源如何，视频帧都会进入 `ProcessVideoWithAudio()` 或 `ProcessVideoWithoutAudio()`，音频帧都会经 `AudioOutputPump`；所有正常、EOS、Seek 预滚和错误分支最终都走同一个输出 Buffer 归还点。
+5. **Sync/Async 的统一输出。** Async 回调由 `SampleCallback` 把 `CodecBufferInfo` 放进 `inputBufferQueue` 或 `outputBufferQueue`；Sync worker 以可中断的超时主动查询。`VideoPipeline`、`AudioPipeline` 只封装线程创建、启动回滚和 join，不改变两种 codec 模式的处理策略。无论来源如何，视频帧都会进入 `ProcessVideoWithAudio()` 或 `ProcessVideoWithoutAudio()`，音频帧都会经 `AudioOutputPump`；普通帧、Seek预滚和送显错误共用普通输出Buffer归还路径。视频EOS在输出循环中明确结束线程；视频EOS及视频线程停止时仍持有的Buffer由后续codec Destroy或Seek时的Flush回收。音频保留原有输出Buffer归还逻辑。
 
 6. **SurfaceMode、BufferMode 和画面变换。** SurfaceMode 在准备 decoder 前取得 `PluginManager` 中当前 XComponent window 并调用 `OH_VideoDecoder_SetSurface()`；输出帧使用 render/free 接口完成交接。BufferMode 故意不设置这个 Surface，`BufferVideoSink` 才能读取 `OH_AVBuffer` 的图像内容并委托 `BufferRenderer` 拷贝到 XComponent window。旋转与镜像不会重新编码或修改 Dump 文件，而是通过当前 window 的 `SET_TRANSFORM` hint 改变合成方式。模式切换只能在下一次播放前应用，避免在运行中改变 decoder 输出所有权。
 
@@ -1006,7 +1011,7 @@ ArkUI 组件、状态和页面构建方式可参考当前 SDK 随附的 ArkUI �
 
 音频播放设置还提供音量（0%～100%）和输出时延模式。音量通过 `OH_AudioRenderer_SetVolume()` 设置，点击“应用”后可立即作用于当前音频输出；输出时延可选择普通或低时延，在下一次创建 `AudioRenderer` 时通过 `OH_AudioStreamBuilder_SetLatencyMode()` 生效。低时延会减少输出缓冲，但可能增加欠载风险。采样率、声道数、声道布局和采样格式仍以解封装轨道为准，不由 UI 覆盖。
 
-`PlayerNapiParser` 按字段读取该对象并填充 `SampleInfo`，`PlayerNative` 只负责 NAPI 注册、完成回调调度以及依次调用 `Player::Init()` / `Player::Start()`。`PlayerNapiSerializer` 负责把播放结果、播放状态和媒体信息转换为 ArkTS 对象。这种结构避免参数解析、对象序列化和播放业务互相混杂，也便于继续增加播放选项。UI 在打开文件后先检查文件大小；Native 初始化失败或播放过程中发生错误时，完成回调返回 `reason: 'error'`，页面恢复按钮并显示媒体文件异常提示。
+`PlayerNapiParser` 按字段读取对象并填充 `SampleInfo`，`PlayerControlParser` 校验控制接口参数；`PlayerStartup` 在`playAsync`工作线程中协调`Player::Init()`和`Player::Start()`。每个 NAPI 环境的`NativePlayerSession`负责串行化起播、Seek和切轨，并把操作期间收到的 Stop 延后到安全边界。`PlayerNative`负责NAPI注册和完成回调，`PlayerNapiSerializer`把播放结果、状态和媒体信息转换为 ArkTS 对象。同步`play(options, callback)`和旧的九参数`playNative(...)`仍供兼容调用，主页面使用`playAsync`。Native初始化失败或播放过程中发生错误时，完成回调返回`reason: 'error'`，页面恢复按钮并显示媒体文件异常提示。
 
 <a id="recording-entry"></a>
 
@@ -1241,18 +1246,14 @@ decoder_ = OH_AudioCodec_CreateByMime(codecMime.c_str(), false);
 
 音频输出线程创建一个局部 `AudioOutputPump`。异步模式从 `outputBufferQueue` 取回调送来的 Buffer，同步模式调用 `AudioDecoder::GetOutputBuffer()` 主动查询；两条路径随后复用同一个 Buffer 校验、PCM 入队和错误传播流程。`AudioOutputPump` 不拥有线程、解码器、`CodecUserData` 或 AudioRenderer，也不调用 `StartRelease()`，这些生命周期职责仍由 `Player` 管理。
 
-拿到解码后的 PCM 后，`AudioOutputPump` 会把数据逐字节写入 `audioDecContext_->renderQueue`，再通过回调让 `Player` 释放 codec 输出 Buffer、更新已写采样数和音频 PTS。AudioRenderer 真正需要数据时，会触发 `OnRenderWriteData()`：
+拿到解码后的PCM后，`AudioOutputPump`会在持有`outputMutex`时调用`PcmQueue::Write()`，再通过回调让`Player`释放codec输出Buffer、更新已写采样数和音频PTS。AudioRenderer需要数据时，`OnRenderWriteData()`在同一把锁下批量调用`PcmQueue::Read()`：
 
 ```cpp
-while (!codecUserData->renderQueue.empty() && index < length) {
-    dest[index] = codecUserData->renderQueue.front();
-    ++index;
-    codecUserData->renderQueue.pop();
-}
+index = codecUserData->renderQueue.Read(dest, length);
 std::fill(dest + index, dest + length, 0);
 ```
 
-当队列中的 PCM 不足一次 AudioRenderer 请求长度时，剩余区域填充静音，避免把未写入的旧内存当作音频输出。时钟统计只累计回调实际取出的 PCM：`audioFramesWritten += index / bytesPerFrame`；不足部分填入的静音不计入媒体帧数。队列剩余字节会按采样率、声道数和 16 bit 采样宽度换算为微秒，用于更新当前音频 PTS。
+当队列中的PCM不足一次AudioRenderer请求长度时，剩余区域填充静音，避免把未写入的旧内存当作音频输出。时钟统计只累计回调实际取出的PCM：`audioFramesWritten += index / bytesPerFrame`；补入的静音不计入媒体帧数。队列剩余字节会按采样率、声道数和16bit采样宽度换算为微秒，用于更新当前音频PTS。
 
 音画同步也依赖 AudioRenderer。视频输出线程调用倍速感知的 `OH_AudioRenderer_GetAudioTimestampInfo()` 获取音频实际播放位置，再结合已写入帧数、硬件待播帧数、当前倍速和单调时钟锚点计算 `waitTimeUs`。视频帧过晚时丢帧，过早时 sleep 等待，以音频播放进度作为主时钟。
 
@@ -1410,6 +1411,8 @@ Codec Seek 不在 ArkTS 主线程同步执行。`seekToAsync()` 使用 NAPI asyn
 
 “后台播放”开关控制 PiP 控制器的 `setAutoStartEnabled()`，同时决定 Native 是否在应用进入后台时暂停。开启后，用户返回桌面时系统可自动将当前视频切换到 PiP，Native 播放线程继续运行；关闭后不再自动进入 PiP，且进入后台会暂停音频、视频和同步调度，回到前台后自动恢复。无论开关状态如何，仍可手动点击“画中画”。
 
+后台策略由`PlayerPictureInPictureController`统一维护，窗口可用且自动启动设置成功后才显示开启。创建或启动期间关闭开关会取消待处理请求；清理未完成时提示失败，不把保留的窗口对象视为可用。停止当前播放会关闭后台策略。页面、PiP与AVSession的暂停和继续均由命令控制器执行，以Native实际状态处理重复命令。
+
 <a id="av-session"></a>
 
 #### 系统媒体控制
@@ -1447,15 +1450,15 @@ Native 播放时钟和策略也按职责拆分：`PlaybackClock` 保存 AudioRen
 `Player` 使用显式状态机约束生命周期：
 
 ```text
-IDLE -> INITIALIZING -> READY -> PLAYING <-> PAUSED -> STOPPING -> IDLE
-                                  |                  ^
-                                  v                  |
-                                SEEKING -------------+
+IDLE -> INITIALIZING -> READY -> PLAYING <-> PAUSED
+                         |        |          |
+                         +--------+----------+-> STOPPING -> IDLE
+PLAYING/PAUSED <-> SEEKING；Seek失败 -> STOPPING
 ```
 
 - `Init()` 只接受 `IDLE`，初始化期间进入 `INITIALIZING`，成功后进入 `READY`。
 - `Start()` 只接受 `READY`，音视频线程启动完成后进入 `PLAYING`。
-- `Stop()` 接受 `PLAYING` 或 `PAUSED`；重复 Stop 在 `STOPPING` 状态下按幂等成功处理。
+- `Stop()` 接受 `READY`、`PLAYING` 或 `PAUSED`；重复 Stop 在 `STOPPING` 状态下按幂等成功处理。
 - `pause()` 只接受 `PLAYING`，`resume()` 只接受 `PAUSED`；二者不销毁当前解码资源。
 - `seekTo()` 接受 `PLAYING` 或 `PAUSED`，处理期间进入 `SEEKING`；成功后恢复调用前的播放/暂停状态，失败后进入 `STOPPING`。
 - 自然结束、主动 Stop 和错误清理都进入同一条 `STOPPING` 释放路径，资源释放完成后回到 `IDLE`。
@@ -1463,7 +1466,7 @@ IDLE -> INITIALIZING -> READY -> PLAYING <-> PAUSED -> STOPPING -> IDLE
 - `getPlaybackInfo()` 返回状态、目标倍速、媒体总时长、当前位置、音视频轨存在性和智能流畅可用性。带音频媒体的位置由 AudioRenderer 实际消费 PCM 时更新；纯视频由成功送显的视频 PTS 更新。查询读取原子快照，不持有 codec 上下文，也不参与音画同步或帧调度。
 - `getMediaInfo()` 返回初始化阶段冻结的只读快照，包括文件大小、总时长、轨道数量、音视频常用参数、当前解码/输出配置、Source Format Dump 和全部 Track Format Dump。快照使用 `Player` 互斥锁保护，不读取 codec 回调上下文；播放器释放后仍保留到本次完成回调，UI 会在完成回调中清理显示。
 
-结构化 NAPI 包含 `play(options, callback)`、`stop()`、`pause()`、`resume()`、`seekTo(positionUs)`、`getState()`、`getPlaybackInfo()` 和 `getMediaInfo()`。原有九参数 `playNative(...)` 继续保留用于兼容已有调用，但主页面已迁移到结构化接口。
+NAPI 为页面起播提供 `playAsync(options, callback)`，并提供 `stop()`、`pause()`、`resume()`、`seekTo(positionUs)`、`seekToAsync(positionUs)`、`selectAudioTrackAsync(trackIndex)`、`getState()`、`getPlaybackInfo()` 和 `getMediaInfo()`。`play(options, callback)`及旧的九参数`playNative(...)`仍是同步兼容入口。每个环境的`NativePlayerSession`会串行化起播、Seek和切轨；操作期间收到Stop时先记为待处理，当前操作退出后再执行。`stop()`返回只确认请求已受理，完成回调才表示资源释放完毕。
 
 `Player::Start()` 在解码线程启动完成后创建独立的 `ReleaseWorker`。该协调线程等待音频和视频输出均完成；媒体不存在某一轨道时，对应完成标志在启动前直接置为 true。完成条件满足后，协调线程执行以下释放顺序：
 
@@ -1477,7 +1480,7 @@ IDLE -> INITIALIZING -> READY -> PLAYING <-> PAUSED -> STOPPING -> IDLE
 
 主动 Stop 不直接在 NAPI 线程销毁 decoder。`Stop()` 将状态切换为 `STOPPING`、停止工作循环并取消 Buffer 队列等待；各输出线程完成收尾后仍由 `ReleaseWorker` 执行上述释放顺序，避免 Stop 与自然结束并发形成两套资源销毁逻辑。
 
-`PlayerStateMachine` 将 `IDLE -> INITIALIZING -> READY -> PLAYING <-> PAUSED -> STOPPING -> IDLE` 以及 `PLAYING/PAUSED <-> SEEKING` 定义为唯一合法迁移。`Player` 不再暴露全局单例，NAPI 模块通过环境实例数据持有一个独立的 `Player`，环境销毁时自动释放；所有 NAPI 操作先取得当前环境对应的播放器，避免跨环境共享媒体资源。
+`PlayerStateMachine` 将 `IDLE -> INITIALIZING -> READY`、`READY -> PLAYING`、`READY/PLAYING/PAUSED -> STOPPING -> IDLE` 以及 `PLAYING/PAUSED <-> SEEKING` 定义为唯一合法迁移。`Player` 不再暴露全局单例，NAPI 模块通过环境实例数据持有一个独立的 `Player`，环境销毁时自动释放；所有 NAPI 操作先取得当前环境对应的播放器，避免跨环境共享媒体资源。转码侧的`NativeHandle`以移动语义独占SDK句柄，调用方显式`Close()`并检查销毁结果，析构函数只作为提前返回时的兜底。`TranscodeJob`把带版本号的唤醒信号共享给codec回调和GPU处理，工作线程在有新任务或状态变化时及时唤醒。
 
 窗口资源的处理也遵守同一条释放边界。XComponent 和 `OHNativeWindow` 属于 ArkUI 框架，播放器只通过带 generation 的借用 lease 使用当前窗口；Surface 销毁时会先撤销这个可借用引用，异步送显线程在本帧结束后自然释放自己的 lease。这样 Surface 重建、停止播放和迟到的图形回调不会继续访问旧窗口，也不会由播放器错误地销毁框架所有的对象。
 
@@ -1538,7 +1541,7 @@ recorder.startNative()
 1. Surface 模式下，UI 为 CameraKit 的 `frameEnd` 注册一次停止等待，并调用 `encoderVideoOutput.stop()`；Buffer 模式直接停止 CameraSession，不再产生新的 YUV 帧。
 2. Native `stopBeginNative()`将`isStopping_`置为true，关闭动态参数更新入口；音频继续输入，直到`stopEndNative()`结束输入线程并提交EOS。
 3. Surface 模式等待 CameraKit 触发 `frameEnd`；如果事件异常缺失，超时保护会继续收尾。Buffer 模式没有 VideoOutput，不等待该事件。
-4. UI 调用并等待 `stopEndNative()`；Surface 视频调用 `NotifyEndOfStream()`，Buffer 视频先退出并 join 输入线程，再提交空的 EOS Buffer。Native 等待音视频编码输出排空后销毁 muxer、encoder 和 capturer。
+4. UI 调用并等待 `stopEndNative()`；Surface 视频调用 `NotifyEndOfStream()`，Buffer视频通知输入线程停止供帧，由输入线程提交空EOS后退出，再join输入线程。Native 等待音视频编码输出排空后销毁 muxer、encoder 和 capturer。
 5. `stopEndNative()` 完成后，UI 关闭媒体库输出 fd，再释放 CameraInput、所有 PreviewOutput、可选 VideoOutput 和 VideoSession。
 6. 文件和相机资源全部完成收尾后才返回主页面。停止按钮、系统返回键和页面隐藏共用同一个幂等释放任务，避免重复停止或重复关闭 fd。
 
@@ -1632,7 +1635,7 @@ API 26、相机或编码器能力缺失时，初始化返回不支持当前录�
 
 #### 录制时间线、历史与结束结果
 
-点击停止后，页面先显示“正在收尾”，停止按钮不能重复触发。相机停止输出之后，Native 向主、副视频编码器及音频编码器发送 EOS，等待输出线程归还剩余 Buffer，再释放封装器和编码器。ArkTS 等到 Native 释放完成后才关闭媒体库文件 fd，最后释放相机并进入结果页。返回键也复用这份收尾任务；页面退到后台时先收尾并保存，避免收尾期间突然切换到结果页。
+点击停止后，页面先显示“正在收尾”，停止按钮不能重复触发。相机停止输出之后，Native 向主、副视频编码器及音频编码器发送 EOS，等待输出线程处理完普通输出并读到EOS，再释放封装器和编码器；视频EOS Buffer由编码器销毁时回收，音频保留原有Free调用。ArkTS 等到 Native 释放完成后才关闭媒体库文件 fd，最后释放相机并进入结果页。返回键也复用这份收尾任务；页面退到后台时先收尾并保存，避免收尾期间突然切换到结果页。
 
 结果页可以播放主文件、副文件，并显示基本收尾状态及从成品读取的文件信息。“最近录制”的新记录增加“结果”入口。结果页参数只在页面跳转时传递，不持久化为诊断报告。旧历史没有会话 ID 时，保留原来的播放入口。启动失败或录制时间不足一秒也会保留结果记录，但不会把空文件当成可播放成品。
 
@@ -1644,7 +1647,7 @@ API 26、相机或编码器能力缺失时，初始化返回不支持当前录�
 | 编码器、相机启动 | 分开记录，便于看出编码就绪之后相机多久才开始送帧 |
 | 主路、副路、AAC 最早的输出 | 排除 Codec Config 和 EOS 后，第一次获得媒体数据 |
 | 停止请求、相机 frameEnd | 分清用户请求停止、相机停止调用和尾帧事件；等不到尾帧时单独标为超时 |
-| 主路、副路、音频 EOS | 只有真正处理并归还 EOS Buffer 才记录，不把工作线程退出冒充 EOS |
+| 主路、副路、音频 EOS | 视频线程读到EOS并完成记录后确认收到EOS；音频保留原有处理及Buffer归还逻辑，不能仅凭线程退出判断 |
 | 排空、封装器释放、Native 释放 | 排空超时仍会继续清理，但会保留 timeout 或 ended_without_eos，不能算完整收尾 |
 | 文件关闭、相机释放 | 关闭 fd 失败另记事件，后续清理照常进行 |
 
@@ -1739,7 +1742,7 @@ Native释放Muxer并关闭输出fd后，`RecordingSessionController`为每段主
 
 耗时统计的平均值和最大值覆盖本场录制，P95 只计算最近 256 次样本，读取快照时才排序。短时输出窗口最多保留 1024 个时间/字节样本，不保留 Buffer 和像素内存，长时间录制不会持续扩大诊断记录。文件和空间至多每秒采样一次，结束时额外读取文件尾部更新后的大小。
 
-同步和异步模式均由录制工作线程测量取输出等待，只记录成功取得 Buffer 的样本；超时或取消返回空不计入。共享 `CodecBufferQueue` 仅负责入队、出队和取消唤醒，不包含诊断计时。“应用持有输出 Buffer”从成功取到 Buffer 起计，到归还完成结束。取输出等待包含等下一帧的正常时间，不等于编码计算耗时；Muxer 时间也可能包含等待并发音频写入。EOS 和 Codec Config 不计入短时视频帧率及关键帧统计，阶段耗时仍可包含它们的处理。没有启用 Dump 时，对应的无样本项显示未提供。
+同步和异步模式均由录制工作线程测量取输出等待，只记录成功取得 Buffer 的样本；超时或取消返回空不计入。共享 `CodecBufferQueue` 仅负责入队、出队和取消唤醒，不包含诊断计时。普通输出的“应用持有输出Buffer”从成功取到Buffer起计，到归还完成结束；视频EOS计到结束记录完成，不包含后续Destroy耗时。取输出等待包含等下一帧的正常时间，不等于编码计算耗时；Muxer 时间也可能包含等待并发音频写入。EOS 和 Codec Config 不计入短时视频帧率及关键帧统计，阶段耗时仍可包含它们的处理。没有启用 Dump 时，对应的无样本项显示未提供。
 
 `RecorderStreamMetrics` 负责分路短时窗口和关键帧状态，`RecorderOutputStats` 统一累计统计与只读快照，`StageTiming` 保存有界耗时样本。`RecorderLiveDiagnosticsModel` 只格式化数字和提示，不调用编码器，也不改变 EOS、Buffer 归还或 Muxer 收尾顺序。面板标明编码器描述来自初始化查询，避免把启动时返回的码率误当成动态调整后的码率。
 
@@ -1860,10 +1863,10 @@ CameraKit VideoSession
 | `Recorder::VideoEncInputAsyncThread()` | 获取最新 Image，从 `inputBufferQueue` 读取 `OnNeedInputBuffer` 回调提供的 Buffer/index，再填充并提交；不调用同步 Query/Get 接口 |
 | `Recorder::SubmitVideoInputImage()` | 只处理已取得的 Buffer：检查输入布局、复制像素、计算 PTS 并 Push，不选择同步或异步模式 |
 | `RecorderFrameReceiver::Copy()` | 读取实际 NativeBuffer 格式及 plane offset、rowStride、pixelStride，转换 NV12／NV21／平面 YUV420 到编码器要求的 NV12，并校验两侧容量 |
-| `Recorder::SendBufferVideoEndOfStream()` | 相机停止后结束并 join 输入线程，再通过输入 Buffer 提交空 EOS；输出线程继续排空 |
-| `Recorder::SendBufferVideoEndOfStreamSync()` / `SendBufferVideoEndOfStreamAsync()` | 分别通过主动查询或输入回调队列取得 EOS Buffer，各自设置空 EOS 属性并提交 |
+| `Recorder::SendBufferVideoEndOfStream()` | 相机停止后置位`videoInputStopping_`，唤醒并join输入线程；输入线程提交EOS，输出线程继续排空 |
+| `VideoEncInputSyncThread()` / `VideoEncInputAsyncThread()`的EOS分支 | 分别通过主动查询或输入回调队列取得Buffer，设置空EOS属性、提交、打印退出日志并break；失败时终止录制 |
 
-`StartVideoInputThread()` 在启动时选择一个输入线程，线程内部不再通过统一的取 Buffer 函数切换模式。同步和异步示例分别标记为 `recorder_video_buffer_input_sync`、`recorder_video_buffer_input_async`；EOS 示例分别标记为 `recorder_video_buffer_eos_sync`、`recorder_video_buffer_eos_async`，可独立提取到开发资料。两条输入路径共用相机图像读取、像素复制和 PTS 计算，视频输出仍由 `VideoEncOutputSyncThread()` 和 `VideoEncOutputAsyncThread()` 分别获取 Buffer。
+`StartVideoInputThread()` 在启动时选择一个输入线程，线程内部不再通过统一的取 Buffer 函数切换模式。同步和异步示例分别标记为 `recorder_video_buffer_input_sync`、`recorder_video_buffer_input_async`；EOS 示例分别标记为 `recorder_video_buffer_eos_sync`、`recorder_video_buffer_eos_async`，可独立提取到开发资料。`videoInputStopping_`只请求Buffer视频输入停止。两条输入循环收到请求后先提交EOS再break，不再等待相机图像，因此暂停中或暂无图像时也能停止。此时`isStarted_`保持为true，让输出线程继续排空；若用它停止输入，输出也会提前结束。故障和释放先清零`isStarted_`，输入线程直接退出，不补发EOS。两条输入路径共用相机图像读取、像素复制和PTS计算，视频输出仍由 `VideoEncOutputSyncThread()` 和 `VideoEncOutputAsyncThread()` 分别获取 Buffer。
 
 编码和解码的同步取Buffer接口采用相同约定：`GetInputBuffer(info, timeoutUs)`和`GetOutputBuffer(info, timeoutUs)`返回`int32_t`错误码，Buffer、索引和属性保存在`CodecBufferInfo`中。`AVCODEC_SAMPLE_ERR_OK`表示成功，`AVCODEC_SAMPLE_ERR_AGAIN`表示暂时无Buffer，由线程检查运行状态后重试；其余错误结束本次录制。输出查询连续遇到格式变化时也返回`AGAIN`，避免递归或在封装内部无限等待。停止期间仍继续读取输出，直到收到各路EOS或收尾超时。
 
@@ -1881,7 +1884,7 @@ Receiver 容量设为 3，接收线程持续读取并只保留最新一张 Image
 
 相机时间戳以纳秒提供，Buffer 输入属性使用微秒。视频首帧保留相对 Native 录制启动的时间偏移，后续帧沿用相机时间戳间隔；音频也保留采集启动偏移。Buffer 视频输出不再执行 Surface 路径的纳秒转微秒操作，避免时间戳被重复缩小。这种对齐不等同于硬件采集同步，仍需在真机上检查成品音画关系。
 
-停止时先停整个相机会话，确保两条预览流不再生产图像，再停止视频输入线程并提交 EOS。音频、编码输出、Muxer、文件描述符和分段切换继续走原有录制收尾流程。这里不调用 Surface 输入专用的 `NotifyEndOfStream()`。该路径包含 CPU 像素复制，主要用于演示 Buffer 编码；高分辨率、高帧率录制优先选择 Surface。
+停止时先停整个相机会话，确保两条预览流不再生产图像，再通知视频输入线程提交EOS并退出，随后join输入线程。音频、编码输出、Muxer、文件描述符和分段切换继续走原有录制收尾流程。这里不调用 Surface 输入专用的 `NotifyEndOfStream()`。该路径包含 CPU 像素复制，主要用于演示 Buffer 编码；高分辨率、高帧率录制优先选择 Surface。
 
 <a id="recorder-color"></a>
 
@@ -1903,7 +1906,7 @@ Buffer采集在映射像素前查询NativeBuffer的色彩空间。查询成功�
 
 Native把暂停切换与音视频输入提交放在同一边界内。暂停期间相机预览继续，采集图像被丢弃；新PCM不进入缓存，避免恢复后补写暂停内容。视频PTS扣除累计暂停时间，音频PTS只按实际提交的样本帧推进。暂停前已提交的数据继续编码和封装，不发送EOS，不重建编码器、封装器或文件。
 
-页面计时、历史时长和按时长分段都排除暂停时间。暂停中也可直接结束：停止相机供帧、退出输入线程、提交EOS、排空输出，最后关闭文件描述符。原有采集起点偏移仍保留；暂停边界受相机和音频Buffer粒度限制，不承诺硬件级逐采样同步。
+页面计时、历史时长和按时长分段都排除暂停时间。暂停中也可直接结束：停止相机供帧、由输入线程提交EOS并退出、排空输出，最后关闭文件描述符。原有采集起点偏移仍保留；暂停边界受相机和音频Buffer粒度限制，不承诺硬件级逐采样同步。
 
 <a id="video-encoding"></a>
 
@@ -1997,9 +2000,9 @@ Muxer 写入音频 track
 
 采集器初始化逐项检查Builder创建、参数配置和Capturer生成。失败时回收已创建的采集资源，并让`Recorder::Init()`回滚会话，不等到启动时才暴露空句柄。音频Configure通过RAII管理临时Format，提前返回也会释放。工作线程创建失败同样进入统一收尾：取消等待、join已启动线程、销毁封装器和codec，最后回收回调上下文。Recorder用`unique_ptr`独占这些上下文，SDK回调只在Destroy完成前借用。
 
-输入停止、输出线程结束和输出EOS分开记录。结束输入后输出线程继续运行；只有成功归还EOS Buffer，才把该路视为正常排空。超时、线程未收到EOS就结束、封装写入失败或归还Buffer失败，都让收尾返回失败，不把文件标为完整。线程刚取得输出就收到停止请求时，先归还原索引；归还失败也保留到最终结果。成功提交的PCM输入与已消费输出，在同、异步模式下分别使用相同的计数位置。
+输入停止、输出线程结束和输出EOS分开记录。结束输入后输出线程继续运行；只有读到EOS并完成对应记录，才把该路视为正常排空。超时、线程未收到EOS就结束、封装写入失败或普通Buffer归还失败，都让收尾返回失败，不把文件标为完整。视频线程刚取得输出就收到停止请求时直接退出，Buffer由后续codec Destroy或Seek时的Flush回收。音频保留原有EOS和停止时的Buffer归还逻辑。成功提交的PCM输入与已消费输出，在同、异步模式下分别使用相同的计数位置。
 
-`AudioEncoder::Stop()`先Flush，成功后调用系统Stop；`AudioDecoder::Stop()`只调用系统Stop。两者的Release均按Flush、Stop、Destroy顺序清理，即使前面的清理失败也继续Destroy，并清空句柄以防重复销毁。本次保留这套调用顺序；音频编码器Flush失败时额外记录是否已启动、是否已提交EOS。Muxer释放只调用Destroy，文件描述符保持打开，直到Native收尾完成。销毁失败会传回最终收尾结果。
+`AudioEncoder::Stop()`先Flush，成功后调用系统Stop；`AudioDecoder::Stop()`只调用系统Stop。两者的Release均按Flush、Stop、Destroy顺序清理，即使前面的清理失败也继续Destroy，并清空句柄以防重复销毁。本次保留这套调用顺序；音频编码器Flush失败时额外记录是否已启动、是否已提交EOS。Muxer释放只调用Destroy并清空句柄，沿用返回成功的约定；文件描述符保持打开，直到Native收尾完成。音频编解码器销毁失败会传回最终收尾结果。
 
 <a id="muxing"></a>
 
@@ -2360,7 +2363,7 @@ audioPlayedTimeUs = currentAudioPts - latencyUs + anchorDiffUs * targetSpeed
 
 #### 播放初始化与失败清理
 
-文件选择完成后，页面不会把 URI 直接交给解码器。`Index.ets` 先打开文件并取得 fd、offset 和 size，再由结构化 NAPI 参数传给 `PlayerNative::Play()`。Native 侧按下面的顺序建立对象：
+文件选择完成后，页面不会把 URI 直接交给解码器。`Index.ets` 先打开文件并取得 fd、offset 和 size，再调用`playAsync`。`PlayerNapiParser`校验参数，NAPI工作线程依次运行`Player::Init()`和`Player::Start()`：
 
 ```text
 fd / offset / size
@@ -2718,16 +2721,28 @@ Surface 直连保留原始尺寸，不开放像素缩放、灰度和区间裁切
 
 ### 按功能改代码时的入口
 
+队列变更通过`PlaybackQueueController`的业务操作完成，路径数组只返回副本。切换请求保存队列版本、选择号和目标路径；追加项目保留有效请求，清空或替换队列使旧请求失效。`PlaybackCommandController`负责Seek、期望倍速及暂停互斥，Seek结束时应用当前倍速和温控状态，旧任务结果不再恢复控制项或显示提示。
+
+`PlaybackFlowState`区分`idle`、`preparing`、`active`、`stopping`、`releasing`和`close_pending`。起播只允许在`idle`，播放控制只允许在`active`；Native释放结束前不能启动新任务，关闭结果不明时保留重启提示。页面按钮从这些阶段推导，Native编解码状态仍由Native维护。
+
+播放入口统一调用[PlaybackFlowController](entry/src/main/ets/controller/PlaybackFlowController.ets)。它负责URI准备取消、停止顺序、完成分派、队列续播、单次错误恢复、恢复位置Seek。`PlaybackFlowState`提供页面需要观察的状态，`Index.ets`提供快照并处理界面事件；文件与Native租约仍由`PlaybackStartupController`管理。历史保存由[PlaybackHistoryCoordinator](entry/src/main/ets/controller/PlaybackHistoryCoordinator.ets)统一处理当前起播源、进度限流、完成标记和最终flush，选源控制器只负责选择与读取最近记录。流程通过`PlaybackFlowRuntime`调用URI准备、Native和定时器。新增播放入口或调整停止规则时，主要修改流程控制器及[直接调用它的Host测试](tests/host/PlaybackFlow.test.cjs)；核心测试提供业务输入并检查请求、状态和事件，页面字段与提示资源由独立适配测试覆盖。
+
+本次沿用`entry/controller`存放场景业务控制器，保留编解码接口和Native文件的现有位置，未扩展为全工程目录迁移。页面适配测试只检查界面事件和页面钩子；本次迁移的设备回归单独记录在[ohosTest.md](ohosTest.md#playback-flow-migration)。
+
 播放器的设置、Native 配置和页面反馈是同一条数据链。增加一个选项时，只改设置面板通常不够：还要确认它在哪个时点生效、是否需要进入媒体信息或诊断快照，以及旧设置是否会影响正在运行的 codec。
 
 | 修改目标 | 需要经过的层 | 容易漏掉的边界 |
 |---|---|---|
+| 调整队列或待播规则 | `PlaybackQueueController` → `PlaybackQueueState.test.cjs`、`PlaybackOrdering.test.cjs` | 不直接改写数组或索引；异步等待后核对请求身份，追加与替换具有不同失效规则。 |
+| 调整Seek、倍速或暂停 | `PlaybackCommandController` → `PlaybackCommand.test.cjs`；页面转发输入、映射提示 | 停止、离页和重播使旧Seek结果失效；Seek期间保留最新倍速，完成后按当前温控状态恢复。 |
+| 调整历史保存策略 | `PlaybackHistoryCoordinator` → `PlaybackHistoryCoordinator.test.cjs` | 保存始终归属已启动源；旧保存结果不能改变同URI重播的限流位置。普通写入沿用历史模型的失败退避，停止和最终flush可立即重试。 |
+| 增加播放入口或调整停止规则 | `PlaybackFlowController` → `PlaybackFlow.test.cjs`；入口转发到`play`、`stop`、`leave`或`switchQueue` | 取消代次、迟到结果校验及续播判断留在流程内；页面响应界面事件，启动控制器在Native完成后关闭输入并释放租约。 |
 | 增加转码选项 | `TranscodeModel`/`TranscodeQualityModel` → `TranscodeRequest` 类型 → `TranscoderNative::ReadOptions()` → `TranscodeOptions` → 对应 Native 阶段 | 同步更新队列快照与校验、能力预检、实际结果和预览；处理选项需明确 Buffer/Surface/转封装适用范围，不能只影响 UI。 |
 | 增加恢复或报告字段 | Model 快照 → `MediaStateFiles`/报告解析校验 → 队列恢复或设备页展示 | 更新版本/范围校验和分享过滤；中断恢复不复用旧 fd，单文件替换不代表多文件事务。 |
 | 增加播放设置 | `PlayerSettingsModel` 校验并生成 `PlayOptions` → `PlayerNapiParser` 解析 → `SampleInfo` 保存 → `Player` 或 decoder 创建时应用 | 区分“立即生效”和“下次播放生效”。像音量可以实时调用 Renderer；Surface、解码器类型和低时延配置需要在创建对象时确定。设置面板使用草稿值，取消时不能改动已保存配置。 |
 | 增加媒体详情字段 | `Demuxer` 读取 Source/Track Format → 复制到 `MediaSourceInfo` 或音视频轨结构 → `PlayerNapiSerializer` 转成 JS 对象 → `MediaInfoPanel` 展示 | SDK 的 Format 和 DumpInfo 字符串都是临时对象或临时地址。要复制需要展示的值，不能把 `OH_AVFormat*` 或其内部字符串留到播放后使用。 |
 | 增加播放器实时状态 | Native `PlaybackInfo` 或诊断快照 → `PlayerNapiSerializer` → `PlaybackViewModel` → 对应 UI 面板 | 高频查询只返回小型快照。不要把原始 Format、大块 PCM 数据或 codec Buffer 放进每 250 ms 轮询的对象。跨线程计数使用原子量或短时锁，不要让渲染回调等待 UI。 |
-| 增加送显后端 | 实现 `VideoSink` → 在 `PrepareForPlayback()` 建立 decoder 输出目标 → 通过 `UsesSurfaceDecoder()` 明确输出契约 → `Present()` 消费本帧 → 挂入 `Player` 的模式选择 | sink 必须说明 decoder 输出是 Surface 还是可读 Buffer。输出线程退出后先 `Quiesce()`，codec Flush 后再清理旧时间线帧；只有 codec 不再使用 producer Surface 后才能完整 `Reset()`。每个 decoder 输出索引必须且只能归还一次。 |
+| 增加送显后端 | 实现 `VideoSink` → 在 `PrepareForPlayback()` 建立 decoder 输出目标 → 通过 `UsesSurfaceDecoder()` 明确输出契约 → `Present()` 消费本帧 → 挂入 `Player` 的模式选择 | sink 必须说明 decoder 输出是 Surface 还是可读 Buffer。输出线程退出后先 `Quiesce()`，codec Flush 后再清理旧时间线帧；只有 codec 不再使用 producer Surface 后才能完整 `Reset()`。进入sink的普通decoder输出索引必须且只能归还一次；EOS和线程停止时仍持有的Buffer由后续Destroy或Flush回收。 |
 | 增加录制参数 | 设置草稿 → `RecorderSettingsModel` 校验 → CameraKit profile / encoder capability 查询 → Native `SampleInfo` → encoder `Configure()` | 前置能力查询只能排除已知不支持的组合，最终结果仍以 codec `Configure()` 为准。相机 profile 和 encoder 输入尺寸必须一致；不能只更新 UI 文案而不更新两侧实际参数。 |
 | 增加可重复测试 | 纯数据规则放 Hypium/model 测试；旋转、裁剪等纯几何放 `tests/native`；真实 codec、Surface、相机与系统权限放手工用例 | 纯计算测试不能替代真机验证。设备能力、HDR 色彩链路、系统音频中断和 CameraKit 行为必须在目标设备上检查。 |
 
@@ -2789,7 +2804,7 @@ GPU 后端的每帧回调只应通知送显线程“有新帧”，不应在 cod
 | Seek 返回失败或画面迟迟不动 | 请求是否被 `superseded`、Seek 链路恢复耗时、第一个目标帧耗时、目标附近的同步帧 | 区分“请求被新拖动位置合并”“同步帧索引不可用”“Flush/音频链路恢复慢”和“链路恢复成功但目标帧迟到”。长 GOP 媒体必须从同步帧解码预滚；不要直接显示预滚帧或把 UI 位置当成 Native 已完成位置。 |
 | OpenGL/Vulkan 画面全黑、绿屏或比例不对 | 日志中的 sink 类型、`UsesSurfaceDecoder()`、NativeImage producer Surface 是否传给 decoder、送显失败/耗时 | 确认不是意外走到 Buffer 回退；检查 NativeBuffer acquire 和 fence、外部图像导入、窗口 extent、crop/stride 矩阵及 rotation。问题在 Stop/切视频后持续时，再看上一轮 sink 是否先 Quiesce、旧 Buffer 是否归还、窗口 lease 是否更新。 |
 | HDR Vivid 水印没有出现 | 分开看容器声明、输出 Buffer 的 HDR 类型、动态元数据读取结果和水印状态 | 容器声明仅用于媒体详情；应用水印是对输出元数据的确认。Surface/GPU 路径可能无法直接读到 decoder 输出 Buffer，此时“未确认”不等于系统没有按 HDR 显示。HDR 转 BT.709 的配置结果也不能由水印代替判断。 |
-| 录制文件存在但打不开 | 相机frame-end、视频/音频EOS、Muxer Destroy、fd close的先后日志 | 确认视频和音频输出线程都归还EOS、完成join后再Destroy Muxer，容器收尾完成后才关闭fd。视频停了但音频仍采集或编码时，提前销毁Muxer会留下不完整容器。 |
+| 录制文件存在但打不开 | 相机frame-end、视频/音频EOS、Muxer Destroy、fd close的先后日志 | 确认视频和音频输出线程都读到EOS、完成join后再Destroy Muxer，容器收尾完成后才关闭fd。视频停了但音频仍采集或编码时，提前销毁Muxer会留下不完整容器。 |
 
 采集日志时同时记录设备型号和系统版本、媒体封装与轨道信息、解码/送显模式、同步模式、是否启用倍速或 HDR 选项，以及问题发生在首播、切轨、Seek 还是 Stop。复现步骤尽量从新启动应用开始，只改一个设置再重试；如果先后切过多个媒体和模式，应把每一步的时间点写清楚，避免把上一条任务残留的帧或诊断计数当成本次结果。
 
@@ -2859,7 +2874,7 @@ $env:AVCODEC_WSL_DISTRO = '<wsl --list显示的发行版名>'
 node scripts/verify.mjs
 ```
 
-脚本依次运行Host回归及验证入口测试、15项Native测试、CodeLinter和HAP构建。每个命令均有限时，日志保存在`.validation/logs/`，任一步失败都会返回非零退出码。也可用`--only host|native|lint|build`单独执行一个阶段。Node应使用DevEco Studio随附版本，或先把该版本加入PATH。超时参数、依赖、检查范围、存量告警和PR验证要求见[验证说明](tests/README.md)。脚本可接入CI；远端必需检查需要仓库维护者配置。
+脚本依次运行Host回归及验证入口测试、23项Native测试、CodeLinter和HAP构建。每个命令均有限时，日志保存在`.validation/logs/`，任一步失败都会返回非零退出码。也可用`--only host|native|lint|build`单独执行一个阶段。Node应使用DevEco Studio随附版本，或先把该版本加入PATH。超时参数、依赖、检查范围、存量告警和PR验证要求见[验证说明](tests/README.md)。脚本可接入CI；远端必需检查需要仓库维护者配置。
 
 应用在前台播放视频或实际录制时保持屏幕常亮；暂停、停止、离页和进入后台后恢复系统息屏策略。纯音频播放和空闲页面不主动维持常亮。媒体库查询在成功、失败及结果关闭异常时均尝试释放PhotoAccessHelper；录制初始化失败保留原始错误对象，便于查看阶段、错误码和错误信息。
 
@@ -2877,16 +2892,46 @@ AVSession任一控制监听注册失败时，启动流程停止并清理该会�
 
 ### 验证结果
 
+PiP启动绑定播放代次，重复启动共用同一请求；停止先让旧回调失效，再等待创建或启动结束。清理时逐项解绑监听，系统关闭失败则保留控制器以便重试。PiP控制和单帧跳转统一经过`PlaybackCommandController`，复用Seek互斥与目标暂停状态。起播结果改为`started`、`releasing`、`rejected`和`close_pending`四类并附具体原因，文件与租约仍由原启动尝试负责归还。
+
+17套Host回归包含生产Flow、Command和Seek控制器的组合测试，以及PiP取消和清理故障。SGT-AL10真机轮询采样重复3轮，9项全部通过；空闲、播放和暂停的完整模型更新均值分别为0.581ms、0.862ms和0.914ms，保留现有250ms刷新周期。采样只覆盖音频与未挂载ArkUI的模型，不包含页面渲染和视频或GPU负载。命令、原始日志和限制见[验证说明](tests/README.md)，系统PiP和页面迁移的设备回归均为Pass，逐项结果见[测试指南](ohosTest.md#playback-flow-migration)。
+
 | 检查项 | 结果 |
 |---|---|
 | 324条功能、兼容性、稳定性及新增回归用例 | Pass |
-| Host回归与验证入口检查 | Pass |
-| 15项Native宿主测试 | Pass |
-| CodeLinter | Pass：252条存量结果，0条新增 |
+| 17套Host回归与3组验证入口检查 | Pass |
+| 23项Native宿主测试：Debug、Release | Pass |
+| ASan、UBSan：各5项Native定向测试 | Pass |
+| 播放流程、PiP、资源归属与EOS设备回归 | Pass |
+| CodeLinter | Pass：245条存量结果，0条新增；基线未修改 |
 | HAP构建与签名 | Pass |
+| 默认Hypium设备测试：49条 | Pass |
+| 音频轮询设备采样：3轮、9项 | Pass |
 
 测试步骤和逐项结果见[测试指南](ohosTest.md)，自动验证范围与运行方法见[验证说明](tests/README.md)。构建仍有存量警告。
 
 ## 开发约定
 
-代码、测试、注释和文档编写遵守[代码与文档编写约定](CONTRIBUTING.md)，检查函数长度、lambda显式捕获、ArkTS成员访问范围、术语及验证结果。
+代码、测试、注释和文档编写遵守仓库[CodeCommitChecklist.md](../../../../../CodeCommitChecklist.md)与[测试约定](tests/README.md)，检查函数长度、lambda显式捕获、ArkTS成员访问范围、术语及验证结果。
+
+### 转码快照与Native资源归属
+
+转码开始后，在进入异步预检前保存请求和配置说明，预检、区间校验、大小预估、提交与报告共用该快照。队列使用具名设置，恢复时兼容并校验旧7项或8项数组。准备、执行与收尾共用任务上下文，文件由该次执行持有至关闭完成。
+
+转码、预检和预览合并同一fd的并发关闭。EBADF视为已关闭；非EBADF关闭错误保留File与任务阻止状态，暂停队列并提示重启应用。界面结束忙碌状态，但不能启动后续媒体任务，转码待处理会话保留。同进程不重复关闭结果不明的fd，避免误关系统已复用的描述符。
+
+预览处理结束后关闭源文件；取消使打开、解码或位图结果过期时也执行关闭。关闭失败继续保留任务阻止状态。预览处理同时失败时，调用方接收原处理异常；处理成功或结果过期时，调用方接收关闭异常。临时PixelMap在文件关闭前释放。
+
+录音在采集前按2秒S16LE样本量分配固定PCM环形队列，至少容纳一个最大输入块、最多4MiB；参数无效或所需容量超限时初始化失败。回调不扩容、不前移剩余样本，溢出进入既有错误收尾且保留已排队数据。诊断audio对象增加积压峰值、容量、溢出次数及含锁等待的队列处理耗时，不含后续诊断入账。同步音频EOS和既有Flush/Stop顺序保持原样。
+
+播放音频回调上下文由Player集中持有，renderer释放且工作线程退出后才销毁。Vulkan按帧、交换链与上传图像的有效期分组，支持部分初始化和重复清理；sink仍先等待GPU完成，再释放依赖资源，析构不隐藏等待。NativeBuffer导入缓存沿用原所有权。Host回归、录音缓存基准和设备回归结果分别见[验证说明](tests/README.md#转码与native资源调整)与[测试指南](ohosTest.md#native-resource-regression)。
+
+### 合并回归修复
+
+异步视频输入对同一回调Buffer执行空值检查和提交；按索引归还音频输出复用现有校验与错误处理；Muxer保留本地释放约定；音频输出示例先读取原子计数，再传入日志接口。Native回归直接调用生产实现，结果及设备验证范围见[合并回归验证](tests/README.md#合并回归验证)。
+
+### 异步播放控制与基准收尾
+
+切换音轨与Seek共用操作占用状态。切轨期间暂停、静音入口提示忙碌，倍速只更新期望值；当前操作结束后应用最新倍速，后续Seek继续按原队列执行。停止先使结果失效，再等待已提交操作完成，旧结果不更新下一次播放的控制项。
+
+应用前后台状态跨播放任务保留，与初始化和起播按同一互斥规则处理。未启用后台播放时，后台起播保持暂停，不启动音频renderer；回到前台后恢复。显式允许后台播放及用户主动暂停分别保留其语义。轮询基准同时遇到处理失败和清理失败时保留原处理异常，并记录清理结果；Native完成通知前继续持有输入。验证范围见[检视修复回归](tests/README.md#检视修复回归)。

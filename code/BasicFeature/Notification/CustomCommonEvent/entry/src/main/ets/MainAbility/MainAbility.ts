@@ -14,19 +14,22 @@
  */
 
 import UIAbility from '@ohos.app.ability.UIAbility'
+import window from '@ohos.window'
+import Want from '@ohos.app.ability.Want'
+import AbilityConstant from '@ohos.app.ability.AbilityConstant'
 import Logger from '../module/Logger'
 
 export default class MainAbility extends UIAbility {
-  onCreate(want, launchParam) {
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     Logger.info("MainAbility onCreate")
     globalThis.abilityWant = want;
   }
 
-  onDestroy() {
+  onDestroy(): void {
     Logger.info("MainAbility onDestroy")
   }
 
-  onWindowStageCreate(windowStage) {
+  onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
     Logger.info("MainAbility onWindowStageCreate")
     windowStage.loadContent("pages/Main", (err, data) => {
@@ -38,17 +41,17 @@ export default class MainAbility extends UIAbility {
     });
   }
 
-  onWindowStageDestroy() {
+  onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources
     Logger.info("MainAbility onWindowStageDestroy")
   }
 
-  onForeground() {
+  onForeground(): void {
     // Ability has brought to foreground
     Logger.info("MainAbility onForeground")
   }
 
-  onBackground() {
+  onBackground(): void {
     // Ability has back to background
     Logger.info("MainAbility onBackground")
   }

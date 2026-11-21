@@ -1,0 +1,16 @@
+/node_modules
+/oh_modules
+/local.properties
+/.idea
+**/build
+/.hvigor
+.cxx
+/.clangd
+/.clang-format
+/.clang-tidy
+**/.test
+/wecode-cpp.db*
+*.db
+*.db-shm
+*.db-wal
+oh-package-lock.json5

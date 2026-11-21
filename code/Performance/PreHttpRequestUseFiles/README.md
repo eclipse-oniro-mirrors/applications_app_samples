@@ -201,9 +201,9 @@ export struct PageOne {
 
 1. 本示例仅支持标准系统上运行;
 
-2. 本示例已适配API20版本SDK，SDK版本号(API Version 20 Release),镜像版本号(5.1.0 Release)。
+2. 本示例已适配API 26版本SDK，SDK版本号(API Version 26 Release)。
 
-3. 本示例需要使用DevEco Studio 版本号(5.1.0 Release)及以上版本才可编译运行。
+3. 本示例需要使用DevEco Studio 版本号(6.1.1 Release)及以上版本才可编译运行。
 
 ### 下载
 

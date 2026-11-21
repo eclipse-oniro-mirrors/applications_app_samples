@@ -17,7 +17,7 @@ import { UIContext } from '@kit.ArkUI';
 import { common } from '@kit.AbilityKit';
 import { picker } from '@kit.CoreFileKit';
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
-import { PlaybackHistoryEntry, PlaybackHistoryModel, getPlaybackTitle } from '../model/PlaybackHistoryModel';
+import { PlaybackHistoryEntry, PlaybackHistoryModel } from '../model/PlaybackHistoryModel';
 import { PlaybackQueueController } from './PlaybackQueueController';
 import { LocalizedText } from '../common/LocalizedText';
 import Logger from '../common/utils/Logger';
@@ -102,21 +102,6 @@ export class PlaybackSourceController {
     }
   }
 
-  async persistProgress(positionUs: number, durationUs: number, force: boolean,
-    lastPositionUs: number, path: string | null = this.callbacks.getPath()): Promise<number> {
-    if (path === null || durationUs <= 0 || positionUs < 0) {
-      return lastPositionUs;
-    }
-    if (!force && lastPositionUs >= 0 && Math.abs(positionUs - lastPositionUs) < 2000000) {
-      return lastPositionUs;
-    }
-    const saved: boolean = await this.history.update(path, getPlaybackTitle(path), positionUs, durationUs, force);
-    if (this.callbacks.isPageActive()) {
-      this.callbacks.setRecentEntries(this.history.getEntries());
-    }
-    return saved ? positionUs : lastPositionUs;
-  }
-
   playRecording(uri: string): void {
     if (uri.length === 0 || !this.callbacks.isPageActive()) {
       return;
@@ -136,10 +121,7 @@ export class PlaybackSourceController {
 
   clearQueue(): void {
     this.beginSelection();
-    this.queue.paths = [];
-    this.queue.index = -1;
-    this.queue.pendingIndex = -1;
-    this.queue.pendingPositionUs = 0;
+    this.queue.clear();
     this.callbacks.setQueueEntries([]);
   }
 
@@ -159,19 +141,17 @@ export class PlaybackSourceController {
     }
     if (this.callbacks.isStopping()) {
       // 停止期间只替换待播目标，由原完成回调继续播放。
-      this.queue.pendingIndex = index;
-      this.queue.pendingPositionUs = 0;
+      this.queue.requestSwitch(index);
       return;
     }
     if (this.callbacks.isButtonEnabled()) {
-      this.queue.index = index;
+      this.queue.select(index);
       this.callbacks.setPath(path);
       this.callbacks.setQueueEntries(this.queue.paths.slice());
       this.callbacks.play(0);
       return;
     }
-    this.queue.pendingIndex = index;
-    this.queue.pendingPositionUs = 0;
+    this.queue.requestSwitch(index);
     this.callbacks.stop();
   }
 
@@ -231,9 +211,8 @@ export class PlaybackSourceController {
       }
       result.forEach((uri: string): void => this.enqueue(uri));
       if (this.callbacks.isButtonEnabled()) {
-        this.queue.index = this.queue.index < 0 ? 0 : this.queue.index;
-        this.callbacks.setPath(this.queue.paths[this.queue.index]);
-        this.callbacks.play(0);
+        const path: string | undefined = this.queue.selectDefault();
+        if (path !== undefined) { this.callbacks.setPath(path); this.callbacks.play(0); }
       }
     } catch (error) {
       Logger.error(TAG, 'Select queue files failed: ' + JSON.stringify(error));
@@ -247,20 +226,16 @@ export class PlaybackSourceController {
     if (!this.isCurrentSelection(revision)) {
       return;
     }
-    this.queue.paths = [path];
-    this.queue.pendingPositionUs = -1;
-    this.callbacks.setQueueEntries(this.queue.paths.slice());
-    if (!this.callbacks.isButtonEnabled() || this.callbacks.isStopping()) {
+    const deferred: boolean = !this.callbacks.isButtonEnabled() || this.callbacks.isStopping();
+    this.queue.replaceSource(path, deferred);
+    this.callbacks.setQueueEntries(this.queue.paths);
+    if (deferred) {
       // 旧播放完成前不改路径，其进度仍属于旧文件。
-      this.queue.index = -1;
-      this.queue.pendingIndex = 0;
       if (!this.callbacks.isStopping()) {
         this.callbacks.stop();
       }
       return;
     }
-    this.queue.index = 0;
-    this.queue.pendingIndex = -1;
     this.callbacks.setPath(path);
     if (delayed) {
       this.scheduleSelectedPath(path, revision);

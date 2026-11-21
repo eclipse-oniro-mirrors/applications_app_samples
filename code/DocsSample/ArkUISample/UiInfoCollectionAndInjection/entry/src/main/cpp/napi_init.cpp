@@ -486,13 +486,13 @@ napi_value ImageItem(napi_env env, int32_t nodeId, ArkUI_ErrorCode takeError, Ar
 }
 
 // [Start ndk_image_take_item]
-// Runs once per accepted request on the UI thread: takes every item, converts it and releases the
-// collection before returning.
+// 每个被受理的请求在UI线程执行一次：取出并转换全部结果项，
+// 返回前释放集合。
 void OnImages(ArkUI_ErrorCode overallError, OH_ArkUI_NativeModule_ImageCollection* collection, void* userData)
 {
     auto* request = static_cast<ImageRequest*>(userData);
     if (request == nullptr) {
-        // No owner left for this result: the collection still has to be destroyed to release the images.
+        // 已无业务对象接收该结果：仍需销毁集合以释放其中的图片。
         OH_ArkUI_NativeModule_ImageCollectionDestroy(collection);
         return;
     }
@@ -511,13 +511,13 @@ void OnImages(ArkUI_ErrorCode overallError, OH_ArkUI_NativeModule_ImageCollectio
         uint32_t count = 0;
         for (int32_t nodeId : request->nodeIds) {
             OH_PixelmapNative* pixelmap = nullptr;
-            // A null collection means the request produced no result at all, so no item can be taken.
+            // 集合为空表示本次请求没有产生任何结果项，无法取出。
             ArkUI_ErrorCode itemError = collection == nullptr ? overallError : ARKUI_ERROR_CODE_NO_ERROR;
             const ArkUI_ErrorCode takeError = collection == nullptr ? overallError :
                 OH_ArkUI_NativeModule_ImageCollectionTakeItemByNodeId(collection, nodeId, &pixelmap, &itemError);
             napi_value item = ImageItem(env, nodeId, takeError, itemError, pixelmap);
             if (pixelmap != nullptr) {
-                // The take call moved the ownership here, and the conversion above is finished.
+                // 取出时所有权已转移到此处，上面的转换已完成。
                 OH_PixelmapNative_Destroy(&pixelmap);
             }
             if (item != nullptr) {
@@ -544,9 +544,8 @@ void OnImages(ArkUI_ErrorCode overallError, OH_ArkUI_NativeModule_ImageCollectio
 // [End ndk_image_take_item]
 
 // [Start ndk_image_anchor]
-// The capture interface needs the ArkUI context of the target page, and a node declared in ArkTS does
-// not expose one. The page therefore hosts a small native node through a NodeContent, and the sample
-// resolves the context from that node.
+// 采集接口需要目标页面的ArkUI上下文，而ArkTS中声明的节点不对外暴露上下文。
+// 页面因此通过NodeContent挂载一个小的native节点，示例再从该节点反查上下文。
 ArkUI_NodeHandle g_imageAnchor = nullptr;
 ArkUI_NodeContentHandle g_imageContent = nullptr;
 
@@ -570,7 +569,7 @@ bool AttachImageAnchor(napi_env env, ArkUI_NodeContentHandle content)
     return true;
 }
 
-// Removes the anchor node from the page content and disposes it.
+// 从页面内容中移除锚点节点并销毁。
 void DetachImageAnchor()
 {
     if (g_imageAnchor == nullptr) {
@@ -605,8 +604,8 @@ ArkUI_ContextHandle GetImageContext(napi_env env)
 // [End ndk_image_context]
 
 // [Start ndk_image_collect]
-// Bridge entry for the page: collectImages(nodeIds). The returned promise resolves with the
-// submission result and every collection item.
+// 页面调用的桥接入口：collectImages(nodeIds)。
+// 返回的Promise在请求受理后完成，结果包含受理结果与全部结果项。
 napi_value CollectImages(napi_env env, napi_callback_info info)
 {
     napi_value args[IMAGE_ARG_COUNT];
@@ -630,12 +629,12 @@ napi_value CollectImages(napi_env env, napi_callback_info info)
     }
     request->env = env;
     request->nodeIds = nodeIds;
-    // The framework copies the ids before this call returns, so the request owns its own copy and the
-    // caller may release the array immediately.
+    // 框架会在本函数返回前复制节点ID，request持有自己的副本，
+    // 调用方可以立即释放数组。
     const auto code = OH_ArkUI_NativeModule_GetImagesByNodeIdAsync(context, request->nodeIds.data(),
         static_cast<uint32_t>(request->nodeIds.size()), OnImages, request);
     if (code != ARKUI_ERROR_CODE_NO_ERROR) {
-        // The request was rejected: no callback will arrive, so report the submission code and finish.
+        // 请求被拒绝：不会再收到回调，直接返回受理结果并结束。
         napi_value rejected = nullptr;
         napi_value empty = nullptr;
         if (napi_create_object(env, &rejected) == napi_ok && napi_create_array(env, &empty) == napi_ok) {

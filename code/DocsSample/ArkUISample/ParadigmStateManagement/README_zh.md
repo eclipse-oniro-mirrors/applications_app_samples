@@ -47,6 +47,7 @@ entry/src/main/ets/
 |   |       |---index.ets
 |   |---extend                       		   //@Extend装饰器：定义扩展组件样式 
 |   |       |---ExtendFunctionHandle.ets
+|   |       |---ExtendNested.ets
 |   |       |---ExtendParameterUsage.ets
 |   |       |---ExtendPositiveExample.ets
 |   |       |---ExtendUIStateVariable.ets

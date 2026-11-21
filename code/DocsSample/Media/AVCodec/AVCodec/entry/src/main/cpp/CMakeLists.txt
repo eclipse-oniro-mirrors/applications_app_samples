@@ -50,7 +50,9 @@ set(BASE_LIBRARY
 add_library(player SHARED sample/player/napi/PlayerNative.cpp
                           sample/player/napi/DeviceCodecCapabilityNative.cpp
                           sample/player/napi/PlayerAsyncSeek.cpp
+                          sample/player/napi/PlayerStartup.cpp
                           sample/player/napi/PlayerNapiParser.cpp
+                          sample/player/napi/PlayerControlParser.cpp
                           sample/player/napi/PlayerNapiSerializer.cpp
                           sample/player/core/Player.cpp
                           sample/player/core/PlayerLifecycle.cpp

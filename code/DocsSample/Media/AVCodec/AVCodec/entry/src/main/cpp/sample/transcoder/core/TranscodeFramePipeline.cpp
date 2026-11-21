@@ -156,14 +156,16 @@ bool TranscodeJob::ValidateGpuOutputResolution()
 bool TranscodeJob::SubmitSurfaceFrame(bool eos, bool &advanced)
 {
     const bool hasFrame = !eos || pendingDecodedAttr_.size > 0;
-    const int32_t result = diagnostics_.Measure(TranscodeMetrics::Stage::ENCODE, [&] {
-        return hasFrame ? OH_VideoDecoder_RenderOutputBuffer(decoder_, pendingDecodedIndex_)
-            : OH_VideoDecoder_FreeOutputBuffer(decoder_, pendingDecodedIndex_);
-    });
-    pendingDecoded_ = nullptr;
-    if (!Check(result, "Submit decoded Surface frame")) {
-        return false;
+    if (hasFrame) {
+        const int32_t result = diagnostics_.Measure(TranscodeMetrics::Stage::ENCODE, [this] {
+            return OH_VideoDecoder_RenderOutputBuffer(decoder_, pendingDecodedIndex_);
+        });
+        if (!Check(result, "Submit decoded Surface frame")) {
+            return false;
+        }
     }
+    // 空EOS无需送显，保留至解码器Destroy时回收；带画面的EOS仍须先完成送显。
+    pendingDecoded_ = nullptr;
     if (eos && !Check(OH_VideoEncoder_NotifyEndOfStream(encoder_), "Notify Surface encoder EOS")) {
         return false;
     }
@@ -301,7 +303,7 @@ bool TranscodeJob::SubmitBufferFrame(bool eos, bool sendEmptyEos, bool &advanced
     const bool hasFrame = !sendEmptyEos && (!eos || pendingDecodedAttr_.size > 0);
     if (hasFrame) {
         if (!diagnostics_.Measure(TranscodeMetrics::Stage::PROCESS,
-            [&] { return ProcessBufferFrame(input, attr); })) {
+            [this, input, &attr] { return ProcessBufferFrame(input, attr); })) {
             return false;
         }
     }
@@ -312,13 +314,14 @@ bool TranscodeJob::SubmitBufferFrame(bool eos, bool sendEmptyEos, bool &advanced
     if (!Check(OH_AVBuffer_SetBufferAttr(input, &attr), "Set encoder input attributes")) {
         return false;
     }
-    const int32_t submitResult = diagnostics_.Measure(TranscodeMetrics::Stage::ENCODE, [&] {
+    const int32_t submitResult = diagnostics_.Measure(TranscodeMetrics::Stage::ENCODE, [this, index] {
             return OH_VideoEncoder_PushInputBuffer(encoder_, index);
     });
     if (!Check(submitResult, "Submit processed Buffer to encoder")) {
         return false;
     }
-    if (pendingDecoded_ != nullptr &&
+    // 最后一帧的数据已复制到编码输入；带EOS的解码输出由Destroy回收。
+    if (pendingDecoded_ != nullptr && !eos &&
         !Check(OH_VideoDecoder_FreeOutputBuffer(decoder_, pendingDecodedIndex_), "Return decoded frame")) {
         return false;
     }
@@ -361,16 +364,18 @@ bool TranscodeJob::DrainEncoder(bool &advanced)
         success = Check(OH_AVBuffer_SetBufferAttr(buffer, &attr), "Rebase Surface video timestamps");
     }
     if (success && attr.size > 0) {
-        const int32_t writeResult = diagnostics_.Measure(TranscodeMetrics::Stage::MUX, [&] {
+        const int32_t writeResult = diagnostics_.Measure(TranscodeMetrics::Stage::MUX, [this, buffer] {
             return OH_AVMuxer_WriteSampleBuffer(muxer_, muxVideoTrack_, buffer);
         });
         success = Check(writeResult, "Write encoded video to MP4");
     }
-    const bool returned = Check(OH_VideoEncoder_FreeOutputBuffer(encoder_, index), "Return encoded output");
+    // 先写完EOS携带的有效数据，再由Destroy回收EOS输出。
+    const bool eos = (attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
+    const bool returned = eos || Check(OH_VideoEncoder_FreeOutputBuffer(encoder_, index), "Return encoded output");
     if (!success || !returned) {
         return false;
     }
-    encoderOutputDone_ = (attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
+    encoderOutputDone_ = eos;
     UpdateVideoProgress(attr);
     advanced = true;
     return true;
