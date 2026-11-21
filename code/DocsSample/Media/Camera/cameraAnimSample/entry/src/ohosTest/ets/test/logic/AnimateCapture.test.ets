@@ -803,3 +803,346 @@ export default function animateCaptureTest(): void {
     /**
      * @tc.number    SUB_CAMERA_ANIMATE_CAPTURE_0034
      * @tc.name      Camera_AnimateCapture_0034
+     * @tc.desc      onCaptureClick repeated 5 times restores flash opacity 1 after 18 steps.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Camera_AnimateCapture_0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}AnimateCapture_0034 begin`);
+      const subject: AnimateModel = new AnimateModel(false);
+      subject.onModeChange();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      logInfo("onCaptureClick x5 back=false preMode=true preFrame=false");
+      const actual: number = subject.stepCount();
+      logInfo('actual=' + String(actual) + ', expected=' + "18");
+      expect(actual).assertEqual(18);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}AnimateCapture_0034 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_ANIMATE_CAPTURE_0035
+     * @tc.name      Camera_AnimateCapture_0035
+     * @tc.desc      onCaptureClick repeated 5 times restores flash opacity 1 after 21 steps.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Camera_AnimateCapture_0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}AnimateCapture_0035 begin`);
+      const subject: AnimateModel = new AnimateModel(false);
+      subject.onModeChange();
+      subject.onFrameStart();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      logInfo("onCaptureClick x5 back=false preMode=true preFrame=true");
+      const actual: number = subject.stepCount();
+      logInfo('actual=' + String(actual) + ', expected=' + "21");
+      expect(actual).assertEqual(21);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}AnimateCapture_0035 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_ANIMATE_CAPTURE_0036
+     * @tc.name      Camera_AnimateCapture_0036
+     * @tc.desc      onCaptureClick repeated 5 times restores flash opacity 1 after 15 steps.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_AnimateCapture_0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}AnimateCapture_0036 begin`);
+      const subject: AnimateModel = new AnimateModel(true);
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      logInfo("onCaptureClick x5 back=true preMode=false preFrame=false");
+      const actual: number = subject.stepCount();
+      logInfo('actual=' + String(actual) + ', expected=' + "15");
+      expect(actual).assertEqual(15);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}AnimateCapture_0036 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_ANIMATE_CAPTURE_0037
+     * @tc.name      Camera_AnimateCapture_0037
+     * @tc.desc      onCaptureClick repeated 5 times restores flash opacity 1 after 18 steps.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_AnimateCapture_0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}AnimateCapture_0037 begin`);
+      const subject: AnimateModel = new AnimateModel(true);
+      subject.onFrameStart();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      logInfo("onCaptureClick x5 back=true preMode=false preFrame=true");
+      const actual: number = subject.stepCount();
+      logInfo('actual=' + String(actual) + ', expected=' + "18");
+      expect(actual).assertEqual(18);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}AnimateCapture_0037 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_ANIMATE_CAPTURE_0038
+     * @tc.name      Camera_AnimateCapture_0038
+     * @tc.desc      onCaptureClick repeated 5 times restores flash opacity 1 after 18 steps.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_AnimateCapture_0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}AnimateCapture_0038 begin`);
+      const subject: AnimateModel = new AnimateModel(true);
+      subject.onModeChange();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      logInfo("onCaptureClick x5 back=true preMode=true preFrame=false");
+      const actual: number = subject.stepCount();
+      logInfo('actual=' + String(actual) + ', expected=' + "18");
+      expect(actual).assertEqual(18);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}AnimateCapture_0038 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_ANIMATE_CAPTURE_0039
+     * @tc.name      Camera_AnimateCapture_0039
+     * @tc.desc      onCaptureClick repeated 5 times restores flash opacity 1 after 21 steps.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_AnimateCapture_0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}AnimateCapture_0039 begin`);
+      const subject: AnimateModel = new AnimateModel(true);
+      subject.onModeChange();
+      subject.onFrameStart();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      logInfo("onCaptureClick x5 back=true preMode=true preFrame=true");
+      const actual: number = subject.stepCount();
+      logInfo('actual=' + String(actual) + ', expected=' + "21");
+      expect(actual).assertEqual(21);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}AnimateCapture_0039 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_ANIMATE_CAPTURE_0040
+     * @tc.name      Camera_AnimateCapture_0040
+     * @tc.desc      onCaptureClick repeated 6 times restores flash opacity 1 after 18 steps.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_AnimateCapture_0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}AnimateCapture_0040 begin`);
+      const subject: AnimateModel = new AnimateModel(false);
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      logInfo("onCaptureClick x6 back=false preMode=false preFrame=false");
+      const actual: number = subject.stepCount();
+      logInfo('actual=' + String(actual) + ', expected=' + "18");
+      expect(actual).assertEqual(18);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}AnimateCapture_0040 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_ANIMATE_CAPTURE_0041
+     * @tc.name      Camera_AnimateCapture_0041
+     * @tc.desc      onCaptureClick repeated 6 times restores flash opacity 1 after 21 steps.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_AnimateCapture_0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}AnimateCapture_0041 begin`);
+      const subject: AnimateModel = new AnimateModel(false);
+      subject.onFrameStart();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      logInfo("onCaptureClick x6 back=false preMode=false preFrame=true");
+      const actual: number = subject.stepCount();
+      logInfo('actual=' + String(actual) + ', expected=' + "21");
+      expect(actual).assertEqual(21);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}AnimateCapture_0041 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_ANIMATE_CAPTURE_0042
+     * @tc.name      Camera_AnimateCapture_0042
+     * @tc.desc      onCaptureClick repeated 6 times restores flash opacity 1 after 21 steps.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_AnimateCapture_0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}AnimateCapture_0042 begin`);
+      const subject: AnimateModel = new AnimateModel(false);
+      subject.onModeChange();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      logInfo("onCaptureClick x6 back=false preMode=true preFrame=false");
+      const actual: number = subject.stepCount();
+      logInfo('actual=' + String(actual) + ', expected=' + "21");
+      expect(actual).assertEqual(21);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}AnimateCapture_0042 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_ANIMATE_CAPTURE_0043
+     * @tc.name      Camera_AnimateCapture_0043
+     * @tc.desc      onCaptureClick repeated 6 times restores flash opacity 1 after 24 steps.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_AnimateCapture_0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}AnimateCapture_0043 begin`);
+      const subject: AnimateModel = new AnimateModel(false);
+      subject.onModeChange();
+      subject.onFrameStart();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      logInfo("onCaptureClick x6 back=false preMode=true preFrame=true");
+      const actual: number = subject.stepCount();
+      logInfo('actual=' + String(actual) + ', expected=' + "24");
+      expect(actual).assertEqual(24);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}AnimateCapture_0043 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_ANIMATE_CAPTURE_0044
+     * @tc.name      Camera_AnimateCapture_0044
+     * @tc.desc      onCaptureClick repeated 6 times restores flash opacity 1 after 18 steps.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_AnimateCapture_0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}AnimateCapture_0044 begin`);
+      const subject: AnimateModel = new AnimateModel(true);
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      logInfo("onCaptureClick x6 back=true preMode=false preFrame=false");
+      const actual: number = subject.stepCount();
+      logInfo('actual=' + String(actual) + ', expected=' + "18");
+      expect(actual).assertEqual(18);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}AnimateCapture_0044 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_ANIMATE_CAPTURE_0045
+     * @tc.name      Camera_AnimateCapture_0045
+     * @tc.desc      onCaptureClick repeated 6 times restores flash opacity 1 after 21 steps.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Camera_AnimateCapture_0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}AnimateCapture_0045 begin`);
+      const subject: AnimateModel = new AnimateModel(true);
+      subject.onFrameStart();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      logInfo("onCaptureClick x6 back=true preMode=false preFrame=true");
+      const actual: number = subject.stepCount();
+      logInfo('actual=' + String(actual) + ', expected=' + "21");
+      expect(actual).assertEqual(21);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}AnimateCapture_0045 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_ANIMATE_CAPTURE_0046
+     * @tc.name      Camera_AnimateCapture_0046
+     * @tc.desc      onCaptureClick repeated 6 times restores flash opacity 1 after 21 steps.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_AnimateCapture_0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}AnimateCapture_0046 begin`);
+      const subject: AnimateModel = new AnimateModel(true);
+      subject.onModeChange();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      subject.onCaptureClick();
+      logInfo("onCaptureClick x6 back=true preMode=true preFrame=false");
+      const actual: number = subject.stepCount();
+      logInfo('actual=' + String(actual) + ', expected=' + "21");
+      expect(actual).assertEqual(21);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}AnimateCapture_0046 end`);
+    });
+  });
+}
