@@ -10,7 +10,7 @@
 4. UI 与系统媒体用例依赖主 HAP 和测试 HAP 同时安装。真实播放还依赖六个 MP4 素材、本地视频服务和 USB 反向端口映射。
 5. 本次修复保留全部测试及断言。下列 Pass 来自实际自动化执行，替换原文件中重复的人工操作简表。本次文档更新仅整理已有记录，没有重新执行测试。
 
-设备日志中的日期未与电脑校准；本归档采用电脑日期与 Asia/Shanghai 时区。工程使用 API 20 SDK，已验证设备为 API 26；不能直接将其他工程的系统版本、设备编号或构建结果套用到本工程。
+设备日志中的日期未与电脑校准；本归档采用电脑日期与 Asia/Shanghai 时区。工程使用 API 20 SDK，已验证设备为 API 26；不能直接将不同工程的系统版本、设备编号或构建结果套用到本工程。
 
 ## 测试套件总览
 
@@ -319,7 +319,7 @@ python tools/compile_runner.py default ohosTest
 ## 用例设计说明
 
 - **目录数据**：通过真实 `AVDataSource` 检查顺序、重复项及快照隔离，预期来自输入数据或独立常量。
-- **数值和格式**：时间、定位、进度与画面尺寸采用明确预期值；矩阵浮点比较使用绝对容差与相对容差，不以“结果存在”替代数值判断。
+- **数值和格式**：时间、定位、进度与画面尺寸采用明确预期值；矩阵浮点比较使用固定误差限与相对误差限，不以“结果存在”替代数值判断。
 - **真实交互**：依据组件选中项、暂停标识和播放时钟判断结果；导航用例同时核对访问集合与最终索引。
 - **状态与资源**：通过真实 `media.createAVPlayer()` 验证 idle 守卫及 released 状态，释放逻辑放在清理路径中。
 - **历史分类**：`PowerDialog`、`PowerValidation`、`Security`、`PerformanceStability` 等目录保留历史名称，当前内容主要是模型与数据回归。不能据目录名称宣称已验证系统权限、电源对话框、功耗或性能指标。
@@ -368,7 +368,7 @@ hdc -t 450100445634303332014fea6c381c00 shell power-shell wakeup
 ~~~powershell
 hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc shell aa test -b com.samples.SmoothSwitchShortVideo -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s class ShortVideoStreaming -s timeout 90000
+& 'D:/DevEco Studio2/tools/node/node.exe' ./tools/run_device_tests.cjs --classes ShortVideoStreaming --case-timeout 90000 --out docs/test-runs/my-streaming-run
 ~~~
 
 脚本也支持单套或单例，并保留独立结果目录：
