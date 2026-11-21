@@ -1984,3 +1984,1755 @@ export default function weatherExtensionLifecycleSuite() {
       expect(m.getCity('nohit738') === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0739
+     * @tc.name    WeatherExtensionLifecycle739
+     * @tc.desc    Weather fresh model cities 739 probe 739
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle739', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(4)?.name).assertEqual(m.getData(4)?.name);
+      expect(m.getCity('nohit739') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0740
+     * @tc.name    WeatherExtensionLifecycle740
+     * @tc.desc    Weather fresh model cities 740 probe 740
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle740', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(0)?.name).assertEqual(m.getData(0)?.name);
+      expect(m.getCity('nohit740') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0741
+     * @tc.name    WeatherExtensionLifecycle741
+     * @tc.desc    Weather fresh model cities 741 probe 741
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle741', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(1)?.name).assertEqual(m.getData(1)?.name);
+      expect(m.getCity('nohit741') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0742
+     * @tc.name    WeatherExtensionLifecycle742
+     * @tc.desc    Weather fresh model cities 742 probe 742
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle742', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(2)?.name).assertEqual(m.getData(2)?.name);
+      expect(m.getCity('nohit742') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0743
+     * @tc.name    WeatherExtensionLifecycle743
+     * @tc.desc    Weather fresh model cities 743 probe 743
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle743', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(3)?.name).assertEqual(m.getData(3)?.name);
+      expect(m.getCity('nohit743') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0744
+     * @tc.name    WeatherExtensionLifecycle744
+     * @tc.desc    Weather fresh model cities 744 probe 744
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle744', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(4)?.name).assertEqual(m.getData(4)?.name);
+      expect(m.getCity('nohit744') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0745
+     * @tc.name    WeatherExtensionLifecycle745
+     * @tc.desc    Weather fresh model cities 745 probe 745
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle745', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(0)?.name).assertEqual(m.getData(0)?.name);
+      expect(m.getCity('nohit745') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0746
+     * @tc.name    WeatherExtensionLifecycle746
+     * @tc.desc    Weather fresh model cities 746 probe 746
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle746', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(1)?.name).assertEqual(m.getData(1)?.name);
+      expect(m.getCity('nohit746') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0747
+     * @tc.name    WeatherExtensionLifecycle747
+     * @tc.desc    Weather fresh model cities 747 probe 747
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle747', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(2)?.name).assertEqual(m.getData(2)?.name);
+      expect(m.getCity('nohit747') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0748
+     * @tc.name    WeatherExtensionLifecycle748
+     * @tc.desc    Weather fresh model cities 748 probe 748
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle748', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(3)?.name).assertEqual(m.getData(3)?.name);
+      expect(m.getCity('nohit748') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0749
+     * @tc.name    WeatherExtensionLifecycle749
+     * @tc.desc    Weather fresh model cities 749 probe 749
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle749', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(4)?.name).assertEqual(m.getData(4)?.name);
+      expect(m.getCity('nohit749') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0750
+     * @tc.name    WeatherExtensionLifecycle750
+     * @tc.desc    Weather fresh model cities 750 probe 750
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle750', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(0)?.name).assertEqual(m.getData(0)?.name);
+      expect(m.getCity('nohit750') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0751
+     * @tc.name    WeatherExtensionLifecycle751
+     * @tc.desc    Weather fresh model cities 751 probe 751
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle751', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(1)?.name).assertEqual(m.getData(1)?.name);
+      expect(m.getCity('nohit751') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0752
+     * @tc.name    WeatherExtensionLifecycle752
+     * @tc.desc    Weather fresh model cities 752 probe 752
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle752', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(2)?.name).assertEqual(m.getData(2)?.name);
+      expect(m.getCity('nohit752') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0753
+     * @tc.name    WeatherExtensionLifecycle753
+     * @tc.desc    Weather fresh model cities 753 probe 753
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle753', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(3)?.name).assertEqual(m.getData(3)?.name);
+      expect(m.getCity('nohit753') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0754
+     * @tc.name    WeatherExtensionLifecycle754
+     * @tc.desc    Weather fresh model cities 754 probe 754
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle754', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(4)?.name).assertEqual(m.getData(4)?.name);
+      expect(m.getCity('nohit754') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0755
+     * @tc.name    WeatherExtensionLifecycle755
+     * @tc.desc    Weather fresh model cities 755 probe 755
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle755', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(0)?.name).assertEqual(m.getData(0)?.name);
+      expect(m.getCity('nohit755') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0756
+     * @tc.name    WeatherExtensionLifecycle756
+     * @tc.desc    Weather fresh model cities 756 probe 756
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle756', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(1)?.name).assertEqual(m.getData(1)?.name);
+      expect(m.getCity('nohit756') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0757
+     * @tc.name    WeatherExtensionLifecycle757
+     * @tc.desc    Weather fresh model cities 757 probe 757
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle757', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(2)?.name).assertEqual(m.getData(2)?.name);
+      expect(m.getCity('nohit757') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0758
+     * @tc.name    WeatherExtensionLifecycle758
+     * @tc.desc    Weather fresh model cities 758 probe 758
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle758', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(3)?.name).assertEqual(m.getData(3)?.name);
+      expect(m.getCity('nohit758') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0759
+     * @tc.name    WeatherExtensionLifecycle759
+     * @tc.desc    Weather fresh model cities 759 probe 759
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle759', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(4)?.name).assertEqual(m.getData(4)?.name);
+      expect(m.getCity('nohit759') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0760
+     * @tc.name    WeatherExtensionLifecycle760
+     * @tc.desc    Weather fresh model cities 760 probe 760
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle760', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(0)?.name).assertEqual(m.getData(0)?.name);
+      expect(m.getCity('nohit760') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0761
+     * @tc.name    WeatherExtensionLifecycle761
+     * @tc.desc    Weather fresh model cities 761 probe 761
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle761', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(1)?.name).assertEqual(m.getData(1)?.name);
+      expect(m.getCity('nohit761') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0762
+     * @tc.name    WeatherExtensionLifecycle762
+     * @tc.desc    Weather fresh model cities 762 probe 762
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle762', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(2)?.name).assertEqual(m.getData(2)?.name);
+      expect(m.getCity('nohit762') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0763
+     * @tc.name    WeatherExtensionLifecycle763
+     * @tc.desc    Weather fresh model cities 763 probe 763
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle763', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(3)?.name).assertEqual(m.getData(3)?.name);
+      expect(m.getCity('nohit763') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0764
+     * @tc.name    WeatherExtensionLifecycle764
+     * @tc.desc    Weather fresh model cities 764 probe 764
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle764', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(4)?.name).assertEqual(m.getData(4)?.name);
+      expect(m.getCity('nohit764') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0765
+     * @tc.name    WeatherExtensionLifecycle765
+     * @tc.desc    Weather fresh model cities 765 probe 765
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle765', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(0)?.name).assertEqual(m.getData(0)?.name);
+      expect(m.getCity('nohit765') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0766
+     * @tc.name    WeatherExtensionLifecycle766
+     * @tc.desc    Weather fresh model cities 766 probe 766
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle766', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(1)?.name).assertEqual(m.getData(1)?.name);
+      expect(m.getCity('nohit766') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0767
+     * @tc.name    WeatherExtensionLifecycle767
+     * @tc.desc    Weather fresh model cities 767 probe 767
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle767', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(2)?.name).assertEqual(m.getData(2)?.name);
+      expect(m.getCity('nohit767') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0768
+     * @tc.name    WeatherExtensionLifecycle768
+     * @tc.desc    Weather fresh model cities 768 probe 768
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle768', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(3)?.name).assertEqual(m.getData(3)?.name);
+      expect(m.getCity('nohit768') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0769
+     * @tc.name    WeatherExtensionLifecycle769
+     * @tc.desc    Weather fresh model cities 769 probe 769
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle769', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(4)?.name).assertEqual(m.getData(4)?.name);
+      expect(m.getCity('nohit769') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0770
+     * @tc.name    WeatherExtensionLifecycle770
+     * @tc.desc    Weather fresh model cities 770 probe 770
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle770', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(0)?.name).assertEqual(m.getData(0)?.name);
+      expect(m.getCity('nohit770') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0771
+     * @tc.name    WeatherExtensionLifecycle771
+     * @tc.desc    Weather fresh model cities 771 probe 771
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle771', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(1)?.name).assertEqual(m.getData(1)?.name);
+      expect(m.getCity('nohit771') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0772
+     * @tc.name    WeatherExtensionLifecycle772
+     * @tc.desc    Weather fresh model cities 772 probe 772
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle772', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(2)?.name).assertEqual(m.getData(2)?.name);
+      expect(m.getCity('nohit772') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0773
+     * @tc.name    WeatherExtensionLifecycle773
+     * @tc.desc    Weather fresh model cities 773 probe 773
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle773', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(3)?.name).assertEqual(m.getData(3)?.name);
+      expect(m.getCity('nohit773') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0774
+     * @tc.name    WeatherExtensionLifecycle774
+     * @tc.desc    Weather fresh model cities 774 probe 774
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle774', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(4)?.name).assertEqual(m.getData(4)?.name);
+      expect(m.getCity('nohit774') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0775
+     * @tc.name    WeatherExtensionLifecycle775
+     * @tc.desc    Weather fresh model cities 775 probe 775
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle775', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(0)?.name).assertEqual(m.getData(0)?.name);
+      expect(m.getCity('nohit775') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0776
+     * @tc.name    WeatherExtensionLifecycle776
+     * @tc.desc    Weather fresh model cities 776 probe 776
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle776', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(1)?.name).assertEqual(m.getData(1)?.name);
+      expect(m.getCity('nohit776') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0777
+     * @tc.name    WeatherExtensionLifecycle777
+     * @tc.desc    Weather fresh model cities 777 probe 777
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle777', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(2)?.name).assertEqual(m.getData(2)?.name);
+      expect(m.getCity('nohit777') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0778
+     * @tc.name    WeatherExtensionLifecycle778
+     * @tc.desc    Weather fresh model cities 778 probe 778
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle778', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(3)?.name).assertEqual(m.getData(3)?.name);
+      expect(m.getCity('nohit778') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0779
+     * @tc.name    WeatherExtensionLifecycle779
+     * @tc.desc    Weather fresh model cities 779 probe 779
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle779', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(4)?.name).assertEqual(m.getData(4)?.name);
+      expect(m.getCity('nohit779') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0780
+     * @tc.name    WeatherExtensionLifecycle780
+     * @tc.desc    Weather fresh model cities 780 probe 780
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle780', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(0)?.name).assertEqual(m.getData(0)?.name);
+      expect(m.getCity('nohit780') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0781
+     * @tc.name    WeatherExtensionLifecycle781
+     * @tc.desc    Weather fresh model cities 781 probe 781
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle781', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(1)?.name).assertEqual(m.getData(1)?.name);
+      expect(m.getCity('nohit781') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0782
+     * @tc.name    WeatherExtensionLifecycle782
+     * @tc.desc    Weather fresh model cities 782 probe 782
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle782', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(2)?.name).assertEqual(m.getData(2)?.name);
+      expect(m.getCity('nohit782') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0783
+     * @tc.name    WeatherExtensionLifecycle783
+     * @tc.desc    Weather fresh model cities 783 probe 783
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle783', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(3)?.name).assertEqual(m.getData(3)?.name);
+      expect(m.getCity('nohit783') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0784
+     * @tc.name    WeatherExtensionLifecycle784
+     * @tc.desc    Weather fresh model cities 784 probe 784
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle784', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(4)?.name).assertEqual(m.getData(4)?.name);
+      expect(m.getCity('nohit784') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0785
+     * @tc.name    WeatherExtensionLifecycle785
+     * @tc.desc    Weather fresh model cities 785 probe 785
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle785', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(0)?.name).assertEqual(m.getData(0)?.name);
+      expect(m.getCity('nohit785') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0786
+     * @tc.name    WeatherExtensionLifecycle786
+     * @tc.desc    Weather fresh model cities 786 probe 786
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle786', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(1)?.name).assertEqual(m.getData(1)?.name);
+      expect(m.getCity('nohit786') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0787
+     * @tc.name    WeatherExtensionLifecycle787
+     * @tc.desc    Weather fresh model cities 787 probe 787
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle787', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(2)?.name).assertEqual(m.getData(2)?.name);
+      expect(m.getCity('nohit787') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0788
+     * @tc.name    WeatherExtensionLifecycle788
+     * @tc.desc    Weather fresh model cities 788 probe 788
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle788', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(3)?.name).assertEqual(m.getData(3)?.name);
+      expect(m.getCity('nohit788') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0789
+     * @tc.name    WeatherExtensionLifecycle789
+     * @tc.desc    Weather fresh model cities 789 probe 789
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle789', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(4)?.name).assertEqual(m.getData(4)?.name);
+      expect(m.getCity('nohit789') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0790
+     * @tc.name    WeatherExtensionLifecycle790
+     * @tc.desc    Weather fresh model cities 790 probe 790
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle790', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(0)?.name).assertEqual(m.getData(0)?.name);
+      expect(m.getCity('nohit790') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0791
+     * @tc.name    WeatherExtensionLifecycle791
+     * @tc.desc    Weather fresh model cities 791 probe 791
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle791', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(1)?.name).assertEqual(m.getData(1)?.name);
+      expect(m.getCity('nohit791') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0792
+     * @tc.name    WeatherExtensionLifecycle792
+     * @tc.desc    Weather fresh model cities 792 probe 792
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle792', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(2)?.name).assertEqual(m.getData(2)?.name);
+      expect(m.getCity('nohit792') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0793
+     * @tc.name    WeatherExtensionLifecycle793
+     * @tc.desc    Weather fresh model cities 793 probe 793
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle793', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(3)?.name).assertEqual(m.getData(3)?.name);
+      expect(m.getCity('nohit793') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0794
+     * @tc.name    WeatherExtensionLifecycle794
+     * @tc.desc    Weather fresh model cities 794 probe 794
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle794', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(4)?.name).assertEqual(m.getData(4)?.name);
+      expect(m.getCity('nohit794') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0795
+     * @tc.name    WeatherExtensionLifecycle795
+     * @tc.desc    Weather fresh model cities 795 probe 795
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle795', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(0)?.name).assertEqual(m.getData(0)?.name);
+      expect(m.getCity('nohit795') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0796
+     * @tc.name    WeatherExtensionLifecycle796
+     * @tc.desc    Weather fresh model cities 796 probe 796
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle796', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(1)?.name).assertEqual(m.getData(1)?.name);
+      expect(m.getCity('nohit796') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0797
+     * @tc.name    WeatherExtensionLifecycle797
+     * @tc.desc    Weather fresh model cities 797 probe 797
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle797', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(2)?.name).assertEqual(m.getData(2)?.name);
+      expect(m.getCity('nohit797') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0798
+     * @tc.name    WeatherExtensionLifecycle798
+     * @tc.desc    Weather fresh model cities 798 probe 798
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle798', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(3)?.name).assertEqual(m.getData(3)?.name);
+      expect(m.getCity('nohit798') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0799
+     * @tc.name    WeatherExtensionLifecycle799
+     * @tc.desc    Weather fresh model cities 799 probe 799
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle799', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(4)?.name).assertEqual(m.getData(4)?.name);
+      expect(m.getCity('nohit799') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0800
+     * @tc.name    WeatherExtensionLifecycle800
+     * @tc.desc    Weather fresh model cities 800 probe 800
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle800', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(0)?.name).assertEqual(m.getData(0)?.name);
+      expect(m.getCity('nohit800') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0801
+     * @tc.name    WeatherExtensionLifecycle801
+     * @tc.desc    Weather fresh model cities 801 probe 801
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle801', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(1)?.name).assertEqual(m.getData(1)?.name);
+      expect(m.getCity('nohit801') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0802
+     * @tc.name    WeatherExtensionLifecycle802
+     * @tc.desc    Weather fresh model cities 802 probe 802
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle802', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(2)?.name).assertEqual(m.getData(2)?.name);
+      expect(m.getCity('nohit802') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0803
+     * @tc.name    WeatherExtensionLifecycle803
+     * @tc.desc    Weather fresh model cities 803 probe 803
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle803', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(3)?.name).assertEqual(m.getData(3)?.name);
+      expect(m.getCity('nohit803') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0804
+     * @tc.name    WeatherExtensionLifecycle804
+     * @tc.desc    Weather fresh model cities 804 probe 804
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle804', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(4)?.name).assertEqual(m.getData(4)?.name);
+      expect(m.getCity('nohit804') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0805
+     * @tc.name    WeatherExtensionLifecycle805
+     * @tc.desc    Weather fresh model cities 805 probe 805
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle805', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(0)?.name).assertEqual(m.getData(0)?.name);
+      expect(m.getCity('nohit805') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0806
+     * @tc.name    WeatherExtensionLifecycle806
+     * @tc.desc    Weather fresh model cities 806 probe 806
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle806', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(1)?.name).assertEqual(m.getData(1)?.name);
+      expect(m.getCity('nohit806') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0807
+     * @tc.name    WeatherExtensionLifecycle807
+     * @tc.desc    Weather fresh model cities 807 probe 807
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle807', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(2)?.name).assertEqual(m.getData(2)?.name);
+      expect(m.getCity('nohit807') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0808
+     * @tc.name    WeatherExtensionLifecycle808
+     * @tc.desc    Weather fresh model cities 808 probe 808
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle808', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(3)?.name).assertEqual(m.getData(3)?.name);
+      expect(m.getCity('nohit808') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0809
+     * @tc.name    WeatherExtensionLifecycle809
+     * @tc.desc    Weather fresh model cities 809 probe 809
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle809', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(4)?.name).assertEqual(m.getData(4)?.name);
+      expect(m.getCity('nohit809') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0810
+     * @tc.name    WeatherExtensionLifecycle810
+     * @tc.desc    Weather fresh model cities 810 probe 810
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle810', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(0)?.name).assertEqual(m.getData(0)?.name);
+      expect(m.getCity('nohit810') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0811
+     * @tc.name    WeatherExtensionLifecycle811
+     * @tc.desc    Weather fresh model cities 811 probe 811
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle811', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(1)?.name).assertEqual(m.getData(1)?.name);
+      expect(m.getCity('nohit811') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0812
+     * @tc.name    WeatherExtensionLifecycle812
+     * @tc.desc    Weather fresh model cities 812 probe 812
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle812', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(2)?.name).assertEqual(m.getData(2)?.name);
+      expect(m.getCity('nohit812') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0813
+     * @tc.name    WeatherExtensionLifecycle813
+     * @tc.desc    Weather fresh model cities 813 probe 813
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle813', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(3)?.name).assertEqual(m.getData(3)?.name);
+      expect(m.getCity('nohit813') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0814
+     * @tc.name    WeatherExtensionLifecycle814
+     * @tc.desc    Weather fresh model cities 814 probe 814
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle814', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(4)?.name).assertEqual(m.getData(4)?.name);
+      expect(m.getCity('nohit814') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0815
+     * @tc.name    WeatherExtensionLifecycle815
+     * @tc.desc    Weather fresh model cities 815 probe 815
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle815', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(0)?.name).assertEqual(m.getData(0)?.name);
+      expect(m.getCity('nohit815') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0816
+     * @tc.name    WeatherExtensionLifecycle816
+     * @tc.desc    Weather fresh model cities 816 probe 816
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle816', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(1)?.name).assertEqual(m.getData(1)?.name);
+      expect(m.getCity('nohit816') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0817
+     * @tc.name    WeatherExtensionLifecycle817
+     * @tc.desc    Weather fresh model cities 817 probe 817
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle817', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(2)?.name).assertEqual(m.getData(2)?.name);
+      expect(m.getCity('nohit817') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0818
+     * @tc.name    WeatherExtensionLifecycle818
+     * @tc.desc    Weather fresh model cities 818 probe 818
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle818', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(3)?.name).assertEqual(m.getData(3)?.name);
+      expect(m.getCity('nohit818') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0819
+     * @tc.name    WeatherExtensionLifecycle819
+     * @tc.desc    Weather fresh model cities 819 probe 819
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle819', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(4)?.name).assertEqual(m.getData(4)?.name);
+      expect(m.getCity('nohit819') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0820
+     * @tc.name    WeatherExtensionLifecycle820
+     * @tc.desc    Weather fresh model cities 820 probe 820
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle820', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(0)?.name).assertEqual(m.getData(0)?.name);
+      expect(m.getCity('nohit820') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0821
+     * @tc.name    WeatherExtensionLifecycle821
+     * @tc.desc    Weather fresh model cities 821 probe 821
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle821', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(1)?.name).assertEqual(m.getData(1)?.name);
+      expect(m.getCity('nohit821') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0822
+     * @tc.name    WeatherExtensionLifecycle822
+     * @tc.desc    Weather fresh model cities 822 probe 822
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle822', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(2)?.name).assertEqual(m.getData(2)?.name);
+      expect(m.getCity('nohit822') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0823
+     * @tc.name    WeatherExtensionLifecycle823
+     * @tc.desc    Weather fresh model cities 823 probe 823
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle823', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(3)?.name).assertEqual(m.getData(3)?.name);
+      expect(m.getCity('nohit823') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0824
+     * @tc.name    WeatherExtensionLifecycle824
+     * @tc.desc    Weather fresh model cities 824 probe 824
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle824', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(4)?.name).assertEqual(m.getData(4)?.name);
+      expect(m.getCity('nohit824') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0825
+     * @tc.name    WeatherExtensionLifecycle825
+     * @tc.desc    Weather fresh model cities 825 probe 825
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle825', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(0)?.name).assertEqual(m.getData(0)?.name);
+      expect(m.getCity('nohit825') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0826
+     * @tc.name    WeatherExtensionLifecycle826
+     * @tc.desc    Weather fresh model cities 826 probe 826
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle826', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(1)?.name).assertEqual(m.getData(1)?.name);
+      expect(m.getCity('nohit826') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0827
+     * @tc.name    WeatherExtensionLifecycle827
+     * @tc.desc    Weather fresh model cities 827 probe 827
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle827', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(2)?.name).assertEqual(m.getData(2)?.name);
+      expect(m.getCity('nohit827') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0828
+     * @tc.name    WeatherExtensionLifecycle828
+     * @tc.desc    Weather fresh model cities 828 probe 828
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle828', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(3)?.name).assertEqual(m.getData(3)?.name);
+      expect(m.getCity('nohit828') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0829
+     * @tc.name    WeatherExtensionLifecycle829
+     * @tc.desc    Weather fresh model cities 829 probe 829
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle829', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(4)?.name).assertEqual(m.getData(4)?.name);
+      expect(m.getCity('nohit829') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0830
+     * @tc.name    WeatherExtensionLifecycle830
+     * @tc.desc    Weather fresh model cities 830 probe 830
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherExtensionLifecycle830', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: WeatherModel = new WeatherModel();
+      expect(local.getCityCount()).assertEqual(m.getCityCount());
+      expect(local.totalCount()).assertEqual(m.totalCount());
+      expect(local.getData(0)?.name).assertEqual(m.getData(0)?.name);
+      expect(m.getCity('nohit830') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
