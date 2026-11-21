@@ -760,3 +760,80 @@ export default function sliderStepTest(): void {
       logInfo("sliderStep(14.67)");
       const actual: number = sliderStep(14.67);
       logInfo('actual=' + String(actual) + ', expected=' + "0.1");
+      expect(actual).assertEqual(0.1);
+      logInfo(`${BUNDLE}SliderStep_0042 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_SLIDER_STEP_0043
+     * @tc.name      Resolution_SliderStep_0043
+     * @tc.desc      sliderStep(15.04) returns 0.1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_SliderStep_0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SliderStep_0043 begin`);
+      logInfo("sliderStep(15.04)");
+      const actual: number = sliderStep(15.04);
+      logInfo('actual=' + String(actual) + ', expected=' + "0.1");
+      expect(actual).assertEqual(0.1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}SliderStep_0043 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_SLIDER_STEP_0044
+     * @tc.name      Resolution_SliderStep_0044
+     * @tc.desc      sliderStep(15.41) returns 0.1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_SliderStep_0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SliderStep_0044 begin`);
+      logInfo("sliderStep(15.41)");
+      const actual: number = sliderStep(15.41);
+      logInfo('actual=' + String(actual) + ', expected=' + "0.1");
+      expect(actual).assertEqual(0.1);
+      logInfo(`${BUNDLE}SliderStep_0044 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_SLIDER_STEP_0045
+     * @tc.name      Resolution_SliderStep_0045
+     * @tc.desc      sliderStep(15.78) returns 0.1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_SliderStep_0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}SliderStep_0045 begin`);
+      logInfo("sliderStep(15.78)");
+      const actual: number = sliderStep(15.78);
+      logInfo('actual=' + String(actual) + ', expected=' + "0.1");
+      expect(actual).assertEqual(0.1);
+      logInfo(`${BUNDLE}SliderStep_0045 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_SLIDER_STEP_0046
+     * @tc.name      Resolution_SliderStep_0046
+     * @tc.desc      sliderStep(16.15) returns 0.1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_SliderStep_0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SliderStep_0046 begin`);
+      logInfo("sliderStep(16.15)");
+      const actual: number = sliderStep(16.15);
+      logInfo('actual=' + String(actual) + ', expected=' + "0.1");
+      expect(actual).assertEqual(0.1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}SliderStep_0046 end`);
+    });
+  });
+}
