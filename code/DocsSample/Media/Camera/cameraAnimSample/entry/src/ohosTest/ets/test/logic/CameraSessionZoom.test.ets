@@ -890,3 +890,102 @@ export default function cameraSessionZoomTest(): void {
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
+     */
+    it('Camera_SessionZoom_0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SessionZoom_0042 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.updateSlider(1, 6.5);
+      logInfo("setZoom(2.23) range=1-6.5");
+      const actual: number = subject.setZoom(2.23);
+      logInfo('actual=' + String(actual) + ', expected=' + "2.23");
+      expect(actual).assertEqual(2.23);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}SessionZoom_0042 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_ZOOM_0043
+     * @tc.name      Camera_SessionZoom_0043
+     * @tc.desc      setZoom(2.62) inside the 1-6 range resolves to 2.62.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_SessionZoom_0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SessionZoom_0043 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.updateSlider(1, 6);
+      logInfo("setZoom(2.62) range=1-6");
+      const actual: number = subject.setZoom(2.62);
+      logInfo('actual=' + String(actual) + ', expected=' + "2.62");
+      expect(actual).assertEqual(2.62);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}SessionZoom_0043 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_ZOOM_0044
+     * @tc.name      Camera_SessionZoom_0044
+     * @tc.desc      setZoom(3.01) inside the 1-8 range resolves to 3.01.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_SessionZoom_0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SessionZoom_0044 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.updateSlider(1, 8);
+      logInfo("setZoom(3.01) range=1-8");
+      const actual: number = subject.setZoom(3.01);
+      logInfo('actual=' + String(actual) + ', expected=' + "3.01");
+      expect(actual).assertEqual(3.01);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}SessionZoom_0044 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_ZOOM_0045
+     * @tc.name      Camera_SessionZoom_0045
+     * @tc.desc      setZoom(3.4) inside the 1-10 range resolves to 3.4.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Camera_SessionZoom_0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}SessionZoom_0045 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.updateSlider(1, 10);
+      logInfo("setZoom(3.4) range=1-10");
+      const actual: number = subject.setZoom(3.4);
+      logInfo('actual=' + String(actual) + ', expected=' + "3.4");
+      expect(actual).assertEqual(3.4);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}SessionZoom_0045 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_ZOOM_0046
+     * @tc.name      Camera_SessionZoom_0046
+     * @tc.desc      setZoom(3.79) inside the 1-5 range resolves to 3.79.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_SessionZoom_0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SessionZoom_0046 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.updateSlider(1, 5);
+      logInfo("setZoom(3.79) range=1-5");
+      const actual: number = subject.setZoom(3.79);
+      logInfo('actual=' + String(actual) + ', expected=' + "3.79");
+      expect(actual).assertEqual(3.79);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}SessionZoom_0046 end`);
+    });
+  });
+}
