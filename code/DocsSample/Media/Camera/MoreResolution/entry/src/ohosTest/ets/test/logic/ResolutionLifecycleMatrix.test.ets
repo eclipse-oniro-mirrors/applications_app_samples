@@ -4580,3 +4580,1659 @@ export default function resolutionLifecycleMatrixTest(): void {
       expect(typeof actual).assertEqual('string');
       logInfo(`${BUNDLE}LifecycleMatrix_0190 end`);
     });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0191
+     * @tc.name      Resolution_LifecycleMatrix_0191
+     * @tc.desc      resolution lifecycle res>fold>rotation>mode>switch keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0191', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0191 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.selectResolution(subject.resolutionIndex() + 1);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      logInfo("lifecycle res>fold>rotation>mode>switch");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "5|1440*1080|2|2|false|0|false");
+      expect(actual).assertEqual("5|1440*1080|2|2|false|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0191 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0192
+     * @tc.name      Resolution_LifecycleMatrix_0192
+     * @tc.desc      resolution lifecycle config>fold>rotation>mode>switch>rotation keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0192', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0192 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.setConfigMode(2);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      subject.updateRotation(subject.rotationValue() + 90);
+      logInfo("lifecycle config>fold>rotation>mode>switch>rotation");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "6|1920*1080|2|2|false|1.777778|false");
+      expect(actual).assertEqual("6|1920*1080|2|2|false|1.777778|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0192 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0193
+     * @tc.name      Resolution_LifecycleMatrix_0193
+     * @tc.desc      resolution lifecycle rotation>fold>rotation keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0193', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0193 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.updateRotation(subject.rotationValue() + 90);
+      logInfo("lifecycle rotation>fold>rotation");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "3|1920*1080|1|1|false|0|false");
+      expect(actual).assertEqual("3|1920*1080|1|1|false|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0193 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0194
+     * @tc.name      Resolution_LifecycleMatrix_0194
+     * @tc.desc      resolution lifecycle fold>fold>rotation>mode keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0194', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0194 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      logInfo("lifecycle fold>fold>rotation>mode");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "4|1920*1080|1|2|false|0|false");
+      expect(actual).assertEqual("4|1920*1080|1|2|false|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0194 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0195
+     * @tc.name      Resolution_LifecycleMatrix_0195
+     * @tc.desc      resolution lifecycle reload>fold>rotation>mode>switch keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0195', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0195 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.reloadXComponent();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      logInfo("lifecycle reload>fold>rotation>mode>switch");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "5|1920*1080|2|2|false|0|true");
+      expect(actual).assertEqual("5|1920*1080|2|2|false|0|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0195 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0196
+     * @tc.name      Resolution_LifecycleMatrix_0196
+     * @tc.desc      resolution lifecycle record>fold>rotation>mode>switch>rotation keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0196', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0196 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.startRecording();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      subject.updateRotation(subject.rotationValue() + 90);
+      logInfo("lifecycle record>fold>rotation>mode>switch>rotation");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "6|1920*1080|2|2|true|0|false");
+      expect(actual).assertEqual("6|1920*1080|2|2|true|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0196 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0197
+     * @tc.name      Resolution_LifecycleMatrix_0197
+     * @tc.desc      resolution lifecycle mode>reload>rotation keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0197', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0197 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.reloadXComponent();
+      subject.updateRotation(subject.rotationValue() + 90);
+      logInfo("lifecycle mode>reload>rotation");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "3|1920*1080|1|2|false|0|true");
+      expect(actual).assertEqual("3|1920*1080|1|2|false|0|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0197 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0198
+     * @tc.name      Resolution_LifecycleMatrix_0198
+     * @tc.desc      resolution lifecycle switch>reload>rotation>mode keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0198', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0198 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.switchCamera();
+      subject.reloadXComponent();
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      logInfo("lifecycle switch>reload>rotation>mode");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "4|1920*1080|2|2|false|0|true");
+      expect(actual).assertEqual("4|1920*1080|2|2|false|0|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0198 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0199
+     * @tc.name      Resolution_LifecycleMatrix_0199
+     * @tc.desc      resolution lifecycle rotation>reload>rotation>mode>switch keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_LifecycleMatrix_0199', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0199 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.reloadXComponent();
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      logInfo("lifecycle rotation>reload>rotation>mode>switch");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "5|1920*1080|2|2|false|0|true");
+      expect(actual).assertEqual("5|1920*1080|2|2|false|0|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0199 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0200
+     * @tc.name      Resolution_LifecycleMatrix_0200
+     * @tc.desc      resolution lifecycle fold>reload>rotation>mode>switch>rotation keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0200', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0200 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.reloadXComponent();
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      subject.updateRotation(subject.rotationValue() + 90);
+      logInfo("lifecycle fold>reload>rotation>mode>switch>rotation");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "6|1920*1080|2|2|false|0|true");
+      expect(actual).assertEqual("6|1920*1080|2|2|false|0|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0200 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0201
+     * @tc.name      Resolution_LifecycleMatrix_0201
+     * @tc.desc      resolution lifecycle res>record>rotation keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0201', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0201 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.selectResolution(subject.resolutionIndex() + 1);
+      subject.startRecording();
+      subject.updateRotation(subject.rotationValue() + 90);
+      logInfo("lifecycle res>record>rotation");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "3|1440*1080|1|1|true|0|false");
+      expect(actual).assertEqual("3|1440*1080|1|1|true|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0201 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0202
+     * @tc.name      Resolution_LifecycleMatrix_0202
+     * @tc.desc      resolution lifecycle config>record>rotation>mode keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0202', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0202 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.setConfigMode(2);
+      subject.startRecording();
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      logInfo("lifecycle config>record>rotation>mode");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "4|1920*1080|1|2|true|1.777778|false");
+      expect(actual).assertEqual("4|1920*1080|1|2|true|1.777778|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0202 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0203
+     * @tc.name      Resolution_LifecycleMatrix_0203
+     * @tc.desc      resolution lifecycle mode>record>rotation>mode>switch keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0203', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0203 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.startRecording();
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      logInfo("lifecycle mode>record>rotation>mode>switch");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "5|1920*1080|2|1|true|0|false");
+      expect(actual).assertEqual("5|1920*1080|2|1|true|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0203 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0204
+     * @tc.name      Resolution_LifecycleMatrix_0204
+     * @tc.desc      resolution lifecycle switch>record>rotation>mode>switch>rotation keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0204', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0204 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.switchCamera();
+      subject.startRecording();
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      subject.updateRotation(subject.rotationValue() + 90);
+      logInfo("lifecycle switch>record>rotation>mode>switch>rotation");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "6|1920*1080|1|2|true|0|false");
+      expect(actual).assertEqual("6|1920*1080|1|2|true|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0204 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0205
+     * @tc.name      Resolution_LifecycleMatrix_0205
+     * @tc.desc      resolution lifecycle reload>record>rotation keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Resolution_LifecycleMatrix_0205', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0205 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.reloadXComponent();
+      subject.startRecording();
+      subject.updateRotation(subject.rotationValue() + 90);
+      logInfo("lifecycle reload>record>rotation");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "3|1920*1080|1|1|true|0|true");
+      expect(actual).assertEqual("3|1920*1080|1|1|true|0|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0205 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0206
+     * @tc.name      Resolution_LifecycleMatrix_0206
+     * @tc.desc      resolution lifecycle record>record>rotation>mode keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0206', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0206 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.startRecording();
+      subject.startRecording();
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      logInfo("lifecycle record>record>rotation>mode");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "3|1920*1080|1|2|true|0|false");
+      expect(actual).assertEqual("3|1920*1080|1|2|true|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0206 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0207
+     * @tc.name      Resolution_LifecycleMatrix_0207
+     * @tc.desc      resolution lifecycle res>res>fold>mode>switch keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0207', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0207 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.selectResolution(subject.resolutionIndex() + 1);
+      subject.selectResolution(subject.resolutionIndex() + 1);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      logInfo("lifecycle res>res>fold>mode>switch");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "5|1280*720|2|2|false|0|false");
+      expect(actual).assertEqual("5|1280*720|2|2|false|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0207 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0208
+     * @tc.name      Resolution_LifecycleMatrix_0208
+     * @tc.desc      resolution lifecycle config>res>fold>mode>switch>rotation keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0208', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0208 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.setConfigMode(2);
+      subject.selectResolution(subject.resolutionIndex() + 1);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      subject.updateRotation(subject.rotationValue() + 90);
+      logInfo("lifecycle config>res>fold>mode>switch>rotation");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "6|1440*1080|2|2|false|1.777778|false");
+      expect(actual).assertEqual("6|1440*1080|2|2|false|1.777778|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0208 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0209
+     * @tc.name      Resolution_LifecycleMatrix_0209
+     * @tc.desc      resolution lifecycle rotation>res>fold keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0209', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0209 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.selectResolution(subject.resolutionIndex() + 1);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      logInfo("lifecycle rotation>res>fold");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "3|1440*1080|1|1|false|0|false");
+      expect(actual).assertEqual("3|1440*1080|1|1|false|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0209 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0210
+     * @tc.name      Resolution_LifecycleMatrix_0210
+     * @tc.desc      resolution lifecycle fold>res>fold>mode keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_LifecycleMatrix_0210', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0210 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.selectResolution(subject.resolutionIndex() + 1);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      logInfo("lifecycle fold>res>fold>mode");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "4|1440*1080|1|2|false|0|false");
+      expect(actual).assertEqual("4|1440*1080|1|2|false|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0210 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0211
+     * @tc.name      Resolution_LifecycleMatrix_0211
+     * @tc.desc      resolution lifecycle reload>res>fold>mode>switch keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0211', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0211 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.reloadXComponent();
+      subject.selectResolution(subject.resolutionIndex() + 1);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      logInfo("lifecycle reload>res>fold>mode>switch");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "5|1440*1080|2|2|false|0|true");
+      expect(actual).assertEqual("5|1440*1080|2|2|false|0|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0211 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0212
+     * @tc.name      Resolution_LifecycleMatrix_0212
+     * @tc.desc      resolution lifecycle record>res>fold>mode>switch>rotation keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0212', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0212 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.startRecording();
+      subject.selectResolution(subject.resolutionIndex() + 1);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      subject.updateRotation(subject.rotationValue() + 90);
+      logInfo("lifecycle record>res>fold>mode>switch>rotation");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "6|1440*1080|2|2|true|0|false");
+      expect(actual).assertEqual("6|1440*1080|2|2|true|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0212 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0213
+     * @tc.name      Resolution_LifecycleMatrix_0213
+     * @tc.desc      resolution lifecycle mode>config>fold keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0213', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0213 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.setConfigMode(2);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      logInfo("lifecycle mode>config>fold");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "3|1920*1080|1|2|false|1.777778|false");
+      expect(actual).assertEqual("3|1920*1080|1|2|false|1.777778|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0213 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0214
+     * @tc.name      Resolution_LifecycleMatrix_0214
+     * @tc.desc      resolution lifecycle switch>config>fold>mode keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0214', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0214 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.switchCamera();
+      subject.setConfigMode(2);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      logInfo("lifecycle switch>config>fold>mode");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "4|1920*1080|2|2|false|1.777778|false");
+      expect(actual).assertEqual("4|1920*1080|2|2|false|1.777778|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0214 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0215
+     * @tc.name      Resolution_LifecycleMatrix_0215
+     * @tc.desc      resolution lifecycle rotation>config>fold>mode>switch keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0215', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0215 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.setConfigMode(2);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      logInfo("lifecycle rotation>config>fold>mode>switch");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "5|1920*1080|2|2|false|1.777778|false");
+      expect(actual).assertEqual("5|1920*1080|2|2|false|1.777778|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0215 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0216
+     * @tc.name      Resolution_LifecycleMatrix_0216
+     * @tc.desc      resolution lifecycle fold>config>fold>mode>switch>rotation keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0216', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0216 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.setConfigMode(2);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      subject.updateRotation(subject.rotationValue() + 90);
+      logInfo("lifecycle fold>config>fold>mode>switch>rotation");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "6|1920*1080|2|2|false|1.777778|false");
+      expect(actual).assertEqual("6|1920*1080|2|2|false|1.777778|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0216 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0217
+     * @tc.name      Resolution_LifecycleMatrix_0217
+     * @tc.desc      resolution lifecycle res>mode>fold keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0217', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0217 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.selectResolution(subject.resolutionIndex() + 1);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      logInfo("lifecycle res>mode>fold");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "3|1440*1080|1|2|false|0|false");
+      expect(actual).assertEqual("3|1440*1080|1|2|false|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0217 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0218
+     * @tc.name      Resolution_LifecycleMatrix_0218
+     * @tc.desc      resolution lifecycle config>mode>fold>mode keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0218', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0218 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.setConfigMode(2);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      logInfo("lifecycle config>mode>fold>mode");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "4|1920*1080|1|1|false|1.777778|false");
+      expect(actual).assertEqual("4|1920*1080|1|1|false|1.777778|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0218 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0219
+     * @tc.name      Resolution_LifecycleMatrix_0219
+     * @tc.desc      resolution lifecycle mode>mode>fold>mode>switch keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0219', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0219 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      logInfo("lifecycle mode>mode>fold>mode>switch");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "5|1920*1080|2|2|false|0|false");
+      expect(actual).assertEqual("5|1920*1080|2|2|false|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0219 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0220
+     * @tc.name      Resolution_LifecycleMatrix_0220
+     * @tc.desc      resolution lifecycle switch>mode>fold>mode>switch>rotation keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0220', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0220 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.switchCamera();
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      subject.updateRotation(subject.rotationValue() + 90);
+      logInfo("lifecycle switch>mode>fold>mode>switch>rotation");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "6|1920*1080|1|1|false|0|false");
+      expect(actual).assertEqual("6|1920*1080|1|1|false|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0220 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0221
+     * @tc.name      Resolution_LifecycleMatrix_0221
+     * @tc.desc      resolution lifecycle reload>mode>fold keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_LifecycleMatrix_0221', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0221 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.reloadXComponent();
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      logInfo("lifecycle reload>mode>fold");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "3|1920*1080|1|2|false|0|true");
+      expect(actual).assertEqual("3|1920*1080|1|2|false|0|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0221 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0222
+     * @tc.name      Resolution_LifecycleMatrix_0222
+     * @tc.desc      resolution lifecycle record>mode>fold>mode keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Resolution_LifecycleMatrix_0222', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0222 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.startRecording();
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      logInfo("lifecycle record>mode>fold>mode");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "4|1920*1080|1|1|true|0|false");
+      expect(actual).assertEqual("4|1920*1080|1|1|true|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0222 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0223
+     * @tc.name      Resolution_LifecycleMatrix_0223
+     * @tc.desc      resolution lifecycle res>switch>fold>mode>switch keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0223', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0223 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.selectResolution(subject.resolutionIndex() + 1);
+      subject.switchCamera();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      logInfo("lifecycle res>switch>fold>mode>switch");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "5|1440*1080|1|2|false|0|false");
+      expect(actual).assertEqual("5|1440*1080|1|2|false|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0223 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0224
+     * @tc.name      Resolution_LifecycleMatrix_0224
+     * @tc.desc      resolution lifecycle config>switch>fold>mode>switch>rotation keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0224', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0224 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.setConfigMode(2);
+      subject.switchCamera();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      subject.updateRotation(subject.rotationValue() + 90);
+      logInfo("lifecycle config>switch>fold>mode>switch>rotation");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "6|1920*1080|1|2|false|1.777778|false");
+      expect(actual).assertEqual("6|1920*1080|1|2|false|1.777778|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0224 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0225
+     * @tc.name      Resolution_LifecycleMatrix_0225
+     * @tc.desc      resolution lifecycle rotation>switch>fold keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0225', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0225 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.switchCamera();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      logInfo("lifecycle rotation>switch>fold");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "3|1920*1080|2|1|false|0|false");
+      expect(actual).assertEqual("3|1920*1080|2|1|false|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0225 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0226
+     * @tc.name      Resolution_LifecycleMatrix_0226
+     * @tc.desc      resolution lifecycle fold>switch>fold>mode keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0226', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0226 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchCamera();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      logInfo("lifecycle fold>switch>fold>mode");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "4|1920*1080|2|2|false|0|false");
+      expect(actual).assertEqual("4|1920*1080|2|2|false|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0226 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0227
+     * @tc.name      Resolution_LifecycleMatrix_0227
+     * @tc.desc      resolution lifecycle reload>switch>fold>mode>switch keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0227', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0227 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.reloadXComponent();
+      subject.switchCamera();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      logInfo("lifecycle reload>switch>fold>mode>switch");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "5|1920*1080|1|2|false|0|true");
+      expect(actual).assertEqual("5|1920*1080|1|2|false|0|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0227 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0228
+     * @tc.name      Resolution_LifecycleMatrix_0228
+     * @tc.desc      resolution lifecycle record>switch>fold>mode>switch>rotation keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0228', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0228 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.startRecording();
+      subject.switchCamera();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      subject.updateRotation(subject.rotationValue() + 90);
+      logInfo("lifecycle record>switch>fold>mode>switch>rotation");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "6|1920*1080|1|2|true|0|false");
+      expect(actual).assertEqual("6|1920*1080|1|2|true|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0228 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0229
+     * @tc.name      Resolution_LifecycleMatrix_0229
+     * @tc.desc      resolution lifecycle mode>rotation>fold keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0229', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0229 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      logInfo("lifecycle mode>rotation>fold");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "3|1920*1080|1|2|false|0|false");
+      expect(actual).assertEqual("3|1920*1080|1|2|false|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0229 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0230
+     * @tc.name      Resolution_LifecycleMatrix_0230
+     * @tc.desc      resolution lifecycle switch>rotation>fold>mode keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0230', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0230 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.switchCamera();
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      logInfo("lifecycle switch>rotation>fold>mode");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "4|1920*1080|2|2|false|0|false");
+      expect(actual).assertEqual("4|1920*1080|2|2|false|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0230 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0231
+     * @tc.name      Resolution_LifecycleMatrix_0231
+     * @tc.desc      resolution lifecycle rotation>rotation>fold>mode>switch keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0231', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0231 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      logInfo("lifecycle rotation>rotation>fold>mode>switch");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "5|1920*1080|2|2|false|0|false");
+      expect(actual).assertEqual("5|1920*1080|2|2|false|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0231 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0232
+     * @tc.name      Resolution_LifecycleMatrix_0232
+     * @tc.desc      resolution lifecycle fold>rotation>fold>mode>switch>rotation keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_LifecycleMatrix_0232', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0232 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      subject.updateRotation(subject.rotationValue() + 90);
+      logInfo("lifecycle fold>rotation>fold>mode>switch>rotation");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "6|1920*1080|2|2|false|0|false");
+      expect(actual).assertEqual("6|1920*1080|2|2|false|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0232 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0233
+     * @tc.name      Resolution_LifecycleMatrix_0233
+     * @tc.desc      resolution lifecycle res>fold>fold keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0233', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0233 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.selectResolution(subject.resolutionIndex() + 1);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      logInfo("lifecycle res>fold>fold");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "3|1440*1080|1|1|false|0|false");
+      expect(actual).assertEqual("3|1440*1080|1|1|false|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0233 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0234
+     * @tc.name      Resolution_LifecycleMatrix_0234
+     * @tc.desc      resolution lifecycle config>fold>fold>mode keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0234', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0234 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.setConfigMode(2);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      logInfo("lifecycle config>fold>fold>mode");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "4|1920*1080|1|2|false|1.777778|false");
+      expect(actual).assertEqual("4|1920*1080|1|2|false|1.777778|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0234 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0235
+     * @tc.name      Resolution_LifecycleMatrix_0235
+     * @tc.desc      resolution lifecycle mode>fold>fold>mode>switch keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0235', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0235 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      logInfo("lifecycle mode>fold>fold>mode>switch");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "5|1920*1080|2|1|false|0|false");
+      expect(actual).assertEqual("5|1920*1080|2|1|false|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0235 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0236
+     * @tc.name      Resolution_LifecycleMatrix_0236
+     * @tc.desc      resolution lifecycle switch>fold>fold>mode>switch>rotation keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0236', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0236 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.switchCamera();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      subject.updateRotation(subject.rotationValue() + 90);
+      logInfo("lifecycle switch>fold>fold>mode>switch>rotation");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "6|1920*1080|1|2|false|0|false");
+      expect(actual).assertEqual("6|1920*1080|1|2|false|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0236 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0237
+     * @tc.name      Resolution_LifecycleMatrix_0237
+     * @tc.desc      resolution lifecycle reload>fold>fold keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0237', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0237 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.reloadXComponent();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      logInfo("lifecycle reload>fold>fold");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "3|1920*1080|1|1|false|0|true");
+      expect(actual).assertEqual("3|1920*1080|1|1|false|0|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0237 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0238
+     * @tc.name      Resolution_LifecycleMatrix_0238
+     * @tc.desc      resolution lifecycle record>fold>fold>mode keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0238', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0238 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.startRecording();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      logInfo("lifecycle record>fold>fold>mode");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "4|1920*1080|1|2|true|0|false");
+      expect(actual).assertEqual("4|1920*1080|1|2|true|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0238 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0239
+     * @tc.name      Resolution_LifecycleMatrix_0239
+     * @tc.desc      resolution lifecycle res>reload>fold>mode>switch keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Resolution_LifecycleMatrix_0239', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0239 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.selectResolution(subject.resolutionIndex() + 1);
+      subject.reloadXComponent();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      logInfo("lifecycle res>reload>fold>mode>switch");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "5|1440*1080|2|2|false|0|true");
+      expect(actual).assertEqual("5|1440*1080|2|2|false|0|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0239 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0240
+     * @tc.name      Resolution_LifecycleMatrix_0240
+     * @tc.desc      resolution lifecycle config>reload>fold>mode>switch>rotation keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0240', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0240 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.setConfigMode(2);
+      subject.reloadXComponent();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      subject.updateRotation(subject.rotationValue() + 90);
+      logInfo("lifecycle config>reload>fold>mode>switch>rotation");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "6|1920*1080|2|2|false|1.777778|true");
+      expect(actual).assertEqual("6|1920*1080|2|2|false|1.777778|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0240 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0241
+     * @tc.name      Resolution_LifecycleMatrix_0241
+     * @tc.desc      resolution lifecycle rotation>reload>fold keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0241', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0241 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.reloadXComponent();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      logInfo("lifecycle rotation>reload>fold");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "3|1920*1080|1|1|false|0|true");
+      expect(actual).assertEqual("3|1920*1080|1|1|false|0|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0241 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0242
+     * @tc.name      Resolution_LifecycleMatrix_0242
+     * @tc.desc      resolution lifecycle fold>reload>fold>mode keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0242', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0242 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.reloadXComponent();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      logInfo("lifecycle fold>reload>fold>mode");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "4|1920*1080|1|2|false|0|true");
+      expect(actual).assertEqual("4|1920*1080|1|2|false|0|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0242 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0243
+     * @tc.name      Resolution_LifecycleMatrix_0243
+     * @tc.desc      resolution lifecycle reload>reload>fold>mode>switch keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_LifecycleMatrix_0243', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0243 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.reloadXComponent();
+      subject.reloadXComponent();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      logInfo("lifecycle reload>reload>fold>mode>switch");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "5|1920*1080|2|2|false|0|false");
+      expect(actual).assertEqual("5|1920*1080|2|2|false|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0243 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0244
+     * @tc.name      Resolution_LifecycleMatrix_0244
+     * @tc.desc      resolution lifecycle record>reload>fold>mode>switch>rotation keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0244', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0244 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.startRecording();
+      subject.reloadXComponent();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      subject.updateRotation(subject.rotationValue() + 90);
+      logInfo("lifecycle record>reload>fold>mode>switch>rotation");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "6|1920*1080|2|2|true|0|true");
+      expect(actual).assertEqual("6|1920*1080|2|2|true|0|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0244 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0245
+     * @tc.name      Resolution_LifecycleMatrix_0245
+     * @tc.desc      resolution lifecycle mode>record>fold keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0245', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0245 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.startRecording();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      logInfo("lifecycle mode>record>fold");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "3|1920*1080|1|2|true|0|false");
+      expect(actual).assertEqual("3|1920*1080|1|2|true|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0245 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0246
+     * @tc.name      Resolution_LifecycleMatrix_0246
+     * @tc.desc      resolution lifecycle switch>record>fold>mode keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0246', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0246 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.switchCamera();
+      subject.startRecording();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      logInfo("lifecycle switch>record>fold>mode");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "4|1920*1080|2|2|true|0|false");
+      expect(actual).assertEqual("4|1920*1080|2|2|true|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0246 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0247
+     * @tc.name      Resolution_LifecycleMatrix_0247
+     * @tc.desc      resolution lifecycle rotation>record>fold>mode>switch keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0247', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0247 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.startRecording();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      logInfo("lifecycle rotation>record>fold>mode>switch");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "5|1920*1080|2|2|true|0|false");
+      expect(actual).assertEqual("5|1920*1080|2|2|true|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0247 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0248
+     * @tc.name      Resolution_LifecycleMatrix_0248
+     * @tc.desc      resolution lifecycle fold>record>fold>mode>switch>rotation keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0248', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0248 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.startRecording();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      subject.updateRotation(subject.rotationValue() + 90);
+      logInfo("lifecycle fold>record>fold>mode>switch>rotation");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "6|1920*1080|2|2|true|0|false");
+      expect(actual).assertEqual("6|1920*1080|2|2|true|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0248 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0249
+     * @tc.name      Resolution_LifecycleMatrix_0249
+     * @tc.desc      resolution lifecycle res>res>reload keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0249', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0249 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.selectResolution(subject.resolutionIndex() + 1);
+      subject.selectResolution(subject.resolutionIndex() + 1);
+      subject.reloadXComponent();
+      logInfo("lifecycle res>res>reload");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "3|1280*720|1|1|false|0|true");
+      expect(actual).assertEqual("3|1280*720|1|1|false|0|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0249 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0250
+     * @tc.name      Resolution_LifecycleMatrix_0250
+     * @tc.desc      resolution lifecycle config>res>reload>mode keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0250', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0250 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.setConfigMode(2);
+      subject.selectResolution(subject.resolutionIndex() + 1);
+      subject.reloadXComponent();
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      logInfo("lifecycle config>res>reload>mode");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "4|1440*1080|1|2|false|1.777778|true");
+      expect(actual).assertEqual("4|1440*1080|1|2|false|1.777778|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0250 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0251
+     * @tc.name      Resolution_LifecycleMatrix_0251
+     * @tc.desc      resolution lifecycle mode>res>reload>mode>switch keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0251', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0251 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.selectResolution(subject.resolutionIndex() + 1);
+      subject.reloadXComponent();
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      logInfo("lifecycle mode>res>reload>mode>switch");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "5|1440*1080|2|1|false|0|true");
+      expect(actual).assertEqual("5|1440*1080|2|1|false|0|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0251 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0252
+     * @tc.name      Resolution_LifecycleMatrix_0252
+     * @tc.desc      resolution lifecycle switch>res>reload>mode>switch>rotation keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0252', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0252 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.switchCamera();
+      subject.selectResolution(subject.resolutionIndex() + 1);
+      subject.reloadXComponent();
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      subject.updateRotation(subject.rotationValue() + 90);
+      logInfo("lifecycle switch>res>reload>mode>switch>rotation");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "6|1440*1080|1|2|false|0|true");
+      expect(actual).assertEqual("6|1440*1080|1|2|false|0|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0252 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0253
+     * @tc.name      Resolution_LifecycleMatrix_0253
+     * @tc.desc      resolution lifecycle reload>res>reload keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0253', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0253 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.reloadXComponent();
+      subject.selectResolution(subject.resolutionIndex() + 1);
+      subject.reloadXComponent();
+      logInfo("lifecycle reload>res>reload");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "3|1440*1080|1|1|false|0|false");
+      expect(actual).assertEqual("3|1440*1080|1|1|false|0|false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0253 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0254
+     * @tc.name      Resolution_LifecycleMatrix_0254
+     * @tc.desc      resolution lifecycle record>res>reload>mode keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_LifecycleMatrix_0254', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0254 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.startRecording();
+      subject.selectResolution(subject.resolutionIndex() + 1);
+      subject.reloadXComponent();
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      logInfo("lifecycle record>res>reload>mode");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "4|1440*1080|1|2|true|0|true");
+      expect(actual).assertEqual("4|1440*1080|1|2|true|0|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0254 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0255
+     * @tc.name      Resolution_LifecycleMatrix_0255
+     * @tc.desc      resolution lifecycle res>config>reload>mode>switch keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0255', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0255 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.selectResolution(subject.resolutionIndex() + 1);
+      subject.setConfigMode(2);
+      subject.reloadXComponent();
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      logInfo("lifecycle res>config>reload>mode>switch");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "5|1440*1080|2|2|false|1.777778|true");
+      expect(actual).assertEqual("5|1440*1080|2|2|false|1.777778|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0255 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0256
+     * @tc.name      Resolution_LifecycleMatrix_0256
+     * @tc.desc      resolution lifecycle config>config>reload>mode>switch>rotation keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Resolution_LifecycleMatrix_0256', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0256 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.setConfigMode(2);
+      subject.setConfigMode(2);
+      subject.reloadXComponent();
+      subject.switchMode(subject.scene() === 1 ? 2 : 1);
+      subject.switchCamera();
+      subject.updateRotation(subject.rotationValue() + 90);
+      logInfo("lifecycle config>config>reload>mode>switch>rotation");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "6|1920*1080|2|2|false|1.777778|true");
+      expect(actual).assertEqual("6|1920*1080|2|2|false|1.777778|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0256 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0257
+     * @tc.name      Resolution_LifecycleMatrix_0257
+     * @tc.desc      resolution lifecycle rotation>config>reload keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0257', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0257 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.updateRotation(subject.rotationValue() + 90);
+      subject.setConfigMode(2);
+      subject.reloadXComponent();
+      logInfo("lifecycle rotation>config>reload");
+      const actual: string = subject.eventCount() + '|' + subject.resolution() + '|' + subject.cameraPosition() + '|' + subject.scene() + '|' + subject.isRecording() + '|' + subject.ratio() + '|' + subject.reloadValue();
+      logInfo('actual=' + String(actual) + ', expected=' + "3|1920*1080|1|1|false|1.777778|true");
+      expect(actual).assertEqual("3|1920*1080|1|1|false|1.777778|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}LifecycleMatrix_0257 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_LIFECYCLE_MATRIX_0258
+     * @tc.name      Resolution_LifecycleMatrix_0258
+     * @tc.desc      resolution lifecycle fold>config>reload>mode keeps page state consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_LifecycleMatrix_0258', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}LifecycleMatrix_0258 begin`);
+      const subject: ResolutionPageModel = new ResolutionPageModel();
+      subject.applyFoldStatus((subject.fold() + 1) % 4, [1, 2]);
+      subject.setConfigMode(2);
