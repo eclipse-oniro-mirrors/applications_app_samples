@@ -22,7 +22,7 @@
 | 修复后最终验证 | 006 主包 / 007 ohosTest，同原 E:/sdk API 26 SDK，均成功；最终主机 677/677 通过、0 失败、27,837 次断言，67 个 entry/src 文件与构建快照及回归哈希一致，8 项受保护配置未变 |
 | 设备 FileIo / UI / 双设备 DFS | 本轮未执行；不据 host 或编译结果宣称通过 |
 
-主机 `host-regression.cjs` 每例启动独立子进程：注册后的用例主体及 beforeEach/afterEach 合计限时 2000ms，等待中的 watchdog 与同步执行后耗时检查均能判定超时；整个子进程（含 Node 冷启动、转译和注册）外层限时 10000ms。遇到首个失败即停止并返回非零，不重试失败用例、不把超时记为通过。FileIo、URI、设备 delegator 和授权 SDK 访问被禁止，真实 FileIo 套件在主机注册阶段排除。记录 API、转译、日志替身和断言替身不等同真实 SDK、设备、网络、权限或 Hypium 运行时；实际 TaskSignal 取消未验证。
+主机 `host-regression.cjs` 每例启动独立子进程：注册后的用例主体及 beforeEach/afterEach 合计限时 2000ms，等待中的 watchdog 与同步执行后耗时检查均能判定超时；整个子进程（含 Node 冷启动、转译和注册）外层限时 10000ms。遇到任一失败即停止并返回非零，不重试失败用例、不把超时记为通过。FileIo、URI、设备 delegator 和授权 SDK 访问被禁止，真实 FileIo 套件在主机注册阶段排除。记录 API、转译、日志替身和断言替身不等同真实 SDK、设备、网络、权限或 Hypium 运行时；实际 TaskSignal 取消未验证。
 
 ## 正式检视与修正
 
@@ -46,8 +46,8 @@
 
 | 构建 | 未签名产物 | 字节数 | SHA-256 |
 | --- | --- | --- | --- |
-| 006 default | [entry-default-unsigned.hap](entry/build/default/outputs/default/entry-default-unsigned.hap) | 215,351 | b772b23a2c844d3d4ad526e6760c2fef3259f9c0005b5fca5c625cba338e5347 |
-| 007 ohosTest | [entry-ohosTest-unsigned.hap](entry/build/default/outputs/ohosTest/entry-ohosTest-unsigned.hap) | 11,072,816 | e08fb97238f3b5a5830330a02a2297e254f0d8752663546b33da78829ff9e9c9 |
+| 006 default | [entry-default-unsigned.hap](entry/build/default/outputs/default/entry-default-unsigned.hap) | 215,351 | `b772b23a2c844d3d4ad526e6760c2fef3259f9c0005b5fca5c625cba338e5347` |
+| 007 ohosTest | [entry-ohosTest-unsigned.hap](entry/build/default/outputs/ohosTest/entry-ohosTest-unsigned.hap) | 11,072,816 | `e08fb97238f3b5a5830330a02a2297e254f0d8752663546b33da78829ff9e9c9` |
 
 两个构建均使用原 E:/sdk API 26 SDK，源码与最终回归清单逐文件哈希一致。原生产 DistributedCopy model、Hypium 引导及七个按钮的标识和顺序保持不变；源码清单哈希不包含本文档与主机脚本，后者的独立哈希保存在逐例目录中。产物未安装，设备执行结论仍为未验证。
 
@@ -61,7 +61,7 @@
 - [页面修正契约](.validation/page-review-contract.json)
 - [逐例目录与最终源码/产物绑定](.validation/case-catalog.json)
 - [构建审计](.validation/audit.json)
-- [首次启动超时记录](.validation/host-review-timeout-attempt.json)
+- [初始启动超时记录](.validation/host-review-timeout-attempt.json)
 - [串行复验启动超时记录](.validation/host-serial-timeout-attempt.json)
 
 这些是忽略目录中的本地验证证据，安全快照可能含本机配置，不应发布；历史 `_task26` 保留不覆盖。
