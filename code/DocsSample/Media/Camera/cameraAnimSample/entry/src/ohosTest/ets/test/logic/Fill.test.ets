@@ -384,3 +384,456 @@ export default function fillTest(): void {
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
+    it('Camera_Fill_0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0021 begin`);
+      logInfo("fill(40)");
+      const actual: string = fill(40);
+      logInfo('actual=' + String(actual) + ', expected=' + "40");
+      expect(actual).assertEqual("40");
+      logInfo(`${BUNDLE}Fill_0021 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0022
+     * @tc.name      Camera_Fill_0022
+     * @tc.desc      fill(45) returns "45" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Fill_0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0022 begin`);
+      logInfo("fill(45)");
+      const actual: string = fill(45);
+      logInfo('actual=' + String(actual) + ', expected=' + "45");
+      expect(actual).assertEqual("45");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}Fill_0022 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0023
+     * @tc.name      Camera_Fill_0023
+     * @tc.desc      fill(48) returns "48" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Camera_Fill_0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}Fill_0023 begin`);
+      logInfo("fill(48)");
+      const actual: string = fill(48);
+      logInfo('actual=' + String(actual) + ', expected=' + "48");
+      expect(actual).assertEqual("48");
+      logInfo(`${BUNDLE}Fill_0023 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0024
+     * @tc.name      Camera_Fill_0024
+     * @tc.desc      fill(50) returns "50" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Fill_0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0024 begin`);
+      logInfo("fill(50)");
+      const actual: string = fill(50);
+      logInfo('actual=' + String(actual) + ', expected=' + "50");
+      expect(actual).assertEqual("50");
+      logInfo(`${BUNDLE}Fill_0024 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0025
+     * @tc.name      Camera_Fill_0025
+     * @tc.desc      fill(60) returns "60" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Fill_0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0025 begin`);
+      logInfo("fill(60)");
+      const actual: string = fill(60);
+      logInfo('actual=' + String(actual) + ', expected=' + "60");
+      expect(actual).assertEqual("60");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}Fill_0025 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0026
+     * @tc.name      Camera_Fill_0026
+     * @tc.desc      fill(70) returns "70" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Fill_0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0026 begin`);
+      logInfo("fill(70)");
+      const actual: string = fill(70);
+      logInfo('actual=' + String(actual) + ', expected=' + "70");
+      expect(actual).assertEqual("70");
+      logInfo(`${BUNDLE}Fill_0026 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0027
+     * @tc.name      Camera_Fill_0027
+     * @tc.desc      fill(75) returns "75" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Fill_0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0027 begin`);
+      logInfo("fill(75)");
+      const actual: string = fill(75);
+      logInfo('actual=' + String(actual) + ', expected=' + "75");
+      expect(actual).assertEqual("75");
+      logInfo(`${BUNDLE}Fill_0027 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0028
+     * @tc.name      Camera_Fill_0028
+     * @tc.desc      fill(80) returns "80" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Fill_0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0028 begin`);
+      logInfo("fill(80)");
+      const actual: string = fill(80);
+      logInfo('actual=' + String(actual) + ', expected=' + "80");
+      expect(actual).assertEqual("80");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}Fill_0028 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0029
+     * @tc.name      Camera_Fill_0029
+     * @tc.desc      fill(85) returns "85" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Fill_0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0029 begin`);
+      logInfo("fill(85)");
+      const actual: string = fill(85);
+      logInfo('actual=' + String(actual) + ', expected=' + "85");
+      expect(actual).assertEqual("85");
+      logInfo(`${BUNDLE}Fill_0029 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0030
+     * @tc.name      Camera_Fill_0030
+     * @tc.desc      fill(90) returns "90" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Fill_0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0030 begin`);
+      logInfo("fill(90)");
+      const actual: string = fill(90);
+      logInfo('actual=' + String(actual) + ', expected=' + "90");
+      expect(actual).assertEqual("90");
+      logInfo(`${BUNDLE}Fill_0030 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0031
+     * @tc.name      Camera_Fill_0031
+     * @tc.desc      fill(99) returns "99" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Fill_0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0031 begin`);
+      logInfo("fill(99)");
+      const actual: string = fill(99);
+      logInfo('actual=' + String(actual) + ', expected=' + "99");
+      expect(actual).assertEqual("99");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}Fill_0031 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0032
+     * @tc.name      Camera_Fill_0032
+     * @tc.desc      fill(100) returns "100" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Fill_0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0032 begin`);
+      logInfo("fill(100)");
+      const actual: string = fill(100);
+      logInfo('actual=' + String(actual) + ', expected=' + "100");
+      expect(actual).assertEqual("100");
+      logInfo(`${BUNDLE}Fill_0032 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0033
+     * @tc.name      Camera_Fill_0033
+     * @tc.desc      fill(105) returns "105" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Fill_0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0033 begin`);
+      logInfo("fill(105)");
+      const actual: string = fill(105);
+      logInfo('actual=' + String(actual) + ', expected=' + "105");
+      expect(actual).assertEqual("105");
+      logInfo(`${BUNDLE}Fill_0033 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0034
+     * @tc.name      Camera_Fill_0034
+     * @tc.desc      fill(108) returns "108" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Camera_Fill_0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}Fill_0034 begin`);
+      logInfo("fill(108)");
+      const actual: string = fill(108);
+      logInfo('actual=' + String(actual) + ', expected=' + "108");
+      expect(actual).assertEqual("108");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}Fill_0034 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0035
+     * @tc.name      Camera_Fill_0035
+     * @tc.desc      fill(120) returns "120" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Camera_Fill_0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}Fill_0035 begin`);
+      logInfo("fill(120)");
+      const actual: string = fill(120);
+      logInfo('actual=' + String(actual) + ', expected=' + "120");
+      expect(actual).assertEqual("120");
+      logInfo(`${BUNDLE}Fill_0035 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0036
+     * @tc.name      Camera_Fill_0036
+     * @tc.desc      fill(150) returns "150" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Fill_0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0036 begin`);
+      logInfo("fill(150)");
+      const actual: string = fill(150);
+      logInfo('actual=' + String(actual) + ', expected=' + "150");
+      expect(actual).assertEqual("150");
+      logInfo(`${BUNDLE}Fill_0036 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0037
+     * @tc.name      Camera_Fill_0037
+     * @tc.desc      fill(180) returns "180" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Fill_0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0037 begin`);
+      logInfo("fill(180)");
+      const actual: string = fill(180);
+      logInfo('actual=' + String(actual) + ', expected=' + "180");
+      expect(actual).assertEqual("180");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}Fill_0037 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0038
+     * @tc.name      Camera_Fill_0038
+     * @tc.desc      fill(200) returns "200" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Fill_0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0038 begin`);
+      logInfo("fill(200)");
+      const actual: string = fill(200);
+      logInfo('actual=' + String(actual) + ', expected=' + "200");
+      expect(actual).assertEqual("200");
+      logInfo(`${BUNDLE}Fill_0038 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0039
+     * @tc.name      Camera_Fill_0039
+     * @tc.desc      fill(255) returns "255" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Fill_0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0039 begin`);
+      logInfo("fill(255)");
+      const actual: string = fill(255);
+      logInfo('actual=' + String(actual) + ', expected=' + "255");
+      expect(actual).assertEqual("255");
+      logInfo(`${BUNDLE}Fill_0039 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0040
+     * @tc.name      Camera_Fill_0040
+     * @tc.desc      fill(270) returns "270" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Fill_0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0040 begin`);
+      logInfo("fill(270)");
+      const actual: string = fill(270);
+      logInfo('actual=' + String(actual) + ', expected=' + "270");
+      expect(actual).assertEqual("270");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}Fill_0040 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0041
+     * @tc.name      Camera_Fill_0041
+     * @tc.desc      fill(300) returns "300" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Fill_0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0041 begin`);
+      logInfo("fill(300)");
+      const actual: string = fill(300);
+      logInfo('actual=' + String(actual) + ', expected=' + "300");
+      expect(actual).assertEqual("300");
+      logInfo(`${BUNDLE}Fill_0041 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0042
+     * @tc.name      Camera_Fill_0042
+     * @tc.desc      fill(360) returns "360" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Fill_0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0042 begin`);
+      logInfo("fill(360)");
+      const actual: string = fill(360);
+      logInfo('actual=' + String(actual) + ', expected=' + "360");
+      expect(actual).assertEqual("360");
+      logInfo(`${BUNDLE}Fill_0042 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0043
+     * @tc.name      Camera_Fill_0043
+     * @tc.desc      fill(480) returns "480" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Fill_0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0043 begin`);
+      logInfo("fill(480)");
+      const actual: string = fill(480);
+      logInfo('actual=' + String(actual) + ', expected=' + "480");
+      expect(actual).assertEqual("480");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}Fill_0043 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0044
+     * @tc.name      Camera_Fill_0044
+     * @tc.desc      fill(512) returns "512" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Fill_0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0044 begin`);
+      logInfo("fill(512)");
+      const actual: string = fill(512);
+      logInfo('actual=' + String(actual) + ', expected=' + "512");
+      expect(actual).assertEqual("512");
+      logInfo(`${BUNDLE}Fill_0044 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0045
+     * @tc.name      Camera_Fill_0045
+     * @tc.desc      fill(540) returns "540" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Camera_Fill_0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}Fill_0045 begin`);
+      logInfo("fill(540)");
+      const actual: string = fill(540);
+      logInfo('actual=' + String(actual) + ', expected=' + "540");
+      expect(actual).assertEqual("540");
+      logInfo(`${BUNDLE}Fill_0045 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FILL_0046
+     * @tc.name      Camera_Fill_0046
+     * @tc.desc      fill(600) returns "600" for two-digit padding.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Fill_0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Fill_0046 begin`);
+      logInfo("fill(600)");
+      const actual: string = fill(600);
+      logInfo('actual=' + String(actual) + ', expected=' + "600");
+      expect(actual).assertEqual("600");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}Fill_0046 end`);
+    });
+  });
+}
