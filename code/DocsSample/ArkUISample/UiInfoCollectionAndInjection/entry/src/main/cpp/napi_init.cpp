@@ -102,6 +102,25 @@ bool ReadBool(napi_env env, napi_value options, const char* name, bool& value)
     return true;
 }
 
+// 遮挡判定不透明度阈值：C接口要求为[0.0, 1.0]的浮点数，这里在桥接层先校验。
+bool ReadThreshold(napi_env env, napi_value options, const char* name, double& value)
+{
+    napi_value item = nullptr;
+    napi_valuetype type = napi_undefined;
+    if (napi_get_named_property(env, options, name, &item) != napi_ok ||
+        napi_typeof(env, item, &type) != napi_ok || type != napi_number ||
+        napi_get_value_double(env, item, &value) != napi_ok) {
+        napi_throw_type_error(env, nullptr, "Expected a numeric collection option");
+        return false;
+    }
+    // NaN不满足下面的任一比较，同样会被拒绝。
+    if (!(value >= 0.0 && value <= 1.0)) {
+        napi_throw_range_error(env, nullptr, "Occlusion opacity threshold must be in [0.0, 1.0]");
+        return false;
+    }
+    return true;
+}
+
 bool ReadNodeId(napi_env env, napi_value value, int32_t& nodeId)
 {
     napi_valuetype type = napi_undefined;
@@ -209,13 +228,42 @@ void RejectSubmission(uintptr_t token, ArkUI_ErrorCode code)
 }
 
 // [Start ui_tree_create_request]
+// 遮挡过滤及其判定阈值只支持可见树请求：对全量树调用会返回
+// ARKUI_ERROR_CODE_ATTRIBUTE_OR_EVENT_NOT_SUPPORTED，因此两项配置都放在可见树分支内。
+bool ApplyOcclusion(napi_env env, OH_ArkUI_NativeModule_UIAgentTreeRequest* request,
+    bool visible, bool occluded, double threshold)
+{
+    if (!visible) {
+        if (occluded) {
+            napi_throw_error(env, nullptr, "Occlusion filtering requires a visible-tree request");
+            return false;
+        }
+        return true;
+    }
+    // 阈值在遮挡过滤关闭时不参与判定，但仍随请求一起下发。
+    auto code = OH_ArkUI_NativeModule_UIAgentTreeRequestSetFilterOccludedNodes(request, occluded);
+    if (code == ARKUI_ERROR_CODE_NO_ERROR) {
+        code = OH_ArkUI_NativeModule_UIAgentTreeRequestSetOcclusionOpacityThreshold(request,
+            static_cast<float>(threshold));
+    }
+    if (code != ARKUI_ERROR_CODE_NO_ERROR) {
+        Throw(env, "tree occlusion option", code);
+        return false;
+    }
+    return true;
+}
+
 Request CreateRequest(napi_env env, napi_value options)
 {
     Request request(nullptr, OH_ArkUI_NativeModule_UIAgentTreeRequestDestroy);
     bool visible = false;
+    bool occluded = false;
+    double threshold = 1.0;
     std::array<bool, TREE_OPTION_COUNT> flags {};
     const char* names[] = {"filterLayout", "interaction", "accessibility", "visual", "functional"};
-    if (!ReadBool(env, options, "visibleOnly", visible)) {
+    if (!ReadBool(env, options, "visibleOnly", visible) ||
+        !ReadBool(env, options, "filterOccluded", occluded) ||
+        !ReadThreshold(env, options, "occlusionThreshold", threshold)) {
         return request;
     }
     for (size_t index = 0; index < flags.size(); ++index) {
@@ -244,8 +292,11 @@ Request CreateRequest(napi_env env, napi_value options)
         if (code != ARKUI_ERROR_CODE_NO_ERROR) {
             Throw(env, "tree option", code);
             request.reset();
-            break;
+            return request;
         }
+    }
+    if (!ApplyOcclusion(env, request.get(), visible, occluded, threshold)) {
+        request.reset();
     }
     return request;
 }
