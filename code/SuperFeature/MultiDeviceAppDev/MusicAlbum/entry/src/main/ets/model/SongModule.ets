@@ -13,11 +13,11 @@
  * limitations under the License.
  */
 
-type SongItem = {
-  id: number,
-  title: string,
-  singer: string,
-  label: Resource
+export declare interface SongItem {
+  id: number;
+  title: string;
+  singer: string;
+  label: Resource;
 }
 
 export default class MyDataSource implements IDataSource {
