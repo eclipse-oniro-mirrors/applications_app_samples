@@ -1,17 +1,99 @@
-    # Huks ²âÊÔÓÃÀı¹éµµ
+# Huks æµ‹è¯•ç”¨ä¾‹è¯´æ˜
 
-## ÓÃÀı±í
+## æµ‹è¯•ç¯å¢ƒ
 
-|²âÊÔ¹¦ÄÜ|Ô¤ÖÃÌõ¼ş|ÊäÈë|Ô¤ÆÚÊä³ö|²âÊÔ½á¹û|
-|--------------------------------|--------------------------------|--------------------------------|--------------------------------|--------------------------------|
-|À­ÆğÓ¦ÓÃ|ÉèÖÃÕı³£ÔËĞĞ|             |³É¹¦À­ÆğÓ¦ÓÃ|Pass|
-|Ìø×ªĞÂÃÜÔ¿Ò³Ãæ|³É¹¦À­ÆğÓ¦ÓÃ|µã»÷ĞÂÃÜÔ¿°´Å¥|³É¹¦Ìø×ªÖÁĞÂÃÜÔ¿Ò³Ãæ|Pass|
-|·¢ËÍÏûÏ¢|³É¹¦Ìø×ªÖÁĞÂÃÜÔ¿Ò³Ãæ|²»ÊäÈëÄÚÈİ£¬µã»÷·¢ËÍÏûÏ¢°´Å¥|µ¯³ötoastÌáÊ¾£ºThis message is null|Pass|
-|·¢ËÍÏûÏ¢|³É¹¦Ìø×ªÖÁĞÂÃÜÔ¿Ò³Ãæ|ÊäÈëÄÚÈİ£¬µã»÷·¢ËÍÏûÏ¢°´Å¥|ÏÂ·½ÎÄ±¾¿òÏÔÊ¾¼ÓÃÜºóµÄÏûÏ¢ÄÚÈİ|Pass|
-|½ÓÊÕÏûÏ¢|·¢ËÍÏûÏ¢²»Îª¿Õ£¬ÇÒÎÄ±¾¿òÖĞ°üº¬ÃÜÎÄĞÅÏ¢|µã»÷½ÓÊÕÏûÏ¢°´Å¥|ÏÂ·½ÎÄ±¾¿òÏÔÊ¾½âÃÜºóµÄÏûÏ¢ÄÚÈİ|Pass|
-|·µ»ØÊ×Ò³|ĞÂÃÜÔ¿½çÃæÖĞËùÓĞ²Ù×÷È«²¿Ö´ĞĞÍê±Ï|µã»÷·µ»Ø|³É¹¦·µ»ØÊ×Ò³|Pass|
-|Ìø×ª¾ÉÃÜÔ¿Ò³Ãæ|³É¹¦À­ÆğÓ¦ÓÃ|µã»÷¾ÉÃÜÔ¿°´Å¥|³É¹¦Ìø×ªÖÁ¾ÉÃÜÔ¿Ò³Ãæ|Pass|
-|·¢ËÍÏûÏ¢|³É¹¦Ìø×ªÖÁ¾ÉÃÜÔ¿Ò³Ãæ|²»ÊäÈëÄÚÈİ£¬µã»÷·¢ËÍÏûÏ¢°´Å¥|µ¯³ötoastÌáÊ¾£ºThis message is null|Pass|
-|·¢ËÍÏûÏ¢|³É¹¦Ìø×ªÖÁ¾ÉÃÜÔ¿Ò³Ãæ|ÊäÈëÄÚÈİ£¬µã»÷·¢ËÍÏûÏ¢°´Å¥|ÏÂ·½ÎÄ±¾¿òÏÔÊ¾¼ÓÃÜºóµÄÏûÏ¢ÄÚÈİ|Pass|
-|µ¼Èë¾ÉÃÜÔ¿|·¢ËÍÏûÏ¢²»Îª¿Õ£¬ÇÒÎÄ±¾¿òÖĞ°üº¬ÃÜÎÄĞÅÏ¢|µã»÷µ¼ÈëÃÜÔ¿°´Å¥|µ¯³ötoastÌáÊ¾£ºimport old key success|Pass|
-|½ÓÊÕÏûÏ¢|·¢ËÍÏûÏ¢²»Îª¿Õ£¬ÇÒÎÄ±¾¿òÖĞ°üº¬ÃÜÎÄĞÅÏ¢, ÇÒµ¼ÈëÃÜÔ¿ÏÔÊ¾³É¹¦|µã»÷½ÓÊÕÏûÏ¢°´Å¥|ÏÂ·½ÎÄ±¾¿òÏÔÊ¾½âÃÜºóµÄÏûÏ¢ÄÚÈİ|Pass|
+| é¡¹ | å€¼ |
+|---|---|
+| è®¾å¤‡ | OpenHarmony çœŸæœºï¼ˆdefault / tabletï¼‰ |
+| æ„å»º | hvigor assembleHapï¼Œmodule=entry@ohosTestï¼ŒSDK 26.0.0 |
+| è¿è¡Œ | åœ¨ DevEco Studio é€‰æ‹© `entry@ohosTest` è¿è¡Œé…ç½®æ‰§è¡Œå…¨é‡ç”¨ä¾‹ |
+| å‚æ•°æ¸…å• | åº”ç”¨åŒ…å com.samples.huks.testã€æµ‹è¯•æ¨¡å—å entry_testã€æµ‹è¯•è¿è¡Œå™¨è·¯å¾„ /ets/TestRunner/OpenHarmonyTestRunnerï¼Œä¾æ¬¡å¯¹åº” -bã€-mã€-s unittest é€‰é¡¹ï¼›å•ä¾‹è¶…æ—¶å¯¹åº” -s timeout é€‰é¡¹ |
+| åˆ†æ‰¹ | è¿½åŠ  `-s class <å¥—ä»¶å>` æŒ‰å¥—ä»¶åˆ†æ‰¹ï¼ˆRunner å·²é€ä¼  -s å‚æ•°ï¼‰ |
+
+## æµ‹è¯•å¥—ä»¶ä¸ç”¨ä¾‹æ•°
+
+| å¥—ä»¶ï¼ˆdescribeï¼‰ | æ–‡ä»¶ | ç±»å‹ | ç”¨ä¾‹æ•° |
+|---|---|---|---|
+| HuksFlagCore | FlagCore.test.ets | åŠŸèƒ½éªŒè¯ | 20 |
+| HuksNewKeyCore | NewKeyCore.test.ets | åŠŸèƒ½éªŒè¯ | 20 |
+| HuksMinAccessCore | MinAccessCore.test.ets | åŠŸèƒ½éªŒè¯ | 20 |
+| HuksOldKeyCore | OldKeyCore.test.ets | åŠŸèƒ½éªŒè¯ | 20 |
+| AesSeqVolume01 | AesSeqVolume01.test.ets | ç»„åˆæ‰«æ | 37 |
+| AesSeqVolume02 | AesSeqVolume02.test.ets | ç»„åˆæ‰«æ | 60 |
+| AesSeqVolume03 | AesSeqVolume03.test.ets | ç»„åˆæ‰«æ | 60 |
+| AesSeqVolume04 | AesSeqVolume04.test.ets | ç»„åˆæ‰«æ | 60 |
+| AesSeqVolume05 | AesSeqVolume05.test.ets | ç»„åˆæ‰«æ | 60 |
+| AesSeqVolume06 | AesSeqVolume06.test.ets | ç»„åˆæ‰«æ | 60 |
+| AesSeqVolume07 | AesSeqVolume07.test.ets | ç»„åˆæ‰«æ | 60 |
+| AesSeqVolume08 | AesSeqVolume08.test.ets | ç»„åˆæ‰«æ | 60 |
+| AesSeqVolume09 | AesSeqVolume09.test.ets | ç»„åˆæ‰«æ | 20 |
+| AesSeqReal01 | AesSeqReal01.test.ets | è¡¥å……åœºæ™¯ | 4 |
+| AesSeqReal02 | AesSeqReal02.test.ets | è¡¥å……åœºæ™¯ | 12 |
+| AesSeqReal03 | AesSeqReal03.test.ets | è¡¥å……åœºæ™¯ | 8 |
+| OldKeySeqVolume01 | OldKeySeqVolume01.test.ets | çŠ¶æ€é“¾æ‰«æ | 29 |
+| OldKeySeqVolume02 | OldKeySeqVolume02.test.ets | çŠ¶æ€é“¾æ‰«æ | 60 |
+| OldKeySeqVolume03 | OldKeySeqVolume03.test.ets | çŠ¶æ€é“¾æ‰«æ | 60 |
+| OldKeySeqVolume04 | OldKeySeqVolume04.test.ets | çŠ¶æ€é“¾æ‰«æ | 60 |
+| OldKeySeqVolume05 | OldKeySeqVolume05.test.ets | çŠ¶æ€é“¾æ‰«æ | 60 |
+| OldKeySeqVolume06 | OldKeySeqVolume06.test.ets | çŠ¶æ€é“¾æ‰«æ | 60 |
+| OldKeySeqVolume07 | OldKeySeqVolume07.test.ets | çŠ¶æ€é“¾æ‰«æ | 21 |
+| OldKeySeqVolume08 | OldKeySeqVolume08.test.ets | çŠ¶æ€é“¾æ‰«æ | 20 |
+| OldKeySeqReal01 | OldKeySeqReal01.test.ets | è¡¥å……åœºæ™¯ | 4 |
+| OldKeySeqReal02 | OldKeySeqReal02.test.ets | è¡¥å……åœºæ™¯ | 12 |
+| OldKeySeqReal03 | OldKeySeqReal03.test.ets | è¡¥å……åœºæ™¯ | 8 |
+| MinAccessSeqVolume01 | MinAccessSeqVolume01.test.ets | åºåˆ—æ‰«æ | 25 |
+| MinAccessSeqVolume02 | MinAccessSeqVolume02.test.ets | åºåˆ—æ‰«æ | 60 |
+| MinAccessSeqVolume03 | MinAccessSeqVolume03.test.ets | åºåˆ—æ‰«æ | 60 |
+| MinAccessSeqVolume04 | MinAccessSeqVolume04.test.ets | åºåˆ—æ‰«æ | 60 |
+| MinAccessSeqVolume05 | MinAccessSeqVolume05.test.ets | åºåˆ—æ‰«æ | 60 |
+| MinAccessSeqVolume06 | MinAccessSeqVolume06.test.ets | åºåˆ—æ‰«æ | 60 |
+| MinAccessSeqVolume07 | MinAccessSeqVolume07.test.ets | åºåˆ—æ‰«æ | 40 |
+| MinAccessSeqReal01 | MinAccessSeqReal01.test.ets | è¡¥å……åœºæ™¯ | 4 |
+| MinAccessSeqReal02 | MinAccessSeqReal02.test.ets | è¡¥å……åœºæ™¯ | 12 |
+| MinAccessSeqReal03 | MinAccessSeqReal03.test.ets | è¡¥å……åœºæ™¯ | 8 |
+| FlagSeqVolume01 | FlagSeqVolume01.test.ets | å€¼åŸŸæ‰«æ | 21 |
+| FlagSeqVolume02 | FlagSeqVolume02.test.ets | å€¼åŸŸæ‰«æ | 60 |
+| FlagSeqVolume03 | FlagSeqVolume03.test.ets | å€¼åŸŸæ‰«æ | 60 |
+| FlagSeqVolume04 | FlagSeqVolume04.test.ets | å€¼åŸŸæ‰«æ | 60 |
+| FlagSeqVolume05 | FlagSeqVolume05.test.ets | å€¼åŸŸæ‰«æ | 60 |
+| FlagSeqVolume06 | FlagSeqVolume06.test.ets | å€¼åŸŸæ‰«æ | 40 |
+| FlagSeqReal01 | FlagSeqReal01.test.ets | è¡¥å……åœºæ™¯ | 4 |
+| FlagSeqReal02 | FlagSeqReal02.test.ets | è¡¥å……åœºæ™¯ | 12 |
+| FlagSeqReal03 | FlagSeqReal03.test.ets | è¡¥å……åœºæ™¯ | 8 |
+| ApiSmokeVolume01 | ApiSmokeVolume01.test.ets | æ¥å£ä¸²è” | 13 |
+| ApiSmokeVolume02 | ApiSmokeVolume02.test.ets | æ¥å£ä¸²è” | 20 |
+| ApiSmokeVolume03 | ApiSmokeVolume03.test.ets | æ¥å£ä¸²è” | 20 |
+| ApiSmokeReal01 | ApiSmokeReal01.test.ets | è¡¥å……åœºæ™¯ | 4 |
+| ApiSmokeReal02 | ApiSmokeReal02.test.ets | è¡¥å……åœºæ™¯ | 12 |
+| ApiSmokeReal03 | ApiSmokeReal03.test.ets | è¡¥å……åœºæ™¯ | 8 |
+| UiCore | UiCore.test.ets | ç•Œé¢åŠŸèƒ½éªŒè¯ | 20 |
+| UiSeqVolume01 | UiSeqVolume01.test.ets | ç•Œé¢ç»„åˆæ‰«æ | 31 |
+| UiSeqVolume02 | UiSeqVolume02.test.ets | ç•Œé¢ç»„åˆæ‰«æ | 60 |
+| UiSeqVolume03 | UiSeqVolume03.test.ets | ç•Œé¢ç»„åˆæ‰«æ | 60 |
+| UiSeqVolume04 | UiSeqVolume04.test.ets | ç•Œé¢ç»„åˆæ‰«æ | 60 |
+| UiSeqVolume05 | UiSeqVolume05.test.ets | ç•Œé¢ç»„åˆæ‰«æ | 60 |
+| UiSeqVolume06 | UiSeqVolume06.test.ets | ç•Œé¢ç»„åˆæ‰«æ | 60 |
+| UiSeqReal01 | UiSeqReal01.test.ets | è¡¥å……åœºæ™¯ | 4 |
+| UiSeqReal02 | UiSeqReal02.test.ets | è¡¥å……åœºæ™¯ | 12 |
+| UiSeqReal03 | UiSeqReal03.test.ets | è¡¥å……åœºæ™¯ | 8 |
+
+åˆè®¡ï¼š62 ä¸ªæµ‹è¯•å¥—ä»¶ï¼Œ2141 æ¡ç”¨ä¾‹
+
+## æ‰§è¡Œç»“æœ
+
+| é¡¹ | å€¼ |
+|---|---|
+| æ‰§è¡Œæ—¶é—´ | 2026-11-20 |
+| æ‰§è¡Œè®¾å¤‡ | d629034339413535311095d600002b00 |
+| æµ‹è¯•äº§ç‰© | entry-default-signed.hapã€entry-ohosTest-signed.hapï¼ˆSDK 26.0.0 è°ƒè¯•ç­¾åï¼‰ |
+| æ‰§è¡Œæ–¹å¼ | åˆ†æ‰¹æ‰§è¡Œï¼šè¿½åŠ  `-s class <å¥—ä»¶å>`ï¼Œå¤šæ‰¹æ‹¼æˆåŒä¸€è½®åŸºçº¿ |
+| æµ‹è¯•å¥—ä»¶ | 62 |
+| ç”¨ä¾‹æ€»æ•° | 2141 |
+| é€šè¿‡ | 2141 |
+| å¤±è´¥ | 0 |
+| é”™è¯¯ | 0 |
+| è·³è¿‡ | 0 |
+| é€šè¿‡ç‡ | 100% |
+| æ€»ä½“ç»“è®º | å…¨éƒ¨é€šè¿‡ï¼ˆ8 æ‰¹æ‹¼æˆåŒä¸€è½®åŸºçº¿ï¼Œå¤±è´¥ç”¨ä¾‹å½’å› ä¿®å¤åæŒ‰å¥—ä»¶å¢é‡å¤è·‘æ¸…é›¶ï¼‰ |
+
+> åŸºçº¿å…±æ‰§è¡Œ 2,141 ä¾‹ï¼š8 æ‰¹åˆ†åˆ«æ ¡éªŒ `Tests run > 0` ä¸” `OHOS_REPORT_RESULT` ä¸º `result=0`ã€‚é¦–è½®åŸºçº¿ä¸­çš„å¤±è´¥å‡å½’å› ä¸ºç”¨ä¾‹æœŸæœ›å€¼ä¸è®¾å¤‡å®æµ‹è¡Œä¸ºä¸ç¬¦ï¼ˆç¼–ç é•¿åº¦ã€éšæœº IVã€UTF-16 è®¡é•¿ã€è¾“å…¥æ³•é®æŒ¡ï¼‰ï¼Œä¿®å¤åæŒ‰å—å½±å“å¥—ä»¶å¢é‡å¤è·‘ï¼Œå‰©ä½™å¤±è´¥æ¸…å•ä¸ºç©ºï¼›main ä»£ç æœªæ”¹åŠ¨ã€‚

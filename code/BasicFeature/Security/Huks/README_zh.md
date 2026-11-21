@@ -18,13 +18,13 @@
 |-----------------------------------|--------------------|------------------------------------|----------------------------------------------|
 | ![](screenshots/device/index.png) | ![](screenshots/device/newKey.png) | ![](screenshots/device/oldKey.png) | ![](screenshots/device/minAccessControl.png) |
 
-使用说明
+### 使用说明
 
 1.点击主页面的**新密钥**按钮，在新密钥界面的输入框中输入待发送的消息内容，点击**发送消息**
 按钮，下方文本框中显示加密后的消息内容，然后点击**接收消息**按钮，下方文本框中显示解密后的消息内容。
 
 2.点击主页面的**旧密钥**按钮，在旧密钥界面的输入框中输入待发送的消息内容，点击**发送消息**
-按钮，下方文本框中显示加密后的消息内容，首先点击**导入密钥**按钮，弹窗提示导入密钥成功，然后点击**接收消息**按钮，下方文本框中显示解密后的消息内容。
+按钮，下方文本框中显示加密后的消息内容，再点击**导入密钥**按钮，弹窗提示导入密钥成功，然后点击**接收消息**按钮，下方文本框中显示解密后的消息内容。
 
 3.点击主页面的**低安访问控制**按钮，在新密钥界面的输入框中输入待保存的密码内容，点击**保存密码**
 按钮，下方文本框中显示加密后的密码内容，录入锁屏密码， 然后点击**读取密码**按钮，在输入PIN码（锁屏密码，需要预先录入）之后，下方文本框中显示解密后的消息内容。
@@ -57,7 +57,7 @@ entry/src/main/ets/
     * 使用新密钥解密：在[NewKey.ets](entry/src/main/ets/common/NewKey.ets)文件中通过HuksModel.decryptData方式调用解密函数实现对发送消息的解密，设置好解密密钥的密钥属性信息，使用加密时的密钥对消息进行解密，仍然是采用三段式接口完成解密操作，解密动作完成后调用删除密钥接口
       [huks.deleteKeyItem](https://docs.openharmony.cn/pages/v4.0/en/application-dev/reference/apis/js-apis-huks.md#huksdeletekeyitem9)清除本地保存的密钥。
     * 使用旧密钥加密：在[OldKey.ets](entry/src/main/ets/common/OldKey.ets)文件中通过HuksModel.encryptDataUserOldKey方式调用加密函数对发送的消息内容进行加密，设置好加密密钥的密钥属性信息，采用三段式接口使用本地已保存的旧密钥完成加密操作。
-    * 使用旧密钥解密：在[OldKey.ets](entry/src/main/ets/common/OldKey.ets)文件中通过HuksModel.decryptDataUserOldKey方式调用解密函数对发送的消息内容进行解密，首先模拟在新设备上导入旧设备的加密密钥，同样采用三段式接口完成解密操作，解密完成后删除密钥。
+    * 使用旧密钥解密：在[OldKey.ets](entry/src/main/ets/common/OldKey.ets)文件中通过HuksModel.decryptDataUserOldKey方式调用解密函数对发送的消息内容进行解密，模拟在新设备上导入旧设备的加密密钥，同样采用三段式接口完成解密操作，解密完成后删除密钥。
     * 使用低安访问控制管理密码：在[MinAccessControl.ets](entry/src/main/ets/common/MinAccessControl.ets)文件中通过 huksModel.encryptDataUseSm2 方式生成SM2密钥并调用加密函数对发送的消息内容进行加密，设置好加密密钥的密钥属性信息，采用两段式接口使用本地已保存的旧密钥完成加密操作。读取密码时（需先设定系统锁屏密码）调用IAM的PIN码（锁屏密码）接口进行验证。
 
 
@@ -73,11 +73,19 @@ ohos.permission.ACCESS_BIOMETRIC
 
 1.本示例仅支持标准系统上运行。
 
-2.本示例支持API10版本SDK，SDK版本号(API Version 10 Release),镜像版本号(4.0Release)。
+2.本示例支持 API 26.0.0 版本 SDK。
 
-3.本示例需要使用DevEco Studio 版本号(4.0Release)及以上版本才可编译运行。
+3.本示例需要使用 DevEco Studio 26 及以上版本才可编译运行。
 
 4.本示例在无设备证书的设备中运行时，需预先在本机命令行中"hdc shell setenforce 0"命令，才可保证示例功能正常执行。
+
+### 测试
+
+本工程提供 ohosTest 自动化测试，覆盖加密/解密接口、密钥导入与页面交互，共 62 个测试套件、2141 条用例，套件与用例清单见 [ohosTest.md](ohosTest.md)。
+
+测试环境：标准系统设备（API 26.0.0），DevEco Studio 26。
+
+运行方式：在 DevEco Studio 中使用 `entry@ohosTest` 运行配置执行；也可按参数清单分批执行（包名 `com.samples.huks`、模块名 `entry_test`、运行器路径 `/ets/TestRunner/OpenHarmonyTestRunner`、用例超时），追加 `-s class <套件名>` 指定测试套件。
 
 ### 下载
 
@@ -87,7 +95,7 @@ ohos.permission.ACCESS_BIOMETRIC
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/Security/Huks/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 
 ```
