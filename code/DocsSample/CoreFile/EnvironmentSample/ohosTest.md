@@ -28,7 +28,7 @@
 | 源快照与返回别名 | 0000–1151 | 1152 | 四位置文件/目录分类、每个可达 stat/copy 边界、六种源结构变化及两种 sandbox 所有权；导入顺序固定，返回数组双向隔离；两条代表用例额外验证合法调用后同路径非法列表仍必须重新验证且不得进入 stat |
 | stat/copy 失败前缀 | 1152–1361 | 210 | 逐位置注入同一错误对象，仅保留已完成复制，后续 stat/copy 和 sandbox list 不执行 |
 | 最终 sandbox list 失败 | 1362–1473 | 112 | 全部复制后最终列表抛错，传播原错误，已完成复制不回滚 |
-| 初始 list 失败 | 1474 | 1 | 首次列表抛错，不进入 stat/copy 或最终列表 |
+| 初始 list 失败 | 1474 | 1 | 初始列表抛错，不进入 stat/copy 或最终列表 |
 | 整单非法名称 | 1475–1564 | 90 | 空、dot、dotdot、slash、backslash、NUL 位于早晚位置；整单预验证无副作用，修复输入后重试成功 |
 | 目录参数保护 | 1565–1567 | 3 | 空源、空目标、源目标相同均在文件 API 调用前失败 |
 | 合法名称与空列表 | 1568–1600 | 33 | dot 子串、隐藏名、空白、Unicode、换行/tab、大小写和组合字符不过度拒绝 |
@@ -51,8 +51,8 @@ module=entry@ohosTest  product=default buildMode=debug assembleHap --no-daemon
 
 | 目标 | 结果 | 未签名 HAP 字节数 | SHA-256 |
 |------|------|-------------------|---------|
-| default | PASS | 225,755 | 60e52d09e00bec9ca6679047da5c9116350f30bac3272b7529b5b3105e77d8a6 |
-| ohosTest | PASS | 7,964,025 | 8b528943f0a8e53abf8322e5951353c2c2b61e9056556152be79afc397d61f31 |
+| default | PASS | 225,755 | `60e52d09e00bec9ca6679047da5c9116350f30bac3272b7529b5b3105e77d8a6` |
+| ohosTest | PASS | 7,964,025 | `8b528943f0a8e53abf8322e5951353c2c2b61e9056556152be79afc397d61f31` |
 
 证据为 `_task70/environment-build-review-cache-closed.json`、`environment-default-review-cache-closed.log` 和 `environment-ohosTest-review-cache-closed.log`。未添加签名配置、证书、依赖或权限。
 
