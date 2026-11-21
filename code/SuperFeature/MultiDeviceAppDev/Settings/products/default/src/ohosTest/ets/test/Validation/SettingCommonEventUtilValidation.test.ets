@@ -1987,3 +1987,1998 @@ export default function settingCommonEventUtilValidationSuite() {
       expect(m.getEntry('nohit931') === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0932
+     * @tc.name    SettingCommonEventUtilValidation932
+     * @tc.desc    Settings navbar width for 1252 probe 932
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation932', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1252;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit932') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0933
+     * @tc.name    SettingCommonEventUtilValidation933
+     * @tc.desc    Settings split mode at 933 probe 933
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation933', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 933;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit933') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0934
+     * @tc.name    SettingCommonEventUtilValidation934
+     * @tc.desc    Settings navbar width for 1254 probe 934
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation934', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1254;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit934') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0935
+     * @tc.name    SettingCommonEventUtilValidation935
+     * @tc.desc    Settings split mode at 935 probe 935
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation935', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 935;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit935') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0936
+     * @tc.name    SettingCommonEventUtilValidation936
+     * @tc.desc    Settings navbar width for 1256 probe 936
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation936', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1256;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit936') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0937
+     * @tc.name    SettingCommonEventUtilValidation937
+     * @tc.desc    Settings split mode at 937 probe 937
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation937', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 937;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit937') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0938
+     * @tc.name    SettingCommonEventUtilValidation938
+     * @tc.desc    Settings navbar width for 1258 probe 938
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation938', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1258;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit938') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0939
+     * @tc.name    SettingCommonEventUtilValidation939
+     * @tc.desc    Settings split mode at 939 probe 939
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation939', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 939;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit939') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0940
+     * @tc.name    SettingCommonEventUtilValidation940
+     * @tc.desc    Settings navbar width for 1260 probe 940
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation940', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1260;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit940') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0941
+     * @tc.name    SettingCommonEventUtilValidation941
+     * @tc.desc    Settings split mode at 941 probe 941
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation941', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 941;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit941') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0942
+     * @tc.name    SettingCommonEventUtilValidation942
+     * @tc.desc    Settings navbar width for 1262 probe 942
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation942', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1262;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit942') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0943
+     * @tc.name    SettingCommonEventUtilValidation943
+     * @tc.desc    Settings split mode at 943 probe 943
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation943', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 943;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit943') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0944
+     * @tc.name    SettingCommonEventUtilValidation944
+     * @tc.desc    Settings navbar width for 1264 probe 944
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation944', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1264;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit944') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0945
+     * @tc.name    SettingCommonEventUtilValidation945
+     * @tc.desc    Settings split mode at 945 probe 945
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation945', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 945;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit945') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0946
+     * @tc.name    SettingCommonEventUtilValidation946
+     * @tc.desc    Settings navbar width for 1266 probe 946
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation946', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1266;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit946') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0947
+     * @tc.name    SettingCommonEventUtilValidation947
+     * @tc.desc    Settings split mode at 947 probe 947
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation947', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 947;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit947') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0948
+     * @tc.name    SettingCommonEventUtilValidation948
+     * @tc.desc    Settings navbar width for 1268 probe 948
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation948', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1268;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit948') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0949
+     * @tc.name    SettingCommonEventUtilValidation949
+     * @tc.desc    Settings split mode at 949 probe 949
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation949', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 949;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit949') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0950
+     * @tc.name    SettingCommonEventUtilValidation950
+     * @tc.desc    Settings navbar width for 1270 probe 950
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation950', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1270;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit950') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0951
+     * @tc.name    SettingCommonEventUtilValidation951
+     * @tc.desc    Settings split mode at 951 probe 951
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation951', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 951;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit951') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0952
+     * @tc.name    SettingCommonEventUtilValidation952
+     * @tc.desc    Settings navbar width for 1272 probe 952
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation952', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1272;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit952') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0953
+     * @tc.name    SettingCommonEventUtilValidation953
+     * @tc.desc    Settings split mode at 953 probe 953
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation953', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 953;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit953') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0954
+     * @tc.name    SettingCommonEventUtilValidation954
+     * @tc.desc    Settings navbar width for 1274 probe 954
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation954', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1274;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit954') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0955
+     * @tc.name    SettingCommonEventUtilValidation955
+     * @tc.desc    Settings split mode at 955 probe 955
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation955', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 955;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit955') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0956
+     * @tc.name    SettingCommonEventUtilValidation956
+     * @tc.desc    Settings navbar width for 1276 probe 956
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation956', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1276;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit956') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0957
+     * @tc.name    SettingCommonEventUtilValidation957
+     * @tc.desc    Settings split mode at 957 probe 957
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation957', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 957;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit957') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0958
+     * @tc.name    SettingCommonEventUtilValidation958
+     * @tc.desc    Settings navbar width for 1278 probe 958
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation958', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1278;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit958') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0959
+     * @tc.name    SettingCommonEventUtilValidation959
+     * @tc.desc    Settings split mode at 959 probe 959
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation959', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 959;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit959') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0960
+     * @tc.name    SettingCommonEventUtilValidation960
+     * @tc.desc    Settings navbar width for 1280 probe 960
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation960', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1280;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit960') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0961
+     * @tc.name    SettingCommonEventUtilValidation961
+     * @tc.desc    Settings split mode at 961 probe 961
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation961', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 961;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit961') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0962
+     * @tc.name    SettingCommonEventUtilValidation962
+     * @tc.desc    Settings navbar width for 1282 probe 962
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation962', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1282;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit962') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0963
+     * @tc.name    SettingCommonEventUtilValidation963
+     * @tc.desc    Settings split mode at 963 probe 963
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation963', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 963;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit963') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0964
+     * @tc.name    SettingCommonEventUtilValidation964
+     * @tc.desc    Settings navbar width for 1284 probe 964
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation964', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1284;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit964') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0965
+     * @tc.name    SettingCommonEventUtilValidation965
+     * @tc.desc    Settings split mode at 965 probe 965
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation965', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 965;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit965') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0966
+     * @tc.name    SettingCommonEventUtilValidation966
+     * @tc.desc    Settings navbar width for 1286 probe 966
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation966', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1286;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit966') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0967
+     * @tc.name    SettingCommonEventUtilValidation967
+     * @tc.desc    Settings split mode at 967 probe 967
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation967', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 967;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit967') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0968
+     * @tc.name    SettingCommonEventUtilValidation968
+     * @tc.desc    Settings navbar width for 1288 probe 968
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation968', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1288;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit968') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0969
+     * @tc.name    SettingCommonEventUtilValidation969
+     * @tc.desc    Settings split mode at 969 probe 969
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation969', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 969;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit969') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0970
+     * @tc.name    SettingCommonEventUtilValidation970
+     * @tc.desc    Settings navbar width for 1290 probe 970
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation970', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1290;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit970') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0971
+     * @tc.name    SettingCommonEventUtilValidation971
+     * @tc.desc    Settings split mode at 971 probe 971
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation971', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 971;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit971') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0972
+     * @tc.name    SettingCommonEventUtilValidation972
+     * @tc.desc    Settings navbar width for 1292 probe 972
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation972', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1292;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit972') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0973
+     * @tc.name    SettingCommonEventUtilValidation973
+     * @tc.desc    Settings split mode at 973 probe 973
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation973', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 973;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit973') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0974
+     * @tc.name    SettingCommonEventUtilValidation974
+     * @tc.desc    Settings navbar width for 1294 probe 974
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation974', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1294;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit974') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0975
+     * @tc.name    SettingCommonEventUtilValidation975
+     * @tc.desc    Settings split mode at 975 probe 975
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation975', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 975;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit975') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0976
+     * @tc.name    SettingCommonEventUtilValidation976
+     * @tc.desc    Settings navbar width for 1296 probe 976
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation976', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1296;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit976') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0977
+     * @tc.name    SettingCommonEventUtilValidation977
+     * @tc.desc    Settings split mode at 977 probe 977
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation977', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 977;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit977') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0978
+     * @tc.name    SettingCommonEventUtilValidation978
+     * @tc.desc    Settings navbar width for 1298 probe 978
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation978', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1298;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit978') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0979
+     * @tc.name    SettingCommonEventUtilValidation979
+     * @tc.desc    Settings split mode at 979 probe 979
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation979', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 979;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit979') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0980
+     * @tc.name    SettingCommonEventUtilValidation980
+     * @tc.desc    Settings navbar width for 1300 probe 980
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation980', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1300;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit980') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0981
+     * @tc.name    SettingCommonEventUtilValidation981
+     * @tc.desc    Settings split mode at 981 probe 981
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation981', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 981;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit981') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0982
+     * @tc.name    SettingCommonEventUtilValidation982
+     * @tc.desc    Settings navbar width for 1302 probe 982
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation982', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1302;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit982') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0983
+     * @tc.name    SettingCommonEventUtilValidation983
+     * @tc.desc    Settings split mode at 983 probe 983
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation983', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 983;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit983') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0984
+     * @tc.name    SettingCommonEventUtilValidation984
+     * @tc.desc    Settings navbar width for 1304 probe 984
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation984', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1304;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit984') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0985
+     * @tc.name    SettingCommonEventUtilValidation985
+     * @tc.desc    Settings split mode at 985 probe 985
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation985', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 985;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit985') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0986
+     * @tc.name    SettingCommonEventUtilValidation986
+     * @tc.desc    Settings navbar width for 1306 probe 986
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation986', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1306;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit986') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0987
+     * @tc.name    SettingCommonEventUtilValidation987
+     * @tc.desc    Settings split mode at 987 probe 987
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation987', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 987;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit987') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0988
+     * @tc.name    SettingCommonEventUtilValidation988
+     * @tc.desc    Settings navbar width for 1308 probe 988
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation988', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1308;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit988') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0989
+     * @tc.name    SettingCommonEventUtilValidation989
+     * @tc.desc    Settings split mode at 989 probe 989
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation989', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 989;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit989') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0990
+     * @tc.name    SettingCommonEventUtilValidation990
+     * @tc.desc    Settings navbar width for 1310 probe 990
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation990', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1310;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit990') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0991
+     * @tc.name    SettingCommonEventUtilValidation991
+     * @tc.desc    Settings split mode at 991 probe 991
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation991', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 991;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit991') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0992
+     * @tc.name    SettingCommonEventUtilValidation992
+     * @tc.desc    Settings navbar width for 1312 probe 992
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation992', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1312;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit992') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0993
+     * @tc.name    SettingCommonEventUtilValidation993
+     * @tc.desc    Settings split mode at 993 probe 993
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation993', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 993;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit993') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0994
+     * @tc.name    SettingCommonEventUtilValidation994
+     * @tc.desc    Settings navbar width for 1314 probe 994
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation994', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1314;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit994') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0995
+     * @tc.name    SettingCommonEventUtilValidation995
+     * @tc.desc    Settings split mode at 995 probe 995
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation995', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 995;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit995') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0996
+     * @tc.name    SettingCommonEventUtilValidation996
+     * @tc.desc    Settings navbar width for 1316 probe 996
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation996', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1316;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit996') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0997
+     * @tc.name    SettingCommonEventUtilValidation997
+     * @tc.desc    Settings split mode at 997 probe 997
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation997', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 997;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit997') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0998
+     * @tc.name    SettingCommonEventUtilValidation998
+     * @tc.desc    Settings navbar width for 1318 probe 998
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation998', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1318;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit998') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0999
+     * @tc.name    SettingCommonEventUtilValidation999
+     * @tc.desc    Settings split mode at 999 probe 999
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation999', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 999;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit999') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1000
+     * @tc.name    SettingCommonEventUtilValidation1000
+     * @tc.desc    Settings navbar width for 1320 probe 1000
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1000', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1320;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1000') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1001
+     * @tc.name    SettingCommonEventUtilValidation1001
+     * @tc.desc    Settings split mode at 1 probe 1001
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1001', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1001') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1002
+     * @tc.name    SettingCommonEventUtilValidation1002
+     * @tc.desc    Settings navbar width for 1322 probe 1002
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1002', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1322;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1002') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1003
+     * @tc.name    SettingCommonEventUtilValidation1003
+     * @tc.desc    Settings split mode at 3 probe 1003
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1003', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 3;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1003') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1004
+     * @tc.name    SettingCommonEventUtilValidation1004
+     * @tc.desc    Settings navbar width for 1324 probe 1004
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1004', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1324;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1004') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1005
+     * @tc.name    SettingCommonEventUtilValidation1005
+     * @tc.desc    Settings split mode at 5 probe 1005
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1005', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 5;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1005') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1006
+     * @tc.name    SettingCommonEventUtilValidation1006
+     * @tc.desc    Settings navbar width for 1326 probe 1006
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1006', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1326;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1006') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1007
+     * @tc.name    SettingCommonEventUtilValidation1007
+     * @tc.desc    Settings split mode at 7 probe 1007
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1007', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 7;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1007') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1008
+     * @tc.name    SettingCommonEventUtilValidation1008
+     * @tc.desc    Settings navbar width for 1328 probe 1008
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1008', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1328;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1008') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1009
+     * @tc.name    SettingCommonEventUtilValidation1009
+     * @tc.desc    Settings split mode at 9 probe 1009
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1009', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 9;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1009') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1010
+     * @tc.name    SettingCommonEventUtilValidation1010
+     * @tc.desc    Settings navbar width for 1330 probe 1010
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1010', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1330;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1010') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1011
+     * @tc.name    SettingCommonEventUtilValidation1011
+     * @tc.desc    Settings split mode at 11 probe 1011
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1011', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 11;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1011') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1012
+     * @tc.name    SettingCommonEventUtilValidation1012
+     * @tc.desc    Settings navbar width for 1332 probe 1012
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1012', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1332;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1012') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1013
+     * @tc.name    SettingCommonEventUtilValidation1013
+     * @tc.desc    Settings split mode at 13 probe 1013
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1013', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 13;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1013') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1014
+     * @tc.name    SettingCommonEventUtilValidation1014
+     * @tc.desc    Settings navbar width for 1334 probe 1014
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1014', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1334;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1014') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1015
+     * @tc.name    SettingCommonEventUtilValidation1015
+     * @tc.desc    Settings split mode at 15 probe 1015
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1015', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 15;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1015') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1016
+     * @tc.name    SettingCommonEventUtilValidation1016
+     * @tc.desc    Settings navbar width for 1336 probe 1016
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1016', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1336;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1016') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1017
+     * @tc.name    SettingCommonEventUtilValidation1017
+     * @tc.desc    Settings split mode at 17 probe 1017
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1017', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 17;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1017') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1018
+     * @tc.name    SettingCommonEventUtilValidation1018
+     * @tc.desc    Settings navbar width for 1338 probe 1018
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1018', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1338;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1018') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1019
+     * @tc.name    SettingCommonEventUtilValidation1019
+     * @tc.desc    Settings split mode at 19 probe 1019
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1019', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 19;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1019') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1020
+     * @tc.name    SettingCommonEventUtilValidation1020
+     * @tc.desc    Settings navbar width for 1340 probe 1020
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1020', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1340;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1020') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1021
+     * @tc.name    SettingCommonEventUtilValidation1021
+     * @tc.desc    Settings split mode at 21 probe 1021
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1021', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 21;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1021') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1022
+     * @tc.name    SettingCommonEventUtilValidation1022
+     * @tc.desc    Settings navbar width for 1342 probe 1022
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1022', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1342;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1022') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1023
+     * @tc.name    SettingCommonEventUtilValidation1023
+     * @tc.desc    Settings split mode at 23 probe 1023
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1023', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 23;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1023') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1024
+     * @tc.name    SettingCommonEventUtilValidation1024
+     * @tc.desc    Settings navbar width for 1344 probe 1024
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1024', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1344;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1024') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1025
+     * @tc.name    SettingCommonEventUtilValidation1025
+     * @tc.desc    Settings split mode at 25 probe 1025
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1025', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 25;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1025') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1026
+     * @tc.name    SettingCommonEventUtilValidation1026
+     * @tc.desc    Settings navbar width for 1346 probe 1026
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1026', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1346;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1026') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1027
+     * @tc.name    SettingCommonEventUtilValidation1027
+     * @tc.desc    Settings split mode at 27 probe 1027
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1027', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 27;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1027') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1028
+     * @tc.name    SettingCommonEventUtilValidation1028
+     * @tc.desc    Settings navbar width for 1348 probe 1028
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1028', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1348;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1028') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1029
+     * @tc.name    SettingCommonEventUtilValidation1029
+     * @tc.desc    Settings split mode at 29 probe 1029
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1029', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 29;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1029') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1030
+     * @tc.name    SettingCommonEventUtilValidation1030
+     * @tc.desc    Settings navbar width for 1350 probe 1030
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1030', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1350;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1030') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1031
+     * @tc.name    SettingCommonEventUtilValidation1031
+     * @tc.desc    Settings split mode at 31 probe 1031
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1031', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 31;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1031') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1032
+     * @tc.name    SettingCommonEventUtilValidation1032
+     * @tc.desc    Settings navbar width for 1352 probe 1032
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1032', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1352;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1032') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1033
+     * @tc.name    SettingCommonEventUtilValidation1033
+     * @tc.desc    Settings split mode at 33 probe 1033
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1033', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 33;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1033') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1034
+     * @tc.name    SettingCommonEventUtilValidation1034
+     * @tc.desc    Settings navbar width for 1354 probe 1034
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1034', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1354;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1034') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1035
+     * @tc.name    SettingCommonEventUtilValidation1035
+     * @tc.desc    Settings split mode at 35 probe 1035
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1035', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 35;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1035') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1036
+     * @tc.name    SettingCommonEventUtilValidation1036
+     * @tc.desc    Settings navbar width for 1356 probe 1036
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1036', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1356;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1036') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1037
+     * @tc.name    SettingCommonEventUtilValidation1037
+     * @tc.desc    Settings split mode at 37 probe 1037
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1037', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 37;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1037') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1038
+     * @tc.name    SettingCommonEventUtilValidation1038
+     * @tc.desc    Settings navbar width for 1358 probe 1038
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1038', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1358;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1038') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1039
+     * @tc.name    SettingCommonEventUtilValidation1039
+     * @tc.desc    Settings split mode at 39 probe 1039
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1039', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 39;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1039') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1040
+     * @tc.name    SettingCommonEventUtilValidation1040
+     * @tc.desc    Settings navbar width for 1360 probe 1040
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1040', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1360;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1040') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1041
+     * @tc.name    SettingCommonEventUtilValidation1041
+     * @tc.desc    Settings split mode at 41 probe 1041
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1041', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 41;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1041') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1042
+     * @tc.name    SettingCommonEventUtilValidation1042
+     * @tc.desc    Settings navbar width for 1362 probe 1042
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1042', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1362;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1042') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1043
+     * @tc.name    SettingCommonEventUtilValidation1043
+     * @tc.desc    Settings split mode at 43 probe 1043
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1043', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 43;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1043') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1044
+     * @tc.name    SettingCommonEventUtilValidation1044
+     * @tc.desc    Settings navbar width for 1364 probe 1044
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1044', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 1364;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(m.getEntry('nohit1044') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_1045
+     * @tc.name    SettingCommonEventUtilValidation1045
+     * @tc.desc    Settings split mode at 45 probe 1045
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingCommonEventUtilValidation1045', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 45;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getEntry('nohit1045') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
