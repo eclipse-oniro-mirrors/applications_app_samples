@@ -972,7 +972,7 @@ export default function contactModelBasicsTest(): void {
     });
 
     /**
-     * @tc.name   deleteIntentCarriesTheSelectedContact
+     * @tc.name   deleteRequestCarriesTheSelectedContact
      * @tc.desc   The detail page builds a delete route with the full selected contact payload.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactModelBasics scenario from suite constants and factory helpers.
@@ -983,7 +983,7 @@ export default function contactModelBasicsTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('deleteIntentCarriesTheSelectedContact', 0, () => {
+    it('deleteRequestCarriesTheSelectedContact', 0, () => {
       const selected: Contact = contactOf('选中', '13700000031', 'selected@example.com',
         '山西省忻州市忻府区', 'selected.jpg', 'C');
       const params: RouterParams = new RouterParams(ACTION_DELETE, selected);

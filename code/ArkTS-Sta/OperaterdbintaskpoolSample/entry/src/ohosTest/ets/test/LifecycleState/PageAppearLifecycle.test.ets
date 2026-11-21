@@ -35,7 +35,7 @@ import { Contact } from '../../../../main/ets/pages/model/Contact';
 import { ContactManager } from '../../../../main/ets/pages/model/ContactManager';
 import {
   StoreDouble,
-  RouteIntent,
+  RouteRequest,
   ACTION_ADD,
   ACTION_EDIT,
   ACTION_DELETE,
@@ -94,7 +94,7 @@ class AppearPage {
   }
 
   /** aboutToAppear body without the router lookup and the setTimeout wrapper. */
-  public appear(intent: RouteIntent): void {
+  public appear(request: RouteRequest): void {
     this.appearCount = this.appearCount + 1;
     if (!this.flag.value) {
       const seed: Contact[] = createSeedContacts();
@@ -104,35 +104,35 @@ class AppearPage {
       this.seedRuns = this.seedRuns + 1;
     }
     this.dataArray = this.manager.getContacts();
-    this.lastAction = intent.action;
-    if (intent.action.length > 0 && RouteIntent.isKnownAction(intent.action)) {
-      this.dispatch(intent);
+    this.lastAction = request.action;
+    if (request.action.length > 0 && RouteRequest.isKnownAction(request.action)) {
+      this.dispatch(request);
       this.dataArray = this.manager.getContacts();
       this.dispatchCount = this.dispatchCount + 1;
     }
   }
 
   /** Routes one resolved router param to the matching taskpool wrapper. */
-  public dispatch(intent: RouteIntent): void {
-    const contact: Contact = cloneContact(intent.contact);
-    if (intent.action === ACTION_ADD) {
+  public dispatch(request: RouteRequest): void {
+    const contact: Contact = cloneContact(request.contact);
+    if (request.action === ACTION_ADD) {
       this.store.insert(this.contextValid, contact, CONFLICT_REPLACE);
       this.manager.addContact(contact);
       return;
     }
-    if (intent.action === ACTION_EDIT) {
+    if (request.action === ACTION_EDIT) {
       this.store.updateContact(contact);
       this.manager.updateContact(contact);
       return;
     }
-    if (intent.action === ACTION_DELETE) {
+    if (request.action === ACTION_DELETE) {
       this.store.deleteByName(contact.name);
       this.manager.deleteContact(contact);
     }
   }
 
-  public noIntent(): RouteIntent {
-    return new RouteIntent('', new Contact());
+  public noRequest(): RouteRequest {
+    return new RouteRequest('', new Contact());
   }
 
   public names(): string[] {
@@ -192,7 +192,7 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.level  LEVEL1
      */
     it('firstAppearSeedsManagerWithFifteenRows', 0, () => {
-      page.appear(page.noIntent());
+      page.appear(page.noRequest());
       logStep('seed-manager', 'count=' + String(page.cachedCount()));
       expect(page.cachedCount()).assertEqual(15);
       expect(page.dataArray.length).assertEqual(15);
@@ -214,7 +214,7 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.level  LEVEL1
      */
     it('firstAppearBatchInsertsSeedOnce', 0, () => {
-      page.appear(page.noIntent());
+      page.appear(page.noRequest());
       logStep('seed-store', 'rows=' + String(page.storedCount()));
       expect(page.storedCount()).assertEqual(15);
       expect(page.seedInserted).assertEqual(15);
@@ -237,7 +237,7 @@ export default function pageAppearLifecycleTest(): void {
      */
     it('firstAppearSetsStaticFlag', 0, () => {
       const before: boolean = flag.value;
-      page.appear(page.noIntent());
+      page.appear(page.noRequest());
       logStep('seed-flag', String(before) + '->' + String(flag.value));
       expect(before).assertFalse();
       expect(flag.value).assertTrue();
@@ -259,9 +259,9 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.level  LEVEL1
      */
     it('secondAppearSkipsSeedWork', 0, () => {
-      page.appear(page.noIntent());
+      page.appear(page.noRequest());
       const rowsAfterFirst: number = page.storedCount();
-      page.appear(page.noIntent());
+      page.appear(page.noRequest());
       logStep('second-appear', String(rowsAfterFirst) + '->' + String(page.storedCount()));
       expect(page.appearCount).assertEqual(2);
       expect(page.seedRuns).assertEqual(1);
@@ -284,10 +284,10 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.level  LEVEL2
      */
     it('appearCountIncrementsEveryCall', 0, () => {
-      page.appear(page.noIntent());
-      page.appear(page.noIntent());
-      page.appear(page.noIntent());
-      page.appear(page.noIntent());
+      page.appear(page.noRequest());
+      page.appear(page.noRequest());
+      page.appear(page.noRequest());
+      page.appear(page.noRequest());
       logStep('appear-count', String(page.appearCount) + '/' + String(page.seedRuns));
       expect(page.appearCount).assertEqual(4);
       expect(page.seedRuns).assertEqual(1);
@@ -309,9 +309,9 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.level  LEVEL2
      */
     it('threeAppearsKeepSeedRunsAtOne', 0, () => {
-      page.appear(page.noIntent());
-      page.appear(page.noIntent());
-      page.appear(page.noIntent());
+      page.appear(page.noRequest());
+      page.appear(page.noRequest());
+      page.appear(page.noRequest());
       const names: string[] = page.names();
       logStep('no-duplicates', String(names.length) + ' unique=' + String(countOf(names, '艾德里安')));
       expect(names.length).assertEqual(15);
@@ -335,10 +335,10 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.level  LEVEL2
      */
     it('secondAppearReloadsDataArrayFromManager', 0, () => {
-      page.appear(page.noIntent());
+      page.appear(page.noRequest());
       page.manager.addContact(contactOf('林岸', '13800138000', 'lin@example.com', '上海市徐汇区', '', 'A'));
       page.dataArray = [];
-      page.appear(page.noIntent());
+      page.appear(page.noRequest());
       logStep('reload', String(page.dataArray.length));
       expect(page.dataArray.length).assertEqual(16);
       expect(page.dataArray[15].name).assertEqual('林岸');
@@ -348,7 +348,7 @@ export default function pageAppearLifecycleTest(): void {
     });
 
     /**
-     * @tc.name   addIntentAppendsManagerRow
+     * @tc.name   addRequestAppendsManagerRow
      * @tc.desc   The resolved 新增联系人 router param appends one row to the cached manager list.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the PageAppearLifecycle scenario from suite constants and factory helpers.
@@ -359,9 +359,9 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL1
      */
-    it('addIntentAppendsManagerRow', 0, () => {
+    it('addRequestAppendsManagerRow', 0, () => {
       const added: Contact = contactOf('林岸', '13800138000', 'lin@example.com', '上海市徐汇区', '', 'A');
-      page.appear(new RouteIntent(ACTION_ADD, added));
+      page.appear(new RouteRequest(ACTION_ADD, added));
       logStep('add-manager', 'count=' + String(page.cachedCount()));
       expect(page.cachedCount()).assertEqual(16);
       expect(page.dataArray[15].name).assertEqual('林岸');
@@ -372,7 +372,7 @@ export default function pageAppearLifecycleTest(): void {
     });
 
     /**
-     * @tc.name   addIntentInsertsStoreRow
+     * @tc.name   addRequestInsertsStoreRow
      * @tc.desc   A new contact is also inserted into the store, bringing its row count to sixteen.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the PageAppearLifecycle scenario from suite constants and factory helpers.
@@ -383,9 +383,9 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL1
      */
-    it('addIntentInsertsStoreRow', 0, () => {
+    it('addRequestInsertsStoreRow', 0, () => {
       const added: Contact = contactOf('林岸', '13800138000', 'lin@example.com', '上海市徐汇区', '', 'B');
-      page.appear(new RouteIntent(ACTION_ADD, added));
+      page.appear(new RouteRequest(ACTION_ADD, added));
       const stored: Contact = store.rows[15];
       logStep('add-store', stored.name + '/' + stored.category);
       expect(page.storedCount()).assertEqual(16);
@@ -397,7 +397,7 @@ export default function pageAppearLifecycleTest(): void {
     });
 
     /**
-     * @tc.name   addIntentUpdatesDataArrayTail
+     * @tc.name   addRequestUpdatesDataArrayTail
      * @tc.desc   The page state array is republished after the insert, so the tail is the new row.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the PageAppearLifecycle scenario from suite constants and factory helpers.
@@ -408,11 +408,11 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('addIntentUpdatesDataArrayTail', 0, () => {
+    it('addRequestUpdatesDataArrayTail', 0, () => {
       const added: Contact = contactOf('闻笛', '13911112222', 'wendi@example.com', '浙江省杭州市西湖区', '', 'C');
-      page.appear(page.noIntent());
+      page.appear(page.noRequest());
       expect(page.dataArray.length).assertEqual(15);
-      page.appear(new RouteIntent(ACTION_ADD, added));
+      page.appear(new RouteRequest(ACTION_ADD, added));
       logStep('add-tail', page.dataArray[page.dataArray.length - 1].name);
       expect(page.dataArray.length).assertEqual(16);
       expect(page.dataArray[15].name).assertEqual('闻笛');
@@ -422,7 +422,7 @@ export default function pageAppearLifecycleTest(): void {
     });
 
     /**
-     * @tc.name   editIntentReplacesCachedRowOnly
+     * @tc.name   editRequestReplacesCachedRowOnly
      * @tc.desc   Editing rewrites the first cached name match and leaves the other fourteen rows alone.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the PageAppearLifecycle scenario from suite constants and factory helpers.
@@ -433,9 +433,9 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL1
      */
-    it('editIntentReplacesCachedRowOnly', 0, () => {
+    it('editRequestReplacesCachedRowOnly', 0, () => {
       const edited: Contact = contactOf('贝拉', '13300003333', 'bella.new@example.com', '湖北省武汉市江汉区', '', 'B');
-      page.appear(new RouteIntent(ACTION_EDIT, edited));
+      page.appear(new RouteRequest(ACTION_EDIT, edited));
       const cached: Contact[] = page.manager.getContacts();
       logStep('edit-manager', cached[2].phone);
       expect(cached.length).assertEqual(15);
@@ -447,7 +447,7 @@ export default function pageAppearLifecycleTest(): void {
     });
 
     /**
-     * @tc.name   editIntentUpdatesStorePhone
+     * @tc.name   editRequestUpdatesStorePhone
      * @tc.desc   The store statement rewrites phone, email and address for the edited name.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the PageAppearLifecycle scenario from suite constants and factory helpers.
@@ -458,9 +458,9 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL1
      */
-    it('editIntentUpdatesStorePhone', 0, () => {
+    it('editRequestUpdatesStorePhone', 0, () => {
       const edited: Contact = contactOf('本', '14400004444', 'ben.new@example.com', '四川省成都市武侯区', '', 'B');
-      page.appear(new RouteIntent(ACTION_EDIT, edited));
+      page.appear(new RouteRequest(ACTION_EDIT, edited));
       const stored: Contact = store.rows[3];
       logStep('edit-store', stored.phone + '/' + stored.address);
       expect(stored.phone).assertEqual('14400004444');
@@ -471,7 +471,7 @@ export default function pageAppearLifecycleTest(): void {
     });
 
     /**
-     * @tc.name   editIntentKeepsRowCount
+     * @tc.name   editRequestKeepsRowCount
      * @tc.desc   An edit is never an insert or a delete, so both counts remain fifteen.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the PageAppearLifecycle scenario from suite constants and factory helpers.
@@ -482,9 +482,9 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('editIntentKeepsRowCount', 0, () => {
+    it('editRequestKeepsRowCount', 0, () => {
       const edited: Contact = contactOf('卡梅隆', '17700005555', 'cameron.new@example.com', '陕西省西安市雁塔区', '', 'C');
-      page.appear(new RouteIntent(ACTION_EDIT, edited));
+      page.appear(new RouteRequest(ACTION_EDIT, edited));
       logStep('edit-counts', String(page.cachedCount()) + '/' + String(page.storedCount()));
       expect(page.cachedCount()).assertEqual(15);
       expect(page.storedCount()).assertEqual(15);
@@ -495,7 +495,7 @@ export default function pageAppearLifecycleTest(): void {
     });
 
     /**
-     * @tc.name   deleteIntentRemovesCachedRow
+     * @tc.name   deleteRequestRemovesCachedRow
      * @tc.desc   A 删除联系人 param filters the cached row out, leaving fourteen contacts.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the PageAppearLifecycle scenario from suite constants and factory helpers.
@@ -506,9 +506,9 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL1
      */
-    it('deleteIntentRemovesCachedRow', 0, () => {
+    it('deleteRequestRemovesCachedRow', 0, () => {
       const removed: Contact = contactOf('阿诺德', '16666666666', 'arnold@example.com', '上海市浦东新区', '', 'A');
-      page.appear(new RouteIntent(ACTION_DELETE, removed));
+      page.appear(new RouteRequest(ACTION_DELETE, removed));
       const names: string[] = page.names();
       logStep('delete-manager', String(names.length));
       expect(names.length).assertEqual(14);
@@ -520,7 +520,7 @@ export default function pageAppearLifecycleTest(): void {
     });
 
     /**
-     * @tc.name   deleteIntentRemovesStoreRows
+     * @tc.name   deleteRequestRemovesStoreRows
      * @tc.desc   The SQL delete removes every store row whose name matches the routed contact.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the PageAppearLifecycle scenario from suite constants and factory helpers.
@@ -531,9 +531,9 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL1
      */
-    it('deleteIntentRemovesStoreRows', 0, () => {
+    it('deleteRequestRemovesStoreRows', 0, () => {
       const removed: Contact = contactOf('法里', '11111111111', 'katrina@example.com', '吉林省长春市朝阳区', '', 'F');
-      page.appear(new RouteIntent(ACTION_DELETE, removed));
+      page.appear(new RouteRequest(ACTION_DELETE, removed));
       const names: string[] = store.names();
       logStep('delete-store', String(names.length) + ' last=' + names[names.length - 1]);
       expect(names.length).assertEqual(14);
@@ -544,7 +544,7 @@ export default function pageAppearLifecycleTest(): void {
     });
 
     /**
-     * @tc.name   missingIntentLeavesCountsUnchanged
+     * @tc.name   missingRequestLeavesCountsUnchanged
      * @tc.desc   When router params carry no action, the seed still runs but no dispatch occurs.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the PageAppearLifecycle scenario from suite constants and factory helpers.
@@ -555,10 +555,10 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('missingIntentLeavesCountsUnchanged', 0, () => {
-      page.appear(page.noIntent());
-      page.appear(page.noIntent());
-      logStep('no-intent', String(page.dispatchCount));
+    it('missingRequestLeavesCountsUnchanged', 0, () => {
+      page.appear(page.noRequest());
+      page.appear(page.noRequest());
+      logStep('no-request', String(page.dispatchCount));
       expect(page.dispatchCount).assertEqual(0);
       expect(page.cachedCount()).assertEqual(15);
       expect(page.storedCount()).assertEqual(15);
@@ -580,10 +580,10 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.level  LEVEL2
      */
     it('unknownActionLeavesState', 0, () => {
-      const unknown: RouteIntent = new RouteIntent('查看联系人', contactOf('林岸', '13800138000', 'l@example.com', '某地'));
+      const unknown: RouteRequest = new RouteRequest('查看联系人', contactOf('林岸', '13800138000', 'l@example.com', '某地'));
       page.appear(unknown);
-      logStep('unknown-action', RouteIntent.isKnownAction(unknown.action) ? 'known' : 'unknown');
-      expect(RouteIntent.isKnownAction(unknown.action)).assertFalse();
+      logStep('unknown-action', RouteRequest.isKnownAction(unknown.action) ? 'known' : 'unknown');
+      expect(RouteRequest.isKnownAction(unknown.action)).assertFalse();
       expect(page.dispatchCount).assertEqual(0);
       expect(page.cachedCount()).assertEqual(15);
       expect(page.storedCount()).assertEqual(15);
@@ -593,7 +593,7 @@ export default function pageAppearLifecycleTest(): void {
 
     /**
      * @tc.name   addAfterSecondAppearStillAppends
-     * @tc.desc   The seed guard does not swallow a later add intent on a subsequent appearance.
+     * @tc.desc   The seed guard does not swallow a later add request on a subsequent appearance.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the PageAppearLifecycle scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -604,9 +604,9 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.level  LEVEL2
      */
     it('addAfterSecondAppearStillAppends', 0, () => {
-      page.appear(page.noIntent());
-      page.appear(new RouteIntent(ACTION_ADD, contactOf('闻笛', '13911112222', 'wendi@example.com', '杭州', '', 'C')));
-      page.appear(new RouteIntent(ACTION_ADD, contactOf('苏木', '13922223333', 'sumu@example.com', '苏州', '', 'D')));
+      page.appear(page.noRequest());
+      page.appear(new RouteRequest(ACTION_ADD, contactOf('闻笛', '13911112222', 'wendi@example.com', '杭州', '', 'C')));
+      page.appear(new RouteRequest(ACTION_ADD, contactOf('苏木', '13922223333', 'sumu@example.com', '苏州', '', 'D')));
       logStep('add-twice', String(page.cachedCount()) + '/' + String(page.storedCount()));
       expect(page.cachedCount()).assertEqual(17);
       expect(page.storedCount()).assertEqual(17);
@@ -630,9 +630,9 @@ export default function pageAppearLifecycleTest(): void {
      */
     it('deleteThenNextAppearDoesNotResurrect', 0, () => {
       const removed: Contact = contactOf('康纳', '10000000000', 'connor@example.com', '辽宁省沈阳市沈河区', '', 'C');
-      page.appear(new RouteIntent(ACTION_DELETE, removed));
-      page.appear(page.noIntent());
-      page.appear(page.noIntent());
+      page.appear(new RouteRequest(ACTION_DELETE, removed));
+      page.appear(page.noRequest());
+      page.appear(page.noRequest());
       logStep('no-resurrect', 'cached=' + String(page.cachedCount()));
       expect(page.cachedCount()).assertEqual(14);
       expect(page.storedCount()).assertEqual(14);
@@ -654,7 +654,7 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.level  LEVEL1
      */
     it('queryAfterSeedReturnsFifteen', 0, () => {
-      page.appear(page.noIntent());
+      page.appear(page.noRequest());
       const visible: Contact[] = page.store.query(true);
       logStep('verify-query', String(visible.length));
       expect(visible.length).assertEqual(15);
@@ -677,7 +677,7 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.level  LEVEL2
      */
     it('queryAfterAddReturnsSixteen', 0, () => {
-      page.appear(new RouteIntent(ACTION_ADD,
+      page.appear(new RouteRequest(ACTION_ADD,
         contactOf('林岸', '13800138000', 'lin@example.com', '上海市徐汇区', '', 'A')));
       const visible: Contact[] = page.store.query(true);
       logStep('query-sixteen', String(visible.length));
@@ -701,7 +701,7 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.level  LEVEL2
      */
     it('dataArrayMutationDoesNotAffectManager', 0, () => {
-      page.appear(page.noIntent());
+      page.appear(page.noRequest());
       const published: Contact[] = page.dataArray;
       published.splice(0, published.length);
       const cached: number = page.cachedCount();
@@ -727,9 +727,9 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.level  LEVEL2
      */
     it('sharedFlagAcrossTwoPagesSeedsOnce', 0, () => {
-      page.appear(page.noIntent());
+      page.appear(page.noRequest());
       const second: AppearPage = new AppearPage(flag, manager, store, true);
-      second.appear(page.noIntent());
+      second.appear(page.noRequest());
       logStep('shared-flag', 'pages=' + String(page.appearCount + second.appearCount));
       expect(page.appearCount).assertEqual(1);
       expect(second.appearCount).assertEqual(1);
@@ -752,11 +752,11 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.level  LEVEL2
      */
     it('clearedFlagReseedsFreshStore', 0, () => {
-      page.appear(page.noIntent());
+      page.appear(page.noRequest());
       flag.clear();
       const rebuilt: StoreDouble = new StoreDouble();
       const second: AppearPage = new AppearPage(flag, resetContactManager(), rebuilt, true);
-      second.appear(page.noIntent());
+      second.appear(page.noRequest());
       logStep('reseed', 'runs=' + String(second.seedRuns));
       expect(second.seedRuns).assertEqual(1);
       expect(rebuilt.rowCount()).assertEqual(15);
@@ -779,7 +779,7 @@ export default function pageAppearLifecycleTest(): void {
      */
     it('invalidContextSeedKeepsManagerOnly', 0, () => {
       const noContext: AppearPage = new AppearPage(new SeedFlag(), resetContactManager(), new StoreDouble(), false);
-      noContext.appear(noContext.noIntent());
+      noContext.appear(noContext.noRequest());
       logStep('no-context', 'manager=' + String(noContext.cachedCount()) + ' store=' + String(noContext.storedCount()));
       expect(noContext.seedInserted).assertEqual(-1);
       expect(noContext.cachedCount()).assertEqual(15);
@@ -802,8 +802,8 @@ export default function pageAppearLifecycleTest(): void {
      */
     it('invalidContextSeedFlagIsSetWithoutRetry', 0, () => {
       const noContext: AppearPage = new AppearPage(new SeedFlag(), resetContactManager(), new StoreDouble(), false);
-      noContext.appear(noContext.noIntent());
-      noContext.appear(noContext.noIntent());
+      noContext.appear(noContext.noRequest());
+      noContext.appear(noContext.noRequest());
       logStep('no-retry', 'batch=' + String(noContext.store.batchCalls));
       expect(noContext.seedRuns).assertEqual(1);
       expect(noContext.store.batchCalls).assertEqual(1);
@@ -826,15 +826,15 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.level  LEVEL1
      */
     it('routeForAddTargetsEditPage', 0, () => {
-      const addIntent: RouteIntent = new RouteIntent(ACTION_ADD, createSeedContacts()[0]);
-      const editIntent: RouteIntent = new RouteIntent(ACTION_EDIT, createSeedContacts()[1]);
-      logStep('route-add', addIntent.url());
-      expect(addIntent.url()).assertEqual(ROUTE_EDIT);
-      expect(editIntent.url()).assertEqual(ROUTE_EDIT);
-      expect(addIntent.url() === ROUTE_LIST).assertFalse();
-      expect(addIntent.describe().indexOf(ACTION_ADD)).assertEqual(0);
-      expect(RouteIntent.isKnownAction(ACTION_ADD)).assertTrue();
-      expect(RouteIntent.isKnownAction(ACTION_EDIT)).assertTrue();
+      const addRequest: RouteRequest = new RouteRequest(ACTION_ADD, createSeedContacts()[0]);
+      const editRequest: RouteRequest = new RouteRequest(ACTION_EDIT, createSeedContacts()[1]);
+      logStep('route-add', addRequest.url());
+      expect(addRequest.url()).assertEqual(ROUTE_EDIT);
+      expect(editRequest.url()).assertEqual(ROUTE_EDIT);
+      expect(addRequest.url() === ROUTE_LIST).assertFalse();
+      expect(addRequest.describe().indexOf(ACTION_ADD)).assertEqual(0);
+      expect(RouteRequest.isKnownAction(ACTION_ADD)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_EDIT)).assertTrue();
     });
 
     /**
@@ -850,13 +850,13 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.level  LEVEL1
      */
     it('routeForDeleteTargetsListPage', 0, () => {
-      const deleteIntent: RouteIntent = new RouteIntent(ACTION_DELETE, createSeedContacts()[2]);
-      logStep('route-delete', deleteIntent.url());
-      expect(deleteIntent.url()).assertEqual(ROUTE_LIST);
-      expect(RouteIntent.isKnownAction(ACTION_DELETE)).assertTrue();
-      expect(deleteIntent.describe().indexOf(ACTION_DELETE)).assertEqual(0);
-      expect(deleteIntent.describe().indexOf(ROUTE_LIST) > 0).assertTrue();
-      expect(RouteIntent.isKnownAction('新增联系人改')).assertFalse();
+      const deleteRequest: RouteRequest = new RouteRequest(ACTION_DELETE, createSeedContacts()[2]);
+      logStep('route-delete', deleteRequest.url());
+      expect(deleteRequest.url()).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.isKnownAction(ACTION_DELETE)).assertTrue();
+      expect(deleteRequest.describe().indexOf(ACTION_DELETE)).assertEqual(0);
+      expect(deleteRequest.describe().indexOf(ROUTE_LIST) > 0).assertTrue();
+      expect(RouteRequest.isKnownAction('新增联系人改')).assertFalse();
       expect(ROUTE_EDIT === ROUTE_LIST).assertFalse();
     });
 
@@ -873,7 +873,7 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.level  LEVEL1
      */
     it('seedNamesMatchDriverOrder', 0, () => {
-      page.appear(page.noIntent());
+      page.appear(page.noRequest());
       const expected: string[] = contactNames(createSeedContacts());
       logStep('seed-order', joined(page.names(), ','));
       expect(sameStringArray(page.names(), expected)).assertTrue();
@@ -897,7 +897,7 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.level  LEVEL2
      */
     it('seedCategoriesCoverAllSix', 0, () => {
-      page.appear(page.noIntent());
+      page.appear(page.noRequest());
       const groups: string[] = SearchEngine.groupByCategory(page.dataArray);
       logStep('seed-categories', joined(groups, ','));
       expect(groups.length).assertEqual(6);
@@ -922,7 +922,7 @@ export default function pageAppearLifecycleTest(): void {
      */
     it('duplicateAddKeepsBothCachedRows', 0, () => {
       const duplicate: Contact = contactOf('贝拉', '11111111111', 'bella.dup@example.com', '湖北省武汉市江汉区', '', 'B');
-      page.appear(new RouteIntent(ACTION_ADD, duplicate));
+      page.appear(new RouteRequest(ACTION_ADD, duplicate));
       const names: string[] = page.names();
       logStep('duplicate-add', 'bella=' + String(countOf(names, '贝拉')));
       expect(names.length).assertEqual(16);
@@ -946,7 +946,7 @@ export default function pageAppearLifecycleTest(): void {
      */
     it('deleteUnknownNameLeavesCounts', 0, () => {
       const absent: Contact = contactOf('未登记', '10000000000', 'none@example.com', '未知', '', 'A');
-      page.appear(new RouteIntent(ACTION_DELETE, absent));
+      page.appear(new RouteRequest(ACTION_DELETE, absent));
       logStep('delete-absent', String(page.cachedCount()) + '/' + String(page.storedCount()));
       expect(page.cachedCount()).assertEqual(15);
       expect(page.storedCount()).assertEqual(15);
@@ -968,7 +968,7 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.level  LEVEL2
      */
     it('searchAfterAddFindsNewRow', 0, () => {
-      page.appear(new RouteIntent(ACTION_ADD,
+      page.appear(new RouteRequest(ACTION_ADD,
         contactOf('林岸', '13800138000', 'lin@example.com', '上海市徐汇区', '', 'A')));
       const found: Contact[] = SearchEngine.filterByName(page.dataArray, '林');
       const empty: Contact[] = SearchEngine.filterByName(page.dataArray, '不存在');
@@ -993,13 +993,13 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.level  LEVEL2
      */
     it('appearDispatchCountTracksKnownActions', 0, () => {
-      page.appear(page.noIntent());
-      page.appear(new RouteIntent('翻页', createSeedContacts()[0]));
-      page.appear(new RouteIntent(ACTION_ADD,
+      page.appear(page.noRequest());
+      page.appear(new RouteRequest('翻页', createSeedContacts()[0]));
+      page.appear(new RouteRequest(ACTION_ADD,
         contactOf('苏木', '13922223333', 'sumu@example.com', '苏州', '', 'D')));
-      page.appear(new RouteIntent(ACTION_EDIT,
+      page.appear(new RouteRequest(ACTION_EDIT,
         contactOf('苏木', '13922224444', 'sumu.new@example.com', '苏州工业园区', '', 'D')));
-      page.appear(new RouteIntent(ACTION_DELETE,
+      page.appear(new RouteRequest(ACTION_DELETE,
         contactOf('苏木', '13922224444', 'sumu.new@example.com', '苏州工业园区', '', 'D')));
       logStep('dispatch-count', String(page.dispatchCount));
       expect(page.dispatchCount).assertEqual(3);
@@ -1046,10 +1046,10 @@ export default function pageAppearLifecycleTest(): void {
      */
     it('storeInitCountStaysOneAcrossEdits', 0, () => {
       const edited: Contact = contactOf('戴维维', '11100002222', 'dai.new@example.com', '吉林省长春市朝阳区', '', 'D');
-      page.appear(new RouteIntent(ACTION_EDIT, edited));
-      page.appear(new RouteIntent(ACTION_ADD,
+      page.appear(new RouteRequest(ACTION_EDIT, edited));
+      page.appear(new RouteRequest(ACTION_ADD,
         contactOf('林岸', '13800138000', 'lin@example.com', '上海市徐汇区', '', 'A')));
-      page.appear(new RouteIntent(ACTION_DELETE, edited));
+      page.appear(new RouteRequest(ACTION_DELETE, edited));
       logStep('init-stable', 'init=' + String(store.initCalls) + ' table=' + String(store.createTableCalls));
       expect(store.initCalls).assertEqual(1);
       expect(store.createTableCalls).assertEqual(1);
@@ -1061,7 +1061,7 @@ export default function pageAppearLifecycleTest(): void {
     });
 
     /**
-     * @tc.name   addIntentPreservesExistingCategoryBuckets
+     * @tc.name   addRequestPreservesExistingCategoryBuckets
      * @tc.desc   Appending a contact with an existing category keeps six buckets and raises that count.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the PageAppearLifecycle scenario from suite constants and factory helpers.
@@ -1072,8 +1072,8 @@ export default function pageAppearLifecycleTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('addIntentPreservesExistingCategoryBuckets', 0, () => {
-      page.appear(new RouteIntent(ACTION_ADD,
+    it('addRequestPreservesExistingCategoryBuckets', 0, () => {
+      page.appear(new RouteRequest(ACTION_ADD,
         contactOf('艾登新', '17700009999', 'aideng.new@example.com', '陕西省西安市雁塔区', '', 'E')));
       const groups: string[] = SearchEngine.groupByCategory(page.dataArray);
       logStep('category-buckets', joined(groups, ','));

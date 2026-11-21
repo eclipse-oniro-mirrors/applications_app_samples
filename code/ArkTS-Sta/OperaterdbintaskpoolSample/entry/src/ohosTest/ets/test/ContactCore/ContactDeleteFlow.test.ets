@@ -24,7 +24,7 @@
  *
  * Source anchors:
  *   ContactManager.ets:67-70        filter by item.name !== contact.name
- *   OperateRDBInTaskPool.ets:112-120 delete intent path
+ *   OperateRDBInTaskPool.ets:112-120 delete request path
  *   SharedDriver.ets:591-604        StoreDouble.deleteByName
  *   SharedDriver.ets:737-746        expectedAfterDelete oracle
  */

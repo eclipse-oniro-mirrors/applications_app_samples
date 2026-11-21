@@ -1,7 +1,7 @@
 'use static';
 import abilityTest from './Ability.test';
-import formControlSemanticsTest from './Accessibility/FormControlSemantics.test';
-import listSemanticOrderTest from './Accessibility/ListSemanticOrder.test';
+import formControlSemanticsTest from './Semantics/FormControlSemantics.test';
+import listSemanticOrderTest from './Semantics/ListSemanticOrder.test';
 import addEditDeleteInterleavingTest from './AdvancedScenarios/AddEditDeleteInterleaving.test';
 import batchImportIncrementalTest from './AdvancedScenarios/BatchImportIncremental.test';
 import deleteThenRecreateTest from './AdvancedScenarios/DeleteThenRecreate.test';

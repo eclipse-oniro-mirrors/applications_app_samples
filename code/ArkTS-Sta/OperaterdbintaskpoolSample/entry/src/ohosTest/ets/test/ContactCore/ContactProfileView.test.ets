@@ -17,7 +17,7 @@
 /**
  * ContactProfileView projects the AddressBookDetail screen without any ArkUI
  * dependency: the detail builders read name, phone, email, address, avatar and
- * category, and the two buttons push edit and delete intents.
+ * category, and the two buttons push edit and delete requests.
  *
  * Anchors:
  *   AddressBookDetail.ets:46-47   default sourceData literal
@@ -25,9 +25,9 @@
  *   AddressBookDetail.ets:91-134  phone builder projections
  *   AddressBookDetail.ets:163-202 email and address builders
  *   AddressBookDetail.ets:207-227 nav title and avatar
- *   AddressBookDetail.ets:243-265 edit and delete intents
- *   AddressBookList.ets:60-68     row tap detail intent
- *   AddressBookList.ets:85-91     add intent with a fresh Contact
+ *   AddressBookDetail.ets:243-265 edit and delete requests
+ *   AddressBookList.ets:60-68     row tap detail request
+ *   AddressBookList.ets:85-91     add request with a fresh Contact
  */
 
 import { describe, it, expect, beforeAll, beforeEach, afterAll } from '@ohos/hypium';
@@ -38,7 +38,7 @@ import {
   contactOf,
   cloneContact,
   resetContactManager,
-  RouteIntent,
+  RouteRequest,
   ContactSnapshot,
   snapshotsOf,
   sameSnapshotArray,
@@ -325,7 +325,7 @@ export default function contactProfileViewTest(): void {
     });
 
     /**
-     * @tc.name   editIntentTargetsTheEditRoute
+     * @tc.name   editRequestTargetsTheEditRoute
      * @tc.desc   The detail edit button builds an edit action for the AddressBookEdit page.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactProfileView scenario from suite constants and factory helpers.
@@ -336,20 +336,20 @@ export default function contactProfileViewTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL1
      */
-    it('editIntentTargetsTheEditRoute', 0, () => {
+    it('editRequestTargetsTheEditRoute', 0, () => {
       const selected: Contact = selectContact(contactOf('编辑丙', '13411110001', 'edit@example.com',
         '安徽省铜陵市铜官区', 'edit.jpg', 'A'));
-      const intent: RouteIntent = new RouteIntent(ACTION_EDIT, selected);
-      expect(intent.action).assertEqual(ACTION_EDIT);
-      expect(intent.url()).assertEqual(ROUTE_EDIT);
-      expect(intent.url()).assertEqual('pages/view/AddressBookEdit');
-      expect(RouteIntent.routeFor(ACTION_EDIT)).assertEqual(ROUTE_EDIT);
-      expect(intent.url() === ROUTE_LIST).assertFalse();
-      expect(intent.contact === selected).assertTrue();
+      const request: RouteRequest = new RouteRequest(ACTION_EDIT, selected);
+      expect(request.action).assertEqual(ACTION_EDIT);
+      expect(request.url()).assertEqual(ROUTE_EDIT);
+      expect(request.url()).assertEqual('pages/view/AddressBookEdit');
+      expect(RouteRequest.routeFor(ACTION_EDIT)).assertEqual(ROUTE_EDIT);
+      expect(request.url() === ROUTE_LIST).assertFalse();
+      expect(request.contact === selected).assertTrue();
     });
 
     /**
-     * @tc.name   deleteIntentTargetsTheListRoute
+     * @tc.name   deleteRequestTargetsTheListRoute
      * @tc.desc   The detail delete button returns to the list page with a delete action.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactProfileView scenario from suite constants and factory helpers.
@@ -360,20 +360,20 @@ export default function contactProfileViewTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL1
      */
-    it('deleteIntentTargetsTheListRoute', 0, () => {
+    it('deleteRequestTargetsTheListRoute', 0, () => {
       const selected: Contact = selectContact(contactOf('删除丙', '13411110002', 'delete@example.com',
         '安徽省池州市贵池区', 'delete.jpg', 'B'));
-      const intent: RouteIntent = new RouteIntent(ACTION_DELETE, selected);
-      expect(intent.action).assertEqual(ACTION_DELETE);
-      expect(intent.url()).assertEqual(ROUTE_LIST);
-      expect(intent.url()).assertEqual('pages/view/OperateRDBInTaskPool');
-      expect(RouteIntent.routeFor(ACTION_DELETE)).assertEqual(ROUTE_LIST);
-      expect(intent.url() === ROUTE_EDIT).assertFalse();
-      expect(intent.contact.name).assertEqual('删除丙');
+      const request: RouteRequest = new RouteRequest(ACTION_DELETE, selected);
+      expect(request.action).assertEqual(ACTION_DELETE);
+      expect(request.url()).assertEqual(ROUTE_LIST);
+      expect(request.url()).assertEqual('pages/view/OperateRDBInTaskPool');
+      expect(RouteRequest.routeFor(ACTION_DELETE)).assertEqual(ROUTE_LIST);
+      expect(request.url() === ROUTE_EDIT).assertFalse();
+      expect(request.contact.name).assertEqual('删除丙');
     });
 
     /**
-     * @tc.name   rowTapIntentTargetsTheDetailRoute
+     * @tc.name   rowTapRequestTargetsTheDetailRoute
      * @tc.desc   The list row click pushes the detail url with an edit action and the tapped contact.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactProfileView scenario from suite constants and factory helpers.
@@ -384,7 +384,7 @@ export default function contactProfileViewTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL1
      */
-    it('rowTapIntentTargetsTheDetailRoute', 0, () => {
+    it('rowTapRequestTargetsTheDetailRoute', 0, () => {
       const tapped: Contact = selectContact(contactOf('点按丙', '13411110003', 'tap@example.com',
         '安徽省滁州市琅琊区', 'tap.jpg', 'C'));
       const params: RouterParams = new RouterParams(ACTION_EDIT, tapped);
@@ -397,7 +397,7 @@ export default function contactProfileViewTest(): void {
     });
 
     /**
-     * @tc.name   addIntentTargetsTheEditRouteWithAFreshContact
+     * @tc.name   addRequestTargetsTheEditRouteWithAFreshContact
      * @tc.desc   The floating add button opens the edit page with an empty Contact payload.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactProfileView scenario from suite constants and factory helpers.
@@ -408,15 +408,15 @@ export default function contactProfileViewTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL1
      */
-    it('addIntentTargetsTheEditRouteWithAFreshContact', 0, () => {
+    it('addRequestTargetsTheEditRouteWithAFreshContact', 0, () => {
       const fresh: Contact = new Contact();
-      const intent: RouteIntent = new RouteIntent(ACTION_ADD, fresh);
-      expect(intent.action).assertEqual(ACTION_ADD);
-      expect(intent.url()).assertEqual(ROUTE_EDIT);
-      expect(intent.url()).assertEqual(RouteIntent.routeFor(ACTION_EDIT));
-      expect(intent.contact.name).assertEqual('');
-      expect(intent.contact.phone).assertEqual('');
-      expect(RouteIntent.isKnownAction(ACTION_ADD)).assertTrue();
+      const request: RouteRequest = new RouteRequest(ACTION_ADD, fresh);
+      expect(request.action).assertEqual(ACTION_ADD);
+      expect(request.url()).assertEqual(ROUTE_EDIT);
+      expect(request.url()).assertEqual(RouteRequest.routeFor(ACTION_EDIT));
+      expect(request.contact.name).assertEqual('');
+      expect(request.contact.phone).assertEqual('');
+      expect(RouteRequest.isKnownAction(ACTION_ADD)).assertTrue();
       expect(ROUTE_EDIT.startsWith('pages/view/')).assertTrue();
     });
 
@@ -446,7 +446,7 @@ export default function contactProfileViewTest(): void {
 
     /**
      * @tc.name   intentParamsCarryTheSelectedContact
-     * @tc.desc   RouteIntent.toParams exposes the same action text and the same contact reference.
+     * @tc.desc   RouteRequest.toParams exposes the same action text and the same contact reference.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactProfileView scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -459,8 +459,8 @@ export default function contactProfileViewTest(): void {
     it('intentParamsCarryTheSelectedContact', 0, () => {
       const selected: Contact = selectContact(contactOf('参数丙', '13511110001', 'params@example.com',
         '福建省莆田市城厢区', 'params.jpg', 'D'));
-      const intent: RouteIntent = new RouteIntent(ACTION_EDIT, selected);
-      const params: RouterParams = intent.toParams();
+      const request: RouteRequest = new RouteRequest(ACTION_EDIT, selected);
+      const params: RouterParams = request.toParams();
       expect(params.text).assertEqual(ACTION_EDIT);
       expect(params.data === selected).assertTrue();
       expect((params.data as Contact).email).assertEqual('params@example.com');
@@ -701,7 +701,7 @@ export default function contactProfileViewTest(): void {
 
     /**
      * @tc.name   intentDescriptionJoinsActionNameAndUrl
-     * @tc.desc   RouteIntent.describe exposes the action, the contact name and the resolved route.
+     * @tc.desc   RouteRequest.describe exposes the action, the contact name and the resolved route.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactProfileView scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -712,21 +712,21 @@ export default function contactProfileViewTest(): void {
      * @tc.level  LEVEL2
      */
     it('intentDescriptionJoinsActionNameAndUrl', 0, () => {
-      const selected: Contact = selectContact(contactOf('描述丙', '13711110001', 'intent@example.com',
-        '云南省玉溪市红塔区', 'intent.jpg', 'A'));
-      const intent: RouteIntent = new RouteIntent(ACTION_EDIT, selected);
-      const description: string = intent.describe();
+      const selected: Contact = selectContact(contactOf('描述丙', '13711110001', 'request@example.com',
+        '云南省玉溪市红塔区', 'request.jpg', 'A'));
+      const request: RouteRequest = new RouteRequest(ACTION_EDIT, selected);
+      const description: string = request.describe();
       expect(description.indexOf(ACTION_EDIT)).assertEqual(0);
       expect(description.indexOf('描述丙') > 0).assertTrue();
       expect(description.endsWith(ROUTE_EDIT)).assertTrue();
       expect(description.split(':').length).assertEqual(3);
-      expect(description === intent.describe()).assertTrue();
-      expect(intent.action).assertEqual('编辑联系人');
+      expect(description === request.describe()).assertTrue();
+      expect(request.action).assertEqual('编辑联系人');
     });
 
     /**
-     * @tc.name   editIntentDoesNotMutateTheStoreByItself
-     * @tc.desc   Building the detail intent is side effect free until the list page applies it.
+     * @tc.name   editRequestDoesNotMutateTheStoreByItself
+     * @tc.desc   Building the detail request is side effect free until the list page applies it.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactProfileView scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -736,13 +736,13 @@ export default function contactProfileViewTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL3
      */
-    it('editIntentDoesNotMutateTheStoreByItself', 0, () => {
+    it('editRequestDoesNotMutateTheStoreByItself', 0, () => {
       const selected: Contact = selectContact(contactOf('无副作用', '13711110002', 'pure@example.com',
         '云南省保山市隆阳区', 'pure.jpg', 'B'));
-      const intent: RouteIntent = new RouteIntent(ACTION_EDIT, selected);
-      intent.toParams();
-      intent.url();
-      intent.describe();
+      const request: RouteRequest = new RouteRequest(ACTION_EDIT, selected);
+      request.toParams();
+      request.url();
+      request.describe();
       const rows: Contact[] = ContactManager.getInstance().getContacts();
       expect(rows.length).assertEqual(1);
       expect(rows[0].email).assertEqual('pure@example.com');
@@ -752,7 +752,7 @@ export default function contactProfileViewTest(): void {
     });
 
     /**
-     * @tc.name   deleteIntentDoesNotRemoveTheRowByItself
+     * @tc.name   deleteRequestDoesNotRemoveTheRowByItself
      * @tc.desc   The delete navigation only carries a payload; the list page performs the removal.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactProfileView scenario from suite constants and factory helpers.
@@ -763,10 +763,10 @@ export default function contactProfileViewTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('deleteIntentDoesNotRemoveTheRowByItself', 0, () => {
+    it('deleteRequestDoesNotRemoveTheRowByItself', 0, () => {
       const selected: Contact = selectContact(contactOf('待删除', '13711110003', 'pending@example.com',
         '云南省昭通市昭阳区', 'pending.jpg', 'C'));
-      const params: RouterParams = new RouteIntent(ACTION_DELETE, selected).toParams();
+      const params: RouterParams = new RouteRequest(ACTION_DELETE, selected).toParams();
       expect(params.text).assertEqual(ACTION_DELETE);
       expect(ContactManager.getInstance().getContacts().length).assertEqual(1);
       ContactManager.getInstance().deleteContact(params.data as Contact);
@@ -788,13 +788,13 @@ export default function contactProfileViewTest(): void {
      * @tc.level  LEVEL2
      */
     it('bothDetailButtonsUseKnownActions', 0, () => {
-      expect(RouteIntent.isKnownAction(ACTION_EDIT)).assertTrue();
-      expect(RouteIntent.isKnownAction(ACTION_DELETE)).assertTrue();
-      expect(RouteIntent.isKnownAction(ACTION_ADD)).assertTrue();
-      expect(RouteIntent.isKnownAction('查看联系人')).assertFalse();
-      expect(RouteIntent.isKnownAction('')).assertFalse();
-      expect(RouteIntent.routeFor(ACTION_EDIT)).assertEqual(ROUTE_EDIT);
-      expect(RouteIntent.routeFor(ACTION_DELETE)).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.isKnownAction(ACTION_EDIT)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_DELETE)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_ADD)).assertTrue();
+      expect(RouteRequest.isKnownAction('查看联系人')).assertFalse();
+      expect(RouteRequest.isKnownAction('')).assertFalse();
+      expect(RouteRequest.routeFor(ACTION_EDIT)).assertEqual(ROUTE_EDIT);
+      expect(RouteRequest.routeFor(ACTION_DELETE)).assertEqual(ROUTE_LIST);
     });
 
     /**
@@ -903,7 +903,7 @@ export default function contactProfileViewTest(): void {
     });
 
     /**
-     * @tc.name   deleteIntentNeverTargetsTheDetailRoute
+     * @tc.name   deleteRequestNeverTargetsTheDetailRoute
      * @tc.desc   The delete route resolves to the list page and never back to the detail page.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactProfileView scenario from suite constants and factory helpers.
@@ -914,16 +914,16 @@ export default function contactProfileViewTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('deleteIntentNeverTargetsTheDetailRoute', 0, () => {
+    it('deleteRequestNeverTargetsTheDetailRoute', 0, () => {
       const selected: Contact = selectContact(contactOf('回路', '13311110007', 'loop@example.com',
         '贵州省黔东南苗族侗族自治州凯里市', '', 'D'));
-      const intent: RouteIntent = new RouteIntent(ACTION_DELETE, selected);
-      expect(intent.url() === ROUTE_DETAIL).assertFalse();
-      expect(intent.url() === ROUTE_EDIT).assertFalse();
-      expect(intent.url()).assertEqual(ROUTE_LIST);
-      expect(RouteIntent.routeFor(ACTION_DELETE) === ROUTE_DETAIL).assertFalse();
-      expect(intent.contact.address.indexOf('凯里市') > 0).assertTrue();
-      expect(intent.contact.category).assertEqual('D');
+      const request: RouteRequest = new RouteRequest(ACTION_DELETE, selected);
+      expect(request.url() === ROUTE_DETAIL).assertFalse();
+      expect(request.url() === ROUTE_EDIT).assertFalse();
+      expect(request.url()).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.routeFor(ACTION_DELETE) === ROUTE_DETAIL).assertFalse();
+      expect(request.contact.address.indexOf('凯里市') > 0).assertTrue();
+      expect(request.contact.category).assertEqual('D');
     });
 
     /**
@@ -997,7 +997,7 @@ export default function contactProfileViewTest(): void {
     it('deleteParamsCarryTheWholeSelectedContact', 0, () => {
       const selected: Contact = selectContact(contactOf('整体删除', '13522220001', 'whole@example.com',
         '四川省广元市利州区', 'whole.jpg', 'A'));
-      const params: RouterParams = new RouteIntent(ACTION_DELETE, selected).toParams();
+      const params: RouterParams = new RouteRequest(ACTION_DELETE, selected).toParams();
       expect(params.text).assertEqual('删除联系人');
       expect((params.data as Contact).name).assertEqual('整体删除');
       expect((params.data as Contact).phone).assertEqual('13522220001');
@@ -1021,7 +1021,7 @@ export default function contactProfileViewTest(): void {
     it('rowTapRoundTripPreservesEveryField', 0, () => {
       const tapped: Contact = selectContact(contactOf('往返点按', '13522220002', 'tap.round@example.com',
         '四川省内江市东兴区', 'tap.round.jpg', 'B'));
-      const params: RouterParams = new RouteIntent(ACTION_EDIT, tapped).toParams();
+      const params: RouterParams = new RouteRequest(ACTION_EDIT, tapped).toParams();
       const restored: Contact = params.data as Contact;
       expect(restored === tapped).assertTrue();
       const left: string[] = profileParts(tapped);
@@ -1049,33 +1049,33 @@ export default function contactProfileViewTest(): void {
       const deleteLabel: string = 'app.string.operate_rdb_in_taskpool_dialog_delete_button_text';
       const selected: Contact = selectContact(contactOf('双按钮', '13522220003', 'buttons@example.com',
         '四川省眉山市东坡区', 'buttons.jpg', 'C'));
-      const editIntent: RouteIntent = new RouteIntent(ACTION_EDIT, selected);
-      const deleteIntent: RouteIntent = new RouteIntent(ACTION_DELETE, selected);
+      const editRequest: RouteRequest = new RouteRequest(ACTION_EDIT, selected);
+      const deleteRequest: RouteRequest = new RouteRequest(ACTION_DELETE, selected);
       expect(editLabel === deleteLabel).assertFalse();
       expect(editLabel.startsWith('app.string.operate_rdb_in_taskpool_dialog_')).assertTrue();
       expect(deleteLabel.endsWith('delete_button_text')).assertTrue();
-      expect(editIntent.action === deleteIntent.action).assertFalse();
-      expect(editIntent.url() === deleteIntent.url()).assertFalse();
-      expect(editIntent.contact === deleteIntent.contact).assertTrue();
-      expect(editIntent.url()).assertEqual(ROUTE_EDIT);
-      expect(deleteIntent.url()).assertEqual(ROUTE_LIST);
+      expect(editRequest.action === deleteRequest.action).assertFalse();
+      expect(editRequest.url() === deleteRequest.url()).assertFalse();
+      expect(editRequest.contact === deleteRequest.contact).assertTrue();
+      expect(editRequest.url()).assertEqual(ROUTE_EDIT);
+      expect(deleteRequest.url()).assertEqual(ROUTE_LIST);
       expect(editLabel.length > 0).assertTrue();
       expect(deleteLabel.length > 0).assertTrue();
       expect(editLabel !== deleteLabel).assertTrue();
-      expect(editIntent.contact.name).assertEqual(deleteIntent.contact.name);
-      expect(editIntent.contact.phone).assertEqual(deleteIntent.contact.phone);
-      expect(deleteIntent.contact.category).assertEqual('C');
+      expect(editRequest.contact.name).assertEqual(deleteRequest.contact.name);
+      expect(editRequest.contact.phone).assertEqual(deleteRequest.contact.phone);
+      expect(deleteRequest.contact.category).assertEqual('C');
       expect(editLabel.endsWith('edit_button_text')).assertTrue();
       expect(deleteLabel.startsWith('app.string.operate_rdb_in_taskpool_dialog_')).assertTrue();
       expect(editLabel.indexOf('delete') < 0).assertTrue();
       expect(deleteLabel.indexOf('edit_') < 0).assertTrue();
-      expect(RouteIntent.isKnownAction(editIntent.action)).assertTrue();
-      expect(RouteIntent.isKnownAction(deleteIntent.action)).assertTrue();
-      expect(editIntent.contact.name).assertEqual('双按钮');
-      expect(deleteIntent.contact.phone).assertEqual('13522220003');
-      expect(editIntent.toParams().text).assertEqual(ACTION_EDIT);
-      expect(deleteIntent.toParams().text).assertEqual(ACTION_DELETE);
-      expect(editIntent.url().indexOf('AddressBookEdit') > 0).assertTrue();
+      expect(RouteRequest.isKnownAction(editRequest.action)).assertTrue();
+      expect(RouteRequest.isKnownAction(deleteRequest.action)).assertTrue();
+      expect(editRequest.contact.name).assertEqual('双按钮');
+      expect(deleteRequest.contact.phone).assertEqual('13522220003');
+      expect(editRequest.toParams().text).assertEqual(ACTION_EDIT);
+      expect(deleteRequest.toParams().text).assertEqual(ACTION_DELETE);
+      expect(editRequest.url().indexOf('AddressBookEdit') > 0).assertTrue();
     });
 
     /**

@@ -53,7 +53,7 @@ import {
   uniqueStrings,
   joined,
   resetContactManager,
-  RouteIntent,
+  RouteRequest,
   SearchEngine,
   snapshotsOf,
   sameSnapshotArray
@@ -959,16 +959,16 @@ export default function fullDirectoryJourneyTest(): void {
      */
     it('journeyRouteActionsRunInJourneyOrder', 0, () => {
       const draft = contactOf('路由旅程', '13900001111', 'route@example.com', '路由旅程地址');
-      const addUrl = new RouteIntent(ACTION_ADD, draft).url();
-      const editUrl = new RouteIntent(ACTION_EDIT, draft).url();
-      const deleteUrl = new RouteIntent(ACTION_DELETE, draft).url();
+      const addUrl = new RouteRequest(ACTION_ADD, draft).url();
+      const editUrl = new RouteRequest(ACTION_EDIT, draft).url();
+      const deleteUrl = new RouteRequest(ACTION_DELETE, draft).url();
       expect(addUrl).assertEqual(ROUTE_EDIT);
       expect(editUrl).assertEqual(ROUTE_EDIT);
       expect(deleteUrl).assertEqual(ROUTE_LIST);
       expect(joined([addUrl, editUrl, deleteUrl], '>')).assertEqual(ROUTE_EDIT + '>' + ROUTE_EDIT +
         '>' + ROUTE_LIST);
-      expect(RouteIntent.isKnownAction(ACTION_ADD) && RouteIntent.isKnownAction(ACTION_EDIT) &&
-        RouteIntent.isKnownAction(ACTION_DELETE)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_ADD) && RouteRequest.isKnownAction(ACTION_EDIT) &&
+        RouteRequest.isKnownAction(ACTION_DELETE)).assertTrue();
     });
 
     /**

@@ -15,10 +15,10 @@
  */
 
 /**
- * Accessibility / ListSemanticOrder suite.
+ * Semantics / ListSemanticOrder suite.
  *
  * A screen reader announces the list in index order, so the order the manager
- * and the cursor expose is itself the accessibility contract. The suite pins the
+ * and the cursor expose is itself the semantics contract. The suite pins the
  * first and last row, the relative order after add, edit and delete, and the
  * alphabetical grouping that the indexer announces.
  *

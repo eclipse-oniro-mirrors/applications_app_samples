@@ -12,7 +12,7 @@
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 | --- | --- | --- | --- | --- | --- |
 | 联系人模型与路由参数 | 可导入生产 Contact / RouterParams | 默认及不同参数构造，字段赋值和引用传递 | 六字段默认值、赋值结果及 text/data 参数保持正确 | 是 | 本次未复验 |
-| 联系人管理器 | 可导入生产 ContactManager | 设置、读取、追加、同名更新、删除及重置 | 单例保持，列表复制、首次匹配更新和同名删除符合实现 | 是 | 本次未复验 |
+| 联系人管理器 | 可导入生产 ContactManager | 设置、读取、追加、同名更新、删除及重置 | 单例保持，列表复制、初次匹配更新和同名删除符合实现 | 是 | 本次未复验 |
 | 联系人输入与分类 | 使用测试侧校验、搜索和分类逻辑 | 空值、长度边界、电话、邮箱、重名、关键词与分类 | 错误码、提交资格、搜索结果和分组顺序符合测试侧契约 | 是，辅助逻辑 | 本次未复验 |
 | 数据库常量与字段映射 | 可导入生产 SQL / 数据库常量，使用测试侧解析和映射 | 建表语句、六字段 Bucket、游标位置及重复记录 | 结构解析、映射往返、跳过首行和去重符合辅助逻辑断言 | 是，辅助逻辑 | 本次未复验 |
 | 存储与任务编排 | 使用测试侧 StoreDouble / TaskPoolQueue | 初始化、分批写入、增删改查、提交完成及故障输入 | 数据、操作计数、完成顺序和错误回退符合测试侧契约 | 是，辅助逻辑 | 本次未复验 |
@@ -45,7 +45,7 @@ Contact、RouterParams 和 ContactManager 来自生产代码；搜索、分类�
 | --- | --- | ---: |
 | `ContactAggregateDeep` | 生产 Contact 字段、测试侧种子数据、快照、集合指标与映射组合 | 36 |
 | `ContactCatalog` | 测试侧 15 条预置联系人的字段、排列、分类与名称唯一性 | 39 |
-| `ContactCategoryModel` | 测试侧分类投影的首次出现顺序、数量与数据变更 | 40 |
+| `ContactCategoryModel` | 测试侧分类投影的初次出现顺序、数量与数据变更 | 40 |
 | `ContactDefaults` | 生产 Contact 的默认字段、赋值、实例隔离与管理器空列表 | 41 |
 | `ContactDeleteFlow` | 生产 ContactManager 按姓名删除、同名全删、未命中与顺序保持 | 37 |
 | `ContactDirectoryModel` | 生产联系人集合的测试侧名称、搜索、分类、快照与指标投影 | 40 |
@@ -53,7 +53,7 @@ Contact、RouterParams 和 ContactManager 来自生产代码；搜索、分类�
 | `ContactFieldSemantics` | 测试侧 ContactMapper 的六字段映射、键顺序与往返 | 39 |
 | `ContactLedger` | 生产 ContactManager 与测试侧 StoreDouble 的增删改查记录一致性 | 41 |
 | `ContactManagerBasics` | 生产管理器单例、列表读写、浅复制、追加与重置 | 39 |
-| `ContactManagerDuplicates` | 生产管理器同名追加、首次匹配更新和同名全部删除 | 40 |
+| `ContactManagerDuplicates` | 生产管理器同名追加、初次匹配更新和同名全部删除 | 40 |
 | `ContactManagerMutation` | 生产管理器追加、更新、删除组合及列表顺序 | 36 |
 | `ContactManagerQueries` | 生产管理器列表读取及测试侧搜索、分类和指标查询 | 43 |
 | `ContactModelBasics` | 生产 Contact 构造参数、字段赋值、对象身份与 RouterParams | 45 |
@@ -97,7 +97,7 @@ Contact、RouterParams 和 ContactManager 来自生产代码；搜索、分类�
 | 测试套件 | 覆盖点 | 用例数 |
 | --- | --- | ---: |
 | `ConfigurationLifecycle` | 生产数据库、表名、长度常量及测试侧配置快照和结构解析 | 43 |
-| `DatabaseInitLifecycle` | 测试侧首次初始化、缺少上下文、建表计数和缓存清理 | 38 |
+| `DatabaseInitLifecycle` | 测试侧初次初始化、缺少上下文、建表计数和缓存清理 | 38 |
 | `EditSessionLifecycle` | 测试侧编辑副本、提交、取消与生产管理器/存储副本同步 | 32 |
 | `ErrorRecoveryLifecycle` | 测试侧错误回退、重试、上下文恢复与操作记录 | 37 |
 | `PageAppearLifecycle` | 测试侧页面出现时的种子装载、单次导入和动作处理 | 37 |
@@ -115,7 +115,7 @@ Contact、RouterParams 和 ContactManager 来自生产代码；搜索、分类�
 | `BatchImportIntegration` | 测试侧预置数据批量导入、查询、游标映射与生产管理器组合 | 43 |
 | `CategoryIntegration` | 生产联系人集合的测试侧分类、搜索与增删改后的分组 | 43 |
 | `CrossLayerRegression` | 生产管理器与测试侧存储、快照、指标和投影的组合回归 | 36 |
-| `DatabaseInitIntegration` | 测试侧存储首次初始化、重复初始化、建表和批量装载 | 44 |
+| `DatabaseInitIntegration` | 测试侧存储初次初始化、重复初始化、建表和批量装载 | 44 |
 | `DeleteContactEndToEnd` | 测试侧删除路由、存储删除和生产管理器刷新组合 | 41 |
 | `EditContactEndToEnd` | 测试侧编辑路由、草稿复制、校验、存储与生产管理器更新 | 36 |
 | `FullDirectoryJourney` | 测试侧通讯录装载、队列、增删改查与生产管理器完整组合 | 36 |
@@ -137,7 +137,7 @@ Contact、RouterParams 和 ContactManager 来自生产代码；搜索、分类�
 | 测试套件 | 覆盖点 | 用例数 |
 | --- | --- | ---: |
 | `ConcurrentMutationOrder` | 顺序脚本模拟不同变更次序，核对生产管理器和测试侧存储结果 | 22 |
-| `InitFirstQueryRace` | 测试侧首次查询、初始化先后关系、空结果与计数 | 26 |
+| `InitFirstQueryRace` | 测试侧初次查询、初始化先后关系、空结果与计数 | 26 |
 | `SubmitCompleteDecoupling` | 测试侧任务队列提交、运行、完成、失败和完成顺序 | 25 |
 | `TaskCompletionFanout` | 测试侧批量完成后的存储、指标、队列和名称投影 | 23 |
 

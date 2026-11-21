@@ -697,7 +697,7 @@ export default function contactManagerMutationTest(): void {
 
     /**
      * @tc.name   renameByDeleteAndAppendMovesTheRowToTheTail
-     * @tc.desc   A rename keeps the old slot removed and places the new name after every survivor.
+     * @tc.desc   A rename keeps the old slot removed and positions the new name after every survivor.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactManagerMutation scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.

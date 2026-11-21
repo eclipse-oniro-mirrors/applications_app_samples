@@ -24,7 +24,7 @@
  * columns and the parity between manager and store after an edit commit.
  *
  * Source anchors:
- *   OperateRDBInTaskPool.ets:100-109  edit intent wiring
+ *   OperateRDBInTaskPool.ets:100-109  edit request wiring
  *   ContactManager.ets:55-65          first name match replaced, loop breaks
  *   SharedDriver.ets:606-618          StoreDouble.updateContact writes three columns
  *   SharedDriver.ets:748-761          expectedAfterUpdate oracle

@@ -28,7 +28,7 @@
  *   SharedDriver.ets:88-120        seed rows, cloneContact, sameContact
  *   SharedDriver.ets:834-864       ContactMetrics over a row array
  *   SharedDriver.ets:867-910       ContactSnapshot and snapshot arrays
- *   SharedDriver.ets:764-795       RouteIntent action to route mapping
+ *   SharedDriver.ets:764-795       RouteRequest action to route mapping
  */
 
 import { describe, it, expect, beforeAll, beforeEach, afterAll } from '@ohos/hypium';
@@ -53,7 +53,7 @@ import {
   ContactSnapshot,
   snapshotsOf,
   sameSnapshotArray,
-  RouteIntent,
+  RouteRequest,
   resetContactManager
 } from '../Shared/SharedDriver';
 
@@ -230,7 +230,7 @@ export default function contactAggregateDeepTest(): void {
 
     /**
      * @tc.name   routerParamsUndefinedInputsStayUndefined
-     * @tc.desc   RouterParams accepts undefined for both slots, while a built intent fills them.
+     * @tc.desc   RouterParams accepts undefined for both slots, while a built request fills them.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactAggregateDeep scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -244,7 +244,7 @@ export default function contactAggregateDeepTest(): void {
       const empty = new RouterParams(undefined, undefined);
       expect(empty.text === undefined).assertTrue();
       expect(empty.data === undefined).assertTrue();
-      const carried = new RouteIntent(ACTION_ADD, createSeedContacts()[0]).toParams();
+      const carried = new RouteRequest(ACTION_ADD, createSeedContacts()[0]).toParams();
       expect(carried.text !== undefined).assertTrue();
       expect(carried.data !== undefined).assertTrue();
       expect(carried.text).assertEqual(ACTION_ADD);
@@ -293,7 +293,7 @@ export default function contactAggregateDeepTest(): void {
       expect(params.text).assertEqual(ACTION_DELETE);
       expect((params.data as Contact).name).assertEqual('艾登改');
       expect(params.text !== (params.data as Contact).name).assertTrue();
-      expect(RouteIntent.isKnownAction(params.text as string)).assertTrue();
+      expect(RouteRequest.isKnownAction(params.text as string)).assertTrue();
     });
 
     /**
@@ -649,7 +649,7 @@ export default function contactAggregateDeepTest(): void {
     });
 
     /**
-     * @tc.name   routeIntentForAddTargetsTheEditPage
+     * @tc.name   routeRequestForAddTargetsTheEditPage
      * @tc.desc   Both add and edit actions resolve to AddressBookEdit while delete resolves later.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactAggregateDeep scenario from suite constants and factory helpers.
@@ -660,19 +660,19 @@ export default function contactAggregateDeepTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL1
      */
-    it('routeIntentForAddTargetsTheEditPage', 0, () => {
+    it('routeRequestForAddTargetsTheEditPage', 0, () => {
       const contact = createSeedContacts()[1];
-      const intent = new RouteIntent(ACTION_ADD, contact);
-      expect(intent.url()).assertEqual(ROUTE_EDIT);
-      expect(RouteIntent.routeFor(ACTION_EDIT)).assertEqual(ROUTE_EDIT);
-      expect(intent.describe().indexOf(ROUTE_EDIT) > 0).assertTrue();
-      expect(intent.contact === contact).assertTrue();
-      expect(intent.action).assertEqual(ACTION_ADD);
+      const request = new RouteRequest(ACTION_ADD, contact);
+      expect(request.url()).assertEqual(ROUTE_EDIT);
+      expect(RouteRequest.routeFor(ACTION_EDIT)).assertEqual(ROUTE_EDIT);
+      expect(request.describe().indexOf(ROUTE_EDIT) > 0).assertTrue();
+      expect(request.contact === contact).assertTrue();
+      expect(request.action).assertEqual(ACTION_ADD);
     });
 
     /**
-     * @tc.name   routeIntentForDeleteFallsBackToTheListPage
-     * @tc.desc   A delete intent routes back to the list page and still carries its payload contact.
+     * @tc.name   routeRequestForDeleteFallsBackToTheListPage
+     * @tc.desc   A delete request routes back to the list page and still carries its payload contact.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactAggregateDeep scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -682,19 +682,19 @@ export default function contactAggregateDeepTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL1
      */
-    it('routeIntentForDeleteFallsBackToTheListPage', 0, () => {
+    it('routeRequestForDeleteFallsBackToTheListPage', 0, () => {
       const contact = cloneContact(createSeedContacts()[10]);
-      const intent = new RouteIntent(ACTION_DELETE, contact);
-      expect(intent.url()).assertEqual(ROUTE_LIST);
-      expect(RouteIntent.routeFor(ACTION_DELETE)).assertEqual(ROUTE_LIST);
-      expect(intent.contact.category).assertEqual('E');
-      expect(intent.contact.name).assertEqual('艾登');
-      const params = intent.toParams();
+      const request = new RouteRequest(ACTION_DELETE, contact);
+      expect(request.url()).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.routeFor(ACTION_DELETE)).assertEqual(ROUTE_LIST);
+      expect(request.contact.category).assertEqual('E');
+      expect(request.contact.name).assertEqual('艾登');
+      const params = request.toParams();
       expect((params.data as Contact).phone).assertEqual('17777777777');
     });
 
     /**
-     * @tc.name   routeIntentUnknownActionIsNotKnown
+     * @tc.name   routeRequestUnknownActionIsNotKnown
      * @tc.desc   Only the three production action literals are known; others fall back to the list.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactAggregateDeep scenario from suite constants and factory helpers.
@@ -705,18 +705,18 @@ export default function contactAggregateDeepTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('routeIntentUnknownActionIsNotKnown', 0, () => {
-      expect(RouteIntent.isKnownAction(ACTION_ADD)).assertTrue();
-      expect(RouteIntent.isKnownAction(ACTION_EDIT)).assertTrue();
-      expect(RouteIntent.isKnownAction(ACTION_DELETE)).assertTrue();
-      expect(RouteIntent.isKnownAction('查看联系人')).assertFalse();
-      expect(RouteIntent.isKnownAction('')).assertFalse();
-      expect(RouteIntent.routeFor('查看联系人')).assertEqual(ROUTE_LIST);
-      expect(RouteIntent.isKnownAction(ACTION_ADD + ' ')).assertFalse();
+    it('routeRequestUnknownActionIsNotKnown', 0, () => {
+      expect(RouteRequest.isKnownAction(ACTION_ADD)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_EDIT)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_DELETE)).assertTrue();
+      expect(RouteRequest.isKnownAction('查看联系人')).assertFalse();
+      expect(RouteRequest.isKnownAction('')).assertFalse();
+      expect(RouteRequest.routeFor('查看联系人')).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.isKnownAction(ACTION_ADD + ' ')).assertFalse();
     });
 
     /**
-     * @tc.name   routeIntentDescribeConcatenatesActionNameAndRoute
+     * @tc.name   routeRequestDescribeConcatenatesActionNameAndRoute
      * @tc.desc   describe() emits action:name:route, so the three segments can be split back apart.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactAggregateDeep scenario from suite constants and factory helpers.
@@ -727,10 +727,10 @@ export default function contactAggregateDeepTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('routeIntentDescribeConcatenatesActionNameAndRoute', 0, () => {
+    it('routeRequestDescribeConcatenatesActionNameAndRoute', 0, () => {
       const contact = contactOf('法比而', '10000000000', 'connor@example.com', '辽宁省沈阳市沈河区', '', 'F');
-      const intent = new RouteIntent(ACTION_EDIT, contact);
-      const described = intent.describe();
+      const request = new RouteRequest(ACTION_EDIT, contact);
+      const described = request.describe();
       const segments = described.split(':');
       expect(segments.length).assertEqual(3);
       expect(segments[0]).assertEqual(ACTION_EDIT);
@@ -954,8 +954,8 @@ export default function contactAggregateDeepTest(): void {
     });
 
     /**
-     * @tc.name   aggregateRouteIntentsForEverySeedRowStayKnown
-     * @tc.desc   Building an add intent for each seed row yields fifteen distinct known edit routes.
+     * @tc.name   aggregateRouteRequestsForEverySeedRowStayKnown
+     * @tc.desc   Building an add request for each seed row yields fifteen distinct known edit routes.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactAggregateDeep scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -965,17 +965,17 @@ export default function contactAggregateDeepTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('aggregateRouteIntentsForEverySeedRowStayKnown', 0, () => {
+    it('aggregateRouteRequestsForEverySeedRowStayKnown', 0, () => {
       const rows = createSeedContacts();
       const described: string[] = [];
       let known = 0;
       for (let index = 0; index < rows.length; index++) {
-        const intent = new RouteIntent(ACTION_ADD, rows[index]);
-        if (RouteIntent.isKnownAction(intent.action)) {
+        const request = new RouteRequest(ACTION_ADD, rows[index]);
+        if (RouteRequest.isKnownAction(request.action)) {
           known = known + 1;
         }
-        expect(intent.url()).assertEqual(ROUTE_EDIT);
-        described.push(intent.describe());
+        expect(request.url()).assertEqual(ROUTE_EDIT);
+        described.push(request.describe());
       }
       expect(known).assertEqual(15);
       expect(uniqueStrings(described).length).assertEqual(15);

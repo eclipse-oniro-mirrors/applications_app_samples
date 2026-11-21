@@ -45,7 +45,7 @@ import {
   contactOf,
   textFingerprint,
   resetContactManager,
-  RouteIntent,
+  RouteRequest,
   snapshotsOf
 } from '../Shared/SharedDriver';
 import { logSuite, logStep } from '../Shared/Support';
@@ -667,8 +667,8 @@ export default function pathAndLogSafetyTest(): void {
     });
 
     /**
-     * @tc.name   logSafetyRouteIntentDescribeCarriesNoPhone
-     * @tc.desc   The intent descriptor is action, name and url only, with no phone or email value.
+     * @tc.name   logSafetyRouteRequestDescribeCarriesNoPhone
+     * @tc.desc   The request descriptor is action, name and url only, with no phone or email value.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the PathAndLogSafety scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -678,15 +678,15 @@ export default function pathAndLogSafetyTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('logSafetyRouteIntentDescribeCarriesNoPhone', 0, () => {
+    it('logSafetyRouteRequestDescribeCarriesNoPhone', 0, () => {
       const selected = createSeedContacts()[0];
-      const intent = new RouteIntent(ACTION_DELETE, selected);
-      expect(longestDigitRun(intent.describe())).assertEqual(0);
-      expect(intent.describe().indexOf('@')).assertEqual(-1);
-      expect(intent.describe().indexOf(selected.phone)).assertEqual(-1);
-      expect(intent.describe().indexOf(selected.email)).assertEqual(-1);
-      expect(intent.describe().indexOf(selected.name)).assertLarger(0);
-      expect(intent.describe().endsWith(ROUTE_LIST)).assertTrue();
+      const request = new RouteRequest(ACTION_DELETE, selected);
+      expect(longestDigitRun(request.describe())).assertEqual(0);
+      expect(request.describe().indexOf('@')).assertEqual(-1);
+      expect(request.describe().indexOf(selected.phone)).assertEqual(-1);
+      expect(request.describe().indexOf(selected.email)).assertEqual(-1);
+      expect(request.describe().indexOf(selected.name)).assertLarger(0);
+      expect(request.describe().endsWith(ROUTE_LIST)).assertTrue();
     });
 
     /**

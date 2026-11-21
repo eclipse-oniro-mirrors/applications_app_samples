@@ -58,7 +58,7 @@ import {
   isDigitsOnly,
   hasEmailShape,
   resetContactManager,
-  RouteIntent,
+  RouteRequest,
   SearchEngine,
   snapshotsOf,
   sameSnapshotArray
@@ -95,17 +95,17 @@ export default function editContactEndToEndTest(): void {
      */
     it('editRouteTargetsTheEditor', 0, () => {
       const selected = createSeedContacts()[4];
-      const intent = new RouteIntent(ACTION_EDIT, selected);
-      expect(intent.url()).assertEqual(ROUTE_EDIT);
-      expect(RouteIntent.routeFor(ACTION_EDIT)).assertEqual(ROUTE_EDIT);
-      expect(intent.toParams().text).assertEqual(ACTION_EDIT);
-      expect(intent.url() === 'pages/view/AddressBookDetail').assertFalse();
-      expect(RouteIntent.isKnownAction(ACTION_EDIT)).assertTrue();
+      const request = new RouteRequest(ACTION_EDIT, selected);
+      expect(request.url()).assertEqual(ROUTE_EDIT);
+      expect(RouteRequest.routeFor(ACTION_EDIT)).assertEqual(ROUTE_EDIT);
+      expect(request.toParams().text).assertEqual(ACTION_EDIT);
+      expect(request.url() === 'pages/view/AddressBookDetail').assertFalse();
+      expect(RouteRequest.isKnownAction(ACTION_EDIT)).assertTrue();
     });
 
     /**
-     * @tc.name   editIntentCarriesTheSelectedContact
-     * @tc.desc   The edit intent passes the detail row through with all six values unchanged.
+     * @tc.name   editRequestCarriesTheSelectedContact
+     * @tc.desc   The edit request passes the detail row through with all six values unchanged.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the EditContactEndToEnd scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -115,9 +115,9 @@ export default function editContactEndToEndTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL1
      */
-    it('editIntentCarriesTheSelectedContact', 0, () => {
+    it('editRequestCarriesTheSelectedContact', 0, () => {
       const selected = createSeedContacts()[4];
-      const params = new RouteIntent(ACTION_EDIT, selected).toParams();
+      const params = new RouteRequest(ACTION_EDIT, selected).toParams();
       const carried = params.data as Contact;
       expect(carried === selected).assertTrue();
       expect(carried.name).assertEqual('本杰明');
@@ -128,7 +128,7 @@ export default function editContactEndToEndTest(): void {
     });
 
     /**
-     * @tc.name   editIntentDescriptionUsesEditUrl
+     * @tc.name   editRequestDescriptionUsesEditUrl
      * @tc.desc   The descriptor keeps the edit action literal next to the selected name and editor url.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the EditContactEndToEnd scenario from suite constants and factory helpers.
@@ -139,15 +139,15 @@ export default function editContactEndToEndTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('editIntentDescriptionUsesEditUrl', 0, () => {
-      const intent = new RouteIntent(ACTION_EDIT, contactOf('丹尼尔', '17777777777', 'cameron@example.com',
+    it('editRequestDescriptionUsesEditUrl', 0, () => {
+      const request = new RouteRequest(ACTION_EDIT, contactOf('丹尼尔', '17777777777', 'cameron@example.com',
         '陕西省西安市雁塔区'));
-      logStep('editIntentDescriptionUsesEditUrl', intent.describe());
-      expect(intent.describe()).assertEqual('编辑联系人:丹尼尔:' + ROUTE_EDIT);
-      expect(intent.describe().split(':')[0]).assertEqual(ACTION_EDIT);
-      expect(intent.describe().endsWith(ROUTE_EDIT)).assertTrue();
-      expect(intent.describe().indexOf('丹尼尔') > 0).assertTrue();
-      expect(intent.toParams().text).assertEqual(ACTION_EDIT);
+      logStep('editRequestDescriptionUsesEditUrl', request.describe());
+      expect(request.describe()).assertEqual('编辑联系人:丹尼尔:' + ROUTE_EDIT);
+      expect(request.describe().split(':')[0]).assertEqual(ACTION_EDIT);
+      expect(request.describe().endsWith(ROUTE_EDIT)).assertTrue();
+      expect(request.describe().indexOf('丹尼尔') > 0).assertTrue();
+      expect(request.toParams().text).assertEqual(ACTION_EDIT);
     });
 
     /**
@@ -897,8 +897,8 @@ export default function editContactEndToEndTest(): void {
       const seed = createSeedContacts();
       manager.setContacts(seed);
       store.batchInsert(true, seed);
-      const intent = new RouteIntent(ACTION_EDIT, seed[12]);
-      const draft = cloneContact(intent.toParams().data as Contact);
+      const request = new RouteRequest(ACTION_EDIT, seed[12]);
+      const draft = cloneContact(request.toParams().data as Contact);
       draft.phone = '13900007070';
       draft.email = 'airi.edited@example.com';
       draft.address = '最终编辑地址';

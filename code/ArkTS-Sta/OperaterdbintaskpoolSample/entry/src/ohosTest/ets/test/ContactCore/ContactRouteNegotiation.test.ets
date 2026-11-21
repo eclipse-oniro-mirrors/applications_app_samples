@@ -19,13 +19,13 @@
  * the three pages.
  *
  * Anchors:
- *   AddressBookList.ets:60-65   detail intent with ACTION_EDIT
- *   AddressBookList.ets:85-91   add intent with ACTION_ADD
- *   AddressBookDetail.ets:243-250 edit intent with ACTION_EDIT
- *   AddressBookDetail.ets:258-264 delete intent with ACTION_DELETE
+ *   AddressBookList.ets:60-65   detail request with ACTION_EDIT
+ *   AddressBookList.ets:85-91   add request with ACTION_ADD
+ *   AddressBookDetail.ets:243-250 edit request with ACTION_EDIT
+ *   AddressBookDetail.ets:258-264 delete request with ACTION_DELETE
  *   OperateRDBInTaskPool.ets:90-120 action switch after the router returns
  *   SharedDriver.ets:63-68      action and route literals
- *   SharedDriver.ets:764-795    RouteIntent routeFor and isKnownAction
+ *   SharedDriver.ets:764-795    RouteRequest routeFor and isKnownAction
  */
 
 import { describe, it, expect, beforeAll, beforeEach, afterAll } from '@ohos/hypium';
@@ -36,7 +36,7 @@ import {
   contactOf,
   cloneContact,
   resetContactManager,
-  RouteIntent,
+  RouteRequest,
   ACTION_ADD,
   ACTION_EDIT,
   ACTION_DELETE,
@@ -55,7 +55,7 @@ function routeContact(): Contact {
 function knownCount(actions: string[]): number {
   let total = 0;
   for (let index = 0; index < actions.length; index++) {
-    if (RouteIntent.isKnownAction(actions[index])) {
+    if (RouteRequest.isKnownAction(actions[index])) {
       total = total + 1;
     }
   }
@@ -89,12 +89,12 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.level  LEVEL1
      */
     it('addActionMapsToTheEditRoute', 0, () => {
-      expect(RouteIntent.routeFor(ACTION_ADD)).assertEqual(ROUTE_EDIT);
-      expect(RouteIntent.routeFor(ACTION_ADD)).assertEqual('pages/view/AddressBookEdit');
-      expect(RouteIntent.routeFor(ACTION_ADD) === ROUTE_LIST).assertFalse();
-      const intent: RouteIntent = new RouteIntent(ACTION_ADD, new Contact());
-      expect(intent.url()).assertEqual(ROUTE_EDIT);
-      expect(intent.action).assertEqual(ACTION_ADD);
+      expect(RouteRequest.routeFor(ACTION_ADD)).assertEqual(ROUTE_EDIT);
+      expect(RouteRequest.routeFor(ACTION_ADD)).assertEqual('pages/view/AddressBookEdit');
+      expect(RouteRequest.routeFor(ACTION_ADD) === ROUTE_LIST).assertFalse();
+      const request: RouteRequest = new RouteRequest(ACTION_ADD, new Contact());
+      expect(request.url()).assertEqual(ROUTE_EDIT);
+      expect(request.action).assertEqual(ACTION_ADD);
       logStep('ContactRouteNegotiation', 'add route checked');
     });
 
@@ -111,12 +111,12 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.level  LEVEL1
      */
     it('editActionMapsToTheEditRoute', 0, () => {
-      const intent: RouteIntent = new RouteIntent(ACTION_EDIT, routeContact());
-      expect(intent.url()).assertEqual(ROUTE_EDIT);
-      expect(RouteIntent.routeFor(ACTION_EDIT)).assertEqual(ROUTE_EDIT);
-      expect(intent.url() === ROUTE_DETAIL).assertFalse();
-      expect(intent.url().endsWith('AddressBookEdit')).assertTrue();
-      expect(intent.contact.name).assertEqual('路由丁');
+      const request: RouteRequest = new RouteRequest(ACTION_EDIT, routeContact());
+      expect(request.url()).assertEqual(ROUTE_EDIT);
+      expect(RouteRequest.routeFor(ACTION_EDIT)).assertEqual(ROUTE_EDIT);
+      expect(request.url() === ROUTE_DETAIL).assertFalse();
+      expect(request.url().endsWith('AddressBookEdit')).assertTrue();
+      expect(request.contact.name).assertEqual('路由丁');
       expect(ACTION_EDIT).assertEqual('编辑联系人');
     });
 
@@ -133,13 +133,13 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.level  LEVEL1
      */
     it('deleteActionMapsToTheListRoute', 0, () => {
-      const intent: RouteIntent = new RouteIntent(ACTION_DELETE, routeContact());
-      expect(intent.url()).assertEqual(ROUTE_LIST);
-      expect(intent.url()).assertEqual('pages/view/OperateRDBInTaskPool');
-      expect(RouteIntent.routeFor(ACTION_DELETE)).assertEqual(ROUTE_LIST);
-      expect(intent.url() === ROUTE_EDIT).assertFalse();
-      expect(intent.action).assertEqual('删除联系人');
-      expect(intent.contact.category).assertEqual('C');
+      const request: RouteRequest = new RouteRequest(ACTION_DELETE, routeContact());
+      expect(request.url()).assertEqual(ROUTE_LIST);
+      expect(request.url()).assertEqual('pages/view/OperateRDBInTaskPool');
+      expect(RouteRequest.routeFor(ACTION_DELETE)).assertEqual(ROUTE_LIST);
+      expect(request.url() === ROUTE_EDIT).assertFalse();
+      expect(request.action).assertEqual('删除联系人');
+      expect(request.contact.category).assertEqual('C');
     });
 
     /**
@@ -155,12 +155,12 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.level  LEVEL2
      */
     it('unknownActionFallsBackToTheListRoute', 0, () => {
-      expect(RouteIntent.routeFor('查看联系人')).assertEqual(ROUTE_LIST);
-      expect(RouteIntent.routeFor('share')).assertEqual(ROUTE_LIST);
-      expect(RouteIntent.routeFor('')).assertEqual(ROUTE_LIST);
-      expect(RouteIntent.routeFor('新增联系人 ')).assertEqual(ROUTE_LIST);
-      expect(RouteIntent.routeFor('新增联系人') === ROUTE_LIST).assertFalse();
-      expect(RouteIntent.isKnownAction('查看联系人')).assertFalse();
+      expect(RouteRequest.routeFor('查看联系人')).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.routeFor('share')).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.routeFor('')).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.routeFor('新增联系人 ')).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.routeFor('新增联系人') === ROUTE_LIST).assertFalse();
+      expect(RouteRequest.isKnownAction('查看联系人')).assertFalse();
     });
 
     /**
@@ -178,11 +178,11 @@ export default function contactRouteNegotiationTest(): void {
     it('knownActionSetHasExactlyThreeMembers', 0, () => {
       const probes: string[] = [ACTION_ADD, ACTION_EDIT, ACTION_DELETE, '刷新联系人', '导出联系人'];
       expect(knownCount(probes)).assertEqual(3);
-      expect(RouteIntent.isKnownAction(ACTION_ADD)).assertTrue();
-      expect(RouteIntent.isKnownAction(ACTION_EDIT)).assertTrue();
-      expect(RouteIntent.isKnownAction(ACTION_DELETE)).assertTrue();
-      expect(RouteIntent.isKnownAction('刷新联系人')).assertFalse();
-      expect(RouteIntent.isKnownAction('')).assertFalse();
+      expect(RouteRequest.isKnownAction(ACTION_ADD)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_EDIT)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_DELETE)).assertTrue();
+      expect(RouteRequest.isKnownAction('刷新联系人')).assertFalse();
+      expect(RouteRequest.isKnownAction('')).assertFalse();
     });
 
     /**
@@ -324,13 +324,13 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.level  LEVEL2
      */
     it('addAndEditShareTheSameRoute', 0, () => {
-      const addIntent: RouteIntent = new RouteIntent(ACTION_ADD, new Contact());
-      const editIntent: RouteIntent = new RouteIntent(ACTION_EDIT, routeContact());
-      expect(addIntent.url()).assertEqual(editIntent.url());
-      expect(RouteIntent.routeFor(ACTION_ADD)).assertEqual(RouteIntent.routeFor(ACTION_EDIT));
-      expect(addIntent.action === editIntent.action).assertFalse();
-      expect(addIntent.contact === editIntent.contact).assertFalse();
-      expect(addIntent.url() === ROUTE_LIST).assertFalse();
+      const addRequest: RouteRequest = new RouteRequest(ACTION_ADD, new Contact());
+      const editRequest: RouteRequest = new RouteRequest(ACTION_EDIT, routeContact());
+      expect(addRequest.url()).assertEqual(editRequest.url());
+      expect(RouteRequest.routeFor(ACTION_ADD)).assertEqual(RouteRequest.routeFor(ACTION_EDIT));
+      expect(addRequest.action === editRequest.action).assertFalse();
+      expect(addRequest.contact === editRequest.contact).assertFalse();
+      expect(addRequest.url() === ROUTE_LIST).assertFalse();
     });
 
     /**
@@ -346,8 +346,8 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.level  LEVEL2
      */
     it('deleteRouteDiffersFromTheEditRoute', 0, () => {
-      const deleteRoute: string = RouteIntent.routeFor(ACTION_DELETE);
-      const editRoute: string = RouteIntent.routeFor(ACTION_EDIT);
+      const deleteRoute: string = RouteRequest.routeFor(ACTION_DELETE);
+      const editRoute: string = RouteRequest.routeFor(ACTION_EDIT);
       expect(deleteRoute === editRoute).assertFalse();
       expect(deleteRoute).assertEqual(ROUTE_LIST);
       expect(editRoute).assertEqual(ROUTE_EDIT);
@@ -384,7 +384,7 @@ export default function contactRouteNegotiationTest(): void {
 
     /**
      * @tc.name   toParamsCopiesTheActionIntoText
-     * @tc.desc   RouteIntent.toParams places the action string in the RouterParams text slot.
+     * @tc.desc   RouteRequest.toParams positions the action string in the RouterParams text slot.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactRouteNegotiation scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -395,10 +395,10 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.level  LEVEL1
      */
     it('toParamsCopiesTheActionIntoText', 0, () => {
-      const intent: RouteIntent = new RouteIntent(ACTION_EDIT, routeContact());
-      const params: RouterParams = intent.toParams();
+      const request: RouteRequest = new RouteRequest(ACTION_EDIT, routeContact());
+      const params: RouterParams = request.toParams();
       expect(params.text).assertEqual(ACTION_EDIT);
-      expect(params.text).assertEqual(intent.action);
+      expect(params.text).assertEqual(request.action);
       expect(params.text === ACTION_EDIT).assertTrue();
       expect(params.text === ACTION_ADD).assertFalse();
       expect(params.text === undefined).assertFalse();
@@ -407,7 +407,7 @@ export default function contactRouteNegotiationTest(): void {
 
     /**
      * @tc.name   toParamsKeepsTheContactReference
-     * @tc.desc   The router payload points at the same Contact instance the intent was built with.
+     * @tc.desc   The router payload points at the same Contact instance the request was built with.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactRouteNegotiation scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -419,7 +419,7 @@ export default function contactRouteNegotiationTest(): void {
      */
     it('toParamsKeepsTheContactReference', 0, () => {
       const contact: Contact = routeContact();
-      const params: RouterParams = new RouteIntent(ACTION_EDIT, contact).toParams();
+      const params: RouterParams = new RouteRequest(ACTION_EDIT, contact).toParams();
       expect(params.data === contact).assertTrue();
       expect((params.data as Contact).name).assertEqual('路由丁');
       expect((params.data as Contact).avatar).assertEqual('route.jpg');
@@ -430,7 +430,7 @@ export default function contactRouteNegotiationTest(): void {
 
     /**
      * @tc.name   paramsRoundTripProvidesBothSlots
-     * @tc.desc   Building params from an intent yields a defined text and a defined data slot.
+     * @tc.desc   Building params from a request yields a defined text and a defined data slot.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactRouteNegotiation scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -441,8 +441,8 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.level  LEVEL2
      */
     it('paramsRoundTripProvidesBothSlots', 0, () => {
-      const intent: RouteIntent = new RouteIntent(ACTION_DELETE, routeContact());
-      const params: RouterParams = intent.toParams();
+      const request: RouteRequest = new RouteRequest(ACTION_DELETE, routeContact());
+      const params: RouterParams = request.toParams();
       let applied = false;
       if (params.data && params.text) {
         applied = true;
@@ -450,14 +450,14 @@ export default function contactRouteNegotiationTest(): void {
       expect(params.text !== undefined).assertTrue();
       expect(params.data !== undefined).assertTrue();
       expect(applied).assertTrue();
-      expect(params.text).assertEqual(intent.action);
+      expect(params.text).assertEqual(request.action);
       expect((params.data as Contact).phone).assertEqual('13833330001');
       expect(params.text === '').assertFalse();
     });
 
     /**
      * @tc.name   describeJoinsActionNameAndRoute
-     * @tc.desc   The intent description has three colon separated segments ending in the route.
+     * @tc.desc   The request description has three colon separated segments ending in the route.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactRouteNegotiation scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -468,8 +468,8 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.level  LEVEL2
      */
     it('describeJoinsActionNameAndRoute', 0, () => {
-      const intent: RouteIntent = new RouteIntent(ACTION_ADD, new Contact());
-      const description: string = intent.describe();
+      const request: RouteRequest = new RouteRequest(ACTION_ADD, new Contact());
+      const description: string = request.describe();
       const parts: string[] = description.split(':');
       expect(parts.length).assertEqual(3);
       expect(parts[0]).assertEqual(ACTION_ADD);
@@ -482,7 +482,7 @@ export default function contactRouteNegotiationTest(): void {
 
     /**
      * @tc.name   describeForDeleteUsesTheListRoute
-     * @tc.desc   A delete intent description ends with the list path rather than the edit path.
+     * @tc.desc   A delete request description ends with the list path rather than the edit path.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactRouteNegotiation scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -493,8 +493,8 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.level  LEVEL2
      */
     it('describeForDeleteUsesTheListRoute', 0, () => {
-      const intent: RouteIntent = new RouteIntent(ACTION_DELETE, routeContact());
-      const description: string = intent.describe();
+      const request: RouteRequest = new RouteRequest(ACTION_DELETE, routeContact());
+      const description: string = request.describe();
       expect(description.startsWith(ACTION_DELETE + ':')).assertTrue();
       expect(description.indexOf('路由丁') > 0).assertTrue();
       expect(description.endsWith(ROUTE_LIST)).assertTrue();
@@ -517,13 +517,13 @@ export default function contactRouteNegotiationTest(): void {
      */
     it('unknownActionStillCarriesItsContact', 0, () => {
       const contact: Contact = routeContact();
-      const intent: RouteIntent = new RouteIntent('查看联系人', contact);
-      expect(intent.url()).assertEqual(ROUTE_LIST);
-      expect(RouteIntent.isKnownAction(intent.action)).assertFalse();
-      expect(intent.contact === contact).assertTrue();
-      expect(intent.describe().endsWith(ROUTE_LIST)).assertTrue();
-      expect((intent.toParams().data as Contact).name).assertEqual('路由丁');
-      expect(intent.toParams().text).assertEqual('查看联系人');
+      const request: RouteRequest = new RouteRequest('查看联系人', contact);
+      expect(request.url()).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.isKnownAction(request.action)).assertFalse();
+      expect(request.contact === contact).assertTrue();
+      expect(request.describe().endsWith(ROUTE_LIST)).assertTrue();
+      expect((request.toParams().data as Contact).name).assertEqual('路由丁');
+      expect(request.toParams().text).assertEqual('查看联系人');
     });
 
     /**
@@ -541,13 +541,13 @@ export default function contactRouteNegotiationTest(): void {
     it('intentUrlMatchesTheStaticRouteForAllActions', 0, () => {
       const actions: string[] = [ACTION_ADD, ACTION_EDIT, ACTION_DELETE];
       for (let index = 0; index < actions.length; index++) {
-        const intent: RouteIntent = new RouteIntent(actions[index], routeContact());
-        expect(intent.url()).assertEqual(RouteIntent.routeFor(actions[index]));
-        expect(intent.action).assertEqual(actions[index]);
+        const request: RouteRequest = new RouteRequest(actions[index], routeContact());
+        expect(request.url()).assertEqual(RouteRequest.routeFor(actions[index]));
+        expect(request.action).assertEqual(actions[index]);
       }
-      expect(new RouteIntent(ACTION_ADD, new Contact()).url()).assertEqual(ROUTE_EDIT);
-      expect(new RouteIntent(ACTION_DELETE, new Contact()).url()).assertEqual(ROUTE_LIST);
-      expect(RouteIntent.routeFor(ACTION_EDIT)).assertEqual(ROUTE_EDIT);
+      expect(new RouteRequest(ACTION_ADD, new Contact()).url()).assertEqual(ROUTE_EDIT);
+      expect(new RouteRequest(ACTION_DELETE, new Contact()).url()).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.routeFor(ACTION_EDIT)).assertEqual(ROUTE_EDIT);
     });
 
     /**
@@ -563,20 +563,20 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.level  LEVEL2
      */
     it('repeatedRouteResolutionIsDeterministic', 0, () => {
-      const first: string = RouteIntent.routeFor(ACTION_EDIT);
+      const first: string = RouteRequest.routeFor(ACTION_EDIT);
       for (let index = 0; index < 5; index++) {
-        expect(RouteIntent.routeFor(ACTION_EDIT)).assertEqual(first);
+        expect(RouteRequest.routeFor(ACTION_EDIT)).assertEqual(first);
       }
-      expect(RouteIntent.routeFor(ACTION_DELETE)).assertEqual(ROUTE_LIST);
-      expect(RouteIntent.routeFor(ACTION_ADD)).assertEqual(first);
+      expect(RouteRequest.routeFor(ACTION_DELETE)).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.routeFor(ACTION_ADD)).assertEqual(first);
       expect(first).assertEqual(ROUTE_EDIT);
-      expect(first === RouteIntent.routeFor(ACTION_DELETE)).assertFalse();
-      expect(RouteIntent.routeFor(ACTION_EDIT).length).assertEqual(first.length);
+      expect(first === RouteRequest.routeFor(ACTION_DELETE)).assertFalse();
+      expect(RouteRequest.routeFor(ACTION_EDIT).length).assertEqual(first.length);
     });
 
     /**
-     * @tc.name   separateIntentsKeepIndependentContacts
-     * @tc.desc   Three intents built in a row do not share or overwrite each other's payload.
+     * @tc.name   separateRequestsKeepIndependentContacts
+     * @tc.desc   Three requests built in a row do not share or overwrite each other's payload.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactRouteNegotiation scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -586,13 +586,13 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('separateIntentsKeepIndependentContacts', 0, () => {
+    it('separateRequestsKeepIndependentContacts', 0, () => {
       const first: Contact = contactOf('独立丁一', '13133330001', 'd1@example.com', '河南省焦作市解放区', '', 'A');
       const second: Contact = contactOf('独立丁二', '13133330002', 'd2@example.com', '河南省濮阳市华龙区', '', 'B');
       const third: Contact = contactOf('独立丁三', '13133330003', 'd3@example.com', '河南省许昌市魏都区', '', 'C');
-      const a: RouteIntent = new RouteIntent(ACTION_ADD, first);
-      const b: RouteIntent = new RouteIntent(ACTION_EDIT, second);
-      const c: RouteIntent = new RouteIntent(ACTION_DELETE, third);
+      const a: RouteRequest = new RouteRequest(ACTION_ADD, first);
+      const b: RouteRequest = new RouteRequest(ACTION_EDIT, second);
+      const c: RouteRequest = new RouteRequest(ACTION_DELETE, third);
       expect(a.contact === first).assertTrue();
       expect(b.contact === second).assertTrue();
       expect(c.contact === third).assertTrue();
@@ -632,12 +632,12 @@ export default function contactRouteNegotiationTest(): void {
       expect(update).assertEqual(0);
       expect(remove).assertEqual(0);
       expect(insert + update + remove).assertEqual(1);
-      expect(RouteIntent.isKnownAction(text)).assertTrue();
+      expect(RouteRequest.isKnownAction(text)).assertTrue();
       expect(text).assertEqual('新增联系人');
     });
 
     /**
-     * @tc.name   addIntentCarriesAFreshEmptyContact
+     * @tc.name   addRequestCarriesAFreshEmptyContact
      * @tc.desc   The floating add button routes an empty Contact, not a clone of a list row.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactRouteNegotiation scenario from suite constants and factory helpers.
@@ -648,9 +648,9 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('addIntentCarriesAFreshEmptyContact', 0, () => {
+    it('addRequestCarriesAFreshEmptyContact', 0, () => {
       const fresh: Contact = new Contact();
-      const params: RouterParams = new RouteIntent(ACTION_ADD, fresh).toParams();
+      const params: RouterParams = new RouteRequest(ACTION_ADD, fresh).toParams();
       expect((params.data as Contact).name).assertEqual('');
       expect((params.data as Contact).phone).assertEqual('');
       expect((params.data as Contact).email).assertEqual('');
@@ -661,7 +661,7 @@ export default function contactRouteNegotiationTest(): void {
     });
 
     /**
-     * @tc.name   editIntentKeepsAvatarAndCategory
+     * @tc.name   editRequestKeepsAvatarAndCategory
      * @tc.desc   The edit route payload includes the non-key fields the form prefills.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactRouteNegotiation scenario from suite constants and factory helpers.
@@ -672,9 +672,9 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('editIntentKeepsAvatarAndCategory', 0, () => {
+    it('editRequestKeepsAvatarAndCategory', 0, () => {
       const contact: Contact = routeContact();
-      const params: RouterParams = new RouteIntent(ACTION_EDIT, contact).toParams();
+      const params: RouterParams = new RouteRequest(ACTION_EDIT, contact).toParams();
       expect((params.data as Contact).avatar).assertEqual('route.jpg');
       expect((params.data as Contact).category).assertEqual('C');
       expect((params.data as Contact).address).assertEqual('河南省南阳市宛城区');
@@ -684,7 +684,7 @@ export default function contactRouteNegotiationTest(): void {
     });
 
     /**
-     * @tc.name   deleteIntentKeepsTheNameForFiltering
+     * @tc.name   deleteRequestKeepsTheNameForFiltering
      * @tc.desc   The delete payload keeps the exact name the list page filters on.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactRouteNegotiation scenario from suite constants and factory helpers.
@@ -695,16 +695,16 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('deleteIntentKeepsTheNameForFiltering', 0, () => {
+    it('deleteRequestKeepsTheNameForFiltering', 0, () => {
       const contact: Contact = routeContact();
-      const params: RouterParams = new RouteIntent(ACTION_DELETE, contact).toParams();
+      const params: RouterParams = new RouteRequest(ACTION_DELETE, contact).toParams();
       const payload: Contact = params.data as Contact;
       expect(payload.name).assertEqual('路由丁');
       expect(payload.name === contact.name).assertTrue();
       expect(payload.name.length).assertEqual(3);
       expect(payload.email).assertEqual('route.ding@example.com');
       expect(params.text).assertEqual(ACTION_DELETE);
-      expect(RouteIntent.isKnownAction(params.text as string)).assertTrue();
+      expect(RouteRequest.isKnownAction(params.text as string)).assertTrue();
       expect(params.text === ACTION_EDIT).assertFalse();
     });
 
@@ -723,11 +723,11 @@ export default function contactRouteNegotiationTest(): void {
     it('whitespaceAndCaseVariantsRouteToList', 0, () => {
       const variants: string[] = [' 新增联系人', '新增联系人 ', '新增联系人\n', 'ADD', 'Add', '新增'];
       for (let index = 0; index < variants.length; index++) {
-        expect(RouteIntent.isKnownAction(variants[index])).assertFalse();
-        expect(RouteIntent.routeFor(variants[index])).assertEqual(ROUTE_LIST);
+        expect(RouteRequest.isKnownAction(variants[index])).assertFalse();
+        expect(RouteRequest.routeFor(variants[index])).assertEqual(ROUTE_LIST);
       }
-      expect(RouteIntent.isKnownAction(ACTION_ADD)).assertTrue();
-      expect(RouteIntent.routeFor(ACTION_ADD)).assertEqual(ROUTE_EDIT);
+      expect(RouteRequest.isKnownAction(ACTION_ADD)).assertTrue();
+      expect(RouteRequest.routeFor(ACTION_ADD)).assertEqual(ROUTE_EDIT);
       expect(variants[0] === ACTION_ADD).assertFalse();
     });
 
@@ -747,9 +747,9 @@ export default function contactRouteNegotiationTest(): void {
       const empty: Contact = new Contact();
       const full: Contact = routeContact();
       const copy: Contact = cloneContact(full);
-      const a: RouteIntent = new RouteIntent(ACTION_EDIT, empty);
-      const b: RouteIntent = new RouteIntent(ACTION_EDIT, full);
-      const c: RouteIntent = new RouteIntent(ACTION_EDIT, copy);
+      const a: RouteRequest = new RouteRequest(ACTION_EDIT, empty);
+      const b: RouteRequest = new RouteRequest(ACTION_EDIT, full);
+      const c: RouteRequest = new RouteRequest(ACTION_EDIT, copy);
       expect(a.url()).assertEqual(b.url());
       expect(b.url()).assertEqual(c.url());
       expect(a.contact === b.contact).assertFalse();
@@ -760,7 +760,7 @@ export default function contactRouteNegotiationTest(): void {
 
     /**
      * @tc.name   negotiationUsesTheCurrentStoreRow
-     * @tc.desc   An intent built from the manager row follows an update of that row's fields.
+     * @tc.desc   An request built from the manager row follows an update of that row's fields.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactRouteNegotiation scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -777,19 +777,19 @@ export default function contactRouteNegotiationTest(): void {
       manager.setContacts(rows);
       manager.updateContact(contactOf('当前行', '13233330002', 'current.new@example.com',
         '河南省信阳市浉河区', '', 'B'));
-      const intent: RouteIntent = new RouteIntent(ACTION_EDIT, manager.getContacts()[0]);
-      const params: RouterParams = intent.toParams();
+      const request: RouteRequest = new RouteRequest(ACTION_EDIT, manager.getContacts()[0]);
+      const params: RouterParams = request.toParams();
       expect((params.data as Contact).phone).assertEqual('13233330002');
       expect((params.data as Contact).email).assertEqual('current.new@example.com');
       expect((params.data as Contact).category).assertEqual('B');
-      expect(intent.url()).assertEqual(ROUTE_EDIT);
+      expect(request.url()).assertEqual(ROUTE_EDIT);
       expect(manager.getContacts().length).assertEqual(1);
-      expect(intent.contact.name).assertEqual('当前行');
+      expect(request.contact.name).assertEqual('当前行');
     });
 
     /**
-     * @tc.name   editThenDeleteIntentsKeepTheirOwnRoutes
-     * @tc.desc   Two intents for one contact negotiate to different pages without changing the store.
+     * @tc.name   editThenDeleteRequestsKeepTheirOwnRoutes
+     * @tc.desc   Two requests for one contact negotiate to different pages without changing the store.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactRouteNegotiation scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -799,21 +799,21 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('editThenDeleteIntentsKeepTheirOwnRoutes', 0, () => {
+    it('editThenDeleteRequestsKeepTheirOwnRoutes', 0, () => {
       const manager: ContactManager = ContactManager.getInstance();
       const selected: Contact = routeContact();
       const rows: Contact[] = [];
       rows.push(selected);
       manager.setContacts(rows);
-      const editIntent: RouteIntent = new RouteIntent(ACTION_EDIT, manager.getContacts()[0]);
-      const deleteIntent: RouteIntent = new RouteIntent(ACTION_DELETE, manager.getContacts()[0]);
-      expect(editIntent.url()).assertEqual(ROUTE_EDIT);
-      expect(deleteIntent.url()).assertEqual(ROUTE_LIST);
-      expect(editIntent.url() === deleteIntent.url()).assertFalse();
-      expect(editIntent.contact === deleteIntent.contact).assertTrue();
+      const editRequest: RouteRequest = new RouteRequest(ACTION_EDIT, manager.getContacts()[0]);
+      const deleteRequest: RouteRequest = new RouteRequest(ACTION_DELETE, manager.getContacts()[0]);
+      expect(editRequest.url()).assertEqual(ROUTE_EDIT);
+      expect(deleteRequest.url()).assertEqual(ROUTE_LIST);
+      expect(editRequest.url() === deleteRequest.url()).assertFalse();
+      expect(editRequest.contact === deleteRequest.contact).assertTrue();
       expect(manager.getContacts().length).assertEqual(1);
       expect(manager.getContacts()[0].name).assertEqual('路由丁');
-      expect(editIntent.action === deleteIntent.action).assertFalse();
+      expect(editRequest.action === deleteRequest.action).assertFalse();
     });
 
     /**
@@ -832,10 +832,10 @@ export default function contactRouteNegotiationTest(): void {
       const variants: string[] = ['新增', '联系人', '新增联系人甲', '甲新增联系人',
         '编辑联系', '删除联系人甲', 'add', 'delete'];
       for (let index = 0; index < variants.length; index++) {
-        expect(RouteIntent.isKnownAction(variants[index])).assertFalse();
+        expect(RouteRequest.isKnownAction(variants[index])).assertFalse();
       }
       expect(variants.length).assertEqual(8);
-      expect(RouteIntent.isKnownAction(ACTION_ADD)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_ADD)).assertTrue();
       expect(ACTION_ADD.indexOf('新增')).assertEqual(0);
     });
 
@@ -852,19 +852,19 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.level  LEVEL2
      */
     it('addAndEditNegotiateToTheIdenticalString', 0, () => {
-      const addRoute: string = RouteIntent.routeFor(ACTION_ADD);
-      const editRoute: string = RouteIntent.routeFor(ACTION_EDIT);
+      const addRoute: string = RouteRequest.routeFor(ACTION_ADD);
+      const editRoute: string = RouteRequest.routeFor(ACTION_EDIT);
       expect(addRoute === editRoute).assertTrue();
       expect(addRoute === ROUTE_EDIT).assertTrue();
       expect(addRoute === ROUTE_LIST).assertFalse();
       expect(addRoute.length).assertEqual(editRoute.length);
       expect(addRoute.split('/')[2]).assertEqual('AddressBookEdit');
-      expect(RouteIntent.isKnownAction(ACTION_ADD) && RouteIntent.isKnownAction(ACTION_EDIT)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_ADD) && RouteRequest.isKnownAction(ACTION_EDIT)).assertTrue();
     });
 
     /**
-     * @tc.name   deleteIntentDescriptionAndParamsAgree
-     * @tc.desc   The delete intent text, description and params all reference the list page.
+     * @tc.name   deleteRequestDescriptionAndParamsAgree
+     * @tc.desc   The delete request text, description and params all reference the list page.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactRouteNegotiation scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -874,13 +874,13 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('deleteIntentDescriptionAndParamsAgree', 0, () => {
-      const intent: RouteIntent = new RouteIntent(ACTION_DELETE, routeContact());
-      const params: RouterParams = intent.toParams();
-      expect(intent.describe().endsWith(ROUTE_LIST)).assertTrue();
-      expect(params.text).assertEqual(intent.action);
-      expect(intent.url()).assertEqual(ROUTE_LIST);
-      expect(intent.describe().indexOf(ROUTE_LIST) > 0).assertTrue();
+    it('deleteRequestDescriptionAndParamsAgree', 0, () => {
+      const request: RouteRequest = new RouteRequest(ACTION_DELETE, routeContact());
+      const params: RouterParams = request.toParams();
+      expect(request.describe().endsWith(ROUTE_LIST)).assertTrue();
+      expect(params.text).assertEqual(request.action);
+      expect(request.url()).assertEqual(ROUTE_LIST);
+      expect(request.describe().indexOf(ROUTE_LIST) > 0).assertTrue();
       expect(params.text).assertEqual('删除联系人');
       expect((params.data as Contact).name).assertEqual('路由丁');
     });
@@ -923,20 +923,20 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.level  LEVEL3
      */
     it('unknownActionDescriptionUsesTheFallbackRoute', 0, () => {
-      const intent: RouteIntent = new RouteIntent('导出联系人', routeContact());
-      const description: string = intent.describe();
+      const request: RouteRequest = new RouteRequest('导出联系人', routeContact());
+      const description: string = request.describe();
       expect(description.startsWith('导出联系人:')).assertTrue();
       expect(description.endsWith(ROUTE_LIST)).assertTrue();
       expect(description.indexOf(ROUTE_EDIT) < 0).assertTrue();
-      expect(intent.toParams().text).assertEqual('导出联系人');
-      expect(RouteIntent.isKnownAction('导出联系人')).assertFalse();
-      expect(intent.url()).assertEqual(ROUTE_LIST);
+      expect(request.toParams().text).assertEqual('导出联系人');
+      expect(RouteRequest.isKnownAction('导出联系人')).assertFalse();
+      expect(request.url()).assertEqual(ROUTE_LIST);
       expect(description.split(':').length).assertEqual(3);
     });
 
     /**
-     * @tc.name   twoDeleteIntentsKeepSeparateReferences
-     * @tc.desc   Two delete intents built for two contacts never share a payload.
+     * @tc.name   twoDeleteRequestsKeepSeparateReferences
+     * @tc.desc   Two delete requests built for two contacts never share a payload.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactRouteNegotiation scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -946,11 +946,11 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL3
      */
-    it('twoDeleteIntentsKeepSeparateReferences', 0, () => {
+    it('twoDeleteRequestsKeepSeparateReferences', 0, () => {
       const first: Contact = contactOf('删丁一', '13344440001', 'del1@example.com', '河南省驻马店市驿城区', '', 'D');
       const second: Contact = contactOf('删丁二', '13344440002', 'del2@example.com', '河南省济源市沁园街道', '', 'E');
-      const a: RouteIntent = new RouteIntent(ACTION_DELETE, first);
-      const b: RouteIntent = new RouteIntent(ACTION_DELETE, second);
+      const a: RouteRequest = new RouteRequest(ACTION_DELETE, first);
+      const b: RouteRequest = new RouteRequest(ACTION_DELETE, second);
       expect(a.contact === first).assertTrue();
       expect(b.contact === second).assertTrue();
       expect(a.contact === b.contact).assertFalse();
@@ -975,20 +975,20 @@ export default function contactRouteNegotiationTest(): void {
     it('everyKnownActionProducesANonEmptyRoute', 0, () => {
       const actions: string[] = [ACTION_ADD, ACTION_EDIT, ACTION_DELETE];
       for (let index = 0; index < actions.length; index++) {
-        const route: string = RouteIntent.routeFor(actions[index]);
+        const route: string = RouteRequest.routeFor(actions[index]);
         expect(route.length > 0).assertTrue();
         expect(route.startsWith('pages/view/')).assertTrue();
-        const intent: RouteIntent = new RouteIntent(actions[index], routeContact());
-        expect(intent.describe().endsWith(route)).assertTrue();
-        expect(intent.toParams().text).assertEqual(actions[index]);
+        const request: RouteRequest = new RouteRequest(actions[index], routeContact());
+        expect(request.describe().endsWith(route)).assertTrue();
+        expect(request.toParams().text).assertEqual(actions[index]);
       }
-      expect(RouteIntent.routeFor(ACTION_DELETE)).assertEqual(ROUTE_LIST);
-      expect(RouteIntent.routeFor(ACTION_ADD)).assertEqual(ROUTE_EDIT);
+      expect(RouteRequest.routeFor(ACTION_DELETE)).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.routeFor(ACTION_ADD)).assertEqual(ROUTE_EDIT);
     });
 
     /**
-     * @tc.name   readingParamsDoesNotMutateTheIntent
-     * @tc.desc   Building params, describing and routing leave the intent's action and payload unchanged.
+     * @tc.name   readingParamsDoesNotMutateTheRequest
+     * @tc.desc   Building params, describing and routing leave the request's action and payload unchanged.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactRouteNegotiation scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -998,17 +998,17 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('readingParamsDoesNotMutateTheIntent', 0, () => {
+    it('readingParamsDoesNotMutateTheRequest', 0, () => {
       const contact: Contact = routeContact();
-      const intent: RouteIntent = new RouteIntent(ACTION_EDIT, contact);
-      intent.toParams();
-      intent.describe();
-      intent.url();
-      expect(intent.action).assertEqual(ACTION_EDIT);
-      expect(intent.contact === contact).assertTrue();
-      expect(intent.contact.phone).assertEqual('13833330001');
-      expect(intent.url()).assertEqual(ROUTE_EDIT);
-      expect(intent.describe()).assertEqual(ACTION_EDIT + ':' + contact.name + ':' + ROUTE_EDIT);
+      const request: RouteRequest = new RouteRequest(ACTION_EDIT, contact);
+      request.toParams();
+      request.describe();
+      request.url();
+      expect(request.action).assertEqual(ACTION_EDIT);
+      expect(request.contact === contact).assertTrue();
+      expect(request.contact.phone).assertEqual('13833330001');
+      expect(request.url()).assertEqual(ROUTE_EDIT);
+      expect(request.describe()).assertEqual(ACTION_EDIT + ':' + contact.name + ':' + ROUTE_EDIT);
       expect(contact.category).assertEqual('C');
     });
 
@@ -1032,9 +1032,9 @@ export default function contactRouteNegotiationTest(): void {
       expect(knownCount(backward)).assertEqual(3);
       expect(knownCount(mixed)).assertEqual(3);
       expect(mixed.length).assertEqual(4);
-      expect(RouteIntent.isKnownAction(backward[0])).assertTrue();
-      expect(RouteIntent.routeFor(backward[0])).assertEqual(ROUTE_LIST);
-      expect(RouteIntent.routeFor(mixed[2])).assertEqual(ROUTE_EDIT);
+      expect(RouteRequest.isKnownAction(backward[0])).assertTrue();
+      expect(RouteRequest.routeFor(backward[0])).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.routeFor(mixed[2])).assertEqual(ROUTE_EDIT);
     });
     /**
      * @tc.name   negotiationWalkthroughCoversThreeScreens
@@ -1050,48 +1050,48 @@ export default function contactRouteNegotiationTest(): void {
      */
     it('negotiationWalkthroughCoversThreeScreens', 0, () => {
       const contact: Contact = new Contact();
-      const addIntent: RouteIntent = new RouteIntent(ACTION_ADD, contact);
-      expect(addIntent.url()).assertEqual(ROUTE_EDIT);
-      expect(addIntent.describe().split(':')[1]).assertEqual('');
+      const addRequest: RouteRequest = new RouteRequest(ACTION_ADD, contact);
+      expect(addRequest.url()).assertEqual(ROUTE_EDIT);
+      expect(addRequest.describe().split(':')[1]).assertEqual('');
       contact.name = '走查丁';
       contact.phone = '13555550001';
       contact.email = 'walk@example.com';
       contact.address = '河南省三门峡市湖滨区';
       contact.avatar = 'walk.jpg';
       contact.category = 'F';
-      const editIntent: RouteIntent = new RouteIntent(ACTION_EDIT, contact);
-      expect(editIntent.url()).assertEqual(ROUTE_EDIT);
-      expect(editIntent.url()).assertEqual(addIntent.url());
-      expect(editIntent.describe().indexOf('走查丁') > 0).assertTrue();
-      expect((editIntent.toParams().data as Contact).phone).assertEqual('13555550001');
-      const deleteIntent: RouteIntent = new RouteIntent(ACTION_DELETE, contact);
-      expect(deleteIntent.url()).assertEqual(ROUTE_LIST);
-      expect(deleteIntent.url() === editIntent.url()).assertFalse();
-      expect(deleteIntent.contact === contact).assertTrue();
-      expect(deleteIntent.describe().endsWith(ROUTE_LIST)).assertTrue();
-      expect((deleteIntent.toParams().data as Contact).category).assertEqual('F');
-      expect(RouteIntent.isKnownAction(deleteIntent.action)).assertTrue();
-      expect(editIntent.action === deleteIntent.action).assertFalse();
-      expect(addIntent.action === editIntent.action).assertFalse();
+      const editRequest: RouteRequest = new RouteRequest(ACTION_EDIT, contact);
+      expect(editRequest.url()).assertEqual(ROUTE_EDIT);
+      expect(editRequest.url()).assertEqual(addRequest.url());
+      expect(editRequest.describe().indexOf('走查丁') > 0).assertTrue();
+      expect((editRequest.toParams().data as Contact).phone).assertEqual('13555550001');
+      const deleteRequest: RouteRequest = new RouteRequest(ACTION_DELETE, contact);
+      expect(deleteRequest.url()).assertEqual(ROUTE_LIST);
+      expect(deleteRequest.url() === editRequest.url()).assertFalse();
+      expect(deleteRequest.contact === contact).assertTrue();
+      expect(deleteRequest.describe().endsWith(ROUTE_LIST)).assertTrue();
+      expect((deleteRequest.toParams().data as Contact).category).assertEqual('F');
+      expect(RouteRequest.isKnownAction(deleteRequest.action)).assertTrue();
+      expect(editRequest.action === deleteRequest.action).assertFalse();
+      expect(addRequest.action === editRequest.action).assertFalse();
       expect(ROUTE_DETAIL.startsWith('pages/view/')).assertTrue();
-      expect(addIntent.action).assertEqual(ACTION_ADD);
-      expect(editIntent.action).assertEqual(ACTION_EDIT);
-      expect(deleteIntent.action).assertEqual(ACTION_DELETE);
-      expect(addIntent.contact === contact).assertTrue();
-      expect(deleteIntent.toParams().text).assertEqual('删除联系人');
-      expect(editIntent.toParams().text).assertEqual('编辑联系人');
-      expect(addIntent.toParams().text).assertEqual('新增联系人');
-      expect(RouteIntent.isKnownAction(ACTION_ADD)).assertTrue();
-      expect(RouteIntent.isKnownAction(ACTION_EDIT)).assertTrue();
-      expect(RouteIntent.isKnownAction(ACTION_DELETE)).assertTrue();
+      expect(addRequest.action).assertEqual(ACTION_ADD);
+      expect(editRequest.action).assertEqual(ACTION_EDIT);
+      expect(deleteRequest.action).assertEqual(ACTION_DELETE);
+      expect(addRequest.contact === contact).assertTrue();
+      expect(deleteRequest.toParams().text).assertEqual('删除联系人');
+      expect(editRequest.toParams().text).assertEqual('编辑联系人');
+      expect(addRequest.toParams().text).assertEqual('新增联系人');
+      expect(RouteRequest.isKnownAction(ACTION_ADD)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_EDIT)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_DELETE)).assertTrue();
       expect(ROUTE_EDIT === ROUTE_LIST).assertFalse();
       expect(ROUTE_DETAIL === ROUTE_LIST).assertFalse();
       expect(contact.phone).assertEqual('13555550001');
     });
 
     /**
-     * @tc.name   deleteIntentParamsFilterTheStoreByName
-     * @tc.desc   The list page applies a delete intent payload as a name filter over the current rows.
+     * @tc.name   deleteRequestParamsFilterTheStoreByName
+     * @tc.desc   The list page applies a delete request payload as a name filter over the current rows.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactRouteNegotiation scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -1101,23 +1101,23 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL3
      */
-    it('deleteIntentParamsFilterTheStoreByName', 0, () => {
+    it('deleteRequestParamsFilterTheStoreByName', 0, () => {
       const manager: ContactManager = ContactManager.getInstance();
       const rows: Contact[] = [];
       rows.push(contactOf('保留丁', '13911110001', 'keep@example.com', '河南省新乡市红旗区', '', 'A'));
       rows.push(contactOf('移除丁', '13911110002', 'drop@example.com', '河南省鹤壁市淇滨区', '', 'B'));
       manager.setContacts(rows);
-      const params: RouterParams = new RouteIntent(ACTION_DELETE, manager.getContacts()[1]).toParams();
+      const params: RouterParams = new RouteRequest(ACTION_DELETE, manager.getContacts()[1]).toParams();
       manager.deleteContact(params.data as Contact);
       expect(manager.getContacts().length).assertEqual(1);
       expect(manager.getContacts()[0].name).assertEqual('保留丁');
       expect(manager.getContacts()[0].phone).assertEqual('13911110001');
       expect(params.text).assertEqual(ACTION_DELETE);
-      expect(RouteIntent.routeFor(params.text as string)).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.routeFor(params.text as string)).assertEqual(ROUTE_LIST);
     });
 
     /**
-     * @tc.name   editIntentParamsUpdateTheStoredRow
+     * @tc.name   editRequestParamsUpdateTheStoredRow
      * @tc.desc   The edit route payload replaces the stored row when the list page applies it.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactRouteNegotiation scenario from suite constants and factory helpers.
@@ -1128,7 +1128,7 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL3
      */
-    it('editIntentParamsUpdateTheStoredRow', 0, () => {
+    it('editRequestParamsUpdateTheStoredRow', 0, () => {
       const manager: ContactManager = ContactManager.getInstance();
       const rows: Contact[] = [];
       rows.push(contactOf('改写丁', '13911110003', 'before.route@example.com',
@@ -1136,7 +1136,7 @@ export default function contactRouteNegotiationTest(): void {
       manager.setContacts(rows);
       const edited: Contact = contactOf('改写丁', '13911110004', 'after.route@example.com',
         '河南省漯河市郾城区', '', 'D');
-      const params: RouterParams = new RouteIntent(ACTION_EDIT, edited).toParams();
+      const params: RouterParams = new RouteRequest(ACTION_EDIT, edited).toParams();
       manager.updateContact(params.data as Contact);
       const stored: Contact[] = manager.getContacts();
       expect(stored.length).assertEqual(1);
@@ -1144,11 +1144,11 @@ export default function contactRouteNegotiationTest(): void {
       expect(stored[0].phone).assertEqual('13911110004');
       expect(stored[0].category).assertEqual('D');
       expect(params.text).assertEqual(ACTION_EDIT);
-      expect(RouteIntent.routeFor(params.text as string)).assertEqual(ROUTE_EDIT);
+      expect(RouteRequest.routeFor(params.text as string)).assertEqual(ROUTE_EDIT);
     });
 
     /**
-     * @tc.name   addIntentParamsAppendToTheStore
+     * @tc.name   addRequestParamsAppendToTheStore
      * @tc.desc   The add route payload becomes the tail row after the list page appends it.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactRouteNegotiation scenario from suite constants and factory helpers.
@@ -1159,7 +1159,7 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL3
      */
-    it('addIntentParamsAppendToTheStore', 0, () => {
+    it('addRequestParamsAppendToTheStore', 0, () => {
       const manager: ContactManager = ContactManager.getInstance();
       const rows: Contact[] = [];
       rows.push(contactOf('既有丁', '13911110005', 'existing@example.com', '河南省南阳市卧龙区', '', 'A'));
@@ -1168,20 +1168,20 @@ export default function contactRouteNegotiationTest(): void {
       added.name = '新增丁';
       added.phone = '13911110006';
       added.category = 'E';
-      const params: RouterParams = new RouteIntent(ACTION_ADD, added).toParams();
+      const params: RouterParams = new RouteRequest(ACTION_ADD, added).toParams();
       manager.addContact(params.data as Contact);
       const stored: Contact[] = manager.getContacts();
       expect(stored.length).assertEqual(2);
       expect(stored[1].name).assertEqual('新增丁');
       expect(stored[1] === added).assertTrue();
       expect(params.text).assertEqual(ACTION_ADD);
-      expect(RouteIntent.routeFor(params.text as string)).assertEqual(ROUTE_EDIT);
+      expect(RouteRequest.routeFor(params.text as string)).assertEqual(ROUTE_EDIT);
       expect(stored[0].name).assertEqual('既有丁');
     });
 
     /**
      * @tc.name   routeResolutionIsStableAcrossContactEdits
-     * @tc.desc   Mutating the payload fields after intent creation does not change the negotiated route.
+     * @tc.desc   Mutating the payload fields after request creation does not change the negotiated route.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactRouteNegotiation scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -1193,16 +1193,16 @@ export default function contactRouteNegotiationTest(): void {
      */
     it('routeResolutionIsStableAcrossContactEdits', 0, () => {
       const contact: Contact = routeContact();
-      const intent: RouteIntent = new RouteIntent(ACTION_EDIT, contact);
-      const before: string = intent.url();
+      const request: RouteRequest = new RouteRequest(ACTION_EDIT, contact);
+      const before: string = request.url();
       contact.phone = '13000000000';
       contact.email = 'edited.after@example.com';
       contact.category = 'F';
-      expect(intent.url()).assertEqual(before);
-      expect(intent.url()).assertEqual(ROUTE_EDIT);
-      expect((intent.toParams().data as Contact).email).assertEqual('edited.after@example.com');
-      expect((intent.toParams().data as Contact).category).assertEqual('F');
-      expect(intent.describe().indexOf('路由丁') > 0).assertTrue();
+      expect(request.url()).assertEqual(before);
+      expect(request.url()).assertEqual(ROUTE_EDIT);
+      expect((request.toParams().data as Contact).email).assertEqual('edited.after@example.com');
+      expect((request.toParams().data as Contact).category).assertEqual('F');
+      expect(request.describe().indexOf('路由丁') > 0).assertTrue();
     });
 
     /**
@@ -1218,8 +1218,8 @@ export default function contactRouteNegotiationTest(): void {
      * @tc.level  LEVEL2
      */
     it('negotiatedRoutesContainNoEmptySegments', 0, () => {
-      const paths: string[] = [RouteIntent.routeFor(ACTION_ADD), RouteIntent.routeFor(ACTION_EDIT),
-        RouteIntent.routeFor(ACTION_DELETE), RouteIntent.routeFor('未知动作')];
+      const paths: string[] = [RouteRequest.routeFor(ACTION_ADD), RouteRequest.routeFor(ACTION_EDIT),
+        RouteRequest.routeFor(ACTION_DELETE), RouteRequest.routeFor('未知动作')];
       for (let index = 0; index < paths.length; index++) {
         const segments: string[] = paths[index].split('/');
         expect(segments.length).assertEqual(3);

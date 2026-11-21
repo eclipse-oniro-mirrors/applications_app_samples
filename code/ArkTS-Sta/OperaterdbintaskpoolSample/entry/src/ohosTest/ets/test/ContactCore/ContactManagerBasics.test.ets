@@ -336,7 +336,7 @@ export default function contactManagerBasicsTest(): void {
 
     /**
      * @tc.name   addContactAppendsAfterEveryExistingRow
-     * @tc.desc   addContact places the new contact at the tail and keeps the prior order.
+     * @tc.desc   addContact positions the new contact at the tail and keeps the prior order.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the ContactManagerBasics scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.

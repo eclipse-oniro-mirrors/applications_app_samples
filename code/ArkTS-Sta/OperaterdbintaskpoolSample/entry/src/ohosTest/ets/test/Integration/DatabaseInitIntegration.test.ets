@@ -383,7 +383,7 @@ export default function databaseInitIntegrationTest(): void {
      * @tc.level  LEVEL2
      */
     it('insertOnFreshStoreLazilyInitializes', 0, () => {
-      const draft = contactOf('首次插入', '13900001111', 'first@example.com', '首次地址');
+      const draft = contactOf('初次插入', '13900001111', 'first@example.com', '初次地址');
       const rowId = store.insert(true, draft, 'ON_CONFLICT_REPLACE');
       expect(rowId).assertEqual(1);
       expect(store.initialized).assertTrue();

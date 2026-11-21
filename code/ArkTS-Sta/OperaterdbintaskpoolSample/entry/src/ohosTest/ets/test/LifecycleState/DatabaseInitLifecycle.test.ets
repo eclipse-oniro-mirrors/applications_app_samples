@@ -367,7 +367,7 @@ export default function databaseInitLifecycleTest(): void {
 
     /**
      * @tc.name   batchInsertWithInvalidContextReturnsMinusOne
-     * @tc.desc   The lazy initialization inside batchInsertData fails, so the negative count surfaces.
+     * @tc.desc   The lazy initialization inside batchInsertData fails, so the negative count is returned.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the DatabaseInitLifecycle scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.

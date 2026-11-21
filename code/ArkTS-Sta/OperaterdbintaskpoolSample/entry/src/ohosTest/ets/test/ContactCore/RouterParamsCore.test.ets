@@ -33,7 +33,7 @@ import {
   contactOf,
   cloneContact,
   resetContactManager,
-  RouteIntent,
+  RouteRequest,
   ACTION_ADD,
   ACTION_EDIT,
   ACTION_DELETE,
@@ -258,8 +258,8 @@ export default function routerParamsCoreTest(): void {
       expect(params.text).assertEqual(ACTION_DELETE);
       expect(params.data === undefined).assertTrue();
       expect(bothSlotsPresent(params)).assertFalse();
-      expect(RouteIntent.isKnownAction(params.text as string)).assertTrue();
-      expect(RouteIntent.routeFor(params.text as string)).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.isKnownAction(params.text as string)).assertTrue();
+      expect(RouteRequest.routeFor(params.text as string)).assertEqual(ROUTE_LIST);
       expect(params.text === ACTION_DELETE).assertTrue();
     });
 
@@ -414,7 +414,7 @@ export default function routerParamsCoreTest(): void {
 
     /**
      * @tc.name   describeUsesActionNameAndRoute
-     * @tc.desc   RouteIntent.describe for populated params joins the action, name and edit route.
+     * @tc.desc   RouteRequest.describe for populated params joins the action, name and edit route.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the RouterParamsCore scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -426,14 +426,14 @@ export default function routerParamsCoreTest(): void {
      */
     it('describeUsesActionNameAndRoute', 0, () => {
       const contact: Contact = payloadContact();
-      const intent: RouteIntent = new RouteIntent(ACTION_EDIT, contact);
-      const params: RouterParams = intent.toParams();
-      expect(intent.describe()).assertEqual(ACTION_EDIT + ':参数戊:' + ROUTE_EDIT);
-      expect(intent.describe().split(':').length).assertEqual(3);
-      expect(intent.describe().indexOf((params.data as Contact).name) > 0).assertTrue();
-      expect(intent.describe().startsWith(params.text as string)).assertTrue();
-      expect(intent.describe().endsWith(ROUTE_EDIT)).assertTrue();
-      expect(intent.describe().length > 20).assertTrue();
+      const request: RouteRequest = new RouteRequest(ACTION_EDIT, contact);
+      const params: RouterParams = request.toParams();
+      expect(request.describe()).assertEqual(ACTION_EDIT + ':参数戊:' + ROUTE_EDIT);
+      expect(request.describe().split(':').length).assertEqual(3);
+      expect(request.describe().indexOf((params.data as Contact).name) > 0).assertTrue();
+      expect(request.describe().startsWith(params.text as string)).assertTrue();
+      expect(request.describe().endsWith(ROUTE_EDIT)).assertTrue();
+      expect(request.describe().length > 20).assertTrue();
     });
 
     /**
@@ -450,10 +450,10 @@ export default function routerParamsCoreTest(): void {
      */
     it('describeReflectsANameMutation', 0, () => {
       const contact: Contact = payloadContact();
-      const intent: RouteIntent = new RouteIntent(ACTION_EDIT, contact);
-      const before: string = intent.describe();
+      const request: RouteRequest = new RouteRequest(ACTION_EDIT, contact);
+      const before: string = request.describe();
       contact.name = '改名戊';
-      const after: string = intent.describe();
+      const after: string = request.describe();
       expect(before === after).assertFalse();
       expect(after.indexOf('改名戊') > 0).assertTrue();
       expect(before.indexOf('参数戊') > 0).assertTrue();
@@ -476,15 +476,15 @@ export default function routerParamsCoreTest(): void {
      * @tc.level  LEVEL2
      */
     it('addParamsDescribeEndsWithTheEditRoute', 0, () => {
-      const intent: RouteIntent = new RouteIntent(ACTION_ADD, new Contact());
-      const params: RouterParams = intent.toParams();
-      expect(intent.describe().endsWith(ROUTE_EDIT)).assertTrue();
-      expect(intent.describe().endsWith(ROUTE_LIST)).assertFalse();
+      const request: RouteRequest = new RouteRequest(ACTION_ADD, new Contact());
+      const params: RouterParams = request.toParams();
+      expect(request.describe().endsWith(ROUTE_EDIT)).assertTrue();
+      expect(request.describe().endsWith(ROUTE_LIST)).assertFalse();
       expect(params.text).assertEqual(ACTION_ADD);
       expect(params.data !== undefined).assertTrue();
       expect((params.data as Contact).name).assertEqual('');
-      expect(intent.describe().split(':').length).assertEqual(3);
-      expect(intent.describe().indexOf(ROUTE_EDIT) > 0).assertTrue();
+      expect(request.describe().split(':').length).assertEqual(3);
+      expect(request.describe().indexOf(ROUTE_EDIT) > 0).assertTrue();
     });
 
     /**
@@ -501,14 +501,14 @@ export default function routerParamsCoreTest(): void {
      */
     it('deleteParamsDescribeEndsWithTheListRoute', 0, () => {
       const contact: Contact = payloadContact();
-      const intent: RouteIntent = new RouteIntent(ACTION_DELETE, contact);
-      const params: RouterParams = intent.toParams();
-      expect(intent.describe().endsWith(ROUTE_LIST)).assertTrue();
-      expect(intent.describe().endsWith(ROUTE_EDIT)).assertFalse();
+      const request: RouteRequest = new RouteRequest(ACTION_DELETE, contact);
+      const params: RouterParams = request.toParams();
+      expect(request.describe().endsWith(ROUTE_LIST)).assertTrue();
+      expect(request.describe().endsWith(ROUTE_EDIT)).assertFalse();
       expect(params.text).assertEqual(ACTION_DELETE);
       expect((params.data as Contact) === contact).assertTrue();
-      expect(intent.describe().indexOf(contact.name) > 0).assertTrue();
-      expect(intent.url()).assertEqual(ROUTE_LIST);
+      expect(request.describe().indexOf(contact.name) > 0).assertTrue();
+      expect(request.url()).assertEqual(ROUTE_LIST);
     });
 
     /**
@@ -559,7 +559,7 @@ export default function routerParamsCoreTest(): void {
       expect(bothSlotsPresent(params)).assertTrue();
       expect(params.text).assertEqual(ACTION_ADD);
       expect((params.data as Contact).phone).assertEqual('13955550001');
-      expect(RouteIntent.isKnownAction(params.text as string)).assertTrue();
+      expect(RouteRequest.isKnownAction(params.text as string)).assertTrue();
       expect(params.text === undefined).assertFalse();
     });
 
@@ -636,8 +636,8 @@ export default function routerParamsCoreTest(): void {
     });
 
     /**
-     * @tc.name   paramsFromAnIntentRoundTrip
-     * @tc.desc   An intent built from params and converted back keeps the same text and contact.
+     * @tc.name   paramsFromARequestRoundTrip
+     * @tc.desc   An request built from params and converted back keeps the same text and contact.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the RouterParamsCore scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -647,15 +647,15 @@ export default function routerParamsCoreTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('paramsFromAnIntentRoundTrip', 0, () => {
+    it('paramsFromARequestRoundTrip', 0, () => {
       const contact: Contact = payloadContact();
       const params: RouterParams = new RouterParams(ACTION_DELETE, contact);
-      const intent: RouteIntent = new RouteIntent(params.text as string, params.data as Contact);
-      const again: RouterParams = intent.toParams();
+      const request: RouteRequest = new RouteRequest(params.text as string, params.data as Contact);
+      const again: RouterParams = request.toParams();
       expect(again.text).assertEqual(params.text);
       expect(again.data === params.data).assertTrue();
       expect((again.data as Contact).name).assertEqual('参数戊');
-      expect(intent.url()).assertEqual(ROUTE_LIST);
+      expect(request.url()).assertEqual(ROUTE_LIST);
       expect(again.text).assertEqual(ACTION_DELETE);
       expect(again.data === contact).assertTrue();
     });
@@ -782,7 +782,7 @@ export default function routerParamsCoreTest(): void {
         const params: RouterParams = new RouterParams(actions[index], payloadContact());
         expect((params.text as string).length).assertEqual(5);
         expect((params.text as string).endsWith('联系人')).assertTrue();
-        expect(RouteIntent.isKnownAction(params.text as string)).assertTrue();
+        expect(RouteRequest.isKnownAction(params.text as string)).assertTrue();
       }
       expect(ACTION_ADD === ACTION_EDIT).assertFalse();
       expect(ACTION_EDIT === ACTION_DELETE).assertFalse();
@@ -831,19 +831,19 @@ export default function routerParamsCoreTest(): void {
     it('describeLengthGrowsWithTheContactName', 0, () => {
       const shortContact: Contact = new Contact('短');
       const longContact: Contact = new Contact('长名字联系人戊');
-      const shortIntent: RouteIntent = new RouteIntent(ACTION_EDIT, shortContact);
-      const longIntent: RouteIntent = new RouteIntent(ACTION_EDIT, longContact);
-      expect(longIntent.describe().length > shortIntent.describe().length).assertTrue();
-      expect(longIntent.describe().length - shortIntent.describe().length)
+      const shortRequest: RouteRequest = new RouteRequest(ACTION_EDIT, shortContact);
+      const longRequest: RouteRequest = new RouteRequest(ACTION_EDIT, longContact);
+      expect(longRequest.describe().length > shortRequest.describe().length).assertTrue();
+      expect(longRequest.describe().length - shortRequest.describe().length)
         .assertEqual(longContact.name.length - shortContact.name.length);
-      expect(shortIntent.describe().endsWith(ROUTE_EDIT)).assertTrue();
-      expect(longIntent.describe().split(':')[1]).assertEqual('长名字联系人戊');
-      expect(shortIntent.describe().split(':')[1]).assertEqual('短');
+      expect(shortRequest.describe().endsWith(ROUTE_EDIT)).assertTrue();
+      expect(longRequest.describe().split(':')[1]).assertEqual('长名字联系人戊');
+      expect(shortRequest.describe().split(':')[1]).assertEqual('短');
     });
 
     /**
-     * @tc.name   paramsTextAndIntentActionStayInSync
-     * @tc.desc   Mutating the intent action before converting updates the text the params carry.
+     * @tc.name   paramsTextAndRequestActionStayInSync
+     * @tc.desc   Mutating the request action before converting updates the text the params carry.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the RouterParamsCore scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -853,15 +853,15 @@ export default function routerParamsCoreTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('paramsTextAndIntentActionStayInSync', 0, () => {
+    it('paramsTextAndRequestActionStayInSync', 0, () => {
       const contact: Contact = payloadContact();
-      const intent: RouteIntent = new RouteIntent(ACTION_ADD, contact);
-      expect(intent.toParams().text).assertEqual(ACTION_ADD);
-      intent.action = ACTION_DELETE;
-      const params: RouterParams = intent.toParams();
+      const request: RouteRequest = new RouteRequest(ACTION_ADD, contact);
+      expect(request.toParams().text).assertEqual(ACTION_ADD);
+      request.action = ACTION_DELETE;
+      const params: RouterParams = request.toParams();
       expect(params.text).assertEqual(ACTION_DELETE);
       expect(params.text === ACTION_ADD).assertFalse();
-      expect(intent.url()).assertEqual(ROUTE_LIST);
+      expect(request.url()).assertEqual(ROUTE_LIST);
       expect(params.data === contact).assertTrue();
       expect((params.data as Contact).name).assertEqual('参数戊');
     });
@@ -888,8 +888,8 @@ export default function routerParamsCoreTest(): void {
       expect(params.text !== undefined).assertTrue();
       expect((params.text as string).length).assertEqual(1);
       expect(params.text).assertEqual(' ');
-      expect(RouteIntent.isKnownAction(params.text as string)).assertFalse();
-      expect(RouteIntent.routeFor(params.text as string)).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.isKnownAction(params.text as string)).assertFalse();
+      expect(RouteRequest.routeFor(params.text as string)).assertEqual(ROUTE_LIST);
       expect(params.data !== undefined).assertTrue();
     });
 
@@ -1016,13 +1016,13 @@ export default function routerParamsCoreTest(): void {
       params.text = ACTION_DELETE;
       expect(params.text).assertEqual(ACTION_DELETE);
       expect(bothSlotsPresent(params)).assertTrue();
-      expect(RouteIntent.routeFor(params.text as string)).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.routeFor(params.text as string)).assertEqual(ROUTE_LIST);
       expect((params.data as Contact).phone).assertEqual('13955550001');
     });
 
     /**
      * @tc.name   describeFollowsThePayloadReassignment
-     * @tc.desc   Replacing the intent's contact changes the name segment of its description.
+     * @tc.desc   Replacing the request's contact changes the name segment of its description.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the RouterParamsCore scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -1033,10 +1033,10 @@ export default function routerParamsCoreTest(): void {
      * @tc.level  LEVEL3
      */
     it('describeFollowsThePayloadReassignment', 0, () => {
-      const intent: RouteIntent = new RouteIntent(ACTION_EDIT, payloadContact());
-      const before: string = intent.describe();
-      intent.contact = new Contact('壬');
-      const after: string = intent.describe();
+      const request: RouteRequest = new RouteRequest(ACTION_EDIT, payloadContact());
+      const before: string = request.describe();
+      request.contact = new Contact('壬');
+      const after: string = request.describe();
       expect(before.indexOf('参数戊') > 0).assertTrue();
       expect(after.indexOf('替换壬') < 0).assertTrue();
       expect(before === after).assertFalse();
@@ -1048,7 +1048,7 @@ export default function routerParamsCoreTest(): void {
 
     /**
      * @tc.name   reassignedDataAppearsInLaterParams
-     * @tc.desc   Converting the intent after a payload swap yields the new contact in the params.
+     * @tc.desc   Converting the request after a payload swap yields the new contact in the params.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the RouterParamsCore scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -1059,11 +1059,11 @@ export default function routerParamsCoreTest(): void {
      * @tc.level  LEVEL2
      */
     it('reassignedDataAppearsInLaterParams', 0, () => {
-      const intent: RouteIntent = new RouteIntent(ACTION_EDIT, payloadContact());
-      const firstParams: RouterParams = intent.toParams();
+      const request: RouteRequest = new RouteRequest(ACTION_EDIT, payloadContact());
+      const firstParams: RouterParams = request.toParams();
       const replacement: Contact = new Contact('后来壬', '13700000001', 'later@example.com');
-      intent.contact = replacement;
-      const secondParams: RouterParams = intent.toParams();
+      request.contact = replacement;
+      const secondParams: RouterParams = request.toParams();
       expect((firstParams.data as Contact).name).assertEqual('参数戊');
       expect((secondParams.data as Contact).name).assertEqual('后来壬');
       expect(secondParams.data === replacement).assertTrue();
@@ -1077,10 +1077,10 @@ export default function routerParamsCoreTest(): void {
       expect(secondParams.data === replacement).assertTrue();
       expect(firstParams.text as string).assertEqual('编辑联系人');
       expect(secondParams.text as string).assertEqual('编辑联系人');
-      expect(intent.url()).assertEqual(ROUTE_EDIT);
-      expect(intent.describe().endsWith(ROUTE_EDIT)).assertTrue();
-      expect(intent.describe().split(':')[1]).assertEqual('后来壬');
-      expect(intent.contact === replacement).assertTrue();
+      expect(request.url()).assertEqual(ROUTE_EDIT);
+      expect(request.describe().endsWith(ROUTE_EDIT)).assertTrue();
+      expect(request.describe().split(':')[1]).assertEqual('后来壬');
+      expect(request.contact === replacement).assertTrue();
       expect(replacement.name.length).assertEqual(3);
     });
 
@@ -1182,13 +1182,13 @@ export default function routerParamsCoreTest(): void {
     it('actionTextCanWalkAddEditDelete', 0, () => {
       const params: RouterParams = new RouterParams(ACTION_ADD, payloadContact());
       expect(params.text).assertEqual(ACTION_ADD);
-      expect(RouteIntent.routeFor(params.text as string)).assertEqual(ROUTE_EDIT);
+      expect(RouteRequest.routeFor(params.text as string)).assertEqual(ROUTE_EDIT);
       params.text = ACTION_EDIT;
       expect(params.text).assertEqual(ACTION_EDIT);
-      expect(RouteIntent.routeFor(params.text as string)).assertEqual(ROUTE_EDIT);
+      expect(RouteRequest.routeFor(params.text as string)).assertEqual(ROUTE_EDIT);
       params.text = ACTION_DELETE;
       expect(params.text).assertEqual(ACTION_DELETE);
-      expect(RouteIntent.routeFor(params.text as string)).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.routeFor(params.text as string)).assertEqual(ROUTE_LIST);
       expect(bothSlotsPresent(params)).assertTrue();
       expect((params.data as Contact).name).assertEqual('参数戊');
     });
@@ -1206,8 +1206,8 @@ export default function routerParamsCoreTest(): void {
      * @tc.level  LEVEL3
      */
     it('describeOfAnEmptyContactHasAnEmptyNameSegment', 0, () => {
-      const intent: RouteIntent = new RouteIntent(ACTION_EDIT, new Contact());
-      const description: string = intent.describe();
+      const request: RouteRequest = new RouteRequest(ACTION_EDIT, new Contact());
+      const description: string = request.describe();
       expect(description).assertEqual(ACTION_EDIT + '::' + ROUTE_EDIT);
       expect(description.indexOf('::') > 0).assertTrue();
       expect(description.split(':').length).assertEqual(3);
@@ -1219,7 +1219,7 @@ export default function routerParamsCoreTest(): void {
 
     /**
      * @tc.name   payloadMutationAfterASetIsReflectedByBothViews
-     * @tc.desc   A field edit on the stored row is visible through params and through a fresh intent.
+     * @tc.desc   A field edit on the stored row is visible through params and through a fresh request.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the RouterParamsCore scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -1237,13 +1237,13 @@ export default function routerParamsCoreTest(): void {
       rows.push(row);
       manager.setContacts(rows);
       const params: RouterParams = new RouterParams(ACTION_EDIT, row);
-      const intent: RouteIntent = new RouteIntent(ACTION_EDIT, row);
+      const request: RouteRequest = new RouteRequest(ACTION_EDIT, row);
       row.email = 'link.new@example.com';
       expect((params.data as Contact).email).assertEqual('link.new@example.com');
-      expect((intent.toParams().data as Contact).email).assertEqual('link.new@example.com');
+      expect((request.toParams().data as Contact).email).assertEqual('link.new@example.com');
       expect(manager.getContacts()[0].email).assertEqual('link.new@example.com');
       expect(params.data === manager.getContacts()[0]).assertTrue();
-      expect(intent.describe().indexOf('联动己') > 0).assertTrue();
+      expect(request.describe().indexOf('联动己') > 0).assertTrue();
       expect(params.text).assertEqual(ACTION_EDIT);
     });
 

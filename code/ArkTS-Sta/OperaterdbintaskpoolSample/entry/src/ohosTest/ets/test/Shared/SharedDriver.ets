@@ -160,12 +160,12 @@ export class ContactValidation {
   }
   static canSubmit(row: Contact, rows: Contact[] = []): boolean { return ContactValidation.validate(row, rows).length === 0; }
 }
-export class RouteIntent {
+export class RouteRequest {
   action: string; contact: Contact;
   constructor(action: string, contact: Contact) { this.action = action; this.contact = contact; }
   static isKnownAction(action: string): boolean { return [ACTION_ADD, ACTION_EDIT, ACTION_DELETE].indexOf(action) >= 0; }
   static routeFor(action: string): string { return action === ACTION_ADD || action === ACTION_EDIT ? ROUTE_EDIT : ROUTE_LIST; }
-  url(): string { return RouteIntent.routeFor(this.action); }
+  url(): string { return RouteRequest.routeFor(this.action); }
   toParams(): RouterParams { return new RouterParams(this.action, this.contact); }
   describe(): string { return this.action + ':' + this.contact.name + ':' + this.url(); }
 }

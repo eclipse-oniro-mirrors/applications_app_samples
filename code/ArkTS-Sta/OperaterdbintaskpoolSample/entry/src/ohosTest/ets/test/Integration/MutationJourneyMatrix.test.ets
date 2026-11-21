@@ -16,7 +16,7 @@
 
 /**
  * MutationJourneyMatrix follows add, edit, delete and search across the
- * manager, the store, the bucket mapper, the router intent and the metrics.
+ * manager, the store, the bucket mapper, the router request and the metrics.
  *
  * Production anchors:
  *   OperateRDBInTaskPool.ets:74-117  seed once, then dispatch add/edit/delete
@@ -49,7 +49,7 @@ import {
   ContactValidation,
   Bucket,
   ContactMetrics,
-  RouteIntent,
+  RouteRequest,
   SearchEngine,
   ACTION_ADD,
   ACTION_EDIT,
@@ -219,9 +219,9 @@ export default function mutationJourneyMatrixTest(): void {
 
     /**
      * @tc.name   mutationJourneyAddRouteTargetsEditPage
-     * @tc.desc   The add intent opens AddressBookEdit and carries the draft through RouterParams.
+     * @tc.desc   The add request opens AddressBookEdit and carries the draft through RouterParams.
      * @tc.precondition  beforeEach cleared the manager, the store and the queue, then yielded once.
-     * @tc.steps         1. Build a route intent for the add action.
+     * @tc.steps         1. Build a route request for the add action.
      *                   2. Convert it to RouterParams and read the text.
      *                   3. Compare the target with the edit route.
      * @tc.expected      The target is the edit page and the parameter text is the add action.
@@ -231,15 +231,15 @@ export default function mutationJourneyMatrixTest(): void {
      */
     it('mutationJourneyAddRouteTargetsEditPage', 0, () => {
       const draft: Contact = validDraft('顾况', '13702000003');
-      const intent: RouteIntent = new RouteIntent(ACTION_ADD, draft);
-      const params: RouterParams = intent.toParams();
-      logStep('MutationJourneyMatrix', intent.describe());
-      expect(intent.url()).assertEqual(ROUTE_EDIT);
-      expect(intent.url() === ROUTE_LIST).assertFalse();
+      const request: RouteRequest = new RouteRequest(ACTION_ADD, draft);
+      const params: RouterParams = request.toParams();
+      logStep('MutationJourneyMatrix', request.describe());
+      expect(request.url()).assertEqual(ROUTE_EDIT);
+      expect(request.url() === ROUTE_LIST).assertFalse();
       expect(params.text).assertEqual(ACTION_ADD);
       expect(params.data !== undefined).assertTrue();
       expect((params.data as Contact).name).assertEqual('顾况');
-      expect(RouteIntent.isKnownAction(ACTION_ADD)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_ADD)).assertTrue();
     });
 
     /**
@@ -375,9 +375,9 @@ export default function mutationJourneyMatrixTest(): void {
 
     /**
      * @tc.name   mutationJourneyEditRouteTargetsEditPage
-     * @tc.desc   The edit intent reuses the edit route and carries the edited contact.
+     * @tc.desc   The edit request reuses the edit route and carries the edited contact.
      * @tc.precondition  beforeEach cleared the manager, the store and the queue, then yielded once.
-     * @tc.steps         1. Build an edit intent from an updated row.
+     * @tc.steps         1. Build an edit request from an updated row.
      *                   2. Convert it to RouterParams.
      *                   3. Compare route, text and payload.
      * @tc.expected      The route is AddressBookEdit and the payload holds the new phone.
@@ -387,14 +387,14 @@ export default function mutationJourneyMatrixTest(): void {
      */
     it('mutationJourneyEditRouteTargetsEditPage', 0, () => {
       const edited: Contact = contactOf('南枝', '13703000003', 'nanzhi-new@example.com', '安徽省芜湖市镜湖区', '', 'C');
-      const intent: RouteIntent = new RouteIntent(ACTION_EDIT, edited);
-      const params: RouterParams = intent.toParams();
-      expect(intent.url()).assertEqual(ROUTE_EDIT);
+      const request: RouteRequest = new RouteRequest(ACTION_EDIT, edited);
+      const params: RouterParams = request.toParams();
+      expect(request.url()).assertEqual(ROUTE_EDIT);
       expect(params.text).assertEqual(ACTION_EDIT);
       expect((params.data as Contact).phone).assertEqual('13703000003');
       expect((params.data as Contact).email).assertEqual('nanzhi-new@example.com');
-      expect(intent.describe().indexOf('南枝') > 0).assertTrue();
-      expect(intent.describe().endsWith(ROUTE_EDIT)).assertTrue();
+      expect(request.describe().indexOf('南枝') > 0).assertTrue();
+      expect(request.describe().endsWith(ROUTE_EDIT)).assertTrue();
     });
 
     /**
@@ -500,9 +500,9 @@ export default function mutationJourneyMatrixTest(): void {
 
     /**
      * @tc.name   mutationJourneyDeleteRouteReturnsToList
-     * @tc.desc   The delete intent resolves to the list page, unlike add and edit.
+     * @tc.desc   The delete request resolves to the list page, unlike add and edit.
      * @tc.precondition  beforeEach cleared the manager, the store and the queue, then yielded once.
-     * @tc.steps         1. Build a delete intent for 清和.
+     * @tc.steps         1. Build a delete request for 清和.
      *                   2. Read the target route and the RouterParams text.
      *                   3. Compare with the edit route.
      * @tc.expected      The target is the list page and the text is the delete action.
@@ -512,14 +512,14 @@ export default function mutationJourneyMatrixTest(): void {
      */
     it('mutationJourneyDeleteRouteReturnsToList', 0, () => {
       const target: Contact = contactOf('清和', '13701000005', 'qinghe@example.com', '湖南省长沙市芙蓉区', '', 'E');
-      const intent: RouteIntent = new RouteIntent(ACTION_DELETE, target);
-      const params: RouterParams = intent.toParams();
-      expect(intent.url()).assertEqual(ROUTE_LIST);
-      expect(intent.url() === ROUTE_EDIT).assertFalse();
+      const request: RouteRequest = new RouteRequest(ACTION_DELETE, target);
+      const params: RouterParams = request.toParams();
+      expect(request.url()).assertEqual(ROUTE_LIST);
+      expect(request.url() === ROUTE_EDIT).assertFalse();
       expect(params.text).assertEqual(ACTION_DELETE);
       expect((params.data as Contact).name).assertEqual('清和');
-      expect(RouteIntent.isKnownAction(ACTION_DELETE)).assertTrue();
-      expect(intent.describe().startsWith(ACTION_DELETE)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_DELETE)).assertTrue();
+      expect(request.describe().startsWith(ACTION_DELETE)).assertTrue();
     });
 
     /**
@@ -998,7 +998,7 @@ export default function mutationJourneyMatrixTest(): void {
      * @tc.name   mutationJourneyRouteUnknownActionFallsBack
      * @tc.desc   An unrecognised action resolves to the list route and is not a known action.
      * @tc.precondition  beforeEach cleared the manager, the store and the queue, then yielded once.
-     * @tc.steps         1. Build an intent with an unknown action text.
+     * @tc.steps         1. Build a request with an unknown action text.
      *                   2. Resolve the route through the static helper.
      *                   3. Compare with the list and edit routes.
      * @tc.expected      The fallback route is the list page and the action is not known.
@@ -1007,13 +1007,13 @@ export default function mutationJourneyMatrixTest(): void {
      * @tc.level  LEVEL2
      */
     it('mutationJourneyRouteUnknownActionFallsBack', 0, () => {
-      const intent: RouteIntent = new RouteIntent('分享联系人', validDraft('分享', '13710000003'));
-      expect(intent.url()).assertEqual(ROUTE_LIST);
-      expect(RouteIntent.routeFor('分享联系人')).assertEqual(ROUTE_LIST);
-      expect(RouteIntent.isKnownAction('分享联系人')).assertFalse();
-      expect(intent.url() === ROUTE_EDIT).assertFalse();
-      expect(intent.describe().endsWith(ROUTE_LIST)).assertTrue();
-      expect(intent.toParams().text).assertEqual('分享联系人');
+      const request: RouteRequest = new RouteRequest('分享联系人', validDraft('分享', '13710000003'));
+      expect(request.url()).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.routeFor('分享联系人')).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.isKnownAction('分享联系人')).assertFalse();
+      expect(request.url() === ROUTE_EDIT).assertFalse();
+      expect(request.describe().endsWith(ROUTE_LIST)).assertTrue();
+      expect(request.toParams().text).assertEqual('分享联系人');
     });
 
     /**
@@ -1029,23 +1029,23 @@ export default function mutationJourneyMatrixTest(): void {
      * @tc.level  LEVEL1
      */
     it('mutationJourneyRouteAddAndEditShareTarget', 0, () => {
-      const addRoute: string = RouteIntent.routeFor(ACTION_ADD);
-      const editRoute: string = RouteIntent.routeFor(ACTION_EDIT);
-      const deleteRoute: string = RouteIntent.routeFor(ACTION_DELETE);
+      const addRoute: string = RouteRequest.routeFor(ACTION_ADD);
+      const editRoute: string = RouteRequest.routeFor(ACTION_EDIT);
+      const deleteRoute: string = RouteRequest.routeFor(ACTION_DELETE);
       expect(addRoute).assertEqual(ROUTE_EDIT);
       expect(editRoute).assertEqual(ROUTE_EDIT);
       expect(addRoute).assertEqual(editRoute);
       expect(deleteRoute).assertEqual(ROUTE_LIST);
       expect(deleteRoute === ROUTE_EDIT).assertFalse();
-      expect(RouteIntent.isKnownAction(ACTION_ADD) && RouteIntent.isKnownAction(ACTION_EDIT)).assertTrue();
-      expect(RouteIntent.isKnownAction(ACTION_DELETE)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_ADD) && RouteRequest.isKnownAction(ACTION_EDIT)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_DELETE)).assertTrue();
     });
 
     /**
-     * @tc.name   mutationJourneyRouteIntentCarriesContact
+     * @tc.name   mutationJourneyRouteRequestCarriesContact
      * @tc.desc   RouterParams keeps the exact Contact reference and the action text.
      * @tc.precondition  beforeEach cleared the manager, the store and the queue, then yielded once.
-     * @tc.steps         1. Create a draft and an intent over it.
+     * @tc.steps         1. Create a draft and a request over it.
      *                   2. Convert to RouterParams.
      *                   3. Compare the payload reference and every field.
      * @tc.expected      The payload is the same instance and all six fields are readable.
@@ -1053,11 +1053,11 @@ export default function mutationJourneyMatrixTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL1
      */
-    it('mutationJourneyRouteIntentCarriesContact', 0, () => {
+    it('mutationJourneyRouteRequestCarriesContact', 0, () => {
       const draft: Contact = validDraft('王维', '13710000004');
       draft.avatar = 'wangwei.png';
-      const intent: RouteIntent = new RouteIntent(ACTION_EDIT, draft);
-      const params: RouterParams = intent.toParams();
+      const request: RouteRequest = new RouteRequest(ACTION_EDIT, draft);
+      const params: RouterParams = request.toParams();
       expect(params.data === draft).assertTrue();
       expect(params.text).assertEqual(ACTION_EDIT);
       expect((params.data as Contact).name).assertEqual('王维');
@@ -1071,8 +1071,8 @@ export default function mutationJourneyMatrixTest(): void {
      * @tc.name   mutationJourneyRoutePayloadLeavesLedgerAlone
      * @tc.desc   Editing a routed draft mutates the payload but not the stored ledger.
      * @tc.precondition  beforeEach cleared the manager, the store and the queue, then yielded once.
-     * @tc.steps         1. Seed five rows and build an edit intent for a new draft.
-     *                   2. Change the draft phone after the intent is built.
+     * @tc.steps         1. Seed five rows and build an edit request for a new draft.
+     *                   2. Change the draft phone after the request is built.
      *                   3. Compare the payload with the ledger.
      * @tc.expected      The payload reflects the change while the ledger keeps its five original rows.
  * @tc.remark        Pure logic case; no device, network stack or UI dependency.
@@ -1083,15 +1083,15 @@ export default function mutationJourneyMatrixTest(): void {
       const manager: ContactManager = ContactManager.getInstance();
       seedJourney(store, manager, journeySeed());
       const draft: Contact = validDraft('王维', '13710000005');
-      const intent: RouteIntent = new RouteIntent(ACTION_EDIT, draft);
+      const request: RouteRequest = new RouteRequest(ACTION_EDIT, draft);
       draft.phone = '13710009999';
-      const params: RouterParams = intent.toParams();
+      const params: RouterParams = request.toParams();
       expect((params.data as Contact).phone).assertEqual('13710009999');
       expect(manager.getContacts().length).assertEqual(5);
       expect(countOf(contactNames(manager.getContacts()), '王维')).assertEqual(0);
       expect(store.rowCount()).assertEqual(5);
       expect(countOf(store.names(), '王维')).assertEqual(0);
-      expect(intent.url()).assertEqual(ROUTE_EDIT);
+      expect(request.url()).assertEqual(ROUTE_EDIT);
     });
 
     /**

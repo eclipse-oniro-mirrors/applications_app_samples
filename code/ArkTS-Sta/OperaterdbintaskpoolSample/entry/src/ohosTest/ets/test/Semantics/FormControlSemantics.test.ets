@@ -15,7 +15,7 @@
  */
 
 /**
- * Accessibility / FormControlSemantics suite.
+ * Semantics / FormControlSemantics suite.
  *
  * The edit form exposes four text inputs, a submit button and a cancel path.
  * Screen reader semantics depend on the labels the page attaches, so the suite
@@ -26,7 +26,7 @@
  *   AddressBookEdit.ets:176-279      input limits, duplicate guard and submit
  *   OperateRDBInTaskPool.ets:112-120 action names and routing
  *   Contact.ets:49-57                RouterParams carrier
- *   SharedDriver.ets:762-795         RouteIntent semantics
+ *   SharedDriver.ets:762-795         RouteRequest semantics
  */
 
 import { describe, it, expect, beforeAll, beforeEach, afterAll } from '@ohos/hypium';
@@ -52,7 +52,7 @@ import {
   isDigitsOnly,
   hasEmailShape,
   ContactValidation,
-  RouteIntent,
+  RouteRequest,
   SearchEngine,
   resetContactManager
 } from '../Shared/SharedDriver';
@@ -84,9 +84,9 @@ export default function formControlSemanticsTest(): void {
      * @tc.level  LEVEL1
      */
     it('addActionRoutesToEditForm', 0, () => {
-      expect(RouteIntent.routeFor(ACTION_ADD)).assertEqual(ROUTE_EDIT);
+      expect(RouteRequest.routeFor(ACTION_ADD)).assertEqual(ROUTE_EDIT);
       expect(ROUTE_EDIT).assertEqual('pages/view/AddressBookEdit');
-      expect(RouteIntent.isKnownAction(ACTION_ADD)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_ADD)).assertTrue();
       expect(ACTION_ADD).assertEqual('新增联系人');
       logStep('formControlSemanticsTest', 'add opens the edit form');
     });
@@ -104,10 +104,10 @@ export default function formControlSemanticsTest(): void {
      * @tc.level  LEVEL1
      */
     it('editActionRoutesToEditForm', 0, () => {
-      expect(RouteIntent.routeFor(ACTION_EDIT)).assertEqual(ROUTE_EDIT);
-      expect(RouteIntent.routeFor(ACTION_EDIT)).assertEqual(RouteIntent.routeFor(ACTION_ADD));
+      expect(RouteRequest.routeFor(ACTION_EDIT)).assertEqual(ROUTE_EDIT);
+      expect(RouteRequest.routeFor(ACTION_EDIT)).assertEqual(RouteRequest.routeFor(ACTION_ADD));
       expect(ACTION_EDIT).assertEqual('编辑联系人');
-      expect(RouteIntent.isKnownAction(ACTION_EDIT)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_EDIT)).assertTrue();
       logStep('formControlSemanticsTest', 'edit opens the edit form');
     });
 
@@ -124,10 +124,10 @@ export default function formControlSemanticsTest(): void {
      * @tc.level  LEVEL1
      */
     it('deleteActionRoutesToList', 0, () => {
-      expect(RouteIntent.routeFor(ACTION_DELETE)).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.routeFor(ACTION_DELETE)).assertEqual(ROUTE_LIST);
       expect(ROUTE_LIST).assertEqual('pages/view/OperateRDBInTaskPool');
       expect(ACTION_DELETE).assertEqual('删除联系人');
-      expect(RouteIntent.routeFor(ACTION_DELETE) === ROUTE_EDIT).assertFalse();
+      expect(RouteRequest.routeFor(ACTION_DELETE) === ROUTE_EDIT).assertFalse();
       logStep('formControlSemanticsTest', 'delete returns to the list');
     });
 
@@ -144,10 +144,10 @@ export default function formControlSemanticsTest(): void {
      * @tc.level  LEVEL2
      */
     it('unknownActionFallsBackToList', 0, () => {
-      expect(RouteIntent.routeFor('未知动作')).assertEqual(ROUTE_LIST);
-      expect(RouteIntent.routeFor('')).assertEqual(ROUTE_LIST);
-      expect(RouteIntent.isKnownAction('未知动作')).assertFalse();
-      expect(RouteIntent.isKnownAction('')).assertFalse();
+      expect(RouteRequest.routeFor('未知动作')).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.routeFor('')).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.isKnownAction('未知动作')).assertFalse();
+      expect(RouteRequest.isKnownAction('')).assertFalse();
       logStep('formControlSemanticsTest', 'unknown action falls back to the list');
     });
 
@@ -164,10 +164,10 @@ export default function formControlSemanticsTest(): void {
      * @tc.level  LEVEL2
      */
     it('threeActionNamesAreKnown', 0, () => {
-      expect(RouteIntent.isKnownAction(ACTION_ADD)).assertTrue();
-      expect(RouteIntent.isKnownAction(ACTION_EDIT)).assertTrue();
-      expect(RouteIntent.isKnownAction(ACTION_DELETE)).assertTrue();
-      expect(RouteIntent.isKnownAction(ACTION_ADD + 'x')).assertFalse();
+      expect(RouteRequest.isKnownAction(ACTION_ADD)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_EDIT)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_DELETE)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_ADD + 'x')).assertFalse();
       expect(containsChinese(ACTION_ADD)).assertTrue();
       logStep('formControlSemanticsTest', 'three action names are known');
     });
@@ -187,8 +187,8 @@ export default function formControlSemanticsTest(): void {
     it('detailRouteLiteralPinned', 0, () => {
       expect(ROUTE_DETAIL).assertEqual('pages/view/AddressBookDetail');
       expect(ROUTE_DETAIL.indexOf('Detail') > 0).assertTrue();
-      expect(RouteIntent.routeFor(ACTION_ADD) === ROUTE_DETAIL).assertFalse();
-      expect(RouteIntent.routeFor(ACTION_EDIT) === ROUTE_DETAIL).assertFalse();
+      expect(RouteRequest.routeFor(ACTION_ADD) === ROUTE_DETAIL).assertFalse();
+      expect(RouteRequest.routeFor(ACTION_EDIT) === ROUTE_DETAIL).assertFalse();
       logStep('formControlSemanticsTest', 'detail route literal is pinned');
     });
 
@@ -377,13 +377,13 @@ export default function formControlSemanticsTest(): void {
       const params = new RouterParams(undefined, undefined);
       expect(params.text === undefined).assertTrue();
       expect(params.data === undefined).assertTrue();
-      expect(RouteIntent.isKnownAction('')).assertFalse();
+      expect(RouteRequest.isKnownAction('')).assertFalse();
       logStep('formControlSemanticsTest', 'router params allow an empty form');
     });
 
     /**
-     * @tc.name   routeIntentDescribeFormat
-     * @tc.desc   The intent description joins action, name and route with colons.
+     * @tc.name   routeRequestDescribeFormat
+     * @tc.desc   The request description joins action, name and route with colons.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the FormControlSemantics scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -393,18 +393,18 @@ export default function formControlSemanticsTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('routeIntentDescribeFormat', 0, () => {
-      const intent = new RouteIntent(ACTION_EDIT, contactOf('苏禾', '13512345678', 'suhe@example.com',
+    it('routeRequestDescribeFormat', 0, () => {
+      const request = new RouteRequest(ACTION_EDIT, contactOf('苏禾', '13512345678', 'suhe@example.com',
         '浙江省杭州市西湖区', '', CATEGORY_A));
-      expect(intent.describe()).assertEqual('编辑联系人:苏禾:pages/view/AddressBookEdit');
-      expect(intent.describe().split(':').length).assertEqual(3);
-      expect(intent.url()).assertEqual(ROUTE_EDIT);
-      logStep('formControlSemanticsTest', 'intent describe format');
+      expect(request.describe()).assertEqual('编辑联系人:苏禾:pages/view/AddressBookEdit');
+      expect(request.describe().split(':').length).assertEqual(3);
+      expect(request.url()).assertEqual(ROUTE_EDIT);
+      logStep('formControlSemanticsTest', 'request describe format');
     });
 
     /**
-     * @tc.name   routeIntentParamsPreserveAction
-     * @tc.desc   Converting an intent to router parameters keeps the action text.
+     * @tc.name   routeRequestParamsPreserveAction
+     * @tc.desc   Converting a request to router parameters keeps the action text.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the FormControlSemantics scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -414,15 +414,15 @@ export default function formControlSemanticsTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL3
      */
-    it('routeIntentParamsPreserveAction', 0, () => {
+    it('routeRequestParamsPreserveAction', 0, () => {
       const contact = contactOf('莫川', '13100000041', 'mochuan@example.com', '贵州省贵阳市南明区', '', CATEGORY_A);
-      const intent = new RouteIntent(ACTION_ADD, contact);
-      const params = intent.toParams();
+      const request = new RouteRequest(ACTION_ADD, contact);
+      const params = request.toParams();
       expect(params.text).assertEqual(ACTION_ADD);
       expect(params.data !== undefined).assertTrue();
       expect((params.data as Contact).name).assertEqual('莫川');
-      expect(intent.url()).assertEqual(ROUTE_EDIT);
-      logStep('formControlSemanticsTest', 'intent params preserve the action');
+      expect(request.url()).assertEqual(ROUTE_EDIT);
+      logStep('formControlSemanticsTest', 'request params preserve the action');
     });
 
     /**
@@ -620,8 +620,8 @@ export default function formControlSemanticsTest(): void {
     });
 
     /**
-     * @tc.name   deleteIntentNeverOpensTheForm
-     * @tc.desc   A delete intent reports the list route and its description keeps the name.
+     * @tc.name   deleteRequestNeverOpensTheForm
+     * @tc.desc   A delete request reports the list route and its description keeps the name.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the FormControlSemantics scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -631,14 +631,14 @@ export default function formControlSemanticsTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('deleteIntentNeverOpensTheForm', 0, () => {
-      const intent = new RouteIntent(ACTION_DELETE, contactOf('贝拉', '11111111111', 'bella@example.com',
+    it('deleteRequestNeverOpensTheForm', 0, () => {
+      const request = new RouteRequest(ACTION_DELETE, contactOf('贝拉', '11111111111', 'bella@example.com',
         '湖北省武汉市江汉区', '', CATEGORY_B));
-      expect(intent.url()).assertEqual(ROUTE_LIST);
-      expect(intent.describe()).assertEqual('删除联系人:贝拉:pages/view/OperateRDBInTaskPool');
-      expect(intent.describe().indexOf(ROUTE_EDIT)).assertEqual(-1);
-      expect(RouteIntent.isKnownAction(ACTION_DELETE)).assertTrue();
-      logStep('formControlSemanticsTest', 'delete intent stays on the list');
+      expect(request.url()).assertEqual(ROUTE_LIST);
+      expect(request.describe()).assertEqual('删除联系人:贝拉:pages/view/OperateRDBInTaskPool');
+      expect(request.describe().indexOf(ROUTE_EDIT)).assertEqual(-1);
+      expect(RouteRequest.isKnownAction(ACTION_DELETE)).assertTrue();
+      logStep('formControlSemanticsTest', 'delete request stays on the list');
     });
 
     /**

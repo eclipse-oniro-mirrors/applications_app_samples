@@ -64,7 +64,7 @@ import {
   hasEmailShape,
   resetContactManager,
   expectedAfterAdd,
-  RouteIntent,
+  RouteRequest,
   SearchEngine,
   ContactMetrics,
   snapshotsOf,
@@ -103,7 +103,7 @@ export default function addContactEndToEndTest(): void {
 
     /**
      * @tc.name   addRouteTargetsEditPageWithEmptyDraft
-     * @tc.desc   The add button intent resolves to AddressBookEdit and carries a blank Contact draft.
+     * @tc.desc   The add button request resolves to AddressBookEdit and carries a blank Contact draft.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the AddContactEndToEnd scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -114,15 +114,15 @@ export default function addContactEndToEndTest(): void {
      * @tc.level  LEVEL1
      */
     it('addRouteTargetsEditPageWithEmptyDraft', 0, () => {
-      const intent = new RouteIntent(ACTION_ADD, new Contact());
-      const params = intent.toParams();
-      logStep('addRouteTargetsEditPageWithEmptyDraft', intent.url());
-      expect(intent.url()).assertEqual(ROUTE_EDIT);
-      expect(RouteIntent.isKnownAction(ACTION_ADD)).assertTrue();
+      const request = new RouteRequest(ACTION_ADD, new Contact());
+      const params = request.toParams();
+      logStep('addRouteTargetsEditPageWithEmptyDraft', request.url());
+      expect(request.url()).assertEqual(ROUTE_EDIT);
+      expect(RouteRequest.isKnownAction(ACTION_ADD)).assertTrue();
       expect(params.text).assertEqual(ACTION_ADD);
       expect(params.data !== undefined).assertTrue();
       expect((params.data as Contact).name).assertEqual('');
-      expect(intent.describe().indexOf(ROUTE_EDIT) > 0).assertTrue();
+      expect(request.describe().indexOf(ROUTE_EDIT) > 0).assertTrue();
     });
 
     /**
@@ -664,7 +664,7 @@ export default function addContactEndToEndTest(): void {
     });
 
     /**
-     * @tc.name   addRouteIntentDescribeUsesActionAndEditUrl
+     * @tc.name   addRouteRequestDescribeUsesActionAndEditUrl
      * @tc.desc   The route descriptor keeps the Chinese action literal next to the English edit page url.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the AddContactEndToEnd scenario from suite constants and factory helpers.
@@ -675,14 +675,14 @@ export default function addContactEndToEndTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('addRouteIntentDescribeUsesActionAndEditUrl', 0, () => {
+    it('addRouteRequestDescribeUsesActionAndEditUrl', 0, () => {
       const draft = contactOf('沈青禾', '13900001111', 'shen@example.com', '浙江省杭州市西湖区');
-      const intent = new RouteIntent(ACTION_ADD, draft);
-      expect(intent.describe()).assertEqual('新增联系人:沈青禾:' + ROUTE_EDIT);
-      expect(intent.url()).assertEqual(ROUTE_EDIT);
-      expect(intent.toParams().text).assertEqual(intent.action);
-      expect(textFingerprint(intent.describe()) > 0).assertTrue();
-      expect(intent.describe().endsWith(ROUTE_EDIT)).assertTrue();
+      const request = new RouteRequest(ACTION_ADD, draft);
+      expect(request.describe()).assertEqual('新增联系人:沈青禾:' + ROUTE_EDIT);
+      expect(request.url()).assertEqual(ROUTE_EDIT);
+      expect(request.toParams().text).assertEqual(request.action);
+      expect(textFingerprint(request.describe()) > 0).assertTrue();
+      expect(request.describe().endsWith(ROUTE_EDIT)).assertTrue();
     });
 
     /**
@@ -701,9 +701,9 @@ export default function addContactEndToEndTest(): void {
       const manager = ContactManager.getInstance();
       const seed = createSeedContacts();
       manager.setContacts(seed);
-      const intent = new RouteIntent(ACTION_ADD,
+      const request = new RouteRequest(ACTION_ADD,
         contactOf('沈青禾', '13900001111', 'shen@example.com', '浙江省杭州市西湖区', '', 'A'));
-      const draft = intent.toParams().data as Contact;
+      const draft = request.toParams().data as Contact;
       expect(ContactValidation.validate(draft, manager.getContacts()).length).assertEqual(0);
       store.batchInsert(true, seed);
       store.insert(true, draft, CONFLICT_REPLACE);
@@ -818,7 +818,7 @@ export default function addContactEndToEndTest(): void {
 
     /**
      * @tc.name   addStoreBatchBeforeInsertKeepsNewRowAtTheEnd
-     * @tc.desc   Seeding all fifteen rows first then inserting places the new contact in slot fifteen.
+     * @tc.desc   Seeding all fifteen rows first then inserting positions the new contact in slot fifteen.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the AddContactEndToEnd scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -957,7 +957,7 @@ export default function addContactEndToEndTest(): void {
     });
 
     /**
-     * @tc.name   addRouteIntentForUnknownActionFallsBackToList
+     * @tc.name   addRouteRequestForUnknownActionFallsBackToList
      * @tc.desc   Only add and edit open the editor; an unrecognised action routes back to the list page.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the AddContactEndToEnd scenario from suite constants and factory helpers.
@@ -968,13 +968,13 @@ export default function addContactEndToEndTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL3
      */
-    it('addRouteIntentForUnknownActionFallsBackToList', 0, () => {
-      const intent = new RouteIntent('浏览联系人', new Contact('沈青禾', '13900001111', 'shen@example.com', '某地'));
-      expect(intent.url()).assertEqual('pages/view/OperateRDBInTaskPool');
-      expect(RouteIntent.isKnownAction(intent.action)).assertFalse();
-      expect(RouteIntent.routeFor(ACTION_ADD)).assertEqual(ROUTE_EDIT);
-      expect(RouteIntent.routeFor('新增联系人')).assertEqual(ROUTE_EDIT);
-      expect(intent.describe().indexOf('浏览联系人:') ).assertEqual(0);
+    it('addRouteRequestForUnknownActionFallsBackToList', 0, () => {
+      const request = new RouteRequest('浏览联系人', new Contact('沈青禾', '13900001111', 'shen@example.com', '某地'));
+      expect(request.url()).assertEqual('pages/view/OperateRDBInTaskPool');
+      expect(RouteRequest.isKnownAction(request.action)).assertFalse();
+      expect(RouteRequest.routeFor(ACTION_ADD)).assertEqual(ROUTE_EDIT);
+      expect(RouteRequest.routeFor('新增联系人')).assertEqual(ROUTE_EDIT);
+      expect(request.describe().indexOf('浏览联系人:') ).assertEqual(0);
     });
 
     /**

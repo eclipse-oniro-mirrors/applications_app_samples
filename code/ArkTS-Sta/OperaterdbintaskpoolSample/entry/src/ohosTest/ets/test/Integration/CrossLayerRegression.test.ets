@@ -54,7 +54,7 @@ import {
   SearchEngine,
   snapshotsOf,
   sameSnapshotArray,
-  RouteIntent,
+  RouteRequest,
   ACTION_ADD,
   ACTION_EDIT,
   ACTION_DELETE,
@@ -691,13 +691,13 @@ export default function crossLayerRegressionTest(): void {
      */
     it('regressionRouteCatalogCoversThreeActions', 0, () => {
       const draft = contactOf('路由', '13900001111', 'route@example.com', '路由地址');
-      expect(new RouteIntent(ACTION_ADD, draft).url()).assertEqual(ROUTE_EDIT);
-      expect(new RouteIntent(ACTION_EDIT, draft).url()).assertEqual(ROUTE_EDIT);
-      expect(new RouteIntent(ACTION_DELETE, draft).url()).assertEqual(ROUTE_LIST);
-      expect(RouteIntent.isKnownAction(ACTION_ADD)).assertTrue();
-      expect(RouteIntent.isKnownAction(ACTION_EDIT)).assertTrue();
-      expect(RouteIntent.isKnownAction(ACTION_DELETE)).assertTrue();
-      expect(RouteIntent.isKnownAction('查看')).assertFalse();
+      expect(new RouteRequest(ACTION_ADD, draft).url()).assertEqual(ROUTE_EDIT);
+      expect(new RouteRequest(ACTION_EDIT, draft).url()).assertEqual(ROUTE_EDIT);
+      expect(new RouteRequest(ACTION_DELETE, draft).url()).assertEqual(ROUTE_LIST);
+      expect(RouteRequest.isKnownAction(ACTION_ADD)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_EDIT)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_DELETE)).assertTrue();
+      expect(RouteRequest.isKnownAction('查看')).assertFalse();
     });
 
     /**

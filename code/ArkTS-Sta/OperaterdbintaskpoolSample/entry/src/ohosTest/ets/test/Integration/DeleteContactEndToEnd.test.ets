@@ -46,7 +46,7 @@ import {
   joined,
   textFingerprint,
   resetContactManager,
-  RouteIntent,
+  RouteRequest,
   SearchEngine,
   ContactMetrics,
   snapshotsOf,
@@ -83,19 +83,19 @@ export default function deleteContactEndToEndTest(): void {
      * @tc.level  LEVEL1
      */
     it('deleteRouteTargetsTheListPage', 0, () => {
-      const intent = new RouteIntent(ACTION_DELETE, contactOf('卡梅隆', '17777777777', 'cameron@example.com',
+      const request = new RouteRequest(ACTION_DELETE, contactOf('卡梅隆', '17777777777', 'cameron@example.com',
         '陕西省西安市雁塔区'));
-      const params = intent.toParams();
-      logStep('deleteRouteTargetsTheListPage', intent.url());
-      expect(intent.url()).assertEqual(ROUTE_LIST);
-      expect(intent.url() === 'pages/view/AddressBookEdit').assertFalse();
+      const params = request.toParams();
+      logStep('deleteRouteTargetsTheListPage', request.url());
+      expect(request.url()).assertEqual(ROUTE_LIST);
+      expect(request.url() === 'pages/view/AddressBookEdit').assertFalse();
       expect(params.text).assertEqual(ACTION_DELETE);
       expect(params.data !== undefined).assertTrue();
-      expect(RouteIntent.isKnownAction(ACTION_DELETE)).assertTrue();
+      expect(RouteRequest.isKnownAction(ACTION_DELETE)).assertTrue();
     });
 
     /**
-     * @tc.name   deleteIntentCarriesTheSelectedName
+     * @tc.name   deleteRequestCarriesTheSelectedName
      * @tc.desc   The route parameter keeps the exact contact selected on the detail page.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the DeleteContactEndToEnd scenario from suite constants and factory helpers.
@@ -106,10 +106,10 @@ export default function deleteContactEndToEndTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL1
      */
-    it('deleteIntentCarriesTheSelectedName', 0, () => {
+    it('deleteRequestCarriesTheSelectedName', 0, () => {
       const seed = createSeedContacts();
       const selected = seed[7];
-      const params = new RouteIntent(ACTION_DELETE, selected).toParams();
+      const params = new RouteRequest(ACTION_DELETE, selected).toParams();
       expect((params.data as Contact).name).assertEqual('卡特琳娜');
       expect((params.data as Contact).name).assertEqual(selected.name);
       expect((params.data as Contact).phone).assertEqual(selected.phone);
@@ -119,7 +119,7 @@ export default function deleteContactEndToEndTest(): void {
     });
 
     /**
-     * @tc.name   deleteIntentDescriptionKeepsActionAndListUrl
+     * @tc.name   deleteRequestDescriptionKeepsActionAndListUrl
      * @tc.desc   The descriptor joins the Chinese action literal with the selected name and list url.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the DeleteContactEndToEnd scenario from suite constants and factory helpers.
@@ -130,14 +130,14 @@ export default function deleteContactEndToEndTest(): void {
      * @tc.type   FUNCTION
      * @tc.level  LEVEL2
      */
-    it('deleteIntentDescriptionKeepsActionAndListUrl', 0, () => {
-      const intent = new RouteIntent(ACTION_DELETE, contactOf('贝拉', '11111111111', 'bella@example.com',
+    it('deleteRequestDescriptionKeepsActionAndListUrl', 0, () => {
+      const request = new RouteRequest(ACTION_DELETE, contactOf('贝拉', '11111111111', 'bella@example.com',
         '湖北省武汉市江汉区'));
-      expect(intent.describe()).assertEqual('删除联系人:贝拉:' + ROUTE_LIST);
-      expect(intent.describe().startsWith(ACTION_DELETE)).assertTrue();
-      expect(intent.describe().endsWith(ROUTE_LIST)).assertTrue();
-      expect(intent.describe().split(':').length).assertEqual(3);
-      expect(intent.toParams().text).assertEqual(intent.action);
+      expect(request.describe()).assertEqual('删除联系人:贝拉:' + ROUTE_LIST);
+      expect(request.describe().startsWith(ACTION_DELETE)).assertTrue();
+      expect(request.describe().endsWith(ROUTE_LIST)).assertTrue();
+      expect(request.describe().split(':').length).assertEqual(3);
+      expect(request.toParams().text).assertEqual(request.action);
     });
 
     /**
@@ -707,7 +707,7 @@ export default function deleteContactEndToEndTest(): void {
 
     /**
      * @tc.name   deleteRouteParamsStillDescribeTheRemovedContact
-     * @tc.desc   The router payload is a value carrier; removing the row does not rewrite the intent strings.
+     * @tc.desc   The router payload is a value carrier; removing the row does not rewrite the request strings.
  * @tc.precondition  The shared driver is loaded and beforeEach resets suite state before yielding once.
  * @tc.steps         1. Build the DeleteContactEndToEnd scenario from suite constants and factory helpers.
  *                   2. Invoke the operation under test and capture the observable result.
@@ -721,13 +721,13 @@ export default function deleteContactEndToEndTest(): void {
       const seed = createSeedContacts();
       const manager = ContactManager.getInstance();
       manager.setContacts(seed);
-      const intent = new RouteIntent(ACTION_DELETE, seed[11]);
+      const request = new RouteRequest(ACTION_DELETE, seed[11]);
       manager.deleteContact(seed[11]);
-      expect(intent.describe()).assertEqual('删除联系人:艾拉:' + ROUTE_LIST);
-      expect(intent.toParams().text).assertEqual(ACTION_DELETE);
+      expect(request.describe()).assertEqual('删除联系人:艾拉:' + ROUTE_LIST);
+      expect(request.toParams().text).assertEqual(ACTION_DELETE);
       expect(manager.getContacts().length).assertEqual(14);
       expect(SearchEngine.filterByName(manager.getContacts(), seed[11].name).length).assertEqual(0);
-      expect(intent.url()).assertEqual(ROUTE_LIST);
+      expect(request.url()).assertEqual(ROUTE_LIST);
     });
 
     /**
