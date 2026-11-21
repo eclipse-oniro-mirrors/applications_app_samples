@@ -161,7 +161,7 @@ export default struct allNetworksBtn {
       // [EndExclude vpn_config_parameters]
     }).catch((err: BusinessError) => {
       // 如果 VPN 创建失败，捕获异常并处理
-      hilog.error(0x0000, 'testTag', 'developTag', 'vpn start Fail %{public}s', JSON.stringify(err) ?? '');
+      hilog.error(0x0000, 'testTag', 'vpn start Fail %{public}s', JSON.stringify(err) ?? '');
       // [StartExclude vpn_config_parameters]
       showToast('VPN start failed: ' + JSON.stringify(err), 4000);
       this.flag = 'Error';  // 设置状态为失败
