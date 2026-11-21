@@ -659,3 +659,128 @@ export default function configRatioSelectedTest(): void {
     });
 
     /**
+     * @tc.number    SUB_MORE_RESOLUTION_CONFIG_RATIO_0037
+     * @tc.name      Resolution_ConfigRatio_0037
+     * @tc.desc      configRatioForSelectedIndex(999) yields 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ConfigRatio_0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigRatio_0037 begin`);
+      logInfo("configRatioForSelectedIndex(999)");
+      const actual: number = configRatioForSelectedIndex(999);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}ConfigRatio_0037 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_CONFIG_RATIO_0038
+     * @tc.name      Resolution_ConfigRatio_0038
+     * @tc.desc      configRatioForSelectedIndex(1000) yields 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ConfigRatio_0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigRatio_0038 begin`);
+      logInfo("configRatioForSelectedIndex(1000)");
+      const actual: number = configRatioForSelectedIndex(1000);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo(`${BUNDLE}ConfigRatio_0038 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_CONFIG_RATIO_0039
+     * @tc.name      Resolution_ConfigRatio_0039
+     * @tc.desc      configRatioForSelectedIndex(24) yields 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ConfigRatio_0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigRatio_0039 begin`);
+      logInfo("configRatioForSelectedIndex(24)");
+      const actual: number = configRatioForSelectedIndex(24);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo(`${BUNDLE}ConfigRatio_0039 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_CONFIG_RATIO_0040
+     * @tc.name      Resolution_ConfigRatio_0040
+     * @tc.desc      configRatioForSelectedIndex(25) yields 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ConfigRatio_0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigRatio_0040 begin`);
+      logInfo("configRatioForSelectedIndex(25)");
+      const actual: number = configRatioForSelectedIndex(25);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}ConfigRatio_0040 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_CONFIG_RATIO_0041
+     * @tc.name      Resolution_ConfigRatio_0041
+     * @tc.desc      configRatioForSelectedIndex(28) yields 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ConfigRatio_0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigRatio_0041 begin`);
+      logInfo("configRatioForSelectedIndex(28)");
+      const actual: number = configRatioForSelectedIndex(28);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo(`${BUNDLE}ConfigRatio_0041 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_CONFIG_RATIO_0042
+     * @tc.name      Resolution_ConfigRatio_0042
+     * @tc.desc      configRatioForSelectedIndex(17) yields 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ConfigRatio_0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigRatio_0042 begin`);
+      logInfo("configRatioForSelectedIndex(17)");
+      const actual: number = configRatioForSelectedIndex(17);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo(`${BUNDLE}ConfigRatio_0042 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_CONFIG_RATIO_0043
+     * @tc.name      Resolution_ConfigRatio_0043
+     * @tc.desc      configRatioForSelectedIndex(19) yields 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ConfigRatio_0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigRatio_0043 begin`);
+      logInfo("configRatioForSelectedIndex(19)");
+      const actual: number = configRatioForSelectedIndex(19);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}ConfigRatio_0043 end`);
+    });
+  });
+}
