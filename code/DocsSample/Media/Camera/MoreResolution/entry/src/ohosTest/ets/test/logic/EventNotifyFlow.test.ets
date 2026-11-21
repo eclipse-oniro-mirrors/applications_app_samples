@@ -767,3 +767,292 @@ export default function eventNotifyFlowTest(): void {
      * @tc.number    SUB_MORE_RESOLUTION_EVENT_FLOW_0034
      * @tc.name      Resolution_EventFlow_0034
      * @tc.desc      notification sequence 33 tallies to 0:0:0:0:1:1:0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_EventFlow_0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}EventFlow_0034 begin`);
+      const subject: ResolutionEventModel = new ResolutionEventModel();
+      subject.onError(500);
+      subject.onStatus(1);
+      logInfo("notification sequence seed 33");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "0:0:0:0:1:1:0");
+      expect(actual).assertEqual("0:0:0:0:1:1:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventFlow_0034 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_EVENT_FLOW_0035
+     * @tc.name      Resolution_EventFlow_0035
+     * @tc.desc      notification sequence 34 tallies to 1:0:0:0:0:1:1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Resolution_EventFlow_0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}EventFlow_0035 begin`);
+      const subject: ResolutionEventModel = new ResolutionEventModel();
+      subject.onStatus(1);
+      subject.onFold(1);
+      subject.onFrameStart();
+      logInfo("notification sequence seed 34");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "1:0:0:0:0:1:1");
+      expect(actual).assertEqual("1:0:0:0:0:1:1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventFlow_0035 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_EVENT_FLOW_0036
+     * @tc.name      Resolution_EventFlow_0036
+     * @tc.desc      notification sequence 35 tallies to 1:0:1:1:0:0:1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_EventFlow_0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}EventFlow_0036 begin`);
+      const subject: ResolutionEventModel = new ResolutionEventModel();
+      subject.onFold(1);
+      subject.onFrameStart();
+      subject.onPhotoAsset('asset');
+      subject.onPhotoAvailable(4);
+      logInfo("notification sequence seed 35");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "1:0:1:1:0:0:1");
+      expect(actual).assertEqual("1:0:1:1:0:0:1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventFlow_0036 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_EVENT_FLOW_0037
+     * @tc.name      Resolution_EventFlow_0037
+     * @tc.desc      notification sequence 36 tallies to 1:0:0:0:0:0:0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_EventFlow_0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}EventFlow_0037 begin`);
+      const subject: ResolutionEventModel = new ResolutionEventModel();
+      subject.onFrameStart();
+      logInfo("notification sequence seed 36");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "1:0:0:0:0:0:0");
+      expect(actual).assertEqual("1:0:0:0:0:0:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventFlow_0037 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_EVENT_FLOW_0038
+     * @tc.name      Resolution_EventFlow_0038
+     * @tc.desc      notification sequence 37 tallies to 0:0:1:1:0:0:0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_EventFlow_0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}EventFlow_0038 begin`);
+      const subject: ResolutionEventModel = new ResolutionEventModel();
+      subject.onPhotoAsset('asset');
+      subject.onPhotoAvailable(4);
+      logInfo("notification sequence seed 37");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "0:0:1:1:0:0:0");
+      expect(actual).assertEqual("0:0:1:1:0:0:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventFlow_0038 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_EVENT_FLOW_0039
+     * @tc.name      Resolution_EventFlow_0039
+     * @tc.desc      notification sequence 38 tallies to 0:0:0:1:1:1:0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_EventFlow_0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}EventFlow_0039 begin`);
+      const subject: ResolutionEventModel = new ResolutionEventModel();
+      subject.onPhotoAvailable(4);
+      subject.onError(500);
+      subject.onStatus(1);
+      logInfo("notification sequence seed 38");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "0:0:0:1:1:1:0");
+      expect(actual).assertEqual("0:0:0:1:1:1:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventFlow_0039 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_EVENT_FLOW_0040
+     * @tc.name      Resolution_EventFlow_0040
+     * @tc.desc      notification sequence 39 tallies to 1:0:0:0:1:1:1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_EventFlow_0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}EventFlow_0040 begin`);
+      const subject: ResolutionEventModel = new ResolutionEventModel();
+      subject.onError(500);
+      subject.onStatus(1);
+      subject.onFold(1);
+      subject.onFrameStart();
+      logInfo("notification sequence seed 39");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "1:0:0:0:1:1:1");
+      expect(actual).assertEqual("1:0:0:0:1:1:1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventFlow_0040 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_EVENT_FLOW_0041
+     * @tc.name      Resolution_EventFlow_0041
+     * @tc.desc      notification sequence 40 tallies to 0:0:0:0:0:1:0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_EventFlow_0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}EventFlow_0041 begin`);
+      const subject: ResolutionEventModel = new ResolutionEventModel();
+      subject.onStatus(1);
+      logInfo("notification sequence seed 40");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "0:0:0:0:0:1:0");
+      expect(actual).assertEqual("0:0:0:0:0:1:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventFlow_0041 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_EVENT_FLOW_0042
+     * @tc.name      Resolution_EventFlow_0042
+     * @tc.desc      notification sequence 41 tallies to 1:0:0:0:0:0:1.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_EventFlow_0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}EventFlow_0042 begin`);
+      const subject: ResolutionEventModel = new ResolutionEventModel();
+      subject.onFold(1);
+      subject.onFrameStart();
+      logInfo("notification sequence seed 41");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "1:0:0:0:0:0:1");
+      expect(actual).assertEqual("1:0:0:0:0:0:1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventFlow_0042 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_EVENT_FLOW_0043
+     * @tc.name      Resolution_EventFlow_0043
+     * @tc.desc      notification sequence 42 tallies to 1:0:1:1:0:0:0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_EventFlow_0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}EventFlow_0043 begin`);
+      const subject: ResolutionEventModel = new ResolutionEventModel();
+      subject.onFrameStart();
+      subject.onPhotoAsset('asset');
+      subject.onPhotoAvailable(4);
+      logInfo("notification sequence seed 42");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "1:0:1:1:0:0:0");
+      expect(actual).assertEqual("1:0:1:1:0:0:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventFlow_0043 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_EVENT_FLOW_0044
+     * @tc.name      Resolution_EventFlow_0044
+     * @tc.desc      notification sequence 43 tallies to 0:0:1:1:1:1:0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_EventFlow_0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}EventFlow_0044 begin`);
+      const subject: ResolutionEventModel = new ResolutionEventModel();
+      subject.onPhotoAsset('asset');
+      subject.onPhotoAvailable(4);
+      subject.onError(500);
+      subject.onStatus(1);
+      logInfo("notification sequence seed 43");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "0:0:1:1:1:1:0");
+      expect(actual).assertEqual("0:0:1:1:1:1:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventFlow_0044 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_EVENT_FLOW_0045
+     * @tc.name      Resolution_EventFlow_0045
+     * @tc.desc      notification sequence 44 tallies to 0:0:0:1:0:0:0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_EventFlow_0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}EventFlow_0045 begin`);
+      const subject: ResolutionEventModel = new ResolutionEventModel();
+      subject.onPhotoAvailable(4);
+      logInfo("notification sequence seed 44");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "0:0:0:1:0:0:0");
+      expect(actual).assertEqual("0:0:0:1:0:0:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventFlow_0045 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_EVENT_FLOW_0046
+     * @tc.name      Resolution_EventFlow_0046
+     * @tc.desc      notification sequence 45 tallies to 0:0:0:0:1:1:0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_EventFlow_0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}EventFlow_0046 begin`);
+      const subject: ResolutionEventModel = new ResolutionEventModel();
+      subject.onError(500);
+      subject.onStatus(1);
+      logInfo("notification sequence seed 45");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "0:0:0:0:1:1:0");
+      expect(actual).assertEqual("0:0:0:0:1:1:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventFlow_0046 end`);
+    });
+  });
+}
