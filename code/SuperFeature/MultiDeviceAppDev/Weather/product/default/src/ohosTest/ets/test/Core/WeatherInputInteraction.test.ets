@@ -1987,3 +1987,1387 @@ export default function weatherInputInteractionSuite() {
       expect(m.getCity('nohit98') === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0099
+     * @tc.name    WeatherInputInteraction099
+     * @tc.desc    Weather city lookup 4 probe 99
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction099', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit99') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0100
+     * @tc.name    WeatherInputInteraction100
+     * @tc.desc    Weather city lookup 0 probe 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction100', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit100') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0101
+     * @tc.name    WeatherInputInteraction101
+     * @tc.desc    Weather city lookup 1 probe 101
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction101', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit101') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0102
+     * @tc.name    WeatherInputInteraction102
+     * @tc.desc    Weather city lookup 2 probe 102
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction102', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit102') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0103
+     * @tc.name    WeatherInputInteraction103
+     * @tc.desc    Weather city lookup 3 probe 103
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction103', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit103') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0104
+     * @tc.name    WeatherInputInteraction104
+     * @tc.desc    Weather city lookup 4 probe 104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction104', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit104') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0105
+     * @tc.name    WeatherInputInteraction105
+     * @tc.desc    Weather city lookup 0 probe 105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction105', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit105') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0106
+     * @tc.name    WeatherInputInteraction106
+     * @tc.desc    Weather city lookup 1 probe 106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction106', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit106') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0107
+     * @tc.name    WeatherInputInteraction107
+     * @tc.desc    Weather city lookup 2 probe 107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction107', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit107') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0108
+     * @tc.name    WeatherInputInteraction108
+     * @tc.desc    Weather city lookup 3 probe 108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction108', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit108') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0109
+     * @tc.name    WeatherInputInteraction109
+     * @tc.desc    Weather city lookup 4 probe 109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction109', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit109') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0110
+     * @tc.name    WeatherInputInteraction110
+     * @tc.desc    Weather city lookup 0 probe 110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction110', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit110') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0111
+     * @tc.name    WeatherInputInteraction111
+     * @tc.desc    Weather city lookup 1 probe 111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction111', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit111') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0112
+     * @tc.name    WeatherInputInteraction112
+     * @tc.desc    Weather city lookup 2 probe 112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction112', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit112') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0113
+     * @tc.name    WeatherInputInteraction113
+     * @tc.desc    Weather city lookup 3 probe 113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction113', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit113') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0114
+     * @tc.name    WeatherInputInteraction114
+     * @tc.desc    Weather city lookup 4 probe 114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction114', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit114') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0115
+     * @tc.name    WeatherInputInteraction115
+     * @tc.desc    Weather city lookup 0 probe 115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction115', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit115') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0116
+     * @tc.name    WeatherInputInteraction116
+     * @tc.desc    Weather city lookup 1 probe 116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction116', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit116') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0117
+     * @tc.name    WeatherInputInteraction117
+     * @tc.desc    Weather city lookup 2 probe 117
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction117', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit117') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0118
+     * @tc.name    WeatherInputInteraction118
+     * @tc.desc    Weather city lookup 3 probe 118
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction118', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit118') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0119
+     * @tc.name    WeatherInputInteraction119
+     * @tc.desc    Weather city lookup 4 probe 119
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction119', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit119') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0120
+     * @tc.name    WeatherInputInteraction120
+     * @tc.desc    Weather city lookup 0 probe 120
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction120', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit120') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0121
+     * @tc.name    WeatherInputInteraction121
+     * @tc.desc    Weather city lookup 1 probe 121
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction121', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit121') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0122
+     * @tc.name    WeatherInputInteraction122
+     * @tc.desc    Weather city lookup 2 probe 122
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction122', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit122') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0123
+     * @tc.name    WeatherInputInteraction123
+     * @tc.desc    Weather city lookup 3 probe 123
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction123', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit123') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0124
+     * @tc.name    WeatherInputInteraction124
+     * @tc.desc    Weather city lookup 4 probe 124
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction124', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit124') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0125
+     * @tc.name    WeatherInputInteraction125
+     * @tc.desc    Weather city lookup 0 probe 125
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction125', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit125') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0126
+     * @tc.name    WeatherInputInteraction126
+     * @tc.desc    Weather city lookup 1 probe 126
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction126', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit126') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0127
+     * @tc.name    WeatherInputInteraction127
+     * @tc.desc    Weather city lookup 2 probe 127
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction127', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit127') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0128
+     * @tc.name    WeatherInputInteraction128
+     * @tc.desc    Weather city lookup 3 probe 128
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction128', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit128') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0129
+     * @tc.name    WeatherInputInteraction129
+     * @tc.desc    Weather city lookup 4 probe 129
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction129', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit129') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0130
+     * @tc.name    WeatherInputInteraction130
+     * @tc.desc    Weather city lookup 0 probe 130
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction130', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit130') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0131
+     * @tc.name    WeatherInputInteraction131
+     * @tc.desc    Weather city lookup 1 probe 131
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction131', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit131') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0132
+     * @tc.name    WeatherInputInteraction132
+     * @tc.desc    Weather city lookup 2 probe 132
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction132', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit132') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0133
+     * @tc.name    WeatherInputInteraction133
+     * @tc.desc    Weather city lookup 3 probe 133
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction133', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit133') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0134
+     * @tc.name    WeatherInputInteraction134
+     * @tc.desc    Weather city lookup 4 probe 134
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction134', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit134') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0135
+     * @tc.name    WeatherInputInteraction135
+     * @tc.desc    Weather city lookup 0 probe 135
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction135', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit135') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0136
+     * @tc.name    WeatherInputInteraction136
+     * @tc.desc    Weather city lookup 1 probe 136
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction136', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit136') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0137
+     * @tc.name    WeatherInputInteraction137
+     * @tc.desc    Weather city lookup 2 probe 137
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction137', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit137') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0138
+     * @tc.name    WeatherInputInteraction138
+     * @tc.desc    Weather city lookup 3 probe 138
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction138', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit138') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0139
+     * @tc.name    WeatherInputInteraction139
+     * @tc.desc    Weather city lookup 4 probe 139
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction139', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit139') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0140
+     * @tc.name    WeatherInputInteraction140
+     * @tc.desc    Weather city lookup 0 probe 140
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction140', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit140') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0141
+     * @tc.name    WeatherInputInteraction141
+     * @tc.desc    Weather city lookup 1 probe 141
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction141', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit141') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0142
+     * @tc.name    WeatherInputInteraction142
+     * @tc.desc    Weather city lookup 2 probe 142
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction142', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit142') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0143
+     * @tc.name    WeatherInputInteraction143
+     * @tc.desc    Weather city lookup 3 probe 143
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction143', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit143') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0144
+     * @tc.name    WeatherInputInteraction144
+     * @tc.desc    Weather city lookup 4 probe 144
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction144', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit144') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0145
+     * @tc.name    WeatherInputInteraction145
+     * @tc.desc    Weather city lookup 0 probe 145
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction145', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit145') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0146
+     * @tc.name    WeatherInputInteraction146
+     * @tc.desc    Weather city lookup 1 probe 146
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction146', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit146') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0147
+     * @tc.name    WeatherInputInteraction147
+     * @tc.desc    Weather city lookup 2 probe 147
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction147', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit147') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0148
+     * @tc.name    WeatherInputInteraction148
+     * @tc.desc    Weather city lookup 3 probe 148
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction148', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit148') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0149
+     * @tc.name    WeatherInputInteraction149
+     * @tc.desc    Weather city lookup 4 probe 149
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction149', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit149') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0150
+     * @tc.name    WeatherInputInteraction150
+     * @tc.desc    Weather city lookup 0 probe 150
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction150', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit150') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0151
+     * @tc.name    WeatherInputInteraction151
+     * @tc.desc    Weather city lookup 1 probe 151
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction151', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit151') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0152
+     * @tc.name    WeatherInputInteraction152
+     * @tc.desc    Weather city lookup 2 probe 152
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction152', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit152') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0153
+     * @tc.name    WeatherInputInteraction153
+     * @tc.desc    Weather city lookup 3 probe 153
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction153', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit153') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0154
+     * @tc.name    WeatherInputInteraction154
+     * @tc.desc    Weather city lookup 4 probe 154
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction154', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit154') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0155
+     * @tc.name    WeatherInputInteraction155
+     * @tc.desc    Weather city lookup 0 probe 155
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction155', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit155') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0156
+     * @tc.name    WeatherInputInteraction156
+     * @tc.desc    Weather city lookup 1 probe 156
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction156', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit156') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0157
+     * @tc.name    WeatherInputInteraction157
+     * @tc.desc    Weather city lookup 2 probe 157
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction157', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit157') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0158
+     * @tc.name    WeatherInputInteraction158
+     * @tc.desc    Weather city lookup 3 probe 158
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction158', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit158') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0159
+     * @tc.name    WeatherInputInteraction159
+     * @tc.desc    Weather city lookup 4 probe 159
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction159', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit159') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0160
+     * @tc.name    WeatherInputInteraction160
+     * @tc.desc    Weather city lookup 0 probe 160
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction160', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit160') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0161
+     * @tc.name    WeatherInputInteraction161
+     * @tc.desc    Weather city lookup 1 probe 161
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction161', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit161') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0162
+     * @tc.name    WeatherInputInteraction162
+     * @tc.desc    Weather city lookup 2 probe 162
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction162', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit162') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0163
+     * @tc.name    WeatherInputInteraction163
+     * @tc.desc    Weather city lookup 3 probe 163
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction163', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 3;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit163') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0164
+     * @tc.name    WeatherInputInteraction164
+     * @tc.desc    Weather city lookup 4 probe 164
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction164', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 4;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit164') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0165
+     * @tc.name    WeatherInputInteraction165
+     * @tc.desc    Weather city lookup 0 probe 165
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction165', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 0;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit165') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0166
+     * @tc.name    WeatherInputInteraction166
+     * @tc.desc    Weather city lookup 1 probe 166
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction166', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 1;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit166') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0167
+     * @tc.name    WeatherInputInteraction167
+     * @tc.desc    Weather city lookup 2 probe 167
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherInputInteraction167', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const idx: number = 2;
+      const cities = m.getCities();
+      const city = cities[idx];
+      expect(m.getCity(city.name) !== undefined).assertEqual(true);
+      expect(m.getData(idx)?.name).assertEqual(city.name);
+      expect(m.getCity('nohit167') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
