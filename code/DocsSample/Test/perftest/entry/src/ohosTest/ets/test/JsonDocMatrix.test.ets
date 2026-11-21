@@ -976,3 +976,283 @@ export default function jsonDocMatrixTest() {
     expect(doc.tags.length).assertEqual(2);
     expect(doc.nested.depth).assertEqual(1);
     expect(doc.nested.label).assertEqual('label-36');
+    expect(doc.nested.enabled).assertEqual(true);
+    const again: string = JSON.stringify(doc);
+    const second: ConfigDoc = JSON.parse(again) as ConfigDoc;
+    expect(second.name).assertEqual(doc.name);
+    expect(second.tags.length).assertEqual(doc.tags.length);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_PERFTEST_JSON_0037
+   * @tc.name      testJsonDoc0037
+   * @tc.desc      Json doc 37 keeps nested fields
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testJsonDoc0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testJsonDoc0037', 'json doc 37');
+    const text: string = '{"name":"doc-37","version":37' +
+      ',"tags":["tag-1","tag-2","tag-3"]' +
+      ',"nested":{"depth":2,"label":"label-37","enabled":false}}';
+    const doc: ConfigDoc = JSON.parse(text) as ConfigDoc;
+    expect(doc.name).assertEqual('doc-37');
+    expect(doc.version).assertEqual(37);
+    expect(doc.tags.length).assertEqual(3);
+    expect(doc.nested.depth).assertEqual(2);
+    expect(doc.nested.label).assertEqual('label-37');
+    expect(doc.nested.enabled).assertEqual(false);
+    const again: string = JSON.stringify(doc);
+    const second: ConfigDoc = JSON.parse(again) as ConfigDoc;
+    expect(second.name).assertEqual(doc.name);
+    expect(second.tags.length).assertEqual(doc.tags.length);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_PERFTEST_JSON_0038
+   * @tc.name      testJsonDoc0038
+   * @tc.desc      Json doc 38 keeps nested fields
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testJsonDoc0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testJsonDoc0038', 'json doc 38');
+    const text: string = '{"name":"doc-38","version":38' +
+      ',"tags":["tag-1","tag-2","tag-3","tag-4"]' +
+      ',"nested":{"depth":3,"label":"label-38","enabled":true}}';
+    const doc: ConfigDoc = JSON.parse(text) as ConfigDoc;
+    expect(doc.name).assertEqual('doc-38');
+    expect(doc.version).assertEqual(38);
+    expect(doc.tags.length).assertEqual(4);
+    expect(doc.nested.depth).assertEqual(3);
+    expect(doc.nested.label).assertEqual('label-38');
+    expect(doc.nested.enabled).assertEqual(true);
+    const again: string = JSON.stringify(doc);
+    const second: ConfigDoc = JSON.parse(again) as ConfigDoc;
+    expect(second.name).assertEqual(doc.name);
+    expect(second.tags.length).assertEqual(doc.tags.length);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_PERFTEST_JSON_0039
+   * @tc.name      testJsonDoc0039
+   * @tc.desc      Json doc 39 keeps nested fields
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testJsonDoc0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testJsonDoc0039', 'json doc 39');
+    const text: string = '{"name":"doc-39","version":39' +
+      ',"tags":["tag-1","tag-2","tag-3","tag-4","tag-5"]' +
+      ',"nested":{"depth":4,"label":"label-39","enabled":false}}';
+    const doc: ConfigDoc = JSON.parse(text) as ConfigDoc;
+    expect(doc.name).assertEqual('doc-39');
+    expect(doc.version).assertEqual(39);
+    expect(doc.tags.length).assertEqual(5);
+    expect(doc.nested.depth).assertEqual(4);
+    expect(doc.nested.label).assertEqual('label-39');
+    expect(doc.nested.enabled).assertEqual(false);
+    const again: string = JSON.stringify(doc);
+    const second: ConfigDoc = JSON.parse(again) as ConfigDoc;
+    expect(second.name).assertEqual(doc.name);
+    expect(second.tags.length).assertEqual(doc.tags.length);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_PERFTEST_JSON_0040
+   * @tc.name      testJsonDoc0040
+   * @tc.desc      Json doc 40 keeps nested fields
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testJsonDoc0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testJsonDoc0040', 'json doc 40');
+    const text: string = '{"name":"doc-40","version":40' +
+      ',"tags":["tag-1"]' +
+      ',"nested":{"depth":5,"label":"label-40","enabled":true}}';
+    const doc: ConfigDoc = JSON.parse(text) as ConfigDoc;
+    expect(doc.name).assertEqual('doc-40');
+    expect(doc.version).assertEqual(40);
+    expect(doc.tags.length).assertEqual(1);
+    expect(doc.nested.depth).assertEqual(5);
+    expect(doc.nested.label).assertEqual('label-40');
+    expect(doc.nested.enabled).assertEqual(true);
+    const again: string = JSON.stringify(doc);
+    const second: ConfigDoc = JSON.parse(again) as ConfigDoc;
+    expect(second.name).assertEqual(doc.name);
+    expect(second.tags.length).assertEqual(doc.tags.length);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_PERFTEST_JSON_0078
+   * @tc.name      testJsonDoc0078
+   * @tc.desc      Json orders 1 keep totals
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testJsonDoc0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testJsonDoc0078', 'json orders 1');
+    const text: string = '{"orders":[' +
+      '{"id":"order-1-1","price":6,"count":1},' +
+      '{"id":"order-1-2","price":11,"count":2}]}';
+    const bundle: OrderDoc = JSON.parse(text) as OrderDoc;
+    expect(bundle.orders.length).assertEqual(2);
+    expect(bundle.orders.reduce((a: number, o: OrderItem) => a + o.price, 0)).assertEqual(17);
+    expect(bundle.orders[0].count).assertEqual(1);
+    expect(bundle.orders[bundle.orders.length - 1].id).assertEqual('order-1-2');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_PERFTEST_JSON_0079
+   * @tc.name      testJsonDoc0079
+   * @tc.desc      Json orders 2 keep totals
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testJsonDoc0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testJsonDoc0079', 'json orders 2');
+    const text: string = '{"orders":[' +
+      '{"id":"order-2-1","price":7,"count":1},' +
+      '{"id":"order-2-2","price":12,"count":2},' +
+      '{"id":"order-2-3","price":17,"count":3}]}';
+    const bundle: OrderDoc = JSON.parse(text) as OrderDoc;
+    expect(bundle.orders.length).assertEqual(3);
+    expect(bundle.orders.reduce((a: number, o: OrderItem) => a + o.price, 0)).assertEqual(36);
+    expect(bundle.orders[0].count).assertEqual(1);
+    expect(bundle.orders[bundle.orders.length - 1].id).assertEqual('order-2-3');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_PERFTEST_JSON_0080
+   * @tc.name      testJsonDoc0080
+   * @tc.desc      Json orders 3 keep totals
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testJsonDoc0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testJsonDoc0080', 'json orders 3');
+    const text: string = '{"orders":[' +
+      '{"id":"order-3-1","price":8,"count":1},' +
+      '{"id":"order-3-2","price":13,"count":2},' +
+      '{"id":"order-3-3","price":18,"count":3},' +
+      '{"id":"order-3-4","price":23,"count":4}]}';
+    const bundle: OrderDoc = JSON.parse(text) as OrderDoc;
+    expect(bundle.orders.length).assertEqual(4);
+    expect(bundle.orders.reduce((a: number, o: OrderItem) => a + o.price, 0)).assertEqual(62);
+    expect(bundle.orders[0].count).assertEqual(1);
+    expect(bundle.orders[bundle.orders.length - 1].id).assertEqual('order-3-4');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_PERFTEST_JSON_0081
+   * @tc.name      testJsonDoc0081
+   * @tc.desc      Json orders 4 keep totals
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testJsonDoc0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testJsonDoc0081', 'json orders 4');
+    const text: string = '{"orders":[' +
+      '{"id":"order-4-1","price":9,"count":1},' +
+      '{"id":"order-4-2","price":14,"count":2},' +
+      '{"id":"order-4-3","price":19,"count":3},' +
+      '{"id":"order-4-4","price":24,"count":4},' +
+      '{"id":"order-4-5","price":29,"count":5}]}';
+    const bundle: OrderDoc = JSON.parse(text) as OrderDoc;
+    expect(bundle.orders.length).assertEqual(5);
+    expect(bundle.orders.reduce((a: number, o: OrderItem) => a + o.price, 0)).assertEqual(95);
+    expect(bundle.orders[0].count).assertEqual(1);
+    expect(bundle.orders[bundle.orders.length - 1].id).assertEqual('order-4-5');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_PERFTEST_JSON_0082
+   * @tc.name      testJsonDoc0082
+   * @tc.desc      Json orders 5 keep totals
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testJsonDoc0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testJsonDoc0082', 'json orders 5');
+    const text: string = '{"orders":[' +
+      '{"id":"order-5-1","price":10,"count":1}]}';
+    const bundle: OrderDoc = JSON.parse(text) as OrderDoc;
+    expect(bundle.orders.length).assertEqual(1);
+    expect(bundle.orders.reduce((a: number, o: OrderItem) => a + o.price, 0)).assertEqual(10);
+    expect(bundle.orders[0].count).assertEqual(1);
+    expect(bundle.orders[bundle.orders.length - 1].id).assertEqual('order-5-1');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_PERFTEST_JSON_0083
+   * @tc.name      testJsonDoc0083
+   * @tc.desc      Json orders 6 keep totals
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testJsonDoc0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testJsonDoc0083', 'json orders 6');
+    const text: string = '{"orders":[' +
+      '{"id":"order-6-1","price":11,"count":1},' +
+      '{"id":"order-6-2","price":16,"count":2}]}';
+    const bundle: OrderDoc = JSON.parse(text) as OrderDoc;
+    expect(bundle.orders.length).assertEqual(2);
+    expect(bundle.orders.reduce((a: number, o: OrderItem) => a + o.price, 0)).assertEqual(27);
+    expect(bundle.orders[0].count).assertEqual(1);
+    expect(bundle.orders[bundle.orders.length - 1].id).assertEqual('order-6-2');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_PERFTEST_JSON_0084
+   * @tc.name      testJsonDoc0084
+   * @tc.desc      Json orders 7 keep totals
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testJsonDoc0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testJsonDoc0084', 'json orders 7');
+    const text: string = '{"orders":[' +
+      '{"id":"order-7-1","price":12,"count":1},' +
+      '{"id":"order-7-2","price":17,"count":2},' +
+      '{"id":"order-7-3","price":22,"count":3}]}';
+    const bundle: OrderDoc = JSON.parse(text) as OrderDoc;
+    expect(bundle.orders.length).assertEqual(3);
+    expect(bundle.orders.reduce((a: number, o: OrderItem) => a + o.price, 0)).assertEqual(51);
+    expect(bundle.orders[0].count).assertEqual(1);
+    expect(bundle.orders[bundle.orders.length - 1].id).assertEqual('order-7-3');
+  });
+
+  /**
+   * @tc.number    SUB_BMS_PERFTEST_JSON_0085
+   * @tc.name      testJsonDoc0085
+   * @tc.desc      Json orders 8 keep totals
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testJsonDoc0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testJsonDoc0085', 'json orders 8');
+    const text: string = '{"orders":[' +
+      '{"id":"order-8-1","price":13,"count":1},' +
+      '{"id":"order-8-2","price":18,"count":2},' +
+      '{"id":"order-8-3","price":23,"count":3},' +
+      '{"id":"order-8-4","price":28,"count":4}]}';
+    const bundle: OrderDoc = JSON.parse(text) as OrderDoc;
+    expect(bundle.orders.length).assertEqual(4);
+    expect(bundle.orders.reduce((a: number, o: OrderItem) => a + o.price, 0)).assertEqual(82);
+    expect(bundle.orders[0].count).assertEqual(1);
+    expect(bundle.orders[bundle.orders.length - 1].id).assertEqual('order-8-4');
+  });
+  });
+}
