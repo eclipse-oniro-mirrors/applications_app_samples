@@ -13,7 +13,7 @@
 
 该次直接注册证据（2026-11-21，保留原回执，不代表后续改动源码）：
 
-- [_task70/environment-direct-list-final-20261121.json](_task70/environment-direct-list-final-20261121.json)：76 个套件直接注册、74 个矩阵模块及全部字面量用例名称进入实际 HAP，包含首次中断、重试构建和外部配置变化记录。
+- [_task70/environment-direct-list-final-20261121.json](_task70/environment-direct-list-final-20261121.json)：76 个套件直接注册、74 个矩阵模块及全部字面量用例名称进入实际 HAP，包含初次中断、重试构建和外部配置变化记录。
 - [_task70/environment-validation-direct-list-20261121.json](_task70/environment-validation-direct-list-20261121.json)：1,786 注册、1,779 通过、0 失败、0 规范违规，3 SDK 与 4 UI 未运行。
 - [_task70/environment-mutations-direct-list-20261121.json](_task70/environment-mutations-direct-list-20261121.json)：15/15 生产变异被捕获。
 - [_task70/environment-matrix-check-direct-list-20261121.json](_task70/environment-matrix-check-direct-list-20261121.json)：1,763 条矩阵字节一致、AST 和 Host 校验通过。
@@ -29,7 +29,7 @@
 | 源快照与返回别名 | 0000–1151 | 1152 | 四位置文件/目录分类、每个可达 stat/copy 边界、六种源结构变化及两种 sandbox 所有权；导入顺序固定，返回数组双向隔离；两条代表用例额外验证合法调用后同路径非法列表仍必须重新验证且不得进入 stat |
 | stat/copy 失败前缀 | 1152–1361 | 210 | 逐位置注入同一错误对象，仅保留已完成复制，后续 stat/copy 和 sandbox list 不执行 |
 | 最终 sandbox list 失败 | 1362–1473 | 112 | 全部复制后最终列表抛错，传播原错误，已完成复制不回滚 |
-| 初始 list 失败 | 1474 | 1 | 首次列表抛错，不进入 stat/copy 或最终列表 |
+| 初始 list 失败 | 1474 | 1 | 初次列表抛错，不进入 stat/copy 或最终列表 |
 | 整单非法名称 | 1475–1564 | 90 | 空、dot、dotdot、slash、backslash、NUL 位于早晚位置；整单预验证无副作用，修复输入后重试成功 |
 | 目录参数保护 | 1565–1567 | 3 | 空源、空目标、源目标相同均在文件 API 调用前失败 |
 | 合法名称与空列表 | 1568–1600 | 33 | dot 子串、隐藏名、空白、Unicode、换行/tab、大小写和组合字符不过度拒绝 |
@@ -52,14 +52,14 @@ module=entry@ohosTest  product=default buildMode=debug assembleHap --no-daemon
 
 | 目标 | 结果 | 未签名 HAP 字节数 | ABC 字节数 | HAP SHA-256 |
 |------|------|-------------------|------------|-------------|
-| default | PASS | 228,580 | 25,080 | 2893c6a2295f751671d2e0b20e9c197b89aa636d29bab5a9da4a33305dc67025 |
-| ohosTest | PASS | 7,965,778 | 3,614,260 | b49ec8bcaee9d6893b5e489048cdd8e5321d54282be749782d267a272a4e7bdf |
+| default | PASS | 228,580 | 25,080 | 见 `_task70/environment-build-direct-list-retry-20261121.json` |
+| ohosTest | PASS | 7,965,778 | 3,614,260 | 见 `_task70/environment-build-direct-list-retry-20261121.json` |
 
 证据为 [_task70/environment-build-direct-list-retry-20261121.json](_task70/environment-build-direct-list-retry-20261121.json)、`environment-default-direct-list-retry-20261121.log` 和 `environment-ohosTest-direct-list-retry-20261121.log`。
 
-首次 ohosTest 构建受到并行外部清理/构建干扰而中断，退出码为 4294967295；首次日志与回执 `_task70/environment-build-direct-list-20261121.json` 保留，不计为通过证据。随后按 default、ohosTest 串行重试通过，无需修改测试源码。
+初次 ohosTest 构建受到并行外部清理/构建干扰而中断，退出码为 4294967295；初次日志与回执 `_task70/environment-build-direct-list-20261121.json` 保留，不计为通过证据。随后按 default、ohosTest 串行重试通过，无需修改测试源码。
 
-初始快照后、首次构建前检测到 `build-profile.json5` 外部签名配置变化；该配置在两次构建期间保持稳定。未修改或恢复该配置，也未新增证书、依赖或权限。不能声称配置与任务开始快照完全一致。
+初始快照后、初次构建前检测到 `build-profile.json5` 外部签名配置变化；该配置在两次构建期间保持稳定。未修改或恢复该配置，也未新增证书、依赖或权限。不能声称配置与任务开始快照完全一致。
 
 历史阶段的 `_task70/environment-build-review-cache-closed.json`、`environment-*-review-cache-closed.json` 与 `environment-*-review-final.json` 仍保留；旧 HAP 大小与哈希仅属于当时构建，不代表当前直接注册产物。
 
@@ -83,10 +83,10 @@ Host 结果不替代上述 7 条设备结果，也未读取测试人员的真实
 
 ### 停止运行的根因
 
-一次 `aa test` 带入 77 个 suite / 1,780 条用例时，测试进程在启动阶段就被系统终止，控制台停在“开始运行测试”且不输出任何用例结果。设备侧证据：
+一次 `test` 子命令带入 77 个 suite / 1,780 条用例时，测试进程在启动阶段就被系统终止，控制台停在“开始运行测试”且不输出任何用例结果。设备侧证据：
 
 - `sysfreeze-com.example.environmentsample-20010047-20261121194629439.log`：`Reason:LIFECYCLE_TIMEOUT`，半程 2,500 ms、全程 5,000 ms，主线程栈停在 `JsUIAbility::OnStart` 内的 `Array.map`/`Array.filter`，即 `TestAbility.onCreate` 同步调用 `Hypium.hypiumTest()` 的注册阶段。
-- Hypium 1.0.24 在 `service.js` 每注册一个 `it()` 都无条件打印一条 `[Hypium]stress length : 1`，本机实测约 3.5 ms/条，1,780 条约 6.2 s，已超出 5 s 生命周期上限；AAFWK 记录 sysfreeze 后终止进程。
+- Hypium 1.0.24 在 `service.js` 每注册一个 `it()` 都无条件打印一条 `[Hypium]stress length : 1`，本机实测约 3.5 ms/条，1,780 条约 6.2 s，已超出 5 s 生命周期上限；Ability 框架记录 sysfreeze 后终止进程。
 - 启动阶段把用例规模压到阈值内即可通过：仅 2 个 suite（48 条）用时 3.5 s、30 个 suite（720 条）用时 18.5 s 均正常结束，说明 `-s class` 只注册命中的 suite，分批有效。
 - 30 个 suite/批在执行阶段仍偶发第二种中断：`appfreeze-com.example.environmentsample-20010047-20261121195808560.log`，`Reason:THREAD_BLOCK_6S`（半程 3 s），本次在第 647/665 条时主线程单任务超过 6 s 被判死，harness 返回 `TestFinished-ResultMsg: App died`。因此批次还需为执行阶段的 6 s 主线程上限留出余量。
 
