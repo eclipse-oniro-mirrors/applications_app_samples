@@ -5482,3 +5482,1659 @@ export default function resolutionDecisionMatrixTest(): void {
     });
 
     /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0288
+     * @tc.name      Resolution_DecisionMatrix_0288
+     * @tc.desc      resolution decision 16 with rotation 539/91 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0288', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0288 begin`);
+      logInfo("decision(16,989.7,824.9,2.5,539,91,2,0.5)");
+      const actual: string = resolutionLabel(16) + '|' + findResolutionIndex(989.7, 824.9) + '|' + resolutionRatio(16) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(539, 91) + '|' + xComponentSizeText(false, 0, 720, 1280, 539, 91, 2, 0.5) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "|-1|0|1.777778|270|720*360|1");
+      expect(actual).assertEqual("|-1|0|1.777778|270|720*360|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0288 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0289
+     * @tc.name      Resolution_DecisionMatrix_0289
+     * @tc.desc      resolution decision -1 with rotation 576/144 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0289', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0289 begin`);
+      logInfo("decision(-1,992.8,827.6,0.5,576,144,0,1)");
+      const actual: string = resolutionLabel(-1) + '|' + findResolutionIndex(992.8, 827.6) + '|' + resolutionRatio(-1) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(576, 144) + '|' + xComponentSizeText(false, 0, 720, 1280, 576, 144, 0, 1) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "|-1|0|0|0|2275.55584*1280|1");
+      expect(actual).assertEqual("|-1|0|0|0|2275.55584*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0289 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0290
+     * @tc.name      Resolution_DecisionMatrix_0290
+     * @tc.desc      resolution decision 0 with rotation 613/197 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Resolution_DecisionMatrix_0290', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0290 begin`);
+      logInfo("decision(0,995.9,830.3,0.75,613,197,1,1.5)");
+      const actual: string = resolutionLabel(0) + '|' + findResolutionIndex(995.9, 830.3) + '|' + resolutionRatio(0) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(613, 197) + '|' + xComponentSizeText(false, 0, 720, 1280, 613, 197, 1, 1.5) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "4096*3072|-1|1.333333|1|90|720*1080|2");
+      expect(actual).assertEqual("4096*3072|-1|1.333333|1|90|720*1080|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0290 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0291
+     * @tc.name      Resolution_DecisionMatrix_0291
+     * @tc.desc      resolution decision 1 with rotation 650/250 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0291', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0291 begin`);
+      logInfo("decision(1,999,833,1,650,250,2,2)");
+      const actual: string = resolutionLabel(1) + '|' + findResolutionIndex(999, 833) + '|' + resolutionRatio(1) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(650, 250) + '|' + xComponentSizeText(false, 0, 720, 1280, 650, 250, 2, 2) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "4096*2304|-1|1.777778|1.777778|180|2560*1280|1");
+      expect(actual).assertEqual("4096*2304|-1|1.777778|1.777778|180|2560*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0291 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0292
+     * @tc.name      Resolution_DecisionMatrix_0292
+     * @tc.desc      resolution decision 2 with rotation 687/303 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0292', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0292 begin`);
+      logInfo("decision(2,1002.1,835.7,1.25,687,303,0,2.5)");
+      const actual: string = resolutionLabel(2) + '|' + findResolutionIndex(1002.1, 835.7) + '|' + resolutionRatio(2) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(687, 303) + '|' + xComponentSizeText(false, 0, 720, 1280, 687, 303, 0, 2.5) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "3840*2160|-1|1.777778|0|270|720*1280.00016|1");
+      expect(actual).assertEqual("3840*2160|-1|1.777778|0|270|720*1280.00016|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0292 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0293
+     * @tc.name      Resolution_DecisionMatrix_0293
+     * @tc.desc      resolution decision 3 with rotation 4/356 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0293', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0293 begin`);
+      logInfo("decision(3,1005.2,838.4,1.5,4,356,1,3)");
+      const actual: string = resolutionLabel(3) + '|' + findResolutionIndex(1005.2, 838.4) + '|' + resolutionRatio(3) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(4, 356) + '|' + xComponentSizeText(false, 0, 720, 1280, 4, 356, 1, 3) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "2880*2160|-1|1.333333|1|0|3840*1280|2");
+      expect(actual).assertEqual("2880*2160|-1|1.333333|1|0|3840*1280|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0293 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0294
+     * @tc.name      Resolution_DecisionMatrix_0294
+     * @tc.desc      resolution decision 4 with rotation 41/49 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0294', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0294 begin`);
+      logInfo("decision(4,1008.3,841.1,1.75,41,49,2,3.5)");
+      const actual: string = resolutionLabel(4) + '|' + findResolutionIndex(1008.3, 841.1) + '|' + resolutionRatio(4) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(41, 49) + '|' + xComponentSizeText(false, 0, 720, 1280, 41, 49, 2, 3.5) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "2560*1440|-1|1.777778|1.777778|90|720*2520|1");
+      expect(actual).assertEqual("2560*1440|-1|1.777778|1.777778|90|720*2520|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0294 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0295
+     * @tc.name      Resolution_DecisionMatrix_0295
+     * @tc.desc      resolution decision 5 with rotation 78/102 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0295', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0295 begin`);
+      logInfo("decision(5,1011.4,843.8,2,78,102,0,0.5)");
+      const actual: string = resolutionLabel(5) + '|' + findResolutionIndex(1011.4, 843.8) + '|' + resolutionRatio(5) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(78, 102) + '|' + xComponentSizeText(false, 0, 720, 1280, 78, 102, 0, 0.5) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "2408*1080|-1|2.22963|0|180|2275.55584*1280|1");
+      expect(actual).assertEqual("2408*1080|-1|2.22963|0|180|2275.55584*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0295 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0296
+     * @tc.name      Resolution_DecisionMatrix_0296
+     * @tc.desc      resolution decision 6 with rotation 115/155 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0296', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0296 begin`);
+      logInfo("decision(6,1014.5,846.5,2.25,115,155,1,1)");
+      const actual: string = resolutionLabel(6) + '|' + findResolutionIndex(1014.5, 846.5) + '|' + resolutionRatio(6) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(115, 155) + '|' + xComponentSizeText(false, 0, 720, 1280, 115, 155, 1, 1) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "2384*1080|-1|2.207407|1|270|720*720|2");
+      expect(actual).assertEqual("2384*1080|-1|2.207407|1|270|720*720|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0296 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0297
+     * @tc.name      Resolution_DecisionMatrix_0297
+     * @tc.desc      resolution decision 7 with rotation 152/208 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0297', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0297 begin`);
+      logInfo("decision(7,1017.6,849.2,2.5,152,208,2,1.5)");
+      const actual: string = resolutionLabel(7) + '|' + findResolutionIndex(1017.6, 849.2) + '|' + resolutionRatio(7) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(152, 208) + '|' + xComponentSizeText(false, 0, 720, 1280, 152, 208, 2, 1.5) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "1920*1440|-1|1.333333|1.777778|0|1920*1280|1");
+      expect(actual).assertEqual("1920*1440|-1|1.333333|1.777778|0|1920*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0297 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0298
+     * @tc.name      Resolution_DecisionMatrix_0298
+     * @tc.desc      resolution decision 8 with rotation 189/261 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_DecisionMatrix_0298', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0298 begin`);
+      logInfo("decision(8,1020.7,851.9,0.5,189,261,0,2)");
+      const actual: string = resolutionLabel(8) + '|' + findResolutionIndex(1020.7, 851.9) + '|' + resolutionRatio(8) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(189, 261) + '|' + xComponentSizeText(false, 0, 720, 1280, 189, 261, 0, 2) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "1920*1080|-1|1.777778|0|90|720*1280.00016|1");
+      expect(actual).assertEqual("1920*1080|-1|1.777778|0|90|720*1280.00016|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0298 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0299
+     * @tc.name      Resolution_DecisionMatrix_0299
+     * @tc.desc      resolution decision 9 with rotation 226/314 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0299', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0299 begin`);
+      logInfo("decision(9,1023.8,854.6,0.75,226,314,1,2.5)");
+      const actual: string = resolutionLabel(9) + '|' + findResolutionIndex(1023.8, 854.6) + '|' + resolutionRatio(9) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(226, 314) + '|' + xComponentSizeText(false, 0, 720, 1280, 226, 314, 1, 2.5) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "1440*1080|-1|1.333333|1|180|3200*1280|2");
+      expect(actual).assertEqual("1440*1080|-1|1.333333|1|180|3200*1280|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0299 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0300
+     * @tc.name      Resolution_DecisionMatrix_0300
+     * @tc.desc      resolution decision 10 with rotation 263/7 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0300', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0300 begin`);
+      logInfo("decision(10,1026.9,857.3,1,263,7,2,3)");
+      const actual: string = resolutionLabel(10) + '|' + findResolutionIndex(1026.9, 857.3) + '|' + resolutionRatio(10) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(263, 7) + '|' + xComponentSizeText(false, 0, 720, 1280, 263, 7, 2, 3) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "1280*720|-1|1.777778|1.777778|270|720*2160|1");
+      expect(actual).assertEqual("1280*720|-1|1.777778|1.777778|270|720*2160|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0300 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0301
+     * @tc.name      Resolution_DecisionMatrix_0301
+     * @tc.desc      resolution decision 11 with rotation 300/60 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0301', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0301 begin`);
+      logInfo("decision(11,1030,860,1.25,300,60,0,3.5)");
+      const actual: string = resolutionLabel(11) + '|' + findResolutionIndex(1030, 860) + '|' + resolutionRatio(11) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(300, 60) + '|' + xComponentSizeText(false, 0, 720, 1280, 300, 60, 0, 3.5) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "1088*1088|-1|1|0|0|2275.55584*1280|1");
+      expect(actual).assertEqual("1088*1088|-1|1|0|0|2275.55584*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0301 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0302
+     * @tc.name      Resolution_DecisionMatrix_0302
+     * @tc.desc      resolution decision 12 with rotation 337/113 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0302', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0302 begin`);
+      logInfo("decision(12,1033.1,862.7,1.5,337,113,1,0.5)");
+      const actual: string = resolutionLabel(12) + '|' + findResolutionIndex(1033.1, 862.7) + '|' + resolutionRatio(12) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(337, 113) + '|' + xComponentSizeText(false, 0, 720, 1280, 337, 113, 1, 0.5) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "1080*1080|-1|1|1|90|720*360|2");
+      expect(actual).assertEqual("1080*1080|-1|1|1|90|720*360|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0302 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0303
+     * @tc.name      Resolution_DecisionMatrix_0303
+     * @tc.desc      resolution decision 13 with rotation 374/166 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0303', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0303 begin`);
+      logInfo("decision(13,1036.2,865.4,1.75,374,166,2,1)");
+      const actual: string = resolutionLabel(13) + '|' + findResolutionIndex(1036.2, 865.4) + '|' + resolutionRatio(13) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(374, 166) + '|' + xComponentSizeText(false, 0, 720, 1280, 374, 166, 2, 1) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "720*720|-1|1|1.777778|180|1280*1280|1");
+      expect(actual).assertEqual("720*720|-1|1|1.777778|180|1280*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0303 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0304
+     * @tc.name      Resolution_DecisionMatrix_0304
+     * @tc.desc      resolution decision 14 with rotation 411/219 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0304', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0304 begin`);
+      logInfo("decision(14,1039.3,868.1,2,411,219,0,1.5)");
+      const actual: string = resolutionLabel(14) + '|' + findResolutionIndex(1039.3, 868.1) + '|' + resolutionRatio(14) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(411, 219) + '|' + xComponentSizeText(false, 0, 720, 1280, 411, 219, 0, 1.5) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "640*480|-1|1.333333|0|270|720*1280.00016|1");
+      expect(actual).assertEqual("640*480|-1|1.333333|0|270|720*1280.00016|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0304 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0305
+     * @tc.name      Resolution_DecisionMatrix_0305
+     * @tc.desc      resolution decision 15 with rotation 448/272 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0305', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0305 begin`);
+      logInfo("decision(15,1042.4,870.8,2.25,448,272,1,2)");
+      const actual: string = resolutionLabel(15) + '|' + findResolutionIndex(1042.4, 870.8) + '|' + resolutionRatio(15) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(448, 272) + '|' + xComponentSizeText(false, 0, 720, 1280, 448, 272, 1, 2) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "480*480|-1|1|1|0|2560*1280|2");
+      expect(actual).assertEqual("480*480|-1|1|1|0|2560*1280|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0305 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0306
+     * @tc.name      Resolution_DecisionMatrix_0306
+     * @tc.desc      resolution decision 16 with rotation 485/325 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0306', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0306 begin`);
+      logInfo("decision(16,1045.5,873.5,2.5,485,325,2,2.5)");
+      const actual: string = resolutionLabel(16) + '|' + findResolutionIndex(1045.5, 873.5) + '|' + resolutionRatio(16) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(485, 325) + '|' + xComponentSizeText(false, 0, 720, 1280, 485, 325, 2, 2.5) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "|-1|0|1.777778|90|720*1800|1");
+      expect(actual).assertEqual("|-1|0|1.777778|90|720*1800|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0306 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0307
+     * @tc.name      Resolution_DecisionMatrix_0307
+     * @tc.desc      resolution decision -1 with rotation 522/18 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Resolution_DecisionMatrix_0307', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0307 begin`);
+      logInfo("decision(-1,1048.6,876.2,0.5,522,18,0,3)");
+      const actual: string = resolutionLabel(-1) + '|' + findResolutionIndex(1048.6, 876.2) + '|' + resolutionRatio(-1) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(522, 18) + '|' + xComponentSizeText(false, 0, 720, 1280, 522, 18, 0, 3) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "|-1|0|0|180|2275.55584*1280|1");
+      expect(actual).assertEqual("|-1|0|0|180|2275.55584*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0307 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0308
+     * @tc.name      Resolution_DecisionMatrix_0308
+     * @tc.desc      resolution decision 0 with rotation 559/71 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0308', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0308 begin`);
+      logInfo("decision(0,1051.7,878.9,0.75,559,71,1,3.5)");
+      const actual: string = resolutionLabel(0) + '|' + findResolutionIndex(1051.7, 878.9) + '|' + resolutionRatio(0) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(559, 71) + '|' + xComponentSizeText(false, 0, 720, 1280, 559, 71, 1, 3.5) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "4096*3072|-1|1.333333|1|270|720*2520|2");
+      expect(actual).assertEqual("4096*3072|-1|1.333333|1|270|720*2520|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0308 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0309
+     * @tc.name      Resolution_DecisionMatrix_0309
+     * @tc.desc      resolution decision 1 with rotation 596/124 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_DecisionMatrix_0309', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0309 begin`);
+      logInfo("decision(1,1054.8,881.6,1,596,124,2,0.5)");
+      const actual: string = resolutionLabel(1) + '|' + findResolutionIndex(1054.8, 881.6) + '|' + resolutionRatio(1) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(596, 124) + '|' + xComponentSizeText(false, 0, 720, 1280, 596, 124, 2, 0.5) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "4096*2304|-1|1.777778|1.777778|0|640*1280|1");
+      expect(actual).assertEqual("4096*2304|-1|1.777778|1.777778|0|640*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0309 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0310
+     * @tc.name      Resolution_DecisionMatrix_0310
+     * @tc.desc      resolution decision 2 with rotation 633/177 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0310', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0310 begin`);
+      logInfo("decision(2,1057.9,884.3,1.25,633,177,0,1)");
+      const actual: string = resolutionLabel(2) + '|' + findResolutionIndex(1057.9, 884.3) + '|' + resolutionRatio(2) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(633, 177) + '|' + xComponentSizeText(false, 0, 720, 1280, 633, 177, 0, 1) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "3840*2160|-1|1.777778|0|90|720*1280.00016|1");
+      expect(actual).assertEqual("3840*2160|-1|1.777778|0|90|720*1280.00016|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0310 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0311
+     * @tc.name      Resolution_DecisionMatrix_0311
+     * @tc.desc      resolution decision 3 with rotation 670/230 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0311', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0311 begin`);
+      logInfo("decision(3,1061,887,1.5,670,230,1,1.5)");
+      const actual: string = resolutionLabel(3) + '|' + findResolutionIndex(1061, 887) + '|' + resolutionRatio(3) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(670, 230) + '|' + xComponentSizeText(false, 0, 720, 1280, 670, 230, 1, 1.5) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "2880*2160|-1|1.333333|1|180|1920*1280|2");
+      expect(actual).assertEqual("2880*2160|-1|1.333333|1|180|1920*1280|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0311 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0312
+     * @tc.name      Resolution_DecisionMatrix_0312
+     * @tc.desc      resolution decision 4 with rotation 707/283 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0312', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0312 begin`);
+      logInfo("decision(4,1064.1,889.7,1.75,707,283,2,2)");
+      const actual: string = resolutionLabel(4) + '|' + findResolutionIndex(1064.1, 889.7) + '|' + resolutionRatio(4) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(707, 283) + '|' + xComponentSizeText(false, 0, 720, 1280, 707, 283, 2, 2) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "2560*1440|-1|1.777778|1.777778|270|720*1440|1");
+      expect(actual).assertEqual("2560*1440|-1|1.777778|1.777778|270|720*1440|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0312 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0313
+     * @tc.name      Resolution_DecisionMatrix_0313
+     * @tc.desc      resolution decision 5 with rotation 24/336 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0313', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0313 begin`);
+      logInfo("decision(5,1067.2,892.4,2,24,336,0,2.5)");
+      const actual: string = resolutionLabel(5) + '|' + findResolutionIndex(1067.2, 892.4) + '|' + resolutionRatio(5) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(24, 336) + '|' + xComponentSizeText(false, 0, 720, 1280, 24, 336, 0, 2.5) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "2408*1080|-1|2.22963|0|0|2275.55584*1280|1");
+      expect(actual).assertEqual("2408*1080|-1|2.22963|0|0|2275.55584*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0313 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0314
+     * @tc.name      Resolution_DecisionMatrix_0314
+     * @tc.desc      resolution decision 6 with rotation 61/29 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0314', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0314 begin`);
+      logInfo("decision(6,1070.3,895.1,2.25,61,29,1,3)");
+      const actual: string = resolutionLabel(6) + '|' + findResolutionIndex(1070.3, 895.1) + '|' + resolutionRatio(6) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(61, 29) + '|' + xComponentSizeText(false, 0, 720, 1280, 61, 29, 1, 3) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "2384*1080|-1|2.207407|1|90|720*2160|2");
+      expect(actual).assertEqual("2384*1080|-1|2.207407|1|90|720*2160|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0314 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0315
+     * @tc.name      Resolution_DecisionMatrix_0315
+     * @tc.desc      resolution decision 7 with rotation 98/82 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0315', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0315 begin`);
+      logInfo("decision(7,1073.4,897.8,2.5,98,82,2,3.5)");
+      const actual: string = resolutionLabel(7) + '|' + findResolutionIndex(1073.4, 897.8) + '|' + resolutionRatio(7) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(98, 82) + '|' + xComponentSizeText(false, 0, 720, 1280, 98, 82, 2, 3.5) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "1920*1440|-1|1.333333|1.777778|180|4480*1280|1");
+      expect(actual).assertEqual("1920*1440|-1|1.333333|1.777778|180|4480*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0315 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0316
+     * @tc.name      Resolution_DecisionMatrix_0316
+     * @tc.desc      resolution decision 8 with rotation 135/135 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0316', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0316 begin`);
+      logInfo("decision(8,1076.5,900.5,0.5,135,135,0,0.5)");
+      const actual: string = resolutionLabel(8) + '|' + findResolutionIndex(1076.5, 900.5) + '|' + resolutionRatio(8) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(135, 135) + '|' + xComponentSizeText(false, 0, 720, 1280, 135, 135, 0, 0.5) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "1920*1080|-1|1.777778|0|270|720*1280.00016|1");
+      expect(actual).assertEqual("1920*1080|-1|1.777778|0|270|720*1280.00016|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0316 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0317
+     * @tc.name      Resolution_DecisionMatrix_0317
+     * @tc.desc      resolution decision 9 with rotation 172/188 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0317', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0317 begin`);
+      logInfo("decision(9,1079.6,903.2,0.75,172,188,1,1)");
+      const actual: string = resolutionLabel(9) + '|' + findResolutionIndex(1079.6, 903.2) + '|' + resolutionRatio(9) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(172, 188) + '|' + xComponentSizeText(false, 0, 720, 1280, 172, 188, 1, 1) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "1440*1080|-1|1.333333|1|0|1280*1280|2");
+      expect(actual).assertEqual("1440*1080|-1|1.333333|1|0|1280*1280|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0317 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0318
+     * @tc.name      Resolution_DecisionMatrix_0318
+     * @tc.desc      resolution decision 10 with rotation 209/241 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0318', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0318 begin`);
+      logInfo("decision(10,1082.7,905.9,1,209,241,2,1.5)");
+      const actual: string = resolutionLabel(10) + '|' + findResolutionIndex(1082.7, 905.9) + '|' + resolutionRatio(10) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(209, 241) + '|' + xComponentSizeText(false, 0, 720, 1280, 209, 241, 2, 1.5) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "1280*720|-1|1.777778|1.777778|90|720*1080|1");
+      expect(actual).assertEqual("1280*720|-1|1.777778|1.777778|90|720*1080|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0318 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0319
+     * @tc.name      Resolution_DecisionMatrix_0319
+     * @tc.desc      resolution decision 11 with rotation 246/294 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0319', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0319 begin`);
+      logInfo("decision(11,1085.8,908.6,1.25,246,294,0,2)");
+      const actual: string = resolutionLabel(11) + '|' + findResolutionIndex(1085.8, 908.6) + '|' + resolutionRatio(11) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(246, 294) + '|' + xComponentSizeText(false, 0, 720, 1280, 246, 294, 0, 2) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "1088*1088|-1|1|0|180|2275.55584*1280|1");
+      expect(actual).assertEqual("1088*1088|-1|1|0|180|2275.55584*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0319 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0320
+     * @tc.name      Resolution_DecisionMatrix_0320
+     * @tc.desc      resolution decision 12 with rotation 283/347 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_DecisionMatrix_0320', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0320 begin`);
+      logInfo("decision(12,1088.9,911.3,1.5,283,347,1,2.5)");
+      const actual: string = resolutionLabel(12) + '|' + findResolutionIndex(1088.9, 911.3) + '|' + resolutionRatio(12) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(283, 347) + '|' + xComponentSizeText(false, 0, 720, 1280, 283, 347, 1, 2.5) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "1080*1080|-1|1|1|270|720*1800|2");
+      expect(actual).assertEqual("1080*1080|-1|1|1|270|720*1800|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0320 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0321
+     * @tc.name      Resolution_DecisionMatrix_0321
+     * @tc.desc      resolution decision 13 with rotation 320/40 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0321', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0321 begin`);
+      logInfo("decision(13,1092,914,1.75,320,40,2,3)");
+      const actual: string = resolutionLabel(13) + '|' + findResolutionIndex(1092, 914) + '|' + resolutionRatio(13) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(320, 40) + '|' + xComponentSizeText(false, 0, 720, 1280, 320, 40, 2, 3) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "720*720|-1|1|1.777778|0|3840*1280|1");
+      expect(actual).assertEqual("720*720|-1|1|1.777778|0|3840*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0321 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0322
+     * @tc.name      Resolution_DecisionMatrix_0322
+     * @tc.desc      resolution decision 14 with rotation 357/93 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0322', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0322 begin`);
+      logInfo("decision(14,1095.1,916.7,2,357,93,0,3.5)");
+      const actual: string = resolutionLabel(14) + '|' + findResolutionIndex(1095.1, 916.7) + '|' + resolutionRatio(14) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(357, 93) + '|' + xComponentSizeText(false, 0, 720, 1280, 357, 93, 0, 3.5) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "640*480|-1|1.333333|0|90|720*1280.00016|1");
+      expect(actual).assertEqual("640*480|-1|1.333333|0|90|720*1280.00016|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0322 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0323
+     * @tc.name      Resolution_DecisionMatrix_0323
+     * @tc.desc      resolution decision 15 with rotation 394/146 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0323', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0323 begin`);
+      logInfo("decision(15,1098.2,919.4,2.25,394,146,1,0.5)");
+      const actual: string = resolutionLabel(15) + '|' + findResolutionIndex(1098.2, 919.4) + '|' + resolutionRatio(15) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(394, 146) + '|' + xComponentSizeText(false, 0, 720, 1280, 394, 146, 1, 0.5) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "480*480|-1|1|1|180|640*1280|2");
+      expect(actual).assertEqual("480*480|-1|1|1|180|640*1280|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0323 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0324
+     * @tc.name      Resolution_DecisionMatrix_0324
+     * @tc.desc      resolution decision 16 with rotation 431/199 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Resolution_DecisionMatrix_0324', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0324 begin`);
+      logInfo("decision(16,1101.3,922.1,2.5,431,199,2,1)");
+      const actual: string = resolutionLabel(16) + '|' + findResolutionIndex(1101.3, 922.1) + '|' + resolutionRatio(16) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(431, 199) + '|' + xComponentSizeText(false, 0, 720, 1280, 431, 199, 2, 1) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "|-1|0|1.777778|270|720*720|1");
+      expect(actual).assertEqual("|-1|0|1.777778|270|720*720|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0324 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0325
+     * @tc.name      Resolution_DecisionMatrix_0325
+     * @tc.desc      resolution decision -1 with rotation 468/252 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0325', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0325 begin`);
+      logInfo("decision(-1,1104.4,924.8,0.5,468,252,0,1.5)");
+      const actual: string = resolutionLabel(-1) + '|' + findResolutionIndex(1104.4, 924.8) + '|' + resolutionRatio(-1) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(468, 252) + '|' + xComponentSizeText(false, 0, 720, 1280, 468, 252, 0, 1.5) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "|-1|0|0|0|2275.55584*1280|1");
+      expect(actual).assertEqual("|-1|0|0|0|2275.55584*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0325 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0326
+     * @tc.name      Resolution_DecisionMatrix_0326
+     * @tc.desc      resolution decision 0 with rotation 505/305 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0326', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0326 begin`);
+      logInfo("decision(0,1107.5,927.5,0.75,505,305,1,2)");
+      const actual: string = resolutionLabel(0) + '|' + findResolutionIndex(1107.5, 927.5) + '|' + resolutionRatio(0) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(505, 305) + '|' + xComponentSizeText(false, 0, 720, 1280, 505, 305, 1, 2) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "4096*3072|-1|1.333333|1|90|720*1440|2");
+      expect(actual).assertEqual("4096*3072|-1|1.333333|1|90|720*1440|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0326 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0327
+     * @tc.name      Resolution_DecisionMatrix_0327
+     * @tc.desc      resolution decision 1 with rotation 542/358 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0327', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0327 begin`);
+      logInfo("decision(1,1110.6,930.2,1,542,358,2,2.5)");
+      const actual: string = resolutionLabel(1) + '|' + findResolutionIndex(1110.6, 930.2) + '|' + resolutionRatio(1) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(542, 358) + '|' + xComponentSizeText(false, 0, 720, 1280, 542, 358, 2, 2.5) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "4096*2304|-1|1.777778|1.777778|180|3200*1280|1");
+      expect(actual).assertEqual("4096*2304|-1|1.777778|1.777778|180|3200*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0327 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0328
+     * @tc.name      Resolution_DecisionMatrix_0328
+     * @tc.desc      resolution decision 2 with rotation 579/51 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0328', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0328 begin`);
+      logInfo("decision(2,1113.7,932.9,1.25,579,51,0,3)");
+      const actual: string = resolutionLabel(2) + '|' + findResolutionIndex(1113.7, 932.9) + '|' + resolutionRatio(2) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(579, 51) + '|' + xComponentSizeText(false, 0, 720, 1280, 579, 51, 0, 3) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "3840*2160|-1|1.777778|0|270|720*1280.00016|1");
+      expect(actual).assertEqual("3840*2160|-1|1.777778|0|270|720*1280.00016|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0328 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0329
+     * @tc.name      Resolution_DecisionMatrix_0329
+     * @tc.desc      resolution decision 3 with rotation 616/104 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0329', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0329 begin`);
+      logInfo("decision(3,1116.8,935.6,1.5,616,104,1,3.5)");
+      const actual: string = resolutionLabel(3) + '|' + findResolutionIndex(1116.8, 935.6) + '|' + resolutionRatio(3) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(616, 104) + '|' + xComponentSizeText(false, 0, 720, 1280, 616, 104, 1, 3.5) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "2880*2160|-1|1.333333|1|0|4480*1280|2");
+      expect(actual).assertEqual("2880*2160|-1|1.333333|1|0|4480*1280|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0329 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0330
+     * @tc.name      Resolution_DecisionMatrix_0330
+     * @tc.desc      resolution decision 4 with rotation 653/157 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0330', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0330 begin`);
+      logInfo("decision(4,1119.9,938.3,1.75,653,157,2,0.5)");
+      const actual: string = resolutionLabel(4) + '|' + findResolutionIndex(1119.9, 938.3) + '|' + resolutionRatio(4) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(653, 157) + '|' + xComponentSizeText(false, 0, 720, 1280, 653, 157, 2, 0.5) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "2560*1440|-1|1.777778|1.777778|90|720*360|1");
+      expect(actual).assertEqual("2560*1440|-1|1.777778|1.777778|90|720*360|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0330 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0331
+     * @tc.name      Resolution_DecisionMatrix_0331
+     * @tc.desc      resolution decision 5 with rotation 690/210 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_DecisionMatrix_0331', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0331 begin`);
+      logInfo("decision(5,1123,941,2,690,210,0,1)");
+      const actual: string = resolutionLabel(5) + '|' + findResolutionIndex(1123, 941) + '|' + resolutionRatio(5) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(690, 210) + '|' + xComponentSizeText(false, 0, 720, 1280, 690, 210, 0, 1) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "2408*1080|-1|2.22963|0|180|2275.55584*1280|1");
+      expect(actual).assertEqual("2408*1080|-1|2.22963|0|180|2275.55584*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0331 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0332
+     * @tc.name      Resolution_DecisionMatrix_0332
+     * @tc.desc      resolution decision 6 with rotation 7/263 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0332', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0332 begin`);
+      logInfo("decision(6,1126.1,943.7,2.25,7,263,1,1.5)");
+      const actual: string = resolutionLabel(6) + '|' + findResolutionIndex(1126.1, 943.7) + '|' + resolutionRatio(6) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(7, 263) + '|' + xComponentSizeText(false, 0, 720, 1280, 7, 263, 1, 1.5) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "2384*1080|-1|2.207407|1|270|720*1080|2");
+      expect(actual).assertEqual("2384*1080|-1|2.207407|1|270|720*1080|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0332 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0333
+     * @tc.name      Resolution_DecisionMatrix_0333
+     * @tc.desc      resolution decision 7 with rotation 44/316 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0333', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0333 begin`);
+      logInfo("decision(7,1129.2,946.4,2.5,44,316,2,2)");
+      const actual: string = resolutionLabel(7) + '|' + findResolutionIndex(1129.2, 946.4) + '|' + resolutionRatio(7) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(44, 316) + '|' + xComponentSizeText(false, 0, 720, 1280, 44, 316, 2, 2) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "1920*1440|-1|1.333333|1.777778|0|2560*1280|1");
+      expect(actual).assertEqual("1920*1440|-1|1.333333|1.777778|0|2560*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0333 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0334
+     * @tc.name      Resolution_DecisionMatrix_0334
+     * @tc.desc      resolution decision 8 with rotation 81/9 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0334', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0334 begin`);
+      logInfo("decision(8,1132.3,949.1,0.5,81,9,0,2.5)");
+      const actual: string = resolutionLabel(8) + '|' + findResolutionIndex(1132.3, 949.1) + '|' + resolutionRatio(8) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(81, 9) + '|' + xComponentSizeText(false, 0, 720, 1280, 81, 9, 0, 2.5) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "1920*1080|-1|1.777778|0|90|720*1280.00016|1");
+      expect(actual).assertEqual("1920*1080|-1|1.777778|0|90|720*1280.00016|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0334 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0335
+     * @tc.name      Resolution_DecisionMatrix_0335
+     * @tc.desc      resolution decision 9 with rotation 118/62 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0335', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0335 begin`);
+      logInfo("decision(9,1135.4,951.8,0.75,118,62,1,3)");
+      const actual: string = resolutionLabel(9) + '|' + findResolutionIndex(1135.4, 951.8) + '|' + resolutionRatio(9) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(118, 62) + '|' + xComponentSizeText(false, 0, 720, 1280, 118, 62, 1, 3) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "1440*1080|-1|1.333333|1|180|3840*1280|2");
+      expect(actual).assertEqual("1440*1080|-1|1.333333|1|180|3840*1280|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0335 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0336
+     * @tc.name      Resolution_DecisionMatrix_0336
+     * @tc.desc      resolution decision 10 with rotation 155/115 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0336', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0336 begin`);
+      logInfo("decision(10,1138.5,954.5,1,155,115,2,3.5)");
+      const actual: string = resolutionLabel(10) + '|' + findResolutionIndex(1138.5, 954.5) + '|' + resolutionRatio(10) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(155, 115) + '|' + xComponentSizeText(false, 0, 720, 1280, 155, 115, 2, 3.5) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "1280*720|-1|1.777778|1.777778|270|720*2520|1");
+      expect(actual).assertEqual("1280*720|-1|1.777778|1.777778|270|720*2520|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0336 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0337
+     * @tc.name      Resolution_DecisionMatrix_0337
+     * @tc.desc      resolution decision 11 with rotation 192/168 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0337', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0337 begin`);
+      logInfo("decision(11,1141.6,957.2,1.25,192,168,0,0.5)");
+      const actual: string = resolutionLabel(11) + '|' + findResolutionIndex(1141.6, 957.2) + '|' + resolutionRatio(11) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(192, 168) + '|' + xComponentSizeText(false, 0, 720, 1280, 192, 168, 0, 0.5) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "1088*1088|-1|1|0|0|2275.55584*1280|1");
+      expect(actual).assertEqual("1088*1088|-1|1|0|0|2275.55584*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0337 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0338
+     * @tc.name      Resolution_DecisionMatrix_0338
+     * @tc.desc      resolution decision 12 with rotation 229/221 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0338', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0338 begin`);
+      logInfo("decision(12,1144.7,959.9,1.5,229,221,1,1)");
+      const actual: string = resolutionLabel(12) + '|' + findResolutionIndex(1144.7, 959.9) + '|' + resolutionRatio(12) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(229, 221) + '|' + xComponentSizeText(false, 0, 720, 1280, 229, 221, 1, 1) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "1080*1080|-1|1|1|90|720*720|2");
+      expect(actual).assertEqual("1080*1080|-1|1|1|90|720*720|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0338 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0339
+     * @tc.name      Resolution_DecisionMatrix_0339
+     * @tc.desc      resolution decision 13 with rotation 266/274 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0339', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0339 begin`);
+      logInfo("decision(13,1147.8,962.6,1.75,266,274,2,1.5)");
+      const actual: string = resolutionLabel(13) + '|' + findResolutionIndex(1147.8, 962.6) + '|' + resolutionRatio(13) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(266, 274) + '|' + xComponentSizeText(false, 0, 720, 1280, 266, 274, 2, 1.5) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "720*720|-1|1|1.777778|180|1920*1280|1");
+      expect(actual).assertEqual("720*720|-1|1|1.777778|180|1920*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0339 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0340
+     * @tc.name      Resolution_DecisionMatrix_0340
+     * @tc.desc      resolution decision 14 with rotation 303/327 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0340', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0340 begin`);
+      logInfo("decision(14,1150.9,965.3,2,303,327,0,2)");
+      const actual: string = resolutionLabel(14) + '|' + findResolutionIndex(1150.9, 965.3) + '|' + resolutionRatio(14) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(303, 327) + '|' + xComponentSizeText(false, 0, 720, 1280, 303, 327, 0, 2) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "640*480|-1|1.333333|0|270|720*1280.00016|1");
+      expect(actual).assertEqual("640*480|-1|1.333333|0|270|720*1280.00016|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0340 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0341
+     * @tc.name      Resolution_DecisionMatrix_0341
+     * @tc.desc      resolution decision 15 with rotation 340/20 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Resolution_DecisionMatrix_0341', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0341 begin`);
+      logInfo("decision(15,1154,968,2.25,340,20,1,2.5)");
+      const actual: string = resolutionLabel(15) + '|' + findResolutionIndex(1154, 968) + '|' + resolutionRatio(15) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(340, 20) + '|' + xComponentSizeText(false, 0, 720, 1280, 340, 20, 1, 2.5) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "480*480|-1|1|1|0|3200*1280|2");
+      expect(actual).assertEqual("480*480|-1|1|1|0|3200*1280|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0341 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0342
+     * @tc.name      Resolution_DecisionMatrix_0342
+     * @tc.desc      resolution decision 16 with rotation 377/73 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_DecisionMatrix_0342', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0342 begin`);
+      logInfo("decision(16,1157.1,970.7,2.5,377,73,2,3)");
+      const actual: string = resolutionLabel(16) + '|' + findResolutionIndex(1157.1, 970.7) + '|' + resolutionRatio(16) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(377, 73) + '|' + xComponentSizeText(false, 0, 720, 1280, 377, 73, 2, 3) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "|-1|0|1.777778|90|720*2160|1");
+      expect(actual).assertEqual("|-1|0|1.777778|90|720*2160|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0342 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0343
+     * @tc.name      Resolution_DecisionMatrix_0343
+     * @tc.desc      resolution decision -1 with rotation 414/126 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0343', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0343 begin`);
+      logInfo("decision(-1,1160.2,973.4,0.5,414,126,0,3.5)");
+      const actual: string = resolutionLabel(-1) + '|' + findResolutionIndex(1160.2, 973.4) + '|' + resolutionRatio(-1) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(414, 126) + '|' + xComponentSizeText(false, 0, 720, 1280, 414, 126, 0, 3.5) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "|-1|0|0|180|2275.55584*1280|1");
+      expect(actual).assertEqual("|-1|0|0|180|2275.55584*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0343 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0344
+     * @tc.name      Resolution_DecisionMatrix_0344
+     * @tc.desc      resolution decision 0 with rotation 451/179 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0344', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0344 begin`);
+      logInfo("decision(0,1163.3,976.1,0.75,451,179,1,0.5)");
+      const actual: string = resolutionLabel(0) + '|' + findResolutionIndex(1163.3, 976.1) + '|' + resolutionRatio(0) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(451, 179) + '|' + xComponentSizeText(false, 0, 720, 1280, 451, 179, 1, 0.5) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "4096*3072|-1|1.333333|1|270|720*360|2");
+      expect(actual).assertEqual("4096*3072|-1|1.333333|1|270|720*360|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0344 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0345
+     * @tc.name      Resolution_DecisionMatrix_0345
+     * @tc.desc      resolution decision 1 with rotation 488/232 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0345', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0345 begin`);
+      logInfo("decision(1,1166.4,978.8,1,488,232,2,1)");
+      const actual: string = resolutionLabel(1) + '|' + findResolutionIndex(1166.4, 978.8) + '|' + resolutionRatio(1) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(488, 232) + '|' + xComponentSizeText(false, 0, 720, 1280, 488, 232, 2, 1) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "4096*2304|-1|1.777778|1.777778|0|1280*1280|1");
+      expect(actual).assertEqual("4096*2304|-1|1.777778|1.777778|0|1280*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0345 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0346
+     * @tc.name      Resolution_DecisionMatrix_0346
+     * @tc.desc      resolution decision 2 with rotation 525/285 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0346', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0346 begin`);
+      logInfo("decision(2,1169.5,981.5,1.25,525,285,0,1.5)");
+      const actual: string = resolutionLabel(2) + '|' + findResolutionIndex(1169.5, 981.5) + '|' + resolutionRatio(2) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(525, 285) + '|' + xComponentSizeText(false, 0, 720, 1280, 525, 285, 0, 1.5) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "3840*2160|-1|1.777778|0|90|720*1280.00016|1");
+      expect(actual).assertEqual("3840*2160|-1|1.777778|0|90|720*1280.00016|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0346 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0347
+     * @tc.name      Resolution_DecisionMatrix_0347
+     * @tc.desc      resolution decision 3 with rotation 562/338 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0347', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0347 begin`);
+      logInfo("decision(3,1172.6,984.2,1.5,562,338,1,2)");
+      const actual: string = resolutionLabel(3) + '|' + findResolutionIndex(1172.6, 984.2) + '|' + resolutionRatio(3) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(562, 338) + '|' + xComponentSizeText(false, 0, 720, 1280, 562, 338, 1, 2) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "2880*2160|-1|1.333333|1|180|2560*1280|2");
+      expect(actual).assertEqual("2880*2160|-1|1.333333|1|180|2560*1280|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0347 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0348
+     * @tc.name      Resolution_DecisionMatrix_0348
+     * @tc.desc      resolution decision 4 with rotation 599/31 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0348', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0348 begin`);
+      logInfo("decision(4,1175.7,986.9,1.75,599,31,2,2.5)");
+      const actual: string = resolutionLabel(4) + '|' + findResolutionIndex(1175.7, 986.9) + '|' + resolutionRatio(4) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(599, 31) + '|' + xComponentSizeText(false, 0, 720, 1280, 599, 31, 2, 2.5) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "2560*1440|-1|1.777778|1.777778|270|720*1800|1");
+      expect(actual).assertEqual("2560*1440|-1|1.777778|1.777778|270|720*1800|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0348 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0349
+     * @tc.name      Resolution_DecisionMatrix_0349
+     * @tc.desc      resolution decision 5 with rotation 636/84 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0349', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0349 begin`);
+      logInfo("decision(5,1178.8,989.6,2,636,84,0,3)");
+      const actual: string = resolutionLabel(5) + '|' + findResolutionIndex(1178.8, 989.6) + '|' + resolutionRatio(5) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(636, 84) + '|' + xComponentSizeText(false, 0, 720, 1280, 636, 84, 0, 3) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "2408*1080|-1|2.22963|0|0|2275.55584*1280|1");
+      expect(actual).assertEqual("2408*1080|-1|2.22963|0|0|2275.55584*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0349 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0350
+     * @tc.name      Resolution_DecisionMatrix_0350
+     * @tc.desc      resolution decision 6 with rotation 673/137 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0350', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0350 begin`);
+      logInfo("decision(6,1181.9,992.3,2.25,673,137,1,3.5)");
+      const actual: string = resolutionLabel(6) + '|' + findResolutionIndex(1181.9, 992.3) + '|' + resolutionRatio(6) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(673, 137) + '|' + xComponentSizeText(false, 0, 720, 1280, 673, 137, 1, 3.5) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "2384*1080|-1|2.207407|1|90|720*2520|2");
+      expect(actual).assertEqual("2384*1080|-1|2.207407|1|90|720*2520|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0350 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0351
+     * @tc.name      Resolution_DecisionMatrix_0351
+     * @tc.desc      resolution decision 7 with rotation 710/190 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0351', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0351 begin`);
+      logInfo("decision(7,1185,995,2.5,710,190,2,0.5)");
+      const actual: string = resolutionLabel(7) + '|' + findResolutionIndex(1185, 995) + '|' + resolutionRatio(7) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(710, 190) + '|' + xComponentSizeText(false, 0, 720, 1280, 710, 190, 2, 0.5) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "1920*1440|-1|1.333333|1.777778|180|640*1280|1");
+      expect(actual).assertEqual("1920*1440|-1|1.333333|1.777778|180|640*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0351 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0352
+     * @tc.name      Resolution_DecisionMatrix_0352
+     * @tc.desc      resolution decision 8 with rotation 27/243 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0352', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0352 begin`);
+      logInfo("decision(8,1188.1,997.7,0.5,27,243,0,1)");
+      const actual: string = resolutionLabel(8) + '|' + findResolutionIndex(1188.1, 997.7) + '|' + resolutionRatio(8) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(27, 243) + '|' + xComponentSizeText(false, 0, 720, 1280, 27, 243, 0, 1) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "1920*1080|-1|1.777778|0|270|720*1280.00016|1");
+      expect(actual).assertEqual("1920*1080|-1|1.777778|0|270|720*1280.00016|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0352 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0353
+     * @tc.name      Resolution_DecisionMatrix_0353
+     * @tc.desc      resolution decision 9 with rotation 64/296 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_DecisionMatrix_0353', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0353 begin`);
+      logInfo("decision(9,1191.2,1000.4,0.75,64,296,1,1.5)");
+      const actual: string = resolutionLabel(9) + '|' + findResolutionIndex(1191.2, 1000.4) + '|' + resolutionRatio(9) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(64, 296) + '|' + xComponentSizeText(false, 0, 720, 1280, 64, 296, 1, 1.5) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "1440*1080|-1|1.333333|1|0|1920*1280|2");
+      expect(actual).assertEqual("1440*1080|-1|1.333333|1|0|1920*1280|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0353 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0354
+     * @tc.name      Resolution_DecisionMatrix_0354
+     * @tc.desc      resolution decision 10 with rotation 101/349 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0354', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0354 begin`);
+      logInfo("decision(10,1194.3,1003.1,1,101,349,2,2)");
+      const actual: string = resolutionLabel(10) + '|' + findResolutionIndex(1194.3, 1003.1) + '|' + resolutionRatio(10) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(101, 349) + '|' + xComponentSizeText(false, 0, 720, 1280, 101, 349, 2, 2) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "1280*720|-1|1.777778|1.777778|90|720*1440|1");
+      expect(actual).assertEqual("1280*720|-1|1.777778|1.777778|90|720*1440|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0354 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0355
+     * @tc.name      Resolution_DecisionMatrix_0355
+     * @tc.desc      resolution decision 11 with rotation 138/42 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0355', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0355 begin`);
+      logInfo("decision(11,1197.4,1005.8,1.25,138,42,0,2.5)");
+      const actual: string = resolutionLabel(11) + '|' + findResolutionIndex(1197.4, 1005.8) + '|' + resolutionRatio(11) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(138, 42) + '|' + xComponentSizeText(false, 0, 720, 1280, 138, 42, 0, 2.5) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "1088*1088|-1|1|0|180|2275.55584*1280|1");
+      expect(actual).assertEqual("1088*1088|-1|1|0|180|2275.55584*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0355 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0356
+     * @tc.name      Resolution_DecisionMatrix_0356
+     * @tc.desc      resolution decision 12 with rotation 175/95 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0356', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0356 begin`);
+      logInfo("decision(12,1200.5,1008.5,1.5,175,95,1,3)");
+      const actual: string = resolutionLabel(12) + '|' + findResolutionIndex(1200.5, 1008.5) + '|' + resolutionRatio(12) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(175, 95) + '|' + xComponentSizeText(false, 0, 720, 1280, 175, 95, 1, 3) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "1080*1080|-1|1|1|270|720*2160|2");
+      expect(actual).assertEqual("1080*1080|-1|1|1|270|720*2160|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0356 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0357
+     * @tc.name      Resolution_DecisionMatrix_0357
+     * @tc.desc      resolution decision 13 with rotation 212/148 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0357', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0357 begin`);
+      logInfo("decision(13,1203.6,1011.2,1.75,212,148,2,3.5)");
+      const actual: string = resolutionLabel(13) + '|' + findResolutionIndex(1203.6, 1011.2) + '|' + resolutionRatio(13) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(212, 148) + '|' + xComponentSizeText(false, 0, 720, 1280, 212, 148, 2, 3.5) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "720*720|-1|1|1.777778|0|4480*1280|1");
+      expect(actual).assertEqual("720*720|-1|1|1.777778|0|4480*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0357 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0358
+     * @tc.name      Resolution_DecisionMatrix_0358
+     * @tc.desc      resolution decision 14 with rotation 249/201 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Resolution_DecisionMatrix_0358', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0358 begin`);
+      logInfo("decision(14,1206.7,1013.9,2,249,201,0,0.5)");
+      const actual: string = resolutionLabel(14) + '|' + findResolutionIndex(1206.7, 1013.9) + '|' + resolutionRatio(14) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(249, 201) + '|' + xComponentSizeText(false, 0, 720, 1280, 249, 201, 0, 0.5) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "640*480|-1|1.333333|0|90|720*1280.00016|1");
+      expect(actual).assertEqual("640*480|-1|1.333333|0|90|720*1280.00016|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0358 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0359
+     * @tc.name      Resolution_DecisionMatrix_0359
+     * @tc.desc      resolution decision 15 with rotation 286/254 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0359', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0359 begin`);
+      logInfo("decision(15,1209.8,1016.6,2.25,286,254,1,1)");
+      const actual: string = resolutionLabel(15) + '|' + findResolutionIndex(1209.8, 1016.6) + '|' + resolutionRatio(15) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(286, 254) + '|' + xComponentSizeText(false, 0, 720, 1280, 286, 254, 1, 1) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "480*480|-1|1|1|180|1280*1280|2");
+      expect(actual).assertEqual("480*480|-1|1|1|180|1280*1280|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0359 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0360
+     * @tc.name      Resolution_DecisionMatrix_0360
+     * @tc.desc      resolution decision 16 with rotation 323/307 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0360', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0360 begin`);
+      logInfo("decision(16,1212.9,1019.3,2.5,323,307,2,1.5)");
+      const actual: string = resolutionLabel(16) + '|' + findResolutionIndex(1212.9, 1019.3) + '|' + resolutionRatio(16) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(323, 307) + '|' + xComponentSizeText(false, 0, 720, 1280, 323, 307, 2, 1.5) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "|-1|0|1.777778|270|720*1080|1");
+      expect(actual).assertEqual("|-1|0|1.777778|270|720*1080|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0360 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0361
+     * @tc.name      Resolution_DecisionMatrix_0361
+     * @tc.desc      resolution decision -1 with rotation 360/0 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0361', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0361 begin`);
+      logInfo("decision(-1,1216,1022,0.5,360,0,0,2)");
+      const actual: string = resolutionLabel(-1) + '|' + findResolutionIndex(1216, 1022) + '|' + resolutionRatio(-1) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(360, 0) + '|' + xComponentSizeText(false, 0, 720, 1280, 360, 0, 0, 2) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "|-1|0|0|0|2275.55584*1280|1");
+      expect(actual).assertEqual("|-1|0|0|0|2275.55584*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0361 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0362
+     * @tc.name      Resolution_DecisionMatrix_0362
+     * @tc.desc      resolution decision 0 with rotation 397/53 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0362', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0362 begin`);
+      logInfo("decision(0,1219.1,1024.7,0.75,397,53,1,2.5)");
+      const actual: string = resolutionLabel(0) + '|' + findResolutionIndex(1219.1, 1024.7) + '|' + resolutionRatio(0) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(397, 53) + '|' + xComponentSizeText(false, 0, 720, 1280, 397, 53, 1, 2.5) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "4096*3072|-1|1.333333|1|90|720*1800|2");
+      expect(actual).assertEqual("4096*3072|-1|1.333333|1|90|720*1800|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0362 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0363
+     * @tc.name      Resolution_DecisionMatrix_0363
+     * @tc.desc      resolution decision 1 with rotation 434/106 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0363', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0363 begin`);
+      logInfo("decision(1,1222.2,1027.4,1,434,106,2,3)");
+      const actual: string = resolutionLabel(1) + '|' + findResolutionIndex(1222.2, 1027.4) + '|' + resolutionRatio(1) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(434, 106) + '|' + xComponentSizeText(false, 0, 720, 1280, 434, 106, 2, 3) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "4096*2304|-1|1.777778|1.777778|180|3840*1280|1");
+      expect(actual).assertEqual("4096*2304|-1|1.777778|1.777778|180|3840*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0363 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0364
+     * @tc.name      Resolution_DecisionMatrix_0364
+     * @tc.desc      resolution decision 2 with rotation 471/159 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_DecisionMatrix_0364', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0364 begin`);
+      logInfo("decision(2,1225.3,1030.1,1.25,471,159,0,3.5)");
+      const actual: string = resolutionLabel(2) + '|' + findResolutionIndex(1225.3, 1030.1) + '|' + resolutionRatio(2) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(471, 159) + '|' + xComponentSizeText(false, 0, 720, 1280, 471, 159, 0, 3.5) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "3840*2160|-1|1.777778|0|270|720*1280.00016|1");
+      expect(actual).assertEqual("3840*2160|-1|1.777778|0|270|720*1280.00016|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0364 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0365
+     * @tc.name      Resolution_DecisionMatrix_0365
+     * @tc.desc      resolution decision 3 with rotation 508/212 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0365', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0365 begin`);
+      logInfo("decision(3,1228.4,1032.8,1.5,508,212,1,0.5)");
+      const actual: string = resolutionLabel(3) + '|' + findResolutionIndex(1228.4, 1032.8) + '|' + resolutionRatio(3) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(508, 212) + '|' + xComponentSizeText(false, 0, 720, 1280, 508, 212, 1, 0.5) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "2880*2160|-1|1.333333|1|0|640*1280|2");
+      expect(actual).assertEqual("2880*2160|-1|1.333333|1|0|640*1280|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0365 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0366
+     * @tc.name      Resolution_DecisionMatrix_0366
+     * @tc.desc      resolution decision 4 with rotation 545/265 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0366', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0366 begin`);
+      logInfo("decision(4,1231.5,1035.5,1.75,545,265,2,1)");
+      const actual: string = resolutionLabel(4) + '|' + findResolutionIndex(1231.5, 1035.5) + '|' + resolutionRatio(4) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(545, 265) + '|' + xComponentSizeText(false, 0, 720, 1280, 545, 265, 2, 1) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "2560*1440|-1|1.777778|1.777778|90|720*720|1");
+      expect(actual).assertEqual("2560*1440|-1|1.777778|1.777778|90|720*720|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0366 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0367
+     * @tc.name      Resolution_DecisionMatrix_0367
+     * @tc.desc      resolution decision 5 with rotation 582/318 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0367', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0367 begin`);
+      logInfo("decision(5,1234.6,1038.2,2,582,318,0,1.5)");
+      const actual: string = resolutionLabel(5) + '|' + findResolutionIndex(1234.6, 1038.2) + '|' + resolutionRatio(5) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(582, 318) + '|' + xComponentSizeText(false, 0, 720, 1280, 582, 318, 0, 1.5) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "2408*1080|-1|2.22963|0|180|2275.55584*1280|1");
+      expect(actual).assertEqual("2408*1080|-1|2.22963|0|180|2275.55584*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0367 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0368
+     * @tc.name      Resolution_DecisionMatrix_0368
+     * @tc.desc      resolution decision 6 with rotation 619/11 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0368', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0368 begin`);
+      logInfo("decision(6,1237.7,1040.9,2.25,619,11,1,2)");
+      const actual: string = resolutionLabel(6) + '|' + findResolutionIndex(1237.7, 1040.9) + '|' + resolutionRatio(6) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(619, 11) + '|' + xComponentSizeText(false, 0, 720, 1280, 619, 11, 1, 2) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "2384*1080|-1|2.207407|1|270|720*1440|2");
+      expect(actual).assertEqual("2384*1080|-1|2.207407|1|270|720*1440|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0368 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0369
+     * @tc.name      Resolution_DecisionMatrix_0369
+     * @tc.desc      resolution decision 7 with rotation 656/64 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0369', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0369 begin`);
+      logInfo("decision(7,1240.8,1043.6,2.5,656,64,2,2.5)");
+      const actual: string = resolutionLabel(7) + '|' + findResolutionIndex(1240.8, 1043.6) + '|' + resolutionRatio(7) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(656, 64) + '|' + xComponentSizeText(false, 0, 720, 1280, 656, 64, 2, 2.5) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "1920*1440|-1|1.333333|1.777778|0|3200*1280|1");
+      expect(actual).assertEqual("1920*1440|-1|1.333333|1.777778|0|3200*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0369 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0370
+     * @tc.name      Resolution_DecisionMatrix_0370
+     * @tc.desc      resolution decision 8 with rotation 693/117 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0370', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0370 begin`);
+      logInfo("decision(8,1243.9,1046.3,0.5,693,117,0,3)");
+      const actual: string = resolutionLabel(8) + '|' + findResolutionIndex(1243.9, 1046.3) + '|' + resolutionRatio(8) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(693, 117) + '|' + xComponentSizeText(false, 0, 720, 1280, 693, 117, 0, 3) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "1920*1080|-1|1.777778|0|90|720*1280.00016|1");
+      expect(actual).assertEqual("1920*1080|-1|1.777778|0|90|720*1280.00016|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0370 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0371
+     * @tc.name      Resolution_DecisionMatrix_0371
+     * @tc.desc      resolution decision 9 with rotation 10/170 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0371', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0371 begin`);
+      logInfo("decision(9,1247,1049,0.75,10,170,1,3.5)");
+      const actual: string = resolutionLabel(9) + '|' + findResolutionIndex(1247, 1049) + '|' + resolutionRatio(9) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(10, 170) + '|' + xComponentSizeText(false, 0, 720, 1280, 10, 170, 1, 3.5) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "1440*1080|-1|1.333333|1|180|4480*1280|2");
+      expect(actual).assertEqual("1440*1080|-1|1.333333|1|180|4480*1280|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0371 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0372
+     * @tc.name      Resolution_DecisionMatrix_0372
+     * @tc.desc      resolution decision 10 with rotation 47/223 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0372', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0372 begin`);
+      logInfo("decision(10,1250.1,1051.7,1,47,223,2,0.5)");
+      const actual: string = resolutionLabel(10) + '|' + findResolutionIndex(1250.1, 1051.7) + '|' + resolutionRatio(10) + '|' + configRatioForSelectedIndex(2) + '|' + angleDiff(47, 223) + '|' + xComponentSizeText(false, 0, 720, 1280, 47, 223, 2, 0.5) + '|' + switchCameraPosition(2);
+      logInfo('actual=' + String(actual) + ', expected=' + "1280*720|-1|1.777778|1.777778|270|720*360|1");
+      expect(actual).assertEqual("1280*720|-1|1.777778|1.777778|270|720*360|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0372 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0373
+     * @tc.name      Resolution_DecisionMatrix_0373
+     * @tc.desc      resolution decision 11 with rotation 84/276 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0373', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0373 begin`);
+      logInfo("decision(11,1253.2,1054.4,1.25,84,276,0,1)");
+      const actual: string = resolutionLabel(11) + '|' + findResolutionIndex(1253.2, 1054.4) + '|' + resolutionRatio(11) + '|' + configRatioForSelectedIndex(0) + '|' + angleDiff(84, 276) + '|' + xComponentSizeText(false, 0, 720, 1280, 84, 276, 0, 1) + '|' + switchCameraPosition(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "1088*1088|-1|1|0|0|2275.55584*1280|1");
+      expect(actual).assertEqual("1088*1088|-1|1|0|0|2275.55584*1280|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0373 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0374
+     * @tc.name      Resolution_DecisionMatrix_0374
+     * @tc.desc      resolution decision 12 with rotation 121/329 resolves consistently.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_DecisionMatrix_0374', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}DecisionMatrix_0374 begin`);
+      logInfo("decision(12,1256.3,1057.1,1.5,121,329,1,1.5)");
+      const actual: string = resolutionLabel(12) + '|' + findResolutionIndex(1256.3, 1057.1) + '|' + resolutionRatio(12) + '|' + configRatioForSelectedIndex(1) + '|' + angleDiff(121, 329) + '|' + xComponentSizeText(false, 0, 720, 1280, 121, 329, 1, 1.5) + '|' + switchCameraPosition(1);
+      logInfo('actual=' + String(actual) + ', expected=' + "1080*1080|-1|1|1|90|720*1080|2");
+      expect(actual).assertEqual("1080*1080|-1|1|1|90|720*1080|2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}DecisionMatrix_0374 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_DECISION_MATRIX_0375
+     * @tc.name      Resolution_DecisionMatrix_0375
+     * @tc.desc      resolution decision 13 with rotation 158/22 resolves consistently.
