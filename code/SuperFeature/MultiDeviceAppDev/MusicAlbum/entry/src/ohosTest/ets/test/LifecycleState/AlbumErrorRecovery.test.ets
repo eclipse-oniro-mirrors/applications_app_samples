@@ -3979,3 +3979,1128 @@ export default function albumErrorRecoverySuite() {
       expect(m.getTrackById(1000 + 757) === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0758
+     * @tc.name    AlbumErrorRecovery758
+     * @tc.desc    Album tracks and options 758 probe 758
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery758', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 6).length <= 1 + 6).assertEqual(true);
+      expect(m.getTrackById(1000 + 758) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0759
+     * @tc.name    AlbumErrorRecovery759
+     * @tc.desc    Album tracks and options 759 probe 759
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery759', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 7).length <= 1 + 7).assertEqual(true);
+      expect(m.getTrackById(1000 + 759) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0760
+     * @tc.name    AlbumErrorRecovery760
+     * @tc.desc    Album tracks and options 760 probe 760
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery760', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 0).length <= 1 + 0).assertEqual(true);
+      expect(m.getTrackById(1000 + 760) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0761
+     * @tc.name    AlbumErrorRecovery761
+     * @tc.desc    Album tracks and options 761 probe 761
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery761', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 1).length <= 1 + 1).assertEqual(true);
+      expect(m.getTrackById(1000 + 761) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0762
+     * @tc.name    AlbumErrorRecovery762
+     * @tc.desc    Album tracks and options 762 probe 762
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery762', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 2).length <= 1 + 2).assertEqual(true);
+      expect(m.getTrackById(1000 + 762) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0763
+     * @tc.name    AlbumErrorRecovery763
+     * @tc.desc    Album tracks and options 763 probe 763
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery763', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 3).length <= 1 + 3).assertEqual(true);
+      expect(m.getTrackById(1000 + 763) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0764
+     * @tc.name    AlbumErrorRecovery764
+     * @tc.desc    Album tracks and options 764 probe 764
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery764', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 4).length <= 1 + 4).assertEqual(true);
+      expect(m.getTrackById(1000 + 764) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0765
+     * @tc.name    AlbumErrorRecovery765
+     * @tc.desc    Album tracks and options 765 probe 765
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery765', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 5).length <= 1 + 5).assertEqual(true);
+      expect(m.getTrackById(1000 + 765) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0766
+     * @tc.name    AlbumErrorRecovery766
+     * @tc.desc    Album tracks and options 766 probe 766
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery766', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 6).length <= 1 + 6).assertEqual(true);
+      expect(m.getTrackById(1000 + 766) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0767
+     * @tc.name    AlbumErrorRecovery767
+     * @tc.desc    Album tracks and options 767 probe 767
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery767', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 7).length <= 1 + 7).assertEqual(true);
+      expect(m.getTrackById(1000 + 767) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0768
+     * @tc.name    AlbumErrorRecovery768
+     * @tc.desc    Album tracks and options 768 probe 768
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery768', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 0).length <= 1 + 0).assertEqual(true);
+      expect(m.getTrackById(1000 + 768) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0769
+     * @tc.name    AlbumErrorRecovery769
+     * @tc.desc    Album tracks and options 769 probe 769
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery769', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 1).length <= 1 + 1).assertEqual(true);
+      expect(m.getTrackById(1000 + 769) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0770
+     * @tc.name    AlbumErrorRecovery770
+     * @tc.desc    Album tracks and options 770 probe 770
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery770', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 2).length <= 1 + 2).assertEqual(true);
+      expect(m.getTrackById(1000 + 770) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0771
+     * @tc.name    AlbumErrorRecovery771
+     * @tc.desc    Album tracks and options 771 probe 771
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery771', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 3).length <= 1 + 3).assertEqual(true);
+      expect(m.getTrackById(1000 + 771) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0772
+     * @tc.name    AlbumErrorRecovery772
+     * @tc.desc    Album tracks and options 772 probe 772
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery772', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 4).length <= 1 + 4).assertEqual(true);
+      expect(m.getTrackById(1000 + 772) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0773
+     * @tc.name    AlbumErrorRecovery773
+     * @tc.desc    Album tracks and options 773 probe 773
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery773', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 5).length <= 1 + 5).assertEqual(true);
+      expect(m.getTrackById(1000 + 773) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0774
+     * @tc.name    AlbumErrorRecovery774
+     * @tc.desc    Album tracks and options 774 probe 774
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery774', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 6).length <= 1 + 6).assertEqual(true);
+      expect(m.getTrackById(1000 + 774) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0775
+     * @tc.name    AlbumErrorRecovery775
+     * @tc.desc    Album tracks and options 775 probe 775
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery775', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 7).length <= 1 + 7).assertEqual(true);
+      expect(m.getTrackById(1000 + 775) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0776
+     * @tc.name    AlbumErrorRecovery776
+     * @tc.desc    Album tracks and options 776 probe 776
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery776', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 0).length <= 1 + 0).assertEqual(true);
+      expect(m.getTrackById(1000 + 776) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0777
+     * @tc.name    AlbumErrorRecovery777
+     * @tc.desc    Album tracks and options 777 probe 777
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery777', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 1).length <= 1 + 1).assertEqual(true);
+      expect(m.getTrackById(1000 + 777) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0778
+     * @tc.name    AlbumErrorRecovery778
+     * @tc.desc    Album tracks and options 778 probe 778
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery778', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 2).length <= 1 + 2).assertEqual(true);
+      expect(m.getTrackById(1000 + 778) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0779
+     * @tc.name    AlbumErrorRecovery779
+     * @tc.desc    Album tracks and options 779 probe 779
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery779', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 3).length <= 1 + 3).assertEqual(true);
+      expect(m.getTrackById(1000 + 779) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0780
+     * @tc.name    AlbumErrorRecovery780
+     * @tc.desc    Album tracks and options 780 probe 780
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery780', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 4).length <= 1 + 4).assertEqual(true);
+      expect(m.getTrackById(1000 + 780) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0781
+     * @tc.name    AlbumErrorRecovery781
+     * @tc.desc    Album tracks and options 781 probe 781
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery781', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 5).length <= 1 + 5).assertEqual(true);
+      expect(m.getTrackById(1000 + 781) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0782
+     * @tc.name    AlbumErrorRecovery782
+     * @tc.desc    Album tracks and options 782 probe 782
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery782', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 6).length <= 1 + 6).assertEqual(true);
+      expect(m.getTrackById(1000 + 782) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0783
+     * @tc.name    AlbumErrorRecovery783
+     * @tc.desc    Album tracks and options 783 probe 783
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery783', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 7).length <= 1 + 7).assertEqual(true);
+      expect(m.getTrackById(1000 + 783) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0784
+     * @tc.name    AlbumErrorRecovery784
+     * @tc.desc    Album tracks and options 784 probe 784
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery784', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 0).length <= 1 + 0).assertEqual(true);
+      expect(m.getTrackById(1000 + 784) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0785
+     * @tc.name    AlbumErrorRecovery785
+     * @tc.desc    Album tracks and options 785 probe 785
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery785', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 1).length <= 1 + 1).assertEqual(true);
+      expect(m.getTrackById(1000 + 785) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0786
+     * @tc.name    AlbumErrorRecovery786
+     * @tc.desc    Album tracks and options 786 probe 786
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery786', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 2).length <= 1 + 2).assertEqual(true);
+      expect(m.getTrackById(1000 + 786) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0787
+     * @tc.name    AlbumErrorRecovery787
+     * @tc.desc    Album tracks and options 787 probe 787
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery787', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 3).length <= 1 + 3).assertEqual(true);
+      expect(m.getTrackById(1000 + 787) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0788
+     * @tc.name    AlbumErrorRecovery788
+     * @tc.desc    Album tracks and options 788 probe 788
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery788', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 4).length <= 1 + 4).assertEqual(true);
+      expect(m.getTrackById(1000 + 788) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0789
+     * @tc.name    AlbumErrorRecovery789
+     * @tc.desc    Album tracks and options 789 probe 789
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery789', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 5).length <= 1 + 5).assertEqual(true);
+      expect(m.getTrackById(1000 + 789) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0790
+     * @tc.name    AlbumErrorRecovery790
+     * @tc.desc    Album tracks and options 790 probe 790
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery790', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 6).length <= 1 + 6).assertEqual(true);
+      expect(m.getTrackById(1000 + 790) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0791
+     * @tc.name    AlbumErrorRecovery791
+     * @tc.desc    Album tracks and options 791 probe 791
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery791', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 7).length <= 1 + 7).assertEqual(true);
+      expect(m.getTrackById(1000 + 791) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0792
+     * @tc.name    AlbumErrorRecovery792
+     * @tc.desc    Album tracks and options 792 probe 792
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery792', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 0).length <= 1 + 0).assertEqual(true);
+      expect(m.getTrackById(1000 + 792) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0793
+     * @tc.name    AlbumErrorRecovery793
+     * @tc.desc    Album tracks and options 793 probe 793
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery793', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 1).length <= 1 + 1).assertEqual(true);
+      expect(m.getTrackById(1000 + 793) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0794
+     * @tc.name    AlbumErrorRecovery794
+     * @tc.desc    Album tracks and options 794 probe 794
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery794', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 2).length <= 1 + 2).assertEqual(true);
+      expect(m.getTrackById(1000 + 794) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0795
+     * @tc.name    AlbumErrorRecovery795
+     * @tc.desc    Album tracks and options 795 probe 795
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery795', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 3).length <= 1 + 3).assertEqual(true);
+      expect(m.getTrackById(1000 + 795) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0796
+     * @tc.name    AlbumErrorRecovery796
+     * @tc.desc    Album tracks and options 796 probe 796
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery796', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 4).length <= 1 + 4).assertEqual(true);
+      expect(m.getTrackById(1000 + 796) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0797
+     * @tc.name    AlbumErrorRecovery797
+     * @tc.desc    Album tracks and options 797 probe 797
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery797', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 5).length <= 1 + 5).assertEqual(true);
+      expect(m.getTrackById(1000 + 797) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0798
+     * @tc.name    AlbumErrorRecovery798
+     * @tc.desc    Album tracks and options 798 probe 798
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery798', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 6).length <= 1 + 6).assertEqual(true);
+      expect(m.getTrackById(1000 + 798) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0799
+     * @tc.name    AlbumErrorRecovery799
+     * @tc.desc    Album tracks and options 799 probe 799
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery799', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 7).length <= 1 + 7).assertEqual(true);
+      expect(m.getTrackById(1000 + 799) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0800
+     * @tc.name    AlbumErrorRecovery800
+     * @tc.desc    Album tracks and options 800 probe 800
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery800', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 0).length <= 1 + 0).assertEqual(true);
+      expect(m.getTrackById(1000 + 800) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0801
+     * @tc.name    AlbumErrorRecovery801
+     * @tc.desc    Album tracks and options 801 probe 801
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery801', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 1).length <= 1 + 1).assertEqual(true);
+      expect(m.getTrackById(1000 + 801) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0802
+     * @tc.name    AlbumErrorRecovery802
+     * @tc.desc    Album tracks and options 802 probe 802
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery802', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 2).length <= 1 + 2).assertEqual(true);
+      expect(m.getTrackById(1000 + 802) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0803
+     * @tc.name    AlbumErrorRecovery803
+     * @tc.desc    Album tracks and options 803 probe 803
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery803', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 3).length <= 1 + 3).assertEqual(true);
+      expect(m.getTrackById(1000 + 803) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0804
+     * @tc.name    AlbumErrorRecovery804
+     * @tc.desc    Album tracks and options 804 probe 804
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery804', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 4).length <= 1 + 4).assertEqual(true);
+      expect(m.getTrackById(1000 + 804) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0805
+     * @tc.name    AlbumErrorRecovery805
+     * @tc.desc    Album tracks and options 805 probe 805
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery805', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 5).length <= 1 + 5).assertEqual(true);
+      expect(m.getTrackById(1000 + 805) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0806
+     * @tc.name    AlbumErrorRecovery806
+     * @tc.desc    Album tracks and options 806 probe 806
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery806', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 6).length <= 1 + 6).assertEqual(true);
+      expect(m.getTrackById(1000 + 806) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0807
+     * @tc.name    AlbumErrorRecovery807
+     * @tc.desc    Album tracks and options 807 probe 807
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery807', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 7).length <= 1 + 7).assertEqual(true);
+      expect(m.getTrackById(1000 + 807) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0808
+     * @tc.name    AlbumErrorRecovery808
+     * @tc.desc    Album tracks and options 808 probe 808
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery808', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 0).length <= 1 + 0).assertEqual(true);
+      expect(m.getTrackById(1000 + 808) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0809
+     * @tc.name    AlbumErrorRecovery809
+     * @tc.desc    Album tracks and options 809 probe 809
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery809', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 1).length <= 1 + 1).assertEqual(true);
+      expect(m.getTrackById(1000 + 809) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0810
+     * @tc.name    AlbumErrorRecovery810
+     * @tc.desc    Album tracks and options 810 probe 810
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery810', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 2).length <= 1 + 2).assertEqual(true);
+      expect(m.getTrackById(1000 + 810) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0811
+     * @tc.name    AlbumErrorRecovery811
+     * @tc.desc    Album tracks and options 811 probe 811
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery811', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 3).length <= 1 + 3).assertEqual(true);
+      expect(m.getTrackById(1000 + 811) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0812
+     * @tc.name    AlbumErrorRecovery812
+     * @tc.desc    Album tracks and options 812 probe 812
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery812', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 4).length <= 1 + 4).assertEqual(true);
+      expect(m.getTrackById(1000 + 812) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0813
+     * @tc.name    AlbumErrorRecovery813
+     * @tc.desc    Album tracks and options 813 probe 813
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery813', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 5).length <= 1 + 5).assertEqual(true);
+      expect(m.getTrackById(1000 + 813) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0814
+     * @tc.name    AlbumErrorRecovery814
+     * @tc.desc    Album tracks and options 814 probe 814
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery814', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 6).length <= 1 + 6).assertEqual(true);
+      expect(m.getTrackById(1000 + 814) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0815
+     * @tc.name    AlbumErrorRecovery815
+     * @tc.desc    Album tracks and options 815 probe 815
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery815', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 7).length <= 1 + 7).assertEqual(true);
+      expect(m.getTrackById(1000 + 815) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_ALBUM_0816
+     * @tc.name    AlbumErrorRecovery816
+     * @tc.desc    Album tracks and options 816 probe 816
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('AlbumErrorRecovery816', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.getTracks().length).assertEqual(m.getTrackCount());
+      expect(m.getOptionCount()).assertEqual(4);
+      expect(m.getOptions().length).assertEqual(4);
+      expect(m.slicePage(0, 1 + 0).length <= 1 + 0).assertEqual(true);
+      expect(m.getTrackById(1000 + 816) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
