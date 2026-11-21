@@ -530,3 +530,311 @@ export default function zoomRoundLabelTest(): void {
     it('Resolution_ZoomRoundLabel_0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       logInfo(`${BUNDLE}ZoomRoundLabel_0029 begin`);
       logInfo("zoomLabel(zoomRound(2.836))");
+      const actual: string = zoomLabel(zoomRound(2.836));
+      logInfo('actual=' + String(actual) + ', expected=' + "2.84x");
+      expect(actual).assertEqual("2.84x");
+      logInfo(`${BUNDLE}ZoomRoundLabel_0029 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_ZOOM_ROUND_LABEL_0030
+     * @tc.name      Resolution_ZoomRoundLabel_0030
+     * @tc.desc      zoomRound+zoomLabel(2.973) -> "2.97x".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ZoomRoundLabel_0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ZoomRoundLabel_0030 begin`);
+      logInfo("zoomLabel(zoomRound(2.973))");
+      const actual: string = zoomLabel(zoomRound(2.973));
+      logInfo('actual=' + String(actual) + ', expected=' + "2.97x");
+      expect(actual).assertEqual("2.97x");
+      logInfo(`${BUNDLE}ZoomRoundLabel_0030 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_ZOOM_ROUND_LABEL_0031
+     * @tc.name      Resolution_ZoomRoundLabel_0031
+     * @tc.desc      zoomRound+zoomLabel(3.11) -> "3.11x".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ZoomRoundLabel_0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ZoomRoundLabel_0031 begin`);
+      logInfo("zoomLabel(zoomRound(3.11))");
+      const actual: string = zoomLabel(zoomRound(3.11));
+      logInfo('actual=' + String(actual) + ', expected=' + "3.11x");
+      expect(actual).assertEqual("3.11x");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ZoomRoundLabel_0031 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_ZOOM_ROUND_LABEL_0032
+     * @tc.name      Resolution_ZoomRoundLabel_0032
+     * @tc.desc      zoomRound+zoomLabel(3.247) -> "3.25x".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ZoomRoundLabel_0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ZoomRoundLabel_0032 begin`);
+      logInfo("zoomLabel(zoomRound(3.247))");
+      const actual: string = zoomLabel(zoomRound(3.247));
+      logInfo('actual=' + String(actual) + ', expected=' + "3.25x");
+      expect(actual).assertEqual("3.25x");
+      logInfo(`${BUNDLE}ZoomRoundLabel_0032 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_ZOOM_ROUND_LABEL_0033
+     * @tc.name      Resolution_ZoomRoundLabel_0033
+     * @tc.desc      zoomRound+zoomLabel(3.384) -> "3.38x".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ZoomRoundLabel_0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ZoomRoundLabel_0033 begin`);
+      logInfo("zoomLabel(zoomRound(3.384))");
+      const actual: string = zoomLabel(zoomRound(3.384));
+      logInfo('actual=' + String(actual) + ', expected=' + "3.38x");
+      expect(actual).assertEqual("3.38x");
+      logInfo(`${BUNDLE}ZoomRoundLabel_0033 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_ZOOM_ROUND_LABEL_0034
+     * @tc.name      Resolution_ZoomRoundLabel_0034
+     * @tc.desc      zoomRound+zoomLabel(3.521) -> "3.52x".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_ZoomRoundLabel_0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}ZoomRoundLabel_0034 begin`);
+      logInfo("zoomLabel(zoomRound(3.521))");
+      const actual: string = zoomLabel(zoomRound(3.521));
+      logInfo('actual=' + String(actual) + ', expected=' + "3.52x");
+      expect(actual).assertEqual("3.52x");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ZoomRoundLabel_0034 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_ZOOM_ROUND_LABEL_0035
+     * @tc.name      Resolution_ZoomRoundLabel_0035
+     * @tc.desc      zoomRound+zoomLabel(3.658) -> "3.66x".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Resolution_ZoomRoundLabel_0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}ZoomRoundLabel_0035 begin`);
+      logInfo("zoomLabel(zoomRound(3.658))");
+      const actual: string = zoomLabel(zoomRound(3.658));
+      logInfo('actual=' + String(actual) + ', expected=' + "3.66x");
+      expect(actual).assertEqual("3.66x");
+      logInfo(`${BUNDLE}ZoomRoundLabel_0035 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_ZOOM_ROUND_LABEL_0036
+     * @tc.name      Resolution_ZoomRoundLabel_0036
+     * @tc.desc      zoomRound+zoomLabel(3.795) -> "3.79x".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ZoomRoundLabel_0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ZoomRoundLabel_0036 begin`);
+      logInfo("zoomLabel(zoomRound(3.795))");
+      const actual: string = zoomLabel(zoomRound(3.795));
+      logInfo('actual=' + String(actual) + ', expected=' + "3.79x");
+      expect(actual).assertEqual("3.79x");
+      logInfo(`${BUNDLE}ZoomRoundLabel_0036 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_ZOOM_ROUND_LABEL_0037
+     * @tc.name      Resolution_ZoomRoundLabel_0037
+     * @tc.desc      zoomRound+zoomLabel(3.932) -> "3.93x".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ZoomRoundLabel_0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ZoomRoundLabel_0037 begin`);
+      logInfo("zoomLabel(zoomRound(3.932))");
+      const actual: string = zoomLabel(zoomRound(3.932));
+      logInfo('actual=' + String(actual) + ', expected=' + "3.93x");
+      expect(actual).assertEqual("3.93x");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ZoomRoundLabel_0037 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_ZOOM_ROUND_LABEL_0038
+     * @tc.name      Resolution_ZoomRoundLabel_0038
+     * @tc.desc      zoomRound+zoomLabel(4.069) -> "4.07x".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ZoomRoundLabel_0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ZoomRoundLabel_0038 begin`);
+      logInfo("zoomLabel(zoomRound(4.069))");
+      const actual: string = zoomLabel(zoomRound(4.069));
+      logInfo('actual=' + String(actual) + ', expected=' + "4.07x");
+      expect(actual).assertEqual("4.07x");
+      logInfo(`${BUNDLE}ZoomRoundLabel_0038 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_ZOOM_ROUND_LABEL_0039
+     * @tc.name      Resolution_ZoomRoundLabel_0039
+     * @tc.desc      zoomRound+zoomLabel(4.206) -> "4.21x".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ZoomRoundLabel_0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ZoomRoundLabel_0039 begin`);
+      logInfo("zoomLabel(zoomRound(4.206))");
+      const actual: string = zoomLabel(zoomRound(4.206));
+      logInfo('actual=' + String(actual) + ', expected=' + "4.21x");
+      expect(actual).assertEqual("4.21x");
+      logInfo(`${BUNDLE}ZoomRoundLabel_0039 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_ZOOM_ROUND_LABEL_0040
+     * @tc.name      Resolution_ZoomRoundLabel_0040
+     * @tc.desc      zoomRound+zoomLabel(4.343) -> "4.34x".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ZoomRoundLabel_0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ZoomRoundLabel_0040 begin`);
+      logInfo("zoomLabel(zoomRound(4.343))");
+      const actual: string = zoomLabel(zoomRound(4.343));
+      logInfo('actual=' + String(actual) + ', expected=' + "4.34x");
+      expect(actual).assertEqual("4.34x");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ZoomRoundLabel_0040 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_ZOOM_ROUND_LABEL_0041
+     * @tc.name      Resolution_ZoomRoundLabel_0041
+     * @tc.desc      zoomRound+zoomLabel(4.48) -> "4.48x".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ZoomRoundLabel_0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ZoomRoundLabel_0041 begin`);
+      logInfo("zoomLabel(zoomRound(4.48))");
+      const actual: string = zoomLabel(zoomRound(4.48));
+      logInfo('actual=' + String(actual) + ', expected=' + "4.48x");
+      expect(actual).assertEqual("4.48x");
+      logInfo(`${BUNDLE}ZoomRoundLabel_0041 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_ZOOM_ROUND_LABEL_0042
+     * @tc.name      Resolution_ZoomRoundLabel_0042
+     * @tc.desc      zoomRound+zoomLabel(4.617) -> "4.62x".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ZoomRoundLabel_0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ZoomRoundLabel_0042 begin`);
+      logInfo("zoomLabel(zoomRound(4.617))");
+      const actual: string = zoomLabel(zoomRound(4.617));
+      logInfo('actual=' + String(actual) + ', expected=' + "4.62x");
+      expect(actual).assertEqual("4.62x");
+      logInfo(`${BUNDLE}ZoomRoundLabel_0042 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_ZOOM_ROUND_LABEL_0043
+     * @tc.name      Resolution_ZoomRoundLabel_0043
+     * @tc.desc      zoomRound+zoomLabel(4.754) -> "4.75x".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ZoomRoundLabel_0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ZoomRoundLabel_0043 begin`);
+      logInfo("zoomLabel(zoomRound(4.754))");
+      const actual: string = zoomLabel(zoomRound(4.754));
+      logInfo('actual=' + String(actual) + ', expected=' + "4.75x");
+      expect(actual).assertEqual("4.75x");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ZoomRoundLabel_0043 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_ZOOM_ROUND_LABEL_0044
+     * @tc.name      Resolution_ZoomRoundLabel_0044
+     * @tc.desc      zoomRound+zoomLabel(4.891) -> "4.89x".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ZoomRoundLabel_0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ZoomRoundLabel_0044 begin`);
+      logInfo("zoomLabel(zoomRound(4.891))");
+      const actual: string = zoomLabel(zoomRound(4.891));
+      logInfo('actual=' + String(actual) + ', expected=' + "4.89x");
+      expect(actual).assertEqual("4.89x");
+      logInfo(`${BUNDLE}ZoomRoundLabel_0044 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_ZOOM_ROUND_LABEL_0045
+     * @tc.name      Resolution_ZoomRoundLabel_0045
+     * @tc.desc      zoomRound+zoomLabel(5.028) -> "5.03x".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Resolution_ZoomRoundLabel_0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}ZoomRoundLabel_0045 begin`);
+      logInfo("zoomLabel(zoomRound(5.028))");
+      const actual: string = zoomLabel(zoomRound(5.028));
+      logInfo('actual=' + String(actual) + ', expected=' + "5.03x");
+      expect(actual).assertEqual("5.03x");
+      logInfo(`${BUNDLE}ZoomRoundLabel_0045 end`);
+    });
+
+    /**
+     * @tc.number    SUB_MORE_RESOLUTION_ZOOM_ROUND_LABEL_0046
+     * @tc.name      Resolution_ZoomRoundLabel_0046
+     * @tc.desc      zoomRound+zoomLabel(5.165) -> "5.17x".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Resolution_ZoomRoundLabel_0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ZoomRoundLabel_0046 begin`);
+      logInfo("zoomLabel(zoomRound(5.165))");
+      const actual: string = zoomLabel(zoomRound(5.165));
+      logInfo('actual=' + String(actual) + ', expected=' + "5.17x");
+      expect(actual).assertEqual("5.17x");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ZoomRoundLabel_0046 end`);
+    });
+  });
+}
