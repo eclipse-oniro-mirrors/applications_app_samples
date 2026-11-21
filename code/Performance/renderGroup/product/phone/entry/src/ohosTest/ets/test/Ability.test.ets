@@ -13,104 +13,143 @@
  * limitations under the License.
  */
 
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import { describe, it, expect } from '@ohos/hypium'
-import { Driver, ON } from '@ohos.UiTest';
-import Logger from '../util/Logger';
-import Want from '@ohos.app.ability.Want';
+import { describe, it, expect } from '@ohos/hypium';
+import { performanceTypeArray } from '../../../main/ets/model/MockData';
+import {
+  BACK_ID, INDEX_ID, PROFIT, NON_PROFIT, SCENES, assertEntryForeground, assertIndex, assertHome, assertScene, assertSwitch,
+  backToHome, backToIndex, launchEntry, openHome, openScene, runSerializedUiOperation, startEntryAbility,
+  clickCenter, toggleTo, visibleBounds, waitId, withScene
+} from './Shared/SharedDriver';
 
-const BUNDLE = 'Performance';
-const TAG = '[Sample_Performance_Test]';
-const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+export default function abilityTest(): void {
+  describe('RenderGroupAbility', () => {
+    it('menuModelExposesRenderGroupRoute', 0, () => {
+      expect(performanceTypeArray.length).assertEqual(1);
+      expect(performanceTypeArray[0].name).assertEqual('RenderGroup');
+      expect(performanceTypeArray[0].uri).assertEqual('pages/renderGroup/RenderGroupHomePage');
+    });
 
-export default function abilityTest() {
-  describe('ActsAbilityTest', () => {
-    /**
-     * 打开应用
-     */
-    it(BUNDLE + '_startAbility', 0, async (done: Function) => {
-      Logger.info(TAG, BUNDLE + '_startAbility start')
-      let want: Want = {
-        bundleName: 'com.example.performance',
-        abilityName: 'EntryAbility'
+    it('entryAbilityStartsInForeground', 0, async () => {
+      await runSerializedUiOperation(async () => {
+        await launchEntry();
+        await assertEntryForeground();
+        await assertIndex();
+      });
+    });
+
+    it('indexRendersMenuModelLabel', 0, async () => {
+      await runSerializedUiOperation(async () => {
+        await launchEntry();
+        const entry = await waitId(INDEX_ID);
+        expect(await entry.getText()).assertEqual(performanceTypeArray[0].name);
+        expect(await entry.isEnabled()).assertTrue();
+      });
+    });
+
+    it('warmLaunchPreservesHomeRoute', 0, async () => {
+      await runSerializedUiOperation(async () => {
+        await launchEntry();
+        await openHome();
+        await startEntryAbility();
+        await assertHome();
+        await backToIndex();
+      });
+    });
+
+    for (const scene of SCENES) {
+      for (const enabled of [false, true]) {
+        it(`${scene.name}WarmLaunchPreserves${enabled ? 'Enabled' : 'Disabled'}Scene`, 0, async () => {
+          await withScene(scene, async () => {
+            await assertSwitch(false);
+            if (enabled) {
+              await toggleTo(true);
+            }
+            await startEntryAbility();
+            await assertScene(scene);
+            await assertSwitch(enabled);
+            await backToHome();
+            await backToIndex();
+          });
+        });
       }
-      delegator.startAbility(want, (err, data) => {
-        Logger.info(TAG, 'StartAbility get err ' + JSON.stringify(err))
-        expect(err).assertNull()
-      })
-      Logger.info(TAG, BUNDLE + '_startAbility end')
-      done()
-    })
+    }
 
-    /**
-     * 点击RenderGroup
-     */
-    it(BUNDLE + 'RenderGroupFunction_001', 1, async (done: Function) => {
-      Logger.info(TAG, `${BUNDLE}RenderGroupFunction_001 begin`);
-      let driver = Driver.create();
-      await driver.delayMs(1000);
-      // 点击RenderGroup跳转到RenderGroup页面
-      Logger.info(TAG, `${BUNDLE}RenderGroupFunction_001 RenderGroup`);
-      await driver.assertComponentExist(ON.id('RenderGroup'))
-      let RenderGroup = await driver.findComponent(ON.id('RenderGroup'))
-      await RenderGroup.click()
-      await driver.delayMs(1000)
-      // 点击正例场景示例
-      Logger.info(TAG, `${BUNDLE}RenderGroupFunction_001 ProfitScenePage`);
-      await driver.assertComponentExist(ON.id('ProfitScenePage'))
-      let ProfitScenePage = await driver.findComponent(ON.id('ProfitScenePage'))
-      await ProfitScenePage.click()
-      await driver.delayMs(1000)
-      // 点击renderGroup开关按钮
-      Logger.info(TAG, `${BUNDLE}RenderGroupFunction_001 renderGroupSwitch`);
-      await driver.assertComponentExist(ON.id('renderGroupSwitch'))
-      let renderGroupSwitch = await driver.findComponent(ON.id('renderGroupSwitch'))
-      await renderGroupSwitch.click()
-      await driver.delayMs(1000)
-      // 点击返回场景主页
-      await driver.assertComponentExist(ON.id('returnBtn'))
-      let returnScenePageBtn = await driver.findComponent(ON.id('returnBtn'))
-      await returnScenePageBtn.click()
-      await driver.delayMs(1000)
-      Logger.info(TAG, BUNDLE + 'RenderGroupFunction_001 end')
+    it('homeCanReturnToIndexWithToolbarBack', 0, async () => {
+      await runSerializedUiOperation(async () => {
+        await launchEntry();
+        await openHome();
+        await backToIndex();
+      });
+    });
 
-      done();
-    })
+    it('indexMenuCanOpenHomeByCoordinateTouch', 0, async () => {
+      await runSerializedUiOperation(async () => {
+        await launchEntry();
+        await clickCenter(INDEX_ID);
+        await assertHome();
+        await backToIndex();
+      });
+    });
 
-    /**
-     * 点击RenderGroup反例场景
-     */
-    it(BUNDLE + 'RenderGroupFunction_002', 2, async (done: Function) => {
-      Logger.info(TAG, `${BUNDLE}RenderGroupFunction_002 begin`);
-      let driver = Driver.create();
-      await driver.delayMs(1000);
-      // 点击反例场景示例
-      Logger.info(TAG, `${BUNDLE}RenderGroupFunction_002 NonProfitScenePage`);
-      await driver.assertComponentExist(ON.id('NonProfitScenePage'))
-      let NonProfitScenePage = await driver.findComponent(ON.id('NonProfitScenePage'))
-      await NonProfitScenePage.click()
-      await driver.delayMs(1000)
-      // 点击renderGroup开关按钮
-      Logger.info(TAG, `${BUNDLE}RenderGroupFunction_002 renderGroupSwitch`);
-      await driver.assertComponentExist(ON.id('renderGroupSwitch'))
-      let renderGroupSwitch = await driver.findComponent(ON.id('renderGroupSwitch'))
-      await renderGroupSwitch.click()
-      await driver.delayMs(1000)
-      // 点击返回场景主页
-      await driver.assertComponentExist(ON.id('returnBtn'))
-      let returnScenePageBtn = await driver.findComponent(ON.id('returnBtn'))
-      await returnScenePageBtn.click()
-      await driver.delayMs(1000)
-      Logger.info(TAG, BUNDLE + 'RenderGroupFunction_002 returnBtn')
-      // 点击返回主页
-      await driver.assertComponentExist(ON.id('returnBtn'))
-      let returnRenderGroupBtn = await driver.findComponent(ON.id('returnBtn'))
-      await returnRenderGroupBtn.click()
-      await driver.delayMs(1000)
-      Logger.info(TAG, BUNDLE + 'RenderGroupFunction_002 end')
+    it('homeToolbarCanReturnToIndexByCoordinateTouch', 0, async () => {
+      await runSerializedUiOperation(async () => {
+        await launchEntry();
+        await openHome();
+        await clickCenter(BACK_ID);
+        await assertIndex();
+      });
+    });
 
-      done();
-    })
+    it('homeCanReturnToIndexWithSystemBack', 0, async () => {
+      await runSerializedUiOperation(async () => {
+        await launchEntry();
+        await openHome();
+        await backToIndex(true);
+      });
+    });
 
-  })
+    it('bothSceneLinksRemainUsableAfterReturning', 0, async () => {
+      await runSerializedUiOperation(async () => {
+        await launchEntry();
+        await openHome();
+        await openScene(PROFIT);
+        await backToHome();
+        await openScene(NON_PROFIT);
+        await backToHome();
+        await assertHome();
+        await backToIndex();
+      });
+    });
+
+    it('homeSceneLinksExposeDistinctLabelsAndTouchTargets', 0, async () => {
+      await runSerializedUiOperation(async () => {
+        await launchEntry();
+        await openHome();
+        const profit = await waitId(PROFIT.buttonId);
+        const nonProfit = await waitId(NON_PROFIT.buttonId);
+        expect(await profit.getText()).assertEqual(PROFIT.title);
+        expect(await nonProfit.getText()).assertEqual(NON_PROFIT.title);
+        expect(await profit.isEnabled()).assertTrue();
+        expect(await nonProfit.isEnabled()).assertTrue();
+        expect(await profit.isClickable()).assertTrue();
+        expect(await nonProfit.isClickable()).assertTrue();
+        const first = await visibleBounds(profit);
+        const second = await visibleBounds(nonProfit);
+        expect(second.top >= first.bottom).assertTrue();
+      });
+    });
+
+    it('sceneHomeCanBeOpenedAgainAfterSystemBack', 0, async () => {
+      await runSerializedUiOperation(async () => {
+        await launchEntry();
+        await openHome();
+        await backToIndex(true);
+        await openHome();
+        await openScene(NON_PROFIT);
+        await assertSwitch(false);
+        await backToHome(true);
+        await backToIndex(true);
+      });
+    });
+  });
 }
