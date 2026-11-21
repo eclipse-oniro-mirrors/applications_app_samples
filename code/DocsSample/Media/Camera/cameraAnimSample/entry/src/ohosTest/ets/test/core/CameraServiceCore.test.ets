@@ -511,3 +511,439 @@ export default function cameraServiceCoreTest(): void {
 
     /**
      * @tc.number    SUB_CAMERA_SERVICE_CORE_0026
+     * @tc.name      Camera_ServiceCore_0026
+     * @tc.desc      videoProfileMatch(1920, 1080, 1003, 0, 0) is pinned to true for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_ServiceCore_0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ServiceCore_0026 begin`);
+      logInfo("service videoProfileMatch(1920, 1080, 1003, 0, 0)");
+      const actual: boolean = videoProfileMatch(1920, 1080, 1003, 0, 0);
+      logInfo('actual=' + String(actual) + ', expected=' + "true");
+      expect(actual).assertEqual(true);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0026 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0027
+     * @tc.name      Camera_ServiceCore_0027
+     * @tc.desc      videoProfileMatch(1920, 1080, 1003, 30, 60.5) is pinned to false for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_ServiceCore_0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ServiceCore_0027 begin`);
+      logInfo("service videoProfileMatch(1920, 1080, 1003, 30, 60.5)");
+      const actual: boolean = videoProfileMatch(1920, 1080, 1003, 30, 60.5);
+      logInfo('actual=' + String(actual) + ', expected=' + "false");
+      expect(actual).assertEqual(false);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0027 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0028
+     * @tc.name      Camera_ServiceCore_0028
+     * @tc.desc      videoFrameAllowed(30, 60) is pinned to true for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_ServiceCore_0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ServiceCore_0028 begin`);
+      logInfo("service videoFrameAllowed(30, 60)");
+      const actual: boolean = videoFrameAllowed(30, 60);
+      logInfo('actual=' + String(actual) + ', expected=' + "true");
+      expect(actual).assertEqual(true);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0028 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0029
+     * @tc.name      Camera_ServiceCore_0029
+     * @tc.desc      videoFrameAllowed(60, 60) is pinned to true for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_ServiceCore_0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ServiceCore_0029 begin`);
+      logInfo("service videoFrameAllowed(60, 60)");
+      const actual: boolean = videoFrameAllowed(60, 60);
+      logInfo('actual=' + String(actual) + ', expected=' + "true");
+      expect(actual).assertEqual(true);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0029 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0030
+     * @tc.name      Camera_ServiceCore_0030
+     * @tc.desc      videoFrameAllowed(61, 60) is pinned to false for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_ServiceCore_0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ServiceCore_0030 begin`);
+      logInfo("service videoFrameAllowed(61, 60)");
+      const actual: boolean = videoFrameAllowed(61, 60);
+      logInfo('actual=' + String(actual) + ', expected=' + "false");
+      expect(actual).assertEqual(false);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0030 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0031
+     * @tc.name      Camera_ServiceCore_0031
+     * @tc.desc      videoFrameAllowed(30, 61) is pinned to false for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_ServiceCore_0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ServiceCore_0031 begin`);
+      logInfo("service videoFrameAllowed(30, 61)");
+      const actual: boolean = videoFrameAllowed(30, 61);
+      logInfo('actual=' + String(actual) + ', expected=' + "false");
+      expect(actual).assertEqual(false);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0031 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0032
+     * @tc.name      Camera_ServiceCore_0032
+     * @tc.desc      videoFrameAllowed(-1, 60) is pinned to true for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_ServiceCore_0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ServiceCore_0032 begin`);
+      logInfo("service videoFrameAllowed(-1, 60)");
+      const actual: boolean = videoFrameAllowed(-1, 60);
+      logInfo('actual=' + String(actual) + ', expected=' + "true");
+      expect(actual).assertEqual(true);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0032 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0033
+     * @tc.name      Camera_ServiceCore_0033
+     * @tc.desc      videoFrameAllowed(59.9, 60.1) is pinned to false for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_ServiceCore_0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ServiceCore_0033 begin`);
+      logInfo("service videoFrameAllowed(59.9, 60.1)");
+      const actual: boolean = videoFrameAllowed(59.9, 60.1);
+      logInfo('actual=' + String(actual) + ', expected=' + "false");
+      expect(actual).assertEqual(false);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0033 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0034
+     * @tc.name      Camera_ServiceCore_0034
+     * @tc.desc      deviceIndexValid(1, 0) is pinned to true for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Camera_ServiceCore_0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}ServiceCore_0034 begin`);
+      logInfo("service deviceIndexValid(1, 0)");
+      const actual: boolean = deviceIndexValid(1, 0);
+      logInfo('actual=' + String(actual) + ', expected=' + "true");
+      expect(actual).assertEqual(true);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0034 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0035
+     * @tc.name      Camera_ServiceCore_0035
+     * @tc.desc      deviceIndexValid(1, 1) is pinned to false for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Camera_ServiceCore_0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}ServiceCore_0035 begin`);
+      logInfo("service deviceIndexValid(1, 1)");
+      const actual: boolean = deviceIndexValid(1, 1);
+      logInfo('actual=' + String(actual) + ', expected=' + "false");
+      expect(actual).assertEqual(false);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0035 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0036
+     * @tc.name      Camera_ServiceCore_0036
+     * @tc.desc      deviceIndexValid(2, 1) is pinned to true for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_ServiceCore_0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ServiceCore_0036 begin`);
+      logInfo("service deviceIndexValid(2, 1)");
+      const actual: boolean = deviceIndexValid(2, 1);
+      logInfo('actual=' + String(actual) + ', expected=' + "true");
+      expect(actual).assertEqual(true);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0036 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0037
+     * @tc.name      Camera_ServiceCore_0037
+     * @tc.desc      deviceIndexValid(0, 0) is pinned to false for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_ServiceCore_0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ServiceCore_0037 begin`);
+      logInfo("service deviceIndexValid(0, 0)");
+      const actual: boolean = deviceIndexValid(0, 0);
+      logInfo('actual=' + String(actual) + ', expected=' + "false");
+      expect(actual).assertEqual(false);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0037 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0038
+     * @tc.name      Camera_ServiceCore_0038
+     * @tc.desc      deviceIndexValid(3, 2) is pinned to true for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_ServiceCore_0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ServiceCore_0038 begin`);
+      logInfo("service deviceIndexValid(3, 2)");
+      const actual: boolean = deviceIndexValid(3, 2);
+      logInfo('actual=' + String(actual) + ', expected=' + "true");
+      expect(actual).assertEqual(true);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0038 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0039
+     * @tc.name      Camera_ServiceCore_0039
+     * @tc.desc      deviceIndexValid(3, 3) is pinned to false for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_ServiceCore_0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ServiceCore_0039 begin`);
+      logInfo("service deviceIndexValid(3, 3)");
+      const actual: boolean = deviceIndexValid(3, 3);
+      logInfo('actual=' + String(actual) + ', expected=' + "false");
+      expect(actual).assertEqual(false);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0039 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0040
+     * @tc.name      Camera_ServiceCore_0040
+     * @tc.desc      deviceIndexValid(2, -1) is pinned to true for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_ServiceCore_0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ServiceCore_0040 begin`);
+      logInfo("service deviceIndexValid(2, -1)");
+      const actual: boolean = deviceIndexValid(2, -1);
+      logInfo('actual=' + String(actual) + ', expected=' + "true");
+      expect(actual).assertEqual(true);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0040 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0041
+     * @tc.name      Camera_ServiceCore_0041
+     * @tc.desc      deviceIndexValid(-1, 0) is pinned to false for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_ServiceCore_0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ServiceCore_0041 begin`);
+      logInfo("service deviceIndexValid(-1, 0)");
+      const actual: boolean = deviceIndexValid(-1, 0);
+      logInfo('actual=' + String(actual) + ', expected=' + "false");
+      expect(actual).assertEqual(false);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0041 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0042
+     * @tc.name      Camera_ServiceCore_0042
+     * @tc.desc      sceneModeSupported([1, 2], 1) is pinned to true for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_ServiceCore_0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ServiceCore_0042 begin`);
+      logInfo("service sceneModeSupported([1, 2], 1)");
+      const actual: boolean = sceneModeSupported([1, 2], 1);
+      logInfo('actual=' + String(actual) + ', expected=' + "true");
+      expect(actual).assertEqual(true);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0042 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0043
+     * @tc.name      Camera_ServiceCore_0043
+     * @tc.desc      sceneModeSupported([1, 2], 3) is pinned to false for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_ServiceCore_0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ServiceCore_0043 begin`);
+      logInfo("service sceneModeSupported([1, 2], 3)");
+      const actual: boolean = sceneModeSupported([1, 2], 3);
+      logInfo('actual=' + String(actual) + ', expected=' + "false");
+      expect(actual).assertEqual(false);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0043 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0044
+     * @tc.name      Camera_ServiceCore_0044
+     * @tc.desc      sceneModeSupported([], 1) is pinned to false for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_ServiceCore_0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ServiceCore_0044 begin`);
+      logInfo("service sceneModeSupported([], 1)");
+      const actual: boolean = sceneModeSupported([], 1);
+      logInfo('actual=' + String(actual) + ', expected=' + "false");
+      expect(actual).assertEqual(false);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0044 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0045
+     * @tc.name      Camera_ServiceCore_0045
+     * @tc.desc      sceneModeSupported([2], 1) is pinned to false for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Camera_ServiceCore_0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}ServiceCore_0045 begin`);
+      logInfo("service sceneModeSupported([2], 1)");
+      const actual: boolean = sceneModeSupported([2], 1);
+      logInfo('actual=' + String(actual) + ', expected=' + "false");
+      expect(actual).assertEqual(false);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0045 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0046
+     * @tc.name      Camera_ServiceCore_0046
+     * @tc.desc      sceneModeSupported([1], 1) is pinned to true for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_ServiceCore_0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ServiceCore_0046 begin`);
+      logInfo("service sceneModeSupported([1], 1)");
+      const actual: boolean = sceneModeSupported([1], 1);
+      logInfo('actual=' + String(actual) + ', expected=' + "true");
+      expect(actual).assertEqual(true);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0046 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0047
+     * @tc.name      Camera_ServiceCore_0047
+     * @tc.desc      sceneModeSupported([2, 1], 1) is pinned to true for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_ServiceCore_0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ServiceCore_0047 begin`);
+      logInfo("service sceneModeSupported([2, 1], 1)");
+      const actual: boolean = sceneModeSupported([2, 1], 1);
+      logInfo('actual=' + String(actual) + ', expected=' + "true");
+      expect(actual).assertEqual(true);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0047 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SERVICE_CORE_0048
+     * @tc.name      Camera_ServiceCore_0048
+     * @tc.desc      sceneModeSupported([1, 2, 3], 2) is pinned to true for the service profile contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_ServiceCore_0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ServiceCore_0048 begin`);
+      logInfo("service sceneModeSupported([1, 2, 3], 2)");
+      const actual: boolean = sceneModeSupported([1, 2, 3], 2);
+      logInfo('actual=' + String(actual) + ', expected=' + "true");
+      expect(actual).assertEqual(true);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('boolean');
+      logInfo(`${BUNDLE}ServiceCore_0048 end`);
+    });
+  });
+}
