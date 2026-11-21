@@ -21,7 +21,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0001
      * @tc.name MatrixSurface002_0001
-     * @tc.desc Verify surface input vector 1 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 1 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -34,7 +34,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0002
      * @tc.name MatrixSurface002_0002
-     * @tc.desc Verify surface input vector 2 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 2 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -47,7 +47,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0003
      * @tc.name MatrixSurface002_0003
-     * @tc.desc Verify surface input vector 3 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 3 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -60,7 +60,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0004
      * @tc.name MatrixSurface002_0004
-     * @tc.desc Verify surface input vector 4 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 4 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -73,7 +73,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0005
      * @tc.name MatrixSurface002_0005
-     * @tc.desc Verify surface input vector 5 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 5 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -86,7 +86,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0006
      * @tc.name MatrixSurface002_0006
-     * @tc.desc Verify surface input vector 6 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 6 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -99,7 +99,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0007
      * @tc.name MatrixSurface002_0007
-     * @tc.desc Verify surface input vector 7 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 7 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -112,7 +112,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0008
      * @tc.name MatrixSurface002_0008
-     * @tc.desc Verify surface input vector 8 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 8 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -125,7 +125,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0009
      * @tc.name MatrixSurface002_0009
-     * @tc.desc Verify surface input vector 9 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 9 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -138,7 +138,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0010
      * @tc.name MatrixSurface002_0010
-     * @tc.desc Verify surface input vector 10 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 10 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -151,7 +151,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0011
      * @tc.name MatrixSurface002_0011
-     * @tc.desc Verify surface input vector 11 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 11 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -164,7 +164,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0012
      * @tc.name MatrixSurface002_0012
-     * @tc.desc Verify surface input vector 12 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 12 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -177,7 +177,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0013
      * @tc.name MatrixSurface002_0013
-     * @tc.desc Verify surface input vector 13 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 13 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -190,7 +190,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0014
      * @tc.name MatrixSurface002_0014
-     * @tc.desc Verify surface input vector 14 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 14 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -203,7 +203,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0015
      * @tc.name MatrixSurface002_0015
-     * @tc.desc Verify surface input vector 15 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 15 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -216,7 +216,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0016
      * @tc.name MatrixSurface002_0016
-     * @tc.desc Verify surface input vector 16 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 16 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -229,7 +229,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0017
      * @tc.name MatrixSurface002_0017
-     * @tc.desc Verify surface input vector 17 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 17 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -242,7 +242,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0018
      * @tc.name MatrixSurface002_0018
-     * @tc.desc Verify surface input vector 18 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 18 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -255,7 +255,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0019
      * @tc.name MatrixSurface002_0019
-     * @tc.desc Verify surface input vector 19 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 19 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -268,7 +268,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0020
      * @tc.name MatrixSurface002_0020
-     * @tc.desc Verify surface input vector 20 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 20 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -281,7 +281,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0021
      * @tc.name MatrixSurface002_0021
-     * @tc.desc Verify surface input vector 21 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 21 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -294,7 +294,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0022
      * @tc.name MatrixSurface002_0022
-     * @tc.desc Verify surface input vector 22 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 22 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -307,7 +307,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0023
      * @tc.name MatrixSurface002_0023
-     * @tc.desc Verify surface input vector 23 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 23 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -320,7 +320,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0024
      * @tc.name MatrixSurface002_0024
-     * @tc.desc Verify surface input vector 24 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 24 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -333,7 +333,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0025
      * @tc.name MatrixSurface002_0025
-     * @tc.desc Verify surface input vector 25 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 25 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -346,7 +346,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0026
      * @tc.name MatrixSurface002_0026
-     * @tc.desc Verify surface input vector 26 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 26 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -359,7 +359,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0027
      * @tc.name MatrixSurface002_0027
-     * @tc.desc Verify surface input vector 27 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 27 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -372,7 +372,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0028
      * @tc.name MatrixSurface002_0028
-     * @tc.desc Verify surface input vector 28 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 28 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -385,7 +385,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0029
      * @tc.name MatrixSurface002_0029
-     * @tc.desc Verify surface input vector 29 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 29 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -398,7 +398,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0030
      * @tc.name MatrixSurface002_0030
-     * @tc.desc Verify surface input vector 30 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 30 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -411,7 +411,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0031
      * @tc.name MatrixSurface002_0031
-     * @tc.desc Verify surface input vector 31 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 31 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -424,7 +424,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0032
      * @tc.name MatrixSurface002_0032
-     * @tc.desc Verify surface input vector 32 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 32 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -437,7 +437,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0033
      * @tc.name MatrixSurface002_0033
-     * @tc.desc Verify surface input vector 33 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 33 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -450,7 +450,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0034
      * @tc.name MatrixSurface002_0034
-     * @tc.desc Verify surface input vector 34 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 34 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -463,7 +463,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0035
      * @tc.name MatrixSurface002_0035
-     * @tc.desc Verify surface input vector 35 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 35 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -476,7 +476,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0036
      * @tc.name MatrixSurface002_0036
-     * @tc.desc Verify surface input vector 36 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 36 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -489,7 +489,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0037
      * @tc.name MatrixSurface002_0037
-     * @tc.desc Verify surface input vector 37 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 37 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -502,7 +502,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0038
      * @tc.name MatrixSurface002_0038
-     * @tc.desc Verify surface input vector 38 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 38 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -515,7 +515,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0039
      * @tc.name MatrixSurface002_0039
-     * @tc.desc Verify surface input vector 39 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 39 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -528,7 +528,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0040
      * @tc.name MatrixSurface002_0040
-     * @tc.desc Verify surface input vector 40 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 40 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -541,7 +541,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0041
      * @tc.name MatrixSurface002_0041
-     * @tc.desc Verify surface input vector 41 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 41 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -554,7 +554,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0042
      * @tc.name MatrixSurface002_0042
-     * @tc.desc Verify surface input vector 42 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 42 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -567,7 +567,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0043
      * @tc.name MatrixSurface002_0043
-     * @tc.desc Verify surface input vector 43 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 43 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -580,7 +580,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0044
      * @tc.name MatrixSurface002_0044
-     * @tc.desc Verify surface input vector 44 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 44 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -593,7 +593,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0045
      * @tc.name MatrixSurface002_0045
-     * @tc.desc Verify surface input vector 45 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 45 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -606,7 +606,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0046
      * @tc.name MatrixSurface002_0046
-     * @tc.desc Verify surface input vector 46 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 46 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -619,7 +619,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0047
      * @tc.name MatrixSurface002_0047
-     * @tc.desc Verify surface input vector 47 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 47 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -632,7 +632,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0048
      * @tc.name MatrixSurface002_0048
-     * @tc.desc Verify surface input vector 48 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 48 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -645,7 +645,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0049
      * @tc.name MatrixSurface002_0049
-     * @tc.desc Verify surface input vector 49 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 49 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -658,7 +658,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0050
      * @tc.name MatrixSurface002_0050
-     * @tc.desc Verify surface input vector 50 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 50 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -671,7 +671,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0051
      * @tc.name MatrixSurface002_0051
-     * @tc.desc Verify surface input vector 51 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 51 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -684,7 +684,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0052
      * @tc.name MatrixSurface002_0052
-     * @tc.desc Verify surface input vector 52 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 52 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -697,7 +697,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0053
      * @tc.name MatrixSurface002_0053
-     * @tc.desc Verify surface input vector 53 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 53 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -710,7 +710,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0054
      * @tc.name MatrixSurface002_0054
-     * @tc.desc Verify surface input vector 54 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 54 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -723,7 +723,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0055
      * @tc.name MatrixSurface002_0055
-     * @tc.desc Verify surface input vector 55 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 55 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -736,7 +736,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0056
      * @tc.name MatrixSurface002_0056
-     * @tc.desc Verify surface input vector 56 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 56 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -749,7 +749,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0057
      * @tc.name MatrixSurface002_0057
-     * @tc.desc Verify surface input vector 57 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 57 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -762,7 +762,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0058
      * @tc.name MatrixSurface002_0058
-     * @tc.desc Verify surface input vector 58 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 58 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -775,7 +775,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0059
      * @tc.name MatrixSurface002_0059
-     * @tc.desc Verify surface input vector 59 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 59 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -788,7 +788,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0060
      * @tc.name MatrixSurface002_0060
-     * @tc.desc Verify surface input vector 60 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 60 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -801,7 +801,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0061
      * @tc.name MatrixSurface002_0061
-     * @tc.desc Verify surface input vector 61 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 61 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -814,7 +814,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0062
      * @tc.name MatrixSurface002_0062
-     * @tc.desc Verify surface input vector 62 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 62 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -827,7 +827,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0063
      * @tc.name MatrixSurface002_0063
-     * @tc.desc Verify surface input vector 63 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 63 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -840,7 +840,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0064
      * @tc.name MatrixSurface002_0064
-     * @tc.desc Verify surface input vector 64 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 64 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -853,7 +853,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0065
      * @tc.name MatrixSurface002_0065
-     * @tc.desc Verify surface input vector 65 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 65 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -866,7 +866,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0066
      * @tc.name MatrixSurface002_0066
-     * @tc.desc Verify surface input vector 66 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 66 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -879,7 +879,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0067
      * @tc.name MatrixSurface002_0067
-     * @tc.desc Verify surface input vector 67 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 67 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -892,7 +892,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0068
      * @tc.name MatrixSurface002_0068
-     * @tc.desc Verify surface input vector 68 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 68 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -905,7 +905,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0069
      * @tc.name MatrixSurface002_0069
-     * @tc.desc Verify surface input vector 69 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 69 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -918,7 +918,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0070
      * @tc.name MatrixSurface002_0070
-     * @tc.desc Verify surface input vector 70 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 70 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -931,7 +931,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0071
      * @tc.name MatrixSurface002_0071
-     * @tc.desc Verify surface input vector 71 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 71 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -944,7 +944,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0072
      * @tc.name MatrixSurface002_0072
-     * @tc.desc Verify surface input vector 72 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 72 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -957,7 +957,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0073
      * @tc.name MatrixSurface002_0073
-     * @tc.desc Verify surface input vector 73 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 73 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -970,7 +970,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0074
      * @tc.name MatrixSurface002_0074
-     * @tc.desc Verify surface input vector 74 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 74 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -983,7 +983,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0075
      * @tc.name MatrixSurface002_0075
-     * @tc.desc Verify surface input vector 75 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 75 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -996,7 +996,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0076
      * @tc.name MatrixSurface002_0076
-     * @tc.desc Verify surface input vector 76 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 76 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1009,7 +1009,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0077
      * @tc.name MatrixSurface002_0077
-     * @tc.desc Verify surface input vector 77 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 77 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1022,7 +1022,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0078
      * @tc.name MatrixSurface002_0078
-     * @tc.desc Verify surface input vector 78 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 78 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1035,7 +1035,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0079
      * @tc.name MatrixSurface002_0079
-     * @tc.desc Verify surface input vector 79 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 79 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1048,7 +1048,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0080
      * @tc.name MatrixSurface002_0080
-     * @tc.desc Verify surface input vector 80 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 80 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1061,7 +1061,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0081
      * @tc.name MatrixSurface002_0081
-     * @tc.desc Verify surface input vector 81 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 81 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1074,7 +1074,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0082
      * @tc.name MatrixSurface002_0082
-     * @tc.desc Verify surface input vector 82 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 82 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1087,7 +1087,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0083
      * @tc.name MatrixSurface002_0083
-     * @tc.desc Verify surface input vector 83 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 83 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1100,7 +1100,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0084
      * @tc.name MatrixSurface002_0084
-     * @tc.desc Verify surface input vector 84 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 84 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1113,7 +1113,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0085
      * @tc.name MatrixSurface002_0085
-     * @tc.desc Verify surface input vector 85 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 85 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1126,7 +1126,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0086
      * @tc.name MatrixSurface002_0086
-     * @tc.desc Verify surface input vector 86 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 86 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1139,7 +1139,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0087
      * @tc.name MatrixSurface002_0087
-     * @tc.desc Verify surface input vector 87 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 87 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1152,7 +1152,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0088
      * @tc.name MatrixSurface002_0088
-     * @tc.desc Verify surface input vector 88 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 88 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1165,7 +1165,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0089
      * @tc.name MatrixSurface002_0089
-     * @tc.desc Verify surface input vector 89 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 89 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1178,7 +1178,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0090
      * @tc.name MatrixSurface002_0090
-     * @tc.desc Verify surface input vector 90 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 90 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1191,7 +1191,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0091
      * @tc.name MatrixSurface002_0091
-     * @tc.desc Verify surface input vector 91 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 91 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1204,7 +1204,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0092
      * @tc.name MatrixSurface002_0092
-     * @tc.desc Verify surface input vector 92 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 92 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1217,7 +1217,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0093
      * @tc.name MatrixSurface002_0093
-     * @tc.desc Verify surface input vector 93 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 93 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1230,7 +1230,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0094
      * @tc.name MatrixSurface002_0094
-     * @tc.desc Verify surface input vector 94 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 94 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1243,7 +1243,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0095
      * @tc.name MatrixSurface002_0095
-     * @tc.desc Verify surface input vector 95 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 95 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1256,7 +1256,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0096
      * @tc.name MatrixSurface002_0096
-     * @tc.desc Verify surface input vector 96 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 96 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1269,7 +1269,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0097
      * @tc.name MatrixSurface002_0097
-     * @tc.desc Verify surface input vector 97 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 97 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1282,7 +1282,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0098
      * @tc.name MatrixSurface002_0098
-     * @tc.desc Verify surface input vector 98 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 98 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1295,7 +1295,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0099
      * @tc.name MatrixSurface002_0099
-     * @tc.desc Verify surface input vector 99 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 99 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
@@ -1308,7 +1308,7 @@ export default function registerMatrixSurface002(): void {
     /**
      * @tc.number SUB_SHORTVIDEO_MATRIXSURFACE002_0100
      * @tc.name MatrixSurface002_0100
-     * @tc.desc Verify surface input vector 100 against independent expectations.
+     * @tc.desc Verify fitted video dimensions for input vector 100 against independent expectations.
      * @tc.size MEDIUM
      * @tc.type FUNCTION
      * @tc.level Level 2
