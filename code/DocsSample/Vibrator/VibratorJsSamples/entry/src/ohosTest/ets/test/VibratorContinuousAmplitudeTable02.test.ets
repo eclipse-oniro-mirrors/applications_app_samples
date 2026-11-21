@@ -880,3 +880,1048 @@ function runMatrix1071(): MatrixReport {
         eventType: vibrator.VibratorEventType.CONTINUOUS,
         time: 17,
         duration: 2468,
+        intensity: 50,
+        frequency: 97,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 50,
+        frequency: 97,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 50,
+        frequency: 99,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 50,
+        frequency: 99,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 50,
+        frequency: 100,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 50,
+        frequency: 100,
+        index: 1,
+      },
+    },
+  ];
+  return checkBuilderRows(rows);
+}
+
+function runMatrix1072(): MatrixReport {
+  const rows: BuilderRow[] = [
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 70,
+        frequency: 0,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 70,
+        frequency: 0,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 70,
+        frequency: 1,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 70,
+        frequency: 1,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 70,
+        frequency: 20,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 70,
+        frequency: 20,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 70,
+        frequency: 34,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 70,
+        frequency: 34,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 70,
+        frequency: 50,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 70,
+        frequency: 50,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 70,
+        frequency: 70,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 70,
+        frequency: 70,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 70,
+        frequency: 80,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 70,
+        frequency: 80,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 70,
+        frequency: 97,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 70,
+        frequency: 97,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 70,
+        frequency: 99,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 70,
+        frequency: 99,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 70,
+        frequency: 100,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 70,
+        frequency: 100,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 80,
+        frequency: 0,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 80,
+        frequency: 0,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 80,
+        frequency: 1,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 80,
+        frequency: 1,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 80,
+        frequency: 20,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 80,
+        frequency: 20,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 80,
+        frequency: 34,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 80,
+        frequency: 34,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 80,
+        frequency: 50,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 80,
+        frequency: 50,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 80,
+        frequency: 70,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 80,
+        frequency: 70,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 80,
+        frequency: 80,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 80,
+        frequency: 80,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 80,
+        frequency: 97,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 80,
+        frequency: 97,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 80,
+        frequency: 99,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 80,
+        frequency: 99,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 80,
+        frequency: 100,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 80,
+        frequency: 100,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 97,
+        frequency: 0,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 97,
+        frequency: 0,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 97,
+        frequency: 1,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 97,
+        frequency: 1,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 97,
+        frequency: 20,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 97,
+        frequency: 20,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 97,
+        frequency: 34,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 97,
+        frequency: 34,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 97,
+        frequency: 50,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 97,
+        frequency: 50,
+        index: 1,
+      },
+    },
+  ];
+  return checkBuilderRows(rows);
+}
+
+function runMatrix1073(): MatrixReport {
+  const rows: BuilderRow[] = [
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 97,
+        frequency: 70,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 97,
+        frequency: 70,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 97,
+        frequency: 80,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 97,
+        frequency: 80,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 97,
+        frequency: 97,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 97,
+        frequency: 97,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 97,
+        frequency: 99,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 97,
+        frequency: 99,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 97,
+        frequency: 100,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 97,
+        frequency: 100,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 99,
+        frequency: 0,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 99,
+        frequency: 0,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 99,
+        frequency: 1,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 99,
+        frequency: 1,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 99,
+        frequency: 20,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 99,
+        frequency: 20,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 99,
+        frequency: 34,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 99,
+        frequency: 34,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 99,
+        frequency: 50,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 99,
+        frequency: 50,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 99,
+        frequency: 70,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 99,
+        frequency: 70,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 99,
+        frequency: 80,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 99,
+        frequency: 80,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 99,
+        frequency: 97,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 99,
+        frequency: 97,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 99,
+        frequency: 99,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 99,
+        frequency: 99,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 99,
+        frequency: 100,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 99,
+        frequency: 100,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 100,
+        frequency: 0,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 100,
+        frequency: 0,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 100,
+        frequency: 1,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 100,
+        frequency: 1,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 100,
+        frequency: 20,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 100,
+        frequency: 20,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 100,
+        frequency: 34,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 100,
+        frequency: 34,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 100,
+        frequency: 50,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 100,
+        frequency: 50,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 100,
+        frequency: 70,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 100,
+        frequency: 70,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 100,
+        frequency: 80,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 100,
+        frequency: 80,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 100,
+        frequency: 97,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 100,
+        frequency: 97,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 100,
+        frequency: 99,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 100,
+        frequency: 99,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 100,
+        frequency: 100,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 17,
+        duration: 2468,
+        intensity: 100,
+        frequency: 100,
+        index: 1,
+      },
+    },
+  ];
+  return checkBuilderRows(rows);
+}
+
+export default function vibratorContinuousAmplitudeTable02(): void {
+  describe('VibratorContinuousAmplitudeTable02', (): void => {
+    beforeEach(async (): Promise<void> => {
+      await paceTurn();
+    });
+
+    /**
+     * @tc.number SUB_VIBRATOR_MATRIX_1070
+     * @tc.name testVibratorMatrix1070
+     * @tc.desc 长事件强度频率交叉组合与三通道输出，逐项核对25组输出及累计时长和通道加权强度。
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testVibratorMatrix1070', 0, (): void => {
+      const report: MatrixReport = runMatrix1070();
+      hilog.info(DOMAIN, TAG, 'Event count=%{public}d', report.eventCount);
+      expect(report.eventCount).assertEqual(25);
+      hilog.info(DOMAIN, TAG, 'Duration sum=%{public}d', report.durationSum);
+      expect(report.durationSum).assertEqual(61700);
+      hilog.info(DOMAIN, TAG, 'Channel intensity sum=%{public}d', report.channelIntensitySum);
+      expect(report.channelIntensitySum).assertEqual(220);
+    });
+
+    /**
+     * @tc.number SUB_VIBRATOR_MATRIX_1071
+     * @tc.name testVibratorMatrix1071
+     * @tc.desc 长事件强度频率交叉组合与三通道输出，逐项核对25组输出及累计时长和通道加权强度。
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testVibratorMatrix1071', 0, (): void => {
+      const report: MatrixReport = runMatrix1071();
+      hilog.info(DOMAIN, TAG, 'Event count=%{public}d', report.eventCount);
+      expect(report.eventCount).assertEqual(25);
+      hilog.info(DOMAIN, TAG, 'Duration sum=%{public}d', report.durationSum);
+      expect(report.durationSum).assertEqual(61700);
+      hilog.info(DOMAIN, TAG, 'Channel intensity sum=%{public}d', report.channelIntensitySum);
+      expect(report.channelIntensitySum).assertEqual(1880);
+    });
+
+    /**
+     * @tc.number SUB_VIBRATOR_MATRIX_1072
+     * @tc.name testVibratorMatrix1072
+     * @tc.desc 长事件强度频率交叉组合与三通道输出，逐项核对25组输出及累计时长和通道加权强度。
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testVibratorMatrix1072', 0, (): void => {
+      const report: MatrixReport = runMatrix1072();
+      hilog.info(DOMAIN, TAG, 'Event count=%{public}d', report.eventCount);
+      expect(report.eventCount).assertEqual(25);
+      hilog.info(DOMAIN, TAG, 'Duration sum=%{public}d', report.durationSum);
+      expect(report.durationSum).assertEqual(61700);
+      hilog.info(DOMAIN, TAG, 'Channel intensity sum=%{public}d', report.channelIntensitySum);
+      expect(report.channelIntensitySum).assertEqual(3970);
+    });
+
+    /**
+     * @tc.number SUB_VIBRATOR_MATRIX_1073
+     * @tc.name testVibratorMatrix1073
+     * @tc.desc 长事件强度频率交叉组合与三通道输出，逐项核对25组输出及累计时长和通道加权强度。
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testVibratorMatrix1073', 0, (): void => {
+      const report: MatrixReport = runMatrix1073();
+      hilog.info(DOMAIN, TAG, 'Event count=%{public}d', report.eventCount);
+      expect(report.eventCount).assertEqual(25);
+      hilog.info(DOMAIN, TAG, 'Duration sum=%{public}d', report.durationSum);
+      expect(report.durationSum).assertEqual(61700);
+      hilog.info(DOMAIN, TAG, 'Channel intensity sum=%{public}d', report.channelIntensitySum);
+      expect(report.channelIntensitySum).assertEqual(4950);
+    });
+
+  });
+}
