@@ -18,50 +18,55 @@ import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { Hypium } from '@ohos/hypium';
 import testsuite from '../test/List.test';
+import { setTestContext } from '../test/JsUiSession';
 import data from '../test/data.json';
 import Logger from '../util/Logger';
 import { window } from '@kit.ArkUI';
+import { BusinessError } from '@kit.BasicServicesKit';
 
-const TAG = 'testTag';
+const TAG: string = 'testTag';
 
 export default class TestAbility extends UIAbility {
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    setTestContext(this.context);
     Logger.info(TAG, 'TestAbility onCreate');
     Logger.info(TAG, 'want param:' + JSON.stringify(want));
     Logger.info(TAG, 'launchParam:' + JSON.stringify(launchParam));
-    let abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-    let abilityDelegatorArguments = abilityDelegatorRegistry.getArguments();
+    const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator =
+      abilityDelegatorRegistry.getAbilityDelegator();
+    const abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs =
+      abilityDelegatorRegistry.getArguments();
     Logger.info(TAG, 'start run testcase!!!');
     // 设置数据
     Hypium.setData(data);
     Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
   }
 
-  onDestroy() {
+  onDestroy(): void {
     Logger.info('testTag', '%{public}s', 'TestAbility onDestroy');
   }
 
-  onWindowStageCreate(windowStage: window.WindowStage) {
+  onWindowStageCreate(windowStage: window.WindowStage): void {
     Logger.info(TAG, 'TestAbility onWindowStageCreate');
-    windowStage.loadContent('testability/pages/Index', (err, data) => {
+    windowStage.loadContent('testability/pages/Index', (err: BusinessError, result: void): void => {
       if (err.code) {
         Logger.error(TAG, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
         return;
       }
       Logger.info(TAG, 'Succeeded in loading the content. Data: %{public}s',
-        JSON.stringify(data) ?? '');
+        JSON.stringify(result) ?? '');
     });
   }
 
-  onWindowStageDestroy() {
+  onWindowStageDestroy(): void {
     Logger.info('testTag', '%{public}s', 'TestAbility onWindowStageDestroy');
   }
 
-  onForeground() {
+  onForeground(): void {
     Logger.info('testTag', '%{public}s', 'TestAbility onForeground');
   }
 
-  onBackground() {
+  onBackground(): void {
     Logger.info('testTag', '%{public}s', 'TestAbility onBackground');
   }
 }
