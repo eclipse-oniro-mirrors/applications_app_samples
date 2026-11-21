@@ -3987,3 +3987,655 @@ export default function weatherButtonInteractionSuite() {
       expect(m.getCity('nohit512') === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0513
+     * @tc.name    WeatherButtonInteraction513
+     * @tc.desc    Weather notify add count 513 probe 513
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction513', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit513') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0514
+     * @tc.name    WeatherButtonInteraction514
+     * @tc.desc    Weather notify add count 514 probe 514
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction514', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit514') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0515
+     * @tc.name    WeatherButtonInteraction515
+     * @tc.desc    Weather notify add count 515 probe 515
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction515', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit515') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0516
+     * @tc.name    WeatherButtonInteraction516
+     * @tc.desc    Weather notify add count 516 probe 516
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction516', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit516') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0517
+     * @tc.name    WeatherButtonInteraction517
+     * @tc.desc    Weather notify add count 517 probe 517
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction517', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit517') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0518
+     * @tc.name    WeatherButtonInteraction518
+     * @tc.desc    Weather notify add count 518 probe 518
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction518', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit518') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0519
+     * @tc.name    WeatherButtonInteraction519
+     * @tc.desc    Weather notify add count 519 probe 519
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction519', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit519') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0520
+     * @tc.name    WeatherButtonInteraction520
+     * @tc.desc    Weather notify add count 520 probe 520
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction520', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit520') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0521
+     * @tc.name    WeatherButtonInteraction521
+     * @tc.desc    Weather notify add count 521 probe 521
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction521', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit521') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0522
+     * @tc.name    WeatherButtonInteraction522
+     * @tc.desc    Weather notify add count 522 probe 522
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction522', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit522') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0523
+     * @tc.name    WeatherButtonInteraction523
+     * @tc.desc    Weather notify add count 523 probe 523
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction523', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit523') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0524
+     * @tc.name    WeatherButtonInteraction524
+     * @tc.desc    Weather notify add count 524 probe 524
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction524', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit524') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0525
+     * @tc.name    WeatherButtonInteraction525
+     * @tc.desc    Weather notify add count 525 probe 525
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction525', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit525') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0526
+     * @tc.name    WeatherButtonInteraction526
+     * @tc.desc    Weather notify add count 526 probe 526
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction526', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit526') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0527
+     * @tc.name    WeatherButtonInteraction527
+     * @tc.desc    Weather notify add count 527 probe 527
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction527', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit527') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0528
+     * @tc.name    WeatherButtonInteraction528
+     * @tc.desc    Weather notify add count 528 probe 528
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction528', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit528') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0529
+     * @tc.name    WeatherButtonInteraction529
+     * @tc.desc    Weather notify add count 529 probe 529
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction529', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit529') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0530
+     * @tc.name    WeatherButtonInteraction530
+     * @tc.desc    Weather notify add count 530 probe 530
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction530', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit530') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0531
+     * @tc.name    WeatherButtonInteraction531
+     * @tc.desc    Weather notify add count 531 probe 531
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction531', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit531') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0532
+     * @tc.name    WeatherButtonInteraction532
+     * @tc.desc    Weather notify add count 532 probe 532
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction532', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit532') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0533
+     * @tc.name    WeatherButtonInteraction533
+     * @tc.desc    Weather notify add count 533 probe 533
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction533', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit533') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0534
+     * @tc.name    WeatherButtonInteraction534
+     * @tc.desc    Weather notify add count 534 probe 534
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction534', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit534') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0535
+     * @tc.name    WeatherButtonInteraction535
+     * @tc.desc    Weather notify add count 535 probe 535
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction535', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit535') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0536
+     * @tc.name    WeatherButtonInteraction536
+     * @tc.desc    Weather notify add count 536 probe 536
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction536', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit536') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0537
+     * @tc.name    WeatherButtonInteraction537
+     * @tc.desc    Weather notify add count 537 probe 537
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction537', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit537') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0538
+     * @tc.name    WeatherButtonInteraction538
+     * @tc.desc    Weather notify add count 538 probe 538
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction538', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit538') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0539
+     * @tc.name    WeatherButtonInteraction539
+     * @tc.desc    Weather notify add count 539 probe 539
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction539', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit539') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0540
+     * @tc.name    WeatherButtonInteraction540
+     * @tc.desc    Weather notify add count 540 probe 540
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction540', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit540') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0541
+     * @tc.name    WeatherButtonInteraction541
+     * @tc.desc    Weather notify add count 541 probe 541
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction541', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit541') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0542
+     * @tc.name    WeatherButtonInteraction542
+     * @tc.desc    Weather notify add count 542 probe 542
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction542', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit542') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0543
+     * @tc.name    WeatherButtonInteraction543
+     * @tc.desc    Weather notify add count 543 probe 543
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction543', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit543') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0544
+     * @tc.name    WeatherButtonInteraction544
+     * @tc.desc    Weather notify add count 544 probe 544
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction544', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit544') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0545
+     * @tc.name    WeatherButtonInteraction545
+     * @tc.desc    Weather notify add count 545 probe 545
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction545', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit545') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0546
+     * @tc.name    WeatherButtonInteraction546
+     * @tc.desc    Weather notify add count 546 probe 546
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction546', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit546') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0547
+     * @tc.name    WeatherButtonInteraction547
+     * @tc.desc    Weather notify add count 547 probe 547
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction547', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit547') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_0548
+     * @tc.name    WeatherButtonInteraction548
+     * @tc.desc    Weather notify add count 548 probe 548
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherButtonInteraction548', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getState().adds;
+      m.notifyAdd();
+      expect(m.getState().adds).assertEqual(before + 1);
+      expect(m.getCity('nohit548') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
