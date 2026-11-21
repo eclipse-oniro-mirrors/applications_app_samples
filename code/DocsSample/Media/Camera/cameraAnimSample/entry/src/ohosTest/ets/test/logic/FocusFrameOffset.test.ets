@@ -806,3 +806,69 @@ export default function focusFrameOffsetTest(): void {
      * @tc.name      Camera_FocusFrameOffset_0045
      * @tc.desc      focusFrameX/Y(720) offsets the focus box to 660,660.
      * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Camera_FocusFrameOffset_0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}FocusFrameOffset_0045 begin`);
+      logInfo("focusFrameX(720) + ',' + focusFrameY(720)");
+      const actual: string = focusFrameX(720) + ',' + focusFrameY(720);
+      logInfo('actual=' + String(actual) + ', expected=' + "660,660");
+      expect(actual).assertEqual("660,660");
+      logInfo(`${BUNDLE}FocusFrameOffset_0045 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FOCUS_FRAME_OFFSET_0046
+     * @tc.name      Camera_FocusFrameOffset_0046
+     * @tc.desc      focusFrameX/Y(750) offsets the focus box to 690,690.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_FocusFrameOffset_0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FocusFrameOffset_0046 begin`);
+      logInfo("focusFrameX(750) + ',' + focusFrameY(750)");
+      const actual: string = focusFrameX(750) + ',' + focusFrameY(750);
+      logInfo('actual=' + String(actual) + ', expected=' + "690,690");
+      expect(actual).assertEqual("690,690");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FocusFrameOffset_0046 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FOCUS_FRAME_OFFSET_0047
+     * @tc.name      Camera_FocusFrameOffset_0047
+     * @tc.desc      focusFrameX/Y(900) offsets the focus box to 840,840.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_FocusFrameOffset_0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FocusFrameOffset_0047 begin`);
+      logInfo("focusFrameX(900) + ',' + focusFrameY(900)");
+      const actual: string = focusFrameX(900) + ',' + focusFrameY(900);
+      logInfo('actual=' + String(actual) + ', expected=' + "840,840");
+      expect(actual).assertEqual("840,840");
+      logInfo(`${BUNDLE}FocusFrameOffset_0047 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_FOCUS_FRAME_OFFSET_0048
+     * @tc.name      Camera_FocusFrameOffset_0048
+     * @tc.desc      focusFrameX/Y(999) offsets the focus box to 939,939.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_FocusFrameOffset_0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FocusFrameOffset_0048 begin`);
+      logInfo("focusFrameX(999) + ',' + focusFrameY(999)");
+      const actual: string = focusFrameX(999) + ',' + focusFrameY(999);
+      logInfo('actual=' + String(actual) + ', expected=' + "939,939");
+      expect(actual).assertEqual("939,939");
+      logInfo(`${BUNDLE}FocusFrameOffset_0048 end`);
+    });
+  });
+}
