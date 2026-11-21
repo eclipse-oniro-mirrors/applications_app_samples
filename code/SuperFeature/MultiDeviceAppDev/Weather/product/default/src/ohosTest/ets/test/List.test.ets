@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,7 +14,27 @@
  */
 
 import abilityTest from './Ability.test';
+import weatherInputInteractionSuite from './Core/WeatherInputInteraction.test';
+import weatherConfigurationManagerValidationSuite from './Validation/WeatherConfigurationManagerValidation.test';
+import weatherDataSourceValidationSuite from './Validation/WeatherDataSourceValidation.test';
+import weatherCityCatalogValidationSuite from './Validation/WeatherCityCatalogValidation.test';
+import weatherButtonInteractionSuite from './Interaction/WeatherButtonInteraction.test';
+import weatherThemeVariationSuite from './Interaction/WeatherThemeVariation.test';
+import weatherComprehensiveRegressionSuite from './Integration/WeatherComprehensiveRegression.test';
+import weatherExtensionLifecycleSuite from './LifecycleState/WeatherExtensionLifecycle.test';
+import weatherPerformanceStressSuite from './PerformanceStability/WeatherPerformanceStress.test';
+import weatherExtensionSuite from './WeatherExtension.test';
 
 export default function testsuite() {
   abilityTest();
+  weatherInputInteractionSuite();
+  weatherConfigurationManagerValidationSuite();
+  weatherDataSourceValidationSuite();
+  weatherCityCatalogValidationSuite();
+  weatherButtonInteractionSuite();
+  weatherThemeVariationSuite();
+  weatherComprehensiveRegressionSuite();
+  weatherExtensionLifecycleSuite();
+  weatherPerformanceStressSuite();
+  weatherExtensionSuite();
 }

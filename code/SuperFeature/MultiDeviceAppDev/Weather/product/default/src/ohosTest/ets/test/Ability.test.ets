@@ -17,18 +17,19 @@ import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry
 import { describe, it, expect } from '@ohos/hypium';
 import { Driver, ON, MatchPattern } from '@ohos.UiTest';
 import { logger } from '../util/Logger';
+import Want from '@ohos.app.ability.Want';
 
 const TAG = '[Sample_Weather]';
 const BUNDLE = 'Weather_';
 const driver = Driver.create();
 
 export default function abilityTest() {
-  describe('AbilityTest', function () {
+  describe('AbilityTest', () => {
     // 启动应用，进入首页
-    it(BUNDLE + 'StartAbility_001', 0, async function (done) {
+    it(BUNDLE + 'StartAbility_001', 0, async (done: Function) => {
       logger.info(TAG, `${BUNDLE}StartAbility_001 begin`);
       let delegator = AbilityDelegatorRegistry.getAbilityDelegator();
-      let want = {
+      let want: Want = {
         bundleName: "ohos.samples.weather",
         abilityName: "MainAbility"
       };
@@ -37,7 +38,7 @@ export default function abilityTest() {
       })
       await driver.delayMs(1000);
       await delegator.getCurrentTopAbility().then((Ability) => {
-        console.info("get top ability");
+        logger.info(TAG, 'get top ability');
         expect(Ability.context.abilityInfo.name).assertEqual('MainAbility');
       })
       logger.info(TAG, `${BUNDLE}StartAbility_001 end`);
@@ -45,7 +46,7 @@ export default function abilityTest() {
     })
 
     // 侧边栏隐藏和显示
-    it(BUNDLE + 'Slider_001', 0, async function (done) {
+    it(BUNDLE + 'Slider_001', 0, async (done: Function) => {
       logger.info(TAG, `${BUNDLE}Slider_001 begin`)
       if(AppStorage.Get('curBp') == 'lg') {
         await driver.assertComponentExist(ON.id('cancelSubarea'));
@@ -61,7 +62,7 @@ export default function abilityTest() {
     })
 
     // 侧边栏中点击切换城市
-    it(BUNDLE + 'Slider_002', 0, async function (done) {
+    it(BUNDLE + 'Slider_002', 0, async (done: Function) => {
       logger.info(TAG, `${BUNDLE}Slider_001 begin`)
       if(AppStorage.Get('curBp') == 'lg') {
         await driver.assertComponentExist(ON.id('sliderCity1'));
@@ -82,7 +83,7 @@ export default function abilityTest() {
     })
 
     //Swiper滑动切换城市
-    it(BUNDLE + 'Home_001', 0, async function (done) {
+    it(BUNDLE + 'Home_001', 0, async (done: Function) => {
       logger.info(TAG, `${BUNDLE}Home_001 begin`);
       await driver.assertComponentExist(ON.id('homeContent0'));
       await driver.swipe(500, 200, 100, 200);
@@ -94,7 +95,7 @@ export default function abilityTest() {
     })
 
     // 更新间隔
-    it(BUNDLE + 'UpdateTime_001', 0, async function (done) {
+    it(BUNDLE + 'UpdateTime_001', 0, async (done: Function) => {
       logger.info(TAG, `${BUNDLE}UpdateTime_001 begin`)
       let abilityDelegatorRegistry = AbilityDelegatorRegistry.getAbilityDelegator();
       // 获取ability
@@ -118,7 +119,7 @@ export default function abilityTest() {
     })
 
     // 点击弹出菜单
-    it(BUNDLE + 'City_001', 0, async function (done) {
+    it(BUNDLE + 'City_001', 0, async (done: Function) => {
       logger.info(TAG, `${BUNDLE}City_001 begin`);
       let abilityDelegatorRegistry = AbilityDelegatorRegistry.getAbilityDelegator();
       // 获取ability
@@ -140,7 +141,7 @@ export default function abilityTest() {
     })
 
     // 添加城市
-    it(BUNDLE + 'AddCity_001', 0, async function (done) {
+    it(BUNDLE + 'AddCity_001', 0, async (done: Function) => {
       logger.info(TAG, `${BUNDLE}AddCity_001 begin`);
       let abilityDelegatorRegistry = AbilityDelegatorRegistry.getAbilityDelegator();
       // 获取ability
