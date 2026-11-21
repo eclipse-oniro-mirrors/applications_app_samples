@@ -1989,3 +1989,151 @@ export default function settingUISuite() {
       expect(m.getEntry('nohit109') === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0110
+     * @tc.name    SettingUI110
+     * @tc.desc    Settings entry lookup 2 probe 110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingUI110', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const entry = m.getEntry(key);
+      expect(entry !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit110') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0111
+     * @tc.name    SettingUI111
+     * @tc.desc    Settings entry lookup 3 probe 111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingUI111', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const entry = m.getEntry(key);
+      expect(entry !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit111') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0112
+     * @tc.name    SettingUI112
+     * @tc.desc    Settings entry lookup 0 probe 112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingUI112', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const entry = m.getEntry(key);
+      expect(entry !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit112') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0113
+     * @tc.name    SettingUI113
+     * @tc.desc    Settings entry lookup 1 probe 113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingUI113', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const entry = m.getEntry(key);
+      expect(entry !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit113') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0114
+     * @tc.name    SettingUI114
+     * @tc.desc    Settings entry lookup 2 probe 114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingUI114', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const entry = m.getEntry(key);
+      expect(entry !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit114') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0115
+     * @tc.name    SettingUI115
+     * @tc.desc    Settings entry lookup 3 probe 115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingUI115', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const entry = m.getEntry(key);
+      expect(entry !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit115') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0116
+     * @tc.name    SettingUI116
+     * @tc.desc    Settings entry lookup 0 probe 116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingUI116', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const entry = m.getEntry(key);
+      expect(entry !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit116') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0117
+     * @tc.name    SettingUI117
+     * @tc.desc    Settings entry lookup 1 probe 117
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingUI117', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const entry = m.getEntry(key);
+      expect(entry !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit117') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
