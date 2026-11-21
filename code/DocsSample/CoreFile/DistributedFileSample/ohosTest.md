@@ -44,12 +44,12 @@
 25714e0c6a722802b78d4c18fbb83c00c355ef2521ea102836359905953176c4
 ```
 
-| 构建 | 未签名产物 | 字节数 | SHA-256 |
-| --- | --- | --- | --- |
-| 006 default | [entry-default-unsigned.hap](entry/build/default/outputs/default/entry-default-unsigned.hap) | 215,351 | `b772b23a2c844d3d4ad526e6760c2fef3259f9c0005b5fca5c625cba338e5347` |
-| 007 ohosTest | [entry-ohosTest-unsigned.hap](entry/build/default/outputs/ohosTest/entry-ohosTest-unsigned.hap) | 11,072,816 | `e08fb97238f3b5a5830330a02a2297e254f0d8752663546b33da78829ff9e9c9` |
+| 构建 | 未签名产物 | 字节数 |
+| --- | --- | --- |
+| 006 default | [entry-default-unsigned.hap](entry/build/default/outputs/default/entry-default-unsigned.hap) | 215,351 |
+| 007 ohosTest | [entry-ohosTest-unsigned.hap](entry/build/default/outputs/ohosTest/entry-ohosTest-unsigned.hap) | 11,072,816 |
 
-两个构建均使用原 E:/sdk API 26 SDK，源码与最终回归清单逐文件哈希一致。原生产 DistributedCopy model、Hypium 引导及七个按钮的标识和顺序保持不变；源码清单哈希不包含本文档与主机脚本，后者的独立哈希保存在逐例目录中。产物未安装，设备执行结论仍为未验证。
+两个构建均使用原 E:/sdk API 26 SDK，源码与最终回归清单逐文件哈希一致。原生产 DistributedCopy model、Hypium 引导及七个按钮的标识和顺序保持不变；源码清单哈希不包含本文档与主机脚本，后者的独立哈希保存在逐例目录中。产物未安装，设备执行结论仍为未验证。产物完整 SHA-256 及构建审计见 [.validation/audit.json](.validation/audit.json) 本地证据。
 
 ## 本地证据
 
