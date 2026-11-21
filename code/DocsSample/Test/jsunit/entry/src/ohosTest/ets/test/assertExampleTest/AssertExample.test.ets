@@ -35,7 +35,7 @@
 * | 17   | assertPromiseIsPending | @since1.0.4 判断promise是否处于Pending状态。                         |
 * | 18   | assertPromiseIsRejected | @since1.0.4 判断promise是否处于Rejected状态。                       |
 * | 19   | assertPromiseIsRejectedWith | @since1.0.4 判断promise是否处于Rejected状态，并且比较执行的结果值。|
-* | 20   | assertPromiseIsRejectedWithError | @since1.0.4 判断promise是否处于Rejected状态并有异常，同时比较异常的类型和message值。                   |
+* | 20   | assertPromiseIsRejectedWithError | @since1.0.4 比较拒绝异常的类型和message值。 |
 * | 21   | assertPromiseIsResolved | @since1.0.4 判断promise是否处于Resolved状态。                       |
 * | 22   | assertPromiseIsResolvedWith | @since1.0.4 判断promise是否处于Resolved状态，并且比较执行的结果值。|
 * | 23   | not                | @since1.0.4 断言取反,支持上面所有的断言功能                                 |
@@ -43,161 +43,309 @@
  */
 
 // [Start assert_sample]
-import { describe, expect, it, Level } from '@ohos/hypium';
+import { paceTurn } from '../TestPace';
+import { beforeEach, describe, expect, it, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { AssertionObservation, LocalExpectService, observeAssertion } from '../AssertionObservation';
 
-export default function exampleTest() {
-  describe('ExampleTest', () => {
-    it('assertCloseTest', Level.LEVEL1, () => {
-      let a: number = 100;
-      let b: number = 0.1;
-      let c: number = 99;
-      expect(a).assertClose(c, b);
-    })
+export default function exampleTest(): void {
+  describe('ExampleTest', (): void => {
+    beforeEach(async (): Promise<void> => {
+      await paceTurn();
+    });
 
-    it('assertContain_1', Level.LEVEL1, () => {
-      let a = 'abc';
-      expect(a).assertContain('b');
-    })
-
-    it('assertContain_2', Level.LEVEL1, () => {
-      let a = [1, 2, 3];
-      expect(a).assertContain(1);
-    })
-
-    it('assertEqualTest', Level.LEVEL1, () => {
-      expect(3).assertEqual(3);
-    })
-
-    it('assertFailTest', Level.LEVEL1, () => {
-      expect().assertFail(); // 用例失败
-    })
-
-    it('assertFalseTest', Level.LEVEL1, () => {
-      expect(false).assertFalse();
-    })
-
-    it('assertTrueTest', Level.LEVEL1, () => {
-      expect(true).assertTrue();
-    })
-
-    it('assertInstanceOfTest', Level.LEVEL1, () => {
-      let a: string = 'strTest';
-      expect(a).assertInstanceOf('String');
-    })
-
-    it('assertLargerTest', Level.LEVEL1, () => {
-      expect(3).assertLarger(2);
-    })
-
-    it('assertLessTest', Level.LEVEL1, () => {
-      expect(2).assertLess(3);
-    })
-
-    it('assertNullTest', Level.LEVEL1, () => {
-      expect(null).assertNull();
-    })
-
-    it('assertThrowErrorTest', Level.LEVEL1, () => {
-      expect(() => {
-        throw new Error('test');
-      }).assertThrowError('test');
-    })
-
-    it('assertUndefinedTest', Level.LEVEL1, () => {
-      expect(undefined).assertUndefined();
-    })
-
-    it('assertLargerOrEqualTest', Level.LEVEL1, () => {
-      expect(3).assertLargerOrEqual(3);
-    })
-
-    it('assertLessOrEqualTest', Level.LEVEL1, () => {
-      expect(3).assertLessOrEqual(3);
-    })
-
-    it('assertNaNTest', Level.LEVEL1, () => {
-      expect(Number.NaN).assertNaN(); // true
-    })
-
-    it('assertNegUnlimitedTest', Level.LEVEL1, () => {
-      expect(Number.NEGATIVE_INFINITY).assertNegUnlimited(); // true
-    })
-
-    it('assertPosUnlimitedTest', Level.LEVEL1, () => {
-      expect(Number.POSITIVE_INFINITY).assertPosUnlimited(); // true
-    })
-
-    it('deepEquals_null_true', Level.LEVEL1, () => {
-      expect(null).assertDeepEquals(null);
-    })
-
-    it('deepEquals_array_not_have_true', Level.LEVEL1, () => {
-      const a: Array<number> = [];
-      const b: Array<number> = [];
-      expect(a).assertDeepEquals(b);
-    })
-
-    it('deepEquals_map_equal_length_success', Level.LEVEL1, () => {
-      const a: Map<number, number> = new Map();
-      const b: Map<number, number> = new Map();
-      a.set(1, 100);
-      a.set(2, 200);
-      b.set(1, 100);
-      b.set(2, 200);
-      expect(a).assertDeepEquals(b);
-    })
-
-    it('deepEquals_obj_success_1', Level.LEVEL1, () => {
-      const a: SampleTest = { x: 1 };
-      const b: SampleTest = { x: 1 };
-      expect(a).assertDeepEquals(b);
-    })
-
-    it('deepEquals_regExp_success_0', Level.LEVEL1, () => {
-      const a: RegExp = new RegExp('/test/');
-      const b: RegExp = new RegExp('/test/');
-      expect(a).assertDeepEquals(b);
-    })
-
-    it('assertPromiseIsPendingTest', Level.LEVEL1, async () => {
-      let p: Promise<void> = new Promise<void>(() => {
+    /**
+     * @tc.number testJsunitAssertClose0001
+     * @tc.name testJsunitAssertClose0001
+     * @tc.desc Retain the relative tolerance example and check a genuinely rejected tighter tolerance
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertClose0001', Level.LEVEL1, (): void => {
+      // Hypium uses relative error: |100-99|/100 = 0.01, therefore the original 0.1 passes.
+      hilog.info(0x0000, 'AssertObserve', 'actual=100 expected=99 precision=0.1');
+      expect(100).assertClose(99, 0.1);
+      const failure: AssertionObservation = observeAssertion((service: LocalExpectService): void => {
+        hilog.info(0x0000, 'AssertObserve', 'actual=100 expected=99 precision=0.001');
+        service.expect(100).assertClose(99, 0.001);
       });
-      await expect(p).assertPromiseIsPending();
-    })
+      hilog.info(0x0000, 'AssertObserve', 'rejected tolerance error name=%{public}s', failure.name);
+      expect(failure.name).assertEqual('AssertException');
+      hilog.info(0x0000, 'AssertObserve', 'rejected tolerance error message=%{public}s', failure.message);
+      expect(failure.message).assertEqual('|100 - 99|/100 is not less than 0.001');
+      hilog.info(0x0000, 'AssertObserve', 'failure reported=%{public}s', String(failure.reported));
+      expect(failure.reported).assertTrue();
+    });
 
-    it('assertPromiseIsRejectedTest', Level.LEVEL1, async () => {
-      let info: PromiseInfo = { res: 'no' };
-      let p: Promise<PromiseInfo> = Promise.reject(info);
-      await expect(p).assertPromiseIsRejected();
-    })
+    /**
+     * @tc.number testJsunitAssertContain0004
+     * @tc.name testJsunitAssertContain0004
+     * @tc.desc Combine string and array membership with present and absent elements
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertContain0004', Level.LEVEL1, (): void => {
+      const text: string = 'abc';
+      const values: number[] = [1, 2, 3];
+      hilog.info(0x0000, 'AssertExample', 'text=abc present=b absent=z; array=[1,2,3] present=1 absent=4');
+      expect(text).assertContain('b');
+      hilog.info(0x0000, 'AssertExample', 'array=%{public}s expected member=1', JSON.stringify(values));
+      expect(values).assertContain(1);
+      hilog.info(0x0000, 'AssertExample', 'text=%{public}s expected absent=z', text);
+      expect(text).not().assertContain('z');
+      hilog.info(0x0000, 'AssertExample', 'array=%{public}s expected absent=4', JSON.stringify(values));
+      expect(values).not().assertContain(4);
+    });
 
-    it('assertPromiseIsRejectedWithTest', Level.LEVEL1, async () => {
-      let info: PromiseInfo = { res: 'reject value' };
-      let p: Promise<PromiseInfo> = Promise.reject(info);
-      await expect(p).assertPromiseIsRejectedWith(info);
-    })
+    /**
+     * @tc.number testJsunitAssertScalar0005
+     * @tc.name testJsunitAssertScalar0005
+     * @tc.desc Combine equality and strict or inclusive ordering with distinct operands
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertScalar0005', Level.LEVEL1, (): void => {
+      const sum: number = 1 + 2;
+      hilog.info(0x0000, 'AssertExample', 'sum=%{public}d larger=5>2 less=2<3 inclusive=4>=4,6<=6', sum);
+      expect(sum).assertEqual(3);
+      hilog.info(0x0000, 'AssertExample', 'actual=5 expected greater than=2');
+      expect(5).assertLarger(2);
+      hilog.info(0x0000, 'AssertExample', 'actual=2 expected less than=3');
+      expect(2).assertLess(3);
+      hilog.info(0x0000, 'AssertExample', 'actual=4 expected greater than or equal=4');
+      expect(4).assertLargerOrEqual(4);
+      hilog.info(0x0000, 'AssertExample', 'actual=6 expected less than or equal=6');
+      expect(6).assertLessOrEqual(6);
+      hilog.info(0x0000, 'AssertExample', 'actual number=%{public}d expected unequal to string=3', sum);
+      expect(sum).not().assertEqual('3');
+    });
 
-    it('assertPromiseIsRejectedWithErrorTest', Level.LEVEL1, async () => {
-      let p1: Promise<TypeError> = Promise.reject(new TypeError('number'));
-      await expect(p1).assertPromiseIsRejectedWithError(TypeError);
-    })
+    /**
+     * @tc.number testJsunitAssertFailure0002
+     * @tc.name testJsunitAssertFailure0002
+     * @tc.desc Observe the explicit Hypium failure instead of failing or skipping the demonstration
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertFailure0002', Level.LEVEL1, (): void => {
+      const failure: AssertionObservation = observeAssertion((service: LocalExpectService): void => {
+        hilog.info(0x0000, 'AssertObserve', 'explicit failure without actual value');
+        service.expect().assertFail();
+      });
+      hilog.info(0x0000, 'AssertObserve', 'explicit failure name=%{public}s', failure.name);
+      expect(failure.name).assertEqual('AssertException');
+      hilog.info(0x0000, 'AssertObserve', 'explicit failure message=%{public}s', failure.message);
+      expect(failure.message).assertEqual('fail ');
+      hilog.info(0x0000, 'AssertObserve', 'explicit failure reported=%{public}s', String(failure.reported));
+      expect(failure.reported).assertTrue();
+    });
 
-    it('assertPromiseIsResolvedTest', Level.LEVEL1, async () => {
-      let info: PromiseInfo = { res: 'result value' };
-      let p: Promise<PromiseInfo> = Promise.resolve(info);
-      await expect(p).assertPromiseIsResolved();
-    })
+    /**
+     * @tc.number testJsunitAssertBooleanType0006
+     * @tc.name testJsunitAssertBooleanType0006
+     * @tc.desc Assert membership outcomes and the original String type with a negative type check
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertBooleanType0006', Level.LEVEL1, (): void => {
+      const present: boolean = 'abc'.includes('b');
+      const absent: boolean = [1, 2, 3].includes(4);
+      const text: string = 'strTest';
+      hilog.info(0x0000, 'AssertExample', 'present=%{public}s absent=%{public}s type input=%{public}s',
+        String(present), String(absent), text);
+      expect(present).assertTrue();
+      hilog.info(0x0000, 'AssertExample', 'array=[1,2,3] member=4 result=%{public}s expected=false', String(absent));
+      expect(absent).assertFalse();
+      hilog.info(0x0000, 'AssertExample', 'actual=%{public}s expected type=String', text);
+      expect(text).assertInstanceOf('String');
+      hilog.info(0x0000, 'AssertExample', 'actual=%{public}s expected not type=Number', text);
+      expect(text).not().assertInstanceOf('Number');
+    });
 
-    it('assertPromiseIsResolvedWithTest', Level.LEVEL1, async () => {
-      let info: PromiseInfo = { res: 'result value' };
-      let p: Promise<PromiseInfo> = Promise.resolve(info);
-      await expect(p).assertPromiseIsResolvedWith(info);
-    })
+    /**
+     * @tc.number testJsunitAssertSpecial0007
+     * @tc.name testJsunitAssertSpecial0007
+     * @tc.desc Combine null, missing, NaN and signed infinity results from distinct operations
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertSpecial0007', Level.LEVEL1, (): void => {
+      const parsed: Object | null = JSON.parse('null') as Object | null;
+      const values: Map<string, number> = new Map<string, number>();
+      const missing: number | undefined = values.get('missing');
+      const invalid: number = Number('not a number');
+      const negative: number = -Number.MAX_VALUE * 2;
+      const positive: number = Number.MAX_VALUE * 2;
+      hilog.info(0x0000, 'AssertExample', 'null=%{public}s missing=%{public}s NaN=%{public}s infinities=%{public}s',
+        String(parsed), String(missing), String(invalid), `${negative},${positive}`);
+      expect(parsed).assertNull();
+      hilog.info(0x0000, 'AssertExample', 'map key=missing result=%{public}s expected=undefined', String(missing));
+      expect(missing).assertUndefined();
+      hilog.info(0x0000, 'AssertExample', 'Number(not a number)=%{public}s expected=NaN', String(invalid));
+      expect(invalid).assertNaN();
+      hilog.info(0x0000, 'AssertExample', '-MAX_VALUE*2=%{public}s expected=-Infinity', String(negative));
+      expect(negative).assertNegUnlimited();
+      hilog.info(0x0000, 'AssertExample', 'MAX_VALUE*2=%{public}s expected=Infinity', String(positive));
+      expect(positive).assertPosUnlimited();
+    });
 
-    it('test_message', Level.LEVEL1, () => {
-      expect(1).message('1 is not equal 2!').assertEqual(2); // fail
-    })
-  })
+    /**
+     * @tc.number testJsunitAssertThrow0008
+     * @tc.name testJsunitAssertThrow0008
+     * @tc.desc Match the original Error and require a recorded failure for a wrong expected message
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertThrow0008', Level.LEVEL1, (): void => {
+      const action: () => void = (): void => {
+        throw new Error('test');
+      };
+      hilog.info(0x0000, 'AssertExample', 'throw Error(test); matching message=test');
+      expect(action).assertThrowError('test');
+      const failure: AssertionObservation = observeAssertion((service: LocalExpectService): void => {
+        hilog.info(0x0000, 'AssertExample', 'action throws Error(test); expected message=other');
+        service.expect(action).assertThrowError('other');
+      });
+      hilog.info(0x0000, 'AssertExample', 'wrong message name=%{public}s reported=%{public}s',
+        failure.name, String(failure.reported));
+      expect(failure.name).assertEqual('AssertException');
+      hilog.info(0x0000, 'AssertExample', 'wrong message diagnostic=%{public}s', failure.message);
+      expect(failure.message).assertEqual('expected throw failed , test is not other');
+      hilog.info(0x0000, 'AssertExample', 'wrong message reported=%{public}s expected=true', String(failure.reported));
+      expect(failure.reported).assertTrue();
+    });
+
+    /**
+     * @tc.number testJsunitAssertDeep0009
+     * @tc.name testJsunitAssertDeep0009
+     * @tc.desc Preserve null, array, map, object and regex comparison and detect changed content
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertDeep0009', Level.LEVEL1, (): void => {
+      const parsed: Object | null = JSON.parse('null') as Object | null;
+      const empty: number[] = [];
+      const otherEmpty: number[] = [];
+      const first: Map<number, number> = new Map<number, number>();
+      const second: Map<number, number> = new Map<number, number>();
+      first.set(1, 100);
+      first.set(2, 200);
+      second.set(1, 100);
+      second.set(2, 200);
+      const object: SampleTest = { x: 1 };
+      const otherObject: SampleTest = { x: 1 };
+      const regex: RegExp = new RegExp('/test/');
+      const otherRegex: RegExp = new RegExp('/test/');
+      hilog.info(0x0000, 'AssertExample', 'deep inputs: parsed null, empty arrays, map entries, x=1 and /test/');
+      expect(parsed).assertDeepEquals(null);
+      hilog.info(0x0000, 'AssertExample', 'array=%{public}s expected=%{public}s',
+        JSON.stringify(empty), JSON.stringify(otherEmpty));
+      expect(empty).assertDeepEquals(otherEmpty);
+      hilog.info(0x0000, 'AssertExample', 'map=%{public}s expected=%{public}s',
+        JSON.stringify(Array.from(first.entries())), JSON.stringify(Array.from(second.entries())));
+      expect(first).assertDeepEquals(second);
+      hilog.info(0x0000, 'AssertExample', 'object=%{public}s expected=%{public}s',
+        JSON.stringify(object), JSON.stringify(otherObject));
+      expect(object).assertDeepEquals(otherObject);
+      hilog.info(0x0000, 'AssertExample', 'regex=%{public}s expected=%{public}s',
+        regex.toString(), otherRegex.toString());
+      expect(regex).assertDeepEquals(otherRegex);
+      second.set(2, 201);
+      otherObject.x = 2;
+      hilog.info(0x0000, 'AssertExample', 'map=%{public}s expected different=%{public}s',
+        JSON.stringify(Array.from(first.entries())), JSON.stringify(Array.from(second.entries())));
+      expect(first).not().assertDeepEquals(second);
+      hilog.info(0x0000, 'AssertExample', 'object=%{public}s expected different=%{public}s',
+        JSON.stringify(object), JSON.stringify(otherObject));
+      expect(object).not().assertDeepEquals(otherObject);
+      hilog.info(0x0000, 'AssertExample', 'regex=%{public}s expected different pattern=/other/', regex.toString());
+      expect(regex).not().assertDeepEquals(new RegExp('/other/'));
+    });
+
+    /**
+     * @tc.number testJsunitAssertPromiseResolve0010
+     * @tc.name testJsunitAssertPromiseResolve0010
+     * @tc.desc Observe pending-to-resolved transition and the original resolved value example
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertPromiseResolve0010', Level.LEVEL1, async (): Promise<void> => {
+      let finish: (value: string) => void = (value: string): void => {};
+      const pending: Promise<string> = new Promise<string>((resolve: (value: string) => void): void => {
+        finish = resolve;
+      });
+      try {
+        hilog.info(0x0000, 'AssertExample', 'deferred promise before resolve');
+        await expect(pending).assertPromiseIsPending();
+        const info: PromiseInfo = { res: 'result value' };
+        const resolved: Promise<PromiseInfo> = Promise.resolve(info);
+        const expected: PromiseInfo = { res: 'result value' };
+        hilog.info(0x0000, 'AssertExample', 'separate promise resolves to result value');
+        await expect(resolved).assertPromiseIsResolved();
+        hilog.info(0x0000, 'AssertExample', 'resolved input=%{public}s expected=%{public}s',
+          JSON.stringify(info), JSON.stringify(expected));
+        await expect(resolved).assertPromiseIsResolvedWith(expected);
+        finish('completed');
+        hilog.info(0x0000, 'AssertExample', 'deferred promise after resolve=completed');
+        await expect(pending).assertPromiseIsResolvedWith('completed');
+      } finally {
+        finish('cleanup');
+      }
+    });
+
+    /**
+     * @tc.number testJsunitAssertPromiseReject0011
+     * @tc.name testJsunitAssertPromiseReject0011
+     * @tc.desc Combine original rejection state, rejection value and typed Error examples
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertPromiseReject0011', Level.LEVEL1, async (): Promise<void> => {
+      const no: PromiseInfo = { res: 'no' };
+      const value: PromiseInfo = { res: 'reject value' };
+      const expected: PromiseInfo = { res: 'reject value' };
+      hilog.info(0x0000, 'AssertExample', 'rejection inputs: no, reject value, TypeError(number)');
+      await expect(Promise.reject(no)).assertPromiseIsRejected();
+      hilog.info(0x0000, 'AssertExample', 'rejection input=%{public}s expected=%{public}s',
+        JSON.stringify(value), JSON.stringify(expected));
+      await expect(Promise.reject(value)).assertPromiseIsRejectedWith(expected);
+      hilog.info(0x0000, 'AssertExample', 'rejection input=TypeError(number) expected type=TypeError message=number');
+      await expect(Promise.reject(new TypeError('number'))).assertPromiseIsRejectedWithError(TypeError, 'number');
+    });
+
+    /**
+     * @tc.number testJsunitAssertMessage0003
+     * @tc.name testJsunitAssertMessage0003
+     * @tc.desc Preserve unequal operands and verify assertion error plus the custom diagnostic message
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertMessage0003', Level.LEVEL1, (): void => {
+      const failure: AssertionObservation = observeAssertion((service: LocalExpectService): void => {
+        hilog.info(0x0000, 'AssertObserve', 'actual=1 expected=2 message=1 is not equal 2!');
+        service.expect(1).message('1 is not equal 2!').assertEqual(2);
+      });
+      hilog.info(0x0000, 'AssertObserve', 'unequal operands error name=%{public}s', failure.name);
+      expect(failure.name).assertEqual('AssertException');
+      hilog.info(0x0000, 'AssertObserve', 'unequal operands error message=%{public}s', failure.message);
+      expect(failure.message).assertEqual('expect 1 equals 2');
+      hilog.info(0x0000, 'AssertObserve', 'custom diagnostic=%{public}s', failure.userMessage);
+      expect(failure.userMessage).assertEqual('1 is not equal 2!');
+      hilog.info(0x0000, 'AssertObserve', 'unequal operands reported=%{public}s', String(failure.reported));
+      expect(failure.reported).assertTrue();
+    });
+  });
 }
 
 interface SampleTest {
