@@ -1989,3 +1989,1999 @@ export default function weatherExtensionSuite() {
       const cities: City[] = getCityList();
       expect(cities[10].name).assertEqual('\u957f\u6625');
     })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1447
+     * @tc.name    WeatherExtension1447
+     * @tc.desc    Seeded city 11 keeps its temperature string
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityTemp10', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[10].temp).assertEqual('28');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1448
+     * @tc.name    WeatherExtension1448
+     * @tc.desc    Seeded city 12 keeps its name
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityName11', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[11].name).assertEqual('\u547c\u548c\u6d69\u7279');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1449
+     * @tc.name    WeatherExtension1449
+     * @tc.desc    Seeded city 12 keeps its temperature string
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityTemp11', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[11].temp).assertEqual('25');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1450
+     * @tc.name    WeatherExtension1450
+     * @tc.desc    Seeded city 13 keeps its name
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityName12', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[12].name).assertEqual('\u77f3\u5bb6\u5e84');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1451
+     * @tc.name    WeatherExtension1451
+     * @tc.desc    Seeded city 13 keeps its temperature string
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityTemp12', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[12].temp).assertEqual('25');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1452
+     * @tc.name    WeatherExtension1452
+     * @tc.desc    Seeded city 14 keeps its name
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityName13', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[13].name).assertEqual('\u94f6\u5ddd');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1453
+     * @tc.name    WeatherExtension1453
+     * @tc.desc    Seeded city 14 keeps its temperature string
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityTemp13', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[13].temp).assertEqual('25');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1454
+     * @tc.name    WeatherExtension1454
+     * @tc.desc    Seeded city 15 keeps its name
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityName14', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[14].name).assertEqual('\u4e4c\u9c81\u6728\u9f50');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1455
+     * @tc.name    WeatherExtension1455
+     * @tc.desc    Seeded city 15 keeps its temperature string
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityTemp14', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[14].temp).assertEqual('25');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1456
+     * @tc.name    WeatherExtension1456
+     * @tc.desc    Seeded city 16 keeps its name
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityName15', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[15].name).assertEqual('\u62c9\u8428');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1457
+     * @tc.name    WeatherExtension1457
+     * @tc.desc    Seeded city 16 keeps its temperature string
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityTemp15', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[15].temp).assertEqual('35');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1458
+     * @tc.name    WeatherExtension1458
+     * @tc.desc    Seeded city 17 keeps its name
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityName16', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[16].name).assertEqual('\u897f\u5b81');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1459
+     * @tc.name    WeatherExtension1459
+     * @tc.desc    Seeded city 17 keeps its temperature string
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityTemp16', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[16].temp).assertEqual('25');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1460
+     * @tc.name    WeatherExtension1460
+     * @tc.desc    Seeded city 18 keeps its name
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityName17', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[17].name).assertEqual('\u897f\u5b89');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1461
+     * @tc.name    WeatherExtension1461
+     * @tc.desc    Seeded city 18 keeps its temperature string
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityTemp17', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[17].temp).assertEqual('25');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1462
+     * @tc.name    WeatherExtension1462
+     * @tc.desc    Seeded city 19 keeps its name
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityName18', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[18].name).assertEqual('\u5170\u5dde');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1463
+     * @tc.name    WeatherExtension1463
+     * @tc.desc    Seeded city 19 keeps its temperature string
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityTemp18', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[18].temp).assertEqual('25');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1464
+     * @tc.name    WeatherExtension1464
+     * @tc.desc    Seeded city 20 keeps its name
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityName19', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[19].name).assertEqual('\u592a\u539f');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1465
+     * @tc.name    WeatherExtension1465
+     * @tc.desc    Seeded city 20 keeps its temperature string
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityTemp19', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[19].temp).assertEqual('25');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1466
+     * @tc.name    WeatherExtension1466
+     * @tc.desc    Seeded city 21 keeps its name
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityName20', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[20].name).assertEqual('\u6606\u660e');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1467
+     * @tc.name    WeatherExtension1467
+     * @tc.desc    Seeded city 21 keeps its temperature string
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityTemp20', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[20].temp).assertEqual('25');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1468
+     * @tc.name    WeatherExtension1468
+     * @tc.desc    Seeded city 22 keeps its name
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5cityName21', 0, () => {
+      const cities: City[] = getCityList();
+      expect(cities[21].name).assertEqual('\u5357\u5b81');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1469
+     * @tc.name    WeatherExtension1469
+     * @tc.desc    City 1 hour slot 0 keeps degree 30° at 09:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_00', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[0].degree).assertEqual('30\u00b0');
+      expect(hours[0].date).assertEqual('09:00');
+      expect(hours[0].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1470
+     * @tc.name    WeatherExtension1470
+     * @tc.desc    City 1 hour slot 1 keeps degree 30° at 10:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_01', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[1].degree).assertEqual('30\u00b0');
+      expect(hours[1].date).assertEqual('10:00');
+      expect(hours[1].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1471
+     * @tc.name    WeatherExtension1471
+     * @tc.desc    City 1 hour slot 2 keeps degree 31° at 11:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_02', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[2].degree).assertEqual('31\u00b0');
+      expect(hours[2].date).assertEqual('11:00');
+      expect(hours[2].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1472
+     * @tc.name    WeatherExtension1472
+     * @tc.desc    City 1 hour slot 3 keeps degree 31° at 12:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_03', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[3].degree).assertEqual('31\u00b0');
+      expect(hours[3].date).assertEqual('12:00');
+      expect(hours[3].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1473
+     * @tc.name    WeatherExtension1473
+     * @tc.desc    City 1 hour slot 4 keeps degree 32° at 13:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_04', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[4].degree).assertEqual('32\u00b0');
+      expect(hours[4].date).assertEqual('13:00');
+      expect(hours[4].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1474
+     * @tc.name    WeatherExtension1474
+     * @tc.desc    City 1 hour slot 5 keeps degree 32° at 14:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_05', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[5].degree).assertEqual('32\u00b0');
+      expect(hours[5].date).assertEqual('14:00');
+      expect(hours[5].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1475
+     * @tc.name    WeatherExtension1475
+     * @tc.desc    City 1 hour slot 6 keeps degree 31° at 15:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_06', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[6].degree).assertEqual('31\u00b0');
+      expect(hours[6].date).assertEqual('15:00');
+      expect(hours[6].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1476
+     * @tc.name    WeatherExtension1476
+     * @tc.desc    City 1 hour slot 7 keeps degree 30° at 16:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_07', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[7].degree).assertEqual('30\u00b0');
+      expect(hours[7].date).assertEqual('16:00');
+      expect(hours[7].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1477
+     * @tc.name    WeatherExtension1477
+     * @tc.desc    City 1 hour slot 8 keeps degree 30° at 17:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_08', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[8].degree).assertEqual('30\u00b0');
+      expect(hours[8].date).assertEqual('17:00');
+      expect(hours[8].win).assertEqual('\u897f\u5317\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1478
+     * @tc.name    WeatherExtension1478
+     * @tc.desc    City 1 hour slot 9 keeps degree 日落 at 17:32
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_09', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[9].degree).assertEqual('\u65e5\u843d');
+      expect(hours[9].date).assertEqual('17:32');
+      expect(hours[9].win).assertEqual('\u897f\u5317\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1479
+     * @tc.name    WeatherExtension1479
+     * @tc.desc    City 1 hour slot 10 keeps degree 29° at 18:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_10', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[10].degree).assertEqual('29\u00b0');
+      expect(hours[10].date).assertEqual('18:00');
+      expect(hours[10].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1480
+     * @tc.name    WeatherExtension1480
+     * @tc.desc    City 1 hour slot 11 keeps degree 28° at 19:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_11', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[11].degree).assertEqual('28\u00b0');
+      expect(hours[11].date).assertEqual('19:00');
+      expect(hours[11].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1481
+     * @tc.name    WeatherExtension1481
+     * @tc.desc    City 1 hour slot 12 keeps degree 28° at 20:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_12', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[12].degree).assertEqual('28\u00b0');
+      expect(hours[12].date).assertEqual('20:00');
+      expect(hours[12].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1482
+     * @tc.name    WeatherExtension1482
+     * @tc.desc    City 1 hour slot 13 keeps degree 27° at 21:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_13', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[13].degree).assertEqual('27\u00b0');
+      expect(hours[13].date).assertEqual('21:00');
+      expect(hours[13].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1483
+     * @tc.name    WeatherExtension1483
+     * @tc.desc    City 1 hour slot 14 keeps degree 27° at 22:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_14', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[14].degree).assertEqual('27\u00b0');
+      expect(hours[14].date).assertEqual('22:00');
+      expect(hours[14].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1484
+     * @tc.name    WeatherExtension1484
+     * @tc.desc    City 1 hour slot 15 keeps degree 27° at 23:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_15', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[15].degree).assertEqual('27\u00b0');
+      expect(hours[15].date).assertEqual('23:00');
+      expect(hours[15].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1485
+     * @tc.name    WeatherExtension1485
+     * @tc.desc    City 1 hour slot 16 keeps degree 26° at 00:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_16', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[16].degree).assertEqual('26\u00b0');
+      expect(hours[16].date).assertEqual('00:00');
+      expect(hours[16].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1486
+     * @tc.name    WeatherExtension1486
+     * @tc.desc    City 1 hour slot 17 keeps degree 26° at 01:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_17', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[17].degree).assertEqual('26\u00b0');
+      expect(hours[17].date).assertEqual('01:00');
+      expect(hours[17].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1487
+     * @tc.name    WeatherExtension1487
+     * @tc.desc    City 1 hour slot 18 keeps degree 26° at 02:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_18', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[18].degree).assertEqual('26\u00b0');
+      expect(hours[18].date).assertEqual('02:00');
+      expect(hours[18].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1488
+     * @tc.name    WeatherExtension1488
+     * @tc.desc    City 1 hour slot 19 keeps degree 26° at 03:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_19', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[19].degree).assertEqual('26\u00b0');
+      expect(hours[19].date).assertEqual('03:00');
+      expect(hours[19].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1489
+     * @tc.name    WeatherExtension1489
+     * @tc.desc    City 1 hour slot 20 keeps degree 26° at 04:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_20', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[20].degree).assertEqual('26\u00b0');
+      expect(hours[20].date).assertEqual('04:00');
+      expect(hours[20].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1490
+     * @tc.name    WeatherExtension1490
+     * @tc.desc    City 1 hour slot 21 keeps degree 25° at 05:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_21', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[21].degree).assertEqual('25\u00b0');
+      expect(hours[21].date).assertEqual('05:00');
+      expect(hours[21].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1491
+     * @tc.name    WeatherExtension1491
+     * @tc.desc    City 1 hour slot 22 keeps degree 26° at 06:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_22', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[22].degree).assertEqual('26\u00b0');
+      expect(hours[22].date).assertEqual('06:00');
+      expect(hours[22].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1492
+     * @tc.name    WeatherExtension1492
+     * @tc.desc    City 1 hour slot 23 keeps degree 27° at 07:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_23', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[23].degree).assertEqual('27\u00b0');
+      expect(hours[23].date).assertEqual('07:00');
+      expect(hours[23].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1493
+     * @tc.name    WeatherExtension1493
+     * @tc.desc    City 1 hour slot 24 keeps degree 29° at 08:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h00_24', 0, () => {
+      const hours: Forecast[] = getHoursData(0);
+      expect(hours[24].degree).assertEqual('29\u00b0');
+      expect(hours[24].date).assertEqual('08:00');
+      expect(hours[24].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1494
+     * @tc.name    WeatherExtension1494
+     * @tc.desc    City 2 hour slot 0 keeps degree 29° at 08:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_00', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[0].degree).assertEqual('29\u00b0');
+      expect(hours[0].date).assertEqual('08:00');
+      expect(hours[0].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1495
+     * @tc.name    WeatherExtension1495
+     * @tc.desc    City 2 hour slot 1 keeps degree 30° at 09:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_01', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[1].degree).assertEqual('30\u00b0');
+      expect(hours[1].date).assertEqual('09:00');
+      expect(hours[1].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1496
+     * @tc.name    WeatherExtension1496
+     * @tc.desc    City 2 hour slot 2 keeps degree 30° at 10:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_02', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[2].degree).assertEqual('30\u00b0');
+      expect(hours[2].date).assertEqual('10:00');
+      expect(hours[2].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1497
+     * @tc.name    WeatherExtension1497
+     * @tc.desc    City 2 hour slot 3 keeps degree 31° at 11:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_03', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[3].degree).assertEqual('31\u00b0');
+      expect(hours[3].date).assertEqual('11:00');
+      expect(hours[3].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1498
+     * @tc.name    WeatherExtension1498
+     * @tc.desc    City 2 hour slot 4 keeps degree 31° at 12:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_04', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[4].degree).assertEqual('31\u00b0');
+      expect(hours[4].date).assertEqual('12:00');
+      expect(hours[4].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1499
+     * @tc.name    WeatherExtension1499
+     * @tc.desc    City 2 hour slot 5 keeps degree 32° at 13:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_05', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[5].degree).assertEqual('32\u00b0');
+      expect(hours[5].date).assertEqual('13:00');
+      expect(hours[5].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1500
+     * @tc.name    WeatherExtension1500
+     * @tc.desc    City 2 hour slot 6 keeps degree 32° at 14:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_06', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[6].degree).assertEqual('32\u00b0');
+      expect(hours[6].date).assertEqual('14:00');
+      expect(hours[6].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1501
+     * @tc.name    WeatherExtension1501
+     * @tc.desc    City 2 hour slot 7 keeps degree 31° at 15:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_07', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[7].degree).assertEqual('31\u00b0');
+      expect(hours[7].date).assertEqual('15:00');
+      expect(hours[7].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1502
+     * @tc.name    WeatherExtension1502
+     * @tc.desc    City 2 hour slot 8 keeps degree 30° at 16:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_08', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[8].degree).assertEqual('30\u00b0');
+      expect(hours[8].date).assertEqual('16:00');
+      expect(hours[8].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1503
+     * @tc.name    WeatherExtension1503
+     * @tc.desc    City 2 hour slot 9 keeps degree 30° at 17:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_09', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[9].degree).assertEqual('30\u00b0');
+      expect(hours[9].date).assertEqual('17:00');
+      expect(hours[9].win).assertEqual('\u897f\u5317\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1504
+     * @tc.name    WeatherExtension1504
+     * @tc.desc    City 2 hour slot 10 keeps degree 日落 at 17:32
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_10', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[10].degree).assertEqual('\u65e5\u843d');
+      expect(hours[10].date).assertEqual('17:32');
+      expect(hours[10].win).assertEqual('\u897f\u5317\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1505
+     * @tc.name    WeatherExtension1505
+     * @tc.desc    City 2 hour slot 11 keeps degree 29° at 18:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_11', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[11].degree).assertEqual('29\u00b0');
+      expect(hours[11].date).assertEqual('18:00');
+      expect(hours[11].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1506
+     * @tc.name    WeatherExtension1506
+     * @tc.desc    City 2 hour slot 12 keeps degree 28° at 19:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_12', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[12].degree).assertEqual('28\u00b0');
+      expect(hours[12].date).assertEqual('19:00');
+      expect(hours[12].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1507
+     * @tc.name    WeatherExtension1507
+     * @tc.desc    City 2 hour slot 13 keeps degree 28° at 20:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_13', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[13].degree).assertEqual('28\u00b0');
+      expect(hours[13].date).assertEqual('20:00');
+      expect(hours[13].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1508
+     * @tc.name    WeatherExtension1508
+     * @tc.desc    City 2 hour slot 14 keeps degree 27° at 21:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_14', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[14].degree).assertEqual('27\u00b0');
+      expect(hours[14].date).assertEqual('21:00');
+      expect(hours[14].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1509
+     * @tc.name    WeatherExtension1509
+     * @tc.desc    City 2 hour slot 15 keeps degree 27° at 22:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_15', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[15].degree).assertEqual('27\u00b0');
+      expect(hours[15].date).assertEqual('22:00');
+      expect(hours[15].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1510
+     * @tc.name    WeatherExtension1510
+     * @tc.desc    City 2 hour slot 16 keeps degree 27° at 23:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_16', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[16].degree).assertEqual('27\u00b0');
+      expect(hours[16].date).assertEqual('23:00');
+      expect(hours[16].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1511
+     * @tc.name    WeatherExtension1511
+     * @tc.desc    City 2 hour slot 17 keeps degree 26° at 00:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_17', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[17].degree).assertEqual('26\u00b0');
+      expect(hours[17].date).assertEqual('00:00');
+      expect(hours[17].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1512
+     * @tc.name    WeatherExtension1512
+     * @tc.desc    City 2 hour slot 18 keeps degree 26° at 01:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_18', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[18].degree).assertEqual('26\u00b0');
+      expect(hours[18].date).assertEqual('01:00');
+      expect(hours[18].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1513
+     * @tc.name    WeatherExtension1513
+     * @tc.desc    City 2 hour slot 19 keeps degree 26° at 02:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_19', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[19].degree).assertEqual('26\u00b0');
+      expect(hours[19].date).assertEqual('02:00');
+      expect(hours[19].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1514
+     * @tc.name    WeatherExtension1514
+     * @tc.desc    City 2 hour slot 20 keeps degree 26° at 03:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_20', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[20].degree).assertEqual('26\u00b0');
+      expect(hours[20].date).assertEqual('03:00');
+      expect(hours[20].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1515
+     * @tc.name    WeatherExtension1515
+     * @tc.desc    City 2 hour slot 21 keeps degree 26° at 04:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_21', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[21].degree).assertEqual('26\u00b0');
+      expect(hours[21].date).assertEqual('04:00');
+      expect(hours[21].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1516
+     * @tc.name    WeatherExtension1516
+     * @tc.desc    City 2 hour slot 22 keeps degree 25° at 05:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_22', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[22].degree).assertEqual('25\u00b0');
+      expect(hours[22].date).assertEqual('05:00');
+      expect(hours[22].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1517
+     * @tc.name    WeatherExtension1517
+     * @tc.desc    City 2 hour slot 23 keeps degree 26° at 06:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_23', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[23].degree).assertEqual('26\u00b0');
+      expect(hours[23].date).assertEqual('06:00');
+      expect(hours[23].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1518
+     * @tc.name    WeatherExtension1518
+     * @tc.desc    City 2 hour slot 24 keeps degree 27° at 07:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h01_24', 0, () => {
+      const hours: Forecast[] = getHoursData(1);
+      expect(hours[24].degree).assertEqual('27\u00b0');
+      expect(hours[24].date).assertEqual('07:00');
+      expect(hours[24].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1519
+     * @tc.name    WeatherExtension1519
+     * @tc.desc    City 3 hour slot 0 keeps degree 29° at 08:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_00', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[0].degree).assertEqual('29\u00b0');
+      expect(hours[0].date).assertEqual('08:00');
+      expect(hours[0].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1520
+     * @tc.name    WeatherExtension1520
+     * @tc.desc    City 3 hour slot 1 keeps degree 30° at 09:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_01', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[1].degree).assertEqual('30\u00b0');
+      expect(hours[1].date).assertEqual('09:00');
+      expect(hours[1].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1521
+     * @tc.name    WeatherExtension1521
+     * @tc.desc    City 3 hour slot 2 keeps degree 30° at 10:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_02', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[2].degree).assertEqual('30\u00b0');
+      expect(hours[2].date).assertEqual('10:00');
+      expect(hours[2].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1522
+     * @tc.name    WeatherExtension1522
+     * @tc.desc    City 3 hour slot 3 keeps degree 31° at 11:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_03', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[3].degree).assertEqual('31\u00b0');
+      expect(hours[3].date).assertEqual('11:00');
+      expect(hours[3].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1523
+     * @tc.name    WeatherExtension1523
+     * @tc.desc    City 3 hour slot 4 keeps degree 31° at 12:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_04', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[4].degree).assertEqual('31\u00b0');
+      expect(hours[4].date).assertEqual('12:00');
+      expect(hours[4].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1524
+     * @tc.name    WeatherExtension1524
+     * @tc.desc    City 3 hour slot 5 keeps degree 32° at 13:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_05', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[5].degree).assertEqual('32\u00b0');
+      expect(hours[5].date).assertEqual('13:00');
+      expect(hours[5].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1525
+     * @tc.name    WeatherExtension1525
+     * @tc.desc    City 3 hour slot 6 keeps degree 32° at 14:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_06', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[6].degree).assertEqual('32\u00b0');
+      expect(hours[6].date).assertEqual('14:00');
+      expect(hours[6].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1526
+     * @tc.name    WeatherExtension1526
+     * @tc.desc    City 3 hour slot 7 keeps degree 31° at 15:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_07', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[7].degree).assertEqual('31\u00b0');
+      expect(hours[7].date).assertEqual('15:00');
+      expect(hours[7].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1527
+     * @tc.name    WeatherExtension1527
+     * @tc.desc    City 3 hour slot 8 keeps degree 30° at 16:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_08', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[8].degree).assertEqual('30\u00b0');
+      expect(hours[8].date).assertEqual('16:00');
+      expect(hours[8].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1528
+     * @tc.name    WeatherExtension1528
+     * @tc.desc    City 3 hour slot 9 keeps degree 30° at 17:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_09', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[9].degree).assertEqual('30\u00b0');
+      expect(hours[9].date).assertEqual('17:00');
+      expect(hours[9].win).assertEqual('\u897f\u5317\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1529
+     * @tc.name    WeatherExtension1529
+     * @tc.desc    City 3 hour slot 10 keeps degree 日落 at 17:32
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_10', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[10].degree).assertEqual('\u65e5\u843d');
+      expect(hours[10].date).assertEqual('17:32');
+      expect(hours[10].win).assertEqual('\u897f\u5317\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1530
+     * @tc.name    WeatherExtension1530
+     * @tc.desc    City 3 hour slot 11 keeps degree 29° at 18:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_11', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[11].degree).assertEqual('29\u00b0');
+      expect(hours[11].date).assertEqual('18:00');
+      expect(hours[11].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1531
+     * @tc.name    WeatherExtension1531
+     * @tc.desc    City 3 hour slot 12 keeps degree 28° at 19:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_12', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[12].degree).assertEqual('28\u00b0');
+      expect(hours[12].date).assertEqual('19:00');
+      expect(hours[12].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1532
+     * @tc.name    WeatherExtension1532
+     * @tc.desc    City 3 hour slot 13 keeps degree 28° at 20:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_13', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[13].degree).assertEqual('28\u00b0');
+      expect(hours[13].date).assertEqual('20:00');
+      expect(hours[13].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1533
+     * @tc.name    WeatherExtension1533
+     * @tc.desc    City 3 hour slot 14 keeps degree 27° at 21:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_14', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[14].degree).assertEqual('27\u00b0');
+      expect(hours[14].date).assertEqual('21:00');
+      expect(hours[14].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1534
+     * @tc.name    WeatherExtension1534
+     * @tc.desc    City 3 hour slot 15 keeps degree 27° at 22:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_15', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[15].degree).assertEqual('27\u00b0');
+      expect(hours[15].date).assertEqual('22:00');
+      expect(hours[15].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1535
+     * @tc.name    WeatherExtension1535
+     * @tc.desc    City 3 hour slot 16 keeps degree 27° at 23:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_16', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[16].degree).assertEqual('27\u00b0');
+      expect(hours[16].date).assertEqual('23:00');
+      expect(hours[16].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1536
+     * @tc.name    WeatherExtension1536
+     * @tc.desc    City 3 hour slot 17 keeps degree 26° at 00:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_17', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[17].degree).assertEqual('26\u00b0');
+      expect(hours[17].date).assertEqual('00:00');
+      expect(hours[17].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1537
+     * @tc.name    WeatherExtension1537
+     * @tc.desc    City 3 hour slot 18 keeps degree 26° at 01:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_18', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[18].degree).assertEqual('26\u00b0');
+      expect(hours[18].date).assertEqual('01:00');
+      expect(hours[18].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1538
+     * @tc.name    WeatherExtension1538
+     * @tc.desc    City 3 hour slot 19 keeps degree 26° at 02:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_19', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[19].degree).assertEqual('26\u00b0');
+      expect(hours[19].date).assertEqual('02:00');
+      expect(hours[19].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1539
+     * @tc.name    WeatherExtension1539
+     * @tc.desc    City 3 hour slot 20 keeps degree 26° at 03:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_20', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[20].degree).assertEqual('26\u00b0');
+      expect(hours[20].date).assertEqual('03:00');
+      expect(hours[20].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1540
+     * @tc.name    WeatherExtension1540
+     * @tc.desc    City 3 hour slot 21 keeps degree 26° at 04:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_21', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[21].degree).assertEqual('26\u00b0');
+      expect(hours[21].date).assertEqual('04:00');
+      expect(hours[21].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1541
+     * @tc.name    WeatherExtension1541
+     * @tc.desc    City 3 hour slot 22 keeps degree 25° at 05:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_22', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[22].degree).assertEqual('25\u00b0');
+      expect(hours[22].date).assertEqual('05:00');
+      expect(hours[22].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1542
+     * @tc.name    WeatherExtension1542
+     * @tc.desc    City 3 hour slot 23 keeps degree 26° at 06:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_23', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[23].degree).assertEqual('26\u00b0');
+      expect(hours[23].date).assertEqual('06:00');
+      expect(hours[23].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1543
+     * @tc.name    WeatherExtension1543
+     * @tc.desc    City 3 hour slot 24 keeps degree 27° at 07:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h02_24', 0, () => {
+      const hours: Forecast[] = getHoursData(2);
+      expect(hours[24].degree).assertEqual('27\u00b0');
+      expect(hours[24].date).assertEqual('07:00');
+      expect(hours[24].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1544
+     * @tc.name    WeatherExtension1544
+     * @tc.desc    City 4 hour slot 0 keeps degree 29° at 08:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_00', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[0].degree).assertEqual('29\u00b0');
+      expect(hours[0].date).assertEqual('08:00');
+      expect(hours[0].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1545
+     * @tc.name    WeatherExtension1545
+     * @tc.desc    City 4 hour slot 1 keeps degree 30° at 09:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_01', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[1].degree).assertEqual('30\u00b0');
+      expect(hours[1].date).assertEqual('09:00');
+      expect(hours[1].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1546
+     * @tc.name    WeatherExtension1546
+     * @tc.desc    City 4 hour slot 2 keeps degree 30° at 10:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_02', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[2].degree).assertEqual('30\u00b0');
+      expect(hours[2].date).assertEqual('10:00');
+      expect(hours[2].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1547
+     * @tc.name    WeatherExtension1547
+     * @tc.desc    City 4 hour slot 3 keeps degree 31° at 11:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_03', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[3].degree).assertEqual('31\u00b0');
+      expect(hours[3].date).assertEqual('11:00');
+      expect(hours[3].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1548
+     * @tc.name    WeatherExtension1548
+     * @tc.desc    City 4 hour slot 4 keeps degree 31° at 12:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_04', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[4].degree).assertEqual('31\u00b0');
+      expect(hours[4].date).assertEqual('12:00');
+      expect(hours[4].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1549
+     * @tc.name    WeatherExtension1549
+     * @tc.desc    City 4 hour slot 5 keeps degree 32° at 13:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_05', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[5].degree).assertEqual('32\u00b0');
+      expect(hours[5].date).assertEqual('13:00');
+      expect(hours[5].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1550
+     * @tc.name    WeatherExtension1550
+     * @tc.desc    City 4 hour slot 6 keeps degree 32° at 14:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_06', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[6].degree).assertEqual('32\u00b0');
+      expect(hours[6].date).assertEqual('14:00');
+      expect(hours[6].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1551
+     * @tc.name    WeatherExtension1551
+     * @tc.desc    City 4 hour slot 7 keeps degree 31° at 15:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_07', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[7].degree).assertEqual('31\u00b0');
+      expect(hours[7].date).assertEqual('15:00');
+      expect(hours[7].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1552
+     * @tc.name    WeatherExtension1552
+     * @tc.desc    City 4 hour slot 8 keeps degree 30° at 16:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_08', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[8].degree).assertEqual('30\u00b0');
+      expect(hours[8].date).assertEqual('16:00');
+      expect(hours[8].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1553
+     * @tc.name    WeatherExtension1553
+     * @tc.desc    City 4 hour slot 9 keeps degree 30° at 17:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_09', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[9].degree).assertEqual('30\u00b0');
+      expect(hours[9].date).assertEqual('17:00');
+      expect(hours[9].win).assertEqual('\u897f\u5317\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1554
+     * @tc.name    WeatherExtension1554
+     * @tc.desc    City 4 hour slot 10 keeps degree 日落 at 17:32
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_10', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[10].degree).assertEqual('\u65e5\u843d');
+      expect(hours[10].date).assertEqual('17:32');
+      expect(hours[10].win).assertEqual('\u897f\u5317\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1555
+     * @tc.name    WeatherExtension1555
+     * @tc.desc    City 4 hour slot 11 keeps degree 29° at 18:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_11', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[11].degree).assertEqual('29\u00b0');
+      expect(hours[11].date).assertEqual('18:00');
+      expect(hours[11].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1556
+     * @tc.name    WeatherExtension1556
+     * @tc.desc    City 4 hour slot 12 keeps degree 28° at 19:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_12', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[12].degree).assertEqual('28\u00b0');
+      expect(hours[12].date).assertEqual('19:00');
+      expect(hours[12].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1557
+     * @tc.name    WeatherExtension1557
+     * @tc.desc    City 4 hour slot 13 keeps degree 28° at 20:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_13', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[13].degree).assertEqual('28\u00b0');
+      expect(hours[13].date).assertEqual('20:00');
+      expect(hours[13].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1558
+     * @tc.name    WeatherExtension1558
+     * @tc.desc    City 4 hour slot 14 keeps degree 27° at 21:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_14', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[14].degree).assertEqual('27\u00b0');
+      expect(hours[14].date).assertEqual('21:00');
+      expect(hours[14].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1559
+     * @tc.name    WeatherExtension1559
+     * @tc.desc    City 4 hour slot 15 keeps degree 27° at 22:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_15', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[15].degree).assertEqual('27\u00b0');
+      expect(hours[15].date).assertEqual('22:00');
+      expect(hours[15].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1560
+     * @tc.name    WeatherExtension1560
+     * @tc.desc    City 4 hour slot 16 keeps degree 27° at 23:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_16', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[16].degree).assertEqual('27\u00b0');
+      expect(hours[16].date).assertEqual('23:00');
+      expect(hours[16].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1561
+     * @tc.name    WeatherExtension1561
+     * @tc.desc    City 4 hour slot 17 keeps degree 26° at 00:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_17', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[17].degree).assertEqual('26\u00b0');
+      expect(hours[17].date).assertEqual('00:00');
+      expect(hours[17].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1562
+     * @tc.name    WeatherExtension1562
+     * @tc.desc    City 4 hour slot 18 keeps degree 26° at 01:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_18', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[18].degree).assertEqual('26\u00b0');
+      expect(hours[18].date).assertEqual('01:00');
+      expect(hours[18].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1563
+     * @tc.name    WeatherExtension1563
+     * @tc.desc    City 4 hour slot 19 keeps degree 26° at 02:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_19', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[19].degree).assertEqual('26\u00b0');
+      expect(hours[19].date).assertEqual('02:00');
+      expect(hours[19].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1564
+     * @tc.name    WeatherExtension1564
+     * @tc.desc    City 4 hour slot 20 keeps degree 26° at 03:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_20', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[20].degree).assertEqual('26\u00b0');
+      expect(hours[20].date).assertEqual('03:00');
+      expect(hours[20].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1565
+     * @tc.name    WeatherExtension1565
+     * @tc.desc    City 4 hour slot 21 keeps degree 26° at 04:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_21', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[21].degree).assertEqual('26\u00b0');
+      expect(hours[21].date).assertEqual('04:00');
+      expect(hours[21].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1566
+     * @tc.name    WeatherExtension1566
+     * @tc.desc    City 4 hour slot 22 keeps degree 25° at 05:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_22', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[22].degree).assertEqual('25\u00b0');
+      expect(hours[22].date).assertEqual('05:00');
+      expect(hours[22].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1567
+     * @tc.name    WeatherExtension1567
+     * @tc.desc    City 4 hour slot 23 keeps degree 26° at 06:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_23', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[23].degree).assertEqual('26\u00b0');
+      expect(hours[23].date).assertEqual('06:00');
+      expect(hours[23].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1568
+     * @tc.name    WeatherExtension1568
+     * @tc.desc    City 4 hour slot 24 keeps degree 27° at 07:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h03_24', 0, () => {
+      const hours: Forecast[] = getHoursData(3);
+      expect(hours[24].degree).assertEqual('27\u00b0');
+      expect(hours[24].date).assertEqual('07:00');
+      expect(hours[24].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1569
+     * @tc.name    WeatherExtension1569
+     * @tc.desc    City 5 hour slot 0 keeps degree 25° at 08:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_00', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[0].degree).assertEqual('25\u00b0');
+      expect(hours[0].date).assertEqual('08:00');
+      expect(hours[0].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1570
+     * @tc.name    WeatherExtension1570
+     * @tc.desc    City 5 hour slot 1 keeps degree 27° at 09:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_01', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[1].degree).assertEqual('27\u00b0');
+      expect(hours[1].date).assertEqual('09:00');
+      expect(hours[1].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1571
+     * @tc.name    WeatherExtension1571
+     * @tc.desc    City 5 hour slot 2 keeps degree 27° at 10:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_02', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[2].degree).assertEqual('27\u00b0');
+      expect(hours[2].date).assertEqual('10:00');
+      expect(hours[2].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1572
+     * @tc.name    WeatherExtension1572
+     * @tc.desc    City 5 hour slot 3 keeps degree 28° at 11:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_03', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[3].degree).assertEqual('28\u00b0');
+      expect(hours[3].date).assertEqual('11:00');
+      expect(hours[3].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1573
+     * @tc.name    WeatherExtension1573
+     * @tc.desc    City 5 hour slot 4 keeps degree 28° at 12:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_04', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[4].degree).assertEqual('28\u00b0');
+      expect(hours[4].date).assertEqual('12:00');
+      expect(hours[4].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1574
+     * @tc.name    WeatherExtension1574
+     * @tc.desc    City 5 hour slot 5 keeps degree 28° at 13:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_05', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[5].degree).assertEqual('28\u00b0');
+      expect(hours[5].date).assertEqual('13:00');
+      expect(hours[5].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1575
+     * @tc.name    WeatherExtension1575
+     * @tc.desc    City 5 hour slot 6 keeps degree 27° at 14:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_06', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[6].degree).assertEqual('27\u00b0');
+      expect(hours[6].date).assertEqual('14:00');
+      expect(hours[6].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1576
+     * @tc.name    WeatherExtension1576
+     * @tc.desc    City 5 hour slot 7 keeps degree 27° at 15:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_07', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[7].degree).assertEqual('27\u00b0');
+      expect(hours[7].date).assertEqual('15:00');
+      expect(hours[7].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1577
+     * @tc.name    WeatherExtension1577
+     * @tc.desc    City 5 hour slot 8 keeps degree 26° at 16:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_08', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[8].degree).assertEqual('26\u00b0');
+      expect(hours[8].date).assertEqual('16:00');
+      expect(hours[8].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1578
+     * @tc.name    WeatherExtension1578
+     * @tc.desc    City 5 hour slot 9 keeps degree 27° at 17:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_09', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[9].degree).assertEqual('27\u00b0');
+      expect(hours[9].date).assertEqual('17:00');
+      expect(hours[9].win).assertEqual('\u5317\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1579
+     * @tc.name    WeatherExtension1579
+     * @tc.desc    City 5 hour slot 10 keeps degree 日落 at 17:32
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_10', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[10].degree).assertEqual('\u65e5\u843d');
+      expect(hours[10].date).assertEqual('17:32');
+      expect(hours[10].win).assertEqual('\u5317\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1580
+     * @tc.name    WeatherExtension1580
+     * @tc.desc    City 5 hour slot 11 keeps degree 27° at 18:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_11', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[11].degree).assertEqual('27\u00b0');
+      expect(hours[11].date).assertEqual('18:00');
+      expect(hours[11].win).assertEqual('\u897f\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1581
+     * @tc.name    WeatherExtension1581
+     * @tc.desc    City 5 hour slot 12 keeps degree 26° at 19:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_12', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[12].degree).assertEqual('26\u00b0');
+      expect(hours[12].date).assertEqual('19:00');
+      expect(hours[12].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1582
+     * @tc.name    WeatherExtension1582
+     * @tc.desc    City 5 hour slot 13 keeps degree 25° at 20:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_13', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[13].degree).assertEqual('25\u00b0');
+      expect(hours[13].date).assertEqual('20:00');
+      expect(hours[13].win).assertEqual('\u897f\u5357\u98ce');
+    })
