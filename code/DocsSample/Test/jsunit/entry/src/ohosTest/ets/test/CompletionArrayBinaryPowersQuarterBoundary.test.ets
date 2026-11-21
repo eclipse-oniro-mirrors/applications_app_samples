@@ -1728,3 +1728,129 @@ async function runAssertion0112(): Promise<void> {
         0.5,
         1,
         2,
+        4,
+        8,
+        16,
+        32,
+        64,
+        128,
+        256,
+        512,
+        -0.25,
+        -0.5,
+        -1,
+        -2,
+        -4,
+        -8,
+        -16,
+        -32,
+        -64,
+        -128,
+        -256,
+        -512,
+        0.25,
+        0.5,
+        1,
+        2,
+        4,
+        8,
+        16,
+        32,
+        64,
+        128,
+        256,
+        512,
+        -0.25,
+        -0.5,
+        -1,
+        -2,
+        -4,
+        -8,
+        -16,
+        -32,
+        -64,
+        -128,
+        -256,
+        -512,
+        0.25,
+        0.5,
+        1,
+        2,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      message:
+        'expect [0.25,0.5,1,2,4,8,16,32,64,128,256,512,-0.25,-0.5,-1,-2,-4,-8,-16,-32,-64,' +
+        '-128,-256,-512,0.25,0.5,1,2,4,8,16,32,64,128,256,512,-0.25,-0.5,-1,-2,-4,-8,-16,-32,' +
+        '-64,-128,-256,-512,0.25,0.5,1,2,4,8,16,32,64,128,256,512,-0.25,-0.5,-1,-2,-4,-8,-16,' +
+        '-32,-64,-128,-256,-512,0.25,0.5,1,2,4,8,16,32,64,128,256,512,-0.25,-0.5,-1,-2,-4,-8,' +
+        '-16,-32,-64,-128,-256,-512,0.25,0.5,1,2,4,8,16,32,64] deep equals [0.25,0.5,1,2,4,8,' +
+        '16,32,64,128,256,512,-0.25,-0.5,-1,-2,-4,-8,-16,-32,-64,-128,-256,-512,0.25,0.5,1,2,' +
+        '4,8,16,32,64,128,256,512,-0.25,-0.5,-1,-2,-4,-8,-16,-32,-64,-128,-256,-512,0.25,0.5,' +
+        '1,2,4,8,16,32,64,128,256,512,-0.25,-0.5,-1,-2,-4,-8,-16,-32,-64,-128,-256,-512,0.25,' +
+        '0.5,1,2,4,8,16,32,64,128,256,512,-0.25,-0.5,-1,-2,-4,-8,-16,-32,-64,-128,-256,-512,' +
+        '0.25,0.5,1,2,4,8,16,32,64]'
+    }
+  ];
+  await runArrayRows(rows);
+}
+
+export default function arrayBinaryPowersQuarterBoundary(): void {
+  describe('ArrayBinaryPowersQuarterBoundary', (): void => {
+    beforeEach(async (): Promise<void> => {
+      await paceTurn();
+    });
+
+    /**
+     * @tc.number testJsunitAssertion0109
+     * @tc.name testJsunitAssertion0109
+     * @tc.desc BinaryPowersQuarterHeadValue: observe acceptance, rejection and record recovery
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertion0109', 0, async (): Promise<void> => {
+      await runAssertion0109();
+    });
+
+    /**
+     * @tc.number testJsunitAssertion0110
+     * @tc.name testJsunitAssertion0110
+     * @tc.desc BinaryPowersQuarterTailInversion: observe acceptance, rejection and record recovery
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertion0110', 0, async (): Promise<void> => {
+      await runAssertion0110();
+    });
+
+    /**
+     * @tc.number testJsunitAssertion0111
+     * @tc.name testJsunitAssertion0111
+     * @tc.desc BinaryPowersQuarterLengthBoundary: observe acceptance, rejection and record recovery
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertion0111', 0, async (): Promise<void> => {
+      await runAssertion0111();
+    });
+
+    /**
+     * @tc.number testJsunitAssertion0112
+     * @tc.name testJsunitAssertion0112
+     * @tc.desc BinaryPowersQuarterInteriorOrder: observe acceptance, rejection and record recovery
+     * @tc.size SmallTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitAssertion0112', 0, async (): Promise<void> => {
+      await runAssertion0112();
+    });
+
+  });
+}
