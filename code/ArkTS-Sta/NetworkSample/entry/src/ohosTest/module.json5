@@ -17,10 +17,6 @@
   "module": {
     "name": "entry_test",
     "type": "feature",
-    "testRunner": {
-      "name": "test",
-      "srcPath": "./ets/testrunner/OpenHarmonyTestRunner"
-    },
     "deviceTypes": [
       "default"
     ],
