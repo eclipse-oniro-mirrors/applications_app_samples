@@ -247,16 +247,16 @@ export default function normalizeKeyMatrixTest(): void {
     /**
      * @tc.number    SUB_DYNAMIC_ISOLATION_PROCESS_NORMALIZE_KEY_MATRIX_0015
      * @tc.name      DynamicIsolationProcess_normalizeKey_Matrix_0015
-     * @tc.desc      [WhitespaceString] Verify normalizeKey(  v8  ) returns v8.
+     * @tc.desc      [WhitespaceString] Verify normalizeKey(  abc  ) returns abc.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL2
      */
     it('DynamicIsolationProcess_normalizeKey_Matrix_0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
-      // Category: WhitespaceString; expected: v8
-      const actual: string = IsolationModel.normalizeKey('  v8  ');
-      expect(actual).assertEqual('v8');
-      expect(actual.length).assertEqual(2);
+      // Category: WhitespaceString; expected: abc
+      const actual: string = IsolationModel.normalizeKey('  abc  ');
+      expect(actual).assertEqual('abc');
+      expect(actual.length).assertEqual(3);
     });
 
     /**

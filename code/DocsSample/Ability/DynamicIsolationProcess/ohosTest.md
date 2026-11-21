@@ -78,26 +78,8 @@
 
 前置：已安装 `entry-default-signed.hap` 与 `entry-ohosTest-signed.hap`。
 
-四批依次执行：
+四批依次执行：每批先通过 `hdc shell` 停止应用进程，再通过 OpenHarmony Ability assistant（Ability 助手）的 `test` 命令执行，公共参数为 `-b com.sample.dynamicisolationprocess -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 15000 -s batches 4`，`-s batch` 依次取 `0`、`1`、`2`、`3`。
 
-```powershell
-hdc shell aa force-stop com.sample.dynamicisolationprocess
-hdc shell aa test -b com.sample.dynamicisolationprocess -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 15000 -s batch 0 -s batches 4
-
-hdc shell aa force-stop com.sample.dynamicisolationprocess
-hdc shell aa test -b com.sample.dynamicisolationprocess -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 15000 -s batch 1 -s batches 4
-
-hdc shell aa force-stop com.sample.dynamicisolationprocess
-hdc shell aa test -b com.sample.dynamicisolationprocess -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 15000 -s batch 2 -s batches 4
-
-hdc shell aa force-stop com.sample.dynamicisolationprocess
-hdc shell aa test -b com.sample.dynamicisolationprocess -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 15000 -s batch 3 -s batches 4
-```
-
-一条命令顺序跑完四批：
-
-```powershell
-for ($b=0; $b -lt 4; $b++) { hdc shell aa force-stop com.sample.dynamicisolationprocess; hdc shell aa test -b com.sample.dynamicisolationprocess -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 15000 -s batch $b -s batches 4 | Select-String "OHOS_REPORT_RESULT|TestFinished|App died" }
-```
+一条命令顺序跑完四批：在 PowerShell 中循环执行上述停止进程与 `test` 命令（`batch` 从 `0` 到 `3`），并过滤 `OHOS_REPORT_RESULT|TestFinished|App died`。
 
 > `hdc` 不在 PATH 时使用全路径：`D:\OpenHarmony\sdk\26.0.0\toolchains\hdc.exe`。
