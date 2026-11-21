@@ -3985,3 +3985,2002 @@ export default function weatherExtensionSuite() {
       expect(hours[13].date).assertEqual('20:00');
       expect(hours[13].win).assertEqual('\u897f\u5357\u98ce');
     })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1583
+     * @tc.name    WeatherExtension1583
+     * @tc.desc    City 5 hour slot 14 keeps degree 25° at 21:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_14', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[14].degree).assertEqual('25\u00b0');
+      expect(hours[14].date).assertEqual('21:00');
+      expect(hours[14].win).assertEqual('\u897f\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1584
+     * @tc.name    WeatherExtension1584
+     * @tc.desc    City 5 hour slot 15 keeps degree 24° at 22:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_15', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[15].degree).assertEqual('24\u00b0');
+      expect(hours[15].date).assertEqual('22:00');
+      expect(hours[15].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1585
+     * @tc.name    WeatherExtension1585
+     * @tc.desc    City 5 hour slot 16 keeps degree 24° at 23:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_16', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[16].degree).assertEqual('24\u00b0');
+      expect(hours[16].date).assertEqual('23:00');
+      expect(hours[16].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1586
+     * @tc.name    WeatherExtension1586
+     * @tc.desc    City 5 hour slot 17 keeps degree 24° at 00:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_17', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[17].degree).assertEqual('24\u00b0');
+      expect(hours[17].date).assertEqual('00:00');
+      expect(hours[17].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1587
+     * @tc.name    WeatherExtension1587
+     * @tc.desc    City 5 hour slot 18 keeps degree 24° at 01:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_18', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[18].degree).assertEqual('24\u00b0');
+      expect(hours[18].date).assertEqual('01:00');
+      expect(hours[18].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1588
+     * @tc.name    WeatherExtension1588
+     * @tc.desc    City 5 hour slot 19 keeps degree 24° at 02:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_19', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[19].degree).assertEqual('24\u00b0');
+      expect(hours[19].date).assertEqual('02:00');
+      expect(hours[19].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1589
+     * @tc.name    WeatherExtension1589
+     * @tc.desc    City 5 hour slot 20 keeps degree 23° at 03:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_20', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[20].degree).assertEqual('23\u00b0');
+      expect(hours[20].date).assertEqual('03:00');
+      expect(hours[20].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1590
+     * @tc.name    WeatherExtension1590
+     * @tc.desc    City 5 hour slot 21 keeps degree 24° at 04:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_21', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[21].degree).assertEqual('24\u00b0');
+      expect(hours[21].date).assertEqual('04:00');
+      expect(hours[21].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1591
+     * @tc.name    WeatherExtension1591
+     * @tc.desc    City 5 hour slot 22 keeps degree 25° at 05:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_22', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[22].degree).assertEqual('25\u00b0');
+      expect(hours[22].date).assertEqual('05:00');
+      expect(hours[22].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1592
+     * @tc.name    WeatherExtension1592
+     * @tc.desc    City 5 hour slot 23 keeps degree 25° at 06:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_23', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[23].degree).assertEqual('25\u00b0');
+      expect(hours[23].date).assertEqual('06:00');
+      expect(hours[23].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1593
+     * @tc.name    WeatherExtension1593
+     * @tc.desc    City 5 hour slot 24 keeps degree 26° at 07:00
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5h04_24', 0, () => {
+      const hours: Forecast[] = getHoursData(4);
+      expect(hours[24].degree).assertEqual('26\u00b0');
+      expect(hours[24].date).assertEqual('07:00');
+      expect(hours[24].win).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1594
+     * @tc.name    WeatherExtension1594
+     * @tc.desc    City 1 day 0 keeps the maximum 35
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax00_00', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(0);
+      expect(week[0].max).assertEqual('35');
+      expect(week[0].min).assertEqual('25');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1595
+     * @tc.name    WeatherExtension1595
+     * @tc.desc    City 1 day 0 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea00_00', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(0);
+      expect(week[0].weather).assertEqual('\u9634');
+      expect(week[0].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1596
+     * @tc.name    WeatherExtension1596
+     * @tc.desc    City 1 day 1 keeps the maximum 35
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax00_01', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(0);
+      expect(week[1].max).assertEqual('35');
+      expect(week[1].min).assertEqual('25');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1597
+     * @tc.name    WeatherExtension1597
+     * @tc.desc    City 1 day 1 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea00_01', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(0);
+      expect(week[1].weather).assertEqual('\u6674');
+      expect(week[1].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1598
+     * @tc.name    WeatherExtension1598
+     * @tc.desc    City 1 day 2 keeps the maximum 32
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax00_02', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(0);
+      expect(week[2].max).assertEqual('32');
+      expect(week[2].min).assertEqual('26');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1599
+     * @tc.name    WeatherExtension1599
+     * @tc.desc    City 1 day 2 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea00_02', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(0);
+      expect(week[2].weather).assertEqual('\u591a\u4e91');
+      expect(week[2].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1600
+     * @tc.name    WeatherExtension1600
+     * @tc.desc    City 1 day 3 keeps the maximum 36
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax00_03', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(0);
+      expect(week[3].max).assertEqual('36');
+      expect(week[3].min).assertEqual('27');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1601
+     * @tc.name    WeatherExtension1601
+     * @tc.desc    City 1 day 3 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea00_03', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(0);
+      expect(week[3].weather).assertEqual('\u5c0f\u96e8');
+      expect(week[3].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1602
+     * @tc.name    WeatherExtension1602
+     * @tc.desc    City 1 day 4 keeps the maximum 36
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax00_04', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(0);
+      expect(week[4].max).assertEqual('36');
+      expect(week[4].min).assertEqual('26');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1603
+     * @tc.name    WeatherExtension1603
+     * @tc.desc    City 1 day 4 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea00_04', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(0);
+      expect(week[4].weather).assertEqual('\u9634');
+      expect(week[4].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1604
+     * @tc.name    WeatherExtension1604
+     * @tc.desc    City 1 day 5 keeps the maximum 36
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax00_05', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(0);
+      expect(week[5].max).assertEqual('36');
+      expect(week[5].min).assertEqual('27');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1605
+     * @tc.name    WeatherExtension1605
+     * @tc.desc    City 1 day 5 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea00_05', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(0);
+      expect(week[5].weather).assertEqual('\u6674');
+      expect(week[5].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1606
+     * @tc.name    WeatherExtension1606
+     * @tc.desc    City 1 day 6 keeps the maximum 35
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax00_06', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(0);
+      expect(week[6].max).assertEqual('35');
+      expect(week[6].min).assertEqual('26');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1607
+     * @tc.name    WeatherExtension1607
+     * @tc.desc    City 1 day 6 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea00_06', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(0);
+      expect(week[6].weather).assertEqual('\u591a\u4e91');
+      expect(week[6].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1608
+     * @tc.name    WeatherExtension1608
+     * @tc.desc    City 2 day 0 keeps the maximum 36
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax01_00', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(1);
+      expect(week[0].max).assertEqual('36');
+      expect(week[0].min).assertEqual('28');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1609
+     * @tc.name    WeatherExtension1609
+     * @tc.desc    City 2 day 0 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea01_00', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(1);
+      expect(week[0].weather).assertEqual('\u591a\u4e91');
+      expect(week[0].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1610
+     * @tc.name    WeatherExtension1610
+     * @tc.desc    City 2 day 1 keeps the maximum 32
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax01_01', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(1);
+      expect(week[1].max).assertEqual('32');
+      expect(week[1].min).assertEqual('25');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1611
+     * @tc.name    WeatherExtension1611
+     * @tc.desc    City 2 day 1 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea01_01', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(1);
+      expect(week[1].weather).assertEqual('\u9634');
+      expect(week[1].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1612
+     * @tc.name    WeatherExtension1612
+     * @tc.desc    City 2 day 2 keeps the maximum 34
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax01_02', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(1);
+      expect(week[2].max).assertEqual('34');
+      expect(week[2].min).assertEqual('26');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1613
+     * @tc.name    WeatherExtension1613
+     * @tc.desc    City 2 day 2 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea01_02', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(1);
+      expect(week[2].weather).assertEqual('\u591a\u4e91');
+      expect(week[2].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1614
+     * @tc.name    WeatherExtension1614
+     * @tc.desc    City 2 day 3 keeps the maximum 36
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax01_03', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(1);
+      expect(week[3].max).assertEqual('36');
+      expect(week[3].min).assertEqual('27');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1615
+     * @tc.name    WeatherExtension1615
+     * @tc.desc    City 2 day 3 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea01_03', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(1);
+      expect(week[3].weather).assertEqual('\u9634');
+      expect(week[3].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1616
+     * @tc.name    WeatherExtension1616
+     * @tc.desc    City 2 day 4 keeps the maximum 36
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax01_04', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(1);
+      expect(week[4].max).assertEqual('36');
+      expect(week[4].min).assertEqual('26');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1617
+     * @tc.name    WeatherExtension1617
+     * @tc.desc    City 2 day 4 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea01_04', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(1);
+      expect(week[4].weather).assertEqual('\u9634');
+      expect(week[4].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1618
+     * @tc.name    WeatherExtension1618
+     * @tc.desc    City 2 day 5 keeps the maximum 36
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax01_05', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(1);
+      expect(week[5].max).assertEqual('36');
+      expect(week[5].min).assertEqual('27');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1619
+     * @tc.name    WeatherExtension1619
+     * @tc.desc    City 2 day 5 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea01_05', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(1);
+      expect(week[5].weather).assertEqual('\u591a\u4e91');
+      expect(week[5].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1620
+     * @tc.name    WeatherExtension1620
+     * @tc.desc    City 2 day 6 keeps the maximum 35
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax01_06', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(1);
+      expect(week[6].max).assertEqual('35');
+      expect(week[6].min).assertEqual('26');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1621
+     * @tc.name    WeatherExtension1621
+     * @tc.desc    City 2 day 6 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea01_06', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(1);
+      expect(week[6].weather).assertEqual('\u5c0f\u96e8');
+      expect(week[6].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1622
+     * @tc.name    WeatherExtension1622
+     * @tc.desc    City 3 day 0 keeps the maximum 38
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax02_00', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(2);
+      expect(week[0].max).assertEqual('38');
+      expect(week[0].min).assertEqual('30');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1623
+     * @tc.name    WeatherExtension1623
+     * @tc.desc    City 3 day 0 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea02_00', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(2);
+      expect(week[0].weather).assertEqual('\u5c0f\u96e8');
+      expect(week[0].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1624
+     * @tc.name    WeatherExtension1624
+     * @tc.desc    City 3 day 1 keeps the maximum 30
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax02_01', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(2);
+      expect(week[1].max).assertEqual('30');
+      expect(week[1].min).assertEqual('22');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1625
+     * @tc.name    WeatherExtension1625
+     * @tc.desc    City 3 day 1 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea02_01', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(2);
+      expect(week[1].weather).assertEqual('\u5c0f\u96e8');
+      expect(week[1].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1626
+     * @tc.name    WeatherExtension1626
+     * @tc.desc    City 3 day 2 keeps the maximum 34
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax02_02', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(2);
+      expect(week[2].max).assertEqual('34');
+      expect(week[2].min).assertEqual('26');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1627
+     * @tc.name    WeatherExtension1627
+     * @tc.desc    City 3 day 2 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea02_02', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(2);
+      expect(week[2].weather).assertEqual('\u591a\u4e91');
+      expect(week[2].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1628
+     * @tc.name    WeatherExtension1628
+     * @tc.desc    City 3 day 3 keeps the maximum 36
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax02_03', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(2);
+      expect(week[3].max).assertEqual('36');
+      expect(week[3].min).assertEqual('27');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1629
+     * @tc.name    WeatherExtension1629
+     * @tc.desc    City 3 day 3 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea02_03', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(2);
+      expect(week[3].weather).assertEqual('\u9634');
+      expect(week[3].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1630
+     * @tc.name    WeatherExtension1630
+     * @tc.desc    City 3 day 4 keeps the maximum 36
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax02_04', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(2);
+      expect(week[4].max).assertEqual('36');
+      expect(week[4].min).assertEqual('26');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1631
+     * @tc.name    WeatherExtension1631
+     * @tc.desc    City 3 day 4 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea02_04', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(2);
+      expect(week[4].weather).assertEqual('\u9634');
+      expect(week[4].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1632
+     * @tc.name    WeatherExtension1632
+     * @tc.desc    City 3 day 5 keeps the maximum 36
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax02_05', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(2);
+      expect(week[5].max).assertEqual('36');
+      expect(week[5].min).assertEqual('27');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1633
+     * @tc.name    WeatherExtension1633
+     * @tc.desc    City 3 day 5 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea02_05', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(2);
+      expect(week[5].weather).assertEqual('\u4e2d\u96e8');
+      expect(week[5].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1634
+     * @tc.name    WeatherExtension1634
+     * @tc.desc    City 3 day 6 keeps the maximum 35
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax02_06', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(2);
+      expect(week[6].max).assertEqual('35');
+      expect(week[6].min).assertEqual('26');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1635
+     * @tc.name    WeatherExtension1635
+     * @tc.desc    City 3 day 6 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea02_06', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(2);
+      expect(week[6].weather).assertEqual('\u4e2d\u96e8');
+      expect(week[6].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1636
+     * @tc.name    WeatherExtension1636
+     * @tc.desc    City 4 day 0 keeps the maximum 35
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax03_00', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(3);
+      expect(week[0].max).assertEqual('35');
+      expect(week[0].min).assertEqual('22');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1637
+     * @tc.name    WeatherExtension1637
+     * @tc.desc    City 4 day 0 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea03_00', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(3);
+      expect(week[0].weather).assertEqual('\u9634');
+      expect(week[0].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1638
+     * @tc.name    WeatherExtension1638
+     * @tc.desc    City 4 day 1 keeps the maximum 32
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax03_01', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(3);
+      expect(week[1].max).assertEqual('32');
+      expect(week[1].min).assertEqual('25');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1639
+     * @tc.name    WeatherExtension1639
+     * @tc.desc    City 4 day 1 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea03_01', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(3);
+      expect(week[1].weather).assertEqual('\u4e2d\u96e8');
+      expect(week[1].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1640
+     * @tc.name    WeatherExtension1640
+     * @tc.desc    City 4 day 2 keeps the maximum 36
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax03_02', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(3);
+      expect(week[2].max).assertEqual('36');
+      expect(week[2].min).assertEqual('22');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1641
+     * @tc.name    WeatherExtension1641
+     * @tc.desc    City 4 day 2 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea03_02', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(3);
+      expect(week[2].weather).assertEqual('\u9634');
+      expect(week[2].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1642
+     * @tc.name    WeatherExtension1642
+     * @tc.desc    City 4 day 3 keeps the maximum 38
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax03_03', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(3);
+      expect(week[3].max).assertEqual('38');
+      expect(week[3].min).assertEqual('27');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1643
+     * @tc.name    WeatherExtension1643
+     * @tc.desc    City 4 day 3 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea03_03', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(3);
+      expect(week[3].weather).assertEqual('\u9634');
+      expect(week[3].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1644
+     * @tc.name    WeatherExtension1644
+     * @tc.desc    City 4 day 4 keeps the maximum 36
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax03_04', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(3);
+      expect(week[4].max).assertEqual('36');
+      expect(week[4].min).assertEqual('26');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1645
+     * @tc.name    WeatherExtension1645
+     * @tc.desc    City 4 day 4 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea03_04', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(3);
+      expect(week[4].weather).assertEqual('\u591a\u4e91');
+      expect(week[4].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1646
+     * @tc.name    WeatherExtension1646
+     * @tc.desc    City 4 day 5 keeps the maximum 36
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax03_05', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(3);
+      expect(week[5].max).assertEqual('36');
+      expect(week[5].min).assertEqual('27');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1647
+     * @tc.name    WeatherExtension1647
+     * @tc.desc    City 4 day 5 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea03_05', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(3);
+      expect(week[5].weather).assertEqual('\u6674');
+      expect(week[5].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1648
+     * @tc.name    WeatherExtension1648
+     * @tc.desc    City 4 day 6 keeps the maximum 35
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax03_06', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(3);
+      expect(week[6].max).assertEqual('35');
+      expect(week[6].min).assertEqual('26');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1649
+     * @tc.name    WeatherExtension1649
+     * @tc.desc    City 4 day 6 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea03_06', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(3);
+      expect(week[6].weather).assertEqual('\u6674');
+      expect(week[6].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1650
+     * @tc.name    WeatherExtension1650
+     * @tc.desc    City 5 day 0 keeps the maximum 39
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax04_00', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(4);
+      expect(week[0].max).assertEqual('39');
+      expect(week[0].min).assertEqual('25');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1651
+     * @tc.name    WeatherExtension1651
+     * @tc.desc    City 5 day 0 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea04_00', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(4);
+      expect(week[0].weather).assertEqual('\u591a\u4e91');
+      expect(week[0].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1652
+     * @tc.name    WeatherExtension1652
+     * @tc.desc    City 5 day 1 keeps the maximum 29
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax04_01', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(4);
+      expect(week[1].max).assertEqual('29');
+      expect(week[1].min).assertEqual('22');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1653
+     * @tc.name    WeatherExtension1653
+     * @tc.desc    City 5 day 1 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea04_01', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(4);
+      expect(week[1].weather).assertEqual('\u591a\u4e91');
+      expect(week[1].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1654
+     * @tc.name    WeatherExtension1654
+     * @tc.desc    City 5 day 2 keeps the maximum 30
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax04_02', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(4);
+      expect(week[2].max).assertEqual('30');
+      expect(week[2].min).assertEqual('26');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1655
+     * @tc.name    WeatherExtension1655
+     * @tc.desc    City 5 day 2 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea04_02', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(4);
+      expect(week[2].weather).assertEqual('\u591a\u4e91');
+      expect(week[2].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1656
+     * @tc.name    WeatherExtension1656
+     * @tc.desc    City 5 day 3 keeps the maximum 40
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax04_03', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(4);
+      expect(week[3].max).assertEqual('40');
+      expect(week[3].min).assertEqual('30');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1657
+     * @tc.name    WeatherExtension1657
+     * @tc.desc    City 5 day 3 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea04_03', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(4);
+      expect(week[3].weather).assertEqual('\u6674');
+      expect(week[3].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1658
+     * @tc.name    WeatherExtension1658
+     * @tc.desc    City 5 day 4 keeps the maximum 39
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax04_04', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(4);
+      expect(week[4].max).assertEqual('39');
+      expect(week[4].min).assertEqual('28');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1659
+     * @tc.name    WeatherExtension1659
+     * @tc.desc    City 5 day 4 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea04_04', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(4);
+      expect(week[4].weather).assertEqual('\u6674');
+      expect(week[4].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1660
+     * @tc.name    WeatherExtension1660
+     * @tc.desc    City 5 day 5 keeps the maximum 38
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax04_05', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(4);
+      expect(week[5].max).assertEqual('38');
+      expect(week[5].min).assertEqual('28');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1661
+     * @tc.name    WeatherExtension1661
+     * @tc.desc    City 5 day 5 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea04_05', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(4);
+      expect(week[5].weather).assertEqual('\u591a\u4e91');
+      expect(week[5].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1662
+     * @tc.name    WeatherExtension1662
+     * @tc.desc    City 5 day 6 keeps the maximum 39
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkMax04_06', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(4);
+      expect(week[6].max).assertEqual('39');
+      expect(week[6].min).assertEqual('26');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1663
+     * @tc.name    WeatherExtension1663
+     * @tc.desc    City 5 day 6 keeps the weather and air level
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5wkWea04_06', 0, () => {
+      const week: WeekWeather[] = getWeekWeatherData(4);
+      expect(week[6].weather).assertEqual('\u6674');
+      expect(week[6].airLevel).assertEqual('\u4f18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1664
+     * @tc.name    WeatherExtension1664
+     * @tc.desc    City 1 air slot 0 keeps PM10
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air00_00', 0, () => {
+      const air: AirIndex[] = getAirIndexData(0);
+      expect(air[0].index).assertEqual('PM10');
+      expect(air[0].figure).assertEqual('181');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1665
+     * @tc.name    WeatherExtension1665
+     * @tc.desc    City 1 air slot 1 keeps PM2.5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air00_01', 0, () => {
+      const air: AirIndex[] = getAirIndexData(0);
+      expect(air[1].index).assertEqual('PM2.5');
+      expect(air[1].figure).assertEqual('94');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1666
+     * @tc.name    WeatherExtension1666
+     * @tc.desc    City 1 air slot 2 keeps NO2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air00_02', 0, () => {
+      const air: AirIndex[] = getAirIndexData(0);
+      expect(air[2].index).assertEqual('NO2');
+      expect(air[2].figure).assertEqual('105');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1667
+     * @tc.name    WeatherExtension1667
+     * @tc.desc    City 1 air slot 3 keeps SO2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air00_03', 0, () => {
+      const air: AirIndex[] = getAirIndexData(0);
+      expect(air[3].index).assertEqual('SO2');
+      expect(air[3].figure).assertEqual('67');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1668
+     * @tc.name    WeatherExtension1668
+     * @tc.desc    City 1 air slot 4 keeps O2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air00_04', 0, () => {
+      const air: AirIndex[] = getAirIndexData(0);
+      expect(air[4].index).assertEqual('O2');
+      expect(air[4].figure).assertEqual('19');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1669
+     * @tc.name    WeatherExtension1669
+     * @tc.desc    City 1 air slot 5 keeps CO
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air00_05', 0, () => {
+      const air: AirIndex[] = getAirIndexData(0);
+      expect(air[5].index).assertEqual('CO');
+      expect(air[5].figure).assertEqual('19');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1670
+     * @tc.name    WeatherExtension1670
+     * @tc.desc    City 2 air slot 0 keeps PM10
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air01_00', 0, () => {
+      const air: AirIndex[] = getAirIndexData(1);
+      expect(air[0].index).assertEqual('PM10');
+      expect(air[0].figure).assertEqual('200');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1671
+     * @tc.name    WeatherExtension1671
+     * @tc.desc    City 2 air slot 1 keeps PM2.5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air01_01', 0, () => {
+      const air: AirIndex[] = getAirIndexData(1);
+      expect(air[1].index).assertEqual('PM2.5');
+      expect(air[1].figure).assertEqual('80');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1672
+     * @tc.name    WeatherExtension1672
+     * @tc.desc    City 2 air slot 2 keeps NO2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air01_02', 0, () => {
+      const air: AirIndex[] = getAirIndexData(1);
+      expect(air[2].index).assertEqual('NO2');
+      expect(air[2].figure).assertEqual('100');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1673
+     * @tc.name    WeatherExtension1673
+     * @tc.desc    City 2 air slot 3 keeps SO2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air01_03', 0, () => {
+      const air: AirIndex[] = getAirIndexData(1);
+      expect(air[3].index).assertEqual('SO2');
+      expect(air[3].figure).assertEqual('70');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1674
+     * @tc.name    WeatherExtension1674
+     * @tc.desc    City 2 air slot 4 keeps O2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air01_04', 0, () => {
+      const air: AirIndex[] = getAirIndexData(1);
+      expect(air[4].index).assertEqual('O2');
+      expect(air[4].figure).assertEqual('39');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1675
+     * @tc.name    WeatherExtension1675
+     * @tc.desc    City 2 air slot 5 keeps CO
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air01_05', 0, () => {
+      const air: AirIndex[] = getAirIndexData(1);
+      expect(air[5].index).assertEqual('CO');
+      expect(air[5].figure).assertEqual('20');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1676
+     * @tc.name    WeatherExtension1676
+     * @tc.desc    City 3 air slot 0 keeps PM10
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air02_00', 0, () => {
+      const air: AirIndex[] = getAirIndexData(2);
+      expect(air[0].index).assertEqual('PM10');
+      expect(air[0].figure).assertEqual('170');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1677
+     * @tc.name    WeatherExtension1677
+     * @tc.desc    City 3 air slot 1 keeps PM2.5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air02_01', 0, () => {
+      const air: AirIndex[] = getAirIndexData(2);
+      expect(air[1].index).assertEqual('PM2.5');
+      expect(air[1].figure).assertEqual('90');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1678
+     * @tc.name    WeatherExtension1678
+     * @tc.desc    City 3 air slot 2 keeps NO2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air02_02', 0, () => {
+      const air: AirIndex[] = getAirIndexData(2);
+      expect(air[2].index).assertEqual('NO2');
+      expect(air[2].figure).assertEqual('90');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1679
+     * @tc.name    WeatherExtension1679
+     * @tc.desc    City 3 air slot 3 keeps SO2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air02_03', 0, () => {
+      const air: AirIndex[] = getAirIndexData(2);
+      expect(air[3].index).assertEqual('SO2');
+      expect(air[3].figure).assertEqual('64');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1680
+     * @tc.name    WeatherExtension1680
+     * @tc.desc    City 3 air slot 4 keeps O2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air02_04', 0, () => {
+      const air: AirIndex[] = getAirIndexData(2);
+      expect(air[4].index).assertEqual('O2');
+      expect(air[4].figure).assertEqual('18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1681
+     * @tc.name    WeatherExtension1681
+     * @tc.desc    City 3 air slot 5 keeps CO
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air02_05', 0, () => {
+      const air: AirIndex[] = getAirIndexData(2);
+      expect(air[5].index).assertEqual('CO');
+      expect(air[5].figure).assertEqual('22');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1682
+     * @tc.name    WeatherExtension1682
+     * @tc.desc    City 4 air slot 0 keeps PM10
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air03_00', 0, () => {
+      const air: AirIndex[] = getAirIndexData(3);
+      expect(air[0].index).assertEqual('PM10');
+      expect(air[0].figure).assertEqual('180');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1683
+     * @tc.name    WeatherExtension1683
+     * @tc.desc    City 4 air slot 1 keeps PM2.5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air03_01', 0, () => {
+      const air: AirIndex[] = getAirIndexData(3);
+      expect(air[1].index).assertEqual('PM2.5');
+      expect(air[1].figure).assertEqual('95');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1684
+     * @tc.name    WeatherExtension1684
+     * @tc.desc    City 4 air slot 2 keeps NO2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air03_02', 0, () => {
+      const air: AirIndex[] = getAirIndexData(3);
+      expect(air[2].index).assertEqual('NO2');
+      expect(air[2].figure).assertEqual('150');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1685
+     * @tc.name    WeatherExtension1685
+     * @tc.desc    City 4 air slot 3 keeps SO2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air03_03', 0, () => {
+      const air: AirIndex[] = getAirIndexData(3);
+      expect(air[3].index).assertEqual('SO2');
+      expect(air[3].figure).assertEqual('65');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1686
+     * @tc.name    WeatherExtension1686
+     * @tc.desc    City 4 air slot 4 keeps O2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air03_04', 0, () => {
+      const air: AirIndex[] = getAirIndexData(3);
+      expect(air[4].index).assertEqual('O2');
+      expect(air[4].figure).assertEqual('30');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1687
+     * @tc.name    WeatherExtension1687
+     * @tc.desc    City 4 air slot 5 keeps CO
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air03_05', 0, () => {
+      const air: AirIndex[] = getAirIndexData(3);
+      expect(air[5].index).assertEqual('CO');
+      expect(air[5].figure).assertEqual('19');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1688
+     * @tc.name    WeatherExtension1688
+     * @tc.desc    City 5 air slot 0 keeps PM10
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air04_00', 0, () => {
+      const air: AirIndex[] = getAirIndexData(4);
+      expect(air[0].index).assertEqual('PM10');
+      expect(air[0].figure).assertEqual('178');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1689
+     * @tc.name    WeatherExtension1689
+     * @tc.desc    City 5 air slot 1 keeps PM2.5
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air04_01', 0, () => {
+      const air: AirIndex[] = getAirIndexData(4);
+      expect(air[1].index).assertEqual('PM2.5');
+      expect(air[1].figure).assertEqual('93');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1690
+     * @tc.name    WeatherExtension1690
+     * @tc.desc    City 5 air slot 2 keeps NO2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air04_02', 0, () => {
+      const air: AirIndex[] = getAirIndexData(4);
+      expect(air[2].index).assertEqual('NO2');
+      expect(air[2].figure).assertEqual('100');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1691
+     * @tc.name    WeatherExtension1691
+     * @tc.desc    City 5 air slot 3 keeps SO2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air04_03', 0, () => {
+      const air: AirIndex[] = getAirIndexData(4);
+      expect(air[3].index).assertEqual('SO2');
+      expect(air[3].figure).assertEqual('66');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1692
+     * @tc.name    WeatherExtension1692
+     * @tc.desc    City 5 air slot 4 keeps O2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air04_04', 0, () => {
+      const air: AirIndex[] = getAirIndexData(4);
+      expect(air[4].index).assertEqual('O2');
+      expect(air[4].figure).assertEqual('17');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1693
+     * @tc.name    WeatherExtension1693
+     * @tc.desc    City 5 air slot 5 keeps CO
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5air04_05', 0, () => {
+      const air: AirIndex[] = getAirIndexData(4);
+      expect(air[5].index).assertEqual('CO');
+      expect(air[5].figure).assertEqual('18');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1694
+     * @tc.name    WeatherExtension1694
+     * @tc.desc    City 1 life slot 0 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life00_00', 0, () => {
+      const life: SuitData[] = getLifeData(0);
+      expect(life[0].desc).assertEqual('\u6e7f\u5ea6');
+      expect(life[0].value).assertEqual('42%');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1695
+     * @tc.name    WeatherExtension1695
+     * @tc.desc    City 1 life slot 1 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life00_01', 0, () => {
+      const life: SuitData[] = getLifeData(0);
+      expect(life[1].desc).assertEqual('\u4f53\u611f\u6e29\u5ea6');
+      expect(life[1].value).assertEqual('28\u00b0');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1696
+     * @tc.name    WeatherExtension1696
+     * @tc.desc    City 1 life slot 2 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life00_02', 0, () => {
+      const life: SuitData[] = getLifeData(0);
+      expect(life[2].desc).assertEqual('\u98ce\u529b');
+      expect(life[2].value).assertEqual('\u5fae\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1697
+     * @tc.name    WeatherExtension1697
+     * @tc.desc    City 1 life slot 3 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life00_03', 0, () => {
+      const life: SuitData[] = getLifeData(0);
+      expect(life[3].desc).assertEqual('\u98ce\u5411');
+      expect(life[3].value).assertEqual('\u5317\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1698
+     * @tc.name    WeatherExtension1698
+     * @tc.desc    City 1 life slot 4 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life00_04', 0, () => {
+      const life: SuitData[] = getLifeData(0);
+      expect(life[4].desc).assertEqual('\u7a7f\u8863');
+      expect(life[4].value).assertEqual('\u77ed\u8896');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1699
+     * @tc.name    WeatherExtension1699
+     * @tc.desc    City 1 life slot 5 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life00_05', 0, () => {
+      const life: SuitData[] = getLifeData(0);
+      expect(life[5].desc).assertEqual('\u8fd0\u52a8');
+      expect(life[5].value).assertEqual('\u5b9c\u5ba4\u5185');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1700
+     * @tc.name    WeatherExtension1700
+     * @tc.desc    City 1 life slot 6 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life00_06', 0, () => {
+      const life: SuitData[] = getLifeData(0);
+      expect(life[6].desc).assertEqual('\u611f\u5192');
+      expect(life[6].value).assertEqual('\u5bb9\u6613');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1701
+     * @tc.name    WeatherExtension1701
+     * @tc.desc    City 1 life slot 7 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life00_07', 0, () => {
+      const life: SuitData[] = getLifeData(0);
+      expect(life[7].desc).assertEqual('\u7d2b\u5916\u7ebf');
+      expect(life[7].value).assertEqual('\u5f3a');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1702
+     * @tc.name    WeatherExtension1702
+     * @tc.desc    City 2 life slot 0 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life01_00', 0, () => {
+      const life: SuitData[] = getLifeData(1);
+      expect(life[0].desc).assertEqual('\u6e7f\u5ea6');
+      expect(life[0].value).assertEqual('45%');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1703
+     * @tc.name    WeatherExtension1703
+     * @tc.desc    City 2 life slot 1 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life01_01', 0, () => {
+      const life: SuitData[] = getLifeData(1);
+      expect(life[1].desc).assertEqual('\u4f53\u611f\u6e29\u5ea6');
+      expect(life[1].value).assertEqual('28\u00b0');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1704
+     * @tc.name    WeatherExtension1704
+     * @tc.desc    City 2 life slot 2 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life01_02', 0, () => {
+      const life: SuitData[] = getLifeData(1);
+      expect(life[2].desc).assertEqual('\u98ce\u529b');
+      expect(life[2].value).assertEqual('\u5fae\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1705
+     * @tc.name    WeatherExtension1705
+     * @tc.desc    City 2 life slot 3 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life01_03', 0, () => {
+      const life: SuitData[] = getLifeData(1);
+      expect(life[3].desc).assertEqual('\u98ce\u5411');
+      expect(life[3].value).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1706
+     * @tc.name    WeatherExtension1706
+     * @tc.desc    City 2 life slot 4 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life01_04', 0, () => {
+      const life: SuitData[] = getLifeData(1);
+      expect(life[4].desc).assertEqual('\u7a7f\u8863');
+      expect(life[4].value).assertEqual('\u77ed\u8896');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1707
+     * @tc.name    WeatherExtension1707
+     * @tc.desc    City 2 life slot 5 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life01_05', 0, () => {
+      const life: SuitData[] = getLifeData(1);
+      expect(life[5].desc).assertEqual('\u8fd0\u52a8');
+      expect(life[5].value).assertEqual('\u5b9c\u5ba4\u5185');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1708
+     * @tc.name    WeatherExtension1708
+     * @tc.desc    City 2 life slot 6 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life01_06', 0, () => {
+      const life: SuitData[] = getLifeData(1);
+      expect(life[6].desc).assertEqual('\u611f\u5192');
+      expect(life[6].value).assertEqual('\u5bb9\u6613');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1709
+     * @tc.name    WeatherExtension1709
+     * @tc.desc    City 2 life slot 7 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life01_07', 0, () => {
+      const life: SuitData[] = getLifeData(1);
+      expect(life[7].desc).assertEqual('\u7d2b\u5916\u7ebf');
+      expect(life[7].value).assertEqual('\u5f31');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1710
+     * @tc.name    WeatherExtension1710
+     * @tc.desc    City 3 life slot 0 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life02_00', 0, () => {
+      const life: SuitData[] = getLifeData(2);
+      expect(life[0].desc).assertEqual('\u6e7f\u5ea6');
+      expect(life[0].value).assertEqual('50%');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1711
+     * @tc.name    WeatherExtension1711
+     * @tc.desc    City 3 life slot 1 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life02_01', 0, () => {
+      const life: SuitData[] = getLifeData(2);
+      expect(life[1].desc).assertEqual('\u4f53\u611f\u6e29\u5ea6');
+      expect(life[1].value).assertEqual('27\u00b0');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1712
+     * @tc.name    WeatherExtension1712
+     * @tc.desc    City 3 life slot 2 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life02_02', 0, () => {
+      const life: SuitData[] = getLifeData(2);
+      expect(life[2].desc).assertEqual('\u98ce\u529b');
+      expect(life[2].value).assertEqual('\u5927\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1713
+     * @tc.name    WeatherExtension1713
+     * @tc.desc    City 3 life slot 3 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life02_03', 0, () => {
+      const life: SuitData[] = getLifeData(2);
+      expect(life[3].desc).assertEqual('\u98ce\u5411');
+      expect(life[3].value).assertEqual('\u4e1c\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1714
+     * @tc.name    WeatherExtension1714
+     * @tc.desc    City 3 life slot 4 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life02_04', 0, () => {
+      const life: SuitData[] = getLifeData(2);
+      expect(life[4].desc).assertEqual('\u7a7f\u8863');
+      expect(life[4].value).assertEqual('\u957f\u8896');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1715
+     * @tc.name    WeatherExtension1715
+     * @tc.desc    City 3 life slot 5 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life02_05', 0, () => {
+      const life: SuitData[] = getLifeData(2);
+      expect(life[5].desc).assertEqual('\u8fd0\u52a8');
+      expect(life[5].value).assertEqual('\u5b9c\u5ba4\u5185');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1716
+     * @tc.name    WeatherExtension1716
+     * @tc.desc    City 3 life slot 6 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life02_06', 0, () => {
+      const life: SuitData[] = getLifeData(2);
+      expect(life[6].desc).assertEqual('\u611f\u5192');
+      expect(life[6].value).assertEqual('\u5bb9\u6613');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1717
+     * @tc.name    WeatherExtension1717
+     * @tc.desc    City 3 life slot 7 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life02_07', 0, () => {
+      const life: SuitData[] = getLifeData(2);
+      expect(life[7].desc).assertEqual('\u7d2b\u5916\u7ebf');
+      expect(life[7].value).assertEqual('\u5f31');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1718
+     * @tc.name    WeatherExtension1718
+     * @tc.desc    City 4 life slot 0 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life03_00', 0, () => {
+      const life: SuitData[] = getLifeData(3);
+      expect(life[0].desc).assertEqual('\u6e7f\u5ea6');
+      expect(life[0].value).assertEqual('55%');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1719
+     * @tc.name    WeatherExtension1719
+     * @tc.desc    City 4 life slot 1 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life03_01', 0, () => {
+      const life: SuitData[] = getLifeData(3);
+      expect(life[1].desc).assertEqual('\u4f53\u611f\u6e29\u5ea6');
+      expect(life[1].value).assertEqual('35\u00b0');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1720
+     * @tc.name    WeatherExtension1720
+     * @tc.desc    City 4 life slot 2 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life03_02', 0, () => {
+      const life: SuitData[] = getLifeData(3);
+      expect(life[2].desc).assertEqual('\u98ce\u529b');
+      expect(life[2].value).assertEqual('\u5fae\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1721
+     * @tc.name    WeatherExtension1721
+     * @tc.desc    City 4 life slot 3 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life03_03', 0, () => {
+      const life: SuitData[] = getLifeData(3);
+      expect(life[3].desc).assertEqual('\u98ce\u5411');
+      expect(life[3].value).assertEqual('\u5357\u98ce');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1722
+     * @tc.name    WeatherExtension1722
+     * @tc.desc    City 4 life slot 4 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life03_04', 0, () => {
+      const life: SuitData[] = getLifeData(3);
+      expect(life[4].desc).assertEqual('\u7a7f\u8863');
+      expect(life[4].value).assertEqual('\u77ed\u8896');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1723
+     * @tc.name    WeatherExtension1723
+     * @tc.desc    City 4 life slot 5 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life03_05', 0, () => {
+      const life: SuitData[] = getLifeData(3);
+      expect(life[5].desc).assertEqual('\u8fd0\u52a8');
+      expect(life[5].value).assertEqual('\u5b9c\u5ba4\u5185');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1724
+     * @tc.name    WeatherExtension1724
+     * @tc.desc    City 4 life slot 6 keeps the published value
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5life03_06', 0, () => {
+      const life: SuitData[] = getLifeData(3);
+      expect(life[6].desc).assertEqual('\u611f\u5192');
+      expect(life[6].value).assertEqual('\u5bb9\u6613');
+    })
