@@ -314,3 +314,79 @@ export default function signatureMatrixTest() {
    */
   it('testSignature0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
     logCase('testSignature0018', 'signature 18');
+    const info: bundleManager.BundleInfo = await selfBundle();
+    const appId: string = info.signatureInfo.appId;
+    const fingerprint: string = info.signatureInfo.fingerprint;
+    const head: number = fingerprint.charCodeAt(0);
+    expect(head >= 48).assertTrue();
+    expect(head <= 122).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_PERFTEST_SIG_0019
+   * @tc.name      testSignature0019
+   * @tc.desc      Signature probe 19 checks appId differs from fingerprint
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testSignature0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testSignature0019', 'signature 19');
+    const info: bundleManager.BundleInfo = await selfBundle();
+    const appId: string = info.signatureInfo.appId;
+    const fingerprint: string = info.signatureInfo.fingerprint;
+    expect(appId === fingerprint).assertFalse();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_PERFTEST_SIG_0020
+   * @tc.name      testSignature0020
+   * @tc.desc      Signature probe 20 checks signature reads are stable
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testSignature0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testSignature0020', 'signature 20');
+    const info: bundleManager.BundleInfo = await selfBundle();
+    const appId: string = info.signatureInfo.appId;
+    const fingerprint: string = info.signatureInfo.fingerprint;
+    const again: bundleManager.BundleInfo = await selfBundle();
+    expect(again.signatureInfo.fingerprint).assertEqual(fingerprint);
+    expect(again.signatureInfo.appId).assertEqual(appId);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_PERFTEST_SIG_0021
+   * @tc.name      testSignature0021
+   * @tc.desc      Signature probe 21 checks signature appId repeats bundle
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testSignature0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testSignature0021', 'signature 21');
+    const info: bundleManager.BundleInfo = await selfBundle();
+    const appId: string = info.signatureInfo.appId;
+    const fingerprint: string = info.signatureInfo.fingerprint;
+    expect(info.signatureInfo.appId.indexOf(info.name)).assertEqual(0);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_PERFTEST_SIG_0022
+   * @tc.name      testSignature0022
+   * @tc.desc      Signature probe 22 checks fingerprint tail length
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testSignature0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testSignature0022', 'signature 22');
+    const info: bundleManager.BundleInfo = await selfBundle();
+    const appId: string = info.signatureInfo.appId;
+    const fingerprint: string = info.signatureInfo.fingerprint;
+    expect(fingerprint.length > 8).assertTrue();
+    expect(fingerprint.substring(8).length).assertEqual(fingerprint.length - 8);
+  });
+  });
+}
