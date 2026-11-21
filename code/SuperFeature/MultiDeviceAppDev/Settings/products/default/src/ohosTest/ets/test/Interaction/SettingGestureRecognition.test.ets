@@ -1987,3 +1987,1707 @@ export default function settingGestureRecognitionSuite() {
       expect(m.getEntry('nohit455') === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0456
+     * @tc.name    SettingGestureRecognition456
+     * @tc.desc    Settings toggle effect 0 probe 456
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition456', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit456') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0457
+     * @tc.name    SettingGestureRecognition457
+     * @tc.desc    Settings toggle effect 1 probe 457
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition457', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit457') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0458
+     * @tc.name    SettingGestureRecognition458
+     * @tc.desc    Settings toggle effect 2 probe 458
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition458', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit458') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0459
+     * @tc.name    SettingGestureRecognition459
+     * @tc.desc    Settings toggle effect 3 probe 459
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition459', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit459') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0460
+     * @tc.name    SettingGestureRecognition460
+     * @tc.desc    Settings toggle effect 0 probe 460
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition460', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit460') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0461
+     * @tc.name    SettingGestureRecognition461
+     * @tc.desc    Settings toggle effect 1 probe 461
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition461', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit461') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0462
+     * @tc.name    SettingGestureRecognition462
+     * @tc.desc    Settings toggle effect 2 probe 462
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition462', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit462') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0463
+     * @tc.name    SettingGestureRecognition463
+     * @tc.desc    Settings toggle effect 3 probe 463
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition463', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit463') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0464
+     * @tc.name    SettingGestureRecognition464
+     * @tc.desc    Settings toggle effect 0 probe 464
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition464', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit464') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0465
+     * @tc.name    SettingGestureRecognition465
+     * @tc.desc    Settings toggle effect 1 probe 465
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition465', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit465') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0466
+     * @tc.name    SettingGestureRecognition466
+     * @tc.desc    Settings toggle effect 2 probe 466
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition466', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit466') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0467
+     * @tc.name    SettingGestureRecognition467
+     * @tc.desc    Settings toggle effect 3 probe 467
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition467', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit467') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0468
+     * @tc.name    SettingGestureRecognition468
+     * @tc.desc    Settings toggle effect 0 probe 468
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition468', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit468') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0469
+     * @tc.name    SettingGestureRecognition469
+     * @tc.desc    Settings toggle effect 1 probe 469
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition469', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit469') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0470
+     * @tc.name    SettingGestureRecognition470
+     * @tc.desc    Settings toggle effect 2 probe 470
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition470', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit470') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0471
+     * @tc.name    SettingGestureRecognition471
+     * @tc.desc    Settings toggle effect 3 probe 471
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition471', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit471') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0472
+     * @tc.name    SettingGestureRecognition472
+     * @tc.desc    Settings toggle effect 0 probe 472
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition472', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit472') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0473
+     * @tc.name    SettingGestureRecognition473
+     * @tc.desc    Settings toggle effect 1 probe 473
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition473', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit473') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0474
+     * @tc.name    SettingGestureRecognition474
+     * @tc.desc    Settings toggle effect 2 probe 474
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition474', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit474') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0475
+     * @tc.name    SettingGestureRecognition475
+     * @tc.desc    Settings toggle effect 3 probe 475
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition475', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit475') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0476
+     * @tc.name    SettingGestureRecognition476
+     * @tc.desc    Settings toggle effect 0 probe 476
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition476', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit476') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0477
+     * @tc.name    SettingGestureRecognition477
+     * @tc.desc    Settings toggle effect 1 probe 477
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition477', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit477') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0478
+     * @tc.name    SettingGestureRecognition478
+     * @tc.desc    Settings toggle effect 2 probe 478
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition478', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit478') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0479
+     * @tc.name    SettingGestureRecognition479
+     * @tc.desc    Settings toggle effect 3 probe 479
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition479', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit479') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0480
+     * @tc.name    SettingGestureRecognition480
+     * @tc.desc    Settings toggle effect 0 probe 480
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition480', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit480') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0481
+     * @tc.name    SettingGestureRecognition481
+     * @tc.desc    Settings toggle effect 1 probe 481
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition481', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit481') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0482
+     * @tc.name    SettingGestureRecognition482
+     * @tc.desc    Settings toggle effect 2 probe 482
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition482', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit482') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0483
+     * @tc.name    SettingGestureRecognition483
+     * @tc.desc    Settings toggle effect 3 probe 483
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition483', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit483') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0484
+     * @tc.name    SettingGestureRecognition484
+     * @tc.desc    Settings toggle effect 0 probe 484
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition484', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit484') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0485
+     * @tc.name    SettingGestureRecognition485
+     * @tc.desc    Settings toggle effect 1 probe 485
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition485', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit485') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0486
+     * @tc.name    SettingGestureRecognition486
+     * @tc.desc    Settings toggle effect 2 probe 486
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition486', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit486') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0487
+     * @tc.name    SettingGestureRecognition487
+     * @tc.desc    Settings toggle effect 3 probe 487
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition487', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit487') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0488
+     * @tc.name    SettingGestureRecognition488
+     * @tc.desc    Settings toggle effect 0 probe 488
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition488', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit488') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0489
+     * @tc.name    SettingGestureRecognition489
+     * @tc.desc    Settings toggle effect 1 probe 489
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition489', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit489') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0490
+     * @tc.name    SettingGestureRecognition490
+     * @tc.desc    Settings toggle effect 2 probe 490
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition490', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit490') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0491
+     * @tc.name    SettingGestureRecognition491
+     * @tc.desc    Settings toggle effect 3 probe 491
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition491', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit491') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0492
+     * @tc.name    SettingGestureRecognition492
+     * @tc.desc    Settings toggle effect 0 probe 492
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition492', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit492') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0493
+     * @tc.name    SettingGestureRecognition493
+     * @tc.desc    Settings toggle effect 1 probe 493
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition493', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit493') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0494
+     * @tc.name    SettingGestureRecognition494
+     * @tc.desc    Settings toggle effect 2 probe 494
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition494', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit494') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0495
+     * @tc.name    SettingGestureRecognition495
+     * @tc.desc    Settings toggle effect 3 probe 495
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition495', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit495') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0496
+     * @tc.name    SettingGestureRecognition496
+     * @tc.desc    Settings toggle effect 0 probe 496
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition496', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit496') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0497
+     * @tc.name    SettingGestureRecognition497
+     * @tc.desc    Settings toggle effect 1 probe 497
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition497', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit497') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0498
+     * @tc.name    SettingGestureRecognition498
+     * @tc.desc    Settings toggle effect 2 probe 498
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition498', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit498') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0499
+     * @tc.name    SettingGestureRecognition499
+     * @tc.desc    Settings toggle effect 3 probe 499
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition499', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit499') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0500
+     * @tc.name    SettingGestureRecognition500
+     * @tc.desc    Settings toggle effect 0 probe 500
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition500', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit500') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0501
+     * @tc.name    SettingGestureRecognition501
+     * @tc.desc    Settings toggle effect 1 probe 501
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition501', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit501') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0502
+     * @tc.name    SettingGestureRecognition502
+     * @tc.desc    Settings toggle effect 2 probe 502
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition502', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit502') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0503
+     * @tc.name    SettingGestureRecognition503
+     * @tc.desc    Settings toggle effect 3 probe 503
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition503', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit503') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0504
+     * @tc.name    SettingGestureRecognition504
+     * @tc.desc    Settings toggle effect 0 probe 504
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition504', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit504') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0505
+     * @tc.name    SettingGestureRecognition505
+     * @tc.desc    Settings toggle effect 1 probe 505
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition505', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit505') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0506
+     * @tc.name    SettingGestureRecognition506
+     * @tc.desc    Settings toggle effect 2 probe 506
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition506', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit506') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0507
+     * @tc.name    SettingGestureRecognition507
+     * @tc.desc    Settings toggle effect 3 probe 507
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition507', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit507') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0508
+     * @tc.name    SettingGestureRecognition508
+     * @tc.desc    Settings toggle effect 0 probe 508
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition508', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit508') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0509
+     * @tc.name    SettingGestureRecognition509
+     * @tc.desc    Settings toggle effect 1 probe 509
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition509', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit509') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0510
+     * @tc.name    SettingGestureRecognition510
+     * @tc.desc    Settings toggle effect 2 probe 510
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition510', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit510') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0511
+     * @tc.name    SettingGestureRecognition511
+     * @tc.desc    Settings toggle effect 3 probe 511
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition511', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit511') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0512
+     * @tc.name    SettingGestureRecognition512
+     * @tc.desc    Settings toggle effect 0 probe 512
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition512', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit512') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0513
+     * @tc.name    SettingGestureRecognition513
+     * @tc.desc    Settings toggle effect 1 probe 513
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition513', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit513') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0514
+     * @tc.name    SettingGestureRecognition514
+     * @tc.desc    Settings toggle effect 2 probe 514
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition514', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit514') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0515
+     * @tc.name    SettingGestureRecognition515
+     * @tc.desc    Settings toggle effect 3 probe 515
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition515', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit515') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0516
+     * @tc.name    SettingGestureRecognition516
+     * @tc.desc    Settings toggle effect 0 probe 516
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition516', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit516') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0517
+     * @tc.name    SettingGestureRecognition517
+     * @tc.desc    Settings toggle effect 1 probe 517
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition517', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit517') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0518
+     * @tc.name    SettingGestureRecognition518
+     * @tc.desc    Settings toggle effect 2 probe 518
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition518', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit518') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0519
+     * @tc.name    SettingGestureRecognition519
+     * @tc.desc    Settings toggle effect 3 probe 519
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition519', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit519') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0520
+     * @tc.name    SettingGestureRecognition520
+     * @tc.desc    Settings toggle effect 0 probe 520
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition520', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit520') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0521
+     * @tc.name    SettingGestureRecognition521
+     * @tc.desc    Settings toggle effect 1 probe 521
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition521', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit521') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0522
+     * @tc.name    SettingGestureRecognition522
+     * @tc.desc    Settings toggle effect 2 probe 522
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition522', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit522') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0523
+     * @tc.name    SettingGestureRecognition523
+     * @tc.desc    Settings toggle effect 3 probe 523
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition523', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit523') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0524
+     * @tc.name    SettingGestureRecognition524
+     * @tc.desc    Settings toggle effect 0 probe 524
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition524', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit524') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0525
+     * @tc.name    SettingGestureRecognition525
+     * @tc.desc    Settings toggle effect 1 probe 525
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition525', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit525') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0526
+     * @tc.name    SettingGestureRecognition526
+     * @tc.desc    Settings toggle effect 2 probe 526
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition526', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit526') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0527
+     * @tc.name    SettingGestureRecognition527
+     * @tc.desc    Settings toggle effect 3 probe 527
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition527', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit527') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0528
+     * @tc.name    SettingGestureRecognition528
+     * @tc.desc    Settings toggle effect 0 probe 528
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition528', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit528') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0529
+     * @tc.name    SettingGestureRecognition529
+     * @tc.desc    Settings toggle effect 1 probe 529
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition529', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit529') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0530
+     * @tc.name    SettingGestureRecognition530
+     * @tc.desc    Settings toggle effect 2 probe 530
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition530', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit530') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0531
+     * @tc.name    SettingGestureRecognition531
+     * @tc.desc    Settings toggle effect 3 probe 531
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition531', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit531') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0532
+     * @tc.name    SettingGestureRecognition532
+     * @tc.desc    Settings toggle effect 0 probe 532
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition532', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit532') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0533
+     * @tc.name    SettingGestureRecognition533
+     * @tc.desc    Settings toggle effect 1 probe 533
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition533', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit533') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0534
+     * @tc.name    SettingGestureRecognition534
+     * @tc.desc    Settings toggle effect 2 probe 534
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition534', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit534') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0535
+     * @tc.name    SettingGestureRecognition535
+     * @tc.desc    Settings toggle effect 3 probe 535
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition535', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit535') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0536
+     * @tc.name    SettingGestureRecognition536
+     * @tc.desc    Settings toggle effect 0 probe 536
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition536', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit536') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0537
+     * @tc.name    SettingGestureRecognition537
+     * @tc.desc    Settings toggle effect 1 probe 537
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition537', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[1].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit537') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0538
+     * @tc.name    SettingGestureRecognition538
+     * @tc.desc    Settings toggle effect 2 probe 538
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition538', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[2].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit538') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0539
+     * @tc.name    SettingGestureRecognition539
+     * @tc.desc    Settings toggle effect 3 probe 539
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition539', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[3].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit539') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0540
+     * @tc.name    SettingGestureRecognition540
+     * @tc.desc    Settings toggle effect 0 probe 540
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingGestureRecognition540', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const key: string = m.getEntries()[0].key;
+      const before: boolean = m.isEnabled(key);
+      const changed: boolean = m.toggle(key);
+      if (changed) { expect(m.isEnabled(key)).assertEqual(!before); }
+      else { expect(m.isEnabled(key)).assertEqual(before); }
+      expect(m.getEntry('nohit540') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
