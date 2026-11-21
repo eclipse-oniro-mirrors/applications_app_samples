@@ -95,3 +95,177 @@ function runMatrix1109(): MatrixReport {
         index: 0,
       },
     },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 66204,
+        duration: 1,
+        intensity: 80,
+        frequency: 50,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 66204,
+        duration: 1,
+        intensity: 80,
+        frequency: 50,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 66255,
+        duration: 1,
+        intensity: 100,
+        frequency: 34,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.CONTINUOUS,
+        time: 66255,
+        duration: 1,
+        intensity: 100,
+        frequency: 34,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 66306,
+        duration: 48,
+        intensity: 99,
+        frequency: 20,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 66306,
+        duration: 48,
+        intensity: 99,
+        frequency: 20,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 66357,
+        duration: 48,
+        intensity: 97,
+        frequency: 10,
+        index: 1,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 66357,
+        duration: 48,
+        intensity: 97,
+        frequency: 10,
+        index: 1,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 66408,
+        duration: 48,
+        intensity: 70,
+        frequency: 2,
+        index: 2,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 66408,
+        duration: 48,
+        intensity: 70,
+        frequency: 2,
+        index: 2,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 66459,
+        duration: 48,
+        intensity: 50,
+        frequency: 1,
+        index: 2,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 66459,
+        duration: 48,
+        intensity: 50,
+        frequency: 1,
+        index: 2,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 66510,
+        duration: 48,
+        intensity: 34,
+        frequency: 0,
+        index: 2,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 66510,
+        duration: 48,
+        intensity: 34,
+        frequency: 0,
+        index: 2,
+      },
+    },
+    {
+      input: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 66561,
+        duration: 48,
+        intensity: 1,
+        frequency: 97,
+        index: 2,
+      },
+      expected: {
+        eventType: vibrator.VibratorEventType.TRANSIENT,
+        time: 66561,
+        duration: 48,
+        intensity: 1,
+        frequency: 97,
+        index: 2,
+      },
+    },
+  ];
+  return checkBuilderRows(rows);
+}
+
+export default function vibratorMixedSequence701(): void {
+  describe('VibratorMixedSequence701', (): void => {
+    beforeEach(async (): Promise<void> => {
+      await paceTurn();
+    });
+
+    /**
+     * @tc.number SUB_VIBRATOR_MATRIX_1109
+     * @tc.name testVibratorMatrix1109
+     * @tc.desc 混合序列最短及最长时长，逐项核对12组输出及累计时长和通道加权强度。
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testVibratorMatrix1109', 0, (): void => {
+      const report: MatrixReport = runMatrix1109();
+      hilog.info(DOMAIN, TAG, 'Event count=%{public}d', report.eventCount);
+      expect(report.eventCount).assertEqual(12);
+      hilog.info(DOMAIN, TAG, 'Duration sum=%{public}d', report.durationSum);
+      expect(report.durationSum).assertEqual(294);
+      hilog.info(DOMAIN, TAG, 'Channel intensity sum=%{public}d', report.channelIntensitySum);
+      expect(report.channelIntensitySum).assertEqual(1337);
+    });
+
+  });
+}
