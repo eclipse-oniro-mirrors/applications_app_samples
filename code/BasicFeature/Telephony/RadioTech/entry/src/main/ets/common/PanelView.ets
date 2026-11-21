@@ -13,65 +13,67 @@
  * limitations under the License.
  */
 
-import Logger from '../model/Logger'
-import { RadioStatus } from '../model/RadioStatus'
-import { ResultModel } from '../model/ResultModel'
+import Logger from '../model/Logger';
+import { RadioStatus } from '../model/RadioStatus';
+import { ResultModel } from '../model/ResultModel';
+import { BusinessError } from '@kit.BasicServicesKit';
 
-const TAG = '[PanelView]'
+const TAG: string = '[PanelView]';
 
 @Component
 export struct PanelView {
-  @Link show: boolean
-  @Link slotId: number
-  @Link title: string
-  @State statusArray: Array<ResultModel> = []
-  @State radioStatus: RadioStatus = new RadioStatus()
-  @State slotIdArray: Array<number> = [0, 1]
-  @State statusFirstArray: Array<ResultModel> = []
-  @State statusSecondArray: Array<ResultModel> = []
+  @Link show: boolean;
+  @Link slotId: number;
+  @Link title: string;
+  @State statusArray: ResultModel[] = [];
+  @State radioStatus: RadioStatus = new RadioStatus();
+  @State slotIdArray: number[] = [0, 1];
+  @State statusFirstArray: ResultModel[] = [];
+  @State statusSecondArray: ResultModel[] = [];
 
-  async aboutToAppear() {
-    this.slotIdArray.forEach((slotId) => {
-      this.radioStatus.getRadioTech(slotId).then((radioTech) => {
-        Logger.info(`${TAG}, aboutToAppear radioTech = ${JSON.stringify(radioTech)}`)
-        let result = new ResultModel('RadioTech', JSON.stringify(radioTech))
-        if (slotId === 0) {
-          this.statusFirstArray.push(result)
-        } else if (slotId === 1) {
-          this.statusSecondArray.push(result)
-        }
-      })
+  pushResult(slotId: number, title: string, value: string): void {
+    const result: ResultModel = new ResultModel(title, value);
+    if (slotId === 0) {
+      this.statusFirstArray.push(result);
+    } else if (slotId === 1) {
+      this.statusSecondArray.push(result);
+    }
+  }
 
-      this.radioStatus.getSignalInformation(slotId).then((signalInformation) => {
-        Logger.info(`${TAG}, aboutToAppear signalInformation = ${JSON.stringify(signalInformation)}`)
-        let result = new ResultModel('SignalInformation', JSON.stringify(signalInformation))
-        if (slotId === 0) {
-          this.statusFirstArray.push(result)
-        } else if (slotId === 1) {
-          this.statusSecondArray.push(result)
-        }
-      })
+  async aboutToAppear(): Promise<void> {
+    this.slotIdArray.forEach((slotId: number) => {
+      this.radioStatus.getRadioTech(slotId).then((radioTech: string) => {
+        Logger.info(`${TAG}, aboutToAppear radioTech = ${radioTech}`);
+        this.pushResult(slotId, 'RadioTech', radioTech);
+      }).catch((error: BusinessError) => {
+        Logger.error(`${TAG}, getRadioTech error->${JSON.stringify(error)}`);
+        this.pushResult(slotId, 'RadioTech', 'not available');
+      });
 
-      this.radioStatus.getNetworkSelectionMode(slotId).then((networkSelectionMode) => {
-        Logger.info(`${TAG}, aboutToAppear networkSelectionMode = ${JSON.stringify(networkSelectionMode)}`)
-        let result = new ResultModel('NetworkSelectionMode', JSON.stringify(networkSelectionMode))
-        if (slotId === 0) {
-          this.statusFirstArray.push(result)
-        } else if (slotId === 1) {
-          this.statusSecondArray.push(result)
-        }
-      })
+      this.radioStatus.getSignalInformation(slotId).then((signalInformation: string) => {
+        Logger.info(`${TAG}, aboutToAppear signalInformation = ${signalInformation}`);
+        this.pushResult(slotId, 'SignalInformation', signalInformation);
+      }).catch((error: BusinessError) => {
+        Logger.error(`${TAG}, getSignalInformation error->${JSON.stringify(error)}`);
+        this.pushResult(slotId, 'SignalInformation', 'not available');
+      });
 
-      this.radioStatus.getISOCountryCodeForNetwork(slotId).then((iSOCountryCode) => {
-        Logger.info(`${TAG}, aboutToAppear iSOCountryCode = ${JSON.stringify(iSOCountryCode)}`)
-        let result = new ResultModel('ISOCountryCodeForNetwork', JSON.stringify(iSOCountryCode))
-        if (slotId === 0) {
-          this.statusFirstArray.push(result)
-        } else if (slotId === 1) {
-          this.statusSecondArray.push(result)
-        }
-      })
-    })
+      this.radioStatus.getNetworkSelectionMode(slotId).then((networkSelectionMode: string) => {
+        Logger.info(`${TAG}, aboutToAppear networkSelectionMode = ${networkSelectionMode}`);
+        this.pushResult(slotId, 'NetworkSelectionMode', networkSelectionMode);
+      }).catch((error: BusinessError) => {
+        Logger.error(`${TAG}, getNetworkSelectionMode error->${JSON.stringify(error)}`);
+        this.pushResult(slotId, 'NetworkSelectionMode', 'not available');
+      });
+
+      this.radioStatus.getISOCountryCodeForNetwork(slotId).then((iSOCountryCode: string) => {
+        Logger.info(`${TAG}, aboutToAppear iSOCountryCode = ${iSOCountryCode}`);
+        this.pushResult(slotId, 'ISOCountryCodeForNetwork', iSOCountryCode);
+      }).catch((error: BusinessError) => {
+        Logger.error(`${TAG}, getISOCountryCodeForNetwork error->${JSON.stringify(error)}`);
+        this.pushResult(slotId, 'ISOCountryCodeForNetwork', 'not available');
+      });
+    });
   }
 
   build() {
@@ -82,7 +84,7 @@ export struct PanelView {
           .fontWeight(FontWeight.Bold)
           .margin({ bottom: 10 })
         Divider()
-        ForEach(this.slotId === 0 ? this.statusFirstArray : this.statusSecondArray, item => {
+        ForEach(this.slotId === 0 ? this.statusFirstArray : this.statusSecondArray, (item: ResultModel) => {
           Column() {
             Text(item.title)
               .fontSize(20)
@@ -91,7 +93,7 @@ export struct PanelView {
             Text(item.value)
               .fontSize(20)
           }
-        }, item => JSON.stringify(item)
+        }, (item: ResultModel) => JSON.stringify(item)
         )
       }
     }
@@ -99,11 +101,11 @@ export struct PanelView {
     .mode(PanelMode.Half)
     .dragBar(true)
     .halfHeight(500)
-    .onChange((value: any) => {
-      Logger.info(`${TAG}, onChange`)
+    .onChange(() => {
+      Logger.info(`${TAG}, onChange`);
     })
     .onClick(() => {
-      this.show = false
+      this.show = false;
     })
   }
 }
