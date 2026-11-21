@@ -709,3 +709,216 @@ export default function cameraConstantsCoreTest(): void {
       expect(actual).assertEqual(2);
       logInfo('typeof actual=' + typeof actual);
       expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}Constants_0034 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_CONSTANTS_0035
+     * @tc.name      Camera_Constants_0035
+     * @tc.desc      AUDIO_SAMPLE_RATE is pinned to 48000 for the camera layout contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Camera_Constants_0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}Constants_0035 begin`);
+      logInfo("constant AUDIO_SAMPLE_RATE");
+      const actual: number = AUDIO_SAMPLE_RATE;
+      logInfo('actual=' + String(actual) + ', expected=' + "48000");
+      expect(actual).assertEqual(48000);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}Constants_0035 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_CONSTANTS_0036
+     * @tc.name      Camera_Constants_0036
+     * @tc.desc      VIDEO_BITRATE is pinned to 512000 for the camera layout contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Constants_0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Constants_0036 begin`);
+      logInfo("constant VIDEO_BITRATE");
+      const actual: number = VIDEO_BITRATE;
+      logInfo('actual=' + String(actual) + ', expected=' + "512000");
+      expect(actual).assertEqual(512000);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}Constants_0036 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_CONSTANTS_0037
+     * @tc.name      Camera_Constants_0037
+     * @tc.desc      MAX_VIDEO_FRAME is pinned to 60 for the camera layout contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Constants_0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Constants_0037 begin`);
+      logInfo("constant MAX_VIDEO_FRAME");
+      const actual: number = MAX_VIDEO_FRAME;
+      logInfo('actual=' + String(actual) + ', expected=' + "60");
+      expect(actual).assertEqual(60);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}Constants_0037 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_CONSTANTS_0038
+     * @tc.name      Camera_Constants_0038
+     * @tc.desc      FLASH_POSITION_X is pinned to 0 for the camera layout contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Constants_0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Constants_0038 begin`);
+      logInfo("constant FLASH_POSITION_X");
+      const actual: number = FLASH_POSITION_X;
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}Constants_0038 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_CONSTANTS_0039
+     * @tc.name      Camera_Constants_0039
+     * @tc.desc      FLASH_POSITION_Y is pinned to 50 for the camera layout contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Constants_0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Constants_0039 begin`);
+      logInfo("constant FLASH_POSITION_Y");
+      const actual: number = FLASH_POSITION_Y;
+      logInfo('actual=' + String(actual) + ', expected=' + "50");
+      expect(actual).assertEqual(50);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}Constants_0039 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_CONSTANTS_0040
+     * @tc.name      Camera_Constants_0040
+     * @tc.desc      SCENE_NORMAL_PHOTO is pinned to 1 for the camera layout contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Constants_0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Constants_0040 begin`);
+      logInfo("constant SCENE_NORMAL_PHOTO");
+      const actual: number = SCENE_NORMAL_PHOTO;
+      logInfo('actual=' + String(actual) + ', expected=' + "1");
+      expect(actual).assertEqual(1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}Constants_0040 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_CONSTANTS_0041
+     * @tc.name      Camera_Constants_0041
+     * @tc.desc      SCENE_NORMAL_VIDEO is pinned to 2 for the camera layout contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Constants_0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Constants_0041 begin`);
+      logInfo("constant SCENE_NORMAL_VIDEO");
+      const actual: number = SCENE_NORMAL_VIDEO;
+      logInfo('actual=' + String(actual) + ', expected=' + "2");
+      expect(actual).assertEqual(2);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}Constants_0041 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_CONSTANTS_0042
+     * @tc.name      Camera_Constants_0042
+     * @tc.desc      FLASH_MODE_CLOSE is pinned to 0 for the camera layout contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Constants_0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Constants_0042 begin`);
+      logInfo("constant FLASH_MODE_CLOSE");
+      const actual: number = FLASH_MODE_CLOSE;
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}Constants_0042 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_CONSTANTS_0043
+     * @tc.name      Camera_Constants_0043
+     * @tc.desc      FLASH_MODE_OPEN is pinned to 1 for the camera layout contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Constants_0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Constants_0043 begin`);
+      logInfo("constant FLASH_MODE_OPEN");
+      const actual: number = FLASH_MODE_OPEN;
+      logInfo('actual=' + String(actual) + ', expected=' + "1");
+      expect(actual).assertEqual(1);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}Constants_0043 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_CONSTANTS_0044
+     * @tc.name      Camera_Constants_0044
+     * @tc.desc      FLASH_MODE_AUTO is pinned to 2 for the camera layout contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_Constants_0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Constants_0044 begin`);
+      logInfo("constant FLASH_MODE_AUTO");
+      const actual: number = FLASH_MODE_AUTO;
+      logInfo('actual=' + String(actual) + ', expected=' + "2");
+      expect(actual).assertEqual(2);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}Constants_0044 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_CONSTANTS_0045
+     * @tc.name      Camera_Constants_0045
+     * @tc.desc      FLASH_MODE_ALWAYS_OPEN is pinned to 3 for the camera layout contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Camera_Constants_0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}Constants_0045 begin`);
+      logInfo("constant FLASH_MODE_ALWAYS_OPEN");
+      const actual: number = FLASH_MODE_ALWAYS_OPEN;
+      logInfo('actual=' + String(actual) + ', expected=' + "3");
+      expect(actual).assertEqual(3);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}Constants_0045 end`);
+    });
+  });
+}
