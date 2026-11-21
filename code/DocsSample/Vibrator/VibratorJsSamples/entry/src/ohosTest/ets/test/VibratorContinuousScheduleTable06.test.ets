@@ -1808,3 +1808,48 @@ export default function vibratorContinuousScheduleTable06(): void {
     it('testVibratorMatrix1042', 0, (): void => {
       const report: MatrixReport = runMatrix1042();
       hilog.info(DOMAIN, TAG, 'Event count=%{public}d', report.eventCount);
+      expect(report.eventCount).assertEqual(24);
+      hilog.info(DOMAIN, TAG, 'Duration sum=%{public}d', report.durationSum);
+      expect(report.durationSum).assertEqual(29369);
+      hilog.info(DOMAIN, TAG, 'Channel intensity sum=%{public}d', report.channelIntensitySum);
+      expect(report.channelIntensitySum).assertEqual(4656);
+    });
+
+    /**
+     * @tc.number SUB_VIBRATOR_MATRIX_1043
+     * @tc.name testVibratorMatrix1043
+     * @tc.desc 长事件时间及一至五千毫秒时长三通道组合，逐项核对24组输出及累计时长和通道加权强度。
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testVibratorMatrix1043', 0, (): void => {
+      const report: MatrixReport = runMatrix1043();
+      hilog.info(DOMAIN, TAG, 'Event count=%{public}d', report.eventCount);
+      expect(report.eventCount).assertEqual(24);
+      hilog.info(DOMAIN, TAG, 'Duration sum=%{public}d', report.durationSum);
+      expect(report.durationSum).assertEqual(17103);
+      hilog.info(DOMAIN, TAG, 'Channel intensity sum=%{public}d', report.channelIntensitySum);
+      expect(report.channelIntensitySum).assertEqual(4656);
+    });
+
+    /**
+     * @tc.number SUB_VIBRATOR_MATRIX_1044
+     * @tc.name testVibratorMatrix1044
+     * @tc.desc 长事件时间及一至五千毫秒时长三通道组合，逐项核对24组输出及累计时长和通道加权强度。
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testVibratorMatrix1044', 0, (): void => {
+      const report: MatrixReport = runMatrix1044();
+      hilog.info(DOMAIN, TAG, 'Event count=%{public}d', report.eventCount);
+      expect(report.eventCount).assertEqual(24);
+      hilog.info(DOMAIN, TAG, 'Duration sum=%{public}d', report.durationSum);
+      expect(report.durationSum).assertEqual(27311);
+      hilog.info(DOMAIN, TAG, 'Channel intensity sum=%{public}d', report.channelIntensitySum);
+      expect(report.channelIntensitySum).assertEqual(4656);
+    });
+
+  });
+}
