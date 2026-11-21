@@ -1990,3 +1990,866 @@ export default function weatherDataSourceValidationSuite() {
       expect(m.getCity('nohit1265') === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1266
+     * @tc.name    WeatherDataSourceValidation1266
+     * @tc.desc    Weather humidity validity for 22 probe 1266
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1266', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const humidity: number = 22;
+      expect(m.isHumidityValid(humidity)).assertEqual(humidity >= 0 && humidity <= 100);
+      expect(m.getCity('nohit1266') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1267
+     * @tc.name    WeatherDataSourceValidation1267
+     * @tc.desc    Weather temperature validity for -3 probe 1267
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1267', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const temp: number = -3;
+      expect(m.isTempValid(temp)).assertEqual(temp >= -50 && temp <= 60);
+      expect(m.getCity('nohit1267') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1268
+     * @tc.name    WeatherDataSourceValidation1268
+     * @tc.desc    Weather AQI level for 156 probe 1268
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1268', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const aqi: number = 156;
+      let expected: string = "moderate";
+      if (aqi <= 50) { expected = "excellent"; }
+      else if (aqi <= 100) { expected = "good"; }
+      else if (aqi <= 150) { expected = "light"; }
+      expect(m.aqiLevel(aqi)).assertEqual(expected);
+      expect(m.getCity('nohit1268') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1269
+     * @tc.name    WeatherDataSourceValidation1269
+     * @tc.desc    Weather humidity validity for 43 probe 1269
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1269', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const humidity: number = 43;
+      expect(m.isHumidityValid(humidity)).assertEqual(humidity >= 0 && humidity <= 100);
+      expect(m.getCity('nohit1269') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1270
+     * @tc.name    WeatherDataSourceValidation1270
+     * @tc.desc    Weather temperature validity for 0 probe 1270
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1270', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const temp: number = 0;
+      expect(m.isTempValid(temp)).assertEqual(temp >= -50 && temp <= 60);
+      expect(m.getCity('nohit1270') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1271
+     * @tc.name    WeatherDataSourceValidation1271
+     * @tc.desc    Weather AQI level for 7 probe 1271
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1271', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const aqi: number = 7;
+      let expected: string = "moderate";
+      if (aqi <= 50) { expected = "excellent"; }
+      else if (aqi <= 100) { expected = "good"; }
+      else if (aqi <= 150) { expected = "light"; }
+      expect(m.aqiLevel(aqi)).assertEqual(expected);
+      expect(m.getCity('nohit1271') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1272
+     * @tc.name    WeatherDataSourceValidation1272
+     * @tc.desc    Weather humidity validity for 64 probe 1272
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1272', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const humidity: number = 64;
+      expect(m.isHumidityValid(humidity)).assertEqual(humidity >= 0 && humidity <= 100);
+      expect(m.getCity('nohit1272') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1273
+     * @tc.name    WeatherDataSourceValidation1273
+     * @tc.desc    Weather temperature validity for 3 probe 1273
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1273', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const temp: number = 3;
+      expect(m.isTempValid(temp)).assertEqual(temp >= -50 && temp <= 60);
+      expect(m.getCity('nohit1273') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1274
+     * @tc.name    WeatherDataSourceValidation1274
+     * @tc.desc    Weather AQI level for 58 probe 1274
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1274', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const aqi: number = 58;
+      let expected: string = "moderate";
+      if (aqi <= 50) { expected = "excellent"; }
+      else if (aqi <= 100) { expected = "good"; }
+      else if (aqi <= 150) { expected = "light"; }
+      expect(m.aqiLevel(aqi)).assertEqual(expected);
+      expect(m.getCity('nohit1274') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1275
+     * @tc.name    WeatherDataSourceValidation1275
+     * @tc.desc    Weather humidity validity for 85 probe 1275
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1275', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const humidity: number = 85;
+      expect(m.isHumidityValid(humidity)).assertEqual(humidity >= 0 && humidity <= 100);
+      expect(m.getCity('nohit1275') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1276
+     * @tc.name    WeatherDataSourceValidation1276
+     * @tc.desc    Weather temperature validity for 6 probe 1276
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1276', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const temp: number = 6;
+      expect(m.isTempValid(temp)).assertEqual(temp >= -50 && temp <= 60);
+      expect(m.getCity('nohit1276') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1277
+     * @tc.name    WeatherDataSourceValidation1277
+     * @tc.desc    Weather AQI level for 109 probe 1277
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1277', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const aqi: number = 109;
+      let expected: string = "moderate";
+      if (aqi <= 50) { expected = "excellent"; }
+      else if (aqi <= 100) { expected = "good"; }
+      else if (aqi <= 150) { expected = "light"; }
+      expect(m.aqiLevel(aqi)).assertEqual(expected);
+      expect(m.getCity('nohit1277') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1278
+     * @tc.name    WeatherDataSourceValidation1278
+     * @tc.desc    Weather humidity validity for 106 probe 1278
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1278', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const humidity: number = 106;
+      expect(m.isHumidityValid(humidity)).assertEqual(humidity >= 0 && humidity <= 100);
+      expect(m.getCity('nohit1278') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1279
+     * @tc.name    WeatherDataSourceValidation1279
+     * @tc.desc    Weather temperature validity for 9 probe 1279
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1279', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const temp: number = 9;
+      expect(m.isTempValid(temp)).assertEqual(temp >= -50 && temp <= 60);
+      expect(m.getCity('nohit1279') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1280
+     * @tc.name    WeatherDataSourceValidation1280
+     * @tc.desc    Weather AQI level for 160 probe 1280
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1280', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const aqi: number = 160;
+      let expected: string = "moderate";
+      if (aqi <= 50) { expected = "excellent"; }
+      else if (aqi <= 100) { expected = "good"; }
+      else if (aqi <= 150) { expected = "light"; }
+      expect(m.aqiLevel(aqi)).assertEqual(expected);
+      expect(m.getCity('nohit1280') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1281
+     * @tc.name    WeatherDataSourceValidation1281
+     * @tc.desc    Weather humidity validity for 127 probe 1281
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1281', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const humidity: number = 127;
+      expect(m.isHumidityValid(humidity)).assertEqual(humidity >= 0 && humidity <= 100);
+      expect(m.getCity('nohit1281') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1282
+     * @tc.name    WeatherDataSourceValidation1282
+     * @tc.desc    Weather temperature validity for 12 probe 1282
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1282', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const temp: number = 12;
+      expect(m.isTempValid(temp)).assertEqual(temp >= -50 && temp <= 60);
+      expect(m.getCity('nohit1282') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1283
+     * @tc.name    WeatherDataSourceValidation1283
+     * @tc.desc    Weather AQI level for 11 probe 1283
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1283', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const aqi: number = 11;
+      let expected: string = "moderate";
+      if (aqi <= 50) { expected = "excellent"; }
+      else if (aqi <= 100) { expected = "good"; }
+      else if (aqi <= 150) { expected = "light"; }
+      expect(m.aqiLevel(aqi)).assertEqual(expected);
+      expect(m.getCity('nohit1283') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1284
+     * @tc.name    WeatherDataSourceValidation1284
+     * @tc.desc    Weather humidity validity for 18 probe 1284
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1284', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const humidity: number = 18;
+      expect(m.isHumidityValid(humidity)).assertEqual(humidity >= 0 && humidity <= 100);
+      expect(m.getCity('nohit1284') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1285
+     * @tc.name    WeatherDataSourceValidation1285
+     * @tc.desc    Weather temperature validity for 15 probe 1285
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1285', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const temp: number = 15;
+      expect(m.isTempValid(temp)).assertEqual(temp >= -50 && temp <= 60);
+      expect(m.getCity('nohit1285') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1286
+     * @tc.name    WeatherDataSourceValidation1286
+     * @tc.desc    Weather AQI level for 62 probe 1286
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1286', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const aqi: number = 62;
+      let expected: string = "moderate";
+      if (aqi <= 50) { expected = "excellent"; }
+      else if (aqi <= 100) { expected = "good"; }
+      else if (aqi <= 150) { expected = "light"; }
+      expect(m.aqiLevel(aqi)).assertEqual(expected);
+      expect(m.getCity('nohit1286') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1287
+     * @tc.name    WeatherDataSourceValidation1287
+     * @tc.desc    Weather humidity validity for 39 probe 1287
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1287', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const humidity: number = 39;
+      expect(m.isHumidityValid(humidity)).assertEqual(humidity >= 0 && humidity <= 100);
+      expect(m.getCity('nohit1287') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1288
+     * @tc.name    WeatherDataSourceValidation1288
+     * @tc.desc    Weather temperature validity for 18 probe 1288
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1288', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const temp: number = 18;
+      expect(m.isTempValid(temp)).assertEqual(temp >= -50 && temp <= 60);
+      expect(m.getCity('nohit1288') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1289
+     * @tc.name    WeatherDataSourceValidation1289
+     * @tc.desc    Weather AQI level for 113 probe 1289
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1289', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const aqi: number = 113;
+      let expected: string = "moderate";
+      if (aqi <= 50) { expected = "excellent"; }
+      else if (aqi <= 100) { expected = "good"; }
+      else if (aqi <= 150) { expected = "light"; }
+      expect(m.aqiLevel(aqi)).assertEqual(expected);
+      expect(m.getCity('nohit1289') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1290
+     * @tc.name    WeatherDataSourceValidation1290
+     * @tc.desc    Weather humidity validity for 60 probe 1290
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1290', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const humidity: number = 60;
+      expect(m.isHumidityValid(humidity)).assertEqual(humidity >= 0 && humidity <= 100);
+      expect(m.getCity('nohit1290') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1291
+     * @tc.name    WeatherDataSourceValidation1291
+     * @tc.desc    Weather temperature validity for 21 probe 1291
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1291', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const temp: number = 21;
+      expect(m.isTempValid(temp)).assertEqual(temp >= -50 && temp <= 60);
+      expect(m.getCity('nohit1291') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1292
+     * @tc.name    WeatherDataSourceValidation1292
+     * @tc.desc    Weather AQI level for 164 probe 1292
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1292', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const aqi: number = 164;
+      let expected: string = "moderate";
+      if (aqi <= 50) { expected = "excellent"; }
+      else if (aqi <= 100) { expected = "good"; }
+      else if (aqi <= 150) { expected = "light"; }
+      expect(m.aqiLevel(aqi)).assertEqual(expected);
+      expect(m.getCity('nohit1292') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1293
+     * @tc.name    WeatherDataSourceValidation1293
+     * @tc.desc    Weather humidity validity for 81 probe 1293
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1293', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const humidity: number = 81;
+      expect(m.isHumidityValid(humidity)).assertEqual(humidity >= 0 && humidity <= 100);
+      expect(m.getCity('nohit1293') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1294
+     * @tc.name    WeatherDataSourceValidation1294
+     * @tc.desc    Weather temperature validity for 24 probe 1294
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1294', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const temp: number = 24;
+      expect(m.isTempValid(temp)).assertEqual(temp >= -50 && temp <= 60);
+      expect(m.getCity('nohit1294') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1295
+     * @tc.name    WeatherDataSourceValidation1295
+     * @tc.desc    Weather AQI level for 15 probe 1295
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1295', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const aqi: number = 15;
+      let expected: string = "moderate";
+      if (aqi <= 50) { expected = "excellent"; }
+      else if (aqi <= 100) { expected = "good"; }
+      else if (aqi <= 150) { expected = "light"; }
+      expect(m.aqiLevel(aqi)).assertEqual(expected);
+      expect(m.getCity('nohit1295') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1296
+     * @tc.name    WeatherDataSourceValidation1296
+     * @tc.desc    Weather humidity validity for 102 probe 1296
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1296', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const humidity: number = 102;
+      expect(m.isHumidityValid(humidity)).assertEqual(humidity >= 0 && humidity <= 100);
+      expect(m.getCity('nohit1296') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1297
+     * @tc.name    WeatherDataSourceValidation1297
+     * @tc.desc    Weather temperature validity for 27 probe 1297
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1297', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const temp: number = 27;
+      expect(m.isTempValid(temp)).assertEqual(temp >= -50 && temp <= 60);
+      expect(m.getCity('nohit1297') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1298
+     * @tc.name    WeatherDataSourceValidation1298
+     * @tc.desc    Weather AQI level for 66 probe 1298
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1298', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const aqi: number = 66;
+      let expected: string = "moderate";
+      if (aqi <= 50) { expected = "excellent"; }
+      else if (aqi <= 100) { expected = "good"; }
+      else if (aqi <= 150) { expected = "light"; }
+      expect(m.aqiLevel(aqi)).assertEqual(expected);
+      expect(m.getCity('nohit1298') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1299
+     * @tc.name    WeatherDataSourceValidation1299
+     * @tc.desc    Weather humidity validity for 123 probe 1299
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1299', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const humidity: number = 123;
+      expect(m.isHumidityValid(humidity)).assertEqual(humidity >= 0 && humidity <= 100);
+      expect(m.getCity('nohit1299') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1300
+     * @tc.name    WeatherDataSourceValidation1300
+     * @tc.desc    Weather temperature validity for 30 probe 1300
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1300', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const temp: number = 30;
+      expect(m.isTempValid(temp)).assertEqual(temp >= -50 && temp <= 60);
+      expect(m.getCity('nohit1300') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1301
+     * @tc.name    WeatherDataSourceValidation1301
+     * @tc.desc    Weather AQI level for 117 probe 1301
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1301', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const aqi: number = 117;
+      let expected: string = "moderate";
+      if (aqi <= 50) { expected = "excellent"; }
+      else if (aqi <= 100) { expected = "good"; }
+      else if (aqi <= 150) { expected = "light"; }
+      expect(m.aqiLevel(aqi)).assertEqual(expected);
+      expect(m.getCity('nohit1301') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1302
+     * @tc.name    WeatherDataSourceValidation1302
+     * @tc.desc    Weather humidity validity for 14 probe 1302
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1302', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const humidity: number = 14;
+      expect(m.isHumidityValid(humidity)).assertEqual(humidity >= 0 && humidity <= 100);
+      expect(m.getCity('nohit1302') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1303
+     * @tc.name    WeatherDataSourceValidation1303
+     * @tc.desc    Weather temperature validity for 33 probe 1303
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1303', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const temp: number = 33;
+      expect(m.isTempValid(temp)).assertEqual(temp >= -50 && temp <= 60);
+      expect(m.getCity('nohit1303') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1304
+     * @tc.name    WeatherDataSourceValidation1304
+     * @tc.desc    Weather AQI level for 168 probe 1304
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1304', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const aqi: number = 168;
+      let expected: string = "moderate";
+      if (aqi <= 50) { expected = "excellent"; }
+      else if (aqi <= 100) { expected = "good"; }
+      else if (aqi <= 150) { expected = "light"; }
+      expect(m.aqiLevel(aqi)).assertEqual(expected);
+      expect(m.getCity('nohit1304') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1305
+     * @tc.name    WeatherDataSourceValidation1305
+     * @tc.desc    Weather humidity validity for 35 probe 1305
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1305', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const humidity: number = 35;
+      expect(m.isHumidityValid(humidity)).assertEqual(humidity >= 0 && humidity <= 100);
+      expect(m.getCity('nohit1305') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1306
+     * @tc.name    WeatherDataSourceValidation1306
+     * @tc.desc    Weather temperature validity for 36 probe 1306
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1306', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const temp: number = 36;
+      expect(m.isTempValid(temp)).assertEqual(temp >= -50 && temp <= 60);
+      expect(m.getCity('nohit1306') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1307
+     * @tc.name    WeatherDataSourceValidation1307
+     * @tc.desc    Weather AQI level for 19 probe 1307
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1307', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const aqi: number = 19;
+      let expected: string = "moderate";
+      if (aqi <= 50) { expected = "excellent"; }
+      else if (aqi <= 100) { expected = "good"; }
+      else if (aqi <= 150) { expected = "light"; }
+      expect(m.aqiLevel(aqi)).assertEqual(expected);
+      expect(m.getCity('nohit1307') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1308
+     * @tc.name    WeatherDataSourceValidation1308
+     * @tc.desc    Weather humidity validity for 56 probe 1308
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1308', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const humidity: number = 56;
+      expect(m.isHumidityValid(humidity)).assertEqual(humidity >= 0 && humidity <= 100);
+      expect(m.getCity('nohit1308') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1309
+     * @tc.name    WeatherDataSourceValidation1309
+     * @tc.desc    Weather temperature validity for 39 probe 1309
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1309', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const temp: number = 39;
+      expect(m.isTempValid(temp)).assertEqual(temp >= -50 && temp <= 60);
+      expect(m.getCity('nohit1309') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1310
+     * @tc.name    WeatherDataSourceValidation1310
+     * @tc.desc    Weather AQI level for 70 probe 1310
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1310', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const aqi: number = 70;
+      let expected: string = "moderate";
+      if (aqi <= 50) { expected = "excellent"; }
+      else if (aqi <= 100) { expected = "good"; }
+      else if (aqi <= 150) { expected = "light"; }
+      expect(m.aqiLevel(aqi)).assertEqual(expected);
+      expect(m.getCity('nohit1310') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1311
+     * @tc.name    WeatherDataSourceValidation1311
+     * @tc.desc    Weather humidity validity for 77 probe 1311
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1311', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const humidity: number = 77;
+      expect(m.isHumidityValid(humidity)).assertEqual(humidity >= 0 && humidity <= 100);
+      expect(m.getCity('nohit1311') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_WEATHER_1312
+     * @tc.name    WeatherDataSourceValidation1312
+     * @tc.desc    Weather temperature validity for 42 probe 1312
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('WeatherDataSourceValidation1312', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const temp: number = 42;
+      expect(m.isTempValid(temp)).assertEqual(temp >= -50 && temp <= 60);
+      expect(m.getCity('nohit1312') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
