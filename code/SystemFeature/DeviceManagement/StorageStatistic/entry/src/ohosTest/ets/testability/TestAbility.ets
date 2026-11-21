@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2023-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,6 +21,16 @@ import testsuite from '../test/List.test';
 import window from '@ohos.window';
 import Want from '@ohos.app.ability.Want';
 import AbilityConstant from '@ohos.app.ability.AbilityConstant';
+
+async function startStorageStatisticApp(): Promise<void> {
+  const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+  const args = AbilityDelegatorRegistry.getArguments();
+  const want: Want = {
+    bundleName: args.bundleName,
+    abilityName: 'MainAbility'
+  };
+  await delegator.startAbility(want);
+}
 
 export default class TestAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {

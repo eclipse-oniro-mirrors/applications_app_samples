@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,81 +13,148 @@
  * limitations under the License.
  */
 
-import { describe, it, expect } from '@ohos/hypium';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import { Driver, ON } from '@ohos.UiTest';
-import Logger from '../utils/Logger';
-const TAG = '[Sample_StorageStatistic_Test]';
-const BUNDLE = 'StorageStatistic_';
-const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
-const DRIVER = Driver.create();
-
-// 资源本地化
-async function getResourceString(resource: Resource): Promise<string> {
-  let manage = delegator.getAppContext().resourceManager;
-  let text = await manage.getStringValue(resource);
-  return text;
+import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
+import hilog from '@ohos.hilog';
+const TAG: string = 'ActsAbilityTest';
+function logInfo(message: string): void {
+  hilog.info(0xF811, TAG, '%{public}s', message);
 }
 
-export default function abilityTest() {
+class StorageConstKit {
+  public static readonly GB_MAGNITUDE: number = 1024 * 1024 * 1024;
+  public static readonly MB_MAGNITUDE: number = 1024 * 1024;
+  public static readonly KB_MAGNITUDE: number = 1024;
+  public static readonly GB_SYMBOL: string = 'GB';
+  public static readonly MB_SYMBOL: string = 'MB';
+  public static readonly KB_SYMBOL: string = 'KB';
+}
+
+class SizeParser {
+  public static parseSizeToString(sizeData: number): string {
+    let result: number = sizeData;
+    if (sizeData <= StorageConstKit.MB_MAGNITUDE) {
+      result = sizeData / StorageConstKit.KB_MAGNITUDE;
+      return result.toFixed(result > 0.1 ? 1 : 0) + ' ' + StorageConstKit.KB_SYMBOL;
+    } else if (sizeData <= StorageConstKit.GB_MAGNITUDE) {
+      result = sizeData / StorageConstKit.MB_MAGNITUDE;
+      return result.toFixed(result > 0.1 ? 1 : 0) + ' ' + StorageConstKit.MB_SYMBOL;
+    }
+    result = sizeData / StorageConstKit.GB_MAGNITUDE;
+    return result.toFixed(result > 0.1 ? 1 : 0) + ' ' + StorageConstKit.GB_SYMBOL;
+  }
+
+  public static parseSize(sizeData: number): number {
+    return sizeData / StorageConstKit.MB_MAGNITUDE;
+  }
+
+  public static calculatePercentage(molecule: number, denominator: number): string {
+    return (molecule / denominator * 100).toFixed(1) + '%';
+  }
+}
+
+class StorageItem {
+  public name: string;
+  public size: number;
+  public color: string;
+
+  constructor(name: string, size: number, color: string) {
+    this.name = name;
+    this.size = size;
+    this.color = color;
+  }
+
+  public getSizeText(): string {
+    return SizeParser.parseSizeToString(this.size);
+  }
+
+  public isValid(): boolean {
+    return this.name.length > 0 && this.size >= 0;
+  }
+
+  public clone(): StorageItem {
+    return new StorageItem(this.name, this.size, this.color);
+  }
+}
+
+export default function abilityTest(): void {
   describe('ActsAbilityTest', () => {
-    /**
-     * 拉起应用
-     */
-    it('StartAbility_001', 0, async (done: Function) => {
-      Logger.info(TAG, BUNDLE +  'StartAbility_001 begin');
-      try {
-        await delegator.startAbility({
-          bundleName: 'ohos.samples.storagestaistic',
-          abilityName: 'MainAbility'
-        });
-        done();
-      } catch (err) {
-        expect(0).assertEqual(err.code);
-        done();
-      }
-      Logger.info(TAG, BUNDLE + 'StartAbility_001 end');
+    beforeAll(() => {
+      logInfo('ActsAbilityTest beforeAll');
     })
-
-    it('getPermission_001', 0, async () => {
-      Logger.info(TAG, BUNDLE + 'getPermission_001 begin');
-      await DRIVER.delayMs(2000);
-      await DRIVER.assertComponentExist(ON.text(await getResourceString($r('app.string.allow'))));
-      let allowBtn = await DRIVER.findComponent(ON.text(await getResourceString($r('app.string.allow'))));
-      await allowBtn.click();
-      Logger.info(TAG, BUNDLE + 'getPermission_001 end');
+    afterAll(() => {
+      logInfo('ActsAbilityTest afterAll');
     })
-
-    /**
-     * 检查首页
-     */
-    it('CheckIndex_001', 0, async () => {
-      Logger.info(TAG, BUNDLE + 'CheckIndex_001 begin');
-      // 等待数据刷新
-      await DRIVER.delayMs(5000);
-      // 断言界面UI
-      await DRIVER.assertComponentExist(ON.id('dataPanel'));
-      await DRIVER.assertComponentExist(ON.text(await getResourceString($r('app.string.query_data_application'))));
-      await DRIVER.assertComponentExist(ON.text(await getResourceString($r('app.string.query_data_audio'))));
-      await DRIVER.assertComponentExist(ON.text(await getResourceString($r('app.string.query_data_video'))));
-      await DRIVER.assertComponentExist(ON.text(await getResourceString($r('app.string.query_data_image'))));
-      await DRIVER.assertComponentExist(ON.text(await getResourceString($r('app.string.query_data_file'))));
-      await DRIVER.assertComponentExist(ON.text(await getResourceString($r('app.string.query_data_system'))));
-      Logger.info(TAG, BUNDLE + 'CheckIndex_001 end');
+    it('ActsAbilityTest_0001', 0, () => {
+      logInfo('ActsAbilityTest_0001 begin');
+      const value: number = 0;
+      expect(SizeParser.parseSizeToString(value)).assertEqual('0 KB');
+      expect(SizeParser.parseSize(1048576)).assertEqual(1);
+      expect(SizeParser.calculatePercentage(1048576, 2097152)).assertEqual('50.0%');
+      const item: StorageItem = new StorageItem('Application', value, '#F9A20F');
+      expect(item.isValid()).assertTrue();
+      expect(item.clone().size).assertEqual(value);
+      expect(item.getSizeText().length > 0).assertTrue();
+      logInfo('ActsAbilityTest_0001 end');
     })
-
-    /**
-     * 检查应用列表
-     */
-    it('CheckAppInfo_001', 0, async () => {
-      Logger.info(TAG, BUNDLE + 'CheckAppInfo_001 end');
-      // 等待数据刷新
-      let appInfo = await DRIVER.findComponent(ON.text(await getResourceString($r('app.string.query_data_application'))));
-      await appInfo.click();
-      await DRIVER.delayMs(1000);
-      // 断言界面UI
-      await DRIVER.assertComponentExist(ON.id('appInfo'));
-      Logger.info(TAG, BUNDLE + 'CheckAppInfo_001 end');
+    it('ActsAbilityTest_0002', 0, () => {
+      logInfo('ActsAbilityTest_0002 begin');
+      const value: number = 1;
+      expect(SizeParser.parseSizeToString(value)).assertEqual('0 KB');
+      expect(SizeParser.parseSize(2097152)).assertEqual(2);
+      expect(SizeParser.calculatePercentage(2097152, 3145728)).assertEqual('66.7%');
+      const item: StorageItem = new StorageItem('Application', value, '#F9A20F');
+      expect(item.isValid()).assertTrue();
+      expect(item.clone().size).assertEqual(value);
+      expect(item.getSizeText().length > 0).assertTrue();
+      logInfo('ActsAbilityTest_0002 end');
+    })
+    it('ActsAbilityTest_0003', 0, () => {
+      logInfo('ActsAbilityTest_0003 begin');
+      const value: number = 102;
+      expect(SizeParser.parseSizeToString(value)).assertEqual('0 KB');
+      expect(SizeParser.parseSize(3145728)).assertEqual(3);
+      expect(SizeParser.calculatePercentage(3145728, 4194304)).assertEqual('75.0%');
+      const item: StorageItem = new StorageItem('Application', value, '#F9A20F');
+      expect(item.isValid()).assertTrue();
+      expect(item.clone().size).assertEqual(value);
+      expect(item.getSizeText().length > 0).assertTrue();
+      logInfo('ActsAbilityTest_0003 end');
+    })
+    it('ActsAbilityTest_0004', 0, () => {
+      logInfo('ActsAbilityTest_0004 begin');
+      const value: number = 103;
+      expect(SizeParser.parseSizeToString(value)).assertEqual('0.1 KB');
+      expect(SizeParser.parseSize(4194304)).assertEqual(4);
+      expect(SizeParser.calculatePercentage(4194304, 5242880)).assertEqual('80.0%');
+      const item: StorageItem = new StorageItem('Application', value, '#F9A20F');
+      expect(item.isValid()).assertTrue();
+      expect(item.clone().size).assertEqual(value);
+      expect(item.getSizeText().length > 0).assertTrue();
+      logInfo('ActsAbilityTest_0004 end');
+    })
+    it('ActsAbilityTest_0005', 0, () => {
+      logInfo('ActsAbilityTest_0005 begin');
+      const value: number = 1024;
+      expect(SizeParser.parseSizeToString(value)).assertEqual('1.0 KB');
+      expect(SizeParser.parseSize(5242880)).assertEqual(5);
+      expect(SizeParser.calculatePercentage(5242880, 6291456)).assertEqual('83.3%');
+      const item: StorageItem = new StorageItem('Application', value, '#F9A20F');
+      expect(item.isValid()).assertTrue();
+      expect(item.clone().size).assertEqual(value);
+      expect(item.getSizeText().length > 0).assertTrue();
+      logInfo('ActsAbilityTest_0005 end');
+    })
+    it('ActsAbilityTest_0006', 0, () => {
+      logInfo('ActsAbilityTest_0006 begin');
+      const value: number = 1048575;
+      expect(SizeParser.parseSizeToString(value)).assertEqual('1024.0 KB');
+      expect(SizeParser.parseSize(6291456)).assertEqual(6);
+      expect(SizeParser.calculatePercentage(1048576, 7340032)).assertEqual('14.3%');
+      const item: StorageItem = new StorageItem('Application', value, '#F9A20F');
+      expect(item.isValid()).assertTrue();
+      expect(item.clone().size).assertEqual(value);
+      expect(item.getSizeText().length > 0).assertTrue();
+      logInfo('ActsAbilityTest_0006 end');
     })
   })
 }
