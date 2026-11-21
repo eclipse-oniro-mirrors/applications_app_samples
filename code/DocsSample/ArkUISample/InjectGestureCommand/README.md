@@ -1,12 +1,12 @@
-# Gesture Command Injection (InjectGestureCommand)
+# Interaction Command Injection (InjectGestureCommand)
 
 ## Introduction
 
-This sample corresponds to the *Gesture Command Injection* development guide. It demonstrates how to inject gesture commands (click, scroll, content switch, back press, and key) into a UI instance through native APIs.
+This sample corresponds to the *Interaction Command Injection* development guide. It demonstrates how to inject interaction commands (click, scroll, content switch, back press, and key) into a UI instance through native APIs.
 
 ## Preview
 
-| Gesture Command Injection |
+| Interaction Command Injection |
 | --- |
 | <img src="screenshot/effect.png" width="320" /> |
 

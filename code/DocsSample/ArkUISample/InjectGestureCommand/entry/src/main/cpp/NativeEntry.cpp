@@ -50,7 +50,7 @@ void InjectClickCommand(ArkUI_ContextHandle uiContext, double x, double y)
     // 构造命令JSON并创建命令对象。
     std::ostringstream oss;
     oss << R"({"schemaVersion":1,"cmd":{"type":"click","mode":"auto",)"
-        << R"("action_info":{"coordinates":{"x1":)" << x << R"(,"y1":)" << y << R"(}}})";
+        << R"("action_info":{"coordinates":{"x1":)" << x << R"(,"y1":)" << y << R"(}}}))";
     std::string json = oss.str();
     OH_ArkUI_NativeModule_UIJsonWrapper* command = nullptr;
     ArkUI_ErrorCode ret = OH_ArkUI_NativeModule_UIJsonWrapperCreate(
