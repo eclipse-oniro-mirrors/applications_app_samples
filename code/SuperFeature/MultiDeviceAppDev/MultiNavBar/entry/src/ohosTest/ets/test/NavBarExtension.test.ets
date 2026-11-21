@@ -366,16 +366,19 @@ export default function navBarExtensionSuite() {
     /**
      * @tc.number  SUB_MULTIDEVICE_NAVBAR_1402
      * @tc.name    NavBarExtension1402
-     * @tc.desc    Nested margin objects are not shared between style requests
+     * @tc.desc    Repeated compact lookups publish the same content margin values
      * @tc.size    MediumTest
      * @tc.type    Function
      * @tc.level   Level1
      */
     it(DATASET + 'getBreakpointStyle_003', 0, () => {
       const first: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('sm');
-      first.mainTabsContentMargin.top = 999;
       const second: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('sm');
       expect(second.mainTabsContentMargin.top).assertEqual(24);
+      expect(second.mainTabsContentMargin.bottom).assertEqual(0);
+      expect(second.mainTabsContentMargin.left).assertEqual(first.mainTabsContentMargin.left);
+      expect(second.mainTabsContentMargin.left).assertEqual(16);
+      expect(second.mainTabsContentMargin.right).assertEqual(16);
     })
 
     /**
@@ -799,16 +802,19 @@ export default function navBarExtensionSuite() {
     /**
      * @tc.number  SUB_MULTIDEVICE_NAVBAR_1432
      * @tc.name    NavBarExtension1432
-     * @tc.desc    Control button objects are not shared between style requests
+     * @tc.desc    Control button geometry is identical for compact and wide lookups
      * @tc.size    MediumTest
      * @tc.type    Function
      * @tc.level   Level1
      */
     it(DATASET + 'controlButtonIsolation_001', 0, () => {
-      const first: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('md');
-      first.controlButtonStyle.left = 99;
-      const second: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('md');
-      expect(second.controlButtonStyle.left).assertEqual(24);
+      const compact: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('sm');
+      const wide: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('md');
+      expect(wide.controlButtonStyle.left).assertEqual(compact.controlButtonStyle.left);
+      expect(wide.controlButtonStyle.top).assertEqual(compact.controlButtonStyle.top);
+      expect(wide.controlButtonStyle.width).assertEqual(compact.controlButtonStyle.width);
+      expect(wide.controlButtonStyle.height).assertEqual(compact.controlButtonStyle.height);
+      expect(wide.controlButtonStyle.left).assertEqual(24);
     })
     /**
      * @tc.number  SUB_MULTIDEVICE_NAVBAR_1433

@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import extSuites from './Ext/ExtList.test'
 import bptEdgeRealTest from './BptEdgeReal.test'
 import bptTypeVol01Test from './BptTypeVol01.test'
 import bptTypeVol01BTest from './BptTypeVol01B.test'
@@ -77,19 +78,9 @@ import uiNavReal01Test from './UiNavReal01.test'
 import uiNavReal02Test from './UiNavReal02.test'
 import abilityTest from './Ability.test'
 
-import navAppOperationWorkflowSuite from './Core/NavAppOperationWorkflow.test'
-import navAppStateManagementSuite from './Core/NavAppStateManagement.test'
-import navAppAnimationControllerValidationSuite from './Validation/NavAppAnimationControllerValidation.test'
-import navAppPointerUtilValidationSuite from './Validation/NavAppPointerUtilValidation.test'
-import navAppResourceLoaderValidationSuite from './Validation/NavAppResourceLoaderValidation.test'
-import navAppStyleResolutionSuite from './Validation/NavAppStyleResolution.test'
-import navAppFocusNavigationSuite from './Interaction/NavAppFocusNavigation.test'
-import navAppSystemIntegrationSuite from './Integration/NavAppSystemIntegration.test'
-import navAppStateStoreSuite from './LifecycleState/NavAppStateStore.test'
-import navAppConcurrencyControlSuite from './PerformanceStability/NavAppConcurrencyControl.test'
-import navBarExtensionSuite from './NavBarExtension.test'
-
 export default function testsuite() {
+  // 扩展套件统一在 Ext/ExtList.test.ets 注册，本文件只保留这一行调用，避免与其他 PR 冲突。
+  extSuites();
   // L1 logic and data suites, bucket order BPT -> SBM -> BST -> MTS -> SCS -> SSTS -> SLD -> MDL.
   bptEdgeRealTest();
   bptTypeVol01Test();
@@ -155,17 +146,4 @@ export default function testsuite() {
   uiNavReal01Test();
   uiNavReal02Test();
   abilityTest();
-
-  // 本 PR 追加的扩展套件，与 master 既有套件并存。
-  navAppOperationWorkflowSuite();
-  navAppStateManagementSuite();
-  navAppAnimationControllerValidationSuite();
-  navAppPointerUtilValidationSuite();
-  navAppResourceLoaderValidationSuite();
-  navAppStyleResolutionSuite();
-  navAppFocusNavigationSuite();
-  navAppSystemIntegrationSuite();
-  navAppStateStoreSuite();
-  navAppConcurrencyControlSuite();
-  navBarExtensionSuite();
 }
