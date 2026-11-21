@@ -3434,3 +3434,930 @@ export default function navPopSequence(): void {
         logCase('testNavPopSequence0009',
           'stack step 1 pushPath state parameter[0]=' + JSON.stringify(stack.getParamByIndex(0)));
         expect(JSON.stringify(stack.getParamByIndex(0))).assertEqual('"pageOne:initial:1"');
+        logCase('testNavPopSequence0009',
+          'stack step 1 pushPath state parameters(pageOne)=' + JSON.stringify(stack.getParamByName('pageOne')));
+        expect(JSON.stringify(stack.getParamByName('pageOne'))).assertEqual('["pageOne:initial:1"]');
+        logCase('testNavPopSequence0009',
+          'stack step 1 pushPath state indexes(pageOne)=' + JSON.stringify(getSortedIndexes(stack, 'pageOne')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageOne'))).assertEqual('[0]');
+        logCase('testNavPopSequence0009',
+          'stack step 1 pushPath state parameters(missingPage)=' + JSON.stringify(stack.getParamByName('missingPage')));
+        expect(JSON.stringify(stack.getParamByName('missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 1 pushPath state indexes(missingPage)=' + JSON.stringify(getSortedIndexes(stack, 'missingPage')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 1 pushPath state first-out-of-range undefined=' +
+          JSON.stringify(stack.getParamByIndex(1) === undefined));
+        expect(stack.getParamByIndex(1) === undefined).assertEqual(true);
+        const parameter2: string = 'pageTwo:initial:2';
+        const path2: NavPathInfo = new NavPathInfo('pageTwo', parameter2);
+        stack.pushPath(path2, false);
+        logCase('testNavPopSequence0009',
+          'stack step 2 pushPath state order=' + JSON.stringify(stack.getAllPathName()));
+        expect(JSON.stringify(stack.getAllPathName())).assertEqual('["pageOne","pageTwo"]');
+        logCase('testNavPopSequence0009', 'stack step 2 pushPath state size=' + JSON.stringify(stack.size()));
+        expect(stack.size()).assertEqual(2);
+        logCase('testNavPopSequence0009',
+          'stack step 2 pushPath state parameter[0]=' + JSON.stringify(stack.getParamByIndex(0)));
+        expect(JSON.stringify(stack.getParamByIndex(0))).assertEqual('"pageOne:initial:1"');
+        logCase('testNavPopSequence0009',
+          'stack step 2 pushPath state parameter[1]=' + JSON.stringify(stack.getParamByIndex(1)));
+        expect(JSON.stringify(stack.getParamByIndex(1))).assertEqual('"pageTwo:initial:2"');
+        logCase('testNavPopSequence0009',
+          'stack step 2 pushPath state parameters(pageOne)=' + JSON.stringify(stack.getParamByName('pageOne')));
+        expect(JSON.stringify(stack.getParamByName('pageOne'))).assertEqual('["pageOne:initial:1"]');
+        logCase('testNavPopSequence0009',
+          'stack step 2 pushPath state indexes(pageOne)=' + JSON.stringify(getSortedIndexes(stack, 'pageOne')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageOne'))).assertEqual('[0]');
+        logCase('testNavPopSequence0009',
+          'stack step 2 pushPath state parameters(pageTwo)=' + JSON.stringify(stack.getParamByName('pageTwo')));
+        expect(JSON.stringify(stack.getParamByName('pageTwo'))).assertEqual('["pageTwo:initial:2"]');
+        logCase('testNavPopSequence0009',
+          'stack step 2 pushPath state indexes(pageTwo)=' + JSON.stringify(getSortedIndexes(stack, 'pageTwo')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageTwo'))).assertEqual('[1]');
+        logCase('testNavPopSequence0009',
+          'stack step 2 pushPath state parameters(missingPage)=' + JSON.stringify(stack.getParamByName('missingPage')));
+        expect(JSON.stringify(stack.getParamByName('missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 2 pushPath state indexes(missingPage)=' + JSON.stringify(getSortedIndexes(stack, 'missingPage')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 2 pushPath state first-out-of-range undefined=' +
+          JSON.stringify(stack.getParamByIndex(2) === undefined));
+        expect(stack.getParamByIndex(2) === undefined).assertEqual(true);
+        const parameter3: string = 'pageThree:by-name:3';
+        stack.pushPathByName('pageThree', parameter3, false);
+        logCase('testNavPopSequence0009',
+          'stack step 3 pushPathByName state order=' + JSON.stringify(stack.getAllPathName()));
+        expect(JSON.stringify(stack.getAllPathName())).assertEqual('["pageOne","pageTwo","pageThree"]');
+        logCase('testNavPopSequence0009', 'stack step 3 pushPathByName state size=' + JSON.stringify(stack.size()));
+        expect(stack.size()).assertEqual(3);
+        logCase('testNavPopSequence0009',
+          'stack step 3 pushPathByName state parameter[0]=' + JSON.stringify(stack.getParamByIndex(0)));
+        expect(JSON.stringify(stack.getParamByIndex(0))).assertEqual('"pageOne:initial:1"');
+        logCase('testNavPopSequence0009',
+          'stack step 3 pushPathByName state parameter[1]=' + JSON.stringify(stack.getParamByIndex(1)));
+        expect(JSON.stringify(stack.getParamByIndex(1))).assertEqual('"pageTwo:initial:2"');
+        logCase('testNavPopSequence0009',
+          'stack step 3 pushPathByName state parameter[2]=' + JSON.stringify(stack.getParamByIndex(2)));
+        expect(JSON.stringify(stack.getParamByIndex(2))).assertEqual('"pageThree:by-name:3"');
+        logCase('testNavPopSequence0009',
+          'stack step 3 pushPathByName state parameters(pageOne)=' + JSON.stringify(stack.getParamByName('pageOne')));
+        expect(JSON.stringify(stack.getParamByName('pageOne'))).assertEqual('["pageOne:initial:1"]');
+        logCase('testNavPopSequence0009',
+          'stack step 3 pushPathByName state indexes(pageOne)=' + JSON.stringify(getSortedIndexes(stack, 'pageOne')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageOne'))).assertEqual('[0]');
+        logCase('testNavPopSequence0009',
+          'stack step 3 pushPathByName state parameters(pageTwo)=' + JSON.stringify(stack.getParamByName('pageTwo')));
+        expect(JSON.stringify(stack.getParamByName('pageTwo'))).assertEqual('["pageTwo:initial:2"]');
+        logCase('testNavPopSequence0009',
+          'stack step 3 pushPathByName state indexes(pageTwo)=' + JSON.stringify(getSortedIndexes(stack, 'pageTwo')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageTwo'))).assertEqual('[1]');
+        logCase('testNavPopSequence0009',
+          'stack step 3 pushPathByName state parameters(pageThree)=' +
+          JSON.stringify(stack.getParamByName('pageThree')));
+        expect(JSON.stringify(stack.getParamByName('pageThree'))).assertEqual('["pageThree:by-name:3"]');
+        logCase('testNavPopSequence0009',
+          'stack step 3 pushPathByName state indexes(pageThree)=' +
+          JSON.stringify(getSortedIndexes(stack, 'pageThree')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageThree'))).assertEqual('[2]');
+        logCase('testNavPopSequence0009',
+          'stack step 3 pushPathByName state parameters(missingPage)=' +
+          JSON.stringify(stack.getParamByName('missingPage')));
+        expect(JSON.stringify(stack.getParamByName('missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 3 pushPathByName state indexes(missingPage)=' +
+          JSON.stringify(getSortedIndexes(stack, 'missingPage')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 3 pushPathByName state first-out-of-range undefined=' +
+          JSON.stringify(stack.getParamByIndex(3) === undefined));
+        expect(stack.getParamByIndex(3) === undefined).assertEqual(true);
+        const result4: number = stack.removeByIndexes([0,2]);
+        logCase('testNavPopSequence0009',
+          'stack step 4 removeByIndexes returned count/index=' + JSON.stringify(result4));
+        expect(result4).assertEqual(2);
+        logCase('testNavPopSequence0009',
+          'stack step 4 removeByIndexes state order=' + JSON.stringify(stack.getAllPathName()));
+        expect(JSON.stringify(stack.getAllPathName())).assertEqual('["pageTwo"]');
+        logCase('testNavPopSequence0009', 'stack step 4 removeByIndexes state size=' + JSON.stringify(stack.size()));
+        expect(stack.size()).assertEqual(1);
+        logCase('testNavPopSequence0009',
+          'stack step 4 removeByIndexes state parameter[0]=' + JSON.stringify(stack.getParamByIndex(0)));
+        expect(JSON.stringify(stack.getParamByIndex(0))).assertEqual('"pageTwo:initial:2"');
+        logCase('testNavPopSequence0009',
+          'stack step 4 removeByIndexes state parameters(pageOne)=' + JSON.stringify(stack.getParamByName('pageOne')));
+        expect(JSON.stringify(stack.getParamByName('pageOne'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 4 removeByIndexes state indexes(pageOne)=' + JSON.stringify(getSortedIndexes(stack, 'pageOne')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageOne'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 4 removeByIndexes state parameters(pageTwo)=' + JSON.stringify(stack.getParamByName('pageTwo')));
+        expect(JSON.stringify(stack.getParamByName('pageTwo'))).assertEqual('["pageTwo:initial:2"]');
+        logCase('testNavPopSequence0009',
+          'stack step 4 removeByIndexes state indexes(pageTwo)=' + JSON.stringify(getSortedIndexes(stack, 'pageTwo')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageTwo'))).assertEqual('[0]');
+        logCase('testNavPopSequence0009',
+          'stack step 4 removeByIndexes state parameters(pageThree)=' +
+          JSON.stringify(stack.getParamByName('pageThree')));
+        expect(JSON.stringify(stack.getParamByName('pageThree'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 4 removeByIndexes state indexes(pageThree)=' +
+          JSON.stringify(getSortedIndexes(stack, 'pageThree')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageThree'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 4 removeByIndexes state parameters(missingPage)=' +
+          JSON.stringify(stack.getParamByName('missingPage')));
+        expect(JSON.stringify(stack.getParamByName('missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 4 removeByIndexes state indexes(missingPage)=' +
+          JSON.stringify(getSortedIndexes(stack, 'missingPage')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 4 removeByIndexes state first-out-of-range undefined=' +
+          JSON.stringify(stack.getParamByIndex(1) === undefined));
+        expect(stack.getParamByIndex(1) === undefined).assertEqual(true);
+        const popped5: NavPathInfo | undefined = stack.pop(false);
+        logCase('testNavPopSequence0009',
+          'stack step 5 pop returned undefined=' + JSON.stringify(popped5 === undefined));
+        expect(popped5 === undefined).assertEqual(false);
+        if (popped5 !== undefined) {
+          logCase('testNavPopSequence0009', 'stack step 5 pop returned name=' + JSON.stringify(popped5.name));
+          expect(popped5.name).assertEqual('pageTwo');
+          logCase('testNavPopSequence0009', 'stack step 5 pop returned parameter=' + JSON.stringify(popped5.param));
+          expect(JSON.stringify(popped5.param)).assertEqual('"pageTwo:initial:2"');
+        }
+        logCase('testNavPopSequence0009', 'stack step 5 pop state order=' + JSON.stringify(stack.getAllPathName()));
+        expect(JSON.stringify(stack.getAllPathName())).assertEqual('[]');
+        logCase('testNavPopSequence0009', 'stack step 5 pop state size=' + JSON.stringify(stack.size()));
+        expect(stack.size()).assertEqual(0);
+        logCase('testNavPopSequence0009',
+          'stack step 5 pop state parameters(pageOne)=' + JSON.stringify(stack.getParamByName('pageOne')));
+        expect(JSON.stringify(stack.getParamByName('pageOne'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 5 pop state indexes(pageOne)=' + JSON.stringify(getSortedIndexes(stack, 'pageOne')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageOne'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 5 pop state parameters(pageTwo)=' + JSON.stringify(stack.getParamByName('pageTwo')));
+        expect(JSON.stringify(stack.getParamByName('pageTwo'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 5 pop state indexes(pageTwo)=' + JSON.stringify(getSortedIndexes(stack, 'pageTwo')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageTwo'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 5 pop state parameters(pageThree)=' + JSON.stringify(stack.getParamByName('pageThree')));
+        expect(JSON.stringify(stack.getParamByName('pageThree'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 5 pop state indexes(pageThree)=' + JSON.stringify(getSortedIndexes(stack, 'pageThree')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageThree'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 5 pop state parameters(missingPage)=' + JSON.stringify(stack.getParamByName('missingPage')));
+        expect(JSON.stringify(stack.getParamByName('missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 5 pop state indexes(missingPage)=' + JSON.stringify(getSortedIndexes(stack, 'missingPage')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 5 pop state first-out-of-range undefined=' +
+          JSON.stringify(stack.getParamByIndex(0) === undefined));
+        expect(stack.getParamByIndex(0) === undefined).assertEqual(true);
+        const parameter6: string = 'pageOne:by-name:4';
+        stack.pushPathByName('pageOne', parameter6, false);
+        logCase('testNavPopSequence0009',
+          'stack step 6 pushPathByName state order=' + JSON.stringify(stack.getAllPathName()));
+        expect(JSON.stringify(stack.getAllPathName())).assertEqual('["pageOne"]');
+        logCase('testNavPopSequence0009', 'stack step 6 pushPathByName state size=' + JSON.stringify(stack.size()));
+        expect(stack.size()).assertEqual(1);
+        logCase('testNavPopSequence0009',
+          'stack step 6 pushPathByName state parameter[0]=' + JSON.stringify(stack.getParamByIndex(0)));
+        expect(JSON.stringify(stack.getParamByIndex(0))).assertEqual('"pageOne:by-name:4"');
+        logCase('testNavPopSequence0009',
+          'stack step 6 pushPathByName state parameters(pageOne)=' + JSON.stringify(stack.getParamByName('pageOne')));
+        expect(JSON.stringify(stack.getParamByName('pageOne'))).assertEqual('["pageOne:by-name:4"]');
+        logCase('testNavPopSequence0009',
+          'stack step 6 pushPathByName state indexes(pageOne)=' + JSON.stringify(getSortedIndexes(stack, 'pageOne')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageOne'))).assertEqual('[0]');
+        logCase('testNavPopSequence0009',
+          'stack step 6 pushPathByName state parameters(pageTwo)=' + JSON.stringify(stack.getParamByName('pageTwo')));
+        expect(JSON.stringify(stack.getParamByName('pageTwo'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 6 pushPathByName state indexes(pageTwo)=' + JSON.stringify(getSortedIndexes(stack, 'pageTwo')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageTwo'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 6 pushPathByName state parameters(pageThree)=' +
+          JSON.stringify(stack.getParamByName('pageThree')));
+        expect(JSON.stringify(stack.getParamByName('pageThree'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 6 pushPathByName state indexes(pageThree)=' +
+          JSON.stringify(getSortedIndexes(stack, 'pageThree')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageThree'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 6 pushPathByName state parameters(missingPage)=' +
+          JSON.stringify(stack.getParamByName('missingPage')));
+        expect(JSON.stringify(stack.getParamByName('missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 6 pushPathByName state indexes(missingPage)=' +
+          JSON.stringify(getSortedIndexes(stack, 'missingPage')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 6 pushPathByName state first-out-of-range undefined=' +
+          JSON.stringify(stack.getParamByIndex(1) === undefined));
+        expect(stack.getParamByIndex(1) === undefined).assertEqual(true);
+        const parameter7: string = 'pageTwo:restored:5';
+        const path7: NavPathInfo = new NavPathInfo('pageTwo', parameter7);
+        stack.pushPath(path7, false);
+        logCase('testNavPopSequence0009',
+          'stack step 7 pushPath state order=' + JSON.stringify(stack.getAllPathName()));
+        expect(JSON.stringify(stack.getAllPathName())).assertEqual('["pageOne","pageTwo"]');
+        logCase('testNavPopSequence0009', 'stack step 7 pushPath state size=' + JSON.stringify(stack.size()));
+        expect(stack.size()).assertEqual(2);
+        logCase('testNavPopSequence0009',
+          'stack step 7 pushPath state parameter[0]=' + JSON.stringify(stack.getParamByIndex(0)));
+        expect(JSON.stringify(stack.getParamByIndex(0))).assertEqual('"pageOne:by-name:4"');
+        logCase('testNavPopSequence0009',
+          'stack step 7 pushPath state parameter[1]=' + JSON.stringify(stack.getParamByIndex(1)));
+        expect(JSON.stringify(stack.getParamByIndex(1))).assertEqual('"pageTwo:restored:5"');
+        logCase('testNavPopSequence0009',
+          'stack step 7 pushPath state parameters(pageOne)=' + JSON.stringify(stack.getParamByName('pageOne')));
+        expect(JSON.stringify(stack.getParamByName('pageOne'))).assertEqual('["pageOne:by-name:4"]');
+        logCase('testNavPopSequence0009',
+          'stack step 7 pushPath state indexes(pageOne)=' + JSON.stringify(getSortedIndexes(stack, 'pageOne')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageOne'))).assertEqual('[0]');
+        logCase('testNavPopSequence0009',
+          'stack step 7 pushPath state parameters(pageTwo)=' + JSON.stringify(stack.getParamByName('pageTwo')));
+        expect(JSON.stringify(stack.getParamByName('pageTwo'))).assertEqual('["pageTwo:restored:5"]');
+        logCase('testNavPopSequence0009',
+          'stack step 7 pushPath state indexes(pageTwo)=' + JSON.stringify(getSortedIndexes(stack, 'pageTwo')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageTwo'))).assertEqual('[1]');
+        logCase('testNavPopSequence0009',
+          'stack step 7 pushPath state parameters(pageThree)=' + JSON.stringify(stack.getParamByName('pageThree')));
+        expect(JSON.stringify(stack.getParamByName('pageThree'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 7 pushPath state indexes(pageThree)=' + JSON.stringify(getSortedIndexes(stack, 'pageThree')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageThree'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 7 pushPath state parameters(missingPage)=' + JSON.stringify(stack.getParamByName('missingPage')));
+        expect(JSON.stringify(stack.getParamByName('missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 7 pushPath state indexes(missingPage)=' + JSON.stringify(getSortedIndexes(stack, 'missingPage')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 7 pushPath state first-out-of-range undefined=' +
+          JSON.stringify(stack.getParamByIndex(2) === undefined));
+        expect(stack.getParamByIndex(2) === undefined).assertEqual(true);
+        const result8: number = stack.moveToTop('pageTwo', false);
+        logCase('testNavPopSequence0009', 'stack step 8 moveToTop returned count/index=' + JSON.stringify(result8));
+        expect(result8).assertEqual(1);
+        logCase('testNavPopSequence0009',
+          'stack step 8 moveToTop state order=' + JSON.stringify(stack.getAllPathName()));
+        expect(JSON.stringify(stack.getAllPathName())).assertEqual('["pageOne","pageTwo"]');
+        logCase('testNavPopSequence0009', 'stack step 8 moveToTop state size=' + JSON.stringify(stack.size()));
+        expect(stack.size()).assertEqual(2);
+        logCase('testNavPopSequence0009',
+          'stack step 8 moveToTop state parameter[0]=' + JSON.stringify(stack.getParamByIndex(0)));
+        expect(JSON.stringify(stack.getParamByIndex(0))).assertEqual('"pageOne:by-name:4"');
+        logCase('testNavPopSequence0009',
+          'stack step 8 moveToTop state parameter[1]=' + JSON.stringify(stack.getParamByIndex(1)));
+        expect(JSON.stringify(stack.getParamByIndex(1))).assertEqual('"pageTwo:restored:5"');
+        logCase('testNavPopSequence0009',
+          'stack step 8 moveToTop state parameters(pageOne)=' + JSON.stringify(stack.getParamByName('pageOne')));
+        expect(JSON.stringify(stack.getParamByName('pageOne'))).assertEqual('["pageOne:by-name:4"]');
+        logCase('testNavPopSequence0009',
+          'stack step 8 moveToTop state indexes(pageOne)=' + JSON.stringify(getSortedIndexes(stack, 'pageOne')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageOne'))).assertEqual('[0]');
+        logCase('testNavPopSequence0009',
+          'stack step 8 moveToTop state parameters(pageTwo)=' + JSON.stringify(stack.getParamByName('pageTwo')));
+        expect(JSON.stringify(stack.getParamByName('pageTwo'))).assertEqual('["pageTwo:restored:5"]');
+        logCase('testNavPopSequence0009',
+          'stack step 8 moveToTop state indexes(pageTwo)=' + JSON.stringify(getSortedIndexes(stack, 'pageTwo')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageTwo'))).assertEqual('[1]');
+        logCase('testNavPopSequence0009',
+          'stack step 8 moveToTop state parameters(pageThree)=' + JSON.stringify(stack.getParamByName('pageThree')));
+        expect(JSON.stringify(stack.getParamByName('pageThree'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 8 moveToTop state indexes(pageThree)=' + JSON.stringify(getSortedIndexes(stack, 'pageThree')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageThree'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 8 moveToTop state parameters(missingPage)=' +
+          JSON.stringify(stack.getParamByName('missingPage')));
+        expect(JSON.stringify(stack.getParamByName('missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 8 moveToTop state indexes(missingPage)=' +
+          JSON.stringify(getSortedIndexes(stack, 'missingPage')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 8 moveToTop state first-out-of-range undefined=' +
+          JSON.stringify(stack.getParamByIndex(2) === undefined));
+        expect(stack.getParamByIndex(2) === undefined).assertEqual(true);
+        const popped9: NavPathInfo | undefined = stack.pop(false);
+        logCase('testNavPopSequence0009',
+          'stack step 9 pop returned undefined=' + JSON.stringify(popped9 === undefined));
+        expect(popped9 === undefined).assertEqual(false);
+        if (popped9 !== undefined) {
+          logCase('testNavPopSequence0009', 'stack step 9 pop returned name=' + JSON.stringify(popped9.name));
+          expect(popped9.name).assertEqual('pageTwo');
+          logCase('testNavPopSequence0009', 'stack step 9 pop returned parameter=' + JSON.stringify(popped9.param));
+          expect(JSON.stringify(popped9.param)).assertEqual('"pageTwo:restored:5"');
+        }
+        logCase('testNavPopSequence0009', 'stack step 9 pop state order=' + JSON.stringify(stack.getAllPathName()));
+        expect(JSON.stringify(stack.getAllPathName())).assertEqual('["pageOne"]');
+        logCase('testNavPopSequence0009', 'stack step 9 pop state size=' + JSON.stringify(stack.size()));
+        expect(stack.size()).assertEqual(1);
+        logCase('testNavPopSequence0009',
+          'stack step 9 pop state parameter[0]=' + JSON.stringify(stack.getParamByIndex(0)));
+        expect(JSON.stringify(stack.getParamByIndex(0))).assertEqual('"pageOne:by-name:4"');
+        logCase('testNavPopSequence0009',
+          'stack step 9 pop state parameters(pageOne)=' + JSON.stringify(stack.getParamByName('pageOne')));
+        expect(JSON.stringify(stack.getParamByName('pageOne'))).assertEqual('["pageOne:by-name:4"]');
+        logCase('testNavPopSequence0009',
+          'stack step 9 pop state indexes(pageOne)=' + JSON.stringify(getSortedIndexes(stack, 'pageOne')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageOne'))).assertEqual('[0]');
+        logCase('testNavPopSequence0009',
+          'stack step 9 pop state parameters(pageTwo)=' + JSON.stringify(stack.getParamByName('pageTwo')));
+        expect(JSON.stringify(stack.getParamByName('pageTwo'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 9 pop state indexes(pageTwo)=' + JSON.stringify(getSortedIndexes(stack, 'pageTwo')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageTwo'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 9 pop state parameters(pageThree)=' + JSON.stringify(stack.getParamByName('pageThree')));
+        expect(JSON.stringify(stack.getParamByName('pageThree'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 9 pop state indexes(pageThree)=' + JSON.stringify(getSortedIndexes(stack, 'pageThree')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageThree'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 9 pop state parameters(missingPage)=' + JSON.stringify(stack.getParamByName('missingPage')));
+        expect(JSON.stringify(stack.getParamByName('missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 9 pop state indexes(missingPage)=' + JSON.stringify(getSortedIndexes(stack, 'missingPage')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 9 pop state first-out-of-range undefined=' +
+          JSON.stringify(stack.getParamByIndex(1) === undefined));
+        expect(stack.getParamByIndex(1) === undefined).assertEqual(true);
+        const parameter10: string = 'pageFive:initial:6';
+        const path10: NavPathInfo = new NavPathInfo('pageFive', parameter10);
+        stack.pushPath(path10, false);
+        logCase('testNavPopSequence0009',
+          'stack step 10 pushPath final order=' + JSON.stringify(stack.getAllPathName()));
+        expect(JSON.stringify(stack.getAllPathName())).assertEqual('["pageOne","pageFive"]');
+        logCase('testNavPopSequence0009', 'stack step 10 pushPath final size=' + JSON.stringify(stack.size()));
+        expect(stack.size()).assertEqual(2);
+        logCase('testNavPopSequence0009',
+          'stack step 10 pushPath final parameter[0]=' + JSON.stringify(stack.getParamByIndex(0)));
+        expect(JSON.stringify(stack.getParamByIndex(0))).assertEqual('"pageOne:by-name:4"');
+        logCase('testNavPopSequence0009',
+          'stack step 10 pushPath final parameter[1]=' + JSON.stringify(stack.getParamByIndex(1)));
+        expect(JSON.stringify(stack.getParamByIndex(1))).assertEqual('"pageFive:initial:6"');
+        logCase('testNavPopSequence0009',
+          'stack step 10 pushPath final parameters(pageOne)=' + JSON.stringify(stack.getParamByName('pageOne')));
+        expect(JSON.stringify(stack.getParamByName('pageOne'))).assertEqual('["pageOne:by-name:4"]');
+        logCase('testNavPopSequence0009',
+          'stack step 10 pushPath final indexes(pageOne)=' + JSON.stringify(getSortedIndexes(stack, 'pageOne')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageOne'))).assertEqual('[0]');
+        logCase('testNavPopSequence0009',
+          'stack step 10 pushPath final parameters(pageTwo)=' + JSON.stringify(stack.getParamByName('pageTwo')));
+        expect(JSON.stringify(stack.getParamByName('pageTwo'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 10 pushPath final indexes(pageTwo)=' + JSON.stringify(getSortedIndexes(stack, 'pageTwo')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageTwo'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 10 pushPath final parameters(pageThree)=' + JSON.stringify(stack.getParamByName('pageThree')));
+        expect(JSON.stringify(stack.getParamByName('pageThree'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 10 pushPath final indexes(pageThree)=' + JSON.stringify(getSortedIndexes(stack, 'pageThree')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageThree'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 10 pushPath final parameters(pageFive)=' + JSON.stringify(stack.getParamByName('pageFive')));
+        expect(JSON.stringify(stack.getParamByName('pageFive'))).assertEqual('["pageFive:initial:6"]');
+        logCase('testNavPopSequence0009',
+          'stack step 10 pushPath final indexes(pageFive)=' + JSON.stringify(getSortedIndexes(stack, 'pageFive')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageFive'))).assertEqual('[1]');
+        logCase('testNavPopSequence0009',
+          'stack step 10 pushPath final parameters(missingPage)=' +
+          JSON.stringify(stack.getParamByName('missingPage')));
+        expect(JSON.stringify(stack.getParamByName('missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 10 pushPath final indexes(missingPage)=' +
+          JSON.stringify(getSortedIndexes(stack, 'missingPage')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0009',
+          'stack step 10 pushPath final first-out-of-range undefined=' +
+          JSON.stringify(stack.getParamByIndex(2) === undefined));
+        expect(stack.getParamByIndex(2) === undefined).assertEqual(true);
+      });
+
+    /**
+     * @tc.number SUB_WEB_IMPORT_RENDER_NAVPOPSEQUENCE_0010
+     * @tc.name testNavPopSequence0010
+     * @tc.desc SDK dependency: NavPathStack; name promotion, replacement and index promotion determine returned pages
+     * @tc.size MEDIUMTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testNavPopSequence0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (): Promise<void> => {
+        const stack: NavPathStack = new NavPathStack();
+        const parameter1: string = 'pageOne:initial:1';
+        const path1: NavPathInfo = new NavPathInfo('pageOne', parameter1);
+        stack.pushPath(path1, false);
+        logCase('testNavPopSequence0010',
+          'stack step 1 pushPath state order=' + JSON.stringify(stack.getAllPathName()));
+        expect(JSON.stringify(stack.getAllPathName())).assertEqual('["pageOne"]');
+        logCase('testNavPopSequence0010', 'stack step 1 pushPath state size=' + JSON.stringify(stack.size()));
+        expect(stack.size()).assertEqual(1);
+        logCase('testNavPopSequence0010',
+          'stack step 1 pushPath state parameter[0]=' + JSON.stringify(stack.getParamByIndex(0)));
+        expect(JSON.stringify(stack.getParamByIndex(0))).assertEqual('"pageOne:initial:1"');
+        logCase('testNavPopSequence0010',
+          'stack step 1 pushPath state parameters(pageOne)=' + JSON.stringify(stack.getParamByName('pageOne')));
+        expect(JSON.stringify(stack.getParamByName('pageOne'))).assertEqual('["pageOne:initial:1"]');
+        logCase('testNavPopSequence0010',
+          'stack step 1 pushPath state indexes(pageOne)=' + JSON.stringify(getSortedIndexes(stack, 'pageOne')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageOne'))).assertEqual('[0]');
+        logCase('testNavPopSequence0010',
+          'stack step 1 pushPath state parameters(missingPage)=' + JSON.stringify(stack.getParamByName('missingPage')));
+        expect(JSON.stringify(stack.getParamByName('missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 1 pushPath state indexes(missingPage)=' + JSON.stringify(getSortedIndexes(stack, 'missingPage')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 1 pushPath state first-out-of-range undefined=' +
+          JSON.stringify(stack.getParamByIndex(1) === undefined));
+        expect(stack.getParamByIndex(1) === undefined).assertEqual(true);
+        const parameter2: string = 'pageTwo:initial:2';
+        const path2: NavPathInfo = new NavPathInfo('pageTwo', parameter2);
+        stack.pushPath(path2, false);
+        logCase('testNavPopSequence0010',
+          'stack step 2 pushPath state order=' + JSON.stringify(stack.getAllPathName()));
+        expect(JSON.stringify(stack.getAllPathName())).assertEqual('["pageOne","pageTwo"]');
+        logCase('testNavPopSequence0010', 'stack step 2 pushPath state size=' + JSON.stringify(stack.size()));
+        expect(stack.size()).assertEqual(2);
+        logCase('testNavPopSequence0010',
+          'stack step 2 pushPath state parameter[0]=' + JSON.stringify(stack.getParamByIndex(0)));
+        expect(JSON.stringify(stack.getParamByIndex(0))).assertEqual('"pageOne:initial:1"');
+        logCase('testNavPopSequence0010',
+          'stack step 2 pushPath state parameter[1]=' + JSON.stringify(stack.getParamByIndex(1)));
+        expect(JSON.stringify(stack.getParamByIndex(1))).assertEqual('"pageTwo:initial:2"');
+        logCase('testNavPopSequence0010',
+          'stack step 2 pushPath state parameters(pageOne)=' + JSON.stringify(stack.getParamByName('pageOne')));
+        expect(JSON.stringify(stack.getParamByName('pageOne'))).assertEqual('["pageOne:initial:1"]');
+        logCase('testNavPopSequence0010',
+          'stack step 2 pushPath state indexes(pageOne)=' + JSON.stringify(getSortedIndexes(stack, 'pageOne')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageOne'))).assertEqual('[0]');
+        logCase('testNavPopSequence0010',
+          'stack step 2 pushPath state parameters(pageTwo)=' + JSON.stringify(stack.getParamByName('pageTwo')));
+        expect(JSON.stringify(stack.getParamByName('pageTwo'))).assertEqual('["pageTwo:initial:2"]');
+        logCase('testNavPopSequence0010',
+          'stack step 2 pushPath state indexes(pageTwo)=' + JSON.stringify(getSortedIndexes(stack, 'pageTwo')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageTwo'))).assertEqual('[1]');
+        logCase('testNavPopSequence0010',
+          'stack step 2 pushPath state parameters(missingPage)=' + JSON.stringify(stack.getParamByName('missingPage')));
+        expect(JSON.stringify(stack.getParamByName('missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 2 pushPath state indexes(missingPage)=' + JSON.stringify(getSortedIndexes(stack, 'missingPage')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 2 pushPath state first-out-of-range undefined=' +
+          JSON.stringify(stack.getParamByIndex(2) === undefined));
+        expect(stack.getParamByIndex(2) === undefined).assertEqual(true);
+        const parameter3: string = 'pageThree:initial:3';
+        const path3: NavPathInfo = new NavPathInfo('pageThree', parameter3);
+        stack.pushPath(path3, false);
+        logCase('testNavPopSequence0010',
+          'stack step 3 pushPath state order=' + JSON.stringify(stack.getAllPathName()));
+        expect(JSON.stringify(stack.getAllPathName())).assertEqual('["pageOne","pageTwo","pageThree"]');
+        logCase('testNavPopSequence0010', 'stack step 3 pushPath state size=' + JSON.stringify(stack.size()));
+        expect(stack.size()).assertEqual(3);
+        logCase('testNavPopSequence0010',
+          'stack step 3 pushPath state parameter[0]=' + JSON.stringify(stack.getParamByIndex(0)));
+        expect(JSON.stringify(stack.getParamByIndex(0))).assertEqual('"pageOne:initial:1"');
+        logCase('testNavPopSequence0010',
+          'stack step 3 pushPath state parameter[1]=' + JSON.stringify(stack.getParamByIndex(1)));
+        expect(JSON.stringify(stack.getParamByIndex(1))).assertEqual('"pageTwo:initial:2"');
+        logCase('testNavPopSequence0010',
+          'stack step 3 pushPath state parameter[2]=' + JSON.stringify(stack.getParamByIndex(2)));
+        expect(JSON.stringify(stack.getParamByIndex(2))).assertEqual('"pageThree:initial:3"');
+        logCase('testNavPopSequence0010',
+          'stack step 3 pushPath state parameters(pageOne)=' + JSON.stringify(stack.getParamByName('pageOne')));
+        expect(JSON.stringify(stack.getParamByName('pageOne'))).assertEqual('["pageOne:initial:1"]');
+        logCase('testNavPopSequence0010',
+          'stack step 3 pushPath state indexes(pageOne)=' + JSON.stringify(getSortedIndexes(stack, 'pageOne')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageOne'))).assertEqual('[0]');
+        logCase('testNavPopSequence0010',
+          'stack step 3 pushPath state parameters(pageTwo)=' + JSON.stringify(stack.getParamByName('pageTwo')));
+        expect(JSON.stringify(stack.getParamByName('pageTwo'))).assertEqual('["pageTwo:initial:2"]');
+        logCase('testNavPopSequence0010',
+          'stack step 3 pushPath state indexes(pageTwo)=' + JSON.stringify(getSortedIndexes(stack, 'pageTwo')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageTwo'))).assertEqual('[1]');
+        logCase('testNavPopSequence0010',
+          'stack step 3 pushPath state parameters(pageThree)=' + JSON.stringify(stack.getParamByName('pageThree')));
+        expect(JSON.stringify(stack.getParamByName('pageThree'))).assertEqual('["pageThree:initial:3"]');
+        logCase('testNavPopSequence0010',
+          'stack step 3 pushPath state indexes(pageThree)=' + JSON.stringify(getSortedIndexes(stack, 'pageThree')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageThree'))).assertEqual('[2]');
+        logCase('testNavPopSequence0010',
+          'stack step 3 pushPath state parameters(missingPage)=' + JSON.stringify(stack.getParamByName('missingPage')));
+        expect(JSON.stringify(stack.getParamByName('missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 3 pushPath state indexes(missingPage)=' + JSON.stringify(getSortedIndexes(stack, 'missingPage')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 3 pushPath state first-out-of-range undefined=' +
+          JSON.stringify(stack.getParamByIndex(3) === undefined));
+        expect(stack.getParamByIndex(3) === undefined).assertEqual(true);
+        const result4: number = stack.moveToTop('pageTwo', false);
+        logCase('testNavPopSequence0010', 'stack step 4 moveToTop returned count/index=' + JSON.stringify(result4));
+        expect(result4).assertEqual(1);
+        logCase('testNavPopSequence0010',
+          'stack step 4 moveToTop state order=' + JSON.stringify(stack.getAllPathName()));
+        expect(JSON.stringify(stack.getAllPathName())).assertEqual('["pageOne","pageThree","pageTwo"]');
+        logCase('testNavPopSequence0010', 'stack step 4 moveToTop state size=' + JSON.stringify(stack.size()));
+        expect(stack.size()).assertEqual(3);
+        logCase('testNavPopSequence0010',
+          'stack step 4 moveToTop state parameter[0]=' + JSON.stringify(stack.getParamByIndex(0)));
+        expect(JSON.stringify(stack.getParamByIndex(0))).assertEqual('"pageOne:initial:1"');
+        logCase('testNavPopSequence0010',
+          'stack step 4 moveToTop state parameter[1]=' + JSON.stringify(stack.getParamByIndex(1)));
+        expect(JSON.stringify(stack.getParamByIndex(1))).assertEqual('"pageThree:initial:3"');
+        logCase('testNavPopSequence0010',
+          'stack step 4 moveToTop state parameter[2]=' + JSON.stringify(stack.getParamByIndex(2)));
+        expect(JSON.stringify(stack.getParamByIndex(2))).assertEqual('"pageTwo:initial:2"');
+        logCase('testNavPopSequence0010',
+          'stack step 4 moveToTop state parameters(pageOne)=' + JSON.stringify(stack.getParamByName('pageOne')));
+        expect(JSON.stringify(stack.getParamByName('pageOne'))).assertEqual('["pageOne:initial:1"]');
+        logCase('testNavPopSequence0010',
+          'stack step 4 moveToTop state indexes(pageOne)=' + JSON.stringify(getSortedIndexes(stack, 'pageOne')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageOne'))).assertEqual('[0]');
+        logCase('testNavPopSequence0010',
+          'stack step 4 moveToTop state parameters(pageTwo)=' + JSON.stringify(stack.getParamByName('pageTwo')));
+        expect(JSON.stringify(stack.getParamByName('pageTwo'))).assertEqual('["pageTwo:initial:2"]');
+        logCase('testNavPopSequence0010',
+          'stack step 4 moveToTop state indexes(pageTwo)=' + JSON.stringify(getSortedIndexes(stack, 'pageTwo')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageTwo'))).assertEqual('[2]');
+        logCase('testNavPopSequence0010',
+          'stack step 4 moveToTop state parameters(pageThree)=' + JSON.stringify(stack.getParamByName('pageThree')));
+        expect(JSON.stringify(stack.getParamByName('pageThree'))).assertEqual('["pageThree:initial:3"]');
+        logCase('testNavPopSequence0010',
+          'stack step 4 moveToTop state indexes(pageThree)=' + JSON.stringify(getSortedIndexes(stack, 'pageThree')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageThree'))).assertEqual('[1]');
+        logCase('testNavPopSequence0010',
+          'stack step 4 moveToTop state parameters(missingPage)=' +
+          JSON.stringify(stack.getParamByName('missingPage')));
+        expect(JSON.stringify(stack.getParamByName('missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 4 moveToTop state indexes(missingPage)=' +
+          JSON.stringify(getSortedIndexes(stack, 'missingPage')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 4 moveToTop state first-out-of-range undefined=' +
+          JSON.stringify(stack.getParamByIndex(3) === undefined));
+        expect(stack.getParamByIndex(3) === undefined).assertEqual(true);
+        const popped5: NavPathInfo | undefined = stack.pop(false);
+        logCase('testNavPopSequence0010',
+          'stack step 5 pop returned undefined=' + JSON.stringify(popped5 === undefined));
+        expect(popped5 === undefined).assertEqual(false);
+        if (popped5 !== undefined) {
+          logCase('testNavPopSequence0010', 'stack step 5 pop returned name=' + JSON.stringify(popped5.name));
+          expect(popped5.name).assertEqual('pageTwo');
+          logCase('testNavPopSequence0010', 'stack step 5 pop returned parameter=' + JSON.stringify(popped5.param));
+          expect(JSON.stringify(popped5.param)).assertEqual('"pageTwo:initial:2"');
+        }
+        logCase('testNavPopSequence0010', 'stack step 5 pop state order=' + JSON.stringify(stack.getAllPathName()));
+        expect(JSON.stringify(stack.getAllPathName())).assertEqual('["pageOne","pageThree"]');
+        logCase('testNavPopSequence0010', 'stack step 5 pop state size=' + JSON.stringify(stack.size()));
+        expect(stack.size()).assertEqual(2);
+        logCase('testNavPopSequence0010',
+          'stack step 5 pop state parameter[0]=' + JSON.stringify(stack.getParamByIndex(0)));
+        expect(JSON.stringify(stack.getParamByIndex(0))).assertEqual('"pageOne:initial:1"');
+        logCase('testNavPopSequence0010',
+          'stack step 5 pop state parameter[1]=' + JSON.stringify(stack.getParamByIndex(1)));
+        expect(JSON.stringify(stack.getParamByIndex(1))).assertEqual('"pageThree:initial:3"');
+        logCase('testNavPopSequence0010',
+          'stack step 5 pop state parameters(pageOne)=' + JSON.stringify(stack.getParamByName('pageOne')));
+        expect(JSON.stringify(stack.getParamByName('pageOne'))).assertEqual('["pageOne:initial:1"]');
+        logCase('testNavPopSequence0010',
+          'stack step 5 pop state indexes(pageOne)=' + JSON.stringify(getSortedIndexes(stack, 'pageOne')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageOne'))).assertEqual('[0]');
+        logCase('testNavPopSequence0010',
+          'stack step 5 pop state parameters(pageTwo)=' + JSON.stringify(stack.getParamByName('pageTwo')));
+        expect(JSON.stringify(stack.getParamByName('pageTwo'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 5 pop state indexes(pageTwo)=' + JSON.stringify(getSortedIndexes(stack, 'pageTwo')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageTwo'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 5 pop state parameters(pageThree)=' + JSON.stringify(stack.getParamByName('pageThree')));
+        expect(JSON.stringify(stack.getParamByName('pageThree'))).assertEqual('["pageThree:initial:3"]');
+        logCase('testNavPopSequence0010',
+          'stack step 5 pop state indexes(pageThree)=' + JSON.stringify(getSortedIndexes(stack, 'pageThree')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageThree'))).assertEqual('[1]');
+        logCase('testNavPopSequence0010',
+          'stack step 5 pop state parameters(missingPage)=' + JSON.stringify(stack.getParamByName('missingPage')));
+        expect(JSON.stringify(stack.getParamByName('missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 5 pop state indexes(missingPage)=' + JSON.stringify(getSortedIndexes(stack, 'missingPage')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 5 pop state first-out-of-range undefined=' +
+          JSON.stringify(stack.getParamByIndex(2) === undefined));
+        expect(stack.getParamByIndex(2) === undefined).assertEqual(true);
+        const parameter6: string = 'pageTwo:restored:4';
+        const path6: NavPathInfo = new NavPathInfo('pageTwo', parameter6);
+        stack.pushPath(path6, false);
+        logCase('testNavPopSequence0010',
+          'stack step 6 pushPath state order=' + JSON.stringify(stack.getAllPathName()));
+        expect(JSON.stringify(stack.getAllPathName())).assertEqual('["pageOne","pageThree","pageTwo"]');
+        logCase('testNavPopSequence0010', 'stack step 6 pushPath state size=' + JSON.stringify(stack.size()));
+        expect(stack.size()).assertEqual(3);
+        logCase('testNavPopSequence0010',
+          'stack step 6 pushPath state parameter[0]=' + JSON.stringify(stack.getParamByIndex(0)));
+        expect(JSON.stringify(stack.getParamByIndex(0))).assertEqual('"pageOne:initial:1"');
+        logCase('testNavPopSequence0010',
+          'stack step 6 pushPath state parameter[1]=' + JSON.stringify(stack.getParamByIndex(1)));
+        expect(JSON.stringify(stack.getParamByIndex(1))).assertEqual('"pageThree:initial:3"');
+        logCase('testNavPopSequence0010',
+          'stack step 6 pushPath state parameter[2]=' + JSON.stringify(stack.getParamByIndex(2)));
+        expect(JSON.stringify(stack.getParamByIndex(2))).assertEqual('"pageTwo:restored:4"');
+        logCase('testNavPopSequence0010',
+          'stack step 6 pushPath state parameters(pageOne)=' + JSON.stringify(stack.getParamByName('pageOne')));
+        expect(JSON.stringify(stack.getParamByName('pageOne'))).assertEqual('["pageOne:initial:1"]');
+        logCase('testNavPopSequence0010',
+          'stack step 6 pushPath state indexes(pageOne)=' + JSON.stringify(getSortedIndexes(stack, 'pageOne')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageOne'))).assertEqual('[0]');
+        logCase('testNavPopSequence0010',
+          'stack step 6 pushPath state parameters(pageTwo)=' + JSON.stringify(stack.getParamByName('pageTwo')));
+        expect(JSON.stringify(stack.getParamByName('pageTwo'))).assertEqual('["pageTwo:restored:4"]');
+        logCase('testNavPopSequence0010',
+          'stack step 6 pushPath state indexes(pageTwo)=' + JSON.stringify(getSortedIndexes(stack, 'pageTwo')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageTwo'))).assertEqual('[2]');
+        logCase('testNavPopSequence0010',
+          'stack step 6 pushPath state parameters(pageThree)=' + JSON.stringify(stack.getParamByName('pageThree')));
+        expect(JSON.stringify(stack.getParamByName('pageThree'))).assertEqual('["pageThree:initial:3"]');
+        logCase('testNavPopSequence0010',
+          'stack step 6 pushPath state indexes(pageThree)=' + JSON.stringify(getSortedIndexes(stack, 'pageThree')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageThree'))).assertEqual('[1]');
+        logCase('testNavPopSequence0010',
+          'stack step 6 pushPath state parameters(missingPage)=' + JSON.stringify(stack.getParamByName('missingPage')));
+        expect(JSON.stringify(stack.getParamByName('missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 6 pushPath state indexes(missingPage)=' + JSON.stringify(getSortedIndexes(stack, 'missingPage')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 6 pushPath state first-out-of-range undefined=' +
+          JSON.stringify(stack.getParamByIndex(3) === undefined));
+        expect(stack.getParamByIndex(3) === undefined).assertEqual(true);
+        const parameter7: string = 'pageThree:replacement:5';
+        const path7: NavPathInfo = new NavPathInfo('pageThree', parameter7);
+        stack.replacePath(path7, false);
+        logCase('testNavPopSequence0010',
+          'stack step 7 replacePath state order=' + JSON.stringify(stack.getAllPathName()));
+        expect(JSON.stringify(stack.getAllPathName())).assertEqual('["pageOne","pageThree","pageThree"]');
+        logCase('testNavPopSequence0010', 'stack step 7 replacePath state size=' + JSON.stringify(stack.size()));
+        expect(stack.size()).assertEqual(3);
+        logCase('testNavPopSequence0010',
+          'stack step 7 replacePath state parameter[0]=' + JSON.stringify(stack.getParamByIndex(0)));
+        expect(JSON.stringify(stack.getParamByIndex(0))).assertEqual('"pageOne:initial:1"');
+        logCase('testNavPopSequence0010',
+          'stack step 7 replacePath state parameter[1]=' + JSON.stringify(stack.getParamByIndex(1)));
+        expect(JSON.stringify(stack.getParamByIndex(1))).assertEqual('"pageThree:initial:3"');
+        logCase('testNavPopSequence0010',
+          'stack step 7 replacePath state parameter[2]=' + JSON.stringify(stack.getParamByIndex(2)));
+        expect(JSON.stringify(stack.getParamByIndex(2))).assertEqual('"pageThree:replacement:5"');
+        logCase('testNavPopSequence0010',
+          'stack step 7 replacePath state parameters(pageOne)=' + JSON.stringify(stack.getParamByName('pageOne')));
+        expect(JSON.stringify(stack.getParamByName('pageOne'))).assertEqual('["pageOne:initial:1"]');
+        logCase('testNavPopSequence0010',
+          'stack step 7 replacePath state indexes(pageOne)=' + JSON.stringify(getSortedIndexes(stack, 'pageOne')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageOne'))).assertEqual('[0]');
+        logCase('testNavPopSequence0010',
+          'stack step 7 replacePath state parameters(pageTwo)=' + JSON.stringify(stack.getParamByName('pageTwo')));
+        expect(JSON.stringify(stack.getParamByName('pageTwo'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 7 replacePath state indexes(pageTwo)=' + JSON.stringify(getSortedIndexes(stack, 'pageTwo')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageTwo'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 7 replacePath state parameters(pageThree)=' + JSON.stringify(stack.getParamByName('pageThree')));
+        expect(JSON.stringify(stack.getParamByName('pageThree'))).assertEqual(
+          '["pageThree:initial:3","pageThree:replacement:5"]');
+        logCase('testNavPopSequence0010',
+          'stack step 7 replacePath state indexes(pageThree)=' + JSON.stringify(getSortedIndexes(stack, 'pageThree')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageThree'))).assertEqual('[1,2]');
+        logCase('testNavPopSequence0010',
+          'stack step 7 replacePath state parameters(missingPage)=' +
+          JSON.stringify(stack.getParamByName('missingPage')));
+        expect(JSON.stringify(stack.getParamByName('missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 7 replacePath state indexes(missingPage)=' +
+          JSON.stringify(getSortedIndexes(stack, 'missingPage')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 7 replacePath state first-out-of-range undefined=' +
+          JSON.stringify(stack.getParamByIndex(3) === undefined));
+        expect(stack.getParamByIndex(3) === undefined).assertEqual(true);
+        stack.moveIndexToTop(0, false);
+        logCase('testNavPopSequence0010',
+          'stack step 8 moveIndexToTop state order=' + JSON.stringify(stack.getAllPathName()));
+        expect(JSON.stringify(stack.getAllPathName())).assertEqual('["pageThree","pageThree","pageOne"]');
+        logCase('testNavPopSequence0010', 'stack step 8 moveIndexToTop state size=' + JSON.stringify(stack.size()));
+        expect(stack.size()).assertEqual(3);
+        logCase('testNavPopSequence0010',
+          'stack step 8 moveIndexToTop state parameter[0]=' + JSON.stringify(stack.getParamByIndex(0)));
+        expect(JSON.stringify(stack.getParamByIndex(0))).assertEqual('"pageThree:initial:3"');
+        logCase('testNavPopSequence0010',
+          'stack step 8 moveIndexToTop state parameter[1]=' + JSON.stringify(stack.getParamByIndex(1)));
+        expect(JSON.stringify(stack.getParamByIndex(1))).assertEqual('"pageThree:replacement:5"');
+        logCase('testNavPopSequence0010',
+          'stack step 8 moveIndexToTop state parameter[2]=' + JSON.stringify(stack.getParamByIndex(2)));
+        expect(JSON.stringify(stack.getParamByIndex(2))).assertEqual('"pageOne:initial:1"');
+        logCase('testNavPopSequence0010',
+          'stack step 8 moveIndexToTop state parameters(pageOne)=' + JSON.stringify(stack.getParamByName('pageOne')));
+        expect(JSON.stringify(stack.getParamByName('pageOne'))).assertEqual('["pageOne:initial:1"]');
+        logCase('testNavPopSequence0010',
+          'stack step 8 moveIndexToTop state indexes(pageOne)=' + JSON.stringify(getSortedIndexes(stack, 'pageOne')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageOne'))).assertEqual('[2]');
+        logCase('testNavPopSequence0010',
+          'stack step 8 moveIndexToTop state parameters(pageTwo)=' + JSON.stringify(stack.getParamByName('pageTwo')));
+        expect(JSON.stringify(stack.getParamByName('pageTwo'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 8 moveIndexToTop state indexes(pageTwo)=' + JSON.stringify(getSortedIndexes(stack, 'pageTwo')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageTwo'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 8 moveIndexToTop state parameters(pageThree)=' +
+          JSON.stringify(stack.getParamByName('pageThree')));
+        expect(JSON.stringify(stack.getParamByName('pageThree'))).assertEqual(
+          '["pageThree:initial:3","pageThree:replacement:5"]');
+        logCase('testNavPopSequence0010',
+          'stack step 8 moveIndexToTop state indexes(pageThree)=' +
+          JSON.stringify(getSortedIndexes(stack, 'pageThree')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageThree'))).assertEqual('[0,1]');
+        logCase('testNavPopSequence0010',
+          'stack step 8 moveIndexToTop state parameters(missingPage)=' +
+          JSON.stringify(stack.getParamByName('missingPage')));
+        expect(JSON.stringify(stack.getParamByName('missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 8 moveIndexToTop state indexes(missingPage)=' +
+          JSON.stringify(getSortedIndexes(stack, 'missingPage')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 8 moveIndexToTop state first-out-of-range undefined=' +
+          JSON.stringify(stack.getParamByIndex(3) === undefined));
+        expect(stack.getParamByIndex(3) === undefined).assertEqual(true);
+        const popped9: NavPathInfo | undefined = stack.pop(false);
+        logCase('testNavPopSequence0010',
+          'stack step 9 pop returned undefined=' + JSON.stringify(popped9 === undefined));
+        expect(popped9 === undefined).assertEqual(false);
+        if (popped9 !== undefined) {
+          logCase('testNavPopSequence0010', 'stack step 9 pop returned name=' + JSON.stringify(popped9.name));
+          expect(popped9.name).assertEqual('pageOne');
+          logCase('testNavPopSequence0010', 'stack step 9 pop returned parameter=' + JSON.stringify(popped9.param));
+          expect(JSON.stringify(popped9.param)).assertEqual('"pageOne:initial:1"');
+        }
+        logCase('testNavPopSequence0010', 'stack step 9 pop state order=' + JSON.stringify(stack.getAllPathName()));
+        expect(JSON.stringify(stack.getAllPathName())).assertEqual('["pageThree","pageThree"]');
+        logCase('testNavPopSequence0010', 'stack step 9 pop state size=' + JSON.stringify(stack.size()));
+        expect(stack.size()).assertEqual(2);
+        logCase('testNavPopSequence0010',
+          'stack step 9 pop state parameter[0]=' + JSON.stringify(stack.getParamByIndex(0)));
+        expect(JSON.stringify(stack.getParamByIndex(0))).assertEqual('"pageThree:initial:3"');
+        logCase('testNavPopSequence0010',
+          'stack step 9 pop state parameter[1]=' + JSON.stringify(stack.getParamByIndex(1)));
+        expect(JSON.stringify(stack.getParamByIndex(1))).assertEqual('"pageThree:replacement:5"');
+        logCase('testNavPopSequence0010',
+          'stack step 9 pop state parameters(pageOne)=' + JSON.stringify(stack.getParamByName('pageOne')));
+        expect(JSON.stringify(stack.getParamByName('pageOne'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 9 pop state indexes(pageOne)=' + JSON.stringify(getSortedIndexes(stack, 'pageOne')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageOne'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 9 pop state parameters(pageTwo)=' + JSON.stringify(stack.getParamByName('pageTwo')));
+        expect(JSON.stringify(stack.getParamByName('pageTwo'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 9 pop state indexes(pageTwo)=' + JSON.stringify(getSortedIndexes(stack, 'pageTwo')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageTwo'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 9 pop state parameters(pageThree)=' + JSON.stringify(stack.getParamByName('pageThree')));
+        expect(JSON.stringify(stack.getParamByName('pageThree'))).assertEqual(
+          '["pageThree:initial:3","pageThree:replacement:5"]');
+        logCase('testNavPopSequence0010',
+          'stack step 9 pop state indexes(pageThree)=' + JSON.stringify(getSortedIndexes(stack, 'pageThree')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageThree'))).assertEqual('[0,1]');
+        logCase('testNavPopSequence0010',
+          'stack step 9 pop state parameters(missingPage)=' + JSON.stringify(stack.getParamByName('missingPage')));
+        expect(JSON.stringify(stack.getParamByName('missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 9 pop state indexes(missingPage)=' + JSON.stringify(getSortedIndexes(stack, 'missingPage')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 9 pop state first-out-of-range undefined=' +
+          JSON.stringify(stack.getParamByIndex(2) === undefined));
+        expect(stack.getParamByIndex(2) === undefined).assertEqual(true);
+        const parameter10: string = 'pageFour:name-replacement:6';
+        stack.replacePathByName('pageFour', parameter10, false);
+        logCase('testNavPopSequence0010',
+          'stack step 10 replacePathByName state order=' + JSON.stringify(stack.getAllPathName()));
+        expect(JSON.stringify(stack.getAllPathName())).assertEqual('["pageThree","pageFour"]');
+        logCase('testNavPopSequence0010', 'stack step 10 replacePathByName state size=' + JSON.stringify(stack.size()));
+        expect(stack.size()).assertEqual(2);
+        logCase('testNavPopSequence0010',
+          'stack step 10 replacePathByName state parameter[0]=' + JSON.stringify(stack.getParamByIndex(0)));
+        expect(JSON.stringify(stack.getParamByIndex(0))).assertEqual('"pageThree:initial:3"');
+        logCase('testNavPopSequence0010',
+          'stack step 10 replacePathByName state parameter[1]=' + JSON.stringify(stack.getParamByIndex(1)));
+        expect(JSON.stringify(stack.getParamByIndex(1))).assertEqual('"pageFour:name-replacement:6"');
+        logCase('testNavPopSequence0010',
+          'stack step 10 replacePathByName state parameters(pageOne)=' +
+          JSON.stringify(stack.getParamByName('pageOne')));
+        expect(JSON.stringify(stack.getParamByName('pageOne'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 10 replacePathByName state indexes(pageOne)=' +
+          JSON.stringify(getSortedIndexes(stack, 'pageOne')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageOne'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 10 replacePathByName state parameters(pageTwo)=' +
+          JSON.stringify(stack.getParamByName('pageTwo')));
+        expect(JSON.stringify(stack.getParamByName('pageTwo'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 10 replacePathByName state indexes(pageTwo)=' +
+          JSON.stringify(getSortedIndexes(stack, 'pageTwo')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageTwo'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 10 replacePathByName state parameters(pageThree)=' +
+          JSON.stringify(stack.getParamByName('pageThree')));
+        expect(JSON.stringify(stack.getParamByName('pageThree'))).assertEqual('["pageThree:initial:3"]');
+        logCase('testNavPopSequence0010',
+          'stack step 10 replacePathByName state indexes(pageThree)=' +
+          JSON.stringify(getSortedIndexes(stack, 'pageThree')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageThree'))).assertEqual('[0]');
+        logCase('testNavPopSequence0010',
+          'stack step 10 replacePathByName state parameters(pageFour)=' +
+          JSON.stringify(stack.getParamByName('pageFour')));
+        expect(JSON.stringify(stack.getParamByName('pageFour'))).assertEqual('["pageFour:name-replacement:6"]');
+        logCase('testNavPopSequence0010',
+          'stack step 10 replacePathByName state indexes(pageFour)=' +
+          JSON.stringify(getSortedIndexes(stack, 'pageFour')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageFour'))).assertEqual('[1]');
+        logCase('testNavPopSequence0010',
+          'stack step 10 replacePathByName state parameters(missingPage)=' +
+          JSON.stringify(stack.getParamByName('missingPage')));
+        expect(JSON.stringify(stack.getParamByName('missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 10 replacePathByName state indexes(missingPage)=' +
+          JSON.stringify(getSortedIndexes(stack, 'missingPage')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 10 replacePathByName state first-out-of-range undefined=' +
+          JSON.stringify(stack.getParamByIndex(2) === undefined));
+        expect(stack.getParamByIndex(2) === undefined).assertEqual(true);
+        const popped11: NavPathInfo | undefined = stack.pop(false);
+        logCase('testNavPopSequence0010',
+          'stack step 11 pop returned undefined=' + JSON.stringify(popped11 === undefined));
+        expect(popped11 === undefined).assertEqual(false);
+        if (popped11 !== undefined) {
+          logCase('testNavPopSequence0010', 'stack step 11 pop returned name=' + JSON.stringify(popped11.name));
+          expect(popped11.name).assertEqual('pageFour');
+          logCase('testNavPopSequence0010', 'stack step 11 pop returned parameter=' + JSON.stringify(popped11.param));
+          expect(JSON.stringify(popped11.param)).assertEqual('"pageFour:name-replacement:6"');
+        }
+        logCase('testNavPopSequence0010', 'stack step 11 pop final order=' + JSON.stringify(stack.getAllPathName()));
+        expect(JSON.stringify(stack.getAllPathName())).assertEqual('["pageThree"]');
+        logCase('testNavPopSequence0010', 'stack step 11 pop final size=' + JSON.stringify(stack.size()));
+        expect(stack.size()).assertEqual(1);
+        logCase('testNavPopSequence0010',
+          'stack step 11 pop final parameter[0]=' + JSON.stringify(stack.getParamByIndex(0)));
+        expect(JSON.stringify(stack.getParamByIndex(0))).assertEqual('"pageThree:initial:3"');
+        logCase('testNavPopSequence0010',
+          'stack step 11 pop final parameters(pageOne)=' + JSON.stringify(stack.getParamByName('pageOne')));
+        expect(JSON.stringify(stack.getParamByName('pageOne'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 11 pop final indexes(pageOne)=' + JSON.stringify(getSortedIndexes(stack, 'pageOne')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageOne'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 11 pop final parameters(pageTwo)=' + JSON.stringify(stack.getParamByName('pageTwo')));
+        expect(JSON.stringify(stack.getParamByName('pageTwo'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 11 pop final indexes(pageTwo)=' + JSON.stringify(getSortedIndexes(stack, 'pageTwo')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageTwo'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 11 pop final parameters(pageThree)=' + JSON.stringify(stack.getParamByName('pageThree')));
+        expect(JSON.stringify(stack.getParamByName('pageThree'))).assertEqual('["pageThree:initial:3"]');
+        logCase('testNavPopSequence0010',
+          'stack step 11 pop final indexes(pageThree)=' + JSON.stringify(getSortedIndexes(stack, 'pageThree')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageThree'))).assertEqual('[0]');
+        logCase('testNavPopSequence0010',
+          'stack step 11 pop final parameters(pageFour)=' + JSON.stringify(stack.getParamByName('pageFour')));
+        expect(JSON.stringify(stack.getParamByName('pageFour'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 11 pop final indexes(pageFour)=' + JSON.stringify(getSortedIndexes(stack, 'pageFour')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'pageFour'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 11 pop final parameters(missingPage)=' + JSON.stringify(stack.getParamByName('missingPage')));
+        expect(JSON.stringify(stack.getParamByName('missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 11 pop final indexes(missingPage)=' + JSON.stringify(getSortedIndexes(stack, 'missingPage')));
+        expect(JSON.stringify(getSortedIndexes(stack, 'missingPage'))).assertEqual('[]');
+        logCase('testNavPopSequence0010',
+          'stack step 11 pop final first-out-of-range undefined=' +
+          JSON.stringify(stack.getParamByIndex(1) === undefined));
+        expect(stack.getParamByIndex(1) === undefined).assertEqual(true);
+      });
+
+  });
+}
