@@ -809,3 +809,252 @@ export default function cameraEventNotifyTest(): void {
      * @tc.name      Camera_EventNotify_0036
      * @tc.desc      camera notification order frame>status>empty tallies to "1:0:0:0:0:0:0:1".
      * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_EventNotify_0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}EventNotify_0036 begin`);
+      const subject: CameraEventModel = new CameraEventModel();
+      subject.onFrameStart();
+      subject.onCameraStatus(1);
+      subject.onPhotoAssetAvailable('');
+      logInfo("notifications frame>status>empty");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "1:0:0:0:0:0:0:1");
+      expect(actual).assertEqual("1:0:0:0:0:0:0:1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventNotify_0036 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_EVENT_NOTIFY_0037
+     * @tc.name      Camera_EventNotify_0037
+     * @tc.desc      camera notification order frame>bind>shutter tallies to "1:0:1:0:0:0:0:0".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_EventNotify_0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}EventNotify_0037 begin`);
+      const subject: CameraEventModel = new CameraEventModel();
+      subject.onFrameStart();
+      subject.bindSaveCallback();
+      subject.onFrameShutter(7);
+      logInfo("notifications frame>bind>shutter");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "1:0:1:0:0:0:0:0");
+      expect(actual).assertEqual("1:0:1:0:0:0:0:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventNotify_0037 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_EVENT_NOTIFY_0038
+     * @tc.name      Camera_EventNotify_0038
+     * @tc.desc      camera notification order frame>bind>bind tallies to "1:0:0:0:0:0:0:0".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_EventNotify_0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}EventNotify_0038 begin`);
+      const subject: CameraEventModel = new CameraEventModel();
+      subject.onFrameStart();
+      subject.bindSaveCallback();
+      subject.bindSaveCallback();
+      logInfo("notifications frame>bind>bind");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "1:0:0:0:0:0:0:0");
+      expect(actual).assertEqual("1:0:0:0:0:0:0:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventNotify_0038 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_EVENT_NOTIFY_0039
+     * @tc.name      Camera_EventNotify_0039
+     * @tc.desc      camera notification order frame>frameEnd>empty tallies to "1:0:0:0:0:0:0:0".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_EventNotify_0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}EventNotify_0039 begin`);
+      const subject: CameraEventModel = new CameraEventModel();
+      subject.onFrameStart();
+      subject.onFrameEnd();
+      subject.onPhotoAssetAvailable('');
+      logInfo("notifications frame>frameEnd>empty");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "1:0:0:0:0:0:0:0");
+      expect(actual).assertEqual("1:0:0:0:0:0:0:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventNotify_0039 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_EVENT_NOTIFY_0040
+     * @tc.name      Camera_EventNotify_0040
+     * @tc.desc      camera notification order shot>frame>shot tallies to "1:2:0:0:0:0:0:0".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_EventNotify_0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}EventNotify_0040 begin`);
+      const subject: CameraEventModel = new CameraEventModel();
+      subject.onCaptureStart('info');
+      subject.onFrameStart();
+      subject.onCaptureStart('info');
+      logInfo("notifications shot>frame>shot");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "1:2:0:0:0:0:0:0");
+      expect(actual).assertEqual("1:2:0:0:0:0:0:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventNotify_0040 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_EVENT_NOTIFY_0041
+     * @tc.name      Camera_EventNotify_0041
+     * @tc.desc      camera notification order shot>frame>status tallies to "1:1:0:0:0:0:0:1".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_EventNotify_0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}EventNotify_0041 begin`);
+      const subject: CameraEventModel = new CameraEventModel();
+      subject.onCaptureStart('info');
+      subject.onFrameStart();
+      subject.onCameraStatus(1);
+      logInfo("notifications shot>frame>status");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "1:1:0:0:0:0:0:1");
+      expect(actual).assertEqual("1:1:0:0:0:0:0:1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventNotify_0041 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_EVENT_NOTIFY_0042
+     * @tc.name      Camera_EventNotify_0042
+     * @tc.desc      camera notification order shot>shot>asset tallies to "0:2:0:0:0:1:0:0".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_EventNotify_0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}EventNotify_0042 begin`);
+      const subject: CameraEventModel = new CameraEventModel();
+      subject.onCaptureStart('info');
+      subject.onCaptureStart('info');
+      subject.onPhotoAssetAvailable('asset');
+      logInfo("notifications shot>shot>asset");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "0:2:0:0:0:1:0:0");
+      expect(actual).assertEqual("0:2:0:0:0:1:0:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventNotify_0042 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_EVENT_NOTIFY_0043
+     * @tc.name      Camera_EventNotify_0043
+     * @tc.desc      camera notification order shot>shutter>shot tallies to "0:2:1:0:0:0:0:0".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_EventNotify_0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}EventNotify_0043 begin`);
+      const subject: CameraEventModel = new CameraEventModel();
+      subject.onCaptureStart('info');
+      subject.onFrameShutter(7);
+      subject.onCaptureStart('info');
+      logInfo("notifications shot>shutter>shot");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "0:2:1:0:0:0:0:0");
+      expect(actual).assertEqual("0:2:1:0:0:0:0:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventNotify_0043 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_EVENT_NOTIFY_0044
+     * @tc.name      Camera_EventNotify_0044
+     * @tc.desc      camera notification order shot>shutter>pressureErr tallies to "0:1:1:0:0:0:0:0".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_EventNotify_0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}EventNotify_0044 begin`);
+      const subject: CameraEventModel = new CameraEventModel();
+      subject.onCaptureStart('info');
+      subject.onFrameShutter(7);
+      subject.onSystemPressure(2, -1);
+      logInfo("notifications shot>shutter>pressureErr");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "0:1:1:0:0:0:0:0");
+      expect(actual).assertEqual("0:1:1:0:0:0:0:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventNotify_0044 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_EVENT_NOTIFY_0045
+     * @tc.name      Camera_EventNotify_0045
+     * @tc.desc      camera notification order shot>end>error tallies to "0:1:0:1:1:0:0:0".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Camera_EventNotify_0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}EventNotify_0045 begin`);
+      const subject: CameraEventModel = new CameraEventModel();
+      subject.onCaptureStart('info');
+      subject.onCaptureEnd(3);
+      subject.onError(500);
+      logInfo("notifications shot>end>error");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "0:1:0:1:1:0:0:0");
+      expect(actual).assertEqual("0:1:0:1:1:0:0:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventNotify_0045 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_EVENT_NOTIFY_0046
+     * @tc.name      Camera_EventNotify_0046
+     * @tc.desc      camera notification order shot>error>frame tallies to "1:1:0:0:1:0:0:0".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_EventNotify_0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}EventNotify_0046 begin`);
+      const subject: CameraEventModel = new CameraEventModel();
+      subject.onCaptureStart('info');
+      subject.onError(500);
+      subject.onFrameStart();
+      logInfo("notifications shot>error>frame");
+      const actual: string = subject.counts();
+      logInfo('actual=' + String(actual) + ', expected=' + "1:1:0:0:1:0:0:0");
+      expect(actual).assertEqual("1:1:0:0:1:0:0:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}EventNotify_0046 end`);
+    });
+  });
+}
