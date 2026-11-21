@@ -562,3 +562,431 @@ export default function cameraSessionInitTest(): void {
       subject.setSceneMode(SCENE_NORMAL_PHOTO);
       logInfo("init(false, 0, 1, true, false)");
       const actual: string = subject.init(false, 0, 1, true, false);
+      logInfo('actual=' + String(actual) + ', expected=' + "no-manager");
+      expect(actual).assertEqual("no-manager");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}SessionInit_0026 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_INIT_0027
+     * @tc.name      Camera_SessionInit_0027
+     * @tc.desc      init(managerReady=false, cameras=0, index=2, scene=true, open=true) returns "no-manager".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_SessionInit_0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SessionInit_0027 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.setSceneMode(SCENE_NORMAL_PHOTO);
+      logInfo("init(false, 0, 2, true, true)");
+      const actual: string = subject.init(false, 0, 2, true, true);
+      logInfo('actual=' + String(actual) + ', expected=' + "no-manager");
+      expect(actual).assertEqual("no-manager");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}SessionInit_0027 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_INIT_0028
+     * @tc.name      Camera_SessionInit_0028
+     * @tc.desc      init(managerReady=false, cameras=0, index=2, scene=false, open=false) returns "no-manager".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_SessionInit_0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SessionInit_0028 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.setSceneMode(SCENE_NORMAL_PHOTO);
+      logInfo("init(false, 0, 2, false, false)");
+      const actual: string = subject.init(false, 0, 2, false, false);
+      logInfo('actual=' + String(actual) + ', expected=' + "no-manager");
+      expect(actual).assertEqual("no-manager");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}SessionInit_0028 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_INIT_0029
+     * @tc.name      Camera_SessionInit_0029
+     * @tc.desc      init(managerReady=false, cameras=0, index=-1, scene=true, open=false) returns "no-manager".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_SessionInit_0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SessionInit_0029 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.setSceneMode(SCENE_NORMAL_PHOTO);
+      logInfo("init(false, 0, -1, true, false)");
+      const actual: string = subject.init(false, 0, -1, true, false);
+      logInfo('actual=' + String(actual) + ', expected=' + "no-manager");
+      expect(actual).assertEqual("no-manager");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}SessionInit_0029 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_INIT_0030
+     * @tc.name      Camera_SessionInit_0030
+     * @tc.desc      init(managerReady=false, cameras=1, index=0, scene=true, open=true) returns "no-manager".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_SessionInit_0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SessionInit_0030 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.setSceneMode(SCENE_NORMAL_PHOTO);
+      logInfo("init(false, 1, 0, true, true)");
+      const actual: string = subject.init(false, 1, 0, true, true);
+      logInfo('actual=' + String(actual) + ', expected=' + "no-manager");
+      expect(actual).assertEqual("no-manager");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}SessionInit_0030 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_INIT_0031
+     * @tc.name      Camera_SessionInit_0031
+     * @tc.desc      init(managerReady=false, cameras=1, index=0, scene=false, open=false) returns "no-manager".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_SessionInit_0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SessionInit_0031 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.setSceneMode(SCENE_NORMAL_PHOTO);
+      logInfo("init(false, 1, 0, false, false)");
+      const actual: string = subject.init(false, 1, 0, false, false);
+      logInfo('actual=' + String(actual) + ', expected=' + "no-manager");
+      expect(actual).assertEqual("no-manager");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}SessionInit_0031 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_INIT_0032
+     * @tc.name      Camera_SessionInit_0032
+     * @tc.desc      init(managerReady=false, cameras=1, index=1, scene=false, open=true) returns "no-manager".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_SessionInit_0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SessionInit_0032 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.setSceneMode(SCENE_NORMAL_PHOTO);
+      logInfo("init(false, 1, 1, false, true)");
+      const actual: string = subject.init(false, 1, 1, false, true);
+      logInfo('actual=' + String(actual) + ', expected=' + "no-manager");
+      expect(actual).assertEqual("no-manager");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}SessionInit_0032 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_INIT_0033
+     * @tc.name      Camera_SessionInit_0033
+     * @tc.desc      init(managerReady=false, cameras=1, index=2, scene=true, open=false) returns "no-manager".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_SessionInit_0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SessionInit_0033 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.setSceneMode(SCENE_NORMAL_PHOTO);
+      logInfo("init(false, 1, 2, true, false)");
+      const actual: string = subject.init(false, 1, 2, true, false);
+      logInfo('actual=' + String(actual) + ', expected=' + "no-manager");
+      expect(actual).assertEqual("no-manager");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}SessionInit_0033 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_INIT_0034
+     * @tc.name      Camera_SessionInit_0034
+     * @tc.desc      init(managerReady=false, cameras=1, index=2, scene=false, open=false) returns "no-manager".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Camera_SessionInit_0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}SessionInit_0034 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.setSceneMode(SCENE_NORMAL_PHOTO);
+      logInfo("init(false, 1, 2, false, false)");
+      const actual: string = subject.init(false, 1, 2, false, false);
+      logInfo('actual=' + String(actual) + ', expected=' + "no-manager");
+      expect(actual).assertEqual("no-manager");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}SessionInit_0034 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_INIT_0035
+     * @tc.name      Camera_SessionInit_0035
+     * @tc.desc      init(managerReady=false, cameras=1, index=-1, scene=false, open=true) returns "no-manager".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Camera_SessionInit_0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}SessionInit_0035 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.setSceneMode(SCENE_NORMAL_PHOTO);
+      logInfo("init(false, 1, -1, false, true)");
+      const actual: string = subject.init(false, 1, -1, false, true);
+      logInfo('actual=' + String(actual) + ', expected=' + "no-manager");
+      expect(actual).assertEqual("no-manager");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}SessionInit_0035 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_INIT_0036
+     * @tc.name      Camera_SessionInit_0036
+     * @tc.desc      init(managerReady=false, cameras=2, index=0, scene=true, open=false) returns "no-manager".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_SessionInit_0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SessionInit_0036 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.setSceneMode(SCENE_NORMAL_PHOTO);
+      logInfo("init(false, 2, 0, true, false)");
+      const actual: string = subject.init(false, 2, 0, true, false);
+      logInfo('actual=' + String(actual) + ', expected=' + "no-manager");
+      expect(actual).assertEqual("no-manager");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}SessionInit_0036 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_INIT_0037
+     * @tc.name      Camera_SessionInit_0037
+     * @tc.desc      init(managerReady=false, cameras=2, index=1, scene=true, open=true) returns "no-manager".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_SessionInit_0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SessionInit_0037 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.setSceneMode(SCENE_NORMAL_PHOTO);
+      logInfo("init(false, 2, 1, true, true)");
+      const actual: string = subject.init(false, 2, 1, true, true);
+      logInfo('actual=' + String(actual) + ', expected=' + "no-manager");
+      expect(actual).assertEqual("no-manager");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}SessionInit_0037 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_INIT_0038
+     * @tc.name      Camera_SessionInit_0038
+     * @tc.desc      init(managerReady=false, cameras=2, index=1, scene=false, open=true) returns "no-manager".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_SessionInit_0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SessionInit_0038 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.setSceneMode(SCENE_NORMAL_PHOTO);
+      logInfo("init(false, 2, 1, false, true)");
+      const actual: string = subject.init(false, 2, 1, false, true);
+      logInfo('actual=' + String(actual) + ', expected=' + "no-manager");
+      expect(actual).assertEqual("no-manager");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}SessionInit_0038 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_INIT_0039
+     * @tc.name      Camera_SessionInit_0039
+     * @tc.desc      init(managerReady=false, cameras=2, index=2, scene=true, open=false) returns "no-manager".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_SessionInit_0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SessionInit_0039 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.setSceneMode(SCENE_NORMAL_PHOTO);
+      logInfo("init(false, 2, 2, true, false)");
+      const actual: string = subject.init(false, 2, 2, true, false);
+      logInfo('actual=' + String(actual) + ', expected=' + "no-manager");
+      expect(actual).assertEqual("no-manager");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}SessionInit_0039 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_INIT_0040
+     * @tc.name      Camera_SessionInit_0040
+     * @tc.desc      init(managerReady=false, cameras=2, index=-1, scene=true, open=true) returns "no-manager".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_SessionInit_0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SessionInit_0040 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.setSceneMode(SCENE_NORMAL_PHOTO);
+      logInfo("init(false, 2, -1, true, true)");
+      const actual: string = subject.init(false, 2, -1, true, true);
+      logInfo('actual=' + String(actual) + ', expected=' + "no-manager");
+      expect(actual).assertEqual("no-manager");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}SessionInit_0040 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_INIT_0041
+     * @tc.name      Camera_SessionInit_0041
+     * @tc.desc      init(managerReady=false, cameras=2, index=-1, scene=false, open=false) returns "no-manager".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_SessionInit_0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SessionInit_0041 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.setSceneMode(SCENE_NORMAL_PHOTO);
+      logInfo("init(false, 2, -1, false, false)");
+      const actual: string = subject.init(false, 2, -1, false, false);
+      logInfo('actual=' + String(actual) + ', expected=' + "no-manager");
+      expect(actual).assertEqual("no-manager");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}SessionInit_0041 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_INIT_0042
+     * @tc.name      Camera_SessionInit_0042
+     * @tc.desc      init(managerReady=false, cameras=3, index=0, scene=false, open=true) returns "no-manager".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_SessionInit_0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SessionInit_0042 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.setSceneMode(SCENE_NORMAL_PHOTO);
+      logInfo("init(false, 3, 0, false, true)");
+      const actual: string = subject.init(false, 3, 0, false, true);
+      logInfo('actual=' + String(actual) + ', expected=' + "no-manager");
+      expect(actual).assertEqual("no-manager");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}SessionInit_0042 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_INIT_0043
+     * @tc.name      Camera_SessionInit_0043
+     * @tc.desc      init(managerReady=false, cameras=3, index=1, scene=true, open=true) returns "no-manager".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_SessionInit_0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SessionInit_0043 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.setSceneMode(SCENE_NORMAL_PHOTO);
+      logInfo("init(false, 3, 1, true, true)");
+      const actual: string = subject.init(false, 3, 1, true, true);
+      logInfo('actual=' + String(actual) + ', expected=' + "no-manager");
+      expect(actual).assertEqual("no-manager");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}SessionInit_0043 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_INIT_0044
+     * @tc.name      Camera_SessionInit_0044
+     * @tc.desc      init(managerReady=false, cameras=3, index=1, scene=false, open=false) returns "no-manager".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_SessionInit_0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SessionInit_0044 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.setSceneMode(SCENE_NORMAL_PHOTO);
+      logInfo("init(false, 3, 1, false, false)");
+      const actual: string = subject.init(false, 3, 1, false, false);
+      logInfo('actual=' + String(actual) + ', expected=' + "no-manager");
+      expect(actual).assertEqual("no-manager");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}SessionInit_0044 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_INIT_0045
+     * @tc.name      Camera_SessionInit_0045
+     * @tc.desc      init(managerReady=false, cameras=3, index=2, scene=false, open=true) returns "no-manager".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Camera_SessionInit_0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}SessionInit_0045 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.setSceneMode(SCENE_NORMAL_PHOTO);
+      logInfo("init(false, 3, 2, false, true)");
+      const actual: string = subject.init(false, 3, 2, false, true);
+      logInfo('actual=' + String(actual) + ', expected=' + "no-manager");
+      expect(actual).assertEqual("no-manager");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}SessionInit_0045 end`);
+    });
+
+    /**
+     * @tc.number    SUB_CAMERA_SESSION_INIT_0046
+     * @tc.name      Camera_SessionInit_0046
+     * @tc.desc      init(managerReady=false, cameras=3, index=-1, scene=true, open=false) returns "no-manager".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Camera_SessionInit_0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}SessionInit_0046 begin`);
+      const subject: CameraSessionModel = new CameraSessionModel();
+      subject.setSceneMode(SCENE_NORMAL_PHOTO);
+      logInfo("init(false, 3, -1, true, false)");
+      const actual: string = subject.init(false, 3, -1, true, false);
+      logInfo('actual=' + String(actual) + ', expected=' + "no-manager");
+      expect(actual).assertEqual("no-manager");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}SessionInit_0046 end`);
+    });
+  });
+}
