@@ -546,7 +546,7 @@ export default function albumExtensionSuite() {
     /**
      * @tc.number  SUB_MULTIDEVICE_ALBUM_1308
      * @tc.name    AlbumExtension1308
-     * @tc.desc    Negative insertion index places the track before the final element
+     * @tc.desc    Negative index inserts the track before the final element
      * @tc.size    MediumTest
      * @tc.type    Function
      * @tc.level   Level1
@@ -1016,7 +1016,7 @@ export default function albumExtensionSuite() {
     /**
      * @tc.number  SUB_MULTIDEVICE_ALBUM_1336
      * @tc.name    AlbumExtension1336
-     * @tc.desc    Negative insertion index places the track before the last one
+     * @tc.desc    Negative index inserts the track before the last one
      * @tc.size    MediumTest
      * @tc.type    Function
      * @tc.level   Level1
