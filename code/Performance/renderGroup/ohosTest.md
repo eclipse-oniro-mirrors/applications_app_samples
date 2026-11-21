@@ -77,19 +77,19 @@ hdc install -r product/phone/entry/build/default/outputs/default/entry-default-s
 hdc install -r product/phone/entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 ```
 
-使用 `dryRun` 核对真机注册清单。
+在 DevEco Studio 中使用 `entry@ohosTest` 测试配置。核对真机注册清单时，在测试运行参数中指定：
 
-```powershell
-hdc shell aa test -b com.example.performance -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s dryRun true
+```text
+-s dryRun true
 ```
 
-使用 `-s class` 分套件执行。下方命令运行驱动队列与资源套件，单例超时为 60 秒，命令等待上限为 1,800 秒。
+按套件执行时移除 `dryRun` 参数，使用 `-s class` 选择套件。以下参数选择驱动队列与资源套件，单例超时为 60 秒，命令等待上限为 1,800 秒：
 
-```powershell
-hdc shell aa test -b com.example.performance -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s class RenderGroupDriverQueue,RenderGroupResources -s timeout 60000 -w 1800
+```text
+-s class RenderGroupDriverQueue,RenderGroupResources -s timeout 60000 -w 1800
 ```
 
-替换 `-s class` 的值可运行其他套件，省略该选项可运行全量。也可通过 DevEco Studio 中的 `entry@ohosTest` 测试配置执行。运行结束后核对 `Tests run`、`Pass`、`Failure`、`Error` 和 `Ignore`。
+替换 `-s class` 的值可运行指定套件，省略该选项可运行全量。运行结束后核对 `Tests run`、`Pass`、`Failure`、`Error` 和 `Ignore`。
 
 ## 完整用例清单
 
