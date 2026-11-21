@@ -3979,3 +3979,425 @@ export default function settingExceptionHandlingSuite() {
       expect(m.getEntry('nohit748') === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0749
+     * @tc.name    SettingExceptionHandling749
+     * @tc.desc    Settings fresh model entries 749 probe 749
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling749', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[1].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit749') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0750
+     * @tc.name    SettingExceptionHandling750
+     * @tc.desc    Settings fresh model entries 750 probe 750
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling750', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[2].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit750') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0751
+     * @tc.name    SettingExceptionHandling751
+     * @tc.desc    Settings fresh model entries 751 probe 751
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling751', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[3].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit751') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0752
+     * @tc.name    SettingExceptionHandling752
+     * @tc.desc    Settings fresh model entries 752 probe 752
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling752', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[0].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit752') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0753
+     * @tc.name    SettingExceptionHandling753
+     * @tc.desc    Settings fresh model entries 753 probe 753
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling753', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[1].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit753') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0754
+     * @tc.name    SettingExceptionHandling754
+     * @tc.desc    Settings fresh model entries 754 probe 754
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling754', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[2].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit754') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0755
+     * @tc.name    SettingExceptionHandling755
+     * @tc.desc    Settings fresh model entries 755 probe 755
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling755', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[3].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit755') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0756
+     * @tc.name    SettingExceptionHandling756
+     * @tc.desc    Settings fresh model entries 756 probe 756
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling756', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[0].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit756') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0757
+     * @tc.name    SettingExceptionHandling757
+     * @tc.desc    Settings fresh model entries 757 probe 757
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling757', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[1].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit757') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0758
+     * @tc.name    SettingExceptionHandling758
+     * @tc.desc    Settings fresh model entries 758 probe 758
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling758', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[2].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit758') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0759
+     * @tc.name    SettingExceptionHandling759
+     * @tc.desc    Settings fresh model entries 759 probe 759
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling759', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[3].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit759') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0760
+     * @tc.name    SettingExceptionHandling760
+     * @tc.desc    Settings fresh model entries 760 probe 760
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling760', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[0].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit760') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0761
+     * @tc.name    SettingExceptionHandling761
+     * @tc.desc    Settings fresh model entries 761 probe 761
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling761', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[1].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit761') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0762
+     * @tc.name    SettingExceptionHandling762
+     * @tc.desc    Settings fresh model entries 762 probe 762
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling762', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[2].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit762') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0763
+     * @tc.name    SettingExceptionHandling763
+     * @tc.desc    Settings fresh model entries 763 probe 763
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling763', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[3].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit763') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0764
+     * @tc.name    SettingExceptionHandling764
+     * @tc.desc    Settings fresh model entries 764 probe 764
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling764', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[0].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit764') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0765
+     * @tc.name    SettingExceptionHandling765
+     * @tc.desc    Settings fresh model entries 765 probe 765
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling765', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[1].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit765') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0766
+     * @tc.name    SettingExceptionHandling766
+     * @tc.desc    Settings fresh model entries 766 probe 766
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling766', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[2].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit766') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0767
+     * @tc.name    SettingExceptionHandling767
+     * @tc.desc    Settings fresh model entries 767 probe 767
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling767', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[3].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit767') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0768
+     * @tc.name    SettingExceptionHandling768
+     * @tc.desc    Settings fresh model entries 768 probe 768
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling768', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[0].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit768') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0769
+     * @tc.name    SettingExceptionHandling769
+     * @tc.desc    Settings fresh model entries 769 probe 769
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling769', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[1].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit769') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_SETTING_0770
+     * @tc.name    SettingExceptionHandling770
+     * @tc.desc    Settings fresh model entries 770 probe 770
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('SettingExceptionHandling770', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const local: SettingsModel = new SettingsModel();
+      expect(local.getItemCount()).assertEqual(m.getItemCount());
+      expect(local.hasUniqueKeys()).assertEqual(true);
+      expect(local.getEntry(m.getEntries()[2].key) !== undefined).assertEqual(true);
+      expect(m.getEntry('nohit770') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
