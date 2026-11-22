@@ -439,3 +439,302 @@ export default function perfFlowBoundaryMatrixTest(): void {
       subject.create([0, 1, 2], 10);
       subject.run(false);
       subject.destroy();
+      logInfo("flow matrix 10,false,false,false");
+      const actual: string = subject.steps() + "|" + subject.actionCount() + "|" + subject.resetCount() + "|" + subject.isDestroyed();
+      logInfo('actual=' + String(actual) + ', expected=' + "create,run,action:0,action:1,action:2,action:3,action:4,action:5,action:6,action:7,action:8,action:9,run-end,destroy|10|0|true");
+      expect(actual).assertEqual("create,run,action:0,action:1,action:2,action:3,action:4,action:5,action:6,action:7,action:8,action:9,run-end,destroy|10|0|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0018 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_FLOW_MATRIX_0019
+     * @tc.name      Perf_FlowMatrix_0019
+     * @tc.desc      perf flow matrix 1,true,false,true keeps the call order.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_FlowMatrix_0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0019 begin`);
+      const subject: PerfRunModel = new PerfRunModel();
+      subject.create([0, 1, 2], 1);
+      subject.run(true);
+      subject.getFor(5);
+      subject.destroy();
+      logInfo("flow matrix 1,true,false,true");
+      const actual: string = subject.steps() + "|" + subject.actionCount() + "|" + subject.resetCount() + "|" + subject.isDestroyed();
+      logInfo('actual=' + String(actual) + ', expected=' + "create,run,action:0,reset:0,run-end,destroy|1|1|true");
+      expect(actual).assertEqual("create,run,action:0,reset:0,run-end,destroy|1|1|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0019 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_FLOW_MATRIX_0020
+     * @tc.name      Perf_FlowMatrix_0020
+     * @tc.desc      perf flow matrix 2,false,true,false keeps the call order.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_FlowMatrix_0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0020 begin`);
+      const subject: PerfRunModel = new PerfRunModel();
+      subject.create([0, 1, 2], 2);
+      subject.run(false);
+      subject.getFor(1);
+      subject.destroy();
+      logInfo("flow matrix 2,false,true,false");
+      const actual: string = subject.steps() + "|" + subject.actionCount() + "|" + subject.resetCount() + "|" + subject.isDestroyed();
+      logInfo('actual=' + String(actual) + ', expected=' + "create,run,action:0,action:1,run-end,get:CPU_LOAD,destroy|2|0|true");
+      expect(actual).assertEqual("create,run,action:0,action:1,run-end,get:CPU_LOAD,destroy|2|0|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0020 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_FLOW_MATRIX_0021
+     * @tc.name      Perf_FlowMatrix_0021
+     * @tc.desc      perf flow matrix 5,true,true,true keeps the call order.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_FlowMatrix_0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0021 begin`);
+      const subject: PerfRunModel = new PerfRunModel();
+      subject.create([0, 1, 2], 5);
+      subject.run(true);
+      subject.getFor(1);
+      subject.getFor(5);
+      subject.destroy();
+      logInfo("flow matrix 5,true,true,true");
+      const actual: string = subject.steps() + "|" + subject.actionCount() + "|" + subject.resetCount() + "|" + subject.isDestroyed();
+      logInfo('actual=' + String(actual) + ', expected=' + "create,run,action:0,reset:0,action:1,reset:1,action:2,reset:2,action:3,reset:3,action:4,reset:4,run-end,get:CPU_LOAD,destroy|5|5|true");
+      expect(actual).assertEqual("create,run,action:0,reset:0,action:1,reset:1,action:2,reset:2,action:3,reset:3,action:4,reset:4,run-end,get:CPU_LOAD,destroy|5|5|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0021 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_FLOW_MATRIX_0022
+     * @tc.name      Perf_FlowMatrix_0022
+     * @tc.desc      perf flow matrix 7,true,false,false keeps the call order.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_FlowMatrix_0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0022 begin`);
+      const subject: PerfRunModel = new PerfRunModel();
+      subject.create([0, 1, 2], 7);
+      subject.run(true);
+      subject.destroy();
+      logInfo("flow matrix 7,true,false,false");
+      const actual: string = subject.steps() + "|" + subject.actionCount() + "|" + subject.resetCount() + "|" + subject.isDestroyed();
+      logInfo('actual=' + String(actual) + ', expected=' + "create,run,action:0,reset:0,action:1,reset:1,action:2,reset:2,action:3,reset:3,action:4,reset:4,action:5,reset:5,action:6,reset:6,run-end,destroy|7|7|true");
+      expect(actual).assertEqual("create,run,action:0,reset:0,action:1,reset:1,action:2,reset:2,action:3,reset:3,action:4,reset:4,action:5,reset:5,action:6,reset:6,run-end,destroy|7|7|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0022 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_FLOW_MATRIX_0023
+     * @tc.name      Perf_FlowMatrix_0023
+     * @tc.desc      perf flow matrix 8,false,true,false keeps the call order.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_FlowMatrix_0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0023 begin`);
+      const subject: PerfRunModel = new PerfRunModel();
+      subject.create([0, 1, 2], 8);
+      subject.run(false);
+      subject.getFor(1);
+      subject.destroy();
+      logInfo("flow matrix 8,false,true,false");
+      const actual: string = subject.steps() + "|" + subject.actionCount() + "|" + subject.resetCount() + "|" + subject.isDestroyed();
+      logInfo('actual=' + String(actual) + ', expected=' + "create,run,action:0,action:1,action:2,action:3,action:4,action:5,action:6,action:7,run-end,get:CPU_LOAD,destroy|8|0|true");
+      expect(actual).assertEqual("create,run,action:0,action:1,action:2,action:3,action:4,action:5,action:6,action:7,run-end,get:CPU_LOAD,destroy|8|0|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0023 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_FLOW_MATRIX_0024
+     * @tc.name      Perf_FlowMatrix_0024
+     * @tc.desc      perf flow matrix 1,true,true,false keeps the call order.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_FlowMatrix_0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0024 begin`);
+      const subject: PerfRunModel = new PerfRunModel();
+      subject.create([0, 1, 2], 1);
+      subject.run(true);
+      subject.getFor(1);
+      subject.destroy();
+      logInfo("flow matrix 1,true,true,false");
+      const actual: string = subject.steps() + "|" + subject.actionCount() + "|" + subject.resetCount() + "|" + subject.isDestroyed();
+      logInfo('actual=' + String(actual) + ', expected=' + "create,run,action:0,reset:0,run-end,get:CPU_LOAD,destroy|1|1|true");
+      expect(actual).assertEqual("create,run,action:0,reset:0,run-end,get:CPU_LOAD,destroy|1|1|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0024 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_FLOW_MATRIX_0025
+     * @tc.name      Perf_FlowMatrix_0025
+     * @tc.desc      perf flow matrix 3,true,false,true keeps the call order.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_FlowMatrix_0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0025 begin`);
+      const subject: PerfRunModel = new PerfRunModel();
+      subject.create([0, 1, 2], 3);
+      subject.run(true);
+      subject.getFor(5);
+      subject.destroy();
+      logInfo("flow matrix 3,true,false,true");
+      const actual: string = subject.steps() + "|" + subject.actionCount() + "|" + subject.resetCount() + "|" + subject.isDestroyed();
+      logInfo('actual=' + String(actual) + ', expected=' + "create,run,action:0,reset:0,action:1,reset:1,action:2,reset:2,run-end,destroy|3|3|true");
+      expect(actual).assertEqual("create,run,action:0,reset:0,action:1,reset:1,action:2,reset:2,run-end,destroy|3|3|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0025 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_FLOW_MATRIX_0026
+     * @tc.name      Perf_FlowMatrix_0026
+     * @tc.desc      perf flow matrix 7,true,true,true keeps the call order.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_FlowMatrix_0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0026 begin`);
+      const subject: PerfRunModel = new PerfRunModel();
+      subject.create([0, 1, 2], 7);
+      subject.run(true);
+      subject.getFor(1);
+      subject.getFor(5);
+      subject.destroy();
+      logInfo("flow matrix 7,true,true,true");
+      const actual: string = subject.steps() + "|" + subject.actionCount() + "|" + subject.resetCount() + "|" + subject.isDestroyed();
+      logInfo('actual=' + String(actual) + ', expected=' + "create,run,action:0,reset:0,action:1,reset:1,action:2,reset:2,action:3,reset:3,action:4,reset:4,action:5,reset:5,action:6,reset:6,run-end,get:CPU_LOAD,destroy|7|7|true");
+      expect(actual).assertEqual("create,run,action:0,reset:0,action:1,reset:1,action:2,reset:2,action:3,reset:3,action:4,reset:4,action:5,reset:5,action:6,reset:6,run-end,get:CPU_LOAD,destroy|7|7|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0026 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_FLOW_MATRIX_0027
+     * @tc.name      Perf_FlowMatrix_0027
+     * @tc.desc      perf flow matrix 9,true,false,false keeps the call order.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_FlowMatrix_0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0027 begin`);
+      const subject: PerfRunModel = new PerfRunModel();
+      subject.create([0, 1, 2], 9);
+      subject.run(true);
+      subject.destroy();
+      logInfo("flow matrix 9,true,false,false");
+      const actual: string = subject.steps() + "|" + subject.actionCount() + "|" + subject.resetCount() + "|" + subject.isDestroyed();
+      logInfo('actual=' + String(actual) + ', expected=' + "create,run,action:0,reset:0,action:1,reset:1,action:2,reset:2,action:3,reset:3,action:4,reset:4,action:5,reset:5,action:6,reset:6,action:7,reset:7,action:8,reset:8,run-end,destroy|9|9|true");
+      expect(actual).assertEqual("create,run,action:0,reset:0,action:1,reset:1,action:2,reset:2,action:3,reset:3,action:4,reset:4,action:5,reset:5,action:6,reset:6,action:7,reset:7,action:8,reset:8,run-end,destroy|9|9|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0027 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_FLOW_MATRIX_0028
+     * @tc.name      Perf_FlowMatrix_0028
+     * @tc.desc      perf flow matrix 3,true,true,false keeps the call order.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_FlowMatrix_0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0028 begin`);
+      const subject: PerfRunModel = new PerfRunModel();
+      subject.create([0, 1, 2], 3);
+      subject.run(true);
+      subject.getFor(1);
+      subject.destroy();
+      logInfo("flow matrix 3,true,true,false");
+      const actual: string = subject.steps() + "|" + subject.actionCount() + "|" + subject.resetCount() + "|" + subject.isDestroyed();
+      logInfo('actual=' + String(actual) + ', expected=' + "create,run,action:0,reset:0,action:1,reset:1,action:2,reset:2,run-end,get:CPU_LOAD,destroy|3|3|true");
+      expect(actual).assertEqual("create,run,action:0,reset:0,action:1,reset:1,action:2,reset:2,run-end,get:CPU_LOAD,destroy|3|3|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0028 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_FLOW_MATRIX_0029
+     * @tc.name      Perf_FlowMatrix_0029
+     * @tc.desc      perf flow matrix 9,true,true,true keeps the call order.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_FlowMatrix_0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0029 begin`);
+      const subject: PerfRunModel = new PerfRunModel();
+      subject.create([0, 1, 2], 9);
+      subject.run(true);
+      subject.getFor(1);
+      subject.getFor(5);
+      subject.destroy();
+      logInfo("flow matrix 9,true,true,true");
+      const actual: string = subject.steps() + "|" + subject.actionCount() + "|" + subject.resetCount() + "|" + subject.isDestroyed();
+      logInfo('actual=' + String(actual) + ', expected=' + "create,run,action:0,reset:0,action:1,reset:1,action:2,reset:2,action:3,reset:3,action:4,reset:4,action:5,reset:5,action:6,reset:6,action:7,reset:7,action:8,reset:8,run-end,get:CPU_LOAD,destroy|9|9|true");
+      expect(actual).assertEqual("create,run,action:0,reset:0,action:1,reset:1,action:2,reset:2,action:3,reset:3,action:4,reset:4,action:5,reset:5,action:6,reset:6,action:7,reset:7,action:8,reset:8,run-end,get:CPU_LOAD,destroy|9|9|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0029 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_FLOW_MATRIX_0030
+     * @tc.name      Perf_FlowMatrix_0030
+     * @tc.desc      perf flow matrix 5,true,true,false keeps the call order.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_FlowMatrix_0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0030 begin`);
+      const subject: PerfRunModel = new PerfRunModel();
+      subject.create([0, 1, 2], 5);
+      subject.run(true);
+      subject.getFor(1);
+      subject.destroy();
+      logInfo("flow matrix 5,true,true,false");
+      const actual: string = subject.steps() + "|" + subject.actionCount() + "|" + subject.resetCount() + "|" + subject.isDestroyed();
+      logInfo('actual=' + String(actual) + ', expected=' + "create,run,action:0,reset:0,action:1,reset:1,action:2,reset:2,action:3,reset:3,action:4,reset:4,run-end,get:CPU_LOAD,destroy|5|5|true");
+      expect(actual).assertEqual("create,run,action:0,reset:0,action:1,reset:1,action:2,reset:2,action:3,reset:3,action:4,reset:4,run-end,get:CPU_LOAD,destroy|5|5|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0030 end`);
+    });
+  });
+}
