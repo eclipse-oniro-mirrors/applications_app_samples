@@ -235,7 +235,7 @@ Web({ src: $rawfile("embed_view.html"), controller: this.browserTabController })
 
 ### 测试
 
-`entry/src/ohosTest` 下共 30 个测试套件、2985 条自动化测试用例，覆盖 BundleInfo、HapModuleInfo 与 ApplicationInfo、字符串/颜色/整数/媒体资源、商品数据模型、rawfile 页面结构、文件与首选项、显示信息与 Want 参数、EntryAbility 上下文等场景。全量执行 2985 条用例，全部通过，失败 0 条，错误 0 条。用例设计与执行方式见 [ohosTest.md](ohosTest.md)。
+`entry/src/ohosTest` 下共 30 个测试套件、2985 条自动化测试用例，覆盖 BundleInfo、HapModuleInfo 与 ApplicationInfo、字符串/颜色/整数/媒体资源、商品数据模型、rawfile 页面结构、文件与 Preferences、显示信息与 Want 参数、EntryAbility 上下文等场景。全量执行 2985 条用例，全部通过，失败 0 条，错误 0 条。用例设计与执行方式见 [ohosTest.md](ohosTest.md)。
 
 执行方式：
 
