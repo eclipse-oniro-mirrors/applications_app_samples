@@ -2826,3 +2826,243 @@ ${NOTIFY_REPORTER}
     const regular = new Event('touchstart');
     const first = node.dispatchEvent(canceled);
     const second = node.dispatchEvent(regular);
+    nativeEmbed.init();
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','), String(first), String(second),
+      [canceled.defaultPrevented, regular.defaultPrevented].join(','),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main,main');
+      expect(result[1]).assertEqual('nativeSearch>nativeSearch,nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2,2');
+      expect(result[3]).assertEqual('true,true');
+      expect(result[4]).assertEqual('false');
+      expect(result[5]).assertEqual('true');
+      expect(result[6]).assertEqual('true,false');
+      expect(result[7]).assertEqual('true,true,true,true,true,true');
+      expect(result[8]).assertEqual('2');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_TOUCHNOTIFY_0057
+     * @tc.name testEmbedNotifyTouchNotify0057
+     * @tc.desc Callback compares dispatched event by identity rather than matching only event type
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyTouchNotify0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+${NOTIFY_REPORTER}
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    const event = new Event('touchstart');
+    const identities = [];
+    original.handleEvent = function(received) {
+      notify(received, 'main', this === original);
+      identities.push(received === event);
+    };
+    node.dispatchEvent(event);
+    nativeEmbed.init();
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','), identities.join(','),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main,main');
+      expect(result[1]).assertEqual('nativeSearch>nativeSearch,nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2,2');
+      expect(result[3]).assertEqual('true,true');
+      expect(result[4]).assertEqual('true,false');
+      expect(result[5]).assertEqual('true,true,true,true,true,true');
+      expect(result[6]).assertEqual('2');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_TOUCHNOTIFY_0058
+     * @tc.name testEmbedNotifyTouchNotify0058
+     * @tc.desc Main can inspect UIEvent detail zero without losing default notification flags
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyTouchNotify0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+${NOTIFY_REPORTER}
+  try {
+    const details = [];
+    original.handleEvent = function(event) {
+      notify(event, 'main', this === original);
+      details.push(event.detail, event.view === null, event.bubbles, event.cancelable);
+    };
+    const event = new UIEvent('touchstart');
+    const accepted = node.dispatchEvent(event);
+    nativeEmbed.init();
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','), details.join(','),
+      String(accepted),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main');
+      expect(result[1]).assertEqual('nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('0,true,false,false');
+      expect(result[5]).assertEqual('true');
+      expect(result[6]).assertEqual('true,true,true,true,true,true');
+      expect(result[7]).assertEqual('2');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_TOUCHNOTIFY_0059
+     * @tc.name testEmbedNotifyTouchNotify0059
+     * @tc.desc Passive peer cannot undo cancellation performed by main non-passive observer
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyTouchNotify0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+  const cleanup = [];
+${NOTIFY_REPORTER}
+  const watch = (label, action) => {
+    const listener = { handleEvent(event) {
+      notify(event, label, this === listener);
+      if (action) { action(event, listener); }
+    } };
+    return listener;
+  };
+  const keep = (target, type, listener, options) => {
+    const capture = typeof options === 'boolean' ? options : !!(options && options.capture);
+    cleanup.push({ target, type, listener, options: capture });
+    target.addEventListener(type, listener, options);
+  };
+  try {
+    const defaults = [];
+    keep(node, 'touchstart', watch('passive', event => {
+      event.preventDefault();
+      defaults.push(event.defaultPrevented);
+    }), { passive: true });
+    original.handleEvent = function(event) {
+      notify(event, 'main', this === original);
+      event.preventDefault();
+    };
+    const event = new Event('touchstart', { cancelable: true });
+    const accepted = node.dispatchEvent(event);
+    nativeEmbed.init();
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','), defaults.join(','),
+      String(accepted),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+    cleanup.reverse().forEach(item =>
+      item.target.removeEventListener(item.type, item.listener, item.options));
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main,passive');
+      expect(result[1]).assertEqual('nativeSearch>nativeSearch,nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2,2');
+      expect(result[3]).assertEqual('true,true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('false');
+      expect(result[6]).assertEqual('true,true,true,true,true,true');
+      expect(result[7]).assertEqual('3');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_TOUCHNOTIFY_0060
+     * @tc.name testEmbedNotifyTouchNotify0060
+     * @tc.desc A removed main listener sees no touch types until real init restores touchstart only
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyTouchNotify0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+${NOTIFY_REPORTER}
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    node.removeEventListener('touchstart', original, false);
+    fire(node);
+    fire(node, 'touchmove');
+    fire(node, 'touchend');
+    const quiet = notices.length;
+    nativeEmbed.init();
+    fire(node, 'touchmove');
+    fire(node, 'touchend');
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','), String(quiet),
+      String(records[1].listener === original),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main');
+      expect(result[1]).assertEqual('nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('0');
+      expect(result[5]).assertEqual('true');
+      expect(result[6]).assertEqual('true,true,true,true,true,true');
+      expect(result[7]).assertEqual('2');
+    });
+  });
+}
