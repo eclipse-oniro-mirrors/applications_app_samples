@@ -1019,3 +1019,1698 @@ export default function embedSizeEdge02(host: EmbedDocumentHost): void {
         firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
       ];
       const cssExpected: number[] = [
+        0, 0, 0, 0, 0, 0
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 1).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0059
+     * @tc.name testEmbedSizeEdge0059
+     * @tc.desc zero-content: parent display none then block; earlier size objects remain immutable
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:0;height:0;padding:0;border:0 solid transparent;' +
+        'box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    parent.style.setProperty(\'display\', \'none\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    parent.style.setProperty(\'display\', \'block\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        0, 0, 0, 0, 0, 0
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 0).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0060
+     * @tc.name testEmbedSizeEdge0060
+     * @tc.desc zero-content: parent hidden then visible; earlier size objects remain immutable
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:0;height:0;padding:0;border:0 solid transparent;' +
+        'box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    parent.style.setProperty(\'visibility\', \'hidden\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    parent.style.setProperty(\'visibility\', \'visible\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        0, 0, 0, 0, 0, 0
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 1).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0061
+     * @tc.name testEmbedSizeEdge0061
+     * @tc.desc decorated-zero: node hidden then visible; earlier size objects remain immutable
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:0;height:0;padding:1px 2px;border:1px solid ' +
+        'transparent;box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    node.style.setProperty(\'visibility\', \'hidden\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    node.style.setProperty(\'visibility\', \'visible\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        0, 0, 0, 0, 0, 0
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 1).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0062
+     * @tc.name testEmbedSizeEdge0062
+     * @tc.desc decorated-zero: node collapse then visible; earlier size objects remain immutable
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:0;height:0;padding:1px 2px;border:1px solid ' +
+        'transparent;box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    node.style.setProperty(\'visibility\', \'collapse\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    node.style.setProperty(\'visibility\', \'visible\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        0, 0, 0, 0, 0, 0
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 1).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0063
+     * @tc.name testEmbedSizeEdge0063
+     * @tc.desc decorated-zero: node display none then block; earlier size objects remain immutable
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:0;height:0;padding:1px 2px;border:1px solid ' +
+        'transparent;box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    node.style.setProperty(\'display\', \'none\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    node.style.setProperty(\'display\', \'block\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        0, 0, 0, 0, 0, 0
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 0).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0064
+     * @tc.name testEmbedSizeEdge0064
+     * @tc.desc decorated-zero: block to inline-block then inline; earlier size objects remain immutable
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:0;height:0;padding:1px 2px;border:1px solid ' +
+        'transparent;box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    node.style.setProperty(\'display\', \'inline-block\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    node.style.setProperty(\'display\', \'inline\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        0, 0, 0, 0, 0, 0
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 1).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0065
+     * @tc.name testEmbedSizeEdge0065
+     * @tc.desc decorated-zero: parent display none then block; earlier size objects remain immutable
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:0;height:0;padding:1px 2px;border:1px solid ' +
+        'transparent;box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    parent.style.setProperty(\'display\', \'none\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    parent.style.setProperty(\'display\', \'block\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        0, 0, 0, 0, 0, 0
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 0).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0066
+     * @tc.name testEmbedSizeEdge0066
+     * @tc.desc decorated-zero: parent hidden then visible; earlier size objects remain immutable
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:0;height:0;padding:1px 2px;border:1px solid ' +
+        'transparent;box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    parent.style.setProperty(\'visibility\', \'hidden\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    parent.style.setProperty(\'visibility\', \'visible\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        0, 0, 0, 0, 0, 0
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 1).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0067
+     * @tc.name testEmbedSizeEdge0067
+     * @tc.desc width rejects CSS -1px then accepts a fractional replacement
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:17.25px;height:80.75px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    node.style.setProperty(\'width\', \'-1px\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    node.style.setProperty(\'width\', \'1.75px\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        17.25, 80.75, 17.25, 80.75, 1.75, 80.75
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 1).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0068
+     * @tc.name testEmbedSizeEdge0068
+     * @tc.desc width rejects CSS 12qu then accepts a fractional replacement
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:17.25px;height:80.75px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    node.style.setProperty(\'width\', \'12qu\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    node.style.setProperty(\'width\', \'1.75px\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        17.25, 80.75, 17.25, 80.75, 1.75, 80.75
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 1).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0069
+     * @tc.name testEmbedSizeEdge0069
+     * @tc.desc width rejects CSS NaNpx then accepts a fractional replacement
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:17.25px;height:80.75px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    node.style.setProperty(\'width\', \'NaNpx\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    node.style.setProperty(\'width\', \'1.75px\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        17.25, 80.75, 17.25, 80.75, 1.75, 80.75
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 1).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0070
+     * @tc.name testEmbedSizeEdge0070
+     * @tc.desc width rejects CSS Infinitypx then accepts a fractional replacement
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:17.25px;height:80.75px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    node.style.setProperty(\'width\', \'Infinitypx\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    node.style.setProperty(\'width\', \'1.75px\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        17.25, 80.75, 17.25, 80.75, 1.75, 80.75
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 1).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0071
+     * @tc.name testEmbedSizeEdge0071
+     * @tc.desc width rejects CSS -20% then accepts a fractional replacement
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:17.25px;height:80.75px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    node.style.setProperty(\'width\', \'-20%\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    node.style.setProperty(\'width\', \'1.75px\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        17.25, 80.75, 17.25, 80.75, 1.75, 80.75
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 1).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0072
+     * @tc.name testEmbedSizeEdge0072
+     * @tc.desc width rejects CSS --bad then accepts a fractional replacement
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:17.25px;height:80.75px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    node.style.setProperty(\'width\', \'--bad\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    node.style.setProperty(\'width\', \'1.75px\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        17.25, 80.75, 17.25, 80.75, 1.75, 80.75
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 1).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0073
+     * @tc.name testEmbedSizeEdge0073
+     * @tc.desc height rejects CSS -1px then accepts a fractional replacement
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:120.25px;height:17.25px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    node.style.setProperty(\'height\', \'-1px\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    node.style.setProperty(\'height\', \'1.75px\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        120.25, 17.25, 120.25, 17.25, 120.25, 1.75
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 1).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0074
+     * @tc.name testEmbedSizeEdge0074
+     * @tc.desc height rejects CSS 12qu then accepts a fractional replacement
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:120.25px;height:17.25px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    node.style.setProperty(\'height\', \'12qu\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    node.style.setProperty(\'height\', \'1.75px\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        120.25, 17.25, 120.25, 17.25, 120.25, 1.75
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 1).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0075
+     * @tc.name testEmbedSizeEdge0075
+     * @tc.desc height rejects CSS NaNpx then accepts a fractional replacement
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:120.25px;height:17.25px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    node.style.setProperty(\'height\', \'NaNpx\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    node.style.setProperty(\'height\', \'1.75px\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        120.25, 17.25, 120.25, 17.25, 120.25, 1.75
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 1).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0076
+     * @tc.name testEmbedSizeEdge0076
+     * @tc.desc height rejects CSS Infinitypx then accepts a fractional replacement
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:120.25px;height:17.25px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    node.style.setProperty(\'height\', \'Infinitypx\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    node.style.setProperty(\'height\', \'1.75px\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        120.25, 17.25, 120.25, 17.25, 120.25, 1.75
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 1).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0077
+     * @tc.name testEmbedSizeEdge0077
+     * @tc.desc height rejects CSS -20% then accepts a fractional replacement
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:120.25px;height:17.25px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    node.style.setProperty(\'height\', \'-20%\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    node.style.setProperty(\'height\', \'1.75px\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        120.25, 17.25, 120.25, 17.25, 120.25, 1.75
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 1).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0078
+     * @tc.name testEmbedSizeEdge0078
+     * @tc.desc height rejects CSS --bad then accepts a fractional replacement
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:120.25px;height:17.25px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    node.style.setProperty(\'height\', \'--bad\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    node.style.setProperty(\'height\', \'1.75px\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        120.25, 17.25, 120.25, 17.25, 120.25, 1.75
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 1).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0079
+     * @tc.name testEmbedSizeEdge0079
+     * @tc.desc margin 13px 17px leaves layout offsets intact before a real width change
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:64px;height:32px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    node.style.setProperty(\'margin\', \'13px 17px\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    node.style.setProperty(\'width\', \'48px\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        64, 32, 64, 32, 48, 32
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 1).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SIZE_EDGE_0080
+     * @tc.name testEmbedSizeEdge0080
+     * @tc.desc outline 9px solid black leaves layout offsets intact before a real height change
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSizeEdge0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: number[] = JSON.parse(await host.run(
+        '(function () {' +
+        '  const node = document.getElementById(\'nativeSearch\'), parent = node.parentElement;' +
+        '  const oldNode = node.getAttribute(\'style\'), oldParent = parent.getAttribute(\'style\');' +
+        USED_STYLE_INPUTS +
+        '  try {' +
+        '    parent.style.cssText = \'display:block;width:512px;height:384px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;\';' +
+        '    node.style.cssText = \'display:block;width:64px;height:32px;padding:0;border:0 solid ' +
+        'transparent;box-sizing:content-box;margin:0;\';' +
+        '    const s1 = usedInputs(node, parent);' +
+        '    const first = getEmbedSize(), r1 = node.getBoundingClientRect();' +
+        '    const values = [first.width, first.height, r1.width, r1.height, node.clientWidth, node.clientHeight];' +
+        '    node.style.setProperty(\'outline\', \'9px solid black\');' +
+        '    const s2 = usedInputs(node, parent);' +
+        '    const second = getEmbedSize(), r2 = node.getBoundingClientRect();' +
+        '    values.push(second.width, second.height, r2.width, r2.height, node.clientWidth, node.clientHeight);' +
+        '    node.style.setProperty(\'height\', \'48px\');' +
+        '    const s3 = usedInputs(node, parent);' +
+        '    const third = getEmbedSize(), r3 = node.getBoundingClientRect();' +
+        '    values.push(third.width, third.height, r3.width, r3.height, node.clientWidth, node.clientHeight);' +
+        '    values.push(first.width, first.height, second.width, second.height,' +
+        '      Number(first !== second), Number(second !== third));' +
+        '    values.push(...s1, ...s2, ...s3);' +
+        '    return JSON.stringify(values);' +
+        '  } finally {' +
+        '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
+        '    else { node.setAttribute(\'style\', oldNode); }' +
+        '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        64, 32, 64, 32, 64, 48
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 0 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 0 && result[41] === 1).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 0 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
