@@ -144,3 +144,113 @@ export default function componentIdTest(): void {
       expect(actual).assertEqual("INNER_STOP_VPN_BUTTON");
       logInfo('typeof actual=' + typeof actual);
       expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ComponentId_0007 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_COMPONENT_ID_0008
+     * @tc.name      VPN_ComponentId_0008
+     * @tc.desc      componentId(7) returns "STOP_VPN_EXT_BUTTON".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ComponentId_0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ComponentId_0008 begin`);
+      logInfo("componentId(7)");
+      const actual: string = componentId(7);
+      logInfo('actual=' + String(actual) + ', expected=' + "STOP_VPN_EXT_BUTTON");
+      expect(actual).assertEqual("STOP_VPN_EXT_BUTTON");
+      logInfo(`${BUNDLE}ComponentId_0008 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_COMPONENT_ID_0009
+     * @tc.name      VPN_ComponentId_0009
+     * @tc.desc      componentId(8) returns "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ComponentId_0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ComponentId_0009 begin`);
+      logInfo("componentId(8)");
+      const actual: string = componentId(8);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo(`${BUNDLE}ComponentId_0009 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_COMPONENT_ID_0010
+     * @tc.name      VPN_ComponentId_0010
+     * @tc.desc      componentId(9) returns "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ComponentId_0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ComponentId_0010 begin`);
+      logInfo("componentId(9)");
+      const actual: string = componentId(9);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ComponentId_0010 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_COMPONENT_ID_0011
+     * @tc.name      VPN_ComponentId_0011
+     * @tc.desc      componentId(10) returns "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ComponentId_0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ComponentId_0011 begin`);
+      logInfo("componentId(10)");
+      const actual: string = componentId(10);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo(`${BUNDLE}ComponentId_0011 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_COMPONENT_ID_0012
+     * @tc.name      VPN_ComponentId_0012
+     * @tc.desc      componentId(11) returns "".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('VPN_ComponentId_0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}ComponentId_0012 begin`);
+      logInfo("componentId(11)");
+      const actual: string = componentId(11);
+      logInfo('actual=' + String(actual) + ', expected=' + "");
+      expect(actual).assertEqual("");
+      logInfo(`${BUNDLE}ComponentId_0012 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_COMPONENT_ID_0013
+     * @tc.name      VPN_ComponentId_0013
+     * @tc.desc      componentId(0) returns "START_VPN_BUTTON".
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ComponentId_0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ComponentId_0013 begin`);
+      logInfo("componentId(0)");
+      const actual: string = componentId(0);
+      logInfo('actual=' + String(actual) + ', expected=' + "START_VPN_BUTTON");
+      expect(actual).assertEqual("START_VPN_BUTTON");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ComponentId_0013 end`);
+    });
+  });
+}
