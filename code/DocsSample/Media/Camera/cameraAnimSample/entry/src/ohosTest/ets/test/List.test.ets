@@ -24,7 +24,7 @@ import captureMirrorTest from './logic/CaptureMirror.test';
 import sliderSettingsTest from './logic/SliderSettings.test';
 import zoomRoundTest from './logic/ZoomRound.test';
 import zoomLabelTest from './logic/ZoomLabel.test';
-import surfaceShotGuardTest from './logic/SurfaceShotGuard.test';
+import snapshotGuardTest from './logic/SnapshotGuard.test';
 import videoUriTest from './logic/VideoUri.test';
 import sceneModeTextTest from './logic/SceneModeText.test';
 import nextFlagTest from './logic/NextFlag.test';
@@ -89,7 +89,7 @@ export default function testsuite() {
   sliderSettingsTest();
   zoomRoundTest();
   zoomLabelTest();
-  surfaceShotGuardTest();
+  snapshotGuardTest();
   videoUriTest();
   sceneModeTextTest();
   nextFlagTest();

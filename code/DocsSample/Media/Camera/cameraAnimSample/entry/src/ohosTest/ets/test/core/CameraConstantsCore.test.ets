@@ -16,8 +16,8 @@
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { logInfo, BUNDLE } from '../common/CameraTestSupport';
 import {
-  X_COMPONENT_SURFACE_WIDTH,
-  X_COMPONENT_SURFACE_HEIGHT,
+  X_COMPONENT_WIDTH,
+  X_COMPONENT_HEIGHT,
   X_COMPONENT_BORDER_WIDTH,
   CAPTURE_BUTTON_BORDER_WIDTH,
   CAPTURE_BUTTON_BORDER_RADIUS,
@@ -69,15 +69,15 @@ export default function cameraConstantsCoreTest(): void {
     /**
      * @tc.number    SUB_CAMERA_CONSTANTS_0001
      * @tc.name      Camera_Constants_0001
-     * @tc.desc      X_COMPONENT_SURFACE_WIDTH is pinned to 1920 for the camera layout contract.
+     * @tc.desc      X_COMPONENT_WIDTH is pinned to 1920 for the camera layout contract.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL1
      */
     it('Camera_Constants_0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       logInfo(`${BUNDLE}Constants_0001 begin`);
-      logInfo("constant X_COMPONENT_SURFACE_WIDTH");
-      const actual: number = X_COMPONENT_SURFACE_WIDTH;
+      logInfo("constant X_COMPONENT_WIDTH");
+      const actual: number = X_COMPONENT_WIDTH;
       logInfo('actual=' + String(actual) + ', expected=' + "1920");
       expect(actual).assertEqual(1920);
       logInfo('typeof actual=' + typeof actual);
@@ -88,15 +88,15 @@ export default function cameraConstantsCoreTest(): void {
     /**
      * @tc.number    SUB_CAMERA_CONSTANTS_0002
      * @tc.name      Camera_Constants_0002
-     * @tc.desc      X_COMPONENT_SURFACE_HEIGHT is pinned to 1080 for the camera layout contract.
+     * @tc.desc      X_COMPONENT_HEIGHT is pinned to 1080 for the camera layout contract.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
     it('Camera_Constants_0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       logInfo(`${BUNDLE}Constants_0002 begin`);
-      logInfo("constant X_COMPONENT_SURFACE_HEIGHT");
-      const actual: number = X_COMPONENT_SURFACE_HEIGHT;
+      logInfo("constant X_COMPONENT_HEIGHT");
+      const actual: number = X_COMPONENT_HEIGHT;
       logInfo('actual=' + String(actual) + ', expected=' + "1080");
       expect(actual).assertEqual(1080);
       logInfo('typeof actual=' + typeof actual);

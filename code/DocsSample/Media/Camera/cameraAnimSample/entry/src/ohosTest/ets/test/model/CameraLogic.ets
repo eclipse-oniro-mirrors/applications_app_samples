@@ -18,8 +18,8 @@
 // explicit inputs so that every call sequence has one observable, reproducible result.
 
 // Mirrors Constants.ts.
-export const X_COMPONENT_SURFACE_WIDTH: number = 1920;
-export const X_COMPONENT_SURFACE_HEIGHT: number = 1080;
+export const X_COMPONENT_WIDTH: number = 1920;
+export const X_COMPONENT_HEIGHT: number = 1080;
 export const X_COMPONENT_BORDER_WIDTH: number = 0.5;
 export const CAPTURE_BUTTON_BORDER_WIDTH: number = 3;
 export const CAPTURE_BUTTON_BORDER_RADIUS: number = 70;
@@ -304,9 +304,9 @@ export function findProfileIndex(profiles: Array<Profile>, kind: number): number
   return -1;
 }
 
-// Mirrors BlurAnimateUtil.doSurfaceShot(): an empty surface id aborts the shot.
-export function surfaceShotGuard(surfaceId: string): boolean {
-  return surfaceId !== '';
+// Mirrors the BlurAnimateUtil shot helper: an empty snapshot id aborts the shot.
+export function snapshotGuard(snapshotId: string): boolean {
+  return snapshotId !== '';
 }
 
 // curPosition === 1 means the back camera.
@@ -421,13 +421,13 @@ export function videoUriOf(filePath: string): string {
   return 'file://' + filePath;
 }
 
-// Mirrors XComponent.onLoad(): surface rect swaps width and height.
-export function surfaceRectWidth(): number {
-  return X_COMPONENT_SURFACE_HEIGHT;
+// Mirrors XComponent.onLoad(): snapshot rect swaps width and height.
+export function snapshotRectWidth(): number {
+  return X_COMPONENT_HEIGHT;
 }
 
-export function surfaceRectHeight(): number {
-  return X_COMPONENT_SURFACE_WIDTH;
+export function snapshotRectHeight(): number {
+  return X_COMPONENT_WIDTH;
 }
 
 // Mirrors px2vp(Constants.X_COMPONENT_*): px / density.

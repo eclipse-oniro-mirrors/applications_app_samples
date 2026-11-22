@@ -22,7 +22,7 @@
 | SliderSettingsTest | 无 | 46 组输入（Camera_SliderSettings_0001~0046） | 返回值与状态逐条符合预期 | 是 | 待执行 |
 | ZoomRoundTest | 无 | 46 组输入（Camera_ZoomRound_0001~0046） | 返回值与状态逐条符合预期 | 是 | 待执行 |
 | ZoomLabelTest | 无 | 46 组输入（Camera_ZoomLabel_0001~0046） | 返回值与状态逐条符合预期 | 是 | 待执行 |
-| SurfaceShotGuardTest | 无 | 40 组输入（Camera_SurfaceShotGuard_0001~0040） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| SnapshotGuardTest | 无 | 40 组输入（Camera_SnapshotGuard_0001~0040） | 返回值与状态逐条符合预期 | 是 | 待执行 |
 | VideoUriTest | 无 | 41 组输入（Camera_VideoUri_0001~0041） | 返回值与状态逐条符合预期 | 是 | 待执行 |
 | SceneModeTextTest | 无 | 46 组输入（Camera_SceneModeText_0001~0046） | 返回值与状态逐条符合预期 | 是 | 待执行 |
 | NextFlagTest | 无 | 46 组输入（Camera_NextFlag_0001~0046） | 返回值与状态逐条符合预期 | 是 | 待执行 |
