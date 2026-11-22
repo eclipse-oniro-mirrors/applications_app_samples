@@ -6417,3 +6417,1212 @@ export default function utilsBoundaryMatrixTest(): void {
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
+    it('Perf_UtilsMatrix_0337', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0337 begin`);
+      logInfo("utils matrix 286,12432,4");
+      const actual: string = calculateNum(286, 12432) + '|' + calculateSteps(12432, 4) + '|' + utilsNumAfter(4, 12432) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "12718|49728|49728|0");
+      expect(actual).assertEqual("12718|49728|49728|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0337 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0338
+     * @tc.name      Perf_UtilsMatrix_0338
+     * @tc.desc      utils matrix 287,12469,5 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0338', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0338 begin`);
+      logInfo("utils matrix 287,12469,5");
+      const actual: string = calculateNum(287, 12469) + '|' + calculateSteps(12469, 5) + '|' + utilsNumAfter(5, 12469) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "12756|62345|62345|0");
+      expect(actual).assertEqual("12756|62345|62345|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0338 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0339
+     * @tc.name      Perf_UtilsMatrix_0339
+     * @tc.desc      utils matrix 288,12506,6 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0339', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0339 begin`);
+      logInfo("utils matrix 288,12506,6");
+      const actual: string = calculateNum(288, 12506) + '|' + calculateSteps(12506, 6) + '|' + utilsNumAfter(6, 12506) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "12794|75036|75036|0");
+      expect(actual).assertEqual("12794|75036|75036|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0339 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0340
+     * @tc.name      Perf_UtilsMatrix_0340
+     * @tc.desc      utils matrix 289,12543,7 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0340', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0340 begin`);
+      logInfo("utils matrix 289,12543,7");
+      const actual: string = calculateNum(289, 12543) + '|' + calculateSteps(12543, 7) + '|' + utilsNumAfter(7, 12543) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "12832|87801|87801|0");
+      expect(actual).assertEqual("12832|87801|87801|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0340 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0341
+     * @tc.name      Perf_UtilsMatrix_0341
+     * @tc.desc      utils matrix 290,12580,8 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Perf_UtilsMatrix_0341', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0341 begin`);
+      logInfo("utils matrix 290,12580,8");
+      const actual: string = calculateNum(290, 12580) + '|' + calculateSteps(12580, 8) + '|' + utilsNumAfter(8, 12580) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "12870|100640|100640|0");
+      expect(actual).assertEqual("12870|100640|100640|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0341 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0342
+     * @tc.name      Perf_UtilsMatrix_0342
+     * @tc.desc      utils matrix 291,12617,9 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_UtilsMatrix_0342', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0342 begin`);
+      logInfo("utils matrix 291,12617,9");
+      const actual: string = calculateNum(291, 12617) + '|' + calculateSteps(12617, 9) + '|' + utilsNumAfter(9, 12617) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "12908|113553|113553|0");
+      expect(actual).assertEqual("12908|113553|113553|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0342 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0343
+     * @tc.name      Perf_UtilsMatrix_0343
+     * @tc.desc      utils matrix 292,12654,1 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0343', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0343 begin`);
+      logInfo("utils matrix 292,12654,1");
+      const actual: string = calculateNum(292, 12654) + '|' + calculateSteps(12654, 1) + '|' + utilsNumAfter(1, 12654) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "12946|12654|12654|0");
+      expect(actual).assertEqual("12946|12654|12654|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0343 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0344
+     * @tc.name      Perf_UtilsMatrix_0344
+     * @tc.desc      utils matrix 293,12691,2 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0344', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0344 begin`);
+      logInfo("utils matrix 293,12691,2");
+      const actual: string = calculateNum(293, 12691) + '|' + calculateSteps(12691, 2) + '|' + utilsNumAfter(2, 12691) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "12984|25382|25382|0");
+      expect(actual).assertEqual("12984|25382|25382|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0344 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0345
+     * @tc.name      Perf_UtilsMatrix_0345
+     * @tc.desc      utils matrix 294,12728,3 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0345', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0345 begin`);
+      logInfo("utils matrix 294,12728,3");
+      const actual: string = calculateNum(294, 12728) + '|' + calculateSteps(12728, 3) + '|' + utilsNumAfter(3, 12728) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13022|38184|38184|0");
+      expect(actual).assertEqual("13022|38184|38184|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0345 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0346
+     * @tc.name      Perf_UtilsMatrix_0346
+     * @tc.desc      utils matrix 295,12765,4 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0346', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0346 begin`);
+      logInfo("utils matrix 295,12765,4");
+      const actual: string = calculateNum(295, 12765) + '|' + calculateSteps(12765, 4) + '|' + utilsNumAfter(4, 12765) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13060|51060|51060|0");
+      expect(actual).assertEqual("13060|51060|51060|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0346 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0347
+     * @tc.name      Perf_UtilsMatrix_0347
+     * @tc.desc      utils matrix 296,12802,5 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0347', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0347 begin`);
+      logInfo("utils matrix 296,12802,5");
+      const actual: string = calculateNum(296, 12802) + '|' + calculateSteps(12802, 5) + '|' + utilsNumAfter(5, 12802) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13098|64010|64010|0");
+      expect(actual).assertEqual("13098|64010|64010|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0347 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0348
+     * @tc.name      Perf_UtilsMatrix_0348
+     * @tc.desc      utils matrix 297,12839,6 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0348', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0348 begin`);
+      logInfo("utils matrix 297,12839,6");
+      const actual: string = calculateNum(297, 12839) + '|' + calculateSteps(12839, 6) + '|' + utilsNumAfter(6, 12839) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13136|77034|77034|0");
+      expect(actual).assertEqual("13136|77034|77034|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0348 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0349
+     * @tc.name      Perf_UtilsMatrix_0349
+     * @tc.desc      utils matrix 298,12876,7 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0349', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0349 begin`);
+      logInfo("utils matrix 298,12876,7");
+      const actual: string = calculateNum(298, 12876) + '|' + calculateSteps(12876, 7) + '|' + utilsNumAfter(7, 12876) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13174|90132|90132|0");
+      expect(actual).assertEqual("13174|90132|90132|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0349 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0350
+     * @tc.name      Perf_UtilsMatrix_0350
+     * @tc.desc      utils matrix 299,12913,8 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0350', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0350 begin`);
+      logInfo("utils matrix 299,12913,8");
+      const actual: string = calculateNum(299, 12913) + '|' + calculateSteps(12913, 8) + '|' + utilsNumAfter(8, 12913) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13212|103304|103304|0");
+      expect(actual).assertEqual("13212|103304|103304|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0350 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0351
+     * @tc.name      Perf_UtilsMatrix_0351
+     * @tc.desc      utils matrix 300,12950,9 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0351', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0351 begin`);
+      logInfo("utils matrix 300,12950,9");
+      const actual: string = calculateNum(300, 12950) + '|' + calculateSteps(12950, 9) + '|' + utilsNumAfter(9, 12950) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13250|116550|116550|0");
+      expect(actual).assertEqual("13250|116550|116550|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0351 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0352
+     * @tc.name      Perf_UtilsMatrix_0352
+     * @tc.desc      utils matrix 301,12987,1 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0352', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0352 begin`);
+      logInfo("utils matrix 301,12987,1");
+      const actual: string = calculateNum(301, 12987) + '|' + calculateSteps(12987, 1) + '|' + utilsNumAfter(1, 12987) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13288|12987|12987|0");
+      expect(actual).assertEqual("13288|12987|12987|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0352 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0353
+     * @tc.name      Perf_UtilsMatrix_0353
+     * @tc.desc      utils matrix 302,13024,2 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_UtilsMatrix_0353', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0353 begin`);
+      logInfo("utils matrix 302,13024,2");
+      const actual: string = calculateNum(302, 13024) + '|' + calculateSteps(13024, 2) + '|' + utilsNumAfter(2, 13024) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13326|26048|26048|0");
+      expect(actual).assertEqual("13326|26048|26048|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0353 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0354
+     * @tc.name      Perf_UtilsMatrix_0354
+     * @tc.desc      utils matrix 303,13061,3 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0354', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0354 begin`);
+      logInfo("utils matrix 303,13061,3");
+      const actual: string = calculateNum(303, 13061) + '|' + calculateSteps(13061, 3) + '|' + utilsNumAfter(3, 13061) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13364|39183|39183|0");
+      expect(actual).assertEqual("13364|39183|39183|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0354 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0355
+     * @tc.name      Perf_UtilsMatrix_0355
+     * @tc.desc      utils matrix 304,13098,4 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0355', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0355 begin`);
+      logInfo("utils matrix 304,13098,4");
+      const actual: string = calculateNum(304, 13098) + '|' + calculateSteps(13098, 4) + '|' + utilsNumAfter(4, 13098) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13402|52392|52392|0");
+      expect(actual).assertEqual("13402|52392|52392|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0355 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0356
+     * @tc.name      Perf_UtilsMatrix_0356
+     * @tc.desc      utils matrix 305,13135,5 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0356', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0356 begin`);
+      logInfo("utils matrix 305,13135,5");
+      const actual: string = calculateNum(305, 13135) + '|' + calculateSteps(13135, 5) + '|' + utilsNumAfter(5, 13135) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13440|65675|65675|0");
+      expect(actual).assertEqual("13440|65675|65675|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0356 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0357
+     * @tc.name      Perf_UtilsMatrix_0357
+     * @tc.desc      utils matrix 306,13172,6 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0357', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0357 begin`);
+      logInfo("utils matrix 306,13172,6");
+      const actual: string = calculateNum(306, 13172) + '|' + calculateSteps(13172, 6) + '|' + utilsNumAfter(6, 13172) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13478|79032|79032|0");
+      expect(actual).assertEqual("13478|79032|79032|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0357 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0358
+     * @tc.name      Perf_UtilsMatrix_0358
+     * @tc.desc      utils matrix 307,13209,7 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Perf_UtilsMatrix_0358', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0358 begin`);
+      logInfo("utils matrix 307,13209,7");
+      const actual: string = calculateNum(307, 13209) + '|' + calculateSteps(13209, 7) + '|' + utilsNumAfter(7, 13209) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13516|92463|92463|0");
+      expect(actual).assertEqual("13516|92463|92463|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0358 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0359
+     * @tc.name      Perf_UtilsMatrix_0359
+     * @tc.desc      utils matrix 308,13246,8 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0359', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0359 begin`);
+      logInfo("utils matrix 308,13246,8");
+      const actual: string = calculateNum(308, 13246) + '|' + calculateSteps(13246, 8) + '|' + utilsNumAfter(8, 13246) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13554|105968|105968|0");
+      expect(actual).assertEqual("13554|105968|105968|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0359 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0360
+     * @tc.name      Perf_UtilsMatrix_0360
+     * @tc.desc      utils matrix 309,13283,9 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0360', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0360 begin`);
+      logInfo("utils matrix 309,13283,9");
+      const actual: string = calculateNum(309, 13283) + '|' + calculateSteps(13283, 9) + '|' + utilsNumAfter(9, 13283) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13592|119547|119547|0");
+      expect(actual).assertEqual("13592|119547|119547|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0360 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0361
+     * @tc.name      Perf_UtilsMatrix_0361
+     * @tc.desc      utils matrix 310,13320,1 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0361', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0361 begin`);
+      logInfo("utils matrix 310,13320,1");
+      const actual: string = calculateNum(310, 13320) + '|' + calculateSteps(13320, 1) + '|' + utilsNumAfter(1, 13320) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13630|13320|13320|0");
+      expect(actual).assertEqual("13630|13320|13320|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0361 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0362
+     * @tc.name      Perf_UtilsMatrix_0362
+     * @tc.desc      utils matrix 311,13357,2 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0362', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0362 begin`);
+      logInfo("utils matrix 311,13357,2");
+      const actual: string = calculateNum(311, 13357) + '|' + calculateSteps(13357, 2) + '|' + utilsNumAfter(2, 13357) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13668|26714|26714|0");
+      expect(actual).assertEqual("13668|26714|26714|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0362 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0363
+     * @tc.name      Perf_UtilsMatrix_0363
+     * @tc.desc      utils matrix 312,13394,3 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0363', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0363 begin`);
+      logInfo("utils matrix 312,13394,3");
+      const actual: string = calculateNum(312, 13394) + '|' + calculateSteps(13394, 3) + '|' + utilsNumAfter(3, 13394) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13706|40182|40182|0");
+      expect(actual).assertEqual("13706|40182|40182|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0363 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0364
+     * @tc.name      Perf_UtilsMatrix_0364
+     * @tc.desc      utils matrix 313,13431,4 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_UtilsMatrix_0364', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0364 begin`);
+      logInfo("utils matrix 313,13431,4");
+      const actual: string = calculateNum(313, 13431) + '|' + calculateSteps(13431, 4) + '|' + utilsNumAfter(4, 13431) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13744|53724|53724|0");
+      expect(actual).assertEqual("13744|53724|53724|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0364 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0365
+     * @tc.name      Perf_UtilsMatrix_0365
+     * @tc.desc      utils matrix 314,13468,5 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0365', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0365 begin`);
+      logInfo("utils matrix 314,13468,5");
+      const actual: string = calculateNum(314, 13468) + '|' + calculateSteps(13468, 5) + '|' + utilsNumAfter(5, 13468) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13782|67340|67340|0");
+      expect(actual).assertEqual("13782|67340|67340|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0365 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0366
+     * @tc.name      Perf_UtilsMatrix_0366
+     * @tc.desc      utils matrix 315,13505,6 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0366', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0366 begin`);
+      logInfo("utils matrix 315,13505,6");
+      const actual: string = calculateNum(315, 13505) + '|' + calculateSteps(13505, 6) + '|' + utilsNumAfter(6, 13505) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13820|81030|81030|0");
+      expect(actual).assertEqual("13820|81030|81030|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0366 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0367
+     * @tc.name      Perf_UtilsMatrix_0367
+     * @tc.desc      utils matrix 316,13542,7 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0367', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0367 begin`);
+      logInfo("utils matrix 316,13542,7");
+      const actual: string = calculateNum(316, 13542) + '|' + calculateSteps(13542, 7) + '|' + utilsNumAfter(7, 13542) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13858|94794|94794|0");
+      expect(actual).assertEqual("13858|94794|94794|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0367 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0368
+     * @tc.name      Perf_UtilsMatrix_0368
+     * @tc.desc      utils matrix 317,13579,8 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0368', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0368 begin`);
+      logInfo("utils matrix 317,13579,8");
+      const actual: string = calculateNum(317, 13579) + '|' + calculateSteps(13579, 8) + '|' + utilsNumAfter(8, 13579) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13896|108632|108632|0");
+      expect(actual).assertEqual("13896|108632|108632|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0368 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0369
+     * @tc.name      Perf_UtilsMatrix_0369
+     * @tc.desc      utils matrix 318,13616,9 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0369', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0369 begin`);
+      logInfo("utils matrix 318,13616,9");
+      const actual: string = calculateNum(318, 13616) + '|' + calculateSteps(13616, 9) + '|' + utilsNumAfter(9, 13616) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13934|122544|122544|0");
+      expect(actual).assertEqual("13934|122544|122544|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0369 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0370
+     * @tc.name      Perf_UtilsMatrix_0370
+     * @tc.desc      utils matrix 319,13653,1 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0370', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0370 begin`);
+      logInfo("utils matrix 319,13653,1");
+      const actual: string = calculateNum(319, 13653) + '|' + calculateSteps(13653, 1) + '|' + utilsNumAfter(1, 13653) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "13972|13653|13653|0");
+      expect(actual).assertEqual("13972|13653|13653|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0370 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0371
+     * @tc.name      Perf_UtilsMatrix_0371
+     * @tc.desc      utils matrix 320,13690,2 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0371', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0371 begin`);
+      logInfo("utils matrix 320,13690,2");
+      const actual: string = calculateNum(320, 13690) + '|' + calculateSteps(13690, 2) + '|' + utilsNumAfter(2, 13690) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14010|27380|27380|0");
+      expect(actual).assertEqual("14010|27380|27380|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0371 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0372
+     * @tc.name      Perf_UtilsMatrix_0372
+     * @tc.desc      utils matrix 321,13727,3 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0372', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0372 begin`);
+      logInfo("utils matrix 321,13727,3");
+      const actual: string = calculateNum(321, 13727) + '|' + calculateSteps(13727, 3) + '|' + utilsNumAfter(3, 13727) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14048|41181|41181|0");
+      expect(actual).assertEqual("14048|41181|41181|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0372 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0373
+     * @tc.name      Perf_UtilsMatrix_0373
+     * @tc.desc      utils matrix 322,13764,4 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0373', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0373 begin`);
+      logInfo("utils matrix 322,13764,4");
+      const actual: string = calculateNum(322, 13764) + '|' + calculateSteps(13764, 4) + '|' + utilsNumAfter(4, 13764) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14086|55056|55056|0");
+      expect(actual).assertEqual("14086|55056|55056|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0373 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0374
+     * @tc.name      Perf_UtilsMatrix_0374
+     * @tc.desc      utils matrix 323,13801,5 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0374', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0374 begin`);
+      logInfo("utils matrix 323,13801,5");
+      const actual: string = calculateNum(323, 13801) + '|' + calculateSteps(13801, 5) + '|' + utilsNumAfter(5, 13801) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14124|69005|69005|0");
+      expect(actual).assertEqual("14124|69005|69005|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0374 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0375
+     * @tc.name      Perf_UtilsMatrix_0375
+     * @tc.desc      utils matrix 324,13838,6 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_UtilsMatrix_0375', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0375 begin`);
+      logInfo("utils matrix 324,13838,6");
+      const actual: string = calculateNum(324, 13838) + '|' + calculateSteps(13838, 6) + '|' + utilsNumAfter(6, 13838) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14162|83028|83028|0");
+      expect(actual).assertEqual("14162|83028|83028|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0375 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0376
+     * @tc.name      Perf_UtilsMatrix_0376
+     * @tc.desc      utils matrix 325,13875,7 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0376', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0376 begin`);
+      logInfo("utils matrix 325,13875,7");
+      const actual: string = calculateNum(325, 13875) + '|' + calculateSteps(13875, 7) + '|' + utilsNumAfter(7, 13875) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14200|97125|97125|0");
+      expect(actual).assertEqual("14200|97125|97125|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0376 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0377
+     * @tc.name      Perf_UtilsMatrix_0377
+     * @tc.desc      utils matrix 326,13912,8 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0377', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0377 begin`);
+      logInfo("utils matrix 326,13912,8");
+      const actual: string = calculateNum(326, 13912) + '|' + calculateSteps(13912, 8) + '|' + utilsNumAfter(8, 13912) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14238|111296|111296|0");
+      expect(actual).assertEqual("14238|111296|111296|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0377 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0378
+     * @tc.name      Perf_UtilsMatrix_0378
+     * @tc.desc      utils matrix 327,13949,9 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0378', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0378 begin`);
+      logInfo("utils matrix 327,13949,9");
+      const actual: string = calculateNum(327, 13949) + '|' + calculateSteps(13949, 9) + '|' + utilsNumAfter(9, 13949) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14276|125541|125541|0");
+      expect(actual).assertEqual("14276|125541|125541|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0378 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0379
+     * @tc.name      Perf_UtilsMatrix_0379
+     * @tc.desc      utils matrix 328,13986,1 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0379', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0379 begin`);
+      logInfo("utils matrix 328,13986,1");
+      const actual: string = calculateNum(328, 13986) + '|' + calculateSteps(13986, 1) + '|' + utilsNumAfter(1, 13986) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14314|13986|13986|0");
+      expect(actual).assertEqual("14314|13986|13986|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0379 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0380
+     * @tc.name      Perf_UtilsMatrix_0380
+     * @tc.desc      utils matrix 329,14023,2 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0380', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0380 begin`);
+      logInfo("utils matrix 329,14023,2");
+      const actual: string = calculateNum(329, 14023) + '|' + calculateSteps(14023, 2) + '|' + utilsNumAfter(2, 14023) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14352|28046|28046|0");
+      expect(actual).assertEqual("14352|28046|28046|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0380 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0381
+     * @tc.name      Perf_UtilsMatrix_0381
+     * @tc.desc      utils matrix 330,14060,3 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0381', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0381 begin`);
+      logInfo("utils matrix 330,14060,3");
+      const actual: string = calculateNum(330, 14060) + '|' + calculateSteps(14060, 3) + '|' + utilsNumAfter(3, 14060) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14390|42180|42180|0");
+      expect(actual).assertEqual("14390|42180|42180|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0381 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0382
+     * @tc.name      Perf_UtilsMatrix_0382
+     * @tc.desc      utils matrix 331,14097,4 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0382', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0382 begin`);
+      logInfo("utils matrix 331,14097,4");
+      const actual: string = calculateNum(331, 14097) + '|' + calculateSteps(14097, 4) + '|' + utilsNumAfter(4, 14097) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14428|56388|56388|0");
+      expect(actual).assertEqual("14428|56388|56388|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0382 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0383
+     * @tc.name      Perf_UtilsMatrix_0383
+     * @tc.desc      utils matrix 332,14134,5 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0383', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0383 begin`);
+      logInfo("utils matrix 332,14134,5");
+      const actual: string = calculateNum(332, 14134) + '|' + calculateSteps(14134, 5) + '|' + utilsNumAfter(5, 14134) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14466|70670|70670|0");
+      expect(actual).assertEqual("14466|70670|70670|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0383 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0384
+     * @tc.name      Perf_UtilsMatrix_0384
+     * @tc.desc      utils matrix 333,14171,6 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0384', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0384 begin`);
+      logInfo("utils matrix 333,14171,6");
+      const actual: string = calculateNum(333, 14171) + '|' + calculateSteps(14171, 6) + '|' + utilsNumAfter(6, 14171) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14504|85026|85026|0");
+      expect(actual).assertEqual("14504|85026|85026|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0384 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0385
+     * @tc.name      Perf_UtilsMatrix_0385
+     * @tc.desc      utils matrix 334,14208,7 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0385', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0385 begin`);
+      logInfo("utils matrix 334,14208,7");
+      const actual: string = calculateNum(334, 14208) + '|' + calculateSteps(14208, 7) + '|' + utilsNumAfter(7, 14208) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14542|99456|99456|0");
+      expect(actual).assertEqual("14542|99456|99456|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0385 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0386
+     * @tc.name      Perf_UtilsMatrix_0386
+     * @tc.desc      utils matrix 335,14245,8 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_UtilsMatrix_0386', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0386 begin`);
+      logInfo("utils matrix 335,14245,8");
+      const actual: string = calculateNum(335, 14245) + '|' + calculateSteps(14245, 8) + '|' + utilsNumAfter(8, 14245) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14580|113960|113960|0");
+      expect(actual).assertEqual("14580|113960|113960|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0386 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0387
+     * @tc.name      Perf_UtilsMatrix_0387
+     * @tc.desc      utils matrix 336,14282,9 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0387', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0387 begin`);
+      logInfo("utils matrix 336,14282,9");
+      const actual: string = calculateNum(336, 14282) + '|' + calculateSteps(14282, 9) + '|' + utilsNumAfter(9, 14282) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14618|128538|128538|0");
+      expect(actual).assertEqual("14618|128538|128538|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0387 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0388
+     * @tc.name      Perf_UtilsMatrix_0388
+     * @tc.desc      utils matrix 337,14319,1 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0388', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0388 begin`);
+      logInfo("utils matrix 337,14319,1");
+      const actual: string = calculateNum(337, 14319) + '|' + calculateSteps(14319, 1) + '|' + utilsNumAfter(1, 14319) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14656|14319|14319|0");
+      expect(actual).assertEqual("14656|14319|14319|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0388 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0389
+     * @tc.name      Perf_UtilsMatrix_0389
+     * @tc.desc      utils matrix 338,14356,2 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0389', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0389 begin`);
+      logInfo("utils matrix 338,14356,2");
+      const actual: string = calculateNum(338, 14356) + '|' + calculateSteps(14356, 2) + '|' + utilsNumAfter(2, 14356) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14694|28712|28712|0");
+      expect(actual).assertEqual("14694|28712|28712|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0389 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0390
+     * @tc.name      Perf_UtilsMatrix_0390
+     * @tc.desc      utils matrix 339,14393,3 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0390', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0390 begin`);
+      logInfo("utils matrix 339,14393,3");
+      const actual: string = calculateNum(339, 14393) + '|' + calculateSteps(14393, 3) + '|' + utilsNumAfter(3, 14393) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14732|43179|43179|0");
+      expect(actual).assertEqual("14732|43179|43179|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0390 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0391
+     * @tc.name      Perf_UtilsMatrix_0391
+     * @tc.desc      utils matrix 340,14430,4 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0391', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0391 begin`);
+      logInfo("utils matrix 340,14430,4");
+      const actual: string = calculateNum(340, 14430) + '|' + calculateSteps(14430, 4) + '|' + utilsNumAfter(4, 14430) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14770|57720|57720|0");
+      expect(actual).assertEqual("14770|57720|57720|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0391 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0392
+     * @tc.name      Perf_UtilsMatrix_0392
+     * @tc.desc      utils matrix 341,14467,5 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Perf_UtilsMatrix_0392', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0392 begin`);
+      logInfo("utils matrix 341,14467,5");
+      const actual: string = calculateNum(341, 14467) + '|' + calculateSteps(14467, 5) + '|' + utilsNumAfter(5, 14467) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14808|72335|72335|0");
+      expect(actual).assertEqual("14808|72335|72335|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0392 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0393
+     * @tc.name      Perf_UtilsMatrix_0393
+     * @tc.desc      utils matrix 342,14504,6 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0393', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0393 begin`);
+      logInfo("utils matrix 342,14504,6");
+      const actual: string = calculateNum(342, 14504) + '|' + calculateSteps(14504, 6) + '|' + utilsNumAfter(6, 14504) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14846|87024|87024|0");
+      expect(actual).assertEqual("14846|87024|87024|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0393 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0394
+     * @tc.name      Perf_UtilsMatrix_0394
+     * @tc.desc      utils matrix 343,14541,7 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0394', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0394 begin`);
+      logInfo("utils matrix 343,14541,7");
+      const actual: string = calculateNum(343, 14541) + '|' + calculateSteps(14541, 7) + '|' + utilsNumAfter(7, 14541) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14884|101787|101787|0");
+      expect(actual).assertEqual("14884|101787|101787|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0394 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0395
+     * @tc.name      Perf_UtilsMatrix_0395
+     * @tc.desc      utils matrix 344,14578,8 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0395', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0395 begin`);
+      logInfo("utils matrix 344,14578,8");
+      const actual: string = calculateNum(344, 14578) + '|' + calculateSteps(14578, 8) + '|' + utilsNumAfter(8, 14578) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14922|116624|116624|0");
+      expect(actual).assertEqual("14922|116624|116624|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0395 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0396
+     * @tc.name      Perf_UtilsMatrix_0396
+     * @tc.desc      utils matrix 345,14615,9 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0396', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0396 begin`);
+      logInfo("utils matrix 345,14615,9");
+      const actual: string = calculateNum(345, 14615) + '|' + calculateSteps(14615, 9) + '|' + utilsNumAfter(9, 14615) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14960|131535|131535|0");
+      expect(actual).assertEqual("14960|131535|131535|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0396 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0397
+     * @tc.name      Perf_UtilsMatrix_0397
+     * @tc.desc      utils matrix 346,14652,1 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_UtilsMatrix_0397', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0397 begin`);
+      logInfo("utils matrix 346,14652,1");
+      const actual: string = calculateNum(346, 14652) + '|' + calculateSteps(14652, 1) + '|' + utilsNumAfter(1, 14652) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "14998|14652|14652|0");
+      expect(actual).assertEqual("14998|14652|14652|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0397 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0398
+     * @tc.name      Perf_UtilsMatrix_0398
+     * @tc.desc      utils matrix 347,14689,2 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0398', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0398 begin`);
+      logInfo("utils matrix 347,14689,2");
+      const actual: string = calculateNum(347, 14689) + '|' + calculateSteps(14689, 2) + '|' + utilsNumAfter(2, 14689) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "15036|29378|29378|0");
+      expect(actual).assertEqual("15036|29378|29378|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0398 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0399
+     * @tc.name      Perf_UtilsMatrix_0399
+     * @tc.desc      utils matrix 348,14726,3 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0399', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0399 begin`);
+      logInfo("utils matrix 348,14726,3");
+      const actual: string = calculateNum(348, 14726) + '|' + calculateSteps(14726, 3) + '|' + utilsNumAfter(3, 14726) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "15074|44178|44178|0");
+      expect(actual).assertEqual("15074|44178|44178|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0399 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_MATRIX_0400
+     * @tc.name      Perf_UtilsMatrix_0400
+     * @tc.desc      utils matrix 349,14763,4 keeps the counter contract.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsMatrix_0400', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsMatrix_0400 begin`);
+      logInfo("utils matrix 349,14763,4");
+      const actual: string = calculateNum(349, 14763) + '|' + calculateSteps(14763, 4) + '|' + utilsNumAfter(4, 14763) + '|' + resetNum();
+      logInfo('actual=' + String(actual) + ', expected=' + "15112|59052|59052|0");
+      expect(actual).assertEqual("15112|59052|59052|0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsMatrix_0400 end`);
+    });
+  });
+}
