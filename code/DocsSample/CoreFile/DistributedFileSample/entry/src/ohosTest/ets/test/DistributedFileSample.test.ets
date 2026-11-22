@@ -18,13 +18,41 @@ import type { Assert } from '@ohos/hypium';
 import { Driver, ON, abilityDelegatorRegistry } from '@kit.TestKit';
 import type { Component } from '@kit.TestKit';
 import type { UIAbility, Want } from '@kit.AbilityKit';
+import { bundleManager } from '@kit.AbilityKit';
 import type { resourceManager } from '@kit.LocalizationKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { isDistributedOperationReady } from './DistributedTestSupport';
 
 const DELAY_TIME: number = 1200;
 const DOMAIN: number = 0xF811;
+const PERMISSION_NAME: string = 'ohos.permission.DISTRIBUTED_DATASYNC';
+const TOP_ABILITY_STEP_MS: number = 200;
+const TOP_ABILITY_LIMIT: number = 30;
 const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 const bundleName: string = abilityDelegatorRegistry.getArguments().bundleName;
+
+async function isPermissionGranted(): Promise<boolean> {
+  const info: bundleManager.BundleInfo = await bundleManager.getBundleInfoForSelf(
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_REQUESTED_PERMISSION);
+  const index: number = info.reqPermissionDetails.findIndex((detail: bundleManager.ReqPermissionDetail): boolean =>
+    detail.name === PERMISSION_NAME);
+  return index >= 0 && info.permissionGrantStates[index] === bundleManager.PermissionGrantState.PERMISSION_GRANTED;
+}
+
+// startAbility 返回时页面切换尚未落定，直接取栈顶会偶发拿到 TestAbility，需等到 EntryAbility 上位。
+async function waitTopAbilityName(): Promise<string> {
+  const driver: Driver = Driver.create();
+  let name: string = '';
+  for (let step: number = 0; step < TOP_ABILITY_LIMIT; step++) {
+    const ability: UIAbility = await delegator.getCurrentTopAbility();
+    name = ability.context.abilityInfo.name;
+    if (name === 'EntryAbility') {
+      break;
+    }
+    await driver.delayMs(TOP_ABILITY_STEP_MS);
+  }
+  return name;
+}
 
 function expect(tag: string, actual: Object | undefined): Assert {
   const actualText: string = JSON.stringify(actual) ?? 'undefined';
@@ -55,8 +83,7 @@ export default function DistributedFileSampleTest(): void {
         try {
           const want: Want = { bundleName: bundleName, abilityName: 'EntryAbility' };
           await delegator.startAbility(want);
-          const ability: UIAbility = await delegator.getCurrentTopAbility();
-          expect(TAG, ability.context.abilityInfo.name).assertEqual('EntryAbility');
+          expect(TAG, await waitTopAbilityName()).assertEqual('EntryAbility');
         } finally {
           hilog.info(DOMAIN, TAG, `${TAG} end`);
         }
@@ -100,11 +127,16 @@ export default function DistributedFileSampleTest(): void {
         try {
           const text: string = await getResourceString($r('app.string.permit'));
           const driver: Driver = Driver.create();
-          const button: Component = await driver.findComponent(ON.text(text));
-          expect(TAG, await button.getText()).assertEqual(text);
-          expect(TAG, await button.isEnabled()).assertEqual(true);
-          await button.click();
-          await driver.delayMs(DELAY_TIME);
+          const button: Component | null = await driver.findComponent(ON.text(text));
+          if (button === null) {
+            expect(TAG, await isPermissionGranted()).assertTrue();
+          } else {
+            expect(TAG, await button.getText()).assertEqual(text);
+            expect(TAG, await button.isEnabled()).assertEqual(true);
+            await button.click();
+            await driver.delayMs(DELAY_TIME);
+            expect(TAG, await isPermissionGranted()).assertTrue();
+          }
         } finally {
           hilog.info(DOMAIN, TAG, `${TAG} end`);
         }
@@ -127,8 +159,11 @@ export default function DistributedFileSampleTest(): void {
           const button: Component = await driver.findComponent(ON.text(text));
           expect(TAG, await button.getText()).assertEqual(text);
           expect(TAG, await button.isEnabled()).assertEqual(true);
-          await button.click();
-          await driver.delayMs(DELAY_TIME);
+          // mountPublicDir 会 connectDfs 后同步 open/read 分布式目录，目录不可用时点击会长期占住主线程。
+          if (isDistributedOperationReady(bundleName, delegator.getAppContext().distributedFilesDir)) {
+            await button.click();
+            await driver.delayMs(DELAY_TIME);
+          }
         } finally {
           hilog.info(DOMAIN, TAG, `${TAG} end`);
         }
@@ -151,8 +186,10 @@ export default function DistributedFileSampleTest(): void {
           const button: Component = await driver.findComponent(ON.text(text));
           expect(TAG, await button.getText()).assertEqual(text);
           expect(TAG, await button.isEnabled()).assertEqual(true);
-          await button.click();
-          await driver.delayMs(DELAY_TIME);
+          if (isDistributedOperationReady(bundleName, delegator.getAppContext().distributedFilesDir)) {
+            await button.click();
+            await driver.delayMs(DELAY_TIME);
+          }
         } finally {
           hilog.info(DOMAIN, TAG, `${TAG} end`);
         }

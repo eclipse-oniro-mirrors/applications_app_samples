@@ -14,8 +14,9 @@
  */
 
 import { expect as hypiumExpect } from '@ohos/hypium';
+import { distributedDeviceManager } from '@kit.DistributedServiceKit';
 import type { Assert } from '@ohos/hypium';
-import type { fileIo } from '@kit.CoreFileKit';
+import { fileIo } from '@kit.CoreFileKit';
 import type {
   DistributedCopyApi, DistributedCopyRequest, FileDescriptorApi
 } from '../../../main/ets/model/DistributedCopy';
@@ -165,5 +166,43 @@ export class RecordingDescriptorApi implements FileDescriptorApi {
     if (this.closeError !== undefined) {
       throw this.closeError;
     }
+  }
+}
+
+// 无可信对端设备时分布式目录不可挂载，页面里的 fileIo.copy 会在主线程 fs.copy 任务上超过 6s 触发
+// THREAD_BLOCK_6S appfreeze，单机回归只校验按钮状态，点击前需确认对端存在。
+// networkId 为空只表示历史配对记录、对端并未在线，此时分布式拷贝同样无法完成。
+export function hasPeerDevice(bundleName: string): boolean {
+  let manager: distributedDeviceManager.DeviceManager | undefined = undefined;
+  try {
+    manager = distributedDeviceManager.createDeviceManager(bundleName);
+    const devices: distributedDeviceManager.DeviceBasicInfo[] = manager.getAvailableDeviceListSync();
+    console.info(`available devices: ${devices.map((device: distributedDeviceManager.DeviceBasicInfo): string =>
+      `${device.deviceName}/${device.deviceType}/${device.networkId ?? ''}`).join(' ')}`);
+    return devices.some((device: distributedDeviceManager.DeviceBasicInfo): boolean =>
+      (device.networkId ?? '') !== '');
+  } catch (error) {
+    console.info(`distributed device manager unavailable: ${(error as Error).message}`);
+    return false;
+  } finally {
+    if (manager !== undefined) {
+      distributedDeviceManager.releaseDeviceManager(manager);
+    }
+  }
+}
+
+// 分布式目录未挂载时，落到 distributedFilesDir 的 copy 不会立即失败，而是让 fs.copy 任务长期不完成，
+// 回调到达主线程时才被判成 THREAD_BLOCK_6S，整批用例以 App died 收场，所以点击前还要确认目录可访问。
+export function isDistributedOperationReady(bundleName: string, distributedFilesDir: string): boolean {
+  if (!hasPeerDevice(bundleName)) {
+    return false;
+  }
+  try {
+    const accessible: boolean = fileIo.accessSync(distributedFilesDir);
+    console.info(`distributedFilesDir ${distributedFilesDir} accessible: ${accessible}`);
+    return accessible;
+  } catch (error) {
+    console.info(`distributedFilesDir check failed: ${(error as Error).message}`);
+    return false;
   }
 }
