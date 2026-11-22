@@ -101,6 +101,6 @@
   `https://repo.huaweicloud.com/repository/npm/@ohos%2Fhvigor-ohos-plugin` 返回 404，随后 00308019。
   缺用户 npmrc 提示已消除，但原插件仍不可得；未进入 ArkTS 编译，不宣称编译通过或测试 HAP 已生成。
 - 主机使用真实已装 Hypium 1.0.29 和实际 main EntryAbility/Logger 做额外逻辑诊断，修正零参数 stub 回退后
-  51 条执行记录未发现失败。只适配平台模块导入，不执行 UI/资源/设备 API；这不是 ArkTS 编译、aa 全量或设备 Pass。
+  51 条执行记录未发现失败。只适配平台模块导入，不执行 UI/资源/设备 API；这不是 ArkTS 编译、全量测试或设备 Pass。
 - 最新 `hdc list targets` 返回 `[Empty]`，无设备；未安装、卸载或设备运行，不填 UI/SDK Pass 或设备 Tests run 数。
   原环境由用户在许可范围外自行修复后再编译；有设备且签名符合时使用原 runner 单次全量运行，不按 class 筛选或跳过失败。
