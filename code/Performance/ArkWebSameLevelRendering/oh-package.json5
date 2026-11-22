@@ -14,10 +14,11 @@
  */
 
 {
-  "modelVersion": "6.0.0",
+  "modelVersion": "6.1.1",
   "description": "Please describe the basic information.",
   "dependencies": {
   },
   "devDependencies": {
+    "@ohos/hypium": "1.0.18"
   }
 }

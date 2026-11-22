@@ -227,11 +227,21 @@ Web({ src: $rawfile("embed_view.html"), controller: this.browserTabController })
 
 ### 约束与限制
 
-1. 本示例仅支持标准系统上运行;
+1.本示例仅支持标准系统上运行。
 
-2. 本示例已适配API20版本SDK，SDK版本号(API Version 20 Release),镜像版本号(5.1.0 Release)。
+2.本示例为Stage模型，最低兼容API 20版本，使用API 26版本SDK编译。
 
-3. 本示例需要使用DevEco Studio 版本号(5.1.0 Release)及以上版本才可编译运行。
+3.本示例需要使用DevEco Studio 6.1.1 Release 及以上版本才可编译运行。
+
+### 测试
+
+`entry/src/ohosTest` 下共 30 个测试套件、2985 条逻辑用例，覆盖 BundleInfo 与模块信息、应用信息、字符串/颜色/整数/媒体资源、商品数据模型、rawfile 页面结构、文件与首选项、显示与 Want、Ability 上下文等场景。用例设计与执行方式见 [ohosTest.md](ohosTest.md)。
+
+执行命令：
+
+```
+hdc shell aa test -b com.example.nativeembed -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 600000
+```
 
 ### 下载
 
@@ -240,7 +250,7 @@ Web({ src: $rawfile("embed_view.html"), controller: this.browserTabController })
 ```
 git init
 git config core.sparsecheckout true
-echo code/Performance/ArkWebSameLevelRendering/ > .git/info/sparse-checkout
+echo code/Performance/ArkWebSameLevelRendering > .git/info/sparse-checkout
 git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
