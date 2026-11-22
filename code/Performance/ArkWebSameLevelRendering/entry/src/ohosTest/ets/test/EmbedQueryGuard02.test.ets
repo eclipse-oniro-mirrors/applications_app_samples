@@ -1715,3 +1715,582 @@ export default function embedQueryGuard02(host: EmbedDocumentHost): void {
       expect(result[2]).assertEqual('true');
       expect(result[3]).assertEqual('true');
       expect(result[4]).assertEqual('211,97');
+      expect(result[5]).assertEqual(result[4]);
+      expect(result[6]).assertEqual('true');
+      expect(result[7]).assertEqual('true');
+      expect(result[8]).assertEqual('211,97');
+      expect(result[9]).assertEqual('211,97');
+      expect(result[10]).assertEqual('true');
+      expect(result[11]).assertEqual('0,0');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_QUERY_0064
+     * @tc.name testEmbedQuery0064
+     * @tc.desc Template content is not part of the active document id index: live replacement embed
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedQuery0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`(() => {
+        const original = nativeEmbed.nativeSearch;
+        const parent = original.parentNode; const next = original.nextSibling;
+        const savedStyle = original.getAttribute('style'); const savedId = original.getAttribute('id');
+        const stage = document.createElement('div'); const side = document.createElement('div');
+        parent.insertBefore(stage, original); parent.insertBefore(side, original);
+        const target = document.createElement('embed');
+          target.setAttribute('type', 'native/component');
+          target.setAttribute('src', 'view');
+        try {
+          original.id = 'cachedOriginal'; target.id = 'nativeSearch';
+          stage.appendChild(target);
+          target.style.cssText = 'display: block; width: 83px; height: 137px; padding: 0; border: 0;';
+          const first = getEmbedSize();
+          const template = document.createElement('template'); side.appendChild(template);
+          template.content.appendChild(target);
+          let errorName = ''; let returned = false;
+          try { getEmbedSize(); returned = true; } catch (error) { errorName = error.name; }
+          const absent = document.getElementById('nativeSearch') === null;
+          const absenceEvidence = template.content.querySelector('#nativeSearch') === target;
+          stage.appendChild(target);
+          const recovered = getEmbedSize();
+          const current = document.getElementById('nativeSearch'); const rect = current.getBoundingClientRect();
+          side.appendChild(target); target.style.visibility = 'hidden';
+          const moved = getEmbedSize();
+          return JSON.stringify([
+            String(errorName), String(returned), String(absent), String(absenceEvidence),
+            String(recovered.width + ',' + recovered.height), String(rect.width + ',' + rect.height),
+            String(current === target), String(nativeEmbed.nativeSearch === original),
+            String(first.width + ',' + first.height), String(moved.width + ',' + moved.height),
+            String(first !== recovered && recovered !== moved),
+            String((moved.width - target.clientWidth) + ',' + (moved.height - target.clientHeight))
+          ]);
+        } finally {
+          parent.insertBefore(original, next); stage.remove(); side.remove();
+          if (target !== original) { target.remove(); }
+          if (savedId === null) { original.removeAttribute('id'); }
+          else { original.setAttribute('id', savedId); }
+          if (savedStyle === null) { original.removeAttribute('style'); }
+          else { original.setAttribute('style', savedStyle); }
+        }
+      })()`)) as string[];
+      expect(result[0]).assertEqual('TypeError');
+      expect(result[1]).assertEqual('false');
+      expect(result[2]).assertEqual('true');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('83,137');
+      expect(result[5]).assertEqual(result[4]);
+      expect(result[6]).assertEqual('true');
+      expect(result[7]).assertEqual('true');
+      expect(result[8]).assertEqual('83,137');
+      expect(result[9]).assertEqual('83,137');
+      expect(result[10]).assertEqual('true');
+      expect(result[11]).assertEqual('0,0');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_QUERY_0065
+     * @tc.name testEmbedQuery0065
+     * @tc.desc Detached container retains the child but cannot satisfy the document query: cached embed
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedQuery0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`(() => {
+        const original = nativeEmbed.nativeSearch;
+        const parent = original.parentNode; const next = original.nextSibling;
+        const savedStyle = original.getAttribute('style'); const savedId = original.getAttribute('id');
+        const stage = document.createElement('div'); const side = document.createElement('div');
+        parent.insertBefore(stage, original); parent.insertBefore(side, original);
+        const target = original;
+        try {
+          stage.appendChild(target);
+          target.style.cssText = 'display: block; width: 173px; height: 71px; padding: 0; border: 0;';
+          const first = getEmbedSize();
+          const detached = document.createElement('div'); detached.appendChild(target);
+          let errorName = ''; let returned = false;
+          try { getEmbedSize(); returned = true; } catch (error) { errorName = error.name; }
+          const absent = document.getElementById('nativeSearch') === null;
+          const absenceEvidence = detached.querySelector('#nativeSearch') === target;
+          stage.appendChild(target);
+          const recovered = getEmbedSize();
+          const current = document.getElementById('nativeSearch'); const rect = current.getBoundingClientRect();
+          side.appendChild(target); target.style.visibility = 'hidden';
+          const moved = getEmbedSize();
+          return JSON.stringify([
+            String(errorName), String(returned), String(absent), String(absenceEvidence),
+            String(recovered.width + ',' + recovered.height), String(rect.width + ',' + rect.height),
+            String(current === target), String(nativeEmbed.nativeSearch === original),
+            String(first.width + ',' + first.height), String(moved.width + ',' + moved.height),
+            String(first !== recovered && recovered !== moved),
+            String((moved.width - target.clientWidth) + ',' + (moved.height - target.clientHeight))
+          ]);
+        } finally {
+          parent.insertBefore(original, next); stage.remove(); side.remove();
+          if (target !== original) { target.remove(); }
+          if (savedId === null) { original.removeAttribute('id'); }
+          else { original.setAttribute('id', savedId); }
+          if (savedStyle === null) { original.removeAttribute('style'); }
+          else { original.setAttribute('style', savedStyle); }
+        }
+      })()`)) as string[];
+      expect(result[0]).assertEqual('TypeError');
+      expect(result[1]).assertEqual('false');
+      expect(result[2]).assertEqual('true');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('173,71');
+      expect(result[5]).assertEqual(result[4]);
+      expect(result[6]).assertEqual('true');
+      expect(result[7]).assertEqual('true');
+      expect(result[8]).assertEqual('173,71');
+      expect(result[9]).assertEqual('173,71');
+      expect(result[10]).assertEqual('true');
+      expect(result[11]).assertEqual('0,0');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_QUERY_0066
+     * @tc.name testEmbedQuery0066
+     * @tc.desc Detached container retains the child but cannot satisfy the document query: live padded div
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedQuery0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`(() => {
+        const original = nativeEmbed.nativeSearch;
+        const parent = original.parentNode; const next = original.nextSibling;
+        const savedStyle = original.getAttribute('style'); const savedId = original.getAttribute('id');
+        const stage = document.createElement('div'); const side = document.createElement('div');
+        parent.insertBefore(stage, original); parent.insertBefore(side, original);
+        const target = document.createElement('div');
+        try {
+          original.id = 'cachedOriginal'; target.id = 'nativeSearch';
+          stage.appendChild(target);
+          target.style.cssText = 'display: block; width: 119px; height: 43px; padding: 7px 11px; border: 0;';
+          const first = getEmbedSize();
+          const detached = document.createElement('div'); detached.appendChild(target);
+          let errorName = ''; let returned = false;
+          try { getEmbedSize(); returned = true; } catch (error) { errorName = error.name; }
+          const absent = document.getElementById('nativeSearch') === null;
+          const absenceEvidence = detached.querySelector('#nativeSearch') === target;
+          stage.appendChild(target);
+          const recovered = getEmbedSize();
+          const current = document.getElementById('nativeSearch'); const rect = current.getBoundingClientRect();
+          side.appendChild(target); target.style.visibility = 'hidden';
+          const moved = getEmbedSize();
+          return JSON.stringify([
+            String(errorName), String(returned), String(absent), String(absenceEvidence),
+            String(recovered.width + ',' + recovered.height), String(rect.width + ',' + rect.height),
+            String(current === target), String(nativeEmbed.nativeSearch === original),
+            String(first.width + ',' + first.height), String(moved.width + ',' + moved.height),
+            String(first !== recovered && recovered !== moved),
+            String((moved.width - target.clientWidth) + ',' + (moved.height - target.clientHeight))
+          ]);
+        } finally {
+          parent.insertBefore(original, next); stage.remove(); side.remove();
+          if (target !== original) { target.remove(); }
+          if (savedId === null) { original.removeAttribute('id'); }
+          else { original.setAttribute('id', savedId); }
+          if (savedStyle === null) { original.removeAttribute('style'); }
+          else { original.setAttribute('style', savedStyle); }
+        }
+      })()`)) as string[];
+      expect(result[0]).assertEqual('TypeError');
+      expect(result[1]).assertEqual('false');
+      expect(result[2]).assertEqual('true');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('141,57');
+      expect(result[5]).assertEqual(result[4]);
+      expect(result[6]).assertEqual('true');
+      expect(result[7]).assertEqual('true');
+      expect(result[8]).assertEqual('141,57');
+      expect(result[9]).assertEqual('141,57');
+      expect(result[10]).assertEqual('true');
+      expect(result[11]).assertEqual('0,0');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_QUERY_0067
+     * @tc.name testEmbedQuery0067
+     * @tc.desc Detached container retains the child but cannot satisfy the document query: live border-box span
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedQuery0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`(() => {
+        const original = nativeEmbed.nativeSearch;
+        const parent = original.parentNode; const next = original.nextSibling;
+        const savedStyle = original.getAttribute('style'); const savedId = original.getAttribute('id');
+        const stage = document.createElement('div'); const side = document.createElement('div');
+        parent.insertBefore(stage, original); parent.insertBefore(side, original);
+        const target = document.createElement('span');
+        try {
+          original.id = 'cachedOriginal'; target.id = 'nativeSearch';
+          stage.appendChild(target);
+          target.style.cssText = 'display: inline-block; box-sizing: border-box; width: 211px;' +
+            'height: 97px; padding: 4px; border: 0;';
+          const first = getEmbedSize();
+          const detached = document.createElement('div'); detached.appendChild(target);
+          let errorName = ''; let returned = false;
+          try { getEmbedSize(); returned = true; } catch (error) { errorName = error.name; }
+          const absent = document.getElementById('nativeSearch') === null;
+          const absenceEvidence = detached.querySelector('#nativeSearch') === target;
+          stage.appendChild(target);
+          const recovered = getEmbedSize();
+          const current = document.getElementById('nativeSearch'); const rect = current.getBoundingClientRect();
+          side.appendChild(target); target.style.visibility = 'hidden';
+          const moved = getEmbedSize();
+          return JSON.stringify([
+            String(errorName), String(returned), String(absent), String(absenceEvidence),
+            String(recovered.width + ',' + recovered.height), String(rect.width + ',' + rect.height),
+            String(current === target), String(nativeEmbed.nativeSearch === original),
+            String(first.width + ',' + first.height), String(moved.width + ',' + moved.height),
+            String(first !== recovered && recovered !== moved),
+            String((moved.width - target.clientWidth) + ',' + (moved.height - target.clientHeight))
+          ]);
+        } finally {
+          parent.insertBefore(original, next); stage.remove(); side.remove();
+          if (target !== original) { target.remove(); }
+          if (savedId === null) { original.removeAttribute('id'); }
+          else { original.setAttribute('id', savedId); }
+          if (savedStyle === null) { original.removeAttribute('style'); }
+          else { original.setAttribute('style', savedStyle); }
+        }
+      })()`)) as string[];
+      expect(result[0]).assertEqual('TypeError');
+      expect(result[1]).assertEqual('false');
+      expect(result[2]).assertEqual('true');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('211,97');
+      expect(result[5]).assertEqual(result[4]);
+      expect(result[6]).assertEqual('true');
+      expect(result[7]).assertEqual('true');
+      expect(result[8]).assertEqual('211,97');
+      expect(result[9]).assertEqual('211,97');
+      expect(result[10]).assertEqual('true');
+      expect(result[11]).assertEqual('0,0');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_QUERY_0068
+     * @tc.name testEmbedQuery0068
+     * @tc.desc Detached container retains the child but cannot satisfy the document query: live replacement embed
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedQuery0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`(() => {
+        const original = nativeEmbed.nativeSearch;
+        const parent = original.parentNode; const next = original.nextSibling;
+        const savedStyle = original.getAttribute('style'); const savedId = original.getAttribute('id');
+        const stage = document.createElement('div'); const side = document.createElement('div');
+        parent.insertBefore(stage, original); parent.insertBefore(side, original);
+        const target = document.createElement('embed');
+          target.setAttribute('type', 'native/component');
+          target.setAttribute('src', 'view');
+        try {
+          original.id = 'cachedOriginal'; target.id = 'nativeSearch';
+          stage.appendChild(target);
+          target.style.cssText = 'display: block; width: 83px; height: 137px; padding: 0; border: 0;';
+          const first = getEmbedSize();
+          const detached = document.createElement('div'); detached.appendChild(target);
+          let errorName = ''; let returned = false;
+          try { getEmbedSize(); returned = true; } catch (error) { errorName = error.name; }
+          const absent = document.getElementById('nativeSearch') === null;
+          const absenceEvidence = detached.querySelector('#nativeSearch') === target;
+          stage.appendChild(target);
+          const recovered = getEmbedSize();
+          const current = document.getElementById('nativeSearch'); const rect = current.getBoundingClientRect();
+          side.appendChild(target); target.style.visibility = 'hidden';
+          const moved = getEmbedSize();
+          return JSON.stringify([
+            String(errorName), String(returned), String(absent), String(absenceEvidence),
+            String(recovered.width + ',' + recovered.height), String(rect.width + ',' + rect.height),
+            String(current === target), String(nativeEmbed.nativeSearch === original),
+            String(first.width + ',' + first.height), String(moved.width + ',' + moved.height),
+            String(first !== recovered && recovered !== moved),
+            String((moved.width - target.clientWidth) + ',' + (moved.height - target.clientHeight))
+          ]);
+        } finally {
+          parent.insertBefore(original, next); stage.remove(); side.remove();
+          if (target !== original) { target.remove(); }
+          if (savedId === null) { original.removeAttribute('id'); }
+          else { original.setAttribute('id', savedId); }
+          if (savedStyle === null) { original.removeAttribute('style'); }
+          else { original.setAttribute('style', savedStyle); }
+        }
+      })()`)) as string[];
+      expect(result[0]).assertEqual('TypeError');
+      expect(result[1]).assertEqual('false');
+      expect(result[2]).assertEqual('true');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('83,137');
+      expect(result[5]).assertEqual(result[4]);
+      expect(result[6]).assertEqual('true');
+      expect(result[7]).assertEqual('true');
+      expect(result[8]).assertEqual('83,137');
+      expect(result[9]).assertEqual('83,137');
+      expect(result[10]).assertEqual('true');
+      expect(result[11]).assertEqual('0,0');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_QUERY_0069
+     * @tc.name testEmbedQuery0069
+     * @tc.desc An adopted node belongs to another document until explicitly adopted back: cached embed
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedQuery0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`(() => {
+        const original = nativeEmbed.nativeSearch;
+        const parent = original.parentNode; const next = original.nextSibling;
+        const savedStyle = original.getAttribute('style'); const savedId = original.getAttribute('id');
+        const stage = document.createElement('div'); const side = document.createElement('div');
+        parent.insertBefore(stage, original); parent.insertBefore(side, original);
+        const target = original;
+        try {
+          stage.appendChild(target);
+          target.style.cssText = 'display: block; width: 173px; height: 71px; padding: 0; border: 0;';
+          const first = getEmbedSize();
+          const foreign = document.implementation.createHTMLDocument('foreign');
+          foreign.body.appendChild(foreign.adoptNode(target));
+          let errorName = ''; let returned = false;
+          try { getEmbedSize(); returned = true; } catch (error) { errorName = error.name; }
+          const absent = document.getElementById('nativeSearch') === null;
+          const absenceEvidence = foreign.getElementById('nativeSearch') === target;
+          stage.appendChild(document.adoptNode(target));
+          const recovered = getEmbedSize();
+          const current = document.getElementById('nativeSearch'); const rect = current.getBoundingClientRect();
+          side.appendChild(target); target.style.visibility = 'hidden';
+          const moved = getEmbedSize();
+          return JSON.stringify([
+            String(errorName), String(returned), String(absent), String(absenceEvidence),
+            String(recovered.width + ',' + recovered.height), String(rect.width + ',' + rect.height),
+            String(current === target), String(nativeEmbed.nativeSearch === original),
+            String(first.width + ',' + first.height), String(moved.width + ',' + moved.height),
+            String(first !== recovered && recovered !== moved),
+            String((moved.width - target.clientWidth) + ',' + (moved.height - target.clientHeight))
+          ]);
+        } finally {
+          parent.insertBefore(original, next); stage.remove(); side.remove();
+          if (target !== original) { target.remove(); }
+          if (savedId === null) { original.removeAttribute('id'); }
+          else { original.setAttribute('id', savedId); }
+          if (savedStyle === null) { original.removeAttribute('style'); }
+          else { original.setAttribute('style', savedStyle); }
+        }
+      })()`)) as string[];
+      expect(result[0]).assertEqual('TypeError');
+      expect(result[1]).assertEqual('false');
+      expect(result[2]).assertEqual('true');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('173,71');
+      expect(result[5]).assertEqual(result[4]);
+      expect(result[6]).assertEqual('true');
+      expect(result[7]).assertEqual('true');
+      expect(result[8]).assertEqual('173,71');
+      expect(result[9]).assertEqual('173,71');
+      expect(result[10]).assertEqual('true');
+      expect(result[11]).assertEqual('0,0');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_QUERY_0070
+     * @tc.name testEmbedQuery0070
+     * @tc.desc An adopted node belongs to another document until explicitly adopted back: live padded div
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedQuery0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`(() => {
+        const original = nativeEmbed.nativeSearch;
+        const parent = original.parentNode; const next = original.nextSibling;
+        const savedStyle = original.getAttribute('style'); const savedId = original.getAttribute('id');
+        const stage = document.createElement('div'); const side = document.createElement('div');
+        parent.insertBefore(stage, original); parent.insertBefore(side, original);
+        const target = document.createElement('div');
+        try {
+          original.id = 'cachedOriginal'; target.id = 'nativeSearch';
+          stage.appendChild(target);
+          target.style.cssText = 'display: block; width: 119px; height: 43px; padding: 7px 11px; border: 0;';
+          const first = getEmbedSize();
+          const foreign = document.implementation.createHTMLDocument('foreign');
+          foreign.body.appendChild(foreign.adoptNode(target));
+          let errorName = ''; let returned = false;
+          try { getEmbedSize(); returned = true; } catch (error) { errorName = error.name; }
+          const absent = document.getElementById('nativeSearch') === null;
+          const absenceEvidence = foreign.getElementById('nativeSearch') === target;
+          stage.appendChild(document.adoptNode(target));
+          const recovered = getEmbedSize();
+          const current = document.getElementById('nativeSearch'); const rect = current.getBoundingClientRect();
+          side.appendChild(target); target.style.visibility = 'hidden';
+          const moved = getEmbedSize();
+          return JSON.stringify([
+            String(errorName), String(returned), String(absent), String(absenceEvidence),
+            String(recovered.width + ',' + recovered.height), String(rect.width + ',' + rect.height),
+            String(current === target), String(nativeEmbed.nativeSearch === original),
+            String(first.width + ',' + first.height), String(moved.width + ',' + moved.height),
+            String(first !== recovered && recovered !== moved),
+            String((moved.width - target.clientWidth) + ',' + (moved.height - target.clientHeight))
+          ]);
+        } finally {
+          parent.insertBefore(original, next); stage.remove(); side.remove();
+          if (target !== original) { target.remove(); }
+          if (savedId === null) { original.removeAttribute('id'); }
+          else { original.setAttribute('id', savedId); }
+          if (savedStyle === null) { original.removeAttribute('style'); }
+          else { original.setAttribute('style', savedStyle); }
+        }
+      })()`)) as string[];
+      expect(result[0]).assertEqual('TypeError');
+      expect(result[1]).assertEqual('false');
+      expect(result[2]).assertEqual('true');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('141,57');
+      expect(result[5]).assertEqual(result[4]);
+      expect(result[6]).assertEqual('true');
+      expect(result[7]).assertEqual('true');
+      expect(result[8]).assertEqual('141,57');
+      expect(result[9]).assertEqual('141,57');
+      expect(result[10]).assertEqual('true');
+      expect(result[11]).assertEqual('0,0');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_QUERY_0071
+     * @tc.name testEmbedQuery0071
+     * @tc.desc An adopted node belongs to another document until explicitly adopted back: live border-box span
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedQuery0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`(() => {
+        const original = nativeEmbed.nativeSearch;
+        const parent = original.parentNode; const next = original.nextSibling;
+        const savedStyle = original.getAttribute('style'); const savedId = original.getAttribute('id');
+        const stage = document.createElement('div'); const side = document.createElement('div');
+        parent.insertBefore(stage, original); parent.insertBefore(side, original);
+        const target = document.createElement('span');
+        try {
+          original.id = 'cachedOriginal'; target.id = 'nativeSearch';
+          stage.appendChild(target);
+          target.style.cssText = 'display: inline-block; box-sizing: border-box; width: 211px;' +
+            'height: 97px; padding: 4px; border: 0;';
+          const first = getEmbedSize();
+          const foreign = document.implementation.createHTMLDocument('foreign');
+          foreign.body.appendChild(foreign.adoptNode(target));
+          let errorName = ''; let returned = false;
+          try { getEmbedSize(); returned = true; } catch (error) { errorName = error.name; }
+          const absent = document.getElementById('nativeSearch') === null;
+          const absenceEvidence = foreign.getElementById('nativeSearch') === target;
+          stage.appendChild(document.adoptNode(target));
+          const recovered = getEmbedSize();
+          const current = document.getElementById('nativeSearch'); const rect = current.getBoundingClientRect();
+          side.appendChild(target); target.style.visibility = 'hidden';
+          const moved = getEmbedSize();
+          return JSON.stringify([
+            String(errorName), String(returned), String(absent), String(absenceEvidence),
+            String(recovered.width + ',' + recovered.height), String(rect.width + ',' + rect.height),
+            String(current === target), String(nativeEmbed.nativeSearch === original),
+            String(first.width + ',' + first.height), String(moved.width + ',' + moved.height),
+            String(first !== recovered && recovered !== moved),
+            String((moved.width - target.clientWidth) + ',' + (moved.height - target.clientHeight))
+          ]);
+        } finally {
+          parent.insertBefore(original, next); stage.remove(); side.remove();
+          if (target !== original) { target.remove(); }
+          if (savedId === null) { original.removeAttribute('id'); }
+          else { original.setAttribute('id', savedId); }
+          if (savedStyle === null) { original.removeAttribute('style'); }
+          else { original.setAttribute('style', savedStyle); }
+        }
+      })()`)) as string[];
+      expect(result[0]).assertEqual('TypeError');
+      expect(result[1]).assertEqual('false');
+      expect(result[2]).assertEqual('true');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('211,97');
+      expect(result[5]).assertEqual(result[4]);
+      expect(result[6]).assertEqual('true');
+      expect(result[7]).assertEqual('true');
+      expect(result[8]).assertEqual('211,97');
+      expect(result[9]).assertEqual('211,97');
+      expect(result[10]).assertEqual('true');
+      expect(result[11]).assertEqual('0,0');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_QUERY_0072
+     * @tc.name testEmbedQuery0072
+     * @tc.desc An adopted node belongs to another document until explicitly adopted back: live replacement embed
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedQuery0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`(() => {
+        const original = nativeEmbed.nativeSearch;
+        const parent = original.parentNode; const next = original.nextSibling;
+        const savedStyle = original.getAttribute('style'); const savedId = original.getAttribute('id');
+        const stage = document.createElement('div'); const side = document.createElement('div');
+        parent.insertBefore(stage, original); parent.insertBefore(side, original);
+        const target = document.createElement('embed');
+          target.setAttribute('type', 'native/component');
+          target.setAttribute('src', 'view');
+        try {
+          original.id = 'cachedOriginal'; target.id = 'nativeSearch';
+          stage.appendChild(target);
+          target.style.cssText = 'display: block; width: 83px; height: 137px; padding: 0; border: 0;';
+          const first = getEmbedSize();
+          const foreign = document.implementation.createHTMLDocument('foreign');
+          foreign.body.appendChild(foreign.adoptNode(target));
+          let errorName = ''; let returned = false;
+          try { getEmbedSize(); returned = true; } catch (error) { errorName = error.name; }
+          const absent = document.getElementById('nativeSearch') === null;
+          const absenceEvidence = foreign.getElementById('nativeSearch') === target;
+          stage.appendChild(document.adoptNode(target));
+          const recovered = getEmbedSize();
+          const current = document.getElementById('nativeSearch'); const rect = current.getBoundingClientRect();
+          side.appendChild(target); target.style.visibility = 'hidden';
+          const moved = getEmbedSize();
+          return JSON.stringify([
+            String(errorName), String(returned), String(absent), String(absenceEvidence),
+            String(recovered.width + ',' + recovered.height), String(rect.width + ',' + rect.height),
+            String(current === target), String(nativeEmbed.nativeSearch === original),
+            String(first.width + ',' + first.height), String(moved.width + ',' + moved.height),
+            String(first !== recovered && recovered !== moved),
+            String((moved.width - target.clientWidth) + ',' + (moved.height - target.clientHeight))
+          ]);
+        } finally {
+          parent.insertBefore(original, next); stage.remove(); side.remove();
+          if (target !== original) { target.remove(); }
+          if (savedId === null) { original.removeAttribute('id'); }
+          else { original.setAttribute('id', savedId); }
+          if (savedStyle === null) { original.removeAttribute('style'); }
+          else { original.setAttribute('style', savedStyle); }
+        }
+      })()`)) as string[];
+      expect(result[0]).assertEqual('TypeError');
+      expect(result[1]).assertEqual('false');
+      expect(result[2]).assertEqual('true');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('83,137');
+      expect(result[5]).assertEqual(result[4]);
+      expect(result[6]).assertEqual('true');
+      expect(result[7]).assertEqual('true');
+      expect(result[8]).assertEqual('83,137');
+      expect(result[9]).assertEqual('83,137');
+      expect(result[10]).assertEqual('true');
+      expect(result[11]).assertEqual('0,0');
+    });
+  });
+}
