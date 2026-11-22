@@ -59,7 +59,7 @@ perfTest
 
 ### 测试
 
-`entry/src/ohosTest` 下共 32 个测试套件、2737 条用例，其中保留原有 3 个性能测试套件（PerfTest、CPUMetric、SlideFps），新增 29 个逻辑测试套件，覆盖 Utils 计算逻辑、BundleInfo 与模块信息、应用信息、entry 资源、文件与首选项、显示、Want、Ability 与 UI 等场景。用例设计与执行方式见 [ohosTest.md](ohosTest.md)。
+`entry/src/ohosTest` 下共 143 个测试套件、5534 条用例，其中保留原有 3 个性能测试套件（PerfTest、CPUMetric、SlideFps），其余为逻辑测试套件，覆盖 Utils 计算逻辑、BundleInfo 与模块信息、应用信息、entry 资源、文件与首选项、显示、Want、通知与公共事件、日志、调用序列与边界、算法与编码等场景。用例设计与执行方式见 [ohosTest.md](ohosTest.md)。
 
 执行命令：
 

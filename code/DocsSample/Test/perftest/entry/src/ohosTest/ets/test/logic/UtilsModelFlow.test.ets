@@ -438,3 +438,321 @@ export default function utilsModelFlowTest(): void {
      * @tc.name      Perf_UtilsFlow_0019
      * @tc.desc      UtilsModel calculate x4 max=666 keeps the counter.
      * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsFlow_0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsFlow_0019 begin`);
+      const subject: UtilsModel = new UtilsModel(666);
+      subject.calculate();
+      subject.calculate();
+      subject.calculate();
+      subject.calculate();
+      logInfo("calculate x4 max=666");
+      const actual: string = subject.value() + ':' + subject.calls() + ':' + subject.resets();
+      logInfo('actual=' + String(actual) + ', expected=' + "2664:4:0");
+      expect(actual).assertEqual("2664:4:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsFlow_0019 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_FLOW_0020
+     * @tc.name      Perf_UtilsFlow_0020
+     * @tc.desc      UtilsModel calculate x5 max=703 keeps the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsFlow_0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsFlow_0020 begin`);
+      const subject: UtilsModel = new UtilsModel(703);
+      subject.calculate();
+      subject.calculate();
+      subject.calculate();
+      subject.calculate();
+      subject.calculate();
+      logInfo("calculate x5 max=703");
+      const actual: string = subject.value() + ':' + subject.calls() + ':' + subject.resets();
+      logInfo('actual=' + String(actual) + ', expected=' + "3515:5:0");
+      expect(actual).assertEqual("3515:5:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsFlow_0020 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_FLOW_0021
+     * @tc.name      Perf_UtilsFlow_0021
+     * @tc.desc      UtilsModel calculate x1 max=740 keeps the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsFlow_0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsFlow_0021 begin`);
+      const subject: UtilsModel = new UtilsModel(740);
+      subject.calculate();
+      logInfo("calculate x1 max=740");
+      const actual: string = subject.value() + ':' + subject.calls() + ':' + subject.resets();
+      logInfo('actual=' + String(actual) + ', expected=' + "740:1:0");
+      expect(actual).assertEqual("740:1:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsFlow_0021 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_FLOW_0022
+     * @tc.name      Perf_UtilsFlow_0022
+     * @tc.desc      UtilsModel calculate x2 max=777 keeps the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsFlow_0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsFlow_0022 begin`);
+      const subject: UtilsModel = new UtilsModel(777);
+      subject.calculate();
+      subject.calculate();
+      logInfo("calculate x2 max=777");
+      const actual: string = subject.value() + ':' + subject.calls() + ':' + subject.resets();
+      logInfo('actual=' + String(actual) + ', expected=' + "1554:2:0");
+      expect(actual).assertEqual("1554:2:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsFlow_0022 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_FLOW_0023
+     * @tc.name      Perf_UtilsFlow_0023
+     * @tc.desc      UtilsModel calculate x3 max=814 keeps the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_UtilsFlow_0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}UtilsFlow_0023 begin`);
+      const subject: UtilsModel = new UtilsModel(814);
+      subject.calculate();
+      subject.calculate();
+      subject.calculate();
+      logInfo("calculate x3 max=814");
+      const actual: string = subject.value() + ':' + subject.calls() + ':' + subject.resets();
+      logInfo('actual=' + String(actual) + ', expected=' + "2442:3:0");
+      expect(actual).assertEqual("2442:3:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsFlow_0023 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_FLOW_0024
+     * @tc.name      Perf_UtilsFlow_0024
+     * @tc.desc      UtilsModel calculate x4 max=851 keeps the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsFlow_0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsFlow_0024 begin`);
+      const subject: UtilsModel = new UtilsModel(851);
+      subject.calculate();
+      subject.calculate();
+      subject.calculate();
+      subject.calculate();
+      logInfo("calculate x4 max=851");
+      const actual: string = subject.value() + ':' + subject.calls() + ':' + subject.resets();
+      logInfo('actual=' + String(actual) + ', expected=' + "3404:4:0");
+      expect(actual).assertEqual("3404:4:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsFlow_0024 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_FLOW_0025
+     * @tc.name      Perf_UtilsFlow_0025
+     * @tc.desc      UtilsModel calculate x5 max=888 keeps the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsFlow_0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsFlow_0025 begin`);
+      const subject: UtilsModel = new UtilsModel(888);
+      subject.calculate();
+      subject.calculate();
+      subject.calculate();
+      subject.calculate();
+      subject.calculate();
+      logInfo("calculate x5 max=888");
+      const actual: string = subject.value() + ':' + subject.calls() + ':' + subject.resets();
+      logInfo('actual=' + String(actual) + ', expected=' + "4440:5:0");
+      expect(actual).assertEqual("4440:5:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsFlow_0025 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_FLOW_0026
+     * @tc.name      Perf_UtilsFlow_0026
+     * @tc.desc      UtilsModel calculate x1 max=925 keeps the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsFlow_0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsFlow_0026 begin`);
+      const subject: UtilsModel = new UtilsModel(925);
+      subject.calculate();
+      logInfo("calculate x1 max=925");
+      const actual: string = subject.value() + ':' + subject.calls() + ':' + subject.resets();
+      logInfo('actual=' + String(actual) + ', expected=' + "925:1:0");
+      expect(actual).assertEqual("925:1:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsFlow_0026 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_FLOW_0027
+     * @tc.name      Perf_UtilsFlow_0027
+     * @tc.desc      UtilsModel calculate x2 max=962 keeps the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsFlow_0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsFlow_0027 begin`);
+      const subject: UtilsModel = new UtilsModel(962);
+      subject.calculate();
+      subject.calculate();
+      logInfo("calculate x2 max=962");
+      const actual: string = subject.value() + ':' + subject.calls() + ':' + subject.resets();
+      logInfo('actual=' + String(actual) + ', expected=' + "1924:2:0");
+      expect(actual).assertEqual("1924:2:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsFlow_0027 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_FLOW_0028
+     * @tc.name      Perf_UtilsFlow_0028
+     * @tc.desc      UtilsModel calculate x3 max=999 keeps the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsFlow_0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsFlow_0028 begin`);
+      const subject: UtilsModel = new UtilsModel(999);
+      subject.calculate();
+      subject.calculate();
+      subject.calculate();
+      logInfo("calculate x3 max=999");
+      const actual: string = subject.value() + ':' + subject.calls() + ':' + subject.resets();
+      logInfo('actual=' + String(actual) + ', expected=' + "2997:3:0");
+      expect(actual).assertEqual("2997:3:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsFlow_0028 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_FLOW_0029
+     * @tc.name      Perf_UtilsFlow_0029
+     * @tc.desc      UtilsModel calculate x4 max=1036 keeps the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsFlow_0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsFlow_0029 begin`);
+      const subject: UtilsModel = new UtilsModel(1036);
+      subject.calculate();
+      subject.calculate();
+      subject.calculate();
+      subject.calculate();
+      logInfo("calculate x4 max=1036");
+      const actual: string = subject.value() + ':' + subject.calls() + ':' + subject.resets();
+      logInfo('actual=' + String(actual) + ', expected=' + "4144:4:0");
+      expect(actual).assertEqual("4144:4:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsFlow_0029 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_FLOW_0030
+     * @tc.name      Perf_UtilsFlow_0030
+     * @tc.desc      UtilsModel calculate x5 max=1073 keeps the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsFlow_0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsFlow_0030 begin`);
+      const subject: UtilsModel = new UtilsModel(1073);
+      subject.calculate();
+      subject.calculate();
+      subject.calculate();
+      subject.calculate();
+      subject.calculate();
+      logInfo("calculate x5 max=1073");
+      const actual: string = subject.value() + ':' + subject.calls() + ':' + subject.resets();
+      logInfo('actual=' + String(actual) + ', expected=' + "5365:5:0");
+      expect(actual).assertEqual("5365:5:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsFlow_0030 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_FLOW_0031
+     * @tc.name      Perf_UtilsFlow_0031
+     * @tc.desc      UtilsModel calculate x1 max=1110 keeps the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsFlow_0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsFlow_0031 begin`);
+      const subject: UtilsModel = new UtilsModel(1110);
+      subject.calculate();
+      logInfo("calculate x1 max=1110");
+      const actual: string = subject.value() + ':' + subject.calls() + ':' + subject.resets();
+      logInfo('actual=' + String(actual) + ', expected=' + "1110:1:0");
+      expect(actual).assertEqual("1110:1:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsFlow_0031 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_FLOW_0032
+     * @tc.name      Perf_UtilsFlow_0032
+     * @tc.desc      UtilsModel calculate x2 max=1147 keeps the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsFlow_0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsFlow_0032 begin`);
+      const subject: UtilsModel = new UtilsModel(1147);
+      subject.calculate();
+      subject.calculate();
+      logInfo("calculate x2 max=1147");
+      const actual: string = subject.value() + ':' + subject.calls() + ':' + subject.resets();
+      logInfo('actual=' + String(actual) + ', expected=' + "2294:2:0");
+      expect(actual).assertEqual("2294:2:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}UtilsFlow_0032 end`);
+    });
+  });
+}

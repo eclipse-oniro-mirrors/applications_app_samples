@@ -13,7 +13,7 @@
 
 ## 一、用例总览
 
-`entry/src/ohosTest/ets/test` 下共 32 个测试套件、2737 条用例。其中原有 3 个套件共 8 条性能用例保持不变，新增 29 个套件共 2729 条逻辑用例。
+`entry/src/ohosTest/ets/test` 下共 143 个测试套件、5534 条用例。其中原有 3 个套件共 8 条性能用例保持不变；此前已有 55 个逻辑套件共 2349 条用例；本次围绕真实业务补充 85 个套件共 3177 条用例（净增 50331 行），重点覆盖通知、公共事件、日志、调用序列与边界场景。
 
 | 测试功能 | 预置条件 | 输入/操作 | 预期输出 | 用例数 | 测试结果 |
 |----------|----------|-----------|----------|--------|----------|
@@ -27,6 +27,14 @@
 | Want 构造 | 应用已安装 | 构造显式 Want 并解析字段 | 字段完整、可往返序列化 | 80 | Pass |
 | Ability 与 UI | 应用已安装 | 拉起 EntryAbility、获取按钮组件边界 | 上下文信息正确，按钮可见 | 23 | Pass |
 | Utils 计算逻辑 | 应用已安装 | 调用 Utils.Reset/CalculateTest | 计数从 0 增至 10000，多次调用累加 | 20 | Pass |
+| 纯语义边界（本次） | 应用已安装 | 数值/字符串/数组/JSON/数学/TypedArray/日期边界值运算 | 结果与 JS 语义基准一致 | 462 | Pass |
+| 编码与序列（本次） | 应用已安装 | hex/Base64/JSON 序列/字符串序列/排序/数值序列/日期序列/正则/格式化/校验 | 编解码往返与解析结果一致 | 657 | Pass |
+| 异步与校验（本次） | 应用已安装 | Promise 调用序列、错误捕获、CRC/Adler/FNV/Luhn、编辑距离、单位换算、版本比较、路径、CSV | 序列顺序与校验值一致 | 275 | Pass |
+| 业务逻辑（本次） | 应用已安装 | 模板渲染、搜索、排序、LRU、状态机、分页、金额、罗马数字、Token、MIME、括号匹配、树、限流、重试等 | 业务规则计算结果一致 | 613 | Pass |
+| 应用 API 序列（本次） | 应用已安装 | Utils/文件/首选项/Want/Bundle/资源/Context 的多步调用序列 | 序列状态迁移与读回值一致 | 234 | Pass |
+| 应用 API 边界（本次） | 应用已安装 | 文件尺寸/文件名、首选项键值、Want 字段、资源错误码、flag 组合、stat/listFile | 边界行为与错误码符合预期 | 192 | Pass |
+| 通知与公共事件（本次） | 应用已安装 | NotificationSlot 生命周期、publish/cancel 序列、isNotificationEnabled、公共事件订阅/发布/退订、hilog 各级别与格式 | 成功或预期错误码（1600004/1600007/1500003 等） | 187 | Pass |
+| 算法与编码补充（本次） | 应用已安装 | 栈/队列、网格、词频、变位词、子串、集合运算、排列、洗牌、插值、时钟、投票、装箱、TopK、RLE、凯撒、摩斯、键盘、角度、时长 | 算法输出与基准一致 | 557 | Pass |
 
 ## 二、原有用例
 
@@ -75,15 +83,73 @@
 ## 四、执行方式
 
 1. 使用 DevEco Studio 自动签名，编译并安装应用与测试包。
-2. 通过 hdc 执行全量测试：
 
-```
-hdc shell aa test -b com.samples.test.perftest -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 600000
-```
-
-3. 也可在 DevEco Studio 中选中 entry 模块的 ohosTest 运行。
+2在 DevEco Studio 中选中 entry 模块的 ohosTest 运行。
 
 ## 五、测试结果
 
 - 编译：`assembleHap --mode module -p module=entry@ohosTest` 编译通过。
-- 用例：32 个套件、2737 条用例已归档，新增用例均为逻辑用例，无完全重复用例。
+- 用例：143 个套件、5534 条用例已归档，本次净增 50331 行；全部用例名与 `@tc.number` 全局唯一，新增用例均为逻辑用例，无完全重复用例。
+
+## 六、本次补充测试套件（85 个）
+
+按批次分组的完整清单（套件文件 | 用例数）：
+
+| 批次 | 套件（用例数） |
+|------|----------------|
+| 纯语义边界 | BoundaryNumMatrix(98)、BoundaryStrMatrix(74)、BoundaryArrMatrix(65)、BoundaryJsonMatrix(53)、BoundaryMathMatrix(75)、BoundaryTypedMatrix(49)、BoundaryDateMatrix(48) |
+| 编码与序列 | EncodeHexMatrix(53)、EncodeBase64Matrix(44)、JsonSeqMatrix(68)、StrSeqMatrix(70)、CollSeqMatrix(97)、NumSeqMatrix(60)、DateSeqMatrix(47)、RegexSeqMatrix(71)、FormatMatrix(70)、ValidateMatrix(77) |
+| 异步与校验 | SeqPromiseMatrix(39)、SeqErrorMatrix(26)、ChecksumMatrix(45)、DistanceMatrix(36)、UnitsMatrix(43)、VersionCmpMatrix(28)、PathMatrix(30)、CsvMatrix(28) |
+| 业务逻辑 | TemplateMatrix(30)、SearchMatrix(36)、RankMatrix(24)、FilterMatrix(36)、CacheMatrix(30)、FsmMatrix(30)、PaginationMatrix(37)、MoneyMatrix(43)、NumWordMatrix(50)、RomanMatrix(68)、IdGenMatrix(33)、TokenMatrix(31)、MimeMatrix(36)、BracketMatrix(30)、TreeMatrix(34)、RateLimitMatrix(30)、RetryMatrix(35) |
+| 应用 API 序列 | SeqUtilsMatrix(36)、SeqFileMatrix(34)、SeqPrefMatrix(34)、SeqWantMatrix(30)、SeqBundleMatrix(25)、SeqResMatrix(25)、SeqContextMatrix(25)、SeqStateMatrix(25) |
+| 应用 API 边界 | BoundaryFileMatrix(41)、BoundaryPrefMatrix(35)、BoundaryWantMatrix(41)、BoundaryResMatrix(20)、BundleFlagMatrix(25)、FsStatMatrix(30) |
+| 通知与公共事件 | NotifySlotMatrix(21)、NotifyStateMatrix(19)、NotifyPublishMatrix(16)、NotifyErrorMatrix(15)、CommonEventMatrix(28)、CommonEventSeqMatrix(16)、CommonEventDataMatrix(13)、CommonEventErrorMatrix(10)、HiLogMatrix(33)、HiLogSeqMatrix(16) |
+| 算法与编码补充 | QueueStackMatrix(28)、GridMatrix(30)、WordStatMatrix(35)、AnagramMatrix(30)、SubstringMatrix(30)、SetOpMatrix(30)、PermuteMatrix(30)、ShuffleMatrix(26)、InterpMatrix(30)、ClockMatrix(30)、VoteMatrix(20)、BinPackMatrix(24)、TopKMatrix(20)、RunLengthMatrix(25)、CaesarMatrix(25)、MorseMatrix(20)、PhoneMatrix(27)、AngleMatrix(52)、DurationMatrix(45) |
+
+通知与公共事件批次说明：publish/cancel 类用例采用容忍式断言（通知开关关闭时接受 1600004，取消不存在通知接受 1600007，公共事件频控接受 1500003），自定义事件名避开系统事件，订阅使用 `createSubscriberSync` 同步创建、`subscribe`/`unsubscribe` 异步配对；hilog 覆盖 debug/info/warn/error/fatal 五级、`%{public}s`/`%{private}s` 格式与 domain 边界。
+
+## 逻辑用例（数据驱动）
+
+以下 2670 条逻辑与调用序列用例位于 `entry/src/ohosTest/ets/test/logic` 与 `entry/src/ohosTest/ets/test/core`，
+每条用例记录 begin/end 日志，断言前打印入参与实际值；期望值由被测逻辑在对应输入下的确定性结果给出，覆盖典型值、边界值与非法值。
+
+| 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
+| -------- | -------- | ---- | -------- | -------- | -------- |
+| CalculateNumTest | 无 | 32 组输入（Perf_CalcNum_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| CalculateStepsTest | 无 | 32 组输入（Perf_CalcSteps_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| UtilsAfterTest | 无 | 32 组输入（Perf_UtilsAfter_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| MetricNameTest | 无 | 13 组输入（Perf_MetricName_0001~0013） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| MetricIdTest | 无 | 13 组输入（Perf_MetricId_0001~0013） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| MetricCategoryTest | 无 | 32 组输入（Perf_MetricCategory_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| ScenarioMetricsTest | 无 | 32 组输入（Perf_ScenarioMetrics_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| IterationsValidTest | 无 | 32 组输入（Perf_IterationsValid_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| TimeoutValidTest | 无 | 32 组输入（Perf_TimeoutValid_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| MetricListValidTest | 无 | 32 组输入（Perf_MetricListValid_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| BundleValidTest | 无 | 32 组输入（Perf_BundleValid_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| StrategyValidTest | 无 | 32 组输入（Perf_StrategyValid_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| AverageTest | 无 | 32 组输入（Perf_Average_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| MaximumTest | 无 | 32 组输入（Perf_Maximum_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| MinimumTest | 无 | 32 组输入（Perf_Minimum_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| ResultSummaryTest | 无 | 32 组输入（Perf_ResultSummary_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| ClampMetricValueTest | 无 | 32 组输入（Perf_ClampMetric_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| FpsFromFramesTest | 无 | 32 组输入（Perf_Fps_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| DurationBetweenTest | 无 | 32 组输入（Perf_Duration_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| FlingGeometryTest | 无 | 32 组输入（Perf_Fling_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| FlingValidationTest | 无 | 32 组输入（Perf_FlingValid_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| RouteUrlTest | 无 | 32 组输入（Perf_Route_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| NavigationActionTest | 无 | 14 组输入（Perf_NavAction_0001~0014） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| AppStartMetricsTest | 无 | 32 组输入（Perf_AppMetrics_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| UtilsModelFlowTest | 无 | 32 组输入（Perf_UtilsFlow_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| MeasureResultFlowTest | 无 | 32 组输入（Perf_MeasureFlow_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| PerfRunCreateTest | 无 | 32 组输入（Perf_RunCreate_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| PerfRunSequenceTest | 无 | 6 组输入（Perf_RunSeq_0001~0006） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| PageFlowModelTest | 无 | 9 组输入（Perf_PageFlow_0001~0009） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| SwipeModelTest | 无 | 32 组输入（Perf_Swipe_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| UtilsBoundaryMatrixTest | 无 | 400 组输入（Perf_UtilsMatrix_0001~0400） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| StrategyBoundaryMatrixTest | 无 | 400 组输入（Perf_StrategyMatrix_0001~0400） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| PerfFlowBoundaryMatrixTest | 无 | 30 组输入（Perf_FlowMatrix_0001~0030） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| MetricBoundaryMatrixTest | 无 | 36 组输入（Perf_MetricMatrix_0001~0036） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| PageSwipeBoundaryMatrixTest | 无 | 450 组输入（Perf_PageSwipeMatrix_0001~0450） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| StrategyResultBoundaryMatrixTest | 无 | 450 组输入（Perf_StrategyResultMatrix_0001~0450） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| PerfConstantsCoreTest | 无 | 17 组输入（Perf_Constants_0001~0017） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| PerfMetricCoreTest | 无 | 32 组输入（Perf_MetricCore_0001~0032） | 返回值与状态逐条符合预期 | 是 | 待执行 |
