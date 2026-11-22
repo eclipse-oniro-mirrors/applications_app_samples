@@ -289,3 +289,22 @@ export default function mtuPortValidTest(): void {
     });
 
     /**
+     * @tc.number    SUB_VPN_CONTROL_MTU_PORT_0016
+     * @tc.name      VPN_MtuPort_0016
+     * @tc.desc      mtu/port validation for 1400.5/68.5.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_MtuPort_0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}MtuPort_0016 begin`);
+      logInfo("mtuValid(1400.5) + ':' + portValid(68.5)");
+      const actual: string = mtuValid(1400.5) + ':' + portValid(68.5);
+      logInfo('actual=' + String(actual) + ', expected=' + "false:false");
+      expect(actual).assertEqual("false:false");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}MtuPort_0016 end`);
+    });
+  });
+}
