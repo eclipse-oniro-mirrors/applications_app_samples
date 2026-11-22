@@ -516,3 +516,77 @@ export default function resultSummaryTest(): void {
       expect(actual).assertEqual("45|100|10|4:true");
       logInfo('typeof actual=' + typeof actual);
       expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ResultSummary_0028 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_RESULT_SUMMARY_0029
+     * @tc.name      Perf_ResultSummary_0029
+     * @tc.desc      result summary/validity for [20,50,100,1000,30000].
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_ResultSummary_0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResultSummary_0029 begin`);
+      logInfo("resultSummary([20,50,100,1000,30000]) + ':' + resultValid([20,50,100,1000,30000])");
+      const actual: string = resultSummary([20,50,100,1000,30000]) + ':' + resultValid([20,50,100,1000,30000]);
+      logInfo('actual=' + String(actual) + ', expected=' + "6234|30000|20|5:true");
+      expect(actual).assertEqual("6234|30000|20|5:true");
+      logInfo(`${BUNDLE}ResultSummary_0029 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_RESULT_SUMMARY_0030
+     * @tc.name      Perf_ResultSummary_0030
+     * @tc.desc      result summary/validity for [50,100,1000,30000,0,1].
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_ResultSummary_0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResultSummary_0030 begin`);
+      logInfo("resultSummary([50,100,1000,30000,0,1]) + ':' + resultValid([50,100,1000,30000,0,1])");
+      const actual: string = resultSummary([50,100,1000,30000,0,1]) + ':' + resultValid([50,100,1000,30000,0,1]);
+      logInfo('actual=' + String(actual) + ', expected=' + "5191.833333|30000|0|6:true");
+      expect(actual).assertEqual("5191.833333|30000|0|6:true");
+      logInfo(`${BUNDLE}ResultSummary_0030 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_RESULT_SUMMARY_0031
+     * @tc.name      Perf_ResultSummary_0031
+     * @tc.desc      result summary/validity for [100].
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_ResultSummary_0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResultSummary_0031 begin`);
+      logInfo("resultSummary([100]) + ':' + resultValid([100])");
+      const actual: string = resultSummary([100]) + ':' + resultValid([100]);
+      logInfo('actual=' + String(actual) + ', expected=' + "100|100|100|1:true");
+      expect(actual).assertEqual("100|100|100|1:true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ResultSummary_0031 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_RESULT_SUMMARY_0032
+     * @tc.name      Perf_ResultSummary_0032
+     * @tc.desc      result summary/validity for [1000,30000].
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_ResultSummary_0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ResultSummary_0032 begin`);
+      logInfo("resultSummary([1000,30000]) + ':' + resultValid([1000,30000])");
+      const actual: string = resultSummary([1000,30000]) + ':' + resultValid([1000,30000]);
+      logInfo('actual=' + String(actual) + ', expected=' + "15500|30000|1000|2:true");
+      expect(actual).assertEqual("15500|30000|1000|2:true");
+      logInfo(`${BUNDLE}ResultSummary_0032 end`);
+    });
+  });
+}
