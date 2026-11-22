@@ -7371,3 +7371,1211 @@ export default function pageSwipeBoundaryMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('Perf_PageSwipeMatrix_0387', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0387 begin`);
+      logInfo("page/swipe matrix 5018,1158,600,2,true,2");
+      const actual: string = flingDistance(5018) + '|' + fpsFromFrames(1158, 600) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5018|1930|pages/Index|||back|Pass");
+      expect(actual).assertEqual("5018|1930|pages/Index|||back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0387 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0388
+     * @tc.name      Perf_PageSwipeMatrix_0388
+     * @tc.desc      page/swipe matrix 5031,1161,700,0,false,0 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0388', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0388 begin`);
+      logInfo("page/swipe matrix 5031,1161,700,0,false,0");
+      const actual: string = flingDistance(5031) + '|' + fpsFromFrames(1161, 700) + '|' + routeUrl(0) + '|' + routeButtonId(0) + '|' + routeText(0) + '|' + navigationAction(0) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5031|1658.571429|pages/PageListPage|toPageList|ListPage|push|Error");
+      expect(actual).assertEqual("5031|1658.571429|pages/PageListPage|toPageList|ListPage|push|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0388 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0389
+     * @tc.name      Perf_PageSwipeMatrix_0389
+     * @tc.desc      page/swipe matrix 5044,1164,800,1,true,1 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0389', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0389 begin`);
+      logInfo("page/swipe matrix 5044,1164,800,1,true,1");
+      const actual: string = flingDistance(5044) + '|' + fpsFromFrames(1164, 800) + '|' + routeUrl(1) + '|' + routeButtonId(1) + '|' + routeText(1) + '|' + navigationAction(1) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5044|1455|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      expect(actual).assertEqual("5044|1455|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0389 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0390
+     * @tc.name      Perf_PageSwipeMatrix_0390
+     * @tc.desc      page/swipe matrix 5057,1167,900,2,false,2 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0390', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0390 begin`);
+      logInfo("page/swipe matrix 5057,1167,900,2,false,2");
+      const actual: string = flingDistance(5057) + '|' + fpsFromFrames(1167, 900) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5057|1296.666667|pages/Index|||back|Error");
+      expect(actual).assertEqual("5057|1296.666667|pages/Index|||back|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0390 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0391
+     * @tc.name      Perf_PageSwipeMatrix_0391
+     * @tc.desc      page/swipe matrix 5070,1170,0,0,true,0 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0391', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0391 begin`);
+      logInfo("page/swipe matrix 5070,1170,0,0,true,0");
+      const actual: string = flingDistance(5070) + '|' + fpsFromFrames(1170, 0) + '|' + routeUrl(0) + '|' + routeButtonId(0) + '|' + routeText(0) + '|' + navigationAction(0) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5070|0|pages/PageListPage|toPageList|ListPage|push|Pass");
+      expect(actual).assertEqual("5070|0|pages/PageListPage|toPageList|ListPage|push|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0391 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0392
+     * @tc.name      Perf_PageSwipeMatrix_0392
+     * @tc.desc      page/swipe matrix 5083,1173,100,1,false,1 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Perf_PageSwipeMatrix_0392', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0392 begin`);
+      logInfo("page/swipe matrix 5083,1173,100,1,false,1");
+      const actual: string = flingDistance(5083) + '|' + fpsFromFrames(1173, 100) + '|' + routeUrl(1) + '|' + routeButtonId(1) + '|' + routeText(1) + '|' + navigationAction(1) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5083|11730|pages/navigationPage|toNavigationPage|navigation|back|Error");
+      expect(actual).assertEqual("5083|11730|pages/navigationPage|toNavigationPage|navigation|back|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0392 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0393
+     * @tc.name      Perf_PageSwipeMatrix_0393
+     * @tc.desc      page/swipe matrix 5096,1176,200,2,true,2 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0393', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0393 begin`);
+      logInfo("page/swipe matrix 5096,1176,200,2,true,2");
+      const actual: string = flingDistance(5096) + '|' + fpsFromFrames(1176, 200) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5096|5880|pages/Index|||back|Pass");
+      expect(actual).assertEqual("5096|5880|pages/Index|||back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0393 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0394
+     * @tc.name      Perf_PageSwipeMatrix_0394
+     * @tc.desc      page/swipe matrix 5109,1179,300,0,false,0 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0394', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0394 begin`);
+      logInfo("page/swipe matrix 5109,1179,300,0,false,0");
+      const actual: string = flingDistance(5109) + '|' + fpsFromFrames(1179, 300) + '|' + routeUrl(0) + '|' + routeButtonId(0) + '|' + routeText(0) + '|' + navigationAction(0) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5109|3930|pages/PageListPage|toPageList|ListPage|push|Error");
+      expect(actual).assertEqual("5109|3930|pages/PageListPage|toPageList|ListPage|push|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0394 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0395
+     * @tc.name      Perf_PageSwipeMatrix_0395
+     * @tc.desc      page/swipe matrix 5122,1182,400,1,true,1 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0395', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0395 begin`);
+      logInfo("page/swipe matrix 5122,1182,400,1,true,1");
+      const actual: string = flingDistance(5122) + '|' + fpsFromFrames(1182, 400) + '|' + routeUrl(1) + '|' + routeButtonId(1) + '|' + routeText(1) + '|' + navigationAction(1) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5122|2955|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      expect(actual).assertEqual("5122|2955|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0395 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0396
+     * @tc.name      Perf_PageSwipeMatrix_0396
+     * @tc.desc      page/swipe matrix 5135,1185,500,2,false,2 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0396', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0396 begin`);
+      logInfo("page/swipe matrix 5135,1185,500,2,false,2");
+      const actual: string = flingDistance(5135) + '|' + fpsFromFrames(1185, 500) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5135|2370|pages/Index|||back|Error");
+      expect(actual).assertEqual("5135|2370|pages/Index|||back|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0396 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0397
+     * @tc.name      Perf_PageSwipeMatrix_0397
+     * @tc.desc      page/swipe matrix 5148,1188,600,0,true,0 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_PageSwipeMatrix_0397', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0397 begin`);
+      logInfo("page/swipe matrix 5148,1188,600,0,true,0");
+      const actual: string = flingDistance(5148) + '|' + fpsFromFrames(1188, 600) + '|' + routeUrl(0) + '|' + routeButtonId(0) + '|' + routeText(0) + '|' + navigationAction(0) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5148|1980|pages/PageListPage|toPageList|ListPage|push|Pass");
+      expect(actual).assertEqual("5148|1980|pages/PageListPage|toPageList|ListPage|push|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0397 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0398
+     * @tc.name      Perf_PageSwipeMatrix_0398
+     * @tc.desc      page/swipe matrix 5161,1191,700,1,false,1 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0398', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0398 begin`);
+      logInfo("page/swipe matrix 5161,1191,700,1,false,1");
+      const actual: string = flingDistance(5161) + '|' + fpsFromFrames(1191, 700) + '|' + routeUrl(1) + '|' + routeButtonId(1) + '|' + routeText(1) + '|' + navigationAction(1) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5161|1701.428571|pages/navigationPage|toNavigationPage|navigation|back|Error");
+      expect(actual).assertEqual("5161|1701.428571|pages/navigationPage|toNavigationPage|navigation|back|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0398 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0399
+     * @tc.name      Perf_PageSwipeMatrix_0399
+     * @tc.desc      page/swipe matrix 5174,1194,800,2,true,2 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0399', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0399 begin`);
+      logInfo("page/swipe matrix 5174,1194,800,2,true,2");
+      const actual: string = flingDistance(5174) + '|' + fpsFromFrames(1194, 800) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5174|1492.5|pages/Index|||back|Pass");
+      expect(actual).assertEqual("5174|1492.5|pages/Index|||back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0399 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0400
+     * @tc.name      Perf_PageSwipeMatrix_0400
+     * @tc.desc      page/swipe matrix 5187,1197,900,0,false,0 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0400', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0400 begin`);
+      logInfo("page/swipe matrix 5187,1197,900,0,false,0");
+      const actual: string = flingDistance(5187) + '|' + fpsFromFrames(1197, 900) + '|' + routeUrl(0) + '|' + routeButtonId(0) + '|' + routeText(0) + '|' + navigationAction(0) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5187|1330|pages/PageListPage|toPageList|ListPage|push|Error");
+      expect(actual).assertEqual("5187|1330|pages/PageListPage|toPageList|ListPage|push|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0400 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0401
+     * @tc.name      Perf_PageSwipeMatrix_0401
+     * @tc.desc      page/swipe matrix 5200,1200,0,1,true,1 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0401', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0401 begin`);
+      logInfo("page/swipe matrix 5200,1200,0,1,true,1");
+      const actual: string = flingDistance(5200) + '|' + fpsFromFrames(1200, 0) + '|' + routeUrl(1) + '|' + routeButtonId(1) + '|' + routeText(1) + '|' + navigationAction(1) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5200|0|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      expect(actual).assertEqual("5200|0|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0401 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0402
+     * @tc.name      Perf_PageSwipeMatrix_0402
+     * @tc.desc      page/swipe matrix 5213,1203,100,2,false,2 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0402', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0402 begin`);
+      logInfo("page/swipe matrix 5213,1203,100,2,false,2");
+      const actual: string = flingDistance(5213) + '|' + fpsFromFrames(1203, 100) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5213|12030|pages/Index|||back|Error");
+      expect(actual).assertEqual("5213|12030|pages/Index|||back|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0402 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0403
+     * @tc.name      Perf_PageSwipeMatrix_0403
+     * @tc.desc      page/swipe matrix 5226,1206,200,0,true,0 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0403', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0403 begin`);
+      logInfo("page/swipe matrix 5226,1206,200,0,true,0");
+      const actual: string = flingDistance(5226) + '|' + fpsFromFrames(1206, 200) + '|' + routeUrl(0) + '|' + routeButtonId(0) + '|' + routeText(0) + '|' + navigationAction(0) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5226|6030|pages/PageListPage|toPageList|ListPage|push|Pass");
+      expect(actual).assertEqual("5226|6030|pages/PageListPage|toPageList|ListPage|push|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0403 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0404
+     * @tc.name      Perf_PageSwipeMatrix_0404
+     * @tc.desc      page/swipe matrix 5239,1209,300,1,false,1 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0404', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0404 begin`);
+      logInfo("page/swipe matrix 5239,1209,300,1,false,1");
+      const actual: string = flingDistance(5239) + '|' + fpsFromFrames(1209, 300) + '|' + routeUrl(1) + '|' + routeButtonId(1) + '|' + routeText(1) + '|' + navigationAction(1) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5239|4030|pages/navigationPage|toNavigationPage|navigation|back|Error");
+      expect(actual).assertEqual("5239|4030|pages/navigationPage|toNavigationPage|navigation|back|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0404 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0405
+     * @tc.name      Perf_PageSwipeMatrix_0405
+     * @tc.desc      page/swipe matrix 5252,1212,400,2,true,2 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0405', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0405 begin`);
+      logInfo("page/swipe matrix 5252,1212,400,2,true,2");
+      const actual: string = flingDistance(5252) + '|' + fpsFromFrames(1212, 400) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5252|3030|pages/Index|||back|Pass");
+      expect(actual).assertEqual("5252|3030|pages/Index|||back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0405 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0406
+     * @tc.name      Perf_PageSwipeMatrix_0406
+     * @tc.desc      page/swipe matrix 5265,1215,500,0,false,0 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0406', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0406 begin`);
+      logInfo("page/swipe matrix 5265,1215,500,0,false,0");
+      const actual: string = flingDistance(5265) + '|' + fpsFromFrames(1215, 500) + '|' + routeUrl(0) + '|' + routeButtonId(0) + '|' + routeText(0) + '|' + navigationAction(0) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5265|2430|pages/PageListPage|toPageList|ListPage|push|Error");
+      expect(actual).assertEqual("5265|2430|pages/PageListPage|toPageList|ListPage|push|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0406 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0407
+     * @tc.name      Perf_PageSwipeMatrix_0407
+     * @tc.desc      page/swipe matrix 5278,1218,600,1,true,1 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0407', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0407 begin`);
+      logInfo("page/swipe matrix 5278,1218,600,1,true,1");
+      const actual: string = flingDistance(5278) + '|' + fpsFromFrames(1218, 600) + '|' + routeUrl(1) + '|' + routeButtonId(1) + '|' + routeText(1) + '|' + navigationAction(1) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5278|2030|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      expect(actual).assertEqual("5278|2030|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0407 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0408
+     * @tc.name      Perf_PageSwipeMatrix_0408
+     * @tc.desc      page/swipe matrix 5291,1221,700,2,false,2 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_PageSwipeMatrix_0408', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0408 begin`);
+      logInfo("page/swipe matrix 5291,1221,700,2,false,2");
+      const actual: string = flingDistance(5291) + '|' + fpsFromFrames(1221, 700) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5291|1744.285714|pages/Index|||back|Error");
+      expect(actual).assertEqual("5291|1744.285714|pages/Index|||back|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0408 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0409
+     * @tc.name      Perf_PageSwipeMatrix_0409
+     * @tc.desc      page/swipe matrix 5304,1224,800,0,true,0 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Perf_PageSwipeMatrix_0409', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0409 begin`);
+      logInfo("page/swipe matrix 5304,1224,800,0,true,0");
+      const actual: string = flingDistance(5304) + '|' + fpsFromFrames(1224, 800) + '|' + routeUrl(0) + '|' + routeButtonId(0) + '|' + routeText(0) + '|' + navigationAction(0) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5304|1530|pages/PageListPage|toPageList|ListPage|push|Pass");
+      expect(actual).assertEqual("5304|1530|pages/PageListPage|toPageList|ListPage|push|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0409 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0410
+     * @tc.name      Perf_PageSwipeMatrix_0410
+     * @tc.desc      page/swipe matrix 5317,1227,900,1,false,1 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0410', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0410 begin`);
+      logInfo("page/swipe matrix 5317,1227,900,1,false,1");
+      const actual: string = flingDistance(5317) + '|' + fpsFromFrames(1227, 900) + '|' + routeUrl(1) + '|' + routeButtonId(1) + '|' + routeText(1) + '|' + navigationAction(1) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5317|1363.333333|pages/navigationPage|toNavigationPage|navigation|back|Error");
+      expect(actual).assertEqual("5317|1363.333333|pages/navigationPage|toNavigationPage|navigation|back|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0410 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0411
+     * @tc.name      Perf_PageSwipeMatrix_0411
+     * @tc.desc      page/swipe matrix 5330,1230,0,2,true,2 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0411', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0411 begin`);
+      logInfo("page/swipe matrix 5330,1230,0,2,true,2");
+      const actual: string = flingDistance(5330) + '|' + fpsFromFrames(1230, 0) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5330|0|pages/Index|||back|Pass");
+      expect(actual).assertEqual("5330|0|pages/Index|||back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0411 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0412
+     * @tc.name      Perf_PageSwipeMatrix_0412
+     * @tc.desc      page/swipe matrix 5343,1233,100,0,false,0 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0412', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0412 begin`);
+      logInfo("page/swipe matrix 5343,1233,100,0,false,0");
+      const actual: string = flingDistance(5343) + '|' + fpsFromFrames(1233, 100) + '|' + routeUrl(0) + '|' + routeButtonId(0) + '|' + routeText(0) + '|' + navigationAction(0) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5343|12330|pages/PageListPage|toPageList|ListPage|push|Error");
+      expect(actual).assertEqual("5343|12330|pages/PageListPage|toPageList|ListPage|push|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0412 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0413
+     * @tc.name      Perf_PageSwipeMatrix_0413
+     * @tc.desc      page/swipe matrix 5356,1236,200,1,true,1 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0413', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0413 begin`);
+      logInfo("page/swipe matrix 5356,1236,200,1,true,1");
+      const actual: string = flingDistance(5356) + '|' + fpsFromFrames(1236, 200) + '|' + routeUrl(1) + '|' + routeButtonId(1) + '|' + routeText(1) + '|' + navigationAction(1) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5356|6180|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      expect(actual).assertEqual("5356|6180|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0413 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0414
+     * @tc.name      Perf_PageSwipeMatrix_0414
+     * @tc.desc      page/swipe matrix 5369,1239,300,2,false,2 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0414', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0414 begin`);
+      logInfo("page/swipe matrix 5369,1239,300,2,false,2");
+      const actual: string = flingDistance(5369) + '|' + fpsFromFrames(1239, 300) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5369|4130|pages/Index|||back|Error");
+      expect(actual).assertEqual("5369|4130|pages/Index|||back|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0414 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0415
+     * @tc.name      Perf_PageSwipeMatrix_0415
+     * @tc.desc      page/swipe matrix 5382,1242,400,0,true,0 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0415', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0415 begin`);
+      logInfo("page/swipe matrix 5382,1242,400,0,true,0");
+      const actual: string = flingDistance(5382) + '|' + fpsFromFrames(1242, 400) + '|' + routeUrl(0) + '|' + routeButtonId(0) + '|' + routeText(0) + '|' + navigationAction(0) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5382|3105|pages/PageListPage|toPageList|ListPage|push|Pass");
+      expect(actual).assertEqual("5382|3105|pages/PageListPage|toPageList|ListPage|push|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0415 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0416
+     * @tc.name      Perf_PageSwipeMatrix_0416
+     * @tc.desc      page/swipe matrix 5395,1245,500,1,false,1 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0416', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0416 begin`);
+      logInfo("page/swipe matrix 5395,1245,500,1,false,1");
+      const actual: string = flingDistance(5395) + '|' + fpsFromFrames(1245, 500) + '|' + routeUrl(1) + '|' + routeButtonId(1) + '|' + routeText(1) + '|' + navigationAction(1) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5395|2490|pages/navigationPage|toNavigationPage|navigation|back|Error");
+      expect(actual).assertEqual("5395|2490|pages/navigationPage|toNavigationPage|navigation|back|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0416 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0417
+     * @tc.name      Perf_PageSwipeMatrix_0417
+     * @tc.desc      page/swipe matrix 5408,1248,600,2,true,2 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0417', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0417 begin`);
+      logInfo("page/swipe matrix 5408,1248,600,2,true,2");
+      const actual: string = flingDistance(5408) + '|' + fpsFromFrames(1248, 600) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5408|2080|pages/Index|||back|Pass");
+      expect(actual).assertEqual("5408|2080|pages/Index|||back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0417 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0418
+     * @tc.name      Perf_PageSwipeMatrix_0418
+     * @tc.desc      page/swipe matrix 5421,1251,700,0,false,0 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0418', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0418 begin`);
+      logInfo("page/swipe matrix 5421,1251,700,0,false,0");
+      const actual: string = flingDistance(5421) + '|' + fpsFromFrames(1251, 700) + '|' + routeUrl(0) + '|' + routeButtonId(0) + '|' + routeText(0) + '|' + navigationAction(0) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5421|1787.142857|pages/PageListPage|toPageList|ListPage|push|Error");
+      expect(actual).assertEqual("5421|1787.142857|pages/PageListPage|toPageList|ListPage|push|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0418 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0419
+     * @tc.name      Perf_PageSwipeMatrix_0419
+     * @tc.desc      page/swipe matrix 5434,1254,800,1,true,1 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_PageSwipeMatrix_0419', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0419 begin`);
+      logInfo("page/swipe matrix 5434,1254,800,1,true,1");
+      const actual: string = flingDistance(5434) + '|' + fpsFromFrames(1254, 800) + '|' + routeUrl(1) + '|' + routeButtonId(1) + '|' + routeText(1) + '|' + navigationAction(1) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5434|1567.5|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      expect(actual).assertEqual("5434|1567.5|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0419 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0420
+     * @tc.name      Perf_PageSwipeMatrix_0420
+     * @tc.desc      page/swipe matrix 5447,1257,900,2,false,2 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0420', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0420 begin`);
+      logInfo("page/swipe matrix 5447,1257,900,2,false,2");
+      const actual: string = flingDistance(5447) + '|' + fpsFromFrames(1257, 900) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5447|1396.666667|pages/Index|||back|Error");
+      expect(actual).assertEqual("5447|1396.666667|pages/Index|||back|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0420 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0421
+     * @tc.name      Perf_PageSwipeMatrix_0421
+     * @tc.desc      page/swipe matrix 5460,1260,0,0,true,0 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0421', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0421 begin`);
+      logInfo("page/swipe matrix 5460,1260,0,0,true,0");
+      const actual: string = flingDistance(5460) + '|' + fpsFromFrames(1260, 0) + '|' + routeUrl(0) + '|' + routeButtonId(0) + '|' + routeText(0) + '|' + navigationAction(0) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5460|0|pages/PageListPage|toPageList|ListPage|push|Pass");
+      expect(actual).assertEqual("5460|0|pages/PageListPage|toPageList|ListPage|push|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0421 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0422
+     * @tc.name      Perf_PageSwipeMatrix_0422
+     * @tc.desc      page/swipe matrix 5473,1263,100,1,false,1 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0422', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0422 begin`);
+      logInfo("page/swipe matrix 5473,1263,100,1,false,1");
+      const actual: string = flingDistance(5473) + '|' + fpsFromFrames(1263, 100) + '|' + routeUrl(1) + '|' + routeButtonId(1) + '|' + routeText(1) + '|' + navigationAction(1) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5473|12630|pages/navigationPage|toNavigationPage|navigation|back|Error");
+      expect(actual).assertEqual("5473|12630|pages/navigationPage|toNavigationPage|navigation|back|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0422 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0423
+     * @tc.name      Perf_PageSwipeMatrix_0423
+     * @tc.desc      page/swipe matrix 5486,1266,200,2,true,2 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0423', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0423 begin`);
+      logInfo("page/swipe matrix 5486,1266,200,2,true,2");
+      const actual: string = flingDistance(5486) + '|' + fpsFromFrames(1266, 200) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5486|6330|pages/Index|||back|Pass");
+      expect(actual).assertEqual("5486|6330|pages/Index|||back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0423 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0424
+     * @tc.name      Perf_PageSwipeMatrix_0424
+     * @tc.desc      page/swipe matrix 5499,1269,300,0,false,0 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0424', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0424 begin`);
+      logInfo("page/swipe matrix 5499,1269,300,0,false,0");
+      const actual: string = flingDistance(5499) + '|' + fpsFromFrames(1269, 300) + '|' + routeUrl(0) + '|' + routeButtonId(0) + '|' + routeText(0) + '|' + navigationAction(0) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5499|4230|pages/PageListPage|toPageList|ListPage|push|Error");
+      expect(actual).assertEqual("5499|4230|pages/PageListPage|toPageList|ListPage|push|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0424 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0425
+     * @tc.name      Perf_PageSwipeMatrix_0425
+     * @tc.desc      page/swipe matrix 5512,1272,400,1,true,1 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0425', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0425 begin`);
+      logInfo("page/swipe matrix 5512,1272,400,1,true,1");
+      const actual: string = flingDistance(5512) + '|' + fpsFromFrames(1272, 400) + '|' + routeUrl(1) + '|' + routeButtonId(1) + '|' + routeText(1) + '|' + navigationAction(1) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5512|3180|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      expect(actual).assertEqual("5512|3180|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0425 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0426
+     * @tc.name      Perf_PageSwipeMatrix_0426
+     * @tc.desc      page/swipe matrix 5525,1275,500,2,false,2 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Perf_PageSwipeMatrix_0426', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0426 begin`);
+      logInfo("page/swipe matrix 5525,1275,500,2,false,2");
+      const actual: string = flingDistance(5525) + '|' + fpsFromFrames(1275, 500) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5525|2550|pages/Index|||back|Error");
+      expect(actual).assertEqual("5525|2550|pages/Index|||back|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0426 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0427
+     * @tc.name      Perf_PageSwipeMatrix_0427
+     * @tc.desc      page/swipe matrix 5538,1278,600,0,true,0 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0427', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0427 begin`);
+      logInfo("page/swipe matrix 5538,1278,600,0,true,0");
+      const actual: string = flingDistance(5538) + '|' + fpsFromFrames(1278, 600) + '|' + routeUrl(0) + '|' + routeButtonId(0) + '|' + routeText(0) + '|' + navigationAction(0) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5538|2130|pages/PageListPage|toPageList|ListPage|push|Pass");
+      expect(actual).assertEqual("5538|2130|pages/PageListPage|toPageList|ListPage|push|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0427 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0428
+     * @tc.name      Perf_PageSwipeMatrix_0428
+     * @tc.desc      page/swipe matrix 5551,1281,700,1,false,1 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0428', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0428 begin`);
+      logInfo("page/swipe matrix 5551,1281,700,1,false,1");
+      const actual: string = flingDistance(5551) + '|' + fpsFromFrames(1281, 700) + '|' + routeUrl(1) + '|' + routeButtonId(1) + '|' + routeText(1) + '|' + navigationAction(1) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5551|1830|pages/navigationPage|toNavigationPage|navigation|back|Error");
+      expect(actual).assertEqual("5551|1830|pages/navigationPage|toNavigationPage|navigation|back|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0428 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0429
+     * @tc.name      Perf_PageSwipeMatrix_0429
+     * @tc.desc      page/swipe matrix 5564,1284,800,2,true,2 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0429', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0429 begin`);
+      logInfo("page/swipe matrix 5564,1284,800,2,true,2");
+      const actual: string = flingDistance(5564) + '|' + fpsFromFrames(1284, 800) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5564|1605|pages/Index|||back|Pass");
+      expect(actual).assertEqual("5564|1605|pages/Index|||back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0429 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0430
+     * @tc.name      Perf_PageSwipeMatrix_0430
+     * @tc.desc      page/swipe matrix 5577,1287,900,0,false,0 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_PageSwipeMatrix_0430', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0430 begin`);
+      logInfo("page/swipe matrix 5577,1287,900,0,false,0");
+      const actual: string = flingDistance(5577) + '|' + fpsFromFrames(1287, 900) + '|' + routeUrl(0) + '|' + routeButtonId(0) + '|' + routeText(0) + '|' + navigationAction(0) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5577|1430|pages/PageListPage|toPageList|ListPage|push|Error");
+      expect(actual).assertEqual("5577|1430|pages/PageListPage|toPageList|ListPage|push|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0430 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0431
+     * @tc.name      Perf_PageSwipeMatrix_0431
+     * @tc.desc      page/swipe matrix 5590,1290,0,1,true,1 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0431', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0431 begin`);
+      logInfo("page/swipe matrix 5590,1290,0,1,true,1");
+      const actual: string = flingDistance(5590) + '|' + fpsFromFrames(1290, 0) + '|' + routeUrl(1) + '|' + routeButtonId(1) + '|' + routeText(1) + '|' + navigationAction(1) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5590|0|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      expect(actual).assertEqual("5590|0|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0431 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0432
+     * @tc.name      Perf_PageSwipeMatrix_0432
+     * @tc.desc      page/swipe matrix 5603,1293,100,2,false,2 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0432', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0432 begin`);
+      logInfo("page/swipe matrix 5603,1293,100,2,false,2");
+      const actual: string = flingDistance(5603) + '|' + fpsFromFrames(1293, 100) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5603|12930|pages/Index|||back|Error");
+      expect(actual).assertEqual("5603|12930|pages/Index|||back|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0432 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0433
+     * @tc.name      Perf_PageSwipeMatrix_0433
+     * @tc.desc      page/swipe matrix 5616,1296,200,0,true,0 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0433', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0433 begin`);
+      logInfo("page/swipe matrix 5616,1296,200,0,true,0");
+      const actual: string = flingDistance(5616) + '|' + fpsFromFrames(1296, 200) + '|' + routeUrl(0) + '|' + routeButtonId(0) + '|' + routeText(0) + '|' + navigationAction(0) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5616|6480|pages/PageListPage|toPageList|ListPage|push|Pass");
+      expect(actual).assertEqual("5616|6480|pages/PageListPage|toPageList|ListPage|push|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0433 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0434
+     * @tc.name      Perf_PageSwipeMatrix_0434
+     * @tc.desc      page/swipe matrix 5629,1299,300,1,false,1 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0434', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0434 begin`);
+      logInfo("page/swipe matrix 5629,1299,300,1,false,1");
+      const actual: string = flingDistance(5629) + '|' + fpsFromFrames(1299, 300) + '|' + routeUrl(1) + '|' + routeButtonId(1) + '|' + routeText(1) + '|' + navigationAction(1) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5629|4330|pages/navigationPage|toNavigationPage|navigation|back|Error");
+      expect(actual).assertEqual("5629|4330|pages/navigationPage|toNavigationPage|navigation|back|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0434 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0435
+     * @tc.name      Perf_PageSwipeMatrix_0435
+     * @tc.desc      page/swipe matrix 5642,1302,400,2,true,2 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0435', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0435 begin`);
+      logInfo("page/swipe matrix 5642,1302,400,2,true,2");
+      const actual: string = flingDistance(5642) + '|' + fpsFromFrames(1302, 400) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5642|3255|pages/Index|||back|Pass");
+      expect(actual).assertEqual("5642|3255|pages/Index|||back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0435 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0436
+     * @tc.name      Perf_PageSwipeMatrix_0436
+     * @tc.desc      page/swipe matrix 5655,1305,500,0,false,0 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0436', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0436 begin`);
+      logInfo("page/swipe matrix 5655,1305,500,0,false,0");
+      const actual: string = flingDistance(5655) + '|' + fpsFromFrames(1305, 500) + '|' + routeUrl(0) + '|' + routeButtonId(0) + '|' + routeText(0) + '|' + navigationAction(0) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5655|2610|pages/PageListPage|toPageList|ListPage|push|Error");
+      expect(actual).assertEqual("5655|2610|pages/PageListPage|toPageList|ListPage|push|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0436 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0437
+     * @tc.name      Perf_PageSwipeMatrix_0437
+     * @tc.desc      page/swipe matrix 5668,1308,600,1,true,1 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0437', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0437 begin`);
+      logInfo("page/swipe matrix 5668,1308,600,1,true,1");
+      const actual: string = flingDistance(5668) + '|' + fpsFromFrames(1308, 600) + '|' + routeUrl(1) + '|' + routeButtonId(1) + '|' + routeText(1) + '|' + navigationAction(1) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5668|2180|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      expect(actual).assertEqual("5668|2180|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0437 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0438
+     * @tc.name      Perf_PageSwipeMatrix_0438
+     * @tc.desc      page/swipe matrix 5681,1311,700,2,false,2 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0438', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0438 begin`);
+      logInfo("page/swipe matrix 5681,1311,700,2,false,2");
+      const actual: string = flingDistance(5681) + '|' + fpsFromFrames(1311, 700) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5681|1872.857143|pages/Index|||back|Error");
+      expect(actual).assertEqual("5681|1872.857143|pages/Index|||back|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0438 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0439
+     * @tc.name      Perf_PageSwipeMatrix_0439
+     * @tc.desc      page/swipe matrix 5694,1314,800,0,true,0 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0439', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0439 begin`);
+      logInfo("page/swipe matrix 5694,1314,800,0,true,0");
+      const actual: string = flingDistance(5694) + '|' + fpsFromFrames(1314, 800) + '|' + routeUrl(0) + '|' + routeButtonId(0) + '|' + routeText(0) + '|' + navigationAction(0) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5694|1642.5|pages/PageListPage|toPageList|ListPage|push|Pass");
+      expect(actual).assertEqual("5694|1642.5|pages/PageListPage|toPageList|ListPage|push|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0439 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0440
+     * @tc.name      Perf_PageSwipeMatrix_0440
+     * @tc.desc      page/swipe matrix 5707,1317,900,1,false,1 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0440', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0440 begin`);
+      logInfo("page/swipe matrix 5707,1317,900,1,false,1");
+      const actual: string = flingDistance(5707) + '|' + fpsFromFrames(1317, 900) + '|' + routeUrl(1) + '|' + routeButtonId(1) + '|' + routeText(1) + '|' + navigationAction(1) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5707|1463.333333|pages/navigationPage|toNavigationPage|navigation|back|Error");
+      expect(actual).assertEqual("5707|1463.333333|pages/navigationPage|toNavigationPage|navigation|back|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0440 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0441
+     * @tc.name      Perf_PageSwipeMatrix_0441
+     * @tc.desc      page/swipe matrix 5720,1320,0,2,true,2 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_PageSwipeMatrix_0441', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0441 begin`);
+      logInfo("page/swipe matrix 5720,1320,0,2,true,2");
+      const actual: string = flingDistance(5720) + '|' + fpsFromFrames(1320, 0) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5720|0|pages/Index|||back|Pass");
+      expect(actual).assertEqual("5720|0|pages/Index|||back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0441 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0442
+     * @tc.name      Perf_PageSwipeMatrix_0442
+     * @tc.desc      page/swipe matrix 5733,1323,100,0,false,0 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0442', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0442 begin`);
+      logInfo("page/swipe matrix 5733,1323,100,0,false,0");
+      const actual: string = flingDistance(5733) + '|' + fpsFromFrames(1323, 100) + '|' + routeUrl(0) + '|' + routeButtonId(0) + '|' + routeText(0) + '|' + navigationAction(0) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5733|13230|pages/PageListPage|toPageList|ListPage|push|Error");
+      expect(actual).assertEqual("5733|13230|pages/PageListPage|toPageList|ListPage|push|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0442 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0443
+     * @tc.name      Perf_PageSwipeMatrix_0443
+     * @tc.desc      page/swipe matrix 5746,1326,200,1,true,1 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Perf_PageSwipeMatrix_0443', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0443 begin`);
+      logInfo("page/swipe matrix 5746,1326,200,1,true,1");
+      const actual: string = flingDistance(5746) + '|' + fpsFromFrames(1326, 200) + '|' + routeUrl(1) + '|' + routeButtonId(1) + '|' + routeText(1) + '|' + navigationAction(1) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5746|6630|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      expect(actual).assertEqual("5746|6630|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0443 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0444
+     * @tc.name      Perf_PageSwipeMatrix_0444
+     * @tc.desc      page/swipe matrix 5759,1329,300,2,false,2 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0444', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0444 begin`);
+      logInfo("page/swipe matrix 5759,1329,300,2,false,2");
+      const actual: string = flingDistance(5759) + '|' + fpsFromFrames(1329, 300) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5759|4430|pages/Index|||back|Error");
+      expect(actual).assertEqual("5759|4430|pages/Index|||back|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0444 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0445
+     * @tc.name      Perf_PageSwipeMatrix_0445
+     * @tc.desc      page/swipe matrix 5772,1332,400,0,true,0 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0445', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0445 begin`);
+      logInfo("page/swipe matrix 5772,1332,400,0,true,0");
+      const actual: string = flingDistance(5772) + '|' + fpsFromFrames(1332, 400) + '|' + routeUrl(0) + '|' + routeButtonId(0) + '|' + routeText(0) + '|' + navigationAction(0) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5772|3330|pages/PageListPage|toPageList|ListPage|push|Pass");
+      expect(actual).assertEqual("5772|3330|pages/PageListPage|toPageList|ListPage|push|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0445 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0446
+     * @tc.name      Perf_PageSwipeMatrix_0446
+     * @tc.desc      page/swipe matrix 5785,1335,500,1,false,1 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0446', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0446 begin`);
+      logInfo("page/swipe matrix 5785,1335,500,1,false,1");
+      const actual: string = flingDistance(5785) + '|' + fpsFromFrames(1335, 500) + '|' + routeUrl(1) + '|' + routeButtonId(1) + '|' + routeText(1) + '|' + navigationAction(1) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5785|2670|pages/navigationPage|toNavigationPage|navigation|back|Error");
+      expect(actual).assertEqual("5785|2670|pages/navigationPage|toNavigationPage|navigation|back|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0446 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0447
+     * @tc.name      Perf_PageSwipeMatrix_0447
+     * @tc.desc      page/swipe matrix 5798,1338,600,2,true,2 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0447', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0447 begin`);
+      logInfo("page/swipe matrix 5798,1338,600,2,true,2");
+      const actual: string = flingDistance(5798) + '|' + fpsFromFrames(1338, 600) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5798|2230|pages/Index|||back|Pass");
+      expect(actual).assertEqual("5798|2230|pages/Index|||back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0447 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0448
+     * @tc.name      Perf_PageSwipeMatrix_0448
+     * @tc.desc      page/swipe matrix 5811,1341,700,0,false,0 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0448', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0448 begin`);
+      logInfo("page/swipe matrix 5811,1341,700,0,false,0");
+      const actual: string = flingDistance(5811) + '|' + fpsFromFrames(1341, 700) + '|' + routeUrl(0) + '|' + routeButtonId(0) + '|' + routeText(0) + '|' + navigationAction(0) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5811|1915.714286|pages/PageListPage|toPageList|ListPage|push|Error");
+      expect(actual).assertEqual("5811|1915.714286|pages/PageListPage|toPageList|ListPage|push|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0448 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0449
+     * @tc.name      Perf_PageSwipeMatrix_0449
+     * @tc.desc      page/swipe matrix 5824,1344,800,1,true,1 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0449', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0449 begin`);
+      logInfo("page/swipe matrix 5824,1344,800,1,true,1");
+      const actual: string = flingDistance(5824) + '|' + fpsFromFrames(1344, 800) + '|' + routeUrl(1) + '|' + routeButtonId(1) + '|' + routeText(1) + '|' + navigationAction(1) + '|' + routeFlag(true);
+      logInfo('actual=' + String(actual) + ', expected=' + "5824|1680|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      expect(actual).assertEqual("5824|1680|pages/navigationPage|toNavigationPage|navigation|back|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0449 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_PAGE_SWIPE_MATRIX_0450
+     * @tc.name      Perf_PageSwipeMatrix_0450
+     * @tc.desc      page/swipe matrix 5837,1347,900,2,false,2 keeps geometry/route flags.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_PageSwipeMatrix_0450', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}PageSwipeMatrix_0450 begin`);
+      logInfo("page/swipe matrix 5837,1347,900,2,false,2");
+      const actual: string = flingDistance(5837) + '|' + fpsFromFrames(1347, 900) + '|' + routeUrl(2) + '|' + routeButtonId(2) + '|' + routeText(2) + '|' + navigationAction(2) + '|' + routeFlag(false);
+      logInfo('actual=' + String(actual) + ', expected=' + "5837|1496.666667|pages/Index|||back|Error");
+      expect(actual).assertEqual("5837|1496.666667|pages/Index|||back|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}PageSwipeMatrix_0450 end`);
+    });
+  });
+}
