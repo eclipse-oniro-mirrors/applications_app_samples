@@ -409,3 +409,183 @@ export default function utilsAfterTest(): void {
       expect(actual).assertEqual(2331);
       logInfo('typeof actual=' + typeof actual);
       expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}UtilsAfter_0022 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_AFTER_0023
+     * @tc.name      Perf_UtilsAfter_0023
+     * @tc.desc      utilsNumAfter(4, 814) accumulates the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_UtilsAfter_0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}UtilsAfter_0023 begin`);
+      logInfo("utilsNumAfter(4, 814)");
+      const actual: number = utilsNumAfter(4, 814);
+      logInfo('actual=' + String(actual) + ', expected=' + "3256");
+      expect(actual).assertEqual(3256);
+      logInfo(`${BUNDLE}UtilsAfter_0023 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_AFTER_0024
+     * @tc.name      Perf_UtilsAfter_0024
+     * @tc.desc      utilsNumAfter(5, 851) accumulates the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsAfter_0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsAfter_0024 begin`);
+      logInfo("utilsNumAfter(5, 851)");
+      const actual: number = utilsNumAfter(5, 851);
+      logInfo('actual=' + String(actual) + ', expected=' + "4255");
+      expect(actual).assertEqual(4255);
+      logInfo(`${BUNDLE}UtilsAfter_0024 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_AFTER_0025
+     * @tc.name      Perf_UtilsAfter_0025
+     * @tc.desc      utilsNumAfter(6, 888) accumulates the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsAfter_0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsAfter_0025 begin`);
+      logInfo("utilsNumAfter(6, 888)");
+      const actual: number = utilsNumAfter(6, 888);
+      logInfo('actual=' + String(actual) + ', expected=' + "5328");
+      expect(actual).assertEqual(5328);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}UtilsAfter_0025 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_AFTER_0026
+     * @tc.name      Perf_UtilsAfter_0026
+     * @tc.desc      utilsNumAfter(7, 925) accumulates the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsAfter_0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsAfter_0026 begin`);
+      logInfo("utilsNumAfter(7, 925)");
+      const actual: number = utilsNumAfter(7, 925);
+      logInfo('actual=' + String(actual) + ', expected=' + "6475");
+      expect(actual).assertEqual(6475);
+      logInfo(`${BUNDLE}UtilsAfter_0026 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_AFTER_0027
+     * @tc.name      Perf_UtilsAfter_0027
+     * @tc.desc      utilsNumAfter(8, 962) accumulates the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsAfter_0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsAfter_0027 begin`);
+      logInfo("utilsNumAfter(8, 962)");
+      const actual: number = utilsNumAfter(8, 962);
+      logInfo('actual=' + String(actual) + ', expected=' + "7696");
+      expect(actual).assertEqual(7696);
+      logInfo(`${BUNDLE}UtilsAfter_0027 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_AFTER_0028
+     * @tc.name      Perf_UtilsAfter_0028
+     * @tc.desc      utilsNumAfter(0, 999) accumulates the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsAfter_0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsAfter_0028 begin`);
+      logInfo("utilsNumAfter(0, 999)");
+      const actual: number = utilsNumAfter(0, 999);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}UtilsAfter_0028 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_AFTER_0029
+     * @tc.name      Perf_UtilsAfter_0029
+     * @tc.desc      utilsNumAfter(1, 1036) accumulates the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsAfter_0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsAfter_0029 begin`);
+      logInfo("utilsNumAfter(1, 1036)");
+      const actual: number = utilsNumAfter(1, 1036);
+      logInfo('actual=' + String(actual) + ', expected=' + "1036");
+      expect(actual).assertEqual(1036);
+      logInfo(`${BUNDLE}UtilsAfter_0029 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_AFTER_0030
+     * @tc.name      Perf_UtilsAfter_0030
+     * @tc.desc      utilsNumAfter(2, 1073) accumulates the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsAfter_0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsAfter_0030 begin`);
+      logInfo("utilsNumAfter(2, 1073)");
+      const actual: number = utilsNumAfter(2, 1073);
+      logInfo('actual=' + String(actual) + ', expected=' + "2146");
+      expect(actual).assertEqual(2146);
+      logInfo(`${BUNDLE}UtilsAfter_0030 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_AFTER_0031
+     * @tc.name      Perf_UtilsAfter_0031
+     * @tc.desc      utilsNumAfter(3, 1110) accumulates the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsAfter_0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsAfter_0031 begin`);
+      logInfo("utilsNumAfter(3, 1110)");
+      const actual: number = utilsNumAfter(3, 1110);
+      logInfo('actual=' + String(actual) + ', expected=' + "3330");
+      expect(actual).assertEqual(3330);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}UtilsAfter_0031 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_UTILS_AFTER_0032
+     * @tc.name      Perf_UtilsAfter_0032
+     * @tc.desc      utilsNumAfter(4, 1147) accumulates the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_UtilsAfter_0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}UtilsAfter_0032 begin`);
+      logInfo("utilsNumAfter(4, 1147)");
+      const actual: number = utilsNumAfter(4, 1147);
+      logInfo('actual=' + String(actual) + ', expected=' + "4588");
+      expect(actual).assertEqual(4588);
+      logInfo(`${BUNDLE}UtilsAfter_0032 end`);
+    });
+  });
+}
