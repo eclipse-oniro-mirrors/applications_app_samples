@@ -8619,3 +8619,857 @@ export default function vpnFlowMatrixTest(): void {
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
+    it('VPN_FlowMatrix_0410', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0410 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(407, false, true, true);
+      logInfo("flow matrix 407,false,true,true,false,false");
+      const actual: string = subject.stop(false, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Error");
+      expect(actual).assertEqual("stop-fd-skipped|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0410 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0411
+     * @tc.name      VPN_FlowMatrix_0411
+     * @tc.desc      vpn flow matrix 408,true,true,false,true,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0411', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0411 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(408, true, true, false);
+      logInfo("flow matrix 408,true,true,false,true,false");
+      const actual: string = subject.stop(true, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Pass");
+      expect(actual).assertEqual("stop-fd-skipped|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0411 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0412
+     * @tc.name      VPN_FlowMatrix_0412
+     * @tc.desc      vpn flow matrix 409,false,false,true,false,true keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0412', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0412 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(409, false, false, true);
+      logInfo("flow matrix 409,false,false,true,false,true");
+      const actual: string = subject.stop(false, true) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "destroy-failed|Error");
+      expect(actual).assertEqual("destroy-failed|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0412 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0413
+     * @tc.name      VPN_FlowMatrix_0413
+     * @tc.desc      vpn flow matrix 410,true,true,true,true,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0413', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0413 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(410, true, true, true);
+      logInfo("flow matrix 410,true,true,true,true,false");
+      const actual: string = subject.stop(true, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Pass");
+      expect(actual).assertEqual("stop-fd-skipped|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0413 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0414
+     * @tc.name      VPN_FlowMatrix_0414
+     * @tc.desc      vpn flow matrix 411,false,true,true,false,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0414', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0414 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(411, false, true, true);
+      logInfo("flow matrix 411,false,true,true,false,false");
+      const actual: string = subject.stop(false, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Error");
+      expect(actual).assertEqual("stop-fd-skipped|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0414 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0415
+     * @tc.name      VPN_FlowMatrix_0415
+     * @tc.desc      vpn flow matrix 412,true,false,true,true,true keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0415', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0415 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(412, true, false, true);
+      logInfo("flow matrix 412,true,false,true,true,true");
+      const actual: string = subject.stop(true, true) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "destroyed|Pass");
+      expect(actual).assertEqual("destroyed|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0415 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0416
+     * @tc.name      VPN_FlowMatrix_0416
+     * @tc.desc      vpn flow matrix 413,false,true,false,false,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0416', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0416 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(413, false, true, false);
+      logInfo("flow matrix 413,false,true,false,false,false");
+      const actual: string = subject.stop(false, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Error");
+      expect(actual).assertEqual("stop-fd-skipped|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0416 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0417
+     * @tc.name      VPN_FlowMatrix_0417
+     * @tc.desc      vpn flow matrix 414,true,true,true,true,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0417', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0417 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(414, true, true, true);
+      logInfo("flow matrix 414,true,true,true,true,false");
+      const actual: string = subject.stop(true, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Pass");
+      expect(actual).assertEqual("stop-fd-skipped|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0417 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0418
+     * @tc.name      VPN_FlowMatrix_0418
+     * @tc.desc      vpn flow matrix 415,false,false,true,false,true keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0418', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0418 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(415, false, false, true);
+      logInfo("flow matrix 415,false,false,true,false,true");
+      const actual: string = subject.stop(false, true) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "destroy-failed|Error");
+      expect(actual).assertEqual("destroy-failed|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0418 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0419
+     * @tc.name      VPN_FlowMatrix_0419
+     * @tc.desc      vpn flow matrix 416,true,true,true,true,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('VPN_FlowMatrix_0419', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0419 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(416, true, true, true);
+      logInfo("flow matrix 416,true,true,true,true,false");
+      const actual: string = subject.stop(true, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Pass");
+      expect(actual).assertEqual("stop-fd-skipped|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0419 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0420
+     * @tc.name      VPN_FlowMatrix_0420
+     * @tc.desc      vpn flow matrix 417,false,true,true,false,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0420', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0420 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(417, false, true, true);
+      logInfo("flow matrix 417,false,true,true,false,false");
+      const actual: string = subject.stop(false, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Error");
+      expect(actual).assertEqual("stop-fd-skipped|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0420 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0421
+     * @tc.name      VPN_FlowMatrix_0421
+     * @tc.desc      vpn flow matrix 418,true,false,false,true,true keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0421', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0421 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(418, true, false, false);
+      logInfo("flow matrix 418,true,false,false,true,true");
+      const actual: string = subject.stop(true, true) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "destroyed|Pass");
+      expect(actual).assertEqual("destroyed|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0421 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0422
+     * @tc.name      VPN_FlowMatrix_0422
+     * @tc.desc      vpn flow matrix 419,false,true,true,false,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0422', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0422 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(419, false, true, true);
+      logInfo("flow matrix 419,false,true,true,false,false");
+      const actual: string = subject.stop(false, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Error");
+      expect(actual).assertEqual("stop-fd-skipped|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0422 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0423
+     * @tc.name      VPN_FlowMatrix_0423
+     * @tc.desc      vpn flow matrix 420,true,true,true,true,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0423', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0423 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(420, true, true, true);
+      logInfo("flow matrix 420,true,true,true,true,false");
+      const actual: string = subject.stop(true, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Pass");
+      expect(actual).assertEqual("stop-fd-skipped|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0423 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0424
+     * @tc.name      VPN_FlowMatrix_0424
+     * @tc.desc      vpn flow matrix 421,false,false,true,false,true keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0424', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0424 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(421, false, false, true);
+      logInfo("flow matrix 421,false,false,true,false,true");
+      const actual: string = subject.stop(false, true) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "destroy-failed|Error");
+      expect(actual).assertEqual("destroy-failed|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0424 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0425
+     * @tc.name      VPN_FlowMatrix_0425
+     * @tc.desc      vpn flow matrix 422,true,true,true,true,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0425', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0425 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(422, true, true, true);
+      logInfo("flow matrix 422,true,true,true,true,false");
+      const actual: string = subject.stop(true, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Pass");
+      expect(actual).assertEqual("stop-fd-skipped|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0425 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0426
+     * @tc.name      VPN_FlowMatrix_0426
+     * @tc.desc      vpn flow matrix 423,false,true,false,false,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('VPN_FlowMatrix_0426', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0426 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(423, false, true, false);
+      logInfo("flow matrix 423,false,true,false,false,false");
+      const actual: string = subject.stop(false, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Error");
+      expect(actual).assertEqual("stop-fd-skipped|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0426 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0427
+     * @tc.name      VPN_FlowMatrix_0427
+     * @tc.desc      vpn flow matrix 424,true,false,true,true,true keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0427', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0427 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(424, true, false, true);
+      logInfo("flow matrix 424,true,false,true,true,true");
+      const actual: string = subject.stop(true, true) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "destroyed|Pass");
+      expect(actual).assertEqual("destroyed|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0427 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0428
+     * @tc.name      VPN_FlowMatrix_0428
+     * @tc.desc      vpn flow matrix 425,false,true,true,false,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0428', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0428 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(425, false, true, true);
+      logInfo("flow matrix 425,false,true,true,false,false");
+      const actual: string = subject.stop(false, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Error");
+      expect(actual).assertEqual("stop-fd-skipped|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0428 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0429
+     * @tc.name      VPN_FlowMatrix_0429
+     * @tc.desc      vpn flow matrix 426,true,true,true,true,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0429', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0429 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(426, true, true, true);
+      logInfo("flow matrix 426,true,true,true,true,false");
+      const actual: string = subject.stop(true, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Pass");
+      expect(actual).assertEqual("stop-fd-skipped|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0429 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0430
+     * @tc.name      VPN_FlowMatrix_0430
+     * @tc.desc      vpn flow matrix 427,false,false,true,false,true keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('VPN_FlowMatrix_0430', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0430 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(427, false, false, true);
+      logInfo("flow matrix 427,false,false,true,false,true");
+      const actual: string = subject.stop(false, true) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "destroy-failed|Error");
+      expect(actual).assertEqual("destroy-failed|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0430 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0431
+     * @tc.name      VPN_FlowMatrix_0431
+     * @tc.desc      vpn flow matrix 428,true,true,false,true,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0431', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0431 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(428, true, true, false);
+      logInfo("flow matrix 428,true,true,false,true,false");
+      const actual: string = subject.stop(true, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Pass");
+      expect(actual).assertEqual("stop-fd-skipped|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0431 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0432
+     * @tc.name      VPN_FlowMatrix_0432
+     * @tc.desc      vpn flow matrix 429,false,true,true,false,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0432', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0432 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(429, false, true, true);
+      logInfo("flow matrix 429,false,true,true,false,false");
+      const actual: string = subject.stop(false, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Error");
+      expect(actual).assertEqual("stop-fd-skipped|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0432 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0433
+     * @tc.name      VPN_FlowMatrix_0433
+     * @tc.desc      vpn flow matrix 430,true,false,true,true,true keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0433', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0433 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(430, true, false, true);
+      logInfo("flow matrix 430,true,false,true,true,true");
+      const actual: string = subject.stop(true, true) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "destroyed|Pass");
+      expect(actual).assertEqual("destroyed|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0433 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0434
+     * @tc.name      VPN_FlowMatrix_0434
+     * @tc.desc      vpn flow matrix 431,false,true,true,false,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0434', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0434 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(431, false, true, true);
+      logInfo("flow matrix 431,false,true,true,false,false");
+      const actual: string = subject.stop(false, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Error");
+      expect(actual).assertEqual("stop-fd-skipped|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0434 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0435
+     * @tc.name      VPN_FlowMatrix_0435
+     * @tc.desc      vpn flow matrix 432,true,true,true,true,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0435', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0435 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(432, true, true, true);
+      logInfo("flow matrix 432,true,true,true,true,false");
+      const actual: string = subject.stop(true, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Pass");
+      expect(actual).assertEqual("stop-fd-skipped|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0435 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0436
+     * @tc.name      VPN_FlowMatrix_0436
+     * @tc.desc      vpn flow matrix 433,false,false,false,false,true keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0436', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0436 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(433, false, false, false);
+      logInfo("flow matrix 433,false,false,false,false,true");
+      const actual: string = subject.stop(false, true) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "destroy-failed|Error");
+      expect(actual).assertEqual("destroy-failed|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0436 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0437
+     * @tc.name      VPN_FlowMatrix_0437
+     * @tc.desc      vpn flow matrix 434,true,true,true,true,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0437', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0437 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(434, true, true, true);
+      logInfo("flow matrix 434,true,true,true,true,false");
+      const actual: string = subject.stop(true, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Pass");
+      expect(actual).assertEqual("stop-fd-skipped|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0437 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0438
+     * @tc.name      VPN_FlowMatrix_0438
+     * @tc.desc      vpn flow matrix 435,false,true,true,false,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0438', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0438 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(435, false, true, true);
+      logInfo("flow matrix 435,false,true,true,false,false");
+      const actual: string = subject.stop(false, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Error");
+      expect(actual).assertEqual("stop-fd-skipped|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0438 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0439
+     * @tc.name      VPN_FlowMatrix_0439
+     * @tc.desc      vpn flow matrix 436,true,false,true,true,true keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0439', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0439 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(436, true, false, true);
+      logInfo("flow matrix 436,true,false,true,true,true");
+      const actual: string = subject.stop(true, true) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "destroyed|Pass");
+      expect(actual).assertEqual("destroyed|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0439 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0440
+     * @tc.name      VPN_FlowMatrix_0440
+     * @tc.desc      vpn flow matrix 437,false,true,true,false,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0440', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0440 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(437, false, true, true);
+      logInfo("flow matrix 437,false,true,true,false,false");
+      const actual: string = subject.stop(false, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Error");
+      expect(actual).assertEqual("stop-fd-skipped|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0440 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0441
+     * @tc.name      VPN_FlowMatrix_0441
+     * @tc.desc      vpn flow matrix 438,true,true,false,true,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('VPN_FlowMatrix_0441', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0441 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(438, true, true, false);
+      logInfo("flow matrix 438,true,true,false,true,false");
+      const actual: string = subject.stop(true, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Pass");
+      expect(actual).assertEqual("stop-fd-skipped|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0441 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0442
+     * @tc.name      VPN_FlowMatrix_0442
+     * @tc.desc      vpn flow matrix 439,false,false,true,false,true keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0442', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0442 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(439, false, false, true);
+      logInfo("flow matrix 439,false,false,true,false,true");
+      const actual: string = subject.stop(false, true) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "destroy-failed|Error");
+      expect(actual).assertEqual("destroy-failed|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0442 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0443
+     * @tc.name      VPN_FlowMatrix_0443
+     * @tc.desc      vpn flow matrix 440,true,true,true,true,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('VPN_FlowMatrix_0443', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0443 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(440, true, true, true);
+      logInfo("flow matrix 440,true,true,true,true,false");
+      const actual: string = subject.stop(true, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Pass");
+      expect(actual).assertEqual("stop-fd-skipped|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0443 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0444
+     * @tc.name      VPN_FlowMatrix_0444
+     * @tc.desc      vpn flow matrix 441,false,true,true,false,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0444', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0444 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(441, false, true, true);
+      logInfo("flow matrix 441,false,true,true,false,false");
+      const actual: string = subject.stop(false, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Error");
+      expect(actual).assertEqual("stop-fd-skipped|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0444 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0445
+     * @tc.name      VPN_FlowMatrix_0445
+     * @tc.desc      vpn flow matrix 442,true,false,true,true,true keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0445', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0445 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(442, true, false, true);
+      logInfo("flow matrix 442,true,false,true,true,true");
+      const actual: string = subject.stop(true, true) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "destroyed|Pass");
+      expect(actual).assertEqual("destroyed|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0445 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0446
+     * @tc.name      VPN_FlowMatrix_0446
+     * @tc.desc      vpn flow matrix 443,false,true,false,false,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0446', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0446 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(443, false, true, false);
+      logInfo("flow matrix 443,false,true,false,false,false");
+      const actual: string = subject.stop(false, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Error");
+      expect(actual).assertEqual("stop-fd-skipped|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0446 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0447
+     * @tc.name      VPN_FlowMatrix_0447
+     * @tc.desc      vpn flow matrix 444,true,true,true,true,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0447', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0447 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(444, true, true, true);
+      logInfo("flow matrix 444,true,true,true,true,false");
+      const actual: string = subject.stop(true, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Pass");
+      expect(actual).assertEqual("stop-fd-skipped|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0447 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0448
+     * @tc.name      VPN_FlowMatrix_0448
+     * @tc.desc      vpn flow matrix 445,false,false,true,false,true keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0448', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0448 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(445, false, false, true);
+      logInfo("flow matrix 445,false,false,true,false,true");
+      const actual: string = subject.stop(false, true) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "destroy-failed|Error");
+      expect(actual).assertEqual("destroy-failed|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0448 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0449
+     * @tc.name      VPN_FlowMatrix_0449
+     * @tc.desc      vpn flow matrix 446,true,true,true,true,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0449', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0449 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(446, true, true, true);
+      logInfo("flow matrix 446,true,true,true,true,false");
+      const actual: string = subject.stop(true, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Pass");
+      expect(actual).assertEqual("stop-fd-skipped|Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0449 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_MATRIX_0450
+     * @tc.name      VPN_FlowMatrix_0450
+     * @tc.desc      vpn flow matrix 447,false,true,true,false,false keeps run/stop state.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowMatrix_0450', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowMatrix_0450 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      subject.run(447, false, true, true);
+      logInfo("flow matrix 447,false,true,true,false,false");
+      const actual: string = subject.stop(false, false) + '|' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "stop-fd-skipped|Error");
+      expect(actual).assertEqual("stop-fd-skipped|Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowMatrix_0450 end`);
+    });
+  });
+}
