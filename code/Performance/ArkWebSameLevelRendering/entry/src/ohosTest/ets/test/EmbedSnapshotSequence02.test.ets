@@ -1916,3 +1916,565 @@ export default function embedSnapshotSequence02(host: EmbedDocumentHost): void {
         } finally {
           parent.insertBefore(original, next); stage.remove(); side.remove();
           if (target !== original) { target.remove(); }
+          if (savedId === null) { original.removeAttribute('id'); }
+          else { original.setAttribute('id', savedId); }
+          if (savedStyle === null) { original.removeAttribute('style'); }
+          else { original.setAttribute('style', savedStyle); }
+        }
+      })()`)) as string[];
+      expect(result[0]).assertEqual('199,147');
+      expect(result[1]).assertEqual(result[0]);
+      expect(result[2]).assertEqual('true');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('211,97');
+      expect(result[5]).assertEqual('0,0');
+      expect(result[6]).assertEqual('0,0');
+      expect(result[7]).assertEqual('true');
+      expect(result[8]).assertEqual('0,0');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SNAPSHOT_0072
+     * @tc.name testEmbedSnapshot0072
+     * @tc.desc Zero-box successor and nonzero span successor retain both earlier node snapshots: live replacement embed
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSnapshot0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`(() => {
+        const original = nativeEmbed.nativeSearch;
+        const parent = original.parentNode; const next = original.nextSibling;
+        const savedStyle = original.getAttribute('style'); const savedId = original.getAttribute('id');
+        const stage = document.createElement('div'); const side = document.createElement('div');
+        parent.insertBefore(stage, original); parent.insertBefore(side, original);
+        const target = document.createElement('embed');
+          target.setAttribute('type', 'native/component');
+          target.setAttribute('src', 'view');
+        try {
+          original.id = 'cachedOriginal'; target.id = 'nativeSearch';
+          stage.appendChild(target);
+          target.style.cssText = 'display: block; width: 83px; height: 137px; padding: 0; border: 0;';
+          const first = getEmbedSize();
+          const candidate = document.createElement('div'); candidate.id = 'pending';
+          candidate.style.cssText = 'display: block; width: 0px; height: 0px; padding: 0; border: 0;';
+          side.appendChild(candidate);
+          candidate.id = 'nativeSearch'; target.replaceWith(candidate);
+          const second = getEmbedSize();
+          const secondNode = document.getElementById('nativeSearch');
+          const secondRect = secondNode.getBoundingClientRect();
+          const successor = document.createElement('span'); successor.id = 'pending';
+          successor.style.cssText = 'display: block; width: 199px; height: 147px; padding: 0; border: 0;';
+          side.appendChild(successor);
+          successor.id = 'nativeSearch'; candidate.replaceWith(successor);
+          const third = getEmbedSize();
+          const current = document.getElementById('nativeSearch'); const rect = current.getBoundingClientRect();
+          return JSON.stringify([
+            String(third.width + ',' + third.height), String(rect.width + ',' + rect.height),
+            String(current === successor), String(nativeEmbed.nativeSearch === original),
+            String(first.width + ',' + first.height), String(second.width + ',' + second.height),
+            String(secondRect.width + ',' + secondRect.height),
+            String(first !== second && first !== third && second !== third),
+            String((third.width - current.clientWidth) + ',' + (third.height - current.clientHeight))
+          ]);
+        } finally {
+          parent.insertBefore(original, next); stage.remove(); side.remove();
+          if (target !== original) { target.remove(); }
+          if (savedId === null) { original.removeAttribute('id'); }
+          else { original.setAttribute('id', savedId); }
+          if (savedStyle === null) { original.removeAttribute('style'); }
+          else { original.setAttribute('style', savedStyle); }
+        }
+      })()`)) as string[];
+      expect(result[0]).assertEqual('199,147');
+      expect(result[1]).assertEqual(result[0]);
+      expect(result[2]).assertEqual('true');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('83,137');
+      expect(result[5]).assertEqual('0,0');
+      expect(result[6]).assertEqual('0,0');
+      expect(result[7]).assertEqual('true');
+      expect(result[8]).assertEqual('0,0');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SNAPSHOT_0073
+     * @tc.name testEmbedSnapshot0073
+     * @tc.desc Id ownership transfer then duplicate-order promotion preserves each owner snapshot: cached embed
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSnapshot0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`(() => {
+        const original = nativeEmbed.nativeSearch;
+        const parent = original.parentNode; const next = original.nextSibling;
+        const savedStyle = original.getAttribute('style'); const savedId = original.getAttribute('id');
+        const stage = document.createElement('div'); const side = document.createElement('div');
+        parent.insertBefore(stage, original); parent.insertBefore(side, original);
+        const target = original;
+        try {
+          stage.appendChild(target);
+          target.style.cssText = 'display: block; width: 173px; height: 71px; padding: 0; border: 0;';
+          const first = getEmbedSize();
+          target.id = 'previousOwner';
+          const candidate = document.createElement('div'); candidate.id = 'nativeSearch';
+          candidate.style.cssText = 'display: block; width: 287px; height: 87px; padding: 0; border: 0;';
+          side.appendChild(candidate);
+          const second = getEmbedSize();
+          const secondNode = document.getElementById('nativeSearch');
+          const secondRect = secondNode.getBoundingClientRect();
+          target.id = 'nativeSearch'; stage.appendChild(candidate); stage.appendChild(target);
+          const third = getEmbedSize();
+          const current = document.getElementById('nativeSearch'); const rect = current.getBoundingClientRect();
+          return JSON.stringify([
+            String(third.width + ',' + third.height), String(rect.width + ',' + rect.height),
+            String(current === candidate), String(nativeEmbed.nativeSearch === original),
+            String(first.width + ',' + first.height), String(second.width + ',' + second.height),
+            String(secondRect.width + ',' + secondRect.height),
+            String(first !== second && first !== third && second !== third),
+            String((third.width - current.clientWidth) + ',' + (third.height - current.clientHeight))
+          ]);
+        } finally {
+          parent.insertBefore(original, next); stage.remove(); side.remove();
+          if (target !== original) { target.remove(); }
+          if (savedId === null) { original.removeAttribute('id'); }
+          else { original.setAttribute('id', savedId); }
+          if (savedStyle === null) { original.removeAttribute('style'); }
+          else { original.setAttribute('style', savedStyle); }
+        }
+      })()`)) as string[];
+      expect(result[0]).assertEqual('287,87');
+      expect(result[1]).assertEqual(result[0]);
+      expect(result[2]).assertEqual('true');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('173,71');
+      expect(result[5]).assertEqual('287,87');
+      expect(result[6]).assertEqual('287,87');
+      expect(result[7]).assertEqual('true');
+      expect(result[8]).assertEqual('0,0');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SNAPSHOT_0074
+     * @tc.name testEmbedSnapshot0074
+     * @tc.desc Id ownership transfer then duplicate-order promotion preserves each owner snapshot: live padded div
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSnapshot0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`(() => {
+        const original = nativeEmbed.nativeSearch;
+        const parent = original.parentNode; const next = original.nextSibling;
+        const savedStyle = original.getAttribute('style'); const savedId = original.getAttribute('id');
+        const stage = document.createElement('div'); const side = document.createElement('div');
+        parent.insertBefore(stage, original); parent.insertBefore(side, original);
+        const target = document.createElement('div');
+        try {
+          original.id = 'cachedOriginal'; target.id = 'nativeSearch';
+          stage.appendChild(target);
+          target.style.cssText = 'display: block; width: 119px; height: 43px; padding: 7px 11px; border: 0;';
+          const first = getEmbedSize();
+          target.id = 'previousOwner';
+          const candidate = document.createElement('div'); candidate.id = 'nativeSearch';
+          candidate.style.cssText = 'display: block; width: 287px; height: 87px; padding: 0; border: 0;';
+          side.appendChild(candidate);
+          const second = getEmbedSize();
+          const secondNode = document.getElementById('nativeSearch');
+          const secondRect = secondNode.getBoundingClientRect();
+          target.id = 'nativeSearch'; stage.appendChild(candidate); stage.appendChild(target);
+          const third = getEmbedSize();
+          const current = document.getElementById('nativeSearch'); const rect = current.getBoundingClientRect();
+          return JSON.stringify([
+            String(third.width + ',' + third.height), String(rect.width + ',' + rect.height),
+            String(current === candidate), String(nativeEmbed.nativeSearch === original),
+            String(first.width + ',' + first.height), String(second.width + ',' + second.height),
+            String(secondRect.width + ',' + secondRect.height),
+            String(first !== second && first !== third && second !== third),
+            String((third.width - current.clientWidth) + ',' + (third.height - current.clientHeight))
+          ]);
+        } finally {
+          parent.insertBefore(original, next); stage.remove(); side.remove();
+          if (target !== original) { target.remove(); }
+          if (savedId === null) { original.removeAttribute('id'); }
+          else { original.setAttribute('id', savedId); }
+          if (savedStyle === null) { original.removeAttribute('style'); }
+          else { original.setAttribute('style', savedStyle); }
+        }
+      })()`)) as string[];
+      expect(result[0]).assertEqual('287,87');
+      expect(result[1]).assertEqual(result[0]);
+      expect(result[2]).assertEqual('true');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('141,57');
+      expect(result[5]).assertEqual('287,87');
+      expect(result[6]).assertEqual('287,87');
+      expect(result[7]).assertEqual('true');
+      expect(result[8]).assertEqual('0,0');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SNAPSHOT_0075
+     * @tc.name testEmbedSnapshot0075
+     * @tc.desc Id ownership transfer then duplicate-order promotion preserves each owner snapshot: live border-box span
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSnapshot0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`(() => {
+        const original = nativeEmbed.nativeSearch;
+        const parent = original.parentNode; const next = original.nextSibling;
+        const savedStyle = original.getAttribute('style'); const savedId = original.getAttribute('id');
+        const stage = document.createElement('div'); const side = document.createElement('div');
+        parent.insertBefore(stage, original); parent.insertBefore(side, original);
+        const target = document.createElement('span');
+        try {
+          original.id = 'cachedOriginal'; target.id = 'nativeSearch';
+          stage.appendChild(target);
+          target.style.cssText = 'display: inline-block; box-sizing: border-box; width: 211px;' +
+            'height: 97px; padding: 4px; border: 0;';
+          const first = getEmbedSize();
+          target.id = 'previousOwner';
+          const candidate = document.createElement('div'); candidate.id = 'nativeSearch';
+          candidate.style.cssText = 'display: block; width: 287px; height: 87px; padding: 0; border: 0;';
+          side.appendChild(candidate);
+          const second = getEmbedSize();
+          const secondNode = document.getElementById('nativeSearch');
+          const secondRect = secondNode.getBoundingClientRect();
+          target.id = 'nativeSearch'; stage.appendChild(candidate); stage.appendChild(target);
+          const third = getEmbedSize();
+          const current = document.getElementById('nativeSearch'); const rect = current.getBoundingClientRect();
+          return JSON.stringify([
+            String(third.width + ',' + third.height), String(rect.width + ',' + rect.height),
+            String(current === candidate), String(nativeEmbed.nativeSearch === original),
+            String(first.width + ',' + first.height), String(second.width + ',' + second.height),
+            String(secondRect.width + ',' + secondRect.height),
+            String(first !== second && first !== third && second !== third),
+            String((third.width - current.clientWidth) + ',' + (third.height - current.clientHeight))
+          ]);
+        } finally {
+          parent.insertBefore(original, next); stage.remove(); side.remove();
+          if (target !== original) { target.remove(); }
+          if (savedId === null) { original.removeAttribute('id'); }
+          else { original.setAttribute('id', savedId); }
+          if (savedStyle === null) { original.removeAttribute('style'); }
+          else { original.setAttribute('style', savedStyle); }
+        }
+      })()`)) as string[];
+      expect(result[0]).assertEqual('287,87');
+      expect(result[1]).assertEqual(result[0]);
+      expect(result[2]).assertEqual('true');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('211,97');
+      expect(result[5]).assertEqual('287,87');
+      expect(result[6]).assertEqual('287,87');
+      expect(result[7]).assertEqual('true');
+      expect(result[8]).assertEqual('0,0');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SNAPSHOT_0076
+     * @tc.name testEmbedSnapshot0076
+     * @tc.desc Id ownership transfer then duplicate-order promotion preserves each owner snapshot: live replacement
+     * embed
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSnapshot0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`(() => {
+        const original = nativeEmbed.nativeSearch;
+        const parent = original.parentNode; const next = original.nextSibling;
+        const savedStyle = original.getAttribute('style'); const savedId = original.getAttribute('id');
+        const stage = document.createElement('div'); const side = document.createElement('div');
+        parent.insertBefore(stage, original); parent.insertBefore(side, original);
+        const target = document.createElement('embed');
+          target.setAttribute('type', 'native/component');
+          target.setAttribute('src', 'view');
+        try {
+          original.id = 'cachedOriginal'; target.id = 'nativeSearch';
+          stage.appendChild(target);
+          target.style.cssText = 'display: block; width: 83px; height: 137px; padding: 0; border: 0;';
+          const first = getEmbedSize();
+          target.id = 'previousOwner';
+          const candidate = document.createElement('div'); candidate.id = 'nativeSearch';
+          candidate.style.cssText = 'display: block; width: 287px; height: 87px; padding: 0; border: 0;';
+          side.appendChild(candidate);
+          const second = getEmbedSize();
+          const secondNode = document.getElementById('nativeSearch');
+          const secondRect = secondNode.getBoundingClientRect();
+          target.id = 'nativeSearch'; stage.appendChild(candidate); stage.appendChild(target);
+          const third = getEmbedSize();
+          const current = document.getElementById('nativeSearch'); const rect = current.getBoundingClientRect();
+          return JSON.stringify([
+            String(third.width + ',' + third.height), String(rect.width + ',' + rect.height),
+            String(current === candidate), String(nativeEmbed.nativeSearch === original),
+            String(first.width + ',' + first.height), String(second.width + ',' + second.height),
+            String(secondRect.width + ',' + secondRect.height),
+            String(first !== second && first !== third && second !== third),
+            String((third.width - current.clientWidth) + ',' + (third.height - current.clientHeight))
+          ]);
+        } finally {
+          parent.insertBefore(original, next); stage.remove(); side.remove();
+          if (target !== original) { target.remove(); }
+          if (savedId === null) { original.removeAttribute('id'); }
+          else { original.setAttribute('id', savedId); }
+          if (savedStyle === null) { original.removeAttribute('style'); }
+          else { original.setAttribute('style', savedStyle); }
+        }
+      })()`)) as string[];
+      expect(result[0]).assertEqual('287,87');
+      expect(result[1]).assertEqual(result[0]);
+      expect(result[2]).assertEqual('true');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('83,137');
+      expect(result[5]).assertEqual('287,87');
+      expect(result[6]).assertEqual('287,87');
+      expect(result[7]).assertEqual('true');
+      expect(result[8]).assertEqual('0,0');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SNAPSHOT_0077
+     * @tc.name testEmbedSnapshot0077
+     * @tc.desc Nested duplicate removal followed by hidden predecessor promotion preserves old snapshots: cached embed
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSnapshot0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`(() => {
+        const original = nativeEmbed.nativeSearch;
+        const parent = original.parentNode; const next = original.nextSibling;
+        const savedStyle = original.getAttribute('style'); const savedId = original.getAttribute('id');
+        const stage = document.createElement('div'); const side = document.createElement('div');
+        parent.insertBefore(stage, original); parent.insertBefore(side, original);
+        const target = original;
+        try {
+          stage.appendChild(target);
+          target.style.cssText = 'display: block; width: 173px; height: 71px; padding: 0; border: 0;';
+          const first = getEmbedSize();
+          const nested = document.createElement('section'); stage.insertBefore(nested, target);
+          const candidate = document.createElement('span'); candidate.id = 'nativeSearch';
+          candidate.style.cssText = 'display: block; width: 159px; height: 171px; padding: 0; border: 0;';
+          nested.appendChild(candidate);
+          const second = getEmbedSize();
+          const secondNode = document.getElementById('nativeSearch');
+          const secondRect = secondNode.getBoundingClientRect();
+          nested.remove(); stage.style.display = 'none';
+          const third = getEmbedSize();
+          const current = document.getElementById('nativeSearch'); const rect = current.getBoundingClientRect();
+          return JSON.stringify([
+            String(third.width + ',' + third.height), String(rect.width + ',' + rect.height),
+            String(current === target), String(nativeEmbed.nativeSearch === original),
+            String(first.width + ',' + first.height), String(second.width + ',' + second.height),
+            String(secondRect.width + ',' + secondRect.height),
+            String(first !== second && first !== third && second !== third),
+            String((third.width - current.clientWidth) + ',' + (third.height - current.clientHeight))
+          ]);
+        } finally {
+          parent.insertBefore(original, next); stage.remove(); side.remove();
+          if (target !== original) { target.remove(); }
+          if (savedId === null) { original.removeAttribute('id'); }
+          else { original.setAttribute('id', savedId); }
+          if (savedStyle === null) { original.removeAttribute('style'); }
+          else { original.setAttribute('style', savedStyle); }
+        }
+      })()`)) as string[];
+      expect(result[0]).assertEqual('0,0');
+      expect(result[1]).assertEqual(result[0]);
+      expect(result[2]).assertEqual('true');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('173,71');
+      expect(result[5]).assertEqual('159,171');
+      expect(result[6]).assertEqual('159,171');
+      expect(result[7]).assertEqual('true');
+      expect(result[8]).assertEqual('0,0');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SNAPSHOT_0078
+     * @tc.name testEmbedSnapshot0078
+     * @tc.desc Nested duplicate removal followed by hidden predecessor promotion preserves old snapshots: live padded
+     * div
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSnapshot0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`(() => {
+        const original = nativeEmbed.nativeSearch;
+        const parent = original.parentNode; const next = original.nextSibling;
+        const savedStyle = original.getAttribute('style'); const savedId = original.getAttribute('id');
+        const stage = document.createElement('div'); const side = document.createElement('div');
+        parent.insertBefore(stage, original); parent.insertBefore(side, original);
+        const target = document.createElement('div');
+        try {
+          original.id = 'cachedOriginal'; target.id = 'nativeSearch';
+          stage.appendChild(target);
+          target.style.cssText = 'display: block; width: 119px; height: 43px; padding: 7px 11px; border: 0;';
+          const first = getEmbedSize();
+          const nested = document.createElement('section'); stage.insertBefore(nested, target);
+          const candidate = document.createElement('span'); candidate.id = 'nativeSearch';
+          candidate.style.cssText = 'display: block; width: 159px; height: 171px; padding: 0; border: 0;';
+          nested.appendChild(candidate);
+          const second = getEmbedSize();
+          const secondNode = document.getElementById('nativeSearch');
+          const secondRect = secondNode.getBoundingClientRect();
+          nested.remove(); stage.style.display = 'none';
+          const third = getEmbedSize();
+          const current = document.getElementById('nativeSearch'); const rect = current.getBoundingClientRect();
+          return JSON.stringify([
+            String(third.width + ',' + third.height), String(rect.width + ',' + rect.height),
+            String(current === target), String(nativeEmbed.nativeSearch === original),
+            String(first.width + ',' + first.height), String(second.width + ',' + second.height),
+            String(secondRect.width + ',' + secondRect.height),
+            String(first !== second && first !== third && second !== third),
+            String((third.width - current.clientWidth) + ',' + (third.height - current.clientHeight))
+          ]);
+        } finally {
+          parent.insertBefore(original, next); stage.remove(); side.remove();
+          if (target !== original) { target.remove(); }
+          if (savedId === null) { original.removeAttribute('id'); }
+          else { original.setAttribute('id', savedId); }
+          if (savedStyle === null) { original.removeAttribute('style'); }
+          else { original.setAttribute('style', savedStyle); }
+        }
+      })()`)) as string[];
+      expect(result[0]).assertEqual('0,0');
+      expect(result[1]).assertEqual(result[0]);
+      expect(result[2]).assertEqual('true');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('141,57');
+      expect(result[5]).assertEqual('159,171');
+      expect(result[6]).assertEqual('159,171');
+      expect(result[7]).assertEqual('true');
+      expect(result[8]).assertEqual('0,0');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SNAPSHOT_0079
+     * @tc.name testEmbedSnapshot0079
+     * @tc.desc Nested duplicate removal followed by hidden predecessor promotion preserves old snapshots: live
+     * border-box span
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSnapshot0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`(() => {
+        const original = nativeEmbed.nativeSearch;
+        const parent = original.parentNode; const next = original.nextSibling;
+        const savedStyle = original.getAttribute('style'); const savedId = original.getAttribute('id');
+        const stage = document.createElement('div'); const side = document.createElement('div');
+        parent.insertBefore(stage, original); parent.insertBefore(side, original);
+        const target = document.createElement('span');
+        try {
+          original.id = 'cachedOriginal'; target.id = 'nativeSearch';
+          stage.appendChild(target);
+          target.style.cssText = 'display: inline-block; box-sizing: border-box; width: 211px;' +
+            'height: 97px; padding: 4px; border: 0;';
+          const first = getEmbedSize();
+          const nested = document.createElement('section'); stage.insertBefore(nested, target);
+          const candidate = document.createElement('span'); candidate.id = 'nativeSearch';
+          candidate.style.cssText = 'display: block; width: 159px; height: 171px; padding: 0; border: 0;';
+          nested.appendChild(candidate);
+          const second = getEmbedSize();
+          const secondNode = document.getElementById('nativeSearch');
+          const secondRect = secondNode.getBoundingClientRect();
+          nested.remove(); stage.style.display = 'none';
+          const third = getEmbedSize();
+          const current = document.getElementById('nativeSearch'); const rect = current.getBoundingClientRect();
+          return JSON.stringify([
+            String(third.width + ',' + third.height), String(rect.width + ',' + rect.height),
+            String(current === target), String(nativeEmbed.nativeSearch === original),
+            String(first.width + ',' + first.height), String(second.width + ',' + second.height),
+            String(secondRect.width + ',' + secondRect.height),
+            String(first !== second && first !== third && second !== third),
+            String((third.width - current.clientWidth) + ',' + (third.height - current.clientHeight))
+          ]);
+        } finally {
+          parent.insertBefore(original, next); stage.remove(); side.remove();
+          if (target !== original) { target.remove(); }
+          if (savedId === null) { original.removeAttribute('id'); }
+          else { original.setAttribute('id', savedId); }
+          if (savedStyle === null) { original.removeAttribute('style'); }
+          else { original.setAttribute('style', savedStyle); }
+        }
+      })()`)) as string[];
+      expect(result[0]).assertEqual('0,0');
+      expect(result[1]).assertEqual(result[0]);
+      expect(result[2]).assertEqual('true');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('211,97');
+      expect(result[5]).assertEqual('159,171');
+      expect(result[6]).assertEqual('159,171');
+      expect(result[7]).assertEqual('true');
+      expect(result[8]).assertEqual('0,0');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_SNAPSHOT_0080
+     * @tc.name testEmbedSnapshot0080
+     * @tc.desc Nested duplicate removal followed by hidden predecessor promotion preserves old snapshots: live
+     * replacement embed
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedSnapshot0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`(() => {
+        const original = nativeEmbed.nativeSearch;
+        const parent = original.parentNode; const next = original.nextSibling;
+        const savedStyle = original.getAttribute('style'); const savedId = original.getAttribute('id');
+        const stage = document.createElement('div'); const side = document.createElement('div');
+        parent.insertBefore(stage, original); parent.insertBefore(side, original);
+        const target = document.createElement('embed');
+          target.setAttribute('type', 'native/component');
+          target.setAttribute('src', 'view');
+        try {
+          original.id = 'cachedOriginal'; target.id = 'nativeSearch';
+          stage.appendChild(target);
+          target.style.cssText = 'display: block; width: 83px; height: 137px; padding: 0; border: 0;';
+          const first = getEmbedSize();
+          const nested = document.createElement('section'); stage.insertBefore(nested, target);
+          const candidate = document.createElement('span'); candidate.id = 'nativeSearch';
+          candidate.style.cssText = 'display: block; width: 159px; height: 171px; padding: 0; border: 0;';
+          nested.appendChild(candidate);
+          const second = getEmbedSize();
+          const secondNode = document.getElementById('nativeSearch');
+          const secondRect = secondNode.getBoundingClientRect();
+          nested.remove(); stage.style.display = 'none';
+          const third = getEmbedSize();
+          const current = document.getElementById('nativeSearch'); const rect = current.getBoundingClientRect();
+          return JSON.stringify([
+            String(third.width + ',' + third.height), String(rect.width + ',' + rect.height),
+            String(current === target), String(nativeEmbed.nativeSearch === original),
+            String(first.width + ',' + first.height), String(second.width + ',' + second.height),
+            String(secondRect.width + ',' + secondRect.height),
+            String(first !== second && first !== third && second !== third),
+            String((third.width - current.clientWidth) + ',' + (third.height - current.clientHeight))
+          ]);
+        } finally {
+          parent.insertBefore(original, next); stage.remove(); side.remove();
+          if (target !== original) { target.remove(); }
+          if (savedId === null) { original.removeAttribute('id'); }
+          else { original.setAttribute('id', savedId); }
+          if (savedStyle === null) { original.removeAttribute('style'); }
+          else { original.setAttribute('style', savedStyle); }
+        }
+      })()`)) as string[];
+      expect(result[0]).assertEqual('0,0');
+      expect(result[1]).assertEqual(result[0]);
+      expect(result[2]).assertEqual('true');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('83,137');
+      expect(result[5]).assertEqual('159,171');
+      expect(result[6]).assertEqual('159,171');
+      expect(result[7]).assertEqual('true');
+      expect(result[8]).assertEqual('0,0');
+    });
+  });
+}
