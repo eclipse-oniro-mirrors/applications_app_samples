@@ -5019,3 +5019,1677 @@ export default function vpnNotificationBoundaryMatrixTest(): void {
     it('VPN_NotifBoundary_0263', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       logInfo(`${BUNDLE}NotifBoundary_0263 begin`);
       logInfo("notification boundary 262");
+      const actual: string = nextNotificationId(262) + '|' + badgeAfterAdd(262) + '|' + badgeAfterSet(262) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 4)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 4), 3) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g262");
+      logInfo('actual=' + String(actual) + ', expected=' + "263|263|262|1|0|0|g262");
+      expect(actual).assertEqual("263|263|262|1|0|0|g262");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0263 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0264
+     * @tc.name      VPN_NotifBoundary_0264
+     * @tc.desc      notification boundary 263 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0264', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0264 begin`);
+      logInfo("notification boundary 263");
+      const actual: string = nextNotificationId(263) + '|' + badgeAfterAdd(263) + '|' + badgeAfterSet(263) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 5)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 5), 4) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g263");
+      logInfo('actual=' + String(actual) + ', expected=' + "264|264|263|1|0|1|g263");
+      expect(actual).assertEqual("264|264|263|1|0|1|g263");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0264 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0265
+     * @tc.name      VPN_NotifBoundary_0265
+     * @tc.desc      notification boundary 264 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('VPN_NotifBoundary_0265', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0265 begin`);
+      logInfo("notification boundary 264");
+      const actual: string = nextNotificationId(264) + '|' + badgeAfterAdd(264) + '|' + badgeAfterSet(264) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 0)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 0), 5) + '|' + wantAgentActionType(0) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "265|265|264|1|0|0|");
+      expect(actual).assertEqual("265|265|264|1|0|0|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0265 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0266
+     * @tc.name      VPN_NotifBoundary_0266
+     * @tc.desc      notification boundary 265 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0266', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0266 begin`);
+      logInfo("notification boundary 265");
+      const actual: string = nextNotificationId(265) + '|' + badgeAfterAdd(265) + '|' + badgeAfterSet(265) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 1)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 1), 6) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g265");
+      logInfo('actual=' + String(actual) + ', expected=' + "266|266|265|1|0|1|g265");
+      expect(actual).assertEqual("266|266|265|1|0|1|g265");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0266 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0267
+     * @tc.name      VPN_NotifBoundary_0267
+     * @tc.desc      notification boundary 266 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0267', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0267 begin`);
+      logInfo("notification boundary 266");
+      const actual: string = nextNotificationId(266) + '|' + badgeAfterAdd(266) + '|' + badgeAfterSet(266) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 2)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 2), 0) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g266");
+      logInfo('actual=' + String(actual) + ', expected=' + "267|267|266|1|0|0|g266");
+      expect(actual).assertEqual("267|267|266|1|0|0|g266");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0267 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0268
+     * @tc.name      VPN_NotifBoundary_0268
+     * @tc.desc      notification boundary 267 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0268', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0268 begin`);
+      logInfo("notification boundary 267");
+      const actual: string = nextNotificationId(267) + '|' + badgeAfterAdd(267) + '|' + badgeAfterSet(267) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 3)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 3), 1) + '|' + wantAgentActionType(1) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "268|268|267|1|0|1|");
+      expect(actual).assertEqual("268|268|267|1|0|1|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0268 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0269
+     * @tc.name      VPN_NotifBoundary_0269
+     * @tc.desc      notification boundary 268 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0269', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0269 begin`);
+      logInfo("notification boundary 268");
+      const actual: string = nextNotificationId(268) + '|' + badgeAfterAdd(268) + '|' + badgeAfterSet(268) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 4)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 4), 2) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g268");
+      logInfo('actual=' + String(actual) + ', expected=' + "269|269|268|1|0|0|g268");
+      expect(actual).assertEqual("269|269|268|1|0|0|g268");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0269 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0270
+     * @tc.name      VPN_NotifBoundary_0270
+     * @tc.desc      notification boundary 269 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0270', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0270 begin`);
+      logInfo("notification boundary 269");
+      const actual: string = nextNotificationId(269) + '|' + badgeAfterAdd(269) + '|' + badgeAfterSet(269) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 5)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 5), 3) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g269");
+      logInfo('actual=' + String(actual) + ', expected=' + "270|270|269|1|0|1|g269");
+      expect(actual).assertEqual("270|270|269|1|0|1|g269");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0270 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0271
+     * @tc.name      VPN_NotifBoundary_0271
+     * @tc.desc      notification boundary 270 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0271', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0271 begin`);
+      logInfo("notification boundary 270");
+      const actual: string = nextNotificationId(270) + '|' + badgeAfterAdd(270) + '|' + badgeAfterSet(270) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 0)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 0), 4) + '|' + wantAgentActionType(0) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "271|271|270|1|0|0|");
+      expect(actual).assertEqual("271|271|270|1|0|0|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0271 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0272
+     * @tc.name      VPN_NotifBoundary_0272
+     * @tc.desc      notification boundary 271 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0272', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0272 begin`);
+      logInfo("notification boundary 271");
+      const actual: string = nextNotificationId(271) + '|' + badgeAfterAdd(271) + '|' + badgeAfterSet(271) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 1)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 1), 5) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g271");
+      logInfo('actual=' + String(actual) + ', expected=' + "272|272|271|1|0|1|g271");
+      expect(actual).assertEqual("272|272|271|1|0|1|g271");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0272 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0273
+     * @tc.name      VPN_NotifBoundary_0273
+     * @tc.desc      notification boundary 272 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('VPN_NotifBoundary_0273', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0273 begin`);
+      logInfo("notification boundary 272");
+      const actual: string = nextNotificationId(272) + '|' + badgeAfterAdd(272) + '|' + badgeAfterSet(272) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 2)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 2), 6) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g272");
+      logInfo('actual=' + String(actual) + ', expected=' + "273|273|272|1|0|0|g272");
+      expect(actual).assertEqual("273|273|272|1|0|0|g272");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0273 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0274
+     * @tc.name      VPN_NotifBoundary_0274
+     * @tc.desc      notification boundary 273 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0274', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0274 begin`);
+      logInfo("notification boundary 273");
+      const actual: string = nextNotificationId(273) + '|' + badgeAfterAdd(273) + '|' + badgeAfterSet(273) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 3)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 3), 0) + '|' + wantAgentActionType(1) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "274|274|273|1|0|1|");
+      expect(actual).assertEqual("274|274|273|1|0|1|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0274 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0275
+     * @tc.name      VPN_NotifBoundary_0275
+     * @tc.desc      notification boundary 274 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0275', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0275 begin`);
+      logInfo("notification boundary 274");
+      const actual: string = nextNotificationId(274) + '|' + badgeAfterAdd(274) + '|' + badgeAfterSet(274) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 4)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 4), 1) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g274");
+      logInfo('actual=' + String(actual) + ', expected=' + "275|275|274|1|0|0|g274");
+      expect(actual).assertEqual("275|275|274|1|0|0|g274");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0275 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0276
+     * @tc.name      VPN_NotifBoundary_0276
+     * @tc.desc      notification boundary 275 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('VPN_NotifBoundary_0276', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0276 begin`);
+      logInfo("notification boundary 275");
+      const actual: string = nextNotificationId(275) + '|' + badgeAfterAdd(275) + '|' + badgeAfterSet(275) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 5)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 5), 2) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g275");
+      logInfo('actual=' + String(actual) + ', expected=' + "276|276|275|1|0|1|g275");
+      expect(actual).assertEqual("276|276|275|1|0|1|g275");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0276 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0277
+     * @tc.name      VPN_NotifBoundary_0277
+     * @tc.desc      notification boundary 276 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0277', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0277 begin`);
+      logInfo("notification boundary 276");
+      const actual: string = nextNotificationId(276) + '|' + badgeAfterAdd(276) + '|' + badgeAfterSet(276) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 0)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 0), 3) + '|' + wantAgentActionType(0) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "277|277|276|1|0|0|");
+      expect(actual).assertEqual("277|277|276|1|0|0|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0277 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0278
+     * @tc.name      VPN_NotifBoundary_0278
+     * @tc.desc      notification boundary 277 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0278', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0278 begin`);
+      logInfo("notification boundary 277");
+      const actual: string = nextNotificationId(277) + '|' + badgeAfterAdd(277) + '|' + badgeAfterSet(277) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 1)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 1), 4) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g277");
+      logInfo('actual=' + String(actual) + ', expected=' + "278|278|277|1|0|1|g277");
+      expect(actual).assertEqual("278|278|277|1|0|1|g277");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0278 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0279
+     * @tc.name      VPN_NotifBoundary_0279
+     * @tc.desc      notification boundary 278 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0279', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0279 begin`);
+      logInfo("notification boundary 278");
+      const actual: string = nextNotificationId(278) + '|' + badgeAfterAdd(278) + '|' + badgeAfterSet(278) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 2)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 2), 5) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g278");
+      logInfo('actual=' + String(actual) + ', expected=' + "279|279|278|1|0|0|g278");
+      expect(actual).assertEqual("279|279|278|1|0|0|g278");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0279 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0280
+     * @tc.name      VPN_NotifBoundary_0280
+     * @tc.desc      notification boundary 279 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0280', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0280 begin`);
+      logInfo("notification boundary 279");
+      const actual: string = nextNotificationId(279) + '|' + badgeAfterAdd(279) + '|' + badgeAfterSet(279) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 3)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 3), 6) + '|' + wantAgentActionType(1) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "280|280|279|1|0|1|");
+      expect(actual).assertEqual("280|280|279|1|0|1|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0280 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0281
+     * @tc.name      VPN_NotifBoundary_0281
+     * @tc.desc      notification boundary 280 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0281', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0281 begin`);
+      logInfo("notification boundary 280");
+      const actual: string = nextNotificationId(280) + '|' + badgeAfterAdd(280) + '|' + badgeAfterSet(280) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 4)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 4), 0) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g280");
+      logInfo('actual=' + String(actual) + ', expected=' + "281|281|280|1|0|0|g280");
+      expect(actual).assertEqual("281|281|280|1|0|0|g280");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0281 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0282
+     * @tc.name      VPN_NotifBoundary_0282
+     * @tc.desc      notification boundary 281 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0282', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0282 begin`);
+      logInfo("notification boundary 281");
+      const actual: string = nextNotificationId(281) + '|' + badgeAfterAdd(281) + '|' + badgeAfterSet(281) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 5)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 5), 1) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g281");
+      logInfo('actual=' + String(actual) + ', expected=' + "282|282|281|1|0|1|g281");
+      expect(actual).assertEqual("282|282|281|1|0|1|g281");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0282 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0283
+     * @tc.name      VPN_NotifBoundary_0283
+     * @tc.desc      notification boundary 282 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0283', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0283 begin`);
+      logInfo("notification boundary 282");
+      const actual: string = nextNotificationId(282) + '|' + badgeAfterAdd(282) + '|' + badgeAfterSet(282) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 0)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 0), 2) + '|' + wantAgentActionType(0) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "283|283|282|1|0|0|");
+      expect(actual).assertEqual("283|283|282|1|0|0|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0283 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0284
+     * @tc.name      VPN_NotifBoundary_0284
+     * @tc.desc      notification boundary 283 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0284', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0284 begin`);
+      logInfo("notification boundary 283");
+      const actual: string = nextNotificationId(283) + '|' + badgeAfterAdd(283) + '|' + badgeAfterSet(283) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 1)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 1), 3) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g283");
+      logInfo('actual=' + String(actual) + ', expected=' + "284|284|283|1|0|1|g283");
+      expect(actual).assertEqual("284|284|283|1|0|1|g283");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0284 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0285
+     * @tc.name      VPN_NotifBoundary_0285
+     * @tc.desc      notification boundary 284 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0285', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0285 begin`);
+      logInfo("notification boundary 284");
+      const actual: string = nextNotificationId(284) + '|' + badgeAfterAdd(284) + '|' + badgeAfterSet(284) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 2)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 2), 4) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g284");
+      logInfo('actual=' + String(actual) + ', expected=' + "285|285|284|1|0|0|g284");
+      expect(actual).assertEqual("285|285|284|1|0|0|g284");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0285 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0286
+     * @tc.name      VPN_NotifBoundary_0286
+     * @tc.desc      notification boundary 285 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0286', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0286 begin`);
+      logInfo("notification boundary 285");
+      const actual: string = nextNotificationId(285) + '|' + badgeAfterAdd(285) + '|' + badgeAfterSet(285) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 3)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 3), 5) + '|' + wantAgentActionType(1) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "286|286|285|1|0|1|");
+      expect(actual).assertEqual("286|286|285|1|0|1|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0286 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0287
+     * @tc.name      VPN_NotifBoundary_0287
+     * @tc.desc      notification boundary 286 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('VPN_NotifBoundary_0287', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0287 begin`);
+      logInfo("notification boundary 286");
+      const actual: string = nextNotificationId(286) + '|' + badgeAfterAdd(286) + '|' + badgeAfterSet(286) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 4)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 4), 6) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g286");
+      logInfo('actual=' + String(actual) + ', expected=' + "287|287|286|1|0|0|g286");
+      expect(actual).assertEqual("287|287|286|1|0|0|g286");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0287 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0288
+     * @tc.name      VPN_NotifBoundary_0288
+     * @tc.desc      notification boundary 287 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0288', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0288 begin`);
+      logInfo("notification boundary 287");
+      const actual: string = nextNotificationId(287) + '|' + badgeAfterAdd(287) + '|' + badgeAfterSet(287) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 5)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 5), 0) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g287");
+      logInfo('actual=' + String(actual) + ', expected=' + "288|288|287|1|0|1|g287");
+      expect(actual).assertEqual("288|288|287|1|0|1|g287");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0288 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0289
+     * @tc.name      VPN_NotifBoundary_0289
+     * @tc.desc      notification boundary 288 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0289', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0289 begin`);
+      logInfo("notification boundary 288");
+      const actual: string = nextNotificationId(288) + '|' + badgeAfterAdd(288) + '|' + badgeAfterSet(288) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 0)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 0), 1) + '|' + wantAgentActionType(0) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "289|289|288|1|0|0|");
+      expect(actual).assertEqual("289|289|288|1|0|0|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0289 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0290
+     * @tc.name      VPN_NotifBoundary_0290
+     * @tc.desc      notification boundary 289 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('VPN_NotifBoundary_0290', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0290 begin`);
+      logInfo("notification boundary 289");
+      const actual: string = nextNotificationId(289) + '|' + badgeAfterAdd(289) + '|' + badgeAfterSet(289) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 1)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 1), 2) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g289");
+      logInfo('actual=' + String(actual) + ', expected=' + "290|290|289|1|0|1|g289");
+      expect(actual).assertEqual("290|290|289|1|0|1|g289");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0290 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0291
+     * @tc.name      VPN_NotifBoundary_0291
+     * @tc.desc      notification boundary 290 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0291', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0291 begin`);
+      logInfo("notification boundary 290");
+      const actual: string = nextNotificationId(290) + '|' + badgeAfterAdd(290) + '|' + badgeAfterSet(290) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 2)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 2), 3) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g290");
+      logInfo('actual=' + String(actual) + ', expected=' + "291|291|290|1|0|0|g290");
+      expect(actual).assertEqual("291|291|290|1|0|0|g290");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0291 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0292
+     * @tc.name      VPN_NotifBoundary_0292
+     * @tc.desc      notification boundary 291 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0292', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0292 begin`);
+      logInfo("notification boundary 291");
+      const actual: string = nextNotificationId(291) + '|' + badgeAfterAdd(291) + '|' + badgeAfterSet(291) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 3)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 3), 4) + '|' + wantAgentActionType(1) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "292|292|291|1|0|1|");
+      expect(actual).assertEqual("292|292|291|1|0|1|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0292 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0293
+     * @tc.name      VPN_NotifBoundary_0293
+     * @tc.desc      notification boundary 292 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0293', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0293 begin`);
+      logInfo("notification boundary 292");
+      const actual: string = nextNotificationId(292) + '|' + badgeAfterAdd(292) + '|' + badgeAfterSet(292) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 4)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 4), 5) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g292");
+      logInfo('actual=' + String(actual) + ', expected=' + "293|293|292|1|0|0|g292");
+      expect(actual).assertEqual("293|293|292|1|0|0|g292");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0293 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0294
+     * @tc.name      VPN_NotifBoundary_0294
+     * @tc.desc      notification boundary 293 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0294', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0294 begin`);
+      logInfo("notification boundary 293");
+      const actual: string = nextNotificationId(293) + '|' + badgeAfterAdd(293) + '|' + badgeAfterSet(293) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 5)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 5), 6) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g293");
+      logInfo('actual=' + String(actual) + ', expected=' + "294|294|293|1|0|1|g293");
+      expect(actual).assertEqual("294|294|293|1|0|1|g293");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0294 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0295
+     * @tc.name      VPN_NotifBoundary_0295
+     * @tc.desc      notification boundary 294 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0295', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0295 begin`);
+      logInfo("notification boundary 294");
+      const actual: string = nextNotificationId(294) + '|' + badgeAfterAdd(294) + '|' + badgeAfterSet(294) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 0)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 0), 0) + '|' + wantAgentActionType(0) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "295|295|294|1|1|0|");
+      expect(actual).assertEqual("295|295|294|1|1|0|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0295 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0296
+     * @tc.name      VPN_NotifBoundary_0296
+     * @tc.desc      notification boundary 295 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0296', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0296 begin`);
+      logInfo("notification boundary 295");
+      const actual: string = nextNotificationId(295) + '|' + badgeAfterAdd(295) + '|' + badgeAfterSet(295) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 1)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 1), 1) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g295");
+      logInfo('actual=' + String(actual) + ', expected=' + "296|296|295|1|1|1|g295");
+      expect(actual).assertEqual("296|296|295|1|1|1|g295");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0296 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0297
+     * @tc.name      VPN_NotifBoundary_0297
+     * @tc.desc      notification boundary 296 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0297', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0297 begin`);
+      logInfo("notification boundary 296");
+      const actual: string = nextNotificationId(296) + '|' + badgeAfterAdd(296) + '|' + badgeAfterSet(296) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 2)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 2), 2) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g296");
+      logInfo('actual=' + String(actual) + ', expected=' + "297|297|296|1|1|0|g296");
+      expect(actual).assertEqual("297|297|296|1|1|0|g296");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0297 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0298
+     * @tc.name      VPN_NotifBoundary_0298
+     * @tc.desc      notification boundary 297 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('VPN_NotifBoundary_0298', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0298 begin`);
+      logInfo("notification boundary 297");
+      const actual: string = nextNotificationId(297) + '|' + badgeAfterAdd(297) + '|' + badgeAfterSet(297) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 3)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 3), 3) + '|' + wantAgentActionType(1) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "298|298|297|1|1|1|");
+      expect(actual).assertEqual("298|298|297|1|1|1|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0298 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0299
+     * @tc.name      VPN_NotifBoundary_0299
+     * @tc.desc      notification boundary 298 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0299', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0299 begin`);
+      logInfo("notification boundary 298");
+      const actual: string = nextNotificationId(298) + '|' + badgeAfterAdd(298) + '|' + badgeAfterSet(298) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 4)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 4), 4) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g298");
+      logInfo('actual=' + String(actual) + ', expected=' + "299|299|298|1|1|0|g298");
+      expect(actual).assertEqual("299|299|298|1|1|0|g298");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0299 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0300
+     * @tc.name      VPN_NotifBoundary_0300
+     * @tc.desc      notification boundary 299 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0300', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0300 begin`);
+      logInfo("notification boundary 299");
+      const actual: string = nextNotificationId(299) + '|' + badgeAfterAdd(299) + '|' + badgeAfterSet(299) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 5)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 5), 5) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g299");
+      logInfo('actual=' + String(actual) + ', expected=' + "300|300|299|1|1|1|g299");
+      expect(actual).assertEqual("300|300|299|1|1|1|g299");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0300 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0301
+     * @tc.name      VPN_NotifBoundary_0301
+     * @tc.desc      notification boundary 300 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0301', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0301 begin`);
+      logInfo("notification boundary 300");
+      const actual: string = nextNotificationId(300) + '|' + badgeAfterAdd(300) + '|' + badgeAfterSet(300) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 0)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 0), 6) + '|' + wantAgentActionType(0) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "301|301|300|1|0|0|");
+      expect(actual).assertEqual("301|301|300|1|0|0|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0301 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0302
+     * @tc.name      VPN_NotifBoundary_0302
+     * @tc.desc      notification boundary 301 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0302', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0302 begin`);
+      logInfo("notification boundary 301");
+      const actual: string = nextNotificationId(301) + '|' + badgeAfterAdd(301) + '|' + badgeAfterSet(301) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 1)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 1), 0) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g301");
+      logInfo('actual=' + String(actual) + ', expected=' + "302|302|301|1|0|1|g301");
+      expect(actual).assertEqual("302|302|301|1|0|1|g301");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0302 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0303
+     * @tc.name      VPN_NotifBoundary_0303
+     * @tc.desc      notification boundary 302 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0303', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0303 begin`);
+      logInfo("notification boundary 302");
+      const actual: string = nextNotificationId(302) + '|' + badgeAfterAdd(302) + '|' + badgeAfterSet(302) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 2)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 2), 1) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g302");
+      logInfo('actual=' + String(actual) + ', expected=' + "303|303|302|1|0|0|g302");
+      expect(actual).assertEqual("303|303|302|1|0|0|g302");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0303 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0304
+     * @tc.name      VPN_NotifBoundary_0304
+     * @tc.desc      notification boundary 303 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0304', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0304 begin`);
+      logInfo("notification boundary 303");
+      const actual: string = nextNotificationId(303) + '|' + badgeAfterAdd(303) + '|' + badgeAfterSet(303) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 3)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 3), 2) + '|' + wantAgentActionType(1) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "304|304|303|1|0|1|");
+      expect(actual).assertEqual("304|304|303|1|0|1|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0304 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0305
+     * @tc.name      VPN_NotifBoundary_0305
+     * @tc.desc      notification boundary 304 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0305', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0305 begin`);
+      logInfo("notification boundary 304");
+      const actual: string = nextNotificationId(304) + '|' + badgeAfterAdd(304) + '|' + badgeAfterSet(304) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 4)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 4), 3) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g304");
+      logInfo('actual=' + String(actual) + ', expected=' + "305|305|304|1|0|0|g304");
+      expect(actual).assertEqual("305|305|304|1|0|0|g304");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0305 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0306
+     * @tc.name      VPN_NotifBoundary_0306
+     * @tc.desc      notification boundary 305 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0306', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0306 begin`);
+      logInfo("notification boundary 305");
+      const actual: string = nextNotificationId(305) + '|' + badgeAfterAdd(305) + '|' + badgeAfterSet(305) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 5)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 5), 4) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g305");
+      logInfo('actual=' + String(actual) + ', expected=' + "306|306|305|1|0|1|g305");
+      expect(actual).assertEqual("306|306|305|1|0|1|g305");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0306 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0307
+     * @tc.name      VPN_NotifBoundary_0307
+     * @tc.desc      notification boundary 306 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('VPN_NotifBoundary_0307', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0307 begin`);
+      logInfo("notification boundary 306");
+      const actual: string = nextNotificationId(306) + '|' + badgeAfterAdd(306) + '|' + badgeAfterSet(306) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 0)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 0), 5) + '|' + wantAgentActionType(0) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "307|307|306|1|0|0|");
+      expect(actual).assertEqual("307|307|306|1|0|0|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0307 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0308
+     * @tc.name      VPN_NotifBoundary_0308
+     * @tc.desc      notification boundary 307 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0308', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0308 begin`);
+      logInfo("notification boundary 307");
+      const actual: string = nextNotificationId(307) + '|' + badgeAfterAdd(307) + '|' + badgeAfterSet(307) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 1)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 1), 6) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g307");
+      logInfo('actual=' + String(actual) + ', expected=' + "308|308|307|1|0|1|g307");
+      expect(actual).assertEqual("308|308|307|1|0|1|g307");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0308 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0309
+     * @tc.name      VPN_NotifBoundary_0309
+     * @tc.desc      notification boundary 308 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('VPN_NotifBoundary_0309', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0309 begin`);
+      logInfo("notification boundary 308");
+      const actual: string = nextNotificationId(308) + '|' + badgeAfterAdd(308) + '|' + badgeAfterSet(308) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 2)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 2), 0) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g308");
+      logInfo('actual=' + String(actual) + ', expected=' + "309|309|308|1|0|0|g308");
+      expect(actual).assertEqual("309|309|308|1|0|0|g308");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0309 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0310
+     * @tc.name      VPN_NotifBoundary_0310
+     * @tc.desc      notification boundary 309 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0310', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0310 begin`);
+      logInfo("notification boundary 309");
+      const actual: string = nextNotificationId(309) + '|' + badgeAfterAdd(309) + '|' + badgeAfterSet(309) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 3)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 3), 1) + '|' + wantAgentActionType(1) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "310|310|309|1|0|1|");
+      expect(actual).assertEqual("310|310|309|1|0|1|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0310 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0311
+     * @tc.name      VPN_NotifBoundary_0311
+     * @tc.desc      notification boundary 310 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0311', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0311 begin`);
+      logInfo("notification boundary 310");
+      const actual: string = nextNotificationId(310) + '|' + badgeAfterAdd(310) + '|' + badgeAfterSet(310) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 4)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 4), 2) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g310");
+      logInfo('actual=' + String(actual) + ', expected=' + "311|311|310|1|0|0|g310");
+      expect(actual).assertEqual("311|311|310|1|0|0|g310");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0311 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0312
+     * @tc.name      VPN_NotifBoundary_0312
+     * @tc.desc      notification boundary 311 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0312', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0312 begin`);
+      logInfo("notification boundary 311");
+      const actual: string = nextNotificationId(311) + '|' + badgeAfterAdd(311) + '|' + badgeAfterSet(311) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 5)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 5), 3) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g311");
+      logInfo('actual=' + String(actual) + ', expected=' + "312|312|311|1|0|1|g311");
+      expect(actual).assertEqual("312|312|311|1|0|1|g311");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0312 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0313
+     * @tc.name      VPN_NotifBoundary_0313
+     * @tc.desc      notification boundary 312 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0313', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0313 begin`);
+      logInfo("notification boundary 312");
+      const actual: string = nextNotificationId(312) + '|' + badgeAfterAdd(312) + '|' + badgeAfterSet(312) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 0)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 0), 4) + '|' + wantAgentActionType(0) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "313|313|312|1|0|0|");
+      expect(actual).assertEqual("313|313|312|1|0|0|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0313 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0314
+     * @tc.name      VPN_NotifBoundary_0314
+     * @tc.desc      notification boundary 313 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0314', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0314 begin`);
+      logInfo("notification boundary 313");
+      const actual: string = nextNotificationId(313) + '|' + badgeAfterAdd(313) + '|' + badgeAfterSet(313) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 1)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 1), 5) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g313");
+      logInfo('actual=' + String(actual) + ', expected=' + "314|314|313|1|0|1|g313");
+      expect(actual).assertEqual("314|314|313|1|0|1|g313");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0314 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0315
+     * @tc.name      VPN_NotifBoundary_0315
+     * @tc.desc      notification boundary 314 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0315', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0315 begin`);
+      logInfo("notification boundary 314");
+      const actual: string = nextNotificationId(314) + '|' + badgeAfterAdd(314) + '|' + badgeAfterSet(314) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 2)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 2), 6) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g314");
+      logInfo('actual=' + String(actual) + ', expected=' + "315|315|314|1|0|0|g314");
+      expect(actual).assertEqual("315|315|314|1|0|0|g314");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0315 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0316
+     * @tc.name      VPN_NotifBoundary_0316
+     * @tc.desc      notification boundary 315 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0316', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0316 begin`);
+      logInfo("notification boundary 315");
+      const actual: string = nextNotificationId(315) + '|' + badgeAfterAdd(315) + '|' + badgeAfterSet(315) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 3)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 3), 0) + '|' + wantAgentActionType(1) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "316|316|315|1|0|1|");
+      expect(actual).assertEqual("316|316|315|1|0|1|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0316 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0317
+     * @tc.name      VPN_NotifBoundary_0317
+     * @tc.desc      notification boundary 316 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0317', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0317 begin`);
+      logInfo("notification boundary 316");
+      const actual: string = nextNotificationId(316) + '|' + badgeAfterAdd(316) + '|' + badgeAfterSet(316) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 4)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 4), 1) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g316");
+      logInfo('actual=' + String(actual) + ', expected=' + "317|317|316|1|0|0|g316");
+      expect(actual).assertEqual("317|317|316|1|0|0|g316");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0317 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0318
+     * @tc.name      VPN_NotifBoundary_0318
+     * @tc.desc      notification boundary 317 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0318', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0318 begin`);
+      logInfo("notification boundary 317");
+      const actual: string = nextNotificationId(317) + '|' + badgeAfterAdd(317) + '|' + badgeAfterSet(317) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 5)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 5), 2) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g317");
+      logInfo('actual=' + String(actual) + ', expected=' + "318|318|317|1|0|1|g317");
+      expect(actual).assertEqual("318|318|317|1|0|1|g317");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0318 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0319
+     * @tc.name      VPN_NotifBoundary_0319
+     * @tc.desc      notification boundary 318 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0319', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0319 begin`);
+      logInfo("notification boundary 318");
+      const actual: string = nextNotificationId(318) + '|' + badgeAfterAdd(318) + '|' + badgeAfterSet(318) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 0)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 0), 3) + '|' + wantAgentActionType(0) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "319|319|318|1|0|0|");
+      expect(actual).assertEqual("319|319|318|1|0|0|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0319 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0320
+     * @tc.name      VPN_NotifBoundary_0320
+     * @tc.desc      notification boundary 319 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('VPN_NotifBoundary_0320', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0320 begin`);
+      logInfo("notification boundary 319");
+      const actual: string = nextNotificationId(319) + '|' + badgeAfterAdd(319) + '|' + badgeAfterSet(319) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 1)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 1), 4) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g319");
+      logInfo('actual=' + String(actual) + ', expected=' + "320|320|319|1|0|1|g319");
+      expect(actual).assertEqual("320|320|319|1|0|1|g319");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0320 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0321
+     * @tc.name      VPN_NotifBoundary_0321
+     * @tc.desc      notification boundary 320 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0321', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0321 begin`);
+      logInfo("notification boundary 320");
+      const actual: string = nextNotificationId(320) + '|' + badgeAfterAdd(320) + '|' + badgeAfterSet(320) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 2)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 2), 5) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g320");
+      logInfo('actual=' + String(actual) + ', expected=' + "321|321|320|1|0|0|g320");
+      expect(actual).assertEqual("321|321|320|1|0|0|g320");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0321 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0322
+     * @tc.name      VPN_NotifBoundary_0322
+     * @tc.desc      notification boundary 321 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0322', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0322 begin`);
+      logInfo("notification boundary 321");
+      const actual: string = nextNotificationId(321) + '|' + badgeAfterAdd(321) + '|' + badgeAfterSet(321) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 3)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 3), 6) + '|' + wantAgentActionType(1) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "322|322|321|1|0|1|");
+      expect(actual).assertEqual("322|322|321|1|0|1|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0322 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0323
+     * @tc.name      VPN_NotifBoundary_0323
+     * @tc.desc      notification boundary 322 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0323', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0323 begin`);
+      logInfo("notification boundary 322");
+      const actual: string = nextNotificationId(322) + '|' + badgeAfterAdd(322) + '|' + badgeAfterSet(322) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 4)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 4), 0) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g322");
+      logInfo('actual=' + String(actual) + ', expected=' + "323|323|322|1|0|0|g322");
+      expect(actual).assertEqual("323|323|322|1|0|0|g322");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0323 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0324
+     * @tc.name      VPN_NotifBoundary_0324
+     * @tc.desc      notification boundary 323 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('VPN_NotifBoundary_0324', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0324 begin`);
+      logInfo("notification boundary 323");
+      const actual: string = nextNotificationId(323) + '|' + badgeAfterAdd(323) + '|' + badgeAfterSet(323) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 5)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 5), 1) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g323");
+      logInfo('actual=' + String(actual) + ', expected=' + "324|324|323|1|0|1|g323");
+      expect(actual).assertEqual("324|324|323|1|0|1|g323");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0324 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0325
+     * @tc.name      VPN_NotifBoundary_0325
+     * @tc.desc      notification boundary 324 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0325', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0325 begin`);
+      logInfo("notification boundary 324");
+      const actual: string = nextNotificationId(324) + '|' + badgeAfterAdd(324) + '|' + badgeAfterSet(324) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 0)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 0), 2) + '|' + wantAgentActionType(0) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "325|325|324|1|0|0|");
+      expect(actual).assertEqual("325|325|324|1|0|0|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0325 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0326
+     * @tc.name      VPN_NotifBoundary_0326
+     * @tc.desc      notification boundary 325 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0326', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0326 begin`);
+      logInfo("notification boundary 325");
+      const actual: string = nextNotificationId(325) + '|' + badgeAfterAdd(325) + '|' + badgeAfterSet(325) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 1)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 1), 3) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g325");
+      logInfo('actual=' + String(actual) + ', expected=' + "326|326|325|1|0|1|g325");
+      expect(actual).assertEqual("326|326|325|1|0|1|g325");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0326 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0327
+     * @tc.name      VPN_NotifBoundary_0327
+     * @tc.desc      notification boundary 326 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0327', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0327 begin`);
+      logInfo("notification boundary 326");
+      const actual: string = nextNotificationId(326) + '|' + badgeAfterAdd(326) + '|' + badgeAfterSet(326) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 2)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 2), 4) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g326");
+      logInfo('actual=' + String(actual) + ', expected=' + "327|327|326|1|0|0|g326");
+      expect(actual).assertEqual("327|327|326|1|0|0|g326");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0327 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0328
+     * @tc.name      VPN_NotifBoundary_0328
+     * @tc.desc      notification boundary 327 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0328', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0328 begin`);
+      logInfo("notification boundary 327");
+      const actual: string = nextNotificationId(327) + '|' + badgeAfterAdd(327) + '|' + badgeAfterSet(327) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 3)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 3), 5) + '|' + wantAgentActionType(1) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "328|328|327|1|0|1|");
+      expect(actual).assertEqual("328|328|327|1|0|1|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0328 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0329
+     * @tc.name      VPN_NotifBoundary_0329
+     * @tc.desc      notification boundary 328 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0329', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0329 begin`);
+      logInfo("notification boundary 328");
+      const actual: string = nextNotificationId(328) + '|' + badgeAfterAdd(328) + '|' + badgeAfterSet(328) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 4)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 4), 6) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g328");
+      logInfo('actual=' + String(actual) + ', expected=' + "329|329|328|1|0|0|g328");
+      expect(actual).assertEqual("329|329|328|1|0|0|g328");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0329 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0330
+     * @tc.name      VPN_NotifBoundary_0330
+     * @tc.desc      notification boundary 329 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0330', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0330 begin`);
+      logInfo("notification boundary 329");
+      const actual: string = nextNotificationId(329) + '|' + badgeAfterAdd(329) + '|' + badgeAfterSet(329) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 5)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 5), 0) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g329");
+      logInfo('actual=' + String(actual) + ', expected=' + "330|330|329|1|0|1|g329");
+      expect(actual).assertEqual("330|330|329|1|0|1|g329");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0330 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0331
+     * @tc.name      VPN_NotifBoundary_0331
+     * @tc.desc      notification boundary 330 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('VPN_NotifBoundary_0331', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0331 begin`);
+      logInfo("notification boundary 330");
+      const actual: string = nextNotificationId(330) + '|' + badgeAfterAdd(330) + '|' + badgeAfterSet(330) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 0)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 0), 1) + '|' + wantAgentActionType(0) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "331|331|330|1|0|0|");
+      expect(actual).assertEqual("331|331|330|1|0|0|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0331 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0332
+     * @tc.name      VPN_NotifBoundary_0332
+     * @tc.desc      notification boundary 331 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0332', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0332 begin`);
+      logInfo("notification boundary 331");
+      const actual: string = nextNotificationId(331) + '|' + badgeAfterAdd(331) + '|' + badgeAfterSet(331) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 1)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 1), 2) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g331");
+      logInfo('actual=' + String(actual) + ', expected=' + "332|332|331|1|0|1|g331");
+      expect(actual).assertEqual("332|332|331|1|0|1|g331");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0332 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0333
+     * @tc.name      VPN_NotifBoundary_0333
+     * @tc.desc      notification boundary 332 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0333', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0333 begin`);
+      logInfo("notification boundary 332");
+      const actual: string = nextNotificationId(332) + '|' + badgeAfterAdd(332) + '|' + badgeAfterSet(332) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 2)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 2), 3) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g332");
+      logInfo('actual=' + String(actual) + ', expected=' + "333|333|332|1|0|0|g332");
+      expect(actual).assertEqual("333|333|332|1|0|0|g332");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0333 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0334
+     * @tc.name      VPN_NotifBoundary_0334
+     * @tc.desc      notification boundary 333 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0334', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0334 begin`);
+      logInfo("notification boundary 333");
+      const actual: string = nextNotificationId(333) + '|' + badgeAfterAdd(333) + '|' + badgeAfterSet(333) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 3)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 3), 4) + '|' + wantAgentActionType(1) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "334|334|333|1|0|1|");
+      expect(actual).assertEqual("334|334|333|1|0|1|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0334 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0335
+     * @tc.name      VPN_NotifBoundary_0335
+     * @tc.desc      notification boundary 334 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0335', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0335 begin`);
+      logInfo("notification boundary 334");
+      const actual: string = nextNotificationId(334) + '|' + badgeAfterAdd(334) + '|' + badgeAfterSet(334) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 4)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 4), 5) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g334");
+      logInfo('actual=' + String(actual) + ', expected=' + "335|335|334|1|0|0|g334");
+      expect(actual).assertEqual("335|335|334|1|0|0|g334");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0335 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0336
+     * @tc.name      VPN_NotifBoundary_0336
+     * @tc.desc      notification boundary 335 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0336', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0336 begin`);
+      logInfo("notification boundary 335");
+      const actual: string = nextNotificationId(335) + '|' + badgeAfterAdd(335) + '|' + badgeAfterSet(335) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 5)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 5), 6) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g335");
+      logInfo('actual=' + String(actual) + ', expected=' + "336|336|335|1|0|1|g335");
+      expect(actual).assertEqual("336|336|335|1|0|1|g335");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0336 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0337
+     * @tc.name      VPN_NotifBoundary_0337
+     * @tc.desc      notification boundary 336 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0337', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0337 begin`);
+      logInfo("notification boundary 336");
+      const actual: string = nextNotificationId(336) + '|' + badgeAfterAdd(336) + '|' + badgeAfterSet(336) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 0)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 0), 0) + '|' + wantAgentActionType(0) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "337|337|336|1|1|0|");
+      expect(actual).assertEqual("337|337|336|1|1|0|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0337 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0338
+     * @tc.name      VPN_NotifBoundary_0338
+     * @tc.desc      notification boundary 337 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0338', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0338 begin`);
+      logInfo("notification boundary 337");
+      const actual: string = nextNotificationId(337) + '|' + badgeAfterAdd(337) + '|' + badgeAfterSet(337) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 1)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 1), 1) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g337");
+      logInfo('actual=' + String(actual) + ', expected=' + "338|338|337|1|1|1|g337");
+      expect(actual).assertEqual("338|338|337|1|1|1|g337");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0338 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0339
+     * @tc.name      VPN_NotifBoundary_0339
+     * @tc.desc      notification boundary 338 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0339', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0339 begin`);
+      logInfo("notification boundary 338");
+      const actual: string = nextNotificationId(338) + '|' + badgeAfterAdd(338) + '|' + badgeAfterSet(338) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 2)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 2), 2) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g338");
+      logInfo('actual=' + String(actual) + ', expected=' + "339|339|338|1|1|0|g338");
+      expect(actual).assertEqual("339|339|338|1|1|0|g338");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0339 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0340
+     * @tc.name      VPN_NotifBoundary_0340
+     * @tc.desc      notification boundary 339 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0340', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0340 begin`);
+      logInfo("notification boundary 339");
+      const actual: string = nextNotificationId(339) + '|' + badgeAfterAdd(339) + '|' + badgeAfterSet(339) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 3)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 3), 3) + '|' + wantAgentActionType(1) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "340|340|339|1|1|1|");
+      expect(actual).assertEqual("340|340|339|1|1|1|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0340 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0341
+     * @tc.name      VPN_NotifBoundary_0341
+     * @tc.desc      notification boundary 340 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('VPN_NotifBoundary_0341', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0341 begin`);
+      logInfo("notification boundary 340");
+      const actual: string = nextNotificationId(340) + '|' + badgeAfterAdd(340) + '|' + badgeAfterSet(340) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 4)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 4), 4) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g340");
+      logInfo('actual=' + String(actual) + ', expected=' + "341|341|340|1|1|0|g340");
+      expect(actual).assertEqual("341|341|340|1|1|0|g340");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0341 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0342
+     * @tc.name      VPN_NotifBoundary_0342
+     * @tc.desc      notification boundary 341 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('VPN_NotifBoundary_0342', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0342 begin`);
+      logInfo("notification boundary 341");
+      const actual: string = nextNotificationId(341) + '|' + badgeAfterAdd(341) + '|' + badgeAfterSet(341) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 5)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 5), 5) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g341");
+      logInfo('actual=' + String(actual) + ', expected=' + "342|342|341|1|1|1|g341");
+      expect(actual).assertEqual("342|342|341|1|1|1|g341");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0342 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0343
+     * @tc.name      VPN_NotifBoundary_0343
+     * @tc.desc      notification boundary 342 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0343', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0343 begin`);
+      logInfo("notification boundary 342");
+      const actual: string = nextNotificationId(342) + '|' + badgeAfterAdd(342) + '|' + badgeAfterSet(342) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 0)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 0), 6) + '|' + wantAgentActionType(0) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "343|343|342|1|0|0|");
+      expect(actual).assertEqual("343|343|342|1|0|0|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0343 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0344
+     * @tc.name      VPN_NotifBoundary_0344
+     * @tc.desc      notification boundary 343 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0344', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0344 begin`);
+      logInfo("notification boundary 343");
+      const actual: string = nextNotificationId(343) + '|' + badgeAfterAdd(343) + '|' + badgeAfterSet(343) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 1)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 1), 0) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g343");
+      logInfo('actual=' + String(actual) + ', expected=' + "344|344|343|1|0|1|g343");
+      expect(actual).assertEqual("344|344|343|1|0|1|g343");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0344 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0345
+     * @tc.name      VPN_NotifBoundary_0345
+     * @tc.desc      notification boundary 344 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0345', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0345 begin`);
+      logInfo("notification boundary 344");
+      const actual: string = nextNotificationId(344) + '|' + badgeAfterAdd(344) + '|' + badgeAfterSet(344) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 2)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 2), 1) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g344");
+      logInfo('actual=' + String(actual) + ', expected=' + "345|345|344|1|0|0|g344");
+      expect(actual).assertEqual("345|345|344|1|0|0|g344");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0345 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0346
+     * @tc.name      VPN_NotifBoundary_0346
+     * @tc.desc      notification boundary 345 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0346', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0346 begin`);
+      logInfo("notification boundary 345");
+      const actual: string = nextNotificationId(345) + '|' + badgeAfterAdd(345) + '|' + badgeAfterSet(345) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 3)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 3), 2) + '|' + wantAgentActionType(1) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "346|346|345|1|0|1|");
+      expect(actual).assertEqual("346|346|345|1|0|1|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0346 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0347
+     * @tc.name      VPN_NotifBoundary_0347
+     * @tc.desc      notification boundary 346 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0347', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0347 begin`);
+      logInfo("notification boundary 346");
+      const actual: string = nextNotificationId(346) + '|' + badgeAfterAdd(346) + '|' + badgeAfterSet(346) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 4)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 4), 3) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g346");
+      logInfo('actual=' + String(actual) + ', expected=' + "347|347|346|1|0|0|g346");
+      expect(actual).assertEqual("347|347|346|1|0|0|g346");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0347 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0348
+     * @tc.name      VPN_NotifBoundary_0348
+     * @tc.desc      notification boundary 347 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0348', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0348 begin`);
+      logInfo("notification boundary 347");
+      const actual: string = nextNotificationId(347) + '|' + badgeAfterAdd(347) + '|' + badgeAfterSet(347) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 5)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 5), 4) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g347");
+      logInfo('actual=' + String(actual) + ', expected=' + "348|348|347|1|0|1|g347");
+      expect(actual).assertEqual("348|348|347|1|0|1|g347");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0348 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0349
+     * @tc.name      VPN_NotifBoundary_0349
+     * @tc.desc      notification boundary 348 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0349', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0349 begin`);
+      logInfo("notification boundary 348");
+      const actual: string = nextNotificationId(348) + '|' + badgeAfterAdd(348) + '|' + badgeAfterSet(348) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 0)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 0), 5) + '|' + wantAgentActionType(0) + '|' + notificationGroup("");
+      logInfo('actual=' + String(actual) + ', expected=' + "349|349|348|1|0|0|");
+      expect(actual).assertEqual("349|349|348|1|0|0|");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0349 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0350
+     * @tc.name      VPN_NotifBoundary_0350
+     * @tc.desc      notification boundary 349 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0350', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0350 begin`);
+      logInfo("notification boundary 349");
+      const actual: string = nextNotificationId(349) + '|' + badgeAfterAdd(349) + '|' + badgeAfterSet(349) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 1)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 1), 6) + '|' + wantAgentActionType(1) + '|' + notificationGroup("g349");
+      logInfo('actual=' + String(actual) + ', expected=' + "350|350|349|1|0|1|g349");
+      expect(actual).assertEqual("350|350|349|1|0|1|g349");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifBoundary_0350 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_BOUNDARY_0351
+     * @tc.name      VPN_NotifBoundary_0351
+     * @tc.desc      notification boundary 350 keeps id/badge/counts.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifBoundary_0351', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifBoundary_0351 begin`);
+      logInfo("notification boundary 350");
+      const actual: string = nextNotificationId(350) + '|' + badgeAfterAdd(350) + '|' + badgeAfterSet(350) + '|' + badgeTotal(countsByTypeIncrement(emptyNotificationCounts(), 2)) + '|' + notificationTypeCount(countsByTypeIncrement(emptyNotificationCounts(), 2), 0) + '|' + wantAgentActionType(0) + '|' + notificationGroup("g350");
+      logInfo('actual=' + String(actual) + ', expected=' + "351|351|350|1|0|0|g350");
