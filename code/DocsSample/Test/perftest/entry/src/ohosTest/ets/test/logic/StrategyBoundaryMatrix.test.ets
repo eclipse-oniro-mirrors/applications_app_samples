@@ -5336,3 +5336,1653 @@ export default function strategyBoundaryMatrixTest(): void {
      */
     it('Perf_StrategyMatrix_0280', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       logInfo(`${BUNDLE}StrategyMatrix_0280 begin`);
+      logInfo("strategy matrix 1954,10,50000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([1, 5, 7, 8], 10, 50000, "com.samples.test.perftest", true) + '|' + strategySummary([1, 5, 7, 8], 10, 50000) + '|' + metricListValid([1,5,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|CPU_LOAD,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|10|50000|true");
+      expect(actual).assertEqual("true|CPU_LOAD,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|10|50000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0280 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0281
+     * @tc.name      Perf_StrategyMatrix_0281
+     * @tc.desc      strategy matrix 1961,1,60000,,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0281', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0281 begin`);
+      logInfo("strategy matrix 1961,1,60000,,true");
+      const actual: string = strategyValid([0, 3, 5, 7, 8], 1, 60000, "", true) + '|' + strategySummary([0, 3, 5, 7, 8], 1, 60000) + '|' + metricListValid([0,3,5,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|DURATION,MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|1|60000|true");
+      expect(actual).assertEqual("false|DURATION,MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|1|60000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0281 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0282
+     * @tc.name      Perf_StrategyMatrix_0282
+     * @tc.desc      strategy matrix 1968,2,60001,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0282', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0282 begin`);
+      logInfo("strategy matrix 1968,2,60001,com.samples.test.perftest,true");
+      const actual: string = strategyValid([4, 5, 7, 8], 2, 60001, "com.samples.test.perftest", true) + '|' + strategySummary([4, 5, 7, 8], 2, 60001) + '|' + metricListValid([4,5,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|2|60001|true");
+      expect(actual).assertEqual("false|MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|2|60001|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0282 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0283
+     * @tc.name      Perf_StrategyMatrix_0283
+     * @tc.desc      strategy matrix 1975,3,999,com.samples.test.perftest,false keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0283', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0283 begin`);
+      logInfo("strategy matrix 1975,3,999,com.samples.test.perftest,false");
+      const actual: string = strategyValid([0, 1, 2, 4, 5, 7, 8], 3, 999, "com.samples.test.perftest", false) + '|' + strategySummary([0, 1, 2, 4, 5, 7, 8], 3, 999) + '|' + metricListValid([0,1,2,4,5,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|DURATION,CPU_LOAD,CPU_USAGE,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|3|999|true");
+      expect(actual).assertEqual("false|DURATION,CPU_LOAD,CPU_USAGE,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|3|999|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0283 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0284
+     * @tc.name      Perf_StrategyMatrix_0284
+     * @tc.desc      strategy matrix 1982,4,1000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0284', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0284 begin`);
+      logInfo("strategy matrix 1982,4,1000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([1, 2, 3, 4, 5, 7, 8], 4, 1000, "com.samples.test.perftest", true) + '|' + strategySummary([1, 2, 3, 4, 5, 7, 8], 4, 1000) + '|' + metricListValid([1,2,3,4,5,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|CPU_LOAD,CPU_USAGE,MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|4|1000|true");
+      expect(actual).assertEqual("true|CPU_LOAD,CPU_USAGE,MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|4|1000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0284 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0285
+     * @tc.name      Perf_StrategyMatrix_0285
+     * @tc.desc      strategy matrix 1989,5,30000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0285', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0285 begin`);
+      logInfo("strategy matrix 1989,5,30000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 2, 6, 7, 8], 5, 30000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 2, 6, 7, 8], 5, 30000) + '|' + metricListValid([0,2,6,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,CPU_USAGE,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|5|30000|true");
+      expect(actual).assertEqual("true|DURATION,CPU_USAGE,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|5|30000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0285 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0286
+     * @tc.name      Perf_StrategyMatrix_0286
+     * @tc.desc      strategy matrix 1996,6,50000,,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0286', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0286 begin`);
+      logInfo("strategy matrix 1996,6,50000,,true");
+      const actual: string = strategyValid([2, 3, 6, 7, 8], 6, 50000, "", true) + '|' + strategySummary([2, 3, 6, 7, 8], 6, 50000) + '|' + metricListValid([2,3,6,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|CPU_USAGE,MEMORY_RSS,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|6|50000|true");
+      expect(actual).assertEqual("false|CPU_USAGE,MEMORY_RSS,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|6|50000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0286 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0287
+     * @tc.name      Perf_StrategyMatrix_0287
+     * @tc.desc      strategy matrix 2003,7,60000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_StrategyMatrix_0287', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0287 begin`);
+      logInfo("strategy matrix 2003,7,60000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 1, 4, 6, 7, 8], 7, 60000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 1, 4, 6, 7, 8], 7, 60000) + '|' + metricListValid([0,1,4,6,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,CPU_LOAD,MEMORY_PSS,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|7|60000|true");
+      expect(actual).assertEqual("true|DURATION,CPU_LOAD,MEMORY_PSS,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|7|60000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0287 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0288
+     * @tc.name      Perf_StrategyMatrix_0288
+     * @tc.desc      strategy matrix 2010,8,60001,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0288', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0288 begin`);
+      logInfo("strategy matrix 2010,8,60001,com.samples.test.perftest,true");
+      const actual: string = strategyValid([1, 3, 4, 6, 7, 8], 8, 60001, "com.samples.test.perftest", true) + '|' + strategySummary([1, 3, 4, 6, 7, 8], 8, 60001) + '|' + metricListValid([1,3,4,6,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|CPU_LOAD,MEMORY_RSS,MEMORY_PSS,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|8|60001|true");
+      expect(actual).assertEqual("false|CPU_LOAD,MEMORY_RSS,MEMORY_PSS,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|8|60001|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0288 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0289
+     * @tc.name      Perf_StrategyMatrix_0289
+     * @tc.desc      strategy matrix 2017,9,999,com.samples.test.perftest,false keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0289', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0289 begin`);
+      logInfo("strategy matrix 2017,9,999,com.samples.test.perftest,false");
+      const actual: string = strategyValid([0, 5, 6, 7, 8], 9, 999, "com.samples.test.perftest", false) + '|' + strategySummary([0, 5, 6, 7, 8], 9, 999) + '|' + metricListValid([0,5,6,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|DURATION,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|9|999|true");
+      expect(actual).assertEqual("false|DURATION,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|9|999|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0289 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0290
+     * @tc.name      Perf_StrategyMatrix_0290
+     * @tc.desc      strategy matrix 2024,10,1000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Perf_StrategyMatrix_0290', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0290 begin`);
+      logInfo("strategy matrix 2024,10,1000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([3, 5, 6, 7, 8], 10, 1000, "com.samples.test.perftest", true) + '|' + strategySummary([3, 5, 6, 7, 8], 10, 1000) + '|' + metricListValid([3,5,6,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|10|1000|true");
+      expect(actual).assertEqual("true|MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|10|1000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0290 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0291
+     * @tc.name      Perf_StrategyMatrix_0291
+     * @tc.desc      strategy matrix 2031,1,30000,,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0291', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0291 begin`);
+      logInfo("strategy matrix 2031,1,30000,,true");
+      const actual: string = strategyValid([0, 1, 2, 3, 5, 6, 7, 8], 1, 30000, "", true) + '|' + strategySummary([0, 1, 2, 3, 5, 6, 7, 8], 1, 30000) + '|' + metricListValid([0,1,2,3,5,6,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|DURATION,CPU_LOAD,CPU_USAGE,MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|1|30000|true");
+      expect(actual).assertEqual("false|DURATION,CPU_LOAD,CPU_USAGE,MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|1|30000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0291 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0292
+     * @tc.name      Perf_StrategyMatrix_0292
+     * @tc.desc      strategy matrix 2038,2,50000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0292', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0292 begin`);
+      logInfo("strategy matrix 2038,2,50000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([1, 2, 4, 5, 6, 7, 8], 2, 50000, "com.samples.test.perftest", true) + '|' + strategySummary([1, 2, 4, 5, 6, 7, 8], 2, 50000) + '|' + metricListValid([1,2,4,5,6,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|CPU_LOAD,CPU_USAGE,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|2|50000|true");
+      expect(actual).assertEqual("true|CPU_LOAD,CPU_USAGE,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|2|50000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0292 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0293
+     * @tc.name      Perf_StrategyMatrix_0293
+     * @tc.desc      strategy matrix 2045,3,60000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0293', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0293 begin`);
+      logInfo("strategy matrix 2045,3,60000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 2, 3, 4, 5, 6, 7, 8], 3, 60000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 2, 3, 4, 5, 6, 7, 8], 3, 60000) + '|' + metricListValid([0,2,3,4,5,6,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,CPU_USAGE,MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|3|60000|true");
+      expect(actual).assertEqual("true|DURATION,CPU_USAGE,MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|3|60000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0293 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0294
+     * @tc.name      Perf_StrategyMatrix_0294
+     * @tc.desc      strategy matrix 2052,4,60001,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0294', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0294 begin`);
+      logInfo("strategy matrix 2052,4,60001,com.samples.test.perftest,true");
+      const actual: string = strategyValid([2], 4, 60001, "com.samples.test.perftest", true) + '|' + strategySummary([2], 4, 60001) + '|' + metricListValid([2]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|CPU_USAGE|4|60001|true");
+      expect(actual).assertEqual("false|CPU_USAGE|4|60001|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0294 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0295
+     * @tc.name      Perf_StrategyMatrix_0295
+     * @tc.desc      strategy matrix 2059,5,999,com.samples.test.perftest,false keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0295', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0295 begin`);
+      logInfo("strategy matrix 2059,5,999,com.samples.test.perftest,false");
+      const actual: string = strategyValid([0, 1, 3], 5, 999, "com.samples.test.perftest", false) + '|' + strategySummary([0, 1, 3], 5, 999) + '|' + metricListValid([0,1,3]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|DURATION,CPU_LOAD,MEMORY_RSS|5|999|true");
+      expect(actual).assertEqual("false|DURATION,CPU_LOAD,MEMORY_RSS|5|999|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0295 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0296
+     * @tc.name      Perf_StrategyMatrix_0296
+     * @tc.desc      strategy matrix 2066,6,1000,,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0296', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0296 begin`);
+      logInfo("strategy matrix 2066,6,1000,,true");
+      const actual: string = strategyValid([1, 4], 6, 1000, "", true) + '|' + strategySummary([1, 4], 6, 1000) + '|' + metricListValid([1,4]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|CPU_LOAD,MEMORY_PSS|6|1000|true");
+      expect(actual).assertEqual("false|CPU_LOAD,MEMORY_PSS|6|1000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0296 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0297
+     * @tc.name      Perf_StrategyMatrix_0297
+     * @tc.desc      strategy matrix 2073,7,30000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0297', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0297 begin`);
+      logInfo("strategy matrix 2073,7,30000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 3, 4], 7, 30000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 3, 4], 7, 30000) + '|' + metricListValid([0,3,4]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,MEMORY_RSS,MEMORY_PSS|7|30000|true");
+      expect(actual).assertEqual("true|DURATION,MEMORY_RSS,MEMORY_PSS|7|30000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0297 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0298
+     * @tc.name      Perf_StrategyMatrix_0298
+     * @tc.desc      strategy matrix 2080,8,50000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_StrategyMatrix_0298', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0298 begin`);
+      logInfo("strategy matrix 2080,8,50000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([5], 8, 50000, "com.samples.test.perftest", true) + '|' + strategySummary([5], 8, 50000) + '|' + metricListValid([5]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|PAGE_SWITCH_COMPLETE_TIME|8|50000|true");
+      expect(actual).assertEqual("true|PAGE_SWITCH_COMPLETE_TIME|8|50000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0298 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0299
+     * @tc.name      Perf_StrategyMatrix_0299
+     * @tc.desc      strategy matrix 2087,9,60000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0299', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0299 begin`);
+      logInfo("strategy matrix 2087,9,60000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 1, 2, 5], 9, 60000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 1, 2, 5], 9, 60000) + '|' + metricListValid([0,1,2,5]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,CPU_LOAD,CPU_USAGE,PAGE_SWITCH_COMPLETE_TIME|9|60000|true");
+      expect(actual).assertEqual("true|DURATION,CPU_LOAD,CPU_USAGE,PAGE_SWITCH_COMPLETE_TIME|9|60000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0299 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0300
+     * @tc.name      Perf_StrategyMatrix_0300
+     * @tc.desc      strategy matrix 2094,10,60001,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0300', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0300 begin`);
+      logInfo("strategy matrix 2094,10,60001,com.samples.test.perftest,true");
+      const actual: string = strategyValid([1, 2, 3, 5], 10, 60001, "com.samples.test.perftest", true) + '|' + strategySummary([1, 2, 3, 5], 10, 60001) + '|' + metricListValid([1,2,3,5]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|CPU_LOAD,CPU_USAGE,MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME|10|60001|true");
+      expect(actual).assertEqual("false|CPU_LOAD,CPU_USAGE,MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME|10|60001|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0300 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0301
+     * @tc.name      Perf_StrategyMatrix_0301
+     * @tc.desc      strategy matrix 2101,1,999,,false keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0301', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0301 begin`);
+      logInfo("strategy matrix 2101,1,999,,false");
+      const actual: string = strategyValid([0, 2, 4, 5], 1, 999, "", false) + '|' + strategySummary([0, 2, 4, 5], 1, 999) + '|' + metricListValid([0,2,4,5]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|DURATION,CPU_USAGE,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME|1|999|true");
+      expect(actual).assertEqual("false|DURATION,CPU_USAGE,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME|1|999|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0301 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0302
+     * @tc.name      Perf_StrategyMatrix_0302
+     * @tc.desc      strategy matrix 2108,2,1000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0302', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0302 begin`);
+      logInfo("strategy matrix 2108,2,1000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([2, 3, 4, 5], 2, 1000, "com.samples.test.perftest", true) + '|' + strategySummary([2, 3, 4, 5], 2, 1000) + '|' + metricListValid([2,3,4,5]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|CPU_USAGE,MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME|2|1000|true");
+      expect(actual).assertEqual("true|CPU_USAGE,MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME|2|1000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0302 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0303
+     * @tc.name      Perf_StrategyMatrix_0303
+     * @tc.desc      strategy matrix 2115,3,30000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0303', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0303 begin`);
+      logInfo("strategy matrix 2115,3,30000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 1, 6], 3, 30000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 1, 6], 3, 30000) + '|' + metricListValid([0,1,6]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,CPU_LOAD,LIST_SWIPE_FPS|3|30000|true");
+      expect(actual).assertEqual("true|DURATION,CPU_LOAD,LIST_SWIPE_FPS|3|30000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0303 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0304
+     * @tc.name      Perf_StrategyMatrix_0304
+     * @tc.desc      strategy matrix 2122,4,50000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0304', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0304 begin`);
+      logInfo("strategy matrix 2122,4,50000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([1, 3, 6], 4, 50000, "com.samples.test.perftest", true) + '|' + strategySummary([1, 3, 6], 4, 50000) + '|' + metricListValid([1,3,6]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|CPU_LOAD,MEMORY_RSS,LIST_SWIPE_FPS|4|50000|true");
+      expect(actual).assertEqual("true|CPU_LOAD,MEMORY_RSS,LIST_SWIPE_FPS|4|50000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0304 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0305
+     * @tc.name      Perf_StrategyMatrix_0305
+     * @tc.desc      strategy matrix 2129,5,60000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0305', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0305 begin`);
+      logInfo("strategy matrix 2129,5,60000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 4, 6], 5, 60000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 4, 6], 5, 60000) + '|' + metricListValid([0,4,6]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,MEMORY_PSS,LIST_SWIPE_FPS|5|60000|true");
+      expect(actual).assertEqual("true|DURATION,MEMORY_PSS,LIST_SWIPE_FPS|5|60000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0305 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0306
+     * @tc.name      Perf_StrategyMatrix_0306
+     * @tc.desc      strategy matrix 2136,6,60001,,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0306', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0306 begin`);
+      logInfo("strategy matrix 2136,6,60001,,true");
+      const actual: string = strategyValid([3, 4, 6], 6, 60001, "", true) + '|' + strategySummary([3, 4, 6], 6, 60001) + '|' + metricListValid([3,4,6]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|MEMORY_RSS,MEMORY_PSS,LIST_SWIPE_FPS|6|60001|true");
+      expect(actual).assertEqual("false|MEMORY_RSS,MEMORY_PSS,LIST_SWIPE_FPS|6|60001|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0306 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0307
+     * @tc.name      Perf_StrategyMatrix_0307
+     * @tc.desc      strategy matrix 2143,7,999,com.samples.test.perftest,false keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Perf_StrategyMatrix_0307', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0307 begin`);
+      logInfo("strategy matrix 2143,7,999,com.samples.test.perftest,false");
+      const actual: string = strategyValid([0, 1, 2, 3, 4, 6], 7, 999, "com.samples.test.perftest", false) + '|' + strategySummary([0, 1, 2, 3, 4, 6], 7, 999) + '|' + metricListValid([0,1,2,3,4,6]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|DURATION,CPU_LOAD,CPU_USAGE,MEMORY_RSS,MEMORY_PSS,LIST_SWIPE_FPS|7|999|true");
+      expect(actual).assertEqual("false|DURATION,CPU_LOAD,CPU_USAGE,MEMORY_RSS,MEMORY_PSS,LIST_SWIPE_FPS|7|999|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0307 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0308
+     * @tc.name      Perf_StrategyMatrix_0308
+     * @tc.desc      strategy matrix 2150,8,1000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0308', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0308 begin`);
+      logInfo("strategy matrix 2150,8,1000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([1, 2, 5, 6], 8, 1000, "com.samples.test.perftest", true) + '|' + strategySummary([1, 2, 5, 6], 8, 1000) + '|' + metricListValid([1,2,5,6]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|CPU_LOAD,CPU_USAGE,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS|8|1000|true");
+      expect(actual).assertEqual("true|CPU_LOAD,CPU_USAGE,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS|8|1000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0308 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0309
+     * @tc.name      Perf_StrategyMatrix_0309
+     * @tc.desc      strategy matrix 2157,9,30000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_StrategyMatrix_0309', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0309 begin`);
+      logInfo("strategy matrix 2157,9,30000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 2, 3, 5, 6], 9, 30000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 2, 3, 5, 6], 9, 30000) + '|' + metricListValid([0,2,3,5,6]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,CPU_USAGE,MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS|9|30000|true");
+      expect(actual).assertEqual("true|DURATION,CPU_USAGE,MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS|9|30000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0309 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0310
+     * @tc.name      Perf_StrategyMatrix_0310
+     * @tc.desc      strategy matrix 2164,10,50000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0310', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0310 begin`);
+      logInfo("strategy matrix 2164,10,50000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([2, 4, 5, 6], 10, 50000, "com.samples.test.perftest", true) + '|' + strategySummary([2, 4, 5, 6], 10, 50000) + '|' + metricListValid([2,4,5,6]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|CPU_USAGE,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS|10|50000|true");
+      expect(actual).assertEqual("true|CPU_USAGE,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS|10|50000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0310 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0311
+     * @tc.name      Perf_StrategyMatrix_0311
+     * @tc.desc      strategy matrix 2171,1,60000,,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0311', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0311 begin`);
+      logInfo("strategy matrix 2171,1,60000,,true");
+      const actual: string = strategyValid([0, 1, 3, 4, 5, 6], 1, 60000, "", true) + '|' + strategySummary([0, 1, 3, 4, 5, 6], 1, 60000) + '|' + metricListValid([0,1,3,4,5,6]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|DURATION,CPU_LOAD,MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS|1|60000|true");
+      expect(actual).assertEqual("false|DURATION,CPU_LOAD,MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS|1|60000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0311 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0312
+     * @tc.name      Perf_StrategyMatrix_0312
+     * @tc.desc      strategy matrix 2178,2,60001,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0312', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0312 begin`);
+      logInfo("strategy matrix 2178,2,60001,com.samples.test.perftest,true");
+      const actual: string = strategyValid([1, 7], 2, 60001, "com.samples.test.perftest", true) + '|' + strategySummary([1, 7], 2, 60001) + '|' + metricListValid([1,7]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|CPU_LOAD,APP_START_RESPONSE_TIME|2|60001|true");
+      expect(actual).assertEqual("false|CPU_LOAD,APP_START_RESPONSE_TIME|2|60001|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0312 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0313
+     * @tc.name      Perf_StrategyMatrix_0313
+     * @tc.desc      strategy matrix 2185,3,999,com.samples.test.perftest,false keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0313', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0313 begin`);
+      logInfo("strategy matrix 2185,3,999,com.samples.test.perftest,false");
+      const actual: string = strategyValid([0, 3, 7], 3, 999, "com.samples.test.perftest", false) + '|' + strategySummary([0, 3, 7], 3, 999) + '|' + metricListValid([0,3,7]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|DURATION,MEMORY_RSS,APP_START_RESPONSE_TIME|3|999|true");
+      expect(actual).assertEqual("false|DURATION,MEMORY_RSS,APP_START_RESPONSE_TIME|3|999|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0313 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0314
+     * @tc.name      Perf_StrategyMatrix_0314
+     * @tc.desc      strategy matrix 2192,4,1000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0314', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0314 begin`);
+      logInfo("strategy matrix 2192,4,1000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([4, 7], 4, 1000, "com.samples.test.perftest", true) + '|' + strategySummary([4, 7], 4, 1000) + '|' + metricListValid([4,7]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|MEMORY_PSS,APP_START_RESPONSE_TIME|4|1000|true");
+      expect(actual).assertEqual("true|MEMORY_PSS,APP_START_RESPONSE_TIME|4|1000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0314 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0315
+     * @tc.name      Perf_StrategyMatrix_0315
+     * @tc.desc      strategy matrix 2199,5,30000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0315', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0315 begin`);
+      logInfo("strategy matrix 2199,5,30000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 1, 2, 4, 7], 5, 30000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 1, 2, 4, 7], 5, 30000) + '|' + metricListValid([0,1,2,4,7]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,CPU_LOAD,CPU_USAGE,MEMORY_PSS,APP_START_RESPONSE_TIME|5|30000|true");
+      expect(actual).assertEqual("true|DURATION,CPU_LOAD,CPU_USAGE,MEMORY_PSS,APP_START_RESPONSE_TIME|5|30000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0315 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0316
+     * @tc.name      Perf_StrategyMatrix_0316
+     * @tc.desc      strategy matrix 2206,6,50000,,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0316', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0316 begin`);
+      logInfo("strategy matrix 2206,6,50000,,true");
+      const actual: string = strategyValid([1, 2, 3, 4, 7], 6, 50000, "", true) + '|' + strategySummary([1, 2, 3, 4, 7], 6, 50000) + '|' + metricListValid([1,2,3,4,7]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|CPU_LOAD,CPU_USAGE,MEMORY_RSS,MEMORY_PSS,APP_START_RESPONSE_TIME|6|50000|true");
+      expect(actual).assertEqual("false|CPU_LOAD,CPU_USAGE,MEMORY_RSS,MEMORY_PSS,APP_START_RESPONSE_TIME|6|50000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0316 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0317
+     * @tc.name      Perf_StrategyMatrix_0317
+     * @tc.desc      strategy matrix 2213,7,60000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0317', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0317 begin`);
+      logInfo("strategy matrix 2213,7,60000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 2, 5, 7], 7, 60000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 2, 5, 7], 7, 60000) + '|' + metricListValid([0,2,5,7]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,CPU_USAGE,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME|7|60000|true");
+      expect(actual).assertEqual("true|DURATION,CPU_USAGE,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME|7|60000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0317 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0318
+     * @tc.name      Perf_StrategyMatrix_0318
+     * @tc.desc      strategy matrix 2220,8,60001,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0318', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0318 begin`);
+      logInfo("strategy matrix 2220,8,60001,com.samples.test.perftest,true");
+      const actual: string = strategyValid([2, 3, 5, 7], 8, 60001, "com.samples.test.perftest", true) + '|' + strategySummary([2, 3, 5, 7], 8, 60001) + '|' + metricListValid([2,3,5,7]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|CPU_USAGE,MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME|8|60001|true");
+      expect(actual).assertEqual("false|CPU_USAGE,MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME|8|60001|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0318 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0319
+     * @tc.name      Perf_StrategyMatrix_0319
+     * @tc.desc      strategy matrix 2227,9,999,com.samples.test.perftest,false keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0319', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0319 begin`);
+      logInfo("strategy matrix 2227,9,999,com.samples.test.perftest,false");
+      const actual: string = strategyValid([0, 1, 4, 5, 7], 9, 999, "com.samples.test.perftest", false) + '|' + strategySummary([0, 1, 4, 5, 7], 9, 999) + '|' + metricListValid([0,1,4,5,7]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|DURATION,CPU_LOAD,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME|9|999|true");
+      expect(actual).assertEqual("false|DURATION,CPU_LOAD,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME|9|999|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0319 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0320
+     * @tc.name      Perf_StrategyMatrix_0320
+     * @tc.desc      strategy matrix 2234,10,1000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_StrategyMatrix_0320', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0320 begin`);
+      logInfo("strategy matrix 2234,10,1000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([1, 3, 4, 5, 7], 10, 1000, "com.samples.test.perftest", true) + '|' + strategySummary([1, 3, 4, 5, 7], 10, 1000) + '|' + metricListValid([1,3,4,5,7]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|CPU_LOAD,MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME|10|1000|true");
+      expect(actual).assertEqual("true|CPU_LOAD,MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME|10|1000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0320 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0321
+     * @tc.name      Perf_StrategyMatrix_0321
+     * @tc.desc      strategy matrix 2241,1,30000,,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0321', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0321 begin`);
+      logInfo("strategy matrix 2241,1,30000,,true");
+      const actual: string = strategyValid([0, 6, 7], 1, 30000, "", true) + '|' + strategySummary([0, 6, 7], 1, 30000) + '|' + metricListValid([0,6,7]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|DURATION,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME|1|30000|true");
+      expect(actual).assertEqual("false|DURATION,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME|1|30000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0321 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0322
+     * @tc.name      Perf_StrategyMatrix_0322
+     * @tc.desc      strategy matrix 2248,2,50000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0322', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0322 begin`);
+      logInfo("strategy matrix 2248,2,50000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([3, 6, 7], 2, 50000, "com.samples.test.perftest", true) + '|' + strategySummary([3, 6, 7], 2, 50000) + '|' + metricListValid([3,6,7]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|MEMORY_RSS,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME|2|50000|true");
+      expect(actual).assertEqual("true|MEMORY_RSS,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME|2|50000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0322 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0323
+     * @tc.name      Perf_StrategyMatrix_0323
+     * @tc.desc      strategy matrix 2255,3,60000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0323', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0323 begin`);
+      logInfo("strategy matrix 2255,3,60000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 1, 2, 3, 6, 7], 3, 60000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 1, 2, 3, 6, 7], 3, 60000) + '|' + metricListValid([0,1,2,3,6,7]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,CPU_LOAD,CPU_USAGE,MEMORY_RSS,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME|3|60000|true");
+      expect(actual).assertEqual("true|DURATION,CPU_LOAD,CPU_USAGE,MEMORY_RSS,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME|3|60000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0323 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0324
+     * @tc.name      Perf_StrategyMatrix_0324
+     * @tc.desc      strategy matrix 2262,4,60001,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Perf_StrategyMatrix_0324', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0324 begin`);
+      logInfo("strategy matrix 2262,4,60001,com.samples.test.perftest,true");
+      const actual: string = strategyValid([1, 2, 4, 6, 7], 4, 60001, "com.samples.test.perftest", true) + '|' + strategySummary([1, 2, 4, 6, 7], 4, 60001) + '|' + metricListValid([1,2,4,6,7]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|CPU_LOAD,CPU_USAGE,MEMORY_PSS,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME|4|60001|true");
+      expect(actual).assertEqual("false|CPU_LOAD,CPU_USAGE,MEMORY_PSS,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME|4|60001|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0324 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0325
+     * @tc.name      Perf_StrategyMatrix_0325
+     * @tc.desc      strategy matrix 2269,5,999,com.samples.test.perftest,false keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0325', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0325 begin`);
+      logInfo("strategy matrix 2269,5,999,com.samples.test.perftest,false");
+      const actual: string = strategyValid([0, 2, 3, 4, 6, 7], 5, 999, "com.samples.test.perftest", false) + '|' + strategySummary([0, 2, 3, 4, 6, 7], 5, 999) + '|' + metricListValid([0,2,3,4,6,7]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|DURATION,CPU_USAGE,MEMORY_RSS,MEMORY_PSS,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME|5|999|true");
+      expect(actual).assertEqual("false|DURATION,CPU_USAGE,MEMORY_RSS,MEMORY_PSS,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME|5|999|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0325 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0326
+     * @tc.name      Perf_StrategyMatrix_0326
+     * @tc.desc      strategy matrix 2276,6,1000,,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0326', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0326 begin`);
+      logInfo("strategy matrix 2276,6,1000,,true");
+      const actual: string = strategyValid([2, 5, 6, 7], 6, 1000, "", true) + '|' + strategySummary([2, 5, 6, 7], 6, 1000) + '|' + metricListValid([2,5,6,7]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|CPU_USAGE,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME|6|1000|true");
+      expect(actual).assertEqual("false|CPU_USAGE,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME|6|1000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0326 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0327
+     * @tc.name      Perf_StrategyMatrix_0327
+     * @tc.desc      strategy matrix 2283,7,30000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0327', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0327 begin`);
+      logInfo("strategy matrix 2283,7,30000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 1, 3, 5, 6, 7], 7, 30000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 1, 3, 5, 6, 7], 7, 30000) + '|' + metricListValid([0,1,3,5,6,7]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,CPU_LOAD,MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME|7|30000|true");
+      expect(actual).assertEqual("true|DURATION,CPU_LOAD,MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME|7|30000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0327 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0328
+     * @tc.name      Perf_StrategyMatrix_0328
+     * @tc.desc      strategy matrix 2290,8,50000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0328', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0328 begin`);
+      logInfo("strategy matrix 2290,8,50000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([1, 4, 5, 6, 7], 8, 50000, "com.samples.test.perftest", true) + '|' + strategySummary([1, 4, 5, 6, 7], 8, 50000) + '|' + metricListValid([1,4,5,6,7]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|CPU_LOAD,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME|8|50000|true");
+      expect(actual).assertEqual("true|CPU_LOAD,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME|8|50000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0328 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0329
+     * @tc.name      Perf_StrategyMatrix_0329
+     * @tc.desc      strategy matrix 2297,9,60000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0329', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0329 begin`);
+      logInfo("strategy matrix 2297,9,60000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 3, 4, 5, 6, 7], 9, 60000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 3, 4, 5, 6, 7], 9, 60000) + '|' + metricListValid([0,3,4,5,6,7]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME|9|60000|true");
+      expect(actual).assertEqual("true|DURATION,MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME|9|60000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0329 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0330
+     * @tc.name      Perf_StrategyMatrix_0330
+     * @tc.desc      strategy matrix 2304,10,60001,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0330', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0330 begin`);
+      logInfo("strategy matrix 2304,10,60001,com.samples.test.perftest,true");
+      const actual: string = strategyValid([8], 10, 60001, "com.samples.test.perftest", true) + '|' + strategySummary([8], 10, 60001) + '|' + metricListValid([8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|APP_START_COMPLETE_TIME|10|60001|true");
+      expect(actual).assertEqual("false|APP_START_COMPLETE_TIME|10|60001|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0330 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0331
+     * @tc.name      Perf_StrategyMatrix_0331
+     * @tc.desc      strategy matrix 2311,1,999,,false keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_StrategyMatrix_0331', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0331 begin`);
+      logInfo("strategy matrix 2311,1,999,,false");
+      const actual: string = strategyValid([0, 1, 2, 8], 1, 999, "", false) + '|' + strategySummary([0, 1, 2, 8], 1, 999) + '|' + metricListValid([0,1,2,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|DURATION,CPU_LOAD,CPU_USAGE,APP_START_COMPLETE_TIME|1|999|true");
+      expect(actual).assertEqual("false|DURATION,CPU_LOAD,CPU_USAGE,APP_START_COMPLETE_TIME|1|999|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0331 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0332
+     * @tc.name      Perf_StrategyMatrix_0332
+     * @tc.desc      strategy matrix 2318,2,1000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0332', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0332 begin`);
+      logInfo("strategy matrix 2318,2,1000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([1, 2, 3, 8], 2, 1000, "com.samples.test.perftest", true) + '|' + strategySummary([1, 2, 3, 8], 2, 1000) + '|' + metricListValid([1,2,3,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|CPU_LOAD,CPU_USAGE,MEMORY_RSS,APP_START_COMPLETE_TIME|2|1000|true");
+      expect(actual).assertEqual("true|CPU_LOAD,CPU_USAGE,MEMORY_RSS,APP_START_COMPLETE_TIME|2|1000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0332 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0333
+     * @tc.name      Perf_StrategyMatrix_0333
+     * @tc.desc      strategy matrix 2325,3,30000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0333', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0333 begin`);
+      logInfo("strategy matrix 2325,3,30000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 2, 4, 8], 3, 30000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 2, 4, 8], 3, 30000) + '|' + metricListValid([0,2,4,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,CPU_USAGE,MEMORY_PSS,APP_START_COMPLETE_TIME|3|30000|true");
+      expect(actual).assertEqual("true|DURATION,CPU_USAGE,MEMORY_PSS,APP_START_COMPLETE_TIME|3|30000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0333 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0334
+     * @tc.name      Perf_StrategyMatrix_0334
+     * @tc.desc      strategy matrix 2332,4,50000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0334', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0334 begin`);
+      logInfo("strategy matrix 2332,4,50000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([2, 3, 4, 8], 4, 50000, "com.samples.test.perftest", true) + '|' + strategySummary([2, 3, 4, 8], 4, 50000) + '|' + metricListValid([2,3,4,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|CPU_USAGE,MEMORY_RSS,MEMORY_PSS,APP_START_COMPLETE_TIME|4|50000|true");
+      expect(actual).assertEqual("true|CPU_USAGE,MEMORY_RSS,MEMORY_PSS,APP_START_COMPLETE_TIME|4|50000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0334 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0335
+     * @tc.name      Perf_StrategyMatrix_0335
+     * @tc.desc      strategy matrix 2339,5,60000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0335', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0335 begin`);
+      logInfo("strategy matrix 2339,5,60000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 1, 5, 8], 5, 60000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 1, 5, 8], 5, 60000) + '|' + metricListValid([0,1,5,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,CPU_LOAD,PAGE_SWITCH_COMPLETE_TIME,APP_START_COMPLETE_TIME|5|60000|true");
+      expect(actual).assertEqual("true|DURATION,CPU_LOAD,PAGE_SWITCH_COMPLETE_TIME,APP_START_COMPLETE_TIME|5|60000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0335 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0336
+     * @tc.name      Perf_StrategyMatrix_0336
+     * @tc.desc      strategy matrix 2346,6,60001,,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0336', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0336 begin`);
+      logInfo("strategy matrix 2346,6,60001,,true");
+      const actual: string = strategyValid([1, 3, 5, 8], 6, 60001, "", true) + '|' + strategySummary([1, 3, 5, 8], 6, 60001) + '|' + metricListValid([1,3,5,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|CPU_LOAD,MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_COMPLETE_TIME|6|60001|true");
+      expect(actual).assertEqual("false|CPU_LOAD,MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_COMPLETE_TIME|6|60001|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0336 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0337
+     * @tc.name      Perf_StrategyMatrix_0337
+     * @tc.desc      strategy matrix 2353,7,999,com.samples.test.perftest,false keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0337', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0337 begin`);
+      logInfo("strategy matrix 2353,7,999,com.samples.test.perftest,false");
+      const actual: string = strategyValid([0, 4, 5, 8], 7, 999, "com.samples.test.perftest", false) + '|' + strategySummary([0, 4, 5, 8], 7, 999) + '|' + metricListValid([0,4,5,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|DURATION,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_COMPLETE_TIME|7|999|true");
+      expect(actual).assertEqual("false|DURATION,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_COMPLETE_TIME|7|999|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0337 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0338
+     * @tc.name      Perf_StrategyMatrix_0338
+     * @tc.desc      strategy matrix 2360,8,1000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0338', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0338 begin`);
+      logInfo("strategy matrix 2360,8,1000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([3, 4, 5, 8], 8, 1000, "com.samples.test.perftest", true) + '|' + strategySummary([3, 4, 5, 8], 8, 1000) + '|' + metricListValid([3,4,5,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_COMPLETE_TIME|8|1000|true");
+      expect(actual).assertEqual("true|MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_COMPLETE_TIME|8|1000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0338 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0339
+     * @tc.name      Perf_StrategyMatrix_0339
+     * @tc.desc      strategy matrix 2367,9,30000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0339', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0339 begin`);
+      logInfo("strategy matrix 2367,9,30000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 1, 2, 3, 4, 5, 8], 9, 30000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 1, 2, 3, 4, 5, 8], 9, 30000) + '|' + metricListValid([0,1,2,3,4,5,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,CPU_LOAD,CPU_USAGE,MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_COMPLETE_TIME|9|30000|true");
+      expect(actual).assertEqual("true|DURATION,CPU_LOAD,CPU_USAGE,MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_COMPLETE_TIME|9|30000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0339 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0340
+     * @tc.name      Perf_StrategyMatrix_0340
+     * @tc.desc      strategy matrix 2374,10,50000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0340', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0340 begin`);
+      logInfo("strategy matrix 2374,10,50000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([1, 2, 6, 8], 10, 50000, "com.samples.test.perftest", true) + '|' + strategySummary([1, 2, 6, 8], 10, 50000) + '|' + metricListValid([1,2,6,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|CPU_LOAD,CPU_USAGE,LIST_SWIPE_FPS,APP_START_COMPLETE_TIME|10|50000|true");
+      expect(actual).assertEqual("true|CPU_LOAD,CPU_USAGE,LIST_SWIPE_FPS,APP_START_COMPLETE_TIME|10|50000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0340 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0341
+     * @tc.name      Perf_StrategyMatrix_0341
+     * @tc.desc      strategy matrix 2381,1,60000,,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Perf_StrategyMatrix_0341', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0341 begin`);
+      logInfo("strategy matrix 2381,1,60000,,true");
+      const actual: string = strategyValid([0, 2, 3, 6, 8], 1, 60000, "", true) + '|' + strategySummary([0, 2, 3, 6, 8], 1, 60000) + '|' + metricListValid([0,2,3,6,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|DURATION,CPU_USAGE,MEMORY_RSS,LIST_SWIPE_FPS,APP_START_COMPLETE_TIME|1|60000|true");
+      expect(actual).assertEqual("false|DURATION,CPU_USAGE,MEMORY_RSS,LIST_SWIPE_FPS,APP_START_COMPLETE_TIME|1|60000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0341 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0342
+     * @tc.name      Perf_StrategyMatrix_0342
+     * @tc.desc      strategy matrix 2388,2,60001,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_StrategyMatrix_0342', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0342 begin`);
+      logInfo("strategy matrix 2388,2,60001,com.samples.test.perftest,true");
+      const actual: string = strategyValid([2, 4, 6, 8], 2, 60001, "com.samples.test.perftest", true) + '|' + strategySummary([2, 4, 6, 8], 2, 60001) + '|' + metricListValid([2,4,6,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|CPU_USAGE,MEMORY_PSS,LIST_SWIPE_FPS,APP_START_COMPLETE_TIME|2|60001|true");
+      expect(actual).assertEqual("false|CPU_USAGE,MEMORY_PSS,LIST_SWIPE_FPS,APP_START_COMPLETE_TIME|2|60001|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0342 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0343
+     * @tc.name      Perf_StrategyMatrix_0343
+     * @tc.desc      strategy matrix 2395,3,999,com.samples.test.perftest,false keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0343', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0343 begin`);
+      logInfo("strategy matrix 2395,3,999,com.samples.test.perftest,false");
+      const actual: string = strategyValid([0, 1, 3, 4, 6, 8], 3, 999, "com.samples.test.perftest", false) + '|' + strategySummary([0, 1, 3, 4, 6, 8], 3, 999) + '|' + metricListValid([0,1,3,4,6,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|DURATION,CPU_LOAD,MEMORY_RSS,MEMORY_PSS,LIST_SWIPE_FPS,APP_START_COMPLETE_TIME|3|999|true");
+      expect(actual).assertEqual("false|DURATION,CPU_LOAD,MEMORY_RSS,MEMORY_PSS,LIST_SWIPE_FPS,APP_START_COMPLETE_TIME|3|999|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0343 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0344
+     * @tc.name      Perf_StrategyMatrix_0344
+     * @tc.desc      strategy matrix 2402,4,1000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0344', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0344 begin`);
+      logInfo("strategy matrix 2402,4,1000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([1, 5, 6, 8], 4, 1000, "com.samples.test.perftest", true) + '|' + strategySummary([1, 5, 6, 8], 4, 1000) + '|' + metricListValid([1,5,6,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|CPU_LOAD,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_COMPLETE_TIME|4|1000|true");
+      expect(actual).assertEqual("true|CPU_LOAD,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_COMPLETE_TIME|4|1000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0344 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0345
+     * @tc.name      Perf_StrategyMatrix_0345
+     * @tc.desc      strategy matrix 2409,5,30000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0345', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0345 begin`);
+      logInfo("strategy matrix 2409,5,30000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 3, 5, 6, 8], 5, 30000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 3, 5, 6, 8], 5, 30000) + '|' + metricListValid([0,3,5,6,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_COMPLETE_TIME|5|30000|true");
+      expect(actual).assertEqual("true|DURATION,MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_COMPLETE_TIME|5|30000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0345 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0346
+     * @tc.name      Perf_StrategyMatrix_0346
+     * @tc.desc      strategy matrix 2416,6,50000,,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0346', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0346 begin`);
+      logInfo("strategy matrix 2416,6,50000,,true");
+      const actual: string = strategyValid([4, 5, 6, 8], 6, 50000, "", true) + '|' + strategySummary([4, 5, 6, 8], 6, 50000) + '|' + metricListValid([4,5,6,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_COMPLETE_TIME|6|50000|true");
+      expect(actual).assertEqual("false|MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_COMPLETE_TIME|6|50000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0346 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0347
+     * @tc.name      Perf_StrategyMatrix_0347
+     * @tc.desc      strategy matrix 2423,7,60000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0347', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0347 begin`);
+      logInfo("strategy matrix 2423,7,60000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 1, 2, 4, 5, 6, 8], 7, 60000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 1, 2, 4, 5, 6, 8], 7, 60000) + '|' + metricListValid([0,1,2,4,5,6,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,CPU_LOAD,CPU_USAGE,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_COMPLETE_TIME|7|60000|true");
+      expect(actual).assertEqual("true|DURATION,CPU_LOAD,CPU_USAGE,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_COMPLETE_TIME|7|60000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0347 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0348
+     * @tc.name      Perf_StrategyMatrix_0348
+     * @tc.desc      strategy matrix 2430,8,60001,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0348', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0348 begin`);
+      logInfo("strategy matrix 2430,8,60001,com.samples.test.perftest,true");
+      const actual: string = strategyValid([1, 2, 3, 4, 5, 6, 8], 8, 60001, "com.samples.test.perftest", true) + '|' + strategySummary([1, 2, 3, 4, 5, 6, 8], 8, 60001) + '|' + metricListValid([1,2,3,4,5,6,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|CPU_LOAD,CPU_USAGE,MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_COMPLETE_TIME|8|60001|true");
+      expect(actual).assertEqual("false|CPU_LOAD,CPU_USAGE,MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_COMPLETE_TIME|8|60001|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0348 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0349
+     * @tc.name      Perf_StrategyMatrix_0349
+     * @tc.desc      strategy matrix 2437,9,999,com.samples.test.perftest,false keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0349', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0349 begin`);
+      logInfo("strategy matrix 2437,9,999,com.samples.test.perftest,false");
+      const actual: string = strategyValid([0, 2, 7, 8], 9, 999, "com.samples.test.perftest", false) + '|' + strategySummary([0, 2, 7, 8], 9, 999) + '|' + metricListValid([0,2,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|DURATION,CPU_USAGE,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|9|999|true");
+      expect(actual).assertEqual("false|DURATION,CPU_USAGE,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|9|999|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0349 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0350
+     * @tc.name      Perf_StrategyMatrix_0350
+     * @tc.desc      strategy matrix 2444,10,1000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0350', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0350 begin`);
+      logInfo("strategy matrix 2444,10,1000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([2, 3, 7, 8], 10, 1000, "com.samples.test.perftest", true) + '|' + strategySummary([2, 3, 7, 8], 10, 1000) + '|' + metricListValid([2,3,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|CPU_USAGE,MEMORY_RSS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|10|1000|true");
+      expect(actual).assertEqual("true|CPU_USAGE,MEMORY_RSS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|10|1000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0350 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0351
+     * @tc.name      Perf_StrategyMatrix_0351
+     * @tc.desc      strategy matrix 2451,1,30000,,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0351', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0351 begin`);
+      logInfo("strategy matrix 2451,1,30000,,true");
+      const actual: string = strategyValid([0, 1, 4, 7, 8], 1, 30000, "", true) + '|' + strategySummary([0, 1, 4, 7, 8], 1, 30000) + '|' + metricListValid([0,1,4,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|DURATION,CPU_LOAD,MEMORY_PSS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|1|30000|true");
+      expect(actual).assertEqual("false|DURATION,CPU_LOAD,MEMORY_PSS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|1|30000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0351 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0352
+     * @tc.name      Perf_StrategyMatrix_0352
+     * @tc.desc      strategy matrix 2458,2,50000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0352', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0352 begin`);
+      logInfo("strategy matrix 2458,2,50000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([1, 3, 4, 7, 8], 2, 50000, "com.samples.test.perftest", true) + '|' + strategySummary([1, 3, 4, 7, 8], 2, 50000) + '|' + metricListValid([1,3,4,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|CPU_LOAD,MEMORY_RSS,MEMORY_PSS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|2|50000|true");
+      expect(actual).assertEqual("true|CPU_LOAD,MEMORY_RSS,MEMORY_PSS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|2|50000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0352 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0353
+     * @tc.name      Perf_StrategyMatrix_0353
+     * @tc.desc      strategy matrix 2465,3,60000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_StrategyMatrix_0353', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0353 begin`);
+      logInfo("strategy matrix 2465,3,60000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 5, 7, 8], 3, 60000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 5, 7, 8], 3, 60000) + '|' + metricListValid([0,5,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|3|60000|true");
+      expect(actual).assertEqual("true|DURATION,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|3|60000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0353 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0354
+     * @tc.name      Perf_StrategyMatrix_0354
+     * @tc.desc      strategy matrix 2472,4,60001,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0354', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0354 begin`);
+      logInfo("strategy matrix 2472,4,60001,com.samples.test.perftest,true");
+      const actual: string = strategyValid([3, 5, 7, 8], 4, 60001, "com.samples.test.perftest", true) + '|' + strategySummary([3, 5, 7, 8], 4, 60001) + '|' + metricListValid([3,5,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|4|60001|true");
+      expect(actual).assertEqual("false|MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|4|60001|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0354 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0355
+     * @tc.name      Perf_StrategyMatrix_0355
+     * @tc.desc      strategy matrix 2479,5,999,com.samples.test.perftest,false keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0355', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0355 begin`);
+      logInfo("strategy matrix 2479,5,999,com.samples.test.perftest,false");
+      const actual: string = strategyValid([0, 1, 2, 3, 5, 7, 8], 5, 999, "com.samples.test.perftest", false) + '|' + strategySummary([0, 1, 2, 3, 5, 7, 8], 5, 999) + '|' + metricListValid([0,1,2,3,5,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|DURATION,CPU_LOAD,CPU_USAGE,MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|5|999|true");
+      expect(actual).assertEqual("false|DURATION,CPU_LOAD,CPU_USAGE,MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|5|999|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0355 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0356
+     * @tc.name      Perf_StrategyMatrix_0356
+     * @tc.desc      strategy matrix 2486,6,1000,,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0356', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0356 begin`);
+      logInfo("strategy matrix 2486,6,1000,,true");
+      const actual: string = strategyValid([1, 2, 4, 5, 7, 8], 6, 1000, "", true) + '|' + strategySummary([1, 2, 4, 5, 7, 8], 6, 1000) + '|' + metricListValid([1,2,4,5,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|CPU_LOAD,CPU_USAGE,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|6|1000|true");
+      expect(actual).assertEqual("false|CPU_LOAD,CPU_USAGE,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|6|1000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0356 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0357
+     * @tc.name      Perf_StrategyMatrix_0357
+     * @tc.desc      strategy matrix 2493,7,30000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0357', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0357 begin`);
+      logInfo("strategy matrix 2493,7,30000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 2, 3, 4, 5, 7, 8], 7, 30000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 2, 3, 4, 5, 7, 8], 7, 30000) + '|' + metricListValid([0,2,3,4,5,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,CPU_USAGE,MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|7|30000|true");
+      expect(actual).assertEqual("true|DURATION,CPU_USAGE,MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|7|30000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0357 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0358
+     * @tc.name      Perf_StrategyMatrix_0358
+     * @tc.desc      strategy matrix 2500,8,50000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Perf_StrategyMatrix_0358', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0358 begin`);
+      logInfo("strategy matrix 2500,8,50000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([2, 6, 7, 8], 8, 50000, "com.samples.test.perftest", true) + '|' + strategySummary([2, 6, 7, 8], 8, 50000) + '|' + metricListValid([2,6,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|CPU_USAGE,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|8|50000|true");
+      expect(actual).assertEqual("true|CPU_USAGE,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|8|50000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0358 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0359
+     * @tc.name      Perf_StrategyMatrix_0359
+     * @tc.desc      strategy matrix 2507,9,60000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0359', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0359 begin`);
+      logInfo("strategy matrix 2507,9,60000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 1, 3, 6, 7, 8], 9, 60000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 1, 3, 6, 7, 8], 9, 60000) + '|' + metricListValid([0,1,3,6,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,CPU_LOAD,MEMORY_RSS,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|9|60000|true");
+      expect(actual).assertEqual("true|DURATION,CPU_LOAD,MEMORY_RSS,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|9|60000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0359 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0360
+     * @tc.name      Perf_StrategyMatrix_0360
+     * @tc.desc      strategy matrix 2514,10,60001,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0360', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0360 begin`);
+      logInfo("strategy matrix 2514,10,60001,com.samples.test.perftest,true");
+      const actual: string = strategyValid([1, 4, 6, 7, 8], 10, 60001, "com.samples.test.perftest", true) + '|' + strategySummary([1, 4, 6, 7, 8], 10, 60001) + '|' + metricListValid([1,4,6,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|CPU_LOAD,MEMORY_PSS,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|10|60001|true");
+      expect(actual).assertEqual("false|CPU_LOAD,MEMORY_PSS,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|10|60001|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0360 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0361
+     * @tc.name      Perf_StrategyMatrix_0361
+     * @tc.desc      strategy matrix 2521,1,999,,false keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0361', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0361 begin`);
+      logInfo("strategy matrix 2521,1,999,,false");
+      const actual: string = strategyValid([0, 3, 4, 6, 7, 8], 1, 999, "", false) + '|' + strategySummary([0, 3, 4, 6, 7, 8], 1, 999) + '|' + metricListValid([0,3,4,6,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|DURATION,MEMORY_RSS,MEMORY_PSS,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|1|999|true");
+      expect(actual).assertEqual("false|DURATION,MEMORY_RSS,MEMORY_PSS,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|1|999|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0361 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0362
+     * @tc.name      Perf_StrategyMatrix_0362
+     * @tc.desc      strategy matrix 2528,2,1000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0362', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0362 begin`);
+      logInfo("strategy matrix 2528,2,1000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([5, 6, 7, 8], 2, 1000, "com.samples.test.perftest", true) + '|' + strategySummary([5, 6, 7, 8], 2, 1000) + '|' + metricListValid([5,6,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|2|1000|true");
+      expect(actual).assertEqual("true|PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|2|1000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0362 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0363
+     * @tc.name      Perf_StrategyMatrix_0363
+     * @tc.desc      strategy matrix 2535,3,30000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0363', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0363 begin`);
+      logInfo("strategy matrix 2535,3,30000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 1, 2, 5, 6, 7, 8], 3, 30000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 1, 2, 5, 6, 7, 8], 3, 30000) + '|' + metricListValid([0,1,2,5,6,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,CPU_LOAD,CPU_USAGE,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|3|30000|true");
+      expect(actual).assertEqual("true|DURATION,CPU_LOAD,CPU_USAGE,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|3|30000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0363 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0364
+     * @tc.name      Perf_StrategyMatrix_0364
+     * @tc.desc      strategy matrix 2542,4,50000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_StrategyMatrix_0364', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0364 begin`);
+      logInfo("strategy matrix 2542,4,50000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([1, 2, 3, 5, 6, 7, 8], 4, 50000, "com.samples.test.perftest", true) + '|' + strategySummary([1, 2, 3, 5, 6, 7, 8], 4, 50000) + '|' + metricListValid([1,2,3,5,6,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|CPU_LOAD,CPU_USAGE,MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|4|50000|true");
+      expect(actual).assertEqual("true|CPU_LOAD,CPU_USAGE,MEMORY_RSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|4|50000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0364 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0365
+     * @tc.name      Perf_StrategyMatrix_0365
+     * @tc.desc      strategy matrix 2549,5,60000,com.samples.test.perftest,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0365', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0365 begin`);
+      logInfo("strategy matrix 2549,5,60000,com.samples.test.perftest,true");
+      const actual: string = strategyValid([0, 2, 4, 5, 6, 7, 8], 5, 60000, "com.samples.test.perftest", true) + '|' + strategySummary([0, 2, 4, 5, 6, 7, 8], 5, 60000) + '|' + metricListValid([0,2,4,5,6,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "true|DURATION,CPU_USAGE,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|5|60000|true");
+      expect(actual).assertEqual("true|DURATION,CPU_USAGE,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|5|60000|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0365 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0366
+     * @tc.name      Perf_StrategyMatrix_0366
+     * @tc.desc      strategy matrix 2556,6,60001,,true keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyMatrix_0366', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyMatrix_0366 begin`);
+      logInfo("strategy matrix 2556,6,60001,,true");
+      const actual: string = strategyValid([2, 3, 4, 5, 6, 7, 8], 6, 60001, "", true) + '|' + strategySummary([2, 3, 4, 5, 6, 7, 8], 6, 60001) + '|' + metricListValid([2,3,4,5,6,7,8]);
+      logInfo('actual=' + String(actual) + ', expected=' + "false|CPU_USAGE,MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|6|60001|true");
+      expect(actual).assertEqual("false|CPU_USAGE,MEMORY_RSS,MEMORY_PSS,PAGE_SWITCH_COMPLETE_TIME,LIST_SWIPE_FPS,APP_START_RESPONSE_TIME,APP_START_COMPLETE_TIME|6|60001|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyMatrix_0366 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_MATRIX_0367
+     * @tc.name      Perf_StrategyMatrix_0367
+     * @tc.desc      strategy matrix 2563,7,999,com.samples.test.perftest,false keeps validation/summary.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
