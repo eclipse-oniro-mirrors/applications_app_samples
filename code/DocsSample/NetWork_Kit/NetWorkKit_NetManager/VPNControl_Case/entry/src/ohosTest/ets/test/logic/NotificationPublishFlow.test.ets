@@ -825,3 +825,167 @@ export default function notificationPublishFlowTest(): void {
       logInfo('typeof actual=' + typeof actual);
       expect(typeof actual).assertEqual('string');
       logInfo(`${BUNDLE}NotifFlow_0035 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_FLOW_0036
+     * @tc.name      VPN_NotifFlow_0036
+     * @tc.desc      publish type 5 x0 updates counts/badge.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifFlow_0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifFlow_0036 begin`);
+      const subject: NotificationModel = new NotificationModel();
+      logInfo("publish type=5 count=0");
+      const actual: string = subject.countOf(5) + ':' + subject.badgeValue() + ':' + subject.published();
+      logInfo('actual=' + String(actual) + ', expected=' + "0:0:0");
+      expect(actual).assertEqual("0:0:0");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifFlow_0036 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_FLOW_0037
+     * @tc.name      VPN_NotifFlow_0037
+     * @tc.desc      publish type 0 x1 updates counts/badge.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifFlow_0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifFlow_0037 begin`);
+      const subject: NotificationModel = new NotificationModel();
+      subject.publish(0, 'g0');
+      logInfo("publish type=0 count=1");
+      const actual: string = subject.countOf(0) + ':' + subject.badgeValue() + ':' + subject.published();
+      logInfo('actual=' + String(actual) + ', expected=' + "1:1:1");
+      expect(actual).assertEqual("1:1:1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifFlow_0037 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_FLOW_0038
+     * @tc.name      VPN_NotifFlow_0038
+     * @tc.desc      publish type 1 x2 updates counts/badge.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifFlow_0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifFlow_0038 begin`);
+      const subject: NotificationModel = new NotificationModel();
+      subject.publish(1, 'g0');
+      subject.publish(1, 'g1');
+      logInfo("publish type=1 count=2");
+      const actual: string = subject.countOf(1) + ':' + subject.badgeValue() + ':' + subject.published();
+      logInfo('actual=' + String(actual) + ', expected=' + "2:2:2");
+      expect(actual).assertEqual("2:2:2");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifFlow_0038 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_FLOW_0039
+     * @tc.name      VPN_NotifFlow_0039
+     * @tc.desc      publish type 2 x3 updates counts/badge.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifFlow_0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifFlow_0039 begin`);
+      const subject: NotificationModel = new NotificationModel();
+      subject.publish(2, 'g0');
+      subject.publish(2, 'g1');
+      subject.publish(2, 'g2');
+      logInfo("publish type=2 count=3");
+      const actual: string = subject.countOf(2) + ':' + subject.badgeValue() + ':' + subject.published();
+      logInfo('actual=' + String(actual) + ', expected=' + "3:3:3");
+      expect(actual).assertEqual("3:3:3");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifFlow_0039 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_FLOW_0040
+     * @tc.name      VPN_NotifFlow_0040
+     * @tc.desc      publish type 3 x4 updates counts/badge.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifFlow_0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifFlow_0040 begin`);
+      const subject: NotificationModel = new NotificationModel();
+      subject.publish(3, 'g0');
+      subject.publish(3, 'g1');
+      subject.publish(3, 'g2');
+      subject.publish(3, 'g3');
+      logInfo("publish type=3 count=4");
+      const actual: string = subject.countOf(3) + ':' + subject.badgeValue() + ':' + subject.published();
+      logInfo('actual=' + String(actual) + ', expected=' + "4:4:4");
+      expect(actual).assertEqual("4:4:4");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifFlow_0040 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_FLOW_0041
+     * @tc.name      VPN_NotifFlow_0041
+     * @tc.desc      publish type 4 x5 updates counts/badge.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifFlow_0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifFlow_0041 begin`);
+      const subject: NotificationModel = new NotificationModel();
+      subject.publish(4, 'g0');
+      subject.publish(4, 'g1');
+      subject.publish(4, 'g2');
+      subject.publish(4, 'g3');
+      subject.publish(4, 'g4');
+      logInfo("publish type=4 count=5");
+      const actual: string = subject.countOf(4) + ':' + subject.badgeValue() + ':' + subject.published();
+      logInfo('actual=' + String(actual) + ', expected=' + "5:5:5");
+      expect(actual).assertEqual("5:5:5");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifFlow_0041 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_NOTIF_FLOW_0042
+     * @tc.name      VPN_NotifFlow_0042
+     * @tc.desc      publish type 5 x6 updates counts/badge.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_NotifFlow_0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}NotifFlow_0042 begin`);
+      const subject: NotificationModel = new NotificationModel();
+      subject.publish(5, 'g0');
+      subject.publish(5, 'g1');
+      subject.publish(5, 'g2');
+      subject.publish(5, 'g3');
+      subject.publish(5, 'g4');
+      subject.publish(5, 'g5');
+      logInfo("publish type=5 count=6");
+      const actual: string = subject.countOf(5) + ':' + subject.badgeValue() + ':' + subject.published();
+      logInfo('actual=' + String(actual) + ', expected=' + "6:6:6");
+      expect(actual).assertEqual("6:6:6");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}NotifFlow_0042 end`);
+    });
+  });
+}
