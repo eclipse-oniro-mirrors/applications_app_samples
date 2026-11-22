@@ -72,9 +72,10 @@ hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 ## 5. 执行结果
 
 > 真机：ohos（hdc 目标 `d629034339413535311095d600002b00`），测试 HAP 安装后逐套件执行。
-> 结论：全量 2453 条用例最终全部通过。
+> 结论：修复后全量复核，2453 条用例全部通过（Failure 0 / Error 0）。
 
 | 轮次 | 构建 | 用例数 | Tests run | Failure | Error | Pass | 备注 |
 |---|---|---|---|---|---|---|---|
-| 基线 | 通过（含签名安装） | 2453 | 2453 | 1 | 0 | 2452 | 按 35 个套件分批执行，单批 27~84 例 |
-| 增量复跑 | 修复后重建并签名 | 80 | 80 | 0 | 0 | 80 | 仅复跑 `RadioSignalFormat01Test`：`testRadioSignalFormat0080` 长度期望由 12 修正为 13（`lte/none/-113` 实为 13 字符），main 代码无缺陷 |
+| 基线（修复前） | 通过（含签名安装） | 2453 | 2453 | 1 | 0 | 2452 | 按 35 个套件分批执行；`testRadioSignalFormat0080` 用例期望长度误写为 12 |
+| 增量复跑 | 修复后重建并签名 | 80 | 80 | 0 | 0 | 80 | 仅复跑 `RadioSignalFormat01Test`：期望长度由 12 修正为 13（`lte/none/-113` 实为 13 字符），main 代码无缺陷 |
+| 全量复核 | 修复版 HAP 重新安装 | 2453 | 2453 | 0 | 0 | 2453 | 35 个套件逐套件执行，全部通过 |
