@@ -703,3 +703,203 @@ export default function vpnFlowStartTest(): void {
     });
 
     /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_START_0035
+     * @tc.name      VPN_FlowStart_0035
+     * @tc.desc      start flow 32,true,true,true resolves to ok.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('VPN_FlowStart_0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}FlowStart_0035 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      logInfo("run(32,true,true,true)");
+      const actual: string = subject.run(32, true, true, true) + ':' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "ok:Pass");
+      expect(actual).assertEqual("ok:Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowStart_0035 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_START_0036
+     * @tc.name      VPN_FlowStart_0036
+     * @tc.desc      start flow 33,false,true,false resolves to protect-failed.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowStart_0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowStart_0036 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      logInfo("run(33,false,true,false)");
+      const actual: string = subject.run(33, false, true, false) + ':' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "protect-failed:Error");
+      expect(actual).assertEqual("protect-failed:Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowStart_0036 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_START_0037
+     * @tc.name      VPN_FlowStart_0037
+     * @tc.desc      start flow 34,true,false,true resolves to setup-failed.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowStart_0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowStart_0037 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      logInfo("run(34,true,false,true)");
+      const actual: string = subject.run(34, true, false, true) + ':' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "setup-failed:Error");
+      expect(actual).assertEqual("setup-failed:Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowStart_0037 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_START_0038
+     * @tc.name      VPN_FlowStart_0038
+     * @tc.desc      start flow 35,false,true,false resolves to protect-failed.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowStart_0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowStart_0038 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      logInfo("run(35,false,true,false)");
+      const actual: string = subject.run(35, false, true, false) + ':' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "protect-failed:Error");
+      expect(actual).assertEqual("protect-failed:Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowStart_0038 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_START_0039
+     * @tc.name      VPN_FlowStart_0039
+     * @tc.desc      start flow 36,true,true,true resolves to ok.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowStart_0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowStart_0039 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      logInfo("run(36,true,true,true)");
+      const actual: string = subject.run(36, true, true, true) + ':' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "ok:Pass");
+      expect(actual).assertEqual("ok:Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowStart_0039 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_START_0040
+     * @tc.name      VPN_FlowStart_0040
+     * @tc.desc      start flow 37,false,false,false resolves to protect-failed.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowStart_0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowStart_0040 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      logInfo("run(37,false,false,false)");
+      const actual: string = subject.run(37, false, false, false) + ':' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "protect-failed:Error");
+      expect(actual).assertEqual("protect-failed:Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowStart_0040 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_START_0041
+     * @tc.name      VPN_FlowStart_0041
+     * @tc.desc      start flow 38,true,true,true resolves to ok.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowStart_0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowStart_0041 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      logInfo("run(38,true,true,true)");
+      const actual: string = subject.run(38, true, true, true) + ':' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "ok:Pass");
+      expect(actual).assertEqual("ok:Pass");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowStart_0041 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_START_0042
+     * @tc.name      VPN_FlowStart_0042
+     * @tc.desc      start flow 39,false,true,false resolves to protect-failed.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowStart_0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowStart_0042 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      logInfo("run(39,false,true,false)");
+      const actual: string = subject.run(39, false, true, false) + ':' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "protect-failed:Error");
+      expect(actual).assertEqual("protect-failed:Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowStart_0042 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_START_0043
+     * @tc.name      VPN_FlowStart_0043
+     * @tc.desc      start flow 40,true,false,true resolves to setup-failed.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowStart_0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowStart_0043 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      logInfo("run(40,true,false,true)");
+      const actual: string = subject.run(40, true, false, true) + ':' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "setup-failed:Error");
+      expect(actual).assertEqual("setup-failed:Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowStart_0043 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_FLOW_START_0044
+     * @tc.name      VPN_FlowStart_0044
+     * @tc.desc      start flow 41,false,true,false resolves to protect-failed.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_FlowStart_0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}FlowStart_0044 begin`);
+      const subject: VpnFlowModel = new VpnFlowModel();
+      logInfo("run(41,false,true,false)");
+      const actual: string = subject.run(41, false, true, false) + ':' + subject.state();
+      logInfo('actual=' + String(actual) + ', expected=' + "protect-failed:Error");
+      expect(actual).assertEqual("protect-failed:Error");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}FlowStart_0044 end`);
+    });
+  });
+}
