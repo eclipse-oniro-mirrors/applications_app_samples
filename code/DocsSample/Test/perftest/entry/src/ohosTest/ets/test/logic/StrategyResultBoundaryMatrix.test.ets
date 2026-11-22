@@ -7607,3 +7607,977 @@ export default function strategyResultBoundaryMatrixTest(): void {
       logInfo('actual=' + String(actual) + ', expected=' + "13134|true|true|true|7501.5|30000|0|4|true");
       expect(actual).assertEqual("13134|true|true|true|7501.5|30000|0|4|true");
       logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0399 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0400
+     * @tc.name      Perf_StrategyResultMatrix_0400
+     * @tc.desc      strategy/result matrix 399 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0400', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0400 begin`);
+      logInfo("strategy/result matrix 399");
+      const actual: string = utilsNumAfter(4, 4389) + '|' + iterationsValid(4) + '|' + timeoutValid(50000) + '|' + strategyValid([1, 3, 5, 6, 7], 4, 50000, "com.samples.test.perftest", true) + '|' + resultSummary([0,1,5,10,100]) + '|' + resultValid([0,1,5,10,100]);
+      logInfo('actual=' + String(actual) + ', expected=' + "17556|true|true|true|23.2|100|0|5|true");
+      expect(actual).assertEqual("17556|true|true|true|23.2|100|0|5|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0400 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0401
+     * @tc.name      Perf_StrategyResultMatrix_0401
+     * @tc.desc      strategy/result matrix 400 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0401', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0401 begin`);
+      logInfo("strategy/result matrix 400");
+      const actual: string = utilsNumAfter(5, 4400) + '|' + iterationsValid(5) + '|' + timeoutValid(60000) + '|' + strategyValid([0, 4, 5, 6, 7], 5, 60000, "", true) + '|' + resultSummary([1]) + '|' + resultValid([1]);
+      logInfo('actual=' + String(actual) + ', expected=' + "22000|true|true|false|1|1|1|1|true");
+      expect(actual).assertEqual("22000|true|true|false|1|1|1|1|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0401 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0402
+     * @tc.name      Perf_StrategyResultMatrix_0402
+     * @tc.desc      strategy/result matrix 401 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0402', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0402 begin`);
+      logInfo("strategy/result matrix 401");
+      const actual: string = utilsNumAfter(6, 4411) + '|' + iterationsValid(6) + '|' + timeoutValid(60001) + '|' + strategyValid([3, 4, 5, 6, 7], 6, 60001, "com.samples.test.perftest", true) + '|' + resultSummary([5,10]) + '|' + resultValid([5,10]);
+      logInfo('actual=' + String(actual) + ', expected=' + "26466|true|false|false|7.5|10|5|2|true");
+      expect(actual).assertEqual("26466|true|false|false|7.5|10|5|2|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0402 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0403
+     * @tc.name      Perf_StrategyResultMatrix_0403
+     * @tc.desc      strategy/result matrix 402 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0403', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0403 begin`);
+      logInfo("strategy/result matrix 402");
+      const actual: string = utilsNumAfter(7, 4422) + '|' + iterationsValid(7) + '|' + timeoutValid(999) + '|' + strategyValid([0, 1, 2, 3, 4, 5, 6, 7], 7, 999, "com.samples.test.perftest", false) + '|' + resultSummary([10,100,1000]) + '|' + resultValid([10,100,1000]);
+      logInfo('actual=' + String(actual) + ', expected=' + "30954|true|false|false|370|1000|10|3|true");
+      expect(actual).assertEqual("30954|true|false|false|370|1000|10|3|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0403 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0404
+     * @tc.name      Perf_StrategyResultMatrix_0404
+     * @tc.desc      strategy/result matrix 403 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0404', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0404 begin`);
+      logInfo("strategy/result matrix 403");
+      const actual: string = utilsNumAfter(8, 4433) + '|' + iterationsValid(8) + '|' + timeoutValid(1000) + '|' + strategyValid([1, 2, 8], 8, 1000, "com.samples.test.perftest", true) + '|' + resultSummary([100,1000,30000,0]) + '|' + resultValid([100,1000,30000,0]);
+      logInfo('actual=' + String(actual) + ', expected=' + "35464|true|true|true|7775|30000|0|4|true");
+      expect(actual).assertEqual("35464|true|true|true|7775|30000|0|4|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0404 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0405
+     * @tc.name      Perf_StrategyResultMatrix_0405
+     * @tc.desc      strategy/result matrix 404 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0405', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0405 begin`);
+      logInfo("strategy/result matrix 404");
+      const actual: string = utilsNumAfter(9, 4444) + '|' + iterationsValid(9) + '|' + timeoutValid(30000) + '|' + strategyValid([0, 2, 3, 8], 9, 30000, "com.samples.test.perftest", true) + '|' + resultSummary([1000,30000,0,1,5]) + '|' + resultValid([1000,30000,0,1,5]);
+      logInfo('actual=' + String(actual) + ', expected=' + "39996|true|true|true|6201.2|30000|0|5|true");
+      expect(actual).assertEqual("39996|true|true|true|6201.2|30000|0|5|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0405 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0406
+     * @tc.name      Perf_StrategyResultMatrix_0406
+     * @tc.desc      strategy/result matrix 405 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0406', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0406 begin`);
+      logInfo("strategy/result matrix 405");
+      const actual: string = utilsNumAfter(1, 4455) + '|' + iterationsValid(1) + '|' + timeoutValid(50000) + '|' + strategyValid([2, 4, 8], 1, 50000, "", true) + '|' + resultSummary([30000]) + '|' + resultValid([30000]);
+      logInfo('actual=' + String(actual) + ', expected=' + "4455|true|true|false|30000|30000|30000|1|true");
+      expect(actual).assertEqual("4455|true|true|false|30000|30000|30000|1|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0406 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0407
+     * @tc.name      Perf_StrategyResultMatrix_0407
+     * @tc.desc      strategy/result matrix 406 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0407', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0407 begin`);
+      logInfo("strategy/result matrix 406");
+      const actual: string = utilsNumAfter(2, 4466) + '|' + iterationsValid(2) + '|' + timeoutValid(60000) + '|' + strategyValid([0, 1, 3, 4, 8], 2, 60000, "com.samples.test.perftest", true) + '|' + resultSummary([0,1]) + '|' + resultValid([0,1]);
+      logInfo('actual=' + String(actual) + ', expected=' + "8932|true|true|true|0.5|1|0|2|true");
+      expect(actual).assertEqual("8932|true|true|true|0.5|1|0|2|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0407 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0408
+     * @tc.name      Perf_StrategyResultMatrix_0408
+     * @tc.desc      strategy/result matrix 407 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_StrategyResultMatrix_0408', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0408 begin`);
+      logInfo("strategy/result matrix 407");
+      const actual: string = utilsNumAfter(3, 4477) + '|' + iterationsValid(3) + '|' + timeoutValid(60001) + '|' + strategyValid([1, 5, 8], 3, 60001, "com.samples.test.perftest", true) + '|' + resultSummary([1,5,10]) + '|' + resultValid([1,5,10]);
+      logInfo('actual=' + String(actual) + ', expected=' + "13431|true|false|false|5.333333|10|1|3|true");
+      expect(actual).assertEqual("13431|true|false|false|5.333333|10|1|3|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0408 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0409
+     * @tc.name      Perf_StrategyResultMatrix_0409
+     * @tc.desc      strategy/result matrix 408 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Perf_StrategyResultMatrix_0409', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0409 begin`);
+      logInfo("strategy/result matrix 408");
+      const actual: string = utilsNumAfter(4, 4488) + '|' + iterationsValid(4) + '|' + timeoutValid(999) + '|' + strategyValid([0, 3, 5, 8], 4, 999, "com.samples.test.perftest", false) + '|' + resultSummary([5,10,100,1000]) + '|' + resultValid([5,10,100,1000]);
+      logInfo('actual=' + String(actual) + ', expected=' + "17952|true|false|false|278.75|1000|5|4|true");
+      expect(actual).assertEqual("17952|true|false|false|278.75|1000|5|4|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0409 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0410
+     * @tc.name      Perf_StrategyResultMatrix_0410
+     * @tc.desc      strategy/result matrix 409 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0410', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0410 begin`);
+      logInfo("strategy/result matrix 409");
+      const actual: string = utilsNumAfter(5, 4499) + '|' + iterationsValid(5) + '|' + timeoutValid(1000) + '|' + strategyValid([4, 5, 8], 5, 1000, "com.samples.test.perftest", true) + '|' + resultSummary([10,100,1000,30000,0]) + '|' + resultValid([10,100,1000,30000,0]);
+      logInfo('actual=' + String(actual) + ', expected=' + "22495|true|true|true|6222|30000|0|5|true");
+      expect(actual).assertEqual("22495|true|true|true|6222|30000|0|5|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0410 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0411
+     * @tc.name      Perf_StrategyResultMatrix_0411
+     * @tc.desc      strategy/result matrix 410 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0411', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0411 begin`);
+      logInfo("strategy/result matrix 410");
+      const actual: string = utilsNumAfter(6, 4510) + '|' + iterationsValid(6) + '|' + timeoutValid(30000) + '|' + strategyValid([0, 1, 2, 4, 5, 8], 6, 30000, "", true) + '|' + resultSummary([100]) + '|' + resultValid([100]);
+      logInfo('actual=' + String(actual) + ', expected=' + "27060|true|true|false|100|100|100|1|true");
+      expect(actual).assertEqual("27060|true|true|false|100|100|100|1|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0411 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0412
+     * @tc.name      Perf_StrategyResultMatrix_0412
+     * @tc.desc      strategy/result matrix 411 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0412', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0412 begin`);
+      logInfo("strategy/result matrix 411");
+      const actual: string = utilsNumAfter(7, 4521) + '|' + iterationsValid(7) + '|' + timeoutValid(50000) + '|' + strategyValid([1, 2, 3, 4, 5, 8], 7, 50000, "com.samples.test.perftest", true) + '|' + resultSummary([1000,30000]) + '|' + resultValid([1000,30000]);
+      logInfo('actual=' + String(actual) + ', expected=' + "31647|true|true|true|15500|30000|1000|2|true");
+      expect(actual).assertEqual("31647|true|true|true|15500|30000|1000|2|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0412 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0413
+     * @tc.name      Perf_StrategyResultMatrix_0413
+     * @tc.desc      strategy/result matrix 412 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0413', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0413 begin`);
+      logInfo("strategy/result matrix 412");
+      const actual: string = utilsNumAfter(8, 4532) + '|' + iterationsValid(8) + '|' + timeoutValid(60000) + '|' + strategyValid([0, 2, 6, 8], 8, 60000, "com.samples.test.perftest", true) + '|' + resultSummary([30000,0,1]) + '|' + resultValid([30000,0,1]);
+      logInfo('actual=' + String(actual) + ', expected=' + "36256|true|true|true|10000.333333|30000|0|3|true");
+      expect(actual).assertEqual("36256|true|true|true|10000.333333|30000|0|3|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0413 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0414
+     * @tc.name      Perf_StrategyResultMatrix_0414
+     * @tc.desc      strategy/result matrix 413 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0414', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0414 begin`);
+      logInfo("strategy/result matrix 413");
+      const actual: string = utilsNumAfter(9, 4543) + '|' + iterationsValid(9) + '|' + timeoutValid(60001) + '|' + strategyValid([2, 3, 6, 8], 9, 60001, "com.samples.test.perftest", true) + '|' + resultSummary([0,1,5,10]) + '|' + resultValid([0,1,5,10]);
+      logInfo('actual=' + String(actual) + ', expected=' + "40887|true|false|false|4|10|0|4|true");
+      expect(actual).assertEqual("40887|true|false|false|4|10|0|4|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0414 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0415
+     * @tc.name      Perf_StrategyResultMatrix_0415
+     * @tc.desc      strategy/result matrix 414 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0415', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0415 begin`);
+      logInfo("strategy/result matrix 414");
+      const actual: string = utilsNumAfter(1, 4554) + '|' + iterationsValid(1) + '|' + timeoutValid(999) + '|' + strategyValid([0, 1, 4, 6, 8], 1, 999, "com.samples.test.perftest", false) + '|' + resultSummary([1,5,10,100,1000]) + '|' + resultValid([1,5,10,100,1000]);
+      logInfo('actual=' + String(actual) + ', expected=' + "4554|true|false|false|223.2|1000|1|5|true");
+      expect(actual).assertEqual("4554|true|false|false|223.2|1000|1|5|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0415 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0416
+     * @tc.name      Perf_StrategyResultMatrix_0416
+     * @tc.desc      strategy/result matrix 415 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0416', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0416 begin`);
+      logInfo("strategy/result matrix 415");
+      const actual: string = utilsNumAfter(2, 4565) + '|' + iterationsValid(2) + '|' + timeoutValid(1000) + '|' + strategyValid([1, 3, 4, 6, 8], 2, 1000, "", true) + '|' + resultSummary([5]) + '|' + resultValid([5]);
+      logInfo('actual=' + String(actual) + ', expected=' + "9130|true|true|false|5|5|5|1|true");
+      expect(actual).assertEqual("9130|true|true|false|5|5|5|1|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0416 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0417
+     * @tc.name      Perf_StrategyResultMatrix_0417
+     * @tc.desc      strategy/result matrix 416 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0417', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0417 begin`);
+      logInfo("strategy/result matrix 416");
+      const actual: string = utilsNumAfter(3, 4576) + '|' + iterationsValid(3) + '|' + timeoutValid(30000) + '|' + strategyValid([0, 5, 6, 8], 3, 30000, "com.samples.test.perftest", true) + '|' + resultSummary([10,100]) + '|' + resultValid([10,100]);
+      logInfo('actual=' + String(actual) + ', expected=' + "13728|true|true|true|55|100|10|2|true");
+      expect(actual).assertEqual("13728|true|true|true|55|100|10|2|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0417 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0418
+     * @tc.name      Perf_StrategyResultMatrix_0418
+     * @tc.desc      strategy/result matrix 417 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0418', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0418 begin`);
+      logInfo("strategy/result matrix 417");
+      const actual: string = utilsNumAfter(4, 4587) + '|' + iterationsValid(4) + '|' + timeoutValid(50000) + '|' + strategyValid([3, 5, 6, 8], 4, 50000, "com.samples.test.perftest", true) + '|' + resultSummary([100,1000,30000]) + '|' + resultValid([100,1000,30000]);
+      logInfo('actual=' + String(actual) + ', expected=' + "18348|true|true|true|10366.666667|30000|100|3|true");
+      expect(actual).assertEqual("18348|true|true|true|10366.666667|30000|100|3|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0418 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0419
+     * @tc.name      Perf_StrategyResultMatrix_0419
+     * @tc.desc      strategy/result matrix 418 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_StrategyResultMatrix_0419', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0419 begin`);
+      logInfo("strategy/result matrix 418");
+      const actual: string = utilsNumAfter(5, 4598) + '|' + iterationsValid(5) + '|' + timeoutValid(60000) + '|' + strategyValid([0, 1, 2, 3, 5, 6, 8], 5, 60000, "com.samples.test.perftest", true) + '|' + resultSummary([1000,30000,0,1]) + '|' + resultValid([1000,30000,0,1]);
+      logInfo('actual=' + String(actual) + ', expected=' + "22990|true|true|true|7750.25|30000|0|4|true");
+      expect(actual).assertEqual("22990|true|true|true|7750.25|30000|0|4|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0419 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0420
+     * @tc.name      Perf_StrategyResultMatrix_0420
+     * @tc.desc      strategy/result matrix 419 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0420', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0420 begin`);
+      logInfo("strategy/result matrix 419");
+      const actual: string = utilsNumAfter(6, 4609) + '|' + iterationsValid(6) + '|' + timeoutValid(60001) + '|' + strategyValid([1, 2, 4, 5, 6, 8], 6, 60001, "com.samples.test.perftest", true) + '|' + resultSummary([30000,0,1,5,10]) + '|' + resultValid([30000,0,1,5,10]);
+      logInfo('actual=' + String(actual) + ', expected=' + "27654|true|false|false|6003.2|30000|0|5|true");
+      expect(actual).assertEqual("27654|true|false|false|6003.2|30000|0|5|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0420 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0421
+     * @tc.name      Perf_StrategyResultMatrix_0421
+     * @tc.desc      strategy/result matrix 420 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0421', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0421 begin`);
+      logInfo("strategy/result matrix 420");
+      const actual: string = utilsNumAfter(7, 4620) + '|' + iterationsValid(7) + '|' + timeoutValid(999) + '|' + strategyValid([0, 2, 3, 4, 5, 6, 8], 7, 999, "", false) + '|' + resultSummary([0]) + '|' + resultValid([0]);
+      logInfo('actual=' + String(actual) + ', expected=' + "32340|true|false|false|0|0|0|1|true");
+      expect(actual).assertEqual("32340|true|false|false|0|0|0|1|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0421 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0422
+     * @tc.name      Perf_StrategyResultMatrix_0422
+     * @tc.desc      strategy/result matrix 421 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0422', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0422 begin`);
+      logInfo("strategy/result matrix 421");
+      const actual: string = utilsNumAfter(8, 4631) + '|' + iterationsValid(8) + '|' + timeoutValid(1000) + '|' + strategyValid([2, 7, 8], 8, 1000, "com.samples.test.perftest", true) + '|' + resultSummary([1,5]) + '|' + resultValid([1,5]);
+      logInfo('actual=' + String(actual) + ', expected=' + "37048|true|true|true|3|5|1|2|true");
+      expect(actual).assertEqual("37048|true|true|true|3|5|1|2|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0422 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0423
+     * @tc.name      Perf_StrategyResultMatrix_0423
+     * @tc.desc      strategy/result matrix 422 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0423', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0423 begin`);
+      logInfo("strategy/result matrix 422");
+      const actual: string = utilsNumAfter(9, 4642) + '|' + iterationsValid(9) + '|' + timeoutValid(30000) + '|' + strategyValid([0, 1, 3, 7, 8], 9, 30000, "com.samples.test.perftest", true) + '|' + resultSummary([5,10,100]) + '|' + resultValid([5,10,100]);
+      logInfo('actual=' + String(actual) + ', expected=' + "41778|true|true|true|38.333333|100|5|3|true");
+      expect(actual).assertEqual("41778|true|true|true|38.333333|100|5|3|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0423 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0424
+     * @tc.name      Perf_StrategyResultMatrix_0424
+     * @tc.desc      strategy/result matrix 423 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0424', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0424 begin`);
+      logInfo("strategy/result matrix 423");
+      const actual: string = utilsNumAfter(1, 4653) + '|' + iterationsValid(1) + '|' + timeoutValid(50000) + '|' + strategyValid([1, 4, 7, 8], 1, 50000, "com.samples.test.perftest", true) + '|' + resultSummary([10,100,1000,30000]) + '|' + resultValid([10,100,1000,30000]);
+      logInfo('actual=' + String(actual) + ', expected=' + "4653|true|true|true|7777.5|30000|10|4|true");
+      expect(actual).assertEqual("4653|true|true|true|7777.5|30000|10|4|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0424 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0425
+     * @tc.name      Perf_StrategyResultMatrix_0425
+     * @tc.desc      strategy/result matrix 424 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0425', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0425 begin`);
+      logInfo("strategy/result matrix 424");
+      const actual: string = utilsNumAfter(2, 4664) + '|' + iterationsValid(2) + '|' + timeoutValid(60000) + '|' + strategyValid([0, 3, 4, 7, 8], 2, 60000, "com.samples.test.perftest", true) + '|' + resultSummary([100,1000,30000,0,1]) + '|' + resultValid([100,1000,30000,0,1]);
+      logInfo('actual=' + String(actual) + ', expected=' + "9328|true|true|true|6220.2|30000|0|5|true");
+      expect(actual).assertEqual("9328|true|true|true|6220.2|30000|0|5|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0425 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0426
+     * @tc.name      Perf_StrategyResultMatrix_0426
+     * @tc.desc      strategy/result matrix 425 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Perf_StrategyResultMatrix_0426', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0426 begin`);
+      logInfo("strategy/result matrix 425");
+      const actual: string = utilsNumAfter(3, 4675) + '|' + iterationsValid(3) + '|' + timeoutValid(60001) + '|' + strategyValid([5, 7, 8], 3, 60001, "", true) + '|' + resultSummary([1000]) + '|' + resultValid([1000]);
+      logInfo('actual=' + String(actual) + ', expected=' + "14025|true|false|false|1000|1000|1000|1|true");
+      expect(actual).assertEqual("14025|true|false|false|1000|1000|1000|1|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0426 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0427
+     * @tc.name      Perf_StrategyResultMatrix_0427
+     * @tc.desc      strategy/result matrix 426 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0427', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0427 begin`);
+      logInfo("strategy/result matrix 426");
+      const actual: string = utilsNumAfter(4, 4686) + '|' + iterationsValid(4) + '|' + timeoutValid(999) + '|' + strategyValid([0, 1, 2, 5, 7, 8], 4, 999, "com.samples.test.perftest", false) + '|' + resultSummary([30000,0]) + '|' + resultValid([30000,0]);
+      logInfo('actual=' + String(actual) + ', expected=' + "18744|true|false|false|15000|30000|0|2|true");
+      expect(actual).assertEqual("18744|true|false|false|15000|30000|0|2|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0427 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0428
+     * @tc.name      Perf_StrategyResultMatrix_0428
+     * @tc.desc      strategy/result matrix 427 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0428', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0428 begin`);
+      logInfo("strategy/result matrix 427");
+      const actual: string = utilsNumAfter(5, 4697) + '|' + iterationsValid(5) + '|' + timeoutValid(1000) + '|' + strategyValid([1, 2, 3, 5, 7, 8], 5, 1000, "com.samples.test.perftest", true) + '|' + resultSummary([0,1,5]) + '|' + resultValid([0,1,5]);
+      logInfo('actual=' + String(actual) + ', expected=' + "23485|true|true|true|2|5|0|3|true");
+      expect(actual).assertEqual("23485|true|true|true|2|5|0|3|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0428 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0429
+     * @tc.name      Perf_StrategyResultMatrix_0429
+     * @tc.desc      strategy/result matrix 428 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0429', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0429 begin`);
+      logInfo("strategy/result matrix 428");
+      const actual: string = utilsNumAfter(6, 4708) + '|' + iterationsValid(6) + '|' + timeoutValid(30000) + '|' + strategyValid([0, 2, 4, 5, 7, 8], 6, 30000, "com.samples.test.perftest", true) + '|' + resultSummary([1,5,10,100]) + '|' + resultValid([1,5,10,100]);
+      logInfo('actual=' + String(actual) + ', expected=' + "28248|true|true|true|29|100|1|4|true");
+      expect(actual).assertEqual("28248|true|true|true|29|100|1|4|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0429 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0430
+     * @tc.name      Perf_StrategyResultMatrix_0430
+     * @tc.desc      strategy/result matrix 429 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_StrategyResultMatrix_0430', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0430 begin`);
+      logInfo("strategy/result matrix 429");
+      const actual: string = utilsNumAfter(7, 4719) + '|' + iterationsValid(7) + '|' + timeoutValid(50000) + '|' + strategyValid([2, 3, 4, 5, 7, 8], 7, 50000, "com.samples.test.perftest", true) + '|' + resultSummary([5,10,100,1000,30000]) + '|' + resultValid([5,10,100,1000,30000]);
+      logInfo('actual=' + String(actual) + ', expected=' + "33033|true|true|true|6223|30000|5|5|true");
+      expect(actual).assertEqual("33033|true|true|true|6223|30000|5|5|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0430 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0431
+     * @tc.name      Perf_StrategyResultMatrix_0431
+     * @tc.desc      strategy/result matrix 430 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0431', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0431 begin`);
+      logInfo("strategy/result matrix 430");
+      const actual: string = utilsNumAfter(8, 4730) + '|' + iterationsValid(8) + '|' + timeoutValid(60000) + '|' + strategyValid([0, 1, 6, 7, 8], 8, 60000, "", true) + '|' + resultSummary([10]) + '|' + resultValid([10]);
+      logInfo('actual=' + String(actual) + ', expected=' + "37840|true|true|false|10|10|10|1|true");
+      expect(actual).assertEqual("37840|true|true|false|10|10|10|1|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0431 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0432
+     * @tc.name      Perf_StrategyResultMatrix_0432
+     * @tc.desc      strategy/result matrix 431 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0432', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0432 begin`);
+      logInfo("strategy/result matrix 431");
+      const actual: string = utilsNumAfter(9, 4741) + '|' + iterationsValid(9) + '|' + timeoutValid(60001) + '|' + strategyValid([1, 3, 6, 7, 8], 9, 60001, "com.samples.test.perftest", true) + '|' + resultSummary([100,1000]) + '|' + resultValid([100,1000]);
+      logInfo('actual=' + String(actual) + ', expected=' + "42669|true|false|false|550|1000|100|2|true");
+      expect(actual).assertEqual("42669|true|false|false|550|1000|100|2|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0432 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0433
+     * @tc.name      Perf_StrategyResultMatrix_0433
+     * @tc.desc      strategy/result matrix 432 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0433', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0433 begin`);
+      logInfo("strategy/result matrix 432");
+      const actual: string = utilsNumAfter(1, 4752) + '|' + iterationsValid(1) + '|' + timeoutValid(999) + '|' + strategyValid([0, 4, 6, 7, 8], 1, 999, "com.samples.test.perftest", false) + '|' + resultSummary([1000,30000,0]) + '|' + resultValid([1000,30000,0]);
+      logInfo('actual=' + String(actual) + ', expected=' + "4752|true|false|false|10333.333333|30000|0|3|true");
+      expect(actual).assertEqual("4752|true|false|false|10333.333333|30000|0|3|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0433 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0434
+     * @tc.name      Perf_StrategyResultMatrix_0434
+     * @tc.desc      strategy/result matrix 433 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0434', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0434 begin`);
+      logInfo("strategy/result matrix 433");
+      const actual: string = utilsNumAfter(2, 4763) + '|' + iterationsValid(2) + '|' + timeoutValid(1000) + '|' + strategyValid([3, 4, 6, 7, 8], 2, 1000, "com.samples.test.perftest", true) + '|' + resultSummary([30000,0,1,5]) + '|' + resultValid([30000,0,1,5]);
+      logInfo('actual=' + String(actual) + ', expected=' + "9526|true|true|true|7501.5|30000|0|4|true");
+      expect(actual).assertEqual("9526|true|true|true|7501.5|30000|0|4|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0434 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0435
+     * @tc.name      Perf_StrategyResultMatrix_0435
+     * @tc.desc      strategy/result matrix 434 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0435', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0435 begin`);
+      logInfo("strategy/result matrix 434");
+      const actual: string = utilsNumAfter(3, 4774) + '|' + iterationsValid(3) + '|' + timeoutValid(30000) + '|' + strategyValid([0, 1, 2, 3, 4, 6, 7, 8], 3, 30000, "com.samples.test.perftest", true) + '|' + resultSummary([0,1,5,10,100]) + '|' + resultValid([0,1,5,10,100]);
+      logInfo('actual=' + String(actual) + ', expected=' + "14322|true|true|true|23.2|100|0|5|true");
+      expect(actual).assertEqual("14322|true|true|true|23.2|100|0|5|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0435 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0436
+     * @tc.name      Perf_StrategyResultMatrix_0436
+     * @tc.desc      strategy/result matrix 435 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0436', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0436 begin`);
+      logInfo("strategy/result matrix 435");
+      const actual: string = utilsNumAfter(4, 4785) + '|' + iterationsValid(4) + '|' + timeoutValid(50000) + '|' + strategyValid([1, 2, 5, 6, 7, 8], 4, 50000, "", true) + '|' + resultSummary([1]) + '|' + resultValid([1]);
+      logInfo('actual=' + String(actual) + ', expected=' + "19140|true|true|false|1|1|1|1|true");
+      expect(actual).assertEqual("19140|true|true|false|1|1|1|1|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0436 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0437
+     * @tc.name      Perf_StrategyResultMatrix_0437
+     * @tc.desc      strategy/result matrix 436 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0437', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0437 begin`);
+      logInfo("strategy/result matrix 436");
+      const actual: string = utilsNumAfter(5, 4796) + '|' + iterationsValid(5) + '|' + timeoutValid(60000) + '|' + strategyValid([0, 2, 3, 5, 6, 7, 8], 5, 60000, "com.samples.test.perftest", true) + '|' + resultSummary([5,10]) + '|' + resultValid([5,10]);
+      logInfo('actual=' + String(actual) + ', expected=' + "23980|true|true|true|7.5|10|5|2|true");
+      expect(actual).assertEqual("23980|true|true|true|7.5|10|5|2|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0437 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0438
+     * @tc.name      Perf_StrategyResultMatrix_0438
+     * @tc.desc      strategy/result matrix 437 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0438', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0438 begin`);
+      logInfo("strategy/result matrix 437");
+      const actual: string = utilsNumAfter(6, 4807) + '|' + iterationsValid(6) + '|' + timeoutValid(60001) + '|' + strategyValid([2, 4, 5, 6, 7, 8], 6, 60001, "com.samples.test.perftest", true) + '|' + resultSummary([10,100,1000]) + '|' + resultValid([10,100,1000]);
+      logInfo('actual=' + String(actual) + ', expected=' + "28842|true|false|false|370|1000|10|3|true");
+      expect(actual).assertEqual("28842|true|false|false|370|1000|10|3|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0438 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0439
+     * @tc.name      Perf_StrategyResultMatrix_0439
+     * @tc.desc      strategy/result matrix 438 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0439', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0439 begin`);
+      logInfo("strategy/result matrix 438");
+      const actual: string = utilsNumAfter(7, 4818) + '|' + iterationsValid(7) + '|' + timeoutValid(999) + '|' + strategyValid([0, 1, 3, 4, 5, 6, 7, 8], 7, 999, "com.samples.test.perftest", false) + '|' + resultSummary([100,1000,30000,0]) + '|' + resultValid([100,1000,30000,0]);
+      logInfo('actual=' + String(actual) + ', expected=' + "33726|true|false|false|7775|30000|0|4|true");
+      expect(actual).assertEqual("33726|true|false|false|7775|30000|0|4|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0439 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0440
+     * @tc.name      Perf_StrategyResultMatrix_0440
+     * @tc.desc      strategy/result matrix 439 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0440', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0440 begin`);
+      logInfo("strategy/result matrix 439");
+      const actual: string = utilsNumAfter(8, 4829) + '|' + iterationsValid(8) + '|' + timeoutValid(1000) + '|' + strategyValid([1], 8, 1000, "com.samples.test.perftest", true) + '|' + resultSummary([1000,30000,0,1,5]) + '|' + resultValid([1000,30000,0,1,5]);
+      logInfo('actual=' + String(actual) + ', expected=' + "38632|true|true|true|6201.2|30000|0|5|true");
+      expect(actual).assertEqual("38632|true|true|true|6201.2|30000|0|5|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0440 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0441
+     * @tc.name      Perf_StrategyResultMatrix_0441
+     * @tc.desc      strategy/result matrix 440 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_StrategyResultMatrix_0441', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0441 begin`);
+      logInfo("strategy/result matrix 440");
+      const actual: string = utilsNumAfter(9, 4840) + '|' + iterationsValid(9) + '|' + timeoutValid(30000) + '|' + strategyValid([0, 3], 9, 30000, "", true) + '|' + resultSummary([30000]) + '|' + resultValid([30000]);
+      logInfo('actual=' + String(actual) + ', expected=' + "43560|true|true|false|30000|30000|30000|1|true");
+      expect(actual).assertEqual("43560|true|true|false|30000|30000|30000|1|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0441 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0442
+     * @tc.name      Perf_StrategyResultMatrix_0442
+     * @tc.desc      strategy/result matrix 441 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0442', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0442 begin`);
+      logInfo("strategy/result matrix 441");
+      const actual: string = utilsNumAfter(1, 4851) + '|' + iterationsValid(1) + '|' + timeoutValid(50000) + '|' + strategyValid([4], 1, 50000, "com.samples.test.perftest", true) + '|' + resultSummary([0,1]) + '|' + resultValid([0,1]);
+      logInfo('actual=' + String(actual) + ', expected=' + "4851|true|true|true|0.5|1|0|2|true");
+      expect(actual).assertEqual("4851|true|true|true|0.5|1|0|2|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0442 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0443
+     * @tc.name      Perf_StrategyResultMatrix_0443
+     * @tc.desc      strategy/result matrix 442 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('Perf_StrategyResultMatrix_0443', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0443 begin`);
+      logInfo("strategy/result matrix 442");
+      const actual: string = utilsNumAfter(2, 4862) + '|' + iterationsValid(2) + '|' + timeoutValid(60000) + '|' + strategyValid([0, 1, 2, 4], 2, 60000, "com.samples.test.perftest", true) + '|' + resultSummary([1,5,10]) + '|' + resultValid([1,5,10]);
+      logInfo('actual=' + String(actual) + ', expected=' + "9724|true|true|true|5.333333|10|1|3|true");
+      expect(actual).assertEqual("9724|true|true|true|5.333333|10|1|3|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0443 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0444
+     * @tc.name      Perf_StrategyResultMatrix_0444
+     * @tc.desc      strategy/result matrix 443 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0444', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0444 begin`);
+      logInfo("strategy/result matrix 443");
+      const actual: string = utilsNumAfter(3, 4873) + '|' + iterationsValid(3) + '|' + timeoutValid(60001) + '|' + strategyValid([1, 2, 3, 4], 3, 60001, "com.samples.test.perftest", true) + '|' + resultSummary([5,10,100,1000]) + '|' + resultValid([5,10,100,1000]);
+      logInfo('actual=' + String(actual) + ', expected=' + "14619|true|false|false|278.75|1000|5|4|true");
+      expect(actual).assertEqual("14619|true|false|false|278.75|1000|5|4|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0444 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0445
+     * @tc.name      Perf_StrategyResultMatrix_0445
+     * @tc.desc      strategy/result matrix 444 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0445', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0445 begin`);
+      logInfo("strategy/result matrix 444");
+      const actual: string = utilsNumAfter(4, 4884) + '|' + iterationsValid(4) + '|' + timeoutValid(999) + '|' + strategyValid([0, 2, 5], 4, 999, "com.samples.test.perftest", false) + '|' + resultSummary([10,100,1000,30000,0]) + '|' + resultValid([10,100,1000,30000,0]);
+      logInfo('actual=' + String(actual) + ', expected=' + "19536|true|false|false|6222|30000|0|5|true");
+      expect(actual).assertEqual("19536|true|false|false|6222|30000|0|5|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0445 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0446
+     * @tc.name      Perf_StrategyResultMatrix_0446
+     * @tc.desc      strategy/result matrix 445 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0446', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0446 begin`);
+      logInfo("strategy/result matrix 445");
+      const actual: string = utilsNumAfter(5, 4895) + '|' + iterationsValid(5) + '|' + timeoutValid(1000) + '|' + strategyValid([2, 3, 5], 5, 1000, "", true) + '|' + resultSummary([100]) + '|' + resultValid([100]);
+      logInfo('actual=' + String(actual) + ', expected=' + "24475|true|true|false|100|100|100|1|true");
+      expect(actual).assertEqual("24475|true|true|false|100|100|100|1|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0446 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0447
+     * @tc.name      Perf_StrategyResultMatrix_0447
+     * @tc.desc      strategy/result matrix 446 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0447', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0447 begin`);
+      logInfo("strategy/result matrix 446");
+      const actual: string = utilsNumAfter(6, 4906) + '|' + iterationsValid(6) + '|' + timeoutValid(30000) + '|' + strategyValid([0, 1, 4, 5], 6, 30000, "com.samples.test.perftest", true) + '|' + resultSummary([1000,30000]) + '|' + resultValid([1000,30000]);
+      logInfo('actual=' + String(actual) + ', expected=' + "29436|true|true|true|15500|30000|1000|2|true");
+      expect(actual).assertEqual("29436|true|true|true|15500|30000|1000|2|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0447 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0448
+     * @tc.name      Perf_StrategyResultMatrix_0448
+     * @tc.desc      strategy/result matrix 447 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0448', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0448 begin`);
+      logInfo("strategy/result matrix 447");
+      const actual: string = utilsNumAfter(7, 4917) + '|' + iterationsValid(7) + '|' + timeoutValid(50000) + '|' + strategyValid([1, 3, 4, 5], 7, 50000, "com.samples.test.perftest", true) + '|' + resultSummary([30000,0,1]) + '|' + resultValid([30000,0,1]);
+      logInfo('actual=' + String(actual) + ', expected=' + "34419|true|true|true|10000.333333|30000|0|3|true");
+      expect(actual).assertEqual("34419|true|true|true|10000.333333|30000|0|3|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0448 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0449
+     * @tc.name      Perf_StrategyResultMatrix_0449
+     * @tc.desc      strategy/result matrix 448 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0449', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0449 begin`);
+      logInfo("strategy/result matrix 448");
+      const actual: string = utilsNumAfter(8, 4928) + '|' + iterationsValid(8) + '|' + timeoutValid(60000) + '|' + strategyValid([0, 6], 8, 60000, "com.samples.test.perftest", true) + '|' + resultSummary([0,1,5,10]) + '|' + resultValid([0,1,5,10]);
+      logInfo('actual=' + String(actual) + ', expected=' + "39424|true|true|true|4|10|0|4|true");
+      expect(actual).assertEqual("39424|true|true|true|4|10|0|4|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0449 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_STRATEGY_RESULT_MATRIX_0450
+     * @tc.name      Perf_StrategyResultMatrix_0450
+     * @tc.desc      strategy/result matrix 449 keeps validation and statistics.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_StrategyResultMatrix_0450', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}StrategyResultMatrix_0450 begin`);
+      logInfo("strategy/result matrix 449");
+      const actual: string = utilsNumAfter(9, 4939) + '|' + iterationsValid(9) + '|' + timeoutValid(60001) + '|' + strategyValid([3, 6], 9, 60001, "com.samples.test.perftest", true) + '|' + resultSummary([1,5,10,100,1000]) + '|' + resultValid([1,5,10,100,1000]);
+      logInfo('actual=' + String(actual) + ', expected=' + "44451|true|false|false|223.2|1000|1|5|true");
+      expect(actual).assertEqual("44451|true|false|false|223.2|1000|1|5|true");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}StrategyResultMatrix_0450 end`);
+    });
+  });
+}
