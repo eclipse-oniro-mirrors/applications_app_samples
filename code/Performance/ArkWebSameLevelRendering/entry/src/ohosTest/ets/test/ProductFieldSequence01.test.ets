@@ -1252,3 +1252,647 @@ export default function productFieldSequence01Test(): void {
       current.title = $r('app.string.embed_product_title003');
       const later: ProductDataModel = new ProductDataModel(
         3,
+        $r('app.media.embed_product003'),
+        $r('app.string.embed_product_title003'),
+        $r('app.string.embed_product_price003')
+      );
+      expect(current.id).assertEqual(2);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product002').id);
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((current.price as Resource).id).assertEqual($r('app.string.embed_product_price002').id);
+      expect(previous.id).assertEqual(2);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product002').id);
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title002').id);
+      expect((previous.price as Resource).id).assertEqual($r('app.string.embed_product_price002').id);
+      expect(later.id).assertEqual(3);
+      expect((later.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((later.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((later.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(current === previous).assertFalse();
+    });
+
+    /**
+     * @tc.number SUB_ARKWEB_SAMELEVEL_PRODUCT_FIELDSEQUENCE_0025
+     * @tc.name testProductFieldSequence0025
+     * @tc.desc Phone price detaches to a literal then restores its resource without changing its peer
+     * @tc.size MEDIUMTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testProductFieldSequence0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const previous: ProductDataModel = new ProductDataModel(
+        2,
+        $r('app.media.embed_product002'),
+        $r('app.string.embed_product_title002'),
+        $r('app.string.embed_product_price002')
+      );
+      const current: ProductDataModel = new ProductDataModel(
+        2,
+        $r('app.media.embed_product002'),
+        $r('app.string.embed_product_title002'),
+        $r('app.string.embed_product_price002')
+      );
+      current.price = 'USD 699.00';
+      expect(current.id).assertEqual(2);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product002').id);
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title002').id);
+      expect(current.price).assertEqual('USD 699.00');
+      expect(previous.id).assertEqual(2);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product002').id);
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title002').id);
+      expect((previous.price as Resource).id).assertEqual($r('app.string.embed_product_price002').id);
+      current.price = $r('app.string.embed_product_price002');
+      const later: ProductDataModel = new ProductDataModel(
+        3,
+        $r('app.media.embed_product003'),
+        $r('app.string.embed_product_title003'),
+        $r('app.string.embed_product_price003')
+      );
+      expect(current.id).assertEqual(2);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product002').id);
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title002').id);
+      expect((current.price as Resource).id).assertEqual($r('app.string.embed_product_price002').id);
+      expect(previous.id).assertEqual(2);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product002').id);
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title002').id);
+      expect((previous.price as Resource).id).assertEqual($r('app.string.embed_product_price002').id);
+      expect(later.id).assertEqual(3);
+      expect((later.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((later.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((later.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(current === previous).assertFalse();
+    });
+
+    /**
+     * @tc.number SUB_ARKWEB_SAMELEVEL_PRODUCT_FIELDSEQUENCE_0026
+     * @tc.name testProductFieldSequence0026
+     * @tc.desc Phone price binds a resource then accepts a sales override while its peer stays literal
+     * @tc.size MEDIUMTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testProductFieldSequence0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const previous: ProductDataModel = new ProductDataModel(
+        2,
+        $r('app.media.embed_product002'),
+        $r('app.string.embed_product_title002'),
+        'USD 699.00'
+      );
+      const current: ProductDataModel = new ProductDataModel(
+        2,
+        $r('app.media.embed_product002'),
+        $r('app.string.embed_product_title002'),
+        'USD 699.00'
+      );
+      current.price = $r('app.string.embed_product_price002');
+      expect(current.id).assertEqual(2);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product002').id);
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title002').id);
+      expect((current.price as Resource).id).assertEqual($r('app.string.embed_product_price002').id);
+      expect(previous.id).assertEqual(2);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product002').id);
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title002').id);
+      expect(previous.price).assertEqual('USD 699.00');
+      current.price = 'USD 649.00 deposit included';
+      const later: ProductDataModel = new ProductDataModel(
+        3,
+        $r('app.media.embed_product003'),
+        $r('app.string.embed_product_title003'),
+        $r('app.string.embed_product_price003')
+      );
+      expect(current.id).assertEqual(2);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product002').id);
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title002').id);
+      expect(current.price).assertEqual('USD 649.00 deposit included');
+      expect(previous.id).assertEqual(2);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product002').id);
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title002').id);
+      expect(previous.price).assertEqual('USD 699.00');
+      expect(later.id).assertEqual(3);
+      expect((later.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((later.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((later.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(current === previous).assertFalse();
+    });
+
+    /**
+     * @tc.number SUB_ARKWEB_SAMELEVEL_PRODUCT_FIELDSEQUENCE_0027
+     * @tc.name testProductFieldSequence0027
+     * @tc.desc Phone price clears a pending display then rebinds a resource without changing its peer
+     * @tc.size MEDIUMTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testProductFieldSequence0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const previous: ProductDataModel = new ProductDataModel(
+        2,
+        $r('app.media.embed_product002'),
+        $r('app.string.embed_product_title002'),
+        $r('app.string.embed_product_price002')
+      );
+      const current: ProductDataModel = new ProductDataModel(
+        2,
+        $r('app.media.embed_product002'),
+        $r('app.string.embed_product_title002'),
+        $r('app.string.embed_product_price002')
+      );
+      current.price = '';
+      expect(current.id).assertEqual(2);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product002').id);
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title002').id);
+      expect(current.price).assertEqual('');
+      expect(previous.id).assertEqual(2);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product002').id);
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title002').id);
+      expect((previous.price as Resource).id).assertEqual($r('app.string.embed_product_price002').id);
+      current.price = $r('app.string.embed_product_price003');
+      const later: ProductDataModel = new ProductDataModel(
+        3,
+        $r('app.media.embed_product003'),
+        $r('app.string.embed_product_title003'),
+        $r('app.string.embed_product_price003')
+      );
+      expect(current.id).assertEqual(2);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product002').id);
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title002').id);
+      expect((current.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(previous.id).assertEqual(2);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product002').id);
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title002').id);
+      expect((previous.price as Resource).id).assertEqual($r('app.string.embed_product_price002').id);
+      expect(later.id).assertEqual(3);
+      expect((later.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((later.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((later.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(current === previous).assertFalse();
+    });
+
+    /**
+     * @tc.number SUB_ARKWEB_SAMELEVEL_PRODUCT_FIELDSEQUENCE_0028
+     * @tc.name testProductFieldSequence0028
+     * @tc.desc Charger imageRes detaches to a literal then restores its resource without changing its peer
+     * @tc.size MEDIUMTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testProductFieldSequence0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const previous: ProductDataModel = new ProductDataModel(
+        3,
+        $r('app.media.embed_product003'),
+        $r('app.string.embed_product_title003'),
+        $r('app.string.embed_product_price003')
+      );
+      const current: ProductDataModel = new ProductDataModel(
+        3,
+        $r('app.media.embed_product003'),
+        $r('app.string.embed_product_title003'),
+        $r('app.string.embed_product_price003')
+      );
+      current.imageRes = 'file://cache/charger/front.webp';
+      expect(current.id).assertEqual(3);
+      expect(current.imageRes).assertEqual('file://cache/charger/front.webp');
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((current.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(previous.id).assertEqual(3);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((previous.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      current.imageRes = $r('app.media.embed_product003');
+      const later: ProductDataModel = new ProductDataModel(
+        4,
+        $r('app.media.embed_product004'),
+        $r('app.string.embed_product_title004'),
+        $r('app.string.embed_product_price004')
+      );
+      expect(current.id).assertEqual(3);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((current.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(previous.id).assertEqual(3);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((previous.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(later.id).assertEqual(4);
+      expect((later.imageRes as Resource).id).assertEqual($r('app.media.embed_product004').id);
+      expect((later.title as Resource).id).assertEqual($r('app.string.embed_product_title004').id);
+      expect((later.price as Resource).id).assertEqual($r('app.string.embed_product_price004').id);
+      expect(current === previous).assertFalse();
+    });
+
+    /**
+     * @tc.number SUB_ARKWEB_SAMELEVEL_PRODUCT_FIELDSEQUENCE_0029
+     * @tc.name testProductFieldSequence0029
+     * @tc.desc Charger imageRes binds a resource then accepts a sales override while its peer stays literal
+     * @tc.size MEDIUMTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testProductFieldSequence0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const previous: ProductDataModel = new ProductDataModel(
+        3,
+        'file://cache/charger/front.webp',
+        $r('app.string.embed_product_title003'),
+        $r('app.string.embed_product_price003')
+      );
+      const current: ProductDataModel = new ProductDataModel(
+        3,
+        'file://cache/charger/front.webp',
+        $r('app.string.embed_product_title003'),
+        $r('app.string.embed_product_price003')
+      );
+      current.imageRes = $r('app.media.embed_product003');
+      expect(current.id).assertEqual(3);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((current.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(previous.id).assertEqual(3);
+      expect(previous.imageRes).assertEqual('file://cache/charger/front.webp');
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((previous.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      current.imageRes = 'https://store.example/charger/ports.webp';
+      const later: ProductDataModel = new ProductDataModel(
+        4,
+        $r('app.media.embed_product004'),
+        $r('app.string.embed_product_title004'),
+        $r('app.string.embed_product_price004')
+      );
+      expect(current.id).assertEqual(3);
+      expect(current.imageRes).assertEqual('https://store.example/charger/ports.webp');
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((current.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(previous.id).assertEqual(3);
+      expect(previous.imageRes).assertEqual('file://cache/charger/front.webp');
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((previous.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(later.id).assertEqual(4);
+      expect((later.imageRes as Resource).id).assertEqual($r('app.media.embed_product004').id);
+      expect((later.title as Resource).id).assertEqual($r('app.string.embed_product_title004').id);
+      expect((later.price as Resource).id).assertEqual($r('app.string.embed_product_price004').id);
+      expect(current === previous).assertFalse();
+    });
+
+    /**
+     * @tc.number SUB_ARKWEB_SAMELEVEL_PRODUCT_FIELDSEQUENCE_0030
+     * @tc.name testProductFieldSequence0030
+     * @tc.desc Charger imageRes clears a pending display then rebinds a resource without changing its peer
+     * @tc.size MEDIUMTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testProductFieldSequence0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const previous: ProductDataModel = new ProductDataModel(
+        3,
+        $r('app.media.embed_product003'),
+        $r('app.string.embed_product_title003'),
+        $r('app.string.embed_product_price003')
+      );
+      const current: ProductDataModel = new ProductDataModel(
+        3,
+        $r('app.media.embed_product003'),
+        $r('app.string.embed_product_title003'),
+        $r('app.string.embed_product_price003')
+      );
+      current.imageRes = '';
+      expect(current.id).assertEqual(3);
+      expect(current.imageRes).assertEqual('');
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((current.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(previous.id).assertEqual(3);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((previous.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      current.imageRes = $r('app.media.embed_product004');
+      const later: ProductDataModel = new ProductDataModel(
+        4,
+        $r('app.media.embed_product004'),
+        $r('app.string.embed_product_title004'),
+        $r('app.string.embed_product_price004')
+      );
+      expect(current.id).assertEqual(3);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product004').id);
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((current.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(previous.id).assertEqual(3);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((previous.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(later.id).assertEqual(4);
+      expect((later.imageRes as Resource).id).assertEqual($r('app.media.embed_product004').id);
+      expect((later.title as Resource).id).assertEqual($r('app.string.embed_product_title004').id);
+      expect((later.price as Resource).id).assertEqual($r('app.string.embed_product_price004').id);
+      expect(current === previous).assertFalse();
+    });
+
+    /**
+     * @tc.number SUB_ARKWEB_SAMELEVEL_PRODUCT_FIELDSEQUENCE_0031
+     * @tc.name testProductFieldSequence0031
+     * @tc.desc Charger title detaches to a literal then restores its resource without changing its peer
+     * @tc.size MEDIUMTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testProductFieldSequence0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const previous: ProductDataModel = new ProductDataModel(
+        3,
+        $r('app.media.embed_product003'),
+        $r('app.string.embed_product_title003'),
+        $r('app.string.embed_product_price003')
+      );
+      const current: ProductDataModel = new ProductDataModel(
+        3,
+        $r('app.media.embed_product003'),
+        $r('app.string.embed_product_title003'),
+        $r('app.string.embed_product_price003')
+      );
+      current.title = 'USB-C charger 65 W - two ports';
+      expect(current.id).assertEqual(3);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect(current.title).assertEqual('USB-C charger 65 W - two ports');
+      expect((current.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(previous.id).assertEqual(3);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((previous.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      current.title = $r('app.string.embed_product_title003');
+      const later: ProductDataModel = new ProductDataModel(
+        4,
+        $r('app.media.embed_product004'),
+        $r('app.string.embed_product_title004'),
+        $r('app.string.embed_product_price004')
+      );
+      expect(current.id).assertEqual(3);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((current.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(previous.id).assertEqual(3);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((previous.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(later.id).assertEqual(4);
+      expect((later.imageRes as Resource).id).assertEqual($r('app.media.embed_product004').id);
+      expect((later.title as Resource).id).assertEqual($r('app.string.embed_product_title004').id);
+      expect((later.price as Resource).id).assertEqual($r('app.string.embed_product_price004').id);
+      expect(current === previous).assertFalse();
+    });
+
+    /**
+     * @tc.number SUB_ARKWEB_SAMELEVEL_PRODUCT_FIELDSEQUENCE_0032
+     * @tc.name testProductFieldSequence0032
+     * @tc.desc Charger title binds a resource then accepts a sales override while its peer stays literal
+     * @tc.size MEDIUMTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testProductFieldSequence0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const previous: ProductDataModel = new ProductDataModel(
+        3,
+        $r('app.media.embed_product003'),
+        'USB-C charger 65 W - two ports',
+        $r('app.string.embed_product_price003')
+      );
+      const current: ProductDataModel = new ProductDataModel(
+        3,
+        $r('app.media.embed_product003'),
+        'USB-C charger 65 W - two ports',
+        $r('app.string.embed_product_price003')
+      );
+      current.title = $r('app.string.embed_product_title003');
+      expect(current.id).assertEqual(3);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((current.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(previous.id).assertEqual(3);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect(previous.title).assertEqual('USB-C charger 65 W - two ports');
+      expect((previous.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      current.title = 'USB-C charger 65 W - cable bundle';
+      const later: ProductDataModel = new ProductDataModel(
+        4,
+        $r('app.media.embed_product004'),
+        $r('app.string.embed_product_title004'),
+        $r('app.string.embed_product_price004')
+      );
+      expect(current.id).assertEqual(3);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect(current.title).assertEqual('USB-C charger 65 W - cable bundle');
+      expect((current.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(previous.id).assertEqual(3);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect(previous.title).assertEqual('USB-C charger 65 W - two ports');
+      expect((previous.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(later.id).assertEqual(4);
+      expect((later.imageRes as Resource).id).assertEqual($r('app.media.embed_product004').id);
+      expect((later.title as Resource).id).assertEqual($r('app.string.embed_product_title004').id);
+      expect((later.price as Resource).id).assertEqual($r('app.string.embed_product_price004').id);
+      expect(current === previous).assertFalse();
+    });
+
+    /**
+     * @tc.number SUB_ARKWEB_SAMELEVEL_PRODUCT_FIELDSEQUENCE_0033
+     * @tc.name testProductFieldSequence0033
+     * @tc.desc Charger title clears a pending display then rebinds a resource without changing its peer
+     * @tc.size MEDIUMTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testProductFieldSequence0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const previous: ProductDataModel = new ProductDataModel(
+        3,
+        $r('app.media.embed_product003'),
+        $r('app.string.embed_product_title003'),
+        $r('app.string.embed_product_price003')
+      );
+      const current: ProductDataModel = new ProductDataModel(
+        3,
+        $r('app.media.embed_product003'),
+        $r('app.string.embed_product_title003'),
+        $r('app.string.embed_product_price003')
+      );
+      current.title = '';
+      expect(current.id).assertEqual(3);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect(current.title).assertEqual('');
+      expect((current.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(previous.id).assertEqual(3);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((previous.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      current.title = $r('app.string.embed_product_title004');
+      const later: ProductDataModel = new ProductDataModel(
+        4,
+        $r('app.media.embed_product004'),
+        $r('app.string.embed_product_title004'),
+        $r('app.string.embed_product_price004')
+      );
+      expect(current.id).assertEqual(3);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title004').id);
+      expect((current.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(previous.id).assertEqual(3);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((previous.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(later.id).assertEqual(4);
+      expect((later.imageRes as Resource).id).assertEqual($r('app.media.embed_product004').id);
+      expect((later.title as Resource).id).assertEqual($r('app.string.embed_product_title004').id);
+      expect((later.price as Resource).id).assertEqual($r('app.string.embed_product_price004').id);
+      expect(current === previous).assertFalse();
+    });
+
+    /**
+     * @tc.number SUB_ARKWEB_SAMELEVEL_PRODUCT_FIELDSEQUENCE_0034
+     * @tc.name testProductFieldSequence0034
+     * @tc.desc Charger price detaches to a literal then restores its resource without changing its peer
+     * @tc.size MEDIUMTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testProductFieldSequence0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const previous: ProductDataModel = new ProductDataModel(
+        3,
+        $r('app.media.embed_product003'),
+        $r('app.string.embed_product_title003'),
+        $r('app.string.embed_product_price003')
+      );
+      const current: ProductDataModel = new ProductDataModel(
+        3,
+        $r('app.media.embed_product003'),
+        $r('app.string.embed_product_title003'),
+        $r('app.string.embed_product_price003')
+      );
+      current.price = 'USD 0.00';
+      expect(current.id).assertEqual(3);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect(current.price).assertEqual('USD 0.00');
+      expect(previous.id).assertEqual(3);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((previous.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      current.price = $r('app.string.embed_product_price003');
+      const later: ProductDataModel = new ProductDataModel(
+        4,
+        $r('app.media.embed_product004'),
+        $r('app.string.embed_product_title004'),
+        $r('app.string.embed_product_price004')
+      );
+      expect(current.id).assertEqual(3);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((current.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(previous.id).assertEqual(3);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((previous.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(later.id).assertEqual(4);
+      expect((later.imageRes as Resource).id).assertEqual($r('app.media.embed_product004').id);
+      expect((later.title as Resource).id).assertEqual($r('app.string.embed_product_title004').id);
+      expect((later.price as Resource).id).assertEqual($r('app.string.embed_product_price004').id);
+      expect(current === previous).assertFalse();
+    });
+
+    /**
+     * @tc.number SUB_ARKWEB_SAMELEVEL_PRODUCT_FIELDSEQUENCE_0035
+     * @tc.name testProductFieldSequence0035
+     * @tc.desc Charger price binds a resource then accepts a sales override while its peer stays literal
+     * @tc.size MEDIUMTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testProductFieldSequence0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const previous: ProductDataModel = new ProductDataModel(
+        3,
+        $r('app.media.embed_product003'),
+        $r('app.string.embed_product_title003'),
+        'USD 0.00'
+      );
+      const current: ProductDataModel = new ProductDataModel(
+        3,
+        $r('app.media.embed_product003'),
+        $r('app.string.embed_product_title003'),
+        'USD 0.00'
+      );
+      current.price = $r('app.string.embed_product_price003');
+      expect(current.id).assertEqual(3);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((current.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(previous.id).assertEqual(3);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect(previous.price).assertEqual('USD 0.00');
+      current.price = 'USD 19.50 bundle';
+      const later: ProductDataModel = new ProductDataModel(
+        4,
+        $r('app.media.embed_product004'),
+        $r('app.string.embed_product_title004'),
+        $r('app.string.embed_product_price004')
+      );
+      expect(current.id).assertEqual(3);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect(current.price).assertEqual('USD 19.50 bundle');
+      expect(previous.id).assertEqual(3);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect(previous.price).assertEqual('USD 0.00');
+      expect(later.id).assertEqual(4);
+      expect((later.imageRes as Resource).id).assertEqual($r('app.media.embed_product004').id);
+      expect((later.title as Resource).id).assertEqual($r('app.string.embed_product_title004').id);
+      expect((later.price as Resource).id).assertEqual($r('app.string.embed_product_price004').id);
+      expect(current === previous).assertFalse();
+    });
+
+    /**
+     * @tc.number SUB_ARKWEB_SAMELEVEL_PRODUCT_FIELDSEQUENCE_0036
+     * @tc.name testProductFieldSequence0036
+     * @tc.desc Charger price clears a pending display then rebinds a resource without changing its peer
+     * @tc.size MEDIUMTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testProductFieldSequence0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const previous: ProductDataModel = new ProductDataModel(
+        3,
+        $r('app.media.embed_product003'),
+        $r('app.string.embed_product_title003'),
+        $r('app.string.embed_product_price003')
+      );
+      const current: ProductDataModel = new ProductDataModel(
+        3,
+        $r('app.media.embed_product003'),
+        $r('app.string.embed_product_title003'),
+        $r('app.string.embed_product_price003')
+      );
+      current.price = '';
+      expect(current.id).assertEqual(3);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect(current.price).assertEqual('');
+      expect(previous.id).assertEqual(3);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((previous.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      current.price = $r('app.string.embed_product_price004');
+      const later: ProductDataModel = new ProductDataModel(
+        4,
+        $r('app.media.embed_product004'),
+        $r('app.string.embed_product_title004'),
+        $r('app.string.embed_product_price004')
+      );
+      expect(current.id).assertEqual(3);
+      expect((current.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((current.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((current.price as Resource).id).assertEqual($r('app.string.embed_product_price004').id);
+      expect(previous.id).assertEqual(3);
+      expect((previous.imageRes as Resource).id).assertEqual($r('app.media.embed_product003').id);
+      expect((previous.title as Resource).id).assertEqual($r('app.string.embed_product_title003').id);
+      expect((previous.price as Resource).id).assertEqual($r('app.string.embed_product_price003').id);
+      expect(later.id).assertEqual(4);
+      expect((later.imageRes as Resource).id).assertEqual($r('app.media.embed_product004').id);
+      expect((later.title as Resource).id).assertEqual($r('app.string.embed_product_title004').id);
+      expect((later.price as Resource).id).assertEqual($r('app.string.embed_product_price004').id);
+      expect(current === previous).assertFalse();
+    });
+  });
+}
