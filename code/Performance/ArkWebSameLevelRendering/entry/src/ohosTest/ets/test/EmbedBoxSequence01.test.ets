@@ -3479,3 +3479,45 @@ export default function embedBoxSequence01(host: EmbedDocumentHost): void {
         '    if (oldNode === null) { node.removeAttribute(\'style\'); }' +
         '    else { node.setAttribute(\'style\', oldNode); }' +
         '    if (oldParent === null) { parent.removeAttribute(\'style\'); }' +
+        '    else { parent.setAttribute(\'style\', oldParent); }' +
+        '  }' +
+        '})()'
+      )) as number[];
+      const firstOracle: number[] = usedBoxOracle(result, 24);
+      const secondOracle: number[] = usedBoxOracle(result, 34);
+      const thirdOracle: number[] = usedBoxOracle(result, 44);
+      const expected: number[] = [
+        firstOracle[0], firstOracle[1], secondOracle[0], secondOracle[1], thirdOracle[0], thirdOracle[1]
+      ];
+      const cssExpected: number[] = [
+        Math.max(Math.max(30, Math.min(20, 10)), result[26] + result[28]),
+        Math.max(80.75, result[27] + result[29]), Math.max(Math.max(5, Math.min(20, 10)), result[36] + result[38]),
+        Math.max(80.75, result[37] + result[39]), Math.max(Math.max(5, 20), result[46] + result[48]),
+        Math.max(80.75, result[47] + result[49])
+      ];
+      expect(Math.abs(result[24] - cssExpected[0]) < 0.03125 &&
+        Math.abs(result[25] - cssExpected[1]) < 0.03125 &&
+        result[30] === 1 && result[31] === 1).assertTrue();
+      expect(Math.abs(result[34] - cssExpected[2]) < 0.03125 &&
+        Math.abs(result[35] - cssExpected[3]) < 0.03125 &&
+        result[40] === 1 && result[41] === 1).assertTrue();
+      expect(Math.abs(result[44] - cssExpected[4]) < 0.03125 &&
+        Math.abs(result[45] - cssExpected[5]) < 0.03125 &&
+        result[50] === 1 && result[51] === 1).assertTrue();
+      expect(result.slice(0, 2).join(',')).assertEqual(expected.slice(0, 2).join(','));
+      expect(result.slice(6, 8).join(',')).assertEqual(expected.slice(2, 4).join(','));
+      expect(result.slice(12, 14).join(',')).assertEqual(expected.slice(4, 6).join(','));
+      expect(Math.abs(result[2] - (firstOracle[2])) < 0.03125 &&
+        Math.abs(result[3] - (firstOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[8] - (secondOracle[2])) < 0.03125 &&
+        Math.abs(result[9] - (secondOracle[3])) < 0.03125).assertTrue();
+      expect(Math.abs(result[14] - (thirdOracle[2])) < 0.03125 &&
+        Math.abs(result[15] - (thirdOracle[3])) < 0.03125).assertTrue();
+      expect([result[4], result[5], result[10], result[11], result[16], result[17]].join(','))
+        .assertEqual([firstOracle[4], firstOracle[5], secondOracle[4], secondOracle[5],
+          thirdOracle[4], thirdOracle[5]].join(','));
+      expect(result.slice(18, 22).join(',')).assertEqual(expected.slice(0, 4).join(','));
+      expect(result.slice(22, 24).join(',')).assertEqual('1,1');
+    });
+  });
+}
