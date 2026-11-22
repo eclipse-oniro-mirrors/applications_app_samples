@@ -492,3 +492,100 @@ export default function calculateNumTest(): void {
      */
     it('Perf_CalcNum_0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       logInfo(`${BUNDLE}CalcNum_0027 begin`);
+      logInfo("calculateNum(21, 60)");
+      const actual: number = calculateNum(21, 60);
+      logInfo('actual=' + String(actual) + ', expected=' + "81");
+      expect(actual).assertEqual(81);
+      logInfo(`${BUNDLE}CalcNum_0027 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_CALC_NUM_0028
+     * @tc.name      Perf_CalcNum_0028
+     * @tc.desc      calculateNum(22, 64) increments the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_CalcNum_0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}CalcNum_0028 begin`);
+      logInfo("calculateNum(22, 64)");
+      const actual: number = calculateNum(22, 64);
+      logInfo('actual=' + String(actual) + ', expected=' + "86");
+      expect(actual).assertEqual(86);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}CalcNum_0028 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_CALC_NUM_0029
+     * @tc.name      Perf_CalcNum_0029
+     * @tc.desc      calculateNum(23, 70) increments the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_CalcNum_0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}CalcNum_0029 begin`);
+      logInfo("calculateNum(23, 70)");
+      const actual: number = calculateNum(23, 70);
+      logInfo('actual=' + String(actual) + ', expected=' + "93");
+      expect(actual).assertEqual(93);
+      logInfo(`${BUNDLE}CalcNum_0029 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_CALC_NUM_0030
+     * @tc.name      Perf_CalcNum_0030
+     * @tc.desc      calculateNum(24, 80) increments the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_CalcNum_0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}CalcNum_0030 begin`);
+      logInfo("calculateNum(24, 80)");
+      const actual: number = calculateNum(24, 80);
+      logInfo('actual=' + String(actual) + ', expected=' + "104");
+      expect(actual).assertEqual(104);
+      logInfo(`${BUNDLE}CalcNum_0030 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_CALC_NUM_0031
+     * @tc.name      Perf_CalcNum_0031
+     * @tc.desc      calculateNum(25, 90) increments the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_CalcNum_0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}CalcNum_0031 begin`);
+      logInfo("calculateNum(25, 90)");
+      const actual: number = calculateNum(25, 90);
+      logInfo('actual=' + String(actual) + ', expected=' + "115");
+      expect(actual).assertEqual(115);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}CalcNum_0031 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_CALC_NUM_0032
+     * @tc.name      Perf_CalcNum_0032
+     * @tc.desc      calculateNum(26, 99) increments the counter.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_CalcNum_0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}CalcNum_0032 begin`);
+      logInfo("calculateNum(26, 99)");
+      const actual: number = calculateNum(26, 99);
+      logInfo('actual=' + String(actual) + ', expected=' + "125");
+      expect(actual).assertEqual(125);
+      logInfo(`${BUNDLE}CalcNum_0032 end`);
+    });
+  });
+}
