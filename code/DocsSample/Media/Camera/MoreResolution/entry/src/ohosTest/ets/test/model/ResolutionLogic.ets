@@ -17,9 +17,9 @@
 // XComponent, display, fold status and media saving are replaced by explicit inputs so
 // every resolution decision and page callback has one reproducible result.
 
-// Mirrors Constants.ets.
-export const X_COMPONENT_SURFACE_HEIGHT: number = 720;
-export const X_COMPONENT_SURFACE_WIDTH: number = 1280;
+// Mirrors the XComponent size constants in Constants.ets.
+export const X_COMPONENT_HEIGHT: number = 720;
+export const X_COMPONENT_WIDTH: number = 1280;
 export const X_COMPONENT_BORDER_WIDTH: number = 0.5;
 export const CAPTURE_BUTTON_BORDER_WIDTH: number = 3;
 export const CAPTURE_BUTTON_BORDER_RADIUS: number = 70;
