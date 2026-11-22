@@ -2008,3 +2008,1435 @@ ${NOTIFY_RESTORE}
      */
     it('testEmbedNotifyListenerSequence0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
       const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+  const cleanup = [];
+${NOTIFY_REPORTER}
+  const watch = (label, action) => {
+    const listener = { handleEvent(event) {
+      notify(event, label, this === listener);
+      if (action) { action(event, listener); }
+    } };
+    return listener;
+  };
+  const keep = (target, type, listener, options) => {
+    const capture = typeof options === 'boolean' ? options : !!(options && options.capture);
+    cleanup.push({ target, type, listener, options: capture });
+    target.addEventListener(type, listener, options);
+  };
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    const peer = watch('peer');
+    keep(node, 'touchstart', peer, false);
+    nativeEmbed.init();
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','),
+      String(records[1].listener === peer),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+    cleanup.reverse().forEach(item =>
+      item.target.removeEventListener(item.type, item.listener, item.options));
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main,peer');
+      expect(result[1]).assertEqual('nativeSearch>nativeSearch,nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2,2');
+      expect(result[3]).assertEqual('true,true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('true,true,true,true,true,true');
+      expect(result[6]).assertEqual('3');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0038
+     * @tc.name testEmbedNotifyListenerSequence0038
+     * @tc.desc Peer added after main with capture=true follows phase and insertion order
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+  const cleanup = [];
+${NOTIFY_REPORTER}
+  const watch = (label, action) => {
+    const listener = { handleEvent(event) {
+      notify(event, label, this === listener);
+      if (action) { action(event, listener); }
+    } };
+    return listener;
+  };
+  const keep = (target, type, listener, options) => {
+    const capture = typeof options === 'boolean' ? options : !!(options && options.capture);
+    cleanup.push({ target, type, listener, options: capture });
+    target.addEventListener(type, listener, options);
+  };
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    const peer = watch('peer');
+    keep(node, 'touchstart', peer, true);
+    nativeEmbed.init();
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','),
+      String(records[1].listener === peer),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+    cleanup.reverse().forEach(item =>
+      item.target.removeEventListener(item.type, item.listener, item.options));
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('peer,main');
+      expect(result[1]).assertEqual('nativeSearch>nativeSearch,nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2,2');
+      expect(result[3]).assertEqual('true,true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('true,true,true,true,true,true');
+      expect(result[6]).assertEqual('3');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0039
+     * @tc.name testEmbedNotifyListenerSequence0039
+     * @tc.desc Peer added before main with capture=false follows phase and insertion order
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+  const cleanup = [];
+${NOTIFY_REPORTER}
+  const watch = (label, action) => {
+    const listener = { handleEvent(event) {
+      notify(event, label, this === listener);
+      if (action) { action(event, listener); }
+    } };
+    return listener;
+  };
+  const keep = (target, type, listener, options) => {
+    const capture = typeof options === 'boolean' ? options : !!(options && options.capture);
+    cleanup.push({ target, type, listener, options: capture });
+    target.addEventListener(type, listener, options);
+  };
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    const peer = watch('peer');
+    node.removeEventListener('touchstart', original, false);
+    keep(node, 'touchstart', peer, false);
+    nativeEmbed.init();
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','),
+      String(records[1].listener === peer),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+    cleanup.reverse().forEach(item =>
+      item.target.removeEventListener(item.type, item.listener, item.options));
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('peer,main');
+      expect(result[1]).assertEqual('nativeSearch>nativeSearch,nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2,2');
+      expect(result[3]).assertEqual('true,true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('true,true,true,true,true,true');
+      expect(result[6]).assertEqual('3');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0040
+     * @tc.name testEmbedNotifyListenerSequence0040
+     * @tc.desc Peer added before main with capture=true follows phase and insertion order
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+  const cleanup = [];
+${NOTIFY_REPORTER}
+  const watch = (label, action) => {
+    const listener = { handleEvent(event) {
+      notify(event, label, this === listener);
+      if (action) { action(event, listener); }
+    } };
+    return listener;
+  };
+  const keep = (target, type, listener, options) => {
+    const capture = typeof options === 'boolean' ? options : !!(options && options.capture);
+    cleanup.push({ target, type, listener, options: capture });
+    target.addEventListener(type, listener, options);
+  };
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    const peer = watch('peer');
+    node.removeEventListener('touchstart', original, false);
+    keep(node, 'touchstart', peer, true);
+    nativeEmbed.init();
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','),
+      String(records[1].listener === peer),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+    cleanup.reverse().forEach(item =>
+      item.target.removeEventListener(item.type, item.listener, item.options));
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('peer,main');
+      expect(result[1]).assertEqual('nativeSearch>nativeSearch,nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2,2');
+      expect(result[3]).assertEqual('true,true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('true,true,true,true,true,true');
+      expect(result[6]).assertEqual('3');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0041
+     * @tc.name testEmbedNotifyListenerSequence0041
+     * @tc.desc Removing main and real init rearm moves main after an existing bubble peer
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+  const cleanup = [];
+${NOTIFY_REPORTER}
+  const watch = (label, action) => {
+    const listener = { handleEvent(event) {
+      notify(event, label, this === listener);
+      if (action) { action(event, listener); }
+    } };
+    return listener;
+  };
+  const keep = (target, type, listener, options) => {
+    const capture = typeof options === 'boolean' ? options : !!(options && options.capture);
+    cleanup.push({ target, type, listener, options: capture });
+    target.addEventListener(type, listener, options);
+  };
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    const peer = watch('peer');
+    keep(node, 'touchstart', peer, false);
+    fire(node);
+    node.removeEventListener('touchstart', original, false);
+    nativeEmbed.init();
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','),
+      String(records[2].listener === original),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+    cleanup.reverse().forEach(item =>
+      item.target.removeEventListener(item.type, item.listener, item.options));
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main,peer,peer,main');
+      expect(result[1]).assertEqual(
+        'nativeSearch>nativeSearch,nativeSearch>nativeSearch,nativeSearch>nativeSearch,na' +
+        'tiveSearch>nativeSearch'
+      );
+      expect(result[2]).assertEqual('2,2,2,2');
+      expect(result[3]).assertEqual('true,true,true,true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('true,true,true,true,true,true');
+      expect(result[6]).assertEqual('3');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0042
+     * @tc.name testEmbedNotifyListenerSequence0042
+     * @tc.desc Duplicate init preserves insertion order relative to bubble peers
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+  const cleanup = [];
+${NOTIFY_REPORTER}
+  const watch = (label, action) => {
+    const listener = { handleEvent(event) {
+      notify(event, label, this === listener);
+      if (action) { action(event, listener); }
+    } };
+    return listener;
+  };
+  const keep = (target, type, listener, options) => {
+    const capture = typeof options === 'boolean' ? options : !!(options && options.capture);
+    cleanup.push({ target, type, listener, options: capture });
+    target.addEventListener(type, listener, options);
+  };
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    const first = watch('first');
+    const second = watch('second');
+    keep(node, 'touchstart', first, false);
+    nativeEmbed.init();
+    keep(node, 'touchstart', second, false);
+    nativeEmbed.init();
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','),
+      String(records[2].listener === records[4].listener),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+    cleanup.reverse().forEach(item =>
+      item.target.removeEventListener(item.type, item.listener, item.options));
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main,first,second');
+      expect(result[1]).assertEqual('nativeSearch>nativeSearch,nativeSearch>nativeSearch,nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2,2,2');
+      expect(result[3]).assertEqual('true,true,true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('true,true,true,true,true,true');
+      expect(result[6]).assertEqual('5');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0043
+     * @tc.name testEmbedNotifyListenerSequence0043
+     * @tc.desc Replacement object is appended after an existing bubble peer
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+  const cleanup = [];
+${NOTIFY_REPORTER}
+  const watch = (label, action) => {
+    const listener = { handleEvent(event) {
+      notify(event, label, this === listener);
+      if (action) { action(event, listener); }
+    } };
+    return listener;
+  };
+  const keep = (target, type, listener, options) => {
+    const capture = typeof options === 'boolean' ? options : !!(options && options.capture);
+    cleanup.push({ target, type, listener, options: capture });
+    target.addEventListener(type, listener, options);
+  };
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    const peer = watch('peer');
+    const replacement = watch('replacement');
+    keep(node, 'touchstart', peer, false);
+    nativeEmbed.events = replacement;
+    nativeEmbed.init();
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','),
+      String(records[2].listener === replacement),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+    cleanup.reverse().forEach(item =>
+      item.target.removeEventListener(item.type, item.listener, item.options));
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main,peer,replacement');
+      expect(result[1]).assertEqual('nativeSearch>nativeSearch,nativeSearch>nativeSearch,nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2,2,2');
+      expect(result[3]).assertEqual('true,true,true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('true,true,true,true,true,true');
+      expect(result[6]).assertEqual('3');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0044
+     * @tc.name testEmbedNotifyListenerSequence0044
+     * @tc.desc Replacement removal and real rearm moves it after a later peer
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+  const cleanup = [];
+${NOTIFY_REPORTER}
+  const watch = (label, action) => {
+    const listener = { handleEvent(event) {
+      notify(event, label, this === listener);
+      if (action) { action(event, listener); }
+    } };
+    return listener;
+  };
+  const keep = (target, type, listener, options) => {
+    const capture = typeof options === 'boolean' ? options : !!(options && options.capture);
+    cleanup.push({ target, type, listener, options: capture });
+    target.addEventListener(type, listener, options);
+  };
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    const replacement = watch('replacement');
+    nativeEmbed.events = replacement;
+    nativeEmbed.init();
+    keep(node, 'touchstart', watch('peer'), false);
+    fire(node);
+    node.removeEventListener('touchstart', replacement, false);
+    nativeEmbed.init();
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','),
+      String(records[1].listener === records[3].listener),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+    cleanup.reverse().forEach(item =>
+      item.target.removeEventListener(item.type, item.listener, item.options));
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main,replacement,peer,main,peer,replacement');
+      expect(result[1]).assertEqual(
+        'nativeSearch>nativeSearch,nativeSearch>nativeSearch,nativeSearch>nativeSearch,na' +
+        'tiveSearch>nativeSearch,nativeSearch>nativeSearch,nativeSearch>nativeSearch'
+      );
+      expect(result[2]).assertEqual('2,2,2,2,2,2');
+      expect(result[3]).assertEqual('true,true,true,true,true,true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('true,true,true,true,true,true');
+      expect(result[6]).assertEqual('4');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0045
+     * @tc.name testEmbedNotifyListenerSequence0045
+     * @tc.desc Capture listeners run in capture insertion order even when registered after main bubble
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+  const cleanup = [];
+${NOTIFY_REPORTER}
+  const watch = (label, action) => {
+    const listener = { handleEvent(event) {
+      notify(event, label, this === listener);
+      if (action) { action(event, listener); }
+    } };
+    return listener;
+  };
+  const keep = (target, type, listener, options) => {
+    const capture = typeof options === 'boolean' ? options : !!(options && options.capture);
+    cleanup.push({ target, type, listener, options: capture });
+    target.addEventListener(type, listener, options);
+  };
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    keep(node, 'touchstart', watch('capture1'), true);
+    keep(node, 'touchstart', watch('capture2'), true);
+    nativeEmbed.init();
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','),
+      String(records[3].listener === original),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+    cleanup.reverse().forEach(item =>
+      item.target.removeEventListener(item.type, item.listener, item.options));
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('capture1,capture2,main');
+      expect(result[1]).assertEqual('nativeSearch>nativeSearch,nativeSearch>nativeSearch,nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2,2,2');
+      expect(result[3]).assertEqual('true,true,true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('true,true,true,true,true,true');
+      expect(result[6]).assertEqual('4');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0046
+     * @tc.name testEmbedNotifyListenerSequence0046
+     * @tc.desc Capture readd moves capture observer after a later capture observer
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+  const cleanup = [];
+${NOTIFY_REPORTER}
+  const watch = (label, action) => {
+    const listener = { handleEvent(event) {
+      notify(event, label, this === listener);
+      if (action) { action(event, listener); }
+    } };
+    return listener;
+  };
+  const keep = (target, type, listener, options) => {
+    const capture = typeof options === 'boolean' ? options : !!(options && options.capture);
+    cleanup.push({ target, type, listener, options: capture });
+    target.addEventListener(type, listener, options);
+  };
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    const first = watch('first');
+    keep(node, 'touchstart', first, true);
+    keep(node, 'touchstart', watch('second'), true);
+    node.removeEventListener('touchstart', first, true);
+    keep(node, 'touchstart', first, true);
+    nativeEmbed.init();
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','),
+      String(records[1].listener === records[3].listener),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+    cleanup.reverse().forEach(item =>
+      item.target.removeEventListener(item.type, item.listener, item.options));
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('second,first,main');
+      expect(result[1]).assertEqual('nativeSearch>nativeSearch,nativeSearch>nativeSearch,nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2,2,2');
+      expect(result[3]).assertEqual('true,true,true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('true,true,true,true,true,true');
+      expect(result[6]).assertEqual('5');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0047
+     * @tc.name testEmbedNotifyListenerSequence0047
+     * @tc.desc Same observer capture and bubble calls bracket another observer bubble call after rearm
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+  const cleanup = [];
+${NOTIFY_REPORTER}
+  const watch = (label, action) => {
+    const listener = { handleEvent(event) {
+      notify(event, label, this === listener);
+      if (action) { action(event, listener); }
+    } };
+    return listener;
+  };
+  const keep = (target, type, listener, options) => {
+    const capture = typeof options === 'boolean' ? options : !!(options && options.capture);
+    cleanup.push({ target, type, listener, options: capture });
+    target.addEventListener(type, listener, options);
+  };
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    keep(node, 'touchstart', original, true);
+    keep(node, 'touchstart', watch('peer'), false);
+    node.removeEventListener('touchstart', original, false);
+    nativeEmbed.init();
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','),
+      String(records[1].listener === records[3].listener),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+    cleanup.reverse().forEach(item =>
+      item.target.removeEventListener(item.type, item.listener, item.options));
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main,peer,main');
+      expect(result[1]).assertEqual('nativeSearch>nativeSearch,nativeSearch>nativeSearch,nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2,2,2');
+      expect(result[3]).assertEqual('true,true,true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('true,true,true,true,true,true');
+      expect(result[6]).assertEqual('4');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0048
+     * @tc.name testEmbedNotifyListenerSequence0048
+     * @tc.desc Once peer consumed between dispatches leaves main notification order intact
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+  const cleanup = [];
+${NOTIFY_REPORTER}
+  const watch = (label, action) => {
+    const listener = { handleEvent(event) {
+      notify(event, label, this === listener);
+      if (action) { action(event, listener); }
+    } };
+    return listener;
+  };
+  const keep = (target, type, listener, options) => {
+    const capture = typeof options === 'boolean' ? options : !!(options && options.capture);
+    cleanup.push({ target, type, listener, options: capture });
+    target.addEventListener(type, listener, options);
+  };
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    keep(node, 'touchstart', watch('once'), { once: true });
+    keep(node, 'touchstart', watch('last'), false);
+    fire(node);
+    nativeEmbed.init();
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','),
+      String(records[3].listener === original),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+    cleanup.reverse().forEach(item =>
+      item.target.removeEventListener(item.type, item.listener, item.options));
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main,once,last,main,last');
+      expect(result[1]).assertEqual(
+        'nativeSearch>nativeSearch,nativeSearch>nativeSearch,nativeSearch>nativeSearch,na' +
+        'tiveSearch>nativeSearch,nativeSearch>nativeSearch'
+      );
+      expect(result[2]).assertEqual('2,2,2,2,2');
+      expect(result[3]).assertEqual('true,true,true,true,true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('true,true,true,true,true,true');
+      expect(result[6]).assertEqual('4');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0049
+     * @tc.name testEmbedNotifyListenerSequence0049
+     * @tc.desc Removing main while detached leaves no notification until real init rearm
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+${NOTIFY_REPORTER}
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    node.remove();
+    node.removeEventListener('touchstart', original, false);
+    fire(node);
+    const quiet = notices.length;
+    nativeEmbed.init();
+    fire(node);
+    parent.insertBefore(node, next);
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','), String(quiet),
+      String(node.isConnected),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main,main');
+      expect(result[1]).assertEqual('nativeSearch>nativeSearch,nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2,2');
+      expect(result[3]).assertEqual('true,true');
+      expect(result[4]).assertEqual('0');
+      expect(result[5]).assertEqual('true');
+      expect(result[6]).assertEqual('true,true,true,true,true,true');
+      expect(result[7]).assertEqual('2');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0050
+     * @tc.name testEmbedNotifyListenerSequence0050
+     * @tc.desc Replacement observer registered while detached is active after reinsert
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+${NOTIFY_REPORTER}
+  const watch = (label, action) => {
+    const listener = { handleEvent(event) {
+      notify(event, label, this === listener);
+      if (action) { action(event, listener); }
+    } };
+    return listener;
+  };
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    const replacement = watch('replacement');
+    node.remove();
+    nativeEmbed.events = replacement;
+    nativeEmbed.init();
+    fire(node);
+    parent.insertBefore(node, next);
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','),
+      String(records[1].target === node),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main,replacement,main,replacement');
+      expect(result[1]).assertEqual(
+        'nativeSearch>nativeSearch,nativeSearch>nativeSearch,nativeSearch>nativeSearch,na' +
+        'tiveSearch>nativeSearch'
+      );
+      expect(result[2]).assertEqual('2,2,2,2');
+      expect(result[3]).assertEqual('true,true,true,true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('true,true,true,true,true,true');
+      expect(result[6]).assertEqual('2');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0051
+     * @tc.name testEmbedNotifyListenerSequence0051
+     * @tc.desc Same-id replacement stays quiet while init registers cached detached original
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+  const created = [];
+${NOTIFY_REPORTER}
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    const replacement = node.cloneNode(false);
+    created.push(replacement);
+    parent.replaceChild(replacement, node);
+    nativeEmbed.init();
+    fire(replacement);
+    const quiet = notices.length;
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','), String(quiet),
+      String(document.getElementById('nativeSearch') === replacement),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    created.reverse().forEach(element => element.remove());
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main');
+      expect(result[1]).assertEqual('nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('0');
+      expect(result[5]).assertEqual('true');
+      expect(result[6]).assertEqual('true,true,true,true,true,true');
+      expect(result[7]).assertEqual('2');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0052
+     * @tc.name testEmbedNotifyListenerSequence0052
+     * @tc.desc Removing callback on same-id replacement cannot disarm cached original
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+  const created = [];
+${NOTIFY_REPORTER}
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    const replacement = node.cloneNode(false);
+    created.push(replacement);
+    parent.replaceChild(replacement, node);
+    replacement.removeEventListener('touchstart', original, false);
+    nativeEmbed.init();
+    fire(node);
+    fire(replacement);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','),
+      String(records[1].target === node),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    created.reverse().forEach(element => element.remove());
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main');
+      expect(result[1]).assertEqual('nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('true,true,true,true,true,true');
+      expect(result[6]).assertEqual('2');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0053
+     * @tc.name testEmbedNotifyListenerSequence0053
+     * @tc.desc Listener manually placed on same-id replacement remains a distinct target registration
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+  const cleanup = [], created = [];
+${NOTIFY_REPORTER}
+  const keep = (target, type, listener, options) => {
+    const capture = typeof options === 'boolean' ? options : !!(options && options.capture);
+    cleanup.push({ target, type, listener, options: capture });
+    target.addEventListener(type, listener, options);
+  };
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    const replacement = node.cloneNode(false);
+    created.push(replacement);
+    parent.replaceChild(replacement, node);
+    keep(replacement, 'touchstart', original, false);
+    nativeEmbed.init();
+    fire(replacement);
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','),
+      String(records[1].target === replacement), String(records[2].target === node),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+    cleanup.reverse().forEach(item =>
+      item.target.removeEventListener(item.type, item.listener, item.options));
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    created.reverse().forEach(element => element.remove());
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main,main');
+      expect(result[1]).assertEqual('nativeSearch>nativeSearch,nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2,2');
+      expect(result[3]).assertEqual('true,true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('true');
+      expect(result[6]).assertEqual('true,true,true,true,true,true');
+      expect(result[7]).assertEqual('3');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0054
+     * @tc.name testEmbedNotifyListenerSequence0054
+     * @tc.desc Reinsert original after removing its listener still needs real init rearm
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+${NOTIFY_REPORTER}
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    node.removeEventListener('touchstart', original, false);
+    node.remove();
+    parent.insertBefore(node, next);
+    fire(node);
+    const quiet = notices.length;
+    nativeEmbed.init();
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','), String(quiet),
+      String(node.parentNode === parent),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main');
+      expect(result[1]).assertEqual('nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2');
+      expect(result[3]).assertEqual('true');
+      expect(result[4]).assertEqual('0');
+      expect(result[5]).assertEqual('true');
+      expect(result[6]).assertEqual('true,true,true,true,true,true');
+      expect(result[7]).assertEqual('2');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0055
+     * @tc.name testEmbedNotifyListenerSequence0055
+     * @tc.desc Reparenting original preserves its original and replacement callback order
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+  const created = [];
+${NOTIFY_REPORTER}
+  const watch = (label, action) => {
+    const listener = { handleEvent(event) {
+      notify(event, label, this === listener);
+      if (action) { action(event, listener); }
+    } };
+    return listener;
+  };
+  const make = (tag, id, target) => {
+    const element = document.createElement(tag);
+    element.id = id;
+    created.push(element);
+    target.appendChild(element);
+    return element;
+  };
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    const container = make('section', 'notifyContainer', parent);
+    const replacement = watch('replacement');
+    nativeEmbed.events = replacement;
+    nativeEmbed.init();
+    container.appendChild(node);
+    fire(node);
+    parent.insertBefore(node, next);
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','),
+      String(records[1].target === node),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    created.reverse().forEach(element => element.remove());
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main,replacement,main,replacement');
+      expect(result[1]).assertEqual(
+        'nativeSearch>nativeSearch,nativeSearch>nativeSearch,nativeSearch>nativeSearch,na' +
+        'tiveSearch>nativeSearch'
+      );
+      expect(result[2]).assertEqual('2,2,2,2');
+      expect(result[3]).assertEqual('true,true,true,true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('true,true,true,true,true,true');
+      expect(result[6]).assertEqual('2');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0056
+     * @tc.name testEmbedNotifyListenerSequence0056
+     * @tc.desc Moving original into a fragment preserves listener and duplicate init deduplication
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+${NOTIFY_REPORTER}
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    const fragment = document.createDocumentFragment();
+    fragment.appendChild(node);
+    nativeEmbed.init();
+    fire(node);
+    const disconnected = !node.isConnected;
+    parent.insertBefore(node, next);
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','), String(disconnected),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main,main');
+      expect(result[1]).assertEqual('nativeSearch>nativeSearch,nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2,2');
+      expect(result[3]).assertEqual('true,true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('true,true,true,true,true,true');
+      expect(result[6]).assertEqual('2');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0057
+     * @tc.name testEmbedNotifyListenerSequence0057
+     * @tc.desc Init on an explicitly changed cached target does not remove old target listener
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+  const cleanup = [], created = [];
+${NOTIFY_REPORTER}
+  const make = (tag, id, target) => {
+    const element = document.createElement(tag);
+    element.id = id;
+    created.push(element);
+    target.appendChild(element);
+    return element;
+  };
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    const other = make('div', 'notifyOther', parent);
+    nativeEmbed.nativeSearch = other;
+    cleanup.push({ target: other, type: 'touchstart', listener: original, options: false });
+    nativeEmbed.init();
+    fire(other);
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','),
+      String(other !== records[0].target),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+    cleanup.reverse().forEach(item =>
+      item.target.removeEventListener(item.type, item.listener, item.options));
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    created.reverse().forEach(element => element.remove());
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main,main');
+      expect(result[1]).assertEqual('notifyOther>notifyOther,nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2,2');
+      expect(result[3]).assertEqual('true,true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('true,true,true,true,true,false');
+      expect(result[6]).assertEqual('1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0058
+     * @tc.name testEmbedNotifyListenerSequence0058
+     * @tc.desc Returning cached target to original after retarget init deduplicates original listener
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+  const cleanup = [], created = [];
+${NOTIFY_REPORTER}
+  const keep = (target, type, listener, options) => {
+    const capture = typeof options === 'boolean' ? options : !!(options && options.capture);
+    cleanup.push({ target, type, listener, options: capture });
+    target.addEventListener(type, listener, options);
+  };
+  const make = (tag, id, target) => {
+    const element = document.createElement(tag);
+    element.id = id;
+    created.push(element);
+    target.appendChild(element);
+    return element;
+  };
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    const other = make('div', 'notifyOther', parent);
+    nativeEmbed.nativeSearch = other;
+    keep(other, 'touchstart', original, false);
+    nativeEmbed.init();
+    nativeEmbed.nativeSearch = node;
+    nativeEmbed.init();
+    fire(node);
+    fire(other);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','),
+      String(records[1].target === node),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+    cleanup.reverse().forEach(item =>
+      item.target.removeEventListener(item.type, item.listener, item.options));
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    created.reverse().forEach(element => element.remove());
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main,main');
+      expect(result[1]).assertEqual('nativeSearch>nativeSearch,notifyOther>notifyOther');
+      expect(result[2]).assertEqual('2,2');
+      expect(result[3]).assertEqual('true,true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('true,true,true,true,true,true');
+      expect(result[6]).assertEqual('2');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0059
+     * @tc.name testEmbedNotifyListenerSequence0059
+     * @tc.desc Retargeted replacement events identity remains independent of original node baseline
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+  const cleanup = [], created = [];
+${NOTIFY_REPORTER}
+  const watch = (label, action) => {
+    const listener = { handleEvent(event) {
+      notify(event, label, this === listener);
+      if (action) { action(event, listener); }
+    } };
+    return listener;
+  };
+  const keep = (target, type, listener, options) => {
+    const capture = typeof options === 'boolean' ? options : !!(options && options.capture);
+    cleanup.push({ target, type, listener, options: capture });
+    target.addEventListener(type, listener, options);
+  };
+  const make = (tag, id, target) => {
+    const element = document.createElement(tag);
+    element.id = id;
+    created.push(element);
+    target.appendChild(element);
+    return element;
+  };
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    const other = make('div', 'notifyOther', parent);
+    const replacement = watch('replacement');
+    nativeEmbed.nativeSearch = other;
+    nativeEmbed.events = replacement;
+    keep(other, 'touchstart', replacement, false);
+    nativeEmbed.init();
+    fire(other);
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','),
+      String(nativeEmbed.events === replacement),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+    cleanup.reverse().forEach(item =>
+      item.target.removeEventListener(item.type, item.listener, item.options));
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    created.reverse().forEach(element => element.remove());
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('replacement,main');
+      expect(result[1]).assertEqual('notifyOther>notifyOther,nativeSearch>nativeSearch');
+      expect(result[2]).assertEqual('2,2');
+      expect(result[3]).assertEqual('true,true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('true,true,true,true,true,false');
+      expect(result[6]).assertEqual('1');
+    });
+
+    /**
+     * @tc.number ARKWEB_EMBED_NOTIFY_LISTENERSEQUENCE_0060
+     * @tc.name testEmbedNotifyListenerSequence0060
+     * @tc.desc Detaching and reattaching does not reset a consumed once observer but real init can rearm it
+     * @tc.size SMALLTEST
+     * @tc.type FUNCTION
+     * @tc.level LEVEL1
+     */
+    it('testEmbedNotifyListenerSequence0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const result: string[] = JSON.parse(await host.run(`
+(() => {
+${NOTIFY_STATE}
+  const cleanup = [];
+${NOTIFY_REPORTER}
+  const watch = (label, action) => {
+    const listener = { handleEvent(event) {
+      notify(event, label, this === listener);
+      if (action) { action(event, listener); }
+    } };
+    return listener;
+  };
+  const keep = (target, type, listener, options) => {
+    const capture = typeof options === 'boolean' ? options : !!(options && options.capture);
+    cleanup.push({ target, type, listener, options: capture });
+    target.addEventListener(type, listener, options);
+  };
+  const fire = (target, type = 'touchstart', options = { bubbles: true, cancelable: true }) =>
+    target.dispatchEvent(new Event(type, options));
+  try {
+    original.handleEvent = function(event) { notify(event, 'main', this === original); };
+    const replacement = watch('once');
+    keep(node, 'touchstart', replacement, { once: true });
+    fire(node);
+    node.remove();
+    parent.insertBefore(node, next);
+    fire(node);
+    nativeEmbed.events = replacement;
+    nativeEmbed.init();
+    fire(node);
+    return JSON.stringify([
+      notices.join(','), routes.join(','), phases.join(','), bindings.join(','),
+      String(records[2].listener === replacement),
+      [records[0] === baseline, baseline.target === node, baseline.listener === original,
+        baseline.type === 'touchstart', baseline.options === false, nativeEmbed.nativeSearch === node].join(','),
+      String(records.length)
+    ]);
+  } finally {
+    cleanup.reverse().forEach(item =>
+      item.target.removeEventListener(item.type, item.listener, item.options));
+${NOTIFY_RESTORE}
+    if (node.parentNode !== parent) { parent.insertBefore(node, next); }
+    node.addEventListener('touchstart', original, false);
+    records.splice(1);
+  }
+})()
+      `)) as string[];
+      expect(result[0]).assertEqual('main,once,main,main,once');
+      expect(result[1]).assertEqual(
+        'nativeSearch>nativeSearch,nativeSearch>nativeSearch,nativeSearch>nativeSearch,na' +
+        'tiveSearch>nativeSearch,nativeSearch>nativeSearch'
+      );
+      expect(result[2]).assertEqual('2,2,2,2,2');
+      expect(result[3]).assertEqual('true,true,true,true,true');
+      expect(result[4]).assertEqual('true');
+      expect(result[5]).assertEqual('true,true,true,true,true,true');
+      expect(result[6]).assertEqual('3');
+    });
+  });
+}
