@@ -7559,3 +7559,1021 @@ export default function vpnConfigBoundaryMatrixTest(): void {
      * @tc.level     LEVEL1
      */
     it('VPN_ConfigBoundary_0397', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0397 begin`);
+      logInfo("config boundary 10.0.0.5,0,68,114.114.114.114,app396,iface0,10.0.140.164,24,10.0.0.140,true,true");
+      const actual: string = networkValid("10.0.0.5", 0, 68, "114.114.114.114") + '|' + vpnConfigSummary("10.0.0.5", "app396", 0, 68, "114.114.114.114") + '|' + routeSummary("iface0", "10.0.140.164", 24, "10.0.0.140", true, true) + '|' + addressCount("10.0.0.5", 0) + '|' + blockedAppCount("app396");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|10.0.0.5/0|68|114.114.114.114|app396|iface0:10.0.140.164/24:10.0.0.140:true:true|1|1");
+      expect(actual).assertEqual("true|10.0.0.5/0|68|114.114.114.114|app396|iface0:10.0.140.164/24:10.0.0.140:true:true|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0397 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0398
+     * @tc.name      VPN_ConfigBoundary_0398
+     * @tc.desc      vpn config boundary 1.2.3.4,24,1400,8.8.8.8,app397,iface1,10.0.141.167,0,10.0.0.141,false,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0398', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0398 begin`);
+      logInfo("config boundary 1.2.3.4,24,1400,8.8.8.8,app397,iface1,10.0.141.167,0,10.0.0.141,false,false");
+      const actual: string = networkValid("1.2.3.4", 24, 1400, "8.8.8.8") + '|' + vpnConfigSummary("1.2.3.4", "app397", 24, 1400, "8.8.8.8") + '|' + routeSummary("iface1", "10.0.141.167", 0, "10.0.0.141", false, false) + '|' + addressCount("1.2.3.4", 24) + '|' + blockedAppCount("app397");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|1.2.3.4/24|1400|8.8.8.8|app397|iface1:10.0.141.167/0:10.0.0.141:false:false|1|1");
+      expect(actual).assertEqual("true|1.2.3.4/24|1400|8.8.8.8|app397|iface1:10.0.141.167/0:10.0.0.141:false:false|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0398 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0399
+     * @tc.name      VPN_ConfigBoundary_0399
+     * @tc.desc      vpn config boundary ,32,1500,,app398,iface2,10.0.142.170,32,10.0.0.142,true,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0399', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0399 begin`);
+      logInfo("config boundary ,32,1500,,app398,iface2,10.0.142.170,32,10.0.0.142,true,false");
+      const actual: string = networkValid("", 32, 1500, "") + '|' + vpnConfigSummary("", "app398", 32, 1500, "") + '|' + routeSummary("iface2", "10.0.142.170", 32, "10.0.0.142", true, false) + '|' + addressCount("", 32) + '|' + blockedAppCount("app398");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|/32|1500||app398|iface2:10.0.142.170/32:10.0.0.142:true:false|0|1");
+      expect(actual).assertEqual("false|/32|1500||app398|iface2:10.0.142.170/32:10.0.0.142:true:false|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0399 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0400
+     * @tc.name      VPN_ConfigBoundary_0400
+     * @tc.desc      vpn config boundary 256.1.1.1,33,1501,1.1.1.1,app399,iface0,10.0.143.173,33,10.0.0.143,false,true keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0400', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0400 begin`);
+      logInfo("config boundary 256.1.1.1,33,1501,1.1.1.1,app399,iface0,10.0.143.173,33,10.0.0.143,false,true");
+      const actual: string = networkValid("256.1.1.1", 33, 1501, "1.1.1.1") + '|' + vpnConfigSummary("256.1.1.1", "app399", 33, 1501, "1.1.1.1") + '|' + routeSummary("iface0", "10.0.143.173", 33, "10.0.0.143", false, true) + '|' + addressCount("256.1.1.1", 33) + '|' + blockedAppCount("app399");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|256.1.1.1/33|1501|1.1.1.1|app399|iface0:10.0.143.173/33:10.0.0.143:false:true|0|1");
+      expect(actual).assertEqual("false|256.1.1.1/33|1501|1.1.1.1|app399|iface0:10.0.143.173/33:10.0.0.143:false:true|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0400 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0401
+     * @tc.name      VPN_ConfigBoundary_0401
+     * @tc.desc      vpn config boundary 10.0.0.5,0,68,114.114.114.114,app400,iface1,10.0.144.176,24,10.0.0.144,true,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0401', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0401 begin`);
+      logInfo("config boundary 10.0.0.5,0,68,114.114.114.114,app400,iface1,10.0.144.176,24,10.0.0.144,true,false");
+      const actual: string = networkValid("10.0.0.5", 0, 68, "114.114.114.114") + '|' + vpnConfigSummary("10.0.0.5", "app400", 0, 68, "114.114.114.114") + '|' + routeSummary("iface1", "10.0.144.176", 24, "10.0.0.144", true, false) + '|' + addressCount("10.0.0.5", 0) + '|' + blockedAppCount("app400");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|10.0.0.5/0|68|114.114.114.114|app400|iface1:10.0.144.176/24:10.0.0.144:true:false|1|1");
+      expect(actual).assertEqual("true|10.0.0.5/0|68|114.114.114.114|app400|iface1:10.0.144.176/24:10.0.0.144:true:false|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0401 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0402
+     * @tc.name      VPN_ConfigBoundary_0402
+     * @tc.desc      vpn config boundary 1.2.3.4,24,1400,8.8.8.8,app401,iface2,10.0.145.179,0,10.0.0.145,false,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0402', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0402 begin`);
+      logInfo("config boundary 1.2.3.4,24,1400,8.8.8.8,app401,iface2,10.0.145.179,0,10.0.0.145,false,false");
+      const actual: string = networkValid("1.2.3.4", 24, 1400, "8.8.8.8") + '|' + vpnConfigSummary("1.2.3.4", "app401", 24, 1400, "8.8.8.8") + '|' + routeSummary("iface2", "10.0.145.179", 0, "10.0.0.145", false, false) + '|' + addressCount("1.2.3.4", 24) + '|' + blockedAppCount("app401");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|1.2.3.4/24|1400|8.8.8.8|app401|iface2:10.0.145.179/0:10.0.0.145:false:false|1|1");
+      expect(actual).assertEqual("true|1.2.3.4/24|1400|8.8.8.8|app401|iface2:10.0.145.179/0:10.0.0.145:false:false|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0402 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0403
+     * @tc.name      VPN_ConfigBoundary_0403
+     * @tc.desc      vpn config boundary ,32,1500,,app402,iface0,10.0.146.182,32,10.0.0.146,true,true keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0403', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0403 begin`);
+      logInfo("config boundary ,32,1500,,app402,iface0,10.0.146.182,32,10.0.0.146,true,true");
+      const actual: string = networkValid("", 32, 1500, "") + '|' + vpnConfigSummary("", "app402", 32, 1500, "") + '|' + routeSummary("iface0", "10.0.146.182", 32, "10.0.0.146", true, true) + '|' + addressCount("", 32) + '|' + blockedAppCount("app402");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|/32|1500||app402|iface0:10.0.146.182/32:10.0.0.146:true:true|0|1");
+      expect(actual).assertEqual("false|/32|1500||app402|iface0:10.0.146.182/32:10.0.0.146:true:true|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0403 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0404
+     * @tc.name      VPN_ConfigBoundary_0404
+     * @tc.desc      vpn config boundary 256.1.1.1,33,1501,1.1.1.1,app403,iface1,10.0.147.185,33,10.0.0.147,false,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0404', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0404 begin`);
+      logInfo("config boundary 256.1.1.1,33,1501,1.1.1.1,app403,iface1,10.0.147.185,33,10.0.0.147,false,false");
+      const actual: string = networkValid("256.1.1.1", 33, 1501, "1.1.1.1") + '|' + vpnConfigSummary("256.1.1.1", "app403", 33, 1501, "1.1.1.1") + '|' + routeSummary("iface1", "10.0.147.185", 33, "10.0.0.147", false, false) + '|' + addressCount("256.1.1.1", 33) + '|' + blockedAppCount("app403");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|256.1.1.1/33|1501|1.1.1.1|app403|iface1:10.0.147.185/33:10.0.0.147:false:false|0|1");
+      expect(actual).assertEqual("false|256.1.1.1/33|1501|1.1.1.1|app403|iface1:10.0.147.185/33:10.0.0.147:false:false|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0404 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0405
+     * @tc.name      VPN_ConfigBoundary_0405
+     * @tc.desc      vpn config boundary 10.0.0.5,0,68,114.114.114.114,app404,iface2,10.0.148.188,24,10.0.0.148,true,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0405', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0405 begin`);
+      logInfo("config boundary 10.0.0.5,0,68,114.114.114.114,app404,iface2,10.0.148.188,24,10.0.0.148,true,false");
+      const actual: string = networkValid("10.0.0.5", 0, 68, "114.114.114.114") + '|' + vpnConfigSummary("10.0.0.5", "app404", 0, 68, "114.114.114.114") + '|' + routeSummary("iface2", "10.0.148.188", 24, "10.0.0.148", true, false) + '|' + addressCount("10.0.0.5", 0) + '|' + blockedAppCount("app404");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|10.0.0.5/0|68|114.114.114.114|app404|iface2:10.0.148.188/24:10.0.0.148:true:false|1|1");
+      expect(actual).assertEqual("true|10.0.0.5/0|68|114.114.114.114|app404|iface2:10.0.148.188/24:10.0.0.148:true:false|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0405 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0406
+     * @tc.name      VPN_ConfigBoundary_0406
+     * @tc.desc      vpn config boundary 1.2.3.4,24,1400,8.8.8.8,app405,iface0,10.0.149.191,0,10.0.0.149,false,true keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0406', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0406 begin`);
+      logInfo("config boundary 1.2.3.4,24,1400,8.8.8.8,app405,iface0,10.0.149.191,0,10.0.0.149,false,true");
+      const actual: string = networkValid("1.2.3.4", 24, 1400, "8.8.8.8") + '|' + vpnConfigSummary("1.2.3.4", "app405", 24, 1400, "8.8.8.8") + '|' + routeSummary("iface0", "10.0.149.191", 0, "10.0.0.149", false, true) + '|' + addressCount("1.2.3.4", 24) + '|' + blockedAppCount("app405");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|1.2.3.4/24|1400|8.8.8.8|app405|iface0:10.0.149.191/0:10.0.0.149:false:true|1|1");
+      expect(actual).assertEqual("true|1.2.3.4/24|1400|8.8.8.8|app405|iface0:10.0.149.191/0:10.0.0.149:false:true|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0406 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0407
+     * @tc.name      VPN_ConfigBoundary_0407
+     * @tc.desc      vpn config boundary ,32,1500,,app406,iface1,10.0.150.194,32,10.0.0.150,true,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0407', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0407 begin`);
+      logInfo("config boundary ,32,1500,,app406,iface1,10.0.150.194,32,10.0.0.150,true,false");
+      const actual: string = networkValid("", 32, 1500, "") + '|' + vpnConfigSummary("", "app406", 32, 1500, "") + '|' + routeSummary("iface1", "10.0.150.194", 32, "10.0.0.150", true, false) + '|' + addressCount("", 32) + '|' + blockedAppCount("app406");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|/32|1500||app406|iface1:10.0.150.194/32:10.0.0.150:true:false|0|1");
+      expect(actual).assertEqual("false|/32|1500||app406|iface1:10.0.150.194/32:10.0.0.150:true:false|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0407 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0408
+     * @tc.name      VPN_ConfigBoundary_0408
+     * @tc.desc      vpn config boundary 256.1.1.1,33,1501,1.1.1.1,app407,iface2,10.0.151.197,33,10.0.0.151,false,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('VPN_ConfigBoundary_0408', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0408 begin`);
+      logInfo("config boundary 256.1.1.1,33,1501,1.1.1.1,app407,iface2,10.0.151.197,33,10.0.0.151,false,false");
+      const actual: string = networkValid("256.1.1.1", 33, 1501, "1.1.1.1") + '|' + vpnConfigSummary("256.1.1.1", "app407", 33, 1501, "1.1.1.1") + '|' + routeSummary("iface2", "10.0.151.197", 33, "10.0.0.151", false, false) + '|' + addressCount("256.1.1.1", 33) + '|' + blockedAppCount("app407");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|256.1.1.1/33|1501|1.1.1.1|app407|iface2:10.0.151.197/33:10.0.0.151:false:false|0|1");
+      expect(actual).assertEqual("false|256.1.1.1/33|1501|1.1.1.1|app407|iface2:10.0.151.197/33:10.0.0.151:false:false|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0408 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0409
+     * @tc.name      VPN_ConfigBoundary_0409
+     * @tc.desc      vpn config boundary 10.0.0.5,0,68,114.114.114.114,app408,iface0,10.0.152.200,24,10.0.0.152,true,true keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('VPN_ConfigBoundary_0409', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0409 begin`);
+      logInfo("config boundary 10.0.0.5,0,68,114.114.114.114,app408,iface0,10.0.152.200,24,10.0.0.152,true,true");
+      const actual: string = networkValid("10.0.0.5", 0, 68, "114.114.114.114") + '|' + vpnConfigSummary("10.0.0.5", "app408", 0, 68, "114.114.114.114") + '|' + routeSummary("iface0", "10.0.152.200", 24, "10.0.0.152", true, true) + '|' + addressCount("10.0.0.5", 0) + '|' + blockedAppCount("app408");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|10.0.0.5/0|68|114.114.114.114|app408|iface0:10.0.152.200/24:10.0.0.152:true:true|1|1");
+      expect(actual).assertEqual("true|10.0.0.5/0|68|114.114.114.114|app408|iface0:10.0.152.200/24:10.0.0.152:true:true|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0409 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0410
+     * @tc.name      VPN_ConfigBoundary_0410
+     * @tc.desc      vpn config boundary 1.2.3.4,24,1400,8.8.8.8,app409,iface1,10.0.153.203,0,10.0.0.153,false,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0410', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0410 begin`);
+      logInfo("config boundary 1.2.3.4,24,1400,8.8.8.8,app409,iface1,10.0.153.203,0,10.0.0.153,false,false");
+      const actual: string = networkValid("1.2.3.4", 24, 1400, "8.8.8.8") + '|' + vpnConfigSummary("1.2.3.4", "app409", 24, 1400, "8.8.8.8") + '|' + routeSummary("iface1", "10.0.153.203", 0, "10.0.0.153", false, false) + '|' + addressCount("1.2.3.4", 24) + '|' + blockedAppCount("app409");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|1.2.3.4/24|1400|8.8.8.8|app409|iface1:10.0.153.203/0:10.0.0.153:false:false|1|1");
+      expect(actual).assertEqual("true|1.2.3.4/24|1400|8.8.8.8|app409|iface1:10.0.153.203/0:10.0.0.153:false:false|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0410 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0411
+     * @tc.name      VPN_ConfigBoundary_0411
+     * @tc.desc      vpn config boundary ,32,1500,,app410,iface2,10.0.154.206,32,10.0.0.154,true,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0411', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0411 begin`);
+      logInfo("config boundary ,32,1500,,app410,iface2,10.0.154.206,32,10.0.0.154,true,false");
+      const actual: string = networkValid("", 32, 1500, "") + '|' + vpnConfigSummary("", "app410", 32, 1500, "") + '|' + routeSummary("iface2", "10.0.154.206", 32, "10.0.0.154", true, false) + '|' + addressCount("", 32) + '|' + blockedAppCount("app410");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|/32|1500||app410|iface2:10.0.154.206/32:10.0.0.154:true:false|0|1");
+      expect(actual).assertEqual("false|/32|1500||app410|iface2:10.0.154.206/32:10.0.0.154:true:false|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0411 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0412
+     * @tc.name      VPN_ConfigBoundary_0412
+     * @tc.desc      vpn config boundary 256.1.1.1,33,1501,1.1.1.1,app411,iface0,10.0.155.209,33,10.0.0.155,false,true keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0412', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0412 begin`);
+      logInfo("config boundary 256.1.1.1,33,1501,1.1.1.1,app411,iface0,10.0.155.209,33,10.0.0.155,false,true");
+      const actual: string = networkValid("256.1.1.1", 33, 1501, "1.1.1.1") + '|' + vpnConfigSummary("256.1.1.1", "app411", 33, 1501, "1.1.1.1") + '|' + routeSummary("iface0", "10.0.155.209", 33, "10.0.0.155", false, true) + '|' + addressCount("256.1.1.1", 33) + '|' + blockedAppCount("app411");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|256.1.1.1/33|1501|1.1.1.1|app411|iface0:10.0.155.209/33:10.0.0.155:false:true|0|1");
+      expect(actual).assertEqual("false|256.1.1.1/33|1501|1.1.1.1|app411|iface0:10.0.155.209/33:10.0.0.155:false:true|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0412 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0413
+     * @tc.name      VPN_ConfigBoundary_0413
+     * @tc.desc      vpn config boundary 10.0.0.5,0,68,114.114.114.114,app412,iface1,10.0.156.212,24,10.0.0.156,true,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0413', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0413 begin`);
+      logInfo("config boundary 10.0.0.5,0,68,114.114.114.114,app412,iface1,10.0.156.212,24,10.0.0.156,true,false");
+      const actual: string = networkValid("10.0.0.5", 0, 68, "114.114.114.114") + '|' + vpnConfigSummary("10.0.0.5", "app412", 0, 68, "114.114.114.114") + '|' + routeSummary("iface1", "10.0.156.212", 24, "10.0.0.156", true, false) + '|' + addressCount("10.0.0.5", 0) + '|' + blockedAppCount("app412");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|10.0.0.5/0|68|114.114.114.114|app412|iface1:10.0.156.212/24:10.0.0.156:true:false|1|1");
+      expect(actual).assertEqual("true|10.0.0.5/0|68|114.114.114.114|app412|iface1:10.0.156.212/24:10.0.0.156:true:false|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0413 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0414
+     * @tc.name      VPN_ConfigBoundary_0414
+     * @tc.desc      vpn config boundary 1.2.3.4,24,1400,8.8.8.8,app413,iface2,10.0.157.215,0,10.0.0.157,false,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0414', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0414 begin`);
+      logInfo("config boundary 1.2.3.4,24,1400,8.8.8.8,app413,iface2,10.0.157.215,0,10.0.0.157,false,false");
+      const actual: string = networkValid("1.2.3.4", 24, 1400, "8.8.8.8") + '|' + vpnConfigSummary("1.2.3.4", "app413", 24, 1400, "8.8.8.8") + '|' + routeSummary("iface2", "10.0.157.215", 0, "10.0.0.157", false, false) + '|' + addressCount("1.2.3.4", 24) + '|' + blockedAppCount("app413");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|1.2.3.4/24|1400|8.8.8.8|app413|iface2:10.0.157.215/0:10.0.0.157:false:false|1|1");
+      expect(actual).assertEqual("true|1.2.3.4/24|1400|8.8.8.8|app413|iface2:10.0.157.215/0:10.0.0.157:false:false|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0414 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0415
+     * @tc.name      VPN_ConfigBoundary_0415
+     * @tc.desc      vpn config boundary ,32,1500,,app414,iface0,10.0.158.218,32,10.0.0.158,true,true keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0415', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0415 begin`);
+      logInfo("config boundary ,32,1500,,app414,iface0,10.0.158.218,32,10.0.0.158,true,true");
+      const actual: string = networkValid("", 32, 1500, "") + '|' + vpnConfigSummary("", "app414", 32, 1500, "") + '|' + routeSummary("iface0", "10.0.158.218", 32, "10.0.0.158", true, true) + '|' + addressCount("", 32) + '|' + blockedAppCount("app414");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|/32|1500||app414|iface0:10.0.158.218/32:10.0.0.158:true:true|0|1");
+      expect(actual).assertEqual("false|/32|1500||app414|iface0:10.0.158.218/32:10.0.0.158:true:true|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0415 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0416
+     * @tc.name      VPN_ConfigBoundary_0416
+     * @tc.desc      vpn config boundary 256.1.1.1,33,1501,1.1.1.1,app415,iface1,10.0.159.221,33,10.0.0.159,false,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0416', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0416 begin`);
+      logInfo("config boundary 256.1.1.1,33,1501,1.1.1.1,app415,iface1,10.0.159.221,33,10.0.0.159,false,false");
+      const actual: string = networkValid("256.1.1.1", 33, 1501, "1.1.1.1") + '|' + vpnConfigSummary("256.1.1.1", "app415", 33, 1501, "1.1.1.1") + '|' + routeSummary("iface1", "10.0.159.221", 33, "10.0.0.159", false, false) + '|' + addressCount("256.1.1.1", 33) + '|' + blockedAppCount("app415");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|256.1.1.1/33|1501|1.1.1.1|app415|iface1:10.0.159.221/33:10.0.0.159:false:false|0|1");
+      expect(actual).assertEqual("false|256.1.1.1/33|1501|1.1.1.1|app415|iface1:10.0.159.221/33:10.0.0.159:false:false|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0416 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0417
+     * @tc.name      VPN_ConfigBoundary_0417
+     * @tc.desc      vpn config boundary 10.0.0.5,0,68,114.114.114.114,app416,iface2,10.0.160.224,24,10.0.0.160,true,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0417', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0417 begin`);
+      logInfo("config boundary 10.0.0.5,0,68,114.114.114.114,app416,iface2,10.0.160.224,24,10.0.0.160,true,false");
+      const actual: string = networkValid("10.0.0.5", 0, 68, "114.114.114.114") + '|' + vpnConfigSummary("10.0.0.5", "app416", 0, 68, "114.114.114.114") + '|' + routeSummary("iface2", "10.0.160.224", 24, "10.0.0.160", true, false) + '|' + addressCount("10.0.0.5", 0) + '|' + blockedAppCount("app416");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|10.0.0.5/0|68|114.114.114.114|app416|iface2:10.0.160.224/24:10.0.0.160:true:false|1|1");
+      expect(actual).assertEqual("true|10.0.0.5/0|68|114.114.114.114|app416|iface2:10.0.160.224/24:10.0.0.160:true:false|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0417 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0418
+     * @tc.name      VPN_ConfigBoundary_0418
+     * @tc.desc      vpn config boundary 1.2.3.4,24,1400,8.8.8.8,app417,iface0,10.0.161.227,0,10.0.0.161,false,true keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0418', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0418 begin`);
+      logInfo("config boundary 1.2.3.4,24,1400,8.8.8.8,app417,iface0,10.0.161.227,0,10.0.0.161,false,true");
+      const actual: string = networkValid("1.2.3.4", 24, 1400, "8.8.8.8") + '|' + vpnConfigSummary("1.2.3.4", "app417", 24, 1400, "8.8.8.8") + '|' + routeSummary("iface0", "10.0.161.227", 0, "10.0.0.161", false, true) + '|' + addressCount("1.2.3.4", 24) + '|' + blockedAppCount("app417");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|1.2.3.4/24|1400|8.8.8.8|app417|iface0:10.0.161.227/0:10.0.0.161:false:true|1|1");
+      expect(actual).assertEqual("true|1.2.3.4/24|1400|8.8.8.8|app417|iface0:10.0.161.227/0:10.0.0.161:false:true|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0418 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0419
+     * @tc.name      VPN_ConfigBoundary_0419
+     * @tc.desc      vpn config boundary ,32,1500,,app418,iface1,10.0.162.230,32,10.0.0.162,true,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('VPN_ConfigBoundary_0419', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0419 begin`);
+      logInfo("config boundary ,32,1500,,app418,iface1,10.0.162.230,32,10.0.0.162,true,false");
+      const actual: string = networkValid("", 32, 1500, "") + '|' + vpnConfigSummary("", "app418", 32, 1500, "") + '|' + routeSummary("iface1", "10.0.162.230", 32, "10.0.0.162", true, false) + '|' + addressCount("", 32) + '|' + blockedAppCount("app418");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|/32|1500||app418|iface1:10.0.162.230/32:10.0.0.162:true:false|0|1");
+      expect(actual).assertEqual("false|/32|1500||app418|iface1:10.0.162.230/32:10.0.0.162:true:false|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0419 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0420
+     * @tc.name      VPN_ConfigBoundary_0420
+     * @tc.desc      vpn config boundary 256.1.1.1,33,1501,1.1.1.1,app419,iface2,10.0.163.233,33,10.0.0.163,false,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0420', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0420 begin`);
+      logInfo("config boundary 256.1.1.1,33,1501,1.1.1.1,app419,iface2,10.0.163.233,33,10.0.0.163,false,false");
+      const actual: string = networkValid("256.1.1.1", 33, 1501, "1.1.1.1") + '|' + vpnConfigSummary("256.1.1.1", "app419", 33, 1501, "1.1.1.1") + '|' + routeSummary("iface2", "10.0.163.233", 33, "10.0.0.163", false, false) + '|' + addressCount("256.1.1.1", 33) + '|' + blockedAppCount("app419");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|256.1.1.1/33|1501|1.1.1.1|app419|iface2:10.0.163.233/33:10.0.0.163:false:false|0|1");
+      expect(actual).assertEqual("false|256.1.1.1/33|1501|1.1.1.1|app419|iface2:10.0.163.233/33:10.0.0.163:false:false|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0420 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0421
+     * @tc.name      VPN_ConfigBoundary_0421
+     * @tc.desc      vpn config boundary 10.0.0.5,0,68,114.114.114.114,app420,iface0,10.0.164.236,24,10.0.0.164,true,true keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0421', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0421 begin`);
+      logInfo("config boundary 10.0.0.5,0,68,114.114.114.114,app420,iface0,10.0.164.236,24,10.0.0.164,true,true");
+      const actual: string = networkValid("10.0.0.5", 0, 68, "114.114.114.114") + '|' + vpnConfigSummary("10.0.0.5", "app420", 0, 68, "114.114.114.114") + '|' + routeSummary("iface0", "10.0.164.236", 24, "10.0.0.164", true, true) + '|' + addressCount("10.0.0.5", 0) + '|' + blockedAppCount("app420");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|10.0.0.5/0|68|114.114.114.114|app420|iface0:10.0.164.236/24:10.0.0.164:true:true|1|1");
+      expect(actual).assertEqual("true|10.0.0.5/0|68|114.114.114.114|app420|iface0:10.0.164.236/24:10.0.0.164:true:true|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0421 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0422
+     * @tc.name      VPN_ConfigBoundary_0422
+     * @tc.desc      vpn config boundary 1.2.3.4,24,1400,8.8.8.8,app421,iface1,10.0.165.239,0,10.0.0.165,false,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0422', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0422 begin`);
+      logInfo("config boundary 1.2.3.4,24,1400,8.8.8.8,app421,iface1,10.0.165.239,0,10.0.0.165,false,false");
+      const actual: string = networkValid("1.2.3.4", 24, 1400, "8.8.8.8") + '|' + vpnConfigSummary("1.2.3.4", "app421", 24, 1400, "8.8.8.8") + '|' + routeSummary("iface1", "10.0.165.239", 0, "10.0.0.165", false, false) + '|' + addressCount("1.2.3.4", 24) + '|' + blockedAppCount("app421");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|1.2.3.4/24|1400|8.8.8.8|app421|iface1:10.0.165.239/0:10.0.0.165:false:false|1|1");
+      expect(actual).assertEqual("true|1.2.3.4/24|1400|8.8.8.8|app421|iface1:10.0.165.239/0:10.0.0.165:false:false|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0422 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0423
+     * @tc.name      VPN_ConfigBoundary_0423
+     * @tc.desc      vpn config boundary ,32,1500,,app422,iface2,10.0.166.242,32,10.0.0.166,true,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0423', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0423 begin`);
+      logInfo("config boundary ,32,1500,,app422,iface2,10.0.166.242,32,10.0.0.166,true,false");
+      const actual: string = networkValid("", 32, 1500, "") + '|' + vpnConfigSummary("", "app422", 32, 1500, "") + '|' + routeSummary("iface2", "10.0.166.242", 32, "10.0.0.166", true, false) + '|' + addressCount("", 32) + '|' + blockedAppCount("app422");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|/32|1500||app422|iface2:10.0.166.242/32:10.0.0.166:true:false|0|1");
+      expect(actual).assertEqual("false|/32|1500||app422|iface2:10.0.166.242/32:10.0.0.166:true:false|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0423 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0424
+     * @tc.name      VPN_ConfigBoundary_0424
+     * @tc.desc      vpn config boundary 256.1.1.1,33,1501,1.1.1.1,app423,iface0,10.0.167.245,33,10.0.0.167,false,true keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0424', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0424 begin`);
+      logInfo("config boundary 256.1.1.1,33,1501,1.1.1.1,app423,iface0,10.0.167.245,33,10.0.0.167,false,true");
+      const actual: string = networkValid("256.1.1.1", 33, 1501, "1.1.1.1") + '|' + vpnConfigSummary("256.1.1.1", "app423", 33, 1501, "1.1.1.1") + '|' + routeSummary("iface0", "10.0.167.245", 33, "10.0.0.167", false, true) + '|' + addressCount("256.1.1.1", 33) + '|' + blockedAppCount("app423");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|256.1.1.1/33|1501|1.1.1.1|app423|iface0:10.0.167.245/33:10.0.0.167:false:true|0|1");
+      expect(actual).assertEqual("false|256.1.1.1/33|1501|1.1.1.1|app423|iface0:10.0.167.245/33:10.0.0.167:false:true|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0424 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0425
+     * @tc.name      VPN_ConfigBoundary_0425
+     * @tc.desc      vpn config boundary 10.0.0.5,0,68,114.114.114.114,app424,iface1,10.0.168.248,24,10.0.0.168,true,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0425', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0425 begin`);
+      logInfo("config boundary 10.0.0.5,0,68,114.114.114.114,app424,iface1,10.0.168.248,24,10.0.0.168,true,false");
+      const actual: string = networkValid("10.0.0.5", 0, 68, "114.114.114.114") + '|' + vpnConfigSummary("10.0.0.5", "app424", 0, 68, "114.114.114.114") + '|' + routeSummary("iface1", "10.0.168.248", 24, "10.0.0.168", true, false) + '|' + addressCount("10.0.0.5", 0) + '|' + blockedAppCount("app424");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|10.0.0.5/0|68|114.114.114.114|app424|iface1:10.0.168.248/24:10.0.0.168:true:false|1|1");
+      expect(actual).assertEqual("true|10.0.0.5/0|68|114.114.114.114|app424|iface1:10.0.168.248/24:10.0.0.168:true:false|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0425 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0426
+     * @tc.name      VPN_ConfigBoundary_0426
+     * @tc.desc      vpn config boundary 1.2.3.4,24,1400,8.8.8.8,app425,iface2,10.0.169.251,0,10.0.0.169,false,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('VPN_ConfigBoundary_0426', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0426 begin`);
+      logInfo("config boundary 1.2.3.4,24,1400,8.8.8.8,app425,iface2,10.0.169.251,0,10.0.0.169,false,false");
+      const actual: string = networkValid("1.2.3.4", 24, 1400, "8.8.8.8") + '|' + vpnConfigSummary("1.2.3.4", "app425", 24, 1400, "8.8.8.8") + '|' + routeSummary("iface2", "10.0.169.251", 0, "10.0.0.169", false, false) + '|' + addressCount("1.2.3.4", 24) + '|' + blockedAppCount("app425");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|1.2.3.4/24|1400|8.8.8.8|app425|iface2:10.0.169.251/0:10.0.0.169:false:false|1|1");
+      expect(actual).assertEqual("true|1.2.3.4/24|1400|8.8.8.8|app425|iface2:10.0.169.251/0:10.0.0.169:false:false|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0426 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0427
+     * @tc.name      VPN_ConfigBoundary_0427
+     * @tc.desc      vpn config boundary ,32,1500,,app426,iface0,10.0.170.254,32,10.0.0.170,true,true keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0427', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0427 begin`);
+      logInfo("config boundary ,32,1500,,app426,iface0,10.0.170.254,32,10.0.0.170,true,true");
+      const actual: string = networkValid("", 32, 1500, "") + '|' + vpnConfigSummary("", "app426", 32, 1500, "") + '|' + routeSummary("iface0", "10.0.170.254", 32, "10.0.0.170", true, true) + '|' + addressCount("", 32) + '|' + blockedAppCount("app426");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|/32|1500||app426|iface0:10.0.170.254/32:10.0.0.170:true:true|0|1");
+      expect(actual).assertEqual("false|/32|1500||app426|iface0:10.0.170.254/32:10.0.0.170:true:true|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0427 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0428
+     * @tc.name      VPN_ConfigBoundary_0428
+     * @tc.desc      vpn config boundary 256.1.1.1,33,1501,1.1.1.1,app427,iface1,10.0.171.1,33,10.0.0.171,false,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0428', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0428 begin`);
+      logInfo("config boundary 256.1.1.1,33,1501,1.1.1.1,app427,iface1,10.0.171.1,33,10.0.0.171,false,false");
+      const actual: string = networkValid("256.1.1.1", 33, 1501, "1.1.1.1") + '|' + vpnConfigSummary("256.1.1.1", "app427", 33, 1501, "1.1.1.1") + '|' + routeSummary("iface1", "10.0.171.1", 33, "10.0.0.171", false, false) + '|' + addressCount("256.1.1.1", 33) + '|' + blockedAppCount("app427");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|256.1.1.1/33|1501|1.1.1.1|app427|iface1:10.0.171.1/33:10.0.0.171:false:false|0|1");
+      expect(actual).assertEqual("false|256.1.1.1/33|1501|1.1.1.1|app427|iface1:10.0.171.1/33:10.0.0.171:false:false|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0428 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0429
+     * @tc.name      VPN_ConfigBoundary_0429
+     * @tc.desc      vpn config boundary 10.0.0.5,0,68,114.114.114.114,app428,iface2,10.0.172.4,24,10.0.0.172,true,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0429', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0429 begin`);
+      logInfo("config boundary 10.0.0.5,0,68,114.114.114.114,app428,iface2,10.0.172.4,24,10.0.0.172,true,false");
+      const actual: string = networkValid("10.0.0.5", 0, 68, "114.114.114.114") + '|' + vpnConfigSummary("10.0.0.5", "app428", 0, 68, "114.114.114.114") + '|' + routeSummary("iface2", "10.0.172.4", 24, "10.0.0.172", true, false) + '|' + addressCount("10.0.0.5", 0) + '|' + blockedAppCount("app428");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|10.0.0.5/0|68|114.114.114.114|app428|iface2:10.0.172.4/24:10.0.0.172:true:false|1|1");
+      expect(actual).assertEqual("true|10.0.0.5/0|68|114.114.114.114|app428|iface2:10.0.172.4/24:10.0.0.172:true:false|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0429 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0430
+     * @tc.name      VPN_ConfigBoundary_0430
+     * @tc.desc      vpn config boundary 1.2.3.4,24,1400,8.8.8.8,app429,iface0,10.0.173.7,0,10.0.0.173,false,true keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('VPN_ConfigBoundary_0430', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0430 begin`);
+      logInfo("config boundary 1.2.3.4,24,1400,8.8.8.8,app429,iface0,10.0.173.7,0,10.0.0.173,false,true");
+      const actual: string = networkValid("1.2.3.4", 24, 1400, "8.8.8.8") + '|' + vpnConfigSummary("1.2.3.4", "app429", 24, 1400, "8.8.8.8") + '|' + routeSummary("iface0", "10.0.173.7", 0, "10.0.0.173", false, true) + '|' + addressCount("1.2.3.4", 24) + '|' + blockedAppCount("app429");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|1.2.3.4/24|1400|8.8.8.8|app429|iface0:10.0.173.7/0:10.0.0.173:false:true|1|1");
+      expect(actual).assertEqual("true|1.2.3.4/24|1400|8.8.8.8|app429|iface0:10.0.173.7/0:10.0.0.173:false:true|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0430 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0431
+     * @tc.name      VPN_ConfigBoundary_0431
+     * @tc.desc      vpn config boundary ,32,1500,,app430,iface1,10.0.174.10,32,10.0.0.174,true,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0431', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0431 begin`);
+      logInfo("config boundary ,32,1500,,app430,iface1,10.0.174.10,32,10.0.0.174,true,false");
+      const actual: string = networkValid("", 32, 1500, "") + '|' + vpnConfigSummary("", "app430", 32, 1500, "") + '|' + routeSummary("iface1", "10.0.174.10", 32, "10.0.0.174", true, false) + '|' + addressCount("", 32) + '|' + blockedAppCount("app430");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|/32|1500||app430|iface1:10.0.174.10/32:10.0.0.174:true:false|0|1");
+      expect(actual).assertEqual("false|/32|1500||app430|iface1:10.0.174.10/32:10.0.0.174:true:false|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0431 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0432
+     * @tc.name      VPN_ConfigBoundary_0432
+     * @tc.desc      vpn config boundary 256.1.1.1,33,1501,1.1.1.1,app431,iface2,10.0.175.13,33,10.0.0.175,false,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0432', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0432 begin`);
+      logInfo("config boundary 256.1.1.1,33,1501,1.1.1.1,app431,iface2,10.0.175.13,33,10.0.0.175,false,false");
+      const actual: string = networkValid("256.1.1.1", 33, 1501, "1.1.1.1") + '|' + vpnConfigSummary("256.1.1.1", "app431", 33, 1501, "1.1.1.1") + '|' + routeSummary("iface2", "10.0.175.13", 33, "10.0.0.175", false, false) + '|' + addressCount("256.1.1.1", 33) + '|' + blockedAppCount("app431");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|256.1.1.1/33|1501|1.1.1.1|app431|iface2:10.0.175.13/33:10.0.0.175:false:false|0|1");
+      expect(actual).assertEqual("false|256.1.1.1/33|1501|1.1.1.1|app431|iface2:10.0.175.13/33:10.0.0.175:false:false|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0432 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0433
+     * @tc.name      VPN_ConfigBoundary_0433
+     * @tc.desc      vpn config boundary 10.0.0.5,0,68,114.114.114.114,app432,iface0,10.0.176.16,24,10.0.0.176,true,true keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0433', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0433 begin`);
+      logInfo("config boundary 10.0.0.5,0,68,114.114.114.114,app432,iface0,10.0.176.16,24,10.0.0.176,true,true");
+      const actual: string = networkValid("10.0.0.5", 0, 68, "114.114.114.114") + '|' + vpnConfigSummary("10.0.0.5", "app432", 0, 68, "114.114.114.114") + '|' + routeSummary("iface0", "10.0.176.16", 24, "10.0.0.176", true, true) + '|' + addressCount("10.0.0.5", 0) + '|' + blockedAppCount("app432");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|10.0.0.5/0|68|114.114.114.114|app432|iface0:10.0.176.16/24:10.0.0.176:true:true|1|1");
+      expect(actual).assertEqual("true|10.0.0.5/0|68|114.114.114.114|app432|iface0:10.0.176.16/24:10.0.0.176:true:true|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0433 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0434
+     * @tc.name      VPN_ConfigBoundary_0434
+     * @tc.desc      vpn config boundary 1.2.3.4,24,1400,8.8.8.8,app433,iface1,10.0.177.19,0,10.0.0.177,false,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0434', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0434 begin`);
+      logInfo("config boundary 1.2.3.4,24,1400,8.8.8.8,app433,iface1,10.0.177.19,0,10.0.0.177,false,false");
+      const actual: string = networkValid("1.2.3.4", 24, 1400, "8.8.8.8") + '|' + vpnConfigSummary("1.2.3.4", "app433", 24, 1400, "8.8.8.8") + '|' + routeSummary("iface1", "10.0.177.19", 0, "10.0.0.177", false, false) + '|' + addressCount("1.2.3.4", 24) + '|' + blockedAppCount("app433");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|1.2.3.4/24|1400|8.8.8.8|app433|iface1:10.0.177.19/0:10.0.0.177:false:false|1|1");
+      expect(actual).assertEqual("true|1.2.3.4/24|1400|8.8.8.8|app433|iface1:10.0.177.19/0:10.0.0.177:false:false|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0434 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0435
+     * @tc.name      VPN_ConfigBoundary_0435
+     * @tc.desc      vpn config boundary ,32,1500,,app434,iface2,10.0.178.22,32,10.0.0.178,true,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0435', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0435 begin`);
+      logInfo("config boundary ,32,1500,,app434,iface2,10.0.178.22,32,10.0.0.178,true,false");
+      const actual: string = networkValid("", 32, 1500, "") + '|' + vpnConfigSummary("", "app434", 32, 1500, "") + '|' + routeSummary("iface2", "10.0.178.22", 32, "10.0.0.178", true, false) + '|' + addressCount("", 32) + '|' + blockedAppCount("app434");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|/32|1500||app434|iface2:10.0.178.22/32:10.0.0.178:true:false|0|1");
+      expect(actual).assertEqual("false|/32|1500||app434|iface2:10.0.178.22/32:10.0.0.178:true:false|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0435 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0436
+     * @tc.name      VPN_ConfigBoundary_0436
+     * @tc.desc      vpn config boundary 256.1.1.1,33,1501,1.1.1.1,app435,iface0,10.0.179.25,33,10.0.0.179,false,true keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0436', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0436 begin`);
+      logInfo("config boundary 256.1.1.1,33,1501,1.1.1.1,app435,iface0,10.0.179.25,33,10.0.0.179,false,true");
+      const actual: string = networkValid("256.1.1.1", 33, 1501, "1.1.1.1") + '|' + vpnConfigSummary("256.1.1.1", "app435", 33, 1501, "1.1.1.1") + '|' + routeSummary("iface0", "10.0.179.25", 33, "10.0.0.179", false, true) + '|' + addressCount("256.1.1.1", 33) + '|' + blockedAppCount("app435");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|256.1.1.1/33|1501|1.1.1.1|app435|iface0:10.0.179.25/33:10.0.0.179:false:true|0|1");
+      expect(actual).assertEqual("false|256.1.1.1/33|1501|1.1.1.1|app435|iface0:10.0.179.25/33:10.0.0.179:false:true|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0436 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0437
+     * @tc.name      VPN_ConfigBoundary_0437
+     * @tc.desc      vpn config boundary 10.0.0.5,0,68,114.114.114.114,app436,iface1,10.0.180.28,24,10.0.0.180,true,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0437', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0437 begin`);
+      logInfo("config boundary 10.0.0.5,0,68,114.114.114.114,app436,iface1,10.0.180.28,24,10.0.0.180,true,false");
+      const actual: string = networkValid("10.0.0.5", 0, 68, "114.114.114.114") + '|' + vpnConfigSummary("10.0.0.5", "app436", 0, 68, "114.114.114.114") + '|' + routeSummary("iface1", "10.0.180.28", 24, "10.0.0.180", true, false) + '|' + addressCount("10.0.0.5", 0) + '|' + blockedAppCount("app436");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|10.0.0.5/0|68|114.114.114.114|app436|iface1:10.0.180.28/24:10.0.0.180:true:false|1|1");
+      expect(actual).assertEqual("true|10.0.0.5/0|68|114.114.114.114|app436|iface1:10.0.180.28/24:10.0.0.180:true:false|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0437 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0438
+     * @tc.name      VPN_ConfigBoundary_0438
+     * @tc.desc      vpn config boundary 1.2.3.4,24,1400,8.8.8.8,app437,iface2,10.0.181.31,0,10.0.0.181,false,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0438', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0438 begin`);
+      logInfo("config boundary 1.2.3.4,24,1400,8.8.8.8,app437,iface2,10.0.181.31,0,10.0.0.181,false,false");
+      const actual: string = networkValid("1.2.3.4", 24, 1400, "8.8.8.8") + '|' + vpnConfigSummary("1.2.3.4", "app437", 24, 1400, "8.8.8.8") + '|' + routeSummary("iface2", "10.0.181.31", 0, "10.0.0.181", false, false) + '|' + addressCount("1.2.3.4", 24) + '|' + blockedAppCount("app437");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|1.2.3.4/24|1400|8.8.8.8|app437|iface2:10.0.181.31/0:10.0.0.181:false:false|1|1");
+      expect(actual).assertEqual("true|1.2.3.4/24|1400|8.8.8.8|app437|iface2:10.0.181.31/0:10.0.0.181:false:false|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0438 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0439
+     * @tc.name      VPN_ConfigBoundary_0439
+     * @tc.desc      vpn config boundary ,32,1500,,app438,iface0,10.0.182.34,32,10.0.0.182,true,true keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0439', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0439 begin`);
+      logInfo("config boundary ,32,1500,,app438,iface0,10.0.182.34,32,10.0.0.182,true,true");
+      const actual: string = networkValid("", 32, 1500, "") + '|' + vpnConfigSummary("", "app438", 32, 1500, "") + '|' + routeSummary("iface0", "10.0.182.34", 32, "10.0.0.182", true, true) + '|' + addressCount("", 32) + '|' + blockedAppCount("app438");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|/32|1500||app438|iface0:10.0.182.34/32:10.0.0.182:true:true|0|1");
+      expect(actual).assertEqual("false|/32|1500||app438|iface0:10.0.182.34/32:10.0.0.182:true:true|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0439 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0440
+     * @tc.name      VPN_ConfigBoundary_0440
+     * @tc.desc      vpn config boundary 256.1.1.1,33,1501,1.1.1.1,app439,iface1,10.0.183.37,33,10.0.0.183,false,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0440', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0440 begin`);
+      logInfo("config boundary 256.1.1.1,33,1501,1.1.1.1,app439,iface1,10.0.183.37,33,10.0.0.183,false,false");
+      const actual: string = networkValid("256.1.1.1", 33, 1501, "1.1.1.1") + '|' + vpnConfigSummary("256.1.1.1", "app439", 33, 1501, "1.1.1.1") + '|' + routeSummary("iface1", "10.0.183.37", 33, "10.0.0.183", false, false) + '|' + addressCount("256.1.1.1", 33) + '|' + blockedAppCount("app439");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|256.1.1.1/33|1501|1.1.1.1|app439|iface1:10.0.183.37/33:10.0.0.183:false:false|0|1");
+      expect(actual).assertEqual("false|256.1.1.1/33|1501|1.1.1.1|app439|iface1:10.0.183.37/33:10.0.0.183:false:false|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0440 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0441
+     * @tc.name      VPN_ConfigBoundary_0441
+     * @tc.desc      vpn config boundary 10.0.0.5,0,68,114.114.114.114,app440,iface2,10.0.184.40,24,10.0.0.184,true,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('VPN_ConfigBoundary_0441', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0441 begin`);
+      logInfo("config boundary 10.0.0.5,0,68,114.114.114.114,app440,iface2,10.0.184.40,24,10.0.0.184,true,false");
+      const actual: string = networkValid("10.0.0.5", 0, 68, "114.114.114.114") + '|' + vpnConfigSummary("10.0.0.5", "app440", 0, 68, "114.114.114.114") + '|' + routeSummary("iface2", "10.0.184.40", 24, "10.0.0.184", true, false) + '|' + addressCount("10.0.0.5", 0) + '|' + blockedAppCount("app440");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|10.0.0.5/0|68|114.114.114.114|app440|iface2:10.0.184.40/24:10.0.0.184:true:false|1|1");
+      expect(actual).assertEqual("true|10.0.0.5/0|68|114.114.114.114|app440|iface2:10.0.184.40/24:10.0.0.184:true:false|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0441 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0442
+     * @tc.name      VPN_ConfigBoundary_0442
+     * @tc.desc      vpn config boundary 1.2.3.4,24,1400,8.8.8.8,app441,iface0,10.0.185.43,0,10.0.0.185,false,true keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0442', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0442 begin`);
+      logInfo("config boundary 1.2.3.4,24,1400,8.8.8.8,app441,iface0,10.0.185.43,0,10.0.0.185,false,true");
+      const actual: string = networkValid("1.2.3.4", 24, 1400, "8.8.8.8") + '|' + vpnConfigSummary("1.2.3.4", "app441", 24, 1400, "8.8.8.8") + '|' + routeSummary("iface0", "10.0.185.43", 0, "10.0.0.185", false, true) + '|' + addressCount("1.2.3.4", 24) + '|' + blockedAppCount("app441");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|1.2.3.4/24|1400|8.8.8.8|app441|iface0:10.0.185.43/0:10.0.0.185:false:true|1|1");
+      expect(actual).assertEqual("true|1.2.3.4/24|1400|8.8.8.8|app441|iface0:10.0.185.43/0:10.0.0.185:false:true|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0442 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0443
+     * @tc.name      VPN_ConfigBoundary_0443
+     * @tc.desc      vpn config boundary ,32,1500,,app442,iface1,10.0.186.46,32,10.0.0.186,true,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL3
+     */
+    it('VPN_ConfigBoundary_0443', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0443 begin`);
+      logInfo("config boundary ,32,1500,,app442,iface1,10.0.186.46,32,10.0.0.186,true,false");
+      const actual: string = networkValid("", 32, 1500, "") + '|' + vpnConfigSummary("", "app442", 32, 1500, "") + '|' + routeSummary("iface1", "10.0.186.46", 32, "10.0.0.186", true, false) + '|' + addressCount("", 32) + '|' + blockedAppCount("app442");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|/32|1500||app442|iface1:10.0.186.46/32:10.0.0.186:true:false|0|1");
+      expect(actual).assertEqual("false|/32|1500||app442|iface1:10.0.186.46/32:10.0.0.186:true:false|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0443 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0444
+     * @tc.name      VPN_ConfigBoundary_0444
+     * @tc.desc      vpn config boundary 256.1.1.1,33,1501,1.1.1.1,app443,iface2,10.0.187.49,33,10.0.0.187,false,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0444', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0444 begin`);
+      logInfo("config boundary 256.1.1.1,33,1501,1.1.1.1,app443,iface2,10.0.187.49,33,10.0.0.187,false,false");
+      const actual: string = networkValid("256.1.1.1", 33, 1501, "1.1.1.1") + '|' + vpnConfigSummary("256.1.1.1", "app443", 33, 1501, "1.1.1.1") + '|' + routeSummary("iface2", "10.0.187.49", 33, "10.0.0.187", false, false) + '|' + addressCount("256.1.1.1", 33) + '|' + blockedAppCount("app443");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|256.1.1.1/33|1501|1.1.1.1|app443|iface2:10.0.187.49/33:10.0.0.187:false:false|0|1");
+      expect(actual).assertEqual("false|256.1.1.1/33|1501|1.1.1.1|app443|iface2:10.0.187.49/33:10.0.0.187:false:false|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0444 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0445
+     * @tc.name      VPN_ConfigBoundary_0445
+     * @tc.desc      vpn config boundary 10.0.0.5,0,68,114.114.114.114,app444,iface0,10.0.188.52,24,10.0.0.188,true,true keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0445', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0445 begin`);
+      logInfo("config boundary 10.0.0.5,0,68,114.114.114.114,app444,iface0,10.0.188.52,24,10.0.0.188,true,true");
+      const actual: string = networkValid("10.0.0.5", 0, 68, "114.114.114.114") + '|' + vpnConfigSummary("10.0.0.5", "app444", 0, 68, "114.114.114.114") + '|' + routeSummary("iface0", "10.0.188.52", 24, "10.0.0.188", true, true) + '|' + addressCount("10.0.0.5", 0) + '|' + blockedAppCount("app444");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|10.0.0.5/0|68|114.114.114.114|app444|iface0:10.0.188.52/24:10.0.0.188:true:true|1|1");
+      expect(actual).assertEqual("true|10.0.0.5/0|68|114.114.114.114|app444|iface0:10.0.188.52/24:10.0.0.188:true:true|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0445 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0446
+     * @tc.name      VPN_ConfigBoundary_0446
+     * @tc.desc      vpn config boundary 1.2.3.4,24,1400,8.8.8.8,app445,iface1,10.0.189.55,0,10.0.0.189,false,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0446', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0446 begin`);
+      logInfo("config boundary 1.2.3.4,24,1400,8.8.8.8,app445,iface1,10.0.189.55,0,10.0.0.189,false,false");
+      const actual: string = networkValid("1.2.3.4", 24, 1400, "8.8.8.8") + '|' + vpnConfigSummary("1.2.3.4", "app445", 24, 1400, "8.8.8.8") + '|' + routeSummary("iface1", "10.0.189.55", 0, "10.0.0.189", false, false) + '|' + addressCount("1.2.3.4", 24) + '|' + blockedAppCount("app445");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|1.2.3.4/24|1400|8.8.8.8|app445|iface1:10.0.189.55/0:10.0.0.189:false:false|1|1");
+      expect(actual).assertEqual("true|1.2.3.4/24|1400|8.8.8.8|app445|iface1:10.0.189.55/0:10.0.0.189:false:false|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0446 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0447
+     * @tc.name      VPN_ConfigBoundary_0447
+     * @tc.desc      vpn config boundary ,32,1500,,app446,iface2,10.0.190.58,32,10.0.0.190,true,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0447', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0447 begin`);
+      logInfo("config boundary ,32,1500,,app446,iface2,10.0.190.58,32,10.0.0.190,true,false");
+      const actual: string = networkValid("", 32, 1500, "") + '|' + vpnConfigSummary("", "app446", 32, 1500, "") + '|' + routeSummary("iface2", "10.0.190.58", 32, "10.0.0.190", true, false) + '|' + addressCount("", 32) + '|' + blockedAppCount("app446");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|/32|1500||app446|iface2:10.0.190.58/32:10.0.0.190:true:false|0|1");
+      expect(actual).assertEqual("false|/32|1500||app446|iface2:10.0.190.58/32:10.0.0.190:true:false|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0447 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0448
+     * @tc.name      VPN_ConfigBoundary_0448
+     * @tc.desc      vpn config boundary 256.1.1.1,33,1501,1.1.1.1,app447,iface0,10.0.191.61,33,10.0.0.191,false,true keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0448', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0448 begin`);
+      logInfo("config boundary 256.1.1.1,33,1501,1.1.1.1,app447,iface0,10.0.191.61,33,10.0.0.191,false,true");
+      const actual: string = networkValid("256.1.1.1", 33, 1501, "1.1.1.1") + '|' + vpnConfigSummary("256.1.1.1", "app447", 33, 1501, "1.1.1.1") + '|' + routeSummary("iface0", "10.0.191.61", 33, "10.0.0.191", false, true) + '|' + addressCount("256.1.1.1", 33) + '|' + blockedAppCount("app447");
+      logInfo('actual=' + String(actual) + ', expected=' + "false|256.1.1.1/33|1501|1.1.1.1|app447|iface0:10.0.191.61/33:10.0.0.191:false:true|0|1");
+      expect(actual).assertEqual("false|256.1.1.1/33|1501|1.1.1.1|app447|iface0:10.0.191.61/33:10.0.0.191:false:true|0|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0448 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0449
+     * @tc.name      VPN_ConfigBoundary_0449
+     * @tc.desc      vpn config boundary 10.0.0.5,0,68,114.114.114.114,app448,iface1,10.0.192.64,24,10.0.0.192,true,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0449', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0449 begin`);
+      logInfo("config boundary 10.0.0.5,0,68,114.114.114.114,app448,iface1,10.0.192.64,24,10.0.0.192,true,false");
+      const actual: string = networkValid("10.0.0.5", 0, 68, "114.114.114.114") + '|' + vpnConfigSummary("10.0.0.5", "app448", 0, 68, "114.114.114.114") + '|' + routeSummary("iface1", "10.0.192.64", 24, "10.0.0.192", true, false) + '|' + addressCount("10.0.0.5", 0) + '|' + blockedAppCount("app448");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|10.0.0.5/0|68|114.114.114.114|app448|iface1:10.0.192.64/24:10.0.0.192:true:false|1|1");
+      expect(actual).assertEqual("true|10.0.0.5/0|68|114.114.114.114|app448|iface1:10.0.192.64/24:10.0.0.192:true:false|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0449 end`);
+    });
+
+    /**
+     * @tc.number    SUB_VPN_CONTROL_CONFIG_BOUNDARY_0450
+     * @tc.name      VPN_ConfigBoundary_0450
+     * @tc.desc      vpn config boundary 1.2.3.4,24,1400,8.8.8.8,app449,iface2,10.0.193.67,0,10.0.0.193,false,false keeps config decisions.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('VPN_ConfigBoundary_0450', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}ConfigBoundary_0450 begin`);
+      logInfo("config boundary 1.2.3.4,24,1400,8.8.8.8,app449,iface2,10.0.193.67,0,10.0.0.193,false,false");
+      const actual: string = networkValid("1.2.3.4", 24, 1400, "8.8.8.8") + '|' + vpnConfigSummary("1.2.3.4", "app449", 24, 1400, "8.8.8.8") + '|' + routeSummary("iface2", "10.0.193.67", 0, "10.0.0.193", false, false) + '|' + addressCount("1.2.3.4", 24) + '|' + blockedAppCount("app449");
+      logInfo('actual=' + String(actual) + ', expected=' + "true|1.2.3.4/24|1400|8.8.8.8|app449|iface2:10.0.193.67/0:10.0.0.193:false:false|1|1");
+      expect(actual).assertEqual("true|1.2.3.4/24|1400|8.8.8.8|app449|iface2:10.0.193.67/0:10.0.0.193:false:false|1|1");
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('string');
+      logInfo(`${BUNDLE}ConfigBoundary_0450 end`);
+    });
+  });
+}
