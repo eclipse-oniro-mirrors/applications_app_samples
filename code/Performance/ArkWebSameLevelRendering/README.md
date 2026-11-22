@@ -237,11 +237,11 @@ Web({ src: $rawfile("embed_view.html"), controller: this.browserTabController })
 
 `entry/src/ohosTest` 下共 30 个测试套件、2985 条逻辑用例，覆盖 BundleInfo 与模块信息、应用信息、字符串/颜色/整数/媒体资源、商品数据模型、rawfile 页面结构、文件与首选项、显示与 Want、Ability 上下文等场景。用例设计与执行方式见 [ohosTest.md](ohosTest.md)。
 
-执行命令：
+执行方式：
 
-```
-hdc shell aa test -b com.example.nativeembed -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 600000
-```
+1. 使用 DevEco Studio 自动签名，编译并安装主 HAP 与测试 HAP。
+2. 在 DevEco Studio 中选择 entry 模块的 ohosTest 执行全量用例。
+3. 如需命令行执行，使用 OpenHarmony Ability Assistant 测试命令，参数为 `-b com.example.nativeembed -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 600000`。
 
 ### 下载
 

@@ -63,13 +63,8 @@
 ## 三、执行方式
 
 1. 使用 DevEco Studio 自动签名，编译并安装应用与测试包。
-2. 通过 hdc 执行全量测试：
-
-```
-hdc shell aa test -b com.example.nativeembed -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 600000
-```
-
-3. 也可在 DevEco Studio 中选中 entry 模块的 ohosTest 运行。
+2. 在 DevEco Studio 中选择 entry 模块的 ohosTest 执行全量用例。
+3. 如需命令行执行，使用 OpenHarmony Ability Assistant 测试命令，参数为 `-b com.example.nativeembed -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 600000`。
 
 ## 四、测试结果
 
