@@ -366,3 +366,226 @@ export default function durationBetweenTest(): void {
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
+     */
+    it('Perf_Duration_0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Duration_0020 begin`);
+      logInfo("durationBetween(190, 133)");
+      const actual: number = durationBetween(190, 133);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo(`${BUNDLE}Duration_0020 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_DURATION_0021
+     * @tc.name      Perf_Duration_0021
+     * @tc.desc      durationBetween(200, 140) is 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_Duration_0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Duration_0021 begin`);
+      logInfo("durationBetween(200, 140)");
+      const actual: number = durationBetween(200, 140);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo(`${BUNDLE}Duration_0021 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_DURATION_0022
+     * @tc.name      Perf_Duration_0022
+     * @tc.desc      durationBetween(210, 147) is 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_Duration_0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Duration_0022 begin`);
+      logInfo("durationBetween(210, 147)");
+      const actual: number = durationBetween(210, 147);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}Duration_0022 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_DURATION_0023
+     * @tc.name      Perf_Duration_0023
+     * @tc.desc      durationBetween(220, 154) is 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL1
+     */
+    it('Perf_Duration_0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logInfo(`${BUNDLE}Duration_0023 begin`);
+      logInfo("durationBetween(220, 154)");
+      const actual: number = durationBetween(220, 154);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo(`${BUNDLE}Duration_0023 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_DURATION_0024
+     * @tc.name      Perf_Duration_0024
+     * @tc.desc      durationBetween(230, 161) is 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_Duration_0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Duration_0024 begin`);
+      logInfo("durationBetween(230, 161)");
+      const actual: number = durationBetween(230, 161);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo(`${BUNDLE}Duration_0024 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_DURATION_0025
+     * @tc.name      Perf_Duration_0025
+     * @tc.desc      durationBetween(240, 168) is 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_Duration_0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Duration_0025 begin`);
+      logInfo("durationBetween(240, 168)");
+      const actual: number = durationBetween(240, 168);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}Duration_0025 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_DURATION_0026
+     * @tc.name      Perf_Duration_0026
+     * @tc.desc      durationBetween(250, 175) is 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_Duration_0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Duration_0026 begin`);
+      logInfo("durationBetween(250, 175)");
+      const actual: number = durationBetween(250, 175);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo(`${BUNDLE}Duration_0026 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_DURATION_0027
+     * @tc.name      Perf_Duration_0027
+     * @tc.desc      durationBetween(260, 182) is 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_Duration_0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Duration_0027 begin`);
+      logInfo("durationBetween(260, 182)");
+      const actual: number = durationBetween(260, 182);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo(`${BUNDLE}Duration_0027 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_DURATION_0028
+     * @tc.name      Perf_Duration_0028
+     * @tc.desc      durationBetween(270, 189) is 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_Duration_0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Duration_0028 begin`);
+      logInfo("durationBetween(270, 189)");
+      const actual: number = durationBetween(270, 189);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}Duration_0028 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_DURATION_0029
+     * @tc.name      Perf_Duration_0029
+     * @tc.desc      durationBetween(280, 196) is 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_Duration_0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Duration_0029 begin`);
+      logInfo("durationBetween(280, 196)");
+      const actual: number = durationBetween(280, 196);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo(`${BUNDLE}Duration_0029 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_DURATION_0030
+     * @tc.name      Perf_Duration_0030
+     * @tc.desc      durationBetween(290, 203) is 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_Duration_0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Duration_0030 begin`);
+      logInfo("durationBetween(290, 203)");
+      const actual: number = durationBetween(290, 203);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo(`${BUNDLE}Duration_0030 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_DURATION_0031
+     * @tc.name      Perf_Duration_0031
+     * @tc.desc      durationBetween(300, 210) is 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_Duration_0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Duration_0031 begin`);
+      logInfo("durationBetween(300, 210)");
+      const actual: number = durationBetween(300, 210);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo('typeof actual=' + typeof actual);
+      expect(typeof actual).assertEqual('number');
+      logInfo(`${BUNDLE}Duration_0031 end`);
+    });
+
+    /**
+     * @tc.number    SUB_PERFTEST_DURATION_0032
+     * @tc.name      Perf_Duration_0032
+     * @tc.desc      durationBetween(310, 217) is 0.
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('Perf_Duration_0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      logInfo(`${BUNDLE}Duration_0032 begin`);
+      logInfo("durationBetween(310, 217)");
+      const actual: number = durationBetween(310, 217);
+      logInfo('actual=' + String(actual) + ', expected=' + "0");
+      expect(actual).assertEqual(0);
+      logInfo(`${BUNDLE}Duration_0032 end`);
+    });
+  });
+}
