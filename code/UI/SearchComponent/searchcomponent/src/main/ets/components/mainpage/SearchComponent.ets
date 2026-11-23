@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file src/main/ets/components/mainpage/SearchComponent.ets
+ * 文件职责：SearchComponent 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：SearchComponent。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { SceneModuleInfo } from '../model/SceneModuleInfo';
 import { promptAction, ShowDialogSuccessResponse } from '@kit.ArkUI';
 import { waterFlowData } from '../data/WaterFlowData';
@@ -38,8 +45,24 @@ PersistentStorage.persistProp('searchHistoryData', []);
  * 3.通过geometryTransition组件内隐式共享元素转场绑定两个搜索框实现传承过渡。
  * 3.在切换过程中使用animateTo显式动画配合改变搜索框大小实现转换过程中的动画和一镜到底的效果。
  */
+/**
+ * SearchComponent：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct SearchComponent {
+  // @StorageLink searchListData：与 AppStorage 双向绑定
+  // @StorageLink searchHistoryData：与 AppStorage 双向绑定
+  // @State searchContext：组件内部状态
+  // @State isSearchPageShow：组件内部状态
+  // @State geometryId：组件内部状态
+  // @State searchNewListData：组件内部状态
+  // @State avoidAreaHeight：组件内部状态
+  // @State screenWidth：组件内部状态
+  // @StorageLink uiContext：与 AppStorage 双向绑定
+  // @State classifyIndex：组件内部状态
+  // @State searchInput：组件内部状态
+  // @State categoryName：组件内部状态
+  // @State searchInputWidth：组件内部状态
   @StorageLink('listData') searchListData: SceneModuleInfo[] | undefined = waterFlowData; // 搜索原始数据
   @StorageLink('searchHistoryData') searchHistoryData: SceneModuleInfo[] = []; // 搜索历史数组
   @State searchContext: string = ''; // 搜索输入内容
@@ -53,30 +76,47 @@ export struct SearchComponent {
   @State searchInput: string = '';
   @State categoryName: string | undefined = '';
   @State searchInputWidth: number = 0;
+
+  // 字段 searchClassifyData：声明并维护该成员的状态
   private searchClassifyData: String[] = ['UI布局', '动效', '三方库', 'Native', '性能示例', '其他'];
+
   // 从AppStorage中获取设别类别，判断是否为折叠屏
   isFoldable: boolean | undefined = AppStorage.get('isFoldable');
 
+  /**
+   * aboutToAppear：组件即将挂载时回调，用于初始化数据与订阅。
+   */
   aboutToAppear(): void {
+    // 更新 setSearchInputWidth
     this.setSearchInputWidth();
+    // const 语句
     const type = window.AvoidAreaType.TYPE_SYSTEM;
     window.getLastWindow(this.uiContext, (err, data) => {
+      // if 语句
       if (data !== undefined) {
+        // let 语句
         let avoidArea = data.getWindowAvoidArea(type);
+        // 更新 avoidAreaHeight
         this.avoidAreaHeight = avoidArea.topRect.height;
       }
     })
     let context = getContext() as common.UIAbilityContext
     window.getLastWindow(context).then((windowClass) => {
       windowClass.on('windowSizeChange', () => {
+        // 更新 setSearchInputWidth
         this.setSearchInputWidth();
       })
     })
   }
 
+  /**
+   * setSearchInputWidth：执行 setSearchInputWidth 相关逻辑。
+   */
   setSearchInputWidth() {
+    // let 语句
     let context = getContext() as common.UIAbilityContext;
     window.getLastWindow(context).then((windowClass) => {
+      // const 语句
       const windowsProperties = windowClass.getWindowProperties().windowRect.width;
       //32为左右边距、24为菜单图标宽度、8为搜索宽与图标之间的距离
       this.searchInputWidth = px2vp(windowsProperties) - 32 - 24 - 8;
@@ -88,8 +128,11 @@ export struct SearchComponent {
    * @param value:输入框输入的内容
    */
   searchFunc(value: string, category: string | undefined) {
+    // let 语句
     let newListData: SceneModuleInfo[] = [];
+    // if 语句
     if (this.searchListData !== undefined) {
+      // for 语句
       for (let i = 0; i < this.searchListData.length; i++) {
         // 通过传入的category与范例数据进行匹配，category为undefined和空时表示不进行分类查找
         const isCategoryItem: boolean =
@@ -104,13 +147,16 @@ export struct SearchComponent {
         }
       }
     }
+    // if 语句
     if (value !== '' && newListData.length === 0) {
       promptAction.showToast({ message: $r('app.string.search_component_content_alarm') });
     }
     // 判断是否有输入的值
     if (value.length !== 0) {
+      // 更新 searchNewListData
       this.searchNewListData = newListData;
     } else {
+      // 更新 searchNewListData
       this.searchNewListData = [];
     }
   }
@@ -120,12 +166,15 @@ export struct SearchComponent {
    * 2.两个搜索框同时绑定同一个geometryId。
    */
   private onSearchClicked(): void {
+    // 更新 geometryId
     this.geometryId = 'search';
     animateTo({
+      // 字段 duration：声明并维护该成员的状态
       duration: 100,
       // 构造插值器弹簧曲线对象，生成一条从0到1的动画曲线
       curve: curves.interpolatingSpring(0, 1, 324, 38)
     }, () => {
+      // 更新 isSearchPageShow
       this.isSearchPageShow = true;
     })
   }
@@ -135,27 +184,41 @@ export struct SearchComponent {
    * 2.两个搜索框同时绑定同一个geometryId。
    */
   private onArrowClicked(): void {
+    // 更新 geometryId
     this.geometryId = 'search';
     animateTo({
       // 构造插值器弹簧曲线对象，生成一条从0到1的动画曲线
       curve: curves.interpolatingSpring(0, 1, 342, 38)
     }, () => {
+      // 更新 searchNewListData
       this.searchNewListData = [];
+      // 更新 isSearchPageShow
       this.isSearchPageShow = false;
+      // 更新 classifyIndex
       this.classifyIndex = -1;
+      // 更新 searchInput
       this.searchInput = '';
+      // 更新 categoryName
       this.categoryName = '';
     })
   }
 
   // 点击提示列表/历史记录进入范例页
+  /**
+   * onItemClicked：执行 onItemClicked 相关逻辑。
+   */
   private onItemClicked(): void {
+    // 更新 geometryId
     this.geometryId = 'search';
     animateTo({
+      // 字段 curve：声明并维护该成员的状态
       curve: Curve.Ease,
+      // 字段 duration：声明并维护该成员的状态
       duration: 20
     }, () => {
+      // 更新 searchNewListData
       this.searchNewListData = [];
+      // 更新 isSearchPageShow
       this.isSearchPageShow = false;
     })
   }
@@ -165,6 +228,7 @@ export struct SearchComponent {
    * @param event 触屏事件
    */
   private onTouchDown(event: TouchEvent): void {
+    // let 语句
     let inputMethodController = inputMethod.getController();
     inputMethodController.stopInputSession()
   }
@@ -172,10 +236,16 @@ export struct SearchComponent {
   /**
    * 搜索添加分类选项
    * */
+  /**
+   * searchClassificationSelection：执行 searchClassificationSelection 相关逻辑。
+   */
   @Builder
   searchClassificationSelection() {
+    // Column：垂直布局容器
     Column() {
+      // Column：垂直布局容器
       Column() {
+        // Text：文本
         Text($r('app.string.search_component_search_classify_fixed_words'))
           .fontColor($r('app.color.search_classify_fixed_words_color'))
       }
@@ -183,10 +253,13 @@ export struct SearchComponent {
       .alignItems(HorizontalAlign.Start)
       .margin({ bottom: $r('app.integer.search_component_classify_description_margin') })
 
+      // Grid：网格容器
       Grid() {
         // TODO：知识点：使用ForEach加载分类搜索列表数据
         ForEach(this.searchClassifyData, (item: string, index: number) => {
+          // GridItem：网格项
           GridItem() {
+            // Text：文本
             Text(item)
               .fontColor(this.classifyIndex === index ? Color.White : Color.Black)
               .opacity(this.classifyIndex === index ? 1 : 0.8)
@@ -197,8 +270,11 @@ export struct SearchComponent {
           $r('app.color.search_classify_category_not_chosen_color'))
           .borderRadius($r('app.integer.search_component_classify_category_border_radius'))
           .onClick(() => {
+            // 更新 classifyIndex
             this.classifyIndex = this.classifyIndex === index ? -1 : index;
+            // 更新 categoryName
             this.categoryName = this.classifyIndex === index ? item : '';
+            // 更新 searchFunc
             this.searchFunc(this.searchInput, this.categoryName);
           })
         }, (item: string) => item.toString())
@@ -212,7 +288,9 @@ export struct SearchComponent {
     .width('100%')
     .padding($r('app.integer.search_component_classify_category_padding'))
     .border({
+      // 字段 width：声明并维护该成员的状态
       width: { bottom: $r('app.integer.search_component_classify_category_split_line') },
+      // 字段 color：声明并维护该成员的状态
       color: { bottom: $r('app.color.search_classify_split_line_color') }
     })
   }
@@ -220,10 +298,16 @@ export struct SearchComponent {
   /**
    * 增加搜索详情页第一条，显示固定文字
    */
+  /**
+   * searchSampleNumber：执行 searchSampleNumber 相关逻辑。
+   */
   @Builder
   searchSampleNumber() {
+    // Column：垂直布局容器
     Column() {
+      // Text：文本
       Text() {
+        // Span：行内文本
         Span(this.searchNewListData.length.toString())
         Span($r('app.string.search_component_search_item_fixed_words'))
       }
@@ -232,14 +316,22 @@ export struct SearchComponent {
     }
   }
 
+  /**
+   * searchPage：执行 searchPage 相关逻辑。
+   */
   @Builder
   searchPage() {
+    // Column：垂直布局容器
     Column() {
+      // Row：水平布局容器
       Row() {
+        // Row：水平布局容器
         Row() {
+          // Image：图片
           Image($r('app.media.search_component_arrow_left'))
             .width($r('app.integer.search_component_image_left_width'))
             .onClick(() => {
+              // 更新 onArrowClicked
               this.onArrowClicked();
             })// TODO：知识点：通过transition属性配置转场参数，在组件插入和删除时显示过渡动效
             .transition(TransitionEffect.asymmetric(
@@ -262,7 +354,9 @@ export struct SearchComponent {
           .searchButton('搜索', { fontSize: $r('app.integer.search_component_search_button_text_size') })
           .defaultFocus(true)// 默认获取焦点拉起键盘
           .onChange((value: string) => {
+            // 更新 searchFunc
             this.searchFunc(value, this.categoryName);
+            // 更新 searchInput
             this.searchInput = value;
           })
           .borderRadius($r('app.integer.search_component_search_border_radius'))
@@ -273,7 +367,9 @@ export struct SearchComponent {
           .backgroundColor($r('app.string.search_component_search_background_color'))
       }
       .padding({
+        // 字段 left：声明并维护该成员的状态
         left: $r('app.integer.search_component_search_padding'),
+        // 字段 right：声明并维护该成员的状态
         right: $r('app.integer.search_component_search_padding')
       })
       .alignSelf(ItemAlign.Start)
@@ -285,6 +381,7 @@ export struct SearchComponent {
       Column() {
         // 搜索历史标题区
         Row() {
+          // Text：文本
           Text($r('app.string.search_component_search_history'))
             .fontSize($r('app.string.search_component_search_history_font_size2'))
             .fontWeight(FontWeight.Bold)
@@ -295,21 +392,29 @@ export struct SearchComponent {
             .onClick(() => {
               // 清空历史记录-确认弹框
               promptAction.showDialog({
+                // 字段 message：声明并维护该成员的状态
                 message: $r('app.string.search_component_search_delete_title'),
+                // 字段 alignment：声明并维护该成员的状态
                 alignment: DialogAlignment.Center,
+                // 字段 buttons：声明并维护该成员的状态
                 buttons: [
                   {
+                    // 字段 text：声明并维护该成员的状态
                     text: $r('app.string.search_component_delete_back'),
+                    // 字段 color：声明并维护该成员的状态
                     color: $r('app.string.search_component_button_text_color')
                   },
                   {
+                    // 字段 text：声明并维护该成员的状态
                     text: $r('app.string.search_component_delete_ok'),
+                    // 字段 color：声明并维护该成员的状态
                     color: $r('app.string.search_component_button_text_color')
                   }
                 ]
               }).then((data: ShowDialogSuccessResponse) => {
                 // 点击删除
                 if (data.index === 1) {
+                  // 更新 searchHistoryData
                   this.searchHistoryData = [];
                 }
               })
@@ -323,10 +428,13 @@ export struct SearchComponent {
 
         //搜索历史内容区
         Scroll() {
+          // Flex：弹性容器
           Flex({ wrap: FlexWrap.Wrap }) {
             // 首次进入页面就需要全部加载不需要使用LazyForeach懒加载
             ForEach(this.searchHistoryData, (item: SceneModuleInfo) => {
+              // Column：垂直布局容器
               Column() {
+                // Text：文本
                 Text(item.name)
                   .fontSize($r('app.string.search_component_search_history_font_size3'))
                   .backgroundColor($r('app.string.search_component_search_list_text_color'))
@@ -336,10 +444,13 @@ export struct SearchComponent {
               .margin({ top: $r('app.string.search_component_search_history_text_padding_margin4') })
               .padding({ right: $r('app.string.search_component_search_history_text_padding_margin2') })
               .onClick(() => {
+                // 更新 onItemClicked
                 this.onItemClicked();
                 // 点击的项提到历史记录的最前面
                 this.searchHistoryData.map((historyItem, index) => {
+                  // if 语句
                   if (historyItem === item) {
+                    // 更新 searchHistoryData
                     this.searchHistoryData.unshift(this.searchHistoryData.splice(index, 1)[0]);
                   }
                 })
@@ -354,7 +465,9 @@ export struct SearchComponent {
           this.searchNewListData.length !== 0 ? Visibility.None : Visibility.Visible) // 没有搜索历史时隐藏
         .height($r('app.string.search_component_scroll_height'))
         .onTouch((event) => {
+          // switch 语句
           switch (event.type) {
+            // 分支：case TouchType.Down
             case TouchType.Down:
               this.onTouchDown(event);
               break;
@@ -363,7 +476,9 @@ export struct SearchComponent {
         })
       }
       .padding({
+        // 字段 left：声明并维护该成员的状态
         left: $r('app.integer.search_component_history_padding'),
+        // 字段 right：声明并维护该成员的状态
         right: $r('app.integer.search_component_history_padding')
       })
       .alignItems(HorizontalAlign.Start)
@@ -377,14 +492,19 @@ export struct SearchComponent {
           .combine(TransitionEffect.translate({ y: 30 })),
       ))
 
-
+      // List：列表容器
       List() {
         // TODO：知识点：使用LazyForEach加载搜索结果列表，可以按需加载，解决一次性加载全部列表数据引起的卡顿问题，提高页面响应速度
         ForEach(this.searchNewListData, (item: SceneModuleInfo, index: number) => {
+          // ListItem：列表项
           ListItem() {
+            // Column：垂直布局容器
             Column() {
+              // Row：水平布局容器
               Row() {
+                // Row：水平布局容器
                 Row() {
+                  // Image：图片
                   Image($r('app.media.search_component_search'))
                     .width($r('app.integer.search_component_list_size'))
                     .height($r('app.integer.search_component_search_icon_height'))
@@ -398,7 +518,9 @@ export struct SearchComponent {
                     .textOverflow({ overflow: TextOverflow.Ellipsis })
                 }
 
+                // Column：垂直布局容器
                 Column() {
+                  // 更新 searchSampleNumber
                   this.searchSampleNumber()
                 }
                 .visibility(index === 0 ? Visibility.Visible : Visibility.None)
@@ -413,6 +535,7 @@ export struct SearchComponent {
           .width('100%')
           .margin({ top: $r('app.string.search_component_search_history_text_padding_margin1') })
           .onClick(() => {
+            // if 语句
             if (!this.searchHistoryData.includes(item)) {
               // 更新搜索历史数据,插入数组最前侧
               this.searchHistoryData.unshift(item);
@@ -458,6 +581,9 @@ export struct SearchComponent {
     .height('120%')
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
     // 顶部搜索框
     Search({ placeholder: $r('app.string.search_component_search_placeholder') })

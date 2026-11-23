@@ -12,97 +12,70 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { beforeAll, describe, it, expect, Level, Size, TestType } from '@ohos/hypium';
+import { Component, Driver, ON, Rect } from '@ohos.UiTest';
+import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
-import { abilityDelegatorRegistry, Driver, ON, Component } from '@kit.TestKit';
-import { UIAbility, Want } from '@kit.AbilityKit';
-import Logger from '../utils/Logger';
+const ABILITY: string = 'EntryAbility';
+const DOMAIN: number = 0xF814;
+const TAG: string = 'EntryAbilitySmokeTest';
 
-const CASE: string = 'SearchComponent'; // sample名称
-const TAG: string = '[searchcomponent_Test]';
-const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const delegator = abilityDelegatorRegistry.getAbilityDelegator();
 const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
-let want: Want;
 
-export default function abilityTest() {
-  describe('ActsAbilityTest', () => {
-    // Defines a test suite. Two parameters are supported: test suite name and test suite function.
+function log(message: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', message);
+}
 
-    // /**
-    //  * 打开应用
-    //  */
-    // it(BUNDLE + '_startAbility', 0, async (done: Function) => {
-    //   Logger.info(TAG, BUNDLE + '_startAbility start')
-    //   let want: Want = {
-    //     bundleName: bundleName,
-    //     abilityName: 'EntryAbility'
-    //   };
-    //   delegator.startAbility(want, (err) => {
-    //     Logger.info(TAG, 'StartAbility get err ' + JSON.stringify(err));
-    //     expect(err).assertNull();
-    //   })
-    //   Logger.info(TAG, BUNDLE + '_startAbility end');
-    //   let driver: Driver = Driver.create();
-    //   await driver.delayMs(3000);
-    //   done();
-    // });
+function sleep(duration: number): Promise<void> {
+  return new Promise<void>((resolve: () => void) => {
+    setTimeout(() => {
+      resolve();
+    }, duration);
+  });
+}
+
+async function exists(driver: Driver, id: string): Promise<boolean> {
+  try {
+    const component: Component = await driver.findComponent(ON.id(id));
+    return component !== undefined && component !== null;
+  } catch (error) {
+    log('exists failed: ' + id + ' -> ' + String(error));
+    return false;
+  }
+}
+
+export default function abilityTest(): void {
+  describe('EntryAbilitySmokeTest', () => {
+    beforeAll(async () => {
+      log('beforeAll start');
+      await delegator.startAbility({ bundleName: bundleName, abilityName: ABILITY });
+      await sleep(1500);
+      log('beforeAll end');
+    });
 
     /**
-     * 打开应用
+     * @tc.number    SUB_SEARCHCOMPONENT_ABILITY_0801
+     * @tc.name      testEntryAbilitySmoke0801
+     * @tc.desc      Verify the entry ability launches and renders the home search box.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
      */
-    beforeAll(async () => {
-      want = {
-        bundleName: bundleName,
-        abilityName: 'EntryAbility'
-      };
-      await delegator.startAbility(want);
-      const driver = Driver.create();
-      await driver.delayMs(1000);
-      const ability: UIAbility = await delegator.getCurrentTopAbility();
-      await driver.delayMs(1000);
-      expect(ability.context.abilityInfo.name).assertEqual('EntryAbility');
-    })
-
-    it(CASE + '_Find', 0, async (done: Function) => {
-      Logger.info(TAG, `${CASE} begin`);
-      let driver = Driver.create();
-
-      // 点击“搜索”框
-      Logger.info(TAG, `${CASE}_Find begin`);
-      let search = await driver.findComponent(ON.type('Search'));
-      await search.click();
-      await driver.delayMs(1000);
-
-      // 在搜索框输入需查找的案例名
-      let textInput = await driver.findComponent(ON.type('Search'));
-      await textInput.inputText('发布图片评论');
-      await driver.delayMs(1000);
-
-      // 点击搜索按钮，查找案例
-      let searchButton = await driver.findComponent(ON.text('搜索'));
-      await searchButton.click();
-      await driver.delayMs(2000);
-
-      done()
-    })
-    
-    beforeAll(() => {
-      // Presets an action, which is performed only once before all test cases of the test suite start.
-      // This API supports only one parameter: preset action function.
-    })
-    beforeEach(() => {
-      // Presets an action, which is performed before each unit test case starts.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: preset action function.
-    })
-    afterEach(() => {
-      // Presets a clear action, which is performed after each unit test case ends.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: clear action function.
-    })
-    afterAll(() => {
-      // Presets a clear action, which is performed after all test cases of the test suite end.
-      // This API supports only one parameter: clear action function.
+    it('testEntryAbilitySmoke0801', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      log('testEntryAbilitySmoke0801 begin');
+      const driver: Driver = Driver.create();
+      const actual1: boolean = await exists(driver, 'searchCaseTitle');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue exists(driver, 'searchCaseTitle')=${actual1}`);
+      expect(actual1).assertTrue();
+      const searchBox: Component = await driver.findComponent(ON.id('searchCaseTitle'));
+      const bounds: Rect = await searchBox.getBounds();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue bounds.right > bounds.left=${bounds.right > bounds.left}`);
+      expect(bounds.right > bounds.left).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue bounds.bottom > bounds.top=${bounds.bottom > bounds.top}`);
+      expect(bounds.bottom > bounds.top).assertTrue();
+      log('testEntryAbilitySmoke0801 end');
     })
   })
 }
