@@ -12,6 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file src/main/ets/components/util/FileUtil.ets
+ * 文件职责：FileUtil 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ImageTest。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import image from '@ohos.multimedia.image';
 import fs from '@ohos.file.fs';
 import fileIo from '@ohos.file.fs';
@@ -22,6 +30,9 @@ import resourceManager from '@ohos.resourceManager';
 
 const TAG: string = '[Sample_SavePixelMap]';
 
+/**
+ * ImageTest：类定义，承载本文件对应的逻辑与数据。
+ */
 export class ImageTest {
   /**
    * 保存pixelMap，返回路径
@@ -47,6 +58,9 @@ export class ImageTest {
     }
   }
 
+  /**
+   * packToFile：执行 packToFile 相关逻辑。
+   */
   async packToFile(context: Context, pixelMap: PixelMap) {
     let fPath: string = context.cacheDir + '/' + this.getTimeStr() + '.jpg';
     let writeFd: fs.File = await fs.open(fPath, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE);
@@ -57,6 +71,9 @@ export class ImageTest {
     fs.closeSync(writeFd.fd);
   }
 
+  /**
+   * saveFile：执行 saveFile 相关逻辑。
+   */
   async saveFile(context: Context, data: ArrayBuffer): Promise<string> {
     let uri: string = context.filesDir + '/' + this.getTimeStr() + '.jpg';
     let file: fileIo.File = fs.openSync(uri, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
@@ -75,6 +92,9 @@ export class ImageTest {
     return uri;
   }
 
+  /**
+   * setImageList：执行 setImageList 相关逻辑。
+   */
   setImageList(uri: string) {
     let imageList: Array<string> | undefined = AppStorage.get('imageList');
     const index: number | undefined = AppStorage.get('selectIndex');
@@ -84,6 +104,9 @@ export class ImageTest {
     AppStorage.setOrCreate<Array<string>>('imageList', imageList);
   }
 
+  /**
+   * getTimeStr：执行 getTimeStr 相关逻辑。
+   */
   getTimeStr() {
     const now: Date = new Date();
     const year: number = now.getFullYear();
@@ -164,6 +187,9 @@ export class ImageTest {
   private logger: AppLog = new AppLog(`[Sample_Picture_File]`);
 
   // 将rawFile中的文件写到沙箱中
+  /**
+   * writeFileToBox：执行 writeFileToBox 相关逻辑。
+   */
   async writeFileToBox(fileName: string): Promise<string> {
     let context = getContext(this);
     let value = await context.resourceManager.getRawFileContent(fileName);
@@ -178,18 +204,27 @@ export class ImageTest {
   }
 
   // 多图解码
+  /**
+   * createPictureByImageSource：执行 createPictureByImageSource 相关逻辑。
+   */
   async createPictureByImageSource(fileName: string): Promise<string> {
     let message = ndkTest.createPictureByImageSource(fileName);
     return this.logger.check_result(`CreatePictureByImageSource`, message);
   }
 
   // 创造解码参数
+  /**
+   * createDecodingOptions：执行 createDecodingOptions 相关逻辑。
+   */
   createDecodingOptions(): string | number | image.DecodingOptionsForPicture {
     let message = ndkTest.createDecodingOptions();
     return this.logger.check_result(`createDecodingOptions`, message);
   }
 
   // 设置解码参数
+  /**
+   * decodingOptionPictSetAux：执行 decodingOptionPictSetAux 相关逻辑。
+   */
   decodingOptionPictSetAux(): string {
     let desiredType: image.AuxiliaryPictureType[] = [image.AuxiliaryPictureType.GAINMAP,
       image.AuxiliaryPictureType.DEPTH_MAP,
@@ -199,18 +234,27 @@ export class ImageTest {
   }
 
   // 获取解码参数
+  /**
+   * decodingOptionPictGetAux：执行 decodingOptionPictGetAux 相关逻辑。
+   */
   decodingOptionPictGetAux(): string {
     let message = ndkTest.getDesiredAuxiliaryPictures();
     return this.logger.check_result(`getDesiredAuxiliaryPictures`, message);
   }
 
   // 释放解码参数
+  /**
+   * decodingOptionPictRelease：执行 decodingOptionPictRelease 相关逻辑。
+   */
   decodingOptionPictRelease(): string {
     let message = ndkTest.releaseDecodingOptions();
     return this.logger.check_result(`DecodingOptionPictRelease`, message);
   }
 
   // 将picture编码成buffer
+  /**
+   * packToDataFromPicture：执行 packToDataFromPicture 相关逻辑。
+   */
   async packToDataFromPicture(fileName: string): Promise<string> {
     let context = getContext();
     let filePath = context.filesDir + `/` + fileName;
@@ -223,6 +267,9 @@ export class ImageTest {
   }
 
   // 将picture编码成file
+  /**
+   * packToFileFromPicture：执行 packToFileFromPicture 相关逻辑。
+   */
   async packToFileFromPicture(fileName: string): Promise<string> {
     let context = getContext();
     let filePath = context.filesDir + `/` + fileName;
@@ -236,6 +283,9 @@ export class ImageTest {
   }
 
   // 展示图片
+  /**
+   * showPhoto：执行 showPhoto 相关逻辑。
+   */
   async showPhoto(fileName: string): Promise<image.PixelMap> {
     let context = getContext();
     let filePath = context.filesDir + `/` + fileName;

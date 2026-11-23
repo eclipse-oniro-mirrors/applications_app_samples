@@ -14,6 +14,13 @@
  */
 
 /**
+ * @file pageloading/src/main/ets/model/CommodityDataModel.ets
+ * 文件职责：CommodityDataModel 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：CommodityDataModel。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
+/**
  * 商品的数据类
  */
 export class CommodityDataModel {
@@ -24,6 +31,7 @@ export class CommodityDataModel {
   public views: ResourceStr;
   public insurance: ResourceStr;
 
+  /** 构造 CommodityDataModel 实例。 */
   constructor(id: number, uri: ResourceStr, title: ResourceStr, price: ResourceStr, views: ResourceStr,
     insurance: ResourceStr) {
     this.id = id;
@@ -34,6 +42,9 @@ export class CommodityDataModel {
     this.insurance = insurance;
   }
 
+  /**
+   * toString：function toString() { [native code] }
+   */
   toString(): string {
     return this.id.toString() + '  ' + this.title;
   }

@@ -13,11 +13,19 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/model/ChatBox.ets
+ * 文件职责：ChatBox 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ChatBox。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 export class ChatBox {
   isSend: boolean
   message: string
   date: string
 
+  /** 构造 ChatBox 实例。 */
   constructor(isSend: boolean, message: string, date: string) {
     this.isSend = isSend
     this.message = message

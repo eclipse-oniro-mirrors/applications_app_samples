@@ -22,7 +22,7 @@
       "runtimeOS": "OpenHarmony"
     },
     {
-      "name": "ohosTest",
+      "name": "ohosTest"
     }
   ]
 }

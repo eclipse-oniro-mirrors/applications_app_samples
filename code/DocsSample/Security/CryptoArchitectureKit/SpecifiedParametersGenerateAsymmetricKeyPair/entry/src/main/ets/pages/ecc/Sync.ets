@@ -15,6 +15,7 @@
 
 // [Start specify_parameter_generate_ecc_keypair_sync]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function showBigIntInfo(bnName: string, bnValue: bigint | string | number) {
   if (typeof bnValue === 'string') {
@@ -87,7 +88,8 @@ function showEccSpecDetailInfo(key: cryptoFramework.PubKey | cryptoFramework.Pri
       let pkY = key.getAsyKeySpec(cryptoFramework.AsyKeySpecItem.ECC_PK_Y_BN);
       showBigIntInfo('--- pkY', pkY);
     }
-  } catch (e) {
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
     console.error(`getAsyKeySpec failed: errCode: ${e.code}, message: ${e.message}`);
   }
 }
@@ -107,7 +109,8 @@ function testEccUseCommKeySpecGetSync() {
       throw new Error('get key pair result: fail!');
       // [EndExclude specify_parameter_generate_ecc_keypair_sync]
     }
-  } catch (e) {
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
     // 逻辑错误等异常在此捕获
     console.error(`get key pair failed: errCode: ${e.code}, message: ${e.message}`);
     // [StartExclude specify_parameter_generate_ecc_keypair_sync]

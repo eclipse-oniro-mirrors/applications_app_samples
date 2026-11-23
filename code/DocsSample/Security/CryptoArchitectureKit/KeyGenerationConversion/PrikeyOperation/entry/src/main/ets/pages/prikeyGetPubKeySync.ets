@@ -14,6 +14,7 @@
  */
 // [Start prikey_get_pubkey_sync]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { buffer } from '@kit.ArkTS';
 
 function compareUint8Array(a: Uint8Array, b: Uint8Array): boolean {
@@ -74,7 +75,8 @@ function generateAsyKey() {
     console.info('pk1 bin data: ' + pkBlob.data);
     let ret: boolean = compareUint8Array(pkBlob.data, expectPkdata);
     console.info('result: ' + ret);
-  } catch (e) {
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
     console.error(`get pubkey from prikey failed: errCode: ${e.code}, message: ${e.message}`);
     // [StartExclude prikey_get_pubkey_sync]
     throw new Error(`get pubkey from prikey failed: errCode: ${e.code}, message: ${e.message}`);

@@ -13,7 +13,14 @@
  * limitations under the License.
  */
 
-import router from '@ohos.router'
+import { router } from '@kit.ArkUI';
+import {
+  CASE_BUTTON_WIDTH,
+  RADIUS_BADGE,
+  ROUTE_MAILBOX,
+  ROUTE_PHOTO_ALBUM,
+  ROUTE_SETTINGS
+} from '../common/Constants';
 
 @Entry
 @Component
@@ -21,17 +28,17 @@ struct Index {
   build() {
     Column() {
       Column() {
-        Button('A+B+C').onClick(() => {
-          router.pushUrl({ url: "Application/MailBox" })
-        }).type(ButtonType.Normal).borderRadius(5).width(100).id('caseOne')
+        Button($r('app.string.caseOne')).onClick(() => {
+          router.pushUrl({ url: ROUTE_MAILBOX });
+        }).type(ButtonType.Normal).borderRadius(RADIUS_BADGE).width(CASE_BUTTON_WIDTH).id('caseOne')
 
-        Button('A+C').onClick(() => {
-          router.pushUrl({ url: "Application/PhotoAlbum" })
-        }).type(ButtonType.Normal).borderRadius(5).width(100).id('caseTwo')
+        Button($r('app.string.caseTwo')).onClick(() => {
+          router.pushUrl({ url: ROUTE_PHOTO_ALBUM });
+        }).type(ButtonType.Normal).borderRadius(RADIUS_BADGE).width(CASE_BUTTON_WIDTH).id('caseTwo')
 
-        Button('B+C').onClick(() => {
-          router.pushUrl({ url: "Application/Settings" })
-        }).type(ButtonType.Normal).borderRadius(5).width(100).id('caseThree')
+        Button($r('app.string.caseThree')).onClick(() => {
+          router.pushUrl({ url: ROUTE_SETTINGS });
+        }).type(ButtonType.Normal).borderRadius(RADIUS_BADGE).width(CASE_BUTTON_WIDTH).id('caseThree')
       }.width('100%').height('50%').justifyContent(FlexAlign.SpaceAround)
     }.width('100%').height('100%')
   }

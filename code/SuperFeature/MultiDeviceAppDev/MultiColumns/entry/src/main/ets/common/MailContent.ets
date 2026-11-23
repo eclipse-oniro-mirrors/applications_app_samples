@@ -13,7 +13,30 @@
  * limitations under the License.
  */
 
-import { OperateTabs } from '../model/dataType'
+import { OperateTabs } from '../model/DataType';
+import {
+  BREAKPOINT_MD,
+  BREAKPOINT_SM,
+  FONT_BADGE,
+  FONT_BODY,
+  FONT_SUBTITLE,
+  FONT_TITLE,
+  ICON_MD,
+  ICON_XXS,
+  KEY_CURRENT_BREAKPOINT,
+  LINE_HEIGHT_BADGE,
+  LINE_HEIGHT_BODY,
+  LINE_HEIGHT_TITLE,
+  MAIL_BODY_CONTENT_HEIGHT,
+  MAIL_BODY_IMAGE_HEIGHT,
+  MAIL_CONTENT_PADDING_MD_LG,
+  MAIL_CONTENT_PADDING_SM,
+  OPACITY_SECONDARY,
+  OPACITY_TERTIARY,
+  RADIUS_COMPACT,
+  ROW_HEIGHT_LIST_ITEM,
+  ROW_HEIGHT_TOOLBAR
+} from './Constants';
 
 @Component
 export struct MailContent {
@@ -24,61 +47,88 @@ export struct MailContent {
     new OperateTabs($r('app.media.ic_public_delete'), $r('app.string.delete')),
     new OperateTabs($r('app.media.more'), $r('app.string.more')),
   ]
-  @LocalStorageProp('currentBreakPoint') currentBreakPoint: string = 'md'
+  @LocalStorageProp(KEY_CURRENT_BREAKPOINT) currentBreakPoint: string = BREAKPOINT_MD
 
   build() {
     NavDestination() {
       Column() {
         Column() {
           Row() {
-            if (this.currentBreakPoint === 'sm') {
-              Row().width(24).height(24)
+            if (this.currentBreakPoint === BREAKPOINT_SM) {
+              Row().width(ICON_MD).height(ICON_MD)
             } else {
               Image($r('app.media.ic_expand'))
-                .width(24)
-                .height(24)
+                .width(ICON_MD)
+                .height(ICON_MD)
             }
-            Text('HHHxx UXD')
-              .fontSize(20)
-              .lineHeight(23)
+            Text($r('app.string.mailSenderTitle'))
+              .fontSize(FONT_TITLE)
+              .lineHeight(LINE_HEIGHT_TITLE)
               .margin({ left: 21 })
               .fontWeight(FontWeight.Medium)
-          }.width('100%').height(56)
+          }.width('100%').height(ROW_HEIGHT_LIST_ITEM)
 
           Row() {
-            Text($r('app.string.recUser')).fontSize(14).fontWeight(FontWeight.Regular)
-            Text($r('app.string.mailDesc')).padding({ left: 12 }).fontSize(16).fontWeight(FontWeight.Medium)
+            Text($r('app.string.recUser')).fontSize(FONT_BODY).fontWeight(FontWeight.Regular)
+            Text($r('app.string.mailDesc')).padding({ left: 12 }).fontSize(FONT_SUBTITLE).fontWeight(FontWeight.Medium)
             Blank()
-            Image($r('app.media.right_expend_grey')).width(24).height(12).opacity(0.8).rotate({ angle: 90 })
-          }.width('100%').height(48)
+            Image($r('app.media.right_expend_grey'))
+              .width(ICON_MD)
+              .height(ICON_XXS)
+              .opacity(OPACITY_TERTIARY)
+              .rotate({ angle: 90 })
+          }.width('100%').height(ROW_HEIGHT_TOOLBAR)
 
-          Text('PostMaster').fontSize(20).fontColor('#040404').lineHeight(23)
-          Text('09:42').margin({ top: 2 }).fontColor('#1818a').opacity(0.6)
+          Text($r('app.string.mailSender'))
+            .fontSize(FONT_TITLE)
+            .fontColor($r('app.color.font_deep_grey'))
+            .lineHeight(LINE_HEIGHT_TITLE)
+          Text($r('app.string.mailTime'))
+            .margin({ top: 2 })
+            .fontColor($r('app.color.font_title'))
+            .opacity(OPACITY_SECONDARY)
 
           Column() {
-            Text($r('app.string.textData')).fontSize(16).fontWeight(FontWeight.Regular).lineHeight(25)
-            Text($r('app.string.bodyTextPartOne')).fontSize(16).fontWeight(FontWeight.Regular).lineHeight(25)
-            Text('').lineHeight(25)
-            Image($r('app.media.orange')).width('100%').height(166).borderRadius(10)
-            Text('').lineHeight(25)
-            Text($r('app.string.bodyTextPartTwo')).fontSize(16).fontWeight(FontWeight.Regular).lineHeight(25)
-            Text($r('app.string.bodyTextPartThree')).fontSize(16).fontWeight(FontWeight.Regular).lineHeight(25)
-          }.margin({ top: 20 }).height(478).width('100%').alignItems(HorizontalAlign.Start)
+            Text($r('app.string.textData'))
+              .fontSize(FONT_SUBTITLE)
+              .fontWeight(FontWeight.Regular)
+              .lineHeight(LINE_HEIGHT_BODY)
+            Text($r('app.string.bodyTextPartOne'))
+              .fontSize(FONT_SUBTITLE)
+              .fontWeight(FontWeight.Regular)
+              .lineHeight(LINE_HEIGHT_BODY)
+              .margin({ bottom: LINE_HEIGHT_BODY })
+            Image($r('app.media.orange'))
+              .width('100%')
+              .height(MAIL_BODY_IMAGE_HEIGHT)
+              .borderRadius(RADIUS_COMPACT)
+            Text($r('app.string.bodyTextPartTwo'))
+              .fontSize(FONT_SUBTITLE)
+              .fontWeight(FontWeight.Regular)
+              .lineHeight(LINE_HEIGHT_BODY)
+              .margin({ top: LINE_HEIGHT_BODY })
+            Text($r('app.string.bodyTextPartThree'))
+              .fontSize(FONT_SUBTITLE)
+              .fontWeight(FontWeight.Regular)
+              .lineHeight(LINE_HEIGHT_BODY)
+          }.margin({ top: 20 }).height(MAIL_BODY_CONTENT_HEIGHT).width('100%').alignItems(HorizontalAlign.Start)
         }.layoutWeight(1).padding({ left: 20, right: 20, top: 24 }).alignItems(HorizontalAlign.Start)
 
         Row() {
           ForEach(this.buttonList, (item: OperateTabs) => {
             Column() {
-              Image(item.src).width(24).height(24)
-              Text(item.name).fontSize(10).margin({ top: 3 }).lineHeight(12)
+              Image(item.src).width(ICON_MD).height(ICON_MD)
+              Text(item.name).fontSize(FONT_BADGE).margin({ top: 3 }).lineHeight(LINE_HEIGHT_BADGE)
             }
           })
         }
         .width('100%')
-        .height(56)
+        .height(ROW_HEIGHT_LIST_ITEM)
         .justifyContent(FlexAlign.SpaceBetween)
-        .padding(this.currentBreakPoint === 'sm' ? { left: 21, right: 21 } : { left: 46, right: 46 })
-        .backgroundColor('#fff')
+        .padding(this.currentBreakPoint === BREAKPOINT_SM
+          ? { left: MAIL_CONTENT_PADDING_SM, right: MAIL_CONTENT_PADDING_SM }
+          : { left: MAIL_CONTENT_PADDING_MD_LG, right: MAIL_CONTENT_PADDING_MD_LG })
+        .backgroundColor($r('app.color.white'))
       }
     }
     .width('100%')

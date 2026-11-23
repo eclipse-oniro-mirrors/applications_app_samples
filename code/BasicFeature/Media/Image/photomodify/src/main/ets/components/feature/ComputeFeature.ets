@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file src/main/ets/components/feature/ComputeFeature.ets
+ * 文件职责：ComputeFeature 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ComputeFeature、NodeType。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { logger } from '../util/Logger';
 
 /**
@@ -72,6 +79,9 @@ export default class ComputeFeature {
   dragStartX: number= 0;
   dragStartY: number= 0;
 
+  /**
+   * setMaterialAndImageSize：执行 setMaterialAndImageSize 相关逻辑。
+   */
   setMaterialAndImageSize(cw: number, ch: number, iw: number, ih: number): void {
     this.containerWidth = cw;
     this.containerHeight = ch;
@@ -86,6 +96,9 @@ export default class ComputeFeature {
     logger.debug('初始化中心点：x=' + this.x + ',y=' + this.y);
   }
 
+  /**
+   * setOriginMaterialSize：执行 setOriginMaterialSize 相关逻辑。
+   */
   setOriginMaterialSize(w: number, y: number): void {
     this.materialWidth = w;
     this.materialHeight = y;
@@ -94,10 +107,16 @@ export default class ComputeFeature {
     logger.debug('setMaterialSize，w=' + w + ',h+' + y);
   }
 
+  /**
+   * setFontSize：执行 setFontSize 相关逻辑。
+   */
   setFontSize(fontSize: number): void {
     this.fontSize = fontSize;
   }
 
+  /**
+   * startDrag：执行 startDrag 相关逻辑。
+   */
   startDrag(nodeType: NodeType): void {
     this.currentType = nodeType;
     this.dragStartWidth = this.materialWidth;
@@ -169,6 +188,9 @@ export default class ComputeFeature {
     callback(this.x, this.y);
   }
 
+  /**
+   * endDrag：执行 endDrag 相关逻辑。
+   */
   endDrag(): void {
     this.currentType = NodeType.LEFT_TOP;
     this.dragStartWidth = 0;
@@ -203,6 +225,9 @@ export default class ComputeFeature {
   }
 }
 
+/**
+ * NodeType：枚举定义，承载本文件对应的逻辑与数据。
+ */
 export enum NodeType {
   LEFT_TOP,
   RIGHT_TOP,
@@ -211,5 +236,3 @@ export enum NodeType {
   // 中间素材的拖拽
   CENTER_MATERIAL
 }
-
-

@@ -103,5 +103,24 @@ export default function OpenCustomDialogTest() {
       await driver.pressBack();
       done()
     })
+
+    it('testCustomDialogHoverModeExample', 60000, async (done: Function) => {
+      let driver = Driver.create();
+      let button_list = await driver.findComponent(ON.text('openCustomDialog', MatchPattern.CONTAINS));
+      expect(button_list === null).assertFalse();
+      await button_list.click();
+      let button_hoverMode = await driver.findComponent(ON.text(resource.resourceToString($r('app.string.CustomDialogHoverModeExample_title')), MatchPattern.CONTAINS));
+      expect(button_hoverMode === null).assertFalse();
+      await button_hoverMode.click();
+      let button_click = await driver.findComponent(ON.text('click me', MatchPattern.CONTAINS));
+      expect(button_click === null).assertFalse();
+      await button_click.click();
+      await sleep(1000);
+      await driver.pressBack();
+      await sleep(1000);
+      await driver.pressBack();
+      await driver.pressBack();
+      done()
+    })
   })
 }

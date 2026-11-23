@@ -250,16 +250,56 @@ void SampleXComponent::DrawPath()
     OH_Drawing_CanvasDrawPath(cCanvas_, cPath_);
 }
 
-void ExecuteDisplaySoloist(std::string id, DisplaySoloist_ExpectedRateRange range, bool useExclusiveThread,
-                           OH_NativeXComponent *nativeXComponent)
+static napi_value ToNapiStatus(napi_env env, int32_t status)
 {
-    OH_DisplaySoloist *nativeDisplaySoloist = nullptr;
-    if (g_displaySync.find(id) == g_displaySync.end()) {
-        g_displaySync[id] = OH_DisplaySoloist_Create(useExclusiveThread);
+    napi_value result = nullptr;
+    if (napi_create_int32(env, status, &result) != napi_ok) {
+        return nullptr;
     }
-    nativeDisplaySoloist = g_displaySync[id];
-    OH_DisplaySoloist_SetExpectedFrameRateRange(nativeDisplaySoloist, &range);
-    OH_DisplaySoloist_Start(nativeDisplaySoloist, TestCallback, nativeXComponent);
+    return result;
+}
+
+int32_t ExecuteDisplaySoloist(std::string id, DisplaySoloist_ExpectedRateRange range, bool useExclusiveThread,
+                              OH_NativeXComponent *nativeXComponent)
+{
+    auto iter = g_displaySync.find(id);
+    bool created = iter == g_displaySync.end();
+    OH_DisplaySoloist *soloist = created ? OH_DisplaySoloist_Create(useExclusiveThread) : iter->second;
+    if (soloist == nullptr) {
+        return -1;
+    }
+    int32_t status = OH_DisplaySoloist_SetExpectedFrameRateRange(soloist, &range);
+    if (status == 0) {
+        status = OH_DisplaySoloist_Start(soloist, TestCallback, nativeXComponent);
+    }
+    if (created) {
+        if (status == 0) {
+            g_displaySync.emplace(id, soloist);
+        } else if (OH_DisplaySoloist_Destroy(soloist) != 0) {
+            // 失败的销毁保留句柄，允许调用者在 finally 中再次清理。
+            g_displaySync.emplace(id, soloist);
+        }
+    }
+    return status;
+}
+
+static bool ResolveSoloistConfig(const std::string &id, DisplaySoloist_ExpectedRateRange &range,
+                                 bool &useExclusiveThread)
+{
+    if (id == "xcomponentId30") {
+        // 第一个按照期望30HZ的帧率来移动
+        range = {30, 120, 30};
+    } else if (id == "xcomponentId60") {
+        // 第二个按照期望60HZ的帧率来移动
+        range = {30, 120, 60};
+        useExclusiveThread = true;
+    } else if (id == "xcomponentId120") {
+        // 第三个按照期望120HZ的帧率来移动
+        range = {30, 120, 120};
+    } else {
+        return false;
+    }
+    return true;
 }
 
 napi_value SampleXComponent::NapiRegister(napi_env env, napi_callback_info info)
@@ -298,26 +338,16 @@ napi_value SampleXComponent::NapiRegister(napi_env env, napi_callback_info info)
     std::string id(idStr);
     SampleXComponent *render = SampleXComponent().GetInstance(id);
     if (render != nullptr) {
-        DisplaySoloist_ExpectedRateRange range;
+        DisplaySoloist_ExpectedRateRange range = {30, 120, 30};
         bool useExclusiveThread = false;
-        if (id == "xcomponentId30") {
-            // 第一个按照期望30HZ的帧率来移动
-            range = {30, 120, 30};
+        if (!ResolveSoloistConfig(id, range, useExclusiveThread)) {
+            return ToNapiStatus(env, -1);
         }
-
-        if (id == "xcomponentId60") {
-            // 第二个按照期望60HZ的帧率来移动
-            range = {30, 120, 60};
-            useExclusiveThread = true;
-        }
-
-        if (id == "xcomponentId120") {
-            // 第三个按照期望120HZ的帧率来移动
-            range = {30, 120, 120};
-        }
-        ExecuteDisplaySoloist(id, range, useExclusiveThread, nativeXComponent);
+        int32_t status = ExecuteDisplaySoloist(id, range, useExclusiveThread, nativeXComponent);
+        SAMPLE_LOGI("NapiRegister status = %{public}d", status);
+        return ToNapiStatus(env, status);
     }
-    return nullptr;
+    return ToNapiStatus(env, -1);
 }
 
 napi_value SampleXComponent::NapiUnregister(napi_env env, napi_callback_info info)
@@ -354,19 +384,18 @@ napi_value SampleXComponent::NapiUnregister(napi_env env, napi_callback_info inf
     }
     SAMPLE_LOGI("ID = %{public}s", idStr);
     std::string id(idStr);
-    SampleXComponent *render = SampleXComponent().GetInstance(id);
-    if (render != nullptr) {
-        OH_DisplaySoloist_Stop(g_displaySync[id]);
-        SAMPLE_LOGI("NapiUnregister executed");
-    } else {
-        SAMPLE_LOGE("render is nullptr");
+    auto iter = g_displaySync.find(id);
+    if (iter == g_displaySync.end() || iter->second == nullptr) {
+        return ToNapiStatus(env, -1);
     }
-    return nullptr;
+    int32_t status = OH_DisplaySoloist_Stop(iter->second);
+    SAMPLE_LOGI("NapiUnregister status = %{public}d", status);
+    return ToNapiStatus(env, status);
 }
 
 napi_value SampleXComponent::NapiDestroy(napi_env env, napi_callback_info info)
 {
-    SAMPLE_LOGI("NapiUnregister");
+    SAMPLE_LOGI("NapiDestroy");
     if ((env == nullptr) || (info == nullptr)) {
         SAMPLE_LOGE("NapiDestroy: env or info is null");
         return nullptr;
@@ -398,15 +427,19 @@ napi_value SampleXComponent::NapiDestroy(napi_env env, napi_callback_info info)
     }
     SAMPLE_LOGI("ID = %{public}s", idStr);
     std::string id(idStr);
-    SampleXComponent *render = SampleXComponent().GetInstance(id);
-    if (render != nullptr) {
-        OH_DisplaySoloist_Destroy(g_displaySync[id]);
-        g_displaySync.erase(id);
-        SAMPLE_LOGI("NapiUnregister executed");
-    } else {
-        SAMPLE_LOGE("render is nullptr");
+    auto iter = g_displaySync.find(id);
+    if (iter == g_displaySync.end() || iter->second == nullptr) {
+        return ToNapiStatus(env, -1);
     }
-    return nullptr;
+    int32_t status = OH_DisplaySoloist_Stop(iter->second);
+    if (status == 0) {
+        status = OH_DisplaySoloist_Destroy(iter->second);
+    }
+    if (status == 0) {
+        g_displaySync.erase(iter);
+    }
+    SAMPLE_LOGI("NapiDestroy status = %{public}d", status);
+    return ToNapiStatus(env, status);
 }
 
 SampleXComponent::~SampleXComponent()

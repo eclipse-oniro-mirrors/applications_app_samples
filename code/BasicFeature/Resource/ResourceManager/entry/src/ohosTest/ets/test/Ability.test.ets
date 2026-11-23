@@ -27,7 +27,8 @@ const BUNDLE = 'ResourceManager_'
 const SPECIFIED_NUM = 2
 let testResMgr = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext().resourceManager
 
-async function getResourceFormatString(str: resourceManager.Resource, format: resourceManager.Resource): Promise<string | undefined> {
+async function getResourceFormatString(str: resourceManager.Resource,
+  format: resourceManager.Resource): Promise<string | undefined> {
   try {
     let formatStr = testResMgr.getStringSync(format)
     let text = testResMgr.getStringSync(str, formatStr)

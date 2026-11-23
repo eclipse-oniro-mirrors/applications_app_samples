@@ -13,33 +13,37 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
+/**
+ * Minimal hilog wrapper used by the ohosTest suites.
+ * Every argument is joined into one message so that the format string always
+ * matches the number of parameters passed to hilog.
+ */
 class Logger {
-  private domain: number;
+  private domain: number = 0xF811;
   private prefix: string;
-  private format: string = '%{public}s, %{public}s';
+  private format: string = '%{public}s';
 
   constructor(prefix: string) {
     this.prefix = prefix;
-    this.domain = 0xF811;
   }
 
   debug(...args: string[]): void {
-    hilog.debug(this.domain, this.prefix, this.format, args);
+    hilog.debug(this.domain, this.prefix, this.format, args.join(' '));
   }
 
   info(...args: string[]): void {
-    hilog.info(this.domain, this.prefix, this.format, args);
+    hilog.info(this.domain, this.prefix, this.format, args.join(' '));
   }
 
   warn(...args: string[]): void {
-    hilog.warn(this.domain, this.prefix, this.format, args);
+    hilog.warn(this.domain, this.prefix, this.format, args.join(' '));
   }
 
   error(...args: string[]): void {
-    hilog.error(this.domain, this.prefix, this.format, args);
+    hilog.error(this.domain, this.prefix, this.format, args.join(' '));
   }
 }
 
-export const logger = new Logger('Sample_AppMarket_test');
+export const logger = new Logger('MultiMusic');

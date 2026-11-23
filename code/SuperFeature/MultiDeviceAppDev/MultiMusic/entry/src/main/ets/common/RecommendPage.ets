@@ -17,12 +17,18 @@ import { songsList } from '../model/DataSummary';
 import { IconItem, PaddingDataType } from '../model/DataType';
 import { MusicPlayer } from '../pages/Index';
 import { BreakpointType } from './BreakpointSystem';
+import {
+  BannerConstants,
+  BreakpointConstants,
+  ListModuleConstants,
+  RecommendPageConstants,
+  SongGridConstants
+} from './Constants';
 import TitleBar from './TitleBar';
 
-@Entry
 @Component
 export default struct RecommendPage {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = 'md';
+  @LocalStorageProp('currentBreakpoint') currentBreakpoint: string = BreakpointConstants.MD;
   @State bannerList: Resource[] = [
   $r('app.media.banner1'),
   $r('app.media.banner2'),
@@ -38,16 +44,16 @@ export default struct RecommendPage {
           Scroll() {
             Column() {
               Row() {
-                if (this.currentBreakpoint === 'lg') {
+                if (this.currentBreakpoint === BreakpointConstants.LG) {
                   BannerColumn({ bannerList: $bannerList })
                 } else {
                   BannerSwiper({ bannerList: $bannerList })
                 }
-              }.margin({ top: 8 })
+              }.margin({ top: RecommendPageConstants.BANNER_TOP_MARGIN })
 
-              ListModule().margin({ top: 24 })
+              ListModule().margin({ top: RecommendPageConstants.MODULE_TOP_MARGIN })
 
-              SongList().margin({ top: 26 })
+              SongList().margin({ top: RecommendPageConstants.SONG_LIST_TOP_MARGIN })
             }
           }.scrollBar(BarState.Off)
         }.layoutWeight(1)
@@ -55,14 +61,15 @@ export default struct RecommendPage {
       .justifyContent(FlexAlign.Start)
       .height('100%')
       .padding(new BreakpointType(
-        new PaddingDataType(16, 16),
-        new PaddingDataType(16, 16),
-        new PaddingDataType(24, 24)).GetValue(this.currentBreakpoint))
+        new PaddingDataType(RecommendPageConstants.PADDING, RecommendPageConstants.PADDING),
+        new PaddingDataType(RecommendPageConstants.PADDING, RecommendPageConstants.PADDING),
+        new PaddingDataType(RecommendPageConstants.PADDING_LG, RecommendPageConstants.PADDING_LG))
+        .getValue(this.currentBreakpoint))
 
-      if (this.currentBreakpoint !== 'lg') {
+      if (this.currentBreakpoint !== BreakpointConstants.LG) {
         MusicPlayer()
       }
-    }.backgroundColor('#f1f3f5')
+    }.backgroundColor($r('app.color.page_background'))
   }
 }
 
@@ -71,20 +78,20 @@ struct BannerColumn {
   @Link bannerList: Resource[];
 
   build() {
-    Row({ space: 13 }) {
+    Row({ space: BannerConstants.COLUMN_SPACE }) {
       Image(this.bannerList[0])
-        .borderRadius(12)
-        .height(249)
-        .width('66%')
-      Column({ space: 10 }) {
+        .borderRadius(BannerConstants.BORDER_RADIUS)
+        .height(BannerConstants.MAIN_HEIGHT)
+        .width(BannerConstants.MAIN_WIDTH)
+      Column({ space: BannerConstants.COLUMN_ITEM_SPACE }) {
         Image(this.bannerList[1])
-          .height(120)
-          .borderRadius(12)
-          .width('33%')
+          .height(BannerConstants.SIDE_HEIGHT)
+          .borderRadius(BannerConstants.BORDER_RADIUS)
+          .width(BannerConstants.SIDE_WIDTH)
         Image(this.bannerList[2])
-          .height(120)
-          .borderRadius(12)
-          .width('33%')
+          .height(BannerConstants.SIDE_HEIGHT)
+          .borderRadius(BannerConstants.BORDER_RADIUS)
+          .width(BannerConstants.SIDE_WIDTH)
       }
     }.width('100%')
   }
@@ -93,24 +100,26 @@ struct BannerColumn {
 @Component
 struct SongList {
   @State data: IconItem[] = songsList;
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = 'md';
-  @State gridHeight: number = 900;
+  @LocalStorageProp('currentBreakpoint') currentBreakpoint: string = BreakpointConstants.MD;
+  @State gridHeight: number = SongGridConstants.DEFAULT_HEIGHT;
 
   build() {
     Column() {
       Row() {
-        Text($r("app.string.singRecommend")).fontWeight(FontWeight.Medium).fontSize(16)
+        Text($r('app.string.singRecommend'))
+          .fontWeight(FontWeight.Medium)
+          .fontSize(SongGridConstants.TITLE_FONT_SIZE)
         Blank()
-        Text('更多')
+        Text($r('app.string.more'))
           .fontColor($r('sys.color.ohos_id_color_text_secondary'))
           .fontWeight(FontWeight.Regular)
-          .fontSize(14)
+          .fontSize(SongGridConstants.ACTION_FONT_SIZE)
         Image($r('app.media.ic_public_arrow_right'))
-          .height(24)
-          .opacity(0.3)
-          .width(12)
+          .height(SongGridConstants.ARROW_HEIGHT)
+          .opacity(SongGridConstants.ARROW_OPACITY)
+          .width(SongGridConstants.ARROW_WIDTH)
       }
-      .height(48)
+      .height(SongGridConstants.HEADER_HEIGHT)
       .width('100%')
 
       Grid() {
@@ -120,49 +129,52 @@ struct SongList {
               Stack({ alignContent: Alignment.BottomStart }) {
                 Image(item.imageSrc).width('100%').aspectRatio(1)
                 Image($r('app.media.play'))
-                  .offset({ x: 6, y: -6 })
+                  .offset({ x: SongGridConstants.PLAY_ICON_OFFSET_X, y: SongGridConstants.PLAY_ICON_OFFSET_Y })
                   .aspectRatio(1)
-                  .height(20)
+                  .height(SongGridConstants.PLAY_ICON_SIZE)
               }
 
               Text(item.description)
                 .textOverflow({ overflow: TextOverflow.Clip })
                 .maxLines(2)
                 .fontWeight(FontWeight.Regular)
-                .fontSize(14)
-                .margin({ top: 8 })
-                .height(38)
+                .fontSize(SongGridConstants.LABEL_FONT_SIZE)
+                .margin({ top: SongGridConstants.LABEL_TOP_MARGIN })
+                .height(SongGridConstants.LABEL_HEIGHT)
             }.onAreaChange((oldArea: Area, newArea: Area) => {
-              let value = new BreakpointType(3, 5, 6).GetValue(this.currentBreakpoint);
+              let value = new BreakpointType(
+                SongGridConstants.COLUMNS_SM,
+                SongGridConstants.COLUMNS_MD,
+                SongGridConstants.COLUMNS_LG).getValue(this.currentBreakpoint);
               if (value) {
                 let rowNum = Math.ceil(this.data.length / value);
                 let itemHeight = Number(newArea.height);
-                let rowGap = 16;
+                let rowGap = SongGridConstants.ROW_GAP;
                 this.gridHeight = (rowGap + itemHeight) * rowNum - rowGap;
-                if (this.currentBreakpoint !== 'lg') {
-                  this.gridHeight += 48;
+                if (this.currentBreakpoint !== BreakpointConstants.LG) {
+                  this.gridHeight += SongGridConstants.PLAYER_EXTRA_HEIGHT;
                 }
               }
             })
           }.width('100%')
         })
       }
-      .rowsGap(16)
-      .columnsGap(8)
+      .rowsGap(SongGridConstants.ROW_GAP)
+      .columnsGap(SongGridConstants.COLUMN_GAP)
       .height(this.gridHeight)
       .width('100%')
       .columnsTemplate(new BreakpointType(
-        '1fr 1fr 1fr',
-        '1fr 1fr 1fr 1fr 1fr',
-        '1fr 1fr 1fr 1fr 1fr 1fr',
-      ).GetValue(this.currentBreakpoint))
+        SongGridConstants.COLUMNS_TEMPLATE_SM,
+        SongGridConstants.COLUMNS_TEMPLATE_MD,
+        SongGridConstants.COLUMNS_TEMPLATE_LG,
+      ).getValue(this.currentBreakpoint))
     }
   }
 }
 
 @Component
 struct ListModule {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = 'md';
+  @LocalStorageProp('currentBreakpoint') currentBreakpoint: string = BreakpointConstants.MD;
   @State data: IconItem[] = [
     new IconItem($r('app.media.ic_music_privatefm'), $r('app.string.privacy')),
     new IconItem($r('app.media.ic_music_singer'), $r('app.string.singer')),
@@ -175,18 +187,25 @@ struct ListModule {
   ];
 
   build() {
-    List({ space: new BreakpointType(0, 35, 63).GetValue(this.currentBreakpoint) }) {
+    List({
+      space: new BreakpointType(
+        ListModuleConstants.SPACE_SM,
+        ListModuleConstants.SPACE_MD,
+        ListModuleConstants.SPACE_LG).getValue(this.currentBreakpoint)
+    }) {
       ForEach(this.data, (item: IconItem) => {
         ListItem() {
           Column() {
-            Image(item.imageSrc).height(40).width(40)
-            Text(item.description).margin({ top: 8 }).fontSize(12)
-          }.height(64).width(64)
+            Image(item.imageSrc).height(ListModuleConstants.ICON_SIZE).width(ListModuleConstants.ICON_SIZE)
+            Text(item.description)
+              .margin({ top: ListModuleConstants.LABEL_TOP_MARGIN })
+              .fontSize(ListModuleConstants.LABEL_FONT_SIZE)
+          }.height(ListModuleConstants.ITEM_SIZE).width(ListModuleConstants.ITEM_SIZE)
         }
       })
     }
     .scrollBar(BarState.Off)
-    .height(64)
+    .height(ListModuleConstants.HEIGHT)
     .listDirection(Axis.Horizontal)
   }
 }
@@ -194,24 +213,27 @@ struct ListModule {
 @Component
 struct BannerSwiper {
   @Link bannerList: Resource[];
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = 'md';
+  @LocalStorageProp('currentBreakpoint') currentBreakpoint: string = BreakpointConstants.MD;
 
   build() {
     Swiper() {
       ForEach(this.bannerList, (item: Resource) => {
         Image(item)
-          .backgroundColor('#7fD8D8D8')
-          .borderRadius(10)
+          .backgroundColor($r('app.color.banner_placeholder_background'))
+          .borderRadius(BannerConstants.SWIPER_BORDER_RADIUS)
           .height('100%')
           .width('100%')
       })
     }
-    .height(191)
+    .height(BannerConstants.SWIPER_HEIGHT)
     .loop(true)
-    .indicatorStyle({ selectedColor: '#fff' })
-    .indicator(new BreakpointType(true, false, false).GetValue(this.currentBreakpoint))
-    .displayCount(new BreakpointType(1, 2, 3).GetValue(this.currentBreakpoint))
-    .itemSpace(8)
-    .cachedCount(3)
+    .indicatorStyle({ selectedColor: $r('app.color.common_white') })
+    .indicator(new BreakpointType(true, false, false).getValue(this.currentBreakpoint))
+    .displayCount(new BreakpointType(
+      BannerConstants.SWIPER_DISPLAY_COUNT_SM,
+      BannerConstants.SWIPER_DISPLAY_COUNT_MD,
+      BannerConstants.SWIPER_DISPLAY_COUNT_LG).getValue(this.currentBreakpoint))
+    .itemSpace(BannerConstants.SWIPER_ITEM_SPACE)
+    .cachedCount(BannerConstants.SWIPER_CACHED_COUNT)
   }
 }

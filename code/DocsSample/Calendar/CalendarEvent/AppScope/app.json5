@@ -15,7 +15,7 @@
 
 {
   "app": {
-    "bundleName": "com.sample.calendarevent",
+    "bundleName": "com.samples.calendarevent",
     "vendor": "example",
     "versionCode": 1000000,
     "versionName": "1.0.0",

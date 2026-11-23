@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file src/main/ets/components/model/AdjustModels.ets
+ * 文件职责：AdjustModels 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：（无顶层声明）。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { ColorSpaceTasks, CropTasks, ScaleTasks, TaskData, Tasks } from '../model/AdjustData';
 
 export const adjustDatas: TaskData [] = [
@@ -28,7 +35,6 @@ export const markDatas: TaskData [] = [
   new TaskData(Tasks.TEXT, $r('app.media.ic_font'), $r('app.string.text')),
   new TaskData(Tasks.STICKER, $r('app.media.ic_image'), $r('app.string.sticker'))
 ];
-
 
 export const cropTaskDatas: TaskData[] = [
   new TaskData(CropTasks.ORIGIN, $r('app.media.ic_origin'), $r('app.string.origin_photo')),

@@ -3,6 +3,46 @@
     {
       "name": "start_window_background",
       "value": "#FFFFFF"
+    },
+    {
+      "name": "tab_bar_text_selected",
+      "value": "#FF1949"
+    },
+    {
+      "name": "tab_bar_text_normal",
+      "value": "#000000"
+    },
+    {
+      "name": "placeholder_background_blue",
+      "value": "#007DFF"
+    },
+    {
+      "name": "placeholder_background_yellow",
+      "value": "#FFBF00"
+    },
+    {
+      "name": "player_title_text",
+      "value": "#18181A"
+    },
+    {
+      "name": "player_background",
+      "value": "#F7FFFFFF"
+    },
+    {
+      "name": "page_background",
+      "value": "#F1F3F5"
+    },
+    {
+      "name": "banner_placeholder_background",
+      "value": "#7FD8D8D8"
+    },
+    {
+      "name": "common_white",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "text_secondary_30",
+      "value": "#33000000"
     }
   ]
 }

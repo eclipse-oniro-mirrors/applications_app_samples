@@ -13,74 +13,142 @@
  * limitations under the License.
  */
 
+/**
+ * @file src/main/ets/components/data/WaterFlowData.ets
+ * 文件职责：WaterFlowData 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：（无顶层声明）。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { SceneModuleInfo } from '../model/SceneModuleInfo';
 
 export const waterFlowData: SceneModuleInfo[] = [
+  // MpChart图表实现案例：路由 barchart/BarChartPage
   new SceneModuleInfo('MpChart图表实现案例', 'barchart/BarChartPage', '三方库', 4, 1),
+  // 地址交换动画：路由 addressexchange/AddressExchangeView
   new SceneModuleInfo('地址交换动画', 'addressexchange/AddressExchangeView', '动效', 1, 2),
+  // 自定义TabBar页签案例：路由 customtabbar/TabView
   new SceneModuleInfo('自定义TabBar页签案例', 'customtabbar/TabView', 'UI布局', 2),
+  // 列表二级联动：路由 secondarylinkage/SecondaryLinkComponent
   new SceneModuleInfo('列表二级联动', 'secondarylinkage/SecondaryLinkComponent', 'UI布局', 9, 1),
+  // 预加载so并读取RawFile文件：路由 nativerawfile/NativeRawfileDemo
   new SceneModuleInfo('预加载so并读取RawFile文件', 'nativerawfile/NativeRawfileDemo', 'Native', 11),
+  // 阻塞事件冒泡：路由 eventpropagation/EventPropagation
   new SceneModuleInfo('阻塞事件冒泡', 'eventpropagation/EventPropagation', '其他', 8, 1),
+  // 图片缩放效果实现：路由 imageviewer/ImageViewerView
   new SceneModuleInfo('图片缩放效果实现', 'imageviewer/ImageViewerView', '其他', 7),
+  // 列表编辑：路由 pendingitems/ToDoList
   new SceneModuleInfo('列表编辑', 'pendingitems/ToDoList', 'UI布局', 10, 1),
+  // Tab组件实现增删Tab标签：路由 handletabs/HandleTabs
   new SceneModuleInfo('Tab组件实现增删Tab标签', 'handletabs/HandleTabs', 'UI布局', 13),
+  // 全屏登录页面：路由 modalwindow/ModalWindow
   new SceneModuleInfo('全屏登录页面', 'modalwindow/ModalWindow', 'UI布局', 3),
+  // 滑动页面信息隐藏与组件位移效果案例：路由 slidetohideanddisplace/SlideToHideAndDisplace
   new SceneModuleInfo('滑动页面信息隐藏与组件位移效果案例', 'slidetohideanddisplace/SlideToHideAndDisplace', '动效', 5),
+  // Navigation页面跳转对象传递案例：路由 navigationparametertransfer/NavigationParameterTransferView
   new SceneModuleInfo('Navigation页面跳转对象传递案例', 'navigationparametertransfer/NavigationParameterTransferView',
     '其他', 27, 1),
+  // 使用AKI轻松实现跨语言调用：路由 akiusepractice/AkiView
   new SceneModuleInfo('使用AKI轻松实现跨语言调用', 'akiusepractice/AkiView', '三方库', 14, 2,),
+  // 多层嵌套类对象监听：路由 variablewatch/VariableWatchView
   new SceneModuleInfo('多层嵌套类对象监听', 'variablewatch/VariableWatchView', '其他', 15),
+  // GBK文本格式解码：路由 gbktranscoding/FriendsBook
   new SceneModuleInfo('GBK文本格式解码', 'gbktranscoding/FriendsBook', '其他', 12),
+  // 图片选择和下载保存案例：路由 photopickandsave/PictureManager
   new SceneModuleInfo('图片选择和下载保存案例', 'photopickandsave/PictureManager', '其他', 16, 1),
+  // 应用异常处理案例：路由 applicationexception/ApplicationExceptionComponent
   new SceneModuleInfo('应用异常处理案例', 'applicationexception/ApplicationExceptionComponent', '其他', 17, 2),
+  // 深色模式案例：路由 fitfordarkmode/FitForDarkMode
   new SceneModuleInfo('深色模式案例', 'fitfordarkmode/FitForDarkMode', 'UI布局', 18),
+  // 下拉刷新与上滑加载案例：路由 pulltorefreshnews/PullToRefreshNews
   new SceneModuleInfo('下拉刷新与上滑加载案例', 'pulltorefreshnews/PullToRefreshNews', '动效', 20),
+  // 翻页动效案例：路由 pageturninganimation/PageTurningAnimation
   new SceneModuleInfo('翻页动效案例', 'pageturninganimation/PageTurningAnimation', '动效', 21, 3),
+  // 验证码布局：路由 verifycode/VerifyCodeView
   new SceneModuleInfo('验证码布局', 'verifycode/VerifyCodeView', 'UI布局', 23, 3),
+  // 在Native侧实现进度通知功能：路由 nativeprogressnotify/NativeProgressNotify
   new SceneModuleInfo('在Native侧实现进度通知功能', 'nativeprogressnotify/NativeProgressNotify', 'Native', 22),
+  // XComponent + Vsync 实现自定义动画：路由 xcomponentvsync/XcomponentVsync
   new SceneModuleInfo('XComponent + Vsync 实现自定义动画', 'xcomponentvsync/XcomponentVsync', 'Native', 97, 4),
+  // 使用弹簧曲线实现抖动动画及手机振动效果案例：路由 vibrateeffect/VibrateEffectView
   new SceneModuleInfo('使用弹簧曲线实现抖动动画及手机振动效果案例', 'vibrateeffect/VibrateEffectView', '动效', 24, 1),
+  // Swiper高度可变化效果实现：路由 swipersmoothvariation/SwiperSmoothVariation
   new SceneModuleInfo('Swiper高度可变化效果实现', 'swipersmoothvariation/SwiperSmoothVariation', '动效', 36),
+  // 状态栏显隐变化：路由 navigationbarchange/NavigationBarChangeComponent
   new SceneModuleInfo('状态栏显隐变化', 'navigationbarchange/NavigationBarChangeComponent', '动效', 25),
+  // 视频全屏切换案例：路由 mediafullscreen/MediaFullScreen
   new SceneModuleInfo('视频全屏切换案例', 'mediafullscreen/MediaFullScreen', '动效', 28),
+  // 城市选择案例：路由 citysearch/CitySearchComponent
   new SceneModuleInfo('城市选择案例', 'citysearch/CitySearchComponent', 'UI布局', 39),
+  // 听歌识曲水波纹特效案例：路由 waterripples/WaterRipples
   new SceneModuleInfo('听歌识曲水波纹特效案例', 'waterripples/WaterRipples', '动效', 35, 1),
+  // 折叠屏音乐播放器案例：路由 foldablescreencases/MusicPlayerPage
   new SceneModuleInfo('折叠屏音乐播放器案例', 'foldablescreencases/MusicPlayerPage', '动效', 30, 3),
+  // 发布图片评论：路由 imagecomment/ImageCommentView
   new SceneModuleInfo('发布图片评论', 'imagecomment/ImageCommentView', 'UI布局', 29),
+  // 滚动吸顶效果实现案例：路由 componentstack/ComponentStack
   new SceneModuleInfo('滚动吸顶效果实现案例', 'componentstack/ComponentStack', 'UI布局', 33),
+  // Native保存图片到应用沙箱：路由 nativesavepictosandbox/NativePictureToSandboxView
   new SceneModuleInfo('Native保存图片到应用沙箱', 'nativesavepictosandbox/NativePictureToSandboxView', 'Native', 41),
+  // 自定义视图实现Tab效果：路由 customview/CustomView
   new SceneModuleInfo('自定义视图实现Tab效果', 'customview/CustomView', 'UI布局', 32),
+  // Grid和List内拖拽交换子组件位置：路由 dragandexchange/LauncherComponent
   new SceneModuleInfo('Grid和List内拖拽交换子组件位置', 'dragandexchange/LauncherComponent', '动效', 95),
   // 此案例以升级成：网格元素交换案例 + 列表项交换案例
   new SceneModuleInfo('自定义日历选择器', 'customcalendarpickerdialog/CalendarView', 'UI布局', 34),
+  // Worker子线程中解压文件：路由 decompressfile/DecompressFileView
   new SceneModuleInfo('Worker子线程中解压文件', 'decompressfile/DecompressFileView', '其他', 31),
+  // 使用绘制组件实现自定义进度动画：路由 paintcomponent/PaintComponent
   new SceneModuleInfo('使用绘制组件实现自定义进度动画', 'paintcomponent/PaintComponent', '动效', 46, 1),
+  // 短视频切换：路由 shortvideo/ShortVideo
   new SceneModuleInfo('短视频切换', 'shortvideo/ShortVideo', 'UI布局', 40),
+  // MpChart运动健康：路由 healthchart/MpCharts
   new SceneModuleInfo('MpChart运动健康', 'healthchart/MpCharts', '三方库', 54, 3),
+  // Lottie动画：路由 lottieview/LottieComponent
   new SceneModuleInfo('Lottie动画', 'lottieview/LottieComponent', '三方库', 44),
+  // 投票动效实现案例：路由 votingcomponent/VotingComponent
   new SceneModuleInfo('投票动效实现案例', 'votingcomponent/VotingComponent', '动效', 57, 2),
+  // Web获取相机拍照图片案例：路由 webgetcameraimage/WebGetCameraImageComponent
   new SceneModuleInfo('Web获取相机拍照图片案例', 'webgetcameraimage/WebGetCameraImageComponent', '其他', 52),
+  // 数字滚动动效实现：路由 digitalscrollanimation/DigitalScrollExample
   new SceneModuleInfo('数字滚动动效实现', 'digitalscrollanimation/DigitalScrollExample', '动效', 50),
+  // 图片压缩方案：路由 imagecompression/ImageCompression
   new SceneModuleInfo('图片压缩方案', 'imagecompression/ImageCompression', '其他', 45, 3),
+  // SideBarContainer侧边栏淡入淡出动效实现案例：路由 sidebaranimation/SideBarAnimationView
   new SceneModuleInfo('SideBarContainer侧边栏淡入淡出动效实现案例', 'sidebaranimation/SideBarAnimationView', '动效',
     43),
+  // 图片拖拽AI抠图案例：路由 imageenableanalyzer/ImageView
   new SceneModuleInfo('图片拖拽AI抠图案例', 'imageenableanalyzer/ImageView', '其他', 49, 1),
+  // 汉字转拼音案例：路由 chinesetopinyin/ChineseToPinyin
   new SceneModuleInfo('汉字转拼音案例', 'chinesetopinyin/ChineseToPinyin', '其他', 56, 1),
+  // 底部抽屉滑动效果案例：路由 bottomdrawerslidecase/BottomDrawerSlideComponent
   new SceneModuleInfo('底部抽屉滑动效果案例', 'bottomdrawerslidecase/BottomDrawerSlideComponent', '动效', 55, 1,),
+  // 标题下拉缩放案例：路由 expandtitle/TitleExpansionComponent
   new SceneModuleInfo('标题下拉缩放案例', 'expandtitle/TitleExpansionComponent', '动效', 47, 1),
+  // 长列表滑动到指定列表项动效实现案例：路由 listslidetohistory/ListSlideToHistory
   new SceneModuleInfo('长列表滑动到指定列表项动效实现案例', 'listslidetohistory/ListSlideToHistory', '动效', 48, 1),
+  // 页面加载效果实现案例：路由 pageloading/PageLoading
   new SceneModuleInfo('页面加载效果实现案例', 'pageloading/PageLoading', '动效', 42, 1),
+  // 大文件拷贝案例：路由 bigfilecopy/BigFileCopyView
   new SceneModuleInfo('大文件拷贝案例', 'bigfilecopy/BigFileCopyView', '其他', 53, 1),
+  // 适配挖孔屏案例：路由 diggingholescreen/DiggingHoleScreen
   new SceneModuleInfo('适配挖孔屏案例', 'diggingholescreen/DiggingHoleScreen', 'UI布局', 60),
+  // 左右拖动切换图片效果案例：路由 dragtoswitchpictures/DragToSwitchPictures
   new SceneModuleInfo('左右拖动切换图片效果案例', 'dragtoswitchpictures/DragToSwitchPictures', 'UI布局', 58),
+  // 元素超出List区域：路由 listitemoverflow/AboutMe
   new SceneModuleInfo('元素超出List区域', 'listitemoverflow/AboutMe', 'UI布局', 51),
+  // 页面间共享组件实例的案例：路由 componentinstancesharedinpages/ComponentSharedInPages
   new SceneModuleInfo('页面间共享组件实例的案例', 'componentinstancesharedinpages/ComponentSharedInPages', 'UI布局',
     63),
+  // 自定义安全键盘案例：路由 customsafekeyboard/CustomSafeKeyboardView
   new SceneModuleInfo('自定义安全键盘案例', 'customsafekeyboard/CustomSafeKeyboardView', 'UI布局', 61),
+  // 数据库版本升级案例：路由 databaseupgrade/DatabaseUpgrade
   new SceneModuleInfo('数据库版本升级案例', 'databaseupgrade/DatabaseUpgrade', '其他', 74, 3),
+  // 页面转场一镜到底动画：路由 transitionanimation/TransitionAnimationComponent
   new SceneModuleInfo('页面转场一镜到底动画', 'transitionanimation/TransitionAnimationComponent', '动效', 68, 2),
+  // 图片九宫格封装案例：路由 imagegridlayout/ImageGridLayout
   new SceneModuleInfo('图片九宫格封装案例', 'imagegridlayout/ImageGridLayout', 'UI布局', 75),
+  // 跨文件样式复用和组件复用：路由 dynamicattributes/ShoppingCart
   new SceneModuleInfo('跨文件样式复用和组件复用', 'dynamicattributes/ShoppingCart', 'UI布局', 76, 3),
   new SceneModuleInfo('手写绘制及保存图片', 'handwritingtoimage/HandWritingToImageComponent', 'UI布局', 70, 4),
   new SceneModuleInfo('swiper指示器导航点位于swiper下方', 'indicatorbelowswiper/IndicatorBelowSwiper', 'UI布局', 67),
