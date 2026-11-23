@@ -29,6 +29,9 @@ constexpr int32_t CHROMA_SUBSAMPLING = 2;
 constexpr uint32_t LUMA_PLANE = 0;
 constexpr uint32_t CHROMA_PLANE = 1;
 constexpr uint32_t SECOND_CHROMA_PLANE = 2;
+constexpr int32_t MEDIA_ROTATION_90_DEGREES = 90;
+constexpr int32_t MEDIA_ROTATION_180_DEGREES = 180;
+constexpr int32_t MEDIA_ROTATION_270_DEGREES = 270;
 
 bool WindowSucceeded(int32_t result, const char *operation)
 {
@@ -42,11 +45,11 @@ bool WindowSucceeded(int32_t result, const char *operation)
 int32_t WindowTransform(int32_t rotation)
 {
     switch (rotation) {
-        case 90:
+        case MEDIA_ROTATION_90_DEGREES:
             return NATIVEBUFFER_ROTATE_270;
-        case 180:
+        case MEDIA_ROTATION_180_DEGREES:
             return NATIVEBUFFER_ROTATE_180;
-        case 270:
+        case MEDIA_ROTATION_270_DEGREES:
             return NATIVEBUFFER_ROTATE_90;
         default:
             return NATIVEBUFFER_ROTATE_NONE;
@@ -63,8 +66,10 @@ void CopyRows(uint8_t *target, size_t targetStride, const uint8_t *source, size_
 
 bool PlaneFits(uint64_t offset, size_t stride, size_t width, size_t rows, size_t size)
 {
-    return stride >= width && offset <= size && width <= size - offset &&
-        rows > 0 && (rows - 1) <= (size - offset - width) / stride;
+    if (stride == 0 || stride < width || rows == 0 || offset > size || width > size - offset) {
+        return false;
+    }
+    return (rows - 1) <= (size - offset - width) / stride;
 }
 
 bool WaitForBufferFence(int fence)

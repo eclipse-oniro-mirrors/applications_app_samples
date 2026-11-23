@@ -20,10 +20,19 @@
 #include <hilog/log.h>
 #include <memory>
 #include <napi/native_api.h>
+#include <new>
 #include <unistd.h>
 
 namespace {
-constexpr size_t PLAY_ARGUMENT_COUNT = 5;
+enum PlayArgumentIndex : size_t {
+    PLAY_FD,
+    PLAY_FILE_SIZE,
+    PLAY_SYNCHRONOUS,
+    PLAY_DIRECT_OUTPUT,
+    PLAY_SURFACE_ID,
+    PLAY_ARGUMENT_COUNT,
+};
+
 constexpr size_t SURFACE_ID_CAPACITY = 21;
 constexpr unsigned PLAYER_LOG_DOMAIN = 0xD000;
 constexpr char PLAYER_LOG_TAG[] = "[Sample_AVCodecVideoPlayer]";
@@ -39,7 +48,7 @@ struct Playback {
     int fd = -1;
     int64_t size = 0;
     bool synchronous = false;
-    bool surface = true;
+    bool renderDirectly = true;
     uint64_t surfaceId = 0;
     std::atomic<bool> stopped {false};
     bool completed = false;
@@ -67,12 +76,13 @@ bool ReadArguments(napi_env env, napi_callback_info info, Playback &job)
     size_t length = 0;
     if (napi_get_cb_info(env, info, &count, arguments, nullptr, nullptr) != napi_ok ||
         count != PLAY_ARGUMENT_COUNT ||
-        napi_get_value_int32(env, arguments[0], &fd) != napi_ok || fd < 0 ||
-        napi_get_value_int64(env, arguments[1], &job.size) != napi_ok || job.size <= 0 ||
-        napi_get_value_bool(env, arguments[2], &job.synchronous) != napi_ok ||
-        napi_get_value_bool(env, arguments[3], &job.surface) != napi_ok ||
-        napi_get_value_string_utf8(env, arguments[4], nullptr, 0, &length) != napi_ok || length >= sizeof(id) ||
-        napi_get_value_string_utf8(env, arguments[4], id, sizeof(id), &length) != napi_ok) {
+        napi_get_value_int32(env, arguments[PLAY_FD], &fd) != napi_ok || fd < 0 ||
+        napi_get_value_int64(env, arguments[PLAY_FILE_SIZE], &job.size) != napi_ok || job.size <= 0 ||
+        napi_get_value_bool(env, arguments[PLAY_SYNCHRONOUS], &job.synchronous) != napi_ok ||
+        napi_get_value_bool(env, arguments[PLAY_DIRECT_OUTPUT], &job.renderDirectly) != napi_ok ||
+        napi_get_value_string_utf8(env, arguments[PLAY_SURFACE_ID], nullptr, 0, &length) != napi_ok ||
+        length >= sizeof(id) ||
+        napi_get_value_string_utf8(env, arguments[PLAY_SURFACE_ID], id, sizeof(id), &length) != napi_ok) {
         return false;
     }
     const auto parsed = std::from_chars(id, id + length, job.surfaceId);
@@ -89,8 +99,8 @@ void Execute(napi_env, void *data)
     if (!job.stopped.load()) {
         OH_LOG_Print(LOG_APP, LOG_INFO, PLAYER_LOG_DOMAIN, PLAYER_LOG_TAG,
             "Playback started: %{public}s, %{public}s", job.synchronous ? "sync" : "async",
-            job.surface ? "Surface" : "Buffer");
-        job.completed = PlayVideo(job.fd, job.size, job.synchronous, job.surface, job.surfaceId, job.stopped);
+            job.renderDirectly ? "Surface" : "Buffer");
+        job.completed = PlayVideo(job.fd, job.size, job.synchronous, job.renderDirectly, job.surfaceId, job.stopped);
     }
 }
 
@@ -119,9 +129,15 @@ napi_value Play(napi_env env, napi_callback_info info)
         Finished(env, deferred, false);
         return promise;
     }
-    std::unique_ptr<Playback> job(new (std::nothrow) Playback);
+    std::unique_ptr<Playback> job;
+    try {
+        job = std::make_unique<Playback>();
+    } catch (const std::bad_alloc &) {
+        Finished(env, deferred, false);
+        return promise;
+    }
     napi_value name = nullptr;
-    if (job == nullptr || !ReadArguments(env, info, *job) ||
+    if (!ReadArguments(env, info, *job) ||
         napi_create_string_utf8(env, "AVCodecSampleVideoPlayer", NAPI_AUTO_LENGTH, &name) != napi_ok ||
         napi_create_async_work(env, nullptr, name, Execute, Complete, job.get(), &job->work) != napi_ok) {
         job.reset();

@@ -31,6 +31,8 @@ constexpr int START_FAILURE = -11;
 constexpr int RELEASE_FAILURE = -13;
 constexpr int MUX_WRITE_FAILURE = -19;
 constexpr int REPLAY_COUNT = 3;
+constexpr int RELEASE_ATTEMPTS_AFTER_RETRY = 2;
+constexpr int RELEASE_ATTEMPTS_AFTER_NEXT_SESSION = RELEASE_ATTEMPTS_AFTER_RETRY + 1;
 constexpr int MUXER_CLEANUP = 1;
 constexpr int ENCODER_CLEANUP = 2;
 constexpr int DRAIN_DEADLINE_SECONDS = 5;
@@ -230,13 +232,13 @@ void TestStartFailure()
     Require(g_boundary.cleanup == std::vector<int>({ MUXER_CLEANUP, ENCODER_CLEANUP }),
         "g_boundary.cleanup == std::vector<int>({MUXER_CLEANUP, ENCODER_CLEANUP})");
 }
-std::atomic<int> releaseThreadStarts {0};
-bool failReleaseThreadCreation = false;
+std::atomic<int> g_releaseThreadStarts {0};
+bool g_failReleaseThreadCreation = false;
 
 std::thread StartTestReleaseThread(std::function<void()> release)
 {
-    ++releaseThreadStarts;
-    if (failReleaseThreadCreation) {
+    ++g_releaseThreadStarts;
+    if (g_failReleaseThreadCreation) {
         throw std::system_error(std::make_error_code(std::errc::resource_unavailable_try_again));
     }
     return std::thread(std::move(release));
@@ -245,8 +247,8 @@ std::thread StartTestReleaseThread(std::function<void()> release)
 void TestReleaseThreadCreationFailure()
 {
     g_boundary = {};
-    releaseThreadStarts = 0;
-    failReleaseThreadCreation = true;
+    g_releaseThreadStarts = 0;
+    g_failReleaseThreadCreation = true;
     Recorder recorder(StartTestReleaseThread);
     SampleInfo info;
     info.audio.enabled = false;
@@ -255,26 +257,26 @@ void TestReleaseThreadCreationFailure()
     Require(recorder.GetFailure().stage == "recorder.release.thread" && g_boundary.cleanup.empty(),
         "Report the thread failure without releasing resources that were never opened");
 
-    failReleaseThreadCreation = false;
+    g_failReleaseThreadCreation = false;
     Require(recorder.Init(info) == 0, "Retry reserves a release thread");
     g_boundary.start = START_FAILURE;
     Require(recorder.Start() == START_FAILURE && !recorder.IsSessionActive(), "Startup reports its first error");
     const std::vector<int> expectedCleanup { MUXER_CLEANUP, ENCODER_CLEANUP };
-    Require(releaseThreadStarts == 2 && g_boundary.cleanup == expectedCleanup,
+    Require(g_releaseThreadStarts == RELEASE_ATTEMPTS_AFTER_RETRY && g_boundary.cleanup == expectedCleanup,
         "Startup rollback uses the reserved thread and destroys each resource once");
 
     g_boundary = {};
     Require(recorder.Init(info) == 0 && recorder.Start() == 0, "Recording starts after a prior cleanup");
     Require(recorder.StopEnd() == 0 && !recorder.IsSessionActive(), "Normal stop uses the reserved thread");
-    Require(releaseThreadStarts == 3 && g_boundary.cleanup == expectedCleanup,
+    Require(g_releaseThreadStarts == RELEASE_ATTEMPTS_AFTER_NEXT_SESSION && g_boundary.cleanup == expectedCleanup,
         "Normal stop does not need another release thread");
 }
 
 void TestReleaseAfterCodecCallbackFailure()
 {
     g_boundary = {};
-    releaseThreadStarts = 0;
-    failReleaseThreadCreation = false;
+    g_releaseThreadStarts = 0;
+    g_failReleaseThreadCreation = false;
     MuxerReleaseGate gate;
     g_muxerReleaseGate = &gate;
     Recorder recorder(StartTestReleaseThread);
@@ -292,7 +294,7 @@ void TestReleaseAfterCodecCallbackFailure()
     gate.condition.notify_all();
     Require(recorder.StopEnd() != 0 && !recorder.IsSessionActive(), "StopEnd observes the codec error after cleanup");
     g_muxerReleaseGate = nullptr;
-    Require(releaseThreadStarts == 1 && recorder.GetFailure().stage == "recorder.output",
+    Require(g_releaseThreadStarts == 1 && recorder.GetFailure().stage == "recorder.output",
         "Abort reuses its release thread and keeps the codec failure");
     Require(g_boundary.cleanup == std::vector<int>({ MUXER_CLEANUP, ENCODER_CLEANUP }),
         "Callback failure destroys each resource once");

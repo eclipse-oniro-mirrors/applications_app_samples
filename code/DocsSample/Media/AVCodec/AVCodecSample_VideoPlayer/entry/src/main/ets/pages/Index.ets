@@ -27,12 +27,12 @@ const LOG_TAG: string = '[Sample_AVCodecVideoPlayer]';
 struct Index {
   @State private surfaceId: string = '';
   @State private busy: boolean = false;
-  @State private modeLabel: Resource = $r('app.string.async_surface');
+  @State private modeLabel: Resource = $r('app.string.async_direct_output');
   @State private modeSheetOpen: boolean = false;
   @State private sourceSheetOpen: boolean = false;
   private readonly controller: XComponentController = new XComponentController();
   private synchronous: boolean = false;
-  private surface: boolean = true;
+  private renderDirectly: boolean = true;
 
   build() {
     Column() {
@@ -130,9 +130,9 @@ struct Index {
         .fontColor($r('app.color.player_text'))
         .margin({ bottom: 4 })
 
-      this.modeOption($r('app.string.async_surface'), false, true)
+      this.modeOption($r('app.string.async_direct_output'), false, true)
       this.modeOption($r('app.string.async_buffer'), false, false)
-      this.modeOption($r('app.string.sync_surface'), true, true)
+      this.modeOption($r('app.string.sync_direct_output'), true, true)
       this.modeOption($r('app.string.sync_buffer'), true, false)
     }
     .padding(24)
@@ -140,17 +140,17 @@ struct Index {
   }
 
   @Builder
-  private modeOption(label: Resource, synchronous: boolean, surface: boolean): void {
+  private modeOption(label: Resource, synchronous: boolean, renderDirectly: boolean): void {
     Button(label)
       .fontSize(18)
       .fontColor($r('app.color.player_text'))
       .buttonStyle(ButtonStyleMode.NORMAL)
-      .backgroundColor(this.synchronous === synchronous && this.surface === surface ?
+      .backgroundColor(this.synchronous === synchronous && this.renderDirectly === renderDirectly ?
         $r('app.color.player_selected') : $r('app.color.player_button'))
       .onClick((): void => {
         this.modeLabel = label;
         this.synchronous = synchronous;
-        this.surface = surface;
+        this.renderDirectly = renderDirectly;
         this.modeSheetOpen = false;
       })
       .actionAppearance()
@@ -217,7 +217,9 @@ struct Index {
         return;
       }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'Playback file is open');
-      const finished: boolean = await player.play(file.fd, size, this.synchronous, this.surface, this.surfaceId);
+      const playback: Promise<boolean> = player.play(
+        file.fd, size, this.synchronous, this.renderDirectly, this.surfaceId);
+      const finished: boolean = await playback;
       if (!finished) {
         this.showFailure();
       }

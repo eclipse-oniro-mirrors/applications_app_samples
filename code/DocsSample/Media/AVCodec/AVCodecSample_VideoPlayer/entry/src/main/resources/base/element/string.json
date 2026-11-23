@@ -25,7 +25,7 @@
       "value": "Choose playback mode"
     },
     {
-      "name": "async_surface",
+      "name": "async_direct_output",
       "value": "Asynchronous mode · Surface mode"
     },
     {
@@ -33,7 +33,7 @@
       "value": "Asynchronous mode · Buffer mode"
     },
     {
-      "name": "sync_surface",
+      "name": "sync_direct_output",
       "value": "Synchronous mode · Surface mode"
     },
     {

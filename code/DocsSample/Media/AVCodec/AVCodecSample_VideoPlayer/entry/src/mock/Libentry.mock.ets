@@ -14,7 +14,7 @@
  */
 
 const NativeMock: Record<string, Object> = {
-  'play': (_fd: number, _size: number, _synchronous: boolean, _surface: boolean,
+  'play': (_fd: number, _size: number, _synchronous: boolean, _renderDirectly: boolean,
     _surfaceId: string): Promise<boolean> => Promise.resolve(true),
   'stop': (): void => {}
 };

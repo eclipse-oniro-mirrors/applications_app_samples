@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-/** Plays a video to the supplied XComponent Surface ID and resolves after releasing native resources. */
-export const play: (fd: number, size: number, synchronous: boolean, surface: boolean,
+/** Plays a video in the XComponent window and resolves after releasing native resources. */
+export const play: (fd: number, size: number, synchronous: boolean, renderDirectly: boolean,
   surfaceId: string) => Promise<boolean>;
 
 /** Cancels the current playback, if any. */
