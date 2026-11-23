@@ -36,6 +36,12 @@
         "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background",
         "exported": true,
+        "metadata": [
+          {
+            "name": "samplePages",
+            "resource": "$profile:main_pages"
+          }
+        ],
         "skills": [
           {
             "entities": [
