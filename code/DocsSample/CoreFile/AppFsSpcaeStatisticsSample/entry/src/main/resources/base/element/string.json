@@ -43,6 +43,34 @@
     {
       "name": "getTotalSizeButton",
       "value": "getTotalSize"
+    },
+    {
+      "name": "bundle_stats_success",
+      "value": "getCurrentBundleStats success"
+    },
+    {
+      "name": "filesystem_free_success",
+      "value": "storageGetFreeSize success"
+    },
+    {
+      "name": "total_size_success",
+      "value": "getTotalSize success"
+    },
+    {
+      "name": "total_size_sync_success",
+      "value": "getTotalSizeSync success"
+    },
+    {
+      "name": "free_size_success",
+      "value": "getFreeSize success"
+    },
+    {
+      "name": "free_size_sync_success",
+      "value": "getFreeSizeSync success"
+    },
+    {
+      "name": "storage_query_failed",
+      "value": "Storage query failed"
     }
   ]
 }
