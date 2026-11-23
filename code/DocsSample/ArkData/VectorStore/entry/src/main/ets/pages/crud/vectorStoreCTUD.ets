@@ -47,7 +47,7 @@ export async function getVectorStore(context: common.UIAbilityContext) {
     }
     // 建表语句，floatvector(2)代表repr的维度是2
     const SQL_CREATE_TABLE = 'CREATE TABLE IF NOT EXISTS test (id INTEGER PRIMARY KEY, repr floatvector(2));';
-    // 第二个入参表示不开启显示事务，第三个参数undefined表示未使用参数绑定
+    // 第二个入参表示不开启显式事务，第三个参数undefined表示未使用参数绑定
     await store!.execute(SQL_CREATE_TABLE, 0, undefined);
   } catch(err) {
     console.error(`Get RdbStore failed, code is ${err.code}, message is ${err.message}`);
