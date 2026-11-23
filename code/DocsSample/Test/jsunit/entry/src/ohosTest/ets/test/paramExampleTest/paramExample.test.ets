@@ -28,10 +28,10 @@
  *     "suiteParams2": "suiteParams002"
  *   },
  *   "items": [{
- *     "it": "testDataDriverAsync"
+ *     "it": "testJsunitSuiteParameters0001"
  *   },
  *     {
- *       "it": "testDataDriverParam",
+ *       "it": "testJsunitItemParameters0002",
  *       "stress": 2,
  *       "params":[
  *         {
@@ -54,55 +54,116 @@
  * Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite)
  *
  * 指导文档
- * https://docs.openharmony.cn/pages/v5.1/zh-cn/application-dev/application-test/arkxtest-guidelines.md#%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8%E8%83%BD%E5%8A%9B%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B
+ * https://docs.openharmony.cn/pages/v5.1/zh-cn/application-dev/application-test/arkxtest-guidelines.md
  */
 
-import { describe, expect, it, TestType } from '@ohos/hypium';
+import { beforeEach, describe, expect, it, TestType } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { paceTurn } from '../TestPace';
 
-export default function paramExampleTest() {
-  describe('paramExampleTest', () => {
+interface SuiteParam {
+  suiteParams1: string;
+  suiteParams2: string;
+}
+
+interface ItemParam extends SuiteParam {
+  ts1: string;
+  ts2: string;
+}
+
+interface RowParam extends SuiteParam {
+  name: string;
+  value: string;
+}
+
+// Hypium injects data.json only into callbacks with both done and the data parameter.
+export default function paramExampleTest(): void {
+  describe('paramExampleTest', (): void => {
+    beforeEach(async (): Promise<void> => {
+      await paceTurn();
+    });
 
     /**
-     * @tc.number:paramExampleTest_001
-     * @tc.name: testDataDriverAsync
-     * @tc.type: 0 || TestType.FUNCTION || Size.SMALLTEST || Level.LEVEL0
-     * @tc.desc: 检测delegator.startAbility接口打开指定Ability对象
-     * @tc.done 异步用例执行完成回调函数
-     * @tc.suitParam 使用数据传递功能给测试套传递的参数对象, suitParam对象参考传递数据对象
+     * @tc.number testJsunitSuiteParameters0001
+     * @tc.name testJsunitSuiteParameters0001
+     * @tc.desc Validate both injected suite fields and absence of item-only fields
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
      */
-    it('testDataDriverAsync', TestType.FUNCTION, async (done: Function, suitParam: SuitParam) => {
-      let suitParam1 = suitParam.suiteParams1;
-      let suitParam2 = suitParam.suiteParams2;
-      expect(suitParam1).assertEqual('suiteParams001');
-      expect(suitParam2).assertEqual('suiteParams002');
+    it('testJsunitSuiteParameters0001', TestType.FUNCTION, (done: () => void, data: SuiteParam): void => {
+      hilog.info(0x0000, 'ParamExample', 'suite data=%{public}s', JSON.stringify(data));
+      expect(data.suiteParams1).assertEqual('suiteParams001');
+      hilog.info(0x0000, 'ParamExample', 'suiteParams2=%{public}s expected=suiteParams002', data.suiteParams2);
+      expect(data.suiteParams2).assertEqual('suiteParams002');
+      const keys: string[] = Object.keys(data).sort();
+      hilog.info(0x0000, 'ParamExample', 'suite keys=%{public}s expected=[suiteParams1,suiteParams2]',
+        JSON.stringify(keys));
+      expect(keys).assertDeepEquals(['suiteParams1', 'suiteParams2']);
       done();
     });
 
     /**
-     * @tc.number:paramExampleTest_002
-     * @tc.name: testDataDriverParam
-     * @tc.type: 0 || TestType.FUNCTION || Size.SMALLTEST || Level.LEVEL0
-     * @tc.desc: 检测delegator.startAbility接口打开指定Ability对象
-     * @tc.done 异步用例执行完成回调函数
-     * @tc.suitParam 使用数据传递功能给测试用例传递的参数对象, suitParam对象参考传递数据对象
+     * @tc.number testJsunitItemParameters0002
+     * @tc.name testJsunitItemParameters0002
+     * @tc.desc Validate the actual merge of suite parameters with item parameters
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
      */
-    it('testDataDriverParam', TestType.FUNCTION, async (done: Function, suitParam: SuitParam) => {
-      let suitParam1 = suitParam.suiteParams1;
-      let suitParam2 = suitParam.suiteParams2;
-      let spParam1 = suitParam.ts1;
-      let spParam2 = suitParam.ts2;
-      expect(suitParam1).assertEqual('suiteParams001');
-      expect(suitParam2).assertEqual('suiteParams002');
-      expect(spParam1).assertEqual('ts1');
-      expect(spParam2).assertEqual('ts2');
+    it('testJsunitItemParameters0002', TestType.FUNCTION, (done: () => void, data: ItemParam): void => {
+      hilog.info(0x0000, 'ParamExample', 'merged item=%{public}s', JSON.stringify(data));
+      expect([data.suiteParams1, data.suiteParams2]).assertDeepEquals(['suiteParams001', 'suiteParams002']);
+      hilog.info(0x0000, 'ParamExample', 'ts1=%{public}s expected=ts1', data.ts1);
+      expect(data.ts1).assertEqual('ts1');
+      hilog.info(0x0000, 'ParamExample', 'ts2=%{public}s expected=ts2', data.ts2);
+      expect(data.ts2).assertEqual('ts2');
+      const keys: string[] = Object.keys(data).sort();
+      hilog.info(0x0000, 'ParamExample', 'item keys=%{public}s expected=[suiteParams1,suiteParams2,ts1,ts2]',
+        JSON.stringify(keys));
+      expect(keys).assertDeepEquals(['suiteParams1', 'suiteParams2', 'ts1', 'ts2']);
       done();
     });
   });
 }
 
-interface SuitParam {
-  suiteParams1: string,
-  suiteParams2: string,
-  ts1: string,
-  ts2: string,
+// Keep the old DataDriver entry runnable, but consolidate its empty examples into this data topic.
+export function dataDriverExampleTest(): void {
+  describe('AbilityTest', (): void => {
+    beforeEach(async (): Promise<void> => {
+      await paceTurn();
+    });
+
+    /**
+     * @tc.number testJsunitDataRows0003
+     * @tc.name testJsunitDataRows0003
+     * @tc.desc Validate distinct injected name/value rows and their inherited suite data
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitDataRows0003', TestType.FUNCTION, (done: () => void, data: RowParam): void => {
+      hilog.info(0x0000, 'ParamExample', 'driver row=%{public}s', JSON.stringify(data));
+      expect(['name', 'value']).assertContain(data.name);
+      // Independent name/value oracle; neither expected value comes from the injected row.
+      if (data.name === 'name') {
+        hilog.info(0x0000, 'ParamExample', 'row name=%{public}s value=%{public}s expected=driverName',
+          data.name, data.value);
+        expect(data.value).assertEqual('driverName');
+      } else {
+        hilog.info(0x0000, 'ParamExample', 'row name=%{public}s value=%{public}s expected=driverValue',
+          data.name, data.value);
+        expect(data.value).assertEqual('driverValue');
+      }
+      const suiteValues: string[] = [data.suiteParams1, data.suiteParams2];
+      hilog.info(0x0000, 'ParamExample', 'row suite values=%{public}s expected=[suiteParams001,suiteParams002]',
+        JSON.stringify(suiteValues));
+      expect(suiteValues).assertDeepEquals(['suiteParams001', 'suiteParams002']);
+      const keys: string[] = Object.keys(data).sort();
+      hilog.info(0x0000, 'ParamExample', 'row keys=%{public}s expected=[name,suiteParams1,suiteParams2,value]',
+        JSON.stringify(keys));
+      expect(keys).assertDeepEquals(['name', 'suiteParams1', 'suiteParams2', 'value']);
+      done();
+    });
+  });
 }
