@@ -2,7 +2,7 @@
 
 ### 介绍
 
-本示例的包名为 `com.sample.calendarmanager`，演示通过 `@kit.CalendarKit` 创建、配置、查询和删除日历账户。
+本示例演示通过 `@kit.CalendarKit` 创建、配置、查询和删除日历账户。
 
 `CalendarManager` 管理 `Calendar`，账户信息由 `CalendarAccount` 描述，提醒与颜色由 `CalendarConfig` 描述。本工程展示账户管理，不包含日程事件编辑或共享功能。
 
@@ -37,17 +37,14 @@ entry/src/
 |   |---module.json5
 |---ohosTest/
 |   |---ets/
-|   |   |---test/Ability.test.ets                  // 保留的 UI 用例
 |   |   |---test/CalendarManagerLogic.test.ets     // 基础业务逻辑
 |   |   |---test/CalendarManagerLifecycle.test.ets // 生命周期与迟到完成
 |   |   |---test/CalendarManagerErrorBoundary.test.ets // 同步异常与异步交错
-|   |   |---test/CalendarManagerMatrix.test.ets    // 27个逻辑矩阵分片注册
 |   |   |---test/CalendarManagerSequence*.test.ets // 三步账户操作组合
 |   |   |---test/CalendarManagerRecovery*.test.ets // 同步异常与异步拒绝后的恢复
 |   |   |---test/CalendarManagerPermutation*.test.ets // 权限请求完成顺序
 |   |   |---test/CalendarManagerValidation*.test.ets // 权限名与授权码边界
 |   |   |---test/CalendarMatrixSupport.ets         // 记录型测试端口与挂起请求清理
-|   |   |---test/CalendarManagerSdk.test.ets       // 真实设备与 SDK 场景
 |   |   |---test/TestSupport.ets                  // 断言实际值日志
 |   |   |---test/List.test.ets                    // 全部套件注册
 |   |   |---testrunner/OpenHarmonyTestRunner.ets
@@ -62,7 +59,7 @@ entry/src/
 * 删除账户：只向 SDK 提交当前会话成功创建的句柄，删除失败保留所有权供重试。
 * 清理会话：只清理本地状态并隔离迟到完成，不删除设备日历数据。
 
-逻辑测试、真实 SDK 测试及执行边界见 [ohosTest.md](ohosTest.md)。
+逻辑测试及执行边界见 [ohosTest.md](ohosTest.md)。
 
 ### 相关权限
 
@@ -77,10 +74,10 @@ entry/src/
 ### 约束与限制
 
 1. 本示例为普通 ArkTS Stage 工程，`runtimeOS` 为 `OpenHarmony`，声明支持 `default` 和 `tablet` 设备。
-2. 当前 `compileSdkVersion`、`compatibleSdkVersion`、`targetSdkVersion` 均为字符串 `26.0.0`；本地 SDK 路径为 `E:/sdk`。设备系统需满足兼容版本并提供 CalendarData 能力，不能由编译结果推定镜像兼容。
-3. 使用支持该 SDK 和 Hvigor 6.0 工程的 DevEco Studio 工具链。本轮验证的是 `entry@default` 和 `entry@ohosTest` 构建，未验证设备安装、权限弹框、UI 或真实 SDK 运行。
+2. 本示例仅支持 API version 26 版本 SDK（版本号：26.0.0），镜像版本号：OpenHarmony 7.1.0.x 及之后的版本。
+3. 本示例需要使用 DevEco Studio 26.0.0 Release (Build Version: 26.0.0.24) 及以上版本才可编译运行。
 4. 创建、配置和查询需要用户授予 `ohos.permission.READ_CALENDAR` 与 `ohos.permission.WRITE_CALENDAR`；权限未授予或请求失效时不得访问日历服务。
-5. 本地签名配置用于现有开发环境，不应随代码提交；包名和签名身份的调整需要单独确认。
+5. 签名配置保留在本地，不随代码提交。
 
 ### 下载
 

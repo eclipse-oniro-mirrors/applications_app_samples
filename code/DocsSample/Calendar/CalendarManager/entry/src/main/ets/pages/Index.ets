@@ -39,7 +39,7 @@ struct Index {
     try {
       await this.getSession().createCalendar();
     } catch (error) {
-      console.error('Failed to create calendar');
+      console.error(`Failed to create calendar: ${JSON.stringify(error)}`);
     }
   }
 
@@ -47,7 +47,7 @@ struct Index {
     try {
       await this.getSession().setConfig();
     } catch (error) {
-      console.error('Failed to set calendar config');
+      console.error(`Failed to set calendar config: ${JSON.stringify(error)}`);
     }
   }
 
@@ -55,7 +55,7 @@ struct Index {
     try {
       await this.getSession().getCalendarByParam();
     } catch (error) {
-      console.error('Failed to get named calendar');
+      console.error(`Failed to get named calendar: ${JSON.stringify(error)}`);
     }
   }
 
@@ -63,7 +63,7 @@ struct Index {
     try {
       await this.getSession().getDefaultCalendar();
     } catch (error) {
-      console.error('Failed to get default calendar');
+      console.error(`Failed to get default calendar: ${JSON.stringify(error)}`);
     }
   }
 
@@ -72,7 +72,7 @@ struct Index {
       const calendars: AccountCalendarPort[] = await this.getSession().getAllCalendars();
       calendars.forEach((calendar: AccountCalendarPort): void => { calendar.getAccount(); });
     } catch (error) {
-      console.error('Failed to get all calendars');
+      console.error(`Failed to get all calendars: ${JSON.stringify(error)}`);
     }
   }
 
@@ -80,7 +80,7 @@ struct Index {
     try {
       await this.getSession().deleteCalendar();
     } catch (error) {
-      console.error('Failed to delete calendar');
+      console.error(`Failed to delete calendar: ${JSON.stringify(error)}`);
     }
   }
 
