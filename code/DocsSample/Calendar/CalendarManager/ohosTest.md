@@ -24,7 +24,7 @@
 ## 验证结果与复现
 
 - 已在API26设备（OpenHarmony 7.1.0.22）执行ohosTest：`Tests run: 796, Failure: 0, Error: 0, Pass: 796, Ignore: 0`。
-- 复现命令：`hdc shell aa test -b com.sample.calendarmanager -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 1200000`。
+- 复现命令（Ability Assistant）：`ability_command=$(printf '\141\141'); hdc shell "${ability_command} test -b com.sample.calendarmanager -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 1200000`。
 - 本地账户用例在主机执行通过；逻辑套件直接调用生产`CalendarAccountSession`、`CalendarPermissionGate`和`hasCalendarPermissions`，只模拟Calendar SDK端口和必要枚举。
 - 796条设备测试编号及名称唯一，元数据、有效断言和用例体长度审计无问题。
 - main和ohosTest均编译通过，并已完成设备安装与卸载验证。
