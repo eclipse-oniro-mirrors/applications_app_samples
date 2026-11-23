@@ -13,62 +13,72 @@
  * limitations under the License.
  */
 
-import UIAbility from '@ohos.app.ability.UIAbility'
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry'
-import hilog from '@ohos.hilog'
-import { Hypium } from '@ohos/hypium'
-import testsuite from '../test/List.test'
-import window from '@ohos.window'
-import Want from '@ohos.app.ability.Want'
-import AbilityConstant from '@ohos.app.ability.AbilityConstant'
+import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { window } from '@kit.ArkUI';
+import { Hypium } from '@ohos/hypium';
+import testsuite from '../test/List.test';
+import { TestContextHolder } from '../test/utils/TestContextHolder';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_ResourceManager]';
+/** Registration of thousands of cases is synchronous JS, so it is pushed past the
+ *  lifecycle callback budget; otherwise the ability hits LIFECYCLE_TIMEOUT. */
+const REGISTER_DELAY_MS: number = 300;
 
 export default class TestAbility extends UIAbility {
+  private testStarted: boolean = false;
+
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
-    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO)
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onCreate')
-    hilog.info(0x0000, 'testTag', '%{public}s', 'want param:' + JSON.stringify(want) ?? '')
-    hilog.info(0x0000, 'testTag', '%{public}s', 'launchParam:' + JSON.stringify(launchParam) ?? '')
-    let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator
-    abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
-    let abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs
-    abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments()
-    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO)
-    hilog.info(0x0000, 'testTag', '%{public}s', 'start run testcase!!!')
-    Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite)
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onCreate');
+    hilog.info(DOMAIN, TAG, 'want param: %{public}s', JSON.stringify(want) ?? '');
+    hilog.info(DOMAIN, TAG, 'launchParam: %{public}s', JSON.stringify(launchParam) ?? '');
+    TestContextHolder.set(this.context);
   }
 
   onDestroy() {
-    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO)
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onDestroy')
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onDestroy');
   }
 
   onWindowStageCreate(windowStage: window.WindowStage) {
-    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO)
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onWindowStageCreate')
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onWindowStageCreate');
     windowStage.loadContent('testability/pages/Index', (err, data) => {
       if (err.code) {
-        hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.ERROR)
-        hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '')
-        return
+        hilog.error(DOMAIN, TAG, 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
+        return;
       }
-      hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO)
-      hilog.info(0x0000, 'testTag', 'Succeeded in loading the content. Data: %{public}s',
-        JSON.stringify(data) ?? '')
+      hilog.info(DOMAIN, TAG, 'Succeeded in loading the content. Data: %{public}s',
+        JSON.stringify(data) ?? '');
     });
   }
 
   onWindowStageDestroy() {
-    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO)
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onWindowStageDestroy')
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onWindowStageDestroy');
   }
 
   onForeground() {
-    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO)
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onForeground')
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onForeground');
+    this.startTests();
   }
 
   onBackground() {
-    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO)
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onBackground')
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onBackground');
+  }
+
+  /** Runs Hypium once, after the ability reached the foreground. */
+  private startTests(): void {
+    if (this.testStarted) {
+      return;
+    }
+    this.testStarted = true;
+    const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator =
+      abilityDelegatorRegistry.getAbilityDelegator();
+    const abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs =
+      abilityDelegatorRegistry.getArguments();
+    hilog.info(DOMAIN, TAG, '%{public}s', 'start run testcase!!!');
+    setTimeout(() => {
+      Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+    }, REGISTER_DELAY_MS);
   }
 }

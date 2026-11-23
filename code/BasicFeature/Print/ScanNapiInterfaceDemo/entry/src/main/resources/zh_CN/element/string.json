@@ -11,6 +11,42 @@
     {
       "name": "EntryAbility_label",
       "value": "label"
+    },
+    {
+      "name": "scan_close_dialog",
+      "value": "关闭"
+    },
+    {
+      "name": "scan_title",
+      "value": "扫描接口示例"
+    },
+    {
+      "name": "scan_search_btn",
+      "value": "搜索扫描仪"
+    },
+    {
+      "name": "scan_start_btn",
+      "value": "开始扫描"
+    },
+    {
+      "name": "scan_cancel_btn",
+      "value": "取消扫描"
+    },
+    {
+      "name": "scan_open_btn",
+      "value": "打开扫描仪"
+    },
+    {
+      "name": "scan_get_option_btn",
+      "value": "获取参数"
+    },
+    {
+      "name": "scan_set_option_btn",
+      "value": "设置参数"
+    },
+    {
+      "name": "scan_preview_btn",
+      "value": "图片预览"
     }
   ]
 }
