@@ -13,51 +13,76 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
-import TestRunner from '@ohos.application.testRunner';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { abilityDelegatorRegistry, TestRunner } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
-let abilityDelegator = undefined;
-let abilityDelegatorArguments = undefined;
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = 'MultiMusicTest';
 
-async function onAbilityCreateCallback() {
-  hilog.info(0x0000, 'testTag', '%{public}s', 'onAbilityCreateCallback');
+const KEY_SET: Set<string> = new Set([
+  '-s class', '-s notClass', '-s suite', '-s it',
+  '-s level', '-s testType', '-s size', '-s timeout', '-s dryRun'
+]);
+
+/**
+ * Parameters passed through aa test are not forwarded to Hypium automatically,
+ * so they have to be appended to the aa start command line.
+ */
+function translateParamsToString(parameters: Record<string, string>): string {
+  let targetParams: string = '';
+  for (const key in parameters) {
+    if (KEY_SET.has(key)) {
+      targetParams = `${targetParams} ${key} ${parameters[key]}`;
+    }
+  }
+  return targetParams.trim();
 }
 
-async function addAbilityMonitorCallback(err: any) {
-  hilog.info(0x0000, 'testTag', 'addAbilityMonitorCallback : %{public}s', JSON.stringify(err) ?? '');
+async function onAbilityCreateCallback(): Promise<void> {
+  hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'onAbilityCreateCallback');
+}
+
+async function addAbilityMonitorCallback(err: BusinessError): Promise<void> {
+  hilog.info(LOG_DOMAIN, LOG_TAG, 'addAbilityMonitorCallback: %{public}s', JSON.stringify(err) ?? '');
 }
 
 export default class OpenHarmonyTestRunner implements TestRunner {
   constructor() {
   }
 
-  onPrepare() {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner OnPrepare ');
+  onPrepare(): void {
+    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'OpenHarmonyTestRunner onPrepare');
   }
 
-  async onRun() {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner onRun run');
-    abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
-    abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    let testAbilityName = abilityDelegatorArguments.bundleName + '.TestAbility';
-    let lMonitor = {
+  async onRun(): Promise<void> {
+    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'OpenHarmonyTestRunner onRun start');
+    const abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs =
+      abilityDelegatorRegistry.getArguments();
+    const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator =
+      abilityDelegatorRegistry.getAbilityDelegator();
+    const testAbilityName: string = abilityDelegatorArguments.bundleName + '.TestAbility';
+    const lMonitor: abilityDelegatorRegistry.AbilityMonitor = {
       abilityName: testAbilityName,
       onAbilityCreate: onAbilityCreateCallback,
     };
     abilityDelegator.addAbilityMonitor(lMonitor, addAbilityMonitorCallback);
-    let cmd = 'aa start -d 0 -a TestAbility' + ' -b ' + abilityDelegatorArguments.bundleName;
-    let debug = abilityDelegatorArguments.parameters['-D'];
-    if (debug == 'true') {
-      cmd += ' -D'
+    let cmd: string = 'aa start -d 0 -a TestAbility' + ' -b ' + abilityDelegatorArguments.bundleName;
+    const extraParams: string = translateParamsToString(abilityDelegatorArguments.parameters);
+    if (extraParams.length > 0) {
+      cmd += ' ' + extraParams;
     }
-    hilog.info(0x0000, 'testTag', 'cmd : %{public}s', cmd);
+    const debug: string = abilityDelegatorArguments.parameters['-D'];
+    if (debug === 'true') {
+      cmd += ' -D';
+    }
+    hilog.info(LOG_DOMAIN, LOG_TAG, 'cmd: %{public}s', cmd);
     abilityDelegator.executeShellCommand(cmd,
-      (err: any, d: any) => {
-        hilog.info(0x0000, 'testTag', 'executeShellCommand : err : %{public}s', JSON.stringify(err) ?? '');
-        hilog.info(0x0000, 'testTag', 'executeShellCommand : data : %{public}s', d.stdResult ?? '');
-        hilog.info(0x0000, 'testTag', 'executeShellCommand : data : %{public}s', d.exitCode ?? '');
-      })
-    hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner onRun end');
+      (err: BusinessError, data: abilityDelegatorRegistry.ShellCmdResult) => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'executeShellCommand err: %{public}s', JSON.stringify(err) ?? '');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'executeShellCommand result: %{public}s', data.stdResult ?? '');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'executeShellCommand exit code: %{public}d', data.exitCode ?? 0);
+      });
+    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'OpenHarmonyTestRunner onRun end');
   }
 }

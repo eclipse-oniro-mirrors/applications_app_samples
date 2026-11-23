@@ -14,6 +14,7 @@
  */
 
 import { BreakpointType } from '../common/BreakpointSystem';
+import { BreakpointConstants, MusicPlayerConstants, TabBarConstants } from '../common/Constants';
 import RecommendPage from '../common/RecommendPage';
 import { UserSongList } from '../common/UserSongList';
 import { IconItem } from '../model/DataType';
@@ -27,7 +28,7 @@ struct Index {
     new IconItem($r('app.media.ic_find'), $r('app.string.discovery')),
     new IconItem($r('app.media.ic_mine'), $r('app.string.mine')),
   ];
-  @LocalStorageLink("currentBreakpoint") currentBreakpoint: string = 'sm';
+  @LocalStorageLink('currentBreakpoint') currentBreakpoint: string = BreakpointConstants.SM;
   private controller: TabsController = new TabsController();
   @State currentIndex: number = 0;
   @State selectIconList: Resource[] = [
@@ -41,27 +42,40 @@ struct Index {
   TabBuilder(index: number) {
     Column() {
       Image(this.currentIndex === index ? this.selectIconList[index] : this.tabBarList[index].imageSrc)
-        .height(24).width(24)
+        .height(TabBarConstants.ICON_SIZE).width(TabBarConstants.ICON_SIZE)
       Text(this.tabBarList[index].description)
-        .fontColor(this.currentIndex === index ? '#ff1949' : '#000')
-        .margin({ top: 4 })
-        .height(14)
-        .fontSize(10)
-        .lineHeight(14)
+        .fontColor(this.currentIndex === index ?
+          $r('app.color.tab_bar_text_selected') : $r('app.color.tab_bar_text_normal'))
+        .margin({ top: TabBarConstants.LABEL_TOP_MARGIN })
+        .height(TabBarConstants.LABEL_HEIGHT)
+        .fontSize(TabBarConstants.LABEL_FONT_SIZE)
+        .lineHeight(TabBarConstants.LABEL_LINE_HEIGHT)
     }
     .justifyContent(FlexAlign.Center)
-    .height(56)
+    .height(TabBarConstants.HEIGHT)
     .width('100%')
     .id('tabs' + index)
   }
 
   build() {
-    GridRow({ columns: { sm: 4, md: 8, lg: 12 } }) {
-      GridCol({ span: { sm: 4, md: 8, lg: 12 } }) {
+    GridRow({
+      columns: {
+        sm: TabBarConstants.GRID_COLUMNS_SM,
+        md: TabBarConstants.GRID_COLUMNS_MD,
+        lg: TabBarConstants.GRID_COLUMNS_LG
+      }
+    }) {
+      GridCol({
+        span: {
+          sm: TabBarConstants.GRID_COLUMNS_SM,
+          md: TabBarConstants.GRID_COLUMNS_MD,
+          lg: TabBarConstants.GRID_COLUMNS_LG
+        }
+      }) {
         Column() {
           Tabs({
             controller: this.controller,
-            barPosition: new BreakpointType(BarPosition.End, BarPosition.End, BarPosition.Start).GetValue(this.currentBreakpoint),
+            barPosition: new BreakpointType(BarPosition.End, BarPosition.End, BarPosition.Start).getValue(this.currentBreakpoint),
             index: this.currentIndex
           }) {
             TabContent() {
@@ -72,14 +86,14 @@ struct Index {
 
             TabContent() {
               Column()
-                .backgroundColor('#007DFF')
+                .backgroundColor($r('app.color.placeholder_background_blue'))
                 .height('100%')
                 .width('100%')
             }.tabBar(this.TabBuilder(1))
 
             TabContent() {
               Column()
-                .backgroundColor('#FFBF00')
+                .backgroundColor($r('app.color.placeholder_background_yellow'))
                 .height('100%')
                 .width('100%')
             }.tabBar(this.TabBuilder(2))
@@ -90,21 +104,21 @@ struct Index {
               }.width('100%').height('100%')
             }.tabBar(this.TabBuilder(3))
           }
-          .vertical(new BreakpointType(false, false, true).GetValue(this.currentBreakpoint))
+          .vertical(new BreakpointType(false, false, true).getValue(this.currentBreakpoint))
           .scrollable(false)
           .layoutWeight(1)
-          .backgroundColor($r("sys.color.ohos_id_color_toolbar_sub_bg"))
+          .backgroundColor($r('sys.color.ohos_id_color_toolbar_sub_bg'))
           .onChange((index: number) => {
             this.currentIndex = index;
           })
 
-          if (this.currentBreakpoint === 'lg') {
+          if (this.currentBreakpoint === BreakpointConstants.LG) {
             MusicPlayer()
           }
         }
       }
     }.onBreakpointChange((breakpoint: string) => {
-      animateTo({ duration: 600, curve: Curve.Smooth }, () => {
+      animateTo({ duration: TabBarConstants.BREAKPOINT_ANIMATION_DURATION, curve: Curve.Smooth }, () => {
         this.currentBreakpoint = breakpoint;
       })
     })
@@ -115,31 +129,33 @@ struct Index {
 export struct MusicPlayer {
   build() {
     Row() {
-      Image($r('app.media.list1')).height(32).width(32)
+      Image($r('app.media.list1')).height(MusicPlayerConstants.COVER_SIZE).width(MusicPlayerConstants.COVER_SIZE)
       Column() {
-        Text('Witness')
-          .fontColor('#1818a')
+        Text($r('app.string.player_song_name'))
+          .fontColor($r('app.color.player_title_text'))
           .fontWeight(FontWeight.Regular)
-          .fontSize(14)
-        Text('Katy')
-          .opacity(0.6)
+          .fontSize(MusicPlayerConstants.TITLE_FONT_SIZE)
+        Text($r('app.string.player_artist_name'))
+          .opacity(MusicPlayerConstants.ARTIST_OPACITY)
           .fontWeight(FontWeight.Regular)
-          .fontSize(10)
-      }.margin({ left: 12 }).alignItems(HorizontalAlign.Start)
+          .fontSize(MusicPlayerConstants.ARTIST_FONT_SIZE)
+      }.margin({ left: MusicPlayerConstants.COVER_LEFT_MARGIN }).alignItems(HorizontalAlign.Start)
 
       Blank()
-      Image($r('app.media.icon_play')).height(26).width(26)
+      Image($r('app.media.icon_play'))
+        .height(MusicPlayerConstants.ICON_SIZE)
+        .width(MusicPlayerConstants.ICON_SIZE)
       Image($r('app.media.ic_play'))
-        .margin({ left: 20 })
-        .height(26)
-        .width(26)
+        .margin({ left: MusicPlayerConstants.ICON_LEFT_MARGIN })
+        .height(MusicPlayerConstants.ICON_SIZE)
+        .width(MusicPlayerConstants.ICON_SIZE)
       Image($r('app.media.ic_playList'))
-        .margin({ left: 20 })
-        .height(26)
-        .width(26)
+        .margin({ left: MusicPlayerConstants.ICON_LEFT_MARGIN })
+        .height(MusicPlayerConstants.ICON_SIZE)
+        .width(MusicPlayerConstants.ICON_SIZE)
     }.width('100%')
-    .backgroundColor('#f7ffffff')
-    .padding({ left: 16, right: 16 })
-    .height(48)
+    .backgroundColor($r('app.color.player_background'))
+    .padding({ left: MusicPlayerConstants.HORIZONTAL_PADDING, right: MusicPlayerConstants.HORIZONTAL_PADDING })
+    .height(MusicPlayerConstants.HEIGHT)
   }
 }

@@ -13,46 +13,92 @@
  * limitations under the License.
  */
 
-@Entry
+import { BreakpointConstants, TitleBarConstants } from './Constants';
+
 @Component
 export default struct TitleBar {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = 'md';
+  @LocalStorageProp('currentBreakpoint') currentBreakpoint: string = BreakpointConstants.MD;
 
   @Builder
   TitleIcon(imageSrc: Resource) {
     Column() {
-      Image(imageSrc).height(24).width(24)
+      Image(imageSrc).height(TitleBarConstants.ICON_SIZE).width(TitleBarConstants.ICON_SIZE)
     }
     .alignItems(HorizontalAlign.End)
     .justifyContent(FlexAlign.Center)
     .width('100%')
-    .height(56)
+    .height(TitleBarConstants.ICON_AREA_HEIGHT)
   }
 
   build() {
-    GridRow({ columns: { sm: 8, md: 16, lg: 24 } }) {
-      //title
-      GridCol({ span: { sm: 7, md: 6, lg: 15 }, order: { sm: 1, md: 1, lg: 1 } }) {
-        Text($r("app.string.recommend"))
+    GridRow({
+      columns: {
+        sm: TitleBarConstants.GRID_COLUMNS_SM,
+        md: TitleBarConstants.GRID_COLUMNS_MD,
+        lg: TitleBarConstants.GRID_COLUMNS_LG
+      }
+    }) {
+      // Title
+      GridCol({
+        span: {
+          sm: TitleBarConstants.TITLE_SPAN_SM,
+          md: TitleBarConstants.TITLE_SPAN_MD,
+          lg: TitleBarConstants.TITLE_SPAN_LG
+        },
+        order: {
+          sm: TitleBarConstants.TITLE_ORDER_SM,
+          md: TitleBarConstants.TITLE_ORDER_MD,
+          lg: TitleBarConstants.TITLE_ORDER_LG
+        }
+      }) {
+        Text($r('app.string.recommend'))
           .width('100%')
-          .lineHeight(33)
-          .height(56)
-          .fontSize(24)
+          .lineHeight(TitleBarConstants.TITLE_LINE_HEIGHT)
+          .height(TitleBarConstants.ICON_AREA_HEIGHT)
+          .fontSize(TitleBarConstants.TITLE_FONT_SIZE)
           .fontWeight(FontWeight.Medium)
       }
 
-      //SearchComponent
-      GridCol({ span: { sm: 7, md: 8, lg: 7 }, order: { sm: 3, md: 2, lg: 2 } }) {
-        Search({ placeholder: '搜索...' }).height(40).backgroundColor('#fff').enableKeyboardOnFocus(false)
-      }.height(56)
+      // Search component
+      GridCol({
+        span: {
+          sm: TitleBarConstants.SEARCH_SPAN_SM,
+          md: TitleBarConstants.SEARCH_SPAN_MD,
+          lg: TitleBarConstants.SEARCH_SPAN_LG
+        },
+        order: {
+          sm: TitleBarConstants.SEARCH_ORDER_SM,
+          md: TitleBarConstants.SEARCH_ORDER_MD,
+          lg: TitleBarConstants.SEARCH_ORDER_LG
+        }
+      }) {
+        Search({ placeholder: $r('app.string.search_placeholder') })
+          .height(TitleBarConstants.SEARCH_HEIGHT)
+          .backgroundColor($r('app.color.common_white'))
+          .enableKeyboardOnFocus(false)
+      }.height(TitleBarConstants.SEARCH_AREA_HEIGHT)
 
-      //icon
-      GridCol({ span: { sm: 1, md: 1, lg: 1 }, order: { sm: 2, md: 4, lg: 4 } }) {
+      // More icon
+      GridCol({
+        span: { sm: TitleBarConstants.ICON_SPAN, md: TitleBarConstants.ICON_SPAN, lg: TitleBarConstants.ICON_SPAN },
+        order: {
+          sm: TitleBarConstants.ACTION_ORDER_SM,
+          md: TitleBarConstants.ACTION_ORDER_MD,
+          lg: TitleBarConstants.ACTION_ORDER_LG
+        }
+      }) {
         this.TitleIcon($r('app.media.ic_more'))
       }
 
-      //icon
-      GridCol({ span: { sm: 1, md: 1, lg: 1 }, order: { sm: 4, md: 3, lg: 3 } }) {
+      // Listener icon
+      GridCol({
+        span: { sm: TitleBarConstants.ICON_SPAN, md: TitleBarConstants.ICON_SPAN, lg: TitleBarConstants.ICON_SPAN },
+        order: {
+          sm: TitleBarConstants.LISTENER_ORDER_SM,
+          md: TitleBarConstants.LISTENER_ORDER_MD,
+          lg: TitleBarConstants.LISTENER_ORDER_LG
+        }
+      }) {
         this.TitleIcon($r('app.media.ic_listener'))
       }
     }
