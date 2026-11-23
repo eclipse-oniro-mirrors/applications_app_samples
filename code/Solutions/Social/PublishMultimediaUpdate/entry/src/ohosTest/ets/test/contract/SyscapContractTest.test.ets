@@ -20,7 +20,7 @@ import Logger from '../Logger';
 import { BUNDLE, TAG } from '../common/TestConstant';
 /**
  * System capability gate.
- * The feed needs the full ArkUI surface (lazy list, custom dialog, tab bar) and
+ * The feed needs the full ArkUI capability set (lazy list, custom dialog, tab bar) and
  * the media library picker. canIUse is the runtime gate an application uses to
  * decide whether the page can run at all, so its answers are pinned here for
  * the capabilities the sample actually depends on.

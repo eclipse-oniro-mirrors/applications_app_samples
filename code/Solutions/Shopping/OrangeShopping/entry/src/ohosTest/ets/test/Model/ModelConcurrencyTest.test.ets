@@ -29,7 +29,7 @@ async function addMoneyAsync(left: Money, right: Money): Promise<Money> {
   return left.add(right);
 }
 
-/** Rejections surface inside the promise, as Promise.all cases expect. */
+/** Rejections are raised inside the promise, as Promise.all cases expect. */
 async function multiplyMoneyAsync(money: Money, quantity: number): Promise<Money> {
   return money.multiply(quantity);
 }
@@ -1012,7 +1012,7 @@ export default function modelConcurrencyTest() {
       hilog.info(DOMAIN, TAG, '%{public}s', 'CASE: concurrency_promise_all_rejects_negative_multiply_045');
       let promises: Promise<Money>[] = [
         Promise.resolve(new Money(100)),
-        // A negative multiplier is invalid, so this promise rejects and Promise.all surfaces it.
+        // A negative multiplier is invalid, so this promise rejects and Promise.all reports it.
         multiplyMoneyAsync(new Money(100), -1)
       ];
       let __thrown165: boolean = false;

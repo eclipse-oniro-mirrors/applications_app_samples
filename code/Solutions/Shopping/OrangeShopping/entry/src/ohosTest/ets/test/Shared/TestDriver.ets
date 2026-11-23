@@ -211,7 +211,7 @@ export async function waitForTextContains(text: string, timeout: number = DEFAUL
 
 /**
  * Polls until the component disappears. Used after a dialog is dismissed and
- * after a preview image is replaced by the video surface.
+ * after a preview image is replaced by the video view.
  */
 export async function waitUntilGoneById(id: string, timeout: number = DEFAULT_WAIT): Promise<boolean> {
   let deadline: number = Date.now() + timeout;

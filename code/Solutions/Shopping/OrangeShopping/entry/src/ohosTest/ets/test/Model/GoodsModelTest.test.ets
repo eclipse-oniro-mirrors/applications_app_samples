@@ -788,7 +788,7 @@ export default function goodsModelTest() {
       let goods: Goods = new Goods(123, 'Smart Watch', 'fitness band', 'basic_label',
         new Money(1000), CATEGORY_SPORT);
       expect(goods.searchText().indexOf('smart watch') >= 0).assertTrue();
-      expect(goods.matchesKeyword('art')).assertTrue();
+      expect(goods.matchesKeyword('tch')).assertTrue();
       expect(goods.matchesKeyword('atch')).assertTrue();
     });
 

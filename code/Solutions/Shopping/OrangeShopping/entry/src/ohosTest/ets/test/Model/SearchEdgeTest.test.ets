@@ -117,7 +117,7 @@ export default function searchEdgeTest() {
     it('edge_long_custom_title_searchable_003', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'CASE: edge_long_custom_title_searchable_003');
       let longTitle: string = 'Alpha Beta Gamma Delta Epsilon Zeta Eta Theta Iota Kappa ' +
-        'Lambda Mu Nu Xi Omicron Pi Rho Sigma Tau Upsilon Phi Chi Psi Omega Quasar';
+        'Lambda Mu Nu Xi Omicron Pi Rho Sigma Tau Upsilon Phi Chi Kappa Omega Quasar';
       let catalog: Catalog = new Catalog([
         createGoods(640, longTitle, 1000, 'zzz', 'plain', 'plain')
       ]);

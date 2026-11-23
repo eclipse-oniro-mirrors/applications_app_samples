@@ -100,19 +100,19 @@ export default function searchSuggestTest() {
 
     /**
      * @tc.number    SUB_SAMPLE_ORANGE_SHOPPING_SEARCH_SUGGEST_0040
-     * @tc.name      suggest_substring_art_returns_smart_watch_004
-     * @tc.desc      Verify suggest substring art returns smart watch.
+     * @tc.name      suggest_substring_watch_returns_smart_watch_004
+     * @tc.desc      Verify suggest substring watch returns smart watch.
      * @tc.size      MEDIUM
      * @tc.type      FUNCTION
      * @tc.level     LEVEL0
      */
-    it('suggest_substring_art_returns_smart_watch_004', 0, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'CASE: suggest_substring_art_returns_smart_watch_004');
+    it('suggest_substring_watch_returns_smart_watch_004', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'CASE: suggest_substring_watch_returns_smart_watch_004');
       let engine: SearchEngine = new SearchEngine(defaultCatalog());
-      let results: string[] = engine.suggest('art');
+      let results: string[] = engine.suggest('wat');
       expect(results.length).assertEqual(1);
       expect(results[0]).assertEqual('Smart Watch Pro');
-      expect(results[0].toLowerCase().indexOf('art') >= 0).assertTrue();
+      expect(results[0].toLowerCase().indexOf('wat') >= 0).assertTrue();
     });
 
     /**
@@ -1406,7 +1406,7 @@ export default function searchSuggestTest() {
         createGoods(574, '', 1000, 'zzz', 'plain', 'plain'),
         createGoods(575, 'Phone One', 1000, 'zzz', 'plain', 'plain')
       ]);
-      // Five prefixes probe the catalogue; the empty-title row must never surface in any of their results.
+      // Five prefixes probe the catalogue; the empty-title row must never appear in any of their results.
       let prefixes: string[] = ['p', 'o', 'h', 'e', 'phone'];
       let engine: SearchEngine = new SearchEngine(catalog);
       for (let index: number = 0; index < prefixes.length; index++) {

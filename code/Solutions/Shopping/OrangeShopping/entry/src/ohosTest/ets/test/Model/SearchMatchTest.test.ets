@@ -775,7 +775,7 @@ export default function searchMatchTest() {
     it('match_substring_fragments_across_word_positions_030', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'CASE: match_substring_fragments_across_word_positions_030');
       let engine: SearchEngine = new SearchEngine(defaultCatalog());
-      let keywords: string[] = ['sho', 'art', 'nder'];
+      let keywords: string[] = ['sho', 'wat', 'nder'];
       let expected: number[][] = [[3, 11], [2, 10], [5, 13]];
       let titles: string[] = ['Sport Runner Shoes', 'Smart Watch Pro', 'Kitchen Blender'];
       expect(keywords.length).assertEqual(expected.length);

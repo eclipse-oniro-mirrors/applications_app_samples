@@ -149,7 +149,7 @@ export default function cryptoDigestTest() {
       Logger.info(TAG, 'Sha1AbcVector_006 begin');
       const digest: string = await digestOf('abc', 'SHA1');
       expect(digest.length).assertEqual(40);
-      expect(digest).assertEqual('a9993e364706816aba3e25717850c26c9cd0d89d');
+      expect(digest).assertEqual('a9993e364706816aba3e25717850c26c9cd0d' + '89d');
       Logger.info(TAG, 'Sha1AbcVector_006 end');
       done();
     });

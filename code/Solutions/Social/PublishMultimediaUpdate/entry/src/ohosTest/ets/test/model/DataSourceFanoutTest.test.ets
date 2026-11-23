@@ -22,7 +22,7 @@ import { RecordingListener } from '../common/RecordingListener';
 /**
  * Fan-out across several listeners.
  * A page may attach more than one observer to the same data source (the list
- * itself plus a diagnostics surface). These cases pin that each observer sees
+ * itself plus a diagnostics output). These cases pin that each observer sees
  * the same arguments, in registration order, without interfering with peers,
  * and that two sources never leak notifications into each other.
  */
