@@ -1,0 +1,32 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "注入手势命令示例"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "注入手势命令示例"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "InjectGestureCommand"
+    },
+    {
+      "name": "title",
+      "value": "注入手势命令示例"
+    },
+    {
+      "name": "target_button",
+      "value": "目标组件"
+    },
+    {
+      "name": "click_count",
+      "value": "目标组件被点击 %d 次"
+    },
+    {
+      "name": "inject_button",
+      "value": "注入点击命令"
+    }
+  ]
+}

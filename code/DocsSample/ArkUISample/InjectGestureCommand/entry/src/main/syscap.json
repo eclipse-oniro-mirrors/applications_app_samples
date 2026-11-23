@@ -1,0 +1,18 @@
+{
+    "devices": {
+        "general": [
+            "default"
+        ],
+        "custom": [
+            {
+                "xts": [
+                    "SystemCapability.ArkUI.ArkUI.Full",
+                    "SystemCapability.ArkUI.ArkUI.Circle",
+                    "SystemCapability.Test.UiTest",
+                    "SystemCapability.Ability.AbilityRuntime.Core",
+                    "SystemCapability.FileManagement.File.FileIO"
+                ]
+            }
+        ]
+    }
+}
