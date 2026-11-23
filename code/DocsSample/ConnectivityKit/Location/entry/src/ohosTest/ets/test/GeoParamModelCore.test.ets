@@ -626,7 +626,7 @@ export default function geoParamModelCoreTest(): void {
     /**
      * @tc.number    SUB_LOCATION_GEOPARAM_0228
      * @tc.name      testGeoParamContinuousSport0228
-     * @tc.desc      Verify continuous request accepts the sport activity scenario value.
+     * @tc.desc      Verify ContinuousLocationRequest keeps locationScenario UserActivityScenario.SPORT at 0x402.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
