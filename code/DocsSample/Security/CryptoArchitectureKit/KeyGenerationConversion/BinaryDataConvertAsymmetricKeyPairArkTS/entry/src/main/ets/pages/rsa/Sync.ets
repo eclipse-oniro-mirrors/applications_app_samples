@@ -15,6 +15,7 @@
 
 // [Start bin_convert_rsa_keypair_sync]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function convertAsyKeySync() {
   let rsaGenerator = cryptoFramework.createAsyKeyGenerator('RSA1024');
@@ -32,7 +33,8 @@ function convertAsyKeySync() {
     if (keyPair != null) {
       console.info('convertKeySync result: success.');
     }
-  } catch (e) {
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
     console.error(`get key pair failed: errCode: ${e.code}, message: ${e.message}`);
     // [StartExclude bin_convert_rsa_keypair_sync]
     throw new Error(`get key pair failed: errCode: ${e.code}, message: ${e.message}`);

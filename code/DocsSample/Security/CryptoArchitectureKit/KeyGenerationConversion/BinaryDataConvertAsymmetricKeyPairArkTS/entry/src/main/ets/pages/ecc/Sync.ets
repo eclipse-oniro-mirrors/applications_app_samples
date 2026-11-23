@@ -15,6 +15,7 @@
 
 // [Start bin_convert_ecc_keypair_sync]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function convertEccAsyKeySync() {
   let pubKeyArray =
@@ -33,7 +34,8 @@ function convertEccAsyKeySync() {
     if (keyPair != null) {
       console.info('convertKeySync result: success.');
     }
-  } catch (e) {
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
     console.error(`get key pair failed: errCode: ${e.code}, message: ${e.message}`);
     // [StartExclude bin_convert_ecc_keypair_sync]
     throw new Error(`get key pair failed: errCode: ${e.code}, message: ${e.message}`);
