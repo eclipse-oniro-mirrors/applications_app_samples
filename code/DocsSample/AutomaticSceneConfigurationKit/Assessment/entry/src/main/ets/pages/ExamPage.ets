@@ -20,6 +20,7 @@ import { AssessmentConstants } from '../common/constants/AssessmentConstants';
 import { ContextUtil } from '../common/utils/ContextUtil';
 import Logger from '../common/utils/Logger';
 import { ExamHardeningUtil } from '../common/utils/ExamHardeningUtil';
+import { ScreenRecordUtil } from '../common/utils/ScreenRecordUtil';
 import AssessmentViewModel from '../viewmodel/AssessmentViewModel';
 import ExamViewModel from '../viewmodel/ExamViewModel';
 import SettingModel from '../model/SettingModel';
@@ -38,7 +39,7 @@ struct ExamPage {
   @Local setting: SettingModel = AppStorageV2.connect(SettingModel, 'SettingModel', () => new SettingModel())!;
   @Local statusBarHeight: number = 0;
   @Local showSheet: boolean = false;
-  private dialogShown: boolean = false;
+  private screenRecord: ScreenRecordUtil | null = null;
 
   aboutToAppear(): void {
     this.applyHardening();
@@ -50,10 +51,6 @@ struct ExamPage {
   aboutToDisappear(): void {
     this.examVM.stopCountdown();
     this.releaseHardening();
-    const context: common.UIAbilityContext | undefined = this.getAbilityContext();
-    if (context === undefined) {
-      return;
-    }
   }
 
   onBackPress(): boolean {
@@ -67,19 +64,19 @@ struct ExamPage {
     const message: string = this.assessmentVM.eventMessage;
     Logger.info(`onAssessmentEvent, type: ${type}, code: ${code}, message: ${message}`);
     if (type === AssessmentConstants.EVENT_BEGIN && code !== assessment.AssessmentErrorCode.OK) {
-      this.showExitDialog($r('app.string.exam_end_title'), this.formatReason(code));
+      this.exitExam($r('app.string.exam_end_title'), this.formatReason(code));
       return;
     }
     if (type === AssessmentConstants.EVENT_INTERRUPTED) {
-      this.showExitDialog($r('app.string.exam_interrupt_title'), this.formatReason(code));
+      this.exitExam($r('app.string.exam_interrupt_title'), this.formatReason(code));
       return;
     }
     if (type === AssessmentConstants.EVENT_END) {
       if (this.examVM.answeredCount === AssessmentConstants.INVALID_ANSWER) {
-        this.showExitDialog($r('app.string.exam_end_title'), message);
+        this.exitExam($r('app.string.exam_end_title'), message);
         return;
       }
-      this.showExitDialog($r('app.string.exam_finish_title'),
+      this.exitExam($r('app.string.exam_finish_title'),
         $r('app.string.exam_finish_message', this.examVM.answeredCount, this.examVM.questionCount));
     }
   }
@@ -177,12 +174,40 @@ struct ExamPage {
       StatusView({ viewModel: this.assessmentVM })
     }
     .width('100%')
-    .padding({ top: $r('app.float.sheet_top_padding'), bottom: $r('app.float.page_padding'), left: $r('app.float.page_padding'), right: $r('app.float.page_padding') })
+    .padding({
+      top: $r('app.float.sheet_top_padding'),
+      bottom: $r('app.float.page_padding'),
+      left: $r('app.float.page_padding'),
+      right: $r('app.float.page_padding')
+    })
   }
 
   private onSubmitClick(): void {
     this.examVM.submit();
-    Logger.info(`onSubmitClick, answered: ${this.examVM.answeredCount}`);
+    const answered: number = this.examVM.answeredCount;
+    const total: number = this.examVM.questionCount;
+    Logger.info(`onSubmitClick, answered: ${answered}/${total}`);
+    this.getUIContext().showAlertDialog({
+      title: $r('app.string.exam_submit_confirm_title'),
+      message: $r('app.string.exam_submit_confirm_message', answered, total),
+      autoCancel: false,
+      alignment: DialogAlignment.Center,
+      primaryButton: {
+        value: $r('app.string.exam_submit_confirm_no'),
+        action: () => {
+        }
+      },
+      secondaryButton: {
+        value: $r('app.string.exam_submit_confirm_yes'),
+        fontColor: $r('app.color.warning'),
+        action: () => {
+          this.doSubmit();
+        }
+      }
+    });
+  }
+
+  private doSubmit(): void {
     const context: common.UIAbilityContext | undefined = this.getAbilityContext();
     if (context === undefined) {
       return;
@@ -206,11 +231,7 @@ struct ExamPage {
     return $r('app.string.reason_unknown');
   }
 
-  private showExitDialog(title: Resource, message: string | Resource): void {
-    if (this.dialogShown) {
-      return;
-    }
-    this.dialogShown = true;
+  private exitExam(title: Resource, message: string | Resource): void {
     this.examVM.stopCountdown();
     this.getUIContext().showAlertDialog({
       title: title,
@@ -220,10 +241,11 @@ struct ExamPage {
       confirm: {
         value: $r('app.string.dialog_confirm'),
         action: () => {
-          this.getUIContext().getRouter().back();
+
         }
       }
     });
+    this.getUIContext().getRouter().back();
   }
 
   private async loadStatusBarHeight(): Promise<void> {
@@ -249,7 +271,17 @@ struct ExamPage {
     }
     ExamHardeningUtil.applyHardening(context, this.setting).catch((error: BusinessError) => {
       Logger.error(`applyHardening failed, code: ${error.code}, message: ${error.message}`);
-    });
+    })
+    if (this.setting.screenRecord) {
+      this.screenRecord = new ScreenRecordUtil(context);
+      this.screenRecord.start({
+        onRecordResult: (recordRes) => {
+          if (!recordRes) {
+            this.doSubmit();
+          }
+        }
+      });
+    }
   }
 
   private releaseHardening(): void {
@@ -257,6 +289,7 @@ struct ExamPage {
     if (context === undefined) {
       return;
     }
+    this.screenRecord?.stop();
     ExamHardeningUtil.releaseHardening(context, this.setting).catch((error: BusinessError) => {
       Logger.error(`releaseHardening failed, code: ${error.code}, message: ${error.message}`);
     });

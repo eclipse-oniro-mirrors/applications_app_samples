@@ -87,6 +87,21 @@ export default struct SettingView {
           })
       }
       .width('100%')
+
+      Divider()
+        .color($r('app.color.divider'))
+
+      Row() {
+        Text($r('app.string.setting_screen_record'))
+          .fontSize($r('app.float.font_size_body'))
+          .fontColor($r('app.color.body_font'))
+          .layoutWeight(1)
+        Toggle({ type: ToggleType.Switch, isOn: this.setting.screenRecord })
+          .onChange((isOn: boolean) => {
+            this.setting.screenRecord = isOn;
+          })
+      }
+      .width('100%')
     }
     .width('100%')
     .alignItems(HorizontalAlign.Start)

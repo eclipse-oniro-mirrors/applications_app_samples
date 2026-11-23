@@ -19,7 +19,6 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { AssessmentConstants } from '../common/constants/AssessmentConstants';
 import { ContextUtil } from '../common/utils/ContextUtil';
 import Logger from '../common/utils/Logger';
-import { ExamHardeningUtil } from '../common/utils/ExamHardeningUtil';
 import AssessmentViewModel from '../viewmodel/AssessmentViewModel';
 import SettingModel from '../model/SettingModel';
 import TitleView from '../view/TitleView';
@@ -27,17 +26,26 @@ import ConfigView from '../view/ConfigView';
 import SettingView from '../view/SettingView';
 import OperationView from '../view/OperationView';
 import StatusView from '../view/StatusView';
+import { ExamHardeningUtil } from '../common/utils/ExamHardeningUtil';
 
 @Entry
 @ComponentV2
 struct IndexPage {
-  @Local viewModel: AssessmentViewModel = AppStorageV2.connect(AssessmentViewModel, 'AssessmentViewModel', () => new AssessmentViewModel())!;
+  @Local viewModel: AssessmentViewModel =
+    AppStorageV2.connect(AssessmentViewModel, 'AssessmentViewModel', () => new AssessmentViewModel())!;
   @Local setting: SettingModel = AppStorageV2.connect(SettingModel, 'SettingModel', () => new SettingModel())!;
   @Local durationIndex: number = 1;
   @Local allowedApps: string[] = [
     AssessmentConstants.DEFAULT_ALLOWED_APP,
     AssessmentConstants.EMERGENCY_ALLOWED_APP,
-    AssessmentConstants.SCREEN_READER_ALLOWED_APP
+    AssessmentConstants.SCREEN_READER_ALLOWED_APP,
+    AssessmentConstants.PRIVACY_CENTER_ALLOWED_APP,
+    AssessmentConstants.SCENE_BOARD_ALLOWED_APP,
+    AssessmentConstants.SCREEN_RECORDER_ALLOWED_APP,
+    AssessmentConstants.CALCULATOR_ALLOWED_APP,
+    AssessmentConstants.CALENDAR_ALLOWED_APP,
+    AssessmentConstants.CALL_LOG_ABILITY_ALLOWED_APP,
+    AssessmentConstants.FORM_RENDER_SERVICE_ALLOWED_APP
   ];
   @Local inputBundle: string = '';
   @Local statusBarHeight: number = 0;
@@ -96,7 +104,9 @@ struct IndexPage {
       }
 
       ListItem() {
-        SettingView({ setting: this.setting })
+        SettingView({
+          setting: this.setting
+        })
       }
 
       ListItem() {
@@ -123,7 +133,12 @@ struct IndexPage {
     }
     .width('100%')
     .height('100%')
-    .padding({ top: this.statusBarHeight + 16, bottom: $r('app.float.page_padding'), left: $r('app.float.page_padding'), right: $r('app.float.page_padding') })
+    .padding({
+      top: this.statusBarHeight + 16,
+      bottom: $r('app.float.page_padding'),
+      left: $r('app.float.page_padding'),
+      right: $r('app.float.page_padding')
+    })
     .backgroundColor($r('app.color.page_background'))
     .scrollBar(BarState.Off)
     .edgeEffect(EdgeEffect.Spring)

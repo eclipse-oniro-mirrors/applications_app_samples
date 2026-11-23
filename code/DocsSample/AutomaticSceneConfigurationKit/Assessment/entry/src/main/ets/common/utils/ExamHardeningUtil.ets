@@ -14,7 +14,7 @@
  */
 import { common } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
-import { BusinessError, deviceInfo, pasteboard } from '@kit.BasicServicesKit';
+import { BusinessError, deviceInfo, pasteboard, settings } from '@kit.BasicServicesKit';
 import { inputMethod } from '@kit.IMEKit';
 import SettingModel from '../../model/SettingModel';
 import Logger from './Logger';
@@ -44,9 +44,8 @@ export class ExamHardeningUtil {
   }
 
   private static async setWindowMaximize(context: common.UIAbilityContext, enable: boolean): Promise<void> {
-    let currentWindow: window.Window | undefined = undefined;
     try {
-      currentWindow = await window.getLastWindow(context);
+      let currentWindow = await window.getLastWindow(context);
       if (enable) {
         currentWindow.maximize(window.MaximizePresentation.ENTER_IMMERSIVE_DISABLE_TITLE_AND_DOCK_HOVER)
       } else {
@@ -62,22 +61,12 @@ export class ExamHardeningUtil {
   // Sets the immersive layout and the privacy mode of the current window, every measure is
   // guarded separately so that one failure does not block the other one.
   private static async setWindowHardening(context: common.UIAbilityContext, enable: boolean): Promise<void> {
-    let currentWindow: window.Window | undefined = undefined;
     try {
-      currentWindow = await window.getLastWindow(context);
-    } catch (error) {
-      const err: BusinessError = error as BusinessError;
-      Logger.error(`getLastWindow failed, code: ${err.code}, message: ${err.message}`);
-    }
-    if (currentWindow === undefined) {
-      return;
-    }
-    try {
+      let currentWindow = await window.getLastWindow(context);
       await currentWindow.setWindowPrivacyMode(enable);
-      Logger.info(`setWindowPrivacyMode done, enable: ${enable}`);
     } catch (error) {
       const err: BusinessError = error as BusinessError;
-      Logger.error(`setWindowPrivacyMode failed, code: ${err.code}, message: ${err.message}`);
+      Logger.error(`setWindowHardening failed, code: ${err.code}, message: ${err.message}`);
     }
   }
 
@@ -104,8 +93,14 @@ export class ExamHardeningUtil {
   }
 
   // Determine whether it is currently in developer mode
-  public static isDeveloperModeEnabled(): boolean {
-    return true;
+  public static isDeveloperModeEnabled(context: common.UIAbilityContext): boolean {
+    try {
+      const hdcStatus =
+        settings.getValueSync(context, 'HDC_STATUS', 'unknown', settings.domainName.DEVICE_SHARED);
+      return hdcStatus === 'true';
+    } catch (error) {
+      return false;
+    }
   }
 
   // Determine whether the current environment is a simulator or not
