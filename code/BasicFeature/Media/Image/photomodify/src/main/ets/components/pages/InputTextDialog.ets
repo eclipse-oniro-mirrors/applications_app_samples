@@ -12,13 +12,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file src/main/ets/components/pages/InputTextDialog.ets
+ * 文件职责：InputTextDialog 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：InputTextDialog。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
+/**
+ * InputTextDialog：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @CustomDialog
 struct InputTextDialog {
+  // @Link inputValue：与父组件双向绑定的状态
   @Link inputValue: string;
   controller?: CustomDialogController;
   cancel: () => void = () => {};
   confirm: () => void = () => {};
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
     Column() {
       Text($r('app.string.input_text_dialog_text'))

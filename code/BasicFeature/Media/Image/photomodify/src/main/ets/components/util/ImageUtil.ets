@@ -14,6 +14,13 @@
  */
 
 /**
+ * @file src/main/ets/components/util/ImageUtil.ets
+ * 文件职责：ImageUtil 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：getContainSize、Size。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
+/**
  * 计算，当固定容器宽高，选择Contain模式后，图片的实际宽高
  * @param componentW 容器宽
  * @param componentH
@@ -23,6 +30,7 @@
  */
 export function getContainSize(componentW: number, componentH: number, imageW: number, imageH: number): Size {
   const size: Size = new Size();
+
   // 如果组件宽高比更小，那么宽度会最大
   const isWidthMax: boolean = componentW / componentH - imageW / imageH <= 0;
   if (isWidthMax) {
@@ -36,9 +44,13 @@ export function getContainSize(componentW: number, componentH: number, imageW: n
   return size;
 }
 
+/**
+ * Size：类定义，承载本文件对应的逻辑与数据。
+ */
 export class Size {
   width: number = 0;
   height: number = 0;
+
   // 缩放比
   scale: number = 0;
 }

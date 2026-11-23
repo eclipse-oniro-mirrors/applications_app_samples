@@ -12,14 +12,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file src/main/ets/pages/EditImages.ets
+ * 文件职责：EditImages 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：EditImages。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { EditImage } from '@ohos/photomodify';
 
+/**
+ * EditImages：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct EditImages {
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
     Column() {
-      EditImage()
-    }
+      // EditImage：EditImage 自定义组件
+      EditImage().id('edit_images_edit_image_2')
+    }.id('edit_images_column_1')
   }
 }
