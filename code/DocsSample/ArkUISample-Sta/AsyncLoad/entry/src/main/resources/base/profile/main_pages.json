@@ -1,0 +1,8 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/AsyncLoadBasic",
+    "pages/AsyncLoadPlaceholder",
+    "pages/AsyncLoadTimeout"
+  ]
+}
