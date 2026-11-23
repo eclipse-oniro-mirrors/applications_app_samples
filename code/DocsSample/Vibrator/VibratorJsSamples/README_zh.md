@@ -41,14 +41,14 @@ entry
 |   |--- src/main/
 |        |--- module.json5              // vibrator模块配置hap类型："type": "feature"
 |             |---ets/pages      
-|                    |---index.ets      // vibrato组件接口实现页面
+|                    |---Index.ets      // vibrato组件接口实现页面
 ```
 
 
 
 ### 具体实现
 
-time、preset、file、pattern四种形式的振动，订阅去订阅外设热插拔事件、获取设备上马达信息等的功能接口封装在index，源码参考：[index.ets](./entry/src/main/ets/pages/index.ets)
+time、preset、file、pattern四种形式的振动，订阅去订阅外设热插拔事件、获取设备上马达信息等的功能接口封装在index，源码参考：[Index.ets](./entry/src/main/ets/pages/Index.ets)
 
 * file文件形式振动：使用Vibrator.startVibration接口的file形式来实现文件形式振动的下发；
 * preset文件形式振动：先使用窗口框选择Vibrator模块提供的effectId，然后使用Vibrator.startVibration接口使用preset形式来实现预置效果串形式振动的下发；
@@ -74,9 +74,27 @@ time、preset、file、pattern四种形式的振动，订阅去订阅外设热�
 
 1.本示例仅支持标准系统上运行，支持设备：RK3568;
 
-2.本示例为Stage模型，仅支持API20版本SDK，SDK版本号(API Version 20 Beta)，镜像版本号(6.0Beta);
+2.本示例为Stage模型，当前使用OpenHarmony SDK 26.0.0编译，compatibleSdkVersion和targetSdkVersion仍为20；
+测试依赖的VibratorPatternBuilder自API18提供，设备镜像需满足实际接口和系统能力要求。
 
-3.本示例需要使用DevEco Studio 5.0.4 Release (Build Version: 5.0.11.100, built on March 28, 2025)及以上版本才可编译运行。
+3.本次编译验证使用DevEco Studio 6.1.1和OpenHarmony API 26 SDK；设备运行尚未验证。
+
+### 自动化测试现状
+
+测试入口为`entry/src/ohosTest/ets/test/List.test.ets`，共41套件、143用例、44个ETS文件、52224行ETS
+（包含显式矩阵数据、版权头、注释、空行、注册入口和辅助代码）。
+
+- 130条用例测试sample依赖的真实VibratorPatternBuilder SDK，不宣称覆盖主页面振动业务流程。
+  其中35个新矩阵套件含110条用例、2166个互不重复的输入，覆盖时间、时长、强度、频率、通道、
+  可选字段、曲线及混合序列；其余20条覆盖基础、非法参数、恢复、128/129事件及输入/输出隔离。
+- 6条资源用例读取真实entry资源和raw fd，包含资源事件构造及分段读取；7条UI用例驱动真实主界面，
+  只检查初始状态、效果/用途选择取消与重开、设备列表和高清能力查询，不播放振动或订阅设备事件。
+- 矩阵数据只在用例执行时创建，it注册回调保持短小；各套件使用30ms节流。
+  UI共享懒初始化Driver和启动Promise，不使用AbilityMonitor、MockKit或用例内反复重启。
+- 已在`E:/backup/VibratorJsSamples`编译测试与主HAP，均为unsigned产物。
+  当前无设备，未安装、未执行；不能将编译成功解释为Pass或已经消除crash，须单次全量连续两轮实测。
+- 本轮main/AppScope共20文件哈希零差异；未保存签名材料，权限、deviceTypes及原有兼容/目标版本保持不变。
+  覆盖范围、结果依据、构建日志和运行步骤见[ohosTest.md](./ohosTest.md)。
 
 ### 下载
 
