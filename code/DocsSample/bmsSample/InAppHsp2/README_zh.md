@@ -9,11 +9,11 @@
 
 ### 使用说明
 
-1. 编译library模块，最后编译安装entry模块。
+1. 先编译library模块并安装library.hsp，再编译安装entry模块；执行ohosTest用例时两个包都需要安装到设备。
 
 1. 进入首页，点击click_to_menu文本跳转到library模块的页面，点击back_to_index按钮返回entry模块。
 
-1. 通过自动测试框架可进行测试及维护。
+1. 通过自动测试框架可进行测试及维护，测试用例说明见[ohosTest.md](./ohosTest.md)。
 
 ### 工程目录
 ```
@@ -48,9 +48,9 @@ library/src/
 
 1.本示例仅支持标准系统上运行, 支持设备：tablet（平板或者平板模拟器）。
 
-2.本示例为Stage模型，支持API20版本SDK，版本号：6.0.0.47，镜像版本号：OpenHarmony_6.0.0.47。
+2.本示例为Stage模型，最低兼容API 20版本，使用API 26版本SDK编译。
 
-3.本示例需要使用DevEco Studio 5.1.1 Release (Build Version: 5.1.1.840, built on September 5, 2025)及以上版本才可编译运行。
+3.本示例需要使用DevEco Studio 6.1.1 Release及以上版本才可编译运行。
 
 ### 下载
 
