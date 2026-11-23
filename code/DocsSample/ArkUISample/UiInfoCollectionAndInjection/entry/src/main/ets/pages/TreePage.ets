@@ -14,12 +14,16 @@
  */
 
 import nativeUi from 'libentry.so';
-import { parseTree, findNode, countNodes, failure, TreeOptions, OUTPUT_LIMIT } from '../common/Collection';
+import {
+  parseTree, findNode, countNodes, failure, TreeOptions, OUTPUT_LIMIT, OCCLUSION_THRESHOLD_DEFAULT
+} from '../common/Collection';
 
 @Entry
 @Component
 struct TreePage {
   @State visibleOnly: boolean = false;
+  @State filterOccluded: boolean = false;
+  @State occlusionThreshold: number = OCCLUSION_THRESHOLD_DEFAULT;
   @State filterLayout: boolean = false;
   @State interaction: boolean = false;
   @State accessibility: boolean = false;
@@ -45,6 +49,7 @@ struct TreePage {
     this.busy = true;
     const options: TreeOptions = {
       visibleOnly: this.visibleOnly, filterLayout: this.filterLayout,
+      filterOccluded: this.filterOccluded, occlusionThreshold: this.occlusionThreshold,
       interaction: this.interaction, accessibility: this.accessibility,
       visual: this.visual, functional: this.functional
     };
@@ -56,8 +61,11 @@ struct TreePage {
       const tree = parseTree(value);
       const target = findNode(tree, 'treeTarget');
       const hidden = findNode(tree, 'hiddenTarget');
+      const occluded = findNode(tree, 'occludedTarget');
+      const faint = findNode(tree, 'occludedFaintTarget');
       this.status = `schema=${tree.schemaVersion}; target=${target !== undefined}; ` +
-        `hidden=${hidden !== undefined}; nodes=${countNodes(tree)}`;
+        `hidden=${hidden !== undefined}; occluded=${occluded !== undefined}; ` +
+        `faint=${faint !== undefined}; nodes=${countNodes(tree)}`;
       this.result = target === undefined ? value.slice(0, OUTPUT_LIMIT) :
         JSON.stringify(target, null, 2).slice(0, OUTPUT_LIMIT);
     } catch (error) {
@@ -81,14 +89,76 @@ struct TreePage {
         Text($r('app.string.tree_hidden_node'))
           .id('hiddenTarget')
           .visibility(Visibility.None)
+        // 遮挡过滤演示：下面两行的Text分别被不透明层与不透明度0.5的层完全覆盖。
+        // 被覆盖的节点需要把自身绘制裁剪到边界内（clip），
+        // 否则框架无法判定它被完全遮挡。
+        Text($r('app.string.occlusion_demo_title'))
+          .fontSize(12)
+          .fontColor(Color.Gray)
+        Stack() {
+          Text($r('app.string.occluded_opaque_label'))
+            .id('occludedTarget')
+            .fontSize(14)
+            .clip(true)
+          Column()
+            .width('100%')
+            .height('100%')
+            .backgroundColor(Color.White)
+        }
+        .width('100%')
+        .height(36)
+        Stack() {
+          Text($r('app.string.occluded_faint_label'))
+            .id('occludedFaintTarget')
+            .fontSize(14)
+            .clip(true)
+          Column()
+            .width('100%')
+            .height('100%')
+            .backgroundColor(Color.White)
+            .opacity(0.5)
+        }
+        .width('100%')
+        .height(36)
         Column({ space: 6 }) {
           Row({ space: 8 }) {
             Toggle({ type: ToggleType.Checkbox, isOn: this.visibleOnly })
               .id('toggleVisibleOnly')
-              .onChange((value: boolean) => { this.visibleOnly = value; })
+              .onChange((value: boolean) => {
+                this.visibleOnly = value;
+                // 遮挡过滤只支持可见树，关闭可见树时同步复位，避免留下不生效的选项。
+                if (!value) {
+                  this.filterOccluded = false;
+                }
+              })
             Text($r('app.string.option_visible_only'))
               .fontSize(14)
           }
+          Row({ space: 8 }) {
+            Toggle({ type: ToggleType.Checkbox, isOn: this.filterOccluded })
+              .id('toggleFilterOccluded')
+              .enabled(this.visibleOnly)
+              .onChange((value: boolean) => { this.filterOccluded = value; })
+            Text($r('app.string.option_filter_occluded'))
+              .fontSize(14)
+          }
+          Row({ space: 8 }) {
+            Text($r('app.string.option_occlusion_threshold'))
+              .fontSize(14)
+              .layoutWeight(1)
+            Slider({ value: this.occlusionThreshold, min: 0, max: 1, step: 0.05 })
+              .id('sliderOcclusionThreshold')
+              .width(100)
+              .enabled(this.visibleOnly && this.filterOccluded)
+              .onChange((value: number) => { this.occlusionThreshold = value; })
+            Text(this.occlusionThreshold.toFixed(2))
+              .fontSize(14)
+              .width(36)
+              .textAlign(TextAlign.End)
+          }
+          Text($r('app.string.occlusion_hint'))
+            .fontSize(12)
+            .fontColor(Color.Gray)
           Row({ space: 8 }) {
             Toggle({ type: ToggleType.Checkbox, isOn: this.filterLayout })
               .id('toggleFilterLayout')

@@ -131,6 +131,35 @@ export default function IndexTest() {
     });
 
     /**
+     * @tc.number uiinfocollectionandinjection_TreeOcclusion_001
+     * @tc.name TreeOcclusion_001
+     * @tc.desc 测试可见树开启遮挡过滤后被完全覆盖的节点从结果中剔除
+     */
+    it(BUNDLE + 'TreeOcclusion_001', 0, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'TreeOcclusion_001, begin');
+      let navButton = await driver.findComponent(ON.id('navTreeButton'));
+      await navButton!.click();
+      await driver.delayMs(2000);
+      // 遮挡过滤只对可见树生效，先打开"仅可见树"再勾选遮挡过滤
+      let visibleToggle = await driver.findComponent(ON.id('toggleVisibleOnly'));
+      await visibleToggle!.click();
+      await driver.delayMs(1000);
+      let occludedToggle = await driver.findComponent(ON.id('toggleFilterOccluded'));
+      await occludedToggle!.click();
+      await driver.delayMs(1000);
+      let syncButton = await driver.findComponent(ON.id('treeSyncButton'));
+      await syncButton!.click();
+      await driver.delayMs(2000);
+      // 被不透明层完全覆盖的演示节点应被剔除，状态行显示occluded=false
+      let statusElement = await driver.findComponent(ON.text('occluded=false', MatchPattern.CONTAINS));
+      hilog.info(DOMAIN, TAG, BUNDLE + 'TreeOcclusion_001, status: ' + (statusElement !== null));
+      expect(statusElement === null).assertFalse();
+      await driver.pressBack();
+      hilog.info(DOMAIN, TAG, BUNDLE + 'TreeOcclusion_001, end');
+      done();
+    });
+
+    /**
      * @tc.number uiinfocollectionandinjection_CommandSetText_001
      * @tc.name CommandSetText_001
      * @tc.desc 测试向输入框目标提交setText指令并显示执行结果

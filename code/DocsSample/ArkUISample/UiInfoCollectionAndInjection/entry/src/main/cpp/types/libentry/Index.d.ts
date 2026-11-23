@@ -18,6 +18,10 @@ import type { image } from '@kit.ImageKit';
 export interface TreeOptions {
   visibleOnly: boolean;
   filterLayout: boolean;
+  // 遮挡过滤只支持可见树请求，全量树启用会返回106102。
+  filterOccluded: boolean;
+  // 遮挡判定不透明度阈值，取值范围[0.0, 1.0]，默认1.0。
+  occlusionThreshold: number;
   interaction: boolean;
   accessibility: boolean;
   visual: boolean;
