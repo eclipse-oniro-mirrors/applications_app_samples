@@ -24,7 +24,8 @@ export default class EntryAbility extends UIAbility {
     try {
       this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
     } catch (err) {
-      hilog.error(DOMAIN, '[Sample_NDKInputEventHook]', 'Failed to set colorMode. Cause: %{public}s', JSON.stringify(err));
+      hilog.error(DOMAIN, '[Sample_NDKInputEventHook]', 'Failed to set colorMode. Cause: %{public}s',
+        JSON.stringify(err));
     }
     hilog.info(DOMAIN, '[Sample_NDKInputEventHook]', '%{public}s', 'Ability onCreate');
   }
@@ -39,7 +40,8 @@ export default class EntryAbility extends UIAbility {
 
     windowStage.loadContent('pages/Index', (err) => {
       if (err.code) {
-        hilog.error(DOMAIN, '[Sample_NDKInputEventHook]', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));
+        hilog.error(DOMAIN, '[Sample_NDKInputEventHook]', 'Failed to load the content. Cause: %{public}s',
+          JSON.stringify(err));
         return;
       }
       hilog.info(DOMAIN, '[Sample_NDKInputEventHook]', 'Succeeded in loading the content.');
