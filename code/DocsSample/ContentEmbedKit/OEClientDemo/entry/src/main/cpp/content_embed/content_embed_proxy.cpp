@@ -583,6 +583,37 @@ static void HandleProxy(ContentEmbed_ExtensionProxy* proxy)
 }
 // [End content_embed_client_handle_proxy]
 
+// [Start content_embed_client_create_document_by_file]
+// 是否以链接形式创建OE文档，当isLinking为true时，表示以链接方式创建OE文档；当isLinking为false时，表示以嵌入方式创建OE文档。
+ContentEmbed_Document* CreateDocumentByFile(const std::string &filePath, bool isLinking,
+    ContentEmbed_ErrorCode& errCode)
+{
+    ContentEmbed_Document* ceDocument = nullptr;
+    // 基于文件创建OE文档
+    errCode = OH_ContentEmbed_CreateDocumentByFile(filePath.c_str(), filePath.size(), isLinking, &ceDocument);
+    if (errCode != CE_ERR_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_ContentEmbed_CreateDocumentByFile failed, errCode: %{public}d.", errCode);
+        return nullptr;
+    }
+    return ceDocument;
+}
+// [End content_embed_client_create_document_by_file]
+
+// [Start content_embed_client_load_document_from_file]
+static ContentEmbed_Document* LoadDocumentFromFile(const std::string &oeFormatFilePath, ContentEmbed_ErrorCode& errCode)
+{
+    ContentEmbed_Document* ceDocument = nullptr;
+    // 基于OE格式文件加载OE文档
+    errCode = OH_ContentEmbed_LoadDocumentFromFile(oeFormatFilePath.c_str(),
+        oeFormatFilePath.size(), &ceDocument);
+    if (errCode != CE_ERR_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_ContentEmbed_LoadDocumentFromFile failed, errCode: %{public}d.", errCode);
+        return nullptr;
+    }
+    return ceDocument;
+}
+// [End content_embed_client_load_document_from_file]
+
 ContentEmbed_ErrorCode ContentEmbedProxyWrapper::StartExtensionProxy(
     void* contextPtr, ContentEmbed_Document* doc)
 {
@@ -679,23 +710,24 @@ ContentEmbed_ErrorCode ContentEmbedProxyWrapper::DoEditReactivated()
         sandboxPath.compare(sandboxPath.size() - strlen(OE_FORMAT_FILE_EXT),
                             strlen(OE_FORMAT_FILE_EXT), OE_FORMAT_FILE_EXT) == 0;
     ContentEmbed_Document* doc = nullptr;
-    ContentEmbed_ErrorCode errCode;
+    ContentEmbed_ErrorCode errCode = CE_ERR_OK;
     if (isOEFormat) {
-        // 基于OE格式文件
-        errCode = OH_ContentEmbed_LoadDocumentFromFile(sandboxPath.c_str(), sandboxPath.size(), &doc);
+        // 基于OE格式文件加载OE文档
+        doc = LoadDocumentFromFile(sandboxPath, errCode);
         OH_LOG_INFO(LOG_APP, "LoadDocumentFromFile ret: %{public}d", errCode);
         if (errCode != CE_ERR_OK) {
             OH_LOG_ERROR(LOG_APP, "LoadDocumentFromFile failed: %{public}d", errCode);
         }
     } else {
-        errCode = OH_ContentEmbed_CreateDocumentByFile(sandboxPath.c_str(), sandboxPath.size(), false, &doc);
+        // 非OE格式文件时基于文件创建OE文档（重激活场景不使用链接方式）
+        doc = CreateDocumentByFile(sandboxPath, false, errCode);
         OH_LOG_INFO(LOG_APP, "CreateDocumentByFile ret: %{public}d", errCode);
         if (errCode != CE_ERR_OK) {
             OH_LOG_ERROR(LOG_APP, "CreateDocumentByFile failed: %{public}d", errCode);
         }
     }
-    if (errCode != CE_ERR_OK) {
-        return errCode;
+    if (doc == nullptr || errCode != CE_ERR_OK) {
+        return (errCode != CE_ERR_OK) ? errCode : CE_ERR_NULL_POINTER;
     }
     errCode = StartExtensionProxy(contextPtr_, doc);
     if (errCode != CE_ERR_OK) {
@@ -1188,6 +1220,20 @@ static std::string LookupDisplayName(const std::string& oeid)
     return displayName;
 }
 
+// [Start content_embed_client_create_document_by_oeid]
+ContentEmbed_Document* CreateDocumentByOEid(const std::string &oeid, ContentEmbed_ErrorCode& errCode)
+{
+    ContentEmbed_Document* ceDocument = nullptr;
+    // 基于OEID创建OE文档
+    errCode = OH_ContentEmbed_CreateDocumentByOEid(oeid.c_str(), &ceDocument);
+    if (errCode != CE_ERR_OK) {
+        OH_LOG_ERROR(LOG_APP, "OH_ContentEmbed_CreateDocumentByOEid failed, errCode: %{public}d.", errCode);
+        return nullptr;
+    }
+    return ceDocument;
+}
+// [End content_embed_client_create_document_by_oeid]
+
 napi_value content_embed::CreateByOEid(napi_env env, napi_callback_info info)
 {
     size_t argc = CREATE_BY_OEID_ARG_COUNT;
@@ -1202,12 +1248,14 @@ napi_value content_embed::CreateByOEid(napi_env env, napi_callback_info info)
     if (!TakeStringParam(env, args[ARG_INDEX_ONE], oeid) || !TakeStringParam(env, args[ARG_INDEX_TWO], sandboxPath)) {
         return GetResult(env, -1);
     }
-    ContentEmbed_Document* doc = nullptr;
-    // 基于OEID创建OE文件
-    ContentEmbed_ErrorCode errCode = OH_ContentEmbed_CreateDocumentByOEid(oeid.c_str(), &doc);
+    // 基于OEID创建OE文档
+    ContentEmbed_ErrorCode errCode = CE_ERR_OK;
+    ContentEmbed_Document* doc = CreateDocumentByOEid(oeid, errCode);
     OH_LOG_INFO(LOG_APP, "CreateDocumentByOEid ret: %{public}d", errCode);
-    if (errCode != CE_ERR_OK) {
-        OH_LOG_ERROR(LOG_APP, "OH_ContentEmbed_CreateDocumentByOEid failed, errCode: %{public}d.", errCode);
+    if (doc == nullptr || errCode != CE_ERR_OK) {
+        // Guard against SDK contract violation: a null document must not be reported as success.
+        errCode = (errCode == CE_ERR_OK) ? CE_ERR_NULL_POINTER : errCode;
+        OH_LOG_ERROR(LOG_APP, "CreateDocumentByOEid failed, errCode: %{public}d.", errCode);
         return GetResult(env, errCode);
     }
     std::string displayName = LookupDisplayName(oeid);
@@ -1324,13 +1372,13 @@ napi_value content_embed::CreateFromLocal(napi_env env, napi_callback_info info)
         }
     }
     // 基于文件创建OE文档
-    // 是否以链接形式创建OE文档，当isLinking为true时，表示以链接方式创建OE文档；当isLinking为false时，表示以嵌入方式创建OE文档
-    ContentEmbed_Document* doc = nullptr;
-    ContentEmbed_ErrorCode errCode =
-        OH_ContentEmbed_CreateDocumentByFile(srcPath.c_str(), srcPath.size(), isLinking, &doc);
+    ContentEmbed_ErrorCode errCode = CE_ERR_OK;
+    ContentEmbed_Document* doc = CreateDocumentByFile(srcPath, isLinking, errCode);
     OH_LOG_INFO(LOG_APP, "CreateDocumentByFile ret: %{public}d", errCode);
-    if (errCode != CE_ERR_OK) {
-        OH_LOG_ERROR(LOG_APP, "CreateDocumentByFile failed: %{public}d", errCode);
+    if (doc == nullptr || errCode != CE_ERR_OK) {
+        // Guard against SDK contract violation: a null document must not be reported as success.
+        errCode = (errCode == CE_ERR_OK) ? CE_ERR_NULL_POINTER : errCode;
+        OH_LOG_ERROR(LOG_APP, "CreateDocumentByFile failed, errCode: %{public}d.", errCode);
         return GetResult(env, errCode);
     }
     auto wrapper = new ContentEmbedProxyWrapper();
