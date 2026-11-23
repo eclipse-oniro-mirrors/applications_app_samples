@@ -13,40 +13,40 @@
  * limitations under the License.
  */
 
-import Logger from '../model/Logger'
-import { InfoView } from '../common/InfoView'
-import { PanelView } from '../common/PanelView'
-import { RadioStatus } from '../model/RadioStatus'
-import { ResultModel } from '../model/ResultModel'
+import Logger from '../model/Logger';
+import { InfoView } from '../common/InfoView';
+import { PanelView } from '../common/PanelView';
+import { RadioStatus } from '../model/RadioStatus';
+import { ResultModel } from '../model/ResultModel';
+import { BusinessError } from '@kit.BasicServicesKit';
 
-const TAG = '[Index]'
-const RADDIOTECH_BG_COLOR ='#0D9FFB'
+const TAG: string = '[Index]';
 
 @Entry
 @Component
 struct Index {
-  @State show: boolean = false
-  @State slotId: number = 0
-  @State title: string = 'SIM1 status'
-  @State networks: Array<ResultModel> = []
-  @State radioStatus: RadioStatus = new RadioStatus()
+  @State show: boolean = false;
+  @State slotId: number = 0;
+  @State title: string = 'SIM1 status';
+  @State networks: ResultModel[] = [];
+  @State radioStatus: RadioStatus = new RadioStatus();
 
   aboutToAppear() {
-    this.radioStatus.getNetworkState().then((networkState) => {
-      Logger.info(`${TAG}, aboutToAppear networkState = ${JSON.stringify(networkState)}`)
-      let result = new ResultModel('NetworkState', networkState)
-      this.networks.push(result)
-    })
+    this.radioStatus.getNetworkState().then((networkState: string) => {
+      Logger.info(`${TAG}, aboutToAppear networkState = ${JSON.stringify(networkState)}`);
+      const result: ResultModel = new ResultModel('NetworkState', networkState);
+      this.networks.push(result);
+    });
 
-    this.radioStatus.getRadioOn().then((radioOn) => {
-      Logger.info(`${TAG}, aboutToAppear radioOn = ${JSON.stringify(radioOn)}`)
-      let result = new ResultModel('IsRadioOn', radioOn.toString())
-      this.networks.push(result)
-    }).catch(error => {
-      Logger.error(`${TAG}, aboutToAppear radioOn error->${JSON.stringify(error)}`)
-      let result = new ResultModel('IsRadioOn', `error:${JSON.stringify(error)}`)
-      this.networks.push(result)
-    })
+    this.radioStatus.getRadioOn().then((radioOn: string) => {
+      Logger.info(`${TAG}, aboutToAppear radioOn = ${JSON.stringify(radioOn)}`);
+      const result: ResultModel = new ResultModel('IsRadioOn', radioOn.toString());
+      this.networks.push(result);
+    }).catch((error: BusinessError) => {
+      Logger.error(`${TAG}, aboutToAppear radioOn error->${JSON.stringify(error)}`);
+      const result: ResultModel = new ResultModel('IsRadioOn', `error:${JSON.stringify(error)}`);
+      this.networks.push(result);
+    });
   }
 
   build() {
@@ -55,7 +55,7 @@ struct Index {
         Text($r('app.string.entry_MainAbility'))
           .width('100%')
           .height(50)
-          .backgroundColor(RADDIOTECH_BG_COLOR)
+          .backgroundColor($r('app.color.radiotech_title_background'))
           .fontColor(Color.White)
           .fontSize(20)
           .padding({ left: 20 })
@@ -64,7 +64,7 @@ struct Index {
           Column() {
             InfoView({ show: $show, slotId: $slotId, title: $title })
             Divider().color(Color.Grey)
-            ForEach(this.networks, item => {
+            ForEach(this.networks, (item: ResultModel) => {
               Column() {
                 Text(item.title)
                   .width('100%')
@@ -77,7 +77,7 @@ struct Index {
                   .margin({ bottom: 10 })
               }
               .margin({ left: 20, right: 20 })
-            }, item => JSON.stringify(item))
+            }, (item: ResultModel) => JSON.stringify(item))
           }
           .height('100%')
         }

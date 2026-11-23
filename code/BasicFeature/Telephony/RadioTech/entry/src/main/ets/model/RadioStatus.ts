@@ -13,78 +13,90 @@
  * limitations under the License.
  */
 
-import Logger from '../model/Logger'
-import sim from '@ohos.telephony.sim'
-import radio from '@ohos.telephony.radio'
+import Logger from './Logger';
+import { radio, sim } from '@kit.TelephonyKit';
+import { NetworkStateFormatter, NetworkStateSnapshot } from './NetworkStateFormatter';
+import { RadioTechFormatter, RadioTechSnapshot } from './RadioTechFormatter';
+import { SignalFormatter, SignalSnapshot } from './SignalFormatter';
+import { SimInfoFormatter } from './SimInfoFormatter';
+import { SlotModel } from './SlotModel';
 
-const TAG = '[RadioStatus]'
+const TAG: string = '[RadioStatus]';
 
 export class RadioStatus {
-    constructor() {
-    }
+  constructor() {
+  }
 
-    async getSimSpn(slotId: number) {
-        const simSpn = await sim.getSimSpn(slotId)
-        Logger.info(`${TAG}, getSimSpn radioTech = ${simSpn}`)
-        return simSpn
-    }
+  async getSimSpn(slotId: number): Promise<string> {
+    const simSpn: string = await sim.getSimSpn(slotId);
+    const formatted: string = SimInfoFormatter.formatSpn(simSpn);
+    Logger.info(`${TAG}, getSimSpn radioTech = ${formatted}`);
+    return formatted;
+  }
 
-    async getRadioTech(slotId: number) {
-        const radioTech = await radio.getRadioTech(slotId)
-        Logger.info(`${TAG}, getRadioTech radioTech = ${JSON.stringify(radioTech)}`)
-        return radioTech
-    }
+  async getRadioTech(slotId: number): Promise<string> {
+    const radioTech: radio.NetworkRadioTech = await radio.getRadioTech(slotId);
+    const snapshot: RadioTechSnapshot = {
+      psRadioTech: radioTech.psRadioTech,
+      csRadioTech: radioTech.csRadioTech
+    };
+    const formatted: string = RadioTechFormatter.format(snapshot);
+    Logger.info(`${TAG}, getRadioTech radioTech = ${formatted}`);
+    return formatted;
+  }
 
-    async getSignalInformation(slotId: number) {
-        const signalInformation = await radio.getSignalInformation(slotId)
-        Logger.info(`${TAG}, getSignalInformation signalInformation = ${JSON.stringify(signalInformation)}`)
-        if (signalInformation.length === 0) {
-            return 'not available'
-        } else {
-            return signalInformation
-        }
+  async getSignalInformation(slotId: number): Promise<string> {
+    const signalInformation: radio.SignalInformation[] = await radio.getSignalInformation(slotId);
+    const snapshots: SignalSnapshot[] = [];
+    for (let index: number = 0; index < signalInformation.length; index++) {
+      snapshots.push({
+        signalType: signalInformation[index].signalType,
+        signalLevel: signalInformation[index].signalLevel,
+        dBm: signalInformation[index].dBm
+      });
     }
+    const formatted: string = SignalFormatter.formatList(snapshots);
+    Logger.info(`${TAG}, getSignalInformation signalInformation = ${formatted}`);
+    return formatted;
+  }
 
-    async getNetworkSelectionMode(slotId: number) {
-        Logger.info(`${TAG}, getNetworkSelectionMode networkSelectionMode start`)
-        const networkSelectionMode = await radio.getNetworkSelectionMode(slotId)
-        Logger.info(`${TAG}, getNetworkSelectionMode networkSelectionMode = ${networkSelectionMode}`)
-        return networkSelectionMode
-    }
+  async getNetworkSelectionMode(slotId: number): Promise<string> {
+    Logger.info(`${TAG}, getNetworkSelectionMode networkSelectionMode start`);
+    const networkSelectionMode: radio.NetworkSelectionMode = await radio.getNetworkSelectionMode(slotId);
+    const formatted: string = SlotModel.selectionModeName(networkSelectionMode);
+    Logger.info(`${TAG}, getNetworkSelectionMode networkSelectionMode = ${formatted}`);
+    return formatted;
+  }
 
-    async getISOCountryCodeForNetwork(slotId: number) {
-        const iSOCountryCode = await radio.getISOCountryCodeForNetwork(slotId)
-        Logger.info(`${TAG}, getISOCountryCodeForNetwork iSOCountryCode = ${iSOCountryCode}`)
-        if (typeof (iSOCountryCode) === `undefined`) {
-            return 'not available'
-        } else {
-            return iSOCountryCode
-        }
-    }
+  async getISOCountryCodeForNetwork(slotId: number): Promise<string> {
+    const iSOCountryCode: string = await radio.getISOCountryCodeForNetwork(slotId);
+    const formatted: string = SimInfoFormatter.formatIsoCountryCode(iSOCountryCode);
+    Logger.info(`${TAG}, getISOCountryCodeForNetwork iSOCountryCode = ${formatted}`);
+    return formatted;
+  }
 
-    async getNetworkState() {
-        const data = await radio.getNetworkState()
-        Logger.info(`${TAG}, getNetworkState data = ${JSON.stringify(data)}`)
-        if (typeof (JSON.stringify(data)) === `undefined`) {
-            return 'not available'
-        } else {
-            const networkState: string = `longOperatorName:${JSON.stringify(data.longOperatorName)}\n` +
-            `shortOperatorName:${JSON.stringify(data.shortOperatorName)}\n` +
-            `plmnNumeric:${JSON.stringify(data.plmnNumeric)}\n` +
-            `isRoaming:${JSON.stringify(data.isRoaming)}\n` +
-            `regState:${JSON.stringify(data.regState)}\n` +
-            `nsaState:${JSON.stringify(data.nsaState)}\n` +
-            `isCaActive:${JSON.stringify(data.isCaActive)}\n` +
-            `isEmergency:${JSON.stringify(data.isEmergency)}\n`
-            Logger.info(`${TAG}, getNetworkState networkState = ${JSON.stringify(networkState)}`)
-            return networkState
-        }
-    }
+  async getNetworkState(): Promise<string> {
+    const data: radio.NetworkState = await radio.getNetworkState();
+    const snapshot: NetworkStateSnapshot = {
+      longOperatorName: data.longOperatorName,
+      shortOperatorName: data.shortOperatorName,
+      plmnNumeric: data.plmnNumeric,
+      isRoaming: data.isRoaming,
+      regState: data.regState,
+      nsaState: data.nsaState,
+      isCaActive: data.isCaActive,
+      isEmergency: data.isEmergency
+    };
+    const networkState: string = NetworkStateFormatter.format(snapshot);
+    Logger.info(`${TAG}, getNetworkState networkState = ${networkState}`);
+    return networkState;
+  }
 
-    async getRadioOn() {
-        Logger.info(`${TAG}, getRadioOn radioOn start`)
-        const radioOn = await radio.isRadioOn()
-        Logger.info(`${TAG}, getRadioOn radioOn = ${radioOn}`)
-        return JSON.stringify(radioOn)
-    }
+  async getRadioOn(): Promise<string> {
+    Logger.info(`${TAG}, getRadioOn radioOn start`);
+    const radioOn: boolean = await radio.isRadioOn();
+    const formatted: string = SimInfoFormatter.formatRadioOn(radioOn);
+    Logger.info(`${TAG}, getRadioOn radioOn = ${formatted}`);
+    return formatted;
+  }
 }

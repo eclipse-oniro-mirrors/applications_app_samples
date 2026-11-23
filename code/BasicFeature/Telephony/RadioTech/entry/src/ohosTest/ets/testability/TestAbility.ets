@@ -13,53 +13,56 @@
  * limitations under the License.
  */
 
-import UIAbility from '@ohos.app.ability.UIAbility';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { UIAbility, Want, AbilityConstant } from '@kit.AbilityKit';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { window } from '@kit.ArkUI';
 import { Hypium } from '@ohos/hypium';
 import testsuite from '../test/List.test';
-import Window from '@ohos.window';
 import Logger from '../../../main/ets/model/Logger';
 
-const TAG = 'TestAbility';
+const TAG: string = 'TestAbility';
+let testStarted: boolean = false;
 
 export default class TestAbility extends UIAbility {
-  onCreate(want, launchParam) {
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     Logger.info(TAG, 'TestAbility onCreate');
-    Logger.info(TAG, 'want param:' + JSON.stringify(want) ?? '');
-    Logger.info(TAG, 'launchParam:' + JSON.stringify(launchParam) ?? '');
-    var abilityDelegator: any;
-    abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    var abilityDelegatorArguments: any;
-    abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
-    Logger.info(TAG, 'start run testcase!!!');
-    Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+    Logger.info(TAG, `want param:${JSON.stringify(want)}`);
+    Logger.info(TAG, `launchParam:${JSON.stringify(launchParam)}`);
   }
 
-  onDestroy() {
+  onDestroy(): void {
     Logger.info(TAG, 'TestAbility onDestroy');
   }
 
-  onWindowStageCreate(windowStage: Window.WindowStage) {
+  onWindowStageCreate(windowStage: window.WindowStage): void {
     Logger.info(TAG, 'TestAbility onWindowStageCreate');
     windowStage.loadContent('testability/pages/Index', (err, data) => {
       if (err.code) {
-        Logger.error(TAG, 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
+        Logger.error(TAG, `Failed to load the content. Cause: ${JSON.stringify(err)}`);
         return;
       }
-      Logger.info(TAG, 'Succeeded in loading the content. Data: %{public}s',
-        JSON.stringify(data) ?? '');
+      Logger.info(TAG, `Succeeded in loading the content. Data: ${JSON.stringify(data)}`);
     });
   }
 
-  onWindowStageDestroy() {
+  onWindowStageDestroy(): void {
     Logger.info(TAG, 'TestAbility onWindowStageDestroy');
   }
 
-  onForeground() {
+  onForeground(): void {
     Logger.info(TAG, 'TestAbility onForeground');
+    if (testStarted) {
+      return;
+    }
+    testStarted = true;
+    setTimeout(() => {
+      Logger.info(TAG, 'start run testcase!!!');
+      Hypium.hypiumTest(abilityDelegatorRegistry.getAbilityDelegator(),
+        abilityDelegatorRegistry.getArguments(), testsuite);
+    }, 300);
   }
 
-  onBackground() {
+  onBackground(): void {
     Logger.info(TAG, 'TestAbility onBackground');
   }
 }

@@ -2,7 +2,7 @@
 
 ### 介绍
 
-本示例通过[@ohos.telephony.sim](https://docs.openharmony.cn/pages/v4.1/zh-cn/application-dev/reference/apis-telephony-kit/js-apis-sim.md) 、[@ohos.telephony.radio](https://docs.openharmony.cn/pages/v4.1/zh-cn/application-dev/reference/apis-telephony-kit/js-apis-radio.md) 等接口来展示电话服务中网络搜索功能，包含无线接入技术、网络状态、选网模式、ISO国家码、信号强度信息列表及Radio是否打开
+本示例通过[@ohos.telephony.sim](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-telephony-kit/js-apis-sim.md) 、[@ohos.telephony.radio](https://docs.openharmony.cn/pages/v6.0/zh-cn/application-dev/reference/apis-telephony-kit/js-apis-radio.md) 等接口来展示电话服务中网络搜索功能，包含无线接入技术、网络状态、选网模式、ISO国家码、信号强度信息列表及Radio是否打开
 
 ### 效果预览
 |主页|
@@ -28,11 +28,17 @@ entry/src/main/ets/
 |---entryAbility
 |---model
 |   |---Logger.ts                      // 日志工具
+|   |---NetworkStateFormatter.ts       // 网络状态格式化
 |   |---RadioStatus.ts                 // 封装网络状态方法
+|   |---RadioTechFormatter.ts          // 无线接入技术格式化
 |   |---ResultModel.ts                 // 声明数据类型
+|   |---SignalFormatter.ts             // 信号强度格式化
+|   |---SimInfoFormatter.ts            // SIM信息格式化
+|   |---SlotModel.ts                   // 卡槽与选网模式校验
 |---pages
 |   |---Index.ets                      // 首页
 ```
+
 ### 具体实现
 
 * 网络搜索功能的实现主要封装在RadioStatus，源码参考:[RadioStatus.ts](entry/src/main/ets/model/RadioStatus.ts) ，[PanelView.ets](entry/src/main/ets/common/PanelView.ets)
@@ -43,9 +49,13 @@ entry/src/main/ets/
     * 获取选网模式：getNetworkSelectionMode(this.slotId)函数来调用radio.getNetworkSelectionMode(slotId)方法来获取当前选网模式。
     * 获取ISO国家码：getISOCountryCodeForNetwork(this.slotId)函数来调用radio.getISOCountryCodeForNetwork(slotId)方法来获取注册网络所在国家的ISO国家码。
 
+### 测试
+
+本示例包含 35 个测试套件、2453 条用例，覆盖 model 目录下的格式化与校验逻辑，详见 [ohosTest.md](ohosTest.md)。
+
 ### 相关权限
 
-[ohos.permission.GET_NETWORK_INFO](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionget_network_info)
+[ohos.permission.GET_NETWORK_INFO](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionget_network_info)
 
 ### 依赖
 
@@ -57,9 +67,9 @@ entry/src/main/ets/
 
 2.本示例需要插入SIM卡，目前该功能仅支持部分机型。
 
-3.本示例已适配API version 9版本SDK，版本号：3.2.11.9。
+3.本示例为 Stage 模型，支持 API 26 版本 SDK（26.0.0），compileSdkVersion / compatibleSdkVersion 均为 26.0.0。
 
-4.本示例需要使用DevEco Studio 3.1 Beta2 (Build Version: 3.1.0.400, built on April 7, 2023)及以上版本才可编译运行。
+4.本示例需要使用 DevEco Studio 26.0.0 Release 及以上版本才可编译运行。
 
 ### 下载
 
@@ -68,7 +78,7 @@ entry/src/main/ets/
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/Telephony/RadioTech/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 
 ```

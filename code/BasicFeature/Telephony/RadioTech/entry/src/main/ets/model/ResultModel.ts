@@ -14,18 +14,17 @@
  */
 
 export class ResultModel {
-    title: string
-    value: string
+  public title: string;
+  public value: string;
 
-    constructor(title: string, value: string) {
-        this.title = title
-        this.value = value
-    }
+  constructor(title: string, value: string) {
+    this.title = title;
+    this.value = value;
+  }
 }
 
 export type SimArray = {
-    slotId: number
-    title: string
-    value: Promise<string>
-
-}
+  slotId: number;
+  title: string;
+  value: string;
+};
