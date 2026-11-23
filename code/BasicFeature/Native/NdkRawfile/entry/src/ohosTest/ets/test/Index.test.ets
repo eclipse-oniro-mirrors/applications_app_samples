@@ -25,7 +25,15 @@ const abilityDelegatorRegistry = AbilityDelegatorRegistry.getAbilityDelegator()
 
 export default function IndexTest() {
   describe('IndexTest', () => {
-    it(BUNDLE + 'StartAbility_001', 0, async () => {
+    /**
+     * @tc.number    SUB_NDKRAWFILE_LEG_0001
+     * @tc.name      StartAbility_001
+     * @tc.desc      Verify legacy case StartAbility_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('NdkRawfile_StartAbility_001', 0, async () => {
       hilog.info(DOMAIN, TAG, 'StartAbility_001 begin')
       try {
         await abilityDelegatorRegistry.startAbility({
@@ -39,7 +47,15 @@ export default function IndexTest() {
       hilog.info(DOMAIN, TAG, 'StartAbility_001 end')
     })
 
-    it(BUNDLE + 'GetFileListTest', 0, async (done: Function) => {
+    /**
+     * @tc.number    SUB_NDKRAWFILE_LEG_0002
+     * @tc.name      GetFileListTest
+     * @tc.desc      Verify legacy case GetFileListTest runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('NdkRawfile_GetFileListTest', 0, async (done: Function) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'GetFileListTest begin')
       let driver = Driver.create()
       await driver.delayMs(1000)
@@ -49,7 +65,15 @@ export default function IndexTest() {
       done()
     })
 
-    it(BUNDLE + 'GetRawFileContentTest', 0, async (done: Function) => {
+    /**
+     * @tc.number    SUB_NDKRAWFILE_LEG_0003
+     * @tc.name      GetRawFileContentTest
+     * @tc.desc      Verify legacy case GetRawFileContentTest runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('NdkRawfile_GetRawFileContentTest', 0, async (done: Function) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'GetRawFileContentTest begin')
       let driver = Driver.create()
       await driver.delayMs(1000)
@@ -59,7 +83,15 @@ export default function IndexTest() {
       done()
     })
 
-    it(BUNDLE + 'GetRawFileContentOffsetTest', 0, async (done: Function) => {
+    /**
+     * @tc.number    SUB_NDKRAWFILE_LEG_0004
+     * @tc.name      GetRawFileContentOffsetTest
+     * @tc.desc      Verify legacy case GetRawFileContentOffsetTest runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('NdkRawfile_GetRawFileContentOffsetTest', 0, async (done: Function) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'GetRawFileContentOffsetTest begin')
       let driver = Driver.create()
       await driver.delayMs(1000)
@@ -69,7 +101,15 @@ export default function IndexTest() {
       done()
     })
 
-    it(BUNDLE + 'GetRawfileDescriptorTest', 0, async (done: Function) => {
+    /**
+     * @tc.number    SUB_NDKRAWFILE_LEG_0005
+     * @tc.name      GetRawfileDescriptorTest
+     * @tc.desc      Verify legacy case GetRawfileDescriptorTest runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('NdkRawfile_GetRawfileDescriptorTest', 0, async (done: Function) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'GetRawfileDescriptorTest begin')
       let driver = Driver.create()
       await driver.delayMs(1000)
@@ -79,7 +119,15 @@ export default function IndexTest() {
       done()
     })
 
-    it(BUNDLE + 'GetRawFileContent64Test', 0, async (done: Function) => {
+    /**
+     * @tc.number    SUB_NDKRAWFILE_LEG_0006
+     * @tc.name      GetRawFileContent64Test
+     * @tc.desc      Verify legacy case GetRawFileContent64Test runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('NdkRawfile_GetRawFileContent64Test', 0, async (done: Function) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'GetRawFileContent64Test begin')
       let driver = Driver.create()
       await driver.delayMs(1000)
@@ -89,7 +137,15 @@ export default function IndexTest() {
       done()
     })
 
-    it(BUNDLE + 'GetRawFileContentOffset64Test', 0, async (done: Function) => {
+    /**
+     * @tc.number    SUB_NDKRAWFILE_LEG_0007
+     * @tc.name      GetRawFileContentOffset64Test
+     * @tc.desc      Verify legacy case GetRawFileContentOffset64Test runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('NdkRawfile_GetRawFileContentOffset64Test', 0, async (done: Function) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'GetRawFileContentOffset64Test begin')
       let driver = Driver.create()
       await driver.delayMs(1000)
@@ -99,7 +155,15 @@ export default function IndexTest() {
       done()
     })
 
-    it(BUNDLE + 'GetRawfileDescriptor64Test', 0, async (done: Function) => {
+    /**
+     * @tc.number    SUB_NDKRAWFILE_LEG_0008
+     * @tc.name      GetRawfileDescriptor64Test
+     * @tc.desc      Verify legacy case GetRawfileDescriptor64Test runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('NdkRawfile_GetRawfileDescriptor64Test', 0, async (done: Function) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'GetRawfileDescriptor64Test begin')
       let driver = Driver.create()
       await driver.delayMs(1000)
