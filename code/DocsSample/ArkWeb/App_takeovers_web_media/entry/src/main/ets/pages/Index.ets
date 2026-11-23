@@ -85,7 +85,7 @@ class NativeMediaPlayerImpl implements webview.NativeMediaPlayerBridge {
     this.nativePlayer.setVolume(volume);
   }
   setMuted(muted: boolean) {
-    // 将本地播放器静音或取消静音。
+    // 将本地播放器静音或取消静音。本示例仅记录日志。
     console.info(`NativeMediaPlayerImpl.setMuted(${muted})`);
   }
   setPlaybackRate(playbackRate: number) {
@@ -103,11 +103,11 @@ class NativeMediaPlayerImpl implements webview.NativeMediaPlayerBridge {
     this.nativePlayerInfo.destroyed();
   }
   enterFullscreen() {
-    // 将本地播放器设置为全屏播放。
+    // 将本地播放器设置为全屏播放。本示例仅记录日志。
     console.info('NativeMediaPlayerImpl.enterFullscreen');
   }
   exitFullscreen() {
-    // 将本地播放器退出全屏播放。
+    // 将本地播放器退出全屏播放。本示例仅记录日志。
     console.info('NativeMediaPlayerImpl.exitFullscreen');
   }
 }
@@ -185,9 +185,6 @@ struct NativePlayerComponent {
   @State bgColor: Color = Color.Red;
   mXComponentController: XComponentController = new XComponentController();
 
-  videoController: VideoController = new VideoController();
-  offset_x: number = 0;
-  offset_y: number = 0;
   @State video_width_percent: number = 100;
   @State video_height_percent: number = 100;
   view_width: number = 0;
@@ -195,7 +192,6 @@ struct NativePlayerComponent {
   video_width: number = 0;
   video_height: number = 0;
 
-  fullscreen: boolean = false;
   @State has_error: boolean = false;
 
   onSizeChanged(width: number, height: number) {
@@ -205,7 +201,7 @@ struct NativePlayerComponent {
     let scale: number = this.view_width / width;
     let scaledVideoHeight: number = scale * height;
     this.video_height_percent = scaledVideoHeight / this.view_height * 100;
-    console.info(`NativePlayerComponent.onSizeChanged(${width},${height}), video_height_percent[${this.video_height_percent }]`);
+    console.info(`NativePlayerComponent.onSizeChanged(${width},${height}), video_height_percent[${this.video_height_percent}]`);
   }
 
   build() {
@@ -221,7 +217,7 @@ struct NativePlayerComponent {
             }
             console.info('NativePlayerComponent.onLoad, params[' + this.params +
               '], text[' + this.params.text + '], text2[' + this.params.text2 +
-              '], web_tab[' + this.params.playerInfo + '], handler[' + this.params.handler + ']');
+              '], playerInfo[' + this.params.playerInfo + '], handler[' + this.params.handler + ']');
             // 设置渲染表面ID到播放器
             this.params.player.nativePlayer.setSurfaceID(this.mXComponentController.getXComponentSurfaceId());
 
@@ -434,8 +430,6 @@ struct WebComponent {
   // [StartExclude Enable Native_Media_Player]
   @State native_player_info_list: NativePlayerInfo[] = [];
 
-  area?: Area;
-
   // [EndExclude Enable Native_Media_Player]
   build() {
     Column() {
@@ -491,10 +485,6 @@ struct WebComponent {
           })
           .width('100%')
           .height('100%')
-          .onAreaChange((oldValue: Area, newValue: Area) => {
-            oldValue;
-            this.area = newValue;
-          })
           // [EndExclude Enable Native_Media_Player]
       }
     }

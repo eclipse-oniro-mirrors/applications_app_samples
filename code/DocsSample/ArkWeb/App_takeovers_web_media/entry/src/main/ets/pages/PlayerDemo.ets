@@ -45,7 +45,7 @@ interface CheckPlayCommandResult {
 }
 
 export class AVPlayerDemo {
-  private surfaceID: string = ''; // surfaceID用于播放画面显示，具体的值需要通过Xcomponent接口获取，相关文档链接见上面Xcomponent创建方法
+  private surfaceID: string = ''; // surfaceID用于播放画面显示，具体的值需要通过XComponent接口获取，相关文档链接见上面XComponent创建方法
 
   private avPlayer?: media.AVPlayer;
   private prepared: boolean = false;
@@ -53,10 +53,10 @@ export class AVPlayerDemo {
   private commands: PlayCommand[] = [];
 
   setSurfaceID(surfaceId: string) {
-    console.info(`AVPlayerDemo.setSurfaceID : ${surfaceId}`);
+    console.info(`AVPlayerDemo.setSurfaceID: ${surfaceId}`);
     this.surfaceID = surfaceId;
   }
-  // 注册avplayer回调函数
+  // 注册AVPlayer回调函数
   setAVPlayerCallback(avPlayer: media.AVPlayer, listener?: AVPlayerListener) {
     // seek操作结果回调函数
     avPlayer.on('seekDone', (seekDoneTime: number) => {
@@ -75,7 +75,7 @@ export class AVPlayerDemo {
           console.info('AVPlayer state idle called.');
           avPlayer.release(); // 调用release接口销毁实例对象
           break;
-        case 'initialized': // avplayer 设置播放源后触发该状态上报
+        case 'initialized': // AVPlayer设置播放源后触发该状态上报
           console.info('AVPlayer state initialized called.');
           avPlayer.surfaceId = this.surfaceID; // 设置显示画面，当播放的资源为纯音频时无需设置
           avPlayer.prepare();
@@ -112,18 +112,18 @@ export class AVPlayerDemo {
       }
     });
     avPlayer.on('durationUpdate', (duration: number) => {
-      console.info(`AVPlayer state durationUpdate success,new duration is :${duration}`);
+      console.info(`AVPlayer state durationUpdate success, new duration is ${duration}`);
       listener?.onDurationChanged(duration/1000);
     });
     avPlayer.on('timeUpdate', (time:number) => {
       listener?.onTimeUpdate(time/1000);
     });
     avPlayer.on('bufferingUpdate', (infoType: media.BufferingInfoType, value: number) => {
-      console.info(`AVPlayer state bufferingUpdate success,and infoType value is:${infoType}, value is : ${value}`);
+      console.info(`AVPlayer state bufferingUpdate success, and infoType value is ${infoType}, value is ${value}`);
       listener?.onBufferedTimeChanged(value);
     })
     avPlayer.on('videoSizeChange', (width: number, height: number) => {
-      console.info(`AVPlayer state videoSizeChange success,and width is:${width}, height is : ${height}`);
+      console.info(`AVPlayer state videoSizeChange success, and width is ${width}, height is ${height}`);
       listener?.onVideoSizeChanged(width, height);
     })
   }
