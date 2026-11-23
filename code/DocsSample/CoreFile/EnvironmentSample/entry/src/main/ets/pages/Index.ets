@@ -13,91 +13,77 @@
  * limitations under the License.
  */
 
+import { abilityAccessCtrl, common, Permissions, PermissionRequestResult } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { Environment, fileIo } from '@kit.CoreFileKit';
-import { abilityAccessCtrl, common, Permissions } from '@kit.AbilityKit';
+import { Environment } from '@kit.CoreFileKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { importDownloadFiles, writeDownloadMessage } from '../model/DownloadFiles';
 
-
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_Environment]';
 const permissions: Permissions[] = ['ohos.permission.READ_WRITE_DOWNLOAD_DIRECTORY'];
 
-
 // [Start get_user_dir_example]
-function getUserDirExample() {
+function getUserDirExample(): boolean {
   try {
-    const downloadPath = Environment.getUserDownloadDir();
-    console.info(`Succeeded in getting user download dir: ${downloadPath}`);
-    const documentsPath = Environment.getUserDocumentDir();
-    console.info(`Succeeded in getting user document dir: ${documentsPath}`);
+    const downloadPath: string = Environment.getUserDownloadDir();
+    const documentsPath: string = Environment.getUserDocumentDir();
+    hilog.info(DOMAIN, TAG, 'User directories obtained, download=%{private}s documents=%{private}s',
+      downloadPath, documentsPath);
+    return true;
   } catch (error) {
     const err: BusinessError = error as BusinessError;
-    console.error(`Failed to get user dir. Code: ${err.code}, message: ${err.message}`);
+    hilog.error(DOMAIN, TAG, 'Directory lookup failed, code=%{public}d message=%{private}s',
+      err.code ?? 0, err.message);
+    return false;
   }
 }
 // [End get_user_dir_example]
 
 // [Start read_user_download_dir_example]
-function readUserDownloadDirExample(context: common.UIAbilityContext) {
+function readUserDownloadDirExample(context: common.UIAbilityContext): boolean {
   try {
-    // 获取 Download 目录
-    const downloadPath = Environment.getUserDownloadDir();
-    console.info(`Succeeded in getting user download dir: ${downloadPath}`);
-    const dirPath = context.filesDir;
-    // 查看 Download 目录下的文件并拷贝到沙箱目录中
-    let fileList: string[] = fileIo.listFileSync(downloadPath);
-    fileList.forEach((file, index) => {
-      console.info(`${downloadPath} ${index}: ${file}`);
-      if (fileIo.statSync(`${downloadPath}/${file}`).isFile()) {
-        fileIo.copyFileSync(`${downloadPath}/${file}`, `${dirPath}/${file}`);
-      }
-    });
-    // 查看沙箱目录下对应的文件
-    fileList = fileIo.listFileSync(dirPath);
-    fileList.forEach((file, index) => {
-      console.info(`Succeeded in listing file, ${dirPath} ${index}: ${file}`);
-    });
+    const downloadPath: string = Environment.getUserDownloadDir();
+    const fileList: string[] = importDownloadFiles(downloadPath, context.filesDir);
+    hilog.info(DOMAIN, TAG, 'Download import successful, sandbox entries=%{public}d', fileList.length);
+    return true;
   } catch (error) {
     const err: BusinessError = error as BusinessError;
-    console.error(`Failed to read user download dir. Code: ${err.code}, message: ${err.message}`);
+    hilog.error(DOMAIN, TAG, 'Download import failed, code=%{public}d message=%{private}s',
+      err.code ?? 0, err.message);
+    return false;
   }
 }
 // [End read_user_download_dir_example]
 
 // [Start write_user_download_dir_example]
-function writeUserDownloadDirExample() {
-  // 检查是否具有 READ_WRITE_DOWNLOAD_DIRECTORY 权限，无权限则需要向用户申请授予权限。
+function writeUserDownloadDirExample(): boolean {
   try {
-    // 获取 Download 目录
-    const downloadPath = Environment.getUserDownloadDir();
-    console.info(`Succeeded in getting user download dir: ${downloadPath}`);
-    // 保存 temp.txt 到 Download 目录下
-    const file = fileIo.openSync(`${downloadPath}/temp.txt`, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
-    fileIo.writeSync(file.fd, 'write a message');
-    fileIo.closeSync(file);
+    const downloadPath: string = Environment.getUserDownloadDir();
+    writeDownloadMessage(downloadPath, 'write a message');
+    hilog.info(DOMAIN, TAG, 'Download write successful');
+    return true;
   } catch (error) {
     const err: BusinessError = error as BusinessError;
-    console.error(`Failed to write user download dir. Code: ${err.code}, message: ${err.message}`);
+    hilog.error(DOMAIN, TAG, 'Download write failed, code=%{public}d message=%{private}s',
+      err.code ?? 0, err.message);
+    return false;
   }
 }
 // [End write_user_download_dir_example]
 
-function reqPermissionsFromUser(permissions: Array<Permissions>, context: common.UIAbilityContext): void {
-  let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
-  // requestPermissionsFromUser会判断权限的授权状态来决定是否唤起弹窗。
-  atManager.requestPermissionsFromUser(context, permissions).then((data) => {
-    let grantStatus: number[] = data.authResults;
-    let length: number = grantStatus.length;
-    for (let i = 0; i < length; i++) {
-      if (grantStatus[i] === 0) {
-        // 用户授权，可以继续访问目标操作。
-      } else {
-        // 当用户拒绝授权时，系统应提示用户必须授予相应权限才能使用当前页面的功能，并指导用户前往系统设置开启所需权限。
-        return;
-      }
+function reqPermissionsFromUser(permissions: Permissions[], context: common.UIAbilityContext): void {
+  const atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
+  atManager.requestPermissionsFromUser(context, permissions).then((data: PermissionRequestResult): void => {
+    const granted: boolean = data.authResults.every((status: number): boolean => status === 0);
+    if (granted) {
+      hilog.info(DOMAIN, TAG, 'Download directory permission granted');
+    } else {
+      hilog.warn(DOMAIN, TAG, 'Download directory permission denied');
     }
-    // 授权成功。
-  }).catch((err: BusinessError) => {
-    console.error(`Failed to request permissions from user. Code: ${err.code}, message: ${err.message}`);
-  })
+  }).catch((err: BusinessError): void => {
+    hilog.error(DOMAIN, TAG, 'Permission request failed, code=%{public}d message=%{private}s', err.code, err.message);
+  });
 }
 
 @Entry
@@ -105,42 +91,48 @@ function reqPermissionsFromUser(permissions: Array<Permissions>, context: common
 struct Index {
   @State message: string = '';
 
-  aboutToAppear() {
+  aboutToAppear(): void {
     const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
     reqPermissionsFromUser(permissions, context);
   }
 
-  build() {
+  build(): void {
     Column() {
       TextArea({
         text: this.message,
         placeholder: '',
       })
+        .id('operationResult')
         .width('100%')
         .height('50%')
 
       Row() {
         Button($r('app.string.getUserDirExample'))
-          .onClick(() => {
-            getUserDirExample();
-            this.message += 'getUserDirExample SUCCESS' + '\n';
+          .onClick((): void => {
+            const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            const result: Resource = getUserDirExample() ?
+              $r('app.string.public_dirs_success') : $r('app.string.public_dirs_failed');
+            this.message += `${context.resourceManager.getStringSync(result.id)}\n`;
           })
       }
 
       Row() {
         Button($r('app.string.readUserDownloadDirExample'))
-          .onClick(async () => {
-            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
-            readUserDownloadDirExample(context);
-            this.message += 'readUserDownloadDirExample SUCCESS' + '\n';
+          .onClick((): void => {
+            const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            const result: Resource = readUserDownloadDirExample(context) ?
+              $r('app.string.download_import_success') : $r('app.string.download_import_failed');
+            this.message += `${context.resourceManager.getStringSync(result.id)}\n`;
           })
       }
 
       Row() {
         Button($r('app.string.writeUserDownloadDirExample'))
-          .onClick(async () => {
-            writeUserDownloadDirExample();
-            this.message += 'writeUserDownloadDirExample SUCCESS' + '\n';
+          .onClick((): void => {
+            const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            const result: Resource = writeUserDownloadDirExample() ?
+              $r('app.string.download_write_success') : $r('app.string.download_write_failed');
+            this.message += `${context.resourceManager.getStringSync(result.id)}\n`;
           })
       }
     }
