@@ -321,7 +321,7 @@ export struct Encrypt {
     let documentSaveOptions: picker.DocumentSaveOptions = new picker.DocumentSaveOptions();
     documentSaveOptions.newFileNames = ['cipherText.txt'];
     let documentPicker: picker.DocumentViewPicker = new picker.DocumentViewPicker();
-    let documentSaveResult: Array<string> = await documentPicker.save(documentSaveOptions);
+    let documentSaveResult: string[] = await documentPicker.save(documentSaveOptions);
     this.encryptedFileUri = documentSaveResult[0];
     await TextFileManager.writeTextFile(this.encryptedFileUri, this.cipherText);
   }
@@ -330,7 +330,7 @@ export struct Encrypt {
     let documentSaveOptions: picker.DocumentSaveOptions = new picker.DocumentSaveOptions();
     documentSaveOptions.newFileNames = ['aesKey.txt'];
     let documentPicker: picker.DocumentViewPicker = new picker.DocumentViewPicker();
-    let documentSaveResult: Array<string> = await documentPicker.save(documentSaveOptions);
+    let documentSaveResult: string[] = await documentPicker.save(documentSaveOptions);
     this.createKeyUri = documentSaveResult[0];
     await TextFileManager.writeTextFile(this.createKeyUri, this.keyString);
   }

@@ -284,7 +284,7 @@ export struct Sign {
     let documentSaveOptions: picker.DocumentSaveOptions = new picker.DocumentSaveOptions();
     documentSaveOptions.newFileNames = ['signText.txt'];
     let documentPicker: picker.DocumentViewPicker = new picker.DocumentViewPicker();
-    let documentSaveResult: Array<string> = await documentPicker.save(documentSaveOptions);
+    let documentSaveResult: string[] = await documentPicker.save(documentSaveOptions);
     this.signFileUri = documentSaveResult[0];
     await TextFileManager.writeTextFile(this.signFileUri, this.cipherText);
   }
@@ -294,7 +294,7 @@ export struct Sign {
     documentSaveOptions.newFileNames = ['rsaKey.txt'];
     let documentPicker: picker.DocumentViewPicker = new picker.DocumentViewPicker();
     try {
-      let documentSaveResult: Array<string> = await documentPicker.save(documentSaveOptions);
+      let documentSaveResult: string[] = await documentPicker.save(documentSaveOptions);
       this.createKeyUri = documentSaveResult[0];
       await TextFileManager.writeTextFile(this.createKeyUri, this.keyString);
     } catch (error) {

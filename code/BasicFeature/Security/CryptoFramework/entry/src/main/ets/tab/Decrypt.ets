@@ -304,7 +304,7 @@ export struct Decrypt {
     let documentSaveOptions: picker.DocumentSaveOptions = new picker.DocumentSaveOptions();
     documentSaveOptions.newFileNames = ['plainText.txt'];
     let documentPicker: picker.DocumentViewPicker = new picker.DocumentViewPicker();
-    let documentSaveResult: Array<string> = await documentPicker.save(documentSaveOptions);
+    let documentSaveResult: string[] = await documentPicker.save(documentSaveOptions);
     this.decryptedFileUri = documentSaveResult[0];
     await TextFileManager.writeTextFile(this.decryptedFileUri, this.plainText);
   }
