@@ -14,7 +14,9 @@
  */
 
 // [Start getRoutingManager]
+// [Start createAudioRenderer]
 // [Start getRendererDevices]
+// [Start onOutputDeviceChangeWithInfo]
 // [Start getDevices]
 // [Start onDeviceChange]
 // [Start getPreferOutputDeviceForRendererInfo]
@@ -27,7 +29,9 @@ import { audio } from '@kit.AudioKit';
 // [StartExclude getRoutingManager]
 // [StartExclude getSessionManager]
 import { BusinessError } from '@kit.BasicServicesKit';
+// [StartExclude createAudioRenderer]
 // [StartExclude getRendererDevices]
+// [StartExclude onOutputDeviceChangeWithInfo]
 // [StartExclude getDevices]
 // [StartExclude getPreferOutputDeviceForRendererInfo]
 // [StartExclude onDeviceChange]
@@ -42,6 +46,7 @@ import { fileIo as fs, ReadOptions } from '@kit.CoreFileKit';
 let globalLogUpdate: ((msg: string, isError: boolean) => void) | undefined;
 let globalCallbackUpdate: ((msg: string) => void) | undefined;
 
+// [EndExclude createAudioRenderer]
 let audioRenderer: audio.AudioRenderer | undefined = undefined;
 let audioStreamInfo: audio.AudioStreamInfo = {
   samplingRate: audio.AudioSamplingRate.SAMPLE_RATE_48000, // 采样率。
@@ -62,6 +67,7 @@ let audioRendererOptions: audio.AudioRendererOptions = {
   streamInfo: audioStreamInfo,
   rendererInfo: audioRendererInfo
 };
+// [StartExclude createAudioRenderer]
 let writeDataCallback: audio.AudioRendererWriteDataCallback;
 // [EndExclude getRoutingManager]
 // [EndExclude getSessionManager]
@@ -105,24 +111,32 @@ async function initArguments(context: common.UIAbilityContext) {
 
 // 初始化，创建实例，设置监听事件。
 async function init() {
+  // [EndExclude createAudioRenderer]
   // 创建AudioRenderer实例。
-  audio.createAudioRenderer(audioRendererOptions, (err, renderer) => {
+  audio.createAudioRenderer(audioRendererOptions, (err: BusinessError, renderer: audio.AudioRenderer) => {
     if (!err) {
       console.info('Succeeded in creating audio renderer.');
+      // [StartExclude createAudioRenderer]
       if (globalLogUpdate) {
         globalLogUpdate('Succeeded in creating audio renderer.', false);
       }
+      // [EndExclude createAudioRenderer]
       audioRenderer = renderer;
+      // [StartExclude createAudioRenderer]
       if (audioRenderer !== undefined) {
         audioRenderer.on('writeData', writeDataCallback);
       }
+      // [EndExclude createAudioRenderer]
     } else {
       console.error(`Failed to create audio renderer. Code: ${err.code}, message: ${err.message}`);
+      // [StartExclude createAudioRenderer]
       if (globalLogUpdate) {
         globalLogUpdate(`Failed to create audio renderer. Code: ${err.code}, message: ${err.message}`, true);
       }
+      // [EndExclude createAudioRenderer]
     }
   });
+  // [End createAudioRenderer]
 }
 
 async function start() {
@@ -177,8 +191,76 @@ async function getRendererDevices(){
         }
         // [EndExclude getRendererDevices]
       });
+  } else {
+    console.error('create audio renderer before get renderer devices');
+    // [StartExclude getRendererDevices]
+    if (globalLogUpdate) {
+      globalLogUpdate(`create audio renderer before get renderer devices`, true);
+    }
+    // [EndExclude getRendererDevices]
   }
   // [End getRendererDevices]
+}
+
+async function onOutputDeviceChangeWithInfo(){
+  // [EndExclude onOutputDeviceChangeWithInfo]
+
+  if (audioRenderer !== undefined) {
+    try {
+      audioRenderer.on('outputDeviceChangeWithInfo', (deviceChangeInfo: audio.AudioStreamDeviceChangeInfo) => {
+        console.info(
+          `Succeeded in using on function. AudioStreamDeviceChangeInfo: ${JSON.stringify(deviceChangeInfo)}`);
+        // [StartExclude onOutputDeviceChangeWithInfo]
+        if (globalCallbackUpdate) {
+          let callbackMsg = 'onOutputDeviceChangeWithInfo' + '\n';
+          callbackMsg += 'Device change reason: ' + deviceChangeInfo.changeReason + '\n';
+          callbackMsg += 'Device count: ' + deviceChangeInfo.devices.length + '\n';
+          for (let i = 0; i < deviceChangeInfo.devices.length; i++) {
+            callbackMsg += `Device ${i} - id: ${deviceChangeInfo.devices[i].id} - name: ${deviceChangeInfo.devices[i].name} - type: ${deviceChangeInfo.devices[i].deviceType}\n`;
+          }
+          globalCallbackUpdate(callbackMsg);
+        }
+        // [EndExclude onOutputDeviceChangeWithInfo]
+        switch (deviceChangeInfo.changeReason) {
+          case audio.AudioStreamDeviceChangeReason.REASON_OLD_DEVICE_UNAVAILABLE:
+            // 响应设备不可用事件，暂停播放。
+            audioRenderer?.pause();
+            break;
+          case audio.AudioStreamDeviceChangeReason.REASON_NEW_DEVICE_AVAILABLE:
+            // 根据业务情况响应设备可用事件。
+            break;
+          case audio.AudioStreamDeviceChangeReason.REASON_OVERRODE:
+            // 根据业务情况响应设备强选事件。
+            break;
+          case audio.AudioStreamDeviceChangeReason.REASON_SESSION_ACTIVATED:
+            // 根据业务情况响应audioSession激活时的输出设备信息。
+            break;
+          case audio.AudioStreamDeviceChangeReason.REASON_STREAM_PRIORITY_CHANGED:
+            // 根据业务情况响应其它更高优先级的音频流触发的设备变更事件。
+            break;
+          case audio.AudioStreamDeviceChangeReason.REASON_UNKNOWN:
+            // 根据业务情况响应未知原因事件。
+            break;
+        }
+      });
+    } catch (err) {
+      let error = err as BusinessError;
+      console.error(`Failed to use on function. Code: ${error.code}, message: ${error.message}`);
+      // [StartExclude onOutputDeviceChangeWithInfo]
+      if (globalLogUpdate) {
+        globalLogUpdate(`Failed to use on function. Code: ${error.code}, message: ${error.message}`, true);
+      }
+      // [EndExclude onOutputDeviceChangeWithInfo]
+    }
+  } else {
+    console.error(`create audio renderer before use on function`);
+    // [StartExclude onOutputDeviceChangeWithInfo]
+    if (globalLogUpdate) {
+      globalLogUpdate(`create audio renderer before use on function`, true);
+    }
+    // [EndExclude onOutputDeviceChangeWithInfo]
+  }
+  // [End onOutputDeviceChangeWithInfo]
 }
 
 async function stop() {
@@ -621,6 +703,22 @@ struct Index {
             .onClick(async (): Promise<void> => {
               await getRendererDevices();
               this.runningResult = 'Succeeded in getting renderer devices.';
+            })
+          }
+          .width('80%')
+          .height(50)
+          .justifyContent(FlexAlign.Center)
+
+          Row() {
+            Button() {
+              Text('监听音频流输出设备变化').fontSize(15).fontColor(Color.White)
+            }
+            .id('output_management_onOutputDeviceChangeWithInfo')
+            .width('80%')
+            .height(40)
+            .onClick(async (): Promise<void> => {
+              await onOutputDeviceChangeWithInfo();
+              this.runningResult = 'Register outputDeviceChangeWithInfo success.';
             })
           }
           .width('80%')
