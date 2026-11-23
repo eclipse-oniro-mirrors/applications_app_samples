@@ -20,6 +20,7 @@ export default struct Header {
   build() {
     Row() {
       Image($r('app.media.ic_back'))
+        .id('header_back')
         .width(20)
         .height(20)
         .margin({ left: 16 })
@@ -30,13 +31,16 @@ export default struct Header {
         .opacity(0.9)
         .letterSpacing(2)
         .padding({ left: 10 })
+        .id('header_title')
 
       Blank()
-      Image($r("app.media.ic_more"))
+      Image($r('app.media.ic_more'))
+        .id('header_more')
         .width(20)
         .height(20)
         .margin({ right: 16 })
     }
+    .id('header_root')
     .width('100%')
     .height(50)
     .zIndex(2)
