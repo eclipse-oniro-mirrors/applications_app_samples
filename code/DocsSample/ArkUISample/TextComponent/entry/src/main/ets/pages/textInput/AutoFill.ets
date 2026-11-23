@@ -31,6 +31,29 @@ struct AutoFill {
             .contentType(ContentType.EMAIL_ADDRESS)
           // [End auto_fill]
         }
+
+        ComponentCard({ description: $r('app.string.Auto_Fill_TextArea_description') }) {
+          // [Start auto_fill_textarea]
+          // 邮箱地址自动填充类型
+          // 请将$r('app.string.Auto_Fill_Email_PlaceHolder')替换为实际资源文件，在本示例中该资源文件的value值为"input your email..."
+          TextArea({ placeholder: $r('app.string.Auto_Fill_Email_PlaceHolder') })
+            .width('95%')
+            .height(40)
+            .margin(20)
+            .contentType(ContentType.EMAIL_ADDRESS)
+            .enableAutoFill(true)
+            .maxLength(20)
+          // 街道地址自动填充类型
+          // 请将$r('app.string.Auto_Fill_Street_PlaceHolder')替换为实际资源文件，在本示例中该资源文件的value值为"input your street address..."
+          TextArea({ placeholder: $r('app.string.Auto_Fill_Street_PlaceHolder') })
+            .width('95%')
+            .height(40)
+            .margin(20)
+            .contentType(ContentType.FULL_STREET_ADDRESS)
+            .enableAutoFill(true)
+            .maxLength(20)
+          // [End auto_fill_textarea]
+        }
       }
       .width('100%')
       .height('100%')

@@ -28,6 +28,7 @@ import { AddSymbolSpanContent } from './AddSymbolSpanContent';
 import { GetGraphicInfoInComponent } from './GetGraphicInfoInComponent';
 import { DisableSystemServiceMenu } from './DisableSystemServiceMenu';
 import { DisableMenuItem } from './DisableMenuItem';
+import { SelectedDataDetector } from './SelectedDataDetector';
 
 export const RICH_EDITOR_ROUTE_PREFIX: string = 'RichEditor';
 
@@ -89,6 +90,11 @@ const routes: Route[] = [
     name: `${RICH_EDITOR_ROUTE_PREFIX}/DisableMenuItem`,
     title: resource.resourceToString($r('app.string.Disable_Menu_Item_title')),
     description: $r('app.string.Disable_Menu_Item_title_desc')
+  },
+  {
+    name: `${RICH_EDITOR_ROUTE_PREFIX}/SelectedDataDetector`,
+    title: resource.resourceToString($r('app.string.SelectedDataDetector_title')),
+    description: $r('app.string.SelectedDataDetector_description')
   }
 ];
 
@@ -120,6 +126,8 @@ export function RichEditorDestination(name: string) {
     DisableSystemServiceMenu();
   } else if (name === routes[11].name) {
     DisableMenuItem();
+  } else if (name === routes[12].name) {
+    SelectedDataDetector();
   }
 }
 
