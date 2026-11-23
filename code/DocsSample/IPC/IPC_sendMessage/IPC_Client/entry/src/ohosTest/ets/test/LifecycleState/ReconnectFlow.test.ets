@@ -1887,5 +1887,36 @@ export default function reconnectFlow(): void {
       expect(session.isConnected()).assertTrue();
     });
 
+    /**
+     * @tc.name          reconnectFlowReconnectSendTwice
+     * @tc.desc          Two sends on the new proxy both succeed.
+     * @tc.precondition  A session reconnected with a fresh proxy.
+     * @tc.steps         1. A session reconnected with a fresh proxy.
+     *                   2. Send twice.
+     *                   3. Both results succeed and the reply is stable.
+     * @tc.expected      Both results succeed and the reply is stable.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type          FUNCTION
+     * @tc.level         LEVEL2
+     */
+    it('reconnectFlowReconnectSendTwice', 0, () => {
+      const session = createConnectedSession();
+      session.onDisconnect();
+      session.connect(99);
+      const proxy = new RemoteProxyModel(new RemoteStubModel());
+      session.onConnect(proxy);
+      const first = session.sendString('double');
+      const second = session.sendString('double');
+      expect(first.errCode).assertEqual(ERROR_NONE);
+      expect(second.errCode).assertEqual(ERROR_NONE);
+      expect(first.replyText).assertEqual(second.replyText);
+      expect(proxy.sendCalls).assertEqual(2);
+      expect(proxy.requests.length).assertEqual(2);
+      expect(proxy.stub.receivedTexts.length).assertEqual(2);
+      expect(session.events.countOf('send-ok')).assertEqual(2);
+      expect(session.lastToast()).assertEqual('sendRequest success');
+      expect(session.state).assertEqual(STATE_CONNECTED);
+    });
+
   });
 }
