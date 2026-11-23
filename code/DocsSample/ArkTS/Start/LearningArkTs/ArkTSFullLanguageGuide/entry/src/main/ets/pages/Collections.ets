@@ -412,13 +412,6 @@ for (let key of iterMap.keys()) {
 for (let value of iterMap.values()) {
   console.info(`${value}`);
 }
-
-// 不使用解构遍历，显式读取entry元素
-for (let entry of iterMap.entries()) {
-  let key: string = entry[0];
-  let value: number = entry[1];
-  console.info(`${key}: ${value}`);
-}
 // [End map_iteration]
 
 // ===== map_vs_object =====
@@ -470,7 +463,11 @@ let ages: Record<string, number> = {
   'John': 25,
   'Mary': 21
 };
-ages['John']; // 25
+
+let johnAge: number | undefined = ages['John'];  // 25
+if (johnAge !== undefined) {
+  console.info(`${johnAge}`);
+}
 // [End record_type_basic]
 
 // ===== record_type_complex =====
@@ -870,3 +867,13 @@ console.info(`${hoTotal}`);  // 6
 let readonlyTuple: readonly [number, string] = [1, 'hello'];
 // readonlyTuple[0] = 2;  // 编译错误
 // [End readonly_tuple]
+
+// ===== typed_array_basic =====
+// [Start typed_array_basic]
+let bytes: Int8Array = new Int8Array([1, 2, 3]);
+
+let firstByte: number = bytes[0];      // 读取元素：1
+let byteCount: number = bytes.length;  // 获取长度：3
+bytes[1] = 10;  // 修改元素
+console.info(`${firstByte}, ${bytes[1]}, ${byteCount}`);  // 1, 10, 3
+// [End typed_array_basic]

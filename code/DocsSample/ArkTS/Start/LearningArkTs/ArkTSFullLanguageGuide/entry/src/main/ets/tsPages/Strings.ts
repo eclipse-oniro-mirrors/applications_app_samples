@@ -48,7 +48,7 @@ let functionCall: string = `${Math.max(a, b)}`; // '20'
 let result: string = `${a > b ? 'greater' : 'less'}`;  // 'less'
 
 // 不支持复杂语句
-let invalid: string = `${if (a > b) { 'yes' }}`;  // 编译错误
+let invalid: string = `${if (a > b) { 'yes' }}`;  // 编译错误：${} 内只允许表达式，if 是语句不能作为表达式
 
 // 嵌套模板字符串
 let outer: string = `Outer: ${`Inner: ${a}`}`;  // 'Outer: Inner: 10'

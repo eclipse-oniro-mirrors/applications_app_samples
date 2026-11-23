@@ -849,8 +849,8 @@ enum CeDirection {
   Down = 1
 }
 
-let ceD: CeDirection = CeDirection.Up;
-console.info(`${ceD}`);  // 0
+let dir: CeDirection = CeDirection.Up;
+console.info(`${dir}`);  // 0
 // [End const_enum_alternative]
 
 // [Start enum_keyof_alternative]
@@ -901,14 +901,14 @@ enum AutoNumberEnum {
 }
 // [End auto_increment_numeric_enum]
 
-// ===== enum_auto_increment_rules =====
-// [Start enum_auto_increment_rules]
-enum AutoStringEnum {
+// ===== enum_string_explicit_values =====
+// [Start enum_string_explicit_values]
+enum StringEnum {
   A = 'A',
   B = 'B',
   C = 'C'
 }
-// [End enum_auto_increment_rules]
+// [End enum_string_explicit_values]
 
 // ===== enum_bidirectional_mapping =====
 // [Start enum_bidirectional_mapping]
@@ -1004,8 +1004,8 @@ const enum CeConstDirection {
   Down
 }
 
-let cedDir: CeConstDirection = CeConstDirection.Up;
-console.info(`${cedDir}`); // 0
+let constDir: CeConstDirection = CeConstDirection.Up;
+console.info(`${constDir}`); // 0
 // [End const_enum_usage]
 
 // ===== split_heterogeneous_enum =====
@@ -1029,3 +1029,32 @@ enum ConstExampleEnum {
   C = ConstExampleEnum.A + ConstExampleEnum.B // 常量：常量表达式
 }
 // [End constant_enum_members]
+
+// ===== enum_member_literal_types =====
+// [Start enum_member_literal_types]
+// 枚举成员是一种字面量类型
+enum LitDirection {
+  Left,
+  Right,
+  Up,
+  Down
+}
+
+// 将变量取值限定为具体的枚举成员
+let litUp: LitDirection.Up = LitDirection.Up;
+console.info(`${litUp}`);  // 2
+
+// 不同成员的字面量类型互不兼容
+let litDown: LitDirection.Down = LitDirection.Down;
+// litUp = litDown;  // 编译错误：类型不匹配
+
+// 枚举成员联合类型，限定参数取值范围
+type LitHorizontal = LitDirection.Left | LitDirection.Right;
+
+function moveLitHorizontal(dir: LitHorizontal): void {
+  console.info(`水平移动: ${dir}`);
+}
+
+moveLitHorizontal(LitDirection.Left);  // 水平移动: 0
+// moveLitHorizontal(LitDirection.Up);  // 编译错误：类型不匹配
+// [End enum_member_literal_types]

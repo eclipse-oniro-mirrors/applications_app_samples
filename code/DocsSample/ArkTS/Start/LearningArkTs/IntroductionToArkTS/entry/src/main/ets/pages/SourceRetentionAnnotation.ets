@@ -43,7 +43,7 @@ interface I {
 @interface Anno {}
 // 源码态注解可以在函数上使用
 @SourceAnnotation
-function func () {}
+function func() {}
 // 源码态注解可以在命名空间上使用
 @SourceAnnotation
 namespace ns {}

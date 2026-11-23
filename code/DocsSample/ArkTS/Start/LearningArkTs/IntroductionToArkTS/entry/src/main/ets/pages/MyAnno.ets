@@ -22,7 +22,7 @@ export @interface MethodAnno4 {
 }
 
 @ClassAuthor4
-class MyClass {
+export class MyClass {
   @MethodAnno4({data: 123})
   foo() {}
 
@@ -54,7 +54,7 @@ export @interface ClassAuthor5 {}
 
 // [Start annotation_interface]
 // MyAnno.ets
-export @interface NameAnno{name: string = ""} // ok
+export @interface NameAnno {name: string = ""} // ok
 // [End annotation_interface]
 
 // [Start annotation_developerGenerate_dts]
