@@ -13,21 +13,40 @@
  * limitations under the License.
  */
 
-import router from '@ohos.router'
-import contact from '@ohos.contact'
-import Logger from '../data/Logger'
+import router from '@ohos.router';
+import contact from '@ohos.contact';
+import Logger from '../data/Logger';
+import { ContactFieldExtractor } from '../utils/ContactFieldExtractor';
 
-const TAG: string = 'ContactInfo'
+const TAG: string = '[Sample_Contact]';
 
 @Preview
 @Component
 export struct ContactInfo {
-  @State contact: contact.Contact = undefined
+  @State contact: contact.Contact | undefined = undefined
 
   build() {
     Column() {
+      if (this.contact === undefined) {
+        Text();
+      } else {
+        this.buildContact(this.contact);
+      }
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor($r('app.color.index_bg'));
+  }
+
+  getFirstPhone(contactInfo: contact.Contact): string {
+    return ContactFieldExtractor.firstPhone(contactInfo);
+  }
+
+  @Builder
+  buildContact(contactInfo: contact.Contact) {
+    Column() {
       Column() {
-        Text(this.contact.name.fullName.substring(0, 1)
+        Text((contactInfo.name === undefined ? '' : contactInfo.name.fullName).substring(0, 1)
           .toUpperCase())
           .width(130)
           .height(130)
@@ -36,83 +55,83 @@ export struct ContactInfo {
           .borderRadius(100)
           .margin({ top: 62, bottom: 22 })
           .textAlign(TextAlign.Center)
-          .backgroundColor($r('app.color.user_name_color'))
+          .backgroundColor($r('app.color.user_name_color'));
 
-        Text(this.contact.name.fullName)
+        Text(contactInfo.name === undefined ? '' : contactInfo.name.fullName)
           .fontSize(32)
-          .margin({ bottom: 16 })
+          .margin({ bottom: 16 });
 
         Column() {
           Row() {
-            if (this.contact.phoneNumbers !== undefined) {
-              Text(this.contact.phoneNumbers[0].phoneNumber)
+            if (contactInfo.phoneNumbers !== undefined && contactInfo.phoneNumbers.length > 0) {
+              Text(this.getFirstPhone(contactInfo))
                 .width('50%')
                 .fontSize(22)
-                .margin({ left: 16 })
+                .margin({ left: 16 });
             } else {
               Text()
                 .width('50%')
                 .fontSize(22)
-                .margin({ left: 16 })
+                .margin({ left: 16 });
             }
 
-            Blank()
+            Blank();
 
             Image($r('app.media.phone2'))
               .width(32)
               .height(32)
               .margin({ right: 24 })
-              .objectFit(ImageFit.Contain)
+              .objectFit(ImageFit.Contain);
 
             Image($r('app.media.note'))
               .width(32)
               .height(32)
               .margin({ right: 24 })
-              .objectFit(ImageFit.Contain)
+              .objectFit(ImageFit.Contain);
           }
           .width('100%')
-          .height('50%')
+          .height('50%');
 
           Divider()
             .width('90%')
             .strokeWidth(1)
-            .color($r('app.color.color5'))
+            .color($r('app.color.color5'));
 
           Row() {
             Column() {
               Text($r('app.string.defaults'))
                 .fontSize(22)
-                .margin({ left: 16 })
+                .margin({ left: 16 });
               Text($r('app.string.phone_ring'))
                 .fontSize(20)
                 .fontColor(Color.Gray)
-                .margin({ left: 16 })
+                .margin({ left: 16 });
             }
-            .alignItems(HorizontalAlign.Start)
+            .alignItems(HorizontalAlign.Start);
 
             Blank()
-              .width('52%')
+              .width('52%');
 
             Image($r('app.media.right'))
               .width(16)
               .height(32)
-              .margin({ right: 24 })
+              .margin({ right: 24 });
           }
           .width('100%')
-          .height('50%')
+          .height('50%');
         }
         .width('90%')
         .height(178)
         .borderRadius(30)
-        .backgroundColor(Color.White)
+        .backgroundColor(Color.White);
       }
 
-      Blank()
+      Blank();
 
       Divider()
         .strokeWidth(0.65)
         .color(Color.Black)
-        .opacity(0.05)
+        .opacity(0.05);
 
       Row() {
         Column() {
@@ -120,34 +139,34 @@ export struct ContactInfo {
             .width(32)
             .height(32)
             .margin({ top: 6 })
-            .objectFit(ImageFit.Contain)
+            .objectFit(ImageFit.Contain);
 
           Text($r('app.string.editor'))
             .fontSize(14)
             .fontColor(Color.Black)
             .margin(4)
-            .borderRadius(10)
+            .borderRadius(10);
         }
         .id('editContact')
         .onClick(() => {
           router.pushUrl({
             url: 'pages/EditContact',
-            params: { data: this.contact }
-          })
+            params: { data: contactInfo }
+          });
         })
-        .layoutWeight(1)
+        .layoutWeight(1);
 
         Column() {
           Image($r('app.media.delete'))
             .width(32)
             .height(32)
             .margin({ top: 6 })
-            .objectFit(ImageFit.Contain)
+            .objectFit(ImageFit.Contain);
 
           Text($r('app.string.delete'))
             .fontSize(14)
             .fontColor(Color.Black)
-            .borderRadius(10)
+            .borderRadius(10);
         }
         .id('deleteContact')
         .onClick(async () => {
@@ -158,32 +177,33 @@ export struct ContactInfo {
               primaryButton: {
                 value: $r('app.string.confirm'),
                 action: async () => {
-                  await contact.deleteContact(this.contact.key)
+                  if (contactInfo.key !== undefined) {
+                    await contact.deleteContact(contactInfo.key);
+                  }
                   router.replaceUrl({
                     url: 'pages/Index'
-                  })
-                  router.clear()
+                  });
+                  router.clear();
                 }
               },
               secondaryButton: {
                 value: $r('app.string.cancel'),
                 action: () => {
-                  Logger.info(TAG, `AlertDialog enter`)
+                  Logger.info(TAG, `AlertDialog enter`);
                 }
               },
               cancel: () => {
-                Logger.info(TAG, `AlertDialog close`)
+                Logger.info(TAG, `AlertDialog close`);
               }
-            })
+            });
         })
-        .layoutWeight(1)
+        .layoutWeight(1);
       }
       .width('100%')
       .height('20%')
-      .margin({ bottom: 10 })
+      .margin({ bottom: 10 });
     }
     .width('100%')
-    .height('100%')
-    .backgroundColor($r('app.color.index_bg'))
+    .height('100%');
   }
 }

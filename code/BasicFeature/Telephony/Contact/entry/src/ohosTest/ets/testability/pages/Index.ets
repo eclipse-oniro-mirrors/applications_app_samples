@@ -18,7 +18,7 @@ import Logger from '../../utils/Logger';
 @Entry
 @Component
 struct Index {
-  aboutToAppear() {
+  aboutToAppear(): void {
     Logger.info('TestAbility index aboutToAppear');
   }
 
@@ -29,24 +29,24 @@ struct Index {
       Column() {
         Text(this.message)
           .fontSize(50)
-          .fontWeight(FontWeight.Bold)
+          .fontWeight(FontWeight.Bold);
         Button() {
-          Text('next page')
+          Text($r('app.string.next_page'))
             .fontSize(20)
-            .fontWeight(FontWeight.Bold)
+            .fontWeight(FontWeight.Bold);
         }
         .type(ButtonType.Capsule)
         .margin({
           top: 20
         })
-        .backgroundColor('#0D9FFB')
+        .backgroundColor($r('app.color.test_button_bg'))
         .width('35%')
         .height('5%')
         .onClick(() => {
-        })
+        });
       }
-      .width('100%')
+      .width('100%');
     }
-    .height('100%')
+    .height('100%');
   }
 }

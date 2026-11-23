@@ -19,22 +19,27 @@ import { Hypium } from '@ohos/hypium';
 import testsuite from '../test/List.test';
 import Window from '@ohos.window';
 import Logger from '../utils/Logger';
+import Want from '@ohos.app.ability.Want';
+import AbilityConstant from '@ohos.app.ability.AbilityConstant';
 
 export default class TestAbility extends UIAbility {
-  onCreate(want, launchParam) {
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     Logger.info('TestAbility onCreate');
     Logger.info(`want param: ${JSON.stringify(want)}, launchParam: ${JSON.stringify(launchParam)}`);
-    let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    let abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
+    let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+    let abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs =
+      AbilityDelegatorRegistry.getArguments();
     Logger.info('start run testcase!!!');
-    Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+    setTimeout(() => {
+      Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+    }, 2000);
   }
 
-  onDestroy() {
+  onDestroy(): void {
     Logger.info('TestAbility onDestroy');
   }
 
-  onWindowStageCreate(windowStage: Window.WindowStage) {
+  onWindowStageCreate(windowStage: Window.WindowStage): void {
     Logger.info('TestAbility onWindowStageCreate');
     windowStage.loadContent('testability/pages/Index', (err, data) => {
       if (err.code) {
@@ -45,15 +50,15 @@ export default class TestAbility extends UIAbility {
     });
   }
 
-  onWindowStageDestroy() {
+  onWindowStageDestroy(): void {
     Logger.info('TestAbility onWindowStageDestroy');
   }
 
-  onForeground() {
+  onForeground(): void {
     Logger.info('TestAbility onForeground');
   }
 
-  onBackground() {
+  onBackground(): void {
     Logger.info('TestAbility onBackground');
   }
 }

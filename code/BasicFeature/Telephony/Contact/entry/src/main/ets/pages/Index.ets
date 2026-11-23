@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { Home } from '../component/Home'
+import { Home } from '../component/Home';
 
 @Entry
 @Component
@@ -21,9 +21,9 @@ struct Index {
 
   build() {
     Column() {
-      Home()
+      Home();
     }
     .width('100%')
-    .height('100%')
+    .height('100%');
   }
 }
