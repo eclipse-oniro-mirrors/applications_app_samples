@@ -109,6 +109,11 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/BasicFeature/DeviceManagement/GeofenceCheckIn/entry/src/main/resources/base/media/foreground.png" desc="Provided by GeofenceCheckIn"/>
                 <filteritem type="filepath" name="code/BasicFeature/DeviceManagement/GeofenceCheckIn/entry/src/main/resources/base/media/startIcon.png" desc="Provided by GeofenceCheckIn"/>
                 <filteritem type="filepath" name="code/BasicFeature/DeviceManagement/GeofenceCheckIn/screenshots/main_page.png" desc="Provided by GeofenceCheckIn screenshots"/>
+                <filteritem type="filepath" name="code/DocsSample/InputKit/NDKInputEventHook/AppScope/resources/base/media/background.png" desc="Provided by NDKInputEventHook"/>
+                <filteritem type="filepath" name="code/DocsSample/InputKit/NDKInputEventHook/AppScope/resources/base/media/foreground.png" desc="Provided by NDKInputEventHook"/>
+                <filteritem type="filepath" name="code/DocsSample/InputKit/NDKInputEventHook/entry/src/main/resources/base/media/background.png" desc="Provided by NDKInputEventHook"/>
+                <filteritem type="filepath" name="code/DocsSample/InputKit/NDKInputEventHook/entry/src/main/resources/base/media/foreground.png" desc="Provided by NDKInputEventHook"/>
+                <filteritem type="filepath" name="code/DocsSample/InputKit/NDKInputEventHook/entry/src/main/resources/base/media/startIcon.png" desc="Provided by NDKInputEventHook"/>
                 <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/Index.png" desc="Provided by AudioNoiseReduction screenshots"/>
                 <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/MenuPage.png" desc="Provided by AudioNoiseReduction screenshots"/>
                 <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/NoiseReductionMain.png" desc="Provided by AudioNoiseReduction screenshots"/>
@@ -2702,6 +2707,11 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/BasicFeature/DeviceManagement/GeofenceCheckIn/entry/src/main/resources/base/media/foreground.png" desc="二进制文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/BasicFeature/DeviceManagement/GeofenceCheckIn/entry/src/main/resources/base/media/startIcon.png" desc="二进制文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/BasicFeature/DeviceManagement/GeofenceCheckIn/screenshots/main_page.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/DocsSample/InputKit/NDKInputEventHook/AppScope/resources/base/media/background.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/DocsSample/InputKit/NDKInputEventHook/AppScope/resources/base/media/foreground.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/DocsSample/InputKit/NDKInputEventHook/entry/src/main/resources/base/media/background.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/DocsSample/InputKit/NDKInputEventHook/entry/src/main/resources/base/media/foreground.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/DocsSample/InputKit/NDKInputEventHook/entry/src/main/resources/base/media/startIcon.png" desc="二进制文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/Index.png" desc="二进制文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/MenuPage.png" desc="二进制文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/NoiseReductionMain.png" desc="二进制文件，无需添加License头"/>

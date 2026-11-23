@@ -1,0 +1,36 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Event tail-end interception and redispatch sample"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Event tail-end interception and redispatch sample entry"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "NDKInputEventHook"
+    },
+    {
+      "name": "hook_input_event_reason",
+      "value": "用于在输入事件到达目标应用前进行末端拦截再分发"
+    },
+    {
+      "name": "input_placeholder",
+      "value": "input"
+    },
+    {
+      "name": "button_create_handler",
+      "value": "Create and enable event handler. Observing key/mouse/touch/axis events"
+    },
+    {
+      "name": "button_disable_handler",
+      "value": "Disable and destroy event handler"
+    },
+    {
+      "name": "native_load_failed",
+      "value": "Native plugin failed to load"
+    }
+  ]
+}
