@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 (the "License")
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -13,38 +13,83 @@
  * limitations under the License.
  */
 
-import { hilog } from '@kit.PerformanceAnalysisKit';
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+import { describe, it, expect, beforeAll, beforeEach, afterAll } from '@ohos/hypium';
+import { logSuite } from './Shared/Support';
+import {
+  STUB_DESCRIPTOR,
+  REQUEST_PAYLOAD,
+  REPLY_PAYLOAD,
+  StubRemoteObjectModel,
+  InProcessClient,
+  expectedHandled
+} from './Shared/SharedDriver';
 
-export default function abilityTest() {
-  describe('ActsAbilityTest', () => {
-    // Defines a test suite. Two parameters are supported: test suite name and test suite function.
+export default function abilityTest(): void {
+  describe('AbilityTest', () => {
     beforeAll(() => {
-      // Presets an action, which is performed only once before all test cases of the test suite start.
-      // This API supports only one parameter: preset action function.
-    })
-    beforeEach(() => {
-      // Presets an action, which is performed before each unit test case starts.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: preset action function.
-    })
-    afterEach(() => {
-      // Presets a clear action, which is performed after each unit test case ends.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: clear action function.
-    })
+      logSuite('AbilityTest', 'begin');
+    });
+    beforeEach(async () => {
+      await new Promise<void>((resolve) => { setTimeout(resolve, 1); });
+    });
     afterAll(() => {
-      // Presets a clear action, which is performed after all test cases of the test suite end.
-      // This API supports only one parameter: clear action function.
-    })
-    it('assertContain', 0, () => {
-      // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
-      hilog.info(0x0000, 'testTag', '%{public}s', 'it begin');
-      let a = 'abc';
-      let b = 'b';
-      // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
-      expect(a).assertContain(b);
-      expect(a).assertEqual(a);
-    })
-  })
+      logSuite('AbilityTest', 'end');
+    });
+
+    /**
+     * @tc.name   stubDescriptorMatchesTheProductionLiteral
+     * @tc.desc   onConnect constructs Stub('IPCStubTest').
+     * @tc.precondition  Shared driver is loaded.
+     * @tc.steps         1. Build a stub. 2. Read its descriptor.
+     *                   3. Compare with the production literal.
+     * @tc.expected      The descriptor is IPCStubTest.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type   FUNCTION
+     * @tc.level  LEVEL1
+     */
+    it('stubDescriptorMatchesTheProductionLiteral', 0, () => {
+      const stub = new StubRemoteObjectModel();
+      expect(stub.descriptor).assertEqual(STUB_DESCRIPTOR);
+      expect(STUB_DESCRIPTOR).assertEqual('IPCStubTest');
+      expect(stub.alive).assertTrue();
+    });
+
+    /**
+     * @tc.name   codeOneReadsRequestAndWritesTheReply
+     * @tc.desc   The stub reads 'hello world' and returns 'hello rpc'.
+     * @tc.precondition  A stub and an in-process client are available.
+     * @tc.steps         1. Send code 1. 2. Inspect the recorded request.
+     *                   3. Compare request and reply text.
+     * @tc.expected      The request text and reply literal match production.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type   FUNCTION
+     * @tc.level  LEVEL1
+     */
+    it('codeOneReadsRequestAndWritesTheReply', 0, () => {
+      const stub = new StubRemoteObjectModel();
+      const client = new InProcessClient(stub);
+      const result = client.send(1, REQUEST_PAYLOAD);
+      expect(result.isSuccess()).assertTrue();
+      expect(result.replyText).assertEqual(REPLY_PAYLOAD);
+      expect(stub.lastRequest()?.text).assertEqual(REQUEST_PAYLOAD);
+    });
+
+    /**
+     * @tc.name   unknownCodesAreRejectedByTheStub
+     * @tc.desc   Only code 1 is accepted by onRemoteMessageRequest.
+     * @tc.precondition  Stub oracle is available.
+     * @tc.steps         1. Evaluate code 1. 2. Evaluate several unknown codes.
+     *                   3. Compare with the oracle.
+     * @tc.expected      Only code 1 returns true.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type   FUNCTION
+     * @tc.level  LEVEL1
+     */
+    it('unknownCodesAreRejectedByTheStub', 0, () => {
+      expect(expectedHandled(1)).assertTrue();
+      expect(expectedHandled(0)).assertFalse();
+      expect(expectedHandled(2)).assertFalse();
+      expect(expectedHandled(99)).assertFalse();
+    });
+  });
 }
