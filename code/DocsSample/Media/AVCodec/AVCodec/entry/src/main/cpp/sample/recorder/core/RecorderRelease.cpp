@@ -15,6 +15,9 @@
 
 #include "Recorder.h"
 
+#include <new>
+#include <system_error>
+
 #undef LOG_TAG
 #define LOG_TAG "recorder"
 
@@ -30,19 +33,45 @@ std::string ElapsedMilliseconds(std::chrono::steady_clock::time_point started)
 }
 }
 
-void Recorder::StartRelease()
+bool Recorder::PrepareReleaseThread()
 {
-    std::lock_guard<std::mutex> lock(mutex_);
     std::lock_guard<std::mutex> releaseLock(releaseMutex_);
-    if (releaseThread_ == nullptr) {
-        // 只创建一个收尾线程，防止多个路径重复销毁codec、窗口或回调上下文。
-        AVCODEC_SAMPLE_LOGI("StartRelease: Creating release thread");
-        releaseThread_ = std::make_unique<std::thread>(&Recorder::Release, this);
+    try {
+        auto thread = std::make_unique<std::thread>();
+        const auto release = [this]() { WaitForReleaseRequest(); };
+        *thread = releaseThreadFactory_ == nullptr ? std::thread(release) : releaseThreadFactory_(release);
+        releaseThread_ = std::move(thread);
+        releaseRequested_ = false;
         releaseResult_ = AVCODEC_SAMPLE_ERR_OK;
         releaseCompleted_ = false;
-    } else {
-        AVCODEC_SAMPLE_LOGI("StartRelease: Release thread already exists");
+        return true;
+    } catch (const std::system_error &error) {
+        failure_.Record("recorder.release.thread", error.code().value(), "Start recorder release thread failed");
+    } catch (const std::bad_alloc &) {
+        failure_.Record("recorder.release.thread", AVCODEC_SAMPLE_ERR_ERROR, "Allocate recorder release thread failed");
     }
+    releaseResult_ = AVCODEC_SAMPLE_ERR_ERROR;
+    return false;
+}
+
+void Recorder::WaitForReleaseRequest()
+{
+    std::unique_lock<std::mutex> releaseLock(releaseMutex_);
+    doneCond_.wait(releaseLock, [this]() { return releaseRequested_; });
+    releaseLock.unlock();
+    Release();
+}
+
+void Recorder::StartRelease()
+{
+    {
+        std::lock_guard<std::mutex> releaseLock(releaseMutex_);
+        if (releaseCompleted_ || releaseRequested_) {
+            return;
+        }
+        releaseRequested_ = true;
+    }
+    doneCond_.notify_all();
 }
 
 void Recorder::ReleaseThread()

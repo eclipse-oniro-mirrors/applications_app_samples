@@ -256,7 +256,7 @@ int32_t Player::HandleInitError(std::unique_lock<std::mutex>& outerLock)
     if (outerLock.owns_lock()) {
         outerLock.unlock();
     }
-    StartRelease();
+    StartReleaseOrRun();
     return AVCODEC_SAMPLE_ERR_ERROR;
 }
 
@@ -594,7 +594,7 @@ void Player::CleanupAfterStartFailure(bool videoStarted)
         isReleased_ = false;
     }
     doneCond_.notify_all();
-    StartRelease();
+    StartReleaseOrRun();
 }
 
 int32_t Player::Start()
@@ -626,8 +626,15 @@ int32_t Player::Start()
         stateMachine_.BeginPause();
         diagnostics_.SetBackgroundPaused(true);
     }
+    if (!StartRelease()) {
+        failure_.Record("release.thread.start", AVCODEC_SAMPLE_ERR_ERROR, "Start playback release thread failed");
+        playbackFailed_ = true;
+        stateMachine_.BeginStop();
+        lock.unlock();
+        ReleaseWorker();
+        return AVCODEC_SAMPLE_ERR_ERROR;
+    }
     AVCODEC_SAMPLE_LOGI("Player started successfully");
-    StartRelease();
     return AVCODEC_SAMPLE_ERR_OK;
 }
 

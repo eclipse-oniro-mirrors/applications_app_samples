@@ -659,26 +659,59 @@ export class TranscodeModel {
 
   async openHistory(ui: UIContext, entry: TranscodeHistoryEntry): Promise<void> {
     const context = ui.getHostContext();
-    if (context === undefined || this.busy || this.queueRunning || this.exporting || this.picking || this.inspecting) {
+    if (context === undefined || this.busy || this.queueRunning || this.exporting || this.picking || this.inspecting ||
+      this.disposed) {
       return;
     }
     if (!TranscodeFilesModel.validId(entry.id)) { return; }
+    const directory: string = context.filesDir + '/transcodes';
+    const revision: number = this.pageRevision;
+    const recovered: boolean = entry.recovered === true;
+    const hasFile: boolean = recovered ? await this.checkRecoveredOutput(directory, entry.id) : entry.hasFile;
+    if (revision !== this.pageRevision || this.disposed) { return; }
     this.activeEntry = entry;
     this.resultSourceUri = '';
     this.status = entry.status;
-    this.resultPath = entry.hasFile ? context.filesDir + '/transcodes/' + entry.id + '.mp4' : '';
-    this.notice = entry.title;
+    this.resultPath = hasFile ? directory + '/' + entry.id + '.mp4' : '';
+    this.notice = recovered ? this.recoveryNotice(hasFile) : entry.title;
+  }
+
+  private async checkRecoveredOutput(directory: string, id: string): Promise<boolean> {
+    const sequence: number = ++this.inspectionSequence;
+    this.inspecting = true;
+    try {
+      return await TranscodeFilesModel.verifyRecoveredOutput(directory, id);
+    } catch (_error) {
+      return false;
+    } finally {
+      if (sequence === this.inspectionSequence) {
+        this.inspecting = false;
+      }
+    }
+  }
+
+  private recoveryNotice(verified: boolean): string {
+    if (MediaFileActivity.isCleanupUnconfirmed()) {
+      return LocalizedText.get($r('app.string.transcode_close_unconfirmed'));
+    }
+    return LocalizedText.get(verified ? $r('app.string.transcode_recovered_reopen') :
+      $r('app.string.transcode_recovered_invalid'));
   }
 
   async exportReport(ui: UIContext): Promise<void> {
     const context = ui.getHostContext();
     const entry: TranscodeHistoryEntry | undefined = this.activeEntry;
-    if (context === undefined || entry === undefined || this.busy || this.queueRunning || this.exporting) { return; }
+    if (context === undefined || entry === undefined || entry.recovered === true || this.busy || this.queueRunning ||
+      this.exporting) { return; }
     this.exporting = true;
     try {
       await TranscodeFilesModel.export(context, entry);
     } catch (error) {
-      this.notice = JSON.stringify(error);
+      this.notice = (error as Error).message || JSON.stringify(error);
+      if (MediaFileActivity.isCleanupUnconfirmed()) {
+        const cleanup: string = LocalizedText.get($r('app.string.transcode_close_unconfirmed'));
+        if (this.notice !== cleanup) { this.notice += ' · ' + cleanup; }
+      }
     } finally {
       this.exporting = false;
     }

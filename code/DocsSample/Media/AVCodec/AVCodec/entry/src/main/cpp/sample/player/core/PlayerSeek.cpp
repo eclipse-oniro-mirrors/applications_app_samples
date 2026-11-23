@@ -409,10 +409,12 @@ int32_t Player::SeekTo(int64_t positionUs)
     const bool hadAudio = audioDecContext_ != nullptr;
     {
         std::lock_guard<std::mutex> doneLock(doneMutex);
-        if ((hadVideo && isVideoDone.load()) || (hadAudio && isAudioDone.load())) {
-            AVCODEC_SAMPLE_LOGW("Seek rejected because an active output track has completed");
+        // 单轨先结束时，另一轨仍可播放。只有两轨都结束才把会话交给释放线程。
+        if (isVideoDone.load() && isAudioDone.load()) {
+            AVCODEC_SAMPLE_LOGW("Seek rejected because playback output has completed");
             return AVCODEC_SAMPLE_ERR_ERROR;
         }
+        CHECK_AND_RETURN_RET_LOG(stateMachine_.BeginSeek(), AVCODEC_SAMPLE_ERR_ERROR, "Failed to enter seeking state");
         seekInProgress_ = true;
     }
 
@@ -421,7 +423,6 @@ int32_t Player::SeekTo(int64_t positionUs)
     const bool forwardSeek = targetUs > currentPositionUs;
     const float speedSnapshot = speed.load();
     resumeAfterSeek_ = currentState == PLAYER_STATE_PLAYING;
-    CHECK_AND_RETURN_RET_LOG(stateMachine_.BeginSeek(), AVCODEC_SAMPLE_ERR_ERROR, "Failed to enter seeking state");
     playbackPositionUs_.store(targetUs);
     AVCODEC_SAMPLE_LOGI("Seek started, target: %{public}" PRId64 " us", targetUs);
     return RebuildPlaybackForSeek(hadVideo, hadAudio, speedSnapshot, targetUs, forwardSeek);

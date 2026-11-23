@@ -18,6 +18,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, utimesSync, writeFile
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseDeviceReport, verifyDeviceRun } from '../../scripts/DeviceVerification.mjs';
+import { DEFAULT_DEVICE_CASES } from '../../scripts/DefaultDeviceCases.mjs';
 import { runVerification } from '../../scripts/VerificationRunner.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
@@ -44,6 +45,23 @@ function testReportValidation() {
   ]) {
     assert.throws(() => parseDeviceReport(source, count, scope));
   }
+}
+
+function testDefaultCaseIdentities() {
+  const results = DEFAULT_DEVICE_CASES.map(id => {
+    const [suite, name] = id.split('#');
+    return `class=${suite}\ntest=${name}\nresult=Success\n`;
+  });
+  const count = results.length;
+  const summary = `Tests run: ${count}, Failure: 0, Error: 0, Pass: ${count}, Ignore: 0\n`;
+  const valid = results.join('') + summary;
+  assert.equal(parseDeviceReport(valid, count, '', DEFAULT_DEVICE_CASES).pass, count);
+  const [suite, name] = DEFAULT_DEVICE_CASES[0].split('#');
+  const differentCase = 'ReplacementCase';
+  const invalid = valid.replace(`test=${name}\n`, `test=${differentCase}\n`);
+  assert.throws(() => parseDeviceReport(invalid, count, '', DEFAULT_DEVICE_CASES), error =>
+    error.message.includes(`Missing: ${suite}#${name}`) &&
+    error.message.includes(`Unexpected: ${suite}#${differentCase}`));
 }
 
 async function testFreshReportOwnership() {
@@ -77,6 +95,7 @@ async function testSuccessfulProcessWithFailedAssertions() {
 }
 
 testReportValidation();
+testDefaultCaseIdentities();
 await testFreshReportOwnership();
 await testSuccessfulProcessWithFailedAssertions();
 console.info('Device verification: fresh reports, exact counts, case scope, failed assertions and timeout passed');

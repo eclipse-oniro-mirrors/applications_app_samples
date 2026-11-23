@@ -45,11 +45,16 @@ export struct TranscodeHistoryPanel {
             Text(entry.title)
               .fontSize(HISTORY_TITLE_FONT_SIZE)
               .maxLines(HISTORY_TITLE_MAX_LINES)
-            Text(`${new Date(entry.createdAt).toLocaleString()} · ${entry.configuration}`)
-              .fontSize(HINT_FONT_SIZE)
-            Text(`${(entry.status.elapsedMs / MS_PER_SECOND).toFixed(1)} s · ` +
-              `${(entry.status.fileBytes / BYTES_PER_MIB).toFixed(1)} MiB · ${entry.status.stage}`)
-              .fontSize(HINT_FONT_SIZE)
+            if (entry.recovered === true) {
+              Text($r('app.string.transcode_recovered_output')).fontSize(HINT_FONT_SIZE)
+              Text(`${(entry.status.fileBytes / BYTES_PER_MIB).toFixed(1)} MiB`).fontSize(HINT_FONT_SIZE)
+            } else {
+              Text(`${new Date(entry.createdAt).toLocaleString()} · ${entry.configuration}`)
+                .fontSize(HINT_FONT_SIZE)
+              Text(`${(entry.status.elapsedMs / MS_PER_SECOND).toFixed(1)} s · ` +
+                `${(entry.status.fileBytes / BYTES_PER_MIB).toFixed(1)} MiB · ${entry.status.stage}`)
+                .fontSize(HINT_FONT_SIZE)
+            }
           }
             .layoutWeight(1)
             .alignItems(HorizontalAlign.Start)
@@ -64,7 +69,7 @@ export struct TranscodeHistoryPanel {
         .padding(HISTORY_CARD_PADDING)
         .backgroundColor('#F2F4F7')
         .borderRadius(HISTORY_CARD_RADIUS)
-      }, (entry: TranscodeHistoryEntry): string => entry.id)
+      }, (entry: TranscodeHistoryEntry): string => entry.id + (entry.recovered === true ? '.recovered' : ''))
       if (this.history.hasMore || this.history.loading) {
         Button(this.history.loading ? $r('app.string.transcode_history_loading') :
           $r('app.string.transcode_history_more'))

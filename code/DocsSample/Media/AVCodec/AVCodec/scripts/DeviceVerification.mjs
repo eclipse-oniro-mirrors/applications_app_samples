@@ -34,7 +34,20 @@ function readCases(source) {
   return cases;
 }
 
-export function parseDeviceReport(source, expectedCount, scope = '') {
+function checkExpectedCases(actual, expected) {
+  if (!expected) {
+    return;
+  }
+  const expectedIds = new Set(expected);
+  const missing = [...expectedIds].filter(id => !actual.has(id));
+  const unexpected = [...actual].filter(id => !expectedIds.has(id));
+  if (missing.length || unexpected.length) {
+    throw new Error(`Device case identities differ. Missing: ${missing.join(', ') || 'none'}. ` +
+      `Unexpected: ${unexpected.join(', ') || 'none'}.`);
+  }
+}
+
+export function parseDeviceReport(source, expectedCount, scope = '', expectedCases) {
   if (!Number.isSafeInteger(expectedCount) || expectedCount <= 0) {
     throw new Error('Expected device case count must be a positive integer');
   }
@@ -42,7 +55,7 @@ export function parseDeviceReport(source, expectedCount, scope = '') {
   const summaries = [...source.matchAll(pattern)];
   if (summaries.length !== 1) { throw new Error('Device report must contain one complete summary'); }
   const [run, failure, error, pass, ignore] = summaries[0].slice(1).map(Number);
-  if (run !== expectedCount || run !== pass || failure !== 0 || error !== 0 || ignore !== 0) {
+  if (run !== pass || failure !== 0 || error !== 0 || ignore !== 0) {
     throw new Error(`Device assertions failed or incomplete: run=${run}, pass=${pass}, ` +
       `failure=${failure}, error=${error}, ignore=${ignore}, expected=${expectedCount}`);
   }
@@ -50,6 +63,10 @@ export function parseDeviceReport(source, expectedCount, scope = '') {
   const ids = new Set(cases.map(item => item.suite + '#' + item.name));
   if (cases.length !== run || ids.size !== run || cases.some(item => item.result !== 'Success')) {
     throw new Error('Device case results do not match the passing summary');
+  }
+  checkExpectedCases(ids, expectedCases);
+  if (run !== expectedCount) {
+    throw new Error(`Device case count differs. Expected ${expectedCount}, received ${run}.`);
   }
   const selections = scope ? scope.split(',') : [];
   if (selections.some(selection => !cases.some(item => selection === item.suite ||
@@ -62,7 +79,7 @@ export function parseDeviceReport(source, expectedCount, scope = '') {
 
 // 删除旧报告后执行本次任务；进程成功仍须逐项校验断言和报告归属。
 export async function verifyDeviceRun(options) {
-  const { reportPath, resultPath, expectedCount, scope = '', execute } = options;
+  const { reportPath, resultPath, expectedCount, scope = '', expectedCases, execute } = options;
   const started = Date.now();
   mkdirSync(path.dirname(resultPath), { recursive: true });
   const result = { status: 'running', reportPath, expectedCount, scope };
@@ -75,7 +92,7 @@ export async function verifyDeviceRun(options) {
     if (!metadata.isFile() || metadata.size === 0 || metadata.mtimeMs < started) {
       throw new Error('Device report is empty or stale: ' + reportPath);
     }
-    Object.assign(result, parseDeviceReport(readFileSync(reportPath, 'utf8'), expectedCount, scope),
+    Object.assign(result, parseDeviceReport(readFileSync(reportPath, 'utf8'), expectedCount, scope, expectedCases),
       { status: 'passed' });
     return result;
   } catch (error) {

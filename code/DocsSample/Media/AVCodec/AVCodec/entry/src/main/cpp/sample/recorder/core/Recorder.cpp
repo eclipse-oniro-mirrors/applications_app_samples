@@ -41,7 +41,6 @@ int32_t Recorder::Init(SampleInfo &sampleInfo)
     }
 
     JoinPreviousSessionThreads();
-    sessionActive_.store(true);
     sampleInfo_ = sampleInfo;
     sampleInfo_.output.sessionId = CreateCodecSessionId("recording");
     cleanupProgress_.Reset();
@@ -49,6 +48,14 @@ int32_t Recorder::Init(SampleInfo &sampleInfo)
     sessionReport_.Event("initialize.begin");
     AVCODEC_SAMPLE_LOGI("Recording session: %{public}s", sampleInfo_.output.sessionId.c_str());
     ResetSessionState();
+    // 先创建收尾线程，编码线程或回调报错后只需通知，不再尝试创建线程。
+    if (!PrepareReleaseThread()) {
+        sessionReport_.Event("initialize.end", "Release thread creation failed");
+        sessionReport_.End("initialize_failed");
+        AVCODEC_SAMPLE_LOGE("Recorder release thread creation failed");
+        return AVCODEC_SAMPLE_ERR_ERROR;
+    }
+    sessionActive_.store(true);
     AVCODEC_SAMPLE_LOGI("Init config: mime=%{public}s, size=%{public}dx%{public}d, fps=%{public}.2f, "
         "bitrate=%{public}" PRId64 ", pixelFormat=%{public}d, sync=%{public}d, outputFormat=%{public}d, "
         "audio=%{public}dHz/%{public}dch/%{public}" PRId64 "bps",

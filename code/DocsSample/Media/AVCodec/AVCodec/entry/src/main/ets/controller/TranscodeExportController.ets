@@ -16,6 +16,9 @@
 import { common } from '@kit.AbilityKit';
 import { fileIo, fileUri, picker } from '@kit.CoreFileKit';
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
+import { LocalizedText } from '../common/LocalizedText';
+import { MediaFileActivity } from '../model/MediaFileActivity';
+import { TranscodeFileCloser } from './TranscodeFileCloser';
 
 export interface TranscodeExportResult { path: string; state: string; detail: string; }
 
@@ -26,6 +29,9 @@ export class TranscodeExportController {
   async save(context: common.Context, paths: string[], gallery: boolean): Promise<void> {
     this.results = [];
     if (paths.length === 0) { return; }
+    if (MediaFileActivity.isCleanupUnconfirmed()) {
+      throw new Error(LocalizedText.get($r('app.string.transcode_close_unconfirmed')));
+    }
     let helper: photoAccessHelper.PhotoAccessHelper | undefined = undefined;
     try {
       const names: string[] = paths.map((path: string): string => path.substring(path.lastIndexOf('/') + 1));
@@ -43,10 +49,17 @@ export class TranscodeExportController {
         destinations = await new picker.DocumentViewPicker(context).save({ newFileNames: names });
       }
       for (let index: number = 0; index < paths.length; index++) {
-        if (destinations[index] === undefined) {
+        if (MediaFileActivity.isCleanupUnconfirmed()) {
+          this.results = this.results.concat([{
+            path: paths[index],
+            state: 'not_attempted',
+            detail: LocalizedText.get($r('app.string.transcode_close_unconfirmed'))
+          }]);
+        } else if (destinations[index] === undefined) {
           this.results = this.results.concat([{ path: paths[index], state: 'cancelled', detail: '' }]);
         } else {
-          await this.copy(paths[index], destinations[index]);
+          const result: TranscodeExportResult = await this.copy(paths[index], destinations[index]);
+          this.results = this.results.concat([result]);
         }
       }
     } finally {
@@ -54,19 +67,24 @@ export class TranscodeExportController {
     }
   }
 
-  private async copy(path: string, destination: string): Promise<void> {
+  private async copy(path: string, destination: string): Promise<TranscodeExportResult> {
     let target: fileIo.File | undefined = undefined;
+    let failure: string | undefined = undefined;
+    let closed: boolean = true;
     try {
       target = await fileIo.open(destination, fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.TRUNC);
       await fileIo.copyFile(path, target.fd);
-      // Close errors also make an export retryable.
-      await fileIo.close(target);
-      target = undefined;
-      this.results = this.results.concat([{ path: path, state: 'saved', detail: '' }]);
     } catch (error) {
-      this.results = this.results.concat([{ path: path, state: 'failed', detail: JSON.stringify(error) }]);
+      failure = (error as Error).message || JSON.stringify(error);
     } finally {
-      if (target !== undefined) { await fileIo.close(target).catch((): void => {}); }
+      closed = await TranscodeFileCloser.close(target);
     }
+    if (!closed) {
+      const cleanup: string = LocalizedText.get($r('app.string.transcode_close_unconfirmed'));
+      const detail: string = failure === undefined ? cleanup : failure + ' · ' + cleanup;
+      return { path: path, state: 'close_unconfirmed', detail: detail };
+    }
+    return failure === undefined ? { path: path, state: 'saved', detail: '' } :
+      { path: path, state: 'failed', detail: failure };
   }
 }
