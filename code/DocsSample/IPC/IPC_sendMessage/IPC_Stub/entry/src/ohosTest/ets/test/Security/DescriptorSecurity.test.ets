@@ -1884,5 +1884,91 @@ export default function descriptorSecurity(): void {
       logStep("descriptorSecurityBoundsSevenCharacters", String(value.length) + "@" + audit.reason);
     });
 
+    /**
+     * @tc.name          descriptorSecurityBoundsFortyNineCharacters
+     * @tc.desc          A descriptor grown to 49 characters trips the length rule at forty nine characters.
+     * @tc.precondition  The value keeps the IPC prefix and Test suffix while its length varies.
+     * @tc.steps         1. Grow the descriptor to exactly 49 characters.
+     *                   2. Check the prefix, suffix and charset predicates.
+     *                   3. Audit it against a registry containing the raw value.
+     *                   4. Compare the refusal with the policy oracle.
+     * @tc.expected      The length rule wins, the audit is refused, and the pin stage is skipped.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type          FUNCTION
+     * @tc.level         LEVEL2
+     */
+    it('descriptorSecurityBoundsFortyNineCharacters', 0, () => {
+      const value: string = buildSized(POLICY_PREFIX, POLICY_SUFFIX, 49);
+      const registry: DescriptorRegistry = new DescriptorRegistry();
+      registry.add(value);
+      const audit: DescriptorAudit = auditDescriptor(value, registry);
+      expect(value.length).assertEqual(49);
+      expect(value.startsWith(POLICY_PREFIX)).assertTrue();
+      expect(value.endsWith(POLICY_SUFFIX)).assertTrue();
+      expect(charsetOk(value)).assertTrue();
+      expect(policyReason(value)).assertEqual(REASON_LONG);
+      expect(audit.accepted).assertFalse();
+      expect(audit.reason).assertEqual(REASON_LONG);
+      expect(audit.pinned).assertFalse();
+      logStep("descriptorSecurityBoundsFortyNineCharacters", String(value.length) + "@" + audit.reason);
+    });
+
+    /**
+     * @tc.name          descriptorSecurityBoundsSixtyFourCharacters
+     * @tc.desc          A descriptor grown to 64 characters trips the length rule at sixty four characters.
+     * @tc.precondition  The value keeps the IPC prefix and Test suffix while its length varies.
+     * @tc.steps         1. Grow the descriptor to exactly 64 characters.
+     *                   2. Check the prefix, suffix and charset predicates.
+     *                   3. Audit it against a registry containing the raw value.
+     *                   4. Compare the refusal with the policy oracle.
+     * @tc.expected      The length rule wins, the audit is refused, and the pin stage is skipped.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type          FUNCTION
+     * @tc.level         LEVEL2
+     */
+    it('descriptorSecurityBoundsSixtyFourCharacters', 0, () => {
+      const value: string = buildSized(POLICY_PREFIX, POLICY_SUFFIX, 64);
+      const registry: DescriptorRegistry = new DescriptorRegistry();
+      registry.add(value);
+      const audit: DescriptorAudit = auditDescriptor(value, registry);
+      expect(value.length).assertEqual(64);
+      expect(value.startsWith(POLICY_PREFIX)).assertTrue();
+      expect(value.endsWith(POLICY_SUFFIX)).assertTrue();
+      expect(charsetOk(value)).assertTrue();
+      expect(policyReason(value)).assertEqual(REASON_LONG);
+      expect(audit.accepted).assertFalse();
+      expect(audit.reason).assertEqual(REASON_LONG);
+      expect(audit.pinned).assertFalse();
+      logStep("descriptorSecurityBoundsSixtyFourCharacters", String(value.length) + "@" + audit.reason);
+    });
+
+    /**
+     * @tc.name          descriptorSecurityBoundsNinetySixCharacters
+     * @tc.desc          A descriptor grown to 96 characters trips the length rule at ninety six characters.
+     * @tc.precondition  The value keeps the IPC prefix and Test suffix while its length varies.
+     * @tc.steps         1. Grow the descriptor to exactly 96 characters.
+     *                   2. Check the prefix, suffix and charset predicates.
+     *                   3. Audit it against a registry containing the raw value.
+     *                   4. Compare the refusal with the policy oracle.
+     * @tc.expected      The length rule wins, the audit is refused, and the pin stage is skipped.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type          FUNCTION
+     * @tc.level         LEVEL2
+     */
+    it('descriptorSecurityBoundsNinetySixCharacters', 0, () => {
+      const value: string = buildSized(POLICY_PREFIX, POLICY_SUFFIX, 96);
+      const registry: DescriptorRegistry = new DescriptorRegistry();
+      registry.add(value);
+      const audit: DescriptorAudit = auditDescriptor(value, registry);
+      expect(value.length).assertEqual(96);
+      expect(value.startsWith(POLICY_PREFIX)).assertTrue();
+      expect(value.endsWith(POLICY_SUFFIX)).assertTrue();
+      expect(charsetOk(value)).assertTrue();
+      expect(policyReason(value)).assertEqual(REASON_LONG);
+      expect(audit.accepted).assertFalse();
+      expect(audit.reason).assertEqual(REASON_LONG);
+      expect(audit.pinned).assertFalse();
+      logStep("descriptorSecurityBoundsNinetySixCharacters", String(value.length) + "@" + audit.reason);
+    });
   });
 }
