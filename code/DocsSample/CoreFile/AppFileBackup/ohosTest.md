@@ -79,7 +79,7 @@
 | 测试分片、基础/本地/SDK用例及注册 | 元数据、断言日志、显式类型和注册说明需统一 | 严格XTS检查无问题，25项运行器契约检查通过 |
 | `README_zh.md`、`.gitignore` | 下载入口及验证边界需更新，临时报告和本地配置备份不应入库 | 下载仓库改为GitCode，明确不同SDK边界，忽略.validation、_task26及本地锁文件 |
 
-本轮必须修正项已处理；没有统一重构存量Logger/Ability日志domain等建议项，没有重写系统服务会话、恢复计数或publish异步流程，不将本次传输测试表述为服务回调全面测试。保留原权限usedScene配置，本轮未验证其设备生效；没有通过修改权限绕过运行前提。
+本轮必须修正项已处理；没有统一重构存量Logger/Ability日志domain等建议项，没有重写系统服务会话、恢复计数或publish异步流程，不将本次传输测试表述为服务回调完整测试。保留原权限usedScene配置，本轮未验证其设备生效；没有通过修改权限绕过运行前提。
 
 ## 主机回归、逐例证据与源码保护
 
@@ -91,7 +91,7 @@ node host-regression.cjs
 
 - 直接转译当前`BackupFileTransfer.ets`生产源码，仅注入明确的记录端口，不复制或模拟生产传输算法。
 - `@kit.CoreFileKit`边界禁止执行实际FileIo；UI、系统服务和Native导入被拒绝。断言与hook由主机适配，不是运行了真实Hypium运行时。
-- 每例独立子进程，真实墙钟超时2000ms，首个失败/超时停止，未执行断言也失败；父进程必须同时检查报告、退出码及超时状态。
+- 每例独立子进程，真实墙钟超时2000ms，任一失败/超时即停止，未执行断言也失败；父进程必须同时检查报告、退出码及超时状态。
 - 25项契约检查覆盖同步/异步/清理的falsy抛出、beforeEach阻止正文、零断言、首错停止、主错误保全、进程隔离及真实超时。
 - 最终完整回归：780注册、780执行、780通过、0失败，16,467次实际断言，命令退出码0；本轮早先中止的回归不作为通过证据。
 - 本地 `host-regression.json` 保存逐例名称、实际断言数、耗时、退出码及运行前后entry/src SHA256；`case-catalog.json` 已生成782个元数据/操作步骤/预期断言/结果条目，780条为host-passed-not-device、2条为device-not-run，真实设备执行数为0。
@@ -109,7 +109,7 @@ node host-regression.cjs
 - SDK三版本字段为字符串26.0.0，local.properties使用E:/sdk。主包失败：当时共享SDK CoreFileKit无原功能需要的backup导出；禁止修改共享SDK，未重复同根因主包编译。
 - 测试包修复传输契约对系统backup声明的无必要依赖后成功；调用pr-review_origin并检视新增/生产差异，检视后测试包再次成功。随后补固定原始fd的输入隔离修复及3个用例，隔离修复后及检视后两次构建成功（ohosTest-isolation-build.log、ohosTest-isolation-review-build.log），第二次检视补显式类型及句柄所有权说明。
 - 当时主包仍阻塞，双目标验收不完整；测试HAP未配置签名，不代表可安装或设备通过。_task26保全工作源码、原仓基线及日志，基线哈希一致，无缺失源码，未覆盖原仓或新增签名。
-- 当时未做UI/备份服务设备验证，hdc list targets返回[Empty]，Task26登记in_progress，余项为系统SDK环境、服务回调全面测试及有效行规模。
+- 当时未做UI/备份服务设备验证，hdc list targets返回[Empty]，Task26登记in_progress，余项为系统SDK环境、服务回调完整测试及有效行规模。
 
 ### 原UI归档表（历史pass，非本轮重跑）
 
