@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,34 +14,31 @@
  */
 
 import hilog from '@ohos.hilog';
-
+/**
+* Device test logger. All suites share one domain so that a failure can be
+* traced back to this sample with a single hilog filter.
+*/
 class Logger {
-  // 日志对应的领域标识
+  // Domain id reserved for this sample's test output.
   private domain: number = 0xF811;
-  // tag日志标识
-  private prefix: string = '[Samples_AuthorizedControl]';
-  // 格式字符串，用于日志的格式化输出
+  // Prefix prepended to every log line.
+  private prefix: string = '[Sample_PublishMultimediaUpdate]';
+  // Format string shared by all severity helpers.
   private format: string = '%{public}s, %{public}s';
-
   constructor(prefix: string) {
     this.prefix = prefix;
   }
-
   debug(...args: string[]): void {
     hilog.debug(this.domain, this.prefix, this.format, args);
   }
-
   info(...args: string[]): void {
     hilog.info(this.domain, this.prefix, this.format, args);
   }
-
   warn(...args: string[]): void {
     hilog.warn(this.domain, this.prefix, this.format, args);
   }
-
   error(...args: string[]): void {
     hilog.error(this.domain, this.prefix, this.format, args);
   }
 }
-
-export default new Logger('[Samples_AuthorizedControl]');
+export default new Logger('[Sample_PublishMultimediaUpdate]');
