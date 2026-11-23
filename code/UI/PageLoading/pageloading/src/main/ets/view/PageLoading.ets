@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file pageloading/src/main/ets/view/PageLoading.ets
+ * 文件职责：PageLoading 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：PageLoadingComponent。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { CommodityList } from './CommodityList';
 import { LoadingHUD } from './LoadingHUD';
 
@@ -31,11 +38,20 @@ import { LoadingHUD } from './LoadingHUD';
 
 const MILLISECONDS: number = 5000; // 毫秒数
 
+/**
+ * PageLoadingComponent：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct PageLoadingComponent {
+  // @State isLoading：组件内部状态
   @State isLoading: Boolean = true;
+
+  // @State nowProgress：组件内部状态
   @State nowProgress: number = 0;
 
+  /**
+   * aboutToAppear：组件即将挂载时回调，用于初始化数据与订阅。
+   */
   aboutToAppear(): void {
     // 模拟网络请求操作，请求网络3秒后得到数据，通知组件，变更列表数据
     setTimeout(() => {
@@ -47,16 +63,24 @@ export struct PageLoadingComponent {
     },MILLISECONDS / 10)
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Stack：层叠布局容器
+    // 关键属性：宽度、高度、背景色
     Stack() {
       if (this.isLoading) {
         // 加载页-HUD全称Heads-Up Display（抬头显示）
-        LoadingHUD({nowProgress:this.nowProgress});
+        // LoadingHUD：LoadingHUD 自定义组件
+        LoadingHUD({nowProgress:this.nowProgress}).id('page_loading_loading_hud_1');
       } else {
         // 商品页
-        CommodityList();
+        // CommodityList：CommodityList 自定义组件
+        CommodityList().id('page_loading_commodity_list_2');
       }
     }
+    .id('pageLoadingStack')
     .width('100%')
     .height('100%')
     .backgroundColor(Color.White)
