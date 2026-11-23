@@ -54,7 +54,7 @@
 | CompletionArraySawTooth*Boundary.test.ets（Integer/Quarter/Wide） | 12 | 锯齿数组深比较 |
 | CompletionSmallArrayBoundary.test.ets | 4 | 空数组、单元素与正负零数组 |
 
-### 其他套件（28 个文件，44 例）
+### 其余套件（28 个文件，44 例）
 
 | 套件文件 | 用例数 | 覆盖内容 |
 |----------|--------|----------|
