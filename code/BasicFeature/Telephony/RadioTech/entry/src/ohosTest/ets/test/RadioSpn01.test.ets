@@ -1492,16 +1492,16 @@ export default function radioSpn01Test() {
     /**
      * @tc.name   testRadioSpn0072
      * @tc.number SUB_RADIO_SPN_0072
-     * @tc.desc   SPN 'SK Telecom' is trimmed on both sides
+     * @tc.desc   SPN 'Sample LTE' is trimmed on both sides
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testRadioSpn0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testRadioSpn0072 begin');
-      const result: string = SimInfoFormatter.formatSpn('  SK Telecom  ');
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result), String('SK Telecom'));
-      expect(result).assertEqual('SK Telecom');
+      const result: string = SimInfoFormatter.formatSpn('  Sample LTE  ');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result), String('Sample LTE'));
+      expect(result).assertEqual('Sample LTE');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result === result.trim()));
       expect(result === result.trim()).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.indexOf('\n') >= 0));

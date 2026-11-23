@@ -849,9 +849,9 @@ export default function radioNetStateOperator01Test() {
      */
     it('testRadioNetState0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testRadioNetState0041 begin');
-      const result: string = NetworkStateFormatter.formatOperator('  SK Telecom  ');
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result), String('SK Telecom'));
-      expect(result).assertEqual('SK Telecom');
+      const result: string = NetworkStateFormatter.formatOperator('  Sample LTE  ');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result), String('Sample LTE'));
+      expect(result).assertEqual('Sample LTE');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result === result.trim()));
       expect(result === result.trim()).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.length), String(10));

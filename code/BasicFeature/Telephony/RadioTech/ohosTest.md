@@ -35,7 +35,7 @@
 | RadioSignalType01.test.ets | 信号类型 0~6 映射 | SUB_RADIO_SIGNAL_0001~0080 | 80 | 枚举 |
 | RadioSignalLevel01.test.ets | 信号等级 0~4 映射 | SUB_RADIO_SIGNALLEVEL_0001~0080 | 80 | 枚举 |
 | RadioSignalFormat01.test.ets | 单信号三段格式 | SUB_RADIO_SIGNALFORMAT_0001~0080 | 80 | 功能 |
-| RadioSignalList04~05.test.ets | 列表连接、计数、最佳等级、dBm 合计 | SUB_RADIO_SIGNALLIST_0001~0160 | 160 | 组合 |
+| RadioSignalList04~05.test.ets | 列表连接、计数、等级选取、dBm 合计 | SUB_RADIO_SIGNALLIST_0001~0160 | 160 | 组合 |
 | RadioSlotValid01.test.ets | 槽位 0~3 校验与归一化 | SUB_RADIO_SLOT_0001~0080 | 80 | 边界 |
 | RadioSlotTitle01.test.ets | SIM 标题与索引还原 | SUB_RADIO_SLOTTITLE_0001~0080 | 80 | 枚举 |
 | RadioSelectionMode01.test.ets | 选网模式 0~2 映射 | SUB_RADIO_SELMODE_0001~0080 | 80 | 枚举 |
@@ -79,3 +79,4 @@ hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 | 全量 | 通过（含签名安装） | 2453 | 2453 | 0 | 0 | 2453 | 35 个套件逐套件执行，单批 27~84 例，全部通过 |
 
 首版基线曾发现 `testRadioSignalFormat0080` 用例期望长度误写（`lte/none/-113` 实为 13 字符，期望写为 12），属用例侧错误，main 代码无缺陷；修正后已重新构建、签名并全量复跑通过。
+后续词表整改将用例中的品牌运营商名替换为通用示例名（`Sample LTE`），涉及 `RadioSpn01`、`RadioSpn02`、`RadioNetStateOperator01` 三个套件；重新构建签名后增量复跑 214 条用例全部通过（Failure 0 / Error 0）。
