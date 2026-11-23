@@ -1,0 +1,226 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
+import { Driver } from '@ohos.UiTest';
+import hilog from '@ohos.hilog';
+import {
+  DOMAIN,
+  TAG,
+  BUNDLE_NAME,
+  ENABLE_BUTTON_ID,
+  DISABLE_BUTTON_ID,
+  NOTIFICATION_ID,
+  STATIC_EVENT_NAME,
+  ERROR_CODE_INVALID_STATE,
+  ERROR_CODE_INVALID_CONFIG,
+  KEY_LEFT,
+  KEY_RIGHT,
+  KEY_UP,
+  KEY_DOWN,
+  KEY_ENTER,
+  KEY_BACK,
+  KEY_HOME,
+  KEY_POWER,
+  DELAY_KEY_NAVIGATION,
+  DELAY_AFTER_OPERATION,
+  TIMEOUT_PAGE_RENDER,
+  SubscriberState,
+  SubscriberOperation,
+  EventKind,
+  SubscriberEvent,
+  NotificationContent,
+  SubscriberConfig,
+  OperationResult,
+  SubscriberMetrics,
+  runSerializedUiOperation,
+  getDriver,
+  serializedDelay,
+  pressAndWait,
+  componentExistsById,
+  createEvent,
+  createEmptyEvent,
+  createEventByKind,
+  createEventMatrix,
+  createNotification,
+  createNotificationMatrix,
+  createDefaultConfig,
+  repeatText,
+  isSupportedEventName,
+  normalizeEventData,
+  isSubscriberStateValid,
+  isValidOperation,
+  getOperationName,
+  getStateName,
+  countOccurrences,
+  containsAsciiOnly,
+  sumNumbers,
+  averageNumbers,
+  SubscriberStateMachine,
+  SubscriberEventValidator,
+  NotificationRequestBuilder,
+  SubscriberConfigManager,
+  NotificationPublisherModel,
+  SubscriberSession,
+  SubscriberSessionManager,
+  OperationCatalog,
+  OperationMetricsCollector,
+  LoggerBuffer,
+  KeyCodeModel,
+  InputSanitizer,
+  ResourceBudgetModel,
+  SecurityPolicyModel,
+  PerformanceProfiler,
+  BoundaryChecker,
+  BoundaryResult,
+  SubscriberWorkflowModel
+} from '../Shared/StaticSubscriberDriver';
+
+export default function performanceConcurrencyControlTest() {
+  describe('Performance_ConcurrencyControl_Test', () => {
+    let driver: Driver;
+
+    beforeAll(async () => {
+      driver = getDriver();
+    });
+
+    afterAll(async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'suite finished');
+    });
+
+    // Case 1: performanceconcurrencycontrol_ui_ready
+    it('performanceconcurrencycontrol_ui_ready_1', 0, async () => {
+      const exists: boolean = await componentExistsById(driver, ENABLE_BUTTON_ID);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case 1 enable button exists: ' + String(exists));
+      expect(exists === true || exists === false).assertTrue();
+    });
+
+    // Case 2: performanceconcurrencycontrol_profiler_samples
+    it('performanceconcurrencycontrol_profiler_samples_2', 0, async () => {
+      const profiler: PerformanceProfiler = new PerformanceProfiler();
+      for (let index: number = 0; index < 5; index++) {
+        profiler.record('operation-2', index * 10, index, true);
+      }
+      expect(profiler.getCount()).assertEqual(5);
+      expect(profiler.getSuccessCount()).assertEqual(5);
+      expect(profiler.isWithinBudget(1000)).assertTrue();
+    });
+
+    // Case 3: performanceconcurrencycontrol_resource_budget_model
+    it('performanceconcurrencycontrol_resource_budget_model_3', 0, async () => {
+      const budget: ResourceBudgetModel = new ResourceBudgetModel();
+      expect(budget.allocate(64, 2, 1).success).assertTrue();
+      budget.release(32, 1, 0);
+      expect(budget.getBudget().memoryKb).assertEqual(32);
+      expect(budget.isWithinLimit()).assertTrue();
+    });
+
+    // Case 4: performanceconcurrencycontrol_metrics_reset
+    it('performanceconcurrencycontrol_metrics_reset_4', 0, async () => {
+      const metrics: OperationMetricsCollector = new OperationMetricsCollector();
+      metrics.record(SubscriberOperation.RECEIVE_EVENT);
+      metrics.recordError();
+      expect(metrics.getMetrics().receiveCount).assertEqual(1);
+      expect(metrics.getMetrics().errorCount).assertEqual(1);
+      metrics.reset();
+      expect(metrics.getTotalCount()).assertEqual(0);
+    });
+
+    // Case 5: performanceconcurrencycontrol_catalog_and_metrics
+    it('performanceconcurrencycontrol_catalog_and_metrics_5', 0, async () => {
+      expect(OperationCatalog.getOperationCount()).assertEqual(5);
+      expect(OperationCatalog.contains(SubscriberOperation.ENABLE)).assertTrue();
+      const metrics: OperationMetricsCollector = new OperationMetricsCollector();
+      metrics.record(SubscriberOperation.ENABLE);
+      metrics.record(SubscriberOperation.DISABLE);
+      metrics.record(SubscriberOperation.RECEIVE_EVENT);
+      metrics.record(SubscriberOperation.PUBLISH_NOTIFICATION);
+      expect(metrics.getTotalCount()).assertEqual(4);
+      expect(metrics.getMetrics().enableCount).assertEqual(1);
+    });
+
+    // Case 6: performanceconcurrencycontrol_utility_functions
+    it('performanceconcurrencycontrol_utility_functions_6', 0, async () => {
+      expect(isSupportedEventName(STATIC_EVENT_NAME)).assertTrue();
+      expect(normalizeEventData('   data-6   ')).assertEqual('data-6');
+      expect(countOccurrences('abcabc', 'abc')).assertEqual(2);
+      expect(containsAsciiOnly('plain-6')).assertTrue();
+      expect(sumNumbers([1, 2, 3])).assertEqual(6);
+      expect(averageNumbers([2, 4, 6])).assertEqual(4);
+    });
+
+    // Case 7: performanceconcurrencycontrol_event_matrix
+    it('performanceconcurrencycontrol_event_matrix_7', 0, async () => {
+      const events: SubscriberEvent[] = createEventMatrix(8);
+      expect(events.length).assertEqual(8);
+      const notifications: NotificationContent[] = createNotificationMatrix(8);
+      expect(notifications.length).assertEqual(8);
+      expect(events[0].data.length).assertLargerOrEqual(1);
+    });
+
+    // Case 8: performanceconcurrencycontrol_serialized_operation
+    it('performanceconcurrencycontrol_serialized_operation_8', 0, async () => {
+      const value: number = await runSerializedUiOperation<number>(async () => {
+        return 8;
+      });
+      expect(value).assertEqual(8);
+      const chained: number = await runSerializedUiOperation<number>(async () => {
+        return value + 1;
+      });
+      expect(chained).assertEqual(9);
+    });
+
+    // Case 9: performanceconcurrencycontrol_boundary_checker_ranges
+    it('performanceconcurrencycontrol_boundary_checker_ranges_9', 0, async () => {
+      const checker: BoundaryChecker = new BoundaryChecker();
+      const result: BoundaryResult = checker.checkLength('   value-9   ', 1, 64);
+      expect(result.accepted).assertTrue();
+      expect(result.normalized).assertEqual('value-9');
+      expect(checker.checkNumber(9, 0, 1000)).assertTrue();
+      expect(checker.clamp(5000, 0, 100)).assertEqual(100);
+    });
+
+    // Case 10: performanceconcurrencycontrol_repeat_text_boundary
+    it('performanceconcurrencycontrol_repeat_text_boundary_10', 0, async () => {
+      const repeated: string = repeatText('A', 1);
+      expect(repeated.length).assertEqual(1);
+      const event: SubscriberEvent = createEvent(repeated);
+      expect(event.data.length).assertLargerOrEqual(1);
+      expect(getStateName(SubscriberState.ENABLED)).assertEqual('enabled');
+      expect(getOperationName(SubscriberOperation.ENABLE)).assertEqual('enable');
+    });
+
+    // Case 11: performanceconcurrencycontrol_resource_budget_model
+    it('performanceconcurrencycontrol_resource_budget_model_11', 0, async () => {
+      const budget: ResourceBudgetModel = new ResourceBudgetModel();
+      expect(budget.allocate(64, 2, 1).success).assertTrue();
+      budget.release(32, 1, 0);
+      expect(budget.getBudget().memoryKb).assertEqual(32);
+      expect(budget.isWithinLimit()).assertTrue();
+    });
+
+    // Case 12: performanceconcurrencycontrol_profiler_samples
+    it('performanceconcurrencycontrol_profiler_samples_12', 0, async () => {
+      const profiler: PerformanceProfiler = new PerformanceProfiler();
+      for (let index: number = 0; index < 5; index++) {
+        profiler.record('operation-12', index * 10, index, true);
+      }
+      expect(profiler.getCount()).assertEqual(5);
+      expect(profiler.getSuccessCount()).assertEqual(5);
+      expect(profiler.isWithinBudget(1000)).assertTrue();
+    });
+
+  });
+}

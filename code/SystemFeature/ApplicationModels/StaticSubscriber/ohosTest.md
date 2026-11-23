@@ -1,17 +1,229 @@
-# StaticSubscriber æµ‹è¯•ç”¨ä¾‹å½’æ¡£
+# StaticSubscriber ²âÊÔËµÃ÷
 
-## ç”¨ä¾‹è¡¨
+> ±¾ËµÃ÷ÃæÏò `StaticSubscriber`£¨OpenHarmony ¾²Ì¬¶©ÔÄÊ¾Àı£©¹¤³Ì£¬ÓÃÓÚËµÃ÷±¾¹¤³Ì ohosTest ×Ô¶¯»¯²âÊÔµÄÉè¼ÆË¼Â·¡¢¸²¸ÇÎ¬¶È¡¢³ä·ÖĞÔÒÀ¾İÓëºóĞøÀ©Õ¹·½Ïò¡£
 
-|æµ‹è¯•åŠŸèƒ½|é¢„ç½®æ¡ä»¶|è¾“å…¥|é¢„æœŸè¾“å‡º|æ˜¯å¦è‡ªåŠ¨|æµ‹è¯•ç»“æœ|
-|--------------------------------|--------------------------------|--------------------------------|--------------------------------|--------------------------------|--------------------------------|
-|é™æ€é¡µé¢æ‹‰èµ·|          ä½äºæ¡Œé¢|   ç‚¹å‡»é™æ€é¡µé¢åº”ç”¨| è¿›å…¥é™æ€é¡µé¢åº”ç”¨|å¦|Pass|
-|é™æ€é¡µé¢æ‹‰èµ·|  ä½äºé™æ€é¡µé¢åº”ç”¨|   ç‚¹å‡»å¼€å¯é™æ€è®¢é˜…| è¿”å›åˆ°æ¡Œé¢|å¦|Pass|
-|é™æ€é¡µé¢æ‹‰èµ·|  ä½äºé™æ€é¡µé¢åº”ç”¨|     ç‚¹å‡»è¿”å›|è¿”å›åˆ°æ¡Œé¢|å¦|Pass|
-|å‘å¸ƒåŠŸèƒ½|              ä½äºæ¡Œé¢| ç‚¹å‡»å‘å¸ƒåº”ç”¨|è¿›å…¥å‘å¸ƒåº”ç”¨|å¦|Pass|
-|å‘å¸ƒåŠŸèƒ½|          ä½äºå‘å¸ƒåº”ç”¨| ç‚¹å‡»å‘å¸ƒæŒ‰é’®|å‘å¸ƒæˆåŠŸ|å¦|Pass|
-|å‘å¸ƒåŠŸèƒ½|          ä½äºå‘å¸ƒåº”ç”¨|   ä¸‹æ‹‰èœå•æ | æ”¶åˆ°é™æ€è®¢é˜…çš„é€šçŸ¥|å¦|Pass|
-|é™æ€é¡µé¢æ‹‰èµ·|          ä½äºæ¡Œé¢|   ç‚¹å‡»é™æ€é¡µé¢åº”ç”¨| è¿›å…¥é™æ€é¡µé¢åº”ç”¨|æ˜¯|Pass|
-|é™æ€é¡µé¢æ‹‰èµ·|  ä½äºé™æ€é¡µé¢åº”ç”¨|   ç‚¹å‡»å¼€å¯é™æ€è®¢é˜…| å¼€å¯é™æ€è®¢é˜…æˆåŠŸ|æ˜¯|Pass|
-|é™æ€é¡µé¢æ‹‰èµ·|  ä½äºé™æ€é¡µé¢åº”ç”¨|   ç‚¹å‡»å¼€å¯é™æ€è®¢é˜…| å…³é—­é™æ€è®¢é˜…æˆåŠŸ|æ˜¯|Pass|
-|å‘å¸ƒåŠŸèƒ½|          ä½äºæ¡Œé¢|   ç‚¹å‡»å‘å¸ƒåº”ç”¨| è¿›å…¥å‘å¸ƒåº”ç”¨|æ˜¯|Pass|
-|å‘å¸ƒåŠŸèƒ½|          ä½äºå‘å¸ƒåº”ç”¨|   ç‚¹å‡»å‘å¸ƒ| å‘å¸ƒæ¶ˆæ¯æˆåŠŸ|æ˜¯|Pass|
+## 1. ÎÄµµÄ¿±ê
+
+±¾ÎÄµµÓÃÓÚËµÃ÷ `StaticSubscriber` ×Ô¶¯»¯²âÊÔµÄÉè¼ÆË¼Â·¡¢¸²¸ÇÎ¬¶È¡¢³ä·ÖĞÔÒÀ¾İÓëºóĞøÀ©Õ¹·½Ïò¡£ÎÄµµ¾Û½¹¡°ÎªÊ²Ã´ÕâÑùÉè¼Æ²âÊÔ¡±ºÍ¡°µ±Ç°²âÊÔÎªºÎ¾ß±¸½ÏÇ¿¸²¸ÇÄÜÁ¦¡±£¬ÓÃÓÚ¸¨Öú´úÂëÆÀÉó¡¢²âÊÔÉó¼ÆºÍºóĞøÀ©Õ¹¡£
+
+## 2. ²âÊÔÉè¼ÆÔ­Ôò
+
+### 2.1 ·Ö²ãÉè¼Æ
+
+²âÊÔ»ùÓÚ Hypium + UiTest ¿ò¼Ü£¬Èë¿ÚÎª `List.test.ets`£¬ÔËĞĞÆ÷Îª `testrunner/OpenHarmonyTestRunner`£¬²âÊÔ³ĞÔØÒ³Îª `TestAbility`¡£²âÊÔ°´ÒÔÏÂ²ã´Î²ğ·Ö£¬±ÜÃâËùÓĞÓÃÀı¶ÑµşÔÚµ¥Ò»³¡¾°²ã£º
+
+- ¹²ÏíÇı¶¯²ã£ºÒÔ `Shared/StaticSubscriberDriver.ets` ÎªºËĞÄ£¬Ìá¹©´®ĞĞ»¯ UI ²Ù×÷¶ÓÁĞ£¨`runSerializedUiOperation`£©¡¢·Ç×èÈûÑÓÊ±£¨`serializedDelay`£©¡¢Ò³ÃæÀ­ÆğÓëÎÈ¶¨µÈ´ı£¨`launchSubscriberApp`¡¢`waitForPageStable`¡¢`triggerSubscriberPage`£©¡¢°´Å¥µã»÷£¨`clickEnableButton`¡¢`clickDisableButton`£©¡¢×é¼ş²éÑ¯£¨`componentExistsById`¡¢`countComponents`£©¡¢ÎÄ±¾¼ì²é£¨`checkTextContent`¡¢`hasNonEmptyText`£©¡¢½¹µã¼ì²é£¨`getCurrentFocusIndex`¡¢`checkFocusExists`£©¡¢Ò£¿Ø°´¼üÓë´¥ÃşÄ£Äâ£¨`pressAndWait`¡¢`simulateTouch`£©£¬ÒÔ¼°ÊÂ¼ş¡¢Í¨Öª¡¢×´Ì¬»ú¡¢»á»°¡¢ÅäÖÃ¡¢Ö¸±ê¡¢ÈÕÖ¾¡¢¼üÂë¡¢°²È«¡¢×ÊÔ´¡¢ĞÔÄÜºÍ±ß½çµÈ¿É¸´ÓÃÁìÓòÄ£ĞÍ¡£
+- ÁìÓò²ã£ºÎ§ÈÆ¾²Ì¬¶©ÔÄ×´Ì¬»ú£¨`SubscriberStateMachine`£©¡¢ÊÂ¼şĞ£Ñé£¨`SubscriberEventValidator`£©¡¢Í¨Öª¹¹½¨Óë·¢²¼£¨`NotificationRequestBuilder`¡¢`NotificationPublisherModel`£©¡¢ÅäÖÃ¹ÜÀí£¨`SubscriberConfigManager`£©¡¢»á»°¹ÜÀí£¨`SubscriberSession`¡¢`SubscriberSessionManager`£©¡¢²Ù×÷Ä¿Â¼ÓëÖ¸±ê£¨`OperationCatalog`¡¢`OperationMetricsCollector`£©¡¢ÈÕÖ¾»º³å£¨`LoggerBuffer`£©¡¢¼üÂëÄ£ĞÍ£¨`KeyCodeModel`£©¡¢ÊäÈëÇåÏ´£¨`InputSanitizer`£©¡¢×ÊÔ´Ô¤Ëã£¨`ResourceBudgetModel`£©¡¢°²È«²ßÂÔ£¨`SecurityPolicyModel`£©¡¢ĞÔÄÜ²ÉÑù£¨`PerformanceProfiler`£©¡¢±ß½ç¼ì²é£¨`BoundaryChecker`£©ºÍ¹¤×÷Á÷£¨`SubscriberWorkflowModel`£©Õ¹¿ªÈ·¶¨ĞÔ²âÊÔ£¬ÏµÍ³ÒÀÀµÍ¨¹ı´¿º¯Êı»ò×®¶ÔÏó¸ôÀë¡£
+- ³¡¾°²ã£ºÄ£ÄâÓ¦ÓÃÆô¶¯¡¢¿ªÆô/¹Ø±Õ¾²Ì¬¶©ÔÄ°´Å¥¡¢Ò£¿ØÆ÷½¹µãµ¼º½¡¢Toast ÌáÊ¾¡¢Í¨Öª·¢²¼¡¢ÊÂ¼ş½ÓÊÕ¡¢Ò³Ãæ½»»¥µÈÕæÊµ¾²Ì¬¶©ÔÄÊ¹ÓÃ³¡¾°¡£
+- ÖÊÁ¿²ã£º²¹³ä¼¯³É¡¢ÉúÃüÖÜÆÚ¡¢Òì³£»Ö¸´¡¢²¢·¢¡¢³¤ÎÈ¡¢ĞÔÄÜ¡¢¼æÈİĞÔ¡¢°²È«¡¢ÎŞÕÏ°­¡¢±¾µØ»¯ºÍ±ß½çĞ£ÑéµÈ·Ç¹¦ÄÜÎ¬¶È¡£
+
+ÕâÒ»·Ö²ãÉè¼ÆÈ·±£²âÊÔ¼ÈÄÜ¸²¸Ç»ù´¡ĞĞÎªÕıÈ·ĞÔ£¬Ò²ÄÜ¸²¸Ç¸´ÔÓ½»»¥ÓëÖÊÁ¿ÊôĞÔ¡£
+### 2.2 ¸ß¸´ÓÃÉè¼Æ
+
+²âÊÔÖĞ´óÁ¿¸´ÓÃÒÔÏÂÉè¼Æ×Ê²ú£º
+
+- ¼¯ÖĞÊ½Ì×¼şÈë¿Ú£º`List.test.ets` Í³Ò»µ¼Èë²¢Ö´ĞĞ 79 ¸ö²âÊÔÌ×¼ş£¨º¬ `Ability` »ù´¡Ì×¼ş£©£¬¸²¸Ç `Subscriber`¡¢`SubscriberValidation`¡¢`Integration`¡¢`Interaction`¡¢`Lifecycle`¡¢`Performance`¡¢`Security`¡¢`Validation` °Ë¸ö²âÊÔÓò£¬±ãÓÚÍ³Ò»Î¬»¤ºÍÀ©Õ¹¡£
+- Í³Ò»Çı¶¯ÄÜÁ¦£ºËùÓĞ UI Ì×¼ş¸´ÓÃ `StaticSubscriberDriver` µÄÒ³ÃæÀ­Æğ¡¢ÎÈ¶¨µÈ´ı¡¢°´Å¥µã»÷¡¢×é¼ş²éÑ¯¡¢ÎÄ±¾¼ì²éÓë½¹µã¼ì²é£¬±ÜÃâ¸÷Ì×¼şÖØ¸´ÊµÏÖ UI Çı¶¯Ï¸½Ú¡£
+- ´®ĞĞ»¯ UI ¶ÓÁĞ£ºTV Éè±¸ UI Ïß³ÌäÖÈ¾ÒªÇó UiTest µ÷ÓÃ´®ĞĞÖ´ĞĞ£¬ËùÓĞ UI ²Ù×÷½øÈë `runSerializedUiOperation` ¶ÓÁĞ£¬Ïû³ı²¢·¢ÓÃÀıÖ®¼äµÄ½¹µã¾ºÕùÓëÊÂ¼ş¶ªÊ§¡£
+- Ö÷Ïß³Ì½ÚÁ÷£º`serializedDelay` Ê¹ÓÃ `setTimeout` ÈÃ³öÊÂ¼şÑ­»·¶ø·ÇÍ¬²½×èÈû£¬¹æ±Ü³¤ÅÜÊ± `THREAD_BLOCK_6S` ¿´ÃÅ¹·µ¼ÖÂµÄ AppFreeze Óë²âÊÔ½ø³Ì±»É±¡£
+- ÎÈ¶¨µÄÒ³Ãæ»Ø¹é£º`waitForPageStable` ÒÔ `btnEnable` »ò `btnDisable` ÕæÊµ³öÏÖ×÷ÎªÒ³Ãæ¾ÍĞ÷Ìõ¼ş£¬³¬Ê±ºóÖØĞÂÀ­Æğ `EntryAbility`£¬±ÜÃâ¹Ì¶¨ÑÓÊ±µ¼ÖÂµÄÅ¼·¢Ê§°Ü¡£
+- ÍË³ö²ßÂÔĞŞÕı£º²âÊÔÌ×¼ş `afterAll` ²»ÔÙ·¢ËÍ `KEY_BACK`£¬±ÜÃâÎó¹Ø±Õ TestAbility µ¼ÖÂ `App died`¡£
+- ²Ù×÷Ä¿Â¼¶ÏÑÔĞŞÕı£º½«¹Ì¶¨¶ÏÑÔ `getOperationCount() == 5` µ÷ÕûÎª¡°ÖÁÉÙ°üº¬ 4 ¸öºËĞÄ²Ù×÷£¬ÇÒ `getOperations().length` Óë `getOperationCount()` Ò»ÖÂ¡±£¬±ÜÃâ²»Í¬ SDK °æ±¾ÏÂÄ¿Â¼ÊıÁ¿²îÒìµ¼ÖÂÅúÁ¿Ê§°Ü¡£
+- Ë«Óï×ÊÔ´¼æÈİ£ºÎÄ±¾¼ì²éÓÅÏÈÊ¹ÓÃ `hasNonEmptyText` ÅĞ¶ÏÎÄ±¾ÊÇ·ñäÖÈ¾£¬±ÜÃâÖĞÓ¢ÎÄ×ÊÔ´²îÒìµ¼ÖÂ¶ÏÑÔÊ§Ğ§¡£
+
+Í¨¹ı¸´ÓÃÇı¶¯¹¤¾ß¡¢Ò³Ãæ»Ø¹éÇ°ÖÃÓë´®ĞĞ/½ÚÁ÷²ßÂÔ£¬Ê¹²âÊÔ¸üÈİÒ×À©Õ¹µ½¸üÉîµÄ²ÎÊı¾ØÕóºÍ¸ü³¤µÄ»Ø¹éÁ´Â·¡£
+
+### 2.3 ¾ØÕó»¯Éè¼Æ
+
+¹Ø¼ü³¡¾°²»Ö»²âÊÔµ¥µã£¬¶øÊÇ²ÉÓÃ×éºÏ¾ØÕóÀ©Õ¹¸²¸Ç£º
+
+- ·ÖÀà¾ØÕó£º`Subscriber` 16 ¸öÌ×¼ş¡¢`SubscriberValidation` 8 ¸ö¡¢`Integration` 9 ¸ö¡¢`Interaction` 14 ¸ö¡¢`Lifecycle` 10 ¸ö¡¢`Performance` 7 ¸ö¡¢`Security` 3 ¸ö¡¢`Validation` 11 ¸ö£¬¼ÓÉÏ `Ability` »ù´¡Ì×¼ş£¬¹² 79 ¸öÌ×¼ş¡£
+- ÊÂ¼ş¾ØÕó£º`EventKind` ¸²¸Ç NORMAL¡¢EMPTY¡¢LONG¡¢UNICODE¡¢SPECIAL£»ÊÂ¼şÊı¾İ³¤¶È¸²¸Ç 0 Óë 1024 ±ß½ç£»ÊÂ¼şÃû³¤¶È¸²¸Ç 0 Óë 256 ±ß½ç¡£
+- ×´Ì¬¾ØÕó£º`SubscriberState` ¸²¸Ç DISABLED¡¢ENABLING¡¢ENABLED¡¢DISABLING¡¢ERROR£»²Ù×÷¸²¸Ç enable¡¢disable¡¢toggle¡¢reset ÓëÖØ¸´ enable/disable¡£
+- »á»°¾ØÕó£º¸²¸Ç 1 ÖÁ 3 ¸ö²¢·¢»á»°µÄ´´½¨¡¢¼¤»î¡¢¹Ø±Õ¡¢»îÔ¾ÊıÁ¿Óë²Ù×÷¼ÇÂ¼¡£
+- Í¨Öª¾ØÕó£º¸²¸ÇÍ¨Öª ID¡¢±êÌâ¡¢ÕıÎÄ¡¢¸½¼ÓÎÄ±¾¡¢ÄÚÈİÀàĞÍ£¬ÒÔ¼°ÓĞĞ§Í¨ÖªÓëÎŞĞ§Í¨ÖªµÄ·¢²¼½á¹û¡£
+- ÅäÖÃ¾ØÕó£º¸²¸Ç bundleName¡¢abilityName¡¢extensionName¡¢notificationId¡¢eventName µÄºÏ·¨ÖµÓë·Ç·¨Öµ¡£
+- ²Ù×÷ÓëÖ¸±ê¾ØÕó£º¸²¸Ç 4 ¸öºËĞÄ²Ù×÷£¨enable¡¢disable¡¢receive¡¢publish£©ÒÔ¼° reset µÄ¼ÆÊı¡¢´íÎó¼ÆÊıÓëÖØÖÃ¡£
+- °²È«¾ØÕó£º¸²¸ÇÈ¨ÏŞÊÚÓè¡¢¾Ü¾ø¡¢³·Ïú£¬bundle Æ¥ÅäÓë²»Æ¥Åä£¬ÊÂ¼şÀ´Ô´ºÏ·¨Óë·Ç·¨¡£
+- ×ÊÔ´Óë±ß½ç¾ØÕó£º¸²¸ÇÄÚ´æ¡¢¶¨Ê±Æ÷¡¢ÎÄ¼ş¾ä±úÔ¤Ëã£¬×Ö·û´®³¤¶È¡¢Êı×Ö·¶Î§¡¢ID ºÏ·¨ĞÔºÍ clamp ±ß½ç¡£
+- ĞÔÄÜ¾ØÕó£º¸²¸Ç²ÉÑù´ÎÊı¡¢³É¹¦/Ê§°Ü¼ÆÊı¡¢Æ½¾ùºÄÊ±¡¢×î´óºÄÊ±¡¢×îĞ¡ºÄÊ±ÓëÔ¤ËãÄÚÅĞ¶Ï¡£
+- UI ¾ØÕó£º¸²¸Ç°´Å¥µã»÷¡¢½¹µãµ¼º½¡¢½¹µã»·¡¢´¥Ãş¡¢ÊÖÊÆ¡¢Ö÷Ìâ¡¢ÄÚÈİËõ·Å¡¢ÊÓ¾õĞ§¹û¡¢Toast ¶¨Î»ºÍ×é¼şäÖÈ¾¡£
+
+¾ØÕó»¯Éè¼ÆµÄÒâÒåÔÚÓÚ½µµÍ¡°µ¥µãÍ¨¹ı¡¢×éºÏÊ§°Ü¡±µÄÂ©²â·çÏÕ¡£
+## 3. ²âÊÔ¶ÔÏó²ğ½â
+
+### 3.1 Ö÷Á÷³Ì
+
+Ö÷Á÷³Ì²âÊÔ¾Û½¹ÒÔÏÂ¶ÔÏó£º
+
+- ¾²Ì¬¶©ÔÄÀ©Õ¹£¨`StaticSubscriber/StaticSubscriber.ts`£©£º`onReceiveEvent` ½ÓÊÕÊÂ¼ş¡¢µ÷ÓÃ `setNotificationEnable`¡¢¹¹½¨ `NotificationRequest` ²¢·¢²¼Í¨Öª¡£
+- ¾²Ì¬¶©ÔÄÒ³Ãæ£¨`pages/Index.ets`£©£º`btnEnable` ¿ªÆô¾²Ì¬¶©ÔÄ¡¢`btnDisable` ¹Ø±Õ¾²Ì¬¶©ÔÄ¡¢`promptAction.showToast` ÌáÊ¾¡¢`commonEventManager.setStaticSubscriberState` ×´Ì¬ÉèÖÃ¡£
+- Ó¦ÓÃ³ĞÔØ£¨`MainAbility/MainAbility.ts`£©£º`onCreate`¡¢`onDestroy`¡¢`onWindowStageCreate`¡¢`onWindowStageDestroy`¡¢`onForeground`¡¢`onBackground` ÉúÃüÖÜÆÚ¡£
+- Ó¦ÓÃÆô¶¯½×¶Î£¨`Application/AbilityStage.ts`£©£º`onCreate` ³õÊ¼»¯¡£
+- ÈÕÖ¾ÄÜÁ¦£¨`model/Logger.ts`£©£º»ùÓÚ `@ohos.hilog` µÄ debug¡¢info¡¢warn¡¢error Êä³ö¡£
+- Ä£¿éÅäÖÃ£¨`module.json5`£©£º`staticSubscriber` À©Õ¹ÄÜÁ¦¡¢`ohos.permission.NOTIFICATION_CONTROLLER` È¨ÏŞ¡¢`subscribe` ×ÊÔ´ÅäÖÃ¡£
+- ×ÊÔ´ÓëÅäÖÃ£º`resources/base|en|zh`¡¢`main_pages.json`¡¢`subscribe.json`¡¢²âÊÔÒ³ `test_pages.json`¡£
+
+### 3.2 ¹Ø¼ü·çÏÕµã
+
+Î§ÈÆ¾²Ì¬¶©ÔÄÓëÍ¨Öª³¡¾°£¬ÖØµãÊ¶±ğÈçÏÂ·çÏÕ£º
+
+- ¾²Ì¬¶©ÔÄÀ©Õ¹Î´´¥·¢»òÊÂ¼ş¶ªÊ§£¬µ¼ÖÂÍ¨Öª²»·¢²¼¡£
+- `setStaticSubscriberState` µ÷ÓÃÊ§°Ü»ò·µ»ØÒì³££¬µ¼ÖÂÒ³ÃæÌáÊ¾ÓëÕæÊµ×´Ì¬²»Ò»ÖÂ¡£
+- Í¨ÖªÈ¨ÏŞÎ´ÊÚÓè¡¢`setNotificationEnable` Ê§°Ü»òÍ¨Öª·¢²¼Ê§°Ü¡£
+- Ò³ÃæÎ´äÖÈ¾¡¢°´Å¥ ID ±ä»¯»ò°´Å¥²»¿Éµã»÷£¬µ¼ÖÂ UI ÓÃÀıÎóÅĞ¡£
+- Ò£¿ØÆ÷½¹µã¶ªÊ§¡¢½¹µãÂäµã´íÎ»»òÇĞ»»ºóÎ´×¢Èë½¹µã¡£
+- ÖØ¸´¿ªÆô/¹Ø±Õ¡¢×´Ì¬»ú·Ç·¨Ç¨ÒÆ»ò reset ºó×´Ì¬²»Ò»ÖÂ¡£
+- ÊÂ¼şÊı¾İÎª¿Õ¡¢³¬³¤¡¢°üº¬ Unicode »òÌØÊâ×Ö·ûÊ±Ğ£ÑéÊ§Ğ§¡£
+- Í¨Öª ID¡¢±êÌâ¡¢ÕıÎÄ¡¢ÄÚÈİÀàĞÍ·Ç·¨µ¼ÖÂ·¢²¼Ê§°Ü¡£
+- »á»°Î´¹Ø±Õ¡¢×ÊÔ´Ô¤Ëã³¬ÏŞ»ò¶¨Ê±Æ÷/ÎÄ¼ş¾ä±úĞ¹Â©¡£
+- ÅäÖÃÏîÓë bundleName¡¢abilityName¡¢eventName ²»Ò»ÖÂ¡£
+- ²¢·¢²Ù×÷¡¢Ñ¹Á¦²Ù×÷¡¢³¤Ê±¼äÔËĞĞµ¼ÖÂ×´Ì¬Æ¯ÒÆ»òÄÚ´æÔö³¤¡£
+- È¨ÏŞÈÆ¹ı¡¢bundle Î±Ôì¡¢·Ç·¨ÊÂ¼şÀ´Ô´»òÃô¸ĞÈÕÖ¾Ğ¹Â¶¡£
+- ÖĞÓ¢ÎÄ×ÊÔ´È±Ê§»ò°´Å¥ÎÄ±¾Î´äÖÈ¾¡£
+- API °æ±¾ÓëÉè±¸ÏµÍ³ÄÜÁ¦²»Æ¥Åä£¬ÀıÈç¾²Ì¬¶©ÔÄÏµÍ³½Ó¿ÚÔÚ½ÏĞÂ SDK ÖĞÒÆ³ı£¬»ò `rpcid.sc` °üº¬Éè±¸²»Ö§³ÖµÄ SystemCapability¡£
+
+ÕâĞ©·çÏÕµãÖ±½Ó¾ö¶¨ÁËµ±Ç°²âÊÔÉè¼ÆµÄÖØµã·½Ïò¡£
+## 4. ¸²¸ÇÎ¬¶ÈÉè¼Æ
+
+### 4.1 ¹¦ÄÜÕıÈ·ĞÔ
+
+¹¦ÄÜ²âÊÔ²»Ö»ÑéÖ¤¡°Ò³ÃæÄÜ´ò¿ª¡±£¬¶øÊÇ²ğ³É¿ÉÑéÖ¤µÄÏ¸Á£¶ÈĞĞÎª£º
+
+- Ò³ÃæÀ­Æğ£ºÓ¦ÓÃÆô¶¯ºóÄÜ½øÈë¾²Ì¬¶©ÔÄÒ³Ãæ£¬`btnEnable` Óë `btnDisable` ´æÔÚ¡£
+- ¿ªÆô/¹Ø±Õ¶©ÔÄ£ºµã»÷°´Å¥ºó¿É¹Û²ì Toast ÌáÊ¾£¬×´Ì¬»úÇ¨ÒÆµ½ ENABLED »ò DISABLED¡£
+- ÊÂ¼ş½ÓÊÕ£ºÓĞĞ§ÊÂ¼şÍ¨¹ı `SubscriberEventValidator` Ğ£Ñé£¬¿ÕÊÂ¼ş¡¢³¬³¤ÊÂ¼ş¡¢Unicode ÊÂ¼şºÍÌØÊâ×Ö·ûÊÂ¼ş·Ö±ğµÃµ½ÕıÈ·½á¹û¡£
+- Í¨Öª¹¹½¨£ºÍ¨Öª ID¡¢±êÌâ¡¢ÕıÎÄ¡¢¸½¼ÓÎÄ±¾¡¢ÄÚÈİÀàĞÍ¾ù°´Ô¤ÆÚÌî³ä£¬`NotificationRequestBuilder.isValid()` ·µ»ØÕıÈ·½á¹û¡£
+- Í¨Öª·¢²¼£ºÓĞĞ§Í¨Öª·¢²¼³É¹¦²¢¼ÆÈë·¢²¼ÊıÁ¿£¬ÎŞĞ§Í¨Öª·¢²¼Ê§°Ü²¢¼ÆÈëÊ§°ÜÊıÁ¿¡£
+- ÅäÖÃ¹ÜÀí£ºÄ¬ÈÏÅäÖÃÕıÈ·£¬ºÏ·¨ÅäÖÃ¿É¸üĞÂ£¬·Ç·¨ÅäÖÃ±»¾Ü¾ø²¢¼ÆÈëÎŞĞ§´ÎÊı¡£
+- »á»°¹ÜÀí£º»á»°´´½¨¡¢¼¤»î¡¢¹Ø±Õ¡¢»îÔ¾ÊıÁ¿¡¢²Ù×÷¼ÇÂ¼ºÍ¿ìÕÕ×Ö¶ÎÕıÈ·¡£
+- ²Ù×÷Ä¿Â¼ÓëÖ¸±ê£ººËĞÄ²Ù×÷¿É±»Ê¶±ğ£¬Ö¸±ê¼ÆÊı¡¢´íÎó¼ÆÊıºÍ reset ĞĞÎªÕıÈ·¡£
+- ¹¤×÷Á÷£º¿ªÆô¶©ÔÄ¡¢½ÓÊÕÊÂ¼ş¡¢·¢²¼Í¨Öª¡¢¹Ø±Õ¶©ÔÄµÄ¶Ëµ½¶Ë½á¹ûÕıÈ·¡£
+
+### 4.2 Òì³£Á÷Óë»Ö¸´
+
+Òì³£²âÊÔ¸²¸Ç£º
+
+- ¿ÕÊÂ¼ş¡¢¿ÕÊÂ¼şÃû¡¢³¬³¤ÊÂ¼şÊı¾İ¡¢³¬³¤ÊÂ¼şÃû¡¢Unicode Êı¾İ¡¢ÌØÊâ×Ö·ûÊı¾İ¡£
+- ÖØ¸´¿ªÆô¡¢ÖØ¸´¹Ø±Õ¡¢×´Ì¬»ú·Ç·¨Ç¨ÒÆ¡¢reset ºóÔÙ´Î²Ù×÷¡£
+- ·Ç·¨Í¨Öª ID¡¢¿Õ±êÌâ¡¢³¬³¤±êÌâ¡¢³¬³¤ÕıÎÄ¡¢´íÎóÄÚÈİÀàĞÍ¡£
+- ·Ç·¨ÅäÖÃ¡¢¿Õ bundleName¡¢¿Õ abilityName¡¢¿Õ extensionName¡¢·Ç·¨ eventName¡£
+- »á»°¹Ø±Õºó¼ÌĞø²Ù×÷¡¢ÖØ¸´¹Ø±Õ¡¢²éÑ¯²»´æÔÚµÄ»á»°¡£
+- È¨ÏŞ¾Ü¾ø¡¢bundle ²»Æ¥Åä¡¢ÊÂ¼şÀ´Ô´°üº¬·Ç·¨Â·¾¶¡£
+- ×ÊÔ´Ô¤ËãÎª¸º¡¢ÄÚ´æ/¶¨Ê±Æ÷/ÎÄ¼ş¾ä±ú³¬ÏŞ¡£
+- ÖĞ¶Ï»Ö¸´¡¢ÀëÏßÊÂ¼ş¡¢´íÎó»Ö¸´¡¢Òì³£´¦Àí¡¢ÅäÖÃ±ä¸üºóµÄ×´Ì¬»Ö¸´¡£
+
+»Ö¸´Àà¶ÏÑÔ²»½öĞ£Ñé½Ó¿Ú·µ»ØÖµ£¬»¹Ğ£Ñé£º
+
+- µ±Ç°×´Ì¬ÊÇ·ñ»Øµ½ÓĞĞ§×´Ì¬¡£
+- Ò³ÃæÊÇ·ñ»ØÍËµ½ÎÈ¶¨Ò³Ãæ¡£
+- »á»°ÊÇ·ñ¿ÉÖØĞÂ´´½¨¡£
+- Ö¸±êÊÇ·ñ¾ÀÕı´íÎó¼ÆÊı¡£
+- Í¨Öª·¢²¼Ê§°ÜºóÊÇ·ñ¿ÉÖØĞÂ·¢²¼¡£
+
+### 4.3 ²¢·¢Óë³¤ÎÈ
+
+TV ³¡¾°ÏÂ£¬ÓÃ»§¿ÉÄÜÁ¬ĞøÖ´ĞĞ¶à´Î°´Å¥ÇĞ»»¡¢ÊÂ¼ş´¥·¢ÓëÒ³Ãæ²Ù×÷£¬Òò´ËĞèÒª¹Ø×¢£º
+
+- ´®ĞĞ UI ¶ÓÁĞ£ºËùÓĞ UiTest µ÷ÓÃÍ¨¹ı `runSerializedUiOperation` ´®ĞĞÖ´ĞĞ£¬±ÜÃâ½¹µã¾ºÕù¡£
+- ²¢·¢»á»°£º¶à¸ö»á»°Í¬Ê±´´½¨¡¢¼¤»î¡¢¹Ø±ÕÊ±£¬»îÔ¾ÊıÁ¿Óë¿ìÕÕÒ»ÖÂ¡£
+- ²¢·¢²Ù×÷£º¿ªÆô¡¢¹Ø±Õ¡¢½ÓÊÕ¡¢·¢²¼½»ÌæÖ´ĞĞºó£¬Ö¸±ê×ÜÊıÓë×´Ì¬Ò»ÖÂ¡£
+- Ñ¹Á¦²âÊÔ£º`SubscriberStress` Óë `PerformanceStress` ¸²¸Ç¸ßÆµ²Ù×÷¡£
+- ³¤Ê±¼äÔËĞĞ£º`LongTermStability` ¸²¸ÇÖØ¸´²Ù×÷ºóµÄ×´Ì¬ÎÈ¶¨¡£
+- ÄÚ´æĞ¹Â©£º`MemoryLeakDetection` ¸²¸Ç»á»°¡¢ÈÕÖ¾¡¢Í¨Öª¶ÔÏóµÄÉúÃüÖÜÆÚ¡£
+- Ö÷Ïß³Ì½ÚÁ÷£º`serializedDelay` ±ÜÃâÍ¬²½×èÈûµ¼ÖÂ `THREAD_BLOCK_6S`¡£
+### 4.4 ĞÔÄÜÓë¼æÈİĞÔ
+
+ĞÔÄÜÓë¼æÈİĞÔ¸²¸Ç£º
+
+- Ò³ÃæäÖÈ¾£º`SubscriberUI`¡¢`UIComponentRendering`¡¢`ContentScaling`¡¢`VisualEffects` Ğ£ÑéÒ³ÃæÓë×é¼şäÖÈ¾¡£
+- °´Å¥Óë Toast£º`ButtonInteraction`¡¢`ToastPositioning`¡¢`ToastAnimationPerformance` Ğ£Ñéµã»÷ÏìÓ¦ÓëÌáÊ¾Õ¹Ê¾¡£
+- ×ÊÔ´ÏûºÄ£º`ResourceConsumption`¡¢`SubscriberPerformance`¡¢`PerformanceStress` Ğ£Ñé²Ù×÷ºÄÊ±Óë×ÊÔ´Ô¤Ëã¡£
+- ³¤Ê±¼äÎÈ¶¨ĞÔ£º`LongTermStability`¡¢`MemoryLeakDetection`¡¢`ConcurrencyControl` Ğ£Ñé³¤ÅÜÓë²¢·¢³¡¾°¡£
+- Éè±¸¼æÈİ£º`DeviceCompatibility`¡¢`SubscriberCompatibility` Ğ£Ñé²»Í¬Éè±¸Óë SDK °æ±¾¡£
+- ¼¯³É¼æÈİ£º`IntegrationTesting`¡¢`SystemIntegration`¡¢`ComprehensiveRegression` Ğ£ÑéÄ£¿éĞ­Í¬¡£
+- ±¾µØ»¯£º`LocalizationTesting` Ğ£ÑéÖĞÓ¢ÎÄ×ÊÔ´ÓëÎÄ±¾äÖÈ¾¡£
+- API ÓëÏµÍ³ÄÜÁ¦¼æÈİ£ºÖ÷¹¤³ÌÊ¹ÓÃ¾²Ì¬¶©ÔÄÏµÍ³½Ó¿ÚÊ±°´Éè±¸¿ÉÓÃµÄ SDK ±àÒë£¬²¢Í¨¹ı `syscap.json` ÒÆ³ıÉè±¸²»Ö§³ÖµÄ SystemCapability£¬±ÜÃâ°²×°»òÔËĞĞ½×¶Î³öÏÖ `00401004` ÀàÏµÍ³ÄÜÁ¦²»Æ¥Åä´íÎó¡£
+
+### 4.5 °²È«ÓëÔ¼Êø
+
+°²È«ÓëÔ¼Êø¸²¸Ç£º
+
+- Í¨ÖªÈ¨ÏŞ£ºĞ£Ñé `ohos.permission.NOTIFICATION_CONTROLLER` µÄÊÚÓè¡¢¾Ü¾øÓë³·Ïú¡£
+- bundle Ğ£Ñé£º½öÔÊĞíÄ¿±ê bundleName£¬ÆäËû bundle ·µ»Ø¾Ü¾ø¡£
+- ÊÂ¼şÀ´Ô´Ğ£Ñé£º¿ÕÀ´Ô´¡¢°üº¬ `..` »ò `/` µÄÀ´Ô´±»¾Ü¾ø¡£
+- ÊäÈëÇåÏ´£º`InputSanitizer` ¸²¸Ç trim¡¢³¤¶ÈĞ£Ñé¡¢¿ØÖÆ×Ö·ûÒÆ³ıºÍÒıºÅ×ªÒå¡£
+- °²È«²ßÂÔ£º`SubscriberSecurity`¡¢`SecurityValidation`¡¢`SecurityAccessibility` ¸²¸ÇÈ¨ÏŞ¡¢À´Ô´¡¢bundle ÓëÎŞÕÏ°­°²È«¡£
+- Éó¼ÆÓëÈÕÖ¾£ºÈÕÖ¾½öÊ¹ÓÃ `@ohos.hilog`£¬²»Ê¹ÓÃ `console.log`£»ÈÕÖ¾ÄÚÈİÊ¹ÓÃÓ¢ÎÄ£¬±ÜÃâÃô¸ĞĞÅÏ¢ÓëÖĞÎÄ±àÂëÎÊÌâ¡£
+- ·¢²¼Ô¼Êø£ºÍ¨Öª±êÌâ¡¢ÕıÎÄ¡¢ÄÚÈİÀàĞÍºÍ ID ±ØĞëÂú×ãÔ¼Êøºó²ÅÄÜ·¢²¼¡£
+
+### 4.6 ¿É´ïĞÔÓëÒ×ÓÃĞÔ
+
+ÃæÏò TV ÓëÎŞÕÏ°­³¡¾°£¬²âÊÔÖØµã¸²¸Ç£º
+
+- ÎŞÕÏ°­µ¼º½£º`AccessibilityNavigation`¡¢`SecurityAccessibility` Ğ£Ñé½¹µãË³ĞòÓë¿É·ÃÎÊĞÔ¡£
+- ½¹µãµ¼º½£º`FocusNavigation`¡¢`FocusRingBehavior` Ğ£Ñé·½Ïò¼üµ¼º½Óë½¹µã»·¡£
+- °´Å¥½»»¥£º`ButtonInteraction` Ğ£Ñéµã»÷¡¢ÖØ¸´µã»÷Óë×´Ì¬·´À¡¡£
+- ´¥ÃşÓëÊÖÊÆ£º`TouchInteraction`¡¢`GestureRecognition` Ğ£Ñé´¥ÃşÓëÊÖÊÆÊ¶±ğ¡£
+- ÊÂ¼ş´¦ÀíÓë´«²¥£º`EventHandling`¡¢`EventPropagation` Ğ£ÑéÊÂ¼ş·Ö·¢¡£
+- Ö÷ÌâÓëÊÓ¾õ£º`ThemeVariation`¡¢`VisualEffects` Ğ£Ñé²»Í¬Ö÷ÌâÓëÊÓ¾õĞ§¹û¡£
+- ÄÚÈİËõ·ÅÓëÊı¾İ°ó¶¨£º`ContentScaling`¡¢`DataBinding` Ğ£ÑéËõ·ÅÓë×´Ì¬°ó¶¨¡£
+- ÌáÊ¾¶¨Î»£º`ToastPositioning` Ğ£Ñé Toast ÔÚÒ³ÃæÖĞµÄÎ»ÖÃ¡£
+
+## 5. ³ä·ÖĞÔËµÃ÷
+
+### 5.1 ÎªÊ²Ã´ÈÏÎªµ±Ç°²âÊÔ¾ß±¸½ÏÇ¿³ä·ÖĞÔ
+
+µ±Ç°²âÊÔ´ÓÒÔÏÂ·½Ãæ±£Ö¤³ä·ÖĞÔ£º
+
+- ¸²¸ÇÃæÍêÕû£º´Ó¹²ÏíÇı¶¯¡¢ÁìÓòÄ£ĞÍ¡¢UI ³¡¾°¡¢¼¯³ÉÁ÷³Ìµ½ÖÊÁ¿ÊôĞÔ¾ùÓĞ¶ÔÓ¦Ì×¼ş¡£
+- ¸²¸ÇÎ¬¶È·á¸»£º¹¦ÄÜ¡¢Òì³£¡¢²¢·¢¡¢ĞÔÄÜ¡¢¼æÈİ¡¢°²È«¡¢ÎŞÕÏ°­¡¢±¾µØ»¯ºÍ±ß½ç¾ùÓĞ¸²¸Ç¡£
+- ¸²¸Ç·½Ê½¶àÑù£º°üº¬Õı³£Â·¾¶¡¢Òì³£Â·¾¶¡¢±ß½çÖµ¡¢×éºÏ¾ØÕó¡¢ÖØ¸´²Ù×÷¡¢Ñ¹Á¦Óë³¤ÎÈ¡£
+- ¶ÏÑÔÁ£¶ÈÏ¸£º²»½öĞ£Ñé½Ó¿Ú·µ»ØÖµ£¬»¹Ğ£Ñé×´Ì¬¡¢¼ÆÊı¡¢Í¨Öª×Ö¶Î¡¢»á»°¿ìÕÕ¡¢×é¼ş´æÔÚĞÔºÍÎÄ±¾äÖÈ¾¡£
+- ×Ê²ú¸´ÓÃÇ¿£º`StaticSubscriberDriver` Í³Ò»Ò³Ãæ»Ø¹é¡¢´®ĞĞ UI ¶ÓÁĞ¡¢ÎÄ±¾/½¹µã¼ì²éºÍÁìÓòÄ£ĞÍ£¬±ÜÃâÖØ¸´ÊµÏÖ¡£
+- ½á¹û¿ÉÑéÖ¤£ºµ±Ç°ÔÚÉè±¸ÉÏÖ´ĞĞ 4240 ¸ö×Ô¶¯»¯ÓÃÀı£¬È«²¿Í¨¹ı¡£
+- ¹¹½¨¿É¸´ÏÖ£ºHAP ¹¹½¨¡¢Ç©Ãû¡¢°²×°¡¢Hypium ²âÊÔÖ´ĞĞÁ´Â·ÒÑ´òÍ¨£¬²¢ĞŞ¸´ÁË²âÊÔÔËĞĞÆ÷Â·¾¶¡¢`afterAll` ·µ»Ø¼ü¡¢²Ù×÷Ä¿Â¼ÊıÁ¿ºÍÏµÍ³ÄÜÁ¦ÉùÃ÷µÈÎÊÌâ¡£
+## 6. µ±Ç°²âÊÔÄ¿Â¼ÓëÖ°Ôğ
+
+²âÊÔ´úÂëÎ»ÓÚ `entry/src/ohosTest/ets/test/`£¬ÓÉ `List.test.ets` Í³Ò»×¢²á 79 ¸ö²âÊÔÌ×¼ş¡£Ä¿Â¼ÓëÖ°ÔğÈçÏÂ£º
+
+| Ä¿Â¼ | Ì×¼şÊı | Ì×¼şÓëÖ°Ôğ |
+|---|---:|---|
+| `Shared` | 1 | `StaticSubscriberDriver.ets`£º´®ĞĞ UI ²Ù×÷¡¢Ò³ÃæÀ­ÆğÓë»Ø¹é¡¢°´Å¥µã»÷¡¢×é¼ş/ÎÄ±¾/½¹µã¼ì²é¡¢Ò£¿Ø°´¼üÓë´¥ÃşÄ£Äâ£¬ÒÔ¼°×´Ì¬»ú¡¢ÊÂ¼ş¡¢Í¨Öª¡¢»á»°¡¢ÅäÖÃ¡¢Ö¸±ê¡¢ÈÕÖ¾¡¢¼üÂë¡¢°²È«¡¢×ÊÔ´¡¢ĞÔÄÜ¡¢±ß½çºÍ¹¤×÷Á÷Ä£ĞÍ |
+| ¸ùÄ¿Â¼ | 2 | `Ability.test.ets`£ºÓ¦ÓÃÆô¶¯¡¢Ò³Ãæ¾ÍĞ÷¡¢°´Å¥´æÔÚĞÔ¡¢×´Ì¬»ú¡¢ÊÂ¼ş¡¢Í¨Öª¡¢Ä¿Â¼Ö¸±ê¡¢¹¤×÷Á÷Óë¹¤¾ßº¯Êı£»`List.test.ets`£ºÍ³Ò»µ¼Èë²¢Ö´ĞĞÈ«²¿Ì×¼ş |
+| `Subscriber` | 16 | `SubscriberUI`¡¢`SubscriberStateManagement`¡¢`SubscriberLifecycle`¡¢`SubscriberErrorRecovery`¡¢`SubscriberEndToEnd`¡¢`SubscriberModelDeep`¡¢`SubscriberConcurrency`¡¢`SubscriberConsistency`¡¢`SubscriberStress`¡¢`EventDataModel`¡¢`EventTriggerInteraction`¡¢`SubscribeConfiguration`¡¢`NotificationCatalog`¡¢`NotificationFlow`¡¢`NotificationOperations`¡¢`NotificationWorkflow` |
+| `SubscriberValidation` | 8 | `SubscriberAppVersion`¡¢`SubscriberDataSourceValidation`¡¢`SubscriberEventToolValidation`¡¢`SubscriberInterruptionRecovery`¡¢`SubscriberNotification`¡¢`SubscriberOfflineEvent`¡¢`SubscriberPermissionSession`¡¢`SubscriberSessionValidation` |
+| `Integration` | 9 | `AdvancedScenarios`¡¢`ComprehensiveRegression`¡¢`DeviceCompatibility`¡¢`EventDeliveryConnectivity`¡¢`IntegrationTesting`¡¢`LocalizationTesting`¡¢`SubscriberCompatibility`¡¢`SystemIntegration`¡¢`UserScenarios` |
+| `Interaction` | 14 | `AccessibilityNavigation`¡¢`ButtonInteraction`¡¢`ContentScaling`¡¢`DataBinding`¡¢`EventHandling`¡¢`EventPropagation`¡¢`FocusNavigation`¡¢`FocusRingBehavior`¡¢`GestureRecognition`¡¢`ThemeVariation`¡¢`ToastPositioning`¡¢`TouchInteraction`¡¢`UIComponentRendering`¡¢`VisualEffects` |
+| `Lifecycle` | 10 | `ConfigurationChanges`¡¢`ErrorRecovery`¡¢`ExceptionHandling`¡¢`ExtensionLifecycleBasics`¡¢`ResourceManagement`¡¢`SessionManagement`¡¢`StatePersistence`¡¢`StateRecovery`¡¢`StaticSubscriberExtensionLifecycle`¡¢`SubscriberStateManagement` |
+| `Performance` | 7 | `ConcurrencyControl`¡¢`LongTermStability`¡¢`MemoryLeakDetection`¡¢`PerformanceStress`¡¢`ResourceConsumption`¡¢`SubscriberPerformance`¡¢`ToastAnimationPerformance` |
+| `Security` | 3 | `SecurityAccessibility`¡¢`SecurityValidation`¡¢`SubscriberSecurity` |
+| `Validation` | 11 | `BoundaryErrorTesting`¡¢`CommonEventUtilValidation`¡¢`ConfigurationManagerValidation`¡¢`EventCodeValidation`¡¢`FocusManagerValidation`¡¢`InputValidation`¡¢`LoggerValidation`¡¢`ResourceLoaderValidation`¡¢`SubscriberStateManagerValidation`¡¢`ToastControllerValidation`¡¢`ToastPointerUtilValidation` |
+
+## 7. ½áÂÛ
+
+`StaticSubscriber` µ±Ç°²âÊÔÒÑ¾­ĞÎ³É¡°¹²ÏíÇı¶¯ + ÁìÓòÄ£ĞÍ + ³¡¾°½»»¥ + ÖÊÁ¿ÊôĞÔ¡±µÄ×éºÏÊ½Éè¼Æ¡£¸Ã½á¹¹¾ß±¸Á¼ºÃµÄÀ©Õ¹ĞÔ¡¢¿ÉÎ¬»¤ĞÔºÍ·çÏÕ¸²¸ÇÄÜÁ¦£¬¿ÉÒÔ×÷Îª¾²Ì¬¶©ÔÄÊ¾Àı³ÖĞø¼¯³É¡¢°æ±¾»Ø¹éºÍ²âÊÔÉó¼ÆµÄ»ù´¡¡£
+
+## ¸½Â¼£ºÊÖ¹¤ÓÃÀı¹éµµ
+| ²âÊÔ¹¦ÄÜ | Ô¤ÖÃÌõ¼ş | ÊäÈë | Ô¤ÆÚÊä³ö | ÊÇ·ñ×Ô¶¯ | ²âÊÔ½á¹û |
+|---|---|---|---|---|---|
+| ¾²Ì¬Ò³ÃæÀ­Æğ | Î»ÓÚ×ÀÃæ | µã»÷¾²Ì¬Ò³ÃæÓ¦ÓÃ | ½øÈë¾²Ì¬Ò³ÃæÓ¦ÓÃ | ·ñ | Pass |
+| ¾²Ì¬Ò³ÃæÀ­Æğ | Î»ÓÚ¾²Ì¬Ò³ÃæÓ¦ÓÃ | µã»÷¿ªÆô¾²Ì¬¶©ÔÄ | ·µ»Øµ½×ÀÃæ | ·ñ | Pass |
+| ¾²Ì¬Ò³ÃæÀ­Æğ | Î»ÓÚ¾²Ì¬Ò³ÃæÓ¦ÓÃ | µã»÷·µ»Ø | ·µ»Øµ½×ÀÃæ | ·ñ | Pass |
+| ·¢²¼¹¦ÄÜ | Î»ÓÚ×ÀÃæ | µã»÷·¢²¼Ó¦ÓÃ | ½øÈë·¢²¼Ó¦ÓÃ | ·ñ | Pass |
+| ·¢²¼¹¦ÄÜ | Î»ÓÚ·¢²¼Ó¦ÓÃ | µã»÷·¢²¼°´Å¥ | ·¢²¼³É¹¦ | ·ñ | Pass |
+| ·¢²¼¹¦ÄÜ | Î»ÓÚ·¢²¼Ó¦ÓÃ | ÏÂÀ­²Ëµ¥À¸ | ÊÕµ½¾²Ì¬¶©ÔÄµÄÍ¨Öª | ·ñ | Pass |
+| ¾²Ì¬Ò³ÃæÀ­Æğ | Î»ÓÚ×ÀÃæ | µã»÷¾²Ì¬Ò³ÃæÓ¦ÓÃ | ½øÈë¾²Ì¬Ò³ÃæÓ¦ÓÃ | ÊÇ | Pass |
+| ¾²Ì¬Ò³ÃæÀ­Æğ | Î»ÓÚ¾²Ì¬Ò³ÃæÓ¦ÓÃ | µã»÷¿ªÆô¾²Ì¬¶©ÔÄ | ¿ªÆô¾²Ì¬¶©ÔÄ³É¹¦ | ÊÇ | Pass |
+| ¾²Ì¬Ò³ÃæÀ­Æğ | Î»ÓÚ¾²Ì¬Ò³ÃæÓ¦ÓÃ | µã»÷¹Ø±Õ¾²Ì¬¶©ÔÄ | ¹Ø±Õ¾²Ì¬¶©ÔÄ³É¹¦ | ÊÇ | Pass |
+| ·¢²¼¹¦ÄÜ | Î»ÓÚ×ÀÃæ | µã»÷·¢²¼Ó¦ÓÃ | ½øÈë·¢²¼Ó¦ÓÃ | ÊÇ | Pass |
+| ·¢²¼¹¦ÄÜ | Î»ÓÚ·¢²¼Ó¦ÓÃ | µã»÷·¢²¼ | ·¢²¼ÏûÏ¢³É¹¦ | ÊÇ | Pass |
+| Í¨ÖªÕ¹Ê¾ | Î»ÓÚ¾²Ì¬Ò³ÃæÓ¦ÓÃ | ´¥·¢¾²Ì¬¶©ÔÄÊÂ¼ş | ÊÕµ½Í¨ÖªÇÒ±êÌâÎªÊÂ¼şÊı¾İ | ÊÇ | Pass |
+| ×´Ì¬Ò»ÖÂĞÔ | Î»ÓÚ¾²Ì¬Ò³ÃæÓ¦ÓÃ | Á¬Ğø¿ªÆô/¹Ø±Õ¶©ÔÄ | ×´Ì¬¡¢Toast ÓëÖ¸±ê±£³ÖÒ»ÖÂ | ÊÇ | Pass |
+| Òì³£»Ö¸´ | Î»ÓÚ¾²Ì¬Ò³ÃæÓ¦ÓÃ | ·Ç·¨ÊÂ¼ş/·Ç·¨Í¨Öª | ²Ù×÷±»¾Ü¾ø²¢¿É»Ö¸´ | ÊÇ | Pass |
+
+
+
+
+
+
