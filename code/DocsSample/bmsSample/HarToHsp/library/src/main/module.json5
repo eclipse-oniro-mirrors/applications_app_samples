@@ -24,9 +24,9 @@
     "pages": "$profile:main_pages",
     // [StartExclude har_to_hsp_001]
     "deviceTypes": [
-      "tablet",
-      "2in1"
-    ],
+      "default",
+      "tablet"
+    ]
     // [EndExclude har_to_hsp_001]
   }
 }
