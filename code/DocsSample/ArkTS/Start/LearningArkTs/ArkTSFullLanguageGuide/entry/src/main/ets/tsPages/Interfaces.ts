@@ -15,37 +15,6 @@
 
 export {};
 
-// [Start ts_interface_property_types]
-interface Product {
-  // 必选属性
-  id: number;
-  name: string;
-  price: number;
-
-  // 可选属性（使用 ?）
-  description?: string;
-  stock?: number;
-
-  // 只读属性（使用readonly）
-  readonly createdAt: Date;
-}
-
-let product: Product = {
-  id: 1,
-  name: 'Laptop',
-  price: 999,
-  createdAt: new Date()
-};
-
-// 可以访问可选属性
-if (product.description) {
-  console.info(`${product.description}`);
-}
-
-// 只读属性不能修改
-product.createdAt = new Date(); // 编译错误
-// [End ts_interface_property_types]
-
 // [Start ts_interface_inheritance_rules]
 interface Base {
   method(): void;
@@ -69,53 +38,6 @@ interface BadColorable extends Colorable {
   color: number; // 编译错误：类型不匹配
 }
 // [End ts_interface_inheritance_rules]
-
-// ===== ts_index_signature =====
-// [Start ts_index_signature]
-// 数字索引签名
-interface NumberArray {
-  [index: number]: number;
-  length: number;
-}
-
-let numArray: NumberArray = [1, 2, 3, 4, 5];
-console.info(`${numArray[0]}`); // 1
-
-// 字符串索引签名
-interface StringDictionary {
-  [key: string]: string | number;
-  name: string; // 必须符合索引签名类型
-  age: number;  // 必须符合索引签名类型
-}
-
-let person: StringDictionary = {
-  name: 'Alice',
-  age: 25,
-  city: 'New York',  // 动态属性
-  country: 'USA'     // 动态属性
-};
-
-console.info(`${person.city}`); // New York
-
-// 同时使用两种索引签名
-interface MixedDictionary {
-  [key: string]: string | number;
-  [index: number]: string;
-  length: number;
-}
-
-let mixed: MixedDictionary = {
-  length: 3,
-  0: 'First',
-  1: 'Second',
-  2: 'Third',
-  key1: 'Value1',
-  key2: 'Value2'
-};
-
-console.info(`${mixed[1]}`);    // Second
-console.info(`${mixed.key1}`);  // Value1
-// [End ts_index_signature]
 
 
 // ===== ts_interface_composition =====
@@ -368,42 +290,3 @@ type TvAnimal2 = { name: string };
 type TvDog2 = TvAnimal2 & { breed: string };
 // [End ts_type_vs_interface]
 
-// ===== interface_method_declaration =====
-// [Start interface_method_declaration]
-interface Calculator {
-  reset(): void;
-  add(a: number, b: number): number;
-  subtract(a: number, b: number): number;
-
-  // 可选方法（使用 ?）
-  logResult?(): void;
-}
-
-class BasicCalculator implements Calculator {
-  private result: number = 0;
-  
-  public reset(): void {
-    this.result = 0;
-    console.info('Calculator reset');
-  }
-  
-  public add(a: number, b: number): number {
-    this.result = a + b;
-    return this.result;
-  }
-  
-  public subtract(a: number, b: number): number {
-    this.result = a - b;
-    return this.result;
-  }
-  
-  // 可选方法可以不实现，如需实现可参考以下写法
-  public logResult(): void {
-    console.info(`Result: ${this.result}`);
-  }
-}
-
-let calculator: BasicCalculator = new BasicCalculator();
-let sum: number = calculator.add(10, 5);
-console.info(`${sum}`); // 15
-// [End interface_method_declaration]

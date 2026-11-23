@@ -45,26 +45,6 @@ enum Mixed {
 }
 // [End ts_string_and_numeric_enum]
 
-// [Start ts_enum_member_types]
-// 枚举成员是唯一类型
-let up: Direction.Up = Direction.Up;  // Direction.Up类型
-let down: Direction.Down = Direction.Down;
-
-// 不同成员不能互换
-up = down;  // 编译错误：类型不匹配
-
-// 枚举值作为联合类型
-type HorizontalDirection = Direction.Left | Direction.Right;
-type VerticalDirection = Direction.Up | Direction.Down;
-
-function moveHorizontal(dir: HorizontalDirection): void {
-  console.info(`水平移动: ${dir}`);
-}
-
-moveHorizontal(Direction.Left);
-moveHorizontal(Direction.Up);  // 编译错误：类型不匹配
-// [End ts_enum_member_types]
-
 // [Start ts_enum_as_type_usage]
 // 枚举作为参数
 function setTheme(theme: Theme): void {
