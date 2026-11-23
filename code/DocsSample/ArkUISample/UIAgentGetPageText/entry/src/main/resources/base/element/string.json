@@ -1,0 +1,56 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Native ArkUI page text collection sample"
+    },
+    {
+      "name": "title",
+      "value": "Collect page text"
+    },
+    {
+      "name": "description",
+      "value": "Change the sample text and collect again. An empty input contributes its placeholder; ordinary input content is excluded."
+    },
+    {
+      "name": "original_text",
+      "value": "OpenHarmony page text sample"
+    },
+    {
+      "name": "updated_text",
+      "value": "The sample text has changed"
+    },
+    {
+      "name": "input_hint",
+      "value": "Type here to compare with the placeholder"
+    },
+    {
+      "name": "unicode_text",
+      "value": "中文示例 · Hello ArkUI · 你好 🌏"
+    },
+    {
+      "name": "update",
+      "value": "Change sample text"
+    },
+    {
+      "name": "collect",
+      "value": "Collect page text"
+    },
+    {
+      "name": "result_title",
+      "value": "Collected JSON"
+    },
+    {
+      "name": "result_description",
+      "value": "The original API result includes node id, window-relative rect and content."
+    },
+    {
+      "name": "back",
+      "value": "Back to sample"
+    },
+    {
+      "name": "result_count",
+      "value": "Text items: %d"
+    }
+  ]
+}
