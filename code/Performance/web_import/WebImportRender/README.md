@@ -53,13 +53,23 @@
 
 不涉及
 
+### 自动化测试
+
+`entry/src/ohosTest/ets/test` 包含 15 个套件、120 条用例，含共享工具与测试入口共约 5.22 万行 ETS 源码。
+
+- 2 条直接导入控制器业务源码，1 条查询主模块路由配置；另 117 条检查样例使用的 NavPathStack SDK 基础依赖。
+- SDK 依赖用例不代表 Web 预渲染效果、已初始化节点挂载或实际页面跳转已被验证；这些路径仍需设备检查。
+- 主、测试 HAP 已在备份工程编译通过；当前没有连接设备，未获得真机运行结果。
+- 每条用例有完整元数据和断言日志，套件统一使用 30 ms 节流，不反复启动 Ability 或加载网页。
+- 运行前先安装同一签名的主 HAP 和测试 HAP；详见 [ohosTest.md](ohosTest.md)。
+
 ### 约束与限制
 
 1. 本示例仅支持标准系统上运行;
 
-2. 本示例已适配API20版本SDK，SDK版本号(API Version 20 Release),镜像版本号(5.1.0 Release)。
+2. 本示例最低兼容 API 14 版本，使用 API 26 版本 SDK 编译；自动化测试环境为 API 26，支持 default、tablet 设备。
 
-3. 本示例需要使用DevEco Studio 版本号(5.1.0 Release)及以上版本才可编译运行。
+3. 本次编译验证使用 DevEco Studio 6.1.1 和 OpenHarmony API 26 SDK；OpenHarmony SDK 路径通过 OHOS_BASE_SDK_HOME 配置。
 
 ### 下载
 
