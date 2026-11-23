@@ -12,21 +12,25 @@
  */
 import { it as hypiumIt, expect as hypiumExpect } from '@ohos/hypium';
 import type { Assert } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[CalendarEventTest]';
 
 /** Register one logical scenario, keeping diagnostics outside production functions. */
 export function it(name: string, level: number, body: () => void | Promise<void>): void {
   hypiumIt(name, level, async (): Promise<void> => {
-    console.info(`${name}, begin`);
+    hilog.info(DOMAIN, TAG, '%{public}s', `${name}, begin`);
     try {
       await body();
     } finally {
-      console.info(`${name}, end`);
+      hilog.info(DOMAIN, TAG, '%{public}s', `${name}, end`);
     }
   });
 }
 
 /** Log the actual test value before invoking the ordinary Hypium assertion. */
 export function expect(actual: string | number | boolean | undefined): Assert {
-  console.info(`assert actual=${actual}`);
+  hilog.info(DOMAIN, TAG, '%{public}s', `assert actual=${actual}`);
   return hypiumExpect(actual);
 }
