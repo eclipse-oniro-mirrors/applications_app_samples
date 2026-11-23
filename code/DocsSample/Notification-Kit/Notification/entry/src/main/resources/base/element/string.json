@@ -41,6 +41,10 @@
       "value": "取消通知"
     },
     {
+      "name": "cancel_all_notify",
+      "value": "取消所有通知"
+    },
+    {
       "name": "pub_notify_with_msgid",
       "value": "发布通知消息，通知消息中包含appMessageId字段"
     },
@@ -91,6 +95,10 @@
     {
       "name": "set_badge_nine",
       "value": "设置角标个数为9"
+    },
+    {
+      "name": "get_badge_count",
+      "value": "查询角标个数"
     },
     {
       "name": "badge_count_neg",
