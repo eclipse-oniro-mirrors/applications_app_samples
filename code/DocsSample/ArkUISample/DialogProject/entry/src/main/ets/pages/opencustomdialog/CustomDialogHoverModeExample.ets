@@ -47,6 +47,7 @@ struct CustomDialogHoverModeDialog {
           }).backgroundColor(0xffffff).fontColor(Color.Red)
       }.margin({ bottom: 10 })
     }.borderRadius(10)
+    // 如果需要使用border属性或cornerRadius属性，请和borderRadius属性一起使用。
   }
 }
 
