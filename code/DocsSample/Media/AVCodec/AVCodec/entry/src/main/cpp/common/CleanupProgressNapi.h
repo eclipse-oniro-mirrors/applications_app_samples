@@ -15,28 +15,10 @@
 
 #ifndef AVCODEC_CLEANUP_PROGRESS_NAPI_H
 #define AVCODEC_CLEANUP_PROGRESS_NAPI_H
+
 #include <napi/native_api.h>
 #include "CleanupProgress.h"
 
-inline bool SetCleanupProgress(napi_env env, napi_value parent, const CleanupProgressInfo &info)
-{
-    napi_value object = nullptr;
-    napi_value stage = nullptr;
-    napi_value active = nullptr;
-    napi_value elapsed = nullptr;
-    napi_value total = nullptr;
-    napi_value revision = nullptr;
-    return napi_create_object(env, &object) == napi_ok &&
-        napi_create_string_utf8(env, info.stage.c_str(), NAPI_AUTO_LENGTH, &stage) == napi_ok &&
-        napi_get_boolean(env, info.active, &active) == napi_ok &&
-        napi_create_int64(env, info.elapsedMs, &elapsed) == napi_ok &&
-        napi_create_int64(env, info.totalMs, &total) == napi_ok &&
-        napi_create_int64(env, static_cast<int64_t>(info.revision), &revision) == napi_ok &&
-        napi_set_named_property(env, object, "stage", stage) == napi_ok &&
-        napi_set_named_property(env, object, "active", active) == napi_ok &&
-        napi_set_named_property(env, object, "elapsedMs", elapsed) == napi_ok &&
-        napi_set_named_property(env, object, "totalMs", total) == napi_ok &&
-        napi_set_named_property(env, object, "revision", revision) == napi_ok &&
-        napi_set_named_property(env, parent, "cleanupProgress", object) == napi_ok;
-}
+bool SetCleanupProgress(napi_env env, napi_value parent, const CleanupProgressInfo &info);
+
 #endif

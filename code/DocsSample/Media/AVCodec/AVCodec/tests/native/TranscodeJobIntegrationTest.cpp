@@ -64,6 +64,7 @@ constexpr int64_t SOURCE_DURATION_US = 100000;
 constexpr int64_t TAIL_PTS_US = 33000;
 constexpr int VIDEO_SAMPLE_COUNT = 2;
 constexpr int32_t ENCODER_BITRATE_MAX = 100000000;
+constexpr int32_t SUPPORTED_VIDEO_PIXEL_FORMATS[] = {AV_PIXEL_FORMAT_NV12};
 constexpr int32_t AUDIO_MODE_NONE = 2;
 constexpr int32_t STATE_FINISHED = 2;
 constexpr int32_t STATE_CANCELLED = 3;
@@ -407,9 +408,8 @@ static_assert(std::is_same_v<decltype(&FakeAVCapabilityGetVideoSupportedPixelFor
 OH_AVErrCode FakeAVCapabilityGetVideoSupportedPixelFormats(OH_AVCapability *, const int32_t **pixelFormats,
     uint32_t *pixelFormatNum)
 {
-    static constexpr int32_t FORMATS[] = {AV_PIXEL_FORMAT_NV12};
-    *pixelFormats = FORMATS;
-    *pixelFormatNum = sizeof(FORMATS) / sizeof(FORMATS[0]);
+    *pixelFormats = SUPPORTED_VIDEO_PIXEL_FORMATS;
+    *pixelFormatNum = sizeof(SUPPORTED_VIDEO_PIXEL_FORMATS) / sizeof(SUPPORTED_VIDEO_PIXEL_FORMATS[0]);
     return AV_ERR_OK;
 }
 

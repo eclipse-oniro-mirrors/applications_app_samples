@@ -131,7 +131,7 @@ Vulkan按帧资源、交换链和上传图像分组；资源组不可复制，�
 |---|---|---|
 | 1 | Muxer释放持有会话锁时，录制等待线程无法记录进展。改用独立的收尾锁，每次等待满5秒仍可读取并记录阶段和耗时。 | Native在阻塞Muxer释放时观察到`release.pending`，放行后收到原Muxer错误。Debug和Release通过。 |
 | 2 | 两次转码的时钟返回同一毫秒时复用成品路径。分配编号前检查应用私有目录中的成品、报告和临时文件。 | Host固定时间并回拨时钟，核对新输出的路径和旧文件内容。目录读取失败时不写入文件并释放任务。 |
-| 3 | 报告写入成功后，待处理文件改名失败，同一会话同时出现在报告与恢复列表。恢复与确认均核对已保存报告。 | Host注入改名失败、过期确认和报告损坏，核对原报告、其他待处理记录和故障文件均被保留。 |
+| 3 | 报告写入成功后，待处理文件改名失败，同一会话同时出现在报告与恢复列表。恢复与确认均核对已保存报告。 | Host分别模拟待处理文件改名失败、旧页面确认和报告文件损坏，验证原报告、未确认的会话记录和损坏的报告文件均保留。 |
 | 4 | 视频输出停止失败后，相机会话也停止失败，后一个异常覆盖原异常。现在保留原错误对象，并分别记录两处错误码。 | Host校验原错误和相机资源释放顺序，覆盖会话停止成功及失败。 |
 | 5 | 写入或同步转码历史与关闭同时失败时，关闭异常覆盖原异常。历史关闭结果不明会保留已发布成品及待处理会话，并阻止队列继续。 | Host隔离验证写入和同步双故障、正常发布、Native业务失败，以及已有源文件关闭故障的收尾优先级。 |
 
@@ -139,7 +139,7 @@ Vulkan按帧资源、交换链和上传图像分组；资源组不可复制，�
 
 播放器、录制器和转码任务的3项Native生命周期集成测试分别通过ASan（AddressSanitizer，地址检测器）与UBSan（UndefinedBehaviorSanitizer，未定义行为检测器）。
 
-最终日志位于`.validation/`，包括`five-rounds-<host、lint、build或device>-final.log`、`five-rounds-native-debug-final.log`、`six-items-native-release-full.log`和`six-items-<address或undefined>-<测试名>.log`。首次全量Host复验发现录制模型测试仍断言旧包装错误，更新断言后重跑通过。
+最终日志位于`.validation/`，包括`five-rounds-<host、lint、build或device>-final.log`、`five-rounds-native-debug-final.log`、`six-items-native-release-full.log`和`six-items-<address或undefined>-<测试名>.log`。第1次全量Host复验时，录制模型测试仍期待包装后的错误，导致断言失败。断言改为检查视频输出停止时返回的原始错误后，重跑通过。
 
 ### 录音PCM基准
 

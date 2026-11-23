@@ -445,30 +445,36 @@ bool SetStreamStats(napi_env env, napi_value object, const char *key, const Reco
         SetTiming(env, stream, "bufferHold", stats.bufferHold) &&
         napi_set_named_property(env, object, key, stream) == napi_ok;
 }
+
+bool SetSessionDiagnostics(napi_env env, napi_value result, Recorder &recorder, const SessionReportInfo &session)
+{
+    napi_value active = nullptr;
+    return napi_get_boolean(env, recorder.IsSessionActive(), &active) == napi_ok &&
+        napi_set_named_property(env, result, "active", active) == napi_ok &&
+        SetCleanupProgress(env, result, recorder.GetCleanupProgress()) &&
+        SetReportString(env, result, "sessionId", session.id) &&
+        SetReportString(env, result, "requestedConfiguration", session.requested) &&
+        SetReportString(env, result, "observedConfiguration", session.observed) &&
+        SetReportString(env, result, "parameterChanges", session.changes) &&
+        SetReportString(env, result, "endReason", session.endReason);
+}
 } // 匿名命名空间
 
 napi_value RecorderNative::GetDiagnostics(napi_env env, napi_callback_info info)
 {
     (void)info;
+    Recorder &recorder = Recorder::GetInstance();
     napi_value result = nullptr;
-    napi_value active = nullptr;
-    const SessionReportInfo session = Recorder::GetInstance().GetSessionReport();
+    const SessionReportInfo session = recorder.GetSessionReport();
     if (napi_create_object(env, &result) != napi_ok ||
-        napi_get_boolean(env, Recorder::GetInstance().IsSessionActive(), &active) != napi_ok ||
-        napi_set_named_property(env, result, "active", active) != napi_ok ||
-        !SetCleanupProgress(env, result, Recorder::GetInstance().GetCleanupProgress()) ||
-        !SetReportString(env, result, "sessionId", session.id) ||
-        !SetReportString(env, result, "requestedConfiguration", session.requested) ||
-        !SetReportString(env, result, "observedConfiguration", session.observed) ||
-        !SetReportString(env, result, "parameterChanges", session.changes) ||
-        !SetReportString(env, result, "endReason", session.endReason) ||
-        !SetAudioStats(env, result, Recorder::GetInstance().GetAudioStats()) ||
-        !SetStreamStats(env, result, "primary", Recorder::GetInstance().GetOutputStats(true)) ||
-        !SetStreamStats(env, result, "secondary", Recorder::GetInstance().GetOutputStats(false))) {
+        !SetSessionDiagnostics(env, result, recorder, session) ||
+        !SetAudioStats(env, result, recorder.GetAudioStats()) ||
+        !SetStreamStats(env, result, "primary", recorder.GetOutputStats(true)) ||
+        !SetStreamStats(env, result, "secondary", recorder.GetOutputStats(false))) {
         napi_throw_error(env, nullptr, "Serialize recording diagnostics failed");
         return nullptr;
     }
-    const OperationFailureInfo failure = Recorder::GetInstance().GetFailure();
+    const OperationFailureInfo failure = recorder.GetFailure();
     napi_value timeline = nullptr;
     napi_create_array_with_length(env, session.timeline.size(), &timeline);
     for (size_t i = 0; i < session.timeline.size(); ++i) {
