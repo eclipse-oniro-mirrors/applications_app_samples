@@ -23,10 +23,10 @@ function kdfSync() {
       algName: 'SCRYPT',
       passphrase: '123456',
       salt: new Uint8Array(16),
-      n:1024,
-      p:16,
-      r:8,
-      maxMemory:1024 * 16 * 8 * 10, //n * p * r * 10
+      n: 1024,
+      p: 16,
+      r: 8,
+      maxMemory: 1024 * 16 * 8 * 10, //n * p * r * 10
       keySize: 64
     };
     let kdf = cryptoFramework.createKdf('SCRYPT');
