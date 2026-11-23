@@ -15,20 +15,7 @@
 
 {
   "app": {
-    "signingConfigs": [
-      {
-        "name": "default",
-        "material": {
-          "certpath": "C:/Users/xychengas/.ohos/config/openharmony/default_CalendarEvent_eedQn4O9np_0xDmtU3HHQ9VnYeJNHCZODv6SXlTvoeg=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001AE9972D8510A729BE1648ECBDD25453E3FB40026BF49E8F6BD3D6DB0956F953E7A66F7A62C5F6",
-          "profile": "C:/Users/xychengas/.ohos/config/openharmony/default_CalendarEvent_eedQn4O9np_0xDmtU3HHQ9VnYeJNHCZODv6SXlTvoeg=.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "C:/Users/xychengas/.ohos/config/openharmony/default_CalendarEvent_eedQn4O9np_0xDmtU3HHQ9VnYeJNHCZODv6SXlTvoeg=.p12",
-          "storePassword": "0000001AF6F303D1E192F2E54CF5A344CB4240CD176865D2535C9AECB2A3325C7DDDC4CE18EDE9C763ED"
-        }
-      }
-    ],
+    "signingConfigs": [],
     "products": [
       {
         "name": "default",
