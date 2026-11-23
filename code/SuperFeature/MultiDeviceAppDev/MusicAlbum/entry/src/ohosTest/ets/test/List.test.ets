@@ -52,6 +52,16 @@ import uiHome01Test from './UiHome01.test';
 import uiList01Test from './UiList01.test';
 import uiPlayer01Test from './UiPlayer01.test';
 import uiBreakpoint01Test from './UiBreakpoint01.test';
+import albumOperationsSuite from './Core/AlbumOperations.test'
+import albumStressSuite from './Core/AlbumStress.test'
+import albumAppVersionSuite from './Validation/AlbumAppVersion.test'
+import albumBoundaryErrorTestingSuite from './Validation/AlbumBoundaryErrorTesting.test'
+import albumSongSourceValidationSuite from './Validation/AlbumSongSourceValidation.test'
+import albumFocusRingBehaviorSuite from './Interaction/AlbumFocusRingBehavior.test'
+import albumUserScenariosSuite from './Integration/AlbumUserScenarios.test'
+import albumErrorRecoverySuite from './LifecycleState/AlbumErrorRecovery.test'
+import albumLongTermStabilitySuite from './PerformanceStability/AlbumLongTermStability.test'
+import albumExtensionSuite from './AlbumExtension.test'
 
 export default function testsuite() {
   abilityTest();
@@ -93,4 +103,14 @@ export default function testsuite() {
   uiList01Test();
   uiPlayer01Test();
   uiBreakpoint01Test();
+  albumOperationsSuite()
+  albumStressSuite()
+  albumAppVersionSuite()
+  albumBoundaryErrorTestingSuite()
+  albumSongSourceValidationSuite()
+  albumFocusRingBehaviorSuite()
+  albumUserScenariosSuite()
+  albumErrorRecoverySuite()
+  albumLongTermStabilitySuite()
+  albumExtensionSuite()
 }

@@ -78,6 +78,16 @@ import uiCityList0001Test from './UiCityList0001.test'
 import uiHome0001Test from './UiHome0001.test'
 import uiTitleBar0001Test from './UiTitleBar0001.test'
 import uiWindow0001Test from './UiWindow0001.test'
+import weatherInputInteractionSuite from './Core/WeatherInputInteraction.test'
+import weatherConfigurationManagerValidationSuite from './Validation/WeatherConfigurationManagerValidation.test'
+import weatherDataSourceValidationSuite from './Validation/WeatherDataSourceValidation.test'
+import weatherCityCatalogValidationSuite from './Validation/WeatherCityCatalogValidation.test'
+import weatherButtonInteractionSuite from './Interaction/WeatherButtonInteraction.test'
+import weatherThemeVariationSuite from './Interaction/WeatherThemeVariation.test'
+import weatherComprehensiveRegressionSuite from './Integration/WeatherComprehensiveRegression.test'
+import weatherExtensionLifecycleSuite from './LifecycleState/WeatherExtensionLifecycle.test'
+import weatherPerformanceStressSuite from './PerformanceStability/WeatherPerformanceStress.test'
+import weatherExtensionSuite from './WeatherExtension.test'
 
 export default function testsuite() {
   abilityTest()
@@ -140,4 +150,14 @@ export default function testsuite() {
   uiHome0001Test()
   uiTitleBar0001Test()
   uiWindow0001Test()
+  weatherInputInteractionSuite()
+  weatherConfigurationManagerValidationSuite()
+  weatherDataSourceValidationSuite()
+  weatherCityCatalogValidationSuite()
+  weatherButtonInteractionSuite()
+  weatherThemeVariationSuite()
+  weatherComprehensiveRegressionSuite()
+  weatherExtensionLifecycleSuite()
+  weatherPerformanceStressSuite()
+  weatherExtensionSuite()
 }
