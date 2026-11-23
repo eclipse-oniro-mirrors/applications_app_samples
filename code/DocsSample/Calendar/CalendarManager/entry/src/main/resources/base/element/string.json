@@ -13,6 +13,10 @@
       "value": "label"
     },
     {
+      "name": "calendar_permission_reason",
+      "value": "用于创建、查询和管理日历账户"
+    },
+    {
       "name": "calendar_create",
       "value": "1，创建日历账户对象"
     },
