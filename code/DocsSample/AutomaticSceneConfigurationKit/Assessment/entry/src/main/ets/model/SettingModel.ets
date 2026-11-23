@@ -1,9 +1,9 @@
 @ObservedV2
 export default class SettingModel {
-  @Trace clearClipboard: boolean = true;
-  @Trace privacyMode: boolean = true;
-  @Trace simpleKeyboard: boolean = true;
-  @Trace allowDeveloperMode: boolean = false;
-  @Trace allowEmulator: boolean = false;
-  @Trace screenRecord: boolean = false;
+  @Trace public clearClipboard: boolean = true;
+  @Trace public privacyMode: boolean = true;
+  @Trace public simpleKeyboard: boolean = true;
+  @Trace public allowDeveloperMode: boolean = false;
+  @Trace public allowEmulator: boolean = false;
+  @Trace public screenRecord: boolean = false;
 }
