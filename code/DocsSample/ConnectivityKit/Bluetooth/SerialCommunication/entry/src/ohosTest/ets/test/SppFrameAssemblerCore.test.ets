@@ -120,7 +120,7 @@ export default function sppFrameAssemblerCoreTest(): void {
     /**
      * @tc.number    SUB_SERIAL_COMM_FRAME_0303
      * @tc.name      testSppFrame0303
-     * @tc.desc      Verify frame byte layout places head len checksum and tail correctly.
+     * @tc.desc      Verify head, length, checksum and tail bytes are at the expected offsets in the frame.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
