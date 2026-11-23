@@ -6,15 +6,15 @@ import Logger from '../common/utils/Logger';
 
 @ObservedV2
 export default class AssessmentViewModel {
-  @Trace isActive: boolean = false;
-  @Trace duration: number = 0;
-  @Trace logs: string[] = [];
-  @Trace eventType: string = '';
-  @Trace eventCode: number = 0;
-  @Trace eventMessage: string = '';
-  @Trace eventSeq: number = 0;
-  @Trace queryDuration: number = AssessmentConstants.INVALID_DURATION;
-  @Trace queryApps: string = '';
+  @Trace public isActive: boolean = false;
+  @Trace public duration: number = 0;
+  @Trace public logs: string[] = [];
+  @Trace public eventType: string = '';
+  @Trace public eventCode: number = 0;
+  @Trace public eventMessage: string = '';
+  @Trace public eventSeq: number = 0;
+  @Trace public queryDuration: number = AssessmentConstants.INVALID_DURATION;
+  @Trace public queryApps: string = '';
 
   private callback: assessment.IAssessmentCallback;
 
