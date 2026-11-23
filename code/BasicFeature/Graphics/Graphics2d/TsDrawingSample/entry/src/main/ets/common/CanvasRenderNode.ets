@@ -13,25 +13,49 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/common/CanvasRenderNode.ets
+ * 文件职责：CanvasRenderNode 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：CanvasRenderNodeCropping、CanvasRenderNodeMatrix、CanvasRenderNodeCombination。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { RenderNode, DrawContext } from '@ohos.arkui.node';
 import drawing from '@ohos.graphics.drawing';
 import common2D from '@ohos.graphics.common2D';
 import display from '@ohos.display';
 
+// let 语句
 let screen = display.getDefaultDisplaySync();
+// let 语句
 let screenWidth: number = screen.width;
 
+/**
+ * CanvasRenderNodeCropping：类定义，承载本文件对应的逻辑与数据。
+ */
 export class CanvasRenderNodeCropping extends RenderNode {
+  /**
+   * draw：执行 draw 相关逻辑。
+   */
   async draw(context: DrawContext) {
+    // const 语句
     const canvas = context.canvas;
+    // let 语句
     let startX = 100.0;
+    // let 语句
     let startY = 100.0;
+    // let 语句
     let w = screenWidth / 8;
+    // let 语句
     let h = screenWidth / 8;
+    // let 语句
     let textSize = screenWidth / 25;
+    // let 语句
     let font = new drawing.Font();
     font.setSize(textSize);
+    // let 语句
     let text = getContext().resourceManager.getStringSync($r('app.string.crop'));
+    // const 语句
     const textBlob = drawing.TextBlob.makeFromString(text, font, drawing.TextEncoding.TEXT_ENCODING_UTF8);
     canvas.drawTextBlob(textBlob, startX, startY - textSize);
 
@@ -60,7 +84,13 @@ export class CanvasRenderNodeCropping extends RenderNode {
   }
 }
 
+/**
+ * CanvasRenderNodeMatrix：类定义，承载本文件对应的逻辑与数据。
+ */
 export class CanvasRenderNodeMatrix extends RenderNode {
+  /**
+   * draw：执行 draw 相关逻辑。
+   */
   async draw(context: DrawContext) {
     const canvas = context.canvas;
     let startX = 100.0;
@@ -101,7 +131,13 @@ export class CanvasRenderNodeMatrix extends RenderNode {
   }
 }
 
+/**
+ * CanvasRenderNodeCombination：类定义，承载本文件对应的逻辑与数据。
+ */
 export class CanvasRenderNodeCombination extends RenderNode {
+  /**
+   * draw：执行 draw 相关逻辑。
+   */
   async draw(context: DrawContext) {
     const canvas = context.canvas;
     let startX = 100.0;

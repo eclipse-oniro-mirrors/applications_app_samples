@@ -13,75 +13,122 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/common/MyRenderNodePath.ets
+ * 文件职责：MyRenderNodePath 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：MyRenderNodePathBrush、MyRenderNodePathPen、MyRenderNodePathShader。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { RenderNode, DrawContext } from '@ohos.arkui.node';
 import drawing from '@ohos.graphics.drawing';
 import common2D from '@ohos.graphics.common2D';
 import display from '@ohos.display';
 
+// let 语句
 let screen = display.getDefaultDisplaySync();
+// let 语句
 let screenWidth: number = screen.width;
 
+/**
+ * MyRenderNodePathBrush：类定义，承载本文件对应的逻辑与数据。
+ */
 export class MyRenderNodePathBrush extends RenderNode {
+  /**
+   * draw：执行 draw 相关逻辑。
+   */
   async draw(context: DrawContext) {
     // title
     const canvas = context.canvas;
     canvas.detachBrush();
+    // const 语句
     const startX = 200;
+    // const 语句
     const startY = 60;
+    // const 语句
     const dis = 1000;
+    // const 语句
     const w = screenWidth / 6;
+    // const 语句
     const font = new drawing.Font();
     font.setSize(screenWidth / 25);
+    // let 语句
     let text = getContext().resourceManager.getStringSync($r('app.string.DrawPathWithBrush'));
+    // const 语句
     const textBlob =
       drawing.TextBlob.makeFromString(text, font, drawing.TextEncoding.TEXT_ENCODING_UTF8);
     canvas.drawTextBlob(textBlob, startX, startY + dis);
     // set brush
     const brush = new drawing.Brush();
+    // const 语句
     const color: common2D.Color = {
+      // 字段 alpha：声明并维护该成员的状态
       alpha: 0xFF,
+      // 字段 red：声明并维护该成员的状态
       red: 0x44,
+      // 字段 green：声明并维护该成员的状态
       green: 0x72,
+      // 字段 blue：声明并维护该成员的状态
       blue: 0xC3
     };
     brush.setColor(color);
     canvas.attachBrush(brush);
     // rect
     const pathRect = new drawing.Path();
+    // const 语句
     const rect: common2D.Rect = {
+      // 字段 left：声明并维护该成员的状态
       left: w + 10,
+      // 字段 top：声明并维护该成员的状态
       top: 100 + dis,
+      // 字段 right：声明并维护该成员的状态
       right: w * 2 - 10,
+      // 字段 bottom：声明并维护该成员的状态
       bottom: 160 + dis
     };
     pathRect.addRect(rect);
     canvas.drawPath(pathRect);
     // oval
     const pathOval = new drawing.Path();
+    // const 语句
     const rectOval: common2D.Rect = {
+      // 字段 left：声明并维护该成员的状态
       left: w * 2 + 10,
+      // 字段 top：声明并维护该成员的状态
       top: 100 + dis,
+      // 字段 right：声明并维护该成员的状态
       right: w * 3 - 10,
+      // 字段 bottom：声明并维护该成员的状态
       bottom: 160 + dis
     };
     pathOval.addOval(rectOval, 0);
     canvas.drawPath(pathOval);
     // roundrect
     const pathRoundRect = new drawing.Path();
+    // const 语句
     const rectRoundRect: common2D.Rect = {
+      // 字段 left：声明并维护该成员的状态
       left: w * 3 + 10,
+      // 字段 top：声明并维护该成员的状态
       top: 100 + dis,
+      // 字段 right：声明并维护该成员的状态
       right: w * 4 - 10,
+      // 字段 bottom：声明并维护该成员的状态
       bottom: 160 + dis
     };
+    // const 语句
     const roundRect = new drawing.RoundRect(rectRoundRect, 20, 20);
     pathRoundRect.addRoundRect(roundRect);
     canvas.drawPath(pathRoundRect);
     // polygon
     const pathPolygon = new drawing.Path();
+    // let 语句
     let points: common2D.Point[] = [];
+    // const 语句
     const point1: common2D.Point = { x: w * 4 + 10, y: 160 + dis };
+    // const 语句
     const point2: common2D.Point = { x: w * 5 - 10, y: 160 + dis };
+    // const 语句
     const point3: common2D.Point = { x: w * 9 / 2, y: 100 + dis };
     points.push(point1);
     points.push(point2);
@@ -90,10 +137,15 @@ export class MyRenderNodePathBrush extends RenderNode {
     canvas.drawPath(pathPolygon);
     // arc
     const pathArc = new drawing.Path();
+    // const 语句
     const rectArc: common2D.Rect = {
+      // 字段 left：声明并维护该成员的状态
       left: w * 5 - 50,
+      // 字段 top：声明并维护该成员的状态
       top: 100 + dis,
+      // 字段 right：声明并维护该成员的状态
       right: w * 6 - 10,
+      // 字段 bottom：声明并维护该成员的状态
       bottom: 220 + dis
     };
     pathArc.addArc(rectArc, 0, -90);
@@ -103,27 +155,45 @@ export class MyRenderNodePathBrush extends RenderNode {
   }
 }
 
+/**
+ * MyRenderNodePathPen：类定义，承载本文件对应的逻辑与数据。
+ */
 export class MyRenderNodePathPen extends RenderNode {
+  /**
+   * draw：执行 draw 相关逻辑。
+   */
   async draw(context: DrawContext) {
     // title
     const canvas = context.canvas;
     canvas.detachBrush();
+    // const 语句
     const startX = 200;
+    // const 语句
     const startY = 230;
+    // const 语句
     const dis = 1000;
+    // const 语句
     const w = screenWidth / 6;
+    // const 语句
     const font = new drawing.Font();
     font.setSize(screenWidth / 25);
+    // let 语句
     let text1 = getContext().resourceManager.getStringSync($r('app.string.DrawPathWithPen'));
+    // const 语句
     const textBlob = drawing.TextBlob.makeFromString(text1,
       font, drawing.TextEncoding.TEXT_ENCODING_UTF8);
     canvas.drawTextBlob(textBlob, startX, startY + dis);
     // set pen
     const pen = new drawing.Pen();
+    // const 语句
     const color: common2D.Color = {
+      // 字段 alpha：声明并维护该成员的状态
       alpha: 0xFF,
+      // 字段 red：声明并维护该成员的状态
       red: 0x44,
+      // 字段 green：声明并维护该成员的状态
       green: 0x72,
+      // 字段 blue：声明并维护该成员的状态
       blue: 0xC3
     };
     pen.setColor(color);
@@ -137,29 +207,43 @@ export class MyRenderNodePathPen extends RenderNode {
     canvas.drawPath(pathLine);
     // rect
     const pathRect = new drawing.Path();
+    // const 语句
     const rect: common2D.Rect = {
+      // 字段 left：声明并维护该成员的状态
       left: w + 10,
+      // 字段 top：声明并维护该成员的状态
       top: 260 + dis,
+      // 字段 right：声明并维护该成员的状态
       right: w * 2 - 10,
+      // 字段 bottom：声明并维护该成员的状态
       bottom: 320 + dis
     };
     pathRect.addRect(rect);
     canvas.drawPath(pathRect);
     // oval
     const pathOval = new drawing.Path();
+    // const 语句
     const rectOval: common2D.Rect = {
+      // 字段 left：声明并维护该成员的状态
       left: w * 2 + 10,
+      // 字段 top：声明并维护该成员的状态
       top: 260 + dis,
+      // 字段 right：声明并维护该成员的状态
       right: w * 3 - 10,
+      // 字段 bottom：声明并维护该成员的状态
       bottom: 320 + dis
     };
     pathOval.addOval(rectOval, 0);
     canvas.drawPath(pathOval);
     // roundRect
     const pathRoundRect = new drawing.Path();
+    // const 语句
     const rectRoundRect: common2D.Rect = {
+      // 字段 left：声明并维护该成员的状态
       left: w * 3 + 10,
+      // 字段 top：声明并维护该成员的状态
       top: 260 + dis,
+      // 字段 right：声明并维护该成员的状态
       right: w * 4 - 10,
       bottom: 320 + dis
     };
@@ -192,7 +276,13 @@ export class MyRenderNodePathPen extends RenderNode {
   }
 }
 
+/**
+ * MyRenderNodePathShader：类定义，承载本文件对应的逻辑与数据。
+ */
 export class MyRenderNodePathShader extends RenderNode {
+  /**
+   * draw：执行 draw 相关逻辑。
+   */
   async draw(context: DrawContext) {
     // title
     const canvas = context.canvas;
