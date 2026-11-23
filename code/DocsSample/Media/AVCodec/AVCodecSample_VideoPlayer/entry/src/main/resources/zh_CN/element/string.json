@@ -1,0 +1,60 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Native 视频播放示例"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "播放本地视频"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "AVCodecSample_VideoPlayer"
+    },
+    {
+      "name": "play",
+      "value": "播放"
+    },
+    {
+      "name": "playback_mode",
+      "value": "播放模式"
+    },
+    {
+      "name": "choose_playback_mode",
+      "value": "选择播放模式"
+    },
+    {
+      "name": "async_surface",
+      "value": "异步模式 · Surface模式"
+    },
+    {
+      "name": "async_buffer",
+      "value": "异步模式 · buffer模式"
+    },
+    {
+      "name": "sync_surface",
+      "value": "同步模式 · Surface模式"
+    },
+    {
+      "name": "sync_buffer",
+      "value": "同步模式 · buffer模式"
+    },
+    {
+      "name": "choose_video_source",
+      "value": "选择视频来源"
+    },
+    {
+      "name": "gallery",
+      "value": "图库"
+    },
+    {
+      "name": "files",
+      "value": "文件管理"
+    },
+    {
+      "name": "play_failed",
+      "value": "无法播放此文件。"
+    }
+  ]
+}
