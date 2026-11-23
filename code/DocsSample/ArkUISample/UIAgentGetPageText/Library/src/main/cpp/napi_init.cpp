@@ -137,7 +137,7 @@ napi_value Init(napi_env env, napi_value exports)
     }
     return exports;
 }
-} // 命名空间
+}
 
 static napi_module pageTextModule = {
     1, 0, nullptr, Init, "pagetext", nullptr, {nullptr}
