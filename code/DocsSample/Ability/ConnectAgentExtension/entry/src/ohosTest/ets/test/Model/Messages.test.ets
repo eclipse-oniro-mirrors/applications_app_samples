@@ -1,0 +1,154 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+import { describe, beforeAll, afterAll, it, expect } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import {
+  AGENT_BUNDLE, AGENT_ABILITY, AGENT_ID, AGENT_ID_MAX_LENGTH, PAYLOAD_MAX_LENGTH, STATE_IDLE, STATE_CONNECTING, STATE_CONNECTED, STATE_DISCONNECTED, EVENT_DATA, EVENT_AUTH, EVENT_DISCONNECT, ERROR_SUCCESS, ERROR_INVALID_PARAM, ERROR_NOT_CONNECTED, ERROR_AUTH_FAILED, ERROR_PROXY_RELEASED, AgentModel, AgentWant, AgentEvent
+} from '../Shared/AgentFixtures';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AgentManager]';
+
+export default function connectAgentExtensionMessagesTest(): void {
+  describe('ConnectAgentExtensionModelTestMessages', (): void => {
+    beforeAll((): void => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'connectAgentExtensionMessagesTest started');
+    });
+    afterAll((): void => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'connectAgentExtensionMessagesTest finished');
+    });
+
+    // @tc.number    SUB_AGENT_EXTENSION_MESSAGES_0001
+    // @tc.name      connectAgentExtensionMessagesCase001
+    // @tc.desc      Verify agent error message slot 0. (parameterised matrix part 1).
+    it('connectAgentExtensionMessagesCase001', 0, (): void => {
+      {
+        expect(AgentModel.errorMessage(0)).assertEqual('success');
+        expect(AgentModel.errorMessage(0).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(401)).assertEqual('invalid parameter');
+        expect(AgentModel.errorMessage(401).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(16000011)).assertEqual('agent proxy not connected');
+        expect(AgentModel.errorMessage(16000011).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(16000012)).assertEqual('agent authorize failed');
+        expect(AgentModel.errorMessage(16000012).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(16000013)).assertEqual('agent proxy released');
+        expect(AgentModel.errorMessage(16000013).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(-1)).assertEqual('unknown error');
+        expect(AgentModel.errorMessage(-1).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(1)).assertEqual('unknown error');
+        expect(AgentModel.errorMessage(1).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(500)).assertEqual('unknown error');
+        expect(AgentModel.errorMessage(500).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(9)).assertEqual('unknown error');
+        expect(AgentModel.errorMessage(9).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(10)).assertEqual('unknown error');
+        expect(AgentModel.errorMessage(10).length > 0).assertTrue();
+      }
+    });
+
+    // @tc.number    SUB_AGENT_EXTENSION_MESSAGES_0002
+    // @tc.name      connectAgentExtensionMessagesCase002
+    // @tc.desc      Verify agent error message slot 10. (parameterised matrix part 2).
+    it('connectAgentExtensionMessagesCase002', 0, (): void => {
+      {
+        expect(AgentModel.errorMessage(11)).assertEqual('unknown error');
+        expect(AgentModel.errorMessage(11).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(12)).assertEqual('unknown error');
+        expect(AgentModel.errorMessage(12).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(13)).assertEqual('unknown error');
+        expect(AgentModel.errorMessage(13).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(14)).assertEqual('unknown error');
+        expect(AgentModel.errorMessage(14).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(15)).assertEqual('unknown error');
+        expect(AgentModel.errorMessage(15).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(16)).assertEqual('unknown error');
+        expect(AgentModel.errorMessage(16).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(17)).assertEqual('unknown error');
+        expect(AgentModel.errorMessage(17).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(18)).assertEqual('unknown error');
+        expect(AgentModel.errorMessage(18).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(19)).assertEqual('unknown error');
+        expect(AgentModel.errorMessage(19).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(20)).assertEqual('unknown error');
+        expect(AgentModel.errorMessage(20).length > 0).assertTrue();
+      }
+    });
+
+    // @tc.number    SUB_AGENT_EXTENSION_MESSAGES_0003
+    // @tc.name      connectAgentExtensionMessagesCase003
+    // @tc.desc      Verify agent error message slot 20. (parameterised matrix part 3).
+    it('connectAgentExtensionMessagesCase003', 0, (): void => {
+      {
+        expect(AgentModel.errorMessage(21)).assertEqual('unknown error');
+        expect(AgentModel.errorMessage(21).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(22)).assertEqual('unknown error');
+        expect(AgentModel.errorMessage(22).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(23)).assertEqual('unknown error');
+        expect(AgentModel.errorMessage(23).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(24)).assertEqual('unknown error');
+        expect(AgentModel.errorMessage(24).length > 0).assertTrue();
+      }
+      {
+        expect(AgentModel.errorMessage(25)).assertEqual('unknown error');
+        expect(AgentModel.errorMessage(25).length > 0).assertTrue();
+      }
+    });
+
+  });
+}

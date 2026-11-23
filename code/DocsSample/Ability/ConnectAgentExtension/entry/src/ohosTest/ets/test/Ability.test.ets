@@ -63,7 +63,7 @@ export default function abilityTest() {
         const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
         const want: Want = {
           deviceId: '',
-          bundleName: 'com.sample.connectAgentExtension',
+          bundleName: 'com.sample.connectagentextension',
           abilityName: 'EntryAbility'
         };
         await delegator.startAbility(want);
