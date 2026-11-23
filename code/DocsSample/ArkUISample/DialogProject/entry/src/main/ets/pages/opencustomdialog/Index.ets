@@ -21,6 +21,7 @@ import { CustomDialogComponentWithTransition } from './customDialogComponentWith
 import { CustomDialogWithKeyboardAvoidDistance } from './customDialogWithKeyboardAvoidDistance';
 import { OpenDialogAndUpdate } from './OpenDialogAndUpdate';
 import { OpenCustomDialogWithSystemMaterial} from './openCustomDialogWithSystemMaterial';
+import { CustomDialogHoverModeExample } from './CustomDialogHoverModeExample';
 
 export const CustomDialog_ROUTE_PREFIX: string = 'CustomDialog_ROUTE_PREFIX';
 
@@ -50,6 +51,11 @@ const routes: Route[] = [
     name: `${CustomDialog_ROUTE_PREFIX}/CustomdialogWithSystemMaterial`,
     title: resource.resourceToString($r('app.string.CustomdialogWithSystemMaterial_title')),
     description: $r('app.string.CustomdialogWithSystemMaterial_desc'),
+  },
+  {
+    name: `${CustomDialog_ROUTE_PREFIX}/CustomDialogHoverModeExample`,
+    title: resource.resourceToString($r('app.string.CustomDialogHoverModeExample_title')),
+    description: $r('app.string.CustomDialogHoverModeExample_desc'),
   }
 ]
 
@@ -67,6 +73,8 @@ export function CustomDialogDestination(name: string) {
     OpenDialogAndUpdate();
   } else if (name === routes[4].name) {
     OpenCustomDialogWithSystemMaterial();
+  } else if (name === routes[5].name) {
+    CustomDialogHoverModeExample();
   }
 }
 
