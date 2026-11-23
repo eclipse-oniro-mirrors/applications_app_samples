@@ -1868,5 +1868,70 @@ export default function snapshotRegression(): void {
       logStep("snapshotRegressionReconnectWithThreeRequests", service.events.trace());
     });
 
+    /**
+     * @tc.name          snapshotRegressionReconnectWithZeroStartId
+     * @tc.desc          Reconnect scenario reconnect with zero start id replaces the stub across disconnect boundaries.
+     * @tc.precondition  The model connects, disconnects and connects again with requests in between.
+     * @tc.steps         1. Create the service and connect once.
+     *                   2. Replay request ids and disconnect.
+     *                   3. Connect a second time and read the new stub.
+     *                   4. Compare counts and the golden trace.
+     * @tc.expected      Two connections are counted, the stub identity changes, and the trace matches.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type          FUNCTION
+     * @tc.level         LEVEL2
+     */
+    it('snapshotRegressionReconnectWithZeroStartId', 0, () => {
+      const service: ServiceLifecycleModel = new ServiceLifecycleModel();
+      service.onCreate();
+      const first = service.onConnect();
+      const ids: number[] = [0];
+      for (let index = 0; index < ids.length; index++) {
+        service.onRequest(ids[index]);
+      }
+      service.onDisconnect();
+      const second = service.onConnect();
+      expect(first === second).assertFalse();
+      expect(service.connectCount).assertEqual(2);
+      expect(service.disconnectCount).assertEqual(1);
+      expect(service.state).assertEqual("connected");
+      expect(service.stub === second).assertTrue();
+      expect(service.events.trace()).assertEqual('onCreate>onConnect:IPCStubTest>onRequest:0>onDisconnect>onConnect:IPCStubTest');
+      expect(second.descriptor).assertEqual(first.descriptor);
+      logStep("snapshotRegressionReconnectWithZeroStartId", service.events.trace());
+    });
+
+    /**
+     * @tc.name          snapshotRegressionReconnectWithLargeStartId
+     * @tc.desc          Reconnect scenario reconnect with large start id replaces the stub across disconnect boundaries.
+     * @tc.precondition  The model connects, disconnects and connects again with requests in between.
+     * @tc.steps         1. Create the service and connect once.
+     *                   2. Replay request ids and disconnect.
+     *                   3. Connect a second time and read the new stub.
+     *                   4. Compare counts and the golden trace.
+     * @tc.expected      Two connections are counted, the stub identity changes, and the trace matches.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type          FUNCTION
+     * @tc.level         LEVEL2
+     */
+    it('snapshotRegressionReconnectWithLargeStartId', 0, () => {
+      const service: ServiceLifecycleModel = new ServiceLifecycleModel();
+      service.onCreate();
+      const first = service.onConnect();
+      const ids: number[] = [99];
+      for (let index = 0; index < ids.length; index++) {
+        service.onRequest(ids[index]);
+      }
+      service.onDisconnect();
+      const second = service.onConnect();
+      expect(first === second).assertFalse();
+      expect(service.connectCount).assertEqual(2);
+      expect(service.disconnectCount).assertEqual(1);
+      expect(service.state).assertEqual("connected");
+      expect(service.stub === second).assertTrue();
+      expect(service.events.trace()).assertEqual('onCreate>onConnect:IPCStubTest>onRequest:99>onDisconnect>onConnect:IPCStubTest');
+      expect(second.descriptor).assertEqual(first.descriptor);
+      logStep("snapshotRegressionReconnectWithLargeStartId", service.events.trace());
+    });
   });
 }
