@@ -44,6 +44,7 @@ entry/src/main/ets/
 |   |   |---ContextUtil.ets                  // 获取UIAbilityContext的工具类
 |   |   |---Logger.ets                       // 日志工具类
 |   |   |---ExamHardeningUtil.ets            // 应用侧加固工具类，含窗口沉浸式、隐私模式、清空剪贴板与简单键盘
+|   |   |---ScreenRecordUtil.ets             // 应用侧录屏工具类
 |---entryability
 |   |---EntryAbility.ets                     // 入口Ability，加载页面并设置沉浸式全屏窗口
 |---entrybackupability
@@ -51,6 +52,7 @@ entry/src/main/ets/
 |---model                                    // Model层，纯数据结构
 |   |---ExamQuestionModel.ets                // 题目数据模型与本地模拟题库
 |   |---EventLogModel.ets                    // 回调事件日志数据模型
+|   |---SettingModel.ets                     // 加固配置开关模型
 |---viewmodel                                // ViewModel层，@ObservedV2状态管理与业务逻辑
 |   |---AssessmentViewModel.ets              // 评估管理状态与逻辑：封装begin/end/isActive/getConfiguration接口，
 |   |                                         //   注册IAssessmentCallback，通过@Trace发布状态与事件，@Computed计算属性
@@ -60,6 +62,7 @@ entry/src/main/ets/
 |   |---ConfigView.ets                       // 评估配置卡片：时长选择、应用白名单增删
 |   |---OperationView.ets                    // 操作按钮区：开始/结束/查询状态/查询配置
 |   |---StatusView.ets                       // 状态信息卡片：评估状态、当前配置、回调事件记录
+|   |---SettingView.ets                      // 加固配置区
 |   |---ExamHeaderView.ets                   // 答题页头部：标题与剩余时间倒计时
 |   |---QuestionCardView.ets                 // 题目卡片：题干展示与选项选择
 |   |---ExamOperationView.ets                // 答题操作区：上一题/下一题/交卷
