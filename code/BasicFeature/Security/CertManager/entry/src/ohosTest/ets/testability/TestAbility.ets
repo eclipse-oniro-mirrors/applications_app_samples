@@ -13,50 +13,49 @@
  * limitations under the License.
  */
 
-import UIAbility from '@ohos.app.ability.UIAbility';
-import Want from '@ohos.app.ability.Want';
-import AbilityConstant from '@ohos.app.ability.AbilityConstant';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import Logger from '../../../main/ets/model/Logger';
+import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { window } from '@kit.ArkUI';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { Hypium } from '@ohos/hypium';
+import Logger from '../../../main/ets/model/Logger';
 import testsuite from '../test/List.test';
-import window from '@ohos.window';
 
 export default class TestAbility extends UIAbility {
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
-    Logger.info('testTag', 'TestAbility onCreate');
-    Logger.info('testTag', `want param: ${JSON.stringify(want) ?? ''}`);
-    Logger.info('testTag', `launchParam: ${JSON.stringify(launchParam) ?? ''}`);
-    const abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    const abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
-    Logger.info('testTag', 'start run testcase!!!');
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    Logger.info('[Sample_CertManager]', 'TestAbility onCreate');
+    Logger.info('[Sample_CertManager]', `want param: ${JSON.stringify(want) ?? ''}`);
+    Logger.info('[Sample_CertManager]', `launchParam: ${JSON.stringify(launchParam) ?? ''}`);
+    const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+    const abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs =
+      abilityDelegatorRegistry.getArguments();
+    Logger.info('[Sample_CertManager]', 'start run testcase!!!');
     Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
   }
 
-  onDestroy() {
-    Logger.info('testTag', 'TestAbility onDestroy');
+  onDestroy(): void {
+    Logger.info('[Sample_CertManager]', 'TestAbility onDestroy');
   }
 
-  onWindowStageCreate(windowStage: window.WindowStage) {
-    Logger.info('testTag', 'TestAbility onWindowStageCreate');
+  onWindowStageCreate(windowStage: window.WindowStage): void {
+    Logger.info('[Sample_CertManager]', 'TestAbility onWindowStageCreate');
     windowStage.loadContent('testability/pages/Index', (err, data) => {
       if (err.code) {
-        Logger.error('testTag', `Failed to load the content. Cause: ${JSON.stringify(err) ?? ''}`);
+        Logger.error('[Sample_CertManager]', `Failed to load the content. Cause: ${JSON.stringify(err) ?? ''}`);
         return;
       }
-      Logger.info('testTag', `Succeeded in loading the content. Data: ${JSON.stringify(data) ?? ''}`);
+      Logger.info('[Sample_CertManager]', `Succeeded in loading the content. Data: ${JSON.stringify(data) ?? ''}`);
     });
   }
 
-  onWindowStageDestroy() {
-    Logger.info('testTag', 'TestAbility onWindowStageDestroy');
+  onWindowStageDestroy(): void {
+    Logger.info('[Sample_CertManager]', 'TestAbility onWindowStageDestroy');
   }
 
-  onForeground() {
-    Logger.info('testTag', 'TestAbility onForeground');
+  onForeground(): void {
+    Logger.info('[Sample_CertManager]', 'TestAbility onForeground');
   }
 
-  onBackground() {
-    Logger.info('testTag', 'TestAbility onBackground');
+  onBackground(): void {
+    Logger.info('[Sample_CertManager]', 'TestAbility onBackground');
   }
 }

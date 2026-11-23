@@ -17,10 +17,14 @@ import router from '@ohos.router'
 import { Decrypt } from '../common/Decrypt'
 import { Encryption } from '../common/Encryption'
 
+interface RouterParam {
+  flag: boolean
+}
+
 @Entry
 @Component
 struct Second {
-  private flag: boolean = router.getParams()['flag']
+  private flag: boolean = (router.getParams() as RouterParam).flag
 
   build() {
     Column() {
@@ -51,7 +55,7 @@ struct Second {
       .height('6%')
       .width('100%')
       .padding({ left: 16 })
-      .backgroundColor('#0D9FFB')
+      .backgroundColor($r('app.color.title_background'))
       .constraintSize({ minHeight: 50 })
 
       if (this.flag) {
@@ -62,6 +66,6 @@ struct Second {
     }
     .width('100%')
     .height('100%')
-    .backgroundColor('#F1F1F1')
+    .backgroundColor($r('app.color.page_background'))
   }
 }

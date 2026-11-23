@@ -17,14 +17,18 @@ import prompt from '@ohos.prompt'
 import { CipherModel } from '../model/CipherModel'
 import Logger from '../model/Logger'
 
-const TAG: string = '[Encryption]'
+const TAG: string = '[Sample_Cipher]'
 
 @Component
 export struct Encryption {
   @State info: string = ''
   @State message: string = ''
-  @State algorithmType: string = 'Encryption Algorithm'
+  @State algorithmType: string = ''
   private cipherModel: CipherModel = new CipherModel()
+
+  aboutToAppear(): void {
+    this.algorithmType = getContext(this).resourceManager.getStringSync($r('app.string.encryption_algorithm'))
+  }
 
   build() {
     Stack({ alignContent: Alignment.Center }) {
@@ -60,19 +64,22 @@ export struct Encryption {
             .id('encryptionBtn')
             .onClick(() => {
               if (this.message === '') {
+                const toastMsg: string = getContext(this).resourceManager.getStringSync($r('app.string.message_empty'))
                 prompt.showToast({
-                  message: 'This message is null.'
+                  message: toastMsg
                 })
               } else {
                 if (this.algorithmType === 'RSA') {
                   this.cipherModel.rsaEncrypt(this.message, (result) => {
                     Logger.info(TAG, `this result = ${JSON.stringify(result)}`)
-                    this.info = `Encryption result is :  ${result.text}`
+                    this.info = getContext(this).resourceManager.getStringSync(
+                      $r('app.string.encryption_result_format'), result.text)
                   })
                 } else {
                   this.cipherModel.aesEncrypt(this.message, (result) => {
                     Logger.info(TAG, `this result = ${JSON.stringify(result)}`)
-                    this.info = `Encryption result is :  ${result.text}`
+                    this.info = getContext(this).resourceManager.getStringSync(
+                      $r('app.string.encryption_result_format'), result.text)
                   })
                 }
               }

@@ -11,6 +11,14 @@
     {
       "name": "TestAbility_label",
       "value": "test label"
+    },
+    {
+      "name": "testability_title",
+      "value": "Hello World"
+    },
+    {
+      "name": "testability_next",
+      "value": "next page"
     }
   ]
 }

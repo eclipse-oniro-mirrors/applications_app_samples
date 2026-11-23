@@ -17,14 +17,18 @@ import prompt from '@ohos.prompt'
 import { CipherModel } from '../model/CipherModel'
 import Logger from '../model/Logger'
 
-const TAG: string = '[Decrypt]'
+const TAG: string = '[Sample_Cipher]'
 
 @Component
 export struct Decrypt {
   @State info: string = ''
   @State message: string = ''
-  @State algorithmType: string = 'Decrypt Algorithm'
+  @State algorithmType: string = ''
   private cipherModel: CipherModel = new CipherModel()
+
+  aboutToAppear(): void {
+    this.algorithmType = getContext(this).resourceManager.getStringSync($r('app.string.decrypt_algorithm'))
+  }
 
   build() {
     Stack({ alignContent: Alignment.Center }) {
@@ -60,19 +64,22 @@ export struct Decrypt {
             .id('decryptBtn')
             .onClick(() => {
               if (this.message === '') {
+                const toastMsg: string = getContext(this).resourceManager.getStringSync($r('app.string.message_empty'))
                 prompt.showToast({
-                  message: 'This message is null.'
+                  message: toastMsg
                 })
               } else {
                 if (this.algorithmType === 'RSA') {
                   this.cipherModel.rsaDecrypt(this.message, (result) => {
                     Logger.info(TAG, `this result = ${JSON.stringify(result)}`)
-                    this.info = `Decrypt result is :  ${result.text}`
+                    this.info = getContext(this).resourceManager.getStringSync(
+                      $r('app.string.decrypt_result_format'), result.text)
                   })
                 } else {
                   this.cipherModel.aesDecrypt(this.message, (result) => {
                     Logger.info(TAG, `this result = ${JSON.stringify(result)}`)
-                    this.info = `Decrypt result is :  ${result.text}`
+                    this.info = getContext(this).resourceManager.getStringSync(
+                      $r('app.string.decrypt_result_format'), result.text)
                   })
                 }
               }

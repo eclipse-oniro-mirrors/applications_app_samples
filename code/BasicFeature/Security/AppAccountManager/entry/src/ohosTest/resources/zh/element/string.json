@@ -183,6 +183,14 @@
     {
       "name": "button_cancel",
       "value": "取消"
+    },
+    {
+      "name": "hello_message",
+      "value": "Hello World"
+    },
+    {
+      "name": "next_page",
+      "value": "next page"
     }
   ]
 }

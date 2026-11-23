@@ -21,18 +21,18 @@ import preferences from '@ohos.data.preferences'
 const TAG: string = '[AccountData]'
 
 export class AccountData {
-  static instance: AccountData = null
+  public static instance: AccountData = null
   private storage: preferences.Preferences = null
 
-  public static getInstance() {
+  public static getInstance(): AccountData {
     if (this.instance === null) {
       this.instance = new AccountData()
     }
     return this.instance
   }
 
-  async getFromStorage(context: common.Context, url: string) {
-    let name = url
+  public async getFromStorage(context: common.Context, url: string): Promise<void> {
+    let name: string = url
     Logger.info(TAG, `Name is ${name}`)
     try {
       this.storage = await preferences.getPreferences(context, `${name}`)
@@ -44,27 +44,27 @@ export class AccountData {
     }
   }
 
-  async getStorage(context: common.Context, url: string) {
+  public async getStorage(context: common.Context, url: string): Promise<preferences.Preferences> {
     this.storage = null
     await this.getFromStorage(context, url)
     return this.storage
   }
 
-  async putStorageValue(context: common.Context, key: string, value: string, url: string) {
+  public async putStorageValue(context: common.Context, key: string, value: string, url: string): Promise<void> {
     this.storage = await this.getStorage(context, url)
     try {
       await this.storage.put(key, value)
       await this.storage.flush()
       Logger.info(TAG, `put key && value success`)
     } catch (err) {
-      Logger.info(TAG, `aaaaaa put failed`)
+      Logger.info(TAG, `put storage value failed`)
     }
     return
   }
 
-  async hasStorageValue(context: common.Context, key: string, url: string) {
+  public async hasStorageValue(context: common.Context, key: string, url: string): Promise<boolean> {
     this.storage = await this.getStorage(context, url)
-    let result
+    let result: boolean = false
     try {
       result = await this.storage.has(key)
     } catch (err) {
@@ -74,11 +74,11 @@ export class AccountData {
     return result
   }
 
-  async getStorageValue(context: common.Context, key: string, url: string) {
+  public async getStorageValue(context: common.Context, key: string, url: string): Promise<string> {
     this.storage = await this.getStorage(context, url)
-    let getValue
+    let getValue: string = ''
     try {
-      getValue = await this.storage.get(key, 'null')
+      getValue = await this.storage.get(key, 'null') as string
     } catch (err) {
       Logger.error(`getStorageValue failed, code is ${err.code}, message is ${err.message}`)
     }
@@ -86,7 +86,7 @@ export class AccountData {
     return getValue
   }
 
-  async deleteStorageValue(context: common.Context, key: string, url: string) {
+  public async deleteStorageValue(context: common.Context, key: string, url: string): Promise<void> {
     this.storage = await this.getStorage(context, url)
     try {
       await this.storage.delete(key)

@@ -83,7 +83,7 @@ export struct NavigationBar {
         .height('8%')
         .width('100%')
         .padding({ left: 15 })
-        .backgroundColor('#0D9FFB')
+        .backgroundColor($r('app.color.nav_blue'))
         .constraintSize({ minHeight: 50 })
       } else {
         Row() {
@@ -95,7 +95,7 @@ export struct NavigationBar {
         .height('8%')
         .width('100%')
         .padding({ left: 15 })
-        .backgroundColor('#0D9FFB')
+        .backgroundColor($r('app.color.nav_blue'))
         .constraintSize({ minHeight: 50 })
       }
     }

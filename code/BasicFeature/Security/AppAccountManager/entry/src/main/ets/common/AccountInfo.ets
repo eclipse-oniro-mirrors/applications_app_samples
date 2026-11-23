@@ -17,6 +17,7 @@ import router from '@ohos.router';
 import Logger from '../model/Logger';
 import { AccountData } from '../model/AccountData';
 import { AccountModel } from '../model/AccountModel';
+import { AccountKeyBuilder } from '../model/AccountKeyBuilder';
 
 const TAG: string = '[AccountInfo]';
 
@@ -44,7 +45,7 @@ export struct AccountInfo {
         .textAlign(TextAlign.Start)
     }
     .width(this.isWideLayout ? '48%' : '100%')
-    .padding({ left: 5 })
+      .padding({ left: 5 })
   }
 
   build() {
@@ -133,7 +134,7 @@ export struct AccountInfo {
                   primaryButton: {
                     value: $r('app.string.confirm'),
                     action: () => {
-                      this.accountModel.deleteAccount(`${this.username}_${this.bundleName}`);
+                      this.accountModel.deleteAccount(AccountKeyBuilder.accountName(this.username, this.bundleName));
                       this.storage.deleteStorageValue(getContext(), this.username, this.bundleName)
                       router.push({
                         url: 'pages/Login',
@@ -158,8 +159,8 @@ export struct AccountInfo {
         .width('100%')
       }
       .width('100%')
-      .height('100%')
-      .layoutWeight(1)
+        .height('100%')
+        .layoutWeight(1)
     }
   }
 }
