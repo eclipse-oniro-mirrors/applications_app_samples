@@ -1,20 +1,5 @@
 {
   "app": {
-    "signingConfigs": [
-      {
-        "name": "default",
-        "type": "HarmonyOS",
-        "material": {
-          "certpath": "C:\\Users\\quank\\.ohos\\config\\debug_custom\\app-cert.cer",
-          "keyAlias": "app-key",
-          "keyPassword": "123456",
-          "profile": "C:\\Users\\quank\\.ohos\\config\\debug_custom\\Assessment-debug.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "C:\\Users\\quank\\.ohos\\config\\debug_custom\\debug.p12",
-          "storePassword": "123456"
-        }
-      }
-    ],
     "products": [
       {
         "name": "default",
@@ -22,7 +7,7 @@
         "targetSdkVersion": "26.0.1",
         "compatibleSdkVersion": "26.0.1",
         "compileSdkVersion": "26.0.1",
-        "runtimeOS": "HarmonyOS",
+        "runtimeOS": "OpenHarmony",
         "buildOption": {
           "strictMode": {
             "caseSensitiveCheck": true,
