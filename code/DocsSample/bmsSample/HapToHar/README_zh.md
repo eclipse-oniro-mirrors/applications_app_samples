@@ -37,11 +37,11 @@ entry/src/
 
 ### 约束与限制
 
-1.本示例仅支持标准系统上运行, 支持设备：tablet（平板或者平板模拟器）。
+1.本示例在标准系统上运行，`entry` 模块编译为 HAR 时支持 tablet、2in1，`application` 主模块支持 default 设备。
 
-2.本示例为Stage模型，支持API20版本SDK，版本号：6.0.0.47，镜像版本号：OpenHarmony_6.0.0.47。
+2.本示例为Stage模型，最低兼容API 20版本，使用API 26版本SDK编译。
 
-3.本示例需要使用DevEco Studio 5.1.1 Release (Build Version: 5.1.1.840, built on September 5, 2025)及以上版本才可编译运行。
+3.本示例需要使用DevEco Studio 6.1.1 Release及以上版本才可编译运行。
 
 ### 下载
 
