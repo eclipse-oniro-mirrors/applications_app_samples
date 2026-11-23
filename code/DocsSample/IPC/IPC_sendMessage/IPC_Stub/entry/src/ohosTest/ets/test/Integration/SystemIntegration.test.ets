@@ -131,7 +131,7 @@ export default function systemIntegration(): void {
      * @tc.steps         1. Capture the stub descriptor.
      *                   2. Compare with the constant and event detail.
      *                   3. Send one request.
-     * @tc.expected      The descriptor is IPCStubTest in all three places.
+     * @tc.expected      The stub descriptor, constant and event detail all contain IPCStubTest.
      * @tc.remark        Pure logic case; no device or UI dependency.
      * @tc.type          FUNCTION
      * @tc.level         LEVEL1

@@ -85,7 +85,7 @@ onCreate、onRequest、onConnect、onDisconnect 和 onDestroy 均调用测试侧
 | --- | --- | ---: |
 | `OnConnectLifecycle` | 测试侧连接返回新 Stub、描述符、连接计数与快照隔离 | 55 |
 | `OnCreateLifecycle` | 测试侧初始/创建状态、日志、事件、重复创建和快照 | 60 |
-| `OnDestroyLifecycle` | 测试侧销毁状态、计数、历史记录与其他回调组合 | 54 |
+| `OnDestroyLifecycle` | 测试侧销毁状态、计数、历史记录与生命周期回调组合 | 54 |
 | `OnDisconnectLifecycle` | 测试侧断开状态、计数、Stub 保持、事件与重置 | 55 |
 | `OnRequestLifecycle` | 测试侧请求次数、startId、状态保持、日志与事件明细 | 58 |
 | `ReconnectLifecycle` | 测试侧多次连接/断开、新 Stub 替换、独立记录与累计计数 | 53 |
@@ -101,7 +101,7 @@ onCreate、onRequest、onConnect、onDisconnect 和 onDestroy 均调用测试侧
 | `IntegrationConnectivity` | 测试侧服务连接、断开、重连、Stub 丢失与计数组合 | 55 |
 | `IntegrationPipeline` | 测试侧编码、分发、处理、回复和解码阶段及阶段记录 | 57 |
 | `IntegrationSystem` | 测试侧服务回调、独立 Stub、消息往返、事件与指标组合 | 53 |
-| `IntegrationUserScenarios` | 测试侧首次连接、同连接多次发送、断开与完整用户流程 | 55 |
+| `IntegrationUserScenarios` | 测试侧初始连接、同连接多次发送、断开与完整用户流程 | 55 |
 
 ### 测试侧批次与稳定性场景：4 个套件，211 条
 

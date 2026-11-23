@@ -358,7 +358,7 @@ export default function onRequestLifecycle(): void {
 
     /**
      * @tc.name          onRequestLifecycleSnapshotDescribeAfterRequest
-     * @tc.desc          The describe string places the request count in the fourth field.
+     * @tc.desc          The describe string includes the request count as its fourth field.
      * @tc.precondition  A created model has received one request.
      * @tc.steps         1. Create and request.
      *                   2. Capture the snapshot.
@@ -419,7 +419,7 @@ export default function onRequestLifecycle(): void {
      * @tc.steps         1. Request three times on the first model.
      *                   2. Read the second model counters.
      *                   3. Request once on the second model.
-     * @tc.expected      The second model ignores the first model activity.
+     * @tc.expected      Requests to the first model do not change the second model counters.
      * @tc.remark        Pure logic case; no device or UI dependency.
      * @tc.type          FUNCTION
      * @tc.level         LEVEL2
@@ -989,7 +989,7 @@ export default function onRequestLifecycle(): void {
 
     /**
      * @tc.name          onRequestLifecycleFullWalkWithThreeRequests
-     * @tc.desc          A complete callback walk places three requests in the middle.
+     * @tc.desc          A complete callback sequence includes three requests between connect and disconnect.
      * @tc.precondition  A fresh lifecycle model is available.
      * @tc.steps         1. Create and connect.
      *                   2. Request three times.
@@ -1156,7 +1156,7 @@ export default function onRequestLifecycle(): void {
     /**
      * @tc.name          onRequestLifecycleResetThenThreeMatchesFresh
      * @tc.desc          Three requests after reset match three on a fresh model.
-     * @tc.precondition  A model has been reset after prior activity.
+     * @tc.precondition  A model has been reset after handling requests.
      * @tc.steps         1. Fill, then reset the model.
      *                   2. Request ids 1, 2 and 3.
      *                   3. Compare with a fresh model given the same ids.

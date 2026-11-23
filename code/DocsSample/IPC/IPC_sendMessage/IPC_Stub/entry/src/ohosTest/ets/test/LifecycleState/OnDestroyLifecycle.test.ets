@@ -1035,7 +1035,7 @@ export default function onDestroyLifecycle(): void {
     /**
      * @tc.name          onDestroyLifecycleResetThenDestroyMatchesFresh
      * @tc.desc          Reset then destroy matches a fresh destroy-only walk.
-     * @tc.precondition  A model with prior activity is available.
+     * @tc.precondition  A model has recorded lifecycle callbacks.
      * @tc.steps         1. Walk several callbacks.
      *                   2. Reset and destroy.
      *                   3. Compare with a fresh destroyed model.
@@ -1408,7 +1408,7 @@ export default function onDestroyLifecycle(): void {
     /**
      * @tc.name          onDestroyLifecycleEventSizeAfterResetThenWalk
      * @tc.desc          Reset then a full walk yields exactly five events.
-     * @tc.precondition  A model has prior destroy activity.
+     * @tc.precondition  A model has recorded destroy callbacks.
      * @tc.steps         1. Destroy several times.
      *                   2. Reset.
      *                   3. Walk all five callbacks.

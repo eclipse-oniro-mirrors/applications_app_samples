@@ -1047,9 +1047,9 @@ export default function userScenarios(): void {
 
     /**
      * @tc.name          userScenariosUserSessionSnapshot
-     * @tc.desc          A mid-session snapshot reflects the user's activity.
+     * @tc.desc          A mid-session snapshot records the connection state and request count.
      * @tc.precondition  A connected session has two requests and three messages.
-     * @tc.steps         1. Run partial activity.
+     * @tc.steps         1. Create the service, handle two requests, connect and send three messages.
      *                   2. Capture a snapshot.
      *                   3. Compare the description.
      * @tc.expected      The snapshot reads connected/1/0/2/0.

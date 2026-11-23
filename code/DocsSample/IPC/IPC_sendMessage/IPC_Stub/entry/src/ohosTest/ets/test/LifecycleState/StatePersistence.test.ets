@@ -847,7 +847,7 @@ export default function statePersistence(): void {
     /**
      * @tc.name          statePersistenceResetThenWalkMatchesFresh
      * @tc.desc          A post-reset walk persists the same data as a fresh walk.
-     * @tc.precondition  A model with prior activity is available.
+     * @tc.precondition  A model has recorded create and destroy callbacks.
      * @tc.steps         1. Walk extra callbacks.
      *                   2. Reset and walk create, connect and request.
      *                   3. Compare with a fresh model walk.

@@ -1450,7 +1450,7 @@ export default function onDisconnectLifecycle(): void {
     /**
      * @tc.name          onDisconnectLifecycleEventSizeAfterResetThenWalk
      * @tc.desc          Reset then a full walk yields exactly four events.
-     * @tc.precondition  A model has prior activity.
+     * @tc.precondition  A model has recorded disconnect callbacks.
      * @tc.steps         1. Walk extra callbacks.
      *                   2. Reset.
      *                   3. Walk create, connect, disconnect and destroy.

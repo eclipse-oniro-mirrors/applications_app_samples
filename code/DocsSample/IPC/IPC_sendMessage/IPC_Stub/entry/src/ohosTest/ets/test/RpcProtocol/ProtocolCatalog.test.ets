@@ -911,7 +911,7 @@ export default function protocolCatalogTest(): void {
      * @tc.steps         1. Read the first catalog entry.
      *                   2. Compare with zero.
      *                   3. Compare with the constant.
-     * @tc.expected      The success code is zero in both places.
+     * @tc.expected      The catalog entry and the error constant both equal zero.
      * @tc.remark        Pure logic case; no device or UI dependency.
      * @tc.type          FUNCTION
      * @tc.level         LEVEL2

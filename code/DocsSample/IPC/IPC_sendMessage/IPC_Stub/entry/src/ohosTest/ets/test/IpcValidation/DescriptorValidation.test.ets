@@ -822,7 +822,7 @@ export default function descriptorValidation(): void {
 
     /**
      * @tc.name          descriptorValidationDescriptorInSnapshotText
-     * @tc.desc          A snapshot line places the descriptor between known markers.
+     * @tc.desc          A snapshot line contains the descriptor between known markers.
      * @tc.precondition  A connected lifecycle model exists.
      * @tc.steps         1. Connect the service.
      *                   2. Compose a snapshot line.

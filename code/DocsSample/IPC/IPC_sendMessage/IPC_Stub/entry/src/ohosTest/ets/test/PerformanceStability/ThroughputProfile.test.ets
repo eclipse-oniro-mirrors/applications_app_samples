@@ -1218,7 +1218,7 @@ export default function throughputProfile(): void {
 
     /**
      * @tc.name          throughputProfileLogDoesNotAffectThroughput
-     * @tc.desc          Logging activity leaves the stub throughput profile unchanged.
+     * @tc.desc          Writing logs leaves the stub throughput profile unchanged.
      * @tc.precondition  Two runs are performed, one with logging.
      * @tc.steps         1. Run fifty requests without logging.
      *                   2. Run fifty with service logging active.

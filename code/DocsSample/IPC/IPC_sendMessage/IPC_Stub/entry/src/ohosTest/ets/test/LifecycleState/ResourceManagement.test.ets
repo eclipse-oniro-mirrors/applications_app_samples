@@ -917,7 +917,7 @@ export default function resourceManagement(): void {
     /**
      * @tc.name          resourceManagementResetIdempotent
      * @tc.desc          Resetting twice keeps the service at the idle baseline.
-     * @tc.precondition  A service with activity is available.
+     * @tc.precondition  A service has completed create and connect callbacks.
      * @tc.steps         1. Walk some callbacks.
      *                   2. Reset twice.
      *                   3. Read state and containers.
@@ -1493,7 +1493,7 @@ export default function resourceManagement(): void {
     /**
      * @tc.name          resourceManagementMultipleResetsStable
      * @tc.desc          Five consecutive resets keep the service at the baseline.
-     * @tc.precondition  A service with activity is available.
+     * @tc.precondition  A service has completed create and connect callbacks.
      * @tc.steps         1. Walk create and connect.
      *                   2. Reset five times.
      *                   3. Audit state and containers.
