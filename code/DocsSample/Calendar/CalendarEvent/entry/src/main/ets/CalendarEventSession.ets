@@ -91,7 +91,7 @@ export class CalendarEventSession {
         count: 100, interval: 2, expire: this.time + 10800000,
         excludedDates: [this.time + 7200000]
       },
-      service: { type: calendarManager.ServiceType.TRIP, uri: 'xxx://xxx.xxx.com/xxx', description: '一键服务' }
+      service: { type: calendarManager.ServiceType.TRIP, uri: 'xxx://xxx.xxx.com/xxx', description: 'One-tap service' }
     });
     if (generation === this.generation && sequence === this.addSequence) { this.eventId = id; }
     return id;

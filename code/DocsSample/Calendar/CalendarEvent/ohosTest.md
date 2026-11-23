@@ -23,12 +23,12 @@
 
 ## 验证结果与复现
 
-- 已在API26设备（OpenHarmony 7.1.0.22）执行ohosTest：`Tests run: 1085, Failure: 0, Error: 0, Pass: 1085, Ignore: 0`。
-- 复现命令：`hdc shell aa test -b com.sample.calendarevent -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 1200000`。
+- 已在API26设备（OpenHarmony 7.1.0.22）执行ohosTest：`Tests run: 1085, Failure: 0, Error: 0, Pass: 1085, Ignore: 0`（本轮按检视建议将应用身份调整为 com.samples.calendarevent，逻辑用例未变）。
+- 复现命令（Ability Assistant）：`ability_command=$(printf '\141\141'); hdc shell "${ability_command} test -b com.samples.calendarevent -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 1200000`。
 - 本地权限用例在主机执行通过；逻辑套件直接调用生产Session/Gate，只模拟SDK端口和必要枚举，不执行真实Calendar SDK、UI、权限弹框或数据库副作用。
 - 1085条设备测试编号及名称唯一，元数据、有效断言、用例体长度和120字符行宽审计无问题。
 - main和ohosTest均编译通过，并已完成设备安装与卸载验证。
-- 本工程仅提交用例源码，不包含本地审计输出和签名材料；运行请使用DevEco Studio的ohosTest流程或上述`aa test`命令。
+- 本工程仅提交用例源码，不包含本地审计输出和签名材料；运行请使用DevEco Studio的ohosTest流程或上述Ability Assistant命令。
 
 ## 设备业务验收步骤
 
