@@ -14,7 +14,7 @@
  */
 
 const NativeMock: Record<string, Object> = {
-  'onChange': (callback: (event: object) => void) => {
+  'onChange': (callback: (event: { value: string }) => void) => {
   },
   'createAndEnableHandler': () => {
     return 'Event handler enabled, observing key/mouse/touch/axis events';

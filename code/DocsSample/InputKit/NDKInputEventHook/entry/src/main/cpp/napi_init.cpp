@@ -17,42 +17,50 @@
 #include "napi/native_api.h"
 #include "multimodalinput/oh_input_manager.h"
 
-std::string g_value = "";
-napi_ref g_callback_ref = nullptr;
-napi_env g_env = nullptr;
 OH_Input_EventHandler* g_handler = nullptr;
+napi_threadsafe_function g_tsfn = nullptr;
+
+// JS线程中执行：将事件信息转换为JS对象并调用回调
+static void CallJs(napi_env env, napi_js_threadsafe_function jsCallback, void* context, void* data)
+{
+    std::string* value = static_cast<std::string*>(data);
+    napi_value event;
+    napi_create_object(env, &event);
+    napi_value valueJs;
+    napi_create_string_utf8(env, value->c_str(), value->size(), &valueJs);
+    napi_set_named_property(env, event, "value", valueJs);
+    napi_value undefined;
+    napi_get_undefined(env, &undefined);
+    napi_call_function(env, undefined, jsCallback, 1, &event, nullptr);
+    delete value;
+}
 
 napi_value OnChange(napi_env env, napi_callback_info info)
 {
-    g_env = env;
     size_t argc = 1;
     napi_value args[1];
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
-    // 保存 callback 引用
-    napi_create_reference(env, args[0], 1, &g_callback_ref);
+    if (argc < 1) {
+        return nullptr;
+    }
+    // 创建线程安全函数，输入事件回调线程通过它投递消息到JS线程
+    napi_value resourceName;
+    napi_create_string_utf8(env, "onChange", NAPI_AUTO_LENGTH, &resourceName);
+    napi_create_threadsafe_function(env, args[0], nullptr, resourceName, 0, 1,
+        nullptr, nullptr, nullptr, CallJs, &g_tsfn);
     return nullptr;
 }
 
 void NotifyValueChange(std::string value)
 {
-    g_value = value;
-    if (g_callback_ref == nullptr || g_env == nullptr) {
+    if (g_tsfn == nullptr) {
         return;
     }
-
-    napi_value callback;
-    napi_get_reference_value(g_env, g_callback_ref, &callback);
-
-    // callback的输入参数
-    napi_value event;
-    napi_create_object(g_env, &event);
-
-    napi_value value_js;
-    napi_create_string_utf8(g_env, g_value.c_str(), g_value.length(), &value_js);
-    napi_set_named_property(g_env, event, "value", value_js);
-    napi_value global;
-    napi_get_global(g_env, &global);
-    napi_call_function(g_env, global, callback, 1, &event, nullptr);
+    // 输入事件回调线程中调用，投递到JS线程执行CallJs
+    std::string* data = new std::string(value);
+    if (napi_call_threadsafe_function(g_tsfn, data, napi_tsfn_nonblocking) != napi_ok) {
+        delete data;
+    }
 }
 
 // [Start event_handler_create]

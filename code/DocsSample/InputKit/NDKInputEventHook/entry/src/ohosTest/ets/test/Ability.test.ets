@@ -13,14 +13,19 @@
  * limitations under the License.
  */
 
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { abilityDelegatorRegistry } from '@kit.AbilityKit';
 import { describe, it, expect } from '@ohos/hypium';
-import { Driver, ON } from '@ohos.UiTest';
+import { Driver, ON, ComponentInfo } from '@ohos/UiTest';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const TAG = '[Sample_NDKInputEventHook]';
 const DOMAIN = 0xF811;
 const BUNDLE = 'NDKInputEventHook_';
+const BUNDLE_NAME = 'com.example.ndkinputeventhook';
+const ABILITY_NAME = 'EntryAbility';
+const CREATE_BUTTON_TEXT = 'Create and enable event handler. Observing key/mouse/touch/axis events';
+const DISABLE_BUTTON_TEXT = 'Disable and destroy event handler';
+const RESULT_TEXT_ID = 'result_text';
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
@@ -29,22 +34,24 @@ export default function abilityTest() {
      */
     it('NDKInputEventHook_StartAbility_001', 0, async (done: Function) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility_001, begin');
-      let driver = Driver.create();
-      let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+      let driver: Driver = Driver.create();
+      let delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
       try {
-        await abilityDelegator.startAbility({
-          bundleName: 'com.example.ndkinputeventhook',
-          abilityName: 'EntryAbility'
+        await delegator.startAbility({
+          bundleName: BUNDLE_NAME,
+          abilityName: ABILITY_NAME
         });
       } catch (exception) {
         hilog.info(DOMAIN, TAG, BUNDLE + `StartAbility_001 exception = ${JSON.stringify(exception)}`);
         expect().assertFail();
       }
       await driver.delayMs(3000);
-      await driver.assertComponentExist(ON.text('Create and enable event handler. Observing key/mouse/touch/axis events'));
-      await driver.assertComponentExist(ON.text('Disable and destroy event handler'));
+      hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility_001, assert create button exist');
+      await driver.assertComponentExist(ON.text(CREATE_BUTTON_TEXT));
+      hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility_001, assert disable button exist');
+      await driver.assertComponentExist(ON.text(DISABLE_BUTTON_TEXT));
       done();
-      hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility_001 end')
+      hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility_001 end');
     })
 
     /**
@@ -52,24 +59,29 @@ export default function abilityTest() {
      */
     it('NDKInputEventHook_createAndEnableHandler_001', 0, async (done: Function) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'createAndEnableHandler_001, begin');
-      let driver = Driver.create();
-      let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+      let driver: Driver = Driver.create();
+      let delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
       try {
-        await abilityDelegator.startAbility({
-          bundleName: 'com.example.ndkinputeventhook',
-          abilityName: 'EntryAbility'
+        await delegator.startAbility({
+          bundleName: BUNDLE_NAME,
+          abilityName: ABILITY_NAME
         });
       } catch (exception) {
         hilog.info(DOMAIN, TAG, BUNDLE + `createAndEnableHandler_001 exception = ${JSON.stringify(exception)}`);
         expect().assertFail();
       }
       await driver.delayMs(3000);
-      await driver.assertComponentExist(ON.text('Create and enable event handler. Observing key/mouse/touch/axis events'));
-      let button = await driver.findComponent(ON.text('Create and enable event handler. Observing key/mouse/touch/axis events'));
-      await button.click();
+      hilog.info(DOMAIN, TAG, BUNDLE + 'createAndEnableHandler_001, find and click create button');
+      let createButton: ComponentInfo = await driver.findComponent(ON.text(CREATE_BUTTON_TEXT));
+      await createButton.click();
       await driver.delayMs(3000);
+      hilog.info(DOMAIN, TAG, BUNDLE + 'createAndEnableHandler_001, assert result text updated');
+      let resultText: ComponentInfo = await driver.findComponent(ON.id(RESULT_TEXT_ID));
+      let text: string = await resultText.getText();
+      hilog.info(DOMAIN, TAG, BUNDLE + `createAndEnableHandler_001, result: ${text}`);
+      expect(text.includes('event handler')).assertTrue();
       done();
-      hilog.info(DOMAIN, TAG, BUNDLE + 'createAndEnableHandler_001 end')
+      hilog.info(DOMAIN, TAG, BUNDLE + 'createAndEnableHandler_001 end');
     })
 
     /**
@@ -77,24 +89,29 @@ export default function abilityTest() {
      */
     it('NDKInputEventHook_disableAndDestroyHandler_001', 0, async (done: Function) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'disableAndDestroyHandler_001, begin');
-      let driver = Driver.create();
-      let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+      let driver: Driver = Driver.create();
+      let delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
       try {
-        await abilityDelegator.startAbility({
-          bundleName: 'com.example.ndkinputeventhook',
-          abilityName: 'EntryAbility'
+        await delegator.startAbility({
+          bundleName: BUNDLE_NAME,
+          abilityName: ABILITY_NAME
         });
       } catch (exception) {
         hilog.info(DOMAIN, TAG, BUNDLE + `disableAndDestroyHandler_001 exception = ${JSON.stringify(exception)}`);
         expect().assertFail();
       }
       await driver.delayMs(3000);
-      await driver.assertComponentExist(ON.text('Disable and destroy event handler'));
-      let button = await driver.findComponent(ON.text('Disable and destroy event handler'));
-      await button.click();
+      hilog.info(DOMAIN, TAG, BUNDLE + 'disableAndDestroyHandler_001, find and click disable button');
+      let disableButton: ComponentInfo = await driver.findComponent(ON.text(DISABLE_BUTTON_TEXT));
+      await disableButton.click();
       await driver.delayMs(3000);
+      hilog.info(DOMAIN, TAG, BUNDLE + 'disableAndDestroyHandler_001, assert result text updated');
+      let resultText: ComponentInfo = await driver.findComponent(ON.id(RESULT_TEXT_ID));
+      let text: string = await resultText.getText();
+      hilog.info(DOMAIN, TAG, BUNDLE + `disableAndDestroyHandler_001, result: ${text}`);
+      expect(text.includes('event handler')).assertTrue();
       done();
-      hilog.info(DOMAIN, TAG, BUNDLE + 'disableAndDestroyHandler_001 end')
+      hilog.info(DOMAIN, TAG, BUNDLE + 'disableAndDestroyHandler_001 end');
     })
   })
 }

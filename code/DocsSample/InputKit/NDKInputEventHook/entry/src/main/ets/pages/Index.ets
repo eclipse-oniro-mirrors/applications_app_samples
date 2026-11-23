@@ -16,7 +16,8 @@
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import testNapi from 'libentry.so';
 
-const DOMAIN = 0x0000;
+const DOMAIN = 0xF811;
+const TAG = '[Sample_NDKInputEventHook]';
 
 @Component
 export struct ResultDisplay {
@@ -25,6 +26,7 @@ export struct ResultDisplay {
   build() {
     Column() {
       Text(this.result)
+        .id('result_text')
         .fontSize(14)
         .width('100%')
         .wordBreak(WordBreak.NORMAL)
@@ -33,7 +35,7 @@ export struct ResultDisplay {
         .padding(12)
     }
     .width('100%')
-    .backgroundColor('#F5F5F5')
+    .backgroundColor($r('app.color.result_background'))
     .borderRadius(8)
     .margin({ top: 20, bottom: 20 })
     .padding(0)
@@ -46,19 +48,19 @@ struct Index {
   @State result: string = '';
 
   @Builder
-  ApiMethodItem(title: string, onClick: () => void) {
+  ApiMethodItem(title: Resource, onClick: () => void) {
     Text(title)
       .height('auto')
       .width('100%')
       .fontSize(13)
       .fontWeight(FontWeight.Bold)
-      .fontColor('#0A59F7')
+      .fontColor($r('app.color.method_item_font_color'))
       .textAlign(TextAlign.Start)
       .margin({ top: 8, bottom: 8 })
       .lineHeight(20)
       .wordBreak(WordBreak.NORMAL)
       .maxLines(2)
-      .backgroundColor('#F7F9FC')
+      .backgroundColor($r('app.color.method_item_background'))
       .borderRadius(4)
       .padding(8)
       .onClick(onClick)
@@ -70,8 +72,8 @@ struct Index {
         this.result = event.value;
       });
     } else {
-      hilog.error(DOMAIN, 'NDKInputEventHook', 'testNapi is undefined');
-      this.result = 'Native plugin failed to load';
+      hilog.error(DOMAIN, TAG, 'testNapi is undefined');
+      this.result = getContext(this).resourceManager.getStringSync($r('app.string.native_load_failed').id);
     }
   }
 
@@ -81,34 +83,30 @@ struct Index {
         ResultDisplay({ result: this.result })
 
         Column() {
-          TextInput({ placeholder: 'input' })
+          TextInput({ placeholder: $r('app.string.input_placeholder') })
             .type(InputType.Normal)
             .width('80%')
             .height(50)
             .margin(10)
         }
 
-        this.ApiMethodItem(
-          "Create and enable event handler. Observing key/mouse/touch/axis events",
-          () => {
-            try {
-              this.result = testNapi.createAndEnableHandler()
-            } catch (e) {
-              this.result = `Create and enable event handler, error：${JSON.stringify(e)}`
-            }
+        this.ApiMethodItem($r('app.string.button_create_handler'), () => {
+          try {
+            this.result = testNapi.createAndEnableHandler();
+          } catch (e) {
+            hilog.error(DOMAIN, TAG, 'createAndEnableHandler failed, error: %{public}s', JSON.stringify(e));
+            this.result = `Create and enable event handler, error: ${JSON.stringify(e)}`;
           }
-        )
+        })
 
-        this.ApiMethodItem(
-          `Disable and destroy event handler`,
-          () => {
-            try {
-              this.result = testNapi.disableAndDestroyHandler()
-            } catch (e) {
-              this.result = `Disable and destroy event handler, error：${JSON.stringify(e)}`
-            }
+        this.ApiMethodItem($r('app.string.button_disable_handler'), () => {
+          try {
+            this.result = testNapi.disableAndDestroyHandler();
+          } catch (e) {
+            hilog.error(DOMAIN, TAG, 'disableAndDestroyHandler failed, error: %{public}s', JSON.stringify(e));
+            this.result = `Disable and destroy event handler, error: ${JSON.stringify(e)}`;
           }
-        )
+        })
 
       }
       .height('100%')
@@ -121,7 +119,7 @@ struct Index {
     .height('100%')
     .scrollable(ScrollDirection.Vertical)
     .scrollBar(BarState.On)
-    .scrollBarColor('#888888')
+    .scrollBarColor($r('app.color.scrollbar_color'))
     .scrollBarWidth(8)
     .edgeEffect(EdgeEffect.Spring)
   }
