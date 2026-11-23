@@ -18,6 +18,7 @@ import { abilityAccessCtrl, AbilityConstant, common, PermissionRequestResult, Pe
 import { BusinessError } from '@kit.BasicServicesKit';
 import { calendarManager } from '@kit.CalendarKit';
 import { window } from '@kit.ArkUI';
+import { CalendarPermissionGate } from '../CalendarPermission';
 // [End calendarEvent_entryAbilityImport]
 
 // [Start calendarEvent_entryAbility]
@@ -27,11 +28,15 @@ export let calendarMgr: calendarManager.CalendarManager | null = null;
 export let mContext: common.UIAbilityContext | null = null;
 
 export default class EntryAbility extends UIAbility {
+  private readonly permissionGate: CalendarPermissionGate = new CalendarPermissionGate();
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     console.info('%{public}s', 'Ability onCreate');
   }
 
   onDestroy(): void {
+    this.permissionGate.invalidate();
+    calendarMgr = null;
+    mContext = null;
     console.info('%{public}s', 'Ability onDestroy');
   }
 
@@ -47,17 +52,28 @@ export default class EntryAbility extends UIAbility {
     });
     mContext = this.context;
     const permissions: Permissions[] = ['ohos.permission.READ_CALENDAR', 'ohos.permission.WRITE_CALENDAR'];
-    let atManager = abilityAccessCtrl.createAtManager();
-    atManager.requestPermissionsFromUser(mContext, permissions).then((result: PermissionRequestResult) => {
-      console.info('get Permission success');
-      calendarMgr = calendarManager.getCalendarManager(mContext);
-    }).catch((error: BusinessError) => {
-      console.error('get Permission error, Cause: %{public}s', JSON.stringify(error));
-    })
+    calendarMgr = null;
+    const atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
+    this.permissionGate.request(
+      (): Promise<PermissionRequestResult> => atManager.requestPermissionsFromUser(this.context, permissions),
+      {
+        onGranted: (): void => { calendarMgr = calendarManager.getCalendarManager(this.context); },
+        onDenied: (): void => {
+          calendarMgr = null;
+          console.error('Calendar permission denied');
+        },
+        onFailed: (): void => { calendarMgr = null; }
+      }
+    ).catch((error: BusinessError) => {
+      console.error(`Calendar permission request failed. Code: ${error.code}`);
+    });
   }
 
   onWindowStageDestroy(): void {
     // 主窗口已销毁，释放 UI 相关资源
+    this.permissionGate.invalidate();
+    calendarMgr = null;
+    mContext = null;
     console.info('%{public}s', 'Ability onWindowStageDestroy');
   }
 
