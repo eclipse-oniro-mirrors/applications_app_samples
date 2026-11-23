@@ -8,7 +8,8 @@
 |---|---|
 | 324条功能、兼容性、稳定性及新增回归用例 | Pass |
 | 19套Host回归及3组验证入口检查 | Pass |
-| 23项Native宿主测试：Debug、Release | Pass |
+| 24项Native宿主测试（Debug、Release） | Pass |
+| 队列恢复、成品发布、停止诊断及文件关闭真机专项（5项） | Pass |
 | ASan、UBSan：各5项Native定向测试 | Pass |
 | 播放流程、PiP、资源归属与EOS设备回归 | Pass |
 | CodeLinter | Pass：245条存量结果，0条新增；基线未修改 |
@@ -112,6 +113,33 @@ ASan宿主可执行文件关闭PIE（Position Independent Executable，位置无
 `AudioPlaybackCallbackContext`集中音频中断、恢复、音量及诊断引用，由Player持有，回调只借用；renderer释放并等待工作线程退出后才销毁。Native回归覆盖用户暂停时系统恢复、正常恢复、duck/unduck、停止后不恢复和销毁后迟到回调。
 
 Vulkan按帧资源、交换链和上传图像分组；资源组不可复制，部分初始化也可重复清理。sink仍先显式等待GPU完成，再归还子资源，最后销毁device、surface和窗口引用；析构不隐藏GPU等待。NativeBuffer导入缓存维持原所有权，本轮未迁入资源组。`VulkanResourcesTest`检查各阶段失败、释放顺序与重复清理，真实驱动的Stop、Seek和窗口重建设备回归结果为Pass。
+
+### 队列恢复与收尾回归
+
+- Host使用可控文件操作测试队列和停止策略的一致性、旧格式恢复及过期恢复请求。状态文件写入和关闭同时失败时，保留原异常与上一份正式快照；关闭结果不明确时保留任务门控。
+- 转码测试确认Native完成且输入、输出均关闭后才将`.part`改名。输出关闭结果不明时保留临时文件、待处理会话和任务门控。若Native处理也失败，结果同时记录原处理错误和`cleanupStage`。
+- `PlayerLifecycleIntegrationTest`调用生产视频输入、输出、同步和送显调度，覆盖音频先结束后的尾帧、暂停、Seek、停止及阻塞的解码器销毁。`RecorderLifecycleIntegrationTest`检查收尾阶段在停止和重新启动之间的状态。
+- `TranscodeJobIntegrationTest`调用生产转码任务及其清理路径，覆盖成功、提交期间取消、部分初始化失败、封装启动失败，以及封装收尾和编解码器销毁同时失败。
+
+关闭`File`前保存描述符，关闭后用缓存值移除进行中的操作。同一个`File`重复收尾时复用关闭结果。Host替身在关闭后读取`File.fd`时抛出`13900020`，覆盖重复收尾、描述符复用和录制会话记录发布。修复前录制在Native初始化前失败，修复后专项和全量Host回归均通过。签名HAP构建通过，CodeLinter为245条存量结果、0条新增。真机步骤与结果见[文件关闭回归](../ohosTest.md#file-close-regression)。
+
+<a id="five-round-review"></a>
+
+### 追加五轮检视
+
+| 轮次 | 复现条件与修复 | 验证 |
+|---|---|---|
+| 1 | Muxer释放持有会话锁时，录制等待线程无法记录进展。改用独立的收尾锁，每次等待满5秒仍可读取并记录阶段和耗时。 | Native在阻塞Muxer释放时观察到`release.pending`，放行后收到原Muxer错误。Debug和Release通过。 |
+| 2 | 两次转码的时钟返回同一毫秒时复用成品路径。分配编号前检查应用私有目录中的成品、报告和临时文件。 | Host固定时间并回拨时钟，核对新输出的路径和旧文件内容。目录读取失败时不写入文件并释放任务。 |
+| 3 | 报告写入成功后，待处理文件改名失败，同一会话同时出现在报告与恢复列表。恢复与确认均核对已保存报告。 | Host分别模拟待处理文件改名失败、旧页面确认和报告文件损坏，验证原报告、未确认的会话记录和损坏的报告文件均保留。 |
+| 4 | 视频输出停止失败后，相机会话也停止失败，后一个异常覆盖原异常。现在保留原错误对象，并分别记录两处错误码。 | Host校验原错误和相机资源释放顺序，覆盖会话停止成功及失败。 |
+| 5 | 写入或同步转码历史与关闭同时失败时，关闭异常覆盖原异常。历史关闭结果不明会保留已发布成品及待处理会话，并阻止队列继续。 | Host隔离验证写入和同步双故障、正常发布、Native业务失败，以及已有源文件关闭故障的收尾优先级。 |
+
+最终复验通过19套Host和3组验证入口测试，以及24项Native的Debug与Release构建。两种Native构建的失败检查负向控制均退出1。CodeLinter报告245条存量告警、0条新增，签名HAP构建通过。默认Hypium真机测试13套、49/49通过，0失败、0错误、0忽略。本节故障注入使用宿主替身，真机执行范围为默认套件。
+
+播放器、录制器和转码任务的3项Native生命周期集成测试分别通过ASan（AddressSanitizer，地址检测器）与UBSan（UndefinedBehaviorSanitizer，未定义行为检测器）。
+
+最终日志位于`.validation/`，包括`five-rounds-<host、lint、build或device>-final.log`、`five-rounds-native-debug-final.log`、`six-items-native-release-full.log`和`six-items-<address或undefined>-<测试名>.log`。第1次全量Host复验时，录制模型测试仍期待包装后的错误，导致断言失败。断言改为检查视频输出停止时返回的原始错误后，重跑通过。
 
 ### 录音PCM基准
 

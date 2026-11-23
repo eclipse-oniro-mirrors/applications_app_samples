@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+#include "CleanupProgressNapi.h"
 #include "PlayerNapiSerializer.h"
 
 namespace {
@@ -167,7 +168,8 @@ bool PopulatePlaybackInfo(napi_env env, napi_value object, const PlaybackInfo &i
     if (!PopulatePlaybackFailure(env, object, info) || !PopulateSinkDiagnostics(env, object, info)) {
         return false;
     }
-    return SetInt32Property(env, object, "state", static_cast<int32_t>(info.state)) &&
+    return SetCleanupProgress(env, object, info.cleanupProgress) &&
+        SetInt32Property(env, object, "state", static_cast<int32_t>(info.state)) &&
         SetDoubleProperty(env, object, "speed", info.speed) &&
         SetInt64Property(env, object, "durationUs", info.durationUs) &&
         SetInt64Property(env, object, "positionUs", info.positionUs) &&

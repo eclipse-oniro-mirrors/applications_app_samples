@@ -140,6 +140,7 @@ export interface RecorderFailure {
 }
 
 export interface RecorderDiagnostics {
+  cleanupProgress?: { stage: string; elapsedMs: number; totalMs: number; revision: number; active: boolean; };
   audio: RecorderAudioStats;
   timeline: RecorderTimelineEvent[];
   endReason: string;

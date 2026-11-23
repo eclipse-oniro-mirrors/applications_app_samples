@@ -15,6 +15,7 @@
 
 import { camera } from '@kit.CameraKit';
 import { colorSpaceManager } from '@kit.ArkGraphics2D';
+import type { BusinessError } from '@kit.BasicServicesKit';
 import { CameraDataModel } from '../model/CameraDataModel';
 import {
   bufferProfileCameraCheck, encoderProfileCameraCheck, previewProfileCameraCheck
@@ -133,10 +134,18 @@ export class CameraSessionController {
       try {
         await this.output.stop();
       } catch (error) {
+        const failure: BusinessError = error as BusinessError;
+        Logger.warn('RecorderCamera', `Camera video output stop failed, code=${failure?.code ?? 'unknown'}`);
         // 输出停止失败时先停整个相机会话，不能让它继续向即将收尾的编码输入窗口写入。
-        await this.session?.stop();
-        this.outputStarted = false;
-        throw new Error('Camera output stop failed: ' + JSON.stringify(error));
+        try {
+          await this.session?.stop();
+          this.outputStarted = false;
+        } catch (fallbackError) {
+          const fallbackFailure: BusinessError = fallbackError as BusinessError;
+          Logger.warn('RecorderCamera',
+            `Camera session stop failed after output stop failure, code=${fallbackFailure?.code ?? 'unknown'}`);
+        }
+        throw error as Error;
       }
       this.outputStarted = false;
       return listening;

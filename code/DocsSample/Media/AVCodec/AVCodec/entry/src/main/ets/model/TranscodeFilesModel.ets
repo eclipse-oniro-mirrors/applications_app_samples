@@ -16,6 +16,7 @@
 import { common } from '@kit.AbilityKit';
 import { fileIo, picker } from '@kit.CoreFileKit';
 import { TranscodeStatus, TranscodeMeasurement } from 'libtranscoder.so';
+import { TranscodeFileCloser } from '../controller/TranscodeFileCloser';
 import { MediaFileWriter } from './MediaFileWriter';
 
 const reportTimestamp: Date = new Date(0);
@@ -27,6 +28,10 @@ export interface TranscodeHistoryEntry {
   configuration: string;
   status: TranscodeStatus;
   hasFile: boolean;
+}
+
+export interface TranscodeHistoryCleanup {
+  closePending: boolean;
 }
 
 export interface TranscodeStorageSummary {
@@ -74,16 +79,30 @@ export class TranscodeFilesModel {
     return lines.join(String.fromCharCode(10));
   }
 
-  static async persist(directory: string, entry: TranscodeHistoryEntry): Promise<void> {
-    if (!TranscodeFilesModel.validId(entry.id)) { throw new Error('Invalid transcode id'); }
-    const pending: string = directory + '/' + entry.id + '.json.pending';
+  // 报告关闭确认后再发布。写入或同步失败时保留原异常。
+  static async persist(directory: string, entry: TranscodeHistoryEntry,
+    cleanup?: TranscodeHistoryCleanup): Promise<void> {
+    if (!TranscodeFilesModel.validId(entry.id)) {
+      throw new Error('Invalid transcode id');
+    }
+    const path: string = `${directory}/${entry.id}.json`;
+    const pending: string = `${path}.pending`;
     const file: fileIo.File = await fileIo.open(pending, fileIo.OpenMode.CREATE | fileIo.OpenMode.WRITE_ONLY |
       fileIo.OpenMode.TRUNC | fileIo.OpenMode.NOFOLLOW);
+    let closed: boolean = true;
     try {
       await MediaFileWriter.writeAll(file.fd, JSON.stringify(entry));
       await fileIo.fsync(file.fd);
-    } finally { await fileIo.close(file); }
-    await fileIo.rename(pending, directory + '/' + entry.id + '.json');
+    } finally {
+      closed = await TranscodeFileCloser.close(file);
+      if (cleanup !== undefined) {
+        cleanup.closePending = !closed;
+      }
+    }
+    if (!closed) {
+      throw new Error('Transcode history file close unconfirmed');
+    }
+    await fileIo.rename(pending, path);
   }
 
   static async list(directory: string): Promise<TranscodeHistoryEntry[]> {

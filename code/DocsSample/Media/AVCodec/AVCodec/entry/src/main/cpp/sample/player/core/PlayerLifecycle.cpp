@@ -262,6 +262,7 @@ int32_t Player::HandleInitError(std::unique_lock<std::mutex>& outerLock)
 
 void Player::ResetPlaybackState()
 {
+    cleanupProgress_.Reset();
     mediaInfo_ = {};
     completedPlaybackInfo_ = {};
     cleanupFailure_.Reset("", "", 0);

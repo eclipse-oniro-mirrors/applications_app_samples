@@ -66,9 +66,15 @@ bool Player::HasWorkerThreads() const
     return videoPipeline_.HasThreads() || audioPipeline_.HasThreads();
 }
 
-void Player::JoinWorkerThreads()
+void Player::JoinWorkerThreads(bool trackCleanup)
 {
+    if (trackCleanup) {
+        cleanupProgress_.Enter("workers.video");
+    }
     videoPipeline_.Join();
+    if (trackCleanup) {
+        cleanupProgress_.Enter("workers.audio");
+    }
     audioPipeline_.Join();
 }
 
@@ -79,16 +85,22 @@ void Player::RecordCleanup(const char *stage, int32_t result)
     AVCODEC_SAMPLE_LOGW("Playback cleanup failed: %{public}s, ret: %{public}d", stage, result);
 }
 // [Start player_release]
-void Player::ReleaseVideoDecoder()
+void Player::ReleaseVideoDecoder(bool trackCleanup)
 {
     OHNativeWindow *decoderWindow = decoderWindowLease_.GetWindow();
     if (videoDecoder_ != nullptr) {
         // [StartExclude player_release]
+        if (trackCleanup) {
+            cleanupProgress_.Enter("gpu.quiesce");
+        }
         if (videoSink_ != nullptr && !videoSink_->Quiesce()) {
             RecordCleanup("sink.quiesce", AVCODEC_SAMPLE_ERR_ERROR);
             AVCODEC_SAMPLE_LOGW("Wait video presentation before decoder release failed");
         }
         // [EndExclude player_release]
+        if (trackCleanup) {
+            cleanupProgress_.Enter("codec.video.destroy");
+        }
         RecordCleanup("video.decoder.destroy", videoDecoder_->Release());
         videoDecoder_.reset();
     }
@@ -106,9 +118,12 @@ void Player::ReleaseVideoDecoder()
 }
 // [End player_release]
 
-void Player::ReleaseAudioDecoder()
+void Player::ReleaseAudioDecoder(bool trackCleanup)
 {
     if (audioDecoder_ != nullptr) {
+        if (trackCleanup) {
+            cleanupProgress_.Enter("codec.audio.destroy");
+        }
         RecordCleanup("audio.decoder.destroy", audioDecoder_->Release());
         audioDecoder_.reset();
     }
@@ -148,6 +163,7 @@ void Player::ReleasePlaybackResources()
     {
         std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
         if (audioRenderer_ != nullptr) {
+            cleanupProgress_.Enter("audio.renderer.release");
             RecordCleanup("audio.renderer.release", OH_AudioRenderer_Release(audioRenderer_));
             audioRenderer_ = nullptr;
         }
@@ -158,27 +174,31 @@ void Player::ReleasePlaybackResources()
     }
 #endif
     if (demuxer_ != nullptr) {
+        cleanupProgress_.Enter("demuxer.release");
         RecordCleanup("demuxer.release", demuxer_->Release());
         demuxer_.reset();
     }
     // 先销毁codec。OpenGL的NativeImage和直连XComponent surface仍是其输出端，
     // 必须等codec完全释放后才能拆除sink。
-    ReleaseVideoDecoder();
+    ReleaseVideoDecoder(true);
     // 每个sink持有当前解码器和XComponent的送显资源。全部释放后再创建新的Surface解码器。
     if (videoSink_ != nullptr) {
         completedPlaybackInfo_.videoSinkDiagnostics = videoSink_->GetDiagnostics();
+        cleanupProgress_.Enter("gpu.reset");
         videoSink_->Reset();
         videoSink_.reset();
         videoSinkRunMode_ = -1;
     }
-    ReleaseAudioDecoder();
+    ReleaseAudioDecoder(true);
     if (outputFile_ != nullptr && outputFile_->is_open()) {
+        cleanupProgress_.Enter("dump.close");
         outputFile_->close();
         if (outputFile_->fail()) { RecordCleanup("dump.close", AVCODEC_SAMPLE_ERR_ERROR); }
         dumpSession_.Stop(outputFile_->fail() ? "write_failed" : "completed");
     }
     outputFile_ = nullptr;
     if (builder_ != nullptr) {
+        cleanupProgress_.Enter("audio.builder.destroy");
         RecordCleanup("audio.builder.destroy", OH_AudioStreamBuilder_Destroy(builder_));
         builder_ = nullptr;
     }
@@ -187,6 +207,7 @@ void Player::ReleasePlaybackResources()
 
 void Player::Release()
 {
+    cleanupProgress_.Enter("control.wait");
     std::lock_guard<std::mutex> operationLock(audioTrackOperationMutex_);
     std::unique_lock<std::mutex> lock(mutex_);
     stateMachine_.BeginStop();
@@ -198,7 +219,7 @@ void Player::Release()
     audioStartPendingAfterVideoSeek_ = false;
     audioStartCond_.notify_all();
     CancelWorkerWaits();
-    JoinWorkerThreads();
+    JoinWorkerThreads(true);
     bool playbackSucceeded = false;
     const PlaybackCompletionReason completionReason = GetCompletionReason(playbackSucceeded);
     diagnostics_.RecordEvent(completionReason == PlaybackCompletionReason::ERROR ? "playback.failed" :
@@ -212,6 +233,8 @@ void Player::Release()
     completedPlaybackInfo_ = GetPlaybackInfo();
     ReleasePlaybackResources();
     completedPlaybackInfo_.cleanupFailure = cleanupFailure_.Snapshot();
+    cleanupProgress_.Complete();
+    completedPlaybackInfo_.cleanupProgress = cleanupProgress_.Snapshot();
     auto playDoneCallback = sampleInfo_.playback.playDoneCallback;
     void *playDoneCallbackData = sampleInfo_.playback.playDoneCallbackData;
     sampleInfo_.playback.playDoneCallback = nullptr;

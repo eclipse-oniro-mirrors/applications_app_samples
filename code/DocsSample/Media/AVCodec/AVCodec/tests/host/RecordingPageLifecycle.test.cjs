@@ -61,9 +61,74 @@ function deferred() {
   const promise = new Promise((yes, no) => { resolve = yes; reject = no; });
   return { promise, resolve, reject };
 }
-function fixture() {
+function journalFileIo(checkpoint) {
+  const files = new Map();
+  const handles = new Map();
+  let nextFd = 20;
+  return {
+    OpenMode: { CREATE: 1, WRITE_ONLY: 2, TRUNC: 4, NOFOLLOW: 8 },
+    async mkdir() {},
+    async access(name) { return files.has(name); },
+    async lstat(name) {
+      const directory = name.endsWith('/media_state');
+      return { isFile: () => !directory, isDirectory: () => directory, isSymbolicLink: () => false,
+        size: files.get(name)?.length ?? 0 };
+    },
+    async readText(name) { return files.get(name); },
+    async open(name) {
+      const fd = nextFd++;
+      handles.set(fd, name);
+      files.set(name, '');
+      return {
+        get fd() {
+          if (!handles.has(fd)) { throw Object.assign(new Error('Invalid argument'), { code: 13900020 }); }
+          return fd;
+        }
+      };
+    },
+    async write(fd, bytes) {
+      const name = handles.get(fd);
+      files.set(name, files.get(name) + Buffer.from(bytes).toString('utf8'));
+      return bytes.byteLength;
+    },
+    async fsync(fd) { assert.equal(handles.has(fd), true); },
+    async close(file) {
+      const fd = typeof file === 'number' ? file : file.fd;
+      assert.equal(handles.delete(fd), true);
+      await checkpoint('journal.close');
+    },
+    async rename(from, to) {
+      files.set(to, files.get(from));
+      files.delete(from);
+      await checkpoint('journal.rename');
+    }
+  };
+}
+
+function journalFixture(MediaFileActivity, logger, checkpoint) {
+  const fileIo = journalFileIo(checkpoint);
+  const { MediaFileWriter } = load('model/MediaFileWriter.ets', {
+    '@kit.CoreFileKit': { fileIo }, '@kit.ArkTS': { util: { TextEncoder: class {
+      encodeInto(text) { return new TextEncoder().encode(text); }
+    } } }
+  });
+  const { TranscodeFileCloser } = load('controller/TranscodeFileCloser.ets', {
+    '@kit.CoreFileKit': { fileIo }, '../common/utils/Logger': { default: logger },
+    '../model/MediaFileActivity': { MediaFileActivity }
+  });
+  const { MediaStateFiles } = load('model/MediaStateFiles.ets', {
+    '@kit.CoreFileKit': { fileIo }, './MediaFileWriter': { MediaFileWriter },
+    './MediaFileActivity': { MediaFileActivity },
+    '../controller/TranscodeFileCloser': { TranscodeFileCloser }
+  });
+  return load('model/MediaSessionStore.ets', {
+    './MediaStateFiles': { MediaStateFiles }, './MediaSessionReport': { MediaReports: { parseList: JSON.parse } }
+  }).MediaSessionStore;
+}
+function fixture(useRealJournal = false) {
   const f = { events: [], permissions: [], checks: [], pending: new Set(), active: false,
-    retainNative: false, fail: '', onRoute: () => {}, hold: undefined, context: {}, pictureInPicture: false };
+    retainNative: false, fail: '', onRoute: () => {}, hold: undefined, context: { filesDir: '/mock' },
+    pictureInPicture: false };
   const logger = { error() {}, warn() {} };
   const { MediaTaskCoordinator } = load('model/MediaTaskCoordinator.ets', {});
   const { MediaFileActivity } = load('model/MediaFileActivity.ets', {
@@ -80,6 +145,10 @@ function fixture() {
     '@kit.CoreFileKit': { fileIo: { close: fd => checkpoint('close', fd) } },
     '../common/utils/Logger': { default: logger }
   });
+  const mediaSessionStore = useRealJournal ? journalFixture(MediaFileActivity, logger, checkpoint) : {
+    async begin(context, lease) { f.pending.add(lease.id); await checkpoint('begin', lease.id); },
+    async finish(context, id) { await checkpoint('finish', id); f.pending.delete(id); }
+  };
   const { RecorderLaunchController } = load('controller/RecorderLaunchController.ets', {
     './RecordingFileCloser': { RecordingFileCloser },
     '../common/LocalizedText': { LocalizedText: { get: key => key } },
@@ -97,10 +166,7 @@ function fixture() {
     '@kit.BasicServicesKit': { deviceInfo: { sdkApiVersion: 26 } },
     '../model/ConfigurationFeedback': { ConfigurationFeedback: { recordingConstraint: () => '' } },
     '../model/MediaFileActivity': { MediaFileActivity }, '../model/MediaTaskCoordinator': { MediaTaskCoordinator },
-    '../model/MediaSessionStore': { MediaSessionStore: {
-      async begin(context, lease) { f.pending.add(lease.id); await checkpoint('begin', lease.id); },
-      async finish(context, id) { await checkpoint('finish', id); f.pending.delete(id); }
-    } }
+    '../model/MediaSessionStore': { MediaSessionStore: mediaSessionStore }
   });
   const controller = new RecorderLaunchController();
   const ui = { getHostContext: () => f.context, getPromptAction: () => ({
@@ -127,12 +193,27 @@ function fixture() {
     clearPlaybackControlsTimer: noOp, stopPlaybackInfoUpdates: noOp, resetPlaybackProgress: noOp,
     clearSubtitle: noOp, resetAbLoop: noOp, playbackViewModel: { state: 0, positionUs: 0, durationUs: 0 } });
   return Object.assign(f, { page, controller, ui, coordinator: MediaTaskCoordinator, activity: MediaFileActivity,
+    mediaSessionStore,
     block(stage) { const gate = { stage, entered: deferred(), release: deferred() }; f.hold = gate; return gate; },
     count: stage => f.events.filter(event => event.stage === stage).length,
     show() { page.pageActive = true; page.onPageShow(); },
     async authorize() { const task = page.prepareRecording(); f.permissions.at(-1).resolve(true); await task; },
     async save() { const task = page.saveRecorderOutput(); f.checks.at(-1).resolve('supported'); await task; }
   });
+}
+
+async function testRecordingJournalClosesBeforeNativeInit() {
+  const f = fixture(true);
+  assert.equal(await f.controller.launch(f.ui, f.page.cameraData), true,
+    'A closed state File must not prevent entering native recording');
+  assert.deepEqual(f.events.map(event => event.stage), ['journal.close', 'journal.rename', 'open', 'init', 'route']);
+  const pending = await f.mediaSessionStore.pending(f.context);
+  assert.equal(pending.length, 1);
+  assert.equal(pending[0].operation, 'recording');
+  await f.mediaSessionStore.finish(f.context, pending[0].id);
+  assert.deepEqual(f.events.slice(-2).map(event => event.stage), ['journal.close', 'journal.rename']);
+  assert.equal((await f.mediaSessionStore.pending(f.context)).length, 0);
+  console.info('Recording journal: closed state files are published before initialization and after retirement');
 }
 async function testPermissions() {
   for (const hook of ['onPageHide', 'aboutToDisappear']) {
@@ -281,30 +362,53 @@ async function testSheetDismissal() {
   console.info('Recording sheet: interactive dismissal cancels capability/init waits, releases resources and allows retry passed');
 }
 
-function cameraFixture() {
-  const events = [], opening = deferred();
+function cameraFixture(stopFailures) {
+  const events = [], opening = deferred(), warnings = [];
   const profile = { size: { width: 1280, height: 720 }, frameRateRange: { min: 30, max: 30 } };
-  const output = { release: async () => events.push('output.release'), off() {} };
+  const output = {
+    start: async () => events.push('output.start'),
+    async stop() {
+      events.push('output.stop');
+      if (stopFailures?.output !== undefined) { throw stopFailures.output; }
+    },
+    release: async () => events.push('output.release'),
+    on: () => events.push('output.on'),
+    off: () => events.push('output.off')
+  };
   const preview = { release: async () => events.push('preview.release') };
   const input = { async open() { events.push('input.open'); await opening.promise; },
     close: async () => events.push('input.close') };
+  const session = {
+    beginConfig() {}, addInput() {}, addOutput() {}, isVideoStabilizationModeSupported: () => false,
+    getSupportedColorSpaces: () => [0], getActiveColorSpace: () => 0, setColorSpace() {},
+    async commitConfig() {}, async start() {},
+    async stop() {
+      events.push('session.stop');
+      if (stopFailures?.session !== undefined) { throw stopFailures.session; }
+    },
+    release: async () => events.push('session.release')
+  };
   const manager = {
     getSupportedCameras: () => [{}], getSupportedSceneModes: () => [0],
     createVideoOutput() { events.push('output.create'); return output; },
     createPreviewOutput() { events.push('preview.create'); return preview; },
     createCameraInput() { events.push('input.create'); return input; },
-    createSession() { throw Error('A closing camera cannot create a session'); }
+    createSession() {
+      assert.notEqual(stopFailures, undefined, 'A closing camera cannot create a session');
+      return session;
+    }
   };
   const { CameraSessionController } = load('controller/CameraSessionController.ets', {
     '@kit.CameraKit': { camera: { SceneMode: { NORMAL_VIDEO: 0 }, getCameraManager() {
       events.push('manager'); return manager;
-    } } }, '@kit.ArkGraphics2D': { colorSpaceManager: {} }, '../model/CameraDataModel': {},
+      }, VideoStabilizationMode: { OFF: 0, AUTO: 1 } } },
+    '@kit.ArkGraphics2D': { colorSpaceManager: { ColorSpace: { BT709_LIMIT: 0 } } }, '../model/CameraDataModel': {},
     '../common/utils/CameraCheck': { previewProfileCameraCheck: () => profile,
       encoderProfileCameraCheck: () => profile }, '../common/CommonConstants': { CommonConstants: {} },
     '../common/LocalizedText': { LocalizedText: { get: key => key } },
-    '../common/utils/Logger': { default: { warn() {} } }
+    '../common/utils/Logger': { default: { warn(tag, message) { warnings.push({ tag, message }); } } }
   });
-  return { controller: new CameraSessionController(), events, opening,
+  return { controller: new CameraSessionController(), events, opening, warnings,
     ui: { getHostContext: () => ({}) }, data: { bufferInput: false, outputId: 'output' } };
 }
 async function testClosedCamera() {
@@ -332,6 +436,33 @@ async function testClosedCamera() {
     assert.equal(f.events.filter(item => item === 'output.release').length, 1);
   }
   console.info('Camera lifecycle: prepare after stop/release and during cleanup touches no new resources passed');
+}
+
+async function testCameraStopFallback() {
+  const outputError = Object.assign(new Error('Injected video output stop failure'), { code: 7400201 });
+  const sessionError = Object.assign(new Error('Injected video session stop failure'), { code: 7400103 });
+  for (const stopError of [sessionError, undefined]) {
+    const f = cameraFixture({ output: outputError, session: stopError });
+    const camera = f.controller;
+    const prepared = camera.prepare(f.ui, f.data, 'preview');
+    f.opening.resolve();
+    await prepared;
+    await camera.start();
+    await assert.rejects(() => camera.stop(() => {}), error => {
+      assert.equal(error, outputError, 'Stop preserves the original output error after attempting session stop');
+      return true;
+    });
+    assert.deepEqual(f.events.slice(-3), ['output.on', 'output.stop', 'session.stop']);
+    assert.equal(f.warnings.some(entry => entry.message.includes(String(outputError.code))), true);
+    assert.equal(f.warnings.some(entry => entry.message.includes(String(sessionError.code))), stopError !== undefined);
+    const released = camera.release();
+    assert.equal(camera.release(), released, 'Stop failure cleanup is shared by concurrent release callers');
+    await released;
+    assert.deepEqual(f.events.slice(-6), [
+      'session.stop', 'input.close', 'preview.release', 'output.off', 'output.release', 'session.release'
+    ]);
+  }
+  console.info('Camera stop: retained output failure and released resources after fallback success and failure');
 }
 async function testLateRecorderLoad() {
   const source = fs.readFileSync(path.join(sourceRoot, 'recorder/pages/Recorder.ets'), 'utf8');
@@ -367,6 +498,7 @@ async function testLateRecorderLoad() {
 const completionGuard = setTimeout(() => { console.error('Recording lifecycle tests did not finish'); process.exit(1); }, 30_000);
 (async () => {
   await testPermissions(); await testSaveCancellation(); await testHandoff();
-  await testSheetDismissal(); await testClosedCamera(); await testLateRecorderLoad();
+  await testRecordingJournalClosesBeforeNativeInit();
+  await testSheetDismissal(); await testClosedCamera(); await testCameraStopFallback(); await testLateRecorderLoad();
 })()
   .catch(error => { console.error(error); process.exitCode = 1; }).finally(() => clearTimeout(completionGuard));
