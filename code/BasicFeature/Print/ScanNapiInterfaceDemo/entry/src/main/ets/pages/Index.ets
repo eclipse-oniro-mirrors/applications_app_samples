@@ -14,18 +14,17 @@
  */
 import {Scan} from '../scan/scan';
 import {ScanLog} from '../scan/log';
-import {ScannerDevice} from '../scan/scan';
-import {ScanProgress} from '../scan/scan';
-import {ScanOptionValue} from '../scan/scan';
-import image from '@ohos.multimedia.image';
+import {scan} from '@kit.BasicServicesKit';
+import {image} from '@kit.ImageKit';
 
 @CustomDialog
 struct CustomDialogPicture {
-  controller : CustomDialogController
+  public controller: CustomDialogController
   @Link image : PixelMap;
   build() {
     Column() {
-      Text('Close')
+      Text($r('app.string.scan_close_dialog'))
+        .id('scanCloseDialogBtn')
         .fontSize(25)
         .margin(({top : 10, bottom : 10}))
         .fontColor(Color.Red)
@@ -47,18 +46,18 @@ struct CustomDialogPicture {
 @Entry
 @Component
 struct Index {
-  public scannerId : string | undefined = undefined;
+  public scannerId : string = '';
   public timerId : number = 0;
   @State fd : number = -1;
   @State image: PixelMap | undefined = undefined;
-  pictureController : CustomDialogController = new CustomDialogController({
+  public pictureController: CustomDialogController = new CustomDialogController({
     builder : CustomDialogPicture({
       image:$image
     }),
     alignment : DialogAlignment.Default,
   })
   aboutToAppear(): void {
-    Scan.initScan().then(()=>{
+    Scan.init().then(()=>{
       ScanLog.info('init scan successful')
     }).catch(() => {
       ScanLog.warn('init scan error')
@@ -70,7 +69,7 @@ struct Index {
     }).catch(()=>{
       ScanLog.warn('scan closeScan error');
     })
-    Scan.exitScan().then(()=>{
+    Scan.exit().then(()=>{
       ScanLog.info('exit scan successful')
     }).catch(()=>{
       ScanLog.warn('exit scan error')
@@ -79,46 +78,47 @@ struct Index {
 
   build() {
     Column() {
-      Text('Scanner Interface Demo')
+      Text($r('app.string.scan_title'))
+        .id('scanTitle')
         .fontSize(25)
         .fontColor(Color.Black)
         .height(100)
       Row() {
         Column() {
-          Button('Searching Scanner')
+          Button($r('app.string.scan_search_btn'))
+            .id('scanSearchBtn')
             .onClick(() => {
-              Scan.on('scanDeviceFound', (device: ScannerDevice | string) => {
+              Scan.on('scanDeviceFound', (device: scan.ScannerDevice) => {
                 ScanLog.info('scanner info : ' + JSON.stringify(device));
-                if (typeof device === 'object' && device !== null) {
-                  this.scannerId = device.deviceId;
-                }
+                this.scannerId = device.scannerId;
               })
-              Scan.getScannerList().then(() => {
-                ScanLog.info('scan getScannerList successful');
+              Scan.startScannerDiscovery().then(() => {
+                ScanLog.info('scan startScannerDiscovery successful');
               }).catch(() => {
-                ScanLog.warn('scan getScannerList error')
+                ScanLog.warn('scan startScannerDiscovery error')
               })
             })
             .height(180)
             .width(180)
-          Button('Start Scan')
+          Button($r('app.string.scan_start_btn'))
+            .id('scanStartBtn')
             .onClick(() => {
               Scan.startScan(this.scannerId, false).then(() => {
                 this.timerId = setInterval(() => {
-                  Scan.getProgress(this.scannerId).then((scanProgress: ScanProgress) => {
+                  Scan.getScanProgress(this.scannerId).then((scanProgress: scan.PictureScanProgress) => {
                     ScanLog.info('scan getProgress' + JSON.stringify(scanProgress))
                     if (scanProgress.progress === 100) {
                       if (scanProgress.isFinal) {
                         clearInterval(this.timerId);
                       }
-                      let fd = scanProgress.pictureFd;
-                      let imageSource = image.createImageSource(fd);
+                      let fd: number = scanProgress.pictureFd;
+                      let imageSource: image.ImageSource = image.createImageSource(fd);
                       imageSource.createPixelMap().then((pic) => {
                         this.image = pic;
                       })
                     }
                   }).catch(() => {
-                    ScanLog.warn('scan getProgress error');
+                    ScanLog.warn('scan getScanProgress error');
                     clearInterval(this.timerId);
                   })
                 }, 500);
@@ -128,7 +128,8 @@ struct Index {
             })
             .height(180)
             .width(180)
-          Button('Cancel Scan')
+          Button($r('app.string.scan_cancel_btn'))
+            .id('scanCancelBtn')
             .onClick(() => {
               Scan.cancelScan(this.scannerId).then(() => {
               }).catch(() => {
@@ -140,7 +141,8 @@ struct Index {
         }
 
         Column() {
-          Button('open Scanner')
+          Button($r('app.string.scan_open_btn'))
+            .id('scanOpenBtn')
             .onClick(() => {
               Scan.openScanner(this.scannerId).then(() => {
               }).catch(() => {
@@ -149,37 +151,43 @@ struct Index {
             })
             .height(180)
             .width(180)
-          Button('get options')
+          Button($r('app.string.scan_get_option_btn'))
+            .id('scanGetOptionBtn')
             .onClick(() => {
-              let optionCount = 12;
-              for (let i = 1; i < optionCount; i++) {
-                Scan.getScanOptionDesc(this.scannerId, i).then((data) => {
-                  ScanLog.info('scan getScanOptionDesc : ' + i + JSON.stringify(data));
-                }).catch(() => {
-                  ScanLog.warn('scan getScanOptionDesc error');
+              Scan.getScannerParameter(this.scannerId).then((parameters: scan.ScannerParameter[]) => {
+                ScanLog.info('scan getScannerParameter : ' + JSON.stringify(parameters));
+                parameters.forEach((parameter: scan.ScannerParameter) => {
+                  Scan.getScannerCurrentSetting(this.scannerId, parameter.optionIndex)
+                    .then((value: scan.ScannerOptionValue) => {
+                      ScanLog.info('scan getScannerCurrentSetting : ' + JSON.stringify(value));
+                    }).catch(() => {
+                      ScanLog.warn('scan getScannerCurrentSetting error');
+                    })
                 })
-              }
-
+              }).catch(() => {
+                ScanLog.warn('scan getScannerParameter error');
+              })
             })
             .height(180)
             .width(180)
-          Button('set option')
+          Button($r('app.string.scan_set_option_btn'))
+            .id('scanSetOptionBtn')
             .onClick(() => {
-              let value : ScanOptionValue = {
-                valueType : 3,
-                valueSize : 0,
+              let value : scan.ScannerOptionValue = {
+                valueType : scan.OptionValueType.SCAN_TYPE_STRING,
                 strValue : 'Automatic Document Feeder',
               };
-              Scan.setScanOption(this.scannerId, 6, value).then(() => {
+              Scan.setScannerParameter(this.scannerId, 6, value).then(() => {
               }).catch(() => {
-                ScanLog.warn('scan setScanOption error');
+                ScanLog.warn('scan setScannerParameter error');
               })
             })
             .height(180)
             .width(180)
         }
       }
-      Button('picture preview')
+      Button($r('app.string.scan_preview_btn'))
+        .id('scanPreviewBtn')
         .fontSize(25)
         .fontColor(Color.Black)
         .height(100)

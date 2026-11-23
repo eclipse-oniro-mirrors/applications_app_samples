@@ -35,16 +35,18 @@ export default class TestAbility extends UIAbility {
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
     logger.info(TAG, 'TestAbility onWindowStageCreate');
-    let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    let abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
-    logger.info(TAG, 'start run testcase!!!');
-    Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
     windowStage.loadContent('testability/pages/Index', (err, data) => {
       if (err.code) {
         logger.error(TAG, `Failed to load the content. Cause: ${JSON.stringify(err)}`);
         return;
       }
       logger.info(TAG, `Succeeded in loading the content. Data: ${JSON.stringify(data) ?? ''}`);
+      setTimeout(() => {
+        let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+        let abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
+        logger.info(TAG, 'start run testcase!!!');
+        Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+      }, 100);
     });
   }
 

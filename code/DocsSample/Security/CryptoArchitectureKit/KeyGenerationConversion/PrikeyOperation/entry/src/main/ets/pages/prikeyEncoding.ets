@@ -21,7 +21,7 @@ function prikeyEncoding() {
   try {
     let rsaGenerator = cryptoFramework.createAsyKeyGenerator('RSA1024');
     let keyPair = rsaGenerator.generateKeyPairSync();
-    let options : cryptoFramework.KeyEncodingConfig = {
+    let options: cryptoFramework.KeyEncodingConfig = {
         password: '123456',
         cipherName: 'AES-128-CBC'
     }

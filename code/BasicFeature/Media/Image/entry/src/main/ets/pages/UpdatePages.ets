@@ -12,14 +12,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file src/main/ets/pages/UpdatePages.ets
+ * 文件职责：UpdatePages 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：UpdatePages。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { UpdatePage } from '@ohos/photomodify';
 
+/**
+ * UpdatePages：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct UpdatePages {
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
     Column() {
-      UpdatePage()
-    }
+      // UpdatePage：UpdatePage 自定义组件
+      UpdatePage().id('update_pages_update_page_2')
+    }.id('update_pages_column_1')
   }
 }

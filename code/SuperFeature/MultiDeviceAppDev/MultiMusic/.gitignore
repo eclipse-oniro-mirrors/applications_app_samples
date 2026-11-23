@@ -2,6 +2,8 @@
 /oh_modules
 /local.properties
 /.idea
+/.qoder
+/oh-package-lock.json5
 **/build
 /.hvigor
 .cxx

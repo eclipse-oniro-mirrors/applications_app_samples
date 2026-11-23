@@ -21,7 +21,7 @@ import Logger from '../utils/Logger';
 struct Index {
   build() {
     Column({ space: 20 }) {
-      Button('CustomDraw')
+      Button($r('app.string.custom_draw'))
         .id('CustomDraw')
         .fontSize(16)
         .fontWeight(500)
@@ -41,7 +41,7 @@ struct Index {
         .height(40)
         .shadow(ShadowStyle.OUTER_DEFAULT_LG)
 
-      Button('PropertyAnimation')
+      Button($r('app.string.property_animation'))
         .id('PropertyAnimation')
         .fontSize(16)
         .fontWeight(500)
@@ -61,7 +61,7 @@ struct Index {
         .height(40)
         .shadow(ShadowStyle.OUTER_DEFAULT_LG)
 
-      Button('XComponent')
+      Button($r('app.string.xcomponent'))
         .id('XComponent')
         .fontSize(16)
         .fontWeight(500)
@@ -81,7 +81,7 @@ struct Index {
         .height(40)
         .shadow(ShadowStyle.OUTER_DEFAULT_LG)
 
-      Button('Animator')
+      Button($r('app.string.animator'))
         .id('Animator')
         .fontSize(16)
         .fontWeight(500)

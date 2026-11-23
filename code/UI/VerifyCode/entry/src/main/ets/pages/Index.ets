@@ -13,22 +13,40 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/Index.ets
+ * 文件职责：Index 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：Index。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { VerifyCodeViewComponent } from 'verifycode';
 
+/**
+ * Index：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct Index {
+  // @State message：组件内部状态
   @State message: string = 'Hello World';
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：高度、宽度
     Column() {
       /**
        * 功能介绍：本示例介绍如何使用Text组件实现验证码场景，并禁用对内容的选中、复制、光标。
        * 参数介绍：无
        */
-      VerifyCodeViewComponent()
+      // VerifyCodeViewComponent：VerifyCodeViewComponent 自定义组件
+      VerifyCodeViewComponent().id('index_verify_code_view_component_1')
     }
     .height('100%')
     .width('100%')
+    .id('verifyCodeEntryRoot')
   }
 }

@@ -12,29 +12,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import router from '@ohos.router';
-import CommonEventManager from '@ohos.commonEventManager';
-import { BusinessError } from '@ohos.base';
 
-let subscriber: CommonEventManager.CommonEventSubscriber; // 用于保存创建成功的订阅者对象，后续使用其完成订阅及退订的动作
+import { router } from '@kit.ArkUI';
+import { commonEventManager } from '@kit.BasicServicesKit';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { RouteTable } from '../utils/RouteTable';
+
+let subscriber: commonEventManager.CommonEventSubscriber; // 用于保存创建成功的订阅者对象，后续使用其完成订阅及退订的动作
 // 订阅者信息
-let subscribeInfo: CommonEventManager.CommonEventSubscribeInfo = {
-  events: ["TestResourcesEvent"]
+let subscribeInfo: commonEventManager.CommonEventSubscribeInfo = {
+  events: [RouteTable.RESOURCES_EVENT]
 };
 // 订阅事件回调
-function JumpToResApiExample (err: BusinessError, data: CommonEventManager.CommonEventData) {
+function JumpToResApiExample(err: BusinessError, data: commonEventManager.CommonEventData) {
   if (err) {
     console.error(`subscribe failed, code is ${err.code}, message is ${err.message}`);
   } else {
-    router.pushUrl({ url: 'pages/BasicResources' });
+    router.pushUrl({ url: RouteTable.PAGE_BASIC_RESOURCES });
   }
 }
 // 创建订阅者回调
-function createTestResources(err: BusinessError, commonEventSubscriber: CommonEventManager.CommonEventSubscriber) {
-  if(!err) {
+function createTestResources(err: BusinessError, commonEventSubscriber: commonEventManager.CommonEventSubscriber) {
+  if (!err) {
     subscriber = commonEventSubscriber;
     try {
-      CommonEventManager.subscribe(subscriber, JumpToResApiExample);
+      commonEventManager.subscribe(subscriber, JumpToResApiExample);
     } catch (error) {
       let code = (error as BusinessError).code;
       let message = (error as BusinessError).message;
@@ -46,7 +48,7 @@ function createTestResources(err: BusinessError, commonEventSubscriber: CommonEv
 }
 // 创建订阅者
 try {
-  CommonEventManager.createSubscriber(subscribeInfo, createTestResources);
+  commonEventManager.createSubscriber(subscribeInfo, createTestResources);
 } catch (error) {
   let code = (error as BusinessError).code;
   let message = (error as BusinessError).message;
@@ -59,6 +61,7 @@ struct Index {
   build() {
     Column({ space: 20 }) {
       Text($r('app.string.title'))
+        .id('indexTitle')
         .width('100%')
         .height(50)
         .backgroundColor($r('app.color.text_color'))
@@ -67,24 +70,26 @@ struct Index {
         .padding({ left: 15 })
 
       Button($r('app.string.testResources')).onClick(() => {
-        router.pushUrl({ url: 'pages/BasicResources' });
+        router.pushUrl({ url: RouteTable.PAGE_BASIC_RESOURCES });
       })
+        .id('testResourcesBtn')
         .width('80%')
         .height(50)
         .margin({ top: 200 })
         .fontWeight(FontWeight.Bold)
         .align(Alignment.Center)
-        .position({x:50, y:50});
+        .position({ x: 50, y: 50 });
 
       Button($r('app.string.testOverlay')).onClick(() => {
-        router.pushUrl({ url: 'pages/Overlay' });
+        router.pushUrl({ url: RouteTable.PAGE_OVERLAY });
       })
+        .id('testOverlayBtn')
         .width('80%')
         .height(50)
         .margin({ top: 200 })
         .fontWeight(FontWeight.Bold)
         .align(Alignment.Center)
-        .position({x:50, y:120})
+        .position({ x: 50, y: 120 })
 
     }.width('100%').height(100)
   }

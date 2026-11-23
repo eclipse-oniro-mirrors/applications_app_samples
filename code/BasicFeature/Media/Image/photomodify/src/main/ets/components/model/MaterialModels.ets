@@ -13,13 +13,26 @@
  * limitations under the License.
  */
 
+/**
+ * @file src/main/ets/components/model/MaterialModels.ets
+ * 文件职责：MaterialModels 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：getFontData、getImageData。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { FontColorData, ImageData } from './MaterialData';
 
+/**
+ * getFontData：函数定义，承载本文件对应的逻辑与数据。
+ */
 function getFontData(color: Resource, name: Resource) {
   // resourceManager.getStringValue 无法获取color的string形式，so。。
   return new FontColorData(color, name);
 }
 
+/**
+ * getImageData：函数定义，承载本文件对应的逻辑与数据。
+ */
 function getImageData(image: Resource) {
   return new ImageData(image);
 }

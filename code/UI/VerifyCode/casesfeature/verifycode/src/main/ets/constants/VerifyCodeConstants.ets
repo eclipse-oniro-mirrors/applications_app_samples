@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file casesfeature/verifycode/src/main/ets/constants/VerifyCodeConstants.ets
+ * 文件职责：VerifyCodeConstants 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：VerifyCodeConstants。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 export class VerifyCodeConstants {
   public static readonly VERIFY_CODE_FONTWEIGHT: number = 60;
 }

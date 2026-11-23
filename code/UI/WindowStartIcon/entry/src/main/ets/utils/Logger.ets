@@ -13,24 +13,46 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/utils/Logger.ets
+ * 文件职责：Logger 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：Logger。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import hilog from '@ohos.hilog';
 
+/**
+ * Logger：类定义，承载本文件对应的逻辑与数据。
+ */
 class Logger {
   private domain: number = 0xFF00;
   private prefix: string = '[Sample_Window]';
 
+  /**
+   * debug：执行 debug 相关逻辑。
+   */
   public debug(args: string) {
     hilog.debug(this.domain, this.prefix, args);
   }
 
+  /**
+   * info：执行 info 相关逻辑。
+   */
   public info(args: string) {
     hilog.info(this.domain, this.prefix, args);
   }
 
+  /**
+   * warn：执行 warn 相关逻辑。
+   */
   public warn(args: string) {
     hilog.warn(this.domain, this.prefix, args);
   }
 
+  /**
+   * error：执行 error 相关逻辑。
+   */
   public error(args: string) {
     hilog.error(this.domain, this.prefix, args);
   }

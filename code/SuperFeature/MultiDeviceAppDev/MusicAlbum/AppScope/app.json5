@@ -15,7 +15,7 @@
 
 {
   "app": {
-    "bundleName": "ohos.samples.MusicAlbum",
+    "bundleName": "ohos.samples.musicalbum",
     "vendor": "example",
     "versionCode": 1000000,
     "versionName": "1.0.0",

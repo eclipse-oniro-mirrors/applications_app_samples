@@ -16,11 +16,11 @@
 import { OffsetDataType, SongType } from '../model/DataType';
 import { MusicPlayer } from '../pages/Index';
 import { BreakpointType } from './BreakpointSystem';
+import { BreakpointConstants, UserSongListConstants } from './Constants';
 
-@Entry
 @Component
 export struct UserSongList {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = 'sm';
+  @LocalStorageProp('currentBreakpoint') currentBreakpoint: string = BreakpointConstants.SM;
   @State songList: SongType[] = [
     new SongType($r('app.media.list4'), $r('app.string.emo'), 16),
     new SongType($r('app.media.list12'), $r('app.string.noSleep'), 16),
@@ -43,20 +43,28 @@ export struct UserSongList {
         Row() {
           Text($r('app.string.mySongs'))
             .fontWeight(FontWeight.Medium)
-            .fontSize(24)
-            .lineHeight(33)
-            .height(33)
+            .fontSize(UserSongListConstants.TITLE_FONT_SIZE)
+            .lineHeight(UserSongListConstants.TITLE_LINE_HEIGHT)
+            .height(UserSongListConstants.TITLE_LINE_HEIGHT)
           Blank()
-          Image($r('app.media.ic_search')).width(24).height(24).margin({ right: 24 })
-          Image($r('app.media.ic_more')).width(24).height(24)
-        }.width('100%').height(56)
+          Image($r('app.media.ic_search'))
+            .width(UserSongListConstants.ICON_SIZE)
+            .height(UserSongListConstants.ICON_SIZE)
+            .margin({ right: UserSongListConstants.ICON_RIGHT_MARGIN })
+          Image($r('app.media.ic_more'))
+            .width(UserSongListConstants.ICON_SIZE)
+            .height(UserSongListConstants.ICON_SIZE)
+        }.width('100%').height(UserSongListConstants.HEADER_HEIGHT)
 
         Row() {
           Text() {
             Span($r('app.string.buildBySelf'))
-            Span('50')
-          }.fontSize(16).height(22).lineHeight(22)
-        }.width('100%').height(48)
+            Span($r('app.string.build_self_song_count', UserSongListConstants.SELF_BUILD_SONG_COUNT))
+          }
+          .fontSize(UserSongListConstants.SUBTITLE_FONT_SIZE)
+          .height(UserSongListConstants.SUBTITLE_LINE_HEIGHT)
+          .lineHeight(UserSongListConstants.SUBTITLE_LINE_HEIGHT)
+        }.width('100%').height(UserSongListConstants.SUBTITLE_ROW_HEIGHT)
 
         Grid() {
           ForEach(this.songList, (item: SongType) => {
@@ -66,60 +74,85 @@ export struct UserSongList {
                   FlexDirection.Row,
                   FlexDirection.Column,
                   FlexDirection.Column,
-                ).GetValue(this.currentBreakpoint) }) {
+                ).getValue(this.currentBreakpoint) }) {
                   Stack({ alignContent: new BreakpointType(
                     Alignment.Center,
                     Alignment.BottomStart,
                     Alignment.BottomStart,
-                  ).GetValue(this.currentBreakpoint) }) {
+                  ).getValue(this.currentBreakpoint) }) {
                     Image(item.imageSrc)
-                      .width(new BreakpointType('48vp', '100%', '100%').GetValue(this.currentBreakpoint))
+                      .width(new BreakpointType(
+                        UserSongListConstants.IMAGE_SIZE,
+                        UserSongListConstants.IMAGE_FULL_SIZE,
+                        UserSongListConstants.IMAGE_FULL_SIZE).getValue(this.currentBreakpoint))
                       .aspectRatio(1)
-                      .borderRadius(8)
-                    Image($r('app.media.play')).height(20).width(20)
+                      .borderRadius(UserSongListConstants.IMAGE_BORDER_RADIUS)
+                    Image($r('app.media.play'))
+                      .height(UserSongListConstants.PLAY_ICON_SIZE)
+                      .width(UserSongListConstants.PLAY_ICON_SIZE)
                       .offset(new BreakpointType(
                         new OffsetDataType(0, 0),
-                        new OffsetDataType(11, -11),
-                        new OffsetDataType(11, -11))
-                        .GetValue(this.currentBreakpoint))
+                        new OffsetDataType(UserSongListConstants.PLAY_OFFSET_X, UserSongListConstants.PLAY_OFFSET_Y),
+                        new OffsetDataType(UserSongListConstants.PLAY_OFFSET_X, UserSongListConstants.PLAY_OFFSET_Y))
+                        .getValue(this.currentBreakpoint))
                   }
 
                   Column() {
-                    Text(item.description).fontSize(16).lineHeight(22).height(22)
-                    Text(item.count.toString()).fontSize(12).lineHeight(14).height(14).fontColor('#33000000')
-                  }.margin({ left: new BreakpointType(16, 0, 0).GetValue(this.currentBreakpoint) })
-                  .height(48)
+                    Text(item.description)
+                      .fontSize(UserSongListConstants.LABEL_FONT_SIZE)
+                      .lineHeight(UserSongListConstants.LABEL_LINE_HEIGHT)
+                      .height(UserSongListConstants.LABEL_HEIGHT)
+                    Text(item.count.toString())
+                      .fontSize(UserSongListConstants.COUNT_FONT_SIZE)
+                      .lineHeight(UserSongListConstants.COUNT_LINE_HEIGHT)
+                      .height(UserSongListConstants.COUNT_HEIGHT)
+                      .fontColor($r('app.color.text_secondary_30'))
+                  }.margin({
+                    left: new BreakpointType(
+                      UserSongListConstants.TEXT_LEFT_MARGIN,
+                      UserSongListConstants.TEXT_LEFT_MARGIN_NONE,
+                      UserSongListConstants.TEXT_LEFT_MARGIN_NONE).getValue(this.currentBreakpoint)
+                  })
+                  .height(UserSongListConstants.TEXT_BLOCK_HEIGHT)
                   .justifyContent(FlexAlign.Center)
                   .alignItems(HorizontalAlign.Start)
 
-                  if (this.currentBreakpoint === 'sm') {
+                  if (this.currentBreakpoint === BreakpointConstants.SM) {
                     Blank()
                     Row() {
-                      Image($r('app.media.ic_public_arrow_right')).width(12).height(24)
-                    }.height(48)
+                      Image($r('app.media.ic_public_arrow_right'))
+                        .width(UserSongListConstants.ARROW_WIDTH)
+                        .height(UserSongListConstants.ARROW_HEIGHT)
+                    }.height(UserSongListConstants.ARROW_ROW_HEIGHT)
                   }
                 }.width('100%')
 
-                if (this.currentBreakpoint === 'sm') {
-                  Divider().width('100%').strokeWidth('1px').margin({ left: 64 })
+                if (this.currentBreakpoint === BreakpointConstants.SM) {
+                  Divider()
+                    .width('100%')
+                    .strokeWidth(UserSongListConstants.DIVIDER_STROKE_WIDTH)
+                    .margin({ left: UserSongListConstants.DIVIDER_LEFT_MARGIN })
                 }
               }
             }
           })
         }
         .columnsTemplate(new BreakpointType(
-          '1fr',
-          '1fr 1fr 1fr 1fr 1fr',
-          '1fr 1fr 1fr 1fr 1fr 1fr'
-        ).GetValue(this.currentBreakpoint))
-        .columnsGap(7)
-        .rowsGap(12)
+          UserSongListConstants.COLUMNS_SM,
+          UserSongListConstants.COLUMNS_MD,
+          UserSongListConstants.COLUMNS_LG
+        ).getValue(this.currentBreakpoint))
+        .columnsGap(UserSongListConstants.COLUMNS_GAP)
+        .rowsGap(UserSongListConstants.ROWS_GAP)
         .layoutWeight(1)
         .scrollBar(BarState.Off)
         .width('100%')
-      }.width('100%').padding({ left: 16, right: 16 })
+      }.width('100%').padding({
+        left: UserSongListConstants.HORIZONTAL_PADDING,
+        right: UserSongListConstants.HORIZONTAL_PADDING
+      })
 
-      if (this.currentBreakpoint !== 'lg') {
+      if (this.currentBreakpoint !== BreakpointConstants.LG) {
         MusicPlayer()
       }
     }

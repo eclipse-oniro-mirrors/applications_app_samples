@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file src/main/ets/components/model/AdjustData.ets
+ * 文件职责：AdjustData 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：Tasks、CropTasks、ScaleTasks、ColorSpaceTasks、TaskData。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 export enum Tasks {
   SCALE,
   CROP,
@@ -31,6 +38,9 @@ export enum Tasks {
   NONE = 99
 }
 
+/**
+ * CropTasks：枚举定义，承载本文件对应的逻辑与数据。
+ */
 export enum CropTasks {
   ORIGIN,
   ONE_ONE,
@@ -39,12 +49,18 @@ export enum CropTasks {
   NONE = 99
 }
 
+/**
+ * ScaleTasks：枚举定义，承载本文件对应的逻辑与数据。
+ */
 export enum ScaleTasks {
   AMPLIFICARION,
   NARROW,
   NONE = 99
 }
 
+/**
+ * ColorSpaceTasks：枚举定义，承载本文件对应的逻辑与数据。
+ */
 export enum ColorSpaceTasks {
   ADOBERGB,
   SRGB,
@@ -53,12 +69,16 @@ export enum ColorSpaceTasks {
   NONE = 99
 }
 
+/**
+ * TaskData：类定义，承载本文件对应的逻辑与数据。
+ */
 export class TaskData {
   task?: number
   image?: Resource
   text?: Resource
   name?: string
 
+  /** 构造 AdjustData 实例。 */
   constructor(task?: number, image?: Resource, text?: Resource, name?: string) {
     this.task = task;
     this.image = image;

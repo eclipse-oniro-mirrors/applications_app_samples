@@ -13,17 +13,41 @@
  * limitations under the License.
  */
  
+import XComponentContext from '../../../../main/ets/interface/XComponentContext';
+import { NativeSoloistFixture } from '../../util/NativeSoloistFixture';
+
 @Entry
 @Component
 struct Index {
-  @State message: string = 'Hello World';
+  aboutToDisappear(): void {
+    if (NativeSoloistFixture.normal !== undefined) {
+      NativeSoloistFixture.normal.unregister();
+      NativeSoloistFixture.normal.destroy();
+      NativeSoloistFixture.normal = undefined;
+    }
+    if (NativeSoloistFixture.exclusive !== undefined) {
+      NativeSoloistFixture.exclusive.unregister();
+      NativeSoloistFixture.exclusive.destroy();
+      NativeSoloistFixture.exclusive = undefined;
+    }
+  }
 
   build() {
     Row() {
       Column() {
-        Text(this.message)
-          .fontSize(50)
-          .fontWeight(FontWeight.Bold)
+        Text('DisplaySoloist native 冒烟')
+        XComponent({ id: 'xcomponentId30', type: XComponentType.SURFACE, libraryname: 'entry' })
+          .width(320)
+          .height(240)
+          .onLoad((context) => {
+            NativeSoloistFixture.normal = context as XComponentContext;
+          })
+        XComponent({ id: 'xcomponentId60', type: XComponentType.SURFACE, libraryname: 'entry' })
+          .width(320)
+          .height(240)
+          .onLoad((context) => {
+            NativeSoloistFixture.exclusive = context as XComponentContext;
+          })
       }
       .width('100%')
     }

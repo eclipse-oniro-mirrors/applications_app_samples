@@ -21,7 +21,7 @@ function genSymKeyByData(symKeyData: Uint8Array) {
   let symKeyBlob: cryptoFramework.DataBlob = { data: symKeyData };
   let aesGenerator = cryptoFramework.createSymKeyGenerator('AES128');
   let symKey =  aesGenerator.convertKeySync(symKeyBlob);
-  console.info('[Sync]convertKey result: success.');
+  console.info('[Sync]convertKeySync result: success.');
   return symKey;
 }
 function doCmacBySync() {

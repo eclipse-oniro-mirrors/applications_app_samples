@@ -13,16 +13,25 @@
  * limitations under the License.
  */
 
-import { MainItem } from '../common/SettingItem'
-import { WlanItem } from '../common/WlanItem'
+import { MainItem } from '../common/SettingItem';
+import { WlanItem } from '../common/WlanItem';
+import {
+  BREAKPOINT_MD,
+  KEY_CURRENT_BREAKPOINT,
+  NAV_PATH_FIRST,
+  PADDING_XS,
+  RADIUS_CARD_LG,
+  RADIUS_CARD_SM,
+  SETTINGS_NAV_BAR_WIDTH
+} from '../common/Constants';
 
-let storage = LocalStorage.GetShared()
+const storage: LocalStorage = LocalStorage.GetShared();
 
 @Entry(storage)
 @Component
 struct Settings {
   @State pathInfo: NavPathStack = new NavPathStack()
-  @LocalStorageLink('currentBreakPoint') currentBreakPoint: string = 'md'
+  @LocalStorageLink(KEY_CURRENT_BREAKPOINT) currentBreakPoint: string = BREAKPOINT_MD
 
   @Builder myRouter(name: string, param?: number | undefined) {
     WlanItem()
@@ -36,7 +45,7 @@ struct Settings {
   }
 
   aboutToAppear() {
-    this.pathInfo.pushPath({ name: 'one' })
+    this.pathInfo.pushPath({ name: NAV_PATH_FIRST })
   }
 
   build() {
@@ -46,15 +55,15 @@ struct Settings {
           List({ space: 10 }) {
             ListItem() {
               Search({ placeholder: $r('app.string.search') })
-                .backgroundColor('#fff')
+                .backgroundColor($r('app.color.white'))
             }
             .padding({ top: 8, bottom: 8 })
             .width('100%')
 
             ListItem() {
               MainItem({ isUserItem: true, src: $r('app.media.ic_mine_normal') })
-                .backgroundColor('#fff')
-                .borderRadius(20).padding({ top: 12, bottom: 12 })
+                .backgroundColor($r('app.color.white'))
+                .borderRadius(RADIUS_CARD_SM).padding({ top: 12, bottom: 12 })
             }
 
             ListItem() {
@@ -78,7 +87,7 @@ struct Settings {
                   src: $r('app.media.ic_settings_more_connections')
                 })
               }.width('100%')
-              .borderRadius(24)
+              .borderRadius(RADIUS_CARD_LG)
               .backgroundColor($r('sys.color.ohos_id_color_foreground_contrary'))
               .padding({ top: 4, bottom: 4 })
             }
@@ -89,7 +98,7 @@ struct Settings {
                 this.CustomDivider()
                 MainItem({ itemDesc: $r('app.string.displayAndBrightness'), src: $r('app.media.displayAndBrightness') })
               }.width('100%')
-              .borderRadius(24)
+              .borderRadius(RADIUS_CARD_LG)
               .backgroundColor($r('sys.color.ohos_id_color_foreground_contrary'))
               .padding({ top: 4, bottom: 4 })
             }
@@ -106,7 +115,7 @@ struct Settings {
                 this.CustomDivider()
                 MainItem({ itemDesc: $r('app.string.privacy'), src: $r('app.media.privacy') })
               }.width('100%')
-              .borderRadius(24)
+              .borderRadius(RADIUS_CARD_LG)
               .backgroundColor($r('sys.color.ohos_id_color_foreground_contrary'))
               .padding({ top: 4, bottom: 4 })
             }
@@ -119,22 +128,22 @@ struct Settings {
                 this.CustomDivider()
                 MainItem({ itemDesc: $r('app.string.aboutDevice'), src: $r('app.media.aboutDevice') })
               }.width('100%')
-              .borderRadius(24)
+              .borderRadius(RADIUS_CARD_LG)
               .backgroundColor($r('sys.color.ohos_id_color_foreground_contrary'))
-              .padding(4)
+              .padding(PADDING_XS)
             }
           }
           .padding({ left: 12, right: 12 })
         }
-        .navBarWidth(293)
+        .navBarWidth(SETTINGS_NAV_BAR_WIDTH)
         .title($r('app.string.settings'))
-        .backgroundColor('#f1f3f5')
+        .backgroundColor($r('app.color.side_bar_background'))
         .width('100%')
         .height('100%')
         .navDestination(this.myRouter)
       }
     }.onBreakpointChange((breakpoint: string) => {
-      this.currentBreakPoint = breakpoint
+      this.currentBreakPoint = breakpoint;
     })
   }
 }

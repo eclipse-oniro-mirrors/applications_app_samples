@@ -15,6 +15,7 @@
 
 // [Start bin_convert_rsa_keypair]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function convertAsyKey(): Promise<void> {
   return new Promise<void>((resolve, reject) => {
@@ -30,9 +31,10 @@ function convertAsyKey(): Promise<void> {
     let pkBlob: cryptoFramework.DataBlob = { data: pkVal };
     rsaGenerator.convertKey(pkBlob, null, (err, keyPair) => {
       if (err) {
-        console.error(`convertKey failed: errCode: ${err.code}, message: ${err.message}`);
+        let e: BusinessError = err as BusinessError;
+        console.error(`convertKey failed: errCode: ${e.code}, message: ${e.message}`);
         // [StartExclude bin_convert_rsa_keypair]
-        reject(new Error(`convertKey failed: errCode: ${err.code}, message: ${err.message}`));
+        reject(new Error(`convertKey failed: errCode: ${e.code}, message: ${e.message}`));
         // [EndExclude bin_convert_rsa_keypair]
         return;
       }

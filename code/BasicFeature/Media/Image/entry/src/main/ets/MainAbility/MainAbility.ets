@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file src/main/ets/MainAbility/MainAbility.ets
+ * 文件职责：MainAbility 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：MainAbility。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import UIAbility from '@ohos.app.ability.UIAbility';
 import abilityAccessCtrl from '@ohos.abilityAccessCtrl';
 import { logger } from '@ohos/photomodify';
@@ -23,7 +30,13 @@ import { BusinessError } from '@kit.BasicServicesKit';
 
 const TAG: string = '[Sample_MainAbility]';
 
+/**
+ * MainAbility：类定义，承载本文件对应的逻辑与数据。
+ */
 export default class MainAbility extends UIAbility {
+  /**
+   * onCreate：Ability 创建时回调。
+   */
   onCreate(want :Want, launchParam: AbilityConstant.LaunchParam): void {
     globalThis.mainContext = this.context;
     logger.info(TAG, '[Demo] MainAbility onCreate');
@@ -41,10 +54,16 @@ export default class MainAbility extends UIAbility {
     }
   }
 
+  /**
+   * onDestroy：Ability 销毁时回调。
+   */
   onDestroy(): void {
     logger.info(TAG, '[Demo] MainAbility onDestroy');
   }
 
+  /**
+   * onWindowStageCreate：窗口舞台创建时回调。
+   */
   onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
     logger.info(TAG, '[Demo] MainAbility onWindowStageCreate');
@@ -58,16 +77,25 @@ export default class MainAbility extends UIAbility {
     })
   }
 
+  /**
+   * onWindowStageDestroy：窗口舞台销毁时回调。
+   */
   onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources
     logger.info(TAG, '[Demo] MainAbility onWindowStageDestroy');
   }
 
+  /**
+   * onForeground：应用进入前台时回调。
+   */
   onForeground(): void {
     // Ability has brought to foreground
     logger.info(TAG, '[Demo] MainAbility onForeground');
   }
 
+  /**
+   * onBackground：应用退到后台时回调。
+   */
   onBackground(): void {
     // Ability has back to background
     logger.info(TAG, '[Demo] MainAbility onBackground');

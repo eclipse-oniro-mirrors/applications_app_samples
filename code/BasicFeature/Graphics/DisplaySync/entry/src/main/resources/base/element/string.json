@@ -11,6 +11,22 @@
     {
       "name": "EntryAbility_label",
       "value": "DisplaySync"
+    },
+    {
+      "name": "custom_draw",
+      "value": "CustomDraw"
+    },
+    {
+      "name": "property_animation",
+      "value": "PropertyAnimation"
+    },
+    {
+      "name": "xcomponent",
+      "value": "XComponent"
+    },
+    {
+      "name": "animator",
+      "value": "Animator"
     }
   ]
 }

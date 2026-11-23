@@ -12,6 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file src/main/ets/components/util/CopyObj.ets
+ * 文件职责：CopyObj 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：（无顶层声明）。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import image from '@ohos.multimedia.image';
 
 async function copyPixelMap(pm: PixelMap): Promise<PixelMap> {
@@ -19,8 +27,10 @@ async function copyPixelMap(pm: PixelMap): Promise<PixelMap> {
   const w: number = imageInfo.size.width;
   const h: number = imageInfo.size.height;
   let buffer: ArrayBuffer = new ArrayBuffer(w * h * 4);
+
   // readPixelsToBuffer输出为BGRA_8888
   await pm.readPixelsToBuffer(buffer);
+
   // pixelFormat 4代表BGRA_8888，3代表BARG_8888。  这里使用copyPixelMap的时候，每次都进行两次转换，保证色值正常。
   let opts: image.InitializationOptions = { editable: true, pixelFormat: 3, size: { height: w, width: h } };
   return await image.createPixelMap(buffer, opts);

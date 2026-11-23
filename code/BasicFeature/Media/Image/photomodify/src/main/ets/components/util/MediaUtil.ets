@@ -12,6 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file src/main/ets/components/util/MediaUtil.ets
+ * 文件职责：MediaUtil 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：（无顶层声明）。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import image from '@ohos.multimedia.image'
 import fs from '@ohos.file.fs';
 
@@ -21,6 +29,7 @@ export async function readImage(uri: string, decodingOptions?: image.DecodingOpt
   } else if (prefix) {
     uri = uri.substr(prefix.length);
   }
+
   // path参数为文件的应用沙箱路径或文件URI，所以使用沙箱路径时，需要去掉前缀
   const file: fs.File = await fs.open(uri, fs.OpenMode.READ_ONLY);
   let imageSourceApi: image.ImageSource = image.createImageSource(file.fd);

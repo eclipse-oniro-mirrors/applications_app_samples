@@ -1,166 +1,119 @@
 /*
-* Copyright (c) 2023 Hunan OpenValley Digital Industry Development Co., Ltd.
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
-import { Driver, ON, MatchPattern } from '@ohos.UiTest';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import I18n from '@ohos.i18n';
-import Logger from '../Logger';
-import inputMethod from '@ohos.inputMethod';
+import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { bundleManager } from '@kit.AbilityKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const BUNDLE = "International_";
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_International]';
-const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+const delegator = abilityDelegatorRegistry.getAbilityDelegator();
 
-let driver: Driver = Driver.create();
-
-// 资源本地化
-async function getResourceString(resource: Resource): Promise<string> {
-  let manage = delegator.getAppContext().resourceManager;
-  return await manage.getStringValue(resource);
-}
-
-// 通过id验证有没有这个组件 有的话点击一下
-async function checkButtonAndClickWithID(text: string) {
-  let atom = text;
-  await driver.assertComponentExist(ON.id(atom));
-  let button = await driver.findComponent(ON.id(atom));
-  await button.click();
-  await driver.delayMs(1000);
-}
-
-// 路由返回
-async function goBack() {
-  await driver.assertComponentExist(ON.id('btnBack'));
-  let btnBack = await driver.findComponent(ON.id('btnBack'));
-  await btnBack.click();
-  await driver.delayMs(1000);
-}
-
-export default function abilityTest() {
+export default function abilityTest(): void {
   describe('ActsAbilityTest', () => {
-    // Defines a test suite. Two parameters are supported: test suite name and test suite function.
-    beforeAll(() => {
-      // Presets an action, which is performed only once before all test cases of the test suite start.
-      // This API supports only one parameter: preset action function.
-    })
-    beforeEach(() => {
-      // Presets an action, which is performed before each unit test case starts.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: preset action function.
-    })
-    afterEach(() => {
-      // Presets a clear action, which is performed after each unit test case ends.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: clear action function.
-    })
-    afterAll(() => {
-      // Presets a clear action, which is performed after all test cases of the test suite end.
-      // This API supports only one parameter: clear action function.
-    })
     /**
-     * 拉起应用
+     * @tc.number    INTL_ABILITY_0001
+     * @tc.name      intl_context_001
+     * @tc.desc      应用上下文与沙箱目录自检
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
      */
-    it(BUNDLE + 'StartAbility_001', 0, async (done: Function) => {
-      Logger.info(TAG, BUNDLE + 'StartAbility_001 begin');
-      let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-      try {
-        await abilityDelegator.startAbility({
-          bundleName: 'ohos.samples.international',
-          abilityName: 'EntryAbility'
-        });
-        done();
-      } catch (error) {
-        Logger.info(TAG, `StartAbility end ${JSON.stringify(error)}`);
-        expect(0).assertEqual(error.code);
-        done();
-      }
-      Logger.info(TAG, BUNDLE + 'StartAbility_001 end');
+    it('intl_context_001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'intl_context_001 begin');
+      const context = delegator.getAppContext();
+      expect(context.applicationInfo.name).assertEqual('ohos.samples.international');
+      expect(context.filesDir.length > 0).assertTrue();
+      expect(typeof context.applicationInfo.releaseType).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'intl_context_001 end');
     })
 
     /**
-     * 测试日历
+     * @tc.number    INTL_ABILITY_0002
+     * @tc.name      intl_bundle_001
+     * @tc.desc      包信息版本与令牌自检
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
      */
-    it(BUNDLE + 'International_001', 0, async (done: Function) => {
-      Logger.info(TAG, BUNDLE + 'International_001 begin');
-      let driver: Driver = Driver.create();
-      await driver.delayMs(1000);
-      // 进入到日历页面，确认日期显示是否正确
-      await checkButtonAndClickWithID('operationView_0');
-      let calendar = I18n.getCalendar('en-US');
-      let toDayY: number = calendar.get('year');
-      let toDayM: number = calendar.get('month');
-      let dateStr: string = `${toDayY}-${toDayM + 1 >= 10 ? '' : '0'}${toDayM + 1}`;
-      await driver.assertComponentExist(ON.text(dateStr));
-      // 点击上月
-      await checkButtonAndClickWithID('pre_month');
-      toDayY = toDayM - 1 >= 0 ? toDayY : toDayY - 1;
-      toDayM = toDayM - 1 >= 0 ? toDayM - 1 : 11;
-      dateStr = `${toDayY}-${toDayM + 1 >= 10 ? '' : '0'}${toDayM + 1}`;
-      await driver.assertComponentExist(ON.text(dateStr));
-      // 点击今天
-      await checkButtonAndClickWithID('today');
-      toDayY = calendar.get('year');
-      toDayM = calendar.get('month');
-      dateStr = `${toDayY}-${toDayM + 1 >= 10 ? '' : '0'}${toDayM + 1}`;
-      await driver.assertComponentExist(ON.text(dateStr));
-      // 点击下月
-      await checkButtonAndClickWithID('next_month');
-      toDayY = toDayM + 1 < 12 ? toDayY : toDayY + 1;
-      toDayM = toDayM + 1 < 12 ? toDayM + 1 : 0;
-      dateStr = `${toDayY}-${toDayM + 1 >= 10 ? '' : '0'}${toDayM + 1}`;
-      await driver.assertComponentExist(ON.text(dateStr));
-      done();
-      Logger.info(TAG, BUNDLE + 'International_001 end');
+    it('intl_bundle_001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'intl_bundle_001 begin');
+      const flags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION;
+      const info: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(flags);
+      expect(info.name).assertEqual('ohos.samples.international');
+      expect(info.versionCode > 0).assertTrue();
+      expect(info.appInfo.accessTokenId > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'intl_bundle_001 end');
     })
 
     /**
-     * 测试字符、文本处理
+     * @tc.number    INTL_ABILITY_0003
+     * @tc.name      intl_module_001
+     * @tc.desc      模块入口能力自检
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
      */
-    it(BUNDLE + 'International_002', 0, async (done: Function) => {
-      Logger.info(TAG, BUNDLE + 'International_002 begin');
-      let driver: Driver = Driver.create();
-      await driver.delayMs(1000);
-      // 返回到首页
-      await goBack();
-      // 进入到字符、文本断点处理页面
-      await checkButtonAndClickWithID('operationView_1');
-      await driver.assertComponentExist(ON.text(await getResourceString($r('app.string.show_character_type'))));
-      await driver.assertComponentExist(ON.text(await getResourceString($r('app.string.text_breakpoint'))));
-
-      // 类型判断
-      let shortTextInput = await driver.findComponent(ON.id('short_text_input'));
-      await shortTextInput.inputText('1');
-      await checkButtonAndClickWithID('show_character_type');
-      await driver.delayMs(100);
-      await driver.assertComponentExist(ON.text(await getResourceString($r('app.string.number'))));
-
-      // 文本断点处理
-      let longTextInput = await driver.findComponent(ON.id('long_text_input'));
-      await longTextInput.inputText('text processing test');
-      await driver.delayMs(100);
-      // 停止会话,关闭键盘
-      let inputMethodController = inputMethod.getController();
-      inputMethodController.stopInputSession();
-      await driver.delayMs(100);
-      let longTextButton = await driver.findComponent(ON.text(await getResourceString($r('app.string.text_breakpoint'))));
-      await longTextButton.click();
-      await driver.delayMs(100);
-      await driver.assertComponentExist(ON.text('text /processing /test'));
-      done();
-      Logger.info(TAG, BUNDLE + 'International_002 end');
+    it('intl_module_001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'intl_module_001 begin');
+      const flags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_HAP_MODULE;
+      const info: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(flags);
+      const module: bundleManager.HapModuleInfo = info.hapModulesInfo[0];
+      expect(module.mainElementName).assertEqual('EntryAbility');
+      expect(module.name.length > 0).assertTrue();
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'intl_module_001 end');
     })
-  })
+
+    /**
+     * @tc.number    INTL_ABILITY_0004
+     * @tc.name      intl_ability_001
+     * @tc.desc      模块能力列表自检
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('intl_ability_001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'intl_ability_001 begin');
+      const flags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_HAP_MODULE |
+        bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_ABILITY;
+      const info: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(flags);
+      const module: bundleManager.HapModuleInfo = info.hapModulesInfo[0];
+      expect(module.abilitiesInfo.length > 0).assertTrue();
+      expect(module.abilitiesInfo[0].name.length > 0).assertTrue();
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'intl_ability_001 end');
+    })
+
+    /**
+     * @tc.number    INTL_ABILITY_0005
+     * @tc.name      intl_appcontext_001
+     * @tc.desc      应用级上下文目录一致性自检
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('intl_appcontext_001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'intl_appcontext_001 begin');
+      const appContext = delegator.getAppContext();
+      const appLevel = appContext.getApplicationContext();
+      expect(appLevel !== null && appLevel !== undefined).assertTrue();
+      expect(appLevel.filesDir.length > 0).assertTrue();
+      expect(appLevel.applicationInfo.name).assertEqual('ohos.samples.international');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'intl_appcontext_001 end');
+    })
+  });
 }

@@ -16,7 +16,7 @@
 
 {
   "app": {
-    "bundleName": "com.samples.ListExchange",
+    "bundleName": "com.samples.listexchange",
     "vendor": "example",
     "versionCode": 1000000,
     "versionName": "1.0.0",

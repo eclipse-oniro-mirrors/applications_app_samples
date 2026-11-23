@@ -35,5 +35,6 @@ export default struct Content {
       }
       .borderRadius(40)
     }
+    .id('content_root')
   }
 }

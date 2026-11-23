@@ -15,6 +15,7 @@
 
 // [Start specify_parameter_generate_rsa_keypair]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 // RSA公钥密钥参数生成函数
 function genRsaPubKeySpec(nIn: bigint, eIn: bigint): cryptoFramework.RSAPubKeySpec {
@@ -71,9 +72,10 @@ function rsaUsePubKeySpecGetCallback(): Promise<void> {
     let rsaGeneratorSpec = cryptoFramework.createAsyKeyGeneratorBySpec(rsaPubKeySpec);
     rsaGeneratorSpec.generatePubKey((error, key) => {
       if (error) {
-        console.error(`generate pubKey failed: errCode: ${error.code}, message: ${error.message}`);
+        let e: BusinessError = error as BusinessError;
+        console.error(`generate pubKey failed: errCode: ${e.code}, message: ${e.message}`);
         // [StartExclude specify_parameter_generate_rsa_keypair]
-        reject(new Error(`generate pubKey failed: errCode: ${error.code}, message: ${error.message}`));
+        reject(new Error(`generate pubKey failed: errCode: ${e.code}, message: ${e.message}`));
         // [EndExclude specify_parameter_generate_rsa_keypair]
         return;
       }

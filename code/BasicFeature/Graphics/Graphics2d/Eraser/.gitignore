@@ -9,4 +9,5 @@
 /.clang-format
 /.clang-tidy
 **/.test
+**/BuildProfile.ets
 /.appanalyzer
