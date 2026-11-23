@@ -20,7 +20,7 @@ import hilog from '@ohos.hilog';
 import { KEY_BACK, TEXT_PAGE_TITLE, checkTextContent, clickSampleButtonAt, contactPageComponentCount, ensureContactsPage, getDriver, isPickerVisible, pressAndWait, sampleButtons, serializedDelay, waitForStableContactPage } from '../Shared/ContactsDriver';
 import { ContactFactory, ContactRecord, ContactValidator, ContactNormalizer, PickerSession, PickerOptions, ContactPermissionState, ContactFingerprint } from '../Shared/ContactModel';
 
-// Accessible, secure page.
+// Reachable, secure page.
 // Every button carries its label.
 
 const DOMAIN: number = 0xF811;

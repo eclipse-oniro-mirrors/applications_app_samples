@@ -20,7 +20,7 @@ import hilog from '@ohos.hilog';
 import { KEY_BACK, TEXT_PAGE_TITLE, checkTextContent, clickSampleButtonAt, contactPageComponentCount, ensureContactsPage, getDriver, isPickerVisible, pressAndWait, sampleButtons, serializedDelay, waitForStableContactPage } from '../Shared/ContactsDriver';
 import { ContactFactory, ContactRecord, ContactValidator, ContactNormalizer, PickerSession, PickerOptions, ContactPermissionState, ContactFingerprint } from '../Shared/ContactModel';
 
-// Accessibility of the contacts page.
+// Reachable and readable checks for the contacts page.
 // The four operation buttons stay reachable and readable.
 
 const DOMAIN: number = 0xF811;
