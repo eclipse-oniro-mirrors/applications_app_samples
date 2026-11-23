@@ -20,6 +20,7 @@ import { openCustomDialog } from './openCustomDialog';
 import { CustomDialogComponentWithTransition } from './customDialogComponentWithTransition';
 import { CustomDialogWithKeyboardAvoidDistance } from './customDialogWithKeyboardAvoidDistance';
 import { OpenDialogAndUpdate } from './OpenDialogAndUpdate';
+import { CustomDialogHoverModeExample } from './CustomDialogHoverModeExample';
 
 export const CustomDialog_ROUTE_PREFIX: string = 'CustomDialog_ROUTE_PREFIX';
 
@@ -44,6 +45,11 @@ const routes: Route[] = [
     name: `${CustomDialog_ROUTE_PREFIX}/OpenDialogAndUpdate`,
     title: resource.resourceToString($r('app.string.OpenDialogAndUpdate_title')),
     description: $r('app.string.OpenDialogAndUpdate_desc'),
+  },
+  {
+    name: `${CustomDialog_ROUTE_PREFIX}/CustomDialogHoverModeExample`,
+    title: resource.resourceToString($r('app.string.CustomDialogHoverModeExample_title')),
+    description: $r('app.string.CustomDialogHoverModeExample_desc'),
   }
 ]
 
@@ -59,6 +65,8 @@ export function CustomDialogDestination(name: string) {
     CustomDialogWithKeyboardAvoidDistance();
   } else if (name === routes[3].name) {
     OpenDialogAndUpdate();
+  } else if (name === routes[4].name) {
+    CustomDialogHoverModeExample();
   }
 }
 
