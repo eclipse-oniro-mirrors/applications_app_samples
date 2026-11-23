@@ -1895,5 +1895,182 @@ export default function payloadSecurity(): void {
       logStep("payloadSecurityConvergesAfterAuthMask", first.token() + ">" + second.token());
     });
 
+    /**
+     * @tc.name          payloadSecuritySeparatesHelloPairDigests
+     * @tc.desc          Payloads labelled hello pair redact to distinct outputs and digests.
+     * @tc.precondition  Both payloads are short and free of sensitive markers.
+     * @tc.steps         1. Redact the first payload.
+     *                   2. Redact the second payload.
+     *                   3. Compare output lengths and digests.
+     *                   4. Check both verdicts are clean.
+     * @tc.expected      The pair keeps separate digests and neither output collapses into the other.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type          FUNCTION
+     * @tc.level         LEVEL2
+     */
+    it('payloadSecuritySeparatesHelloPairDigests', 0, () => {
+      const left: string = 'hello world';
+      const right: string = 'hello rpc';
+      const leftRed: Redaction = redact(left);
+      const rightRed: Redaction = redact(right);
+      expect(leftRed.applied).assertFalse();
+      expect(rightRed.applied).assertFalse();
+      expect(leftRed.output).assertEqual(left);
+      expect(rightRed.output).assertEqual(right);
+      expect(leftRed.digest).assertEqual(textFingerprint(left));
+      expect(rightRed.digest).assertEqual(textFingerprint(right));
+      expect(leftRed.digest === rightRed.digest).assertFalse();
+      expect(leftRed.token() === rightRed.token()).assertFalse();
+      logStep("payloadSecuritySeparatesHelloPairDigests", String(leftRed.digest) + ":" + String(rightRed.digest));
+    });
+
+    /**
+     * @tc.name          payloadSecuritySeparatesPingPongDigests
+     * @tc.desc          Payloads labelled ping pong pair redact to distinct outputs and digests.
+     * @tc.precondition  Both payloads are short and free of sensitive markers.
+     * @tc.steps         1. Redact the first payload.
+     *                   2. Redact the second payload.
+     *                   3. Compare output lengths and digests.
+     *                   4. Check both verdicts are clean.
+     * @tc.expected      The pair keeps separate digests and neither output collapses into the other.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type          FUNCTION
+     * @tc.level         LEVEL2
+     */
+    it('payloadSecuritySeparatesPingPongDigests', 0, () => {
+      const left: string = 'ping';
+      const right: string = 'pong';
+      const leftRed: Redaction = redact(left);
+      const rightRed: Redaction = redact(right);
+      expect(leftRed.applied).assertFalse();
+      expect(rightRed.applied).assertFalse();
+      expect(leftRed.output).assertEqual(left);
+      expect(rightRed.output).assertEqual(right);
+      expect(leftRed.digest).assertEqual(textFingerprint(left));
+      expect(rightRed.digest).assertEqual(textFingerprint(right));
+      expect(leftRed.digest === rightRed.digest).assertFalse();
+      // Equal-length clean inputs share metadata; their digests still differ.
+      expect(leftRed.token() === rightRed.token()).assertTrue();
+      logStep("payloadSecuritySeparatesPingPongDigests", String(leftRed.digest) + ":" + String(rightRed.digest));
+    });
+
+    /**
+     * @tc.name          payloadSecuritySeparatesGreekPairDigests
+     * @tc.desc          Payloads labelled greek pair redact to distinct outputs and digests.
+     * @tc.precondition  Both payloads are short and free of sensitive markers.
+     * @tc.steps         1. Redact the first payload.
+     *                   2. Redact the second payload.
+     *                   3. Compare output lengths and digests.
+     *                   4. Check both verdicts are clean.
+     * @tc.expected      The pair keeps separate digests and neither output collapses into the other.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type          FUNCTION
+     * @tc.level         LEVEL2
+     */
+    it('payloadSecuritySeparatesGreekPairDigests', 0, () => {
+      const left: string = 'alpha';
+      const right: string = 'beta';
+      const leftRed: Redaction = redact(left);
+      const rightRed: Redaction = redact(right);
+      expect(leftRed.applied).assertFalse();
+      expect(rightRed.applied).assertFalse();
+      expect(leftRed.output).assertEqual(left);
+      expect(rightRed.output).assertEqual(right);
+      expect(leftRed.digest).assertEqual(textFingerprint(left));
+      expect(rightRed.digest).assertEqual(textFingerprint(right));
+      expect(leftRed.digest === rightRed.digest).assertFalse();
+      expect(leftRed.token() === rightRed.token()).assertFalse();
+      logStep("payloadSecuritySeparatesGreekPairDigests", String(leftRed.digest) + ":" + String(rightRed.digest));
+    });
+
+    /**
+     * @tc.name          payloadSecuritySeparatesStubPairDigests
+     * @tc.desc          Payloads labelled stub pair redact to distinct outputs and digests.
+     * @tc.precondition  Both payloads are short and free of sensitive markers.
+     * @tc.steps         1. Redact the first payload.
+     *                   2. Redact the second payload.
+     *                   3. Compare output lengths and digests.
+     *                   4. Check both verdicts are clean.
+     * @tc.expected      The pair keeps separate digests and neither output collapses into the other.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type          FUNCTION
+     * @tc.level         LEVEL2
+     */
+    it('payloadSecuritySeparatesStubPairDigests', 0, () => {
+      const left: string = 'stub-a';
+      const right: string = 'stub-b';
+      const leftRed: Redaction = redact(left);
+      const rightRed: Redaction = redact(right);
+      expect(leftRed.applied).assertFalse();
+      expect(rightRed.applied).assertFalse();
+      expect(leftRed.output).assertEqual(left);
+      expect(rightRed.output).assertEqual(right);
+      expect(leftRed.digest).assertEqual(textFingerprint(left));
+      expect(rightRed.digest).assertEqual(textFingerprint(right));
+      expect(leftRed.digest === rightRed.digest).assertFalse();
+      // Equal-length clean inputs share metadata; their digests still differ.
+      expect(leftRed.token() === rightRed.token()).assertTrue();
+      logStep("payloadSecuritySeparatesStubPairDigests", String(leftRed.digest) + ":" + String(rightRed.digest));
+    });
+
+    /**
+     * @tc.name          payloadSecuritySeparatesNumberWordsDigests
+     * @tc.desc          Payloads labelled number words redact to distinct outputs and digests.
+     * @tc.precondition  Both payloads are short and free of sensitive markers.
+     * @tc.steps         1. Redact the first payload.
+     *                   2. Redact the second payload.
+     *                   3. Compare output lengths and digests.
+     *                   4. Check both verdicts are clean.
+     * @tc.expected      The pair keeps separate digests and neither output collapses into the other.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type          FUNCTION
+     * @tc.level         LEVEL2
+     */
+    it('payloadSecuritySeparatesNumberWordsDigests', 0, () => {
+      const left: string = 'one';
+      const right: string = 'two';
+      const leftRed: Redaction = redact(left);
+      const rightRed: Redaction = redact(right);
+      expect(leftRed.applied).assertFalse();
+      expect(rightRed.applied).assertFalse();
+      expect(leftRed.output).assertEqual(left);
+      expect(rightRed.output).assertEqual(right);
+      expect(leftRed.digest).assertEqual(textFingerprint(left));
+      expect(rightRed.digest).assertEqual(textFingerprint(right));
+      expect(leftRed.digest === rightRed.digest).assertFalse();
+      // Equal-length clean inputs share metadata; their digests still differ.
+      expect(leftRed.token() === rightRed.token()).assertTrue();
+      logStep("payloadSecuritySeparatesNumberWordsDigests", String(leftRed.digest) + ":" + String(rightRed.digest));
+    });
+
+    /**
+     * @tc.name          payloadSecuritySeparatesShortKeysDigests
+     * @tc.desc          Payloads labelled short keys redact to distinct outputs and digests.
+     * @tc.precondition  Both payloads are short and free of sensitive markers.
+     * @tc.steps         1. Redact the first payload.
+     *                   2. Redact the second payload.
+     *                   3. Compare output lengths and digests.
+     *                   4. Check both verdicts are clean.
+     * @tc.expected      The pair keeps separate digests and neither output collapses into the other.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type          FUNCTION
+     * @tc.level         LEVEL2
+     */
+    it('payloadSecuritySeparatesShortKeysDigests', 0, () => {
+      const left: string = 'k1';
+      const right: string = 'k2';
+      const leftRed: Redaction = redact(left);
+      const rightRed: Redaction = redact(right);
+      expect(leftRed.applied).assertFalse();
+      expect(rightRed.applied).assertFalse();
+      expect(leftRed.output).assertEqual(left);
+      expect(rightRed.output).assertEqual(right);
+      expect(leftRed.digest).assertEqual(textFingerprint(left));
+      expect(rightRed.digest).assertEqual(textFingerprint(right));
+      expect(leftRed.digest === rightRed.digest).assertFalse();
+      // Equal-length clean inputs share metadata; their digests still differ.
+      expect(leftRed.token() === rightRed.token()).assertTrue();
+      logStep("payloadSecuritySeparatesShortKeysDigests", String(leftRed.digest) + ":" + String(rightRed.digest));
+    });
   });
 }
