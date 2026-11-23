@@ -17,6 +17,8 @@ import { common } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { fileIo } from '@kit.CoreFileKit';
 import { MediaFileWriter } from './MediaFileWriter';
+import { MediaFileActivity } from './MediaFileActivity';
+import { TranscodeFileCloser } from '../controller/TranscodeFileCloser';
 
 export class MediaStateFiles {
   private static writes: Promise<void> = Promise.resolve();
@@ -38,6 +40,7 @@ export class MediaStateFiles {
 
   static write(context: common.Context, name: string, snapshot: string): Promise<void> {
     const task: Promise<void> = MediaStateFiles.writes.then(async (): Promise<void> => {
+      if (MediaFileActivity.isCleanupUnconfirmed()) { throw new Error('Media state cleanup unconfirmed'); }
       if (snapshot.length > 2 * 1024 * 1024) { throw new Error('Media state snapshot too large'); }
       const directory: string = context.filesDir + '/media_state';
       try {
@@ -51,12 +54,14 @@ export class MediaStateFiles {
       const path: string = MediaStateFiles.path(context, name);
       const file: fileIo.File = await fileIo.open(path + '.pending', fileIo.OpenMode.CREATE |
         fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.TRUNC | fileIo.OpenMode.NOFOLLOW);
+      let closed: boolean = true;
       try {
         await MediaFileWriter.writeAll(file.fd, snapshot);
         await fileIo.fsync(file.fd);
       } finally {
-        await fileIo.close(file);
+        closed = await TranscodeFileCloser.close(file);
       }
+      if (!closed) { throw new Error('Media state file close unconfirmed'); }
       await fileIo.rename(path + '.pending', path);
     });
     MediaStateFiles.writes = task.catch((): void => {});

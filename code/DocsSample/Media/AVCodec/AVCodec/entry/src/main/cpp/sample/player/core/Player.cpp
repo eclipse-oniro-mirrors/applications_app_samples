@@ -55,6 +55,7 @@ PlaybackInfo Player::GetPlaybackInfo() const
     info.state = stateMachine_.GetState();
     info.failure = failure_.Snapshot();
     info.cleanupFailure = cleanupFailure_.Snapshot();
+    info.cleanupProgress = cleanupProgress_.Snapshot();
     info.diagnostics = diagnostics_.Snapshot();
     if (info.state == PLAYER_STATE_IDLE) {
         return info;

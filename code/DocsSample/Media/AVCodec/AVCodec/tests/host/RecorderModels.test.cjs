@@ -713,8 +713,13 @@ async function testCameraLifecycle() {
   failure.output = createOutput(false, true);
   failure.session = session;
   failure.outputStarted = true;
-  await assert.rejects(() => failure.stop(() => {}), /Camera output stop failed/);
+  await assert.rejects(() => failure.stop(() => {}), { message: 'stop failed' });
   assert.equal(events.includes('session.stop'), true);
+  await testCameraBufferLifecycle(CameraSessionController, createOutput, session, events);
+  console.info('Camera lifecycle: preparation/start exit races, listener/stop failures, and idempotent release passed');
+}
+
+async function testCameraBufferLifecycle(CameraSessionController, createOutput, session, events) {
   const buffer = new CameraSessionController();
   events.length = 0;
   buffer.bufferMode = true;
@@ -729,7 +734,6 @@ async function testCameraLifecycle() {
   assert.equal(events.filter(x => x === 'output.release').length, 1);
   assert.equal(events.filter(x => x === 'preview.release').length, 1);
   assert.equal(events.includes('frame.end'), false, 'Buffer mode does not await a VideoOutput frameEnd');
-  console.info('Camera lifecycle: preparation/start exit races, listener/stop failures, and idempotent release passed');
 }
 
 async function testRecordingSegments() {

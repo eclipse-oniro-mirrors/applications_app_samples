@@ -17,6 +17,7 @@
 #define VIDEO_CODEC_SAMPLE_RECODER_H
 
 #include <mutex>
+#include "CleanupProgress.h"
 #include <memory>
 #include <atomic>
 #include <chrono>
@@ -54,6 +55,7 @@ public:
     int32_t StopStart();
     // 等待后台收尾完成并释放录制资源；完成前不能启动下一次录制。
     int32_t StopEnd();
+    CleanupProgressInfo GetCleanupProgress() const { return cleanupProgress_.Snapshot(); }
     OperationFailureInfo GetFailure() const { return failure_.Snapshot(); }
     bool IsSessionActive() const { return sessionActive_.load(); }
     uint64_t GetCameraInputSurfaceId() const;
@@ -69,6 +71,7 @@ public:
     void AudioEncOutputThread();
 
 private:
+    CleanupProgress cleanupProgress_;
     static constexpr int64_t codecBufferTimeoutUs = 100000;
     struct VideoInputState {
         int64_t firstTimestampNs = -1;
@@ -102,7 +105,7 @@ private:
     void DumpVideoOutput(const CodecBufferInfo &bufferInfo, bool isPrimary);
     void CloseVideoDumpFiles();
     void OpenVideoDumpFiles();
-    void JoinPreviousSessionThreads(std::unique_lock<std::mutex> &lock);
+    void JoinPreviousSessionThreads();
     void ResetSessionState();
     int32_t InitializeSession(SampleInfo &sampleInfo);
     int32_t InitializeSecondaryMuxer();
@@ -183,10 +186,12 @@ private:
     RecorderWorker secondaryVideoOutputWorker_;
     RecorderWorker audioInputWorker_;
     RecorderWorker audioOutputWorker_;
-    std::unique_ptr<std::thread> releaseThread_ = nullptr;
+    // 需要同时取得两把锁时，先取得mutex_。等待和日志只使用releaseMutex_。
+    std::mutex releaseMutex_;
     std::condition_variable doneCond_;
-    // 仅由mutex_保护。Release完成后才允许WaitForDone返回或开始下一次录制。
+    std::unique_ptr<std::thread> releaseThread_ = nullptr;
     bool releaseCompleted_ = true;
+    // 收尾线程写入结果，在releaseMutex_下发布完成后，等待者才读取。
     int32_t releaseResult_ = AVCODEC_SAMPLE_ERR_OK;
     SampleInfo sampleInfo_;
     SampleInfo secondarySampleInfo_;

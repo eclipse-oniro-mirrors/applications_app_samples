@@ -34,13 +34,17 @@ int32_t Recorder::Init(SampleInfo &sampleInfo)
     CHECK_AND_RETURN_RET_LOG(!isStarted_, AVCODEC_SAMPLE_ERR_ERROR, "Already started.");
     CHECK_AND_RETURN_RET_LOG(videoEncoder_ == nullptr && muxer_ == nullptr,
                              AVCODEC_SAMPLE_ERR_ERROR, "Already started.");
-    CHECK_AND_RETURN_RET_LOG(releaseThread_ == nullptr || releaseCompleted_, AVCODEC_SAMPLE_ERR_ERROR,
-                             "Previous recorder release is still running");
+    {
+        std::lock_guard<std::mutex> releaseLock(releaseMutex_);
+        CHECK_AND_RETURN_RET_LOG(releaseCompleted_, AVCODEC_SAMPLE_ERR_ERROR,
+                                 "Previous recorder release is still running");
+    }
 
-    JoinPreviousSessionThreads(lock);
+    JoinPreviousSessionThreads();
     sessionActive_.store(true);
     sampleInfo_ = sampleInfo;
     sampleInfo_.output.sessionId = CreateCodecSessionId("recording");
+    cleanupProgress_.Reset();
     sessionReport_.Begin(sampleInfo_.output.sessionId, DescribeCodecRequest(sampleInfo_, true));
     sessionReport_.Event("initialize.begin");
     AVCODEC_SAMPLE_LOGI("Recording session: %{public}s", sampleInfo_.output.sessionId.c_str());
@@ -65,7 +69,6 @@ int32_t Recorder::Init(SampleInfo &sampleInfo)
         (void)WaitForDone();
         return ret;
     }
-    releaseThread_ = nullptr;
     sessionReport_.Event("initialize.end");
     AVCODEC_SAMPLE_LOGI("Succeed");
     return AVCODEC_SAMPLE_ERR_OK;
@@ -73,7 +76,6 @@ int32_t Recorder::Init(SampleInfo &sampleInfo)
 
 void Recorder::ResetSessionState()
 {
-    releaseResult_ = AVCODEC_SAMPLE_ERR_OK;
     audioInputStopping_ = false;
     videoOutputDone_ = false;
     secondaryVideoOutputDone_ = false;
@@ -135,17 +137,16 @@ int32_t Recorder::SetPaused(const std::string &sessionId, bool paused)
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
-void Recorder::JoinPreviousSessionThreads(std::unique_lock<std::mutex> &lock)
+void Recorder::JoinPreviousSessionThreads()
 {
-    // 已完成的收尾线程不再访问录制资源，移出锁后回收线程对象，避免join时阻塞Release获取mutex_。
     std::unique_ptr<std::thread> completedReleaseThread;
-    if (releaseThread_ != nullptr) {
+    {
+        std::lock_guard<std::mutex> releaseLock(releaseMutex_);
         completedReleaseThread = std::move(releaseThread_);
-        lock.unlock();
-        if (completedReleaseThread->joinable()) {
-            completedReleaseThread->join();
-        }
-        lock.lock();
+    }
+    // 完成标记发布后，收尾线程只通知等待者并退出，无需再取得mutex_。
+    if (completedReleaseThread != nullptr && completedReleaseThread->joinable()) {
+        completedReleaseThread->join();
     }
 
     audioInputWorker_.Join();

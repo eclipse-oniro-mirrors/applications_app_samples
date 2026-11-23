@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+#include "CleanupProgressNapi.h"
 #include "RecorderNative.h"
 #include "RecorderOptionsParser.h"
 #include <bits/alltypes.h>
@@ -455,6 +456,7 @@ napi_value RecorderNative::GetDiagnostics(napi_env env, napi_callback_info info)
     if (napi_create_object(env, &result) != napi_ok ||
         napi_get_boolean(env, Recorder::GetInstance().IsSessionActive(), &active) != napi_ok ||
         napi_set_named_property(env, result, "active", active) != napi_ok ||
+        !SetCleanupProgress(env, result, Recorder::GetInstance().GetCleanupProgress()) ||
         !SetReportString(env, result, "sessionId", session.id) ||
         !SetReportString(env, result, "requestedConfiguration", session.requested) ||
         !SetReportString(env, result, "observedConfiguration", session.observed) ||

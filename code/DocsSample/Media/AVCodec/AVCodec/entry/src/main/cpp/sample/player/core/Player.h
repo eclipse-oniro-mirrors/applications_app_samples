@@ -19,6 +19,7 @@
 #include <cstdint>
 #include <chrono>
 #include <mutex>
+#include "CleanupProgress.h"
 #include <memory>
 #include <atomic>
 #include <thread>
@@ -52,6 +53,7 @@ class AudioOutputPump;
 struct PlaybackInfo {
     OperationFailureInfo failure;
     OperationFailureInfo cleanupFailure;
+    CleanupProgressInfo cleanupProgress;
     PlayerState state = PLAYER_STATE_IDLE;
     float speed = 1.0f;
     int64_t durationUs = 0;
@@ -131,6 +133,7 @@ public:
     void SetAppBackground(bool background);
 
 private:
+    CleanupProgress cleanupProgress_;
     void VideoDecInputAsyncThread();
     void VideoDecOutputAsyncThread();
     void VideoDecInputSyncThread();
@@ -144,10 +147,10 @@ private:
     void StartRelease();
     void ReleaseWorker();
     void JoinReleaseThread();
-    void JoinWorkerThreads();
+    void JoinWorkerThreads(bool trackCleanup = false);
     bool HasWorkerThreads() const;
-    void ReleaseVideoDecoder();
-    void ReleaseAudioDecoder();
+    void ReleaseVideoDecoder(bool trackCleanup = false);
+    void ReleaseAudioDecoder(bool trackCleanup = false);
     void PrepareForInitialization(const SampleInfo &sampleInfo);
     void ResetPlaybackState();
     bool PrepareVideoSinkForPlayback();
