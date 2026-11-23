@@ -1895,5 +1895,186 @@ export default function constantContract(): void {
       logStep("constantContractFingerprintSample4", String(textFingerprint(text)));
     });
 
+    /**
+     * @tc.name          constantContractFingerprintSample5
+     * @tc.desc          Fingerprint of sample 5 matches the independent computation.
+     * @tc.precondition  The fingerprint helper uses the published rolling hash.
+     * @tc.steps         1. Fingerprint the input text.
+     *                   2. Compare it with the independent digest.
+     *                   3. Repeat the call for determinism.
+     *                   4. Check the empty and extended inputs.
+     * @tc.expected      The digest matches the independent value and stays inside its modulus.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type          FUNCTION
+     * @tc.level         LEVEL2
+     */
+    it('constantContractFingerprintSample5', 0, () => {
+      const text: string = 'level INFO';
+      expect(textFingerprint(text)).assertEqual(107190);
+      expect(textFingerprint(text)).assertEqual(textFingerprint(text));
+      expect(textFingerprint("")).assertEqual(216613);
+      expect(textFingerprint(text) >= 0).assertTrue();
+      expect(textFingerprint(text) < 1000003).assertTrue();
+      expect(textFingerprint(text + "x") === textFingerprint(text)).assertEqual(false);
+      expect(textFingerprint(text).toString().length > 0).assertTrue();
+      expect(textFingerprint(text + text)).assertEqual(textFingerprint(text + text));
+      logStep("constantContractFingerprintSample5", String(textFingerprint(text)));
+    });
+
+    /**
+     * @tc.name          constantContractFingerprintSample6
+     * @tc.desc          Fingerprint of sample 6 matches the independent computation.
+     * @tc.precondition  The fingerprint helper uses the published rolling hash.
+     * @tc.steps         1. Fingerprint the input text.
+     *                   2. Compare it with the independent digest.
+     *                   3. Repeat the call for determinism.
+     *                   4. Check the empty and extended inputs.
+     * @tc.expected      The digest matches the independent value and stays inside its modulus.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type          FUNCTION
+     * @tc.level         LEVEL2
+     */
+    it('constantContractFingerprintSample6', 0, () => {
+      const text: string = 'a';
+      expect(textFingerprint(text)).assertEqual(715082);
+      expect(textFingerprint(text)).assertEqual(textFingerprint(text));
+      expect(textFingerprint("")).assertEqual(216613);
+      expect(textFingerprint(text) >= 0).assertTrue();
+      expect(textFingerprint(text) < 1000003).assertTrue();
+      expect(textFingerprint(text + "x") === textFingerprint(text)).assertEqual(false);
+      expect(textFingerprint(text).toString().length > 0).assertTrue();
+      expect(textFingerprint(text + text)).assertEqual(textFingerprint(text + text));
+      logStep("constantContractFingerprintSample6", String(textFingerprint(text)));
+    });
+
+    /**
+     * @tc.name          constantContractFingerprintSample7
+     * @tc.desc          Fingerprint of sample 7 matches the independent computation.
+     * @tc.precondition  The fingerprint helper uses the published rolling hash.
+     * @tc.steps         1. Fingerprint the input text.
+     *                   2. Compare it with the independent digest.
+     *                   3. Repeat the call for determinism.
+     *                   4. Check the empty and extended inputs.
+     * @tc.expected      The digest matches the independent value and stays inside its modulus.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type          FUNCTION
+     * @tc.level         LEVEL2
+     */
+    it('constantContractFingerprintSample7', 0, () => {
+      const text: string = 'Z9';
+      expect(textFingerprint(text)).assertEqual(167316);
+      expect(textFingerprint(text)).assertEqual(textFingerprint(text));
+      expect(textFingerprint("")).assertEqual(216613);
+      expect(textFingerprint(text) >= 0).assertTrue();
+      expect(textFingerprint(text) < 1000003).assertTrue();
+      expect(textFingerprint(text + "x") === textFingerprint(text)).assertEqual(false);
+      expect(textFingerprint(text).toString().length > 0).assertTrue();
+      expect(textFingerprint(text + text)).assertEqual(textFingerprint(text + text));
+      logStep("constantContractFingerprintSample7", String(textFingerprint(text)));
+    });
+
+    /**
+     * @tc.name          constantContractFingerprintSample8
+     * @tc.desc          Fingerprint of sample 8 matches the independent computation.
+     * @tc.precondition  The fingerprint helper uses the published rolling hash.
+     * @tc.steps         1. Fingerprint the input text.
+     *                   2. Compare it with the independent digest.
+     *                   3. Repeat the call for determinism.
+     *                   4. Check the empty and extended inputs.
+     * @tc.expected      The digest matches the independent value and stays inside its modulus.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type          FUNCTION
+     * @tc.level         LEVEL2
+     */
+    it('constantContractFingerprintSample8', 0, () => {
+      const text: string = 'x.y';
+      expect(textFingerprint(text)).assertEqual(215391);
+      expect(textFingerprint(text)).assertEqual(textFingerprint(text));
+      expect(textFingerprint("")).assertEqual(216613);
+      expect(textFingerprint(text) >= 0).assertTrue();
+      expect(textFingerprint(text) < 1000003).assertTrue();
+      expect(textFingerprint(text + "x") === textFingerprint(text)).assertEqual(false);
+      expect(textFingerprint(text).toString().length > 0).assertTrue();
+      expect(textFingerprint(text + text)).assertEqual(textFingerprint(text + text));
+      logStep("constantContractFingerprintSample8", String(textFingerprint(text)));
+    });
+
+    /**
+     * @tc.name          constantContractFingerprintSample9
+     * @tc.desc          Fingerprint of sample 9 matches the independent computation.
+     * @tc.precondition  The fingerprint helper uses the published rolling hash.
+     * @tc.steps         1. Fingerprint the input text.
+     *                   2. Compare it with the independent digest.
+     *                   3. Repeat the call for determinism.
+     *                   4. Check the empty and extended inputs.
+     * @tc.expected      The digest matches the independent value and stays inside its modulus.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type          FUNCTION
+     * @tc.level         LEVEL2
+     */
+    it('constantContractFingerprintSample9', 0, () => {
+      const text: string = 'token=abc';
+      expect(textFingerprint(text)).assertEqual(534168);
+      expect(textFingerprint(text)).assertEqual(textFingerprint(text));
+      expect(textFingerprint("")).assertEqual(216613);
+      expect(textFingerprint(text) >= 0).assertTrue();
+      expect(textFingerprint(text) < 1000003).assertTrue();
+      expect(textFingerprint(text + "x") === textFingerprint(text)).assertEqual(false);
+      expect(textFingerprint(text).toString().length > 0).assertTrue();
+      expect(textFingerprint(text + text)).assertEqual(textFingerprint(text + text));
+      logStep("constantContractFingerprintSample9", String(textFingerprint(text)));
+    });
+
+    /**
+     * @tc.name          constantContractFingerprintDottedName
+     * @tc.desc          Fingerprint of dotted name matches the independent computation.
+     * @tc.precondition  The fingerprint helper uses the published rolling hash.
+     * @tc.steps         1. Fingerprint the input text.
+     *                   2. Compare it with the independent digest.
+     *                   3. Repeat the call for determinism.
+     *                   4. Check the empty and extended inputs.
+     * @tc.expected      The digest matches the independent value and stays inside its modulus.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type          FUNCTION
+     * @tc.level         LEVEL2
+     */
+    it('constantContractFingerprintDottedName', 0, () => {
+      const text: string = 'rpc.stub';
+      expect(textFingerprint(text)).assertEqual(25054);
+      expect(textFingerprint(text)).assertEqual(textFingerprint(text));
+      expect(textFingerprint("")).assertEqual(216613);
+      expect(textFingerprint(text) >= 0).assertTrue();
+      expect(textFingerprint(text) < 1000003).assertTrue();
+      expect(textFingerprint(text + "x") === textFingerprint(text)).assertEqual(false);
+      expect(textFingerprint(text).toString().length > 0).assertTrue();
+      expect(textFingerprint(text + text)).assertEqual(textFingerprint(text + text));
+      logStep("constantContractFingerprintDottedName", String(textFingerprint(text)));
+    });
+
+    /**
+     * @tc.name          constantContractFingerprintDigits
+     * @tc.desc          Fingerprint of digit string matches the independent computation.
+     * @tc.precondition  The fingerprint helper uses the published rolling hash.
+     * @tc.steps         1. Fingerprint the input text.
+     *                   2. Compare it with the independent digest.
+     *                   3. Repeat the call for determinism.
+     *                   4. Check the empty and extended inputs.
+     * @tc.expected      The digest matches the independent value and stays inside its modulus.
+     * @tc.remark        Pure logic case; no device or UI dependency.
+     * @tc.type          FUNCTION
+     * @tc.level         LEVEL2
+     */
+    it('constantContractFingerprintDigits', 0, () => {
+      const text: string = '1234567890';
+      expect(textFingerprint(text)).assertEqual(4813);
+      expect(textFingerprint(text)).assertEqual(textFingerprint(text));
+      expect(textFingerprint("")).assertEqual(216613);
+      expect(textFingerprint(text) >= 0).assertTrue();
+      expect(textFingerprint(text) < 1000003).assertTrue();
+      expect(textFingerprint(text + "x") === textFingerprint(text)).assertEqual(false);
+      expect(textFingerprint(text).toString().length > 0).assertTrue();
+      expect(textFingerprint(text + text)).assertEqual(textFingerprint(text + text));
+      logStep("constantContractFingerprintDigits", String(textFingerprint(text)));
+    });
   });
 }
