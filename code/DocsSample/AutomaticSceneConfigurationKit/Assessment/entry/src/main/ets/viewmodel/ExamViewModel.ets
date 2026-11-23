@@ -3,11 +3,11 @@ import ExamQuestionModel, { ExamRepository } from '../model/ExamQuestionModel';
 
 @ObservedV2
 export default class ExamViewModel {
-  @Trace currentIndex: number = 0;
-  @Trace answers: number[] = [];
-  @Trace textAnswers: string[] = [];
-  @Trace remainingSeconds: number = 0;
-  @Trace answeredCount: number = AssessmentConstants.INVALID_ANSWER;
+  @Trace public currentIndex: number = 0;
+  @Trace public answers: number[] = [];
+  @Trace public textAnswers: string[] = [];
+  @Trace public remainingSeconds: number = 0;
+  @Trace public answeredCount: number = AssessmentConstants.INVALID_ANSWER;
 
   private questions: ExamQuestionModel[] = ExamRepository.getQuestions();
   private timerId: number = -1;
