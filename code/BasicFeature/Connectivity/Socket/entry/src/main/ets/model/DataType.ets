@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/model/DataType.ets
+ * 文件职责：DataType 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：AddrType。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 export interface AddrType {
   address: string;
   family: number;
