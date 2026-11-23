@@ -2,11 +2,11 @@
 
 ## 本轮范围与状态（2026-11-20）
 
-- 按XTS编码规范扩充实际文件传输逻辑测试，保留全部原UI场景及完整Hypium引导；完成初次编译后调用`pr-review_origin`正式检视，修正后重新编译。
+- 按XTS编码规范扩充实际文件传输逻辑测试，保留完整Hypium引导；完成初次编译后调用`pr-review_origin`正式检视，修正后重新编译。
 - 测试目录共54,637物理行、46,642含token行。物理行包含注释与空行，含token行也不是纯业务有效行，不宣称新增五万行纯业务代码。
-- 设备注册789例：779逻辑、8 UI、2真实FileIo；另有1本地逻辑用例，共790个独立编号。新增768个矩阵用例分布在45个分片，每片不超过18例。
+- 设备注册781例：779逻辑、2真实FileIo；另有1本地逻辑用例，共782个独立编号。768个矩阵用例分布在45个分片，每片不超过18例。
 - 最终主包构建010成功，测试包构建009成功；两者使用不同API26 SDK安装，**不等于同一SDK下双目标完整验收**。
-- 严格XTS静态检查通过，运行器25项契约检查通过；最终主机逻辑回归780/780通过，实际执行16,467次断言。790条源码绑定逐例目录已生成，其中780条标为主机通过、10条标为设备未运行。
+- 严格XTS静态检查通过，运行器25项契约检查通过；最终主机逻辑回归780/780通过，实际执行16,467次断言。782条源码绑定逐例目录已生成，其中780条标为主机通过、2条标为设备未运行。
 - 本轮未执行真实FileIo、备份服务或UI设备用例。`hdc list targets`本轮查询发现1个连接目标；未安装/运行HAP，未验证系统签名、权限生效及配套FileBackupExtension应用，连接设备不等于用例通过。
 
 ## 场景与执行步骤
@@ -21,7 +21,6 @@
 | Transfer | 11 | 保留原基础逻辑场景，验证备份/恢复方向、目录/复制失败、非法路径和原始描述符隔离 | 实际生产函数＋独立探针 |
 | Local | 1 | 用独立本地探针执行备份及恢复，断言完整操作轨迹及两份输入保持不变 | 实际生产函数＋独立探针 |
 | TransferSdk | 2 | 使用真实FileIo复制实际字节，比较来源/归档/恢复结果；在任何后续open前检查原fd确已关闭 | 已编译，设备未执行 |
-| Ui | 8 | 保留拉起应用、备份、退出服务、拉起配套应用、删除文件、回到本应用、恢复和查看恢复结果 | 已编译，设备未执行 |
 
 八种矩阵操作：备份目录不存在、备份目录已存在、恢复、access失败、mkdir失败、已存在目录备份copy失败、恢复copy失败、不存在目录备份copy失败。每次复制记录是尝试，不是实际文件复制成功证明。
 
@@ -59,10 +58,12 @@
 
 最终产物为未签名HAP：
 
-- 主包：[entry-default-unsigned.hap](.validation/build-copies/010/entry/build/default/outputs/default/entry-default-unsigned.hap)，来自完整系统SDK隔离副本。
-- 测试包：[entry-ohosTest-unsigned.hap](entry/build/default/outputs/ohosTest/entry-ohosTest-unsigned.hap)，来自原公共SDK工程。
+- 主包：`entry-default-unsigned.hap`，来自完整系统SDK隔离副本（本地构建目录不随仓库提交）。
+- 测试包：`entry-ohosTest-unsigned.hap`，来自原公共SDK工程（本地构建产物不随仓库提交）。
 
 工程未配置签名，HAP编译成功不等于可安装。仍需补齐同一完整系统SDK测试工具链、有效系统应用签名、目标权限及配套应用，才能做同环境双目标构建和真实服务/UI验收。本轮没有这些验收结果。
+
+本次修复后复测：main 与 ohosTest 均可使用当前 API 26 SDK 编译通过，`signingConfigs` 为空。
 
 ## pr-review_origin检视与修正
 
@@ -78,7 +79,7 @@
 | 测试分片、基础/本地/SDK用例及注册 | 元数据、断言日志、显式类型和注册说明需统一 | 严格XTS检查无问题，25项运行器契约检查通过 |
 | `README_zh.md`、`.gitignore` | 下载入口及验证边界需更新，临时报告和本地配置备份不应入库 | 下载仓库改为GitCode，明确不同SDK边界，忽略.validation、_task26及本地锁文件 |
 
-本轮必须修正项已处理；没有统一重构存量Logger/Ability日志domain等建议项，没有重写系统服务会话、恢复计数或publish异步流程，不将本次传输测试表述为服务回调完整测试。保留原权限usedScene配置，本轮未验证其设备生效；没有通过修改权限绕过运行前提。
+本轮必须修正项已处理；没有统一重构存量Logger/Ability日志domain等建议项，没有重写系统服务会话、恢复计数或publish异步流程，不将本次传输测试表述为服务回调全面测试。保留原权限usedScene配置，本轮未验证其设备生效；没有通过修改权限绕过运行前提。
 
 ## 主机回归、逐例证据与源码保护
 
@@ -90,10 +91,10 @@ node host-regression.cjs
 
 - 直接转译当前`BackupFileTransfer.ets`生产源码，仅注入明确的记录端口，不复制或模拟生产传输算法。
 - `@kit.CoreFileKit`边界禁止执行实际FileIo；UI、系统服务和Native导入被拒绝。断言与hook由主机适配，不是运行了真实Hypium运行时。
-- 每例独立子进程，真实墙钟超时2000ms，任一失败/超时即停止，未执行断言也失败；父进程必须同时检查报告、退出码及超时状态。
+- 每例独立子进程，真实墙钟超时2000ms，首个失败/超时停止，未执行断言也失败；父进程必须同时检查报告、退出码及超时状态。
 - 25项契约检查覆盖同步/异步/清理的falsy抛出、beforeEach阻止正文、零断言、首错停止、主错误保全、进程隔离及真实超时。
 - 最终完整回归：780注册、780执行、780通过、0失败，16,467次实际断言，命令退出码0；本轮早先中止的回归不作为通过证据。
-- [host-regression.json](.validation/host-regression.json)保存逐例名称、实际断言数、耗时、退出码及运行前后entry/src SHA256；[case-catalog.json](.validation/case-catalog.json)已生成790个元数据/操作步骤/预期断言/结果条目，780条为host-passed-not-device、10条为device-not-run，真实设备执行数为0。
+- 本地 `host-regression.json` 保存逐例名称、实际断言数、耗时、退出码及运行前后entry/src SHA256；`case-catalog.json` 已生成782个元数据/操作步骤/预期断言/结果条目，780条为host-passed-not-device、2条为device-not-run，真实设备执行数为0。
 - 最终74个entry/src文件的运行前、运行后和当前汇总SHA256均为`710e430d974558ec64a8443aaf4c846382b74c60b7916583bc4ac49e00103e9e`；逐文件哈希与最终009/010构建快照一致，目录同时记录两份未签名HAP的SHA256和大小。
 - `.validation/continuation-source-protection.json`已核对8个SDK/签名/包名/权限/Hvigor相关文件与本轮基线一致。生产main无缺失或新增文件，只有BackupRestore.ets变化；BackupFileTransfer.ets及其余main文件未变。
 - 本轮基线为`.validation/continuation-baseline`；保留历史`_task26`。两者包含本地配置，仅供本地验证，禁止发布其中的配置或凭据。没有提交、推送或安装应用。
@@ -108,7 +109,7 @@ node host-regression.cjs
 - SDK三版本字段为字符串26.0.0，local.properties使用E:/sdk。主包失败：当时共享SDK CoreFileKit无原功能需要的backup导出；禁止修改共享SDK，未重复同根因主包编译。
 - 测试包修复传输契约对系统backup声明的无必要依赖后成功；调用pr-review_origin并检视新增/生产差异，检视后测试包再次成功。随后补固定原始fd的输入隔离修复及3个用例，隔离修复后及检视后两次构建成功（ohosTest-isolation-build.log、ohosTest-isolation-review-build.log），第二次检视补显式类型及句柄所有权说明。
 - 当时主包仍阻塞，双目标验收不完整；测试HAP未配置签名，不代表可安装或设备通过。_task26保全工作源码、原仓基线及日志，基线哈希一致，无缺失源码，未覆盖原仓或新增签名。
-- 当时未做UI/备份服务设备验证，hdc list targets返回[Empty]，Task26登记in_progress，余项为系统SDK环境、服务回调完整测试及有效行规模。
+- 当时未做UI/备份服务设备验证，hdc list targets返回[Empty]，Task26登记in_progress，余项为系统SDK环境、服务回调全面测试及有效行规模。
 
 ### 原UI归档表（历史pass，非本轮重跑）
 

@@ -181,7 +181,7 @@ function createSessionRestore(filesDir: string): backup.SessionRestore {
       try {
         restoreBackupFile(filesDir, { fd: file.fd, bundleName: file.bundleName, uri: file.uri });
       } catch (error) {
-        console.error(`Restore file transfer failed. Code: ${(error as BusinessError).code}`);
+        console.error(`Restore file transfer failed. Message: ${(error as Error).message}`);
         return;
       }
       let currentCount: number = countMap.get(file.bundleName) || 0; // 如果没有找到对应的计数，则默认返回 0

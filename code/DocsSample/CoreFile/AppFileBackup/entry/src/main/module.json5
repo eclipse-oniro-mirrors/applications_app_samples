@@ -60,6 +60,19 @@
           }
         ]
       }
+    ],
+    // [Start request_permission_backup]
+    "requestPermissions": [
+      {
+        "name": "ohos.permission.BACKUP",
+        "usedScene": {
+          "abilities": [
+            "EntryAbility"
+          ],
+          "when": "always"
+        }
+      }
     ]
+    // [End request_permission_backup]
   }
 }
