@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import extSuites from './Ext/ExtList.test'
 import bptEdgeRealTest from './BptEdgeReal.test'
 import bptTypeVol01Test from './BptTypeVol01.test'
 import bptTypeVol01BTest from './BptTypeVol01B.test'
@@ -78,6 +79,8 @@ import uiNavReal02Test from './UiNavReal02.test'
 import abilityTest from './Ability.test'
 
 export default function testsuite() {
+  // 扩展套件统一在 Ext/ExtList.test.ets 注册，本文件只保留这一行调用，避免与其他 PR 冲突。
+  extSuites();
   // L1 logic and data suites, bucket order BPT -> SBM -> BST -> MTS -> SCS -> SSTS -> SLD -> MDL.
   bptEdgeRealTest();
   bptTypeVol01Test();

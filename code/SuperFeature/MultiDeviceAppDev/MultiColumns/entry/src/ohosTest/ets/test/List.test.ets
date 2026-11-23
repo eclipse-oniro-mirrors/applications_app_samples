@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -32,6 +32,17 @@ import navStackVol01Test from './NavStackVol01.test';
 import navStackVol02Test from './NavStackVol02.test';
 import abilityTest from './Ability.test';
 import responsiveUiTest from './ResponsiveUi.test';
+import columnsDialogErrorRecoverySuite from './Core/ColumnsDialogErrorRecovery.test';
+import columnsOperationCatalogSuite from './Core/ColumnsOperationCatalog.test';
+import columnsKeyCodeValidationSuite from './Validation/ColumnsKeyCodeValidation.test';
+import columnsOfflineNetworkSuite from './Validation/ColumnsOfflineNetwork.test';
+import columnsSideBarCatalogValidationSuite from './Validation/ColumnsSideBarCatalogValidation.test';
+import columnsEventHandlingSuite from './Interaction/ColumnsEventHandling.test';
+import columnsNetworkConnectivitySuite from './Integration/ColumnsNetworkConnectivity.test';
+import columnsConfigurationChangesSuite from './LifecycleState/ColumnsConfigurationChanges.test';
+import columnsStateRecoverySuite from './LifecycleState/ColumnsStateRecovery.test';
+import columnsSecurityAccessibilitySuite from './Security/ColumnsSecurityAccessibility.test';
+import columnsExtensionSuite from './ColumnsExtension.test';
 
 export default function testsuite() {
   // 逻辑用例在前
@@ -55,4 +66,15 @@ export default function testsuite() {
   // L2 UI 用例在后
   abilityTest();
   responsiveUiTest();
+  columnsDialogErrorRecoverySuite();
+  columnsOperationCatalogSuite();
+  columnsKeyCodeValidationSuite();
+  columnsOfflineNetworkSuite();
+  columnsSideBarCatalogValidationSuite();
+  columnsEventHandlingSuite();
+  columnsNetworkConnectivitySuite();
+  columnsConfigurationChangesSuite();
+  columnsStateRecoverySuite();
+  columnsSecurityAccessibilitySuite();
+  columnsExtensionSuite();
 }

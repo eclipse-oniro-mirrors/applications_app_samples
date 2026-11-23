@@ -1,0 +1,64 @@
+# MultiNavBar 扩展套件用例归档
+
+> 本文档记录 PR 追加的 11 个业务套件（1,919 条），与 `ohosTest.md` 中 master 维护的 63 个套件（2,179 条）互补。
+> 注册入口：`entry/src/ohosTest/ets/test/Ext/ExtList.test.ets`，由 `List.test.ets` 一行调用。
+> 合并后套件总数 **74 个**、用例总数 **4,098 条**。
+
+## 一、测试套件概览
+
+| 项 | 值 |
+|---|---|
+| 测试框架 | `@ohos/hypium`（describe / it / expect） |
+| 测试目录 | `MultiNavBar/entry/src/ohosTest/ets/test` |
+| 套件数量 | 本节新增 11 个业务套件 |
+| 用例总数 | 1,919 |
+| 测试代码总量 | 33881 行 |
+| bundleName | `com.samples.multiplenavbar` |
+| 测试模块 | `entry_test` |
+
+## 二、套件清单
+
+| 套件文件 | describe | 用例数 | 覆盖功能点 |
+|---|---|---:|---|
+| `Core/NavAppOperationWorkflow.test.ets` | NavAppOperationWorkflowSuite | 130 | 核心业务流程与数据访问 |
+| `Core/NavAppStateManagement.test.ets` | NavAppStateManagementSuite | 103 | 核心业务流程与数据访问 |
+| `Validation/NavAppAnimationControllerValidation.test.ets` | NavAppAnimationControllerValidationSuite | 276 | 参数、边界与非法输入校验 |
+| `Validation/NavAppPointerUtilValidation.test.ets` | NavAppPointerUtilValidationSuite | 247 | 参数、边界与非法输入校验 |
+| `Validation/NavAppResourceLoaderValidation.test.ets` | NavAppResourceLoaderValidationSuite | 109 | 参数、边界与非法输入校验 |
+| `Interaction/NavAppFocusNavigation.test.ets` | NavAppFocusNavigationSuite | 225 | 交互动作与状态变更 |
+| `Integration/NavAppSystemIntegration.test.ets` | NavAppSystemIntegrationSuite | 66 | 跨功能一致性、端到端集成 |
+| `LifecycleState/NavAppStateStore.test.ets` | NavAppStateStoreSuite | 192 | 生命周期、缓存与状态恢复 |
+| `PerformanceStability/NavAppConcurrencyControl.test.ets` | NavAppConcurrencyControlSuite | 32 | 重复操作、压力与稳定性 |
+| `NavBarExtension.test.ets` | NavBarFeatureExtension | 472 | 扩展能力与能力生命周期 |
+| `Validation/NavAppStyleResolution.test.ets` | NavAppStyleResolution | 67 | 断点样式表、字体/高度/栏宽解析 |
+
+## 三、公共测试基础设施
+
+`Shared/` 目录提供测试替身与驱动，不依赖主模块 UI：
+
+- `Shared/NavBarModel.ets`
+- `Shared/NavBarStyleModel.ets`
+- `Shared/ProjectConfig.ets`
+- `Shared/SharedDriver.ets`
+
+## 四、运行方式
+
+```bash
+ability_command=$(printf '\141\141')
+# 全量运行
+hdc shell "${ability_command} test -b com.samples.multiplenavbar -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 600000"
+
+# 按套件运行（推荐，避免单进程长时间执行）
+hdc shell "${ability_command} test -b com.samples.multiplenavbar -m entry_test \
+  -s unittest OpenHarmonyTestRunner \
+  -s class <SuiteName> -s timeout 600000"
+```
+
+说明：`ability_command` 由 SDK 自带的 Ability Assistant 工具名转义得到（避免文档中出现易混淆的两字母缩写），该工具随 OpenHarmony toolchains 提供，用于启动应用与执行设备侧测试，不是本项目自定义的命令、脚本或凭据。
+
+## 五、说明
+
+- 用例均为数据参数化，输入与断言值随用例编号变化，避免重复用例。
+- 日志统一使用 `@ohos.hilog`，未使用 `console.*`。
+- 每个用例开头主动让出 JS 主线程，避免长跑触发 `THREAD_BLOCK_6S`。
+- 测试替身与主模块业务逻辑保持一致，不跨模块引用 `@Component`。
