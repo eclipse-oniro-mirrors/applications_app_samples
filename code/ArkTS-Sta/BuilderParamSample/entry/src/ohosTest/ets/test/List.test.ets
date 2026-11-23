@@ -1,0 +1,195 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import mainContentTests from './MainContent.test';
+import cardLayoutTests from './CardLayout.test';
+import mainInteractionTests from './MainInteraction.test';
+import builderSlotsTests from './BuilderSlots.test';
+import bindingUpdatesTests from './BindingUpdates.test';
+import slotTopologyTests from './SlotTopology.test';
+import ownerRebindingTests from './OwnerRebinding.test';
+import customCardTransitionsTests from './CustomCardTransitions.test';
+import layoutHistoryTests from './LayoutHistory.test';
+import adaptSlotCenterTextShortLabelShortDetailWideTests from './AdaptSlotCenterTextShortLabelShortDetailWide.test';
+import adaptSlotCenterTextShortLabelShortDetailNarrowTests from './AdaptSlotCenterTextShortLabelShortDetailNarrow.test';
+import adaptSlotCenterTextShortLabelTallDetailWideTests from './AdaptSlotCenterTextShortLabelTallDetailWide.test';
+import adaptSlotCenterTextShortLabelTallDetailNarrowTests from './AdaptSlotCenterTextShortLabelTallDetailNarrow.test';
+import adaptSlotCenterTextTallLabelShortDetailWideTests from './AdaptSlotCenterTextTallLabelShortDetailWide.test';
+import adaptSlotCenterTextTallLabelShortDetailNarrowTests from './AdaptSlotCenterTextTallLabelShortDetailNarrow.test';
+import adaptSlotCenterTextTallLabelTallDetailWideTests from './AdaptSlotCenterTextTallLabelTallDetailWide.test';
+import adaptSlotCenterTextTallLabelTallDetailNarrowTests from './AdaptSlotCenterTextTallLabelTallDetailNarrow.test';
+import adaptSlotCenterButtonShortLabelShortDetailWideTests from './AdaptSlotCenterButtonShortLabelShortDetailWide.test';
+import adaptSlotCenterButtonShortLabelShortDetailNarrowTests from './AdaptSlotCenterButtonShortLabelShortDetailNarrow.test';
+import adaptSlotCenterButtonShortLabelTallDetailWideTests from './AdaptSlotCenterButtonShortLabelTallDetailWide.test';
+import adaptSlotCenterButtonShortLabelTallDetailNarrowTests from './AdaptSlotCenterButtonShortLabelTallDetailNarrow.test';
+import adaptSlotCenterButtonTallLabelShortDetailWideTests from './AdaptSlotCenterButtonTallLabelShortDetailWide.test';
+import adaptSlotCenterButtonTallLabelShortDetailNarrowTests from './AdaptSlotCenterButtonTallLabelShortDetailNarrow.test';
+import adaptSlotCenterButtonTallLabelTallDetailWideTests from './AdaptSlotCenterButtonTallLabelTallDetailWide.test';
+import adaptSlotCenterButtonTallLabelTallDetailNarrowTests from './AdaptSlotCenterButtonTallLabelTallDetailNarrow.test';
+import adaptSlotCenterNestedShortLabelMountedWideTests from './AdaptSlotCenterNestedShortLabelMountedWide.test';
+import adaptSlotCenterNestedShortLabelMountedNarrowTests from './AdaptSlotCenterNestedShortLabelMountedNarrow.test';
+import adaptSlotCenterNestedShortLabelRemountWideTests from './AdaptSlotCenterNestedShortLabelRemountWide.test';
+import adaptSlotCenterNestedShortLabelRemountNarrowTests from './AdaptSlotCenterNestedShortLabelRemountNarrow.test';
+import adaptSlotCenterNestedTallLabelMountedWideTests from './AdaptSlotCenterNestedTallLabelMountedWide.test';
+import adaptSlotCenterNestedTallLabelMountedNarrowTests from './AdaptSlotCenterNestedTallLabelMountedNarrow.test';
+import adaptSlotCenterNestedTallLabelRemountWideTests from './AdaptSlotCenterNestedTallLabelRemountWide.test';
+import adaptSlotCenterNestedTallLabelRemountNarrowTests from './AdaptSlotCenterNestedTallLabelRemountNarrow.test';
+import adaptSlotTopTextShortLabelShortDetailWideTests from './AdaptSlotTopTextShortLabelShortDetailWide.test';
+import adaptSlotTopTextShortLabelShortDetailNarrowTests from './AdaptSlotTopTextShortLabelShortDetailNarrow.test';
+import adaptSlotTopTextShortLabelTallDetailWideTests from './AdaptSlotTopTextShortLabelTallDetailWide.test';
+import adaptSlotTopTextShortLabelTallDetailNarrowTests from './AdaptSlotTopTextShortLabelTallDetailNarrow.test';
+import adaptSlotTopTextTallLabelShortDetailWideTests from './AdaptSlotTopTextTallLabelShortDetailWide.test';
+import adaptSlotTopTextTallLabelShortDetailNarrowTests from './AdaptSlotTopTextTallLabelShortDetailNarrow.test';
+import adaptSlotTopTextTallLabelTallDetailWideTests from './AdaptSlotTopTextTallLabelTallDetailWide.test';
+import adaptSlotTopTextTallLabelTallDetailNarrowTests from './AdaptSlotTopTextTallLabelTallDetailNarrow.test';
+import adaptSlotTopButtonShortLabelShortDetailWideTests from './AdaptSlotTopButtonShortLabelShortDetailWide.test';
+import adaptSlotTopButtonShortLabelShortDetailNarrowTests from './AdaptSlotTopButtonShortLabelShortDetailNarrow.test';
+import adaptSlotTopButtonShortLabelTallDetailWideTests from './AdaptSlotTopButtonShortLabelTallDetailWide.test';
+import adaptSlotTopButtonShortLabelTallDetailNarrowTests from './AdaptSlotTopButtonShortLabelTallDetailNarrow.test';
+import adaptSlotTopButtonTallLabelShortDetailWideTests from './AdaptSlotTopButtonTallLabelShortDetailWide.test';
+import adaptSlotTopButtonTallLabelShortDetailNarrowTests from './AdaptSlotTopButtonTallLabelShortDetailNarrow.test';
+import adaptSlotTopButtonTallLabelTallDetailWideTests from './AdaptSlotTopButtonTallLabelTallDetailWide.test';
+import adaptSlotTopButtonTallLabelTallDetailNarrowTests from './AdaptSlotTopButtonTallLabelTallDetailNarrow.test';
+import adaptSlotTopNestedShortLabelMountedWideTests from './AdaptSlotTopNestedShortLabelMountedWide.test';
+import adaptSlotTopNestedShortLabelMountedNarrowTests from './AdaptSlotTopNestedShortLabelMountedNarrow.test';
+import adaptSlotTopNestedShortLabelRemountWideTests from './AdaptSlotTopNestedShortLabelRemountWide.test';
+import adaptSlotTopNestedShortLabelRemountNarrowTests from './AdaptSlotTopNestedShortLabelRemountNarrow.test';
+import adaptSlotTopNestedTallLabelMountedWideTests from './AdaptSlotTopNestedTallLabelMountedWide.test';
+import adaptSlotTopNestedTallLabelMountedNarrowTests from './AdaptSlotTopNestedTallLabelMountedNarrow.test';
+import adaptSlotTopNestedTallLabelRemountWideTests from './AdaptSlotTopNestedTallLabelRemountWide.test';
+import adaptSlotTopNestedTallLabelRemountNarrowTests from './AdaptSlotTopNestedTallLabelRemountNarrow.test';
+import adaptSlotBottomTextShortLabelShortDetailWideTests from './AdaptSlotBottomTextShortLabelShortDetailWide.test';
+import adaptSlotBottomTextShortLabelShortDetailNarrowTests from './AdaptSlotBottomTextShortLabelShortDetailNarrow.test';
+import adaptSlotBottomTextShortLabelTallDetailWideTests from './AdaptSlotBottomTextShortLabelTallDetailWide.test';
+import adaptSlotBottomTextShortLabelTallDetailNarrowTests from './AdaptSlotBottomTextShortLabelTallDetailNarrow.test';
+import adaptSlotBottomTextTallLabelShortDetailWideTests from './AdaptSlotBottomTextTallLabelShortDetailWide.test';
+import adaptSlotBottomTextTallLabelShortDetailNarrowTests from './AdaptSlotBottomTextTallLabelShortDetailNarrow.test';
+import adaptSlotBottomTextTallLabelTallDetailWideTests from './AdaptSlotBottomTextTallLabelTallDetailWide.test';
+import adaptSlotBottomTextTallLabelTallDetailNarrowTests from './AdaptSlotBottomTextTallLabelTallDetailNarrow.test';
+import adaptSlotBottomButtonShortLabelShortDetailWideTests from './AdaptSlotBottomButtonShortLabelShortDetailWide.test';
+import adaptSlotBottomButtonShortLabelShortDetailNarrowTests from './AdaptSlotBottomButtonShortLabelShortDetailNarrow.test';
+import adaptSlotBottomButtonShortLabelTallDetailWideTests from './AdaptSlotBottomButtonShortLabelTallDetailWide.test';
+import adaptSlotBottomButtonShortLabelTallDetailNarrowTests from './AdaptSlotBottomButtonShortLabelTallDetailNarrow.test';
+import adaptSlotBottomButtonTallLabelShortDetailWideTests from './AdaptSlotBottomButtonTallLabelShortDetailWide.test';
+import adaptSlotBottomButtonTallLabelShortDetailNarrowTests from './AdaptSlotBottomButtonTallLabelShortDetailNarrow.test';
+import adaptSlotBottomButtonTallLabelTallDetailWideTests from './AdaptSlotBottomButtonTallLabelTallDetailWide.test';
+import adaptSlotBottomButtonTallLabelTallDetailNarrowTests from './AdaptSlotBottomButtonTallLabelTallDetailNarrow.test';
+import adaptSlotBottomNestedShortLabelMountedWideTests from './AdaptSlotBottomNestedShortLabelMountedWide.test';
+import adaptSlotBottomNestedShortLabelMountedNarrowTests from './AdaptSlotBottomNestedShortLabelMountedNarrow.test';
+import adaptSlotBottomNestedShortLabelRemountWideTests from './AdaptSlotBottomNestedShortLabelRemountWide.test';
+import adaptSlotBottomNestedShortLabelRemountNarrowTests from './AdaptSlotBottomNestedShortLabelRemountNarrow.test';
+import adaptSlotBottomNestedTallLabelMountedWideTests from './AdaptSlotBottomNestedTallLabelMountedWide.test';
+import adaptSlotBottomNestedTallLabelMountedNarrowTests from './AdaptSlotBottomNestedTallLabelMountedNarrow.test';
+import adaptSlotBottomNestedTallLabelRemountWideTests from './AdaptSlotBottomNestedTallLabelRemountWide.test';
+import adaptSlotBottomNestedTallLabelRemountNarrowTests from './AdaptSlotBottomNestedTallLabelRemountNarrow.test';
+import adaptOwnerLabelTests from './AdaptOwnerLabel.test';
+import adaptOwnerFooterTests from './AdaptOwnerFooter.test';
+import adaptOwnerInterleavedTests from './AdaptOwnerInterleaved.test';
+import adaptCustomCardTitleTests from './AdaptCustomCardTitle.test';
+import adaptCustomCardDescriptionTests from './AdaptCustomCardDescription.test';
+import adaptCustomCardResourceTests from './AdaptCustomCardResource.test';
+import adaptCustomCardRekeyTests from './AdaptCustomCardRekey.test';
+
+// Run shorter suites first; longer UI interactions finish the full run.
+export default function testsuite(): void {
+  mainContentTests();
+  cardLayoutTests();
+  builderSlotsTests();
+  bindingUpdatesTests();
+  mainInteractionTests();
+  slotTopologyTests();
+  customCardTransitionsTests();
+  layoutHistoryTests();
+  ownerRebindingTests();
+  adaptCustomCardRekeyTests();
+  adaptCustomCardDescriptionTests();
+  adaptCustomCardResourceTests();
+  adaptSlotCenterTextShortLabelShortDetailNarrowTests();
+  adaptCustomCardTitleTests();
+  adaptSlotCenterTextTallLabelShortDetailWideTests();
+  adaptSlotTopTextShortLabelShortDetailWideTests();
+  adaptSlotCenterTextShortLabelTallDetailWideTests();
+  adaptSlotCenterTextTallLabelTallDetailWideTests();
+  adaptSlotTopTextShortLabelShortDetailNarrowTests();
+  adaptSlotCenterButtonShortLabelShortDetailWideTests();
+  adaptSlotCenterTextShortLabelTallDetailNarrowTests();
+  adaptSlotCenterTextTallLabelShortDetailNarrowTests();
+  adaptSlotCenterTextShortLabelShortDetailWideTests();
+  adaptSlotCenterButtonTallLabelShortDetailWideTests();
+  adaptSlotTopTextTallLabelShortDetailWideTests();
+  adaptSlotTopTextShortLabelTallDetailWideTests();
+  adaptSlotTopButtonShortLabelShortDetailWideTests();
+  adaptSlotBottomTextShortLabelShortDetailWideTests();
+  adaptOwnerFooterTests();
+  adaptOwnerLabelTests();
+  adaptSlotCenterTextTallLabelTallDetailNarrowTests();
+  adaptSlotTopTextTallLabelShortDetailNarrowTests();
+  adaptSlotCenterButtonTallLabelTallDetailWideTests();
+  adaptSlotTopTextTallLabelTallDetailWideTests();
+  adaptSlotCenterNestedShortLabelMountedWideTests();
+  adaptSlotCenterButtonShortLabelShortDetailNarrowTests();
+  adaptSlotCenterNestedTallLabelMountedWideTests();
+  adaptSlotBottomTextShortLabelShortDetailNarrowTests();
+  adaptOwnerInterleavedTests();
+  adaptSlotCenterButtonShortLabelTallDetailWideTests();
+  adaptSlotTopTextShortLabelTallDetailNarrowTests();
+  adaptSlotTopButtonShortLabelShortDetailNarrowTests();
+  adaptSlotBottomTextShortLabelTallDetailWideTests();
+  adaptSlotBottomTextTallLabelShortDetailWideTests();
+  adaptSlotTopTextTallLabelTallDetailNarrowTests();
+  adaptSlotBottomButtonShortLabelShortDetailWideTests();
+  adaptSlotTopButtonShortLabelTallDetailNarrowTests();
+  adaptSlotTopButtonTallLabelShortDetailNarrowTests();
+  adaptSlotTopButtonTallLabelShortDetailWideTests();
+  adaptSlotCenterButtonTallLabelShortDetailNarrowTests();
+  adaptSlotCenterNestedShortLabelMountedNarrowTests();
+  adaptSlotTopButtonShortLabelTallDetailWideTests();
+  adaptSlotCenterButtonShortLabelTallDetailNarrowTests();
+  adaptSlotTopNestedShortLabelMountedWideTests();
+  adaptSlotBottomTextShortLabelTallDetailNarrowTests();
+  adaptSlotBottomTextTallLabelTallDetailWideTests();
+  adaptSlotBottomTextTallLabelShortDetailNarrowTests();
+  adaptSlotTopButtonTallLabelTallDetailWideTests();
+  adaptSlotBottomButtonTallLabelShortDetailWideTests();
+  adaptSlotBottomTextTallLabelTallDetailNarrowTests();
+  adaptSlotTopNestedShortLabelMountedNarrowTests();
+  adaptSlotTopNestedTallLabelMountedWideTests();
+  adaptSlotCenterButtonTallLabelTallDetailNarrowTests();
+  adaptSlotCenterNestedTallLabelMountedNarrowTests();
+  adaptSlotBottomButtonShortLabelTallDetailWideTests();
+  adaptSlotBottomButtonShortLabelShortDetailNarrowTests();
+  adaptSlotBottomNestedShortLabelMountedWideTests();
+  adaptSlotBottomButtonTallLabelShortDetailNarrowTests();
+  adaptSlotBottomButtonShortLabelTallDetailNarrowTests();
+  adaptSlotBottomNestedShortLabelMountedNarrowTests();
+  adaptSlotTopButtonTallLabelTallDetailNarrowTests();
+  adaptSlotTopNestedTallLabelMountedNarrowTests();
+  adaptSlotBottomButtonTallLabelTallDetailWideTests();
+  adaptSlotBottomNestedTallLabelMountedWideTests();
+  adaptSlotBottomNestedTallLabelMountedNarrowTests();
+  adaptSlotBottomButtonTallLabelTallDetailNarrowTests();
+  adaptSlotCenterNestedShortLabelRemountWideTests();
+  adaptSlotCenterNestedTallLabelRemountWideTests();
+  adaptSlotCenterNestedShortLabelRemountNarrowTests();
+  adaptSlotTopNestedShortLabelRemountWideTests();
+  adaptSlotBottomNestedShortLabelRemountWideTests();
+  adaptSlotTopNestedTallLabelRemountWideTests();
+  adaptSlotCenterNestedTallLabelRemountNarrowTests();
+  adaptSlotTopNestedShortLabelRemountNarrowTests();
+  adaptSlotTopNestedTallLabelRemountNarrowTests();
+  adaptSlotBottomNestedShortLabelRemountNarrowTests();
+  adaptSlotBottomNestedTallLabelRemountWideTests();
+  adaptSlotBottomNestedTallLabelRemountNarrowTests();
+}
