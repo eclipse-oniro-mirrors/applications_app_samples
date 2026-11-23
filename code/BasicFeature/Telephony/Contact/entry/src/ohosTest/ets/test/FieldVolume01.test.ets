@@ -318,17 +318,17 @@ export default function fieldVolume01Test() {
     /**
      * @tc.name   testFieldVolume010015
      * @tc.number SUB_Contact_FIELD_0015
-     * @tc.desc   合法：姓名 Huawei 原样返回
+     * @tc.desc   合法：姓名 zhouwu 原样返回
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testFieldVolume010015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFieldVolume010015 begin');
-      const contactInfo: contact.Contact = String('false') === 'true' ? {} : { name: { fullName: 'Huawei' } };
+      const contactInfo: contact.Contact = String('false') === 'true' ? {} : { name: { fullName: 'zhouwu' } };
       const result: string = ContactFieldExtractor.fullName(contactInfo);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result), String('Huawei'));
-      expect(result).assertEqual('Huawei');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result), String('zhouwu'));
+      expect(result).assertEqual('zhouwu');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.length), String(6));
       expect(result.length).assertEqual(6);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result === ''));
