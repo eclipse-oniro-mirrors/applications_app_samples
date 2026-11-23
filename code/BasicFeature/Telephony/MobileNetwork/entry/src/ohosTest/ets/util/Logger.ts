@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 class Logger {
   private domain: number;
@@ -42,4 +42,4 @@ class Logger {
   }
 }
 
-export const logger = new Logger('Sample_MobileNetwork_Test');
+export const logger: Logger = new Logger('[Sample_MobileNetwork_Test]');

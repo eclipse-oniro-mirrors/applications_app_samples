@@ -29,7 +29,7 @@ struct Index {
       .height('6%')
       .width('100%')
       .padding({ left: 15 })
-      .backgroundColor('#0D9FFB')
+      .backgroundColor($r('app.color.sim_selected_color'))
       .constraintSize({ minHeight: 50 })
 
       NetWork()

@@ -16,8 +16,10 @@
 import AbilityStage from '@ohos.app.ability.AbilityStage';
 import { logger } from '../util/Logger';
 
+const TAG: string = '[Sample_MobileNetwork_Test]';
+
 export default class TestAbilityStage extends AbilityStage {
-  onCreate() {
-    logger.info('TestAbilityStage onCreate');
+  onCreate(): void {
+    logger.info(TAG, 'TestAbilityStage onCreate');
   }
 }
