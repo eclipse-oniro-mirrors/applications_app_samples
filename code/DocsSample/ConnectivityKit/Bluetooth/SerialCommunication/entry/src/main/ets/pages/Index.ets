@@ -13,74 +13,165 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/Index.ets
+ * 文件职责：Index 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：serialCommunication。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { socket } from '@kit.ConnectivityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { ToastReport } from '../common/ToastReport';
 import util from '@ohos.util';
 
+// const 语句
 const TAG: string = 'SerialCommunication';
+// let 语句
 let encoder = new util.TextEncoder();
 
+/**
+ * serialCommunication：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct serialCommunication {
+  // @State serverNumber：组件内部状态
   @State serverNumber: number = 0;
+
+  // @State clientNumber：组件内部状态
   @State clientNumber: number = 1;
+
+  // @State deviceId：组件内部状态
   @State deviceId: string = '';
+
+  // @State uuid：组件内部状态
   @State uuid: string = '00001101-0000-1000-8000-00805f9b34fb';
+
+  // @State dataValue：组件内部状态
   @State dataValue: string = '';
+
+  // 字段 toastReport：声明并维护该成员的状态
   private toastReport: ToastReport = new ToastReport();
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：宽度、高度、背景色
+    // Column：垂直布局容器
+    // 关键属性：宽度、高度、背景色
     Column({ space: 12 }) {
-      Text('serial communication')
+      // Text：文本
+      // 关键属性：字号、字重、相对对齐规则
+      // Text：文本
+      Text('serial communication').id('index_text_1')
+        // fontSize：字号
         .fontSize(45)
+        // fontWeight：字重
         .fontWeight(FontWeight.Bold)
+        // id：id 属性
+        
+        // alignRules：alignRules 属性
         .alignRules({
+          // 字段 center：声明并维护该成员的状态
           center: { anchor: '__container__', align: VerticalAlign.Top },
+          // 字段 middle：声明并维护该成员的状态
           middle: { anchor: '__container__', align: HorizontalAlign.Center }
         })
 
-      Text($r('app.string.deviceId_style'))
+      // Text：文本
+      Text($r('app.string.deviceId_style')).id('index_text_2')
+      // Row：水平布局容器
+      // 关键属性：宽度
+      // Row：水平布局容器
+      // 关键属性：宽度
       Row() {
-        Text('deviceId: ')
+        // Text：文本
+        Text('deviceId: ').id('index_text_4')
 
-        TextInput().onChange((value: string) => {
+        // TextInput：单行输入框
+        // 关键属性：内容变更回调
+        // 交互：输入/提交回调
+        // TextInput：单行输入框
+        // 关键属性：内容变更回调
+        // 交互：输入/提交回调
+        TextInput().id('deviceIdInput').onChange((value: string) => {
+          // 更新 deviceId
           this.deviceId = value;
         }).height('40vp').width('70%')
-      }.width('80%')
+      }.id('index_row_3').width('80%')
 
-      Text($r('app.string.uuid_style'))
+      // Text：文本
+      Text($r('app.string.uuid_style')).id('index_text_5')
+      // Row：水平布局容器
+      // 关键属性：宽度
+      // Row：水平布局容器
+      // 关键属性：宽度
       Row() {
-        Text('uuid: ')
+        // Text：文本
+        Text('uuid: ').id('index_text_7')
 
-        TextInput().onChange((value: string) => {
+        // TextInput：单行输入框
+        // 关键属性：内容变更回调
+        // 交互：输入/提交回调
+        // TextInput：单行输入框
+        // 关键属性：内容变更回调
+        // 交互：输入/提交回调
+        TextInput().id('uuidInput').onChange((value: string) => {
+          // 更新 uuid
           this.uuid = value;
         }).height('40vp').width('70%')
-      }.width('80%')
+      }.id('index_row_6').width('80%')
 
+      // Row：水平布局容器
+      // 关键属性：宽度
+      // Row：水平布局容器
+      // 关键属性：宽度
       Row() {
-        Text('dataValue: ')
+        // Text：文本
+        Text('dataValue: ').id('index_text_9')
 
-        TextInput().onChange((value: string) => {
+        // TextInput：单行输入框
+        // 关键属性：内容变更回调
+        // 交互：输入/提交回调
+        // TextInput：单行输入框
+        // 关键属性：内容变更回调
+        // 交互：输入/提交回调
+        TextInput().id('dataValueInput').onChange((value: string) => {
+          // 更新 dataValue
           this.dataValue = value;
         }).height('40vp').width('70%')
-      }.width('80%')
+      }.id('index_row_8').width('80%')
 
       // [Start server_write_client]
-      Button('listenSocket')
+      // Button：按钮
+      // 关键属性：宽度、背景色、点击事件回调
+      // 交互：可点击交互
+      // Button：按钮
+      Button('listenSocket').id('index_button_2')
+        // width：宽度
         .width('50%')
-        .id('listenSocket')
+        // backgroundColor：背景色
         .backgroundColor('#8CE072')
+        // onClick：点击事件回调
         .onClick(() => {
+          // let 语句
           let serverNumber = -1;
+          // let 语句
           let sppOption: socket.SppOptions = {
+            // 字段 uuid：声明并维护该成员的状态
             uuid: this.uuid,
+            // 字段 secure：声明并维护该成员的状态
             secure: true,
+            // 字段 type：声明并维护该成员的状态
             type: 0
           };
+          // try 语句
           try {
             socket.sppListen('server1', sppOption, (code: BusinessError | null, serverSocketID: number) => {
+              // if 语句
               if (code != null) {
                 console.error(TAG, 'sppListen error, code is ' + (code as BusinessError).code);
                 this.toastReport.showResult('sppListen error, code is ' + (code as BusinessError).code);
@@ -100,6 +191,12 @@ struct serialCommunication {
           }
         })
 
+      // Button：按钮
+      // 关键属性：宽度、背景色、点击事件回调
+      // 交互：可点击交互
+      // Button：按钮
+      // 关键属性：宽度、背景色、点击事件回调
+      // 交互：可点击交互
       Button('ServerConnect')
         .width('50%')
         .id('ServerConnect')
@@ -132,8 +229,15 @@ struct serialCommunication {
         })
 
       // [Start socket_spp_connect]
+      // Button：按钮
+      // 关键属性：宽度、背景色、点击事件回调
+      // 交互：可点击交互
+      // Button：按钮
+      // 关键属性：宽度、背景色、点击事件回调
+      // 交互：可点击交互
       Button('connectDevice')
         .width('50%')
+        .id('connectDevice')
         .backgroundColor('#8CE072')
         .onClick(() => {
           try {
@@ -159,6 +263,12 @@ struct serialCommunication {
         })
       // [End socket_spp_connect]
 
+      // Button：按钮
+      // 关键属性：宽度、背景色、点击事件回调
+      // 交互：可点击交互
+      // Button：按钮
+      // 关键属性：宽度、背景色、点击事件回调
+      // 交互：可点击交互
       Button('writeData')
         .width('50%')
         .id('writeData')
@@ -179,6 +289,12 @@ struct serialCommunication {
           }
         })
 
+      // Button：按钮
+      // 关键属性：宽度、背景色、点击事件回调
+      // 交互：可点击交互
+      // Button：按钮
+      // 关键属性：宽度、背景色、点击事件回调
+      // 交互：可点击交互
       Button('subscribeEvent')
         .width('50%')
         .id('subscribeEvent')
@@ -203,6 +319,12 @@ struct serialCommunication {
           }
         })
 
+      // Button：按钮
+      // 关键属性：宽度、背景色、点击事件回调
+      // 交互：可点击交互
+      // Button：按钮
+      // 关键属性：宽度、背景色、点击事件回调
+      // 交互：可点击交互
       Button('unsubscribeEvent')
         .width('50%')
         .id('unsubscribeEvent')
@@ -227,6 +349,12 @@ struct serialCommunication {
           }
         })
 
+      // Button：按钮
+      // 关键属性：宽度、背景色、点击事件回调
+      // 交互：可点击交互
+      // Button：按钮
+      // 关键属性：宽度、背景色、点击事件回调
+      // 交互：可点击交互
       Button('closeServer')
         .width('50%')
         .id('closeServer')
@@ -244,6 +372,12 @@ struct serialCommunication {
           }
         })
 
+      // Button：按钮
+      // 关键属性：宽度、背景色、点击事件回调、sppCloseClientSocket
+      // 交互：可点击交互
+      // Button：按钮
+      // 关键属性：宽度、背景色、点击事件回调、sppCloseClientSocket
+      // 交互：可点击交互
       Button('closeClient')
         .width('50%')
         .id('closeClient')
@@ -254,7 +388,7 @@ struct serialCommunication {
           this.toastReport.showResult('sppCloseClientSocket success');
         })
       // [End server_write_client]
-    }
+    }.id('index_column_1')
     .width('100%')
     .height('100%')
     .backgroundColor('#E6F7FF')
