@@ -15,5 +15,5 @@
 
 import type { UIContext } from '@kit.ArkUI';
 
-/** Collect on the UI thread; returns copied JSON or throws an error with a numeric code. */
+/** 在 UI 线程上采集文本；返回复制后的 JSON，失败时抛出带数字错误码的异常。 */
 export const getPageText: (context: UIContext) => string;

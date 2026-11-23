@@ -18,9 +18,9 @@ import { getPageText } from 'libpagetext.so';
 
 // [Start ui_page_text_parse]
 export interface PageTextItem {
-  // Native node id; this is different from the ArkTS component's .id('sampleText').
+  // 原生节点 ID；它与 ArkTS 组件的 .id('sampleText') 不同。
   id: number;
-  // [x, y, width, height] in physical pixels, relative to the target window.
+  // 相对于目标窗口的物理像素坐标 [x, y, width, height]。
   rect: number[];
   content: string;
 }
@@ -30,7 +30,7 @@ export interface PageTextResult {
   texts: PageTextItem[];
 }
 
-/** Parse the versioned JSON returned by the native page text API. */
+/** 解析原生页面文本 API 返回的带版本 JSON。 */
 export function parsePageText(json: string): PageTextResult {
   const result: PageTextResult = JSON.parse(json) as PageTextResult;
   if (result.schemaVersion !== 1 || !Array.isArray(result.texts)) {
@@ -45,7 +45,7 @@ export interface PageTextSnapshot {
   textCount: number;
 }
 
-/** Collect synchronously on the target UI thread before displaying the result. */
+/** 在目标 UI 线程上同步采集，然后再显示结果。 */
 export function collectPageText(context: UIContext): PageTextSnapshot {
   const json: string = getPageText(context);
   const result: PageTextResult = parsePageText(json);

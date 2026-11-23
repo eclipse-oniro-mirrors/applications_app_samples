@@ -48,7 +48,7 @@ export default function pageTextTest(): void {
       await delegator.startAbility({ bundleName: bundleName, abilityName: 'EntryAbility' });
       await driver.delayMs(500);
 
-      // A failed collection assertion may leave the result component visible.
+      // 采集断言失败时，结果组件可能仍处于显示状态。
       const backButtons: TestComponent[] | null = await driver.findComponents(ON.id('backToSample'));
       if (backButtons !== null && backButtons.length > 0) {
         await click('backToSample');
@@ -58,7 +58,7 @@ export default function pageTextTest(): void {
       await input.click();
       await driver.delayMs(300);
       await driver.pressBack();
-      // Without a soft keyboard, Back can leave the ability; bring it to the foreground again.
+      // 没有软键盘时，返回操作可能会使 Ability 离开前台；再次将其调回前台。
       await delegator.startAbility({ bundleName: bundleName, abilityName: 'EntryAbility' });
       await driver.delayMs(500);
 
@@ -84,7 +84,7 @@ export default function pageTextTest(): void {
       await click('collectText');
       const result: TestComponent = await driver.findComponent(ON.id('pageTextJson'));
       const json: string = await result.getText();
-      // Parse independently of the Library parser to check the API result.
+      // 独立于 Library 解析器进行解析，以检查 API 返回结果。
       const parsed: PageTextResult = JSON.parse(json) as PageTextResult;
       hilog.info(DOMAIN, TAG, 'schemaVersion=%{public}d expected=1', parsed.schemaVersion);
       expect(parsed.schemaVersion).assertEqual(1);
@@ -122,7 +122,7 @@ export default function pageTextTest(): void {
     });
 
     beforeEach(async (): Promise<void> => {
-      // Also recover a failed case when the runner skips its afterEach hook.
+      // 当运行器跳过 afterEach 钩子时，也恢复失败用例留下的状态。
       await restoreSamplePage('beforeEach');
     });
 
@@ -130,7 +130,7 @@ export default function pageTextTest(): void {
       await restoreSamplePage('afterEach');
     });
 
-    // Verify initial text, Unicode and the visible placeholder.
+    // 验证初始文本、Unicode 文本和可见占位符。
     it('UIAgentGetPageText_InitialTextAndUnicode_001', 0, async (): Promise<void> => {
       const caseName: string = 'UIAgentGetPageText_InitialTextAndUnicode_001';
       hilog.info(DOMAIN, TAG, '%{public}s begin', caseName);
@@ -150,7 +150,7 @@ export default function pageTextTest(): void {
       }
     });
 
-    // Verify that updating the component replaces its previously collected text.
+    // 验证更新组件后会替换之前采集的文本。
     it('UIAgentGetPageText_UpdateText_002', 0, async (): Promise<void> => {
       const caseName: string = 'UIAgentGetPageText_UpdateText_002';
       hilog.info(DOMAIN, TAG, '%{public}s begin', caseName);
@@ -168,7 +168,7 @@ export default function pageTextTest(): void {
       }
     });
 
-    // Verify that both ordinary input content and its hidden placeholder are excluded.
+    // 验证普通输入内容及其隐藏占位符都会被排除。
     it('UIAgentGetPageText_InputAndPlaceholderExcluded_003', 0, async (): Promise<void> => {
       const caseName: string = 'UIAgentGetPageText_InputAndPlaceholderExcluded_003';
       hilog.info(DOMAIN, TAG, '%{public}s begin', caseName);
@@ -190,7 +190,7 @@ export default function pageTextTest(): void {
       }
     });
 
-    // Verify repeated collection after replacing the result component with the sample view.
+    // 验证将结果组件替换为示例视图后可以重复采集。
     it('UIAgentGetPageText_RepeatedCollection_004', 0, async (): Promise<void> => {
       const caseName: string = 'UIAgentGetPageText_RepeatedCollection_004';
       hilog.info(DOMAIN, TAG, '%{public}s begin', caseName);

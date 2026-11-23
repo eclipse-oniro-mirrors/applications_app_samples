@@ -31,12 +31,12 @@ struct Index {
 
   private collect(): void {
     try {
-      // Keep this synchronous: getUIContext() belongs to this page and the call requires the UI thread.
+      // 保持同步调用：getUIContext() 属于当前页面，且该调用要求在 UI 线程执行。
       const snapshot: PageTextSnapshot = collectPageText(this.getUIContext());
       this.errorText = '';
       this.json = snapshot.json;
       this.textCount = snapshot.textCount;
-      // Replace the sample view only AFTER collection, excluding the result JSON from the snapshot.
+      // 仅在采集完成后替换示例视图，避免将结果 JSON 纳入快照。
       this.showingResult = true;
     } catch (error) {
       const businessError: BusinessError = error as BusinessError;

@@ -37,7 +37,7 @@ void FinalizeContextCache(napi_env env, void *data, void *)
     if (cache->uiContext != nullptr) {
         napi_delete_reference(env, cache->uiContext);
     }
-    // The public SDK exposes no destructor for ArkUI_ContextHandle. Do not delete an opaque SDK type.
+    // 公开 SDK 未提供 ArkUI_ContextHandle 的析构函数，不要删除不透明的 SDK 类型。
     delete cache;
 }
 
@@ -101,7 +101,7 @@ napi_value GetPageText(napi_env env, napi_callback_info info)
             "Cannot obtain the native UI context.");
     }
 
-    // Call synchronously from an ArkUI event on the UI thread, never from a worker/async task.
+    // 在 UI 线程的 ArkUI 事件中同步调用，不能从工作线程或异步任务中调用。
     OH_ArkUI_NativeModule_UIJsonWrapper *pageText = nullptr;
     code = OH_ArkUI_NativeModule_UIAgentGetPageText(context, &pageText);
     JsonOwner ownedText(pageText, OH_ArkUI_NativeModule_UIJsonWrapperDestroy);
@@ -114,7 +114,7 @@ napi_value GetPageText(napi_env env, napi_callback_info info)
     }
     uint32_t size = OH_ArkUI_NativeModule_UIJsonWrapperGetSize(ownedText.get());
     napi_value result = nullptr;
-    // N-API copies the UTF-8 bytes before the owning wrapper is destroyed on function exit.
+    // N-API 会在函数退出、所属包装器销毁前复制 UTF-8 字节。
     if (napi_create_string_utf8(env, jsonData, size, &result) != napi_ok) {
         return ThrowError(env, ARKUI_ERROR_CODE_INTERNAL_ERROR, "Cannot copy the collected JSON to ArkTS.");
     }
@@ -131,13 +131,13 @@ napi_value Init(napi_env env, napi_value exports)
         napi_add_finalizer(env, collect, cache.get(), FinalizeContextCache, nullptr, nullptr) != napi_ok) {
         return nullptr;
     }
-    cache.release(); // The exported function's finalizer owns the cache, scoped to this N-API environment.
+    cache.release(); // 导出函数的终结器持有缓存，其作用域限定在当前 N-API 环境中。
     if (napi_set_named_property(env, exports, "getPageText", collect) != napi_ok) {
         return nullptr;
     }
     return exports;
 }
-} // namespace
+} // 命名空间
 
 static napi_module pageTextModule = {
     1, 0, nullptr, Init, "pagetext", nullptr, {nullptr}
