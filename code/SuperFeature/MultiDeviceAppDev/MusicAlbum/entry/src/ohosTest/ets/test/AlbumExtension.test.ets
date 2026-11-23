@@ -798,10 +798,10 @@ export default function albumExtensionSuite() {
     it(DATASET + 'songListRepeat_001', 0, () => {
       const head: SongItem = songList[0];
       const twin: SongItem = songList[11];
-      expect(head.title).assertEqual(twin.title);
-      expect(head.singer).assertEqual(twin.singer);
+      expect((head.title as Resource).id).assertEqual((twin.title as Resource).id);
+      expect((head.singer as Resource).id).assertEqual((twin.singer as Resource).id);
       const late: SongItem = songList[10];
-      expect(late.title).assertEqual(songList[21].title);
+      expect((late.title as Resource).id).assertEqual((songList[21].title as Resource).id);
     })
     /**
      * @tc.number  SUB_MULTIDEVICE_ALBUM_1323
@@ -812,25 +812,25 @@ export default function albumExtensionSuite() {
      * @tc.level   Level1
      */
     it(DATASET + 'songListDuplicateTitles_001', 0, () => {
-      const titles: Set<string> = new Set<string>();
+      const titles: Set<number> = new Set<number>();
       for (let i = 0; i < songList.length; i++) {
-        titles.add(songList[i].title);
+        titles.add((songList[i].title as Resource).id);
       }
       expect(titles.size < songList.length).assertTrue();
     })
     /**
      * @tc.number  SUB_MULTIDEVICE_ALBUM_1324
      * @tc.name    AlbumExtension1324
-     * @tc.desc    Every source track carries non empty text fields
+     * @tc.desc    Every source track carries non empty title and singer references
      * @tc.size    MediumTest
      * @tc.type    Function
      * @tc.level   Level1
      */
     it(DATASET + 'songListFields_001', 0, () => {
       for (let i = 0; i < songList.length; i++) {
-        expect(typeof songList[i].title).assertEqual('string');
-        expect(songList[i].title.length > 0).assertTrue();
-        expect(songList[i].singer.length > 0).assertTrue();
+        expect(typeof songList[i].title === 'string').assertFalse();
+        expect((songList[i].title as Resource).id > 0).assertTrue();
+        expect((songList[i].singer as Resource).id > 0).assertTrue();
       }
     })
     /**
