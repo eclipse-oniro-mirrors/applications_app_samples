@@ -68,6 +68,9 @@ export struct GeocodePage {
     // [Start geocode_is_available]
     try {
       let isAvailable = geoLocationManager.isGeocoderAvailable();
+      if (!isAvailable) {
+          console.error('current device do not support geocoder');
+      }
       // [StartExclude geocode_is_available]
       this.isGeocoderAvailable = isAvailable;
       this.geocoderQueried = true;
@@ -91,24 +94,25 @@ export struct GeocodePage {
       return;
     }
     // [Start geocode_reverse_geocode]
-    let reverseGeocodeRequest: geoLocationManager.ReverseGeoCodeRequest =
-      { 'latitude': latitude, 'longitude': longitude, 'maxItems': 1 };
+    let reverseGeocodeRequest: geoLocationManager.ReverseGeoCodeRequest = { 'latitude': latitude, 'longitude': longitude, 'maxItems': 1 };
     try {
-      geoLocationManager.getAddressesFromLocation(reverseGeocodeRequest, (err, data) => {
-        if (err) {
-          console.error('getAddressesFromLocation err: ' + JSON.stringify(err));
-        } else {
-          console.info('getAddressesFromLocation data: ' + JSON.stringify(data));
-        }
-        // [StartExclude geocode_reverse_geocode]
-        if (err) {
-          this.addLog(`getAddressesFromLocation err: ${JSON.stringify(err)}`);
-        } else {
-          this.reverseResults = data;
-          this.addLog(`getAddressesFromLocation got ${data.length} result(s)`);
-        }
-        // [EndExclude geocode_reverse_geocode]
-      });
+      if (geoLocationManager.isGeocoderAvailable()) {
+        geoLocationManager.getAddressesFromLocation(reverseGeocodeRequest, (err, data) => {
+          if (err) {
+            console.error('getAddressesFromLocation err: ' + JSON.stringify(err));
+          } else {
+            console.info('getAddressesFromLocation data: ' + JSON.stringify(data));
+          }
+          // [StartExclude geocode_reverse_geocode]
+          if (err) {
+            this.addLog(`getAddressesFromLocation err: ${JSON.stringify(err)}`);
+          } else {
+            this.reverseResults = data;
+            this.addLog(`getAddressesFromLocation got ${data.length} result(s)`);
+          }
+          // [EndExclude geocode_reverse_geocode]
+        });
+      }
     } catch (err) {
       console.error('errCode:' + JSON.stringify(err));
       // [StartExclude geocode_reverse_geocode]
@@ -125,8 +129,7 @@ export struct GeocodePage {
       return;
     }
     // [Start geocode_forward_geocode]
-    let geocodeRequest: geoLocationManager.GeoCodeRequest =
-      { 'description': this.forwardDescription, 'maxItems': 1 };
+    let geocodeRequest: geoLocationManager.GeoCodeRequest = { 'description': this.forwardDescription, 'maxItems': 1 };
     try {
       geoLocationManager.getAddressesFromLocationName(geocodeRequest, (err, data) => {
         if (err) {

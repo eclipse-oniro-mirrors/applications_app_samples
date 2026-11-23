@@ -56,6 +56,15 @@ export struct GeofencePage {
     return `fence ${transition.geofenceId}: ${action}`;
   }
 
+  isGnssFenceServiceSupported() {
+    // [Start is_gnss_geofence_support]
+    let isGnssGeoFeceSupported = geoLocationManager.isGnssFenceServiceSupported();
+    if (!isGnssGeoFeceSupported) {
+        console.error('Current Device Do not Support GnssGeofence');
+    }
+    // [End is_gnss_geofence_support]
+  }
+
   // Create the fence, subscribe to enter/exit transitions, and add the fence
   addFence() {
     let latitude: number = Number(this.fenceLatitude);
@@ -87,8 +96,8 @@ export struct GeofencePage {
       content: {
         notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_BASIC_TEXT,
         normal: {
-          title: 'Geofence notification',
-          text: 'Entered the geofence',
+          title: '围栏通知',
+          text: '围栏进入',
           additionalText: ''
         }
       }
@@ -99,8 +108,8 @@ export struct GeofencePage {
       content: {
         notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_BASIC_TEXT,
         normal: {
-          title: 'Geofence notification',
-          text: 'Exited the geofence',
+          title: '围栏通知',
+          text: '围栏退出',
           additionalText: ''
         }
       }
@@ -142,21 +151,23 @@ export struct GeofencePage {
     }
     try {
       // 添加围栏
-      geoLocationManager.addGnssGeofence(gnssGeofenceRequest).then((id) => {
-        // 围栏添加成功后返回围栏ID
-        console.info('addGnssGeofence success, fence id: ' + id);
-        let fenceId = id;
-        // [StartExclude geofence_add_fence]
-        this.fenceId = fenceId;
-        this.addLog(`addGnssGeofence success, fence id: ${fenceId}`);
-        // [EndExclude geofence_add_fence]
-      }).catch((err: BusinessError) => {
-        console.error('addGnssGeofence failed, promise errCode:' + (err as BusinessError).code +
-          ',errMessage:' + (err as BusinessError).message);
-        // [StartExclude geofence_add_fence]
-        this.addLog(`addGnssGeofence failed: ${err.code}`);
-        // [EndExclude geofence_add_fence]
-      });
+      if (geoLocationManager.isGnssFenceServiceSupported()) {
+        geoLocationManager.addGnssGeofence(gnssGeofenceRequest).then((id) => {
+          // 围栏添加成功后返回围栏ID
+          console.info('addGnssGeofence success, fence id: ' + id);
+          let fenceId = id;
+          // [StartExclude geofence_add_fence]
+          this.fenceId = fenceId;
+          this.addLog(`addGnssGeofence success, fence id: ${fenceId}`);
+          // [EndExclude geofence_add_fence]
+        }).catch((err: BusinessError) => {
+          console.error('addGnssGeofence failed, promise errCode:' + (err as BusinessError).code +
+            ',errMessage:' + (err as BusinessError).message);
+          // [StartExclude geofence_add_fence]
+          this.addLog(`addGnssGeofence failed: ${err.code}`);
+          // [EndExclude geofence_add_fence]
+        });
+      }
     } catch (error) {
       console.error('addGnssGeofence failed, err:' + JSON.stringify(error));
       // [StartExclude geofence_add_fence]
@@ -175,17 +186,19 @@ export struct GeofencePage {
     // fenceId是在geoLocationManager.addGnssGeofence执行成功后获取的
     let fenceId = this.fenceId;
     try {
-      geoLocationManager.removeGnssGeofence(fenceId).then(() => {
-        console.info('removeGnssGeofence success fenceId:' + fenceId);
-        // [StartExclude geofence_remove_fence]
-        this.addLog(`removeGnssGeofence success fenceId: ${fenceId}`);
-        // [EndExclude geofence_remove_fence]
-      }).catch((error: BusinessError) => {
-        console.error('removeGnssGeofence: error=' + JSON.stringify(error));
-        // [StartExclude geofence_remove_fence]
-        this.addLog(`removeGnssGeofence failed: ${JSON.stringify(error)}`);
-        // [EndExclude geofence_remove_fence]
-      });
+      if (geoLocationManager.isGnssFenceServiceSupported()) {
+        geoLocationManager.removeGnssGeofence(fenceId).then(() => {
+          console.info('removeGnssGeofence success fenceId:' + fenceId);
+          // [StartExclude geofence_remove_fence]
+          this.addLog(`removeGnssGeofence success fenceId: ${fenceId}`);
+          // [EndExclude geofence_remove_fence]
+        }).catch((error: BusinessError) => {
+          console.error('removeGnssGeofence: error=' + JSON.stringify(error));
+          // [StartExclude geofence_remove_fence]
+          this.addLog(`removeGnssGeofence failed: ${JSON.stringify(error)}`);
+          // [EndExclude geofence_remove_fence]
+        });
+      }
     } catch (error) {
       console.error('removeGnssGeofence: error=' + JSON.stringify(error));
       // [StartExclude geofence_remove_fence]
