@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file ListExchange/src/main/ets/model/ListExchangeCtrl.ets
+ * 文件职责：ListExchangeCtrl 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：OperationStatus、ListExchangeCtrl。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { ListItemModifier } from '../model/AttributeModifier';
 import curves from '@ohos.curves';
 import { logger } from '../utils/Logger';
@@ -21,6 +28,9 @@ import { CommonConstants } from '../common/commonConstants';
 const ITEM_HEIGHT: number = 50; // 行高
 
 // 操作状态枚举
+/**
+ * OperationStatus：枚举定义，承载本文件对应的逻辑与数据。
+ */
 enum OperationStatus {
   IDLE,
   PRESSING,
@@ -32,6 +42,10 @@ enum OperationStatus {
 /**
  * 列表项切换控制
  */
+// @Observed：可观察对象
+/**
+ * ListExchangeCtrl：类定义，承载本文件对应的逻辑与数据。
+ */
 @Observed
 export class ListExchangeCtrl<T> {
   private deductionData: Array<T> = []; // 列表数据
@@ -40,6 +54,9 @@ export class ListExchangeCtrl<T> {
   private offsetY: number = 0;
   private state: OperationStatus = OperationStatus.IDLE;
 
+  /**
+   * initData：执行 initData 相关逻辑。
+   */
   initData(deductionData: Array<T>) {
     this.deductionData = deductionData;
     deductionData.forEach(() => {
