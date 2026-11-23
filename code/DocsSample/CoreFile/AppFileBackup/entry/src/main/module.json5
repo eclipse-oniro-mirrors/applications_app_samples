@@ -67,7 +67,7 @@
         "name": "ohos.permission.BACKUP",
         "usedScene": {
           "abilities": [
-            "FormAbility"
+            "EntryAbility"
           ],
           "when": "always"
         }
