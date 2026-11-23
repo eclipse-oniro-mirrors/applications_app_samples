@@ -102,7 +102,7 @@ ConnectionModel、RemoteProxyModel、RemoteStubModel 和消息序列均定义在
 | `ConnectivityIntegration` | 测试侧连接请求、回调、断开、失败和重新连接组合 | 50 |
 | `PipelineIntegration` | 测试侧序列构造、写入、代理分发、Stub 处理与回复读取流水线 | 50 |
 | `SystemIntegration` | 测试侧连接、注册、发送、断开、提示、快照与指标组合 | 52 |
-| `UserScenarios` | 测试侧首次连接、未连接发送、重复请求、失败提示与重连场景 | 52 |
+| `UserScenarios` | 测试侧初始连接、未连接发送、重复请求、失败提示与重连场景 | 52 |
 
 ### 测试侧批次与稳定性场景：4 个套件，195 条
 

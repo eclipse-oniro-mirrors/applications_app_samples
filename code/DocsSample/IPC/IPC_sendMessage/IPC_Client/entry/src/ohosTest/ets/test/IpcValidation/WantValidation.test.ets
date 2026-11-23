@@ -321,7 +321,7 @@ export default function wantValidation(): void {
 
     /**
      * @tc.name          wantValidationFourErrorsFromPaddedEmptyWant
-     * @tc.desc          Spaces in both empty names surface all four error tokens.
+     * @tc.desc          Spaces in both empty names produce all four error tokens.
      * @tc.precondition  A want with a single space in each field exists.
      * @tc.steps         1. Build WantModel(' ', ' ').
      *                   2. Call validate().

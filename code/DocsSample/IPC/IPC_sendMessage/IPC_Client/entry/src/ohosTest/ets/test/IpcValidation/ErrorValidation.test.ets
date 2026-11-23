@@ -1096,7 +1096,7 @@ export default function errorValidation(): void {
      * @tc.steps         1. Fail with the connect code.
      *                   2. Read the toast.
      *                   3. Compare the log text.
-     * @tc.expected      The failure surface mentions the connection attempt.
+     * @tc.expected      The failure message mentions the connection attempt.
      * @tc.remark        Pure logic case; no device or UI dependency.
      * @tc.type          FUNCTION
      * @tc.level         LEVEL2
@@ -1462,8 +1462,8 @@ export default function errorValidation(): void {
     });
 
     /**
-     * @tc.name          errorValidationDeathRegisterFailureSurface
-     * @tc.desc          A failed death registration has no numeric surface but logs an error.
+     * @tc.name          errorValidationDeathRegisterFailureLogging
+     * @tc.desc          A failed death registration logs an error without storing a numeric error code.
      * @tc.precondition  A killed proxy is handed to a connecting client.
      * @tc.steps         1. Connect and deliver the killed proxy.
      *                   2. Read the registration flag.
@@ -1473,7 +1473,7 @@ export default function errorValidation(): void {
      * @tc.type          FUNCTION
      * @tc.level         LEVEL3
      */
-    it('errorValidationDeathRegisterFailureSurface', 0, () => {
+    it('errorValidationDeathRegisterFailureLogging', 0, () => {
       const client: ConnectionModel = new ConnectionModel();
       const proxy: RemoteProxyModel = new RemoteProxyModel(new RemoteStubModel());
       proxy.kill();

@@ -577,7 +577,7 @@ export default function userScenarios(): void {
 
     /**
      * @tc.name          userScenariosSessionSummarySnapshot
-     * @tc.desc          The session summary snapshot reflects the user's exact activity.
+     * @tc.desc          The session summary snapshot records the client state after connection and two sends.
      * @tc.precondition  A connected client with two sends.
      * @tc.steps         1. Connect and send twice.
      *                   2. Capture the snapshot.
