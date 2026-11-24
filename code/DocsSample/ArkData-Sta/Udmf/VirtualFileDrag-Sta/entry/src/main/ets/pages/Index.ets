@@ -15,14 +15,15 @@
  * limitations under the License.
  */
 
-import { unifiedDataChannel, uniformTypeDescriptor } from '@kit.ArkData';
-import uniformDataStruct from '@ohos.data.uniformDataStruct';
+import { unifiedDataChannel, uniformTypeDescriptor, uniformDataStruct } from '@kit.ArkData';
 import { common } from '@kit.AbilityKit';
+import {
+  $r, Button, Column, ColumnOptions, Component, DragEvent, DragItemInfo, DragResult, Entry,
+  ResourceStr, Row, RowOptions, State, Text
+} from '@kit.ArkUI';
 import { logSampleError } from '../model/SampleError';
 import { VirtualFileProvider } from '../model/VirtualFileProvider';
 import { getDroppedFileUris } from '../model/DropReceiver';
-import { $r, Button, Column, ColumnOptions, Component, DragEvent, DragItemInfo, DragResult, Entry, ResourceStr, Row, RowOptions, Text } from '@ohos.arkui.component';
-import { State } from '@ohos.arkui.stateManagement';
 
 enum ExportScenario {
   DOCUMENT,

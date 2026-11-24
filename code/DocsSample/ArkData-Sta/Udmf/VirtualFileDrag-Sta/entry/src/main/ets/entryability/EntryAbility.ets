@@ -16,8 +16,8 @@
  */
 
 import { UIAbility } from '@kit.AbilityKit';
-import window from '@ohos.window';
-import { BusinessError } from '@ohos.base';
+import { window } from '@kit.ArkUI';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 export default class EntryAbility extends UIAbility {
   // 加载文件拖拽示例页面，失败时仅记录错误码。

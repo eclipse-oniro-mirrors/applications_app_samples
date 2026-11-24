@@ -16,8 +16,7 @@
  */
 
 import { beforeAll, describe, expect, it } from '@ohos/hypium';
-import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
-import { Component } from '@kit.TestKit';
+import { abilityDelegatorRegistry, Component, Driver, ON } from '@kit.TestKit';
 import { resourceManager } from '@kit.LocalizationKit';
 
 const WAIT_TIMEOUT_MS: int = 5000;

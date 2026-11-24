@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-import uniformDataStruct from '@ohos.data.uniformDataStruct';
-import fs from '@ohos.file.fs';
-import util from '@ohos.util';
-import zlib from '@ohos.zlib';
+import { uniformDataStruct } from '@kit.ArkData';
+import { fileIo as fs } from '@kit.CoreFileKit';
+import { util } from '@kit.ArkTS';
+import { zlib } from '@kit.BasicServicesKit';
 import { common } from '@kit.AbilityKit';
 import { logSampleError } from './SampleError';
 

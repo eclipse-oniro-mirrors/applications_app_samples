@@ -15,8 +15,7 @@
  * limitations under the License.
  */
 
-import { abilityDelegatorRegistry } from '@kit.TestKit';
-import { TestRunner } from '@kit.TestKit';
+import { abilityDelegatorRegistry, TestRunner } from '@kit.TestKit';
 import { Hypium } from '@ohos/hypium';
 import testsuite from '../test/List.test';
 

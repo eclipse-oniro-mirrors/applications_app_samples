@@ -14,11 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { uniformTypeDescriptor } from '@kit.ArkData';
-import uniformDataStruct from '@ohos.data.uniformDataStruct';
-import { unifiedDataChannel } from '@kit.ArkData';
-
-import { DragEvent } from '@ohos.arkui.component';
+import { uniformTypeDescriptor, uniformDataStruct, unifiedDataChannel } from '@kit.ArkData';
+import { DragEvent } from '@kit.ArkUI';
 
 // [Start virtual_drag_sta_receive]
 // 获取落入数据中的文件URI，不读取文件内容。

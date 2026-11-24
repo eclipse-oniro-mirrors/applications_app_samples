@@ -16,8 +16,8 @@
  */
 
 import { describe, expect, it } from '@ohos/hypium';
-import uniformDataStruct from '@ohos.data.uniformDataStruct';
-import util from '@ohos.util';
+import { uniformDataStruct } from '@kit.ArkData';
+import { util } from '@kit.ArkTS';
 import { VirtualFileProvider } from '../../../main/ets/model/VirtualFileProvider';
 
 // 验证示例数据源的文件树、元数据及读取回调，不依赖文件管理器。
