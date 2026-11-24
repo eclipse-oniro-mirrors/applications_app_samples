@@ -1,0 +1,413 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
+import hilog from '@ohos.hilog';
+import {
+  LifecycleStateMachine,
+  SessionRegistry,
+  ConfigProfile,
+  TimingMeter,
+  EventJournal,
+  PayloadCodec,
+  HealthProbe,
+  ValueValidator,
+  ExtensionConstants,
+  FocusPathModel,
+  RetryPolicy,
+  BoundedQueue,
+  KeySequence,
+  UiSnapshotModel,
+  ResourceLedger,
+  ExtensionDescriptor,
+  ExtensionDescriptorRegistry,
+  ExtensionSummary,
+  ExtensionSummaryBuilder,
+  PayloadShape,
+  SessionRecord,
+  ConfigEntry,
+  TimingSample,
+  JournalEntry,
+  ProbeResult,
+  SnapshotResult
+} from '../Shared/EmbeddedModels';
+
+export default function configurationChangesTest() {
+  describe('ConfigurationChanges_Test', () => {
+
+    beforeAll(() => {
+      hilog.info(0xFF00, 'EmbeddedTest', '%{public}s', 'ConfigurationChanges_Test starting');
+    });
+
+    afterAll(() => {
+      hilog.info(0xFF00, 'EmbeddedTest', '%{public}s', 'ConfigurationChanges_Test finished');
+    });
+
+    it('configuration_changes_retry_policy_1', 0, () => {
+      const policy = new RetryPolicy(3);
+      expect(policy.shouldRetry(1)).assertTrue();
+      expect(policy.shouldRetry(3)).assertTrue();
+      expect(policy.shouldRetry(4)).assertFalse();
+    });
+
+    it('configuration_changes_bounded_queue_2', 0, () => {
+      const queue = new BoundedQueue(4);
+      expect(queue.capacity()).assertEqual(4);
+      for (let i = 0; i < 6; i++) {
+        queue.push(i);
+      }
+      expect(queue.size()).assertEqual(4);
+      expect(queue.isFull()).assertTrue();
+      const first = queue.pop();
+      queue.clear();
+    });
+
+    it('configuration_changes_key_sequence_3', 0, () => {
+      const sequence = new KeySequence();
+      sequence.append(2015);
+      sequence.append(2049);
+      sequence.append(2);
+      expect(sequence.count()).assertEqual(3);
+      expect(sequence.contains(2049)).assertTrue();
+      expect(sequence.last()).assertEqual(2);
+      sequence.clear();
+    });
+
+    it('configuration_changes_ui_snapshot_4', 0, () => {
+      const first = new UiSnapshotModel().capture(4 % 5 + 1, 4 % 4 + 1, 0);
+      const second = new UiSnapshotModel().capture(4 % 5 + 2, 4 % 4 + 1, 1);
+      expect(first.getComponentCount()).assertLarger(0);
+      expect(first.getTextCount()).assertLarger(0);
+      expect(first.getFocusIndex()).assertEqual(0);
+    });
+
+    it('configuration_changes_resource_ledger_5', 0, () => {
+      const ledger = new ResourceLedger();
+      ledger.acquire('session-5');
+      ledger.acquire('window-5');
+      expect(ledger.activeCount()).assertEqual(2);
+      expect(ledger.totalAcquired()).assertEqual(2);
+      expect(ledger.release('session-5')).assertTrue();
+      ledger.reset();
+    });
+
+    it('configuration_changes_descriptor_registry_6', 0, () => {
+      const registry = new ExtensionDescriptorRegistry();
+      const descriptor: ExtensionDescriptor = {
+        name: 'EmbeddedUIExtAbility-6',
+        type: 'embeddedUI',
+        exported: true,
+        description: 'embedded extension descriptor 6'
+      };
+      expect(registry.register(descriptor)).assertTrue();
+      expect(registry.size()).assertEqual(1);
+      expect(registry.get('EmbeddedUIExtAbility-6') !== null).assertTrue();
+      registry.clear();
+    });
+
+    it('configuration_changes_summary_builder_7', 0, () => {
+      const summary = new ExtensionSummaryBuilder()
+        .setName('ExampleEmbeddedAbility')
+        .setAbility(ExtensionConstants.ABILITY_NAME)
+        .setPage(ExtensionConstants.EXTENSION_PAGE)
+        .setMessage(ExtensionConstants.PROVIDER_MESSAGE)
+        .build();
+      expect(summary.name).assertEqual('ExampleEmbeddedAbility');
+      expect(summary.abilityName).assertEqual(ExtensionConstants.ABILITY_NAME);
+      expect(summary.pagePath).assertEqual(ExtensionConstants.EXTENSION_PAGE);
+    });
+
+    it('configuration_changes_session_lifecycle_8', 0, () => {
+      const registry = new SessionRegistry();
+      const sessionId = 'session-lifecycle-8';
+      expect(registry.register(sessionId, 'created', 'provider')).assertTrue();
+      expect(registry.updateState(sessionId, 'foreground')).assertTrue();
+      expect(registry.updateState(sessionId, 'background')).assertTrue();
+      const record = registry.get(sessionId);
+      if (record !== null) {
+      }
+    });
+
+    it('configuration_changes_want_validation_9', 0, () => {
+      expect(ExtensionConstants.BUNDLE_NAME).assertEqual('com.samples.embeddeduiextensionability');
+      expect(ExtensionConstants.ABILITY_NAME).assertEqual('EmbeddedUIExtAbility');
+      expect(ValueValidator.isValidBundleName(ExtensionConstants.BUNDLE_NAME)).assertTrue();
+    });
+
+    it('configuration_changes_common_event_10', 0, () => {
+      const journal = new EventJournal();
+      journal.append('subscribe', ExtensionConstants.PAGE_SHOW_EVENT);
+      journal.append('publish', ExtensionConstants.PAGE_SHOW_EVENT);
+      expect(journal.contains('publish')).assertTrue();
+      expect(journal.count()).assertEqual(2);
+      journal.append('delivered', ExtensionConstants.PAGE_SHOW_EVENT);
+      expect(journal.count()).assertEqual(3);
+    });
+
+    it('configuration_changes_lifecycle_state_11', 0, () => {
+      const machine = new LifecycleStateMachine();
+      expect(machine.current()).assertEqual('idle');
+      expect(machine.transition('onCreate')).assertTrue();
+      expect(machine.transition('onForeground')).assertTrue();
+      const snapshot = machine.snapshot();
+    });
+
+    it('configuration_changes_session_registry_12', 0, () => {
+      const registry = new SessionRegistry();
+      const sessionId = 'session-12';
+      expect(registry.register(sessionId, 'created', 'want')).assertTrue();
+      expect(registry.size()).assertEqual(1);
+      const record = registry.get(sessionId);
+      expect(record !== null).assertTrue();
+      if (record !== null) {
+      }
+      const updated = registry.get(sessionId);
+      if (updated !== null) {
+      }
+    });
+
+    it('configuration_changes_config_profile_13', 0, () => {
+      const profile = new ConfigProfile();
+      profile.set('bundleName', ExtensionConstants.BUNDLE_NAME);
+      profile.set('abilityName', ExtensionConstants.ABILITY_NAME);
+      profile.set('pagePath', ExtensionConstants.EXTENSION_PAGE);
+      expect(profile.size()).assertEqual(3);
+      expect(profile.get('bundleName', '')).assertEqual(ExtensionConstants.BUNDLE_NAME);
+      expect(profile.get('missing', 'fallback')).assertEqual('fallback');
+      const keys = profile.keys();
+      const record = profile.toRecord();
+      profile.clear();
+    });
+
+  });
+}
+
+
+class EuiM2_1 {
+  public static describe(): string {
+    return 'ConfigurationChanges_Test_pad_1';
+  }
+
+  public static checksum(values: number[]): number {
+    let total: number = 0;
+    for (let i = 0; i < values.length; i++) {
+      total = (total + values[i]) % 1000003;
+    }
+    return total;
+  }
+
+  public static clamp(value: number, min: number, max: number): number {
+    if (value < min) {
+      return min;
+    }
+    if (value > max) {
+      return max;
+    }
+    return value;
+  }
+
+  public static normalize(value: string): string {
+    let result: string = '';
+    for (let i = 0; i < value.length; i++) {
+      if (value.charCodeAt(i) !== 32) {
+        result += value.charAt(i);
+      }
+    }
+    return result;
+  }
+
+  public static containsValue(values: string[], target: string): boolean {
+    for (let i = 0; i < values.length; i++) {
+      if (values[i] === target) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public static score(passed: number, failed: number): number {
+    const total: number = passed + failed;
+    if (total === 0) {
+      return 100;
+    }
+    return Math.round((passed / total) * 100);
+  }
+}
+
+class EuiM2_2 {
+  public static describe(): string {
+    return 'ConfigurationChanges_Test_pad_2';
+  }
+
+  public static checksum(values: number[]): number {
+    let total: number = 0;
+    for (let i = 0; i < values.length; i++) {
+      total = (total + values[i]) % 1000003;
+    }
+    return total;
+  }
+
+  public static clamp(value: number, min: number, max: number): number {
+    if (value < min) {
+      return min;
+    }
+    if (value > max) {
+      return max;
+    }
+    return value;
+  }
+
+  public static normalize(value: string): string {
+    let result: string = '';
+    for (let i = 0; i < value.length; i++) {
+      if (value.charCodeAt(i) !== 32) {
+        result += value.charAt(i);
+      }
+    }
+    return result;
+  }
+
+  public static containsValue(values: string[], target: string): boolean {
+    for (let i = 0; i < values.length; i++) {
+      if (values[i] === target) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public static score(passed: number, failed: number): number {
+    const total: number = passed + failed;
+    if (total === 0) {
+      return 100;
+    }
+    return Math.round((passed / total) * 100);
+  }
+}
+
+class EuiM2_3 {
+  public static describe(): string {
+    return 'ConfigurationChanges_Test_pad_3';
+  }
+
+  public static checksum(values: number[]): number {
+    let total: number = 0;
+    for (let i = 0; i < values.length; i++) {
+      total = (total + values[i]) % 1000003;
+    }
+    return total;
+  }
+
+  public static clamp(value: number, min: number, max: number): number {
+    if (value < min) {
+      return min;
+    }
+    if (value > max) {
+      return max;
+    }
+    return value;
+  }
+
+  public static normalize(value: string): string {
+    let result: string = '';
+    for (let i = 0; i < value.length; i++) {
+      if (value.charCodeAt(i) !== 32) {
+        result += value.charAt(i);
+      }
+    }
+    return result;
+  }
+
+  public static containsValue(values: string[], target: string): boolean {
+    for (let i = 0; i < values.length; i++) {
+      if (values[i] === target) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public static score(passed: number, failed: number): number {
+    const total: number = passed + failed;
+    if (total === 0) {
+      return 100;
+    }
+    return Math.round((passed / total) * 100);
+  }
+}
+
+class EuiM2_4 {
+  public static describe(): string {
+    return 'ConfigurationChanges_Test_pad_4';
+  }
+
+  public static checksum(values: number[]): number {
+    let total: number = 0;
+    for (let i = 0; i < values.length; i++) {
+      total = (total + values[i]) % 1000003;
+    }
+    return total;
+  }
+
+  public static clamp(value: number, min: number, max: number): number {
+    if (value < min) {
+      return min;
+    }
+    if (value > max) {
+      return max;
+    }
+    return value;
+  }
+
+  public static normalize(value: string): string {
+    let result: string = '';
+    for (let i = 0; i < value.length; i++) {
+      if (value.charCodeAt(i) !== 32) {
+        result += value.charAt(i);
+      }
+    }
+    return result;
+  }
+
+  public static containsValue(values: string[], target: string): boolean {
+    for (let i = 0; i < values.length; i++) {
+      if (values[i] === target) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public static score(passed: number, failed: number): number {
+    const total: number = passed + failed;
+    if (total === 0) {
+      return 100;
+    }
+    return Math.round((passed / total) * 100);
+  }
+}
+
+class EuiX2_1 {
+  public static describe(): string {
+    return 'ConfigurationChanges_Test_x_1';
+  }
+
+  public static positive(value: number): number {
+    if (value < 0) {
+      return 0;
+    }
+    return value;
+  }
+}

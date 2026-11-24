@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,46 +16,69 @@
 import hilog from '@ohos.hilog';
 import TestRunner from '@ohos.application.testRunner';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import Want from '@ohos.app.ability.Want';
+import { BusinessError } from '@ohos.base';
 
-var abilityDelegator = undefined
-var abilityDelegatorArguments = undefined
+const TAG: string = 'UIExtensionTestRunner';
+const DOMAIN: number = 0x0000;
+const TEST_ABILITY_NAME: string = 'TestAbility';
 
-async function onAbilityCreateCallback() {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'onAbilityCreateCallback');
+function logInfo(message: string): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', message);
 }
 
-async function addAbilityMonitorCallback(err: any) {
-    hilog.info(0x0000, 'testTag', 'addAbilityMonitorCallback : %{public}s', JSON.stringify(err) ?? '');
+function logError(message: string): void {
+    hilog.error(DOMAIN, TAG, '%{public}s', message);
+}
+
+function onAbilityCreateCallback(): void {
+    logInfo('onAbilityCreateCallback');
+}
+
+function addAbilityMonitorCallback(err: BusinessError): void {
+    if (err) {
+        logError('addAbilityMonitorCallback: code=' + err.code + ' message=' + err.message);
+        return;
+    }
+    logInfo('addAbilityMonitorCallback: success');
+}
+
+function buildWant(bundleName: string): Want {
+    const want: Want = {
+        bundleName: bundleName,
+        abilityName: TEST_ABILITY_NAME
+    };
+    return want;
 }
 
 export default class OpenHarmonyTestRunner implements TestRunner {
     constructor() {
     }
 
-    onPrepare() {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner OnPrepare ');
+    onPrepare(): void {
+        logInfo('OpenHarmonyTestRunner onPrepare');
     }
 
-    async onRun() {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner onRun run');
-        abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments()
-        abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
-        const bundleName = abilityDelegatorArguments.bundleName;
-        const testAbilityName = 'TestAbility';
-        let lMonitor = {
-            abilityName: testAbilityName,
-            onAbilityCreate: onAbilityCreateCallback,
-        };
-        abilityDelegator.addAbilityMonitor(lMonitor, addAbilityMonitorCallback)
-        const want = {
-            bundleName: bundleName,
-            abilityName: testAbilityName
-        };
-        abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-        abilityDelegator.startAbility(want, (err : any, data : any) => {
-            hilog.info(0x0000, 'testTag', 'startAbility : err : %{public}s', JSON.stringify(err) ?? '');
-            hilog.info(0x0000, 'testTag', 'startAbility : data : %{public}s',JSON.stringify(data) ?? '');
-        })
-        hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner onRun end');
+    async onRun(): Promise<void> {
+        logInfo('OpenHarmonyTestRunner onRun start');
+        const args = AbilityDelegatorRegistry.getArguments();
+        const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+        const bundleName: string = args.bundleName;
+        logInfo('test bundle: ' + bundleName);
+
+        delegator.addAbilityMonitor({
+            abilityName: TEST_ABILITY_NAME,
+            onAbilityCreate: onAbilityCreateCallback
+        }, addAbilityMonitorCallback);
+
+        const want: Want = buildWant(bundleName);
+        delegator.startAbility(want, (err: BusinessError) => {
+            if (err) {
+                logError('startAbility error: code=' + err.code + ' message=' + err.message);
+                return;
+            }
+            logInfo('startAbility success');
+        });
+        logInfo('OpenHarmonyTestRunner onRun end');
     }
 }
