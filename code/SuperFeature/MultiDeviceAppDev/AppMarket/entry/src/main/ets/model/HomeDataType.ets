@@ -13,12 +13,12 @@
  * limitations under the License.
  */
 
-declare interface AllIcons {
+type AllIcons = {
   image: Resource,
   title: Resource,
 }
 
-declare interface AppItem {
+type AppItem = {
   id: string,
   title: Resource,
   image: Resource

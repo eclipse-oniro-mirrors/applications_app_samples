@@ -15,19 +15,11 @@
 
 import mediaQuery from '@ohos.mediaquery'
 
-declare interface Breakpoint {
-  name: string
-  size: number
-  mediaQueryListener?: mediaQuery.MediaQueryListener
-}
-
 export default class BreakpointSystem {
   private currentBreakpoint: string = 'md'
-  private breakpoints: Breakpoint[] = [
-    { name: 'sm', size: 320 } as Breakpoint,
-    { name: 'md', size: 600 } as Breakpoint,
-    { name: 'lg', size: 840 } as Breakpoint
-  ]
+  private smListener: mediaQuery.MediaQueryListener
+  private mdListener: mediaQuery.MediaQueryListener
+  private lgListener: mediaQuery.MediaQueryListener
 
   private updateCurrentBreakpoint(breakpoint: string) {
     if (this.currentBreakpoint !== breakpoint) {
@@ -36,30 +28,36 @@ export default class BreakpointSystem {
     }
   }
 
+  private isBreakpointSM = (mediaQueryResult) => {
+    if (mediaQueryResult.matches) {
+      this.updateCurrentBreakpoint('sm')
+    }
+  }
+
+  private isBreakpointMD = (mediaQueryResult) => {
+    if (mediaQueryResult.matches) {
+      this.updateCurrentBreakpoint('md')
+    }
+  }
+
+  private isBreakpointLG = (mediaQueryResult) => {
+    if (mediaQueryResult.matches) {
+      this.updateCurrentBreakpoint('lg')
+    }
+  }
+
   public register() {
-    this.breakpoints.forEach((breakpoint: Breakpoint, index) => {
-      let condition: string
-      if (index === this.breakpoints.length - 1) {
-        condition = "(" + breakpoint.size + "vp<=width" + ")"
-      } else {
-        condition = "(" + breakpoint.size + "vp<=width<" + this.breakpoints[index + 1].size + "vp)"
-      }
-      breakpoint.mediaQueryListener = mediaQuery.matchMediaSync(condition)
-      const listener: mediaQuery.MediaQueryListener = breakpoint.mediaQueryListener
-      listener.on('change', (mediaQueryResult) => {
-        if (mediaQueryResult.matches) {
-          this.updateCurrentBreakpoint(breakpoint.name)
-        }
-      })
-    })
+    this.smListener = mediaQuery.matchMediaSync('(320vp<=width<600vp)')
+    this.smListener.on('change', this.isBreakpointSM)
+    this.mdListener = mediaQuery.matchMediaSync('(600vp<=width<840vp)')
+    this.mdListener.on('change', this.isBreakpointMD)
+    this.lgListener = mediaQuery.matchMediaSync('(840vp<=width)')
+    this.lgListener.on('change', this.isBreakpointLG)
   }
 
   public unregister() {
-    this.breakpoints.forEach((breakpoint: Breakpoint) => {
-      const listener: mediaQuery.MediaQueryListener | undefined = breakpoint.mediaQueryListener
-      if (listener) {
-        listener.off('change')
-      }
-    })
+    this.smListener.off('change', this.isBreakpointSM)
+    this.mdListener.off('change', this.isBreakpointMD)
+    this.lgListener.off('change', this.isBreakpointLG)
   }
 }

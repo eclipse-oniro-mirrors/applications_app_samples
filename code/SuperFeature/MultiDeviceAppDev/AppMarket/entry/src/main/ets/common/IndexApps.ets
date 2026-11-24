@@ -17,9 +17,9 @@ import { AppItem, MyAppSource } from '../model/HomeDataType'
 
 @Component
 export default struct IndexApps {
-  title: Resource = $r('app.string.more')
+  private title: Resource
   @StorageProp('currentBreakpoint') currentBreakpoint: string = 'md'
-  apps: AppItem[] = []
+  private apps: AppItem[] = []
 
   @Builder
   appListHeader() {
@@ -78,11 +78,11 @@ export default struct IndexApps {
     Column() {
       this.appListHeader()
       List({ space: this.currentBreakpoint === 'lg' ? 44 : 20}) {
-        LazyForEach(new MyAppSource(this.apps), (app: AppItem) => {
+        LazyForEach(new MyAppSource(this.apps), app => {
           ListItem() {
             this.appListItem(app)
           }
-        }, (app: AppItem) => app.id)
+        }, app => app.id)
       }
       .width('100%')
       .height(this.currentBreakpoint === 'lg' ? 140 : 120)
