@@ -21,6 +21,8 @@ import player from 'libentry.so';
 
 const LOG_DOMAIN: number = 0xD000;
 const LOG_TAG: string = '[Sample_AVCodecVideoPlayer]';
+// SDK 26.0.0中，XComponent播放窗口对应的枚举值为0。
+const VIDEO_WINDOW_TYPE: XComponentType = 0;
 
 @Entry
 @Component
@@ -47,7 +49,7 @@ struct Index {
   @Builder
   private playerContent(): void {
     Column({ space: 12 }) {
-      XComponent({ id: 'video', type: XComponentType.SURFACE, controller: this.controller })
+      XComponent({ id: 'video', type: VIDEO_WINDOW_TYPE, controller: this.controller })
         .width('100%')
         .aspectRatio(16 / 9)
         .backgroundColor(Color.Black)
