@@ -120,10 +120,10 @@ void Recorder::VideoEncInputSyncThread()
     VideoInputState state;
     // 先初始化心跳时间，避免启动瞬间被误判为停滞。
     state.lastSubmittedUs = RecorderClockUs();
+    // [Start recorder_video_buffer_input_sync]
     while (isStarted_.load()) {
         // videoInputStopping_请求停止Buffer视频供帧；在此提交EOS，不清零控制输出排空的isStarted_。
         if (videoInputStopping_.load()) {
-            // [Start recorder_video_buffer_eos_sync]
             CodecBufferInfo info;
             int32_t ret = videoEncoder_->GetInputBuffer(info, DRAIN_WAIT_US);
             if (!isStarted_.load()) {
@@ -143,8 +143,8 @@ void Recorder::VideoEncInputSyncThread()
             }
             AVCODEC_SAMPLE_LOGI("Sync video input submitted EOS, thread exiting");
             break;
-            // [End recorder_video_buffer_eos_sync]
         }
+        // [StartExclude recorder_video_buffer_input_sync]
         // 等待相机图像时不占用暂停锁；校验和提交仍与暂停切换串行。
         const CameraImage image(frameReceiver_->ReadLatest(INPUT_WAIT_MS), OH_ImageNative_Release);
         std::lock_guard<std::mutex> inputLock(mediaInputMutex_);
@@ -167,11 +167,11 @@ void Recorder::VideoEncInputSyncThread()
          *     inputFile->open(inputFilePath.data(), std::ios::in | std::ios::binary);
          * }
          */
+        // [StartExclude recorder_video_buffer_input_sync]
         if (ret != AVCODEC_SAMPLE_ERR_OK || !InitSyncVideoInputContext()) {
             AbortRecording("Get video input buffer or input description failed");
             break;
         }
-        // [StartExclude recorder_video_buffer_input_sync]
         if (!SubmitVideoInputImage(image.get(), info, state, receivedAtUs)) {
             break;
         }
