@@ -12,11 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start import_module]
+import { AssessmentConstants } from '../common/constants/AssessmentConstants';
+// [StartExclude import_module]
 import { common } from '@kit.AbilityKit';
 import { AppStorageV2, router, window } from '@kit.ArkUI';
 import { assessment } from '@kit.AutomaticSceneConfigurationKit';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { AssessmentConstants } from '../common/constants/AssessmentConstants';
 import { ContextUtil } from '../common/utils/ContextUtil';
 import Logger from '../common/utils/Logger';
 import AssessmentViewModel from '../viewmodel/AssessmentViewModel';
@@ -256,3 +258,5 @@ struct IndexPage {
     return ContextUtil.getAbilityContext(this.getUIContext());
   }
 }
+// [EndExclude import_module]
+// [End import_module]

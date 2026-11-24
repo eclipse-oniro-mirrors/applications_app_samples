@@ -12,6 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start assessment_begin]
+// [Start assessment_query]
+// [Start assessment_end]
+// [StartExclude assessment_begin]
+// [StartExclude assessment_query]
+// [StartExclude assessment_end]
 import { common } from '@kit.AbilityKit';
 import { assessment } from '@kit.AutomaticSceneConfigurationKit';
 import { BusinessError } from '@kit.BasicServicesKit';
@@ -30,6 +36,8 @@ export default class AssessmentViewModel {
   @Trace public queryDuration: number = AssessmentConstants.INVALID_DURATION;
   @Trace public queryApps: string = '';
 
+  // [EndExclude assessment_begin]
+  // 评估过程回调
   private callback: assessment.IAssessmentCallback;
 
   constructor() {
@@ -38,6 +46,7 @@ export default class AssessmentViewModel {
         this.handleBegin(error);
       },
       onInterrupted: (info: assessment.AssessmentInterruptInfo): void => {
+        // 评估被中断，业务侧可根据中断原因码做相应处理，如保存答题记录
         this.handleInterrupted(info);
       },
       onEnd: (): void => {
@@ -47,6 +56,8 @@ export default class AssessmentViewModel {
   }
 
   begin(context: common.UIAbilityContext, duration: number, allowedApps: string[]): void {
+    // 评估配置：最大时长1小时（3600000毫秒）；
+    // 评估期间允许运行包名为com.samples.assessment的应用
     const config: assessment.AssessmentConfig = {
       duration: duration,
       allowedApps: allowedApps
@@ -61,7 +72,8 @@ export default class AssessmentViewModel {
       this.publishEvent(AssessmentConstants.EVENT_API_ERROR, err.code, err.message);
     }
   }
-
+  // [StartExclude assessment_begin]
+  // [EndExclude assessment_end]
   end(context: common.UIAbilityContext): void {
     try {
       assessment.end(context);
@@ -72,7 +84,8 @@ export default class AssessmentViewModel {
       this.publishEvent(AssessmentConstants.EVENT_API_ERROR, err.code, err.message);
     }
   }
-
+  // [StartExclude assessment_end]
+  // [EndExclude assessment_query]
   queryActive(): boolean {
     try {
       const active: boolean = assessment.isActive();
@@ -101,6 +114,7 @@ export default class AssessmentViewModel {
       this.publishEvent(AssessmentConstants.EVENT_API_ERROR, err.code, err.message);
     }
   }
+  // [StartExclude assessment_query]
 
   @Computed
   get isQueryConfigAvailable(): boolean {
@@ -147,3 +161,9 @@ export default class AssessmentViewModel {
     this.logs = logs;
   }
 }
+// [EndExclude assessment_begin]
+// [EndExclude assessment_query]
+// [EndExclude assessment_end]
+// [End assessment_begin]
+// [End assessment_query]
+// [End assessment_end]

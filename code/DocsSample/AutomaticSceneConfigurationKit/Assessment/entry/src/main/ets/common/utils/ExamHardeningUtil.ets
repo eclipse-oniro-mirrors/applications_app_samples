@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start assessment_hardening]
 import { common } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
 import { BusinessError, deviceInfo, pasteboard, settings } from '@kit.BasicServicesKit';
@@ -108,3 +109,4 @@ export class ExamHardeningUtil {
     return deviceInfo.productModel === 'emulator';
   }
 }
+// [End assessment_hardening]

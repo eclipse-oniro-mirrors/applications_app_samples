@@ -12,6 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start assessment_page_lifecycle]
+// [StartExclude assessment_page_lifecycle]
 import { common } from '@kit.AbilityKit';
 import { AppStorageV2, window } from '@kit.ArkUI';
 import { assessment } from '@kit.AutomaticSceneConfigurationKit';
@@ -41,17 +43,23 @@ struct ExamPage {
   @Local showSheet: boolean = false;
   private screenRecord: ScreenRecordUtil | null = null;
 
+  // [EndExclude assessment_page_lifecycle]
   aboutToAppear(): void {
     this.applyHardening();
+    // [StartExclude assessment_page_lifecycle]
     this.loadStatusBarHeight();
     this.examVM.initAnswers();
     this.examVM.startCountdown(this.assessmentVM.duration);
+    // [EndExclude assessment_page_lifecycle]
   }
 
   aboutToDisappear(): void {
+    // [StartExclude assessment_page_lifecycle]
     this.examVM.stopCountdown();
+    // [EndExclude assessment_page_lifecycle]
     this.releaseHardening();
   }
+  // [StartExclude assessment_page_lifecycle]
 
   onBackPress(): boolean {
     return true;
@@ -264,6 +272,7 @@ struct ExamPage {
     }
   }
 
+  // [EndExclude assessment_page_lifecycle]
   private applyHardening(): void {
     const context: common.UIAbilityContext | undefined = this.getAbilityContext();
     if (context === undefined) {
@@ -272,6 +281,7 @@ struct ExamPage {
     ExamHardeningUtil.applyHardening(context, this.setting).catch((error: BusinessError) => {
       Logger.error(`applyHardening failed, code: ${error.code}, message: ${error.message}`);
     })
+    // [StartExclude assessment_page_lifecycle]
     if (this.setting.screenRecord) {
       this.screenRecord = new ScreenRecordUtil(context);
       this.screenRecord.start({
@@ -282,6 +292,7 @@ struct ExamPage {
         }
       });
     }
+    // [EndExclude assessment_page_lifecycle]
   }
 
   private releaseHardening(): void {
@@ -289,13 +300,18 @@ struct ExamPage {
     if (context === undefined) {
       return;
     }
+    // [StartExclude assessment_page_lifecycle]
     this.screenRecord?.stop();
+    // [EndExclude assessment_page_lifecycle]
     ExamHardeningUtil.releaseHardening(context, this.setting).catch((error: BusinessError) => {
       Logger.error(`releaseHardening failed, code: ${error.code}, message: ${error.message}`);
     });
   }
+  // [StartExclude assessment_page_lifecycle]
 
   private getAbilityContext(): common.UIAbilityContext | undefined {
     return ContextUtil.getAbilityContext(this.getUIContext());
   }
 }
+// [EndExclude assessment_page_lifecycle]
+// [End assessment_page_lifecycle]

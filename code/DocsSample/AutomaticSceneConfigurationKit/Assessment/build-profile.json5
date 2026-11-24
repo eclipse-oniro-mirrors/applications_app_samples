@@ -21,7 +21,7 @@
         "targetSdkVersion": "26.0.1",
         "compatibleSdkVersion": "26.0.1",
         "compileSdkVersion": "26.0.1",
-        "runtimeOS": "OpenHarmony",
+        "runtimeOS": "HarmonyOS",
         "buildOption": {
           "strictMode": {
             "caseSensitiveCheck": true,
