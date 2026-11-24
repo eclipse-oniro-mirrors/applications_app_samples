@@ -41,19 +41,16 @@ export default class Entry3Ability extends UIAbility {
   }
 
   onWindowStageDestroy(): void {
-    // Main window is destroyed, release UI related resources
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
   }
 
   // [Start entry_ability_on_background_and_foreground_to_recycle_and_restore_NWebs]
   onForeground(): void {
-    // Ability has brought to foreground
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onForeground');
     restoreNWebs()
   }
 
   onBackground(): void {
-    // Ability has back to background
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onBackground');
     recycleNWebs()
   }
