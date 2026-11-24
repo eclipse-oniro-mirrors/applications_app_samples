@@ -12,7 +12,240 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
+
+/*
 // [Start all_noiseReductionRecording]
+// [Start getSupportedNoiseReductionModes]
+// [Start setNoiseReductionMode]
+// [Start onNoiseReductionModeChanged]
+// [Start getNoiseReductionMode]
+import { audio } from '@kit.AudioKit';
+// [StartExclude getNoiseReductionMode]
+// [StartExclude onNoiseReductionModeChanged]
+import { BusinessError } from '@kit.BasicServicesKit';
+// [EndExclude getNoiseReductionMode]
+// [EndExclude onNoiseReductionModeChanged]
+
+// [StartExclude all_noiseReductionRecording]
+// [StartExclude getSupportedNoiseReductionModes]
+// [StartExclude getNoiseReductionMode]
+// [StartExclude onNoiseReductionModeChanged]
+try {
+  audioCapturer.setNoiseReductionMode(audio.NoiseReductionMode.PURE_VOCALS);
+} catch (err) {
+  let error = err as BusinessError;
+  console.error(`Failed to setNoiseReductionMode. Code: ${error.code}, message: ${error.message}`);
+}
+// [End setNoiseReductionMode]
+// [EndExclude getNoiseReductionMode]
+let currentMode: audio.NoiseReductionMode = audioCapturer.getNoiseReductionMode();
+console.info(`Current noise reduction mode: ${currentMode}`);
+// [End getNoiseReductionMode]
+// [EndExclude all_noiseReductionRecording]
+let audioCapturer: audio.AudioCapturer | undefined = undefined;
+// [EndExclude getSupportedNoiseReductionModes]
+let supportedModes: audio.NoiseReductionMode[] = [];
+
+// [StartExclude getSupportedNoiseReductionModes]
+// 创建AudioCapturer实例。
+let audioCapturerOptions: audio.AudioCapturerOptions = {
+  streamInfo: {
+    samplingRate: audio.AudioSamplingRate.SAMPLE_RATE_48000,
+    channels: audio.AudioChannel.CHANNEL_2,
+    sampleFormat: audio.AudioSampleFormat.SAMPLE_FORMAT_S16LE,
+    encodingType: audio.AudioEncodingType.ENCODING_TYPE_RAW
+  },
+  capturerInfo: {
+    source: audio.SourceType.SOURCE_TYPE_VOICE_MESSAGE,
+    capturerFlags: 0
+  }
+};
+
+audio.createAudioCapturer(audioCapturerOptions, (err, capturer) => {
+  if (err) {
+    console.error(`Failed to createAudioCapturer. Code: ${err.code}, message: ${err.message}`);
+    return;
+  }
+  audioCapturer = capturer;
+  // 查询支持的降噪模式。
+  refreshSupportedModes(audioCapturer as audio.AudioCapturer);
+  // 查询当前实际生效的降噪模式。
+  let currentMode: audio.NoiseReductionMode = (audioCapturer as audio.AudioCapturer).getNoiseReductionMode();
+  console.info(`Current noise reduction mode: ${currentMode}`);
+  // 订阅降噪模式变更回调。
+  (audioCapturer as audio.AudioCapturer).onNoiseReductionModeChanged(noiseReductionCallback);
+  // 设置降噪模式。
+  try {
+    (audioCapturer as audio.AudioCapturer).setNoiseReductionMode(audio.NoiseReductionMode.PURE_VOCALS);
+  } catch (err) {
+    let error = err as BusinessError;
+    console.error(`Failed to setNoiseReductionMode. Code: ${error.code}, message: ${error.message}`);
+  }
+});
+
+// 查询支持的降噪模式。
+// [EndExclude getSupportedNoiseReductionModes]
+function refreshSupportedModes(capturer: audio.AudioCapturer): void {
+  try {
+    supportedModes = capturer.getSupportedNoiseReductionModes();
+    console.info(`Supported noise reduction modes: ${supportedModes}`);
+  } catch (err) {
+    let error = err as BusinessError;
+    console.error(`Failed to getSupportedNoiseReductionModes. Code: ${error.code}, message: ${error.message}`);
+    supportedModes = [audio.NoiseReductionMode.FIDELITY];
+  }
+}
+// [End getSupportedNoiseReductionModes]
+
+// 降噪模式变更回调。
+let noiseReductionCallback = (changeInfo: audio.NoiseReductionModeChangeInfo) => {
+  console.info(`Noise reduction changed, mode: ${changeInfo.noiseReductionMode}, reason: ${changeInfo.reason}`);
+  if (changeInfo.reason === audio.NoiseReductionModeChangeReason.DEVICE_CHANGE) {
+    if (audioCapturer !== undefined) {
+      refreshSupportedModes(audioCapturer as audio.AudioCapturer);
+    }
+  }
+};
+
+// [EndExclude onNoiseReductionModeChanged]
+// [StartExclude all_noiseReductionRecording]
+let noiseReductionCallback = (changeInfo: audio.NoiseReductionModeChangeInfo) => {
+  console.info(`Noise reduction changed, mode: ${changeInfo.noiseReductionMode}, reason: ${changeInfo.reason}`);
+  if (changeInfo.reason === audio.NoiseReductionModeChangeReason.USER_SETTING_BY_SYSTEM_RECORD_CONTROLLER) {
+    // 用户在系统录音面板切换了降噪效果，更新界面显示。
+  } else if (changeInfo.reason === audio.NoiseReductionModeChangeReason.DEVICE_CHANGE) {
+    // 输入设备变更，能力集可能变化，需重新查询。
+  } else if (changeInfo.reason === audio.NoiseReductionModeChangeReason.STREAM_CONCURRENCY) {
+    // 并发录音流冲突导致模式被仲裁改变。
+  }
+};
+
+audioCapturer.onNoiseReductionModeChanged(noiseReductionCallback);
+// [End onNoiseReductionModeChanged]
+// [EndExclude all_noiseReductionRecording]
+// 销毁实例时取消订阅。
+function release(): void {
+  if (audioCapturer !== undefined) {
+    (audioCapturer as audio.AudioCapturer).offNoiseReductionModeChanged(noiseReductionCallback);
+    (audioCapturer as audio.AudioCapturer).release((err: BusinessError) => {
+      if (err) {
+        console.error(`Failed to release. Code: ${err.code}, message: ${err.message}`);
+      }
+    });
+  }
+}
+// [End all_noiseReductionRecording]
+// [Start offNoiseReductionModeChanged]
+audioCapturer.offNoiseReductionModeChanged(noiseReductionCallback);
+// [End offNoiseReductionModeChanged]
+*/
+
+/*
+// [Start OH_AudioCapturer_GetSupportedNoiseReductionModes]
+OH_AudioNoiseReductionMode modes[20] = {0};
+uint32_t outSize = 0;
+(void)OH_AudioCapturer_GetSupportedNoiseReductionModes(audioCapturer, modes, 20, &outSize);
+// [End OH_AudioCapturer_GetSupportedNoiseReductionModes]
+
+// [Start OH_AudioCapturer_GetNoiseReductionMode]
+OH_AudioNoiseReductionMode actual = AUDIO_NOISE_REDUCTION_MODE_FIDELITY;
+(void)OH_AudioCapturer_GetNoiseReductionMode(audioCapturer, &actual);
+// [End OH_AudioCapturer_GetNoiseReductionMode]
+
+// [Start OnNoiseReductionModeChange]
+static void OnNoiseReductionModeChange(OH_AudioCapturer *capturer, void *userData,
+    OH_Audio_NoiseReductionModeChangeInfo *changeInfo)
+{
+    if (changeInfo == nullptr) {
+        return;
+    }
+    printf("noise reduction changed: mode=%d, reason=%d\n",
+        changeInfo->noiseReductionMode, changeInfo->reason);
+    if (changeInfo->reason == OH_AUDIO_NOISE_REDUCTION_MODE_CHANGE_REASON_DEVICE_CHANGE) {
+        // 输入设备变更后能力集可能变化，重新查询。
+        OH_AudioNoiseReductionMode modes[20] = {0};
+        uint32_t outSize = 0;
+        (void)OH_AudioCapturer_GetSupportedNoiseReductionModes(capturer, modes, 20, &outSize);
+    }
+}
+// [End OnNoiseReductionModeChange]
+
+// [Start OH_AudioCapturer_RegisterNoiseReductionModeChangeCallback]
+OH_AudioStream_Result ret = OH_AudioCapturer_RegisterNoiseReductionModeChangeCallback(
+    audioCapturer, OnNoiseReductionModeChange, nullptr);
+// [End OH_AudioCapturer_RegisterNoiseReductionModeChangeCallback]
+
+// [Start OH_AudioCapturer_SetNoiseReductionMode]
+OH_AudioNoiseReductionMode target = AUDIO_NOISE_REDUCTION_MODE_PURE_VOCALS;
+(void)OH_AudioCapturer_SetNoiseReductionMode(audioCapturer, target);
+// [End OH_AudioCapturer_SetNoiseReductionMode]
+
+// [Start OH_AudioCapturer_UnregisterNoiseReductionModeChangeCallback]
+(void)OH_AudioCapturer_UnregisterNoiseReductionModeChangeCallback(
+    audioCapturer, OnNoiseReductionModeChange);
+// [End OH_AudioCapturer_UnregisterNoiseReductionModeChangeCallback]
+
+// [Start all_noiseReductionRecordingC]
+#define MODE_ARRAY_SIZE 20
+
+OH_AudioCapturer *capturer = nullptr;
+
+// 创建构造器并配置采集参数。
+OH_AudioStreamBuilder *builder = nullptr;
+OH_AudioStreamBuilder_Create(&builder, AUDIOSTREAM_TYPE_CAPTURER);
+OH_AudioStreamBuilder_SetSamplingRate(builder, 48000);
+OH_AudioStreamBuilder_SetChannelCount(builder, 2);
+OH_AudioStreamBuilder_SetSampleFormat(builder, AUDIOSTREAM_SAMPLE_S16LE);
+OH_AudioStreamBuilder_SetEncodingType(builder, AUDIOSTREAM_ENCODING_TYPE_RAW);
+OH_AudioStreamBuilder_SetCapturerInfo(builder, AUDIOSTREAM_SOURCE_TYPE_VOICE_MESSAGE);
+OH_AudioStreamBuilder_GenerateCapturer(builder, &capturer);
+
+// 降噪模式变更回调。
+static void OnNoiseReductionModeChange(OH_AudioCapturer *capturer, void *userData,
+    OH_Audio_NoiseReductionModeChangeInfo *changeInfo)
+{
+    if (changeInfo == nullptr) {
+        return;
+    }
+    printf("noise reduction changed: mode=%d, reason=%d\n",
+        changeInfo->noiseReductionMode, changeInfo->reason);
+    if (changeInfo->reason == OH_AUDIO_NOISE_REDUCTION_MODE_CHANGE_REASON_DEVICE_CHANGE) {
+        // 输入设备变更后能力集可能变化，重新查询。
+        OH_AudioNoiseReductionMode modes[MODE_ARRAY_SIZE] = {0};
+        uint32_t outSize = 0;
+        (void)OH_AudioCapturer_GetSupportedNoiseReductionModes(capturer, modes, MODE_ARRAY_SIZE, &outSize);
+    }
+}
+
+// 查询支持的降噪模式。
+OH_AudioNoiseReductionMode modes[MODE_ARRAY_SIZE] = {0};
+uint32_t outSize = 0;
+(void)OH_AudioCapturer_GetSupportedNoiseReductionModes(capturer, modes, MODE_ARRAY_SIZE, &outSize);
+
+// 查询当前实际生效的降噪模式。
+OH_AudioNoiseReductionMode actual = AUDIO_NOISE_REDUCTION_MODE_FIDELITY;
+(void)OH_AudioCapturer_GetNoiseReductionMode(capturer, &actual);
+
+// 注册降噪模式变更回调。
+(void)OH_AudioCapturer_RegisterNoiseReductionModeChangeCallback(
+    capturer, OnNoiseReductionModeChange, nullptr);
+
+// 设置降噪模式（仅在PREPARED或STOPPED状态可设置）。
+(void)OH_AudioCapturer_SetNoiseReductionMode(capturer, AUDIO_NOISE_REDUCTION_MODE_PURE_VOCALS);
+
+// 启动采集。
+(void)OH_AudioCapturer_Start(capturer);
+// ... 录音 ...
+(void)OH_AudioCapturer_Stop(capturer);
+
+// 注销回调并释放资源。
+(void)OH_AudioCapturer_UnregisterNoiseReductionModeChangeCallback(
+    capturer, OnNoiseReductionModeChange);
+(void)OH_AudioCapturer_Release(capturer);
+(void)OH_AudioStreamBuilder_Destroy(builder);
+// [End all_noiseReductionRecordingC]
+*/
+
 import { audio } from '@kit.AudioKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import noiseReduction from 'libentry.so';
@@ -110,7 +343,6 @@ struct NoiseReductionSimpleExample {
   }
 
   // Set noise reduction mode.
-  // [Start setNoiseReductionMode]
   jsSetMode(mode: audio.NoiseReductionMode): void {
     if (!this.audioCapturer) {
       return;
@@ -123,10 +355,8 @@ struct NoiseReductionSimpleExample {
       this.jsMode = `Failed: ${error.code}`;
     }
   }
-  // [End setNoiseReductionMode]
 
   // Get noise reduction mode.
-  // [Start getNoiseReductionMode]
   jsGetMode(): void {
     if (!this.audioCapturer) {
       return;
@@ -139,10 +369,8 @@ struct NoiseReductionSimpleExample {
       this.jsMode = `Failed: ${error.code}`;
     }
   }
-  // [End getNoiseReductionMode]
 
   // Get supported noise reduction modes.
-  // [Start getSupportedNoiseReductionModes]
   jsGetSupportedModes(): void {
     if (!this.audioCapturer) {
       return;
@@ -155,10 +383,8 @@ struct NoiseReductionSimpleExample {
       this.jsSupportedModes = `Failed: ${error.code}`;
     }
   }
-  // [End getSupportedNoiseReductionModes]
 
   // Register callback.
-  // [Start onNoiseReductionModeChanged]
   jsRegisterCallback(): void {
     if (!this.audioCapturer || this.jsCallbackRegistered) {
       return;
@@ -182,10 +408,8 @@ struct NoiseReductionSimpleExample {
       this.jsCallbackLogList = [`Failed: ${error.code}`];
     }
   }
-  // [End onNoiseReductionModeChanged]
 
   // Unregister callback.
-  // [Start offNoiseReductionModeChanged]
   jsUnregisterCallback(): void {
     if (!this.audioCapturer || !this.jsCallbackRegistered) {
       return;
@@ -199,7 +423,6 @@ struct NoiseReductionSimpleExample {
       this.jsCallbackLogList = [`Failed: ${error.code}`];
     }
   }
-  // [End offNoiseReductionModeChanged]
 
   // Release.
   async jsRelease(): Promise<void> {
@@ -451,4 +674,3 @@ struct NoiseReductionSimpleExample {
     .backgroundColor('#FFF')
   }
 }
-// [End all_noiseReductionRecording]
