@@ -68,6 +68,7 @@
     "ubsanEnabled": false,
     "cloudFileSyncEnabled": false,
     "cloudStructuredDataSyncEnabled": false,
+    "keepDataOnUninstall": false,
     // [EndExclude app_json5_configuration]
     "configuration": "$profile:configuration",
     // [StartExclude app_json5_configuration]
