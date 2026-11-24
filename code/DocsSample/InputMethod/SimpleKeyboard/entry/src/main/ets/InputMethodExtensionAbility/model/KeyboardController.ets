@@ -102,10 +102,11 @@ export class InputHandler {
         AppStorage.setOrCreate('enterKeyType', res.enterKeyType);
         AppStorage.setOrCreate('inputPattern', res.inputPattern);
 
-        this.setInputInfo('EditorInfo：enterKeyType = ' + this.mEditorAttribute?.enterKeyType + ';inputPattern = ' +
+        this.setInputInfo('EditorInfo: enterKeyType = ' + this.mEditorAttribute?.enterKeyType + ';inputPattern = ' +
           this.mEditorAttribute?.inputPattern +
           '; isTextPreviewSupported = ' + this.mEditorAttribute?.isTextPreviewSupported);
-        this.addLog(`onInputStart editorAttribute enterKeyType : ${res.enterKeyType}, inputPattern : ${res.inputPattern}`);
+        this.addLog(
+          `onInputStart editorAttribute enterKeyType : ${res.enterKeyType}, inputPattern : ${res.inputPattern}`);
       })
     } catch (err) {
       let error = err as BusinessError;
@@ -411,7 +412,7 @@ export class InputHandler {
     let showText = '';
     try {
       if (this.mTextInputClient) {
-        showText += 'five chars: before：[' + this.mTextInputClient?.getForward(5) + '];after：[' +
+        showText += 'five chars: before: [' + this.mTextInputClient?.getForward(5) + '];after: [' +
           this.mTextInputClient?.getBackward(5) + ']\n';
         showText += this.cursorInfo + "\n";
         showText += this.selectInfo + "\n";
@@ -507,7 +508,8 @@ export class KeyboardController {
     }
     let keyHeight = Double.toLong(dHeight * keyHeightRate);
     this.barPosition = dHeight - keyHeight - navigationBar_height;
-    this.inputHandle.addLog(`initWindow-dWidth = ${dWidth};dHeight = ${dHeight};keyboard height = ${keyHeight};;navibar height = navigationBar_height`);
+    this.inputHandle.addLog(
+      `initWindow-dWidth = ${dWidth};dHeight = ${dHeight};keyboard height = ${keyHeight};;navibar height = navigationBar_height`);
     this.inputHandle.addLog(`initWindow-deviceType = ${deviceInfo.deviceType}`);
     let panelInfo: inputMethodEngine.PanelInfo = {
       type: inputMethodEngine.PanelType.SOFT_KEYBOARD,

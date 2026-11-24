@@ -40,22 +40,22 @@ enum EntryKey {
 // 返回组件
 @Component
 export struct ReturnItem {
-  @StorageLink('enterKeyType') enterKeyType: int = EnterKeyType.Done as int;
+  @StorageLink('enterKeyType') enterKeyType: EnterKeyType = EnterKeyType.Done;
   @StorageLink('inputStyle') inputStyle: KeyStyle = StyleConfiguration.getSavedInputStyle();
   returnWidth: Resource | undefined = undefined;
 
   build(): void {
     if (this.returnWidth) {
       Stack() {
-        if (this.enterKeyType === EnterKeyType.Send as int) {
+        if (this.enterKeyType === EnterKeyType.Send) {
           Text(EntryKey.Send)
             .fontSize(this.inputStyle.symbol_fontSize)
             .fontColor(Color.Black)
-        } else if (this.enterKeyType === EnterKeyType.Search as int) {
+        } else if (this.enterKeyType === EnterKeyType.Search) {
           Text(EntryKey.Search)
             .fontSize(this.inputStyle.symbol_fontSize)
             .fontColor(Color.Black)
-        } else if (this.enterKeyType === EnterKeyType.Go as int) {
+        } else if (this.enterKeyType === EnterKeyType.Go) {
           Text(EntryKey.Go)
             .fontSize(this.inputStyle.symbol_fontSize)
             .fontColor(Color.Black)

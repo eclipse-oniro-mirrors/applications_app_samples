@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF InputStyle KIND, either express or implied.
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
@@ -44,15 +44,27 @@ const TAG = '[Submenu]';
 
 @Component
 export struct Submenu {
-  @StorageLink('submenuType') submenuType: number = SubMenuType.NORMAL;
+  @StorageLink('submenuType') submenuType: SubMenuType = SubMenuType.NORMAL;
   @StorageLink('inputStyle') inputStyle: KeyStyle = StyleConfiguration.getSavedInputStyle();
-  @StorageLink('inputMethods') inputMethods: inputMethod.InputMethodProperty[] = [];
-  @StorageLink('InputMethodSubtypes') inputMethodSubtypes: InputMethodSubtype[] = [];
+  @State inputMethods: inputMethod.InputMethodProperty[] = new Array<inputMethod.InputMethodProperty>();
+  @State subtypesOfMethods: InputMethodSubtype[][] = new Array<Array<inputMethod.InputMethodProperty>>();
   @State currentInputMethodSubtype: string = '';
+  @State currentInputMethodName: string = '';
 
   async inputList() {
     try {
       this.inputMethods = await inputMethod.getSetting().getInputMethods(true); // 获取已使能的输入法列表
+      let subtypes: InputMethodSubtype[][] = [];
+      for (let i = 0; i < this.inputMethods.length; i++) {
+        try {
+          subtypes.push(await inputMethod.getSetting().listInputMethodSubtype(this.inputMethods[i])); // 获取每个输入法的子类型列表
+        } catch (err) {
+          let error = err as BusinessError;
+          Log.showError(TAG, `listInputMethodSubtype catch error: ${error.code} ${error.message}`);
+          subtypes.push([]);
+        }
+      }
+      this.subtypesOfMethods = subtypes;
     } catch (err) {
       let error = err as BusinessError;
       Log.showError(TAG, `getInputMethods catch error: ${error.code} ${error.message}`);
@@ -61,8 +73,8 @@ export struct Submenu {
 
   async typeList() {
     try {
-      this.inputMethodSubtypes = await inputMethod.getSetting().listCurrentInputMethodSubtype(); // 获取当前输入法的所有子类型
-      this.currentInputMethodSubtype = inputMethod.getCurrentInputMethodSubtype().id;
+      this.currentInputMethodSubtype = inputMethod.getCurrentInputMethodSubtype().id; // 获取当前输入法的当前子类型
+      this.currentInputMethodName = inputMethod.getCurrentInputMethod().name; // 获取当前输入法
     } catch (err) {
       let error = err as BusinessError;
       Log.showError(TAG, `typeList catch error: ${error.code} ${error.message}`);
@@ -75,8 +87,10 @@ export struct Submenu {
       this.inputMethods = await inputMethod.getSetting().getInputMethods(true); // 获取已使能的输入法列表
       let currentInputMethod = inputMethod.getCurrentInputMethod(); // 获取当前输入法
       for (let i = 0; i < this.inputMethods.length; i++) {
-        if (item != currentInputMethod.name) { // 判断不是当前输入法时，切换到该输入法，实际开发中可以切换到固定输入法
+        if (this.inputMethods[i].name === item && item != currentInputMethod.name) { // 判断是目标输入法且不是当前输入法时，切换到该输入法
           await inputMethod.switchInputMethod(this.inputMethods[i]);
+          this.currentInputMethodName = inputMethod.getCurrentInputMethod().name; // 更新当前输入法
+          this.currentInputMethodSubtype = inputMethod.getCurrentInputMethodSubtype().id; // 更新当前子类型
         }
       }
     } catch (err) {
@@ -99,6 +113,22 @@ export struct Submenu {
   }
 
   // [End input_case_input_switchInputMethodgetInputMethods]
+
+  // [Start input_case_input_switchInputMethodAndSubtype]
+  async switchInputMethodAndSubtype(targetProperty: inputMethod.InputMethodProperty, subtype: InputMethodSubtype) {
+    try {
+      let isSuccess = await inputMethod.switchCurrentInputMethodAndSubtype(targetProperty, subtype); // 切换到目标输入法的指定子类型
+      if (isSuccess) {
+        this.currentInputMethodName = inputMethod.getCurrentInputMethod().name; // 更新当前输入法
+        this.currentInputMethodSubtype = inputMethod.getCurrentInputMethodSubtype().id; // 更新当前子类型
+      }
+    } catch (err) {
+      let error: BusinessError = err as BusinessError;
+      console.error(`Failed to switchInputMethodAndSubtype, code: ${error.code}, message: ${error.message}`);
+    }
+  }
+
+  // [End input_case_input_switchInputMethodAndSubtype]
 
   aboutToAppear(): void {
     this.inputList()
@@ -134,7 +164,7 @@ export struct Submenu {
               ListItem() {
                 Column() {
                   Row() {
-                    if (item.name == inputMethod.getCurrentInputMethod().name) {
+                    if (item.name == this.currentInputMethodName) {
                       Image($r('app.media.ic_arrow_right'))
                         .width(40)
                         .height(40)
@@ -151,33 +181,36 @@ export struct Submenu {
                       })
                   }
 
-                  if (this.inputMethods[index].name == inputMethod.getCurrentInputMethod().name) {
-                    List() {
-                      ForEach(this.inputMethodSubtypes, (item: InputMethodSubtype) => {
-                        ListItem() {
-                          Row() {
-                            Text(item.locale).fontSize(20)
-                            Blank()
-                            if (item.id == this.currentInputMethodSubtype) {
-                              Image($r('app.media.ic_cursor_left'))
-                                .width(40)
-                                .height(40)
-                                .margin(10)
-                            }
+                  List() {
+                    ForEach(this.subtypesOfMethods[index], (subtype: InputMethodSubtype) => {
+                      ListItem() {
+                        Row() {
+                          Text(subtype.locale).fontSize(20)
+                          Blank()
+                          if (item.name == this.currentInputMethodName &&
+                            subtype.id == this.currentInputMethodSubtype) {
+                            Image($r('app.media.ic_cursor_left'))
+                              .width(40)
+                              .height(40)
+                              .margin(10)
                           }
-                          .width('90%')
-                          .height(35)
-                          .justifyContent(FlexAlign.Start)
-                          .onClick(() => {
-                            this.switchCurrentInputMethodSubtype(item)
-                          })
                         }
-                      })
-                    }
-                    .width('90%')
-                    .margin({ left: '10%' })
-                    .divider({ color: '#000000', strokeWidth: 1 })
+                        .width('90%')
+                        .height(35)
+                        .justifyContent(FlexAlign.Start)
+                        .onClick(() => {
+                          if (item.name == this.currentInputMethodName) {
+                            this.switchCurrentInputMethodSubtype(subtype) // 当前输入法仅切换子类型
+                          } else {
+                            this.switchInputMethodAndSubtype(item, subtype) // 非当前输入法切换到指定输入法的指定子类型
+                          }
+                        })
+                      }
+                    }, (subtype: InputMethodSubtype) => JSON.stringify(subtype))
                   }
+                  .width('90%')
+                  .margin({ left: '10%' })
+                  .divider({ color: '#000000', strokeWidth: 1 })
                 }
                 .width('100%')
                 .alignItems(HorizontalAlign.Start)

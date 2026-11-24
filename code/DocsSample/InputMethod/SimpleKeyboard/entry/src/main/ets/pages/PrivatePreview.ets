@@ -76,6 +76,22 @@ struct PrivatePreview {
         .lineHeight(22)
         .fontWeight(500)
 
+      // [Start input_case_input_goto_not_focusable_window_demo]
+      Button() {
+        Text($r('app.string.not_focusable_window_title'))
+          .fontSize(14)
+      }
+      .width('90%')
+      .height(48)
+      .margin(10)
+      .onClick(() => {
+        this.getUIContext().getRouter().pushUrl({
+          url: 'pages/NotFocusableWindowDemo'
+        })
+      })
+
+      // [End input_case_input_goto_not_focusable_window_demo]
+
       TextInput({
         text: this.preViewText,
         placeholder: $r('app.string.Preview_tip'),
