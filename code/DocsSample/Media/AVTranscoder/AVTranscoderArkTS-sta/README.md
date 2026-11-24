@@ -2,7 +2,7 @@
 
 ## 介绍
 
-本示例为媒体->Media Kit(媒体服务)->[使用AVTranscoder实现视频转码(ArkTS)](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/media/media/using-avtranscoder-for-transcodering.md)的静态接口配套示例工程。 
+本示例为媒体->Media Kit(媒体服务)->[使用AVTranscoder实现视频转码(ArkTS)](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/media/media/using-avtranscoder-for-transcoding.md)的静态接口配套示例工程。 
 
 本示例以“开始转码-暂停转码-恢复转码-转码完成”的一次流程为示例，使用createAVTranscoder及其相关静态接口，展示AVTranscoder视频转码相关功能。
 
