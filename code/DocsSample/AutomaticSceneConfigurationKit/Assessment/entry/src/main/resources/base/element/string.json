@@ -57,6 +57,18 @@
       "value": "The whitelist is empty"
     },
     {
+      "name": "allowed_apps_collapsed",
+      "value": "Whitelist apps (%d)"
+    },
+    {
+      "name": "allowed_apps_expand",
+      "value": "Expand"
+    },
+    {
+      "name": "allowed_apps_collapse",
+      "value": "Collapse"
+    },
+    {
       "name": "operation_title",
       "value": "Operations"
     },
@@ -223,6 +235,134 @@
     {
       "name": "hardening_title",
       "value": "Assessment hardening"
+    },
+    {
+      "name": "question_stem_4",
+      "value": "The English name of the HarmonyOS distributed soft bus is ____"
+    },
+    {
+      "name": "question_stem_5",
+      "value": "In ArkUI state management V2, the decorator for deep observation of class property changes is ____"
+    },
+    {
+      "name": "question_fill_placeholder",
+      "value": "Type your answer"
+    },
+    {
+      "name": "setting_clear_clipboard",
+      "value": "Clear clipboard when entering exam"
+    },
+    {
+      "name": "setting_privacy_mode",
+      "value": "Enable privacy mode when entering exam"
+    },
+    {
+      "name": "setting_simple_keyboard",
+      "value": "Use simple keyboard when entering exam"
+    },
+    {
+      "name": "setting_allow_developer_mode",
+      "value": "Allow entering exam in USB debug mode"
+    },
+    {
+      "name": "setting_allow_emulator",
+      "value": "Allow entering exam on emulator"
+    },
+    {
+      "name": "setting_screen_record",
+      "value": "Record screen during exam"
+    },
+    {
+      "name": "debug_panel_title",
+      "value": "API Calls & Status Info"
+    },
+    {
+      "name": "debug_panel_arrow",
+      "value": "▲"
+    },
+    {
+      "name": "whitelist_help_icon",
+      "value": "?"
+    },
+    {
+      "name": "whitelist_popup_description",
+      "value": "Apps in the whitelist can still run during assessment mode. Apps not in the whitelist will be restricted. Click Expand to view the full list."
+    },
+    {
+      "name": "whitelist_default_apps_label",
+      "value": "Default whitelist apps:"
+    },
+    {
+      "name": "whitelist_app_self",
+      "value": "This app"
+    },
+    {
+      "name": "whitelist_app_emergency",
+      "value": "Emergency alert"
+    },
+    {
+      "name": "whitelist_app_screenreader",
+      "value": "Screen reader"
+    },
+    {
+      "name": "whitelist_app_privacy_center",
+      "value": "Privacy center"
+    },
+    {
+      "name": "whitelist_app_scene_board",
+      "value": "Scene board"
+    },
+    {
+      "name": "whitelist_app_screen_recorder",
+      "value": "Screen recorder"
+    },
+    {
+      "name": "whitelist_app_calculator",
+      "value": "Calculator"
+    },
+    {
+      "name": "whitelist_app_calendar",
+      "value": "Calendar"
+    },
+    {
+      "name": "whitelist_app_call_log",
+      "value": "Call log"
+    },
+    {
+      "name": "whitelist_app_form_render",
+      "value": "Form render service"
+    },
+    {
+      "name": "toast_developer_mode_blocked",
+      "value": "USB debugging mode is active, exam entry is not allowed"
+    },
+    {
+      "name": "toast_emulator_blocked",
+      "value": "Emulator environment detected, exam entry is not allowed"
+    },
+    {
+      "name": "toast_error_code",
+      "value": "%s error code: %d"
+    },
+    {
+      "name": "reason_microphone",
+      "value": "Microphone permission is required for screen recording with audio"
+    },
+    {
+      "name": "exam_submit_confirm_title",
+      "value": "Submit Exam"
+    },
+    {
+      "name": "exam_submit_confirm_message",
+      "value": "Are you sure you want to submit? You have answered %1$d of %2$d questions."
+    },
+    {
+      "name": "exam_submit_confirm_yes",
+      "value": "Submit"
+    },
+    {
+      "name": "exam_submit_confirm_no",
+      "value": "Cancel"
     }
   ]
 }

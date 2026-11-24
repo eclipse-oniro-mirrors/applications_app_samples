@@ -57,6 +57,18 @@
       "value": "白名单为空"
     },
     {
+      "name": "allowed_apps_collapsed",
+      "value": "白名单应用（%d个）"
+    },
+    {
+      "name": "allowed_apps_expand",
+      "value": "展开"
+    },
+    {
+      "name": "allowed_apps_collapse",
+      "value": "收起"
+    },
+    {
       "name": "operation_title",
       "value": "接口调用"
     },
@@ -223,6 +235,134 @@
     {
       "name": "hardening_title",
       "value": "评估加固"
+    },
+    {
+      "name": "question_stem_4",
+      "value": "HarmonyOS分布式软总线的英文名称是____"
+    },
+    {
+      "name": "question_stem_5",
+      "value": "ArkUI状态管理V2中，用于深度观测类属性变化的装饰器是____"
+    },
+    {
+      "name": "question_fill_placeholder",
+      "value": "请输入答案"
+    },
+    {
+      "name": "setting_clear_clipboard",
+      "value": "进入考试后清空剪贴板"
+    },
+    {
+      "name": "setting_privacy_mode",
+      "value": "进入考试后开启隐私模式"
+    },
+    {
+      "name": "setting_simple_keyboard",
+      "value": "进入考试后使用简单键盘"
+    },
+    {
+      "name": "setting_allow_developer_mode",
+      "value": "USB调试模式允许进入考试"
+    },
+    {
+      "name": "setting_allow_emulator",
+      "value": "模拟器允许进入考试"
+    },
+    {
+      "name": "setting_screen_record",
+      "value": "进入考试后录屏"
+    },
+    {
+      "name": "debug_panel_title",
+      "value": "接口调用与状态信息"
+    },
+    {
+      "name": "debug_panel_arrow",
+      "value": "▲"
+    },
+    {
+      "name": "whitelist_help_icon",
+      "value": "?"
+    },
+    {
+      "name": "whitelist_popup_description",
+      "value": "白名单中的应用在评估模式期间仍可正常运行，未加入白名单的应用将被限制使用。点击展开可查看完整列表。"
+    },
+    {
+      "name": "whitelist_default_apps_label",
+      "value": "默认白名单应用："
+    },
+    {
+      "name": "whitelist_app_self",
+      "value": "本应用"
+    },
+    {
+      "name": "whitelist_app_emergency",
+      "value": "地震预警"
+    },
+    {
+      "name": "whitelist_app_screenreader",
+      "value": "屏幕朗读"
+    },
+    {
+      "name": "whitelist_app_privacy_center",
+      "value": "隐私中心"
+    },
+    {
+      "name": "whitelist_app_scene_board",
+      "value": "场景板"
+    },
+    {
+      "name": "whitelist_app_screen_recorder",
+      "value": "录屏"
+    },
+    {
+      "name": "whitelist_app_calculator",
+      "value": "计算器"
+    },
+    {
+      "name": "whitelist_app_calendar",
+      "value": "日历"
+    },
+    {
+      "name": "whitelist_app_call_log",
+      "value": "通话记录"
+    },
+    {
+      "name": "whitelist_app_form_render",
+      "value": "表单渲染服务"
+    },
+    {
+      "name": "toast_developer_mode_blocked",
+      "value": "当前处于USB调试模式，不允许进入考试"
+    },
+    {
+      "name": "toast_emulator_blocked",
+      "value": "当前为模拟器环境，不允许进入考试"
+    },
+    {
+      "name": "toast_error_code",
+      "value": "%s error code: %d"
+    },
+    {
+      "name": "reason_microphone",
+      "value": "录屏功能需要麦克风权限以录制音频"
+    },
+    {
+      "name": "exam_submit_confirm_title",
+      "value": "交卷确认"
+    },
+    {
+      "name": "exam_submit_confirm_message",
+      "value": "确定要交卷吗？你已完成 %1$d / %2$d 道题。"
+    },
+    {
+      "name": "exam_submit_confirm_yes",
+      "value": "交卷"
+    },
+    {
+      "name": "exam_submit_confirm_no",
+      "value": "取消"
     }
   ]
 }

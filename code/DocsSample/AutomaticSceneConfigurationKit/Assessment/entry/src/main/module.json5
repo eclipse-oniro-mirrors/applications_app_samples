@@ -47,6 +47,12 @@
               "ohos.want.action.home"
             ]
           }
+        ],
+        "metadata": [
+          {
+            "name": "ohos.ability.window.isMaximize",
+            "value": "true"
+          }
         ]
       }
     ],

@@ -38,6 +38,16 @@ export class AssessmentConstants {
   public static readonly MAX_EVENT_LOG: number = 20;
   public static readonly COUNTDOWN_INTERVAL: number = 1000;
   public static readonly DEFAULT_ALLOWED_APP: string = 'com.samples.assessment';
+  public static readonly EMERGENCY_ALLOWED_APP: string = 'com.huawei.hmos.emergencycommunication';
+  public static readonly SCREEN_READER_ALLOWED_APP: string = 'com.huawei.hmos.screenreader';
+  public static readonly PRIVACY_CENTER_ALLOWED_APP: string = 'com.huawei.hmos.security.privacycenter';
+  public static readonly SCENE_BOARD_ALLOWED_APP: string = 'com.ohos.sceneboard';
+  public static readonly SCREEN_RECORDER_ALLOWED_APP: string = 'com.huawei.hmos.screenrecorder';
+  public static readonly CALCULATOR_ALLOWED_APP: string = 'com.huawei.hmos.calculator';
+  public static readonly CALENDAR_ALLOWED_APP: string = 'com.huawei.hmos.calendar';
+  public static readonly CALL_LOG_ABILITY_ALLOWED_APP: string = 'com.ohos.calllogability';
+  public static readonly FORM_RENDER_SERVICE_ALLOWED_APP: string = 'com.ohos.formrenderservice';
+
 
   // The ASCII code of the letter A, it is used to label the options of a question.
   public static readonly OPTION_LABEL_BASE: number = 65;
@@ -66,5 +76,5 @@ export class AssessmentConstants {
   public static readonly KEY_EVENT_SEQ: string = 'assessmentEventSeq';
 
   // Page routes declared in main_pages.json.
-  public static readonly PAGE_EXAM: string = 'exam/pages/ExamPage';
+  public static readonly PAGE_EXAM: string = 'pages/ExamPage';
 }

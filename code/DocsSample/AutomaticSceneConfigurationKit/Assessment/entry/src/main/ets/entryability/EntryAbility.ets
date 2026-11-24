@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { AbilityConstant, bundleManager, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 import Logger from '../common/utils/Logger';
@@ -34,13 +34,25 @@ export default class EntryAbility extends UIAbility {
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
     Logger.info('Ability onWindowStageCreate');
-    windowStage.loadContent('pages/Index', (error: BusinessError) => {
+    windowStage.loadContent('pages/IndexPage', (error: BusinessError) => {
       if (error !== undefined && error.code !== 0) {
         Logger.error(`onWindowStageCreate, failed to load content, code: ${error.code}`);
         return;
       }
       Logger.info('onWindowStageCreate, content loaded');
+      this.setupImmersiveWindow(windowStage);
     });
+  }
+
+  private async setupImmersiveWindow(windowStage: window.WindowStage): Promise<void> {
+    try {
+      const mainWindow: window.Window = await windowStage.getMainWindow();
+      await mainWindow.setWindowLayoutFullScreen(true);
+      Logger.info('setupImmersiveWindow: setWindowLayoutFullScreen done');
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      Logger.error(`setupImmersiveWindow failed, code: ${err.code}, message: ${err.message}`);
+    }
   }
 
   onWindowStageDestroy(): void {
