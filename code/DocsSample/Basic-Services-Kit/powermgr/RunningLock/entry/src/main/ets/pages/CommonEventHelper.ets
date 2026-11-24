@@ -12,9 +12,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start common_event_utility_class]
 import { commonEventManager, BusinessError} from '@kit.BasicServicesKit';
 
+// [Start common_event_utility_class]
 type SubscriberInfo = commonEventManager.CommonEventSubscribeInfo;
 type Subscriber = commonEventManager.CommonEventSubscriber;
 type EventData = commonEventManager.CommonEventData;
