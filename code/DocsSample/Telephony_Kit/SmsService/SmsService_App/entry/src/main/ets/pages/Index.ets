@@ -21,9 +21,9 @@ const MMS_ABILITY_NAME = 'com.ohos.mms.MainAbility';
 
 export class Contact {
     contactsName: string;
-    telephone: number;
+    telephone: string;
 
-    constructor(contactsName: string, telephone: number) {
+    constructor(contactsName: string, telephone: string) {
         this.contactsName = contactsName;
         this.telephone = telephone;
     }
