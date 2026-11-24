@@ -15,38 +15,41 @@
 
 import UIAbility from '@ohos.app.ability.UIAbility';
 import type Window from '@ohos.window';
+import Want from '@ohos.app.ability.Want';
+import AbilityConstant from '@ohos.app.ability.AbilityConstant';
 import contact from '@ohos.contact';
 import Logger from '../data/Logger';
 import abilityAccessCtrl from '@ohos.abilityAccessCtrl';
 
-const TAG: string = 'EntryAbility';
+const TAG: string = '[Sample_Contact]';
 
 export default class EntryAbility extends UIAbility {
-  async onCreate(want, launchParam) {
+  async onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): Promise<void> {
     let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
     globalThis.abilityContext = this.context;
     try {
-      atManager.requestPermissionsFromUser(this.context, ['ohos.permission.WRITE_CONTACTS', 'ohos.permission.READ_CONTACTS']).then((data) => {
+      atManager.requestPermissionsFromUser(this.context,
+        ['ohos.permission.WRITE_CONTACTS', 'ohos.permission.READ_CONTACTS']).then((data) => {
         // 监听是否获取到了权限
         if (!data.authResults.includes(-1)) {
           AppStorage.SetOrCreate<boolean>('hasPermission', true);
         }
       }).catch((err) => {
         Logger.info(TAG, `err: ${JSON.stringify(err)}`);
-      })
+      });
     } catch (err) {
       Logger.info(TAG, `catch err->${JSON.stringify(err)}`);
     }
   }
 
-  onWindowStageCreate(windowStage: Window.WindowStage) {
+  onWindowStageCreate(windowStage: Window.WindowStage): void {
     // Main window is created, set main page for this ability
     windowStage.loadContent('pages/Index', (err, data) => {
       if (err.code) {
         Logger.error(`Failed to load the content. Cause: ${JSON.stringify(err)}`);
-        return
+        return;
       }
       Logger.error(`Succeeded in loading the content. Data: ${JSON.stringify(data)}`);
-    })
+    });
   }
 }

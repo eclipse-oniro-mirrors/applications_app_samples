@@ -1,0 +1,23 @@
+{
+  "string": [
+    {
+      "name": "module_test_desc",
+      "value": "ScanNapiInterfaceDemo test module",
+      "description": "Test module description"
+    },
+    {
+      "name": "TestAbility_desc",
+      "value": "ScanNapiInterfaceDemo test ability",
+      "description": "Test ability description"
+    },
+    {
+      "name": "TestAbility_label",
+      "value": "ScanNapiInterfaceDemo TestAbility",
+      "description": "Test ability label"
+    },
+    {
+      "name": "test_title",
+      "value": "ScanNapiInterfaceDemo Test"
+    }
+  ]
+}

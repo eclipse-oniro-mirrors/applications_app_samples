@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import hilog from '@ohos.hilog'
+import { hilog } from '@kit.PerformanceAnalysisKit'
 
 class Logger {
   private domain: number
@@ -21,22 +21,22 @@ class Logger {
 
   constructor(prefix: string) {
     this.prefix = prefix
-    this.domain = 0xFF00
+    this.domain = 0xF811
   }
 
-  debug(...args: any[]) {
+  debug(...args: string[]): void {
     hilog.debug(this.domain, this.prefix, this.format, args)
   }
 
-  info(...args: any[]) {
+  info(...args: string[]): void {
     hilog.info(this.domain, this.prefix, this.format, args)
   }
 
-  warn(...args: any[]) {
+  warn(...args: string[]): void {
     hilog.warn(this.domain, this.prefix, this.format, args)
   }
 
-  error(...args: any[]) {
+  error(...args: string[]): void {
     hilog.error(this.domain, this.prefix, this.format, args)
   }
 }

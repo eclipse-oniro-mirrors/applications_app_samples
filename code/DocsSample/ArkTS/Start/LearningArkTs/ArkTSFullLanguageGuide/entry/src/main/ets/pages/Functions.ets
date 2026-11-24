@@ -51,10 +51,10 @@ let area: number = calculateArea(10, 20);  // 200
 // ===== function_naming_conventions =====
 // [Start function_naming_conventions]
 // 函数名：动词或动词短语，camelCase
-function calculateTotal() {}
-function validateInput() {}
-function processData() {}
-function fetchUserInfo() {}
+function calculateTotal(): number { return 0; }  // 计算并返回总和
+function validateInput(): boolean { return true; }  // 校验输入合法性
+function processData(): void { console.info('processing'); }  // 处理数据
+function fetchUserInfo(): string { return 'Alice'; }  // 获取用户信息
 
 // 参数名：名词，camelCase，描述性
 function greet(userName: string): string {
@@ -981,10 +981,10 @@ function compose<T, U, V>(
   return (x: T): V => f(g(x));
 }
 
-let functionsDouble2 = (n: number): number => n * 2;
-let addOne = (n: number): number => n + 1;
+let functionsDouble2: (n: number) => number = (n: number): number => n * 2;
+let addOne: (n: number) => number = (n: number): number => n + 1;
 
-let doubleThenAddOne = compose(addOne, functionsDouble2);
+let doubleThenAddOne: (x: number) => number = compose(addOne, functionsDouble2);
 doubleThenAddOne(5);  // 11
 // [End higher_order_functions]
 

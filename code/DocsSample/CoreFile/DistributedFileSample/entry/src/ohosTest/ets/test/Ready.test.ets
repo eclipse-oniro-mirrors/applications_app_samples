@@ -13,109 +13,186 @@
  * limitations under the License.
  */
 
-import { describe, it, expect } from '@ohos/hypium'
-import { Driver, ON, Component, abilityDelegatorRegistry } from '@kit.TestKit';
-import { UIAbility, Want } from '@kit.AbilityKit';
+import { describe, it, expect as hypiumExpect, TestType, Size, Level } from '@ohos/hypium';
+import type { Assert } from '@ohos/hypium';
+import { Driver, ON, abilityDelegatorRegistry } from '@kit.TestKit';
+import type { Component } from '@kit.TestKit';
+import type { UIAbility, Want } from '@kit.AbilityKit';
+import { bundleManager } from '@kit.AbilityKit';
+import type { resourceManager } from '@kit.LocalizationKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { isDistributedOperationReady } from './DistributedTestSupport';
 
-const DELAY_TIME = 1500; // 延时1.5秒
-const TAG = '[Sample_DistributedFileSamples]';
-const DOMAIN = 0xF811;
-const BUNDLE = 'DistributedFileSamples_';
+const DELAY_TIME: number = 1500;
+const DOMAIN: number = 0xF811;
+const PERMISSION_NAME: string = 'ohos.permission.DISTRIBUTED_DATASYNC';
+const TOP_ABILITY_STEP_MS: number = 200;
+const TOP_ABILITY_LIMIT: number = 30;
+const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const bundleName: string = abilityDelegatorRegistry.getArguments().bundleName;
 
-const delegator = abilityDelegatorRegistry.getAbilityDelegator();
-const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+async function isPermissionGranted(): Promise<boolean> {
+  const info: bundleManager.BundleInfo = await bundleManager.getBundleInfoForSelf(
+    bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_REQUESTED_PERMISSION);
+  const index: number = info.reqPermissionDetails.findIndex((detail: bundleManager.ReqPermissionDetail): boolean =>
+    detail.name === PERMISSION_NAME);
+  return index >= 0 && info.permissionGrantStates[index] === bundleManager.PermissionGrantState.PERMISSION_GRANTED;
+}
+
+// startAbility 返回时页面切换尚未落定，直接取栈顶会偶发拿到 TestAbility，需等到 EntryAbility 上位。
+async function waitTopAbilityName(): Promise<string> {
+  const driver: Driver = Driver.create();
+  let name: string = '';
+  for (let step: number = 0; step < TOP_ABILITY_LIMIT; step++) {
+    const ability: UIAbility = await delegator.getCurrentTopAbility();
+    name = ability.context.abilityInfo.name;
+    if (name === 'EntryAbility') {
+      break;
+    }
+    await driver.delayMs(TOP_ABILITY_STEP_MS);
+  }
+  return name;
+}
+
+function expect(tag: string, actual: Object | undefined): Assert {
+  const actualText: string = JSON.stringify(actual) ?? 'undefined';
+  hilog.info(DOMAIN, tag, 'assert actual=%{public}s', actualText);
+  return hypiumExpect(actual);
+}
 
 async function getResourceString(resource: Resource): Promise<string> {
-  let manage = abilityDelegator.getAppContext().resourceManager;
-  let text = await manage.getStringValue(resource);
+  const manager: resourceManager.ResourceManager = delegator.getAppContext().resourceManager;
+  const text: string = await manager.getStringValue(resource);
   return text;
 }
 
-export default function readyTest() {
-  describe('readyTest', () => {
+export default function readyTest(): void {
+  describe('readyTest', (): void => {
     /**
-     * @tc.number StartAbility_001
-     * @tc.name StartAbility_001
-     * @tc.desc 启动Ability
+     * @tc.number SUB_DISTRIBUTED_FILE_READY_0100
+     * @tc.name testDistributedFileReady0001
+     * @tc.desc Start the entry ability and verify the top ability name.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
      */
-    it(BUNDLE + 'StartAbility_001', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility_001 begin');
-      // start tested ability
-      const want: Want = {
-        bundleName: bundleName,
-        abilityName: 'EntryAbility'
-      };
-      await delegator.startAbility(want);
-      // check top display ability
-      const ability: UIAbility = await delegator.getCurrentTopAbility();
-      console.info("get top ability");
-      expect(ability.context.abilityInfo.name).assertEqual('TestAbility');
-      done();
-      hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility_001 end');
-
-    })
+    it('testDistributedFileReady0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const TAG: string = 'testDistributedFileReady0001';
+        hilog.info(DOMAIN, TAG, `${TAG} start`);
+        try {
+          const want: Want = { bundleName: bundleName, abilityName: 'EntryAbility' };
+          await delegator.startAbility(want);
+          expect(TAG, await waitTopAbilityName()).assertEqual('EntryAbility');
+        } finally {
+          hilog.info(DOMAIN, TAG, `${TAG} end`);
+        }
+      });
     /**
-     * @tc.number ApplyPermission_001
-     * @tc.name ApplyPermission_001
-     * @tc.desc 权限申请
+     * @tc.number SUB_DISTRIBUTED_FILE_READY_0200
+     * @tc.name testDistributedFileReady0002
+     * @tc.desc Verify the permission request button text and enabled state before clicking.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
      */
-    it(BUNDLE + 'ApplyPermission_001', 0, async () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'ApplyPermission_001 begin');
-      let str = await getResourceString($r('app.string.ApplyPermission'));
-      let driver: Driver = Driver.create();
-      await driver.assertComponentExist(ON.text(str));
-      let button: Component = await driver.findComponent(ON.text(str));
-      await button.click();
-      await driver.delayMs(DELAY_TIME);
-      hilog.info(DOMAIN, TAG, BUNDLE + 'ApplyPermission_001 end');
-    })
+    it('testDistributedFileReady0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const TAG: string = 'testDistributedFileReady0002';
+        hilog.info(DOMAIN, TAG, `${TAG} start`);
+        try {
+          const text: string = await getResourceString($r('app.string.ApplyPermission'));
+          const driver: Driver = Driver.create();
+          const button: Component = await driver.findComponent(ON.text(text));
+          expect(TAG, await button.getText()).assertEqual(text);
+          expect(TAG, await button.isEnabled()).assertEqual(true);
+          await button.click();
+          await driver.delayMs(DELAY_TIME);
+        } finally {
+          hilog.info(DOMAIN, TAG, `${TAG} end`);
+        }
+      });
     /**
-     * @tc.number ApplyPermission_002
-     * @tc.name ApplyPermission_002
-     * @tc.desc 允许权限
+     * @tc.number SUB_DISTRIBUTED_FILE_READY_0300
+     * @tc.name testDistributedFileReady0003
+     * @tc.desc Verify the permission confirmation button text and enabled state before clicking.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
      */
-    it(BUNDLE + 'ApplyPermission_002', 0, async () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'ApplyPermission_002 begin');
-      let str = await getResourceString($r('app.string.permit'));
-      let driver: Driver = Driver.create();
-      await driver.assertComponentExist(ON.text(str));
-      let button: Component = await driver.findComponent(ON.text(str));
-      await button.click();
-      await driver.delayMs(DELAY_TIME);
-      hilog.info(DOMAIN, TAG, BUNDLE + 'ApplyPermission_002 end');
-    })
+    it('testDistributedFileReady0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const TAG: string = 'testDistributedFileReady0003';
+        hilog.info(DOMAIN, TAG, `${TAG} start`);
+        try {
+          const text: string = await getResourceString($r('app.string.permit'));
+          const driver: Driver = Driver.create();
+          const button: Component | null = await driver.findComponent(ON.text(text));
+          if (button === null) {
+            expect(TAG, await isPermissionGranted()).assertTrue();
+          } else {
+            expect(TAG, await button.getText()).assertEqual(text);
+            expect(TAG, await button.isEnabled()).assertEqual(true);
+            await button.click();
+            await driver.delayMs(DELAY_TIME);
+            expect(TAG, await isPermissionGranted()).assertTrue();
+          }
+        } finally {
+          hilog.info(DOMAIN, TAG, `${TAG} end`);
+        }
+      });
     /**
-     * @tc.number CreateFile_001
-     * @tc.name CreateFile_001
-     * @tc.desc 分布式目录下创建文件
+     * @tc.number SUB_DISTRIBUTED_FILE_READY_0400
+     * @tc.name testDistributedFileReady0004
+     * @tc.desc Verify the create file button text and enabled state before clicking.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
      */
-    it(BUNDLE + 'CreateFile_001', 0, async () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'CreateFile_001 begin');
-      let str = await getResourceString($r('app.string.CreateFile'));
-      let driver: Driver = Driver.create();
-      await driver.assertComponentExist(ON.text(str));
-      let button: Component = await driver.findComponent(ON.text(str));
-      await button.click();
-      await driver.delayMs(DELAY_TIME);
-      hilog.info(DOMAIN, TAG, BUNDLE + 'CreateFile_001 end');
-    })
+    it('testDistributedFileReady0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const TAG: string = 'testDistributedFileReady0004';
+        hilog.info(DOMAIN, TAG, `${TAG} start`);
+        try {
+          const text: string = await getResourceString($r('app.string.CreateFile'));
+          const driver: Driver = Driver.create();
+          const button: Component = await driver.findComponent(ON.text(text));
+          expect(TAG, await button.getText()).assertEqual(text);
+          expect(TAG, await button.isEnabled()).assertEqual(true);
+          // createFile 同步写 distributedFilesDir，目录未挂载时会长时间占住主线程，只在环境就绪时点击。
+          if (isDistributedOperationReady(bundleName, delegator.getAppContext().distributedFilesDir)) {
+            await button.click();
+            await driver.delayMs(DELAY_TIME);
+          }
+        } finally {
+          hilog.info(DOMAIN, TAG, `${TAG} end`);
+        }
+      });
     /**
-     * @tc.number copySandFile_001
-     * @tc.name copySandFile_001
-     * @tc.desc 从沙箱路径复制文件到分布式路径
+     * @tc.number SUB_DISTRIBUTED_FILE_READY_0500
+     * @tc.name testDistributedFileReady0005
+     * @tc.desc Verify the sandbox copy button text and enabled state before clicking.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
      */
-    it(BUNDLE + 'copySandFile_001', 0, async () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'copySandFile begin');
-      let str = await getResourceString($r('app.string.CopySandToDistributed'));
-      let driver: Driver = Driver.create();
-      await driver.assertComponentExist(ON.text(str));
-      let button: Component = await driver.findComponent(ON.text(str));
-      await button.click();
-      await driver.delayMs(DELAY_TIME);
-      hilog.info(DOMAIN, TAG, BUNDLE + 'copySandFile end');
-    })
-
-  })
+    it('testDistributedFileReady0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const TAG: string = 'testDistributedFileReady0005';
+        hilog.info(DOMAIN, TAG, `${TAG} start`);
+        try {
+          const text: string = await getResourceString($r('app.string.CopySandToDistributed'));
+          const driver: Driver = Driver.create();
+          const button: Component = await driver.findComponent(ON.text(text));
+          expect(TAG, await button.getText()).assertEqual(text);
+          expect(TAG, await button.isEnabled()).assertEqual(true);
+          if (isDistributedOperationReady(bundleName, delegator.getAppContext().distributedFilesDir)) {
+            await button.click();
+            await driver.delayMs(DELAY_TIME);
+          }
+        } finally {
+          hilog.info(DOMAIN, TAG, `${TAG} end`);
+        }
+      });
+  });
 }

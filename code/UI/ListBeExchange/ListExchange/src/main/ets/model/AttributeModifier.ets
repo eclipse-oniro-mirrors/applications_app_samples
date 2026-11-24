@@ -14,24 +14,39 @@
  */
 
 /**
+ * @file ListExchange/src/main/ets/model/AttributeModifier.ets
+ * 文件职责：AttributeModifier 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ListItemModifier。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
+/**
  * 通过实现AttributeModifier接口，自定义属性修改器
  * 将拖拽排序相关样式封装成属性修改器，可以方便移植
  */
 export class ListItemModifier implements AttributeModifier<ListItemAttribute> {
   // 阴影
   public hasShadow: boolean = false;
+
   // 缩放
   public scale: number = 1;
+
   // 纵轴偏移量
   public offsetY: number = 0;
+
   // 横轴偏移量
   public offsetX: number = 0;
+
   // 透明度
   public opacity: number = 1;
+
   // 是否被删除
   public isDeleted: boolean = false;
   public static instance: ListItemModifier | null = null;
 
+  /**
+   * getInstance：执行 getInstance 相关逻辑。
+   */
   public static getInstance(): ListItemModifier {
     if (!ListItemModifier.instance) {
       ListItemModifier.instance = new ListItemModifier();

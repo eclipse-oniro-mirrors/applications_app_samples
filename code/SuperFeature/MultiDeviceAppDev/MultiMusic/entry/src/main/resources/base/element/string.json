@@ -2,7 +2,7 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "module description"
+      "value": "模块描述"
     },
     {
       "name": "mine",
@@ -34,7 +34,7 @@
     },
     {
       "name": "rank",
-      "value": "排行榜个"
+      "value": "排行榜"
     },
     {
       "name": "singList",
@@ -114,7 +114,7 @@
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "应用描述"
     },
     {
       "name": "sunshine",
@@ -126,7 +126,51 @@
     },
     {
       "name": "EntryAbility_label",
-      "value": "label"
+      "value": "应用名称"
+    },
+    {
+      "name": "search_placeholder",
+      "value": "搜索..."
+    },
+    {
+      "name": "more",
+      "value": "更多"
+    },
+    {
+      "name": "player_song_name",
+      "value": "Witness"
+    },
+    {
+      "name": "player_artist_name",
+      "value": "Katy"
+    },
+    {
+      "name": "build_self_song_count",
+      "value": "（%d首）"
+    },
+    {
+      "name": "song_label_01",
+      "value": "怀旧经典:哈尼哈尼莱克-相见相见"
+    },
+    {
+      "name": "song_label_02",
+      "value": "北欧天籁:哈尼哈尼莱克-相见相见"
+    },
+    {
+      "name": "song_label_03",
+      "value": "欧美新曲:哈尼哈尼莱克-相见相见"
+    },
+    {
+      "name": "song_label_04",
+      "value": "每日新歌:哈尼哈尼莱克-相见相见"
+    },
+    {
+      "name": "song_label_05",
+      "value": "新歌推荐:哈尼哈尼莱克-相见相见"
+    },
+    {
+      "name": "song_label_06",
+      "value": "每日私选30首用心为你甄选"
     }
   ]
 }

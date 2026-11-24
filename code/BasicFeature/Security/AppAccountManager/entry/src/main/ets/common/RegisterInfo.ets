@@ -17,6 +17,9 @@ import router from '@ohos.router'
 import Logger from '../model/Logger'
 import { AccountData } from '../model/AccountData'
 import { AccountModel } from '../model/AccountModel'
+import { AccountKeyBuilder } from '../model/AccountKeyBuilder'
+import { AccountValidator, RegisterInput, RegisterResult } from '../model/AccountValidator'
+import { BaseDataSource } from './BaseDataSource'
 
 interface RegisterFieldItem {
   text: Resource
@@ -27,62 +30,7 @@ interface RegisterFieldItem {
   promptText: Resource
 }
 
-class BasicDataSource<T> implements IDataSource {
-  private listeners: DataChangeListener[] = []
-
-  public totalCount(): number {
-    return 0
-  }
-
-  public getData(index: number): T | undefined {
-    return undefined
-  }
-
-  registerDataChangeListener(listener: DataChangeListener) {
-    if (this.listeners.indexOf(listener) < 0) {
-      this.listeners.push(listener)
-    }
-  }
-
-  unregisterDataChangeListener(listener: DataChangeListener) {
-    const pos = this.listeners.indexOf(listener)
-    if (pos >= 0) {
-      this.listeners.splice(pos, 1)
-    }
-  }
-
-  notifyDataReload() {
-    this.listeners.forEach(listener => {
-      listener.onDataReloaded()
-    })
-  }
-
-  notifyDataAdd(index: number) {
-    this.listeners.forEach(listener => {
-      listener.onDataAdd(index)
-    })
-  }
-
-  notifyDataChange(index: number) {
-    this.listeners.forEach(listener => {
-      listener.onDataChange(index)
-    })
-  }
-
-  notifyDataDelete(index: number) {
-    this.listeners.forEach(listener => {
-      listener.onDataDelete(index)
-    })
-  }
-
-  notifyDataMove(from: number, to: number) {
-    this.listeners.forEach(listener => {
-      listener.onDataMove(from, to)
-    })
-  }
-}
-
-class MyDataSource extends BasicDataSource<RegisterFieldItem> {
+class MyDataSource extends BaseDataSource<RegisterFieldItem> {
   private dataArray: RegisterFieldItem[] = [
     {
       text: $r('app.string.username'),
@@ -134,7 +82,7 @@ class MyDataSource extends BasicDataSource<RegisterFieldItem> {
     return this.dataArray[index]
   }
 
-  public replaceData(result: RegisterFieldItem[]) {
+  public replaceData(result: RegisterFieldItem[]): void {
     this.dataArray = result
   }
 }
@@ -178,15 +126,15 @@ export struct RegisterInfo {
               .fontSize(18)
               .width('25%')
               .textAlign(TextAlign.End)
-              .backgroundColor('#ffffff')
+              .backgroundColor($r('app.color.input_background'))
             Column() {
               Text(item.promptText)
                 .fontSize(14)
                 .width('80%')
-                .fontColor('#ffb0b0b0')
+                .fontColor($r('app.color.hint_gray'))
                 .textAlign(TextAlign.Center)
 
-              TextInput({ placeholder: 'xxxxx' })
+              TextInput({ placeholder: $r('app.string.input_placeholder') })
                 .id('Register' + (index + 1))
                 .margin(10)
                 .width('55%')
@@ -221,7 +169,7 @@ export struct RegisterInfo {
             }
           }
           .margin(5)
-          .width(this.isWideLayout ? '48%' : '100%')
+            .width(this.isWideLayout ? '48%' : '100%')
         }, (item: RegisterFieldItem) => JSON.stringify(item))
       }
       .width('100%')
@@ -234,10 +182,17 @@ export struct RegisterInfo {
         .fontColor(Color.White)
         .type(ButtonType.Capsule)
         .onClick(async () => {
-          let res = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/
-          let result: boolean = await this.storage.hasStorageValue(getContext(), this.username, this.bundleName)
-          Logger.info(TAG, `This result is ${result}`)
-          if (this.username === '') {
+          let accountExists: boolean = await this.storage.hasStorageValue(getContext(), this.username, this.bundleName)
+          Logger.info(TAG, `This result is ${accountExists}`)
+          let input: RegisterInput = {
+            username: this.username,
+            email: this.emailInfo,
+            signature: this.signature,
+            password: this.passWord,
+            confirmPassword: this.confirmPassword
+          }
+          let check: RegisterResult = AccountValidator.validateRegister(input, accountExists)
+          if (check === RegisterResult.USERNAME_EMPTY) {
             AlertDialog.show(
               {
                 message: $r('app.string.blank'),
@@ -251,7 +206,7 @@ export struct RegisterInfo {
                   Logger.info(TAG, `AlertDialog close`)
                 }
               })
-          } else if (result) {
+          } else if (check === RegisterResult.ACCOUNT_EXISTS) {
             AlertDialog.show(
               {
                 message: $r('app.string.has'),
@@ -265,7 +220,7 @@ export struct RegisterInfo {
                   Logger.info(TAG, `AlertDialog close`)
                 }
               })
-          } else if (this.emailInfo !== '' && !res.test(this.emailInfo)) {
+          } else if (check === RegisterResult.EMAIL_INVALID) {
             AlertDialog.show(
               {
                 message: $r('app.string.emailinfo'),
@@ -279,7 +234,7 @@ export struct RegisterInfo {
                   Logger.info(TAG, `AlertDialog close`)
                 }
               })
-          } else if (this.passWord === '') {
+          } else if (check === RegisterResult.PASSWORD_EMPTY) {
             AlertDialog.show(
               {
                 message: $r('app.string.password_blank'),
@@ -293,7 +248,7 @@ export struct RegisterInfo {
                   Logger.info(TAG, `AlertDialog close`)
                 }
               })
-          } else if (this.passWord !== '' && this.passWord.length < 6) {
+          } else if (check === RegisterResult.PASSWORD_TOO_SHORT) {
             AlertDialog.show(
               {
                 message: $r('app.string.min_password'),
@@ -307,7 +262,7 @@ export struct RegisterInfo {
                   Logger.info(TAG, `AlertDialog close`)
                 }
               })
-          } else if (this.confirmPassword !== this.passWord) {
+          } else if (check === RegisterResult.CONFIRM_MISMATCH) {
             AlertDialog.show(
               {
                 message: $r('app.string.password_error'),
@@ -322,18 +277,22 @@ export struct RegisterInfo {
                 }
               })
           } else {
+            let accountName: string = AccountKeyBuilder.accountName(this.username, this.bundleName)
             if (this.username !== '') {
-              await this.accountModel.addAccount(`${this.username}_${this.bundleName}`)
+              await this.accountModel.addAccount(accountName)
             }
             if (this.emailInfo !== '') {
-              await this.accountModel.setAccountCredential(`${this.username}_${this.bundleName}`, `email_${this.bundleName}`, this.emailInfo)
+              await this.accountModel.setAccountCredential(accountName,
+                AccountKeyBuilder.credentialType(AccountKeyBuilder.EMAIL_FIELD, this.bundleName), this.emailInfo)
             }
             if (this.signature !== '') {
-              await this.accountModel.setAccountCredential(`${this.username}_${this.bundleName}`, `signature_${this.bundleName}`, this.signature)
+              await this.accountModel.setAccountCredential(accountName,
+                AccountKeyBuilder.credentialType(AccountKeyBuilder.SIGNATURE_FIELD, this.bundleName), this.signature)
             }
-            await this.accountModel.setAssociatedData(`${this.username}_${this.bundleName}`, `key_${this.bundleName}`, this.passWord)
+            await this.accountModel.setAssociatedData(accountName, AccountKeyBuilder.associatedKey(this.bundleName),
+              this.passWord)
             await this.storage.putStorageValue(getContext(), this.username, this.passWord, this.bundleName)
-            await this.storage.putStorageValue(getContext(), this.bundleName, 'true', `${this.username}_${this.bundleName}`)
+            await this.storage.putStorageValue(getContext(), this.bundleName, AccountKeyBuilder.LOGIN_FLAG, accountName)
             AlertDialog.show(
               {
                 message: $r('app.string.register_info'),

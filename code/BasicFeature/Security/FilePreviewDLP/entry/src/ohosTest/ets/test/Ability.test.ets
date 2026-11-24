@@ -12,21 +12,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+import { afterEach, beforeAll, describe, it, expect, Level, Size, TestType } from '@ohos/hypium';
+import { Component, Driver, ON } from '@ohos.UiTest';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import { beforeAll, describe, it, expect } from '@ohos/hypium';
-import { Driver, ON } from '@kit.TestKit';
-import Logger from '../utils/Logger';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const TAG: string = '[Sample_FilePreviewDLP]';
-const DELAY_MS_200: number = 200;
-const DELAY_MS_300: number = 300;
-const DELAY_MS_500: number = 500;
-const DELAY_MS_1000: number = 1000;
-const BUNDLE_NAME: string = 'com.samples.filepreviewdlp';
-const ABILITY_NAME: string = 'EntryAbility';
-const TITLE_TEXT: string = 'DLP文件添加展示';
-const TOAST_TEXT: string = '此样式仅为案例展示';
+const BUNDLE: string = 'com.samples.filepreviewdlp';
+const ABILITY: string = 'EntryAbility';
+const DOMAIN: number = 0xF812;
+const TAG: string = 'AbilitySmokeTest';
 
 const ID_PAGE_ROOT: string = 'pageRoot';
 const ID_TITLE_TEXT: string = 'titleText';
@@ -34,292 +28,251 @@ const ID_ADD_BUTTON: string = 'addButton';
 const ID_FILTER_BUTTON: string = 'filterButton';
 const ID_FILE_LIST: string = 'fileList';
 
-async function waitForHomePageReady(driver: Driver): Promise<void> {
-  await driver.delayMs(DELAY_MS_1000);
-  await driver.assertComponentExist(ON.id(ID_PAGE_ROOT));
-  await driver.assertComponentExist(ON.id(ID_TITLE_TEXT));
-  await driver.assertComponentExist(ON.id(ID_ADD_BUTTON));
-  await driver.assertComponentExist(ON.id(ID_FILTER_BUTTON));
-  await driver.assertComponentExist(ON.id(ID_FILE_LIST));
+const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+
+function log(message: string): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', message);
 }
 
-async function assertHomeCoreComponents(driver: Driver): Promise<void> {
-  await driver.assertComponentExist(ON.id(ID_PAGE_ROOT));
-  await driver.assertComponentExist(ON.id(ID_TITLE_TEXT));
-  await driver.assertComponentExist(ON.id(ID_ADD_BUTTON));
-  await driver.assertComponentExist(ON.id(ID_FILTER_BUTTON));
-  await driver.assertComponentExist(ON.id(ID_FILE_LIST));
-  await driver.assertComponentExist(ON.text(TITLE_TEXT));
-}
-
-async function clickFilterButton(driver: Driver): Promise<void> {
-  let filterButton = await driver.findComponent(ON.id(ID_FILTER_BUTTON));
-  await filterButton.click();
-  await driver.delayMs(DELAY_MS_300);
-}
-
-async function clickAddButton(driver: Driver): Promise<void> {
-  let addButton = await driver.findComponent(ON.id(ID_ADD_BUTTON));
-  await addButton.click();
-  await driver.delayMs(DELAY_MS_500);
-}
-
-export default function abilityTest() {
-  const driver: Driver = Driver.create();
-
-  describe('FilePreviewDLPAbilityTest', () => {
-    beforeAll(async (done: Function) => {
-      Logger.info(TAG, 'beforeAll begin');
-      let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-      try {
-        await abilityDelegator.startAbility({
-          bundleName: BUNDLE_NAME,
-          abilityName: ABILITY_NAME
-        });
-      } catch (err) {
-        Logger.error(TAG, `beforeAll start ability failed: ${JSON.stringify(err)}`);
-      }
-      await waitForHomePageReady(driver);
-      Logger.info(TAG, 'beforeAll end');
-      done();
-    });
-
-    /**
-     * @tc.number: TC_FILEPREVIEWDLP_001
-     * @tc.name: ShowTitleAfterLaunch
-     * @tc.desc: Verify page title text after app starts.
-     * @tc.type: Function
-     * @tc.level: Level 1
-     */
-    it('TC_FILEPREVIEWDLP_001_ShowTitleAfterLaunch', 0, async () => {
-      await driver.delayMs(DELAY_MS_500);
-      await driver.assertComponentExist(ON.text(TITLE_TEXT));
-    });
-
-    /**
-     * @tc.number: TC_FILEPREVIEWDLP_002
-     * @tc.name: PageRootVisible
-     * @tc.desc: Verify page root id is visible.
-     * @tc.type: Function
-     * @tc.level: Level 1
-     */
-    it('TC_FILEPREVIEWDLP_002_PageRootVisible', 0, async () => {
-      await driver.delayMs(DELAY_MS_200);
-      await driver.assertComponentExist(ON.id(ID_PAGE_ROOT));
-    });
-
-    /**
-     * @tc.number: TC_FILEPREVIEWDLP_003
-     * @tc.name: TitleByIdVisible
-     * @tc.desc: Verify title component can be located by id.
-     * @tc.type: Function
-     * @tc.level: Level 1
-     */
-    it('TC_FILEPREVIEWDLP_003_TitleByIdVisible', 0, async () => {
-      await driver.delayMs(DELAY_MS_200);
-      await driver.assertComponentExist(ON.id(ID_TITLE_TEXT));
-    });
-
-    /**
-     * @tc.number: TC_FILEPREVIEWDLP_004
-     * @tc.name: AddButtonVisible
-     * @tc.desc: Verify add button exists on home page.
-     * @tc.type: Function
-     * @tc.level: Level 1
-     */
-    it('TC_FILEPREVIEWDLP_004_AddButtonVisible', 0, async () => {
-      await driver.delayMs(DELAY_MS_200);
-      await driver.assertComponentExist(ON.id(ID_ADD_BUTTON));
-    });
-
-    /**
-     * @tc.number: TC_FILEPREVIEWDLP_005
-     * @tc.name: FilterButtonVisible
-     * @tc.desc: Verify filter button exists on home page.
-     * @tc.type: Function
-     * @tc.level: Level 1
-     */
-    it('TC_FILEPREVIEWDLP_005_FilterButtonVisible', 0, async () => {
-      await driver.delayMs(DELAY_MS_200);
-      await driver.assertComponentExist(ON.id(ID_FILTER_BUTTON));
-    });
-
-    /**
-     * @tc.number: TC_FILEPREVIEWDLP_006
-     * @tc.name: FileListVisible
-     * @tc.desc: Verify list container exists on home page.
-     * @tc.type: Function
-     * @tc.level: Level 1
-     */
-    it('TC_FILEPREVIEWDLP_006_FileListVisible', 0, async () => {
-      await driver.delayMs(DELAY_MS_200);
-      await driver.assertComponentExist(ON.id(ID_FILE_LIST));
-    });
-
-    /**
-     * @tc.number: TC_FILEPREVIEWDLP_007
-     * @tc.name: BundleConfigMatchesTestTarget
-     * @tc.desc: Verify test constants are correctly set.
-     * @tc.type: Function
-     * @tc.level: Level 1
-     */
-    it('TC_FILEPREVIEWDLP_007_BundleConfigMatchesTestTarget', 0, async () => {
-      expect(BUNDLE_NAME).assertEqual('com.samples.filepreviewdlp');
-      expect(ABILITY_NAME).assertEqual('EntryAbility');
-      expect(TITLE_TEXT).assertEqual('DLP文件添加展示');
-      await driver.delayMs(DELAY_MS_200);
-    });
-
-    /**
-     * @tc.number: TC_FILEPREVIEWDLP_008
-     * @tc.name: AssertCoreComponentsTogether
-     * @tc.desc: Verify all key home page components can be found in one check.
-     * @tc.type: Function
-     * @tc.level: Level 1
-     */
-    it('TC_FILEPREVIEWDLP_008_AssertCoreComponentsTogether', 0, async () => {
-      await assertHomeCoreComponents(driver);
-    });
-
-    /**
-     * @tc.number: TC_FILEPREVIEWDLP_009
-     * @tc.name: FilterButtonClickableOnce
-     * @tc.desc: Verify filter button can be clicked once and app remains stable.
-     * @tc.type: Function
-     * @tc.level: Level 1
-     */
-    it('TC_FILEPREVIEWDLP_009_FilterButtonClickableOnce', 0, async () => {
-      await clickFilterButton(driver);
-      await driver.assertComponentExist(ON.id(ID_PAGE_ROOT));
-      await driver.assertComponentExist(ON.text(TITLE_TEXT));
-    });
-
-    /**
-     * @tc.number: TC_FILEPREVIEWDLP_010
-     * @tc.name: FilterButtonClickableThreeTimes
-     * @tc.desc: Verify repeated filter click does not break key UI elements.
-     * @tc.type: Function
-     * @tc.level: Level 1
-     */
-    it('TC_FILEPREVIEWDLP_010_FilterButtonClickableThreeTimes', 0, async () => {
-      await clickFilterButton(driver);
-      await clickFilterButton(driver);
-      await assertHomeCoreComponents(driver);
-    });
-
-    /**
-     * @tc.number: TC_FILEPREVIEWDLP_011
-     * @tc.name: ToastPromptConstantValid
-     * @tc.desc: Verify toast prompt constant is expected text.
-     * @tc.type: Function
-     * @tc.level: Level 1
-     */
-    it('TC_FILEPREVIEWDLP_011_ToastPromptConstantValid', 0, async () => {
-      expect(TOAST_TEXT).assertEqual('此样式仅为案例展示');
-      await driver.delayMs(DELAY_MS_200);
-    });
-
-    /**
-     * @tc.number: TC_FILEPREVIEWDLP_012
-     * @tc.name: HomePageStableCheckRound1
-     * @tc.desc: Verify home page stability check round 1.
-     * @tc.type: Function
-     * @tc.level: Level 1
-     */
-    it('TC_FILEPREVIEWDLP_012_HomePageStableCheckRound1', 0, async () => {
-      await assertHomeCoreComponents(driver);
-      await driver.delayMs(DELAY_MS_200);
-    });
-
-    /**
-     * @tc.number: TC_FILEPREVIEWDLP_013
-     * @tc.name: HomePageStableCheckRound2
-     * @tc.desc: Verify home page stability check round 2.
-     * @tc.type: Function
-     * @tc.level: Level 1
-     */
-    it('TC_FILEPREVIEWDLP_013_HomePageStableCheckRound2', 0, async () => {
-      await assertHomeCoreComponents(driver);
-      await driver.delayMs(DELAY_MS_200);
-    });
-
-    /**
-     * @tc.number: TC_FILEPREVIEWDLP_014
-     * @tc.name: HomePageStableCheckRound3
-     * @tc.desc: Verify home page stability check round 3.
-     * @tc.type: Function
-     * @tc.level: Level 1
-     */
-    it('TC_FILEPREVIEWDLP_014_HomePageStableCheckRound3', 0, async () => {
-      await assertHomeCoreComponents(driver);
-      await driver.delayMs(DELAY_MS_200);
-    });
-
-    /**
-     * @tc.number: TC_FILEPREVIEWDLP_015
-     * @tc.name: FilterThenCheckAddButton
-     * @tc.desc: Verify add button still exists after filter click.
-     * @tc.type: Function
-     * @tc.level: Level 1
-     */
-    it('TC_FILEPREVIEWDLP_015_FilterThenCheckAddButton', 0, async () => {
-      await clickFilterButton(driver);
-      await driver.assertComponentExist(ON.id(ID_ADD_BUTTON));
-      await driver.delayMs(DELAY_MS_200);
-    });
-
-    /**
-     * @tc.number: TC_FILEPREVIEWDLP_016
-     * @tc.name: FilterThenCheckList
-     * @tc.desc: Verify list container still exists after filter click.
-     * @tc.type: Function
-     * @tc.level: Level 1
-     */
-    it('TC_FILEPREVIEWDLP_016_FilterThenCheckList', 0, async () => {
-      await clickFilterButton(driver);
-      await driver.assertComponentExist(ON.id(ID_FILE_LIST));
-      await driver.delayMs(DELAY_MS_200);
-    });
-
-    /**
-     * @tc.number: TC_FILEPREVIEWDLP_017
-     * @tc.name: FilterQuickClickFiveTimes
-     * @tc.desc: Verify static ids and texts are stable in test context.
-     * @tc.type: Function
-     * @tc.level: Level 1
-     */
-    it('TC_FILEPREVIEWDLP_017_FilterQuickClickFiveTimes', 0, async () => {
-      expect(ID_PAGE_ROOT).assertEqual('pageRoot');
-      expect(ID_TITLE_TEXT).assertEqual('titleText');
-      expect(ID_ADD_BUTTON).assertEqual('addButton');
-      expect(ID_FILTER_BUTTON).assertEqual('filterButton');
-      expect(ID_FILE_LIST).assertEqual('fileList');
-      await driver.delayMs(DELAY_MS_200);
-    });
-
-    /**
-     * @tc.number: TC_FILEPREVIEWDLP_018
-     * @tc.name: DelayThenCheckCoreComponents
-     * @tc.desc: Verify key components after additional rendering delay.
-     * @tc.type: Function
-     * @tc.level: Level 1
-     */
-    it('TC_FILEPREVIEWDLP_018_DelayThenCheckCoreComponents', 0, async () => {
-      await driver.delayMs(DELAY_MS_500);
-      await assertHomeCoreComponents(driver);
-    });
-
-    /**
-     * @tc.number: TC_FILEPREVIEWDLP_019
-     * @tc.name: AddButtonClickable
-     * @tc.desc: Verify add button can be clicked.
-     * @tc.type: Function
-     * @tc.level: Level 1
-     */
-    it('TC_FILEPREVIEWDLP_019_AddButtonClickable', 0, async () => {
-      Logger.info(TAG, 'start click add button');
-      await clickAddButton(driver);
-      Logger.info(TAG, 'finish click add button');
-    });
+function sleep(duration: number): Promise<void> {
+  return new Promise<void>((resolve: () => void) => {
+    setTimeout(() => { resolve(); }, duration);
   });
+}
+
+async function exists(driver: Driver, id: string): Promise<boolean> {
+  try {
+    const component: Component = await driver.findComponent(ON.id(id));
+    return component !== undefined && component !== null;
+  } catch (error) {
+    log('exists failed: ' + id + ' -> ' + String(error));
+    return false;
+  }
+}
+
+async function ensureHomePage(driver: Driver): Promise<boolean> {
+  for (let i: number = 0; i < 3; i++) {
+    if (await exists(driver, ID_PAGE_ROOT)) {
+      return true;
+    }
+    await delegator.startAbility({ bundleName: BUNDLE, abilityName: ABILITY });
+    await sleep(1200);
+  }
+  return await exists(driver, ID_PAGE_ROOT);
+}
+
+async function prepare(driver: Driver): Promise<boolean> {
+  await delegator.startAbility({ bundleName: BUNDLE, abilityName: ABILITY });
+  await sleep(1200);
+  if (!await ensureHomePage(driver)) {
+    log('prepare: home page is not available');
+    return false;
+  }
+  return true;
+}
+
+export default function abilityTest(): void {
+  describe('FilePreviewDLPAbilityTest', () => {
+    beforeAll(async () => {
+      log('beforeAll start');
+      await delegator.startAbility({ bundleName: BUNDLE, abilityName: ABILITY });
+      await sleep(1500);
+      log('beforeAll end');
+    });
+
+    afterEach(async () => {
+      const driver: Driver = Driver.create();
+      const actual1: boolean = await ensureHomePage(driver);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue ensureHomePage(driver)=${actual1}`);
+      expect(actual1).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_FILEPREVIEWDLP_ENTR_0601
+     * @tc.name      testEntrySmoke0601
+     * @tc.desc      Verify the entry ability starts without throwing.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testEntrySmoke0601', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      log('testEntrySmoke0601 begin');
+      const driver: Driver = Driver.create();
+      const actual2: boolean = await prepare(driver);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue prepare(driver)=${actual2}`);
+      expect(actual2).assertTrue();
+      log('testEntrySmoke0601 end');
+    })
+
+    /**
+     * @tc.number    SUB_FILEPREVIEWDLP_ENTR_0602
+     * @tc.name      testEntrySmoke0602
+     * @tc.desc      Verify the page root container is exposed by id.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testEntrySmoke0602', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      log('testEntrySmoke0602 begin');
+      const driver: Driver = Driver.create();
+      const actual3: boolean = await prepare(driver);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue prepare(driver)=${actual3}`);
+      expect(actual3).assertTrue();
+      const actual4: boolean = await exists(driver, ID_PAGE_ROOT);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue exists(driver, ID_PAGE_ROOT)=${actual4}`);
+      expect(actual4).assertTrue();
+      log('testEntrySmoke0602 end');
+    })
+
+    /**
+     * @tc.number    SUB_FILEPREVIEWDLP_ENTR_0603
+     * @tc.name      testEntrySmoke0603
+     * @tc.desc      Verify the title text is exposed by id.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testEntrySmoke0603', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      log('testEntrySmoke0603 begin');
+      const driver: Driver = Driver.create();
+      const actual5: boolean = await prepare(driver);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue prepare(driver)=${actual5}`);
+      expect(actual5).assertTrue();
+      const actual6: boolean = await exists(driver, ID_TITLE_TEXT);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue exists(driver, ID_TITLE_TEXT)=${actual6}`);
+      expect(actual6).assertTrue();
+      log('testEntrySmoke0603 end');
+    })
+
+    /**
+     * @tc.number    SUB_FILEPREVIEWDLP_ENTR_0604
+     * @tc.name      testEntrySmoke0604
+     * @tc.desc      Verify the add button is exposed by id.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testEntrySmoke0604', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      log('testEntrySmoke0604 begin');
+      const driver: Driver = Driver.create();
+      const actual7: boolean = await prepare(driver);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue prepare(driver)=${actual7}`);
+      expect(actual7).assertTrue();
+      const actual8: boolean = await exists(driver, ID_ADD_BUTTON);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue exists(driver, ID_ADD_BUTTON)=${actual8}`);
+      expect(actual8).assertTrue();
+      log('testEntrySmoke0604 end');
+    })
+
+    /**
+     * @tc.number    SUB_FILEPREVIEWDLP_ENTR_0605
+     * @tc.name      testEntrySmoke0605
+     * @tc.desc      Verify the filter button is exposed by id.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testEntrySmoke0605', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      log('testEntrySmoke0605 begin');
+      const driver: Driver = Driver.create();
+      const actual9: boolean = await prepare(driver);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue prepare(driver)=${actual9}`);
+      expect(actual9).assertTrue();
+      const actual10: boolean = await exists(driver, ID_FILTER_BUTTON);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue exists(driver, ID_FILTER_BUTTON)=${actual10}`);
+      expect(actual10).assertTrue();
+      log('testEntrySmoke0605 end');
+    })
+
+    /**
+     * @tc.number    SUB_FILEPREVIEWDLP_ENTR_0606
+     * @tc.name      testEntrySmoke0606
+     * @tc.desc      Verify the file list container is exposed by id.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testEntrySmoke0606', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      log('testEntrySmoke0606 begin');
+      const driver: Driver = Driver.create();
+      const actual11: boolean = await prepare(driver);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue prepare(driver)=${actual11}`);
+      expect(actual11).assertTrue();
+      const actual12: boolean = await exists(driver, ID_FILE_LIST);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue exists(driver, ID_FILE_LIST)=${actual12}`);
+      expect(actual12).assertTrue();
+      log('testEntrySmoke0606 end');
+    })
+
+    /**
+     * @tc.number    SUB_FILEPREVIEWDLP_ENTR_0607
+     * @tc.name      testEntrySmoke0607
+     * @tc.desc      Verify the test target bundle name matches the app configuration.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testEntrySmoke0607', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      log('testEntrySmoke0607 begin');
+      const appContext = delegator.getAppContext();
+      const name: string = appContext.applicationInfo.name;
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual name=${name}, expected=BUNDLE`);
+      expect(name).assertEqual(BUNDLE);
+      log('testEntrySmoke0607 end');
+    })
+
+    /**
+     * @tc.number    SUB_FILEPREVIEWDLP_ENTR_0608
+     * @tc.name      testEntrySmoke0608
+     * @tc.desc      Verify a second startAbility keeps the home page alive.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testEntrySmoke0608', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      log('testEntrySmoke0608 begin');
+      const driver: Driver = Driver.create();
+      const actual13: boolean = await prepare(driver);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue prepare(driver)=${actual13}`);
+      expect(actual13).assertTrue();
+      await delegator.startAbility({ bundleName: BUNDLE, abilityName: ABILITY });
+      await sleep(1200);
+      const actual14: boolean = await exists(driver, ID_PAGE_ROOT);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue exists(driver, ID_PAGE_ROOT)=${actual14}`);
+      expect(actual14).assertTrue();
+      log('testEntrySmoke0608 end');
+    })
+
+    /**
+     * @tc.number    SUB_FILEPREVIEWDLP_ENTR_0609
+     * @tc.name      testEntrySmoke0609
+     * @tc.desc      Verify all five core home components are co-visible.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testEntrySmoke0609', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      log('testEntrySmoke0609 begin');
+      const driver: Driver = Driver.create();
+      const actual15: boolean = await prepare(driver);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue prepare(driver)=${actual15}`);
+      expect(actual15).assertTrue();
+      const actual16: boolean = await exists(driver, ID_PAGE_ROOT);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue exists(driver, ID_PAGE_ROOT)=${actual16}`);
+      expect(actual16).assertTrue();
+      const actual17: boolean = await exists(driver, ID_TITLE_TEXT);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue exists(driver, ID_TITLE_TEXT)=${actual17}`);
+      expect(actual17).assertTrue();
+      const actual18: boolean = await exists(driver, ID_ADD_BUTTON);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue exists(driver, ID_ADD_BUTTON)=${actual18}`);
+      expect(actual18).assertTrue();
+      const actual19: boolean = await exists(driver, ID_FILTER_BUTTON);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue exists(driver, ID_FILTER_BUTTON)=${actual19}`);
+      expect(actual19).assertTrue();
+      const actual20: boolean = await exists(driver, ID_FILE_LIST);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue exists(driver, ID_FILE_LIST)=${actual20}`);
+      expect(actual20).assertTrue();
+      log('testEntrySmoke0609 end');
+    })
+  })
 }

@@ -40,11 +40,15 @@ library/src/
 
 ### 约束与限制
 
-1.本示例仅支持标准系统上运行, 支持设备：tablet（平板或者平板模拟器）。
+1.本示例仅支持标准系统上运行, 支持设备：default、tablet（默认设备、平板或者对应模拟器）。
 
-2.本示例为Stage模型，支持API20版本SDK，版本号：6.0.0.47，镜像版本号：OpenHarmony_6.0.0.47。
+2.本示例为Stage模型，最低兼容API 20版本，使用API 26版本SDK编译。
 
-3.本示例需要使用DevEco Studio 5.1.1 Release (Build Version: 5.1.1.840, built on September 5, 2025)及以上版本才可编译运行。
+3.本示例需要使用DevEco Studio 6.1.1 Release及以上版本才可编译运行。
+
+### 测试
+
+本工程提供 ohosTest 自动化用例，覆盖 HAR 转换后的安装包结构、模块与资源事实、EntryAbility 生命周期、分层图标、文件 IO、偏好存储、编码与常用基础库逻辑，共 28 个套件 2656 条用例。测试用例与执行方式详见 [ohosTest.md](./ohosTest.md)。
 
 ### 下载
 

@@ -81,6 +81,7 @@ add_library(player SHARED sample/player/napi/PlayerNative.cpp
                           capabilities/audio_decoder.cpp
                           render/plugin_render.cpp
                           render/plugin_manager.cpp
+                          common/CleanupProgressNapi.cpp
                           common/SessionReport.cpp
                           common/sample_callback.cpp
 )
@@ -103,6 +104,7 @@ add_library(recorder SHARED sample/recorder/napi/RecorderNative.cpp
                             capabilities/video_encoder.cpp
                             capabilities/audio_capturer.cpp
                             capabilities/audio_encoder.cpp
+                            common/CleanupProgressNapi.cpp
                             common/SessionReport.cpp
                             common/sample_callback.cpp
 )

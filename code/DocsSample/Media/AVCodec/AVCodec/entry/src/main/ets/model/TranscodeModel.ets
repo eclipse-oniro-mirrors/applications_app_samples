@@ -16,102 +16,29 @@
 import { common } from '@kit.AbilityKit';
 import { UIContext } from '@kit.ArkUI';
 import { fileIo, statfs } from '@kit.CoreFileKit';
-import transcoder, { TranscodeRequest, TranscodeStatus } from 'libtranscoder.so';
-import { LocalizedText } from '../common/LocalizedText';
-import { getPlaybackTitle } from './PlaybackHistoryModel';
+import { image } from '@kit.ImageKit';
 import player from 'libplayer.so';
 import recorder from 'librecorder.so';
+import transcoder, { TranscodeRequest, TranscodeStatus } from 'libtranscoder.so';
+import { LocalizedText } from '../common/LocalizedText';
+import { TranscodeExecutionController } from '../controller/TranscodeExecutionController';
+import { TranscodeExportController } from '../controller/TranscodeExportController';
+import { TranscodeFileCloser } from '../controller/TranscodeFileCloser';
+import { TranscodeHistoryController } from '../controller/TranscodeHistoryController';
+import { TranscodePreviewController } from '../controller/TranscodePreviewController';
+import { TranscodeQueueRunner, TranscodeQueueHost, TranscodeQueueResult } from '../controller/TranscodeQueueRunner';
+import { getPlaybackTitle } from './PlaybackHistoryModel';
 import { MediaFileActivity } from './MediaFileActivity';
 import { TranscodeFilesModel, TranscodeHistoryEntry }
   from './TranscodeFilesModel';
 import { MediaTaskCoordinator, MediaTaskLease } from './MediaTaskCoordinator';
-import { MediaSessionStore } from './MediaSessionStore';
-import { MediaReports, MediaInputIdentity } from './MediaSessionReport';
-import { MediaStateFiles } from './MediaStateFiles';
+import { TranscodeQueueStore, TranscodeQueueSnapshot } from './TranscodeQueueStore';
 import { TranscodeQueueModel, TranscodeQueueItem, TranscodeQueueSettings } from './TranscodeQueueModel';
 import { TranscodeSourcePicker } from './TranscodeSourcePicker';
 import { TranscodeAudioMode, TranscodeQualityModel } from './TranscodeQualityModel';
-import { image } from '@kit.ImageKit';
-import { TranscodePreviewController } from '../controller/TranscodePreviewController';
-import { TranscodeQueueRunner, TranscodeQueueHost, TranscodeQueueResult } from '../controller/TranscodeQueueRunner';
-import { TranscodeExportController } from '../controller/TranscodeExportController';
-import { TranscodeHistoryController } from '../controller/TranscodeHistoryController';
-import { TranscodeFileCloser } from '../controller/TranscodeFileCloser';
 import { TranscodeTaskSnapshot } from './TranscodeTaskSnapshot';
-
-function idleTranscodeStatus(): TranscodeStatus {
-  return {
-    state: 0,
-    stage: 'idle',
-    detail: '',
-    errorCode: 0,
-    progress: 0,
-    frames: 0,
-    bytes: 0,
-    outputWidth: 0,
-    outputHeight: 0,
-    audioCopied: false,
-    elapsedMs: 0,
-    firstFrameMs: -1,
-    fps: 0,
-    speed: 0,
-    remainingSeconds: -1,
-    decoderWaitMs: 0,
-    encoderInputWaitMs: 0,
-    encoderOutputWaitMs: 0,
-    copiedBytes: 0,
-    fileBytes: 0,
-    availableBytes: -1,
-    estimatedBytes: -1,
-    diagnostics: [],
-    decoderName: '',
-    encoderName: '',
-    sourceWidth: 0,
-    sourceHeight: 0,
-    durationUs: 0,
-    sourceFrameRate: 0,
-    sourceMime: '',
-    audioTracks: [],
-    audioTrackIds: [],
-    selectedAudioChannels: 0,
-    subtitleTracks: [],
-    minBitrate: 0,
-    maxBitrate: 0,
-    audioBytes: 0,
-    audioMode: 0,
-    outputDurationUs: 0,
-    outputValidation: '',
-    sampleValidation: 'not_requested'
-  };
-}
-
-// 本次执行持有文件和配置，直到异步收尾结束；界面草稿不参与后续提交。
-class TranscodeExecution {
-  public readonly directory: string;
-  public readonly outputPath: string;
-  public readonly partialPath: string;
-  public readonly id: string;
-  public readonly sessionId: string;
-  public readonly sourceUri: string;
-  public readonly title: string;
-  public readonly snapshot: TranscodeTaskSnapshot;
-  public readonly lease: MediaTaskLease | undefined;
-  public input: fileIo.File | undefined = undefined;
-  public output: fileIo.File | undefined = undefined;
-  public sourceIdentity: MediaInputIdentity | undefined = undefined;
-
-  constructor(filesDir: string, sourceUri: string, title: string, snapshot: TranscodeTaskSnapshot) {
-    this.directory = filesDir + '/transcodes';
-    this.id = 'transcoded_' + Date.now();
-    this.outputPath = this.directory + '/' + this.id + '.mp4';
-    this.partialPath = this.outputPath + '.part';
-    this.lease = MediaTaskCoordinator.current();
-    this.sessionId = this.lease?.id ?? this.id;
-    this.sourceUri = sourceUri;
-    this.title = title;
-    this.snapshot = snapshot;
-  }
-}
+import { idleTranscodeStatus } from './TranscodeStatusModel';
+import type { TranscodeExecutionResult } from '../controller/TranscodeExecutionContext';
 
 @Observed
 export class TranscodeModel {
@@ -158,10 +85,14 @@ export class TranscodeModel {
   public resultSourceUri: string = '';
   public notice: string = '';
   public status: TranscodeStatus = idleTranscodeStatus();
-  private pollTimer: number = 0;
+  private execution: TranscodeExecutionController = new TranscodeExecutionController();
   private disposed: boolean = false;
+  private queueRestoreRevision: number = 0;
+  private pageRevision: number = 0;
 
   activate(): void {
+    this.pageRevision++;
+    this.queueRestoreRevision++;
     this.disposed = false;
     this.inspecting = false;
     this.historyState.activate();
@@ -333,144 +264,89 @@ export class TranscodeModel {
     await this.execute(ui);
   }
 
-  private async execute(ui: UIContext): Promise<boolean> {
+  private async execute(ui: UIContext): Promise<TranscodeExecutionResult | undefined> {
     if (this.busy || this.picking || this.exporting || this.inspecting || this.disposed ||
-      this.sourceUri.length === 0) { return false; }
+      this.sourceUri.length === 0) {
+      return undefined;
+    }
     if (!this.validRange()) {
       this.notice = LocalizedText.get($r('app.string.transcode_range_invalid'));
-      return false;
+      return undefined;
     }
-    const context = ui.getHostContext();
-    if (context === undefined) { return false; }
-    if (player.getState() !== player.PlayerState.IDLE || recorder.getDiagnostics().active ||
-      !MediaFileActivity.beginTranscode()) {
-      this.notice = LocalizedText.get($r('app.string.transcode_resource_busy'));
-      return false;
+    const context: common.Context | undefined = ui.getHostContext();
+    if (context === undefined) {
+      return undefined;
     }
-    this.disposed = false;
+    const pageRevision: number = this.pageRevision;
+    const request: TranscodeRequest = this.request(0, 0);
+    const snapshot: TranscodeTaskSnapshot = new TranscodeTaskSnapshot(this.configuration(), request);
+    this.queueRestoreRevision++;
     this.busy = true;
     this.cancelRequested = false;
+    try {
+      const pending: Promise<TranscodeExecutionResult | undefined> =
+        this.execution.run(context, this.sourceUri, this.sourceTitle, snapshot,
+          (status: TranscodeStatus): void => {
+            if (pageRevision === this.pageRevision) {
+              this.analysis = status;
+              this.updateSizeEstimate(request);
+            }
+          }, (status: TranscodeStatus): void => {
+            if (pageRevision === this.pageRevision) {
+              this.showExecutionProgress(status);
+            }
+          });
+      if (this.execution.isActive()) {
+        this.resetExecutionDisplay();
+      }
+      const result: TranscodeExecutionResult | undefined = await pending;
+      if (result === undefined) {
+        if (pageRevision === this.pageRevision) {
+          this.notice = LocalizedText.get($r('app.string.transcode_resource_busy'));
+        }
+        return undefined;
+      }
+      if (result.closePending) {
+        this.queue.paused = true;
+      }
+      await this.applyExecutionResult(result, pageRevision);
+      return result;
+    } finally {
+      this.busy = false;
+    }
+  }
+
+  private resetExecutionDisplay(): void {
     this.notice = '';
     this.resultPath = '';
     this.resultSourceUri = '';
     this.activeEntry = undefined;
     this.status = idleTranscodeStatus();
-    const task: TranscodeExecution = new TranscodeExecution(context.filesDir, this.sourceUri, this.sourceTitle,
-      new TranscodeTaskSnapshot(this.configuration(), this.request(0, 0)));
-    try {
-      await this.prepareExecution(context, task);
-      await this.runExecution(task);
-    } catch (error) {
-      this.recordExecutionFailure(JSON.stringify(error));
-    } finally {
-      try {
-        await this.finishExecution(context, task);
-      } finally {
-        MediaFileActivity.endTranscode();
-        this.busy = false;
-      }
-    }
-    return true;
   }
 
-  private async prepareExecution(context: common.Context, task: TranscodeExecution): Promise<void> {
-    if (!await fileIo.access(task.directory)) { await fileIo.mkdir(task.directory); }
-    const directoryStat: fileIo.Stat = await fileIo.lstat(task.directory);
-    if (!directoryStat.isDirectory() || directoryStat.isSymbolicLink()) {
-      throw new Error('Unsafe output directory');
+  private showExecutionProgress(status: TranscodeStatus): void {
+    this.status = status;
+    if (this.queue.activeId.length > 0) {
+      this.queue.update(this.queue.activeId, 'running', status.progress);
     }
-    await MediaSessionStore.begin(context, { id: task.sessionId, operation: 'transcode', startedAt: Date.now() });
-    task.input = await fileIo.open(task.sourceUri, fileIo.OpenMode.READ_ONLY);
-    try {
-      const sourceStat: fileIo.Stat = await fileIo.stat(task.input.fd);
-      task.sourceIdentity = MediaReports.inputSnapshot(task.sourceUri, sourceStat.size, sourceStat.mtime);
-    } catch (_error) { /* 无法读取素材属性时继续转码，报告不参与素材基线比较。 */ }
-    const request: TranscodeRequest = task.snapshot.request(task.input.fd, 0);
-    const inspection: Promise<TranscodeStatus> = transcoder.inspect(request);
-    const preflight: TranscodeStatus = await inspection;
-    if (preflight.state !== 2) { throw new Error(preflight.detail || 'Source preflight failed'); }
-    this.analysis = preflight;
-    if (!task.snapshot.validRange(preflight.durationUs)) {
-      throw new Error(LocalizedText.get($r('app.string.transcode_range_invalid')));
-    }
-    this.updateSizeEstimate(request);
-    task.output = await fileIo.open(task.partialPath,
-      fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC | fileIo.OpenMode.NOFOLLOW);
   }
 
-  private async runExecution(task: TranscodeExecution): Promise<void> {
-    if (this.disposed || this.cancelRequested) {
-      this.status = idleTranscodeStatus();
-      this.status.state = 3;
-      this.status.stage = 'cancelled';
-      this.notice = LocalizedText.get($r('app.string.transcode_cancelled'));
+  private async applyExecutionResult(result: TranscodeExecutionResult, pageRevision: number): Promise<void> {
+    if (pageRevision !== this.pageRevision) {
       return;
     }
-    if (task.input === undefined || task.output === undefined) { throw new Error('Missing transcode files'); }
-    const request: TranscodeRequest = task.snapshot.request(task.input.fd, task.output.fd);
-    const completion: Promise<TranscodeStatus> = transcoder.start(request);
-    if (task.lease !== undefined) { MediaTaskCoordinator.running(task.lease); }
-    this.pollTimer = setInterval((): void => {
-      this.status = transcoder.getStatus();
-      if (this.queue.activeId.length > 0) {
-        this.queue.update(this.queue.activeId, 'running', this.status.progress);
-      }
-    }, 250);
-    this.status = await completion;
-    if (this.status.state === 2) {
-      await fileIo.rename(task.partialPath, task.outputPath);
-      this.resultPath = task.outputPath;
-      this.resultSourceUri = task.sourceUri;
-      this.notice = LocalizedText.get($r('app.string.transcode_complete'));
-    } else if (this.status.state === 3) {
-      this.notice = LocalizedText.get($r('app.string.transcode_cancelled'));
-    } else {
-      this.notice = LocalizedText.get($r('app.string.transcode_failed')) + ' ' +
-        this.status.detail + ' (' + this.status.errorCode + ')';
-    }
-  }
-
-  private recordExecutionFailure(detail: string): void {
-    if (this.status.state < 2 || (this.status.state === 2 && this.resultPath.length === 0)) {
-      this.status = idleTranscodeStatus();
-      this.status.state = 4;
-      this.status.stage = 'files';
-      this.status.detail = detail;
-    }
-    this.notice = LocalizedText.get($r('app.string.transcode_failed')) + ' ' + detail;
-  }
-
-  private async finishExecution(context: common.Context, task: TranscodeExecution): Promise<void> {
-    this.clearPolling();
-    const inputClosed: boolean = await TranscodeFileCloser.close(task.input);
-    const outputClosed: boolean = await TranscodeFileCloser.close(task.output);
-    if (!inputClosed || !outputClosed) { this.markClosePending(); }
-    if (this.resultPath.length === 0) { await fileIo.unlink(task.partialPath).catch((): void => {}); }
-    if (this.status.state >= 2) { await this.persistExecution(task); }
+    this.status = result.status;
+    this.resultPath = result.path;
+    this.resultSourceUri = result.path.length > 0 ? result.sourceUri : '';
+    this.activeEntry = result.entry;
+    this.notice = result.notice;
     try {
-      if (inputClosed && outputClosed) {
-        await MediaSessionStore.finish(context, task.sessionId,
-          MediaReports.transcode(task.sessionId, this.status, task.snapshot.configuration, task.sourceIdentity));
+      await this.refreshHistory(result.directory);
+    } catch (_error) {
+      if (pageRevision === this.pageRevision) {
+        this.notice += ` ${LocalizedText.get($r('app.string.transcode_history_failed'))}`;
       }
-    } catch (error) {
-      this.notice += ' ' + JSON.stringify(error);
     }
-  }
-
-  private async persistExecution(task: TranscodeExecution): Promise<void> {
-    const entry: TranscodeHistoryEntry = {
-      id: task.id,
-      createdAt: Date.now(),
-      title: task.title,
-      configuration: task.snapshot.configuration,
-      status: this.status,
-      hasFile: this.resultPath.length > 0
-    };
-    this.activeEntry = entry;
-    try {
-      await TranscodeFilesModel.persist(task.directory, entry);
-      await this.refreshHistory(task.directory);
-    } catch (_error) { this.notice += ' ' + LocalizedText.get($r('app.string.transcode_history_failed')); }
   }
 
   private markClosePending(): void {
@@ -485,11 +361,15 @@ export class TranscodeModel {
   cancel(): void {
     if (!this.busy) { return; }
     this.cancelRequested = true;
-    if (this.previewing) { this.clearPreview(); }
     this.queue.paused = true;
-    const lease: MediaTaskLease | undefined = MediaTaskCoordinator.current();
-    if (lease?.kind === 'transcode') { MediaTaskCoordinator.cancelling(lease); }
-    transcoder.cancel();
+    if (this.previewing) {
+      this.clearPreview();
+      const lease: MediaTaskLease | undefined = MediaTaskCoordinator.current();
+      if (lease?.kind === 'transcode') { MediaTaskCoordinator.cancelling(lease); }
+      transcoder.cancel();
+    } else {
+      this.execution.cancel();
+    }
   }
 
   async save(ui: UIContext, toGallery: boolean): Promise<void> {
@@ -524,20 +404,15 @@ export class TranscodeModel {
   }
 
   dispose(): void {
+    this.pageRevision++;
+    this.queueRestoreRevision++;
     this.disposed = true;
     this.queue.paused = true;
     this.inspectionSequence++;
     this.historyState.dispose();
     this.cancel();
-    this.clearPolling();
+    this.execution.stopPolling();
     this.clearPreview();
-  }
-
-  private clearPolling(): void {
-    if (this.pollTimer !== 0) {
-      clearInterval(this.pollTimer);
-      this.pollTimer = 0;
-    }
   }
 
   private request(inputFd: number, outputFd: number): TranscodeRequest {
@@ -709,34 +584,40 @@ export class TranscodeModel {
   async persistQueue(ui: UIContext): Promise<boolean> {
     const context = ui.getHostContext();
     if (context === undefined) { return false; }
-    const snapshot: string = JSON.stringify(this.queue.items);
+    this.queueRestoreRevision++;
     try {
-      await MediaStateFiles.write(context, 'transcode_queue.json', snapshot);
-      await MediaStateFiles.write(context, 'transcode_queue_policy.json', JSON.stringify(this.queue.stopOnFailure));
+      await TranscodeQueueStore.save(context, this.queue);
       return true;
     } catch (error) { this.notice = JSON.stringify(error); return false; }
   }
 
   async restoreQueue(ui: UIContext): Promise<void> {
     const context = ui.getHostContext();
-    if (context === undefined || this.queue.items.length > 0 || this.queueRunning) { return; }
+    if (context === undefined || this.queue.items.length > 0 || this.queueRunning || this.disposed) { return; }
+    const revision: number = ++this.queueRestoreRevision;
+    const initial: string = JSON.stringify(this.queue);
     try {
-      const entries: TranscodeQueueItem[] = JSON.parse(
-        await MediaStateFiles.read(context, 'transcode_queue.json', '[]')) as TranscodeQueueItem[];
-      if (this.queue.items.length > 0 || this.queueRunning || this.disposed) { return; }
-      this.queue.items = TranscodeQueueModel.validated(entries);
-      this.queue.stopOnFailure = await MediaStateFiles.read(context, 'transcode_queue_policy.json', 'false') === 'true';
+      const snapshot: TranscodeQueueSnapshot = await TranscodeQueueStore.restore(context);
+      if (revision !== this.queueRestoreRevision || this.disposed || this.queueRunning ||
+        this.busy || initial !== JSON.stringify(this.queue)) { return; }
+      this.queue.items = snapshot.items;
+      this.queue.stopOnFailure = snapshot.stopOnFailure;
       this.queue.items.forEach((item: TranscodeQueueItem): void => {
         if (item.state === 'running') { this.queue.update(item.id, 'interrupted', 0); }
       });
       this.queue.paused = true;
-    } catch (error) { this.notice = JSON.stringify(error); }
+    } catch (error) {
+      if (revision === this.queueRestoreRevision && !this.disposed && initial === JSON.stringify(this.queue)) {
+        this.notice = JSON.stringify(error);
+      }
+    }
   }
 
   async runQueue(ui: UIContext): Promise<void> {
     if (this.queueRunning || this.busy || this.picking || this.exporting || this.inspecting || this.disposed) {
       return;
     }
+    this.queueRestoreRevision++;
     this.queueRunning = true;
     try {
       const host: TranscodeQueueHost = {
@@ -769,9 +650,11 @@ export class TranscodeModel {
     this.rangeEnabled = (item.startTimeMs ?? 0) > 0 || (item.endTimeMs ?? 0) > 0;
     this.rangeStart = ((item.startTimeMs ?? 0) / 1000).toString();
     this.rangeEnd = (item.endTimeMs ?? 0) > 0 ? ((item.endTimeMs ?? 0) / 1000).toString() : '';
-    if (!await this.execute(ui)) { return undefined; }
-    this.analysis = this.status;
-    return { state: this.status.state, progress: this.status.progress, path: this.resultPath };
+    const revision: number = this.pageRevision;
+    const result: TranscodeExecutionResult | undefined = await this.execute(ui);
+    if (result === undefined) { return undefined; }
+    if (revision === this.pageRevision) { this.analysis = result.status; }
+    return { state: result.status.state, progress: result.status.progress, path: result.path };
   }
 
   async openHistory(ui: UIContext, entry: TranscodeHistoryEntry): Promise<void> {

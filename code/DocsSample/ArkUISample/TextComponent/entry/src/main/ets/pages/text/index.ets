@@ -23,6 +23,7 @@ import { TextSpan } from './TextSpan';
 import resource from '../../common/resource';
 import { SelectMenu } from './SelectMenu';
 import { AIMenu } from './AIMenu';
+import { SelectedDataDetector } from './SelectedDataDetector';
 import { TextSpanOnHover } from './TextSpanOnHover';
 import { ContentTransitionDemo } from './ContentTransition';
 import { TextLayout } from './TextLayout';
@@ -79,6 +80,11 @@ const routes: Route[] = [
     name: `${TEXT_ROUTE_PREFIX}/AIMenu`,
     title: resource.resourceToString($r('app.string.SetUpAIMenu_title')),
     description: $r('app.string.SetUpAIMenu_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/SelectedDataDetector`,
+    title: resource.resourceToString($r('app.string.SelectedDataDetector_title')),
+    description: $r('app.string.SelectedDataDetector_description')
   },
   {
     name: `${TEXT_ROUTE_PREFIX}/TextHotSearch`,
@@ -221,52 +227,54 @@ export function TextDestination(name: string) {
   } else if (name === routes[5].name) {
     AIMenu();
   } else if (name === routes[6].name) {
-    TextHotSearch();
+    SelectedDataDetector();
   } else if (name === routes[7].name) {
-    TextSpanOnHover();
+    TextHotSearch();
   } else if (name === routes[8].name) {
-    ContentTransitionDemo();
+    TextSpanOnHover();
   } else if (name === routes[9].name) {
-    TextLayout();
+    ContentTransitionDemo();
   } else if (name === routes[10].name) {
-    LineSpacing();
+    TextLayout();
   } else if (name === routes[11].name) {
-    EnableAutoSpacing();
+    LineSpacing();
   } else if (name === routes[12].name) {
-    ShaderStyleDemo();
+    EnableAutoSpacing();
   } else if (name === routes[13].name) {
-    GeneralEvents();
+    ShaderStyleDemo();
   } else if (name === routes[14].name) {
-    BindSelectionMenu();
+    GeneralEvents();
   } else if (name === routes[15].name) {
-    SelectionChange();
+    BindSelectionMenu();
   } else if (name === routes[16].name) {
-    ServiceMenuItems();
+    SelectionChange();
   } else if (name === routes[17].name) {
-    DisableMenuItems();
+    ServiceMenuItems();
   } else if (name === routes[18].name) {
-    PrepareMenu();
+    DisableMenuItems();
   } else if (name === routes[19].name) {
-    WordBreakExample();
+    PrepareMenu();
   } else if (name === routes[20].name) {
-    HeightAdaptivePolicy();
+    WordBreakExample();
   } else if (name === routes[21].name) {
-    LengthMetric();
+    HeightAdaptivePolicy();
   } else if (name === routes[22].name) {
-    DisplayedTogether();
+    LengthMetric();
   } else if (name === routes[23].name) {
-    TextLong();
+    DisplayedTogether();
   } else if (name === routes[24].name) {
-    TextLongTwo();
+    TextLong();
   } else if (name === routes[25].name) {
-    CustomAndBlockMenus();
+    TextLongTwo();
   } else if (name === routes[26].name) {
-    TextMenuShowSubWindow();
+    CustomAndBlockMenus();
   } else if (name === routes[27].name) {
-    GradientTextFlowEffect();
+    TextMenuShowSubWindow();
   } else if (name === routes[28].name) {
-    MarqueeRerun();
+    GradientTextFlowEffect();
   } else if (name === routes[29].name) {
+    MarqueeRerun();
+  } else if (name === routes[30].name) {
     SelectionContainerIndex();
   } else if (name.startsWith(SELECTION_CONTAINER_PREFIX + '/')) {
     SelectionContainerDestination(name);

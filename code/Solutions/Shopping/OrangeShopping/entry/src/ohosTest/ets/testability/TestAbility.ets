@@ -13,24 +13,49 @@
  * limitations under the License.
  */
 
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry'
 import UIAbility from '@ohos.app.ability.UIAbility'
 import Window from '@ohos.window'
-import { Hypium } from '@ohos/hypium'
 import Logger from '../utils/Logger'
-import testsuite from '../test/List.test'
+import { testsuiteGroups } from '../test/List.test'
+import { runSuitesInBatches } from './TestSuiteRunner'
 import Want from '@ohos.app.ability.Want'
 import AbilityConstant from '@ohos.app.ability.AbilityConstant'
+import { abilityDelegatorRegistry as AbilityDelegatorRegistry } from '@kit.TestKit'
 
 export default class TestAbility extends UIAbility {
+  /**
+   * Wakes the screen and disables the idle timeout for the whole run. When the
+   * screen sleeps, UiTest sees an empty component tree and every UI case turns
+   * into a false failure, and the system may stop the test process entirely.
+   */
+  private keepScreenAwake(delegator: AbilityDelegatorRegistry.AbilityDelegator): void {
+    let commands: string[] = ['power-shell wakeup', 'power-shell setmode 602',
+      'power-shell timeout -o 3600000'];
+    for (let index: number = 0; index < commands.length; index++) {
+      let command: string = commands[index];
+      try {
+        delegator.executeShellCommand(command, () => {
+          Logger.info('shell command finished: ' + command);
+        });
+      } catch (error) {
+        Logger.warn('shell command failed: ' + command);
+      }
+    }
+  }
+
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
     Logger.info('TestAbility onCreate')
     Logger.info('want param:' + JSON.stringify(want) ?? '')
     Logger.info('launchParam:' + JSON.stringify(launchParam) ?? '')
-    let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    let abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs = AbilityDelegatorRegistry.getArguments();
-    Logger.info('start run testcase!!!')
-    Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite)
+    let delegator: AbilityDelegatorRegistry.AbilityDelegator =
+      AbilityDelegatorRegistry.getAbilityDelegator();
+    this.keepScreenAwake(delegator);
+    Logger.info('start run testcase in batches!!!')
+    // Let the TestAbility page and the power commands settle before the first
+    // suite registers; the framework only waits for the first result.
+    setTimeout(() => {
+      runSuitesInBatches(testsuiteGroups);
+    }, 800);
   }
 
   onDestroy() {

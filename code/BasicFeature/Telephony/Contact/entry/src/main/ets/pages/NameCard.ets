@@ -13,14 +13,25 @@
  * limitations under the License.
  */
 
-import contact from '@ohos.contact'
-import router from '@ohos.router'
-import { ContactInfo } from '../component/ContactInfo'
+import contact from '@ohos.contact';
+import router from '@ohos.router';
+import { ContactInfo } from '../component/ContactInfo';
+import { ParamGuard } from '../utils/ParamGuard';
+
+interface NameCardParams {
+  data?: contact.Contact;
+}
+
+function getContactParam(): contact.Contact {
+  let params: NameCardParams = router.getParams() as NameCardParams;
+  let data: contact.Contact | undefined = params.data;
+  return ParamGuard.resolveContact(data);
+}
 
 @Entry
 @Component
 struct NameCard {
-  private contact = <contact.Contact> router.getParams()['data']
+  private contact: contact.Contact = getContactParam();
 
   build() {
     Column() {
@@ -29,20 +40,20 @@ struct NameCard {
           .objectFit(ImageFit.Contain)
           .width(32)
           .height(32)
-          .margin({ left: 32 })
+          .margin({ left: 32 });
       }
       .id('back')
       .height('6%')
       .width('100%')
       .constraintSize({ minHeight: 50 })
       .onClick(() => {
-        router.back()
-      })
+        router.back();
+      });
 
-      ContactInfo({ contact: this.contact })
+      ContactInfo({ contact: this.contact });
     }
     .width('100%')
     .height('100%')
-    .backgroundColor($r('app.color.index_bg'))
+    .backgroundColor($r('app.color.index_bg'));
   }
 }

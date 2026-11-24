@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { getHeaderDate, HeaderData, Style } from '@ohos/common'
+import { getHeaderDate, HeaderData, Style, WeatherSymbol } from '@ohos/common'
 
 @Preview
 @Component
@@ -25,72 +25,84 @@ export default struct IndexHeader {
     Column() {
       Row() {
         Text(this.headerDate.city)
-          .fontColor(Color.White)
+          .fontColor($r('app.color.white'))
           .fontWeight(FontWeight.Regular)
-          .fontSize(18)
+          .fontSize(Style.FONT_SIZE_LARGE)
         if (this.index === 0) {
           Image($r('app.media.icon_location'))
-            .size({ width: 16, height: 16 })
+            .size({ width: Style.ICON_SIZE_SMALL, height: Style.ICON_SIZE_SMALL })
             .objectFit(ImageFit.Contain)
         }
       }
 
       Row() {
         Text(this.headerDate.temp)
-          .fontColor(Color.White)
+          .fontColor($r('app.color.white'))
           .fontWeight(Style.BIG_FONT_WEIGHT)
-          .fontSize(96)
+          .fontSize(Style.FONT_SIZE_MAIN_TEMP)
         Text($r('app.string.du'))
-          .fontColor(Color.White)
+          .fontColor($r('app.color.white'))
           .fontWeight(FontWeight.Regular)
-          .fontSize(35)
-          .margin({ bottom: 36 })
+          .fontSize(Style.FONT_SIZE_TEMP_UNIT)
+          .margin({ bottom: Style.TEMP_UNIT_MARGIN_BOTTOM })
       }
-      .margin({ top: 4 })
-      .padding({ left: 35 })
+      .margin({ top: Style.TEMP_ROW_MARGIN_TOP })
+      .padding({ left: Style.TEMP_ROW_PADDING_LEFT })
 
       Row() {
-        Text(`${this.headerDate.max}℃ / `)
-          .fontColor(Color.White)
+        Text(this.headerDate.max)
+          .fontColor($r('app.color.white'))
           .fontWeight(FontWeight.Medium)
-          .fontSize(16)
-        Text(`${this.headerDate.min}℃`)
-          .fontColor('#99FFFFFF')
+          .fontSize(Style.FONT_SIZE_MEDIUM)
+        Text($r('app.string.du'))
+          .fontColor($r('app.color.white'))
           .fontWeight(FontWeight.Medium)
-          .fontSize(16)
+          .fontSize(Style.FONT_SIZE_MEDIUM)
+        Text(WeatherSymbol.TEMP_RANGE_SEPARATOR)
+          .fontColor($r('app.color.white'))
+          .fontWeight(FontWeight.Medium)
+          .fontSize(Style.FONT_SIZE_MEDIUM)
+        Text(this.headerDate.min)
+          .fontColor($r('app.color.text_white_60'))
+          .fontWeight(FontWeight.Medium)
+          .fontSize(Style.FONT_SIZE_MEDIUM)
+        Text($r('app.string.du'))
+          .fontColor($r('app.color.text_white_60'))
+          .fontWeight(FontWeight.Medium)
+          .fontSize(Style.FONT_SIZE_MEDIUM)
       }
-      .margin({ top: 6 })
+      .margin({ top: Style.HEADER_ROW_MARGIN_TOP })
 
       Row() {
         Text(`${this.headerDate.weatherType} `)
-          .fontColor(Color.White)
+          .fontColor($r('app.color.white'))
           .fontWeight(FontWeight.Medium)
-          .fontSize(16)
+          .fontSize(Style.FONT_SIZE_MEDIUM)
         Text($r('app.string.air'))
-          .fontColor(Color.White)
+          .fontColor($r('app.color.white'))
           .fontWeight(FontWeight.Medium)
-          .fontSize(16)
+          .fontSize(Style.FONT_SIZE_MEDIUM)
         Text(this.headerDate.airData.airDesc)
-          .fontColor(Color.White)
+          .fontColor($r('app.color.white'))
           .fontWeight(FontWeight.Medium)
-          .fontSize(16)
+          .fontSize(Style.FONT_SIZE_MEDIUM)
       }
-      .margin({ top: 6 })
+      .margin({ top: Style.HEADER_ROW_MARGIN_TOP })
 
       Row() {
         Image($r('app.media.icon_message'))
-          .width(24)
-          .height(24)
+          .width(Style.ICON_SIZE_NORMAL)
+          .height(Style.ICON_SIZE_NORMAL)
           .objectFit(ImageFit.Contain)
         Text(this.headerDate.airTips)
-          .fontColor(Color.White)
-          .fontSize(12)
-          .margin({ left: 8 })
+          .fontColor($r('app.color.white'))
+          .fontSize(Style.FONT_SIZE_SMALL)
+          .margin({ left: Style.AIR_TIPS_ICON_MARGIN_LEFT })
       }
       .width('100%')
-      .margin({ top: 48 })
+      .margin({ top: Style.AIR_TIPS_MARGIN_TOP })
     }
     .width('100%')
-    .margin({ top: 30 })
+    .margin({ top: Style.HEADER_CONTENT_MARGIN_TOP })
   }
 }

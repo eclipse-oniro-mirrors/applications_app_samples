@@ -3,6 +3,74 @@
     {
       "name": "white",
       "value": "#FFFFFF"
+    },
+    {
+      "name": "page_background",
+      "value": "#F1F3F5"
+    },
+    {
+      "name": "text_white_60",
+      "value": "#99FFFFFF"
+    },
+    {
+      "name": "text_white_38",
+      "value": "#60FFFFFF"
+    },
+    {
+      "name": "sidebar_mask",
+      "value": "#55000000"
+    },
+    {
+      "name": "search_background",
+      "value": "#26FFFFFF"
+    },
+    {
+      "name": "border_selected",
+      "value": "#BBFFFFFF"
+    },
+    {
+      "name": "border_unselected",
+      "value": "#116ACD"
+    },
+    {
+      "name": "divider",
+      "value": "#AFAFAF"
+    },
+    {
+      "name": "text_primary",
+      "value": "#000000"
+    },
+    {
+      "name": "text_secondary",
+      "value": "#99000000"
+    },
+    {
+      "name": "text_disabled",
+      "value": "#61000000"
+    },
+    {
+      "name": "chip_background",
+      "value": "#11000000"
+    },
+    {
+      "name": "chip_background_disabled",
+      "value": "#05000000"
+    },
+    {
+      "name": "tag_background",
+      "value": "#24FFFFFF"
+    },
+    {
+      "name": "transparent",
+      "value": "#00000000"
+    },
+    {
+      "name": "mask_popup",
+      "value": "#33000000"
+    },
+    {
+      "name": "dialog_action",
+      "value": "#0A59F7"
     }
   ]
 }

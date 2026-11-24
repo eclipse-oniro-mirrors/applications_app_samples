@@ -15,12 +15,14 @@
 
 
 // [Start import_interface_distributed]
-import { BusinessError } from '@kit.BasicServicesKit';
-import { common, abilityAccessCtrl } from '@kit.AbilityKit';
+import type { BusinessError } from '@kit.BasicServicesKit';
+import { abilityAccessCtrl } from '@kit.AbilityKit';
+import type { common, PermissionRequestResult } from '@kit.AbilityKit';
 import { distributedDeviceManager } from '@kit.DistributedServiceKit';
-import { fileIo, ListFileOptions, fileUri, securityLabel } from '@kit.CoreFileKit';
-import { buffer } from '@kit.ArkTS';
+import { fileIo, fileUri } from '@kit.CoreFileKit';
+import type { ListFileOptions, ReadOptions } from '@kit.CoreFileKit';
 import Logger from '../common/Logger';
+import { copyFromDistributed, SystemFileDescriptor, writeTextFile } from '../model/DistributedCopy';
 
 // [Start import_interface_distributed]
 const BUFFER: number = 4096; // 读写文件的缓冲区
@@ -35,51 +37,53 @@ function createFile(context: common.UIAbilityContext): void {
   let filePath: string = pathDir + '/test.txt';
 
   try {
-    // 在分布式目录下创建文件
-    let file = fileIo.openSync(filePath, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
+    // 在分布式目录下创建文件并确保描述符在写入失败时也被关闭
+    writeTextFile(filePath, 'content', new SystemFileDescriptor());
     console.info('Succeeded in creating.');
-    // 向文件中写入内容
-    fileIo.writeSync(file.fd, 'content');
-    // 关闭文件
-    fileIo.closeSync(file.fd);
   } catch (error) {
     let err: BusinessError = error as BusinessError;
-    console.error(`Failed to openSync / writeSync / closeSync. Code: ${err.code}, message: ${err.message}`);
+    console.error(`Failed to openSync / writeSync / closeSync. Code: ${err.code}`);
   }
   // [End access_A_write_distributed_file]
 }
 
 // 授权分布式数据同步权限。
-async function applyPermission(context: common.UIAbilityContext) {
+async function applyPermission(context: common.UIAbilityContext): Promise<void> {
   // [Start distributed_Data_Permission]
-  let atManager = abilityAccessCtrl.createAtManager();
+  const atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
   try {
     // 以动态弹窗的方式向用户申请授权
-    atManager.requestPermissionsFromUser(context, ['ohos.permission.DISTRIBUTED_DATASYNC']).then((result) => {
-      console.info(`request permission result: ${JSON.stringify(result)}`);
-    }).catch((err: BusinessError) => {
-      console.error(`Failed to request permissions from user. Code: ${err.code}, message: ${err.message}`);
-    })
+    atManager.requestPermissionsFromUser(context, ['ohos.permission.DISTRIBUTED_DATASYNC'])
+      .then((result: PermissionRequestResult): void => {
+        console.info(`Permission request completed, result count: ${result.authResults.length}`);
+      }).catch((err: BusinessError): void => {
+        console.error(`Failed to request permissions from user. Code: ${err.code}`);
+      });
   } catch (error) {
     let err: BusinessError = error as BusinessError;
-    console.error(`Catch err. Failed to request permissions from user. Code: ${err.code}, message: ${err.message}`);
+    console.error(`Catch err. Failed to request permissions from user. Code: ${err.code}`);
   }
   // [End distributed_Data_Permission]
 }
 
 // 设备B主动向设备A发起建链，建链成功后设备B可在分布式路径下读取测试文件
-async function mountPublicDir(context: common.UIAbilityContext) {
+async function mountPublicDir(context: common.UIAbilityContext): Promise<void> {
   // [Start access_ConnectDfs]
   // 通过分布式设备管理的接口获取设备A的networkId信息
   // [StartExclude access_ConnectDfs]
   console.info(`connectDfs start`);
   // [EndExclude access_ConnectDfs]
   try {
-    let dmInstance = distributedDeviceManager.createDeviceManager('com.example.hap');
+    const dmInstance: distributedDeviceManager.DeviceManager =
+      distributedDeviceManager.createDeviceManager('com.example.hap');
     let deviceInfoList: distributedDeviceManager.DeviceBasicInfo[] = dmInstance.getAvailableDeviceListSync();
     if (deviceInfoList && deviceInfoList.length > 0) {
       console.info(`Success to get available device list`);
-      let networkId = deviceInfoList[0].networkId;
+      const networkId: string = deviceInfoList[0].networkId ?? '';
+      if (networkId === '') {
+        console.error('Distributed operation requires a peer network ID');
+        return;
+      }
       // 定义访问公共文件目录的回调
       let listeners : fileIo.DfsListeners = {
         onStatus: (networkId: string, status: number): void => {
@@ -87,39 +91,34 @@ async function mountPublicDir(context: common.UIAbilityContext) {
         }
       };
       // 开始跨设备文件访问
-      fileIo.connectDfs(networkId, listeners).then(() => {
+      fileIo.connectDfs(networkId, listeners).then((): void => {
         console.info('Success to connect dfs');
         let pathDir: string = context.distributedFilesDir;
         // 获取分布式目录的文件路径
         let filePath: string = pathDir + '/test.txt';
         try {
           // 打开分布式目录下的文件
-          let file = fileIo.openSync(filePath, fileIo.OpenMode.READ_WRITE);
-          // 定义接收读取数据的缓存
-          let arrayBuffer = new ArrayBuffer(4096);
-          // 读取文件的内容，返回值是读取到的字节个数
-          class Option {
-            public offset: number = 0;
-            public length: number = 0;
-          };
-          let option = new Option();
-          option.length = arrayBuffer.byteLength;
-          let num = fileIo.readSync(file.fd, arrayBuffer, option);
-          // 打印读取到的文件数据
-          let buf = buffer.from(arrayBuffer, 0, num);
-          console.info('read result: ' + buf.toString());
-          fileIo.closeSync(file);
+          const file: fileIo.File = fileIo.openSync(filePath, fileIo.OpenMode.READ_WRITE);
+          try {
+            const arrayBuffer: ArrayBuffer = new ArrayBuffer(BUFFER);
+            const option: ReadOptions = { offset: 0, length: arrayBuffer.byteLength };
+            const num: number = fileIo.readSync(file.fd, arrayBuffer, option);
+            console.info(`Read distributed file bytes: ${num}`);
+          } finally {
+            fileIo.closeSync(file.fd);
+          }
         } catch (error) {
           let err: BusinessError = error as BusinessError;
-          console.error(`Failed to openSync / readSync. Code: ${err.code}, message: ${err.message}`);
+          console.error(`Failed to openSync / readSync. Code: ${err.code}`);
         }
-      }).catch((error: BusinessError) => {
+      }).catch((error: BusinessError): void => {
         let err: BusinessError = error as BusinessError;
-        console.error(`Failed to connect dfs. Code: ${err.code}, message: ${err.message}`);
+        console.error(`Failed to connect dfs. Code: ${err.code}`);
       });
     }
   } catch (error) {
-    console.error(`Catch err. Code: ${error.code}, message: ${error.message}`);
+    const err: BusinessError = error as BusinessError;
+    console.error(`Operation failed. Code: ${err.code}`);
   }
   // [End access_ConnectDfs]
 }
@@ -134,20 +133,26 @@ function disMountPublicDir(): void {
   console.info(`disconnectDfs start`);
   // [EndExclude access_DisConnectDfs]
   try {
-    let dmInstance = distributedDeviceManager.createDeviceManager('com.example.hap');
+    const dmInstance: distributedDeviceManager.DeviceManager =
+      distributedDeviceManager.createDeviceManager('com.example.hap');
     let deviceInfoList: distributedDeviceManager.DeviceBasicInfo[] = dmInstance.getAvailableDeviceListSync();
     if (deviceInfoList && deviceInfoList.length > 0) {
       console.info(`Success to get available device list`);
-      let networkId = deviceInfoList[0].networkId;
+      const networkId: string = deviceInfoList[0].networkId ?? '';
+      if (networkId === '') {
+        console.error('Distributed operation requires a peer network ID');
+        return;
+      }
       // 关闭跨设备文件访问
-      fileIo.disconnectDfs(networkId).then(() => {
+      fileIo.disconnectDfs(networkId).then((): void => {
         console.info(`Success to disconnect dfs`);
-      }).catch((err: BusinessError) => {
-        console.error(`Failed to disconnect dfs. Code: ${err.code}, message: ${err.message}`);
+      }).catch((err: BusinessError): void => {
+        console.error(`Failed to disconnect dfs. Code: ${err.code}`);
       })
     }
   } catch (error) {
-    console.error(`Catch err. Code: ${error.code}, message: ${error.message}`);
+    const err: BusinessError = error as BusinessError;
+    console.error(`Operation failed. Code: ${err.code}`);
   }
   // [End access_DisConnectDfs]
 }
@@ -161,28 +166,25 @@ function copySandFile(context: common.UIAbilityContext): void {
   let filePath: string = pathDir + '/src.txt';
   try {
     // 准备待拷贝沙箱文件
-    let file = fileIo.openSync(filePath, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
-    fileIo.writeSync(file.fd, 'Create file success');
-    fileIo.closeSync(file);
+    writeTextFile(filePath, 'Create file success', new SystemFileDescriptor());
   } catch (error) {
-    console.error(`Failed to createFile. Code: ${error.code}, message: ${error.message}`);
+    const err: BusinessError = error as BusinessError;
+    console.error(`Failed to create file. Code: ${err.code}`);
+    return;
   }
 
-  // 获取待拷贝源文件uri
-  let srcUri = fileUri.getUriFromPath(filePath);
-  // 获取目标路径(分布式目录)的uri
-  let destUri: string = fileUri.getUriFromPath(distributedPathDir + '/src.txt');
   try {
+    const srcUri: string = fileUri.getUriFromPath(filePath);
+    const destUri: string = fileUri.getUriFromPath(distributedPathDir + '/src.txt');
     // 将沙箱路径下的源文件拷贝到目标分布式目录下
-    fileIo.copy(srcUri, destUri).then(()=>{
-      console.info(`Succeeded in copying---. `);
-      console.info(`src: ${srcUri} dest: ${destUri}`);
-    }).catch((error: BusinessError)=>{
-      let err: BusinessError = error as BusinessError;
-      console.error(`Failed to copy. Code: ${err.code}, message: ${err.message}`);
-    })
+    fileIo.copy(srcUri, destUri).then((): void => {
+      console.info('Succeeded in copying from sandbox to distributed directory');
+    }).catch((error: BusinessError): void => {
+      console.error(`Failed to copy. Code: ${error.code}`);
+    });
   } catch (error) {
-    console.error(`Catch err. Failed to copy. Code: ${error.code}, message: ${error.message}`);
+    const err: BusinessError = error as BusinessError;
+    console.error(`Failed to prepare or start copying. Code: ${err.code}`);
   }
   // [End copy_sand_to_distributed]
 }
@@ -198,27 +200,27 @@ function copyDistributedFile(context: common.UIAbilityContext): void {
     let distributedPathDir: string = context.distributedFilesDir;
     // 待拷贝文件的目标路径(沙箱路径)
     let destPath: string = pathDir + '/dest.txt';
-    // 获取目标路径uri
-    let destUri = fileUri.getUriFromPath(destPath);
-  
-    // 拷贝源文件路径(分布式目录)
-    let srcPath = distributedPathDir + '/src.txt';
-    // 获取源路径uri
-    let srcUri: string = fileUri.getUriFromPath(srcPath);
-  
+    // 拷贝源文件路径(分布式目录)，URI转换由生产工作流统一执行。
+    const srcPath: string = distributedPathDir + '/src.txt';
+
     // 定义拷贝回调
-    let progressListener: fileIo.ProgressListener = (progress: fileIo.Progress) => {
+    const progressListener: fileIo.ProgressListener = (progress: fileIo.Progress): void => {
       console.info(`progressSize: ${progress.processedSize}, totalSize: ${progress.totalSize}`);
     };
     let options: fileIo.CopyOptions = {
       'progressListener' : progressListener
     };
     // 通过分布式设备管理的接口获取设备A的networkId信息
-    let dmInstance = distributedDeviceManager.createDeviceManager('com.example.hap');
+    const dmInstance: distributedDeviceManager.DeviceManager =
+      distributedDeviceManager.createDeviceManager('com.example.hap');
     let deviceInfoList: distributedDeviceManager.DeviceBasicInfo[] = dmInstance.getAvailableDeviceListSync();
     if (deviceInfoList && deviceInfoList.length > 0) {
       console.info(`success to get available device list`);
-      let networkId = deviceInfoList[0].networkId; // 这里只是两个设备连接，列表中首个即为A设备的networkId
+      const networkId: string = deviceInfoList[0].networkId ?? '';
+      if (networkId === '') {
+        console.error('Distributed copy requires a peer network ID');
+        return;
+      }
       // 定义访问分布式目录的回调
       let listeners : fileIo.DfsListeners = {
         onStatus: (networkId: string, status: number): void => {
@@ -226,27 +228,21 @@ function copyDistributedFile(context: common.UIAbilityContext): void {
         }
       };
       // 开始跨设备文件拷贝
-      fileIo.connectDfs(networkId, listeners).then(()=>{
-        try {
-          // 将分布式目录下的文件拷贝到其他沙箱路径下
-          fileIo.copy(srcUri, destUri, options).then(()=>{
-            console.info(`Succeeded in copying from distributed path`);
-            console.info(`src: ${srcUri} dest: ${destUri}`);
-            fileIo.unlinkSync(srcPath); // 拷贝完成后清理分布式目录下的临时文件
-          }).catch((error: BusinessError)=>{
-            let err: BusinessError = error as BusinessError;
-            console.error(`Failed to copy. Code: ${err.code}, message: ${err.message}`);
-          })
-        } catch (error) {
-          console.error(`Catch err. Failed to copy. Code: ${error.code}, message: ${error.message}`);
-        }
-      }).catch((error: BusinessError) => {
-        let err: BusinessError = error as BusinessError;
-        console.error(`Failed to connect dfs. Code: ${err.code}, message: ${err.message}`);
+      copyFromDistributed({
+        networkId: networkId,
+        sourcePath: srcPath,
+        destinationPath: destPath,
+        listeners: listeners,
+        options: options
+      }).then((): void => {
+        console.info('Succeeded in copying from distributed path');
+      }).catch((error: BusinessError): void => {
+        console.error(`Distributed copy failed. Code: ${error.code}`);
       });
     }
   } catch (error) {
-    console.error(`Catch err. Code: ${error.code}, message: ${error.message}`);
+    const err: BusinessError = error as BusinessError;
+    console.error(`Operation failed. Code: ${err.code}`);
   }
   // [End copy_distributed_to_sand]
 }
@@ -264,13 +260,11 @@ function getListFile(pathDir: string): void {
         lastModifiedAfter: new Date(0).getTime()
       }
     };
-    let files = fileIo.listFileSync(pathDir, listFileOption);
-    for (let i = 0; i < files.length; i++) {
-      Logger.info(pathDir);
-      Logger.info(`The name of file: ${files[i]}`);
-    }
+    const files: string[] = fileIo.listFileSync(pathDir, listFileOption);
+    Logger.info(`Listed file count: ${files.length}`);
   } catch (error) {
-    console.error(`Catch err. Code: ${error.code}, message: ${error.message}`);
+    const err: BusinessError = error as BusinessError;
+    console.error(`Operation failed. Code: ${err.code}`);
   }
 }
 
@@ -284,23 +278,23 @@ struct Distributed {
           .width('30%')
           .height('40%')
           .margin(MARGIN)
-          .onClick(() => {
-            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+          .onClick((): void => {
+            const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
             createFile(context);
           })
         Button($r('app.string.AccessPublicFileDir'))
           .width('30%')
           .height('40%')
           .margin(MARGIN)
-          .onClick(() => {
+          .onClick((): void => {
             // 请在组件内获取context，确保this.getUIContext().getHostContext()返回结果为UIAbilityContext
-            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
             mountPublicDir(context);
           })
         Button($r('app.string.DisconnectingLink'))
           .width('30%')
           .height('40%')
-          .onClick(() => {
+          .onClick((): void => {
             disMountPublicDir();
           })
       }
@@ -313,16 +307,16 @@ struct Distributed {
           .width('45%')
           .height('40%')
           .margin(MARGIN)
-          .onClick(() => {
+          .onClick((): void => {
             // 请在组件内获取context，确保this.getUIContext().getHostContext()返回结果为UIAbilityContext
-            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
             copySandFile(context);
           })
         Button($r('app.string.CopyDistributedToSand'))
           .width('45%')
           .height('40%')
-          .onClick(() => {
-            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+          .onClick((): void => {
+            const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
             copyDistributedFile(context);
           })
       }
@@ -335,16 +329,16 @@ struct Distributed {
         .width('30%')
         .height('8%')
         .align(Alignment.Center)
-        .onClick(() => {
-          let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+        .onClick((): void => {
+          const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
           applyPermission(context);
         })
       Button($r('app.string.GetFileList'))
         .width('30%')
         .height('8%')
         .align(Alignment.Center)
-        .onClick(() => {
-          let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+        .onClick((): void => {
+          const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
           let pathDir: string = context.filesDir; // 应用沙箱路径
           let distributedPathDir: string = context.distributedFilesDir; // 应用分布式路径
           getListFile(pathDir);

@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file casesfeature/tabcontentoverflow/src/main/ets/common/Utils.ets
+ * 文件职责：Utils 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：Utils。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { promptAction } from '@kit.ArkUI';
 import { CONFIGURATION } from './Constants';
 
@@ -21,6 +28,9 @@ import { CONFIGURATION } from './Constants';
  */
 export class Utils {
   // 点击未开发功能按钮弹出提示函数
+  /**
+   * showPromptAction：执行 showPromptAction 相关逻辑。
+   */
   showPromptAction() {
     promptAction.showToast({
       message: $r('app.string.tabcontentoverflow_toast_message'),

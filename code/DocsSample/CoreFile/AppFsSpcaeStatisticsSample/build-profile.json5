@@ -19,9 +19,9 @@
       {
         "name": "default",
         "signingConfig": "default",
-        "targetSdkVersion": 20,
-        "compatibleSdkVersion": 20,
-        "compileSdkVersion": 20,
+        "targetSdkVersion": "26.0.0",
+        "compatibleSdkVersion": "26.0.0",
+        "compileSdkVersion": "26.0.0",
         "runtimeOS": "OpenHarmony",
         "buildOption": {
           "strictMode": {
@@ -33,10 +33,24 @@
     ],
     "buildModeSet": [
       {
-        "name": "debug",
+        "name": "debug"
       },
       {
         "name": "release"
+      }
+    ],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "certpath": "C:/Users/xychengas/.ohos/config/openharmony/default_AppFsSpcaeStatisticsSample_u0-dWB8C1TtMdv5FK4E29C4C_YWXKM_-hA2zwgIb-1A=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B0D453420CF54BE7CABD76761F28CB82165466081C93E03DF74A646DFD24011FF2DB34B622C9A27",
+          "profile": "C:/Users/xychengas/.ohos/config/openharmony/default_AppFsSpcaeStatisticsSample_u0-dWB8C1TtMdv5FK4E29C4C_YWXKM_-hA2zwgIb-1A=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:/Users/xychengas/.ohos/config/openharmony/default_AppFsSpcaeStatisticsSample_u0-dWB8C1TtMdv5FK4E29C4C_YWXKM_-hA2zwgIb-1A=.p12",
+          "storePassword": "0000001BFDC43DD692A69352876C97892380F480973CB3F747118E99A10DB20AD538F33546D9A289A73ED3"
+        }
       }
     ]
   },

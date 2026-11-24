@@ -1,49 +1,59 @@
 /*
-* Copyright (c) 2023-2024 Huawei Device Co., Ltd.
-* Licensed under the Apache License, Version 2.0 (the "License")
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // [Start basic_sample]
-import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
-import { abilityDelegatorRegistry } from '@kit.TestKit';
-import { UIAbility, Want } from '@kit.AbilityKit';
+import { beforeEach, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { UIAbility } from '@kit.AbilityKit';
+import { Component, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { delegator, driver, EXPECTED_BUNDLE, recoverMain, terminateMain } from '../JsUiSession';
 
-const delegator = abilityDelegatorRegistry.getAbilityDelegator();
-
-function sleep(time: number) {
-  return new Promise<void>((resolve: Function) => setTimeout(resolve, time));
-}
-
-export default function abilityTest() {
-  describe('ActsAbilityTest', () => {
-    // 测试套名称为ActsAbilityTest
-    // 可根据此处设置的用例类型、用例规模、用例级别进行用例筛选
-    it('testExample', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
-      // 测试用例名称为testExample
-      await sleep(500);
-      const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
-      // 启动被测试Ability
-      const want: Want = {
-        bundleName: bundleName,
-        abilityName: 'EntryAbility'
+export default function abilityTest(): void {
+  describe('ActsAbilityTest', (): void => {
+    beforeEach(async (): Promise<void> => {
+      try {
+        await recoverMain();
+      } catch (error) {
+        await terminateMain();
+        throw error instanceof Error ? error as Error : new Error(String(error));
       }
-      await delegator.startAbility(want);
-      await sleep(500);
-      // 获取设备上前台显示的页面并断言检查
-      const ability: UIAbility = await delegator.getCurrentTopAbility();
-      expect(ability.context.abilityInfo.name).assertEqual('EntryAbility');
-      done();
-    })
-  })
-}
+    });
 
+    /**
+     * @tc.number testJsunitBasicHome0001
+     * @tc.name testJsunitBasicHome0001
+     * @tc.desc Observe the launched main ability, actual bundle and exact Hello World text
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('testJsunitBasicHome0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (): Promise<void> => {
+        try {
+          const ability: UIAbility = await delegator.getCurrentTopAbility();
+          hilog.info(0x0000, 'BasicExample', 'top name=%{public}s', ability.context.abilityInfo.name);
+          expect(ability.context.abilityInfo.name).assertEqual('EntryAbility');
+          hilog.info(0x0000, 'BasicExample', 'top bundle=%{public}s', ability.context.abilityInfo.bundleName);
+          expect(ability.context.abilityInfo.bundleName).assertEqual(EXPECTED_BUNDLE);
+          const text: Component = await driver.waitForComponent(ON.text('Hello World').type('Text'), 3000);
+          const actual: string = await text.getText();
+          hilog.info(0x0000, 'BasicExample', 'main greeting=%{public}s', actual);
+          expect(actual).assertEqual('Hello World');
+        } finally {
+          await terminateMain();
+        }
+      });
+  });
+}
 // [End basic_sample]

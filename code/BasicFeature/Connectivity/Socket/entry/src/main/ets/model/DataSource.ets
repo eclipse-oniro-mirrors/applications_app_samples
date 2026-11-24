@@ -13,22 +13,41 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/model/DataSource.ets
+ * 文件职责：DataSource 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：BasicDataSource、ChatSource。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { ChatBox } from './ChatBox';
 import Logger from './Logger';
 
 const TAG: string = '[DataSource]';
 
+/**
+ * BasicDataSource：类定义，承载本文件对应的逻辑与数据。
+ */
 class BasicDataSource implements IDataSource {
   private listeners: DataChangeListener[] = [];
 
+  /**
+   * totalCount：执行 totalCount 相关逻辑。
+   */
   public totalCount(): number {
     return 0;
   }
 
+  /**
+   * getData：执行 getData 相关逻辑。
+   */
   public getData(index: number): ChatBox | undefined {
     return undefined;
   }
 
+  /**
+   * registerDataChangeListener：执行 registerDataChangeListener 相关逻辑。
+   */
   registerDataChangeListener(listener: DataChangeListener): void {
     if (this.listeners.indexOf(listener) < 0) {
       Logger.info(TAG, 'add listener');
@@ -36,6 +55,9 @@ class BasicDataSource implements IDataSource {
     }
   }
 
+  /**
+   * unregisterDataChangeListener：执行 unregisterDataChangeListener 相关逻辑。
+   */
   unregisterDataChangeListener(listener: DataChangeListener): void {
     const pos = this.listeners.indexOf(listener);
     if (pos >= 0) {
@@ -44,30 +66,45 @@ class BasicDataSource implements IDataSource {
     }
   }
 
+  /**
+   * notifyDataReload：执行 notifyDataReload 相关逻辑。
+   */
   notifyDataReload(): void {
     this.listeners.forEach(listener => {
       listener.onDataReloaded();
     })
   }
 
+  /**
+   * notifyDataAdd：执行 notifyDataAdd 相关逻辑。
+   */
   notifyDataAdd(index: number): void {
     this.listeners.forEach(listener => {
       listener.onDataAdd(index);
     })
   }
 
+  /**
+   * notifyDataChange：执行 notifyDataChange 相关逻辑。
+   */
   notifyDataChange(index: number): void {
     this.listeners.forEach(listener => {
       listener.onDataChange(index);
     })
   }
 
+  /**
+   * notifyDataDelete：执行 notifyDataDelete 相关逻辑。
+   */
   notifyDataDelete(index: number): void {
     this.listeners.forEach(listener => {
       listener.onDataDelete(index);
     })
   }
 
+  /**
+   * notifyDataMove：执行 notifyDataMove 相关逻辑。
+   */
   notifyDataMove(from: number, to: number): void {
     this.listeners.forEach(listener => {
       listener.onDataMove(from, to);
@@ -75,22 +112,37 @@ class BasicDataSource implements IDataSource {
   }
 }
 
+/**
+ * ChatSource：类定义，承载本文件对应的逻辑与数据。
+ */
 export class ChatSource extends BasicDataSource {
   public chatsArray: Array<ChatBox> = [];
 
+  /**
+   * totalCount：执行 totalCount 相关逻辑。
+   */
   public totalCount(): number {
     return this.chatsArray.length;
   }
 
+  /**
+   * getData：执行 getData 相关逻辑。
+   */
   public getData(index: number): ChatBox {
     return this.chatsArray[index];
   }
 
+  /**
+   * addData：执行 addData 相关逻辑。
+   */
   public addData(index: number, data: ChatBox): void {
     this.chatsArray.splice(index, 0, data);
     this.notifyDataAdd(index);
   }
 
+  /**
+   * pushData：执行 pushData 相关逻辑。
+   */
   public pushData(data: ChatBox): void {
     this.chatsArray.push(data);
     this.notifyDataAdd(this.chatsArray.length - 1);

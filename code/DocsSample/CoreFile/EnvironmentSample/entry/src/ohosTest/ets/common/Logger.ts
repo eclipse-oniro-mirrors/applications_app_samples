@@ -17,7 +17,7 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 
 export class Logger {
   private domain: number;
-  private prefix: string = '[Sample_NDKAppFileSample]';
+  private prefix: string = '[Sample_Environment]';
   private format: string = '%{public}s';
 
   constructor(prefix: string) {
@@ -45,10 +45,10 @@ export class Logger {
     hilog.fatal(this.domain, this.prefix, this.format, args);
   }
 
-  isLoggable(level: number): void {
-    hilog.isLoggable(this.domain, this.prefix, level);
+  isLoggable(level: hilog.LogLevel): boolean {
+    return hilog.isLoggable(this.domain, this.prefix, level);
   }
 }
 
-export default new Logger('[Sample_NDKAppFileSample]');
+export default new Logger('[Sample_Environment]');
 

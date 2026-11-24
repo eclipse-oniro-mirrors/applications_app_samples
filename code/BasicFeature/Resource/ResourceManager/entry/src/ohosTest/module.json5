@@ -29,12 +29,13 @@
     "abilities": [
       {
         "name": "TestAbility",
-        "srcEntrance": "./ets/testability/TestAbility.ets",
+        "srcEntry": "./ets/testability/TestAbility.ets",
         "description": "$string:TestAbility_desc",
-        "icon": "$media:icon",
+        "icon": "$media:startIcon",
         "label": "$string:TestAbility_label",
+        "exported": true,
         "visible": true,
-        "startWindowIcon": "$media:icon",
+        "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background",
         "skills": [
           {
@@ -47,6 +48,10 @@
           }
         ]
       }
-    ]
+    ],
+    "testRunner": {
+      "name": "OpenHarmonyTestRunner",
+      "srcPath": "./ets/TestRunner/OpenHarmonyTestRunner.ts"
+    }
   }
 }

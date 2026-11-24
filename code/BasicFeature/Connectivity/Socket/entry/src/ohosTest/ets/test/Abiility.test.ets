@@ -29,6 +29,14 @@ export default function abilityTest() {
     /**
      * 拉起一个Ability
      */
+    /**
+     * @tc.number    SUB_SOCKET_LEGACY_0001
+     * @tc.name      StartAbility_001
+     * @tc.desc      Verify legacy case StartAbility_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
     it('StartAbility_001', 0, async (done: Function) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility_001 begin');
       let driver = Driver.create();
@@ -48,6 +56,14 @@ export default function abilityTest() {
 
     /**
      * 检查界面是否正常显示
+     */
+    /**
+     * @tc.number    SUB_SOCKET_LEGACY_0002
+     * @tc.name      CheckAbility_001
+     * @tc.desc      Verify legacy case CheckAbility_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
      */
     it('CheckAbility_001', 0, async (done: Function) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'CheckAbility_001 begin');

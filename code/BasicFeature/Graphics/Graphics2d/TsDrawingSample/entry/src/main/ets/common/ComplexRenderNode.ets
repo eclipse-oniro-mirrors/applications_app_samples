@@ -13,17 +13,34 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/common/ComplexRenderNode.ets
+ * 文件职责：ComplexRenderNode 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ComplexRenderNode。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { RenderNode, DrawContext } from '@ohos.arkui.node';
 import drawing from '@ohos.graphics.drawing';
 import common2D from '@ohos.graphics.common2D';
 import display from '@ohos.display';
 
+// let 语句
 let screen = display.getDefaultDisplaySync();
+// let 语句
 let screenWidth: number = screen.width;
 
+/**
+ * ComplexRenderNode：类定义，承载本文件对应的逻辑与数据。
+ */
 export class ComplexRenderNode extends RenderNode {
+  /**
+   * draw：执行 draw 相关逻辑。
+   */
   async draw(context: DrawContext) {
+    // const 语句
     const canvas = context.canvas;
+    // let 语句
     let startX = 100.0;
     let startY = 50.0;
     let font = new drawing.Font();

@@ -14,7 +14,7 @@
  */
 
 import { songList } from '../model/SongList'
-import MyDataSource from '../model/SongModule'
+import MyDataSource, { SongItem as SongInfo } from '../model/SongModule'
 
 @Component
 export default struct PlayList {
@@ -25,30 +25,34 @@ export default struct PlayList {
   @Builder
   PlayAll() {
     Row() {
-      Image($r("app.media.ic_play_all"))
+      Image($r('app.media.ic_play_all'))
         .height(23)
         .width(23)
       Text($r('app.string.play_all'))
+        .id('play_all_text')
         .maxLines(1)
         .padding({ left: 10 })
         .fontColor('#000000')
         .fontSize(this.fontSize)
       Blank()
       Image($r('app.media.ic_order_play'))
+        .id('play_order_btn')
         .width(24)
         .height(24)
         .margin({ right: 16 })
       Image($r('app.media.ic_sort_list'))
+        .id('play_sort_btn')
         .height(24)
         .width(24)
     }
+    .id('play_all_row')
     .height(60)
     .width('100%')
     .padding({ left: 12, right: 12 })
   }
 
   @Builder
-  SongItem(title: string, label: Resource, singer: string) {
+  SongItem(title: ResourceStr, label: Resource, singer: ResourceStr) {
     Row() {
       Column() {
         Text(title)
@@ -82,7 +86,7 @@ export default struct PlayList {
       this.PlayAll()
       Scroll() {
         List() {
-          LazyForEach(new MyDataSource(songList), item => {
+          LazyForEach(new MyDataSource(songList), (item: SongInfo) => {
             ListItem() {
               Column() {
                 this.SongItem(item.title, item.label, item.singer)
@@ -91,13 +95,16 @@ export default struct PlayList {
                   .color('#000')
                   .opacity(0.1)
               }
+              .id('song_item_' + item.id.toString())
               .width('100%')
               .height(50)
               .padding({ left: 14, right: 14 })
             }
-          }, item => item.id.toString())
+          }, (item: SongInfo) => item.id.toString())
         }
+        .id('song_list')
         .width('100%')
+        .cachedCount(2)
         .lanes(this.currentBreakpoint === 'lg' ? 2 : 1)
       }
       .height('100%')

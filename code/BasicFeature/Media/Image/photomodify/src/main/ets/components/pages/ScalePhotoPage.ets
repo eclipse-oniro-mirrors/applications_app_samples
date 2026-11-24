@@ -12,21 +12,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file src/main/ets/components/pages/ScalePhotoPage.ets
+ * 文件职责：ScalePhotoPage 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ScalePhotoPage。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { scaleTaskDatas } from '../model/AdjustModels';
 import { ScaleTasks, TaskData } from '../model/AdjustData';
 import image from '@ohos.multimedia.image';
 
 const SCALE_COUNT: number = 3;
 
+/**
+ * ScalePhotoPage：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct ScalePhotoPage {
+  // @Link pixelMap：与父组件双向绑定的状态
   @Link pixelMap: PixelMap | null;
+
+  // @State scaleCount：组件内部状态
   @State scaleCount: number = SCALE_COUNT; // 缩小次数
+  // @State amplificationCount：组件内部状态
   @State amplificationCount: number = 0; // 放大次数
+  // @State canClick：组件内部状态
   @State canClick: boolean = true;
+
+  // @Link dpi：与父组件双向绑定的状态
   @Link dpi: string;
   private tempPixelMap: PixelMap | undefined | null = undefined;
 
+  /**
+   * computeDpi：执行 computeDpi 相关逻辑。
+   */
   async computeDpi() {
     if (this.pixelMap !== null && this.pixelMap !== undefined) {
       const imageInfo: image.ImageInfo = await this.pixelMap.getImageInfo();
@@ -34,6 +55,9 @@ export struct ScalePhotoPage {
     }
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
     Row() {
       ForEach(scaleTaskDatas, (item: TaskData, index) => {
@@ -41,10 +65,12 @@ export struct ScalePhotoPage {
           Image(item.image)
             .height($r('app.float.size_30'))
             .width($r('app.float.size_30'))
+            .id('scale_photo_page_image_2')
           Text(item.text)
             .fontColor(Color.White)
             .fontSize($r('app.float.size_15'))
             .margin({ top: $r('app.float.size_5') })
+            .id('scale_photo_page_text_3')
         }
         .justifyContent(FlexAlign.Center)
         .width('50%')
@@ -80,10 +106,15 @@ export struct ScalePhotoPage {
           }
           this.flushPage();
         })
+        .id('scale_photo_page_column_1')
       })
     }
+    .id('scale_photo_page_row_0')
   }
 
+  /**
+   * flushPage：执行 flushPage 相关逻辑。
+   */
   flushPage() {
     this.tempPixelMap = this.pixelMap;
     this.pixelMap = null;

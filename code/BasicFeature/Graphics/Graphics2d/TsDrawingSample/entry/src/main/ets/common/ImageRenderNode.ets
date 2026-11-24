@@ -13,18 +13,33 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/common/ImageRenderNode.ets
+ * 文件职责：ImageRenderNode 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ImageRenderNode、ImageRectRenderNode。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { RenderNode, DrawContext } from '@ohos.arkui.node';
 import drawing from '@ohos.graphics.drawing';
 import common2D from '@ohos.graphics.common2D';
 import image from '@ohos.multimedia.image';
 import display from '@ohos.display';
 
+// let 语句
 let screen = display.getDefaultDisplaySync();
+
 let screenWidth: number = screen.width;
 
+/**
+ * ImageRenderNode：类定义，承载本文件对应的逻辑与数据。
+ */
 export class ImageRenderNode extends RenderNode {
   private pMap: image.PixelMap | undefined = undefined;
 
+  /**
+   * draw：执行 draw 相关逻辑。
+   */
   async draw(context: DrawContext) {
     const canvas = context.canvas;
     let font = new drawing.Font();
@@ -48,14 +63,23 @@ export class ImageRenderNode extends RenderNode {
     canvas.detachBrush();
   }
 
+  /**
+   * setPixelMap：执行 setPixelMap 相关逻辑。
+   */
   setPixelMap(p: PixelMap) {
     this.pMap = p;
   }
 }
 
+/**
+ * ImageRectRenderNode：类定义，承载本文件对应的逻辑与数据。
+ */
 export class ImageRectRenderNode extends RenderNode {
   private pMap: image.PixelMap | undefined = undefined;
 
+  /**
+   * draw：执行 draw 相关逻辑。
+   */
   async draw(context: DrawContext) {
     const canvas = context.canvas;
     // DrawImageRectWithSrc
@@ -105,6 +129,9 @@ export class ImageRectRenderNode extends RenderNode {
     canvas.drawImageRect(this.pMap, rect);
   }
 
+  /**
+   * setPixelMap：执行 setPixelMap 相关逻辑。
+   */
   setPixelMap(p: PixelMap) {
     this.pMap = p;
   }

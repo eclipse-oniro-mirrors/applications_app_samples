@@ -13,140 +13,20 @@
  * limitations under the License.
  */
 
-import resourceManager from '@ohos.resourceManager';
-import hilog from '@ohos.hilog';
-import { BusinessError } from '@ohos.base';
+import { resourceManager } from '@kit.LocalizationKit';
+import { ResourceAccessService } from '../service/ResourceAccessService';
 
-const TAG = '[Sample_ResourceManager]';
-const DOMAIN = 0xFF00;
-const SPECIFIED_NUM = 2;
-let resMgr = getContext().resourceManager;
-
-async function getString(resId: number): Promise<string | undefined> {
-  try {
-    let value = await resMgr.getStringValue(resId);
-    return value;
-  } catch (error) {
-    let code = (error as BusinessError).code;
-    let message = (error as BusinessError).message;
-    hilog.error(DOMAIN, TAG, `getStringValue failed, error code: ${code}, message: ${message}.`);
-    return;
-  }
-}
-
-async function getStringArray(resource: resourceManager.Resource): Promise<Array<string> | undefined> {
-  try {
-    let value = await resMgr.getStringArrayValue(resource);
-    return value;
-  } catch (error) {
-    let code = (error as BusinessError).code;
-    let message = (error as BusinessError).message;
-    hilog.error(DOMAIN, TAG, `getStringArrayValue failed, error code: ${code}, message: ${message}.`);
-    return;
-  }
-}
-
-async function getPluralString(resId: number, num: number): Promise<string | undefined> {
-  try {
-    let value = await resMgr.getPluralStringValue(resId, num);
-    return value;
-  } catch (error) {
-    let code = (error as BusinessError).code;
-    let message = (error as BusinessError).message;
-    hilog.error(DOMAIN, TAG, `getPluralStringValue failed, error code: ${code}, message: ${message}.`);
-    return;
-  }
-}
-
-async function getDeviceCapability(): Promise<resourceManager.DeviceCapability | undefined> {
-  try {
-    let value = await resMgr.getDeviceCapability();
-    return value;
-  } catch (error) {
-    let code = (error as BusinessError).code;
-    let message = (error as BusinessError).message;
-    hilog.error(DOMAIN, TAG, `getDeviceCapability failed, error code: ${code}, message: ${message}.`);
-    return;
-  }
-}
-
-async function getConfiguration(): Promise<resourceManager.Configuration | undefined> {
-  try {
-    let value = await resMgr.getConfiguration();
-    return value;
-  } catch (error) {
-    let code = (error as BusinessError).code;
-    let message = (error as BusinessError).message;
-    hilog.error(DOMAIN, TAG, `getConfiguration failed, error code: ${code}, message: ${message}.`);
-    return;
-  }
-}
-
-async function getMedia(resId: number): Promise<Uint8Array | undefined> {
-  try {
-    let value = await resMgr.getMediaContent(resId);
-    return value;
-  } catch (error) {
-    let code = (error as BusinessError).code;
-    let message = (error as BusinessError).message;
-    hilog.error(DOMAIN, TAG, `getMediaContent failed, error code: ${code}, message: ${message}.`);
-    return;
-  }
-}
-
-async function getMediaBase64(resId: number): Promise<string | undefined> {
-  try {
-    let value = await resMgr.getMediaContentBase64(resId);
-    return value;
-  } catch (error) {
-    let code = (error as BusinessError).code;
-    let message = (error as BusinessError).message;
-    hilog.error(DOMAIN, TAG, `getMediaContentBase64 failed, error code: ${code}, message: ${message}.`);
-    return;
-  }
-}
-
-function getFormatString(resId: number, world: string): string | undefined {
-  try {
-    let value = resMgr.getStringSync(resId, world);
-    return value;
-  } catch (error) {
-    let code = (error as BusinessError).code;
-    let message = (error as BusinessError).message;
-    hilog.error(DOMAIN, TAG, `getStringSync failed, error code: ${code}, message: ${message}.`);
-    return;
-  }
-}
-
-async function getDensityMediaBase64(resId: number, density: number): Promise<string | undefined> {
-  try {
-    let value = await resMgr.getMediaContentBase64(resId, density);
-    return value;
-  } catch (error) {
-    let code = (error as BusinessError).code;
-    let message = (error as BusinessError).message;
-    hilog.error(DOMAIN, TAG, `getDensityMediaBase64 failed, error code: ${code}, message: ${message}.`);
-    return;
-  }
-}
-
-async function getSystemMediaBase64(resId: number): Promise<string | undefined> {
-  // 获取仅系统资源管理对象
-  let sysMgr = resourceManager.getSystemResourceManager();
-  try {
-    let value = await sysMgr.getMediaContentBase64(resId);
-    return value;
-  } catch (error) {
-    let code = (error as BusinessError).code;
-    let message = (error as BusinessError).message;
-    hilog.error(DOMAIN, TAG, `getMediaContentBase64 failed, error code: ${code}, message: ${message}.`);
-    return;
-  }
-}
+/** Quantity passed to the plural resource, keeps the "other" branch. */
+const SPECIFIED_NUM: number = 2;
+/** Density requested for the density specific media sample. */
+const SPECIFIED_DENSITY: number = 640;
+const APP_BUNDLE_NAME: string = 'ohos.samples.resourcemanager';
+const APP_MODULE_NAME: string = 'entry';
 
 @Entry
 @Component
 struct Index {
+  private service: ResourceAccessService = new ResourceAccessService(getContext().resourceManager);
   @State string_str: string = 'string'
   @State strArray: string = 'stringArray'
   @State plural: string = 'plural'
@@ -159,27 +39,28 @@ struct Index {
   @State systemRes: string = 'System Res'
 
   async aboutToAppear() {
-    this.string_str = await getString($r('app.string.string_str').id) as string;
+    this.string_str = await this.service.getString($r('app.string.string_str').id);
     let resource: resourceManager.Resource = {
-      bundleName: "ohos.samples.resourcemanager",
-      moduleName: "entry",
+      bundleName: APP_BUNDLE_NAME,
+      moduleName: APP_MODULE_NAME,
       id: $r('app.strarray.str_array').id
     }
-    this.strArray = JSON.stringify(await getStringArray(resource) as Array<string>);
-    this.plural = await getPluralString($r('app.plural.eat_apple').id, SPECIFIED_NUM) as string;
-    this.configuration = JSON.stringify(await getConfiguration() as resourceManager.Configuration);
-    this.capability = JSON.stringify(await getDeviceCapability() as resourceManager.DeviceCapability);
-    this.media = JSON.stringify(((await getMedia($r('app.media.app_icon').id)) as Uint8Array).length);
-    this.mediaBase = JSON.stringify(((await getMediaBase64($r('app.media.app_icon').id)) as string).length);
-    this.formatStr = getFormatString($r('app.string.formatStr').id,
-      await getString($r('app.string.world').id) as string) as string;
-    this.densityMedia = await getDensityMediaBase64($r('app.media.density').id, 640) as string;
-    this.systemRes = await getSystemMediaBase64($r('sys.media.ohos_app_icon').id) as string;
+    this.strArray = JSON.stringify(await this.service.getStringArray(resource));
+    this.plural = await this.service.getPluralString($r('app.plural.eat_apple').id, SPECIFIED_NUM);
+    this.configuration = await this.service.getConfigurationJson();
+    this.capability = await this.service.getCapabilityJson();
+    this.media = String(await this.service.getMediaByteLength($r('app.media.app_icon').id));
+    this.mediaBase = String(await this.service.getMediaBase64Length($r('app.media.app_icon').id));
+    this.formatStr = this.service.formatString($r('app.string.formatStr').id,
+      await this.service.getString($r('app.string.world').id));
+    this.densityMedia = await this.service.getDensityMediaBase64($r('app.media.density').id, SPECIFIED_DENSITY);
+    this.systemRes = await this.service.getSystemMediaBase64($r('sys.media.ohos_app_icon').id);
   }
 
   build() {
     Column() {
       Text($r('app.string.title'))
+        .id('basicResourcesTitle')
         .width('100%')
         .height(50)
         .backgroundColor($r('app.color.text_color'))
@@ -192,6 +73,7 @@ struct Index {
             .fontSize(25)
 
           Text(this.string_str)
+            .id('stringValue')
             .fontSize(25)
             .fontColor('#ffff0000')
             .fontWeight(FontWeight.Bold)
@@ -200,6 +82,7 @@ struct Index {
             .fontSize(25)
 
           Text(this.strArray)
+            .id('stringArrayValue')
             .fontSize(25)
             .fontColor('#ffff0000')
             .fontWeight(FontWeight.Bold)
@@ -208,6 +91,7 @@ struct Index {
             .fontSize(25)
 
           Text(this.plural)
+            .id('pluralValue')
             .fontSize(25)
             .fontColor('#ffff0000')
             .fontWeight(FontWeight.Bold)
@@ -216,6 +100,7 @@ struct Index {
             .fontSize(25)
 
           Text(this.configuration)
+            .id('configurationValue')
             .fontSize(25)
             .fontColor('#ffff0000')
             .fontWeight(FontWeight.Bold)
@@ -224,6 +109,7 @@ struct Index {
             .fontSize(25)
 
           Text(this.capability)
+            .id('capabilityValue')
             .fontSize(25)
             .fontColor('#ffff0000')
             .fontWeight(FontWeight.Bold)
@@ -232,6 +118,7 @@ struct Index {
             .fontSize(25)
 
           Text(this.media)
+            .id('mediaValue')
             .fontSize(25)
             .fontColor('#ffff0000')
             .fontWeight(FontWeight.Bold)
@@ -240,6 +127,7 @@ struct Index {
             .fontSize(25)
 
           Text(this.mediaBase)
+            .id('mediaBase64Value')
             .fontSize(25)
             .fontColor('#ffff0000')
             .fontWeight(FontWeight.Bold)
@@ -248,6 +136,7 @@ struct Index {
             .fontSize(25)
 
           Text(this.formatStr)
+            .id('formatStringValue')
             .fontSize(25)
             .fontColor('#ffff0000')
             .fontWeight(FontWeight.Bold)

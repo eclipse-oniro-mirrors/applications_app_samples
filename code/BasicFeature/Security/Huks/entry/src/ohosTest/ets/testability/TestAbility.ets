@@ -13,53 +13,58 @@
  * limitations under the License.
  */
 
-import UIAbility from '@ohos.app.ability.UIAbility';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import AbilityConstant from '@ohos.app.ability.AbilityConstant';
-import Logger from '../../../main/ets/model/Logger';
+import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { window } from '@kit.ArkUI';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { Hypium } from '@ohos/hypium';
+import Logger from '../../../main/ets/model/Logger';
 import testsuite from '../test/List.test';
-import window from '@ohos.window';
-import Want from '@ohos.app.ability.Want';
+
+let testStarted: boolean = false;
 
 export default class TestAbility extends UIAbility {
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
-    Logger.info('testTag', 'TestAbility onCreate');
-    Logger.info('testTag', 'want param:' + JSON.stringify(want) ?? '');
-    Logger.info('testTag', 'launchParam:'+ JSON.stringify(launchParam) ?? '');
-    let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator
-    abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
-    let abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs
-    abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments()
-    Logger.info('testTag', 'start run testcase!!!');
-    Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite)
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    Logger.info('[Sample_Huks]', 'TestAbility onCreate');
+    Logger.info('[Sample_Huks]', `want param: ${JSON.stringify(want) ?? ''}`);
+    Logger.info('[Sample_Huks]', `launchParam: ${JSON.stringify(launchParam) ?? ''}`);
   }
 
-  onDestroy() {
-    Logger.info('testTag', 'TestAbility onDestroy');
+  onDestroy(): void {
+    Logger.info('[Sample_Huks]', 'TestAbility onDestroy');
   }
 
-  onWindowStageCreate(windowStage: window.WindowStage) {
-    Logger.info('testTag', 'TestAbility onWindowStageCreate');
+  onWindowStageCreate(windowStage: window.WindowStage): void {
+    Logger.info('[Sample_Huks]', 'TestAbility onWindowStageCreate');
     windowStage.loadContent('testability/pages/Index', (err, data) => {
       if (err.code) {
-        Logger.error('testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
+        Logger.error('[Sample_Huks]', `Failed to load the content. Cause: ${JSON.stringify(err) ?? ''}`);
         return;
       }
-      Logger.info('testTag', 'Succeeded in loading the content. Data: %{public}s',
-      JSON.stringify(data) ?? '');
+      Logger.info('[Sample_Huks]', `Succeeded in loading the content. Data: ${JSON.stringify(data) ?? ''}`);
     });
   }
 
-  onWindowStageDestroy() {
-    Logger.info('testTag', 'TestAbility onWindowStageDestroy');
+  onWindowStageDestroy(): void {
+    Logger.info('[Sample_Huks]', 'TestAbility onWindowStageDestroy');
   }
 
-  onForeground() {
-    Logger.info('testTag', 'TestAbility onForeground');
+  onForeground(): void {
+    Logger.info('[Sample_Huks]', 'TestAbility onForeground');
+    if (testStarted) {
+      return;
+    }
+    testStarted = true;
+    setTimeout(() => {
+      const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator =
+        abilityDelegatorRegistry.getAbilityDelegator();
+      const abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs =
+        abilityDelegatorRegistry.getArguments();
+      Logger.info('[Sample_Huks]', 'start run testcase!!!');
+      Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+    }, 300);
   }
 
-  onBackground() {
-    Logger.info('testTag', 'TestAbility onBackground');
+  onBackground(): void {
+    Logger.info('[Sample_Huks]', 'TestAbility onBackground');
   }
 }

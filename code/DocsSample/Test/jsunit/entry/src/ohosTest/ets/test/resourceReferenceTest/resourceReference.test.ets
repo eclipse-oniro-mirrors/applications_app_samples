@@ -1,61 +1,57 @@
 /*
-* Copyright (c) 2023-2024 Huawei Device Co., Ltd.
-* Licensed under the Apache License, Version 2.0 (the "License")
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-
-import { describe, expect, it } from '@ohos/hypium';
-import { abilityDelegatorRegistry } from '@kit.TestKit';
-import { Want } from '@kit.AbilityKit';
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import { beforeEach, describe, expect, it } from '@ohos/hypium';
+import { common } from '@kit.AbilityKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import fs from '@ohos.file.fs';
 import buffer from '@ohos.buffer';
+import { getTestContext } from '../JsUiSession';
+import { paceTurn } from '../TestPace';
 
-const delegator = abilityDelegatorRegistry.getAbilityDelegator();
-const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
+export default function resourceReferenceTest(): void {
+  describe('resourceReferenceTest', (): void => {
+    beforeEach(async (): Promise<void> => {
+      await paceTurn();
+    });
 
-function sleep(time: number) {
-  return new Promise<void>((resolve: Function) => setTimeout(resolve, time));
-}
-
-export default function resourceReferenceTest() {
-  describe('resourceReferenceTest', () => {
     /**
-     * @tc.number: testResourceReference_001
-     * @tc.name: testResourceReference
-     * @tc.desc: 在ohosTest测试用例中获取资源文件，资源文件存储在 ohosTest/resources/resfile 下，用例执行过程中保持屏幕开启，否则无法获取到topAbility
+     * @tc.number testJsunitResourceReference0001
+     * @tc.name testJsunitResourceReference0001
+     * @tc.desc Read the bundled resfile, verify exact bytes and close its fd on every exit path
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level1
      */
-    it('testResourceReference', 0, async (done: Function) => {
-      const want: Want = {
-        bundleName: bundleName,
-        abilityName: 'TestAbility'
-      };
-      await delegator.startAbility(want);
-      await sleep(1000);
-      // 获取当前top的ability
-      let topAbility = await delegator.getCurrentTopAbility();
-      expect(topAbility.context.abilityInfo.name).assertEqual('TestAbility');
-      // 获取资源文件路径，并读取文件
-      let resDir = topAbility.context.resourceDir;
-      expect(resDir != '').assertTrue();
-      let resFileList = await fs.listFile(resDir);
-      expect(resFileList).assertContain('test.txt');
-      let filePath = resDir + '/test.txt';
-      let file = fs.openSync(filePath, fs.OpenMode.READ_ONLY);
-      let arrayBuffer = new ArrayBuffer(4096);
-      let readLen = await fs.read(file.fd, arrayBuffer);
-      expect(readLen != 0).assertTrue();
-      let buf = buffer.from(arrayBuffer, 0, readLen);
-      expect(buf.toString()).assertEqual('Resource Reference Test');
-      done();
-    })
-  })
+    it('testJsunitResourceReference0001', 0, async (): Promise<void> => {
+      const context: common.UIAbilityContext = getTestContext();
+      const resDir: string = context.resourceDir;
+      const files: string[] = await fs.listFile(resDir);
+      hilog.info(0x0000, 'ResourceExample', 'packaged resfile names=%{public}s', JSON.stringify(files));
+      expect(files).assertContain('test.txt');
+      const file: fs.File = fs.openSync(`${resDir}/test.txt`, fs.OpenMode.READ_ONLY);
+      try {
+        const data: ArrayBuffer = new ArrayBuffer(4096);
+        const readLen: number = await fs.read(file.fd, data);
+        hilog.info(0x0000, 'ResourceExample', 'packaged test.txt bytes=%{public}d', readLen);
+        expect(readLen).assertEqual(23);
+        const content: string = buffer.from(data, 0, readLen).toString();
+        hilog.info(0x0000, 'ResourceExample', 'packaged test.txt content=%{public}s', content);
+        expect(content).assertEqual('Resource Reference Test');
+      } finally {
+        fs.closeSync(file);
+      }
+    });
+  });
 }

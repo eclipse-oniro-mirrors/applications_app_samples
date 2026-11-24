@@ -1,22 +1,83 @@
-# DisplaySync测试用例归档
+# DisplaySync 测试用例
 
-## 用例表
+DisplaySync 分层帧率控制样例的测试归档，自动化部分直接调用 `@kit.ArkGraphics2D` 的 `displaySync` 接口，覆盖帧率区间、调用序列、非法参数与页面配置事实。
 
-| 测试功能    | 预置条件         | 输入             | 预期输出                  | 是否自动 | 测试结果 |
-|---------|--------------|----------------|-----------------------|------|------|
-| 拉起应用    | 	设备正常运行      | 		             | 成功拉起应用                | 是    | Pass |
-| 主页展示    | 	设备正常运行      | 		             | 展示CustomDraw、PropertyAnimation、XComponent、Animator按钮 | 是    | Pass |
-| 主页按钮点击 | 	位于主页        | 	点击CustomDraw | 	跳转自绘制页面      | 是    | Pass |
-| 自绘制开始   | 	位于自绘制 | 点击Start   | 数字30、60分别按照30hz、60hz频率放大缩小          | 是    | Pass |
-| 自绘制停止  | 	位于自绘制 | 点击Stop           | 	数字30、60变化停止                 | 是    | Pass |
-| 自绘制返回主页  | 	位于自绘制        | 点击Back      | 	回到主页             | 是    | Pass |
-| 主页按钮点击  | 	位于主页        | 	点击PropertyAnimation | 	跳转属性动画页面      | 是    | Pass |
-| 属性动画开始  | 	位于属性动画页面    | 点击Start      | 	三个方块分别按照30hz、40hz、60hz频率来回移动            | 是    | Pass |
-| 属性动画返回主页    | 	位于属性动画页面    | 点击Back      | 	回到主页          | 是    | Pass |
-| 主页按钮点击    | 	位于主页    | 点击XComponent           | 	跳转XComponent页面                 | 是    | Pass |
-| XComponent开始  | 位于XComponent页面         | 点击Start       | 两个方块分别按照30hz、120hz频率来回移动            | 是    | pass |
-| XComponent停止  | 位于XComponent页面   | 点击Stop   | 两个方块移动停止              | 是    | pass |
-| XComponent返回主页  | 位于XComponent页面   | 点击Back       | 回到主页              | 是    | pass |
-| 主页按钮点击  | 位于主页   | 点击Animator    | 跳转Animator动画页面        | 是    | pass |
-| Animator动画开始  | 位于Animator页面   | 先点击Create再点击Play    |  三个方块分别按照10hz、30hz、60hz频率放大       | 是    | pass |
-| Animator返回主页  | 位于Animator页面   | 点击Back    | 回到主页        | 是    | pass |
+## 自动化用例
+
+用例位于 `entry/src/ohosTest/ets/test`，由 `test/List.test.ets` 统一注册，共 34 个业务套件文件 2020 条；`test/Ability.test.ets` 另有 3 条环境自检，合计 2023 条。本轮主包、测试包编译与 RK3568 真机全量跑测通过：2023 条，Failure 0、Error 0、Ignore 0。
+
+用例写法与元数据约定如下：
+
+- `@tc.number DS_<主题>_NNNN`、`@tc.name <主题><序号>`、`@tc.desc`、`@tc.type FUNCTION`、`@tc.size SMALLTEST`、`@tc.level LEVEL0`；
+- `it(name, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, fn)`，每条用例首尾各打一行 `hilog` begin/end；
+- 断言前打印本条用例的入参或待校验值，期望值全部写成字面量；
+- 日志统一使用 `DOMAIN = 0xF811`、`TAG = '[Sample_DisplaySync]'`，可用 `hilog -x -D 0xF811` 过滤；
+- 每个套件通过 `beforeEachIt` 调用 `util/TestTick.ets` 的 `tick()`，每 10 条用例让出一次主线程；
+- 单个套件文件不超过 2000 行，大主题按 `Matrix1` .. `MatrixN` 拆分。
+
+### 套件清单
+
+| 套件 | 文件 | 用例数 | 覆盖内容 |
+| ---- | ---- | ------ | -------- |
+| DsSequenceMatrix1 .. 21 | DsSequenceMatrixN.test.ets | 1365 | `startThenSet`、`setTwiceAlternating`、`startStopCycle` 三种调用序列与 21 组合法帧率区间（min 1 ~ 90、expected 1 ~ 120、max 20 ~ 144）的组合，校验区间可设置且实例可用 |
+| DsFrameRateMatrix1 .. 7 | DsFrameRateMatrixN.test.ets | 455 | 7 组合法帧率区间（含 min=1 expected=1 max=1 与 min=60 expected=60 max=120）的 `setExpectedFrameRateRange` 设置与回调触发 |
+| DsApiMatrix1 | DsApiMatrix1.test.ets | 48 | `displaySync.create`、`on`、`off`、`start`、`stop` 的多轮契约检查 |
+| DsNativeMatrix1 | DsNativeMatrix1.test.ets | 2 | 真实 `displaySync.on('frame')` + `start()` 采集至少四帧纳秒时间戳，验证时间戳递增、目标时间戳及 `stop` / 运行中 `off` 后不再投递；本套件不是 XComponent NAPI 测试 |
+| DsInvalidMatrix1 | DsInvalidMatrix1.test.ets | 40 | 非法帧率区间（min=-1、expected 小于 min、max=0 等）不破坏实例，且之后仍可设置合法区间 |
+| DsConfigMatrix1 | DsConfigMatrix1.test.ets | 30 | `bundleName`、`mainElement`、`deviceTypes` 等配置事实与清单常量一致（`com.samples.displaySync`、`EntryAbility`、`tablet`） |
+| DsPageMatrix1 | DsPageMatrix1.test.ets | 40 | 通过 `bundleManager.getProfileByAbility` 读取 entry 实际 `main_pages`，校验五个路由的存在性、数量、唯一性和结构 |
+| DsTextMatrix1 | DsTextMatrix1.test.ets | 40 | 通过 entry 的 `resourceManager` 读取页面实际使用的标题及按钮资源，校验实际文案与预期一致 |
+
+测试入口与辅助文件：
+
+- `test/List.test.ets`：注册全部套件；
+- `test/Ability.test.ets`：应用上下文、包信息、模块入口共 3 条环境自检；
+- `util/TestTick.ets`：每 10 条用例插入一次 1ms 定时器，让主线程回到事件循环；
+- `testability/TestAbility.ets`：加载前台测试页面以接收真实帧事件，`onForeground` 后延迟 1 秒注册 hypium，`onDestroy` 以 -2 结束；
+- `util/DisplaySyncProbe.ets`：限时收集真实帧，检查停止/退订效果，并在 `finally` 中保证 `stop` 和 `off` 清理；
+- `util/MainResources.ets`：读取业务模块实际 profile 和 string，不使用测试资源副本或硬编码自检。
+- `testrunner/OpenHarmonyTestRunner.ts`：拉起 `TestAbility`，开发者模式未解锁时以 -3 结束；
+- `utils/Logger.ets`：测试侧日志封装，沿用同一 `DOMAIN` / `TAG`。
+
+## 手工用例
+
+| 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
+| -------- | -------- | ---- | -------- | -------- | -------- |
+| 拉起应用 | 设备正常运行 | 无 | 成功拉起应用 | 是 | Pass |
+| 主页展示 | 设备正常运行 | 无 | 展示 CustomDraw、PropertyAnimation、XComponent、Animator 按钮 | 否 | Pass |
+| 主页按钮点击 | 位于主页 | 点击 CustomDraw | 跳转自绘制页面 | 否 | Pass |
+| 自绘制开始 | 位于自绘制页面 | 点击 Start | 数字 30、60 分别按 30hz、60hz 频率放大缩小 | 否 | Pass |
+| 自绘制停止 | 位于自绘制页面 | 点击 Stop | 数字 30、60 变化停止 | 否 | Pass |
+| 自绘制返回主页 | 位于自绘制页面 | 点击 Back | 回到主页 | 否 | Pass |
+| 主页按钮点击 | 位于主页 | 点击 PropertyAnimation | 跳转属性动画页面 | 否 | Pass |
+| 属性动画开始 | 位于属性动画页面 | 点击 Start | 三个方块分别按 30hz、40hz、60hz 频率来回移动 | 否 | Pass |
+| 属性动画返回主页 | 位于属性动画页面 | 点击 Back | 回到主页 | 否 | Pass |
+| 主页按钮点击 | 位于主页 | 点击 XComponent | 跳转 XComponent 页面 | 否 | Pass |
+| XComponent 开始 | 位于 XComponent 页面 | 点击 Start | 两个方块分别按 30hz、120hz 频率来回移动 | 否 | Pass |
+| XComponent 停止 | 位于 XComponent 页面 | 点击 Stop | 两个方块移动停止 | 否 | Pass |
+| XComponent 返回主页 | 位于 XComponent 页面 | 点击 Back | 回到主页 | 否 | Pass |
+| 主页按钮点击 | 位于主页 | 点击 Animator | 跳转 Animator 动画页面 | 否 | Pass |
+| Animator 动画开始 | 位于 Animator 页面 | 先点击 Create 再点击 Play | 三个方块分别按 10hz、30hz、60hz 频率放大 | 否 | Pass |
+| Animator 返回主页 | 位于 Animator 页面 | 点击 Back | 回到主页 | 否 | Pass |
+
+手工用例的原因：页面跳转与帧率动画的观感无法用断言表达，自动化改为对 `displaySync` 的接口契约、帧率区间和调用序列做参数化校验。
+
+## 运行方式
+
+```shell
+hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap --no-daemon
+hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
+```
+
+安装完成后，通过 `hdc shell` 调用测试执行器拉起 `entry_test` 模块：`-b com.samples.displaySync` 指定应用包名，`-m entry_test` 指定测试模块，`-s unittest /ets/testrunner/OpenHarmonyTestRunner` 指定执行器入口（路径区分大小写），`-s timeout 30000` 指定超时时间。
+
+安装后也可在 DevEco Studio 中右键 `entry/src/ohosTest` 运行。仓库内 `build-profile.json5` 的 `signingConfigs` 为空，运行前需在 DevEco Studio 的 Signing Configs 中配置自动签名；更换证书后先 `hdc uninstall` 再安装，否则报 `install sign info inconsistent`。
+
+## 真机实测约束
+
+1. hypium 把整批用例串在同一个主线程任务里执行，主线程累计占用超过 6 秒会被系统判定 `THREAD_BLOCK_6S` 并结束进程（报告表现为 `TestFinished-ResultMsg: App died`），因此每个套件必须用 `beforeEachIt` 调用 `tick()`，每 10 条用例插入一次 1ms 定时器。
+2. 用例注册放在 `TestAbility.onForeground` 之后延迟 1 秒执行，避免注册阶段同步写日志导致前台超时并回收测试进程。
+3. `-s unittest` 的入口路径必须写成小写的 `/ets/testrunner/OpenHarmonyTestRunner`，设备端大小写敏感，写成 `TestRunner` 会报 `Cannot find module`。
+4. 开发者模式未解锁屏幕时，启动应用命令返回 `10106102`，`OpenHarmonyTestRunner` 会以 -3 直接结束测试，跑测前先解锁屏幕。
+5. `displaySync` 实例必须在用例内创建并成对 `off` / `stop`，否则同一进程内连续创建会残留回调，后续套件的帧率断言会受上一套件影响。
+6. hilog 的 tag 超过 31 字节会截断，所有套件只使用一个短 tag `[Sample_DisplaySync]`，用例归属靠日志正文中的 `it` 名称区分。

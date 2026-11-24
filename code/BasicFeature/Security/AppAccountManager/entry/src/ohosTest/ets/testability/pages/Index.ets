@@ -14,15 +14,20 @@
  */
 
 import router from '@system.router'
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const DOMAIN: number = 0xF811
+const TAG: string = '[Sample_AppAccountManager]'
 
 @Entry
 @Component
 struct Index {
-  aboutToAppear() {
-    console.info('TestAbility index aboutToAppear')
+  aboutToAppear(): void {
+    hilog.isLoggable(DOMAIN, TAG, hilog.LogLevel.INFO);
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility index aboutToAppear')
   }
 
-  @State message: string = 'Hello World'
+  @State message: Resource = $r('app.string.hello_message')
 
   build() {
     Row() {
@@ -31,7 +36,7 @@ struct Index {
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
         Button() {
-          Text('next page')
+          Text($r('app.string.next_page'))
             .fontSize(20)
             .fontWeight(FontWeight.Bold)
         }
@@ -39,7 +44,7 @@ struct Index {
         .margin({
           top: 20
         })
-        .backgroundColor('#0D9FFB')
+        .backgroundColor($r('app.color.nav_blue'))
         .width('35%')
         .height('5%')
         .onClick(() => {

@@ -99,9 +99,7 @@ static const char *GetReasonName(OH_Audio_NoiseReductionModeChangeReason reason)
     }
 }
 
-// [Start OnNoiseReductionModeChange]
 static void OnNoiseReductionModeChange(OH_AudioCapturer *capturer, void *userData,
-// [End OnNoiseReductionModeChange]
     OH_Audio_NoiseReductionModeChangeInfo *changeInfo)
 {
     if (changeInfo == nullptr || userData == nullptr) {
@@ -320,9 +318,7 @@ static napi_value ReleaseCapturer(napi_env env, napi_callback_info info)
     return ret;
 }
 
-// [Start OH_AudioCapturer_GetSupportedNoiseReductionModes]
 static napi_value GetSupportedModes(napi_env env, napi_callback_info info)
-// [End OH_AudioCapturer_GetSupportedNoiseReductionModes]
 {
     size_t argc = ARG_COUNT_ONE;
     napi_value argv[ARG_COUNT_ONE] = {nullptr};
@@ -354,9 +350,7 @@ static napi_value GetSupportedModes(napi_env env, napi_callback_info info)
     return resultArray;
 }
 
-// [Start OH_AudioCapturer_GetNoiseReductionMode]
 static napi_value GetCurrentMode(napi_env env, napi_callback_info info)
-// [End OH_AudioCapturer_GetNoiseReductionMode]
 {
     size_t argc = ARG_COUNT_ONE;
     napi_value argv[ARG_COUNT_ONE] = {nullptr};
@@ -381,9 +375,7 @@ static napi_value GetCurrentMode(napi_env env, napi_callback_info info)
     return ret;
 }
 
-// [Start OH_AudioCapturer_SetNoiseReductionMode]
 static napi_value SetMode(napi_env env, napi_callback_info info)
-// [End OH_AudioCapturer_SetNoiseReductionMode]
 {
     size_t argc = ARG_COUNT_TWO;
     napi_value argv[ARG_COUNT_TWO] = {nullptr};
@@ -414,9 +406,7 @@ static napi_value SetMode(napi_env env, napi_callback_info info)
     return ret;
 }
 
-// [Start OH_AudioCapturer_RegisterNoiseReductionModeChangeCallback]
 static napi_value RegisterCallback(napi_env env, napi_callback_info info)
-// [End OH_AudioCapturer_RegisterNoiseReductionModeChangeCallback]
 {
     size_t argc = ARG_COUNT_ONE;
     napi_value argv[ARG_COUNT_ONE] = {nullptr};
@@ -446,9 +436,7 @@ static napi_value RegisterCallback(napi_env env, napi_callback_info info)
     return ret;
 }
 
-// [Start OH_AudioCapturer_UnregisterNoiseReductionModeChangeCallback]
 static napi_value UnregisterCallback(napi_env env, napi_callback_info info)
-// [End OH_AudioCapturer_UnregisterNoiseReductionModeChangeCallback]
 {
     size_t argc = ARG_COUNT_ONE;
     napi_value argv[ARG_COUNT_ONE] = {nullptr};

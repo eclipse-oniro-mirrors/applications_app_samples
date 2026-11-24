@@ -13,17 +13,17 @@
  * limitations under the License.
  */
 
-import certManager from '@ohos.security.certManager';
-import util from '@ohos.util';
+import { certificateManager } from '@kit.DeviceCertificateKit';
+import { util } from '@kit.ArkTS';
 import Logger from './Logger';
 import { PRI_RSA_DATA, STAIN_SIGNATURE_TEXT, TAG } from './Data';
-interface IDataInfo {
+export interface IDataInfo {
   originInfo: string;
   certTextInfo: string;
   signatureInfo: string;
 }
 
-interface IResponse {
+export interface IResponse {
   code: number;
   data: string;
   message?: string;
@@ -35,12 +35,12 @@ function stringToUint8Array(str: String): Uint8Array {
     return null;
   }
 
-  let len = str.length;
-  let tempArray = [];
+  let len: number = str.length;
+  let tempArray: number[] = [];
   for (let i = 0; i < len; ++i) {
     tempArray.push(str.charCodeAt(i));
   }
-  let array = new Uint8Array(tempArray);
+  let array: Uint8Array = new Uint8Array(tempArray);
   return array;
 }
 
@@ -49,16 +49,17 @@ function stringToUint8Array(str: String): Uint8Array {
  */
 export class CertManagerModel {
   // origin data
-  private originText = 'Dear Tom, can we go for a spring outing on Sunday at the Central Garden?';
-  private originData = stringToUint8Array(this.originText);
-  private stainOriginText = 'Dear Tom, can we go for a spring outing together on Monday at the lakeside garden?';
+  private originText: string = 'Dear Tom, can we go for a spring outing on Sunday at the Central Garden?';
+  private originData: Uint8Array = stringToUint8Array(this.originText);
+  private stainOriginText: string =
+    'Dear Tom, can we go for a spring outing together on Monday at the lakeside garden?';
 
-  private utilBase = new util.Base64Helper();
+  private utilBase: util.Base64Helper = new util.Base64Helper();
 
   // signature data
   private signature: Uint8Array;
   private stainSignature: Uint8Array;
-  private cmResult: certManager.CMResult;
+  private cmResult: certificateManager.CMResult;
 
   dataDisplay(): IDataInfo {
     this.cmResult = null;
@@ -98,7 +99,7 @@ export class CertManagerModel {
     const keystorePwd: string = '123456';
     const certAlias: string = 'testPriCredential001';
     try {
-      this.cmResult = await certManager.installPrivateCertificate(PRI_RSA_DATA, keystorePwd, certAlias);
+      this.cmResult = await certificateManager.installPrivateCertificate(PRI_RSA_DATA, keystorePwd, certAlias);
       Logger.info(TAG, 'install success.');
       return {
         code: 200,
@@ -117,16 +118,16 @@ export class CertManagerModel {
     if (!this.cmResult) {
       await this.install();
     }
-    const signSpec = {
-      padding: certManager.CmKeyPadding.CM_PADDING_PSS,
-      digest: certManager.CmKeyDigest.CM_DIGEST_SHA1,
-      purpose: certManager.CmKeyPurpose.CM_KEY_PURPOSE_SIGN
+    const signSpec: certificateManager.CMSignatureSpec = {
+      padding: certificateManager.CmKeyPadding.CM_PADDING_PSS,
+      digest: certificateManager.CmKeyDigest.CM_DIGEST_SHA1,
+      purpose: certificateManager.CmKeyPurpose.CM_KEY_PURPOSE_SIGN
     };
 
     try {
-      const signHandle = await certManager.init(this.cmResult.uri, signSpec);
-      await certManager.update(signHandle.handle, this.originData);
-      const signResult = await certManager.finish(signHandle.handle);
+      const signHandle: certificateManager.CMHandle = await certificateManager.init(this.cmResult.uri, signSpec);
+      await certificateManager.update(signHandle.handle, this.originData);
+      const signResult: certificateManager.CMResult = await certificateManager.finish(signHandle.handle);
 
       this.stainSignature = signResult.outData;
       this.signature = signResult.outData;
@@ -149,15 +150,15 @@ export class CertManagerModel {
     if (!this.signature) {
       await this.sign();
     }
-    const verifySpec = {
-      padding: certManager.CmKeyPadding.CM_PADDING_PSS,
-      digest: certManager.CmKeyDigest.CM_DIGEST_SHA1,
-      purpose: certManager.CmKeyPurpose.CM_KEY_PURPOSE_VERIFY
+    const verifySpec: certificateManager.CMSignatureSpec = {
+      padding: certificateManager.CmKeyPadding.CM_PADDING_PSS,
+      digest: certificateManager.CmKeyDigest.CM_DIGEST_SHA1,
+      purpose: certificateManager.CmKeyPurpose.CM_KEY_PURPOSE_VERIFY
     };
     try {
-      const verifyHandle = await certManager.init(this.cmResult.uri, verifySpec);
-      await certManager.update(verifyHandle.handle, this.originData);
-      await certManager.finish(verifyHandle.handle, this.signature);
+      const verifyHandle: certificateManager.CMHandle = await certificateManager.init(this.cmResult.uri, verifySpec);
+      await certificateManager.update(verifyHandle.handle, this.originData);
+      await certificateManager.finish(verifyHandle.handle, this.signature);
       Logger.error(TAG, 'verify success.');
       return {
         code: 200,

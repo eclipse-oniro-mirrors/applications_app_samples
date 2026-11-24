@@ -13,7 +13,7 @@
 ### 使用说明
 
 1. 在主界面，点击"采集控件树信息"进入控件树采集页面；
-2. 在采集页面，按需勾选六个采集选项，点击"同步采集"或"异步采集"，页面显示解析统计与目标节点JSON；
+2. 在采集页面，按需勾选七个采集选项并调整遮挡判定不透明度阈值，点击"同步采集"或"异步采集"，页面显示解析统计与目标节点JSON；
 3. 在主界面，点击"注入交互与高阶指令"进入指令注入页面；
 4. 在指令注入页面，选择目标组件类型（输入框/Swiper/Tabs），点击指令预设按钮载入JSON，可编辑后点击"提交指令"，页面显示执行结果码与目标组件当前状态。
 5. 在主界面，点击"节点图片采集"进入节点图片采集页面，页面内有Image节点，容器节点和Text节点三个可采集目标，另有一个标记为"待移除"的节点用于演示批次中包含已移除节点；
@@ -52,7 +52,7 @@ entry/src/main/
 
 ### 具体实现
 
-* 控件树采集的请求创建，选项配置，同步采集，异步采集与回调处理封装在[napi_init.cpp](entry/src/main/cpp/napi_init.cpp)中的CreateRequest，CollectTree，CollectTreeAsync与OnTree，调用OH_ArkUI_NativeModule_UIAgentTreeRequestCreate等公开接口，请求对象通过配套销毁函数管理；
+* 控件树采集的请求创建，选项配置，同步采集，异步采集与回调处理封装在[napi_init.cpp](entry/src/main/cpp/napi_init.cpp)中的CreateRequest，CollectTree，CollectTreeAsync与OnTree，调用OH_ArkUI_NativeModule_UIAgentTreeRequestCreate，OH_ArkUI_NativeModule_UIAgentTreeRequestSetFilterOccludedNodes与OH_ArkUI_NativeModule_UIAgentTreeRequestSetOcclusionOpacityThreshold等公开接口，遮挡过滤与遮挡判定不透明度阈值只在可见树请求上设置，请求对象通过配套销毁函数管理；
 * 节点图片采集的请求提交与结果消费封装在[napi_init.cpp](entry/src/main/cpp/napi_init.cpp)中的CollectImages与OnImages，调用OH_ArkUI_NativeModule_GetImagesByNodeIdAsync提交异步请求，在回调中按节点ID逐项调用OH_ArkUI_NativeModule_ImageCollectionTakeItemByNodeId取出结果，用OH_PixelmapNative_ConvertPixelmapNativeToNapi把PixelMap转成ArkTS对象，最后调用OH_ArkUI_NativeModule_ImageCollectionDestroy释放集合；同步受理结果与回调整体结果分别通过submitError和overallError返回，单项结果通过nodeId，itemError和尺寸返回；
 * 节点图片采集所需的ArkUI Context通过页面内的NodeContent获得：页面在aboutToAppear中把NodeContent交给native侧，native创建一个空节点挂载到该NodeContent上，再调用OH_ArkUI_GetContextByNode从该节点取Context（ArkTS声明的节点取不到可用于采图的Context），实现见[napi_init.cpp](entry/src/main/cpp/napi_init.cpp)中的AttachImageAnchor与GetImageContext；
 * 节点图片采集页面的目标节点声明与调用流程见[ImagePage.ets](entry/src/main/ets/pages/ImagePage.ets)中的capture方法，节点ID通过UIContext的getFrameNodeById与getUniqueId取得，页面按请求顺序渲染每个结果项；
@@ -75,7 +75,9 @@ entry/src/main/
 3. 本示例的节点图片采集功能使用从26.1.0版本起提供的OH_ArkUI_NativeModule_GetImagesByNodeIdAsync，OH_ArkUI_NativeModule_ImageCollectionTakeItemByNodeId与OH_ArkUI_NativeModule_ImageCollectionDestroy，需使用声明并导出这三个符号的SDK与libace_ndk.z.so，运行设备的实现需与SDK匹配；
 4. 本示例需要使用DevEco Studio 26.0.0.851及以上版本编译运行；
 5. 控件树采集与指令注入必须在目标UI实例的UI线程调用，节点图片采集可以从任意线程提交，结果回调在目标UI实例的UI线程执行；同一UI实例上一次采图请求的回调未返回前，再次提交会被拒绝，具体约束见对应开发指南；
-6. 节点图片采集返回的PixelMap由调用方释放，本示例在转换给ArkTS后即释放native对象，页面退出前后不持有集合。
+6. 节点图片采集返回的PixelMap由调用方释放，本示例在转换给ArkTS后即释放native对象，页面退出前后不持有集合；
+7. 遮挡过滤只对可见树请求有效：对全量树请求启用遮挡过滤会返回106102（ATTRIBUTE_OR_EVENT_NOT_SUPPORTED），遮挡判定不透明度阈值超出[0.0, 1.0]会返回106405（PARAM_OUT_OF_RANGE），阈值默认1.0；只有最终不透明度不低于阈值的节点才作为遮挡物参与判定，因此阈值越低被剔除的节点越多，且开启遮挡过滤会带来额外的计算开销；
+8. 遮挡判定的前提：被覆盖的节点需要把自身绘制裁剪到边界内（示例对其使用clip(true)），遮挡层使用带不透明背景色的普通节点（示例为白色Column），否则该节点不会被判定为完全遮挡。
 
 ### 下载
 

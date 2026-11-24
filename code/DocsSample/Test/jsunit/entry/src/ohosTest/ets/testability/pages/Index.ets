@@ -19,7 +19,7 @@ import Logger from '../../util/Logger';
 struct Index {
   @State message: string = 'Hello World';
 
-  aboutToAppear() {
+  aboutToAppear(): void {
     Logger.info('testTag', '%{public}s', 'TestAbility index aboutToAppear');
   }
 

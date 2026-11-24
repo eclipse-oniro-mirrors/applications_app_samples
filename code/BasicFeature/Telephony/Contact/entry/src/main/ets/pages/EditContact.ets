@@ -13,13 +13,28 @@
  * limitations under the License.
  */
 
-import router from '@ohos.router'
-import prompt from '@ohos.promptAction'
-import contact from '@ohos.contact'
-import Logger from '../data/Logger'
-import { UpdateContact } from '../component/UpdateContact'
+import router from '@ohos.router';
+import prompt from '@ohos.promptAction';
+import contact from '@ohos.contact';
+import Logger from '../data/Logger';
+import { UpdateContact } from '../component/UpdateContact';
+import { PhoneNumberValidator } from '../utils/PhoneNumberValidator';
 
-const TAG: string = 'EditContact'
+const TAG: string = '[Sample_Contact]';
+
+interface EditContactParams {
+  data?: contact.Contact;
+}
+
+function getContactParam(): contact.Contact {
+  let params: EditContactParams = router.getParams() as EditContactParams;
+  let data: contact.Contact | undefined = params.data;
+  if (data !== undefined) {
+    return data;
+  }
+  let fallback: contact.Contact = { name: { fullName: '' } };
+  return fallback;
+}
 
 @Entry
 @Component
@@ -30,7 +45,7 @@ struct EditContact {
   @State nickName: string = ''
   @State phoneNumber: string = ''
   @State postalAddress: string = ''
-  @State contact: contact.Contact = <contact.Contact> router.getParams()['data']
+  @State contact: contact.Contact = getContactParam()
 
   build() {
     Column() {
@@ -42,16 +57,16 @@ struct EditContact {
           .margin({ left: 32, right: 22 })
           .objectFit(ImageFit.Contain)
           .onClick(() => {
-            router.back()
-          })
+            router.back();
+          });
 
         Text($r('app.string.editor_contact'))
           .fontSize(26)
           .fontWeight(400)
           .textAlign(TextAlign.End)
-          .fontColor(Color.Black)
+          .fontColor(Color.Black);
 
-        Blank()
+        Blank();
 
         Image($r('app.media.yes'))
           .id('confirmEdit')
@@ -60,34 +75,34 @@ struct EditContact {
           .margin({ right: 32 })
           .objectFit(ImageFit.Contain)
           .onClick(async () => {
-            let test = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}/
-            Logger.info(TAG, `this number is ${this.phoneNumber} this test result ${test.test(this.phoneNumber)}`)
-            if (test.test(this.phoneNumber) === true) {
-              let contacts = {
+            Logger.info(TAG, `this number is ${this.phoneNumber} this test result ` +
+              `${PhoneNumberValidator.isValid(this.phoneNumber)}`);
+            if (PhoneNumberValidator.isValid(this.phoneNumber) === true) {
+              let contacts: contact.Contact = {
                 id: this.contactId,
                 name: { fullName: this.name },
                 nickName: { nickName: this.nickName },
                 phoneNumbers: [{ phoneNumber: this.phoneNumber }],
                 emails: [{ email: this.email }],
                 postalAddresses: [{ postalAddress: this.postalAddress }]
-              }
-              await contact.updateContact(contacts)
+              };
+              await contact.updateContact(contacts);
               router.replaceUrl({
                 url: 'pages/Index'
-              })
-              router.clear()
+              });
+              router.clear();
             } else {
               prompt.showToast({
-                message: 'Please input phone number.',
+                message: $r('app.string.phone_number_invalid'),
                 duration: 2000,
-              })
+              });
             }
-          })
+          });
       }
       .height('6%')
       .width('100%')
       .margin({ top: 32 })
-      .constraintSize({ minHeight: 50 })
+      .constraintSize({ minHeight: 50 });
 
       UpdateContact({
         name: $name,
@@ -95,33 +110,42 @@ struct EditContact {
         nickName: $nickName,
         email: $email,
         postalAddress: $postalAddress
-      })
+      });
     }
     .width('100%')
     .height('100%')
-    .backgroundColor($r('app.color.add_contact_bg'))
+    .backgroundColor($r('app.color.add_contact_bg'));
   }
 
-  aboutToAppear() {
-    this.contact.name.fullName === '' ? this.name = '' : this.name = this.contact.name.fullName
+  aboutToAppear(): void {
+    let contactName: contact.Name | undefined = this.contact.name;
+    this.name = contactName === undefined ? '' : contactName.fullName;
     try {
-      this.contactId = this.contact.id
+      let contactId: number | undefined = this.contact.id;
+      this.contactId = contactId === undefined ? 0 : contactId;
     } catch (err) {
-      this.contactId = 0
+      this.contactId = 0;
     }
     try {
-      this.nickName = this.contact.nickName.nickName
+      let contactNick: contact.NickName | undefined = this.contact.nickName;
+      this.nickName = contactNick === undefined ? '' : contactNick.nickName;
     } catch (err) {
-      this.nickName = ''
+      this.nickName = '';
     }
-    if (this.contact.phoneNumbers !== undefined) {
-      this.phoneNumber = this.contact.phoneNumbers[0].phoneNumber === '' ? '' : this.contact.phoneNumbers[0].phoneNumber
+    let phoneNumbers: contact.PhoneNumber[] | undefined = this.contact.phoneNumbers;
+    if (phoneNumbers !== undefined && phoneNumbers.length > 0) {
+      let first: contact.PhoneNumber | undefined = phoneNumbers[0];
+      this.phoneNumber = first === undefined ? '' : first.phoneNumber;
     }
-    if (this.contact.emails !== undefined) {
-      this.email = this.contact.emails[0].email === '' ? '' : this.contact.emails[0].email
+    let emails: contact.Email[] | undefined = this.contact.emails;
+    if (emails !== undefined && emails.length > 0) {
+      let first: contact.Email | undefined = emails[0];
+      this.email = first === undefined ? '' : first.email;
     }
-    if (this.contact.postalAddresses !== undefined) {
-      this.postalAddress = this.contact.postalAddresses[0].postalAddress === '' ? '' : this.contact.postalAddresses[0].postalAddress
+    let postalAddresses: contact.PostalAddress[] | undefined = this.contact.postalAddresses;
+    if (postalAddresses !== undefined && postalAddresses.length > 0) {
+      let first: contact.PostalAddress | undefined = postalAddresses[0];
+      this.postalAddress = first === undefined ? '' : first.postalAddress;
     }
   }
 }

@@ -13,44 +13,44 @@
  * limitations under the License.
  */
 
-import UIAbility from '@ohos.app.ability.UIAbility';
+import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { window } from '@kit.ArkUI';
 import Logger from '../model/Logger';
-import window from '@ohos.window';
 
 export default class EntryAbility extends UIAbility {
-  onCreate(want, launchParam) {
-    Logger.info('testTag', 'Ability onCreate');
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    Logger.info('[Sample_CertManager]', 'Ability onCreate');
   }
 
-  onDestroy() {
-    Logger.info('testTag', 'Ability onDestroy');
+  onDestroy(): void {
+    Logger.info('[Sample_CertManager]', 'Ability onDestroy');
   }
 
-  onWindowStageCreate(windowStage: window.WindowStage) {
+  onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
-    Logger.info('testTag', 'Ability onWindowStageCreate');
+    Logger.info('[Sample_CertManager]', 'Ability onWindowStageCreate');
 
-    windowStage.loadContent('pages/Index', (err, data) => {
+    windowStage.loadContent('pages/Index', (err) => {
       if (err.code) {
-        Logger.error('testTag', `Failed to load the content. Cause: ${JSON.stringify(err) ?? ''}`);
+        Logger.error('[Sample_CertManager]', `Failed to load the content. Cause: ${JSON.stringify(err) ?? ''}`);
         return;
       }
-      Logger.info('testTag', `Succeeded in loading the content. Data: ${JSON.stringify(err) ?? ''}`);
+      Logger.info('[Sample_CertManager]', `Succeeded in loading the content. Data: ${JSON.stringify(err) ?? ''}`);
     });
   }
 
-  onWindowStageDestroy() {
+  onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources
-    Logger.info('testTag', 'Ability onWindowStageDestroy');
+    Logger.info('[Sample_CertManager]', 'Ability onWindowStageDestroy');
   }
 
-  onForeground() {
+  onForeground(): void {
     // Ability has brought to foreground
-    Logger.info('testTag', 'Ability onForeground');
+    Logger.info('[Sample_CertManager]', 'Ability onForeground');
   }
 
-  onBackground() {
+  onBackground(): void {
     // Ability has back to background
-    Logger.info('testTag', 'Ability onBackground');
+    Logger.info('[Sample_CertManager]', 'Ability onBackground');
   }
 }

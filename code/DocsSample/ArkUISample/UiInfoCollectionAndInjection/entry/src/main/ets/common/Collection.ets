@@ -31,15 +31,22 @@ export interface TreeEnvelope {
 export interface TreeOptions {
   visibleOnly: boolean;
   filterLayout: boolean;
+  filterOccluded: boolean;
+  occlusionThreshold: number;
   interaction: boolean;
   accessibility: boolean;
   visual: boolean;
   functional: boolean;
 }
 
+// 遮挡判定不透明度阈值默认值，与C接口的默认值一致。
+export const OCCLUSION_THRESHOLD_DEFAULT = 1.0;
+
 // Full-tree request used for node location before command injection.
+// 全量树不支持遮挡过滤，这里必须保持关闭并使用默认阈值。
 export const FULL_TREE: TreeOptions = {
   visibleOnly: false, filterLayout: false,
+  filterOccluded: false, occlusionThreshold: OCCLUSION_THRESHOLD_DEFAULT,
   interaction: false, accessibility: false,
   visual: false, functional: false
 };

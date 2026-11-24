@@ -13,34 +13,40 @@
  * limitations under the License.
  */
 
-import Logger from '../model/Logger'
-import { RadioStatus } from '../model/RadioStatus'
-import { SimArray } from '../model/ResultModel'
+import Logger from '../model/Logger';
+import { RadioStatus } from '../model/RadioStatus';
+import { SimArray } from '../model/ResultModel';
 
-const TAG = '[InfoView]'
+const TAG: string = '[InfoView]';
 
 @Component
 export struct InfoView {
-  @Link show: boolean
-  @Link slotId: number
-  @Link title: string
-  @State simArray: Array<SimArray> = []
-  @State radioStatus: RadioStatus = new RadioStatus()
+  @Link show: boolean;
+  @Link slotId: number;
+  @Link title: string;
+  @State simArray: SimArray[] = [];
+  @State radioStatus: RadioStatus = new RadioStatus();
 
   aboutToAppear() {
-    this.getSimSpn(0)
-    this.getSimSpn(1)
+    this.getSimSpn(0);
+    this.getSimSpn(1);
   }
 
-  getSimSpn(slotId) {
-    const simSpn = this.radioStatus.getSimSpn(slotId)
-    let title = slotId === 0 ? 'SIM1 status' : 'SIM2 status'
-    this.simArray.push({ slotId: slotId, title: title, value: simSpn })
+  async getSimSpn(slotId: number): Promise<void> {
+    const title: string = slotId === 0 ? 'SIM1 status' : 'SIM2 status';
+    let simSpn: string = '';
+    try {
+      simSpn = await this.radioStatus.getSimSpn(slotId);
+    } catch (error) {
+      Logger.error(`${TAG}, getSimSpn error->${JSON.stringify(error)}`);
+      simSpn = 'not available';
+    }
+    this.simArray.push({ slotId: slotId, title: title, value: simSpn });
   }
 
   build() {
     Column() {
-      ForEach(this.simArray, (item, index) => {
+      ForEach(this.simArray, (item: SimArray, index: number) => {
         Row() {
           Column() {
             Text(item.title)
@@ -64,13 +70,13 @@ export struct InfoView {
         .key('arrow' + (index + 1))
         .id('arrow' + (index + 1))
         .onClick(() => {
-          Logger.info(`${TAG}, PanelView`)
-          this.show = true
-          this.slotId = item.slotId
-          this.title = item.title
+          Logger.info(`${TAG}, PanelView`);
+          this.show = true;
+          this.slotId = item.slotId;
+          this.title = item.title;
         })
 
-      }, item => JSON.stringify(item))
+      }, (item: SimArray) => JSON.stringify(item))
     }
     .width('100%')
     .padding({ left: 20, right: 20 })

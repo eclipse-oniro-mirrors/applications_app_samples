@@ -45,6 +45,30 @@
       "value": "Visible tree only"
     },
     {
+      "name": "option_filter_occluded",
+      "value": "Filter occluded nodes"
+    },
+    {
+      "name": "option_occlusion_threshold",
+      "value": "Occluder opacity threshold"
+    },
+    {
+      "name": "occlusion_hint",
+      "value": "Occlusion filtering needs a visible tree; a lower threshold lets more nodes count as occluders."
+    },
+    {
+      "name": "occlusion_demo_title",
+      "value": "Occlusion filtering demo: the next two rows are covered by an opaque layer and a 0.5 opacity layer"
+    },
+    {
+      "name": "occluded_opaque_label",
+      "value": "Occluded by an opaque layer"
+    },
+    {
+      "name": "occluded_faint_label",
+      "value": "Occluded by a 0.5 opacity layer"
+    },
+    {
       "name": "option_filter_layout",
       "value": "Filter pure layout nodes"
     },

@@ -33,6 +33,10 @@ let preview = async () => status({ previewWidth: 2, previewHeight: 2, previewRgb
 let canceled = 0;
 let cancelDialog = false;
 let pickerPaths = ['file://report'];
+let clockMs;
+class HostDate extends Date {
+  static now() { return clockMs ?? Date.now(); }
+}
 const transcoder = { inspect: request => inspect(request), start: request => start(request),
   preview: request => preview(request),
   getStatus: () => status({ state: 1 }), cancel: () => { canceled++; } };
@@ -86,6 +90,7 @@ const io = {
   rename: async (from, to) => { files.set(to, files.get(from)); files.delete(from); },
   unlink: async file => { removed.push(file); files.delete(file); }, copyFile: async () => {}
 };
+const mediaWriter = { writeAll: async (fd, value) => { files.get(fd).text = value; } };
 const mocks = {
   '@kit.ImageKit': { image: { PixelMapFormat: { RGBA_8888: 3 },
     createPixelMap: async () => ({ release: async () => {} }) } },
@@ -115,7 +120,7 @@ function load(name) {
     fileName: file.replace(/[.]ets$/, '.ts'), compilerOptions: {
       module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020, experimentalDecorators: true }
   });
-  vm.runInNewContext(compiled.outputText, { module, exports: module.exports,
+  vm.runInNewContext(compiled.outputText, { module, exports: module.exports, Date: HostDate,
     Observed: target => target, $r: name => name, setInterval: () => 1, clearInterval: () => {},
     require: name => {
       if (mocks[name]) { return mocks[name]; }
@@ -124,7 +129,7 @@ function load(name) {
       if (name === '../common/LocalizedText') { return { LocalizedText: { get: key => key } }; }
       if (name === './PlaybackHistoryModel') { return { getPlaybackTitle: uri => uri.split('/').pop() }; }
       if (name === './MediaFileWriter') {
-        return { MediaFileWriter: { writeAll: async (fd, value) => { files.get(fd).text = value; } } };
+        return { MediaFileWriter: mediaWriter };
       }
       if (name.startsWith('./') || name.startsWith('../')) {
         return load(path.relative(root, path.resolve(path.dirname(file), name)));
@@ -1123,8 +1128,11 @@ async function testAuxiliaryCloseFailure(mode) {
 
 function testAuxiliaryCloseFailures() {
   const { spawnSync } = require('node:child_process');
-  const modes = ['inspect', 'preview', 'preview-close-success', 'preview-close-decode',
-    'preview-close-bitmap', 'preview-close-stale-open', 'preview-close-stale-bitmap'];
+  const modes = ['state-write', 'state-sync', 'state-close', 'state-write-close', 'state-sync-close',
+    'inspect', 'preview', 'preview-close-success', 'preview-close-decode',
+    'preview-close-bitmap', 'preview-close-stale-open', 'preview-close-stale-bitmap',
+    'execution-close-complete', 'execution-close-failed', 'history-report-close', 'history-report-native-failed',
+    'history-report-source-close', 'history-report-write-close', 'history-report-sync-close', 'history-report-success'];
   for (const mode of modes) {
     const result = spawnSync(process.execPath, [__filename, process.argv[2], mode],
       { encoding: 'utf8', timeout: 20000 });
@@ -1173,6 +1181,356 @@ async function testPreviewCloseFailure(mode) {
   }
   controller.clear();
   console.info(mode + ': cleanup blocks further tasks and preserves the operation error');
+}
+
+async function testQueueSnapshotRaces() {
+  const { TranscodeQueueStore } = load('TranscodeQueueStore');
+  const originalRead = MediaStateFiles.read;
+  const originalWrite = MediaStateFiles.write;
+  try {
+    const model = new TranscodeModel();
+    model.queue.add('/source.mp4', 'source', model.queueSettings(), false);
+    let snapshot;
+    MediaStateFiles.write = async (_context, _name, text) => { snapshot = text; };
+    const saving = model.persistQueue(ui);
+    model.queue.stopOnFailure = true;
+    await saving;
+    assert.equal(JSON.parse(snapshot).stopOnFailure, false, 'Save captures policy before waiting');
+    assert.equal(JSON.parse(snapshot).version, 1);
+    const legacy = JSON.stringify(model.queue.items);
+    for (const action of ['dispose', 'reactivate', 'mutate', 'run', 'newer']) {
+      const restored = new TranscodeModel();
+      const entered = deferred();
+      const gate = deferred();
+      MediaStateFiles.read = async (_context, name) => {
+        if (name === 'transcode_queue.json') { return legacy; }
+        entered.resolve(); return gate.promise;
+      };
+      const loading = restored.restoreQueue(ui);
+      await entered.promise;
+      if (action === 'dispose' || action === 'reactivate') { restored.dispose(); }
+      if (action === 'reactivate') { restored.activate(); }
+      if (action === 'mutate') { restored.queue.stopOnFailure = true; }
+      if (action === 'run') { await restored.runQueue(ui); }
+      if (action === 'newer') {
+        MediaStateFiles.read = async () => JSON.stringify({ version: 1, items: [], stopOnFailure: true });
+        await restored.restoreQueue(ui);
+      }
+      gate.resolve('false'); await loading;
+      assert.equal(restored.queue.items.length, 0, action + ' rejects stale recovered entries');
+      if (action === 'mutate' || action === 'newer') { assert.equal(restored.queue.stopOnFailure, true); }
+    }
+    MediaStateFiles.read = async (_context, name) => name === 'transcode_queue.json' ? legacy : 'true';
+    assert.equal((await TranscodeQueueStore.restore(ui.getHostContext())).stopOnFailure, true);
+    MediaStateFiles.read = async () => '{bad';
+    await assert.rejects(TranscodeQueueStore.restore(ui.getHostContext()));
+    MediaStateFiles.read = async () => JSON.stringify({ version: 2, items: [], stopOnFailure: false });
+    await assert.rejects(TranscodeQueueStore.restore(ui.getHostContext()), /Invalid transcode queue/);
+  } finally { MediaStateFiles.read = originalRead; MediaStateFiles.write = originalWrite; }
+  console.info('Queue snapshots: policy capture, legacy migration and five stale restore paths passed');
+}
+
+async function testStateWriteErrors(mode) {
+  const writer = mediaWriter;
+  const primary = new Error('state operation failed');
+  const closing = Object.assign(new Error('close failed'), { code: 13900005 });
+  let writes = 0;
+  let closes = 0;
+  writer.writeAll = async () => { writes++; if (mode.includes('write')) { throw primary; } };
+  io.fsync = async () => { if (mode.includes('sync')) { throw primary; } };
+  io.close = async () => { closes++; if (mode.includes('close')) { throw closing; } };
+  const target = '/state-error/media_state/queue.json';
+  files.set(target, { kind: 'file', text: 'previous' });
+  await assert.rejects(MediaStateFiles.write({ filesDir: '/state-error' }, 'queue.json', 'next'), error =>
+    mode.includes('write') || mode.includes('sync') ? error === primary : /close unconfirmed/.test(error.message));
+  assert.equal(closes, 1);
+  assert.equal(files.get(target).text, 'previous', 'Failure cannot replace the previous snapshot');
+  if (mode.includes('close')) {
+    assert.equal(MediaFileActivity.isCleanupUnconfirmed(), true);
+    await assert.rejects(MediaStateFiles.write({ filesDir: '/state-error' }, 'queue.json', 'retry'), /cleanup/);
+    assert.equal(writes, 1, 'Unconfirmed cleanup blocks subsequent writes');
+    assert.equal(closes, 1, 'An uncertain descriptor is not closed twice');
+  }
+  console.info(mode + ': primary error, prior snapshot and cleanup ownership passed');
+}
+
+async function testExecutionDirect() {
+  const { TranscodeExecutionController } = load('../controller/TranscodeExecutionController');
+  const { TranscodeTaskSnapshot } = load('TranscodeTaskSnapshot');
+  const controller = new TranscodeExecutionController();
+  files.set('/direct.mp4', { kind: 'file' });
+  inspect = async () => status(); start = async () => status();
+  const input = new TranscodeTaskSnapshot('direct', new TranscodeModel().request(0, 0));
+  const result = await controller.run(ui.getHostContext(), '/direct.mp4', 'direct', input, () => {}, () => {});
+  assert.equal(result.status.state, 2);
+  assert.equal(result.entry.configuration, 'direct');
+  assert.equal(files.has(result.path), true);
+  assert.equal(MediaTaskCoordinator.busy(), false);
+  const entered = deferred();
+  const gate = deferred();
+  let starts = 0;
+  inspect = () => { entered.resolve(); return gate.promise; };
+  start = async () => { starts++; return status(); };
+  const pending = controller.run(ui.getHostContext(), '/direct.mp4', 'cancel', input, () => {}, () => {});
+  await entered.promise; controller.cancel();
+  assert.equal(MediaTaskCoordinator.busy(), true);
+  gate.resolve(status());
+  assert.equal((await pending).status.state, 3);
+  assert.equal(starts, 0);
+  assert.equal(MediaTaskCoordinator.busy(), false);
+  console.info('Execution module: direct invocation and cancellation before submission passed');
+}
+
+async function testExecutionDisplayOwnership() {
+  const model = new TranscodeModel();
+  model.sourceUri = '/display.mp4';
+  files.set(model.sourceUri, { kind: 'file' });
+  inspect = async () => status();
+  start = async () => status();
+  await model.start(ui);
+  const previousPath = model.resultPath;
+  const previousStatus = model.status;
+  assert(files.has(previousPath));
+  assert.equal(MediaFileActivity.beginLaunch(), true);
+  try {
+    await model.start(ui);
+    assert.equal(model.resultPath, previousPath);
+    assert.equal(model.status, previousStatus);
+    assert.equal(model.notice, 'app.string.transcode_resource_busy');
+  } finally {
+    MediaFileActivity.endLaunch();
+  }
+
+  const entered = deferred();
+  const completion = deferred();
+  let partialPath;
+  start = request => {
+    partialPath = request.outputFd;
+    entered.resolve();
+    return completion.promise;
+  };
+  const task = model.start(ui);
+  await entered.promise;
+  model.dispose();
+  model.activate();
+  model.notice = 'current page';
+  completion.resolve(status());
+  await task;
+  assert.equal(model.notice, 'current page');
+  assert.equal(model.resultPath, '');
+  assert.equal(model.busy, false);
+  assert(files.has(partialPath.slice(0, -'.part'.length)));
+  assert.equal(MediaTaskCoordinator.busy(), false);
+  console.info('Execution display: rejected start preserves the result and stale completion releases the gate');
+}
+
+async function testExecutionPathCollisions() {
+  const directory = '/private/transcodes';
+  const repeatedTime = 1900000000000;
+  const restoredTime = repeatedTime - 10;
+  const model = new TranscodeModel();
+  model.sourceUri = '/private/collision.mp4';
+  files.set(model.sourceUri, { kind: 'file' });
+  inspect = async () => status();
+  start = async request => {
+    files.get(request.outputFd).text = model.sourceTitle;
+    return status();
+  };
+  try {
+    clockMs = repeatedTime;
+    model.sourceTitle = 'first output';
+    await model.start(ui);
+    const firstPath = model.resultPath;
+    const firstHistory = `${firstPath.slice(0, -'.mp4'.length)}.json`;
+    const historyText = files.get(firstHistory).text;
+    model.sourceTitle = 'second output';
+    await model.start(ui);
+    assert.notEqual(model.resultPath, firstPath, 'Jobs started in the same millisecond have distinct outputs');
+    assert.equal(files.get(firstPath).text, 'first output');
+    assert.equal(files.get(firstHistory).text, historyText);
+    assert.equal(files.get(model.resultPath).text, 'second output');
+
+    clockMs = restoredTime;
+    const occupied = ['.mp4', '.mp4.part', '.json', '.json.pending'].map((suffix, index) =>
+      `${directory}/transcoded_${restoredTime + index}${suffix}`);
+    for (const file of occupied) {
+      files.set(file, { kind: file.endsWith('.part') ? 'link' : 'file', text: `retained ${file}` });
+    }
+    model.sourceTitle = 'after clock rollback';
+    await model.start(ui);
+    assert.equal(model.status.state, 2);
+    assert.equal(files.get(model.resultPath).text, 'after clock rollback');
+    assert.match(model.resultPath, /\/transcoded_\d+\.mp4$/);
+    for (const file of occupied) { assert.equal(files.get(file).text, `retained ${file}`); }
+  } finally {
+    clockMs = undefined;
+  }
+  console.info('Execution paths: repeated timestamps and clock rollback preserve output, partial and report artifacts');
+}
+
+async function testExecutionPathListingFailure() {
+  const time = 1901000000000;
+  const directory = '/private/transcodes';
+  const existingPath = `${directory}/transcoded_${time}.json`;
+  const model = new TranscodeModel();
+  model.sourceUri = '/private/listing-error.mp4';
+  files.set(directory, { kind: 'dir' });
+  files.set(existingPath, { kind: 'file', text: 'existing report' });
+  files.set(model.sourceUri, { kind: 'file' });
+  const listFile = io.listFile;
+  let submissions = 0;
+  start = async () => { submissions++; return status(); };
+  try {
+    clockMs = time;
+    io.listFile = async () => { throw new Error('Artifact directory unavailable'); };
+    await model.start(ui);
+    assert.equal(model.status.state, 4);
+    assert.equal(model.status.detail, 'Artifact directory unavailable');
+    assert.equal(submissions, 0);
+    assert.equal(files.get(existingPath).text, 'existing report');
+    assert.equal(model.resultPath, '');
+    assert.equal(MediaTaskCoordinator.busy(), false);
+  } finally {
+    io.listFile = listFile;
+    clockMs = undefined;
+  }
+  console.info('Execution paths: listing failure skips artifact creation and releases the task');
+}
+
+async function testExecutionOutputCloseFailure(mode) {
+  const { TranscodeFileCloser } = load('../controller/TranscodeFileCloser');
+  const model = new TranscodeModel();
+  const context = ui.getHostContext();
+  const nativeFailure = status({ state: 4, stage: 'muxer.write', errorCode: 23, detail: 'Muxer write failed' });
+  const operationFails = mode === 'execution-close-failed';
+  model.sourceUri = '/private/output-close.mp4';
+  files.set(model.sourceUri, { kind: 'file' });
+  let partialPath;
+  let outputCloses = 0;
+  let sourceCloses = 0;
+  inspect = async () => status();
+  start = async request => {
+    partialPath = request.outputFd;
+    assert(partialPath.endsWith('.mp4.part'));
+    files.get(partialPath).text = 'partial output';
+    return operationFails ? nativeFailure : status();
+  };
+  io.close = async file => {
+    const fd = file?.fd ?? file;
+    if (fd === model.sourceUri) { sourceCloses++; }
+    if (fd === partialPath) {
+      outputCloses++;
+      throw Object.assign(new Error('Output close result unknown'), { code: 13900005 });
+    }
+  };
+  await model.start(ui);
+  assert.equal(sourceCloses, 1);
+  assert.equal(outputCloses, 1);
+  assert.equal(model.resultPath, '');
+  assert.equal(model.status.state, 4);
+  assert.equal(model.status.cleanupStage, 'files.close');
+  assert.match(model.notice, /transcode_close_unconfirmed/);
+  if (operationFails) {
+    assert.equal(model.status.detail, 'Muxer write failed');
+    assert.equal(model.status.stage, 'muxer.write');
+    assert.equal(model.status.errorCode, 23);
+  }
+  assert(!files.has(partialPath.slice(0, -'.part'.length)));
+  assert.equal(files.get(partialPath).text, 'partial output');
+  assert.equal(model.history[0].hasFile, false);
+  assert.equal((await MediaSessionStore.pending(context)).length, 1);
+  assert.equal((await MediaSessionStore.reports(context)).length, 0);
+  assert.equal(model.busy, false);
+  assert.equal(model.queue.paused, true);
+  assert.equal(MediaTaskCoordinator.busy(), true);
+  assert.equal(MediaFileActivity.beginTranscode(), false);
+  assert.equal(await TranscodeFileCloser.close({ fd: partialPath }), false);
+  assert.equal(outputCloses, 1);
+  console.info(`${mode}: partial output and session retained after one close attempt`);
+}
+
+async function testExecutionHistoryClose(mode) {
+  const sourceClose = mode === 'history-report-source-close';
+  const nativeFailed = mode !== 'history-report-close';
+  const model = new TranscodeModel();
+  const context = ui.getHostContext();
+  model.sourceUri = '/private/history-close.mp4';
+  files.set(model.sourceUri, { kind: 'file' });
+  inspect = async () => status();
+  start = async () => nativeFailed ? status({ state: 4, stage: 'muxer.write', errorCode: 23,
+    detail: 'Muxer write failed' }) : status();
+  let reportPath;
+  let reportCloses = 0;
+  io.close = async file => {
+    const fd = file.fd ?? file;
+    if (fd.endsWith('/history-close.mp4') && sourceClose) {
+      throw Object.assign(new Error('Source close result unknown'), { code: 13900005 });
+    }
+    if (fd.startsWith('/private/transcodes/') && fd.endsWith('.json.pending')) {
+      reportPath = fd;
+      reportCloses++;
+      throw Object.assign(new Error('History close result unknown'), { code: 13900005 });
+    }
+  };
+  await model.start(ui);
+  assert.equal(model.status.cleanupStage, sourceClose ? 'files.close' : 'history.close');
+  assert.equal(model.status.state, nativeFailed ? 4 : 2);
+  if (nativeFailed) {
+    assert.equal(model.status.detail, 'Muxer write failed');
+    assert.equal(model.status.errorCode, 23);
+  } else {
+    assert(files.has(model.resultPath), 'A closed and published media file remains available');
+  }
+  assert.match(model.notice, /transcode_close_unconfirmed/);
+  assert(files.has(reportPath));
+  assert(!files.has(reportPath.slice(0, -'.pending'.length)));
+  assert.equal(reportCloses, 1);
+  assert.equal((await MediaSessionStore.pending(context)).length, 1);
+  assert.equal((await MediaSessionStore.reports(context)).length, 0);
+  assert.equal(model.busy, false);
+  assert.equal(model.queue.paused, true);
+  assert.equal(MediaTaskCoordinator.busy(), true);
+  assert.equal(MediaFileActivity.beginTranscode(), false);
+  console.info(`${mode}: media and original outcome retained, history and session held for recovery`);
+}
+
+async function testHistoryReportPersistence(mode) {
+  const directory = '/private/transcodes';
+  const report = entry();
+  const final = `${directory}/${report.id}.json`;
+  const pending = `${final}.pending`;
+  const succeeds = mode === 'history-report-success';
+  const primary = new Error(mode === 'history-report-write-close' ? 'Report write failed' : 'Report sync failed');
+  const stages = [];
+  files.set(directory, { kind: 'dir' });
+  files.set(final, { kind: 'file', text: 'previous snapshot' });
+  const write = mediaWriter.writeAll;
+  mediaWriter.writeAll = async (fd, data) => {
+    stages.push('write');
+    if (mode === 'history-report-write-close') { throw primary; }
+    await write(fd, data);
+  };
+  io.fsync = async () => {
+    stages.push('sync');
+    if (mode === 'history-report-sync-close') { throw primary; }
+  };
+  io.close = async () => {
+    stages.push('close');
+    if (!succeeds) { throw Object.assign(new Error('History close failed'), { code: 13900005 }); }
+  };
+  if (succeeds) {
+    await TranscodeFilesModel.persist(directory, report);
+    assert.equal(JSON.parse(files.get(final).text).id, report.id);
+    assert(!files.has(pending));
+    assert.equal(MediaTaskCoordinator.busy(), false);
+  } else {
+    await assert.rejects(TranscodeFilesModel.persist(directory, report), error => error === primary);
+    assert.equal(files.get(final).text, 'previous snapshot');
+    assert(files.has(pending));
+    assert.equal(MediaTaskCoordinator.busy(), true);
+  }
+  assert.deepEqual(stages, mode === 'history-report-write-close' ? ['write', 'close'] : ['write', 'sync', 'close']);
+  console.info(`${mode}: report publication follows write, sync and confirmed close`);
 }
 
 async function testTranscodeCloseFailure() {
@@ -1225,8 +1583,110 @@ async function testTranscodeCloseFailure() {
   console.info('Transcode cleanup: EBADF, retained File, blocked lease and no repeated close passed');
 }
 
-(process.argv[3] ? (process.argv[3].startsWith('preview-close-') ?
-  testPreviewCloseFailure(process.argv[3]) : testAuxiliaryCloseFailure(process.argv[3])) : main()
+async function testInterruptedSessionJournal() {
+  const context = { filesDir: '/session-journal' };
+  const finished = { id: 'journal_finished', operation: 'transcode', startedAt: 123 };
+  const unfinished = { id: 'journal_unfinished', operation: 'playback', startedAt: 124 };
+  const completed = MediaReports.base(finished.id, finished.operation, 'completed');
+  await MediaSessionStore.begin(context, finished);
+  await MediaSessionStore.begin(context, unfinished);
+  const rename = io.rename;
+  io.rename = async (source, target) => {
+    if (target.endsWith('/pending_sessions.json')) {
+      throw new Error('Pending rename interrupted');
+    }
+    return rename(source, target);
+  };
+  try {
+    await assert.rejects(MediaSessionStore.finish(context, finished.id, completed), /Pending rename interrupted/);
+  } finally {
+    io.rename = rename;
+  }
+  const pending = await MediaSessionStore.pending(context);
+  assert.deepEqual(Array.from(pending, item => item.id), [unfinished.id]);
+  await MediaSessionStore.acknowledge(context, { ...unfinished, startedAt: unfinished.startedAt - 1 });
+  assert.equal((await MediaSessionStore.pending(context)).length, 1, 'A stale panel cannot dismiss another session');
+  await MediaSessionStore.acknowledge(context, finished);
+  await MediaSessionStore.acknowledge(context, unfinished);
+  const reports = await MediaSessionStore.reports(context);
+  assert.equal(reports.find(item => item.id === finished.id).outcome, 'completed');
+  assert.equal(reports.find(item => item.id === unfinished.id).outcome, 'interrupted');
+  assert.equal((await MediaSessionStore.pending(context)).length, 0);
+  const recording = { id: 'journal_recording', operation: 'recording', startedAt: 125 };
+  await MediaSessionStore.begin(context, recording);
+  const reportPath = `${context.filesDir}/media_state/session_reports.json`;
+  files.set(reportPath, { kind: 'file', text: '{}' });
+  assert.equal((await MediaSessionStore.pending(context))[0].id, recording.id);
+  await assert.rejects(MediaSessionStore.reports(context), /Invalid session report list/);
+  await MediaSessionStore.acknowledge(context, recording);
+  assert.equal((await MediaSessionStore.pending(context)).length, 0);
+  assert.equal(files.get(reportPath).text, '{}', 'Recording recovery preserves damaged report storage');
+  console.info('Session recovery preserves a committed report when clearing its pending entry fails');
+}
+
+async function testFileEntityAfterClose() {
+  const { TranscodeFileCloser } = load('../controller/TranscodeFileCloser');
+  const originalClose = io.close;
+  const entered = deferred();
+  const complete = deferred();
+  let valid = true;
+  let calls = 0;
+  const fd = 9110;
+  const file = { get fd() {
+    if (!valid) { throw Object.assign(new Error('Invalid file entity'), { code: 13900020 }); }
+    return fd;
+  } };
+  io.close = async handle => {
+    assert.equal(handle, file);
+    calls++;
+    await complete.promise;
+    valid = false;
+    entered.resolve();
+  };
+  try {
+    const first = TranscodeFileCloser.close(file);
+    const second = TranscodeFileCloser.close(file);
+    complete.resolve();
+    await entered.promise;
+    assert.deepEqual(await Promise.all([first, second, TranscodeFileCloser.close(file)]), [true, true, true]);
+    assert.equal(await TranscodeFileCloser.close(file), true);
+    assert.equal(calls, 1);
+  } finally {
+    io.close = originalClose;
+  }
+  await testReusedDescriptor(TranscodeFileCloser, fd);
+}
+
+async function testReusedDescriptor(closer, fd) {
+  const originalClose = io.close;
+  const next = { fd };
+  let calls = 0;
+  try {
+    io.close = async handle => { assert.equal(handle, next); calls++; };
+    assert.equal(await closer.close(next), true);
+    assert.equal(calls, 1, 'A new File using the same descriptor closes independently');
+  } finally {
+    io.close = originalClose;
+  }
+}
+
+function runFocusedTest(mode) {
+  if (mode === 'file-entity-after-close') { return testFileEntityAfterClose(); }
+  if (mode === 'session-journal') { return testInterruptedSessionJournal(); }
+  if (mode === 'execution-path-collision') { return testExecutionPathCollisions(); }
+  if (mode === 'execution-path-listing') { return testExecutionPathListingFailure(); }
+  if (mode.startsWith('state-')) { return testStateWriteErrors(mode); }
+  if (mode.startsWith('preview-close-')) { return testPreviewCloseFailure(mode); }
+  if (mode.startsWith('execution-close-')) { return testExecutionOutputCloseFailure(mode); }
+  if (['history-report-close', 'history-report-native-failed', 'history-report-source-close'].includes(mode)) {
+    return testExecutionHistoryClose(mode);
+  }
+  if (mode.startsWith('history-report-')) { return testHistoryReportPersistence(mode); }
+  return testAuxiliaryCloseFailure(mode);
+}
+
+(process.argv[3] ? runFocusedTest(process.argv[3]) : main()
+  .then(testInterruptedSessionJournal)
   .then(testQualityProfiles)
   .then(testBatchOperations)
   .then(testPreviewDisposal)
@@ -1234,6 +1694,12 @@ async function testTranscodeCloseFailure() {
   .then(testPreviewEarlyCancellation)
   .then(testHistoryController)
   .then(testTaskSnapshot)
+  .then(testQueueSnapshotRaces)
+  .then(testExecutionDirect)
+  .then(testExecutionDisplayOwnership)
+  .then(testExecutionPathCollisions)
+  .then(testExecutionPathListingFailure)
+  .then(testFileEntityAfterClose)
   .then(testAuxiliaryCloseFailures)
   .then(testTranscodeCloseFailure))
   .catch(error => { console.error(error); process.exitCode = 1; });

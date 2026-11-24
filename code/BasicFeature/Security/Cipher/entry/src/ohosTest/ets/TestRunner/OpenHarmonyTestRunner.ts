@@ -17,16 +17,16 @@ import TestRunner from '@ohos.application.testRunner';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import Logger from '../utils/Logger';
 
-let abilityDelegator = undefined;
-let abilityDelegatorArguments = undefined;
+let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator | undefined = undefined;
+let abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs | undefined = undefined;
 
-function translateParamsToString(parameters) {
-  const keySet = new Set([
+function translateParamsToString(parameters: Record<string, string>): string {
+  const keySet: Set<string> = new Set([
     '-s class', '-s notClass', '-s suite', '-s it',
     '-s level', '-s testType', '-s size', '-s timeout',
     '-s dryRun'
   ])
-  let targetParams = '';
+  let targetParams: string = '';
   for (const key in parameters) {
     if (keySet.has(key)) {
       targetParams = `${targetParams} ${key} ${parameters[key]}`;
@@ -55,15 +55,15 @@ export default class OpenHarmonyTestRunner implements TestRunner {
     Logger.info('OpenHarmonyTestRunner onRun run');
     abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
     abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    let testAbilityName = abilityDelegatorArguments.bundleName + '.TestAbility';
-    let lMonitor = {
+    let testAbilityName: string = abilityDelegatorArguments.bundleName + '.TestAbility';
+    let lMonitor: AbilityDelegatorRegistry.AbilityMonitor = {
       abilityName: testAbilityName,
       onAbilityCreate: onAbilityCreateCallback,
     };
     abilityDelegator.addAbilityMonitor(lMonitor, addAbilityMonitorCallback);
-    let cmd = 'aa start -d 0 -a TestAbility' + ' -b ' + abilityDelegatorArguments.bundleName;
+    let cmd: string = 'aa start -d 0 -a TestAbility' + ' -b ' + abilityDelegatorArguments.bundleName;
     cmd += ' ' + translateParamsToString(abilityDelegatorArguments.parameters);
-    let debug = abilityDelegatorArguments.parameters['-D'];
+    let debug: string = abilityDelegatorArguments.parameters['-D'];
     if (debug == 'true') {
       cmd += ' -D';
     }

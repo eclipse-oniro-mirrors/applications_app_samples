@@ -3,6 +3,26 @@
     {
       "name": "start_window_background",
       "value": "#FFFFFF"
+    },
+    {
+      "name": "input_background",
+      "value": "#ffffff"
+    },
+    {
+      "name": "hint_gray",
+      "value": "#ffb0b0b0"
+    },
+    {
+      "name": "nav_blue",
+      "value": "#0D9FFB"
+    },
+    {
+      "name": "card_selected",
+      "value": "#d7ebff"
+    },
+    {
+      "name": "card_normal",
+      "value": "#f6f6f6"
     }
   ]
 }

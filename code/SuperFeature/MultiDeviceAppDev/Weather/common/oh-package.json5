@@ -14,12 +14,12 @@
  */
 
 {
-  "license": "ISC",
+  "license": "Apache-2.0",
   "types": "",
   "devDependencies": {},
   "name": "@ohos/common",
-  "description": "a npm package which contains arkUI2.0 page",
-  "main": "./index.ts",
+  "description": "Common module of the weather sample: data model, mock data and style tokens.",
+  "main": "./index.ets",
   "repository": {},
   "version": "1.0.0",
   "dependencies": {}

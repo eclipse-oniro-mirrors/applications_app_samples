@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_test_desc",
+      "value": "MetadataBinding tests"
+    },
+    {
+      "name": "TestAbility_desc",
+      "value": "MetadataBinding tests"
+    },
+    {
+      "name": "TestAbility_label",
+      "value": "MetadataBinding tests"
+    }
+  ]
+}

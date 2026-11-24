@@ -100,7 +100,7 @@ struct Index {
   // [StartExclude vibrator_js_vibrator_on_state_change_example]
   // [StartExclude vibrator_js_vibrator_off_state_change_example]
   scroller: Scroller = new Scroller;
-  @State private callbackContent: string = '';
+  @State private callbackContent: string = 'callback:';
 
   build() {
     Column() {

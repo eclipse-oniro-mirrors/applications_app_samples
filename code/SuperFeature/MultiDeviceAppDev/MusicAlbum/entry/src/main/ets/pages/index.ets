@@ -21,15 +21,17 @@ import BreakpointSystem from '../model/MediaData'
 @Entry
 @Component
 struct Index {
-  private breakpointSystem: BreakpointSystem = new BreakpointSystem()
+  private breakpointSystem: BreakpointSystem | undefined = undefined
   @StorageProp('currentBreakpoint') currentBreakpoint: string = 'sm'
 
-  aboutToAppear() {
+  aboutToAppear(): void {
+    this.breakpointSystem = new BreakpointSystem(this.getUIContext())
     this.breakpointSystem.register()
   }
 
-  aboutToDisappear() {
-    this.breakpointSystem.unregister()
+  aboutToDisappear(): void {
+    this.breakpointSystem?.unregister()
+    this.breakpointSystem = undefined
   }
 
   build() {

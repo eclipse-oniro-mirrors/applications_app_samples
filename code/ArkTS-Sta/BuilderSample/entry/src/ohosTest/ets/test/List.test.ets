@@ -1,3 +1,5 @@
+'use static';
+
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +16,47 @@
  */
 
 import abilityTest from './Ability.test';
+import colorPaletteTest from './Colors/PaletteBasics.test';
+import colorContrastTest from './Colors/ColorContrast.test';
+import sizeMetricsTest from './Sizes/SizeMetrics.test';
+import layoutDerivedTest from './Sizes/LayoutDerived.test';
+import spacingPlanTest from './Sizes/SpacingPlan.test';
+import uiCopyTest from './Strings/UiCopy.test';
+import contractShapesTest from './Model/ContractShapes.test';
+import pageCompositionTest from './Integration/PageComposition.test';
+import relationsTest from './Integration/Relations.test';
+import crossChecksTest from './Integration/CrossChecks.test';
+import bindingContractTest from './Binding/BindingContract.test';
+import initialStateTest from './State/InitialState.test';
+import placeholderStateTest from './State/PlaceholderState.test';
+import textPropagationTest from './State/TextPropagation.test';
+import sequenceShortTest from './State/SequenceShort.test';
+import sequenceFourTest from './State/SequenceFour.test';
+import sequenceFiveUTest from './State/SequenceFiveU.test';
+import sequenceFiveATest from './State/SequenceFiveA.test';
+import sequenceFiveNTest from './State/SequenceFiveN.test';
+import sequenceFiveCTest from './State/SequenceFiveC.test';
 
-export default function testsuite() {
+export default function testsuite(): void {
   abilityTest();
+  colorPaletteTest();
+  colorContrastTest();
+  sizeMetricsTest();
+  layoutDerivedTest();
+  spacingPlanTest();
+  uiCopyTest();
+  contractShapesTest();
+  pageCompositionTest();
+  relationsTest();
+  crossChecksTest();
+  bindingContractTest();
+  initialStateTest();
+  placeholderStateTest();
+  textPropagationTest();
+  sequenceShortTest();
+  sequenceFourTest();
+  sequenceFiveUTest();
+  sequenceFiveATest();
+  sequenceFiveNTest();
+  sequenceFiveCTest();
 }

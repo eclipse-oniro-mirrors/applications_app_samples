@@ -15,6 +15,18 @@
 
 import { NetworkMobile } from '../model/NetworkMobile'
 
+interface DataStateParam {
+  key: string,
+  text: Resource,
+  flag: boolean
+}
+
+interface NetWorkStateParam {
+  key: string,
+  info: Resource,
+  result: Resource
+}
+
 @Component
 export struct NetWork {
   @State slotId: number = -1
@@ -24,7 +36,7 @@ export struct NetWork {
   @State mobileDataState: Resource = $r('app.string.unknown')
   private netWorkMobile: NetworkMobile = new NetworkMobile()
 
-  async aboutToAppear() {
+  async aboutToAppear(): Promise<void> {
     this.slotId = await this.netWorkMobile.getDefaultCellularDataSlotId()
     this.cellularData = await this.netWorkMobile.isCellularDataEnabled()
     this.cellularDataRoaming = await this.netWorkMobile.isCellularDataRoamingEnabled(this.slotId)
@@ -32,11 +44,7 @@ export struct NetWork {
     this.mobileDataState = await this.netWorkMobile.getCellularDataState()
   }
 
-  @Builder dataState($$: {
-    key: string,
-    text: Resource,
-    flag: boolean
-  }) {
+  @Builder dataState($$: DataStateParam) {
     Row() {
       Text($$.text)
         .margin({ left: 10 })
@@ -55,11 +63,7 @@ export struct NetWork {
     .height('8%')
   }
 
-  @Builder netWorkState($$: {
-    key: string,
-    info: Resource,
-    result: Resource
-  }) {
+  @Builder netWorkState($$: NetWorkStateParam) {
     Column() {
       Row() {
         Text($$.info)
@@ -104,7 +108,7 @@ export struct NetWork {
             .width('40%')
             .borderRadius(10)
             .textAlign(TextAlign.Center)
-            .backgroundColor(this.slotId === 0 ? '#0D9FFB' : undefined)
+            .backgroundColor(this.slotId === 0 ? $r('app.color.sim_selected_color') : undefined)
 
           Text($r('app.string.simTwo'))
             .id('simTwo')
@@ -113,11 +117,11 @@ export struct NetWork {
             .width('40%')
             .borderRadius(10)
             .textAlign(TextAlign.Center)
-            .backgroundColor(this.slotId === 1 ? '#0D9FFB' : undefined)
+            .backgroundColor(this.slotId === 1 ? $r('app.color.sim_selected_color') : undefined)
         }
         .width('35%')
         .borderRadius(10)
-        .backgroundColor('#fff5f5f5')
+        .backgroundColor($r('app.color.sim_group_background'))
       }
       .height('8%')
       .margin({ right: 10, bottom: 10 })

@@ -14,21 +14,22 @@
  */
 
 import Logger from '../model/Logger'
-import UIAbility from '@ohos.app.ability.UIAbility'
+import { UIAbility, Want, AbilityConstant } from '@kit.AbilityKit'
 import Window from '@ohos.window'
 
 const TAG: string = '[Index]'
 
 export default class EntryAbility extends UIAbility {
-  onCreate(want, launchParam) {
-    Logger.info(TAG, `Ability onCreate want param: ` + JSON.stringify(want) ?? '' + 'launchParam:' + JSON.stringify(launchParam) ?? '')
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    Logger.info(TAG, `Ability onCreate want param: ` + JSON.stringify(want) ?? '' + 'launchParam:' +
+      JSON.stringify(launchParam) ?? '')
   }
 
-  onDestroy() {
+  onDestroy(): void {
     Logger.info(TAG, `Ability onDestroy`)
   }
 
-  onWindowStageCreate(windowStage: Window.WindowStage) {
+  onWindowStageCreate(windowStage: Window.WindowStage): void {
     // Main window is created, set main page for this ability
     Logger.info(TAG, `Ability onWindowStageCreate`)
 
@@ -41,17 +42,17 @@ export default class EntryAbility extends UIAbility {
     });
   }
 
-  onWindowStageDestroy() {
+  onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources
     Logger.info(TAG, 'Ability onWindowStageDestroy');
   }
 
-  onForeground() {
+  onForeground(): void {
     // Ability has brought to foreground
     Logger.info(TAG, 'Ability onForeground');
   }
 
-  onBackground() {
+  onBackground(): void {
     // Ability has back to background
     Logger.info(TAG, 'Ability onBackground');
   }

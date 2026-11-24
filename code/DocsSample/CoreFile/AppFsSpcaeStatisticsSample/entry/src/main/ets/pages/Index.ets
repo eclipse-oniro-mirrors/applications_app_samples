@@ -14,10 +14,10 @@
  */
 
 // [Start import_interface_storage]
-import { statfs } from '@kit.CoreFileKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { common } from '@kit.AbilityKit';
-import { storageStatistics } from '@kit.CoreFileKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { formatStorageSize, queryStorage, StorageOperation } from '../model/StorageQuery';
 // [End import_interface_storage]
 
 @Entry
@@ -146,101 +146,42 @@ struct Index {
     .backgroundColor($r('app.color.lightGrayColor')) // 背景颜色为浅灰色
   }
 
-  //获取当前应用的存储空间大小。
-  getCurrentBundleStats() {
+  private async updateStorageResult(operation: StorageOperation, successMessage: Resource): Promise<void> {
+    const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
+    this.result = '';
     try {
-      // [Start storageStatistics_getCurrentBundleStats]
-      storageStatistics.getCurrentBundleStats((err: BusinessError, bundleStats: storageStatistics.BundleStats) => {
-        if (err) {
-          console.error(`Invoke getCurrentBundleStats failed, code is ${err.code}, message is ${err.message}`);
-        } else {
-          console.info(`Invoke getCurrentBundleStats succeeded, appsize is ${bundleStats.appSize}`);
-        }
-      });
-      // [End storageStatistics_getCurrentBundleStats]
-    }catch (error) {
-      let err: BusinessError = error as BusinessError;
-      console.error(`DocumentViewPicker failed with err, code is: ${err.code}, message is: ${err.message}`);
-    }
-    this.result = 'getCurrentBundleStats success';
-  }
-
-  //获取文件系统数据分区剩余空间大小。
-  storageGetFreeSize() {
-    try {
-      // [Start storageStatistics_statfs_getFreeSize]
-      let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
-      let path = context.filesDir;
-      statfs.getFreeSize(path, (err: BusinessError, freeSize: number) => {
-        if (err) {
-          console.error(`Invoke getFreeSize failed, code is ${err.code}, message is ${err.message}`);
-        } else {
-          console.info(`Invoke getFreeSize succeeded, size is ${freeSize}`);
-        }
-      });
-      // [End storageStatistics_statfs_getFreeSize]
-    }catch (error) {
-      let err: BusinessError = error as BusinessError;
-      console.error(`DocumentViewPicker failed with err, code is: ${err.code}, message is: ${err.message}`);
-    }
-    this.result = 'getFreeSize success';
-  }
-  //异步获取内置存储的总空间大小。
-  getTotalSize() {
-    try {
-      // [Start storageStatistics_getTotalSize]
-      storageStatistics.getTotalSize().then((totalSize: number) => {
-        console.info(`getTotalSize successfully, number is ${totalSize}`);
-      }).catch((err: BusinessError) => {
-        console.error(`getTotalSize failed with error, code is ${err.code}, message is ${err.message}`);
-      });
-      // [End storageStatistics_getTotalSize]
+      const bytes: number = await queryStorage(operation, context.filesDir);
+      const message: string = context.resourceManager.getStringSync(successMessage.id);
+      hilog.info(0xF811, '[Sample_Storage]', 'Storage query succeeded.');
+      this.result = `${message}: ${formatStorageSize(bytes)}`;
     } catch (error) {
-      let err: BusinessError = error as BusinessError;
-      console.error(`DocumentViewPicker failed with err, code is: ${err.code}, message is: ${err.message}`);
+      this.result = context.resourceManager.getStringSync($r('app.string.storage_query_failed').id);
+      hilog.error(0xF811, '[Sample_Storage]', 'Storage query failed code=%{public}s message=%{private}s',
+        String((error as BusinessError).code ?? 'validation'), (error as Error).message);
     }
-    this.result = 'getTotalSize success';
   }
 
-  getTotalSizeSync() {
-    // [Start storageStatistics_getTotalSizeSync]
-    try {
-      let number = storageStatistics.getTotalSizeSync();
-      console.info(`getTotalSizeSync successfully, number is ${number}`);
-    } catch (err) {
-      let error: BusinessError = err as BusinessError;
-      console.error(`getTotalSizeSync failed with error, code is ${error.code}, message is ${error.message}`);
-    }
-    // [End storageStatistics_getTotalSizeSync]
-    this.result = 'getTotalSizeSync success';
+  getCurrentBundleStats(): void {
+    this.updateStorageResult(StorageOperation.BUNDLE, $r('app.string.bundle_stats_success'));
   }
 
-  getFreeSize() {
-    try {
-      // [Start storageStatistics_getFreeSize]
-      storageStatistics.getFreeSize().then((freeSize: number) => {
-        console.info(`getFreeSize successfully, number is ${freeSize}`);
-      }).catch((err: BusinessError) => {
-        console.error(`getFreeSize failed with error, code is ${err.code}, message is ${err.message}`);
-      });
-      // [End storageStatistics_getFreeSize]
-    } catch (error) {
-      let err: BusinessError = error as BusinessError;
-      console.error(`DocumentViewPicker failed with err, code is: ${err.code}, message is: ${err.message}`);
-    }
-    this.result = 'storageGetFreeSize success';
+  storageGetFreeSize(): void {
+    this.updateStorageResult(StorageOperation.FILESYSTEM_FREE, $r('app.string.filesystem_free_success'));
   }
 
-  getFreeSizeSync() {
-    // [Start storageStatistics_getFreeSizeSync]
-      try {
-        let number = storageStatistics.getFreeSizeSync();
-        console.info(`getFreeSizeSync successfully, number is ${number}`);
-      } catch (err) {
-        let error: BusinessError = err as BusinessError;
-        console.error(`getFreeSizeSync failed with error, code is ${error.code}, message is ${error.message}`);
-      }
-    // [End storageStatistics_getFreeSizeSync]
-    this.result = 'getFreeSizeSync success';
+  getTotalSize(): void {
+    this.updateStorageResult(StorageOperation.TOTAL, $r('app.string.total_size_success'));
+  }
+
+  getTotalSizeSync(): void {
+    this.updateStorageResult(StorageOperation.TOTAL_SYNC, $r('app.string.total_size_sync_success'));
+  }
+
+  getFreeSize(): void {
+    this.updateStorageResult(StorageOperation.FREE, $r('app.string.free_size_success'));
+  }
+
+  getFreeSizeSync(): void {
+    this.updateStorageResult(StorageOperation.FREE_SYNC, $r('app.string.free_size_sync_success'));
   }
 }

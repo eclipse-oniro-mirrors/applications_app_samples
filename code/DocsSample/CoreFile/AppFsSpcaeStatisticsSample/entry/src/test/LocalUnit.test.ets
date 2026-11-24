@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,36 +13,88 @@
  * limitations under the License.
  */
 
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { describe, it, expect } from '@ohos/hypium';
+import { calculateStorageUsage, formatStorageSize, StorageUsage } from '../main/ets/model/StorageQuery';
 
-export default function localUnitTest() {
-  describe('localUnitTest', () => {
-    // Defines a test suite. Two parameters are supported: test suite name and test suite function.
-    beforeAll(() => {
-      // Presets an action, which is performed only once before all test cases of the test suite start.
-      // This API supports only one parameter: preset action function.
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_StorageLocal]';
+
+export default function localUnitTest(): void {
+  describe('StorageLocalLogic', () => {
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_LOCAL_0100
+     * @tc.name AppFsSpace_Local_0001
+     * @tc.desc Verify 4096 total bytes and 1024 free bytes produce 3072 used bytes and 75 percent usage.
+     */
+    it('AppFsSpace_Local_0001', 0, (): void => {
+      hilog.info(DOMAIN, TAG, 'AppFsSpace_Local_0001 begin');
+      try {
+        const usage: StorageUsage = calculateStorageUsage(4096, 1024);
+        hilog.info(DOMAIN, TAG, 'total=4096 free=1024 used=%{public}d expected=3072', usage.usedBytes);
+        expect(usage.usedBytes).assertEqual(3072);
+        hilog.info(DOMAIN, TAG, 'total=4096 free=1024 percent=%{public}d expected=75', usage.usedPercent);
+        expect(usage.usedPercent).assertEqual(75);
+      } finally {
+        hilog.info(DOMAIN, TAG, 'AppFsSpace_Local_0001 end');
+      }
     });
-    beforeEach(() => {
-      // Presets an action, which is performed before each unit test case starts.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: preset action function.
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_LOCAL_0200
+     * @tc.name AppFsSpace_Local_0002
+     * @tc.desc Verify an empty storage snapshot has zero used bytes and zero usage percentage.
+     */
+    it('AppFsSpace_Local_0002', 0, (): void => {
+      hilog.info(DOMAIN, TAG, 'AppFsSpace_Local_0002 begin');
+      try {
+        const usage: StorageUsage = calculateStorageUsage(0, 0);
+        hilog.info(DOMAIN, TAG, 'total=0 free=0 used=%{public}d expected=0', usage.usedBytes);
+        expect(usage.usedBytes).assertEqual(0);
+        hilog.info(DOMAIN, TAG, 'total=0 free=0 percent=%{public}d expected=0', usage.usedPercent);
+        expect(usage.usedPercent).assertEqual(0);
+      } finally {
+        hilog.info(DOMAIN, TAG, 'AppFsSpace_Local_0002 end');
+      }
     });
-    afterEach(() => {
-      // Presets a clear action, which is performed after each unit test case ends.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: clear action function.
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_LOCAL_0300
+     * @tc.name AppFsSpace_Local_0003
+     * @tc.desc Verify 1536 bytes use the KiB unit with two fractional digits.
+     */
+    it('AppFsSpace_Local_0003', 0, (): void => {
+      hilog.info(DOMAIN, TAG, 'AppFsSpace_Local_0003 begin');
+      try {
+        const formatted: string = formatStorageSize(1536, 2);
+        hilog.info(DOMAIN, TAG, 'bytes=1536 precision=2 actual=%{public}s expected=1.50 KiB', formatted);
+        expect(formatted).assertEqual('1.50 KiB');
+      } finally {
+        hilog.info(DOMAIN, TAG, 'AppFsSpace_Local_0003 end');
+      }
     });
-    afterAll(() => {
-      // Presets a clear action, which is performed after all test cases of the test suite end.
-      // This API supports only one parameter: clear action function.
-    });
-    it('assertContain', 0, () => {
-      // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
-      let a = 'abc';
-      let b = 'b';
-      // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
-      expect(a).assertContain(b);
-      expect(a).assertEqual(a);
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_LOCAL_0400
+     * @tc.name AppFsSpace_Local_0004
+     * @tc.desc Verify free bytes exceeding total bytes raise the documented validation error.
+     */
+    it('AppFsSpace_Local_0004', 0, (): void => {
+      hilog.info(DOMAIN, TAG, 'AppFsSpace_Local_0004 begin');
+      try {
+        let errorName: string = '';
+        let errorMessage: string = '';
+        try {
+          calculateStorageUsage(10, 11);
+        } catch (error) {
+          errorName = (error as Error).name;
+          errorMessage = (error as Error).message;
+        }
+        hilog.info(DOMAIN, TAG, 'total=10 free=11 error=%{public}s expected=InvalidStorageValueError', errorName);
+        expect(errorName).assertEqual('InvalidStorageValueError');
+        hilog.info(DOMAIN, TAG, 'total=10 free=11 message=%{public}s expected=Free size must not exceed total size',
+          errorMessage);
+        expect(errorMessage).assertEqual('Free size must not exceed total size');
+      } finally {
+        hilog.info(DOMAIN, TAG, 'AppFsSpace_Local_0004 end');
+      }
     });
   });
 }

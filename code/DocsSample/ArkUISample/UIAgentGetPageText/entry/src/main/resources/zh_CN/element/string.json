@@ -1,0 +1,56 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "ArkUI Native 页面文本采集示例"
+    },
+    {
+      "name": "title",
+      "value": "采集页面文本"
+    },
+    {
+      "name": "description",
+      "value": "切换示例文本后再次采集。空输入框采集提示文字；普通输入框的输入内容不参与采集。"
+    },
+    {
+      "name": "original_text",
+      "value": "OpenHarmony 页面文本示例"
+    },
+    {
+      "name": "updated_text",
+      "value": "示例文本已更新"
+    },
+    {
+      "name": "input_hint",
+      "value": "输入文字，比较提示文字的采集变化"
+    },
+    {
+      "name": "unicode_text",
+      "value": "中文示例 · Hello ArkUI · 你好 🌏"
+    },
+    {
+      "name": "update",
+      "value": "切换示例文本"
+    },
+    {
+      "name": "collect",
+      "value": "采集页面文本"
+    },
+    {
+      "name": "result_title",
+      "value": "采集结果 JSON"
+    },
+    {
+      "name": "result_description",
+      "value": "展示接口返回的原始 JSON，包含节点 id、相对窗口的 rect 和文本 content。"
+    },
+    {
+      "name": "back",
+      "value": "返回示例页面"
+    },
+    {
+      "name": "result_count",
+      "value": "文本项数：%d"
+    }
+  ]
+}

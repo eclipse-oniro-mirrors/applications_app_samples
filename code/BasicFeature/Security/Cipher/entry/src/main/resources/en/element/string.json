@@ -23,6 +23,26 @@
     {
       "name": "back",
       "value": "Back"
+    },
+    {
+      "name": "message_empty",
+      "value": "This message is null."
+    },
+    {
+      "name": "encryption_algorithm",
+      "value": "Encryption Algorithm"
+    },
+    {
+      "name": "decrypt_algorithm",
+      "value": "Decrypt Algorithm"
+    },
+    {
+      "name": "encryption_result_format",
+      "value": "Encryption result is :  %s"
+    },
+    {
+      "name": "decrypt_result_format",
+      "value": "Decrypt result is :  %s"
     }
   ]
 }

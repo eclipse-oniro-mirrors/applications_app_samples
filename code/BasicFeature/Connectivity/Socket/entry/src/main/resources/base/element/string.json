@@ -67,6 +67,22 @@
     {
       "name": "EntryAbility_label",
       "value": "Socket"
+    },
+    {
+      "name": "login_user_prefix",
+      "value": "用户名：%s"
+    },
+    {
+      "name": "login_confirm_code_prefix",
+      "value": "确认码：%s"
+    },
+    {
+      "name": "login_local_ip_prefix",
+      "value": "本地IP：%s"
+    },
+    {
+      "name": "login_user_label",
+      "value": "用户：%s"
     }
   ]
 }

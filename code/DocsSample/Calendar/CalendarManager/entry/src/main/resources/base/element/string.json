@@ -11,6 +11,34 @@
     {
       "name": "EntryAbility_label",
       "value": "label"
+    },
+    {
+      "name": "calendar_permission_reason",
+      "value": "用于创建、查询和管理日历账户"
+    },
+    {
+      "name": "calendar_create",
+      "value": "1，创建日历账户对象"
+    },
+    {
+      "name": "calendar_config",
+      "value": "2，设置日历配置信息"
+    },
+    {
+      "name": "calendar_named",
+      "value": "3，查询指定日历账户"
+    },
+    {
+      "name": "calendar_default",
+      "value": "4，查询默认日历账户"
+    },
+    {
+      "name": "calendar_all",
+      "value": "5，查询所有日历账户"
+    },
+    {
+      "name": "calendar_delete",
+      "value": "6，删除指定日历账户"
     }
   ]
 }

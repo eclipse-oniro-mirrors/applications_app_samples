@@ -15,12 +15,15 @@
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BackupExtensionAbility, BundleVersion } from '@kit.CoreFileKit';
 
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_ScanNapiInterfaceDemo]';
+
 export default class EntryBackupAbility extends BackupExtensionAbility {
-  async onBackup() {
-    hilog.info(0x0000, 'testTag', 'onBackup ok');
+  async onBackup(): Promise<void> {
+    hilog.info(DOMAIN, TAG, 'onBackup ok');
   }
 
-  async onRestore(bundleVersion: BundleVersion) {
-    hilog.info(0x0000, 'testTag', 'onRestore ok %{public}s', JSON.stringify(bundleVersion));
+  async onRestore(bundleVersion: BundleVersion): Promise<void> {
+    hilog.info(DOMAIN, TAG, 'onRestore ok %{public}s', JSON.stringify(bundleVersion));
   }
 }

@@ -1,0 +1,24 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "result_background",
+      "value": "#F5F5F5"
+    },
+    {
+      "name": "method_item_background",
+      "value": "#F7F9FC"
+    },
+    {
+      "name": "method_item_font_color",
+      "value": "#0A59F7"
+    },
+    {
+      "name": "scrollbar_color",
+      "value": "#888888"
+    }
+  ]
+}

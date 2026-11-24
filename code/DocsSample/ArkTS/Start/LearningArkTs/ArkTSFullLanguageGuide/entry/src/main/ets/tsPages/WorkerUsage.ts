@@ -14,7 +14,7 @@
  */
 // ===== worker_basic_usage =====
 // [Start worker_basic_usage]
-// WorkerUsage.ets
+// WorkerUsage.ts
 import { worker, MessageEvents } from '@kit.ArkTS';
 
 // 使用Worker在后台线程执行耗时任务

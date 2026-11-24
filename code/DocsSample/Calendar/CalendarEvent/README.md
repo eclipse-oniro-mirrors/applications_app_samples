@@ -55,9 +55,9 @@ entry/src/
 
 1.本示例仅支持标准系统上运行, 支持设备：RK3568、PHONE、Tablet。
 
-2.本示例仅支持API20版本SDK，镜像版本号：OpenHarmony 6.0.0.x及之后的版本。
+2.本示例仅支持API version 26版本SDK（版本号：26.0.0），镜像版本号：OpenHarmony 7.1.0.x及之后的版本。
 
-3.本示例需要使用DevEco Studio 6.0.0 release (Build Version: 6.0.0.858)才可编译运行。
+3.本示例需要使用DevEco Studio 26.0.0 Release (Build Version: 26.0.0.24)及以上版本才可编译运行。
 
 ### 下载
 

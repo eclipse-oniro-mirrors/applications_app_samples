@@ -33,11 +33,13 @@ std::string ElapsedMilliseconds(std::chrono::steady_clock::time_point started)
 void Recorder::StartRelease()
 {
     std::lock_guard<std::mutex> lock(mutex_);
+    std::lock_guard<std::mutex> releaseLock(releaseMutex_);
     if (releaseThread_ == nullptr) {
         // 只创建一个收尾线程，防止多个路径重复销毁codec、窗口或回调上下文。
         AVCODEC_SAMPLE_LOGI("StartRelease: Creating release thread");
-        releaseCompleted_ = false;
         releaseThread_ = std::make_unique<std::thread>(&Recorder::Release, this);
+        releaseResult_ = AVCODEC_SAMPLE_ERR_OK;
+        releaseCompleted_ = false;
     } else {
         AVCODEC_SAMPLE_LOGI("StartRelease: Release thread already exists");
     }
@@ -51,11 +53,16 @@ void Recorder::ReleaseThread()
         std::lock_guard<std::mutex> inputLock(videoInputMutex_);
         // videoInputStopping_请求停止Buffer视频输入；join保证销毁编码器时已无普通帧提交。
         videoInputStopping_.store(true);
+        cleanupProgress_.Enter("workers.video.input");
         videoInputWorker_.Join();
     }
+    cleanupProgress_.Enter("workers.video.output");
     videoOutputWorker_.Join();
+    cleanupProgress_.Enter("workers.secondary.output");
     secondaryVideoOutputWorker_.Join();
+    cleanupProgress_.Enter("workers.audio.input");
     audioInputWorker_.Join();
+    cleanupProgress_.Enter("workers.audio.output");
     audioOutputWorker_.Join();
     sessionReport_.Event("workers.joined", ElapsedMilliseconds(started));
 }
@@ -155,15 +162,19 @@ void Recorder::Release()
     {
         std::lock_guard<std::mutex> lock(mutex_);
         const auto muxerStarted = std::chrono::steady_clock::now();
+        cleanupProgress_.Enter("muxers.release");
         ReleaseMuxers();
         sessionReport_.Event("muxers.released", ElapsedMilliseconds(muxerStarted));
         const auto videoStarted = std::chrono::steady_clock::now();
+        cleanupProgress_.Enter("codec.video.release");
         ReleaseVideoEncoder();
         sessionReport_.Event("video.codec.released", ElapsedMilliseconds(videoStarted));
         const auto audioStarted = std::chrono::steady_clock::now();
+        cleanupProgress_.Enter("codec.audio.release");
         ReleaseAudioEncoder();
         sessionReport_.Event("audio.codec.released", ElapsedMilliseconds(audioStarted));
         audioStats_.Stop();
+        cleanupProgress_.Enter("output.finalize");
         CloseVideoDumpFiles();
         primaryStats_.Stop();
         secondaryStats_.Stop();
@@ -171,13 +182,18 @@ void Recorder::Release()
         if (sampleInfo_.output.enableDualOutput) {
             RefreshStreamStorage(false, true);
         }
-        sessionActive_.store(false);
         if (encContext_ != nullptr) {
             // 视频codec已释放且输出线程已join，回调上下文不再会被访问。
             encContext_.reset();
         }
-        releaseCompleted_ = true;
+        cleanupProgress_.Complete();
         sessionReport_.Event("native.released");
+        if (releaseResult_ == AVCODEC_SAMPLE_ERR_OK && !failure_.Snapshot().stage.empty()) {
+            releaseResult_ = AVCODEC_SAMPLE_ERR_ERROR;
+        }
+        std::lock_guard<std::mutex> releaseLock(releaseMutex_);
+        sessionActive_.store(false);
+        releaseCompleted_ = true;
     }
     doneCond_.notify_all();
     AVCODEC_SAMPLE_LOGI("Release: Cleanup complete, notifying doneCond");
@@ -217,15 +233,16 @@ void Recorder::AbortRecording(const char *reason)
 int32_t Recorder::WaitForDone()
 {
     AVCODEC_SAMPLE_LOGI("Wait called");
-    std::unique_lock<std::mutex> lock(mutex_);
-    while (!doneCond_.wait_for(lock, RELEASE_WARNING_INTERVAL, [this]() { return releaseCompleted_; })) {
+    std::unique_lock<std::mutex> releaseLock(releaseMutex_);
+    while (!doneCond_.wait_for(releaseLock, RELEASE_WARNING_INTERVAL, [this]() { return releaseCompleted_; })) {
         sessionReport_.Event("release.pending", "Resources remain owned until release completes");
-        AVCODEC_SAMPLE_LOGW("Recorder cleanup is still pending; retain session resources");
+        const auto progress = cleanupProgress_.Snapshot();
+        AVCODEC_SAMPLE_LOGW("Recorder cleanup pending, stage: %{public}s, elapsedMs: %{public}lld",
+            progress.stage.c_str(), static_cast<long long>(progress.elapsedMs));
     }
-    const int32_t result = releaseResult_ != AVCODEC_SAMPLE_ERR_OK ? releaseResult_ :
-        (failure_.Snapshot().stage.empty() ? AVCODEC_SAMPLE_ERR_OK : AVCODEC_SAMPLE_ERR_ERROR);
+    const int32_t result = releaseResult_;
     std::unique_ptr<std::thread> releaseThread = std::move(releaseThread_);
-    lock.unlock();
+    releaseLock.unlock();
     if (releaseThread != nullptr && releaseThread->joinable()) {
         releaseThread->join();
     }
@@ -260,7 +277,9 @@ int32_t Recorder::StopEnd()
     }
 
     AVCODEC_SAMPLE_LOGI("StopEnd: Waiting for camera pipeline to flush...");
+    cleanupProgress_.Enter("camera.drain");
     std::this_thread::sleep_for(CAMERA_DRAIN_GRACE);
+    cleanupProgress_.Enter("video.eos.submit");
     int32_t ret = SendVideoEndOfStream();
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         return AbortAndWait(ret, "Video encoder notifyEndOfStream failed");
@@ -295,18 +314,24 @@ int32_t Recorder::SendAudioEndOfStream()
     if (audioEncContext_ != nullptr) {
         audioEncContext_->inputCond.notify_all();
     }
+    cleanupProgress_.Enter("workers.audio.input");
     audioInputWorker_.Join();
     sessionReport_.Event("audio.input.joined", ElapsedMilliseconds(started));
     if (audioEncoder_ == nullptr) {
         return AVCODEC_SAMPLE_ERR_OK;
     }
+    cleanupProgress_.Enter("audio.eos.submit");
     return sampleInfo_.codec.codecSyncMode ? SendAudioEndOfStreamSync() : SendAudioEndOfStreamAsync();
 }
 
 int32_t Recorder::WaitForEncoderEndOfStream()
 {
     const auto deadline = std::chrono::steady_clock::now() + ENCODER_DRAIN_TIMEOUT;
+    cleanupProgress_.Enter("video.drain");
     const int32_t videoRet = WaitForVideoEndOfStream(deadline);
+    if (audioEncoder_ != nullptr) {
+        cleanupProgress_.Enter("audio.drain");
+    }
     const int32_t audioRet = WaitForAudioEndOfStream(deadline);
     return videoRet == AVCODEC_SAMPLE_ERR_OK ? audioRet : videoRet;
 }

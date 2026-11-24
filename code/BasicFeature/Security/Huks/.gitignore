@@ -7,6 +7,6 @@
 /.clangd
 /.clang-format
 /.clang-tidy
-/oh-package-lock.json
+/oh-package-lock.json5
 /entry/package-lock.json
 /entry/.preview

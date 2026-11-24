@@ -13,14 +13,28 @@
  * limitations under the License.
  */
 
+/**
+ * @file src/main/ets/pages/GetPictures.ets
+ * 文件职责：GetPictures 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：GetPictures。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { BusinessError } from '@kit.BasicServicesKit';
 import { logger } from '@ohos/photomodify';
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
 
 const LENGTH: number = 9;
+
 const TAG: string = '[GetPictures]';
 
+/**
+ * GetPictures：类定义，承载本文件对应的逻辑与数据。
+ */
 export default class GetPictures {
+  /**
+   * getImage：执行 getImage 相关逻辑。
+   */
   async getImage(): Promise<void> {
     return new Promise(async (resolve, reject) => {
       try {

@@ -14,9 +14,10 @@
  */
 
 export default interface XComponentContext {
-  register(): void;
+  // 返回 native 操作状态：0 成功，-1 失败或句柄不存在。
+  register(): number;
 
-  unregister(): void;
+  unregister(): number;
 
-  destroy():void;
+  destroy(): number;
 };

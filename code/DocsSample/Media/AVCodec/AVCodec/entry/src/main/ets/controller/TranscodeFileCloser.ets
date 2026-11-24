@@ -18,32 +18,56 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { MediaFileActivity } from '../model/MediaFileActivity';
 import Logger from '../common/utils/Logger';
 
+const BAD_FILE_DESCRIPTOR: number = 13900008;
+
 // 非EBADF关闭错误保留File，禁止重试可能已复用的fd。
 export class TranscodeFileCloser {
   private static retained: Map<number, fileIo.File> = new Map<number, fileIo.File>();
 
   private static pending: Map<number, Promise<boolean>> = new Map<number, Promise<boolean>>();
 
+  private static closeResults: WeakMap<fileIo.File, Promise<boolean>> = new WeakMap<fileIo.File, Promise<boolean>>();
+
+  // 同一个File复用关闭结果。关闭后系统可能已释放File的底层实体。
   static async close(file: fileIo.File | undefined): Promise<boolean> {
-    if (file === undefined) { return true; }
-    if (TranscodeFileCloser.retained.has(file.fd)) { return false; }
-    const pending: Promise<boolean> | undefined = TranscodeFileCloser.pending.get(file.fd);
-    if (pending !== undefined) { return await pending; }
-    const closing: Promise<boolean> = TranscodeFileCloser.closeOnce(file);
-    TranscodeFileCloser.pending.set(file.fd, closing);
-    try { return await closing; } finally { TranscodeFileCloser.pending.delete(file.fd); }
+    if (file === undefined) {
+      return true;
+    }
+    const previous: Promise<boolean> | undefined = TranscodeFileCloser.closeResults.get(file);
+    if (previous !== undefined) {
+      return await previous;
+    }
+    const fd: number = file.fd;
+    if (TranscodeFileCloser.retained.has(fd)) {
+      return false;
+    }
+    const pending: Promise<boolean> | undefined = TranscodeFileCloser.pending.get(fd);
+    if (pending !== undefined) {
+      TranscodeFileCloser.closeResults.set(file, pending);
+      return await pending;
+    }
+    const closing: Promise<boolean> = TranscodeFileCloser.closeOnce(file, fd);
+    TranscodeFileCloser.closeResults.set(file, closing);
+    TranscodeFileCloser.pending.set(fd, closing);
+    try {
+      return await closing;
+    } finally {
+      TranscodeFileCloser.pending.delete(fd);
+    }
   }
 
-  private static async closeOnce(file: fileIo.File): Promise<boolean> {
+  private static async closeOnce(file: fileIo.File, fd: number): Promise<boolean> {
     try {
       await fileIo.close(file);
       return true;
     } catch (error) {
       const failure: BusinessError = error as BusinessError;
-      if (failure.code === 13900008) { return true; }
-      TranscodeFileCloser.retained.set(file.fd, file);
+      if (failure.code === BAD_FILE_DESCRIPTOR) {
+        return true;
+      }
+      TranscodeFileCloser.retained.set(fd, file);
       MediaFileActivity.blockUnconfirmedCleanup();
-      Logger.error('TranscodeFiles', 'File close is unconfirmed, code=' + failure.code);
+      Logger.error('TranscodeFiles', `File close is unconfirmed, code=${failure.code}`);
       return false;
     }
   }

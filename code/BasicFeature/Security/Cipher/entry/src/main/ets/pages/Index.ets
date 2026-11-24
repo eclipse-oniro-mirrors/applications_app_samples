@@ -29,7 +29,7 @@ struct Index {
       .height('6%')
       .width('100%')
       .padding({ left: 16 })
-      .backgroundColor('#0D9FFB')
+      .backgroundColor($r('app.color.title_background'))
       .constraintSize({ minHeight: 50 })
 
       Stack({ alignContent: Alignment.Center }) {
@@ -69,6 +69,6 @@ struct Index {
     }
     .width('100%')
     .height('100%')
-    .backgroundColor('#F1F1F1')
+    .backgroundColor($r('app.color.page_background'))
   }
 }

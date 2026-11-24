@@ -15,7 +15,14 @@
 
 // 预测 气象列表
 class Forecast {
-  constructor(public degree: string, public date: string, public desc: string, public icon: Resource | string, public win: string, public winSpeed: string) {
+  constructor(
+    public degree: string,
+    public date: string,
+    public desc: string,
+    public icon: Resource | string,
+    public win: string,
+    public winSpeed: string
+  ) {
     this.degree = degree
     this.date = date
     this.desc = desc
@@ -27,7 +34,15 @@ class Forecast {
 
 // 一周天气
 class WeekWeather {
-  constructor(public date: string, public week: string, public icon: Resource | string, public weather: string, public airLevel: string, public max: string, public min: string) {
+  constructor(
+    public date: string,
+    public week: string,
+    public icon: Resource | string,
+    public weather: string,
+    public airLevel: string,
+    public max: string,
+    public min: string
+  ) {
     this.date = date
     this.week = week
     this.icon = icon
@@ -38,10 +53,10 @@ class WeekWeather {
   }
 }
 
-
 // 空气质量
 class AirIndex {
-  constructor(public index: string, public figure: number) {
+  // mock 数据中各指标以字符串形式给出，此处保留 string 分支以保持与数据契约一致
+  constructor(public index: string, public figure: string | number) {
     this.index = index
     this.figure = figure
   }
@@ -65,7 +80,16 @@ class AirData {
 }
 
 class HeaderData {
-  constructor(public city: string, public temp: string, public weatherType: string, public max: string, public min: string, public icon: Resource | string, public airData: AirData, public airTips: string) {
+  constructor(
+    public city: string,
+    public temp: string,
+    public weatherType: string,
+    public max: string,
+    public min: string,
+    public icon: Resource | string,
+    public airData: AirData,
+    public airTips: string
+  ) {
     this.city = city
     this.temp = temp
     this.weatherType = weatherType
@@ -87,7 +111,15 @@ class City {
 }
 
 class CityListData {
-  constructor(public city: string, public header: HeaderData, public hoursData: Forecast[], public weekData: WeekWeather[], public airData: AirData, public airIndex: AirIndex[], public  suitDate: SuitData[]) {
+  constructor(
+    public city: string,
+    public header: HeaderData,
+    public hoursData: Forecast[],
+    public weekData: WeekWeather[],
+    public airData: AirData,
+    public airIndex: AirIndex[],
+    public suitDate: SuitData[]
+  ) {
     this.city = city
     this.header = header
     this.hoursData = hoursData
@@ -97,6 +129,5 @@ class CityListData {
     this.suitDate = suitDate
   }
 }
-
 
 export { HeaderData, CityListData, Forecast, AirIndex, SuitData, WeekWeather, AirData, City }

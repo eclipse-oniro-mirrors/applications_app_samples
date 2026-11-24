@@ -179,6 +179,14 @@
     {
       "name": "modify_info",
       "value": "Modify information successfully"
+    },
+    {
+      "name": "input_placeholder",
+      "value": "xxxxx"
+    },
+    {
+      "name": "login_placeholder",
+      "value": "xxxxxxx"
     }
   ]
 }

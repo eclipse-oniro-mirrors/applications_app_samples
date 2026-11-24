@@ -2484,7 +2484,7 @@ $env:AVCODEC_WSL_DISTRO = '<distribution name from wsl --list>'
 node scripts/verify.mjs
 ```
 
-The script runs the Host suites and runner checks, all 23 Native tests, CodeLinter and the HAP build. Each command has a timeout and writes a log under `.validation/logs/`; any failed stage returns a nonzero exit code. Use `--only host|native|lint|build` to run one stage. Use the Node version bundled with DevEco Studio, or add it to PATH first. See [verification details](tests/README.md) for timeout options, dependencies, scope, existing findings and PR requirements. CI can call this script; repository maintainers must configure required remote checks.
+The script runs the Host suites and runner checks, the Native tests in `tests/native/targets.json`, CodeLinter and the HAP build. Each command has a timeout and writes a log under `.validation/logs/`; any failed stage returns a nonzero exit code. Use `--only host|native|lint|build` to run one stage. Use the Node version bundled with DevEco Studio, or add it to PATH first. See [verification details](tests/README.md) for timeout options, dependencies, scope, existing findings and PR requirements. CI can call this script; repository maintainers must configure required remote checks.
 
 The foreground app keeps the screen on during video playback or active recording. Pause, stop, page exit and background transitions restore the system timeout policy. Audio-only playback and idle pages do not keep the screen on. Media asset queries attempt to release PhotoAccessHelper on success, lookup failure and result-close failure. Recording initialization retains the original error object so its stage, code and message remain available.
 
@@ -2509,8 +2509,9 @@ The 17 Host suites include tests combining the production Flow, Command and Seek
 | Check | Result |
 |---|---|
 | 324 functional, compatibility, stability and added regression cases | Pass |
-| 17 Host suites and three verification runner groups | Pass |
-| 23 Native host tests in Debug and Release | Pass |
+| 19 Host suites and three verification runner groups | Pass |
+| 24 Native host tests in Debug and Release | Pass |
+| Five device checks for queue recovery, output publication, cleanup diagnostics and file closure | Pass |
 | ASan and UBSan: five selected Native tests each | Pass |
 | Playback flow, PiP, resource handling and EOS device regressions | Pass |
 | CodeLinter | Pass: 245 existing findings, zero new findings; baseline unchanged |
@@ -2526,11 +2527,17 @@ Follow the repository [CodeCommitChecklist.md](../../../../../CodeCommitChecklis
 
 ### Transcode snapshots and Native resource ownership
 
-Transcode captures the request and configuration text before its first asynchronous wait. Preflight, range validation, size estimates, submission and reports use those captured values. Queue entries now use named settings; recovery converts and validates the older seven- or eight-element arrays. Preparation, execution and cleanup share a task context that owns the open files until cleanup finishes.
+Transcode captures the request and configuration text before its first asynchronous wait. Preflight, range validation, size estimates, submission and reports use those captured values. One versioned file saves both the queue and its stop-on-failure setting. Recovery also reads the legacy queue and separate policy file, and converts older seven- or eight-element settings arrays. The next saved queue edit writes the new format.
+
+The transcode execution controller owns the source and the `.part` output until cleanup finishes. It renames the temporary file to the final output after Native succeeds and both files are confirmed closed. If closure is uncertain, the temporary file and pending session remain for recovery after an application restart.
 
 Transcode, inspection and preview merge concurrent closure of the same descriptor. EBADF confirms closure. Other errors retain the File and resource gate, pause the queue and request an application restart. The UI leaves its busy state, but another media task cannot start; a transcode pending-session record remains. The process does not retry an uncertain descriptor because the system may already have reused it.
 
 Preview closes the source after processing, including when cancellation invalidates an open, decode or bitmap result. A close failure keeps the resource gate held. If preview processing also fails, the caller receives that processing error; when processing succeeds or becomes stale, the caller receives the close error. Temporary PixelMaps are released before the file is closed.
+
+Playback and recording Native diagnostics expose `cleanupProgress` with the current stage, stage and total elapsed milliseconds, stage revision, and whether cleanup is active. Playback also includes the final snapshot in its completion diagnostics. These fields help locate waits in worker shutdown, codec release, or output finalization.
+
+The output identifier skips names already used by completed media, reports or temporary files. If a history report cannot be confirmed closed, the app keeps any published media, retains the pending session and pauses the queue. Session recovery hides pending entries that already have a matching saved report. See [the five review rounds](tests/README.md#five-round-review) for the regression results.
 
 Recording preallocates a fixed S16LE PCM ring for two seconds of samples, at least one maximum input block and at most 4MiB. Invalid or oversized settings fail initialization. Capture callbacks do not grow the queue or move pending samples. Overflow enters the existing error cleanup path and preserves queued data. The diagnostics audio object exposes peak pending bytes, capacity, overflow count and queue-handling time including lock waits; it excludes later diagnostics accounting. Audio EOS and Flush/Stop ordering remain as before.
 

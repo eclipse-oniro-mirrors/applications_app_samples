@@ -21,7 +21,8 @@
   "author": "",
   "license": "",
   "dependencies": {
-    "pulltorefresh": "file:../pulltorefresh"
+    "pulltorefresh": "file:../pulltorefresh",
+    "@ohos/pulltorefresh": "2.0.6"
   }
 }
 

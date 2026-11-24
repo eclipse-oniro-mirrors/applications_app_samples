@@ -13,11 +13,21 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/Index.ets
+ * 文件职责：Index 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：Index。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import testNapi from 'libentry.so';
 import resourceManager from '@ohos.resourceManager';
 import { util } from '@kit.ArkTS';
 import { Logger } from '../utils/Logger';
 
+/**
+ * Index：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct Index {
@@ -30,6 +40,9 @@ struct Index {
   private rawFileDescriptor64: resourceManager.RawFileDescriptor | undefined = undefined;
   private rawFileContentWithOffset64: string = '';
 
+  /**
+   * aboutToAppear：组件即将挂载时回调，用于初始化数据与订阅。
+   */
   aboutToAppear() {
     let textDecoder = new util.TextDecoder();
     // get raw file list
@@ -58,6 +71,9 @@ struct Index {
     this.rawFileContentWithOffset64 = textDecoder.decodeToString(rawFileArray);
   }
 
+  /**
+   * aboutToDisappear：组件即将销毁时回调，用于释放资源与取消订阅。
+   */
   aboutToDisappear(): boolean | void {
     Logger.info('aboutToDisappear');
     if (this.rawFileDescriptor) {
@@ -71,69 +87,98 @@ struct Index {
     }
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Row：水平布局容器
+    // 关键属性：高度
     Row() {
+      // Column：垂直布局容器
+      // 关键属性：内边距、宽度
       Column() {
+        // Text：文本
+        // 关键属性：字号、宽度、外边距
         Text('file list: ' + this.rawFileList)
           .id('raw_file_list')
           .fontSize(20)
           .width('100%')
           .margin({ bottom: 15 })
+        // Text：文本
+        // 关键属性：字号、宽度、外边距
         Text('rawfile.txt content: ' + this.rawFileContent)
           .id('raw_file_content')
           .fontSize(20)
           .width('100%')
           .margin({ bottom: 15 })
+        // Text：文本
+        // 关键属性：字号、宽度、外边距
         Text('rawfile.txt content with offset: ' + this.rawFileContentWithOffset)
           .id('raw_file_content_offset')
           .fontSize(20)
           .width('100%')
           .margin({ bottom: 15 })
+        // Text：文本
+        // 关键属性：字号、宽度、外边距
         Text('rawfile.txt fd: ' + this.rawFileDescriptor?.fd)
           .id('raw_file_fd')
           .fontSize(20)
           .width('100%')
           .margin({ bottom: 15 })
+        // Text：文本
+        // 关键属性：字号、宽度、外边距
         Text('rawfile.txt fd.offset: ' + this.rawFileDescriptor?.offset)
           .id('raw_file_fd_offset')
           .fontSize(20)
           .width('100%')
           .margin({ bottom: 15 })
+        // Text：文本
+        // 关键属性：字号、宽度、外边距
         Text('rawfile.txt fd.length: ' + this.rawFileDescriptor?.length)
           .id('raw_file_fd_length')
           .fontSize(20)
           .width('100%')
           .margin({ bottom: 15 })
 
+        // Text：文本
+        // 关键属性：字号、宽度、外边距
         Text('rawfile.txt content64: ' + this.rawFileContent64)
           .id('raw_file_content64')
           .fontSize(20)
           .width('100%')
           .margin({ bottom: 15, top: 15 })
+        // Text：文本
+        // 关键属性：字号、宽度、外边距
         Text('rawfile.txt content with offset64: ' + this.rawFileContentWithOffset64)
           .id('raw_file_content_offset64')
           .fontSize(20)
           .width('100%')
           .margin({ bottom: 15 })
+        // Text：文本
+        // 关键属性：字号、宽度、外边距
         Text('rawfile.txt fd64: ' + this.rawFileDescriptor64?.fd)
           .id('raw_file_fd64')
           .fontSize(20)
           .width('100%')
           .margin({ bottom: 15 })
+        // Text：文本
+        // 关键属性：字号、宽度、外边距
         Text('rawfile.txt fd.offset64: ' + this.rawFileDescriptor64?.offset)
           .id('raw_file_fd_offset64')
           .fontSize(20)
           .width('100%')
           .margin({ bottom: 15 })
+        // Text：文本
+        // 关键属性：字号、宽度、外边距
         Text('rawfile.txt fd.length64: ' + this.rawFileDescriptor64?.length)
           .id('raw_file_fd_length64')
           .fontSize(20)
           .width('100%')
           .margin({ bottom: 15 })
-      }
+      }.id('index_column_2')
       .padding({ left: 15, right: 15 })
       .width('100%')
-    }
+    }.id('index_row_1')
     .height('100%')
   }
 }

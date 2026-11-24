@@ -14,27 +14,42 @@
  */
 
 /**
+ * @file src/main/ets/components/model/SceneModuleInfo.ets
+ * 文件职责：SceneModuleInfo 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：SceneModuleInfo。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
+/**
  *  首页瀑布流列表信息
  */
 export class SceneModuleInfo {
   // 首页列表名称
   public name: string;
+
   // 路由信息，自动生成路由时，在自定义装饰器中AppRouter中配置的参数，使用新版本自动路由时需要添加此参数，用于动态路由的跳转。
   // 使用规则：模块名/需要加载的自定义组件名，如addressexchange/AddressExchangeView
   public appUri: string;
+
   // 路由传参数据
   public param: string;
+
   // 难度星级
   public ratingNumber: number;
+
   // 分类
   public category: string;
+
   // 序号
   public serialNumber: number;
+
   // 首页轮播静态图
   public swiperImage: ResourceStr;
+
   // 案例README地址
   public helperUrl: string;
 
+  /** 构造 SceneModuleInfo 实例。 */
   constructor(name: string, appUri: string, category: string, serialNumber: number,
     ratingNumber?: number, swiperImage?: ResourceStr, param?: string, helperUrl?: string) {
     this.name = name;

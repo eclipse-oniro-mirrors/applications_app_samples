@@ -12,9 +12,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file src/main/ets/components/util/SvgUtil.ets
+ * 文件职责：SvgUtil 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：transformToSvgObj、getAllElements、ObjectType、Elements、AttributesType、SvgClass、SvgPath。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import xml from '@ohos.convertxml';
 import convertxml from '@ohos.convertxml';
 import util from '@ohos.util';
+
 /**
  * 画svg到离线画板
  * @param context
@@ -30,16 +39,19 @@ export async function drawSvg(context: Context, offContext: OffscreenCanvasRende
   const unit8Array: Uint8Array = await context.resourceManager.getMediaContent(resource);
   let textDecoder: util.TextDecoder = util.TextDecoder.create("utf-8", { ignoreBOM: true });
   const text: string = textDecoder.decodeWithStream(unit8Array);
+
   // 获取描述对象
   const svgClass = transformToSvgObj(text);
   if (svgClass === null) {
     return
   }
+
   // 这里加了一个1.5的倍数校正。。这个1.5是实验出来的，至于为什么需要这个倍数。。我还未找到原因
   const scaleW: number = width / svgClass.width * 1.5
   const scaleH: number = height / svgClass.height * 1.5
   // 设置偏移量，一定要先设置偏移量，否则偏移量也会被缩放
   offContext.translate(dx, dy);
+
   // 设置缩放比
   offContext.scale(scaleW, scaleH);
   svgClass.paths.forEach(svaPath => {
@@ -49,6 +61,9 @@ export async function drawSvg(context: Context, offContext: OffscreenCanvasRende
   })
 }
 
+/**
+ * transformToSvgObj：函数定义，承载本文件对应的逻辑与数据。
+ */
 export function transformToSvgObj(text: string): SvgClass {
   let conv: convertxml.ConvertXML = new convertxml.ConvertXML();
   let options: xml.ConvertOptions = {
@@ -83,6 +98,9 @@ export function transformToSvgObj(text: string): SvgClass {
   return svgClass;
 }
 
+/**
+ * getAllElements：函数定义，承载本文件对应的逻辑与数据。
+ */
 function getAllElements(obj: ObjectType): Elements[] {
   const set: Elements[] = [];
   if (obj instanceof Array) {
@@ -105,6 +123,9 @@ function getAllElements(obj: ObjectType): Elements[] {
   return set;
 }
 
+/**
+ * ObjectType：类定义，承载本文件对应的逻辑与数据。
+ */
 class ObjectType {
   _attributes?: AttributesType
   _type?: string
@@ -112,12 +133,17 @@ class ObjectType {
   _elements?: ObjectType
 }
 
-
+/**
+ * Elements：类定义，承载本文件对应的逻辑与数据。
+ */
 class Elements {
   name: string = '';
   _attributes: AttributesType = new AttributesType();
 }
 
+/**
+ * AttributesType：类定义，承载本文件对应的逻辑与数据。
+ */
 class AttributesType {
   width: number = 0
   height: number = 0
@@ -125,13 +151,18 @@ class AttributesType {
   fill: string = ''
 }
 
-
+/**
+ * SvgClass：类定义，承载本文件对应的逻辑与数据。
+ */
 export class SvgClass {
   width: number = 0;
   height: number = 0;
   paths: SvgPath[] = [];
 }
 
+/**
+ * SvgPath：类定义，承载本文件对应的逻辑与数据。
+ */
 export class SvgPath {
   path: string = '';
   fillColor: string = '';

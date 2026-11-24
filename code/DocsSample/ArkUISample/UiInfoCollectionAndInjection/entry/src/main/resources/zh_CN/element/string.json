@@ -45,6 +45,30 @@
       "value": "仅可见树"
     },
     {
+      "name": "option_filter_occluded",
+      "value": "过滤被遮挡节点"
+    },
+    {
+      "name": "option_occlusion_threshold",
+      "value": "遮挡判定不透明度阈值"
+    },
+    {
+      "name": "occlusion_hint",
+      "value": "遮挡过滤需同时勾选“仅可见树”；阈值越低，越多节点参与遮挡判定。"
+    },
+    {
+      "name": "occlusion_demo_title",
+      "value": "遮挡过滤演示：以下两行内容分别被不透明层和不透明度0.5的层覆盖"
+    },
+    {
+      "name": "occluded_opaque_label",
+      "value": "被不透明层完全覆盖"
+    },
+    {
+      "name": "occluded_faint_label",
+      "value": "被不透明度0.5的层覆盖"
+    },
+    {
       "name": "option_filter_layout",
       "value": "过滤纯布局节点"
     },

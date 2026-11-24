@@ -15,8 +15,24 @@ add_library(entry SHARED
     utils/common_utils.cpp
     utils/json_utils.cpp
     utils/pixelmap_helper.cpp
+    utils/egl_utils.cpp
+    utils/gl_utils.cpp
     backend/image_edit.cpp
 )
+
+find_library(
+    # 纹理输入场景所需的EGL库。
+    EGL-lib
+    EGL
+)
+
+find_library(
+    # 纹理输入场景所需的OpenGL ES库。
+    GLES-lib
+    GLESv3
+)
+
+# [Start image_effect_cmake_libraries]
 target_link_libraries(entry PUBLIC
      libace_napi.z.so
      libpixelmap_ndk.z.so
@@ -27,4 +43,7 @@ target_link_libraries(entry PUBLIC
      libpixelmap.so
      libnative_window.so
      libnative_buffer.so
+     ${EGL-lib}
+     ${GLES-lib}
 )
+# [End image_effect_cmake_libraries]

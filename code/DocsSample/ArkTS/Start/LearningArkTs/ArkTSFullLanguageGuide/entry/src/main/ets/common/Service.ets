@@ -13,8 +13,10 @@
  * limitations under the License.
  */
 
+import { Product } from './Types';
+
 // [Start submodule_export_class]
-import { User, Product } from './Types';
+import { User } from './Types';
 
 export class UserService {
   findById(id: number): User | null {

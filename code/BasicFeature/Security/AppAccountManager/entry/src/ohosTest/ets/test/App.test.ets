@@ -14,20 +14,20 @@
  */
 
 import { describe, it, expect } from '@ohos/hypium'
-import { Driver, ON } from '@ohos.UiTest'
+import { Component, Driver, ON } from '@ohos.UiTest'
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry'
-import hilog from '@ohos.hilog'
+import { hilog } from '@kit.PerformanceAnalysisKit'
 
-const TAG = '[Sample_AppAccountManager]'
-const DOMAIN = 0xF811
-const BUNDLE = 'AppAccountManager_'
-const APP_BUNDLE_NAME = 'com.example.myapplication.myapplication'
-const APP_ABILITY_NAME = 'EntryAbility'
+const TAG: string = '[Sample_AppAccountManager]'
+const DOMAIN: number = 0xF811
+const BUNDLE: string = 'AppAccountManager_'
+const APP_BUNDLE_NAME: string = 'ohos.samples.etsappaccountmanager'
+const APP_ABILITY_NAME: string = 'EntryAbility'
 
 let driver: Driver = Driver.create()
-let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
+let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
 
-async function startEntryAbility() {
+async function startEntryAbility(): Promise<void> {
   await abilityDelegator.startAbility({
     bundleName: APP_BUNDLE_NAME,
     abilityName: APP_ABILITY_NAME
@@ -48,13 +48,13 @@ async function clickComponentByIdIfExists(id: string): Promise<boolean> {
   if (!(await hasComponentById(id))) {
     return false
   }
-  let component = await driver.findComponent(ON.id(id))
+  let component: Component = await driver.findComponent(ON.id(id))
   await component.click()
   await driver.delayMs(800)
   return true
 }
 
-async function enterBundleAndCheckLogin(bundleId: string) {
+async function enterBundleAndCheckLogin(bundleId: string): Promise<void> {
   await startEntryAbility()
   await clickComponentByIdIfExists(bundleId)
   if (!(await hasComponentById('nameInput'))) {

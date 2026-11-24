@@ -10,3 +10,8 @@
 /.clang-tidy
 **/.test
 /.appanalyzer
+**/oh-package-lock.json5
+**/package-lock.json
+/_task26/
+/_task70/
+/.task36/

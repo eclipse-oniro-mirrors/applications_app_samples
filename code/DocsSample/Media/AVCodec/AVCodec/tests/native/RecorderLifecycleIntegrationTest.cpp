@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 #include "TestCheck.h"
+#include <algorithm>
 #include <cstdlib>
 #include <iostream>
 #include <map>
@@ -41,6 +42,9 @@ constexpr int32_t INPUT_WIDTH = 1280;
 constexpr int32_t INPUT_HEIGHT = 720;
 constexpr int64_t CAMERA_TIMESTAMP_NS = 1000000;
 constexpr auto INPUT_TEST_TIMEOUT = std::chrono::seconds(2);
+constexpr auto PENDING_REPORT_TIMEOUT = std::chrono::seconds(8);
+constexpr auto BLOCKED_MUXER_TIMEOUT = std::chrono::seconds(10);
+constexpr auto PENDING_REPORT_POLL_INTERVAL = std::chrono::milliseconds(10);
 
 using TestSupport::Require;
 
@@ -61,6 +65,15 @@ struct Boundary {
     CodecUserData *video = nullptr;
     std::vector<int> cleanup;
 } g_boundary;
+
+struct MuxerReleaseGate {
+    std::mutex mutex;
+    std::condition_variable condition;
+    bool entered = false;
+    bool resume = false;
+};
+
+MuxerReleaseGate *g_muxerReleaseGate = nullptr;
 std::map<const VideoEncoder *, CodecUserData *> g_videoContexts;
 std::atomic<int32_t> g_videoFrees {0};
 std::atomic<int32_t> g_videoWrites {0};
@@ -221,6 +234,9 @@ void TestStopAndImmediateReplay(bool synchronous, bool dual)
     g_eosFreeAttempts = 0;
     for (int session = 0; session < REPLAY_COUNT; ++session) {
         Require(recorder.Init(info) == 0, "recorder.Init(info) == 0");
+        const auto ready = recorder.GetCleanupProgress();
+        Require(ready.stage == "idle" && !ready.active && ready.revision == 0, "New session resets cleanup progress");
+        Require(ready.elapsedMs == 0 && ready.totalMs == 0, "New session starts with no cleanup time");
         Require(recorder.Start() == 0, "recorder.Start() == 0");
         Require(recorder.StopStart() == 0, "recorder.StopStart() == 0");
         const int32_t stopped = recorder.StopEnd();
@@ -230,12 +246,69 @@ void TestStopAndImmediateReplay(bool synchronous, bool dual)
         }
         Require(stopped == 0, "Running recorder drains before release");
         Require(!recorder.IsSessionActive(), "!recorder.IsSessionActive()");
+        const auto completed = recorder.GetCleanupProgress();
+        Require(completed.stage == "output.finalize" && !completed.active && completed.revision > 0,
+            "Stopping retains the final cleanup stage until the next session");
     }
     const int32_t streamSessions = REPLAY_COUNT * (dual ? 2 : 1);
     Require(g_boundary.muxCloses == streamSessions && g_boundary.codecCloses == streamSessions,
         "Every primary and secondary codec is destroyed after its output thread ends");
     Require(g_videoFrees == streamSessions && g_videoWrites == streamSessions && g_eosFreeAttempts == 0,
         "Ordinary frames are written and returned once; EOS ends each worker without Free");
+}
+
+bool WaitForPendingRelease(const Recorder &recorder)
+{
+    const auto deadline = std::chrono::steady_clock::now() + PENDING_REPORT_TIMEOUT;
+    do {
+        const auto report = recorder.GetSessionReport();
+        if (std::any_of(report.timeline.begin(), report.timeline.end(), [](const SessionTimelineEvent &event) {
+            return event.stage == "release.pending";
+        })) {
+            return true;
+        }
+        std::this_thread::sleep_for(PENDING_REPORT_POLL_INTERVAL);
+    } while (std::chrono::steady_clock::now() < deadline);
+    return false;
+}
+
+void TestCleanupProgressDuringMuxerRelease()
+{
+    g_boundary = {};
+    g_boundary.release = RELEASE_FAILURE;
+    MuxerReleaseGate gate;
+    g_muxerReleaseGate = &gate;
+    Recorder recorder;
+    SampleInfo info;
+    info.audio.enabled = false;
+    Require(recorder.Init(info) == 0 && recorder.Start() == 0, "Start recording before blocking muxer release");
+    int32_t stopResult = AVCODEC_SAMPLE_ERR_OK;
+    std::thread stopThread([recorderPtr = &recorder, result = &stopResult]() {
+        *result = recorderPtr->StopEnd();
+    });
+    {
+        std::unique_lock<std::mutex> lock(gate.mutex);
+        Require(gate.condition.wait_for(lock, INPUT_TEST_TIMEOUT, [gatePtr = &gate]() { return gatePtr->entered; }),
+            "Stop reaches muxer release");
+    }
+    const auto pending = recorder.GetCleanupProgress();
+    Require(pending.stage == "muxers.release" && pending.active && pending.revision > 0,
+        "Read cleanup progress while muxer release holds the session lock");
+    Require(pending.elapsedMs >= 0 && pending.totalMs >= pending.elapsedMs, "Cleanup timings use the same clock");
+    const bool pendingReported = WaitForPendingRelease(recorder);
+    {
+        std::lock_guard<std::mutex> lock(gate.mutex);
+        gate.resume = true;
+    }
+    gate.condition.notify_all();
+    stopThread.join();
+    g_muxerReleaseGate = nullptr;
+    Require(pendingReported, "Report a pending release while muxer release holds the session lock");
+    Require(stopResult == RELEASE_FAILURE, "Cleanup progress preserves the muxer release error");
+    const auto completed = recorder.GetCleanupProgress();
+    Require(completed.stage == "output.finalize" && !completed.active && completed.revision > pending.revision,
+        "Cleanup progress advances after releasing the muxer");
+    Require(completed.totalMs >= pending.totalMs, "Completed cleanup retains the total duration");
 }
 
 void TestVideoOutputFailure(bool freeFails)
@@ -382,6 +455,13 @@ int32_t Muxer::WriteSample(int32_t, OH_AVBuffer *, OH_AVCodecBufferAttr &attr)
 }
 int32_t Muxer::Release()
 {
+    if (auto *gate = g_muxerReleaseGate; gate != nullptr) {
+        std::unique_lock<std::mutex> lock(gate->mutex);
+        gate->entered = true;
+        gate->condition.notify_all();
+        Require(gate->condition.wait_for(lock, BLOCKED_MUXER_TIMEOUT, [gate]() { return gate->resume; }),
+            "Host test releases the muxer gate");
+    }
     g_boundary.cleanup.push_back(MUXER_CLEANUP);
     ++g_boundary.muxCloses;
     return g_boundary.release;
@@ -583,6 +663,7 @@ int main()
     }
     TestVideoOutputFailure(false);
     TestVideoOutputFailure(true);
+    TestCleanupProgressDuringMuxerRelease();
     TestMissingEosAndReleaseFailure();
     TestSharedDrainDeadline();
     for (bool synchronous : {false, true}) {

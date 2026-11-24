@@ -14,15 +14,13 @@
  */
 
 {
-  "apiType": 'stageMode',
-  "buildOption": {
-  },
+  "apiType": "stageMode",
   "targets": [
     {
       "name": "default"
     },
     {
-      "name": "ohosTest",
+      "name": "ohosTest"
     }
   ]
 }

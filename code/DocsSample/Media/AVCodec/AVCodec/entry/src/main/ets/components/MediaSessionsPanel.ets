@@ -100,13 +100,7 @@ export struct MediaSessionsPanel {
     if (context === undefined || this.working || MediaTaskCoordinator.busy()) { return; }
     this.working = true;
     try {
-      if (item.operation === 'recording') {
-        await MediaSessionStore.finish(context, item.id);
-      } else {
-        const report: MediaSessionReport = MediaReports.base(item.id, item.operation, 'interrupted');
-        report.error = MediaReports.error('process.interrupted', -1, 'Previous process ended before task completion');
-        await MediaSessionStore.finish(context, item.id, report);
-      }
+      await MediaSessionStore.acknowledge(context, item);
     } catch (error) {
       this.notice = JSON.stringify(error);
     } finally {

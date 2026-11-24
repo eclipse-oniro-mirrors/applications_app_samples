@@ -13,14 +13,14 @@
  * limitations under the License.
  */
 
-import promptAction from '@ohos.promptAction';
+import { promptAction } from '@kit.ArkUI';
 import Logger from '../util/Logger';
-import picker from '@ohos.file.picker';
+import { picker } from '@kit.CoreFileKit';
 import { CryptoOperation } from '../cryptoframework/CryptoOperation';
 import TextFileManager from '../textfilemanager/TextFileManager';
-import common from '@ohos.app.ability.common';
+import { common, Want } from '@kit.AbilityKit';
 
-const TAG: string = '[Crypto_Framework]';
+const TAG: string = '[Sample_CryptoFramework]';
 
 @Component
 export struct Decrypt {
@@ -67,7 +67,7 @@ export struct Decrypt {
                   .padding({ top: 4, left: 12, right: 12 })
                 }.onClick(() => {
                   this.selectTextFileAndRead();
-                })
+                });
 
                 ListItem() {
                   Row() {
@@ -94,7 +94,7 @@ export struct Decrypt {
                   .padding({ left: 12, right: 12 })
                 }.onClick(() => {
                   this.selectAesKeyFileAndRead();
-                })
+                });
               }
               .width('100%')
               .height('100%')
@@ -125,7 +125,7 @@ export struct Decrypt {
                     Span(this.cipherText)
                       .fontSize(16)
                       .fontWeight(400)
-                      .fontColor('#182431')
+                      .fontColor($r('app.color.text_primary'))
                   }.textAlign(TextAlign.Start)
                 }
                 .padding({ left: 12, right: 12, bottom: 4 })
@@ -162,7 +162,7 @@ export struct Decrypt {
                     Span(this.plainText)
                       .fontSize(16)
                       .fontWeight(400)
-                      .fontColor('#182431')
+                      .fontColor($r('app.color.text_primary'))
                   }.textAlign(TextAlign.Start)
                 }
                 .padding({ left: 12, right: 12, bottom: 4 })
@@ -186,7 +186,7 @@ export struct Decrypt {
                 Button() {
                   Text($r('app.string.decrypt')).fontSize(16).fontWeight(500)
                     .lineHeight(22)
-                    .fontColor('#FFFFFF')
+                    .fontColor($r('app.color.button_text'))
                 }
                 .borderRadius(20)
                 .id('decryptionBtn')
@@ -194,7 +194,7 @@ export struct Decrypt {
                 .margin({ left: 24, right: 24 })
                 .width('100%')
                 .height('40vp')
-                .backgroundColor('#007DFF')
+                .backgroundColor($r('app.color.button_background'))
                 .onClick(() => {
                   if (this.textFileUri === '' || this.keyFileUri === '') {
                     promptAction.showToast({
@@ -206,7 +206,7 @@ export struct Decrypt {
                 });
               }
             }
-          }.margin({ left: 24, right: 24 })
+          }.margin({ left: 24, right: 24 });
         }.width('100%').height('296vp').justifyContent(FlexAlign.End)
       }
       .width('100%')
@@ -214,82 +214,102 @@ export struct Decrypt {
     }
   }
 
-  async selectAesKeyFileAndRead() {
-    let config = {
+  async selectAesKeyFileAndRead(): Promise<void> {
+    let config: Want = {
       action: 'ohos.want.action.OPEN_FILE',
       parameters: {
         startMode: 'choose',
       }
     }
-    let context = getContext(this) as common.UIAbilityContext;
-    let result = await context.startAbilityForResult(config);
+    let context: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
+    let result: common.AbilityResult = await context.startAbilityForResult(config);
     if (result === null || result === undefined) {
       Logger.error(TAG, `result is null or undefined!`);
       return;
     }
-    if (result.resultCode !== 0) {
-      Logger.error(TAG, `DocumentPicker.select failed, code is ${result.resultCode}, message is ${result.want.parameters.message}`);
+    let want: Want | undefined = result.want;
+    if (want === null || want === undefined) {
+      Logger.error(TAG, `result want is null or undefined!`);
       return;
     }
-    if (result.want.parameters.select_item_list === null || result.want.parameters.select_item_list === undefined) {
+    let parameters: Record<string, Object> | undefined = want.parameters;
+    if (parameters === null || parameters === undefined) {
+      Logger.error(TAG, `result parameters is null or undefined!`);
+      return;
+    }
+    if (result.resultCode !== 0) {
+      Logger.error(TAG, `DocumentPicker.select failed, code is ${result.resultCode}, message is ${parameters.message}`);
+      return;
+    }
+    if (parameters.select_item_list === null || parameters.select_item_list === undefined) {
       Logger.error(TAG, `result uri is null or undefined!`);
       return;
     }
-    if (result.want.parameters.file_name_list === null || result.want.parameters.file_name_list === undefined) {
+    if (parameters.file_name_list === null || parameters.file_name_list === undefined) {
       Logger.error(TAG, `result file name is null or undefined!`);
       return;
     }
     // 获取到密钥文档文件的URI
-    this.keyFileUri = result.want.parameters.select_item_list.toString();
+    this.keyFileUri = parameters.select_item_list.toString();
     // 获取到密钥文档文件的文件名称
-    this.keyFileName = result.want.parameters.file_name_list.toString();
+    this.keyFileName = parameters.file_name_list.toString();
     await TextFileManager.readTextFile(this.keyFileUri);
     this.keyString = TextFileManager.getString();
   }
 
-  async selectTextFileAndRead() {
-    let config = {
+  async selectTextFileAndRead(): Promise<void> {
+    let config: Want = {
       action: 'ohos.want.action.OPEN_FILE',
       parameters: {
         startMode: 'choose',
       }
     }
-    let context = getContext(this) as common.UIAbilityContext;
-    let result = await context.startAbilityForResult(config);
+    let context: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
+    let result: common.AbilityResult = await context.startAbilityForResult(config);
     if (result === null || result === undefined) {
       Logger.error(TAG, `result is null or undefined!`);
       return;
     }
-    if (result.resultCode !== 0) {
-      Logger.error(TAG, `DocumentPicker.select failed, code is ${result.resultCode}, message is ${result.want.parameters.message}`);
+    let want: Want | undefined = result.want;
+    if (want === null || want === undefined) {
+      Logger.error(TAG, `result want is null or undefined!`);
       return;
     }
-    if (result.want.parameters.select_item_list === null || result.want.parameters.select_item_list === undefined) {
+    let parameters: Record<string, Object> | undefined = want.parameters;
+    if (parameters === null || parameters === undefined) {
+      Logger.error(TAG, `result parameters is null or undefined!`);
+      return;
+    }
+    if (result.resultCode !== 0) {
+      Logger.error(TAG, `DocumentPicker.select failed, code is ${result.resultCode}, message is ${parameters.message}`);
+      return;
+    }
+    if (parameters.select_item_list === null || parameters.select_item_list === undefined) {
       Logger.error(TAG, `result uri is null or undefined!`);
       return;
     }
-    if (result.want.parameters.file_name_list === null || result.want.parameters.file_name_list === undefined) {
+    if (parameters.file_name_list === null || parameters.file_name_list === undefined) {
       Logger.error(TAG, `result file name is null or undefined!`);
       return;
     }
     // 获取到文档文件的URI
-    this.textFileUri = result.want.parameters.select_item_list.toString();
+    this.textFileUri = parameters.select_item_list.toString();
     // 获取到文档文件的文件名称
-    this.textFileName = result.want.parameters.file_name_list.toString();
+    this.textFileName = parameters.file_name_list.toString();
     await TextFileManager.readTextFile(this.textFileUri);
     this.cipherText = TextFileManager.getString();
   }
 
-  async createTextFileAndWrite() {
-    let documentSaveOptions = new picker.DocumentSaveOptions();
+  async createTextFileAndWrite(): Promise<void> {
+    let documentSaveOptions: picker.DocumentSaveOptions = new picker.DocumentSaveOptions();
     documentSaveOptions.newFileNames = ['plainText.txt'];
-    let documentPicker = new picker.DocumentViewPicker();
-    let documentSaveResult = await documentPicker.save(documentSaveOptions);
+    let documentPicker: picker.DocumentViewPicker = new picker.DocumentViewPicker();
+    let documentSaveResult: string[] = await documentPicker.save(documentSaveOptions);
     this.decryptedFileUri = documentSaveResult[0];
     await TextFileManager.writeTextFile(this.decryptedFileUri, this.plainText);
   }
 
-  async decryptFunc() {
+  async decryptFunc(): Promise<void> {
     if (this.cipherText === '' || this.keyFileUri === '') {
       promptAction.showToast({
         message: $r('app.string.null_message')

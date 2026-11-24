@@ -173,6 +173,7 @@ export interface VideoCapabilityCheck {
 export const checkVideoCapability: (request: VideoCapabilityRequest) => VideoCapabilityCheck
 
 export interface PlaybackInfo {
+  cleanupProgress?: { stage: string; elapsedMs: number; totalMs: number; revision: number; active: boolean; };
   failure: PlaybackFailure;
   cleanupFailure?: NativeCleanupFailure;
   state: PlayerState;

@@ -2,15 +2,175 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "module description"
+      "value": "MultiMusic module"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "MultiMusic main ability"
     },
     {
       "name": "EntryAbility_label",
-      "value": "label"
+      "value": "MultiMusic"
+    },
+    {
+      "name": "mine",
+      "value": "Mine"
+    },
+    {
+      "name": "discovery",
+      "value": "Discover"
+    },
+    {
+      "name": "radio",
+      "value": "Radio"
+    },
+    {
+      "name": "privacy",
+      "value": "Personal FM"
+    },
+    {
+      "name": "index",
+      "value": "Home"
+    },
+    {
+      "name": "singer",
+      "value": "Artists"
+    },
+    {
+      "name": "recommend",
+      "value": "Recommend"
+    },
+    {
+      "name": "rank",
+      "value": "Ranking"
+    },
+    {
+      "name": "singList",
+      "value": "Playlists"
+    },
+    {
+      "name": "hiRes",
+      "value": "Hi-Res"
+    },
+    {
+      "name": "musicFM",
+      "value": "Music FM"
+    },
+    {
+      "name": "digital",
+      "value": "Digital Zone"
+    },
+    {
+      "name": "child",
+      "value": "Kids Zone"
+    },
+    {
+      "name": "buildBySelf",
+      "value": "Created Playlists"
+    },
+    {
+      "name": "mySongs",
+      "value": "My Playlists"
+    },
+    {
+      "name": "singRecommend",
+      "value": "Playlist Picks"
+    },
+    {
+      "name": "coffee",
+      "value": "Coffee House"
+    },
+    {
+      "name": "pops",
+      "value": "Cantopop"
+    },
+    {
+      "name": "oldYear",
+      "value": "80s"
+    },
+    {
+      "name": "emo",
+      "value": "EMO"
+    },
+    {
+      "name": "rock",
+      "value": "Rock"
+    },
+    {
+      "name": "noon",
+      "value": "Warm Afternoon"
+    },
+    {
+      "name": "bluce",
+      "value": "Blues"
+    },
+    {
+      "name": "noise",
+      "value": "Wake Up Loud"
+    },
+    {
+      "name": "jazz",
+      "value": "Jazz"
+    },
+    {
+      "name": "noSleep",
+      "value": "Stay Awake"
+    },
+    {
+      "name": "bgm",
+      "value": "Western BGM Hits"
+    },
+    {
+      "name": "sunshine",
+      "value": "I Love Sunshine"
+    },
+    {
+      "name": "sleep",
+      "value": "Sleep Aid"
+    },
+    {
+      "name": "search_placeholder",
+      "value": "Search..."
+    },
+    {
+      "name": "more",
+      "value": "More"
+    },
+    {
+      "name": "player_song_name",
+      "value": "Witness"
+    },
+    {
+      "name": "player_artist_name",
+      "value": "Katy"
+    },
+    {
+      "name": "build_self_song_count",
+      "value": " (%d songs)"
+    },
+    {
+      "name": "song_label_01",
+      "value": "Nostalgic Classics: Hani Hanileike - Meet Again"
+    },
+    {
+      "name": "song_label_02",
+      "value": "Nordic Sounds: Hani Hanileike - Meet Again"
+    },
+    {
+      "name": "song_label_03",
+      "value": "Western Hits: Hani Hanileike - Meet Again"
+    },
+    {
+      "name": "song_label_04",
+      "value": "Daily New Songs: Hani Hanileike - Meet Again"
+    },
+    {
+      "name": "song_label_05",
+      "value": "New Song Picks: Hani Hanileike - Meet Again"
+    },
+    {
+      "name": "song_label_06",
+      "value": "30 Daily Picks, Carefully Chosen for You"
     }
   ]
 }

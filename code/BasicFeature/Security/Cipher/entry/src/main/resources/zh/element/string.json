@@ -23,6 +23,26 @@
     {
       "name": "back",
       "value": "返回"
+    },
+    {
+      "name": "message_empty",
+      "value": "消息为空。"
+    },
+    {
+      "name": "encryption_algorithm",
+      "value": "加密算法"
+    },
+    {
+      "name": "decrypt_algorithm",
+      "value": "解密算法"
+    },
+    {
+      "name": "encryption_result_format",
+      "value": "Encryption result is :  %s"
+    },
+    {
+      "name": "decrypt_result_format",
+      "value": "Decrypt result is :  %s"
     }
   ]
 }

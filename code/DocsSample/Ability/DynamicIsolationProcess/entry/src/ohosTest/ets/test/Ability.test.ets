@@ -35,7 +35,7 @@ export default function abilityTest() {
           abilityName: 'EntryAbility'
         });
         await driver.delayMs(1000);
-        // 获取当前top的ability
+        // Get the current top ability
         let entryAbility = await abilityDelegator.getCurrentTopAbility();
         expect(entryAbility.context.abilityInfo.name).assertEqual('EntryAbility');
       } catch (err) {
@@ -61,7 +61,7 @@ export default function abilityTest() {
     it('DynamicIsolationProcess_startAbility1_001', 0, async (done: () => void) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'startAbility1_001 begin');
       try {
-        // 点击文本组件，触发动态指定进程拉起EntryAbility1
+        // Click the text component to start EntryAbility1 in the dynamically specified process
         const text = await driver.findComponent(ON.text('start EntryAbility1'));
         await text.click();
         await driver.delayMs(TIME);
@@ -76,7 +76,7 @@ export default function abilityTest() {
     it('DynamicIsolationProcess_startAbility1_002', 0, async (done: () => void) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'startAbility1_002 begin');
       try {
-        // 通过id点击组件，触发动态指定进程拉起EntryAbility1
+        // Click the component by id to start EntryAbility1 in the dynamically specified process
         const text = await driver.findComponent(ON.id('HelloWorld'));
         await text.click();
         await driver.delayMs(TIME);

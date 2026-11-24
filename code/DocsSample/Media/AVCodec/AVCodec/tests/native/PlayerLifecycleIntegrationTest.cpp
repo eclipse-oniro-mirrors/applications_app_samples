@@ -18,9 +18,11 @@
 #include <cstdarg>
 #include <iostream>
 #include <cstring>
+#include <algorithm>
 #include "sample/player/core/Player.h"
 #include "sample/player/output/video/gpu/OpenGLVideoSink.h"
 #include "sample/player/output/video/gpu/VulkanVideoSink.h"
+#include "sample/player/output/video/renderer/HdrMetadataHelper.h"
 #include "codec_capability.h"
 #include "sample/player/napi/NativePlayerContext.h"
 
@@ -69,7 +71,31 @@ constexpr int AUDIO_SAMPLE_RATE = 48000;
 constexpr int AUDIO_CHANNEL_COUNT = 2;
 constexpr int64_t SOURCE_DURATION_US = 1000000;
 constexpr int64_t SEEK_POSITION_US = 200000;
+constexpr int32_t VIDEO_TRACK_INDEX = 1;
+constexpr int32_t FRAME_DIMENSION = 2;
+constexpr double VIDEO_FRAME_RATE = 30.0;
+constexpr int64_t FIRST_TAIL_PTS_US = 1'500'000;
+constexpr int64_t LAST_TAIL_PTS_US = FIRST_TAIL_PTS_US + 20'000;
+constexpr int64_t VIDEO_DURATION_US = 2'000'000;
+constexpr int64_t MILLISECOND_US = 1000;
+constexpr auto BEFORE_AUDIO_EOS = std::chrono::milliseconds(30);
+constexpr auto OUTPUT_TIMEOUT = std::chrono::milliseconds(650);
 std::atomic<int> g_rendererStarts { 0 };
+
+enum class BufferReturn { PENDING, FREED, FLUSHED, DESTROYED };
+
+struct VideoBoundary {
+    std::mutex mutex;
+    std::condition_variable changed;
+    CodecUserData *context = nullptr;
+    bool enabled = false;
+    bool sampledAudioClock = false;
+    bool blockDestroy = false;
+    bool destroying = false;
+    std::vector<BufferReturn> returns;
+    std::vector<uint32_t> rendered;
+} g_video;
+
 }
 
 struct OH_AudioStreamBuilderStruct { };
@@ -78,6 +104,12 @@ struct OH_AVBuffer {
     uint8_t data[BUFFER_CAPACITY] {};
     OH_AVCodecBufferAttr attr {};
 };
+OH_AVBuffer g_videoBuffer;
+const char *OH_MD_KEY_VIDEO_PIC_WIDTH = "picture_width";
+const char *OH_MD_KEY_VIDEO_PIC_HEIGHT = "picture_height";
+const char *OH_MD_KEY_VIDEO_STRIDE = "stride";
+const char *OH_MD_KEY_VIDEO_SLICE_HEIGHT = "slice_height";
+const char *OH_MD_KEY_PIXEL_FORMAT = "pixel_format";
 const char *OH_AVCODEC_MIMETYPE_VIDEO_HEVC = "video/hevc";
 extern "C" {
 int OH_LOG_Print(LogType, LogLevel, unsigned int, const char *, const char *, ...)
@@ -128,6 +160,27 @@ OH_AudioStream_Result OH_AudioRenderer_SetSpeed(OH_AudioRenderer *, float)
 OH_AudioStream_Result OH_AudioRenderer_SetVolume(OH_AudioRenderer *, float)
 {
     return AUDIOSTREAM_SUCCESS;
+}
+OH_AudioStream_Result FakeGetAudioTimestampInfo(OH_AudioRenderer *, int64_t *position, int64_t *timestamp)
+    __asm__("OH_AudioRenderer_GetAudioTimestampInfo");
+OH_AudioStream_Result FakeGetAudioTimestampInfo(OH_AudioRenderer *, int64_t *position, int64_t *timestamp)
+{
+    *position = 1;
+    *timestamp = std::chrono::duration_cast<std::chrono::nanoseconds>(
+        std::chrono::steady_clock::now().time_since_epoch()).count();
+    std::lock_guard<std::mutex> lock(g_video.mutex);
+    g_video.sampledAudioClock = true;
+    g_video.changed.notify_all();
+    return AUDIOSTREAM_SUCCESS;
+}
+bool FakeAvFormatGetIntValue(OH_AVFormat *, const char *, int32_t *) __asm__("OH_AVFormat_GetIntValue");
+bool FakeAvFormatGetIntValue(OH_AVFormat *, const char *, int32_t *)
+{
+    return false;
+}
+void FakeAvFormatDestroy(OH_AVFormat *) __asm__("OH_AVFormat_Destroy");
+void FakeAvFormatDestroy(OH_AVFormat *)
+{
 }
 OH_AudioStream_Result OH_AudioStreamBuilder_SetLatencyMode(OH_AudioStreamBuilder *, OH_AudioStream_LatencyMode)
 {
@@ -241,6 +294,58 @@ struct Completion {
         Require(calls == 1, "calls == 1");
     }
 };
+
+void ResetVideoBoundary()
+{
+    g_boundary = {};
+    std::lock_guard<std::mutex> lock(g_video.mutex);
+    g_video.enabled = true;
+    g_video.sampledAudioClock = false;
+    g_video.blockDestroy = false;
+    g_video.destroying = false;
+    g_video.returns.clear();
+    g_video.rendered.clear();
+}
+
+uint32_t QueueVideoFrame(int64_t ptsUs, bool eos = false)
+{
+    std::lock_guard<std::mutex> lock(g_video.mutex);
+    const auto index = static_cast<uint32_t>(g_video.returns.size());
+    auto output = std::make_shared<CodecBufferInfo>();
+    output->bufferIndex = index;
+    output->buffer = &g_videoBuffer;
+    output->attr.pts = ptsUs;
+    output->attr.flags = eos ? AVCODEC_BUFFER_FLAGS_EOS : AVCODEC_BUFFER_FLAGS_NONE;
+    g_video.returns.push_back(BufferReturn::PENDING);
+    g_video.context->outputBufferQueue.Enqueue(output);
+    return index;
+}
+
+void WaitForAudioClock()
+{
+    std::unique_lock<std::mutex> lock(g_video.mutex);
+    Require(g_video.changed.wait_for(lock, OUTPUT_TIMEOUT, []() { return g_video.sampledAudioClock; }),
+        "The video output worker samples the active audio clock before the command");
+}
+
+void WaitForVideoReturn(uint32_t index)
+{
+    std::unique_lock<std::mutex> lock(g_video.mutex);
+    const bool returned = g_video.changed.wait_for(lock, OUTPUT_TIMEOUT, [index]() {
+        return g_video.returns[index] != BufferReturn::PENDING;
+    });
+    Require(returned, "Video buffer is returned before the original audio clock deadline");
+}
+
+void VerifyWaitingVideoFrame(uint32_t index)
+{
+    std::unique_lock<std::mutex> lock(g_video.mutex);
+    const bool returned = g_video.changed.wait_for(lock, BEFORE_AUDIO_EOS, [index]() {
+        return g_video.returns[index] != BufferReturn::PENDING;
+    });
+    Require(!returned, "The tail frame is held while the audio clock is active");
+}
+
 SampleInfo Input(Completion &done)
 {
     SampleInfo info;
@@ -248,6 +353,120 @@ SampleInfo Input(Completion &done)
     info.playback.playDoneCallback = Completion::OnDone;
     info.playback.playDoneCallbackData = &done;
     return info;
+}
+
+void StartVideoPlayback(Player &player, Completion &done, bool synchronous)
+{
+    auto info = Input(done);
+    info.codec.codecSyncMode = synchronous;
+    Require(player.Init(info) == 0, "Initialize audio and video playback");
+    Require(player.Start() == 0, "Start the production audio and video workers");
+}
+
+void TestVideoTailAfterAudioEos(bool synchronous)
+{
+    ResetVideoBoundary();
+    Completion done;
+    Player player;
+    StartVideoPlayback(player, done, synchronous);
+    const uint32_t first = QueueVideoFrame(FIRST_TAIL_PTS_US);
+    WaitForAudioClock();
+    VerifyWaitingVideoFrame(first);
+    auto eos = std::make_shared<CodecBufferInfo>();
+    eos->attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
+    g_boundary.audio->outputBufferQueue.Enqueue(eos);
+    WaitForVideoReturn(first);
+    const uint32_t last = QueueVideoFrame(LAST_TAIL_PTS_US);
+    const uint32_t videoEos = QueueVideoFrame(LAST_TAIL_PTS_US, true);
+    done.Wait();
+    Require(done.success && done.reason == PlaybackCompletionReason::COMPLETED, "Audio-first EOS completes playback");
+    Require(g_video.rendered == std::vector<uint32_t> {first, last}, "Video tail is rendered in decode order");
+    Require(g_video.returns[first] == BufferReturn::FREED && g_video.returns[last] == BufferReturn::FREED,
+        "Both tail frames return their codec indices");
+    Require(g_video.returns[videoEos] == BufferReturn::DESTROYED, "Video EOS is reclaimed by decoder destruction");
+    const auto report = player.GetCompletedPlaybackInfo();
+    Require(report.positionUs == LAST_TAIL_PTS_US, "Video advances the position after audio ends");
+}
+
+void TestVideoPauseAndSeek(bool synchronous)
+{
+    ResetVideoBoundary();
+    Completion done;
+    Player player;
+    StartVideoPlayback(player, done, synchronous);
+    const uint32_t obsolete = QueueVideoFrame(FIRST_TAIL_PTS_US);
+    WaitForAudioClock();
+    Require(player.Pause() == 0, "Pause while video is waiting for its audio clock");
+    WaitForVideoReturn(obsolete);
+    {
+        std::lock_guard<std::mutex> lock(g_video.mutex);
+        Require(g_video.rendered.empty(), "Pause releases the waiting frame without presentation");
+    }
+    Require(player.SeekTo(SEEK_POSITION_US) == 0, "Seek while paused");
+    const uint32_t beforeTarget = QueueVideoFrame(0);
+    const uint32_t atTarget = QueueVideoFrame(SEEK_POSITION_US);
+    WaitForVideoReturn(atTarget);
+    Require(player.GetState() == PLAYER_STATE_PAUSED, "A seek frame preserves the paused state");
+    Require(player.Stop() == 0, "Stop after presenting the paused seek frame");
+    done.Wait();
+    Require(g_video.rendered == std::vector<uint32_t> {atTarget}, "Only the frame at the seek target is rendered");
+    Require(g_video.returns[obsolete] == BufferReturn::FREED && g_video.returns[beforeTarget] == BufferReturn::FREED,
+        "The paused frame and the pre-target frame return their indices");
+}
+
+void TestVideoWaitInterrupted(bool synchronous, bool seek)
+{
+    ResetVideoBoundary();
+    Completion done;
+    Player player;
+    StartVideoPlayback(player, done, synchronous);
+    const uint32_t obsolete = QueueVideoFrame(FIRST_TAIL_PTS_US);
+    WaitForAudioClock();
+    if (seek) {
+        Require(player.SeekTo(SEEK_POSITION_US) == 0, "Seek interrupts the audio clock wait");
+    }
+    Require(player.Stop() == 0, "Stop interrupts the audio clock wait or completes the seek");
+    done.Wait();
+    const BufferReturn expected = seek ? BufferReturn::FLUSHED : BufferReturn::DESTROYED;
+    Require(done.reason == PlaybackCompletionReason::STOPPED, "The completion callback reports user stop");
+    Require(g_video.rendered.empty(), "A frame from the interrupted playback interval is discarded");
+    Require(g_video.returns[obsolete] == expected, "Flush or destruction reclaims the waiting frame exactly once");
+}
+
+void TestVideoCleanupProgress()
+{
+    ResetVideoBoundary();
+    Completion done;
+    Player player;
+    StartVideoPlayback(player, done, false);
+    Require(!player.GetPlaybackInfo().cleanupProgress.active, "Normal startup does not start cleanup diagnostics");
+    const uint32_t obsolete = QueueVideoFrame(FIRST_TAIL_PTS_US);
+    WaitForAudioClock();
+    {
+        std::lock_guard<std::mutex> lock(g_video.mutex);
+        g_video.blockDestroy = true;
+    }
+    Require(player.Stop() == 0, "Stop with a decoder that delays destruction");
+    {
+        std::unique_lock<std::mutex> lock(g_video.mutex);
+        const bool started = g_video.changed.wait_for(lock, OUTPUT_TIMEOUT, []() { return g_video.destroying; });
+        Require(started, "The release worker reaches video decoder destruction");
+    }
+    const CleanupProgressInfo pending = player.GetPlaybackInfo().cleanupProgress;
+    Require(player.GetState() == PLAYER_STATE_STOPPING, "The session stays in STOPPING while the decoder is owned");
+    Require(pending.active && pending.stage == "codec.video.destroy", "Report the blocked release stage");
+    {
+        std::lock_guard<std::mutex> lock(g_video.mutex);
+        Require(g_video.returns[obsolete] == BufferReturn::PENDING, "Decoder owns the index until destruction");
+        g_video.blockDestroy = false;
+        g_video.changed.notify_all();
+    }
+    done.Wait();
+    const CleanupProgressInfo finished = player.GetCompletedPlaybackInfo().cleanupProgress;
+    Require(!finished.active && finished.revision > pending.revision,
+        "Completed playback stores final cleanup progress");
+    Require(finished.totalMs >= pending.totalMs, "The final duration includes the earlier wait");
+    Require(g_video.returns[obsolete] == BufferReturn::DESTROYED, "Destruction reclaims the held index");
 }
 void TestInitializationFailure()
 {
@@ -432,10 +651,16 @@ void TestAllowedBackgroundStart()
 int32_t Demuxer::Create(SampleInfo &info)
 {
     info.video.videoCodecMime.clear();
+    if (g_video.enabled) {
+        info.video.videoCodecMime = "video/avc";
+        info.video.videoWidth = FRAME_DIMENSION;
+        info.video.videoHeight = FRAME_DIMENSION;
+        info.video.frameRate = VIDEO_FRAME_RATE;
+    }
     info.audio.audioCodecMime = "audio/aac";
     info.audio.audioSampleRate = AUDIO_SAMPLE_RATE;
     info.audio.audioChannelCount = AUDIO_CHANNEL_COUNT;
-    info.source.durationUs = SOURCE_DURATION_US;
+    info.source.durationUs = g_video.enabled ? VIDEO_DURATION_US : SOURCE_DURATION_US;
     return g_boundary.create;
 }
 Demuxer::~Demuxer() = default;
@@ -451,6 +676,10 @@ int32_t Demuxer::Seek(int64_t, OH_AVSeekMode)
 int32_t Demuxer::GetAudioTrackId()
 {
     return 0;
+}
+int32_t Demuxer::GetVideoTrackId()
+{
+    return VIDEO_TRACK_INDEX;
 }
 int32_t Demuxer::ReadSample(int32_t, OH_AVBuffer *, OH_AVCodecBufferAttr &attr)
 {
@@ -501,8 +730,20 @@ int32_t AudioDecoder::PushInputBuffer(CodecBufferInfo &)
 {
     return 0;
 }
-int32_t AudioDecoder::GetOutputBuffer(CodecBufferInfo &, int64_t)
+int32_t AudioDecoder::GetOutputBuffer(CodecBufferInfo &output, int64_t timeoutUs)
 {
+    if (g_video.enabled) {
+        const auto timeoutMs = static_cast<int32_t>(timeoutUs / MILLISECOND_US);
+        const auto result = g_boundary.audio->outputBufferQueue.Dequeue(timeoutMs);
+        if (result == nullptr) {
+            return AVCODEC_SAMPLE_ERR_AGAIN;
+        }
+        if (result->attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
+            return AVCODEC_SAMPLE_ERR_END;
+        }
+        output = *result;
+        return AVCODEC_SAMPLE_ERR_OK;
+    }
     return g_boundary.natural ? AVCODEC_SAMPLE_ERR_END : AVCODEC_SAMPLE_ERR_AGAIN;
 }
 int32_t AudioDecoder::FreeOutputBuffer(const CodecBufferInfo &)
@@ -530,12 +771,14 @@ int32_t VideoDecoder::CreateByName(const std::string &)
 {
     return 0;
 }
-int32_t VideoDecoder::Config(const SampleInfo &, CodecUserData *)
+int32_t VideoDecoder::Config(const SampleInfo &, CodecUserData *context)
 {
+    g_video.context = context;
     return 0;
 }
 int32_t VideoDecoder::Start()
 {
+    g_video.context->inputBufferQueue.Enqueue(std::make_shared<CodecBufferInfo>());
     return 0;
 }
 int32_t VideoDecoder::Stop()
@@ -544,11 +787,42 @@ int32_t VideoDecoder::Stop()
 }
 int32_t VideoDecoder::Flush()
 {
+    std::lock_guard<std::mutex> lock(g_video.mutex);
+    std::replace(g_video.returns.begin(), g_video.returns.end(), BufferReturn::PENDING, BufferReturn::FLUSHED);
+    g_video.changed.notify_all();
     return 0;
 }
 int32_t VideoDecoder::Release()
 {
+    std::unique_lock<std::mutex> lock(g_video.mutex);
+    g_video.destroying = true;
+    g_video.changed.notify_all();
+    g_video.changed.wait(lock, []() { return !g_video.blockDestroy; });
+    std::replace(g_video.returns.begin(), g_video.returns.end(), BufferReturn::PENDING, BufferReturn::DESTROYED);
+    g_video.context = nullptr;
+    g_video.changed.notify_all();
     return 0;
+}
+int32_t VideoDecoder::GetInputBuffer(CodecBufferInfo &, int64_t)
+{
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+int32_t VideoDecoder::PushInputBuffer(CodecBufferInfo &)
+{
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+int32_t VideoDecoder::GetOutputBuffer(CodecBufferInfo &output, int64_t timeoutUs)
+{
+    const auto result = g_video.context->outputBufferQueue.Dequeue(static_cast<int32_t>(timeoutUs / MILLISECOND_US));
+    if (result == nullptr) {
+        return AVCODEC_SAMPLE_ERR_AGAIN;
+    }
+    output = *result;
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+OH_AVFormat *VideoDecoder::GetOutputDescription()
+{
+    return nullptr;
 }
 int32_t VideoDecoder::OnUserSpeedChanged(double)
 {
@@ -558,9 +832,19 @@ int32_t VideoDecoder::OnThermalWarningReceived(double)
 {
     return 0;
 }
-int32_t VideoDecoder::FreeOutputBuffer(const CodecBufferInfo &, bool)
+int32_t VideoDecoder::FreeOutputBuffer(const CodecBufferInfo &bufferInfo, bool)
 {
+    std::lock_guard<std::mutex> lock(g_video.mutex);
+    Require(bufferInfo.bufferIndex < g_video.returns.size(), "Return a known video output index");
+    auto &ownership = g_video.returns[bufferInfo.bufferIndex];
+    Require(ownership == BufferReturn::PENDING, "Return each output index once");
+    ownership = BufferReturn::FREED;
+    g_video.changed.notify_all();
     return 0;
+}
+int32_t VideoDecoder::FreeOutputBuffer(const CodecBufferInfo &bufferInfo, bool render, int64_t)
+{
+    return FreeOutputBuffer(bufferInfo, render);
 }
 bool CodecCapability::ValidateVideoConfiguration(const SampleInfo &, bool)
 {
@@ -623,15 +907,21 @@ VideoSinkDiagnostics VulkanVideoSink::GetDiagnostics() const
     return {};
 }
 void VulkanVideoSink::Reset() { }
-bool BufferRenderer::Render(CodecBufferInfo &, const SampleInfo &, const CodecUserData &, int64_t)
+bool BufferRenderer::Render(CodecBufferInfo &bufferInfo, const SampleInfo &, const CodecUserData &, int64_t)
 {
+    std::lock_guard<std::mutex> lock(g_video.mutex);
+    g_video.rendered.push_back(bufferInfo.bufferIndex);
     return true;
 }
 void BufferRenderer::Reset() { }
-void Player::VideoDecInputAsyncThread() { }
-void Player::VideoDecOutputAsyncThread() { }
-void Player::VideoDecInputSyncThread() { }
-void Player::VideoDecOutputSyncThread() { }
+bool HdrMetadataHelper::IsHdrVivid(OH_AVBuffer *)
+{
+    return false;
+}
+bool HdrMetadataHelper::IsLastFlushedBufferHdrVivid(OHNativeWindow *)
+{
+    return false;
+}
 int main()
 {
     TestInitializationFailure();
@@ -643,5 +933,12 @@ int main()
     TestBackgroundQueuedStart();
     TestBackgroundReadyAndReplay();
     TestAllowedBackgroundStart();
+    for (bool synchronous : {false, true}) {
+        TestVideoTailAfterAudioEos(synchronous);
+        TestVideoPauseAndSeek(synchronous);
+        TestVideoWaitInterrupted(synchronous, true);
+        TestVideoWaitInterrupted(synchronous, false);
+    }
+    TestVideoCleanupProgress();
     std::cout << "Player production lifecycle integration passed" << std::endl;
 }

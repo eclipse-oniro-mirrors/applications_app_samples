@@ -11,6 +11,42 @@
     {
       "name": "EntryAbility_label",
       "value": "label"
+    },
+    {
+      "name": "scan_close_dialog",
+      "value": "Close"
+    },
+    {
+      "name": "scan_title",
+      "value": "Scanner Interface Demo"
+    },
+    {
+      "name": "scan_search_btn",
+      "value": "Searching Scanner"
+    },
+    {
+      "name": "scan_start_btn",
+      "value": "Start Scan"
+    },
+    {
+      "name": "scan_cancel_btn",
+      "value": "Cancel Scan"
+    },
+    {
+      "name": "scan_open_btn",
+      "value": "open Scanner"
+    },
+    {
+      "name": "scan_get_option_btn",
+      "value": "get options"
+    },
+    {
+      "name": "scan_set_option_btn",
+      "value": "set option"
+    },
+    {
+      "name": "scan_preview_btn",
+      "value": "picture preview"
     }
   ]
 }

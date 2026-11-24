@@ -123,7 +123,7 @@ entry/src/main/ets/
 |   |---Index.ets                               // 主页，功能入口
 |   |---NoiseReductionMain.ets                  // 主页面：显示屏+流列表+Swiper操作区+参数弹窗
 |   |---MenuPage.ets                            // 菜单页：API模式/默认配置/显示选项/查看入口
-|   |---NoiseReductionSimpleExample.ets         // 简化示例：JS+C API基础功能对照
+|   |---NoiseReductionSimpleExample.ets         // 简化示例：JS+C API基础功能对照；文件头块注释区为文档同源示例（ArkTS与C指南代码块），不参与编译
 |---utils
 |   |---MicPermissionUtil.ets                   // 麦克风权限工具
 entry/src/main/cpp/

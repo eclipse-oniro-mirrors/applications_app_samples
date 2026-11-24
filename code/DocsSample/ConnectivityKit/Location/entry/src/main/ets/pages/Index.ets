@@ -13,18 +13,40 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/Index.ets
+ * 文件职责：Index 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：Index。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { SamplePage } from './SamplePage';
 
+/**
+ * Index：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct Index {
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Row：水平布局容器
+    // 关键属性：高度
+    // Row：水平布局容器
+    // 关键属性：高度
     Row() {
+      // Column：垂直布局容器
+      // 关键属性：宽度
+      // Column：垂直布局容器
+      // 关键属性：宽度
       Column() {
-        SamplePage();
-      }
+        // SamplePage：SamplePage 自定义组件
+        SamplePage().id('index_sample_page_3');
+      }.id('index_column_2')
       .width('100%');
-    }
+    }.id('index_row_1')
     .height('100%');
   }
 }

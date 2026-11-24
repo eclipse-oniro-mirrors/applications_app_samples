@@ -13,13 +13,13 @@
  * limitations under the License.
  */
 
-import fileio from '@ohos.file.fs'
-import router from '@ohos.router'
-import contact from '@ohos.contact'
-import common from '@ohos.app.ability.common'
-import Logger from '../data/Logger'
+import fileio from '@ohos.file.fs';
+import router from '@ohos.router';
+import contact from '@ohos.contact';
+import common from '@ohos.app.ability.common';
+import Logger from '../data/Logger';
 
-const TAG: string = 'Setting'
+const TAG: string = '[Sample_Contact]';
 
 @Entry
 @Component
@@ -36,10 +36,10 @@ export struct Setting {
           .objectFit(ImageFit.Contain)
           .id('addBack')
           .onClick(() => {
-            router.back()
-          })
+            router.back();
+          });
       }
-      .width('100%')
+      .width('100%');
 
       Column() {
         Button($r('app.string.add_contact'))
@@ -51,40 +51,41 @@ export struct Setting {
           .onClick(() => {
             router.pushUrl({
               url: 'pages/AddContact'
-            })
-          })
+            });
+          });
 
         Button($r('app.string.import_file'))
           .margin(10)
           .width('48%')
           .height(48)
           .fontSize(20)
-          .id('importFile')
+          .id('importFile');
 
         Button($r('app.string.export_file'))
           .margin(10)
           .width('48%')
           .height(48)
           .fontSize(20)
-          .id('exportFile')
+          .id('exportFile');
       }
       .width('100%')
       .height('100%')
-      .backgroundColor(Color.White)
+      .backgroundColor(Color.White);
     }
   }
 
-  async aboutToAppear() {
-    this.contacts = await contact.queryContacts()
-    Logger.info(TAG, `this contacts is ${(JSON.stringify(this.contacts))}`)
+  async aboutToAppear(): Promise<void> {
+    this.contacts = await contact.queryContacts();
+    Logger.info(TAG, `this contacts is ${(JSON.stringify(this.contacts))}`);
   }
 
-  async writeContact() {
-    let ctx = getContext(this) as common.UIAbilityContext
-    let path = ctx.filesDir
-    let file = fileio.openSync(`${path}/Contact.json`, fileio.OpenMode.READ_WRITE | fileio.OpenMode.CREATE)
-    for (let i = 0; i < this.contacts.length; i++) {
-      fileio.writeSync(file.fd, `${this.contacts[i]}\n`)
+  async writeContact(): Promise<void> {
+    let ctx: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
+    let path: string = ctx.filesDir;
+    let file: fileio.File =
+      fileio.openSync(`${path}/Contact.json`, fileio.OpenMode.READ_WRITE | fileio.OpenMode.CREATE);
+    for (let i: number = 0; i < this.contacts.length; i++) {
+      fileio.writeSync(file.fd, `${this.contacts[i]}\n`);
     }
   }
 }

@@ -31,10 +31,10 @@
         "name": "TestAbility",
         "srcEntry": "./ets/testability/TestAbility.ets",
         "description": "$string:TestAbility_desc",
-        "icon": "$media:icon",
+        "icon": "$media:startIcon",
         "label": "$string:TestAbility_label",
         "visible": true,
-        "startWindowIcon": "$media:icon",
+        "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background",
         "skills": [
           {
@@ -47,6 +47,10 @@
           }
         ]
       }
-    ]
+    ],
+    "testRunner": {
+      "name": "OpenHarmonyTestRunner",
+      "srcPath": "ets/testrunner/OpenHarmonyTestRunner"
+    }
   }
 }

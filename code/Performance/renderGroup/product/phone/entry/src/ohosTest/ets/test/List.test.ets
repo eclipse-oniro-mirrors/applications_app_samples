@@ -13,8 +13,32 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test'
+import abilityTest from './Ability.test';
+import renderGroupInteractionTest from './Interaction/RenderGroupInteraction.test';
+import renderGroupGridTest from './Interaction/RenderGroupGrid.test';
+import renderGroupSceneLifecycleTest from './LifecycleState/RenderGroupSceneLifecycle.test';
+import renderGroupStabilityTest from './PerformanceStability/RenderGroupStability.test';
+import renderGroupResourcesTest from './Validation/RenderGroupResources.test';
+import renderGroupDriverQueueTest from './Shared/RenderGroupDriverQueue.test';
+import renderGroupRouteWorkflowTest from './Integration/RenderGroupRouteWorkflow.test';
+import renderGroupGesturesTest from './Interaction/RenderGroupGestures.test';
+import renderGroupMatrix01 from './Generated/RenderGroupMatrix01.test';
+import renderGroupMatrix02 from './Generated/RenderGroupMatrix02.test';
+import renderGroupPaintTest from './Validation/RenderGroupPaint.test';
+import renderGroupNumbersTest from './Validation/RenderGroupNumbers.test';
 
-export default function testsuite() {
-  abilityTest()
+export default function testsuite(): void {
+  abilityTest();
+  renderGroupInteractionTest();
+  renderGroupGridTest();
+  renderGroupSceneLifecycleTest();
+  renderGroupStabilityTest();
+  renderGroupResourcesTest();
+  renderGroupDriverQueueTest();
+  renderGroupRouteWorkflowTest();
+  renderGroupGesturesTest();
+  renderGroupMatrix01();
+  renderGroupMatrix02();
+  renderGroupPaintTest();
+  renderGroupNumbersTest();
 }

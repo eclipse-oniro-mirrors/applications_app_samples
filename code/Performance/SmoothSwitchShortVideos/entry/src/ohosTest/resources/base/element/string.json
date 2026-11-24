@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_test_desc",
+      "value": "Short video instrumentation tests"
+    },
+    {
+      "name": "TestAbility_desc",
+      "value": "Runs Hypium device suites"
+    },
+    {
+      "name": "TestAbility_label",
+      "value": "Short Video Tests"
+    }
+  ]
+}

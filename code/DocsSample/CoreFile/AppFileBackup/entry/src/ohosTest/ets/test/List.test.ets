@@ -13,8 +13,13 @@
  * limitations under the License.
  */
 
-import FileBackupTest from './FileBackup.test';
+import backupFileTransferTest from './BackupFileTransfer.test';
+import backupFileTransferSdkTest from './BackupFileTransferSdk.test';
+import backupMatrixTest from './BackupMatrix.test';
 
-export default function testsuite() {
-  FileBackupTest();
+/** Registers the backup file transfer scenarios with Hypium. */
+export default function testsuite(): void {
+  backupMatrixTest();
+  backupFileTransferTest();
+  backupFileTransferSdkTest();
 }

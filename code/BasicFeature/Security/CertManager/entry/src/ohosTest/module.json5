@@ -19,6 +19,10 @@
     "type": "feature",
     "description": "$string:module_test_desc",
     "mainElement": "TestAbility",
+    "testRunner": {
+      "name": "OpenHarmonyTestRunner",
+      "srcPath": "ets/TestRunner/OpenHarmonyTestRunner.ts"
+    },
     "deviceTypes": [
       "default",
       "tablet"
@@ -31,10 +35,10 @@
         "name": "TestAbility",
         "srcEntry": "./ets/testability/TestAbility.ets",
         "description": "$string:TestAbility_desc",
-        "icon": "$media:icon",
+        "icon": "$media:startIcon",
         "label": "$string:TestAbility_label",
         "exported": true,
-        "startWindowIcon": "$media:icon",
+        "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background",
         "skills": [
           {
