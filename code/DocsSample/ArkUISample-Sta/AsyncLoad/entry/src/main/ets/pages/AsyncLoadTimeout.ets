@@ -1,3 +1,5 @@
+'use static'
+
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +16,7 @@
  */
 
 // [Start AsyncLoadTimeoutSta]
-import { UIUtils, ComponentInit, ComponentV2, Text } from '@kit.ArkUI';
+import { UIUtils, ComponentInit, ComponentV2, Entry, Column, Text } from '@kit.ArkUI';
 
 @ComponentV2
 struct HeavyComponent {

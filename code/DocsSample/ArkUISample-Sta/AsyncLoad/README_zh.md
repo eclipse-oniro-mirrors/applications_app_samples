@@ -25,3 +25,31 @@ entry/src/
 
 - 在@ComponentInit装饰的函数内调用UIUtils.getCustomComponentContext(this).enableAsyncLoad()启用异步加载（仅静态范式ArkTS-Sta）。
 - 通过CustomComponentAsyncLoadOptions配置占位组件（placeholder）与超时阈值（timeout，整数）。
+
+## 相关权限
+
+不涉及。
+
+## 依赖
+
+不涉及。
+
+## 约束与限制
+
+1.本示例仅支持标准系统上运行，支持设备：RK3568。
+
+2.本示例为Stage模型（静态范式ArkTS-Sta），支持API 26版本SDK，版本号：26.0.0。
+
+3.本示例需要使用DevEco Studio 5.0.5.300及以上版本才可编译运行。
+
+## 下载
+
+如需单独下载本工程，执行如下命令：
+
+```
+git init
+git config core.sparsecheckout true
+echo code/DocsSample/ArkUISample-Sta/AsyncLoad/ > .git/info/sparse-checkout
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
+git pull origin master
+```

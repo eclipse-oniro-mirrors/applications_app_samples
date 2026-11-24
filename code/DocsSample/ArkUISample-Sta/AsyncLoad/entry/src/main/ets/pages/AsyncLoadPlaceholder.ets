@@ -1,3 +1,5 @@
+'use static'
+
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +16,24 @@
  */
 
 // [Start AsyncLoadPlaceholderSta]
-import { UIUtils, ComponentInit, ComponentV2, Entry, Column, Text } from '@kit.ArkUI';
+import { UIUtils, ComponentInit, ComponentV2, Entry, Column, Text, Builder, wrapBuilder,
+  LoadingProgress, FlexAlign } from '@kit.ArkUI';
+
+// 占位模板须为全局、无参、只读静态渲染的受限Builder
+@Builder({ isPlaceholder: true })
+function HeavyPlaceholder() {
+  Column() {
+    LoadingProgress()
+      .width(32)
+      .height(32)
+    Text('加载中...')
+      .fontSize(14)
+      .fontColor(0x999999)
+  }
+  .width('100%')
+  .height(120)
+  .justifyContent(FlexAlign.Center)
+}
 
 @ComponentV2
 struct HeavyComponent {
@@ -43,6 +62,16 @@ struct HeavyComponent {
 @Entry
 @ComponentV2
 struct Index {
+  aboutToAppear() {
+    // 先注册占位模板（注册表经getPlaceholderRegister获取，按UI实例隔离）
+    this.getUIContext().getPlaceholderRegister()
+      .register('heavyPlaceholder', wrapBuilder(HeavyPlaceholder));
+  }
+
+  aboutToDisappear() {
+    this.getUIContext().getPlaceholderRegister().unregister('heavyPlaceholder');
+  }
+
   build() {
     Column() {
       Text('页面其余内容首个渲染帧正常呈现')

@@ -27,29 +27,17 @@ export interface Ary {
 struct Index {
   ary: Ary[] = [
     {
-      name: 'LifecycleNest',
-      path: 'pages/LifecycleNest'
+      name: 'AsyncLoadBasic',
+      path: 'pages/AsyncLoadBasic'
     },
     {
-      name: 'LifecycleReuse',
-      path: 'pages/LifecycleReuse'
+      name: 'AsyncLoadPlaceholder',
+      path: 'pages/AsyncLoadPlaceholder'
     },
     {
-      name: 'LifecycleObserver',
-      path: 'pages/LifecycleObserver'
-    },
-    {
-      name: 'LifecycleActiveInactive',
-      path: 'pages/LifecycleActiveInactive'
-    },
-    {
-      name: 'LifecycleSwiper',
-      path: 'pages/LifecycleSwiper'
-    },
-    {
-      name: 'LifecycleReuseDiff',
-      path: 'pages/LifecycleReuseDiff'
-    },
+      name: 'AsyncLoadTimeout',
+      path: 'pages/AsyncLoadTimeout'
+    }
   ]
 
   build() {
