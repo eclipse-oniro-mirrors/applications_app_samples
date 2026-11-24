@@ -123,6 +123,11 @@ bool Recorder::ProcessVideoOutputBuffer(CodecBufferInfo &bufferInfo, bool isPrim
     auto *encoder = isPrimary ? videoEncoder_.get() : secondaryVideoEncoder_.get();
     auto *context = isPrimary ? encContext_.get() : secondaryEncContext_.get();
     auto *muxer = isPrimary ? muxer_.get() : secondaryMuxer_.get();
+    const bool eos = (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
+    if (eos && bufferInfo.attr.size > 0) {
+        // 有效尾帧按媒体样本写入，EOS标记只用于结束编码输出。
+        bufferInfo.attr.flags &= ~static_cast<uint32_t>(AVCODEC_BUFFER_FLAGS_EOS);
+    }
     NormalizeVideoOutputTimestamp(*context, bufferInfo);
     RecordVideoOutput(context, bufferInfo, isPrimary);
     auto &stats = isPrimary ? primaryStats_ : secondaryStats_;
@@ -142,17 +147,24 @@ bool Recorder::ProcessVideoOutputBuffer(CodecBufferInfo &bufferInfo, bool isPrim
             stats.Record(bufferInfo.attr);
         }
     }
-    // 普通输出按原索引归还以供复用；EOS由输出线程退出后的Destroy统一回收。
-    const int32_t freeRet = encoder->FreeOutputBuffer(bufferInfo);
+    if (writeRet != AVCODEC_SAMPLE_ERR_OK) {
+        failure_.Record(isPrimary ? "recorder.primary.mux.write" : "recorder.secondary.mux.write",
+            writeRet, "Write encoded video sample failed");
+    }
+    // 普通输出按原索引归还；EOS由输出线程退出后的Destroy回收。
+    const int32_t freeRet = eos ? AVCODEC_SAMPLE_ERR_OK : encoder->FreeOutputBuffer(bufferInfo);
     stats.RecordStages(muxerUs, dumpUs, RecorderClockUs() - receivedAtUs);
     RefreshStreamStorage(isPrimary);
     if (freeRet != AVCODEC_SAMPLE_ERR_OK) {
         failure_.Record("recorder.video.release", freeRet, "归还视频编码输出 Buffer 失败");
-        AbortRecording("Release encoded video buffer failed");
-        return false;
+        if (writeRet != AVCODEC_SAMPLE_ERR_OK) {
+            sessionReport_.Event(isPrimary ? "primary.buffer_return_failed" : "secondary.buffer_return_failed",
+                std::to_string(freeRet));
+        }
     }
-    if (writeRet != AVCODEC_SAMPLE_ERR_OK) {
-        AbortRecording("Write encoded video sample failed");
+    if (writeRet != AVCODEC_SAMPLE_ERR_OK || freeRet != AVCODEC_SAMPLE_ERR_OK) {
+        AbortRecording(writeRet != AVCODEC_SAMPLE_ERR_OK ? "Write encoded video sample failed" :
+            "Release encoded video buffer failed");
         return false;
     }
     return true;
@@ -160,15 +172,12 @@ bool Recorder::ProcessVideoOutputBuffer(CodecBufferInfo &bufferInfo, bool isPrim
 
 void Recorder::RecordVideoOutputEos(CodecBufferInfo &bufferInfo, bool isPrimary, int64_t receivedAtUs)
 {
-    auto *context = isPrimary ? encContext_.get() : secondaryEncContext_.get();
-    NormalizeVideoOutputTimestamp(*context, bufferInfo);
-    RecordVideoOutput(context, bufferInfo, isPrimary);
-    (isPrimary ? primaryStats_ : secondaryStats_).RecordStages(-1, -1, RecorderClockUs() - receivedAtUs);
-    RefreshStreamStorage(isPrimary);
+    if (!ProcessVideoOutputBuffer(bufferInfo, isPrimary, receivedAtUs)) {
+        return;
+    }
     sessionReport_.Event(isPrimary ? "primary.eos" : "secondary.eos");
     (isPrimary ? videoOutputEosReceived_ : secondaryVideoOutputEosReceived_).store(true);
     outputDoneCond_.notify_all();
-    // EOS不再交给编码器复用，保留至输出线程结束后由Destroy回收。
 }
 
 void Recorder::FinishVideoOutputThread(CodecUserData *context, bool isPrimary)

@@ -17,6 +17,7 @@
 #include <condition_variable>
 #include <cstdarg>
 #include <iostream>
+#include <system_error>
 #include <cstring>
 #include <algorithm>
 #include "sample/player/core/Player.h"
@@ -414,6 +415,33 @@ void TestVideoPauseAndSeek(bool synchronous)
         "The paused frame and the pre-target frame return their indices");
 }
 
+void TestSeekAfterAudioEos(bool synchronous, bool forward)
+{
+    ResetVideoBoundary();
+    Completion done;
+    Player player;
+    StartVideoPlayback(player, done, synchronous);
+    const uint32_t tail = QueueVideoFrame(FIRST_TAIL_PTS_US);
+    WaitForAudioClock();
+    auto eos = std::make_shared<CodecBufferInfo>();
+    eos->attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
+    g_boundary.audio->outputBufferQueue.Enqueue(eos);
+    WaitForVideoReturn(tail);
+    Require(player.Pause() == 0, "Pause during the video-only tail");
+
+    const int64_t targetUs = forward ? LAST_TAIL_PTS_US : SEEK_POSITION_US;
+    Require(player.SeekTo(targetUs) == 0, "Seek remains available after audio EOS");
+    const uint32_t beforeTarget = QueueVideoFrame(0);
+    const uint32_t atTarget = QueueVideoFrame(targetUs);
+    WaitForVideoReturn(atTarget);
+    Require(player.GetState() == PLAYER_STATE_PAUSED, "Tail seek preserves paused playback");
+    Require(player.Stop() == 0, "Stop after tail seek");
+    done.Wait();
+    Require(done.reason == PlaybackCompletionReason::STOPPED, "Tail seek completes with one stop callback");
+    Require(g_video.rendered == std::vector<uint32_t> {tail, atTarget}, "Only the tail and seek target are rendered");
+    Require(g_video.returns[beforeTarget] == BufferReturn::FREED, "The pre-target buffer is returned");
+}
+
 void TestVideoWaitInterrupted(bool synchronous, bool seek)
 {
     ResetVideoBoundary();
@@ -512,6 +540,44 @@ void TestStartFailure()
     Require(done.reason == PlaybackCompletionReason::ERROR, "done.reason == PlaybackCompletionReason::ERROR");
     Require(player.GetState() == PLAYER_STATE_IDLE, "player.GetState() == PLAYER_STATE_IDLE");
 }
+std::thread RejectReleaseThread(std::function<void()>)
+{
+    throw std::system_error(std::make_error_code(std::errc::resource_unavailable_try_again));
+}
+
+enum class ReleaseFailurePath { INIT_FAILURE, START_FAILURE, STARTED, READY_STOP };
+
+void TestReleaseThreadFailure(ReleaseFailurePath path)
+{
+    g_boundary = {};
+    Completion done;
+    Player player(RejectReleaseThread);
+    auto info = Input(done);
+    if (path == ReleaseFailurePath::INIT_FAILURE) {
+        g_boundary.create = CREATE_FAILURE;
+        Require(player.Init(info) != 0, "Initialization failure returns after cleanup");
+    } else {
+        Require(player.Init(info) == 0, "Prepare playback with a failing release thread factory");
+        if (path == ReleaseFailurePath::READY_STOP) {
+            Require(player.Stop() == 0, "Ready stop releases from the control thread");
+        } else {
+            g_boundary.start = path == ReleaseFailurePath::START_FAILURE ? START_FAILURE : 0;
+            Require(player.Start() != 0, "Startup cannot leave media workers running without cleanup");
+        }
+    }
+    done.Wait();
+    const auto report = player.GetCompletedPlaybackInfo();
+    Require(player.GetState() == PLAYER_STATE_IDLE && g_boundary.releases == 1,
+        "Release returns the player to idle and destroys the input once");
+    Require(report.cleanupFailure.stage == "release.thread.start", "Report the release thread creation failure");
+    if (path == ReleaseFailurePath::START_FAILURE || path == ReleaseFailurePath::INIT_FAILURE) {
+        Require(!report.failure.stage.empty() && report.failure.stage != report.cleanupFailure.stage,
+            "Keep the earlier media error in the completion report");
+    }
+    Require(done.reason == (path == ReleaseFailurePath::READY_STOP
+        ? PlaybackCompletionReason::STOPPED : PlaybackCompletionReason::ERROR), "Keep the expected completion reason");
+}
+
 void TestNaturalCompletionAndCleanupFailure()
 {
     for (bool synchronous : { false, true }) {
@@ -927,6 +993,10 @@ int main()
     TestInitializationFailure();
     TestStopReadyAndReplay();
     TestStartFailure();
+    TestReleaseThreadFailure(ReleaseFailurePath::INIT_FAILURE);
+    TestReleaseThreadFailure(ReleaseFailurePath::START_FAILURE);
+    TestReleaseThreadFailure(ReleaseFailurePath::STARTED);
+    TestReleaseThreadFailure(ReleaseFailurePath::READY_STOP);
     TestNaturalCompletionAndCleanupFailure();
     TestSeekAndTrackFailures();
     TestCommandStopOwnership();
@@ -936,6 +1006,8 @@ int main()
     for (bool synchronous : {false, true}) {
         TestVideoTailAfterAudioEos(synchronous);
         TestVideoPauseAndSeek(synchronous);
+        TestSeekAfterAudioEos(synchronous, true);
+        TestSeekAfterAudioEos(synchronous, false);
         TestVideoWaitInterrupted(synchronous, true);
         TestVideoWaitInterrupted(synchronous, false);
     }

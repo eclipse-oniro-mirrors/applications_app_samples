@@ -121,7 +121,9 @@ export struct TranscodeQueuePanel {
       ForEach(this.exports.results, (result: TranscodeExportResult) => {
         Text(result.path.substring(result.path.lastIndexOf('/') + 1) + ' · ' +
           LocalizedText.get(result.state === 'saved' ? $r('app.string.transcode_saved') :
-          result.state === 'cancelled' ? $r('app.string.task_cancelled') : $r('app.string.transcode_save_failed')) +
+          result.state === 'cancelled' ? $r('app.string.task_cancelled') :
+          result.state === 'not_attempted' ? $r('app.string.transcode_export_not_attempted') :
+          $r('app.string.transcode_save_failed')) +
           (result.detail.length > 0 ? ' · ' + result.detail : '')).fontSize(12)
           .fontColor(result.state === 'saved' ? '#16794B' : '#B54708')
       }, (result: TranscodeExportResult): string => result.path)

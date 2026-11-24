@@ -17,6 +17,7 @@
 #define VIDEO_CODEC_SAMPLE_RECODER_H
 
 #include <mutex>
+#include <functional>
 #include "CleanupProgress.h"
 #include <memory>
 #include <atomic>
@@ -38,7 +39,10 @@
 
 class Recorder {
 public:
-    Recorder(){};
+    Recorder() = default;
+    // 传入的工厂在控制线程上执行，返回等待收尾请求的线程。
+    explicit Recorder(std::thread (*releaseThreadFactory)(std::function<void()>))
+        : releaseThreadFactory_(releaseThreadFactory) {}
     ~Recorder();
 
     static Recorder &GetInstance()
@@ -99,6 +103,8 @@ private:
     void Release();
     void ReleaseVideoEncoder();
     void ReleaseAudioEncoder();
+    bool PrepareReleaseThread();
+    void WaitForReleaseRequest();
     void StartRelease();
     void AbortRecording(const char *reason);
     // 将编码器输出的原始视频码流写入诊断文件；失败只记录日志，不影响正常封装。
@@ -189,7 +195,9 @@ private:
     // 需要同时取得两把锁时，先取得mutex_。等待和日志只使用releaseMutex_。
     std::mutex releaseMutex_;
     std::condition_variable doneCond_;
+    std::thread (*releaseThreadFactory_)(std::function<void()>) = nullptr;
     std::unique_ptr<std::thread> releaseThread_ = nullptr;
+    bool releaseRequested_ = false;
     bool releaseCompleted_ = true;
     // 收尾线程写入结果，在releaseMutex_下发布完成后，等待者才读取。
     int32_t releaseResult_ = AVCODEC_SAMPLE_ERR_OK;

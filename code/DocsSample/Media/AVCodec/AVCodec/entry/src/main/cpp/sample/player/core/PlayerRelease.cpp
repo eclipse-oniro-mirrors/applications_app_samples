@@ -15,6 +15,9 @@
 
 #include "Player.h"
 
+#include <new>
+#include <system_error>
+
 #include "av_codec_sample_log.h"
 #include "dfx/error/av_codec_sample_error.h"
 
@@ -25,12 +28,31 @@ namespace {
 constexpr auto FAILURE_CHECK_INTERVAL = std::chrono::milliseconds(100);
 }
 
-void Player::StartRelease()
+bool Player::StartRelease()
 {
     if (releaseThread_ && releaseThread_->joinable()) {
-        return;
+        return true;
     }
-    releaseThread_ = std::make_unique<std::thread>(&Player::ReleaseWorker, this);
+    try {
+        auto thread = std::make_unique<std::thread>();
+        const auto release = [this]() { ReleaseWorker(); };
+        *thread = releaseThreadFactory_ == nullptr ? std::thread(release) : releaseThreadFactory_(release);
+        releaseThread_ = std::move(thread);
+        return true;
+    } catch (const std::system_error &error) {
+        RecordCleanup("release.thread.start", error.code().value());
+    } catch (const std::bad_alloc &) {
+        RecordCleanup("release.thread.start", AVCODEC_SAMPLE_ERR_ERROR);
+    }
+    return false;
+}
+
+void Player::StartReleaseOrRun()
+{
+    if (!StartRelease()) {
+        // 调用方已进入收尾，且未持有操作锁。控制线程可以直接等待工作线程退出。
+        ReleaseWorker();
+    }
 }
 
 void Player::ReleaseWorker()

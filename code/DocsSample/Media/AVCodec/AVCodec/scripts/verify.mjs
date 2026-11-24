@@ -20,6 +20,7 @@ import { fileURLToPath } from 'node:url';
 import { runVerification } from './VerificationRunner.mjs';
 import { nativeBuildOptions } from './NativeBuildOptions.mjs';
 import { verifyDeviceRun } from './DeviceVerification.mjs';
+import { DEFAULT_DEVICE_CASES } from './DefaultDeviceCases.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -168,15 +169,19 @@ async function device() {
   const pathKey = Object.keys(env).find(key => key.toLowerCase() === 'path') || 'PATH';
   env[pathKey] = path.join(javaHome, 'bin') + path.delimiter + (env[pathKey] || '');
   const scope = option('--device-scope', '');
-  const expectedCount = Number(option('--expected-device-tests', scope ? '' : '49'));
+  const expectedCases = scope ? undefined : DEFAULT_DEVICE_CASES;
+  const expectedCount = Number(option('--expected-device-tests', expectedCases?.length ?? ''));
   if (!Number.isSafeInteger(expectedCount) || expectedCount <= 0) {
     throw new Error('Set --expected-device-tests to the expected positive case count for the selected scope');
+  }
+  if (expectedCases && expectedCount !== expectedCases.length) {
+    throw new Error('The default case count must match the default device case list');
   }
   const values = [path.join(studioRoot, 'tools/hvigor/bin/hvigorw.js'), '--mode', 'module',
     '-p', 'product=default', '-p', 'module=entry', '-p', 'coverage=true'];
   if (scope) { values.push('-p', 'scope=' + scope); }
   values.push('onDeviceTest', '--no-daemon');
-  const result = await verifyDeviceRun({ expectedCount, scope,
+  const result = await verifyDeviceRun({ expectedCount, scope, expectedCases,
     reportPath: path.join(root, 'entry/.test/default/intermediates/ohosTest/coverage_data/test_result.txt'),
     resultPath: path.join(output, 'device-result.json'),
     execute: () => run(process.execPath, values, 'device', buildTimeoutMs, { env }) });

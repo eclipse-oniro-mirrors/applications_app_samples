@@ -18,6 +18,7 @@
 
 #include <cstdint>
 #include <chrono>
+#include <functional>
 #include <mutex>
 #include "CleanupProgress.h"
 #include <memory>
@@ -109,6 +110,9 @@ struct MediaInfo {
 class Player {
 public:
     Player() = default;
+    // 传入的工厂在控制线程上执行，返回负责本次收尾的线程。
+    explicit Player(std::thread (*releaseThreadFactory)(std::function<void()>))
+        : releaseThreadFactory_(releaseThreadFactory) {}
     ~Player();
 
     int32_t Init(SampleInfo &sampleInfo, bool *completionOwned = nullptr);
@@ -144,7 +148,8 @@ private:
     void AudioDecOutputSyncThread();
     void Release();
     void RecordCleanup(const char *stage, int32_t result);
-    void StartRelease();
+    bool StartRelease();
+    void StartReleaseOrRun();
     void ReleaseWorker();
     void JoinReleaseThread();
     void JoinWorkerThreads(bool trackCleanup = false);
@@ -285,6 +290,7 @@ private:
     PlayerStateMachine stateMachine_;
     VideoPipeline videoPipeline_;
     AudioPipeline audioPipeline_;
+    std::thread (*releaseThreadFactory_)(std::function<void()>) = nullptr;
     std::unique_ptr<std::thread> releaseThread_ = nullptr;
     std::condition_variable doneCond_;
     std::mutex doneMutex;

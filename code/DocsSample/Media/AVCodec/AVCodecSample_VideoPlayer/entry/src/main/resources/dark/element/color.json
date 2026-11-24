@@ -1,0 +1,32 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#101825"
+    },
+    {
+      "name": "player_page",
+      "value": "#101825"
+    },
+    {
+      "name": "player_button",
+      "value": "#1A273A"
+    },
+    {
+      "name": "player_outline",
+      "value": "#34475E"
+    },
+    {
+      "name": "player_text",
+      "value": "#EAF2FF"
+    },
+    {
+      "name": "player_secondary_text",
+      "value": "#B9CBE3"
+    },
+    {
+      "name": "player_selected",
+      "value": "#253F61"
+    }
+  ]
+}

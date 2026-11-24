@@ -156,7 +156,7 @@ c++ -std=c++17 -O2 -Ientry/src/main/cpp tests/native/CaptureQueueBenchmark.cpp -
 
 指定范围时同时提供条数，例如`--device-scope PlaybackPolicyTest --expected-device-tests 5`。使用Hypium的套件名或`套件#用例`，多个范围用逗号分隔；条数必须与选择范围一致。轮询基准需要额外素材，仍按下文的专门步骤执行。
 
-执行前删除旧`test_result.txt`并重置结构化结果，执行后检查报告修改时间、唯一汇总、实际条数、逐项Success、套件范围、失败、错误及忽略数。报告缺失、过期、零用例、重复用例或断言失败均使验证失败，即使Hvigor退出码为0。结果在`.validation/device-result.json`，进程日志在`.validation/logs/device.log`。`DeviceVerification.test.mjs`覆盖这些失败路径和超时收尾。
+执行前删除旧`test_result.txt`并重置结构化结果。执行后检查报告修改时间、唯一汇总、实际条数、逐项结果、套件范围、失败数、错误数及忽略数。默认运行还逐项对照[设备用例清单](../scripts/DefaultDeviceCases.mjs)，列出缺失和多出的`套件#用例`。增删或重命名默认用例时同步更新清单。结构化结果在`.validation/device-result.json`，进程日志在`.validation/logs/device.log`。`DeviceVerification.test.mjs`覆盖报告缺失、过期、断言失败、同数量用例替换和超时收尾。
 
 ### 后台策略与流程契约
 

@@ -1,0 +1,60 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Native video playback sample"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Play a local video"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "AVCodecSample_VideoPlayer"
+    },
+    {
+      "name": "play",
+      "value": "Play"
+    },
+    {
+      "name": "playback_mode",
+      "value": "Playback mode"
+    },
+    {
+      "name": "choose_playback_mode",
+      "value": "Choose playback mode"
+    },
+    {
+      "name": "async_direct_output",
+      "value": "Asynchronous mode · Surface mode"
+    },
+    {
+      "name": "async_buffer",
+      "value": "Asynchronous mode · Buffer mode"
+    },
+    {
+      "name": "sync_direct_output",
+      "value": "Synchronous mode · Surface mode"
+    },
+    {
+      "name": "sync_buffer",
+      "value": "Synchronous mode · Buffer mode"
+    },
+    {
+      "name": "choose_video_source",
+      "value": "Choose a video source"
+    },
+    {
+      "name": "gallery",
+      "value": "Gallery"
+    },
+    {
+      "name": "files",
+      "value": "File Manager"
+    },
+    {
+      "name": "play_failed",
+      "value": "Could not play this file."
+    }
+  ]
+}

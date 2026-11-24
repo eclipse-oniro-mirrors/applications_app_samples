@@ -15,11 +15,17 @@
 
 import { common } from '@kit.AbilityKit';
 import { fileIo, picker } from '@kit.CoreFileKit';
+import { media } from '@kit.MediaKit';
 import { TranscodeStatus, TranscodeMeasurement } from 'libtranscoder.so';
+import { LocalizedText } from '../common/LocalizedText';
 import { TranscodeFileCloser } from '../controller/TranscodeFileCloser';
+import { MediaFileActivity } from './MediaFileActivity';
 import { MediaFileWriter } from './MediaFileWriter';
+import { idleTranscodeStatus } from './TranscodeStatusModel';
 
 const reportTimestamp: Date = new Date(0);
+const MAX_HISTORY_BYTES: number = 262144;
+const RECOVERY_METADATA_TIMEOUT_MS: number = 3000;
 
 export interface TranscodeHistoryEntry {
   id: string;
@@ -28,6 +34,7 @@ export interface TranscodeHistoryEntry {
   configuration: string;
   status: TranscodeStatus;
   hasFile: boolean;
+  recovered?: boolean;
 }
 
 export interface TranscodeHistoryCleanup {
@@ -116,34 +123,101 @@ export class TranscodeFilesModel {
     if (!await fileIo.access(directory)) { return { entries: [], nextOffset: 0, hasMore: false }; }
     const directoryStat: fileIo.Stat = await fileIo.lstat(directory);
     if (!directoryStat.isDirectory() || directoryStat.isSymbolicLink()) { throw new Error('Unsafe history directory'); }
-    const names: string[] = (await fileIo.listFile(directory))
-      .filter((name: string): boolean => /^transcoded_[0-9]+[.]json$/.test(name))
-      .sort((a: string, b: string): number => Number(b.split('_')[1].split('.')[0]) -
-        Number(a.split('_')[1].split('.')[0]));
-    const entries: TranscodeHistoryEntry[] = [];
-    const end: number = Math.min(names.length, offset + Math.min(pageSize, TranscodeFilesModel.HISTORY_PAGE_SIZE));
-    for (const name of names.slice(offset, end)) {
-      try {
-        const path: string = directory + '/' + name;
-        const stat: fileIo.Stat = await fileIo.lstat(path);
-        if (!stat.isFile() || stat.isSymbolicLink() || stat.size > 262144) { continue; }
-        const entry: TranscodeHistoryEntry = JSON.parse(await fileIo.readText(path)) as TranscodeHistoryEntry;
-        if (!TranscodeFilesModel.validId(entry.id) || entry.id + '.json' !== name ||
-          !Number.isFinite(entry.createdAt) || typeof entry.title !== 'string' ||
-          typeof entry.configuration !== 'string' || entry.status === null ||
-          !Array.isArray(entry.status.diagnostics) || !Number.isInteger(entry.status.state) ||
-          entry.status.state < 2 || entry.status.state > 4) { continue; }
-        TranscodeFilesModel.report(entry);
-        const media: string = directory + '/' + entry.id + '.mp4';
-        entry.hasFile = false;
-        if (await fileIo.access(media)) {
-          const mediaStat: fileIo.Stat = await fileIo.lstat(media);
-          entry.hasFile = entry.status.state === 2 && mediaStat.isFile() && !mediaStat.isSymbolicLink();
-        }
-        entries.push(entry);
-      } catch (_error) {}
+    const names: string[] = await fileIo.listFile(directory);
+    const reports: Set<string> = new Set<string>();
+    const mediaIds: Set<string> = new Set<string>();
+    for (const name of names) {
+      if (/^transcoded_[0-9]+[.]json$/.test(name)) { reports.add(name.slice(0, -'.json'.length)); }
+      if (/^transcoded_[0-9]+[.]mp4$/.test(name)) { mediaIds.add(name.slice(0, -'.mp4'.length)); }
     }
-    return { entries: entries, nextOffset: end, hasMore: end < names.length };
+    const ids: string[] = Array.from(new Set<string>(Array.from(reports).concat(Array.from(mediaIds))))
+      .sort((a: string, b: string): number => Number(b.split('_')[1]) - Number(a.split('_')[1]));
+    const entries: TranscodeHistoryEntry[] = [];
+    const end: number = Math.min(ids.length, offset + Math.min(pageSize, TranscodeFilesModel.HISTORY_PAGE_SIZE));
+    for (const id of ids.slice(offset, end)) {
+      const report: TranscodeHistoryEntry | undefined =
+        reports.has(id) ? await TranscodeFilesModel.readHistory(directory, id) : undefined;
+      const output: fileIo.Stat | undefined =
+        mediaIds.has(id) ? await TranscodeFilesModel.statOutput(directory, id) : undefined;
+      if (report !== undefined) {
+        report.hasFile = output !== undefined && report.status.state === 2;
+        entries.push(report);
+      } else if (output !== undefined) {
+        entries.push(TranscodeFilesModel.recoveredEntry(id, output.size));
+      }
+    }
+    return { entries: entries, nextOffset: end, hasMore: end < ids.length };
+  }
+
+  private static async readHistory(directory: string, id: string): Promise<TranscodeHistoryEntry | undefined> {
+    try {
+      const path: string = directory + '/' + id + '.json';
+      const stat: fileIo.Stat = await fileIo.lstat(path);
+      if (!stat.isFile() || stat.isSymbolicLink() || stat.size > MAX_HISTORY_BYTES) { return undefined; }
+      const entry: TranscodeHistoryEntry = JSON.parse(await fileIo.readText(path)) as TranscodeHistoryEntry;
+      if (entry.id !== id || !Number.isFinite(entry.createdAt) || typeof entry.title !== 'string' ||
+        typeof entry.configuration !== 'string' || entry.status === null || !Array.isArray(entry.status.diagnostics) ||
+        !Number.isInteger(entry.status.state) || entry.status.state < 2 || entry.status.state > 4) {
+        return undefined;
+      }
+      TranscodeFilesModel.report(entry);
+      entry.recovered = false;
+      return entry;
+    } catch (_error) { return undefined; }
+  }
+
+  private static async statOutput(directory: string, id: string): Promise<fileIo.Stat | undefined> {
+    try {
+      const stat: fileIo.Stat = await fileIo.lstat(directory + '/' + id + '.mp4');
+      return stat.isFile() && !stat.isSymbolicLink() && stat.size > 0 ? stat : undefined;
+    } catch (_error) { return undefined; }
+  }
+
+  private static recoveredEntry(id: string, bytes: number): TranscodeHistoryEntry {
+    const status: TranscodeStatus = idleTranscodeStatus();
+    status.fileBytes = bytes;
+    return {
+      id: id,
+      createdAt: Number(id.substring('transcoded_'.length)),
+      title: id + '.mp4',
+      configuration: '',
+      status: status,
+      hasFile: false,
+      recovered: true
+    };
+  }
+
+  static async verifyRecoveredOutput(directory: string, id: string): Promise<boolean> {
+    if (!TranscodeFilesModel.validId(id) || MediaFileActivity.isCleanupUnconfirmed()) { return false; }
+    const directoryStat: fileIo.Stat = await fileIo.lstat(directory);
+    if (!directoryStat.isDirectory() || directoryStat.isSymbolicLink()) { return false; }
+    const candidate: fileIo.Stat | undefined = await TranscodeFilesModel.statOutput(directory, id);
+    if (candidate === undefined) { return false; }
+    const path: string = directory + '/' + id + '.mp4';
+    const file: fileIo.File = await fileIo.open(path, fileIo.OpenMode.READ_ONLY | fileIo.OpenMode.NOFOLLOW);
+    let extractor: media.AVMetadataExtractor | undefined = undefined;
+    let verified: boolean = false;
+    let closed: boolean = true;
+    try {
+      const stat: fileIo.Stat = await fileIo.stat(file.fd);
+      if (stat.isFile() && stat.size > 0) {
+        extractor = await media.createAVMetadataExtractor();
+        extractor.fdSrc = { fd: file.fd, offset: 0, length: stat.size };
+        const metadata: media.AVMetadata | undefined =
+          await extractor.fetchMetadataWithTimeout(RECOVERY_METADATA_TIMEOUT_MS);
+        if (metadata !== undefined) {
+          const width: number = Number(metadata.videoWidth);
+          const height: number = Number(metadata.videoHeight);
+          verified = Number.isFinite(width) && width > 0 && Number.isFinite(height) && height > 0;
+        }
+      }
+    } finally {
+      try {
+        if (extractor !== undefined) { await extractor.release(); }
+      } catch (_error) { verified = false; }
+      closed = await TranscodeFileCloser.close(file);
+    }
+    return verified && closed;
   }
 
   static async clear(directory: string): Promise<void> {
@@ -203,13 +277,20 @@ export class TranscodeFilesModel {
   }
 
   static async export(context: common.Context, entry: TranscodeHistoryEntry): Promise<boolean> {
+    if (MediaFileActivity.isCleanupUnconfirmed()) {
+      throw new Error(LocalizedText.get($r('app.string.transcode_close_unconfirmed')));
+    }
     const paths: string[] = await new picker.DocumentViewPicker(context).save({ newFileNames: [entry.id + '.txt'] });
     if (paths.length === 0) { return false; }
     const target: fileIo.File = await fileIo.open(paths[0], fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.TRUNC);
+    let closed: boolean = true;
     try {
       await MediaFileWriter.writeAll(target.fd, TranscodeFilesModel.report(entry));
     } finally {
-      await fileIo.close(target);
+      closed = await TranscodeFileCloser.close(target);
+    }
+    if (!closed) {
+      throw new Error(LocalizedText.get($r('app.string.transcode_close_unconfirmed')));
     }
     return true;
   }

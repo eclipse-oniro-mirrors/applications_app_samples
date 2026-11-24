@@ -94,6 +94,10 @@ const mediaWriter = { writeAll: async (fd, value) => { files.get(fd).text = valu
 const mocks = {
   '@kit.ImageKit': { image: { PixelMapFormat: { RGBA_8888: 3 },
     createPixelMap: async () => ({ release: async () => {} }) } },
+  '@kit.MediaKit': { media: { createAVMetadataExtractor: async () => ({
+    fetchMetadataWithTimeout: async () => ({ videoWidth: '640', videoHeight: '480' }),
+    release: async () => {}
+  }) } },
   '@kit.BasicServicesKit': { deviceInfo: { productModel: 'host', osFullName: 'mock', sdkApiVersion: 26 } },
   '@kit.ArkData': {},
   '@kit.CryptoArchitectureKit': { cryptoFramework: { createMd: algorithm => {
@@ -283,10 +287,10 @@ async function testHistory() {
   assert.equal(firstPage.hasMore, true);
   let pageOffset = firstPage.nextOffset;
   let pagedEntries = firstPage.entries;
-  while (pageOffset < 5) {
+  while (pageOffset > 0) {
     const nextPage = await TranscodeFilesModel.listPage(directory, pageOffset, 1);
     pagedEntries = pagedEntries.concat(nextPage.entries);
-    pageOffset = nextPage.nextOffset;
+    pageOffset = nextPage.hasMore ? nextPage.nextOffset : 0;
   }
   assert.equal(pagedEntries.length, 1, 'Older history can be loaded in bounded pages');
   const text = TranscodeFilesModel.report(report);
@@ -1126,13 +1130,104 @@ async function testAuxiliaryCloseFailure(mode) {
   console.info(mode + ': close failure retains the gate and reports restart guidance');
 }
 
+async function testRecoveredVideo() {
+  const directory = '/private/transcodes';
+  const id = 'transcoded_900001';
+  const path = directory + '/' + id + '.mp4';
+  const reportPath = directory + '/' + id + '.json';
+  files.set(directory, { kind: 'dir' });
+  files.set(path, { kind: 'file', text: 'published mp4' });
+  files.set(reportPath + '.pending', { kind: 'file', text: '{}' });
+  files.set(directory + '/transcoded_900002.mp4', { kind: 'link' });
+  files.set(directory + '/transcoded_900003.mp4', { kind: 'file', data: new Uint8Array(0) });
+  try {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const page = await TranscodeFilesModel.list(directory);
+      const recovered = page.filter(entry => entry.id === id);
+      assert.equal(recovered.length, 1);
+      assert.equal(recovered[0].recovered, true);
+      assert.equal(recovered[0].hasFile, false);
+      assert.equal(page.some(entry => ['transcoded_900002', 'transcoded_900003'].includes(entry.id)), false);
+    }
+    await checkRecoveredVideoActions(directory, path, id);
+    files.set(reportPath, { kind: 'file', text: JSON.stringify({ id, createdAt: 900001, title: 'Original report',
+      configuration: '', status: status(), hasFile: true }) });
+    const restored = (await TranscodeFilesModel.list(directory)).filter(entry => entry.id === id);
+    assert.equal(restored.length, 1);
+    assert.equal(restored[0].recovered, false);
+    assert.equal(restored[0].title, 'Original report');
+    files.set(reportPath, { kind: 'file', text: '{}' });
+    assert.equal((await TranscodeFilesModel.list(directory)).find(entry => entry.id === id).recovered, true);
+  } finally {
+    for (const name of [path, reportPath, reportPath + '.pending', directory + '/transcoded_900002.mp4',
+      directory + '/transcoded_900003.mp4']) { files.delete(name); }
+  }
+}
+
+async function checkRecoveredVideoActions(directory, path, id) {
+  const model = new TranscodeModel();
+  const entry = (await TranscodeFilesModel.list(directory)).find(item => item.id === id);
+  const originalClose = io.close;
+  const media = mocks['@kit.MediaKit'].media;
+  const originalCreate = media.createAVMetadataExtractor;
+  const calls = [];
+  try {
+    io.close = async file => { if (file.fd === path) { calls.push('close'); } };
+    media.createAVMetadataExtractor = async () => ({
+      fetchMetadataWithTimeout: async () => ({ videoWidth: '640', videoHeight: '480' }),
+      release: async () => { calls.push('release'); }
+    });
+    await model.openHistory(ui, entry);
+    assert.equal(model.resultPath, path);
+    assert.match(model.notice, /transcode_recovered_reopen/);
+    assert.deepEqual(calls, ['release', 'close']);
+    await model.exportReport(ui);
+    media.createAVMetadataExtractor = async () => ({
+      fetchMetadataWithTimeout: async () => ({ videoWidth: '0', videoHeight: '0' }),
+      release: async () => {}
+    });
+    await model.openHistory(ui, entry);
+    assert.equal(model.resultPath, '');
+    assert.match(model.notice, /transcode_recovered_invalid/);
+    assert.equal(files.has(path), true);
+  } finally { io.close = originalClose; media.createAVMetadataExtractor = originalCreate; }
+}
+
+async function testExternalExportClose(mode) {
+  const first = 'file://export-first';
+  const second = 'file://export-second';
+  const failure = Error('Processing failed');
+  const closeAttempts = [];
+  files.set(first, { kind: 'file' });
+  files.set(second, { kind: 'file' });
+  pickerPaths = [first, second];
+  io.close = async file => { closeAttempts.push(file.fd); throw Error('Close outcome uncertain'); };
+  if (mode === 'report-export-write-close') {
+    mediaWriter.writeAll = async () => { throw failure; };
+    const entry = { id: 'transcoded_8', createdAt: 1, title: '', configuration: '', status: status(), hasFile: true };
+    await assert.rejects(TranscodeFilesModel.export({}, entry), error => error === failure);
+  } else {
+    const { TranscodeExportController } = load('../controller/TranscodeExportController');
+    const exporter = new TranscodeExportController();
+    if (mode === 'video-export-copy-close') { io.copyFile = async () => { throw failure; }; }
+    await exporter.save({}, ['/first.mp4', '/second.mp4'], false);
+    assert.equal(exporter.results[0].state, 'close_unconfirmed');
+    assert.equal(exporter.results[1].state, 'not_attempted');
+    if (mode === 'video-export-copy-close') { assert.match(exporter.results[0].detail, /^Processing failed/); }
+    assert.match(exporter.results[0].detail, /transcode_close_unconfirmed/);
+  }
+  assert.deepEqual(closeAttempts, [first], 'A failed close cannot be repeated or followed by another destination');
+  assert.equal(MediaFileActivity.isCleanupUnconfirmed(), true);
+}
+
 function testAuxiliaryCloseFailures() {
   const { spawnSync } = require('node:child_process');
   const modes = ['state-write', 'state-sync', 'state-close', 'state-write-close', 'state-sync-close',
     'inspect', 'preview', 'preview-close-success', 'preview-close-decode',
     'preview-close-bitmap', 'preview-close-stale-open', 'preview-close-stale-bitmap',
     'execution-close-complete', 'execution-close-failed', 'history-report-close', 'history-report-native-failed',
-    'history-report-source-close', 'history-report-write-close', 'history-report-sync-close', 'history-report-success'];
+    'history-report-source-close', 'history-report-write-close', 'history-report-sync-close', 'history-report-success',
+    'video-export-close', 'video-export-copy-close', 'report-export-write-close'];
   for (const mode of modes) {
     const result = spawnSync(process.execPath, [__filename, process.argv[2], mode],
       { encoding: 'utf8', timeout: 20000 });
@@ -1671,6 +1766,8 @@ async function testReusedDescriptor(closer, fd) {
 }
 
 function runFocusedTest(mode) {
+  if (mode === 'video-recovery') { return testRecoveredVideo(); }
+  if (mode.startsWith('video-export-') || mode.startsWith('report-export-')) { return testExternalExportClose(mode); }
   if (mode === 'file-entity-after-close') { return testFileEntityAfterClose(); }
   if (mode === 'session-journal') { return testInterruptedSessionJournal(); }
   if (mode === 'execution-path-collision') { return testExecutionPathCollisions(); }
@@ -1689,6 +1786,7 @@ function runFocusedTest(mode) {
   .then(testInterruptedSessionJournal)
   .then(testQualityProfiles)
   .then(testBatchOperations)
+  .then(testRecoveredVideo)
   .then(testPreviewDisposal)
   .then(testPreviewLoadFailures)
   .then(testPreviewEarlyCancellation)

@@ -17,6 +17,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <map>
+#include <system_error>
 #include <vector>
 #include "sample/recorder/core/Recorder.h"
 
@@ -28,13 +29,21 @@ namespace {
 constexpr int CREATE_FAILURE = -7;
 constexpr int START_FAILURE = -11;
 constexpr int RELEASE_FAILURE = -13;
+constexpr int MUX_WRITE_FAILURE = -19;
 constexpr int REPLAY_COUNT = 3;
+constexpr int RELEASE_ATTEMPTS_AFTER_RETRY = 2;
+constexpr int RELEASE_ATTEMPTS_AFTER_NEXT_SESSION = RELEASE_ATTEMPTS_AFTER_RETRY + 1;
 constexpr int MUXER_CLEANUP = 1;
 constexpr int ENCODER_CLEANUP = 2;
 constexpr int DRAIN_DEADLINE_SECONDS = 5;
 constexpr int DRAIN_UPPER_BOUND_MS = 6500;
 constexpr int32_t FRAME_BYTES = 32;
 constexpr int64_t FRAME_PTS_US = 10000;
+constexpr int64_t NS_PER_US = 1000;
+constexpr int64_t TAIL_DELTA_US = 20000;
+constexpr int32_t DUAL_OUTPUT_COUNT = 2;
+constexpr uint32_t ORDINARY_VIDEO_FRAMES_PER_OUTPUT = 1;
+constexpr uint32_t VIDEO_FRAMES_PER_OUTPUT_WITH_TAIL = ORDINARY_VIDEO_FRAMES_PER_OUTPUT + 1;
 constexpr int32_t OUTPUT_POLL_MS = 20;
 constexpr int32_t MOCK_SECONDARY_FD = 100;
 constexpr int32_t INPUT_FAILURE = -17;
@@ -56,6 +65,7 @@ struct Boundary {
     int muxCloses = 0;
     int codecCloses = 0;
     bool eos = true;
+    bool videoEosHasData = false;
     bool timeout = false;
     bool writeFails = false;
     bool freeFails = false;
@@ -77,6 +87,7 @@ MuxerReleaseGate *g_muxerReleaseGate = nullptr;
 std::map<const VideoEncoder *, CodecUserData *> g_videoContexts;
 std::atomic<int32_t> g_videoFrees {0};
 std::atomic<int32_t> g_videoWrites {0};
+std::atomic<int32_t> g_tailWrites {0};
 std::atomic<int32_t> g_eosFreeAttempts {0};
 std::atomic<int32_t> g_inputEosAttempts {0};
 std::atomic<int32_t> g_inputFrames {0};
@@ -87,6 +98,7 @@ bool g_inputCancelled = false;
 std::thread::id g_inputThread;
 std::thread::id g_eosThread;
 OH_AVBuffer g_inputBuffer;
+OH_AVBuffer g_tailBuffer;
 OH_AVFormat g_inputFormat;
 OH_ImageNative g_cameraImage;
 
@@ -220,6 +232,74 @@ void TestStartFailure()
     Require(g_boundary.cleanup == std::vector<int>({ MUXER_CLEANUP, ENCODER_CLEANUP }),
         "g_boundary.cleanup == std::vector<int>({MUXER_CLEANUP, ENCODER_CLEANUP})");
 }
+std::atomic<int> g_releaseThreadStarts {0};
+bool g_failReleaseThreadCreation = false;
+
+std::thread StartTestReleaseThread(std::function<void()> release)
+{
+    ++g_releaseThreadStarts;
+    if (g_failReleaseThreadCreation) {
+        throw std::system_error(std::make_error_code(std::errc::resource_unavailable_try_again));
+    }
+    return std::thread(std::move(release));
+}
+
+void TestReleaseThreadCreationFailure()
+{
+    g_boundary = {};
+    g_releaseThreadStarts = 0;
+    g_failReleaseThreadCreation = true;
+    Recorder recorder(StartTestReleaseThread);
+    SampleInfo info;
+    info.audio.enabled = false;
+    Require(recorder.Init(info) != 0 && !recorder.IsSessionActive(),
+        "The recorder fails initialization before taking ownership of session resources");
+    Require(recorder.GetFailure().stage == "recorder.release.thread" && g_boundary.cleanup.empty(),
+        "Report the thread failure without releasing resources that were never opened");
+
+    g_failReleaseThreadCreation = false;
+    Require(recorder.Init(info) == 0, "Retry reserves a release thread");
+    g_boundary.start = START_FAILURE;
+    Require(recorder.Start() == START_FAILURE && !recorder.IsSessionActive(), "Startup reports its first error");
+    const std::vector<int> expectedCleanup { MUXER_CLEANUP, ENCODER_CLEANUP };
+    Require(g_releaseThreadStarts == RELEASE_ATTEMPTS_AFTER_RETRY && g_boundary.cleanup == expectedCleanup,
+        "Startup rollback uses the reserved thread and destroys each resource once");
+
+    g_boundary = {};
+    Require(recorder.Init(info) == 0 && recorder.Start() == 0, "Recording starts after a prior cleanup");
+    Require(recorder.StopEnd() == 0 && !recorder.IsSessionActive(), "Normal stop uses the reserved thread");
+    Require(g_releaseThreadStarts == RELEASE_ATTEMPTS_AFTER_NEXT_SESSION && g_boundary.cleanup == expectedCleanup,
+        "Normal stop does not need another release thread");
+}
+
+void TestReleaseAfterCodecCallbackFailure()
+{
+    g_boundary = {};
+    g_releaseThreadStarts = 0;
+    g_failReleaseThreadCreation = false;
+    MuxerReleaseGate gate;
+    g_muxerReleaseGate = &gate;
+    Recorder recorder(StartTestReleaseThread);
+    SampleInfo info;
+    info.audio.enabled = false;
+    info.codec.codecSyncMode = true;
+    Require(recorder.Init(info) == 0 && recorder.Start() == 0, "Start recording before injecting a callback failure");
+    g_boundary.video->hasError.store(true);
+    {
+        std::unique_lock<std::mutex> lock(gate.mutex);
+        Require(gate.condition.wait_for(lock, INPUT_TEST_TIMEOUT, [&gate]() { return gate.entered; }),
+            "A codec callback failure starts cleanup before StopEnd");
+        gate.resume = true;
+    }
+    gate.condition.notify_all();
+    Require(recorder.StopEnd() != 0 && !recorder.IsSessionActive(), "StopEnd observes the codec error after cleanup");
+    g_muxerReleaseGate = nullptr;
+    Require(g_releaseThreadStarts == 1 && recorder.GetFailure().stage == "recorder.output",
+        "Abort reuses its release thread and keeps the codec failure");
+    Require(g_boundary.cleanup == std::vector<int>({ MUXER_CLEANUP, ENCODER_CLEANUP }),
+        "Callback failure destroys each resource once");
+}
+
 void TestStopAndImmediateReplay(bool synchronous, bool dual)
 {
     g_boundary = {};
@@ -255,6 +335,32 @@ void TestStopAndImmediateReplay(bool synchronous, bool dual)
         "Every primary and secondary codec is destroyed after its output thread ends");
     Require(g_videoFrees == streamSessions && g_videoWrites == streamSessions && g_eosFreeAttempts == 0,
         "Ordinary frames are written and returned once; EOS ends each worker without Free");
+}
+
+void TestVideoEosPayload(bool synchronous)
+{
+    g_boundary = {};
+    g_boundary.videoEosHasData = true;
+    g_videoFrees = 0;
+    g_videoWrites = 0;
+    g_tailWrites = 0;
+    g_eosFreeAttempts = 0;
+    Recorder recorder;
+    SampleInfo info;
+    info.audio.enabled = false;
+    info.codec.codecSyncMode = synchronous;
+    info.output.enableDualOutput = true;
+    info.output.secondaryOutputFd = MOCK_SECONDARY_FD;
+    Require(recorder.Init(info) == 0 && recorder.Start() == 0, "Start both recording outputs");
+    Require(recorder.StopEnd() == 0, "Stop drains both payload-bearing EOS outputs");
+    Require(g_tailWrites == DUAL_OUTPUT_COUNT &&
+        g_videoWrites == DUAL_OUTPUT_COUNT * VIDEO_FRAMES_PER_OUTPUT_WITH_TAIL,
+        "Each muxer writes its regular frame and its EOS payload");
+    Require(recorder.GetOutputStats(true).frames == VIDEO_FRAMES_PER_OUTPUT_WITH_TAIL &&
+        recorder.GetOutputStats(false).frames == VIDEO_FRAMES_PER_OUTPUT_WITH_TAIL,
+        "Both output frame counts include the recorded tail");
+    Require(g_videoFrees == DUAL_OUTPUT_COUNT * ORDINARY_VIDEO_FRAMES_PER_OUTPUT && g_eosFreeAttempts == 0 &&
+        g_boundary.codecCloses == DUAL_OUTPUT_COUNT, "Both EOS indices are reclaimed by codec destruction");
 }
 
 bool WaitForPendingRelease(const Recorder &recorder)
@@ -311,17 +417,21 @@ void TestCleanupProgressDuringMuxerRelease()
     Require(completed.totalMs >= pending.totalMs, "Completed cleanup retains the total duration");
 }
 
-void TestVideoOutputFailure(bool freeFails)
+void TestVideoOutputFailure(bool writeFails, bool freeFails)
 {
     g_boundary = {};
     g_boundary.freeFails = freeFails;
-    g_boundary.writeFails = !freeFails;
+    g_boundary.writeFails = writeFails;
+    g_videoFrees = 0;
     Recorder recorder;
     SampleInfo info;
     info.audio.enabled = false;
     Require(recorder.Init(info) == 0 && recorder.Start() == 0, "Start recording for output failure");
-    Require(recorder.StopEnd() != 0 && !recorder.GetFailure().stage.empty() && !recorder.IsSessionActive(),
-        "Ordinary output write and return failures still fail finalization and release the session");
+    Require(recorder.StopEnd() != 0 && !recorder.IsSessionActive(), "An output failure still releases the session");
+    Require(g_videoFrees == ORDINARY_VIDEO_FRAMES_PER_OUTPUT, "Return the ordinary output index once on failure");
+    const auto failure = recorder.GetFailure();
+    Require(failure.stage == (writeFails ? "recorder.primary.mux.write" : "recorder.video.release") &&
+        failure.code == (writeFails ? MUX_WRITE_FAILURE : RELEASE_FAILURE), "Keep the first output error");
 }
 void TestMissingEosAndReleaseFailure()
 {
@@ -447,11 +557,16 @@ int32_t Muxer::GetVideoTrackId()
 {
     return 0;
 }
-int32_t Muxer::WriteSample(int32_t, OH_AVBuffer *, OH_AVCodecBufferAttr &attr)
+int32_t Muxer::WriteSample(int32_t, OH_AVBuffer *buffer, OH_AVCodecBufferAttr &attr)
 {
-    Require((attr.flags & AVCODEC_BUFFER_FLAGS_EOS) == 0, "Recorder EOS bypasses ordinary muxer writes");
+    Require((attr.flags & AVCODEC_BUFFER_FLAGS_EOS) == 0, "Muxer receives media attributes without the EOS marker");
+    if (buffer == &g_tailBuffer) {
+        Require(attr.size == FRAME_BYTES && attr.pts == TAIL_DELTA_US,
+            "EOS payload preserves its size and rebases its timestamp");
+        ++g_tailWrites;
+    }
     ++g_videoWrites;
-    return g_boundary.writeFails ? RELEASE_FAILURE : AVCODEC_SAMPLE_ERR_OK;
+    return g_boundary.writeFails ? MUX_WRITE_FAILURE : AVCODEC_SAMPLE_ERR_OK;
 }
 int32_t Muxer::Release()
 {
@@ -547,10 +662,15 @@ int32_t VideoEncoder::NotifyEndOfStream()
     }
     auto frame = std::make_shared<CodecBufferInfo>();
     frame->attr.size = FRAME_BYTES;
-    frame->attr.pts = FRAME_PTS_US;
+    frame->attr.pts = FRAME_PTS_US * NS_PER_US;
     context->outputBufferQueue.Enqueue(frame);
     auto output = std::make_shared<CodecBufferInfo>();
     output->attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
+    if (g_boundary.videoEosHasData) {
+        output->buffer = &g_tailBuffer;
+        output->attr.size = FRAME_BYTES;
+        output->attr.pts = (FRAME_PTS_US + TAIL_DELTA_US) * NS_PER_US;
+    }
     context->outputBufferQueue.Enqueue(output);
     return g_boundary.notify;
 }
@@ -656,13 +776,17 @@ int main()
 {
     TestPartialInitializationAndRetry();
     TestStartFailure();
+    TestReleaseThreadCreationFailure();
+    TestReleaseAfterCodecCallbackFailure();
     for (bool synchronous : {false, true}) {
         for (bool dual : {false, true}) {
             TestStopAndImmediateReplay(synchronous, dual);
         }
+        TestVideoEosPayload(synchronous);
     }
-    TestVideoOutputFailure(false);
-    TestVideoOutputFailure(true);
+    TestVideoOutputFailure(true, false);
+    TestVideoOutputFailure(false, true);
+    TestVideoOutputFailure(true, true);
     TestCleanupProgressDuringMuxerRelease();
     TestMissingEosAndReleaseFailure();
     TestSharedDrainDeadline();

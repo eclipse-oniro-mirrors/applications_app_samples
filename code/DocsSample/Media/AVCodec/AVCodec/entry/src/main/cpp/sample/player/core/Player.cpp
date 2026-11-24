@@ -39,7 +39,7 @@ Player::~Player()
             isAudioDone = true;
             isVideoDone = true;
         }
-        StartRelease();
+        StartReleaseOrRun();
     }
     JoinReleaseThread();
 }
@@ -115,8 +115,8 @@ bool Player::IsSmartFluencyAvailable() const
 
 int32_t Player::Stop()
 {
-    std::lock_guard<std::mutex> operationLock(audioTrackOperationMutex_);
-    std::lock_guard<std::mutex> lock(mutex_);
+    std::unique_lock<std::mutex> operationLock(audioTrackOperationMutex_);
+    std::unique_lock<std::mutex> lock(mutex_);
     PlayerState currentState = stateMachine_.GetState();
     if (currentState == PLAYER_STATE_STOPPING) {
         return AVCODEC_SAMPLE_ERR_OK;
@@ -150,13 +150,17 @@ int32_t Player::Stop()
         audioDecContext_->renderCond.notify_all();
     }
     doneCond_.notify_all();
+    AVCODEC_SAMPLE_LOGI("Stop requested");
+    diagnostics_.RecordEvent("playback.stop.request", playbackPositionUs_.load());
     if (currentState == PLAYER_STATE_READY) {
         isAudioDone = true;
         isVideoDone = true;
-        StartRelease();
+        if (!StartRelease()) {
+            lock.unlock();
+            operationLock.unlock();
+            ReleaseWorker();
+        }
     }
-    AVCODEC_SAMPLE_LOGI("Stop requested");
-    diagnostics_.RecordEvent("playback.stop.request", playbackPositionUs_.load());
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
