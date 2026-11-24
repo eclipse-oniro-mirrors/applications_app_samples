@@ -22,8 +22,7 @@
 #include "hilog/log.h"
 #include "inputmethod/inputmethod_controller_capi.h"
 
- constexpr int32_t TEXTSIZE = 1024;
-
+constexpr int32_t TEXTSIZE = 1024;
 static std::string g_strText;
 char g_strTextChar[TEXTSIZE];
 int32_t g_strTextCharLen = 0;

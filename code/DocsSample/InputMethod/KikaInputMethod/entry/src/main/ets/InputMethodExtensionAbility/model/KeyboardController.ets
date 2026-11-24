@@ -91,7 +91,7 @@ export class InputHandler {
       AppStorage.setOrCreate('enterKeyType', res.enterKeyType);
       AppStorage.setOrCreate('inputPattern', res.inputPattern);
 
-      this.setInputInfo('EditorInfo：enterKeyType = ' + this.mEditorAttribute.enterKeyType + ';inputPattern = ' +
+      this.setInputInfo('EditorInfo: enterKeyType = ' + this.mEditorAttribute.enterKeyType + ';inputPattern = ' +
       this.mEditorAttribute.inputPattern +
         '; isTextPreviewSupported = ' + this.mEditorAttribute.isTextPreviewSupported);
       this.addLog(`onInputStart editorAttribute enterKeyType : ${res.enterKeyType}, inputPattern : ${res.inputPattern}`);
@@ -368,7 +368,7 @@ export class InputHandler {
     let showText = '';
     try {
       if (this.mTextInputClient) {
-        showText += 'five chars: before：[' + this.mTextInputClient.getForward(5) + '];after：[' +
+        showText += 'five chars: before: [' + this.mTextInputClient.getForward(5) + '];after: [' +
         this.mTextInputClient.getBackward(5) + ']\n';
         showText += this.cursorInfo + "\n";
         showText += this.selectInfo + "\n";

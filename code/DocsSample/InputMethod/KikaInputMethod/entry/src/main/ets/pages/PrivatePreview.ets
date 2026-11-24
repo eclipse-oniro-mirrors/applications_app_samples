@@ -19,7 +19,7 @@ import { BusinessError } from '@ohos.base';
 import { CustomInput } from '../components/CustomInput';
 import testNapi from 'libentry.so';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { UIContext } from '@kit.ArkUI';
+import { UIContext, router } from '@kit.ArkUI';
 
 const DOMAIN = 0x0000;
 
@@ -97,6 +97,17 @@ struct PrivatePreview {
         .fontColor('#182431')
         .lineHeight(22)
         .fontWeight(500)
+
+      // [Start input_case_input_goto_not_focusable_window_demo]
+      Button($r('app.string.not_focusable_window_title'))
+        .width('100%')
+        .height(48)
+        .margin(10)
+        .fontSize(16)
+        .onClick(() => {
+          router.pushUrl({ url: 'pages/NotFocusableWindowDemo' });
+        })
+      // [End input_case_input_goto_not_focusable_window_demo]
 
       TextInput({
         text: this.preViewText,
