@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,8 +13,166 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test';
+// DeviceManagementCollection XTS aggregator.
+// Covers battery statistics, power management, device info, input devices,
+// mouse pointer, system settings and device management integration scenarios.
 
-export default function testsuite() {
-  abilityTest();
+import batteryStatsConcurrencyTest from './BatteryStats/BatteryStatsConcurrency.test';
+import batteryStatsConsistencyTest from './BatteryStats/BatteryStatsConsistency.test';
+import batteryStatsEndToEndTest from './BatteryStats/BatteryStatsEndToEnd.test';
+import batteryStatsErrorRecoveryTest from './BatteryStats/BatteryStatsErrorRecovery.test';
+import batteryStatsLifecycleTest from './BatteryStats/BatteryStatsLifecycle.test';
+import batteryStatsStateManagementTest from './BatteryStats/BatteryStatsStateManagement.test';
+import batteryStatsStressTest from './BatteryStats/BatteryStatsStress.test';
+import batteryStatsUITest from './BatteryStats/BatteryStatsUI.test';
+import batteryStatsInputInteractionTest from './BatteryStats/BatteryStatsInputInteraction.test';
+import batteryStatsModelTest from './BatteryStats/BatteryStatsModel.test';
+import batteryStatsMenuConfigurationTest from './BatteryStats/BatteryStatsMenuConfiguration.test';
+import batteryStatsModelDeepTest from './BatteryStats/BatteryStatsModelDeep.test';
+import batteryStatsCatalogTest from './BatteryStats/BatteryStatsCatalog.test';
+import batteryStatsFlowTest from './BatteryStats/BatteryStatsFlow.test';
+import batteryStatsOperationsTest from './BatteryStats/BatteryStatsOperations.test';
+import batteryStatsWorkflowTest from './BatteryStats/BatteryStatsWorkflow.test';
+import powerManagerAppVersionTest from './PowerManager/PowerManagerAppVersion.test';
+import powerManagerAuthSessionTest from './PowerManager/PowerManagerAuthSession.test';
+import powerManagerDataSourceValidationTest from './PowerManager/PowerManagerDataSourceValidation.test';
+import powerManagerEventToolValidationTest from './PowerManager/PowerManagerEventToolValidation.test';
+import powerManagerInterruptionRecoveryTest from './PowerManager/PowerManagerInterruptionRecovery.test';
+import powerManagerNotificationTest from './PowerManager/PowerManagerNotification.test';
+import powerManagerOfflineNetworkTest from './PowerManager/PowerManagerOfflineNetwork.test';
+import powerManagerSessionValidationTest from './PowerManager/PowerManagerSessionValidation.test';
+import animationControllerValidationTest from './Validation/AnimationControllerValidation.test';
+import boundaryErrorTestingTest from './Validation/BoundaryErrorTesting.test';
+import commonEventUtilValidationTest from './Validation/CommonEventUtilValidation.test';
+import configurationManagerValidationTest from './Validation/ConfigurationManagerValidation.test';
+import dialogStateManagerValidationTest from './Validation/DialogStateManagerValidation.test';
+import focusManagerValidationTest from './Validation/FocusManagerValidation.test';
+import inputValidationTest from './Validation/InputValidation.test';
+import keyCodeValidationTest from './Validation/KeyCodeValidation.test';
+import loggerValidationTest from './Validation/LoggerValidation.test';
+import pointerUtilValidationTest from './Validation/PointerUtilValidation.test';
+import resourceLoaderValidationTest from './Validation/ResourceLoaderValidation.test';
+import accessibilityNavigationTest from './Interaction/AccessibilityNavigation.test';
+import buttonInteractionTest from './Interaction/ButtonInteraction.test';
+import contentScalingTest from './Interaction/ContentScaling.test';
+import dataBindingTest from './Interaction/DataBinding.test';
+import dialogPositioningTest from './Interaction/DialogPositioning.test';
+import eventHandlingTest from './Interaction/EventHandling.test';
+import eventPropagationTest from './Interaction/EventPropagation.test';
+import focusNavigationTest from './Interaction/FocusNavigation.test';
+import focusRingBehaviorTest from './Interaction/FocusRingBehavior.test';
+import gestureRecognitionTest from './Interaction/GestureRecognition.test';
+import themeVariationTest from './Interaction/ThemeVariation.test';
+import touchInteractionTest from './Interaction/TouchInteraction.test';
+import uIComponentRenderingTest from './Interaction/UIComponentRendering.test';
+import visualEffectsTest from './Interaction/VisualEffects.test';
+import configurationChangesTest from './LifecycleState/ConfigurationChanges.test';
+import dialogLifecycleTest from './LifecycleState/DialogLifecycle.test';
+import dialogStateManagementTest from './LifecycleState/DialogStateManagement.test';
+import errorRecoveryTest from './LifecycleState/ErrorRecovery.test';
+import exceptionHandlingTest from './LifecycleState/ExceptionHandling.test';
+import extensionLifecycleTest from './LifecycleState/ExtensionLifecycle.test';
+import resourceManagementTest from './LifecycleState/ResourceManagement.test';
+import sessionManagementTest from './LifecycleState/SessionManagement.test';
+import statePersistenceTest from './LifecycleState/StatePersistence.test';
+import stateRecoveryTest from './LifecycleState/StateRecovery.test';
+import animationPerformanceTest from './PerformanceStability/AnimationPerformance.test';
+import concurrencyControlTest from './PerformanceStability/ConcurrencyControl.test';
+import longTermStabilityTest from './PerformanceStability/LongTermStability.test';
+import memoryLeakDetectionTest from './PerformanceStability/MemoryLeakDetection.test';
+import performanceStressTest from './PerformanceStability/PerformanceStress.test';
+import powerConsumptionTest from './PerformanceStability/PowerConsumption.test';
+import powerPerformanceTest from './PerformanceStability/PowerPerformance.test';
+import advancedScenariosTest from './Integration/AdvancedScenarios.test';
+import comprehensiveRegressionTest from './Integration/ComprehensiveRegression.test';
+import deviceCompatibilityTest from './Integration/DeviceCompatibility.test';
+import integrationTestingTest from './Integration/IntegrationTesting.test';
+import localizationTestingTest from './Integration/LocalizationTesting.test';
+import networkConnectivityTest from './Integration/NetworkConnectivity.test';
+import powerCompatibilityTest from './Integration/PowerCompatibility.test';
+import systemIntegrationTest from './Integration/SystemIntegration.test';
+import userScenariosTest from './Integration/UserScenarios.test';
+import deviceSecurityTest from './Security/DeviceSecurity.test';
+import securityAccessibilityTest from './Security/SecurityAccessibility.test';
+import securityValidationTest from './Security/SecurityValidation.test';
+
+export default function testsuite(): void {
+  batteryStatsConcurrencyTest();
+  batteryStatsConsistencyTest();
+  batteryStatsEndToEndTest();
+  batteryStatsErrorRecoveryTest();
+  batteryStatsLifecycleTest();
+  batteryStatsStateManagementTest();
+  batteryStatsStressTest();
+  batteryStatsUITest();
+  batteryStatsInputInteractionTest();
+  batteryStatsModelTest();
+  batteryStatsMenuConfigurationTest();
+  batteryStatsModelDeepTest();
+  batteryStatsCatalogTest();
+  batteryStatsFlowTest();
+  batteryStatsOperationsTest();
+  batteryStatsWorkflowTest();
+  powerManagerAppVersionTest();
+  powerManagerAuthSessionTest();
+  powerManagerDataSourceValidationTest();
+  powerManagerEventToolValidationTest();
+  powerManagerInterruptionRecoveryTest();
+  powerManagerNotificationTest();
+  powerManagerOfflineNetworkTest();
+  powerManagerSessionValidationTest();
+  animationControllerValidationTest();
+  boundaryErrorTestingTest();
+  commonEventUtilValidationTest();
+  configurationManagerValidationTest();
+  dialogStateManagerValidationTest();
+  focusManagerValidationTest();
+  inputValidationTest();
+  keyCodeValidationTest();
+  loggerValidationTest();
+  pointerUtilValidationTest();
+  resourceLoaderValidationTest();
+  accessibilityNavigationTest();
+  buttonInteractionTest();
+  contentScalingTest();
+  dataBindingTest();
+  dialogPositioningTest();
+  eventHandlingTest();
+  eventPropagationTest();
+  focusNavigationTest();
+  focusRingBehaviorTest();
+  gestureRecognitionTest();
+  themeVariationTest();
+  touchInteractionTest();
+  uIComponentRenderingTest();
+  visualEffectsTest();
+  configurationChangesTest();
+  dialogLifecycleTest();
+  dialogStateManagementTest();
+  errorRecoveryTest();
+  exceptionHandlingTest();
+  extensionLifecycleTest();
+  resourceManagementTest();
+  sessionManagementTest();
+  statePersistenceTest();
+  stateRecoveryTest();
+  animationPerformanceTest();
+  concurrencyControlTest();
+  longTermStabilityTest();
+  memoryLeakDetectionTest();
+  performanceStressTest();
+  powerConsumptionTest();
+  powerPerformanceTest();
+  advancedScenariosTest();
+  comprehensiveRegressionTest();
+  deviceCompatibilityTest();
+  integrationTestingTest();
+  localizationTestingTest();
+  networkConnectivityTest();
+  powerCompatibilityTest();
+  systemIntegrationTest();
+  userScenariosTest();
+  deviceSecurityTest();
+  securityAccessibilityTest();
+  securityValidationTest();
 }

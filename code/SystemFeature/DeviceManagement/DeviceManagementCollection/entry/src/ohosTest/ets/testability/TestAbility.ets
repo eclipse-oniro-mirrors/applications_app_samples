@@ -29,6 +29,9 @@ export default class TestAbility extends UIAbility {
     logger.info(TAG, 'TestAbility onCreate');
     logger.info(TAG, `want param: ${JSON.stringify(want)}`);
     logger.info(TAG, `launchParam: ${JSON.stringify(launchParam)}`);
+  }
+
+  private runTests(): void {
     let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator;
     abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
     let abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs;
@@ -46,9 +49,10 @@ export default class TestAbility extends UIAbility {
     windowStage.loadContent('testability/pages/Index', (err, data) => {
       if (err.code) {
         logger.error(TAG, `Failed to load the content. Cause: ${JSON.stringify(err)}`);
-        return;
+      } else {
+        logger.info(TAG, `Succeeded in loading the content. Data: ${JSON.stringify(data) ?? ''}`);
       }
-      logger.info(TAG, `Succeeded in loading the content. Data: ${JSON.stringify(data) ?? ''}`);
+      this.runTests();
     });
   }
 
