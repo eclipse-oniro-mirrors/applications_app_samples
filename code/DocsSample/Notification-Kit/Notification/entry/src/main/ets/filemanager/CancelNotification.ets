@@ -67,6 +67,21 @@ export struct CancelNotification {
             });
             // [End cancel_notification_content]
           })
+        Button($r('app.string.cancel_all_notify'))
+          .margin({ top: 20, bottom: 20 })
+          .onClick(() => {
+            // [Start cancel_all_notification_content]
+            // 取消所有该应用发布的通知。
+            notificationManager.cancelAll((err) => {
+              if (err && err.code !== 0) {
+                hilog.error(DOMAIN_NUMBER, TAG,
+                  `Failed to cancel notification. Code is ${err.code}, message is ${err.message}`);
+                return;
+              }
+              hilog.info(DOMAIN_NUMBER, TAG, 'Succeeded in canceling notification.');
+            });
+            // [End cancel_all_notification_content]
+          })
       }
       .title('CancelNotification')
     }

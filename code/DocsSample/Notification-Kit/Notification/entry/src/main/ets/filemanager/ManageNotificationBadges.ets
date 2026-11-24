@@ -85,6 +85,18 @@ export struct ManageNotificationBadges {
           // [End reduce_badge_count]
           AppStorage.setOrCreate<int>('badge_count', badgeNumber);
         })
+      Button($r('app.string.get_badge_count'))
+        .margin({ top: 20, bottom: 20 })
+        .onClick(() => {
+          // [Start get_badge_count]
+          notificationManager.getBadgeNumber().then((data: long) => {
+            hilog.info(DOMAIN_NUMBER, TAG, `Succeeded in getting badge number, badgeNumber is ${data}`);
+          }).catch((err) => {
+            hilog.error(DOMAIN_NUMBER, TAG,
+              `Failed to get badge number. Code is ${err.code}, message is ${err.message}`);
+          });
+          // [End get_badge_count]
+        })
       Button($r('app.string.badge_count_neg'))
         .margin({ top: 20, bottom: 20 })
         .onClick(() => {
