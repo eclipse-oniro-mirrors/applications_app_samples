@@ -133,15 +133,6 @@ export default function appTest() {
       let ability = await abilityDelegatorRegistry.getCurrentTopAbility();
       let resourceManager = ability.context.resourceManager;
       let foodName = await resourceManager.getStringValue($r('app.string.food_name_avocado'));
-      // Avocado is off screen, scroll the list first
-      for (let i = 0;i < 5; i++) {
-        await driver.swipe(360, 900, 360, 300, 600);
-        await driver.delayMs(500);
-        let found = await driver.findComponent(ON.text(foodName));
-        if (found !== undefined && found !== null) {
-          break;
-        }
-      }
       await driver.assertComponentExist(ON.text(foodName));
       let avocado = await driver.findComponent(ON.text(foodName));
       await avocado.click();
