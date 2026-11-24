@@ -14,7 +14,9 @@
 */
 
 // [Start head]
-import { serial, BusinessError } from '@kit.BasicServicesKit';
+import hilog from '@ohos.hilog';
+import SerialController from '../model/SerialController';
+import SystemSerialProvider from '../model/SystemSerialProvider';
 // [End head]
 
 const TAG = '[SerialSample]';
@@ -22,9 +24,14 @@ const TAG = '[SerialSample]';
 @Entry
 @Component
 struct Index {
-  private port: serial.SerialPort | null = null;
-  private dataCallback: ((data: Uint8Array) => void) | null = null;
-  private disconnectedCallback: (() => void) | null = null;
+  private controller: SerialController = new SerialController(new SystemSerialProvider());
+  @State private status: string = 'Ready';
+
+  aboutToDisappear(): void {
+    this.controller.dispose().catch((error: Error) => {
+      hilog.error(0xF811, TAG, 'Session cleanup failed: %{public}s', error.message);
+    });
+  }
 
   build() {
     Scroll() {
@@ -34,20 +41,28 @@ struct Index {
           .fontWeight(FontWeight.Bold)
           .margin({ top: 20, bottom: 10 })
 
+        Text(this.status)
+          .id('serialStatus')
+          .fontSize(14)
+          .width('90%')
+
         Text('Basic')
           .fontSize(18)
           .fontWeight(FontWeight.Bold)
           .width('90%')
 
         Button('getSerialPortList')
+          .id('serial_getSerialPortList')
           .width('90%')
           .onClick(() => this.testGetSerialPortList())
 
         Button('portInfo')
+          .id('serial_portInfo')
           .width('90%')
           .onClick(() => this.testPortInfo())
 
         Button('open')
+          .id('serial_open')
           .width('90%')
           .onClick(() => this.testOpen())
 
@@ -58,14 +73,17 @@ struct Index {
           .margin({ top: 10 })
 
         Button('write')
+          .id('serial_write')
           .width('90%')
           .onClick(() => this.testWrite())
 
         Button('onDataRead')
+          .id('serial_onDataRead')
           .width('90%')
           .onClick(() => this.testOnDataRead())
 
         Button('offDataRead')
+          .id('serial_offDataRead')
           .width('90%')
           .onClick(() => this.testOffDataRead())
 
@@ -76,30 +94,37 @@ struct Index {
           .margin({ top: 10 })
 
         Button('flush')
+          .id('serial_flush')
           .width('90%')
           .onClick(() => this.testFlush())
 
         Button('drain')
+          .id('serial_drain')
           .width('90%')
           .onClick(() => this.testDrain())
 
         Button('setRts')
+          .id('serial_setRts')
           .width('90%')
           .onClick(() => this.testSetRts())
 
         Button('getCts')
+          .id('serial_getCts')
           .width('90%')
           .onClick(() => this.testGetCts())
 
         Button('setDtr')
+          .id('serial_setDtr')
           .width('90%')
           .onClick(() => this.testSetDtr())
 
         Button('getDsr')
+          .id('serial_getDsr')
           .width('90%')
           .onClick(() => this.testGetDsr())
 
         Button('sendBrk')
+          .id('serial_sendBrk')
           .width('90%')
           .onClick(() => this.testSendBrk())
 
@@ -110,14 +135,17 @@ struct Index {
           .margin({ top: 10 })
 
         Button('close')
+          .id('serial_close')
           .width('90%')
           .onClick(() => this.testClose())
 
         Button('onDisconnect')
+          .id('serial_onDisconnect')
           .width('90%')
           .onClick(() => this.testOnDisconnect())
 
         Button('offDisconnect')
+          .id('serial_offDisconnect')
           .width('90%')
           .onClick(() => this.testOffDisconnect())
       }
@@ -128,285 +156,111 @@ struct Index {
     .height('100%')
   }
 
-  async testGetSerialPortList(): Promise<void> {
-    // [Start getSerialPortList]
+  private async invoke(name: string, action: () => Promise<void>): Promise<void> {
     try {
-      const portList = await serial.getSerialPortList();
-      console.info(`${TAG} getSerialPortList success, count: ${portList.length}`);
-      portList.forEach((port: serial.SerialPort, index: number) => {
-        console.info(`${TAG}   [${index}] portName=${port.portInfo.portName}, vendorId=${port.portInfo.vendorId}, productId=${port.portInfo.productId}`);
-      });
-      if (portList.length > 0) {
-        this.port = portList[0];
-      }
-    } catch (err) {
-      const e = err as BusinessError;
-      console.error(`${TAG} getSerialPortList failed, code: ${e.code}, message: ${e.message}`);
+      await action();
+      this.status = name + ' success';
+      hilog.info(0xF811, TAG, '%{public}s', this.status);
+    } catch (error) {
+      const failure = error as Error;
+      this.status = name + ' failed: ' + failure.message;
+      hilog.error(0xF811, TAG, '%{public}s', this.status);
     }
-    // [End getSerialPortList]
+  }
+
+  async testGetSerialPortList(): Promise<void> {
+    await this.invoke('getSerialPortList', async () => {
+      await this.controller.getSerialPortList();
+    });
   }
 
   async testPortInfo(): Promise<void> {
-    // [Start portInfo]
-    try {
-      if (!this.port) {
-        console.error(`${TAG} No serial port found, please call getSerialPortList first`);
-        return;
-      }
-      const info = this.port.portInfo;
-      console.info(`${TAG} portInfo: portName=${info.portName}, vendorId=${info.vendorId}, productId=${info.productId}, manufacturer=${info.manufacturer}`);
-    } catch (err) {
-      const e = err as BusinessError;
-      console.error(`${TAG} portInfo failed, code: ${e.code}, message: ${e.message}`);
-    }
-    // [End portInfo]
+    await this.invoke('portInfo', async () => {
+      await this.controller.portInfo();
+    });
   }
 
   async testOpen(): Promise<void> {
-    // [Start open]
-    try {
-      if (!this.port) {
-        console.error(`${TAG} No serial port found, please call getSerialPortList first`);
-        return;
-      }
-      const config: serial.SerialConfigs = {
-        baudRate: 115200,
-        dataBits: serial.DataBits.EIGHT,
-        stopBits: serial.StopBits.ONE,
-        parity: serial.Parity.NONE
-      };
-      await this.port.open(config);
-      console.info(`${TAG} open success`);
-    } catch (err) {
-      const e = err as BusinessError;
-      console.error(`${TAG} open failed, code: ${e.code}, message: ${e.message}`);
-    }
-    // [End open]
+    await this.invoke('open', async () => {
+      await this.controller.open();
+    });
   }
 
   async testWrite(): Promise<void> {
-    // [Start write]
-    try {
-      if (!this.port) {
-        console.error(`${TAG} No serial port found, please call getSerialPortList first`);
-        return;
-      }
-      const data = new Uint8Array([0x48, 0x65, 0x6C, 0x6C, 0x6F]);
-      const writeLen = await this.port.write(data);
-      console.info(`${TAG} write success, length: ${writeLen}`);
-    } catch (err) {
-      const e = err as BusinessError;
-      console.error(`${TAG} write failed, code: ${e.code}, message: ${e.message}`);
-    }
-    // [End write]
+    await this.invoke('write', async () => {
+      await this.controller.write();
+    });
   }
 
   async testOnDataRead(): Promise<void> {
-    // [Start onDataRead]
-    try {
-      if (!this.port) {
-        console.error(`${TAG} No serial port found, please call getSerialPortList first`);
-        return;
-      }
-      this.dataCallback = (data: Uint8Array) => {
-        console.info(`${TAG} onDataRead: ${Array.from(data).join(', ')}`);
-      };
-      this.port.onDataRead(this.dataCallback);
-      console.info(`${TAG} onDataRead registered`);
-    } catch (err) {
-      const e = err as BusinessError;
-      console.error(`${TAG} onDataRead failed, code: ${e.code}, message: ${e.message}`);
-    }
-    // [End onDataRead]
+    await this.invoke('onDataRead', async () => {
+      await this.controller.onDataRead();
+    });
   }
 
   async testOffDataRead(): Promise<void> {
-    // [Start offDataRead]
-    try {
-      if (!this.port) {
-        console.error(`${TAG} No serial port found, please call getSerialPortList first`);
-        return;
-      }
-      if (!this.dataCallback) {
-        console.error(`${TAG} No data callback registered, please call onDataRead first`);
-        return;
-      }
-      this.port.offDataRead(this.dataCallback);
-      this.dataCallback = null;
-      console.info(`${TAG} offDataRead success`);
-    } catch (err) {
-      const e = err as BusinessError;
-      console.error(`${TAG} offDataRead failed, code: ${e.code}, message: ${e.message}`);
-    }
-    // [End offDataRead]
+    await this.invoke('offDataRead', async () => {
+      await this.controller.offDataRead();
+    });
   }
 
   async testFlush(): Promise<void> {
-    // [Start flush]
-    try {
-      if (!this.port) {
-        console.error(`${TAG} No serial port found, please call getSerialPortList first`);
-        return;
-      }
-      await this.port.flush();
-      console.info(`${TAG} flush success`);
-    } catch (err) {
-      const e = err as BusinessError;
-      console.error(`${TAG} flush failed, code: ${e.code}, message: ${e.message}`);
-    }
-    // [End flush]
+    await this.invoke('flush', async () => {
+      await this.controller.flush();
+    });
   }
 
   async testDrain(): Promise<void> {
-    // [Start drain]
-    try {
-      if (!this.port) {
-        console.error(`${TAG} No serial port found, please call getSerialPortList first`);
-        return;
-      }
-      await this.port.drain();
-      console.info(`${TAG} drain success`);
-    } catch (err) {
-      const e = err as BusinessError;
-      console.error(`${TAG} drain failed, code: ${e.code}, message: ${e.message}`);
-    }
-    // [End drain]
+    await this.invoke('drain', async () => {
+      await this.controller.drain();
+    });
   }
 
   async testSetRts(): Promise<void> {
-    // [Start setRts]
-    try {
-      if (!this.port) {
-        console.error(`${TAG} No serial port found, please call getSerialPortList first`);
-        return;
-      }
-      await this.port.setRts(true);
-      console.info(`${TAG} setRts(true) success`);
-    } catch (err) {
-      const e = err as BusinessError;
-      console.error(`${TAG} setRts failed, code: ${e.code}, message: ${e.message}`);
-    }
-    // [End setRts]
+    await this.invoke('setRts', async () => {
+      await this.controller.setRts();
+    });
   }
 
   async testGetCts(): Promise<void> {
-    // [Start getCts]
-    try {
-      if (!this.port) {
-        console.error(`${TAG} No serial port found, please call getSerialPortList first`);
-        return;
-      }
-      const ctsStatus = await this.port.getCts();
-      console.info(`${TAG} getCts success, CTS: ${ctsStatus}`);
-    } catch (err) {
-      const e = err as BusinessError;
-      console.error(`${TAG} getCts failed, code: ${e.code}, message: ${e.message}`);
-    }
-    // [End getCts]
-  }
-
-  async testSendBrk(): Promise<void> {
-    // [Start sendBrk]
-    try {
-      if (!this.port) {
-        console.error(`${TAG} No serial port found, please call getSerialPortList first`);
-        return;
-      }
-      await this.port.sendBrk();
-      console.info(`${TAG} sendBrk success`);
-    } catch (err) {
-      const e = err as BusinessError;
-      console.error(`${TAG} sendBrk failed, code: ${e.code}, message: ${e.message}`);
-    }
-    // [End sendBrk]
+    await this.invoke('getCts', async () => {
+      await this.controller.getCts();
+    });
   }
 
   async testSetDtr(): Promise<void> {
-    // [Start setDtr]
-    try {
-      if (!this.port) {
-        console.error(`${TAG} No serial port found, please call getSerialPortList first`);
-        return;
-      }
-      await this.port.setDtr(true);
-      console.info(`${TAG} setDtr(true) success`);
-    } catch (err) {
-      const e = err as BusinessError;
-      console.error(`${TAG} setDtr failed, code: ${e.code}, message: ${e.message}`);
-    }
-    // [End setDtr]
+    await this.invoke('setDtr', async () => {
+      await this.controller.setDtr();
+    });
   }
 
   async testGetDsr(): Promise<void> {
-    // [Start getDsr]
-    try {
-      if (!this.port) {
-        console.error(`${TAG} No serial port found, please call getSerialPortList first`);
-        return;
-      }
-      const dsrStatus = await this.port.getDsr();
-      console.info(`${TAG} getDsr success, DSR: ${dsrStatus}`);
-    } catch (err) {
-      const e = err as BusinessError;
-      console.error(`${TAG} getDsr failed, code: ${e.code}, message: ${e.message}`);
-    }
-    // [End getDsr]
+    await this.invoke('getDsr', async () => {
+      await this.controller.getDsr();
+    });
   }
 
-  async testOnDisconnect(): Promise<void> {
-    // [Start onDisconnect]
-    try {
-      if (!this.port) {
-        console.error(`${TAG} No serial port found, please call getSerialPortList first`);
-        return;
-      }
-      this.disconnectedCallback = () => {
-        console.info(`${TAG} onDisconnect: serial port disconnected`);
-      };
-      this.port.onDisconnect(this.disconnectedCallback);
-      console.info(`${TAG} onDisconnect registered`);
-    } catch (err) {
-      const e = err as BusinessError;
-      console.error(`${TAG} onDisconnect failed, code: ${e.code}, message: ${e.message}`);
-    }
-    // [End onDisconnect]
-  }
-
-  async testOffDisconnect(): Promise<void> {
-    // [Start offDisconnect]
-    try {
-      if (!this.port) {
-        console.error(`${TAG} No serial port found, please call getSerialPortList first`);
-        return;
-      }
-      if (!this.disconnectedCallback) {
-        console.error(`${TAG} No disconnected callback registered, please call onDisconnect first`);
-        return;
-      }
-      this.port.offDisconnect(this.disconnectedCallback);
-      this.disconnectedCallback = null;
-      console.info(`${TAG} offDisconnect success`);
-    } catch (err) {
-      const e = err as BusinessError;
-      console.error(`${TAG} offDisconnect failed, code: ${e.code}, message: ${e.message}`);
-    }
-    // [End offDisconnect]
+  async testSendBrk(): Promise<void> {
+    await this.invoke('sendBrk', async () => {
+      await this.controller.sendBrk();
+    });
   }
 
   async testClose(): Promise<void> {
-    // [Start close]
-    try {
-      if (!this.port) {
-        console.error(`${TAG} No serial port found, please call getSerialPortList first`);
-        return;
-      }
-      await this.port.close();
-      console.info(`${TAG} close success`);
-      this.port = null;
-    } catch (err) {
-      const e = err as BusinessError;
-      console.error(`${TAG} close failed, code: ${e.code}, message: ${e.message}`);
-    }
-    // [End close]
+    await this.invoke('close', async () => {
+      await this.controller.close();
+    });
+  }
+
+  async testOnDisconnect(): Promise<void> {
+    await this.invoke('onDisconnect', async () => {
+      await this.controller.onDisconnect();
+    });
+  }
+
+  async testOffDisconnect(): Promise<void> {
+    await this.invoke('offDisconnect', async () => {
+      await this.controller.offDisconnect();
+    });
   }
 }
