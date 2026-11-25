@@ -20,6 +20,7 @@ import Want from '@ohos.app.ability.Want';
 import window from '@ohos.window';
 import { BusinessError } from '@ohos.base'
 import hilog from '@ohos.hilog'
+import { AppStorage } from '@kit.ArkUI';
 
 class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
@@ -28,6 +29,9 @@ class EntryAbility extends UIAbility {
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
     hilog.info(0x0000, 'testTag', 'EntryAbility onWindowStageCreate');
+    // [Start input_case_input_store_windowStage]
+    // 保存windowStage，供子窗创建使用
+    AppStorage.setOrCreate('windowStage', windowStage);
     try {
       windowStage.loadContent('pages/PrivatePreview', (err: BusinessError<void> | null): void => {
         hilog.info(0x0000, 'testTag', 'loadContent entering');
@@ -36,9 +40,13 @@ class EntryAbility extends UIAbility {
           return;
         }
         hilog.info(0x0000, 'testTag', 'loadContent ok');
+        // 保存主窗口id，供焦点切换使用
+        let mainWindow: window.Window = windowStage.getMainWindowSync();
+        AppStorage.setOrCreate('mainWindowId', mainWindow.getWindowProperties().id);
       });
     } catch (e) {
       hilog.info(0x0000, 'testTag', 'loadContent catch error：-----------' + e.message);
     }
+    // [End input_case_input_store_windowStage]
   }
 }

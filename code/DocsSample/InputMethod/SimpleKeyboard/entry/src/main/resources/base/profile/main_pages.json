@@ -1,6 +1,8 @@
 {
   "src": [
     "InputMethodExtensionAbility/pages/Index",
-    "pages/PrivatePreview"
+    "pages/PrivatePreview",
+    "pages/NotFocusableWindowDemo",
+    "pages/SubWindowIndex"
   ]
 }
