@@ -50,7 +50,6 @@ struct IndexPage {
     AssessmentConstants.FORM_RENDER_SERVICE_ALLOWED_APP
   ];
   @Local inputBundle: string = '';
-  @Local statusBarHeight: number = 0;
   private examPagePushed: boolean = false;
 
   private durationCandidates: number[] = [
@@ -62,7 +61,6 @@ struct IndexPage {
 
   onPageShow(): void {
     this.examPagePushed = false;
-    this.loadStatusBarHeight();
   }
 
   @Monitor('viewModel.eventSeq')
@@ -136,7 +134,7 @@ struct IndexPage {
     .width('100%')
     .height('100%')
     .padding({
-      top: this.statusBarHeight + 16,
+      top: $r('app.float.page_status_padding'),
       bottom: $r('app.float.page_padding'),
       left: $r('app.float.page_padding'),
       right: $r('app.float.page_padding')
@@ -145,22 +143,6 @@ struct IndexPage {
     .scrollBar(BarState.Off)
     .edgeEffect(EdgeEffect.Spring)
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
-  }
-
-  private async loadStatusBarHeight(): Promise<void> {
-    try {
-      const context: common.UIAbilityContext | undefined = this.getAbilityContext();
-      if (context === undefined) {
-        return;
-      }
-      const mainWindow: window.Window = await window.getLastWindow(context);
-      const avoidArea = mainWindow.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
-      this.statusBarHeight = px2vp(avoidArea.topRect.height);
-      Logger.info(`loadStatusBarHeight: ${this.statusBarHeight}vp`);
-    } catch (error) {
-      const err: BusinessError = error as BusinessError;
-      Logger.error(`loadStatusBarHeight failed, code: ${err.code}, message: ${err.message}`);
-    }
   }
 
   private addAllowedApp(): void {

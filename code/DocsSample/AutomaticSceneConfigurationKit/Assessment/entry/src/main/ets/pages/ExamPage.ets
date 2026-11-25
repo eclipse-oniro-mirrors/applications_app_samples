@@ -39,7 +39,6 @@ struct ExamPage {
     AppStorageV2.connect(AssessmentViewModel, 'AssessmentViewModel', () => new AssessmentViewModel())!;
   @Local examVM: ExamViewModel = new ExamViewModel();
   @Local setting: SettingModel = AppStorageV2.connect(SettingModel, 'SettingModel', () => new SettingModel())!;
-  @Local statusBarHeight: number = 0;
   @Local showSheet: boolean = false;
   private screenRecord: ScreenRecordUtil | null = null;
 
@@ -47,7 +46,6 @@ struct ExamPage {
   aboutToAppear(): void {
     this.applyHardening();
     // [StartExclude assessment_page_lifecycle]
-    this.loadStatusBarHeight();
     this.examVM.initAnswers();
     this.examVM.startCountdown(this.assessmentVM.duration);
     // [EndExclude assessment_page_lifecycle]
@@ -112,7 +110,7 @@ struct ExamPage {
     .width('100%')
     .height('100%')
     .padding({
-      top: this.statusBarHeight + 16,
+      top: $r('app.float.page_padding'),
       bottom: $r('app.float.page_padding'),
       left: $r('app.float.page_padding'),
       right: $r('app.float.page_padding')
@@ -254,22 +252,6 @@ struct ExamPage {
       }
     });
     this.getUIContext().getRouter().back();
-  }
-
-  private async loadStatusBarHeight(): Promise<void> {
-    try {
-      const context: common.UIAbilityContext | undefined = this.getAbilityContext();
-      if (context === undefined) {
-        return;
-      }
-      const mainWindow: window.Window = await window.getLastWindow(context);
-      const avoidArea = mainWindow.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
-      this.statusBarHeight = px2vp(avoidArea.topRect.height);
-      Logger.info(`loadStatusBarHeight: ${this.statusBarHeight}vp`);
-    } catch (error) {
-      const err: BusinessError = error as BusinessError;
-      Logger.error(`loadStatusBarHeight failed, code: ${err.code}, message: ${err.message}`);
-    }
   }
 
   // [EndExclude assessment_page_lifecycle]
