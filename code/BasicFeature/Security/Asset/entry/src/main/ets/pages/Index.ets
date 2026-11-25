@@ -31,17 +31,17 @@ function isReserveClickable(reserveAccount: string, reservePassword: string, res
 }
 
 async function getAuthTokenCallback(challenge: Uint8Array,
-  callback: (isSuccess: boolean, challenge: Uint8Array) => void) {
+  callback: (isSuccess: boolean, challenge: Uint8Array) => void): Promise<void> {
   const authParam: userAuth.AuthParam = {
     challenge: challenge,
     authType: [userAuth.UserAuthType.PIN,userAuth.UserAuthType.FACE,userAuth.UserAuthType.FINGERPRINT],
     authTrustLevel: userAuth.AuthTrustLevel.ATL1,
   };
   const widgetParam: userAuth.WidgetParam = {
-    title: '请输入锁屏密码',
+    title: getContext().resourceManager.getStringSync($r('app.string.please_enter_pwd')),
   };
   try {
-    let userAuthInstance = userAuth.getUserAuthInstance(authParam, widgetParam);
+    let userAuthInstance: userAuth.UserAuthInstance = userAuth.getUserAuthInstance(authParam, widgetParam);
     userAuthInstance.on('result', {
       onResult(result) {
         logger.info('userAuthInstance callback result = ' + JSON.stringify(result));
@@ -62,16 +62,15 @@ async function getAuthTokenCallback(challenge: Uint8Array,
   }
 }
 
-function convertMapArrayToMapItem(array: Array<Map<string, string>>): Array<AssetItem>
-{
-  let res = new Array<AssetItem>();
-  for (let dataElement of array) {
+function convertMapArrayToMapItem(array: Map<string, string>[]): AssetItem[] {
+  let res: AssetItem[] = new Array<AssetItem>();
+  for (const dataElement of array) {
     let tmp: AssetItem = {
       alias: dataElement.get('alias') as string,
       secret: dataElement.get('secret') as string,
       dataLabel: dataElement.get('label') as string,
     };
-    res.push(tmp)
+    res.push(tmp);
   }
   return res;
 }
@@ -88,17 +87,18 @@ struct Page {
   @State deleteLabel: string = '';
   @State checkAccount: string = '';
   @State checkLabel: string = '';
-  @State eventType: string = ''
-  @State index: number = 0
+  @State eventType: string = '';
+  @State index: number = 0;
   @State assetArr: string[] = new Array<string>();
   private tabsController: TabsController = new TabsController();
   @State view: Visibility[] = [Visibility.Hidden, Visibility.Visible, Visibility.None];
-  @State indexView: number = 0
+  @State indexView: number = 0;
 
-  @Builder TabBuilder(index: number, name: string) {
+  @Builder TabBuilder(index: number, name: Resource) {
     Column() {
       Row().height(this.index === index ? 8 : 17)
       Text(name)
+        .id('tab_bar_' + index)
         .fontColor(0x182413)
         .fontSize(this.index === index ? 30 : 20)
         .fontWeight(this.index === index ? 700 : 500)
@@ -300,7 +300,8 @@ struct Page {
         }
         .height('100%')
       }
-      .tabBar(this.TabBuilder(0, "保存"))
+      .tabBar(this.TabBuilder(0, $r('app.string.save')))
+      .id('save_tab')
 
       /*      删除页面      */
       TabContent() {
@@ -324,6 +325,7 @@ struct Page {
               TextInput({ placeholder: $r('app.string.please_input_account') })
                 .fontColor(0x182431)
                 .defaultFocus(false)
+                .id('delete_account_input')
                 .padding({ top: '1.70%', right: '48.00px', bottom: '1.70%', left: '0' })
                 .backgroundColor(Color.Transparent)
                 .placeholderFont({ size: 16, weight: 400, family: 'HarmonyHeiTi', style: FontStyle.Normal })
@@ -374,6 +376,7 @@ struct Page {
               TextInput({ placeholder: $r('app.string.please_input_label') })
                 .fontColor(0x182431)
                 .defaultFocus(false)
+                .id('delete_label_input')
                 .padding({ top: '1.70%', right: '48.00px', bottom: '1.70%', left: '0' })
                 .backgroundColor(Color.Transparent)
                 .placeholderFont({ size: 16, weight: 400, family: 'HarmonyHeiTi', style: FontStyle.Normal })
@@ -418,6 +421,7 @@ struct Page {
               .borderRadius(20)
               .width('86.7%')
               .height(40)
+              .id('delete_button')
               .onClick(() => {
                 removeAssetPromise(this.deleteAccount, this.deleteLabel)
               })
@@ -426,7 +430,8 @@ struct Page {
         }
         .height('100%')
       }
-      .tabBar(this.TabBuilder(1, "删除"))
+      .tabBar(this.TabBuilder(1, $r('app.string.delete')))
+      .id('delete_tab')
 
       /*  更新页面  */
       TabContent() {
@@ -454,12 +459,13 @@ struct Page {
                         Image($r('app.media.forward'))
                           .height(18)
                           .width(9)
-                          .fillColor('#182431')
+                          .fillColor($r('app.color.custom_color'))
                       }
                     }
                     .width('100%').height('7.14%')
                     .onClick(async () => {
-                      let account = await queryAuthAssetPromise(item, this.challenge, this.authToken);
+                      let account: Map<string, string> =
+                        await queryAuthAssetPromise(item, this.challenge, this.authToken);
                       router.pushUrl({
                         url: 'pages/UpdatePage',
                         params: { name: item, pwd: account.get('secret'), label: account.get("label") }
@@ -472,6 +478,7 @@ struct Page {
                     });
                   }
                   .margin({ right: 12, left: 12 })
+                  .id('update_list_item')
                 }
               }, (item: string) => item)
             }
@@ -484,7 +491,8 @@ struct Page {
         }
         .height('100%')
       }
-      .tabBar(this.TabBuilder(2, "更新"))
+      .tabBar(this.TabBuilder(2, $r('app.string.update')))
+      .id('update_tab')
 
       /* 查询页面 */
       TabContent() {
@@ -509,6 +517,7 @@ struct Page {
               TextInput({ placeholder: $r('app.string.please_input_account') })
                 .fontColor(0x182431)
                 .defaultFocus(false)
+                .id('query_account_input')
                 .padding({ top: '1.70%', right: '48.00px', bottom: '1.70%', left: '0' })
                 .backgroundColor(Color.Transparent)
                 .placeholderFont({ size: 16, weight: 400, family: 'HarmonyHeiTi', style: FontStyle.Normal })
@@ -561,6 +570,7 @@ struct Page {
               TextInput({ placeholder: $r('app.string.please_input_label') })
                 .fontColor(0x182431)
                 .defaultFocus(false)
+                .id('query_label_input')
                 .padding({ top: '1.70%', right: '48.00px', bottom: '1.70%', left: '0' })
                 .backgroundColor(Color.Transparent)
                 .placeholderFont({ size: 16, weight: 400, family: 'HarmonyHeiTi', style: FontStyle.Normal })
@@ -610,10 +620,10 @@ struct Page {
                 // 需要执行的操作
                 // 如果查询的时候输入了账号 则表示精确查询 进行二次访问控制
                 if (this.checkAccount.length > 0) {
-                  let challenge = await preQueryAssetPromise(this.checkAccount);
+                  let challenge: Uint8Array = await preQueryAssetPromise(this.checkAccount);
                   if (challenge.length == 0) {
-                      log($r('app.string.query_failed'))
-                      return
+                      log($r('app.string.query_failed'));
+                      return;
                   }
                   this.challenge = challenge
                   getAuthTokenCallback(this.challenge, async (isSuccess: boolean, authToken: Uint8Array) => {
@@ -621,7 +631,8 @@ struct Page {
                       logger.info('get auth token success!')
                       this.authToken = authToken
 
-                      let account = await queryAuthAssetPromise(this.checkAccount, this.challenge, this.authToken);
+                      let account: Map<string, string> =
+                        await queryAuthAssetPromise(this.checkAccount, this.challenge, this.authToken);
                       postQueryAssetPromise(this.challenge)
                       this.challenge = new Uint8Array;
                       this.authToken = new Uint8Array;
@@ -640,7 +651,8 @@ struct Page {
                   });
                 }
                 else {
-                  let accountList = queryAssetPromise(this.checkAccount, this.checkLabel);
+                  let accountList: Promise<Map<string, string>[]> =
+                    queryAssetPromise(this.checkAccount, this.checkLabel);
                   accountList.then(data => {
                     router.pushUrl({
                       url: 'pages/QueryResultPage', // 目标url
@@ -663,7 +675,8 @@ struct Page {
         .height('100%')
 
       }
-      .tabBar(this.TabBuilder(3, "查询"))
+      .tabBar(this.TabBuilder(3, $r('app.string.search')))
+      .id('query_tab')
     }
     .scrollable(true)
     .backgroundColor(0xf1f3f5)
@@ -671,7 +684,7 @@ struct Page {
     .barHeight(56)
     .onChange(async (index: number) => {
       if (index == 2 && this.index != 2) {
-        let challenge = await preQueryAssetPromise("");
+        let challenge: Uint8Array = await preQueryAssetPromise("");
         logger.info('get challenge success!')
         this.challenge = challenge
         // get auth token
@@ -679,9 +692,9 @@ struct Page {
           if (isSuccess) {
             logger.info('get auth token success!')
             this.authToken = authToken
-            let resultList = await queryAssetPromise('', '');
+            let resultList: Map<string, string>[] = await queryAssetPromise('', '');
             for (let accountListElement of resultList) {
-              let str = accountListElement.get('alias');
+              let str: string | undefined = accountListElement.get('alias');
               if (str !== undefined) {
                 this.assetArr.push(str)
               }

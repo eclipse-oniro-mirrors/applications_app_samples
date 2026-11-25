@@ -17,6 +17,10 @@
       "value": "请设置锁屏密码"
     },
     {
+      "name": "please_enter_pwd",
+      "value": "请输入锁屏密码"
+    },
+    {
       "name": "auth_failed",
       "value": "认证失败"
     },

@@ -1,6 +1,6 @@
 # 关键资产存储服务
 ## 介绍
-本示例使用[@kit.AssetStoreKit](https://gitee.com/openharmony/docs/tree/master/zh-cn/application-dev/security/AssetStoreKit)相关接口实现了对敏感数据的保存、更新、查询、删除操作。
+本示例使用[@kit.AssetStoreKit](https://gitcode.com/openharmony/docs/tree/master/zh-cn/application-dev/security/AssetStoreKit)相关接口实现了对敏感数据的保存、更新、查询、删除操作。
 
 实现场景如下：
 
@@ -25,15 +25,15 @@
   * 点击“保存”按钮
 
 * 删除敏感数据，可使用以下任意一种方式删除：
-  * 批量删除：不输入任何信息，或输入单个或多个标签），点击“删除”按钮
+  * 批量删除：不输入任何信息，或输入单个或多个标签，点击“删除”按钮
   * 单个删除：输入账号、标签（可选），点击“删除”按钮
 * 更新敏感数据：
   * 点击标题栏的“更新”，进入更新页面
   * 在显示的账号列表中，点击待更新的账号
   * 输入锁屏密码，进入编辑界面
   * 输入更新后的密码和标签，点击“更新”
-* 查询敏感数据，可使用以下任意一种方式删除：
-  * 批量查询：不输入任何信息，或输入单个或多个标签），点击“查询”按钮，显示保存的信息列表，不含“密码/信用卡号”
+* 查询敏感数据，可使用以下任意一种方式查询：
+  * 批量查询：不输入任何信息，或输入单个或多个标签，点击“查询”按钮，显示保存的信息列表，不含“密码/信用卡号”
   * 单个查询：输入账号、标签（可选），点击“查询”按钮，输入锁屏密码，显示该账号详细信息，含“密码/信用卡号”
 
 ## 工程目录
@@ -81,9 +81,9 @@ entry/src/main/ets/
     3）调用@kit.AssetStoreKit提供的postQuery接口清理资源。
 
 ## 相关权限
-[ohos.permission.ACCESS_BIOMETRIC](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionaccess_biometric)
+[ohos.permission.ACCESS_BIOMETRIC](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionaccess_biometric)
 
-[ohos.permission.STORE_PERSISTENT_DATA](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionstore_persistent_data)
+[ohos.permission.STORE_PERSISTENT_DATA](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionstore_persistent_data)
 
 ## 依赖
 不涉及
@@ -91,11 +91,11 @@ entry/src/main/ets/
 ## 约束与限制
 1.本示例仅支持标准系统上运行。
 
-2.本示例支持API11版本SDK，SDK版本号(API Version 11 Release), 镜像版本号(4.1Release)。
+2.本示例支持API26版本SDK，SDK版本号(API Version 26 Release)。
 
-3.本示例需要使用DevEco Studio版本号(4.1Release)及以上版本才可编译运行。
+3.本示例需要使用DevEco Studio版本号(26)及以上版本才可编译运行。
 
-4.本示例需要在设备设置锁屏密码后使用。其中，更新、查询结果页面输入锁屏密码方可进入。
+4.本示例需要在设备设置锁屏密码后使用。其中，更新页面和单个查询结果页面需输入锁屏密码方可进入。
 
 ## 下载
 如需单独下载本工程，执行如下命令：
@@ -104,7 +104,7 @@ entry/src/main/ets/
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/Security/Asset/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 
 ```
