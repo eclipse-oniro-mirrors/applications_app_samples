@@ -107,8 +107,8 @@ export struct Submenu {
       await inputMethod.switchCurrentInputMethodSubtype(item);
       this.currentInputMethodSubtype = inputMethod.getCurrentInputMethodSubtype().id;
     } catch (err) {
-      console.error(`SwitchCurrentInputMethodSubtype error: ${err.code} ${err.message}`);
       let error: BusinessError = err as BusinessError;
+      console.error(`switchCurrentInputMethodSubtype error: ${error.code} ${error.message}`);
     }
   }
 
