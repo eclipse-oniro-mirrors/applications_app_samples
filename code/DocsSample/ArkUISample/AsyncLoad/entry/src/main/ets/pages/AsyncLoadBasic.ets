@@ -14,7 +14,7 @@
  */
 
 // [Start AsyncLoadBasic]
-import { UIUtils } from '@kit.ArkUI';
+import { UIUtils, ComponentInit } from '@kit.ArkUI';
 
 // 构建耗时较长的自定义组件
 @ComponentV2

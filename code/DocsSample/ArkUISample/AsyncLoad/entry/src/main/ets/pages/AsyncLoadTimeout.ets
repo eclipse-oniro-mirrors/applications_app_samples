@@ -14,7 +14,7 @@
  */
 
 // [Start AsyncLoadTimeout]
-import { UIUtils } from '@kit.ArkUI';
+import { UIUtils, ComponentInit } from '@kit.ArkUI';
 
 @ComponentV2
 struct HeavyComponent {

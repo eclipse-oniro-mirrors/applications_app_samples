@@ -14,15 +14,14 @@
  */
 
 // [Start AsyncLoadPlaceholder]
-import { UIUtils } from '@kit.ArkUI';
+import { UIUtils, ComponentInit } from '@kit.ArkUI';
 
-// 占位模板须为全局、无参、只读静态渲染的受限Builder
+// 占位模板须为全局、无参、只读静态渲染的受限Builder：
+// 只能包含静态渲染内容，不得访问响应式状态、注册手势/动画/回调——
+// 动画组件（如LoadingProgress）不可用，违反约束的模板无法注册成功
 @Builder({ isPlaceholder: true })
 function HeavyPlaceholder() {
   Column() {
-    LoadingProgress()
-      .width(32)
-      .height(32)
     Text('加载中...')
       .fontSize(14)
       .fontColor(0x999999)
