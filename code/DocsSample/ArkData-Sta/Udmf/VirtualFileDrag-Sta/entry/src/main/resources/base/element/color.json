@@ -1,0 +1,16 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "drag_source_background",
+      "value": "#D9E8FF"
+    },
+    {
+      "name": "drag_drop_background",
+      "value": "#DCF2DF"
+    }
+  ]
+}
