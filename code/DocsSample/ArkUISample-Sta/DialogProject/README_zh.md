@@ -99,6 +99,7 @@ entry/src/main/ets/
 |   |       |---CustomDialogComponentWithTransition.ets
 |   |       |---CustomDialogWithKeyboardAvoidDistance.ets
 |   |       |---OpenDialogAndUpdate.ets
+|   |       |---CustomDialogHoverModeExample.ets //悬停态设置dialog
 |   |---OverlayManager                        //设置浮层
 |   |       |---Index.ets
 |   |       |---OverlayManagerAlertDialog.ets
@@ -139,6 +140,8 @@ entry/src/ohosTest/
     * 可以通过配置promptAction.BaseDialogOptions类型中的isModal属性来实现模态和非模态弹窗，详细说明可参考[弹窗的种类](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/arkts-dialog-overview.md#弹窗的种类)。
 
     * 当isModal为true时，弹出框为模态弹窗，且弹窗周围的蒙层区不支持透传。isModal为false时，弹出框为非模态弹窗，且弹窗周围的蒙层区可以透传。因此如果需要同时允许弹出框的交互和弹出框外页面的交互行为，需要将弹出框设置为非模态。
+
+    * 通过CustomDialogControllerOptions中的enableHoverMode属性控制弹出框是否启用悬停态，并通过hoverModeArea属性指定悬停区域。在折叠屏等设备悬停态下，弹出框会显示在指定的半屏区域。代码参考[CustomDialogHoverModeExample.ets](entry/src/main/ets/pages/opencustomdialog/CustomDialogHoverModeExample.ets)。
 
 2. 基础自定义弹出框 (CustomDialog)
 
