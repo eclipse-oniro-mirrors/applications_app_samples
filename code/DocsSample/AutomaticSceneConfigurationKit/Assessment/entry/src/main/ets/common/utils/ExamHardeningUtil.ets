@@ -47,12 +47,12 @@ export class ExamHardeningUtil {
   private static async setWindowMaximize(context: common.UIAbilityContext, enable: boolean): Promise<void> {
     try {
       let currentWindow = await window.getLastWindow(context);
-      let systemBarName: Array<'status' | 'navigation'> = [];
+      let systemBarName: ('status' | 'navigation')[] = [];
       if (enable) {
         currentWindow.maximize(window.MaximizePresentation.ENTER_IMMERSIVE_DISABLE_TITLE_AND_DOCK_HOVER);
       } else {
         systemBarName = ['status', 'navigation'];
-        currentWindow.maximize(window.MaximizePresentation.EXIT_IMMERSIVE)
+        currentWindow.maximize(window.MaximizePresentation.EXIT_IMMERSIVE);
       }
       currentWindow.setWindowSystemBarEnable(systemBarName);
       Logger.info('setupImmersiveWindow: setSupportedWindowModes done');
