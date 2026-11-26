@@ -51,9 +51,9 @@ entry/src/main/ets/
 |   |---sampling                          //采样和历史点
 |   |       |---Sampling.ets        
 |   |---stopPropagation                          //阻止鼠标冒泡事件
-|   |       |---StopPropagation.ets      
+|   |       |---StopPropagation.ets
 |   |---touchpadEvent                          //触控板原始事件
-|   |       |---TouchPadEventActualApplication.ets                    
+|   |       |---TouchPadEventActualApplication.ets
 |   |---gamepad                          //游戏手柄操作
 |   |       |---CommonKey.ets                    
 |   |       |---DirectionKey.ets                    
