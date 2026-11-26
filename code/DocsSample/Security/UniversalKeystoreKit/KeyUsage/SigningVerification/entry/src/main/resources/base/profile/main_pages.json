@@ -6,6 +6,7 @@
     "pages/RSASHA256PSS",
     "pages/SM2SM3",
     "pages/SM2NoDigest",
-    "pages/RSA2048SHA384PSS"
+    "pages/RSA2048SHA384PSS",
+    "pages/MLDSAPQCMode"
   ]
 }
