@@ -127,7 +127,7 @@ struct Index {
       hilog.info(0x0000, 'testTag', 'createSession sessionId is', this.sessionId);
       abilityConnectionManager.connect(this.sessionId).then((connectResult) => {
         if (!connectResult.isConnected) {
-          hilog.info(0x0000, 'testTag', 'connect failed');
+          hilog.error(0x0000, 'testTag', 'connect failed');
           return;
         }
       }).catch(() => {
@@ -204,7 +204,7 @@ struct Index {
     this.receiveMessage = 'send data';
     let textEncoder = util.TextEncoder.create('utf-8');
     const arrayBuffer  = textEncoder.encodeInto('data send success');
-    hilog.info(0x0000, 'testTag', 'sendMessage success');
+    hilog.info(0x0000, 'testTag', 'sendData begin');
     // [Start senddata]
     abilityConnectionManager.sendData(this.sessionId, arrayBuffer.buffer).then(() => {
       hilog.info(0x0000, 'testTag', 'sendData success');
@@ -232,8 +232,8 @@ struct Index {
       abilityConnectionManager.destroyAbilityConnectionSession(this.sessionId);
       this.receiveMessage = 'destroy';
     } catch (err) {
-      console.log(TAG, 'createDeviceManager err: ' + JSON.stringify(err));
-      hilog.error(0x0000, 'testTag', 'connect failed');
+      console.error(TAG, 'destroyAbilityConnectionSession err: ' + JSON.stringify(err));
+      hilog.error(0x0000, 'testTag', 'destroy failed');
     }
   }
 
