@@ -71,7 +71,7 @@ struct Index {
 
   build() {
     Column() {
-      Text('页面其余内容首个渲染帧正常呈现')
+      Text('页面其余内容首帧正常呈现')
       HeavyComponent()
     }
   }
