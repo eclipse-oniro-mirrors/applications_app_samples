@@ -23,7 +23,6 @@ import { ContextUtil } from '../common/utils/ContextUtil';
 import Logger from '../common/utils/Logger';
 import AssessmentViewModel from '../viewmodel/AssessmentViewModel';
 import SettingModel from '../model/SettingModel';
-import TitleView from '../view/TitleView';
 import ConfigView from '../view/ConfigView';
 import SettingView from '../view/SettingView';
 import OperationView from '../view/OperationView';
@@ -78,71 +77,92 @@ struct IndexPage {
   }
 
   build() {
-    List({ space: 12 }) {
-      ListItem() {
-        TitleView()
-      }
+    Navigation() {
+      List({ space: 12 }) {
+        ListItem() {
+          Text($r('app.string.index_intro'))
+            .fontSize($r('app.float.font_size_caption'))
+            .fontColor($r('app.color.secondary_font'))
+            .id('assessment_index_intro')
+        }
 
-      ListItem() {
-        ConfigView({
-          durationIndex: this.durationIndex,
-          allowedApps: this.allowedApps,
-          inputBundle: this.inputBundle,
-          onDurationChange: (index: number) => {
-            this.durationIndex = index;
-          },
-          onInputChange: (value: string) => {
-            this.inputBundle = value;
-          },
-          onAddApp: () => {
-            this.addAllowedApp();
-          },
-          onRemoveApp: (bundle: string) => {
-            this.removeAllowedApp(bundle);
-          }
-        })
-      }
+        ListItem() {
+          ConfigView({
+            durationIndex: this.durationIndex,
+            allowedApps: this.allowedApps,
+            inputBundle: this.inputBundle,
+            onDurationChange: (index: number) => {
+              this.durationIndex = index;
+            },
+            onInputChange: (value: string) => {
+              this.inputBundle = value;
+            },
+            onAddApp: () => {
+              this.addAllowedApp();
+            },
+            onRemoveApp: (bundle: string) => {
+              this.removeAllowedApp(bundle);
+            }
+          })
+        }
 
-      ListItem() {
-        SettingView({
-          setting: this.setting
-        })
-      }
+        ListItem() {
+          SettingView({
+            setting: this.setting
+          })
+        }
 
-      ListItem() {
-        OperationView({
-          isActive: this.viewModel.isActive,
-          onBegin: () => {
-            this.onBeginClick();
-          },
-          onEnd: () => {
-            this.onEndClick();
-          },
-          onQueryState: () => {
-            this.onQueryStateClick();
-          },
-          onQueryConfig: () => {
-            this.onQueryConfigClick();
-          }
-        })
-      }
+        ListItem() {
+          OperationView({
+            isActive: this.viewModel.isActive,
+            onBegin: () => {
+              this.onBeginClick();
+            },
+            onEnd: () => {
+              this.onEndClick();
+            },
+            onQueryState: () => {
+              this.onQueryStateClick();
+            },
+            onQueryConfig: () => {
+              this.onQueryConfigClick();
+            }
+          })
+        }
 
-      ListItem() {
-        StatusView({ viewModel: this.viewModel })
+        ListItem() {
+          StatusView({ viewModel: this.viewModel })
+        }
       }
+      .width('100%')
+      .height('100%')
+      .padding({
+        bottom: $r('app.float.page_bottom_padding'),
+        left: $r('app.float.page_padding'),
+        right: $r('app.float.page_padding')
+      })
+      .scrollBar(BarState.Off)
+      .edgeEffect(EdgeEffect.Spring)
+      .clipContent(ContentClipMode.SAFE_AREA)
     }
+    .title(this.indexTitle)
+    .titleMode(NavigationTitleMode.Mini)
+    .mode(NavigationMode.Stack)
+    .hideBackButton(true)
     .width('100%')
     .height('100%')
-    .padding({
-      top: $r('app.float.page_status_padding'),
-      bottom: $r('app.float.page_padding'),
-      left: $r('app.float.page_padding'),
-      right: $r('app.float.page_padding')
-    })
     .backgroundColor($r('app.color.page_background'))
-    .scrollBar(BarState.Off)
-    .edgeEffect(EdgeEffect.Spring)
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
+    .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.BOTTOM])
+  }
+
+  @Builder
+  indexTitle() {
+    Text($r('app.string.index_title'))
+      .fontSize($r('app.float.font_size_title'))
+      .fontWeight(FontWeight.Bold)
+      .fontColor($r('app.color.title_font'))
+      .id('assessment_index_title')
   }
 
   private addAllowedApp(): void {

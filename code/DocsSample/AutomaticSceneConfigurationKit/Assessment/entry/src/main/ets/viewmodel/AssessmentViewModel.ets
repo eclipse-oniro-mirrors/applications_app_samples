@@ -37,10 +37,10 @@ export default class AssessmentViewModel {
   @Trace public queryApps: string = '';
 
   // [EndExclude assessment_begin]
-  // 评估过程回调
   private callback: assessment.IAssessmentCallback;
 
   constructor() {
+    // 初始化评估过程回调
     this.callback = {
       onBegin: (error: assessment.AssessmentError): void => {
         this.handleBegin(error);
