@@ -110,6 +110,17 @@ struct Index {
           this.goToSample('pages/RSA2048SHA384PSS');
         })
 
+      Button($r('app.string.mldsa_pqc_mode'))
+        .padding('12vp')
+        .height('40vp')
+        .borderRadius($r('sys.float.ohos_id_corner_radius_button'))
+        .backgroundColor($r('sys.color.ohos_id_color_emphasize'))
+        .fontSize('14sp')
+        .fontColor('#ffffff')
+        .onClick(() => {
+          this.goToSample('pages/MLDSAPQCMode');
+        })
+
       Button($r('app.string.call_cpp_rsa'))
         .padding('12vp')
         .height('40vp')

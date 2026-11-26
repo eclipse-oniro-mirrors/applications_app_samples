@@ -111,6 +111,10 @@
     {
       "name": "sm2_nodigest_result_failed",
       "value": "SM2/NoDigest Result: Failed"
+    },
+    {
+      "name": "mldsa_pqc_mode",
+      "value": "ML-DSA/PQC Mode"
     }
   ]
 }

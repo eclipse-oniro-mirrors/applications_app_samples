@@ -100,6 +100,16 @@
 
 1. 点击RSA/SHA384/PSS按钮进行密钥签名验签。
 
+#### ML-DSA/PQC Mode
+
+##### 介绍
+
+1. 本示例主要介绍 ML-DSA 签名验签，以安全参数集 44、预哈希模式（preHash）、SHA256 摘要为例。
+
+##### 使用说明
+
+1. 点击ML-DSA/PQC Mode按钮进行密钥签名验签。
+
 ## 签名/验签(C/C++)
 
 ### 介绍
@@ -216,6 +226,7 @@ entry/src/main/
 |---|---|---RSASHA256PSS.ets                      // RSA/SHA256/PSS签名验签页面
 |---|---|---RSASHA256PKCS1_V1_5.ets               // RSA/SHA256/PKCS1_V1_5签名验签页面
 |---|---|---RSA2048SHA384PSS.ets                  // RSA/SHA384/PSS签名验签页面
+|---|---|---MLDSAPQCMode.ets                      // ML-DSA预哈希模式签名验签页面
 |---|---|---Index.ets                             // 首页
 |---cpp
 |---|---CMakeLists.txt                            // CMake配置文件
@@ -238,7 +249,7 @@ entry/src/main/
 
 ## 功能特性
 
-### ArkTS页面实现（6个）
+### ArkTS页面实现（7个）
 
 本工程提供了6个独立的签名验签页面，涵盖常用的签名算法：
 
@@ -248,6 +259,7 @@ entry/src/main/
 4. **RSA/SHA256/PKCS1_V1_5** - RSA签名（PKCS1填充）
 5. **RSA/SHA384/PSS** - RSA签名（SHA384+PSS填充）
 6. **SM2/NoDigest** - 国密签名算法
+7. **ML-DSA/PQC Mode** - ML-DSA 预哈希模式签名
 
 ### C++实现（6个）
 
