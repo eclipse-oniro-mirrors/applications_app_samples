@@ -109,6 +109,14 @@
       "value": "游戏手柄综合示例"
     },
     {
+      "name": "touchpadEvent",
+      "value": "触控板事件"
+    },
+    {
+      "name": "touchpadEventExample",
+      "value": "触控板原始事件"
+    },
+    {
       "name": "AnimatablePropertyText",
       "value": "动画装饰器2"
     },

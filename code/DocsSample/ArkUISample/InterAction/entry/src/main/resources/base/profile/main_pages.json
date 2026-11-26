@@ -9,6 +9,7 @@
     "pages/onHover/OnHover",
     "pages/stopPropagation/StopPropagation",
     "pages/MouseButton/MouseButton",
-    "pages/MouseWheel/MouseWheel"
+    "pages/MouseWheel/MouseWheel",
+    "pages/touchpadEvent/TouchPadEventActualApplication"
   ]
 }
