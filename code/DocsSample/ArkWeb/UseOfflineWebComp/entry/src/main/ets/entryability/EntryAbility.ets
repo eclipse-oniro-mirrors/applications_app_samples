@@ -35,7 +35,7 @@ export default class EntryAbility extends UIAbility {
         console.error('loadContent failed. errorCode: ' + err.code);
         return;
       }
-      let windowClass: window.Window = windowStage.getMainWindowSync(); // Obtain the main window of the application.
+      let windowClass: window.Window = windowStage.getMainWindowSync();
       if (!windowClass) {
         console.error('windowClass is null');
         return;
@@ -47,17 +47,14 @@ export default class EntryAbility extends UIAbility {
   // [End entry_ability_window_stage_created_after_specified_page_loaded]
 
   onWindowStageDestroy(): void {
-    // Main window is destroyed, release UI related resources
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
   }
 
   onForeground(): void {
-    // Ability has brought to foreground
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onForeground');
   }
 
   onBackground(): void {
-    // Ability has back to background
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onBackground');
   }
 }
