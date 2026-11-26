@@ -1,0 +1,40 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "lifecycle_nest_title",
+      "value": "自定义组件嵌套使用"
+    },
+    {
+      "name": "lifecycle_reuse_title",
+      "value": "自定义组件回收复用"
+    },
+    {
+      "name": "lifecycle_observer_title",
+      "value": "自定义组件生命周期注册监听"
+    },
+    {
+      "name": "lifecycle_active_inactive_title",
+      "value": "监听自定义组件激活与非激活状态"
+    },
+    {
+      "name": "lifecycle_swiper_title",
+      "value": "ComponentAppear与aboutToAppear区别"
+    },
+    {
+      "name": "lifecycle_reuse_diff_title",
+      "value": "ComponentReuse与aboutToReuse区别"
+    }
+  ]
+}
