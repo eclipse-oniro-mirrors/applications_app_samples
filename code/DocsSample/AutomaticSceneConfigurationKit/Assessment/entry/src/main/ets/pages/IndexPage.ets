@@ -12,11 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start import_module]
+import { AssessmentConstants } from '../common/constants/AssessmentConstants';
+// [StartExclude import_module]
 import { common } from '@kit.AbilityKit';
 import { AppStorageV2, router, window } from '@kit.ArkUI';
 import { assessment } from '@kit.AutomaticSceneConfigurationKit';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { AssessmentConstants } from '../common/constants/AssessmentConstants';
 import { ContextUtil } from '../common/utils/ContextUtil';
 import Logger from '../common/utils/Logger';
 import AssessmentViewModel from '../viewmodel/AssessmentViewModel';
@@ -48,7 +50,6 @@ struct IndexPage {
     AssessmentConstants.FORM_RENDER_SERVICE_ALLOWED_APP
   ];
   @Local inputBundle: string = '';
-  @Local statusBarHeight: number = 0;
   private examPagePushed: boolean = false;
 
   private durationCandidates: number[] = [
@@ -60,7 +61,6 @@ struct IndexPage {
 
   onPageShow(): void {
     this.examPagePushed = false;
-    this.loadStatusBarHeight();
   }
 
   @Monitor('viewModel.eventSeq')
@@ -134,7 +134,7 @@ struct IndexPage {
     .width('100%')
     .height('100%')
     .padding({
-      top: this.statusBarHeight + 16,
+      top: $r('app.float.page_status_padding'),
       bottom: $r('app.float.page_padding'),
       left: $r('app.float.page_padding'),
       right: $r('app.float.page_padding')
@@ -143,22 +143,6 @@ struct IndexPage {
     .scrollBar(BarState.Off)
     .edgeEffect(EdgeEffect.Spring)
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
-  }
-
-  private async loadStatusBarHeight(): Promise<void> {
-    try {
-      const context: common.UIAbilityContext | undefined = this.getAbilityContext();
-      if (context === undefined) {
-        return;
-      }
-      const mainWindow: window.Window = await window.getLastWindow(context);
-      const avoidArea = mainWindow.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
-      this.statusBarHeight = px2vp(avoidArea.topRect.height);
-      Logger.info(`loadStatusBarHeight: ${this.statusBarHeight}vp`);
-    } catch (error) {
-      const err: BusinessError = error as BusinessError;
-      Logger.error(`loadStatusBarHeight failed, code: ${err.code}, message: ${err.message}`);
-    }
   }
 
   private addAllowedApp(): void {
@@ -256,3 +240,5 @@ struct IndexPage {
     return ContextUtil.getAbilityContext(this.getUIContext());
   }
 }
+// [EndExclude import_module]
+// [End import_module]

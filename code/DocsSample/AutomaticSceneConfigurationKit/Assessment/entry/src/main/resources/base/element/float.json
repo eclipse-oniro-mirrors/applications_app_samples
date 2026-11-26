@@ -21,6 +21,10 @@
       "value": "10fp"
     },
     {
+      "name": "page_status_padding",
+      "value": "48vp"
+    },
+    {
       "name": "page_padding",
       "value": "16vp"
     },

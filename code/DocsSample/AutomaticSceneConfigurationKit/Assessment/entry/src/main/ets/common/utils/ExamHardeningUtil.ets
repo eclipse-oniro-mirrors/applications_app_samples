@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start assessment_hardening]
 import { common } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
 import { BusinessError, deviceInfo, pasteboard, settings } from '@kit.BasicServicesKit';
@@ -46,11 +47,14 @@ export class ExamHardeningUtil {
   private static async setWindowMaximize(context: common.UIAbilityContext, enable: boolean): Promise<void> {
     try {
       let currentWindow = await window.getLastWindow(context);
+      let systemBarName: ('status' | 'navigation')[] = [];
       if (enable) {
-        currentWindow.maximize(window.MaximizePresentation.ENTER_IMMERSIVE_DISABLE_TITLE_AND_DOCK_HOVER)
+        currentWindow.maximize(window.MaximizePresentation.ENTER_IMMERSIVE_DISABLE_TITLE_AND_DOCK_HOVER);
       } else {
-        currentWindow.maximize(window.MaximizePresentation.EXIT_IMMERSIVE)
+        systemBarName = ['status', 'navigation'];
+        currentWindow.maximize(window.MaximizePresentation.EXIT_IMMERSIVE);
       }
+      currentWindow.setWindowSystemBarEnable(systemBarName);
       Logger.info('setupImmersiveWindow: setSupportedWindowModes done');
     } catch (error) {
       const err: BusinessError = error as BusinessError;
@@ -108,3 +112,4 @@ export class ExamHardeningUtil {
     return deviceInfo.productModel === 'emulator';
   }
 }
+// [End assessment_hardening]
