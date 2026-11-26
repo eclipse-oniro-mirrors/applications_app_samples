@@ -48,7 +48,7 @@ export class AVTranscoderDemo {
         // 转码完成回调函数。
         this.avTranscoder.on('complete', async () => {
           console.info(`AVTranscoder is completed`);
-          await this.releaseTranscoderingProcess();
+          await this.releaseTranscoderProcess();
         });
         // 错误上报回调函数。
         this.avTranscoder.on('error', (err: BusinessError) => {
@@ -65,7 +65,7 @@ export class AVTranscoderDemo {
   // [StartExclude createCallback]
 
   // 开始转码对应的流程。
-  async startTranscoderingProcess() {
+  async startTranscoderProcess() {
     if (canIUse('SystemCapability.Multimedia.Media.AVTranscoder')) {
       if (this.avTranscoder != undefined) {
         await this.avTranscoder.release();
@@ -109,7 +109,7 @@ export class AVTranscoderDemo {
 
   //[Start doPause]
   // 暂停转码对应的流程。
-  async pauseTranscoderingProcess() {
+  async pauseTranscoderProcess() {
     if (canIUse('SystemCapability.Multimedia.Media.AVTranscoder')) {
       if (this.avTranscoder != undefined) { // 仅在调用start返回后调用pause为合理调用。
         await this.avTranscoder.pause();
@@ -120,7 +120,7 @@ export class AVTranscoderDemo {
 
   //[Start doResume]
   // 恢复对应的转码流程。
-  async resumeTranscoderingProcess() {
+  async resumeTranscoderProcess() {
     if (canIUse('SystemCapability.Multimedia.Media.AVTranscoder')) {
       if (this.avTranscoder != undefined) { // 仅在调用pause返回后调用resume为合理调用。
         await this.avTranscoder.resume();
@@ -131,7 +131,7 @@ export class AVTranscoderDemo {
 
   //[Start doRelease]
   // 释放转码流程。
-  async releaseTranscoderingProcess() {
+  async releaseTranscoderProcess() {
     if (canIUse('SystemCapability.Multimedia.Media.AVTranscoder')) {
       if (this.avTranscoder != undefined) {
         // 1.释放转码实例。
@@ -163,9 +163,9 @@ export class AVTranscoderDemo {
   // [Start transcoderProcess]
   // 一个完整的【开始转码-暂停转码-恢复转码-转码完成】示例。
   async avTranscoderDemo() {
-    await this.startTranscoderingProcess(); // 开始转码。
-    await this.pauseTranscoderingProcess(); // 暂停转码。
-    await this.resumeTranscoderingProcess(); // 恢复转码。
+    await this.startTranscoderProcess(); // 开始转码。
+    await this.pauseTranscoderProcess(); // 暂停转码。
+    await this.resumeTranscoderProcess(); // 恢复转码。
   }
   // [End transcoderProcess]
   // [EndExclude AVTranscoderDemo]
