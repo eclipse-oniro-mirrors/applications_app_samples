@@ -1,6 +1,6 @@
 # 评估管理
 
-## 介绍
+## 项目简介
 
 本示例演示如何使用评估管理（Automatic Scene Configuration Kit）在应用中接入评估模式，覆盖开始评估、结束评估、评估状态查询、评估配置获取以及评估过程回调（onBegin、onInterrupted、onEnd）的完整流程。示例以一个在线答题场景承载这些接口：主页面配置评估参数并调用接口，进入评估模式后跳转到答题页面，答题页面根据评估时长倒计时，并在评估结束或被中断时保存作答结果并退出。
 
@@ -12,15 +12,13 @@
 - [@kit.ArkUI](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/Readme-CN.md)：提供router和promptAction用于页面跳转与结果提示，提供window用于设置窗口沉浸式与隐私模式。
 - [@kit.IMEKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ime-kit/Readme-CN.md)：提供inputMethod，用于开启简单键盘模式。
 - [@kit.PerformanceAnalysisKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-performance-analysis-kit/Readme-CN.md)：提供hilog，用于打印示例日志。
-- [@kit.TestKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-test-kit/Readme-CN.md)：提供Driver与abilityDelegatorRegistry，用于UI自动化用例。
+
 
 ## 效果预览
+| 主页                                                              | 考试页                                                            |
+|-----------------------------------------------------------------|----------------------------------------------------------------|
+| <img src='./screenshots/assessment_sample_phone.png' width=360> | <img src='./screenshots/assessment_sample_exam.png' width=360> |
 
-![assessment_sample](./screenshots/assessment_sample.png)
-
-| 主页面 | 答题页面 |
-| -------- | -------- |
-| 配置评估时长与应用白名单，调用begin、end、isActive、getConfiguration接口，查看评估状态与回调事件记录 | 显示剩余时间、题目与选项，交卷时调用end接口结束评估 |
 
 ## 使用说明
 
@@ -37,39 +35,34 @@
 
 ```
 entry/src/main/ets/
-|---common
-|   |---constants
-|   |   |---AssessmentConstants.ets          // 日志标签、评估结果码、时长候选值、事件类型等常量
-|   |---utils
-|   |   |---ContextUtil.ets                  // 获取UIAbilityContext的工具类
-|   |   |---Logger.ets                       // 日志工具类
-|   |   |---ExamHardeningUtil.ets            // 应用侧加固工具类，含窗口沉浸式、隐私模式、清空剪贴板与简单键盘
-|   |   |---ScreenRecordUtil.ets             // 应用侧录屏工具类
-|---entryability
-|   |---EntryAbility.ets                     // 入口Ability，加载页面
-|---entrybackupability
-|   |---EntryBackupAbility.ets               // 备份扩展Ability
-|---model                                    // Model层，纯数据结构
-|   |---ExamQuestionModel.ets                // 题目数据模型与本地模拟题库
-|   |---SettingModel.ets                     // 加固配置开关模型
-|---viewmodel                                // ViewModel层，@ObservedV2状态管理与业务逻辑
-|   |---AssessmentViewModel.ets              // 评估管理状态与逻辑：封装begin/end/isActive/getConfiguration接口，
-|   |                                         //   注册IAssessmentCallback，通过@Trace发布状态与事件，@Computed计算属性
-|   |---ExamViewModel.ets                    // 答题状态与逻辑：题目导航、选项选择、倒计时管理，@Computed派生属性
-|---view                                     // View层，@ComponentV2纯UI组件
-|   |---ConfigView.ets                       // 评估配置卡片：时长选择、应用白名单增删
-|   |---OperationView.ets                    // 操作按钮区：开始/结束/查询状态/查询配置
-|   |---StatusView.ets                       // 状态信息卡片：评估状态、当前配置、回调事件记录
-|   |---SettingView.ets                      // 加固配置区
-|   |---QuestionCardView.ets                 // 题目卡片：题干展示与选项选择
-|   |---ExamOperationView.ets                // 答题操作区：上一题/下一题/交卷
-|---pages                                    // 页面，组合View组件并连接ViewModel
-|   |---IndexPage.ets                        // 主页面，通过AppStorageV2连接AssessmentViewModel，@Monitor监听回调事件
-|   |---ExamPage.ets                         // 答题页面，连接AssessmentViewModel与ExamViewModel，倒计时与中断处理
-entry/src/ohosTest/ets/test/
-|---Assessment.test.ets                      // isActive与getConfiguration接口用例
-|---AssessmentUi.test.ets                    // 主页面布局与交互的UI自动化用例
-|---List.test.ets                            // 测试套件入口
+├──common
+│   ├──constants
+│   │  └──AssessmentConstants.ets          // 日志标签、评估结果码、时长候选值、事件类型等常量
+│   ├──utils
+│   │  ├──ContextUtil.ets                  // 获取UIAbilityContext的工具类
+│   │  ├──Logger.ets                       // 日志工具类
+│   │  ├──ExamHardeningUtil.ets            // 应用侧加固工具类，含窗口沉浸式、隐私模式、清空剪贴板与简单键盘
+│   │  └──ScreenRecordUtil.ets             // 应用侧录屏工具类
+├──entryability
+│  └──EntryAbility.ets                     // 入口Ability，加载页面
+├──entrybackupability
+│  └──EntryBackupAbility.ets               // 备份扩展Ability
+├──model                                   // Model层，纯数据结构
+│  ├──ExamQuestionModel.ets                // 题目数据模型与本地模拟题库
+│  └──SettingModel.ets                     // 加固配置开关模型
+├──viewmodel                               // ViewModel层，@ObservedV2状态管理与业务逻辑
+│  ├──AssessmentViewModel.ets              // 评估管理状态与逻辑：封装begin/end/isActive/getConfiguration接口
+│  └──ExamViewModel.ets                    // 答题状态与逻辑：题目导航、选项选择、倒计时管理，@Computed派生属性
+├──view                                    // View层，@ComponentV2纯UI组件
+│  ├──ConfigView.ets                       // 评估配置卡片：时长选择、应用白名单增删
+│  ├──OperationView.ets                    // 操作按钮区：开始/结束/查询状态/查询配置
+│  ├──StatusView.ets                       // 状态信息卡片：评估状态、当前配置、回调事件记录
+│  ├──SettingView.ets                      // 加固配置区
+│  ├──QuestionCardView.ets                 // 题目卡片：题干展示与选项选择
+│  └──ExamOperationView.ets                // 答题操作区：上一题/下一题/交卷
+└──pages                                   // 页面，组合View组件并连接ViewModel
+   ├──IndexPage.ets                        // 主页面，通过AppStorageV2连接AssessmentViewModel，@Monitor监听回调事件
+   └──ExamPage.ets                         // 答题页面，连接AssessmentViewModel与ExamViewModel，倒计时与中断处理
 ```
 
 ## 具体实现
@@ -108,13 +101,13 @@ entry/src/ohosTest/ets/test/
 
 应用侧加固的实现参考：[ExamHardeningUtil.ets](entry/src/main/ets/common/utils/ExamHardeningUtil.ets)
 
-* 窗口沉浸式：通过window.getLastWindow获取当前窗口，进入答题页时调用maximize(ENTER_IMMERSIVE_DISABLE_TITLE_AND_DOCK_HOVER)进入沉浸式全屏，退出时调用maximize(EXIT_IMMERSIVE)并恢复状态栏与导航栏显示。
+* 窗口沉浸式：通过window.getLastWindow获取当前窗口，调用setWindowSystemBarEnable隐藏状态栏与导航栏区域。
 * 隐私模式：调用setWindowPrivacyMode禁止窗口被截屏与录屏，需申请ohos.permission.PRIVACY_WINDOW权限。
 * 清空剪贴板：调用pasteboard.getSystemPasteboard().clearData清除残留数据，避免借助剪贴板传入答案。
 * 简单键盘模式：调用inputMethod.setSimpleKeyboardEnabled将输入法面板限制为基础按键。
 * 每项措施单独捕获异常并记录错误码与错误描述，单项失败不影响其余措施生效。
 
-页面安全区适配参考：[IndexPage.ets](entry/src/main/ets/pages/IndexPage.ets)与[ExamPage.ets](entry/src/main/ets/pages/ExamPage.ets)
+页面安全区适配的实现参考：[IndexPage.ets](entry/src/main/ets/pages/IndexPage.ets)与[ExamPage.ets](entry/src/main/ets/pages/ExamPage.ets)
 
 * 两个页面均以Navigation作为根组件，使用Mini标题栏承载页面标题，答题页标题栏同时展示剩余倒计时。
 * 通过expandSafeArea延伸至系统安全区，底部通过ignoreLayoutSafeArea避让导航条，并配合page_bottom_padding保证列表末尾内容不被遮挡。
@@ -126,26 +119,12 @@ entry/src/ohosTest/ets/test/
 - [ohos.permission.ASSESSMENT_CONFIGURATION](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/restricted-permissions.md#ohospermissionassessment_configuration)：允许应用进入考试场景。权限级别为system_basic，授权方式为系统授权（system_grant），属于受限权限，需经审批后应用才可获得。
 - [ohos.permission.PRIVACY_WINDOW](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionprivacy_window)：允许应用将窗口设置为隐私窗口，禁止截屏录屏，用于答题页面的应用侧加固。权限级别为normal，授权方式为系统授权（system_grant）。
 
-## 依赖
-
-无
 
 ## 约束与限制
+1. 本示例仅支持标准系统上运行，支持设备：直板机、平板、电脑。
 
-1. 本示例仅支持标准系统上运行，支持设备：Phone | PC/2in1 | Tablet。
-2. 本示例涉及的评估管理接口起始版本为26.0.1，需使用API 26.0.1及以上版本SDK编译运行，工程compatibleSdkVersion配置为26.0.1。
-3. 本示例仅可在Stage模型下使用。
-4. 评估管理能力依赖设备侧的评估配置服务，若设备不支持，接口会抛出错误码801（Capability not supported），此时主页面仍可正常展示，回调事件记录中会记录对应的错误码。
-5. 同一设备同一时间仅允许存在一个进行中的评估，重复调用begin接口会报错；仅开启评估的应用可以结束该评估。
+2. HarmonyOS系统：HarmonyOS 6.0.1 Release及以上。
 
-## 下载
+3. DevEco Studio版本：DevEco Studio 6.1.0 Release及以上。
 
-如需单独下载本工程，执行如下命令：
-
-```text
-git init
-git config core.sparsecheckout true
-echo code/DocsSample/AutomaticSceneConfigurationKit/Assessment/ > .git/info/sparse-checkout
-git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
-git pull origin master
-```
+4. HarmonyOS SDK版本：HarmonyOS 6.1.0 Release SDK及以上。
