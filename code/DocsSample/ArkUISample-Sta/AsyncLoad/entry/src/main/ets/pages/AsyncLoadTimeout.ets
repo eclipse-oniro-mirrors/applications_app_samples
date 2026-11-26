@@ -24,10 +24,6 @@ struct HeavyComponent {
   init() {
     // 3秒兜底：3秒内等待空闲分片构建，到期后强制加载
     UIUtils.getCustomComponentContext(this).enableAsyncLoad({ timeout: 3000 });
-    // 不等待：组件在后续帧中被强制加载
-    // UIUtils.getCustomComponentContext(this).enableAsyncLoad({ timeout: 0 });
-    // 永不超时：持续等待空闲完成，配合占位组件呈现
-    // UIUtils.getCustomComponentContext(this).enableAsyncLoad({ timeout: -1 });
   }
 
   build() {

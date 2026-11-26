@@ -23,7 +23,7 @@ import { UIUtils, ComponentInit, ComponentV2, Entry, Column, Text } from '@kit.A
 struct HeavyComponent {
   @ComponentInit
   init() {
-    // 仅构造期调用生效：组件进入异步加载，首个渲染帧不构建实际内容
+    // 仅构造期调用生效：组件进入异步加载，首帧不构建实际内容
     UIUtils.getCustomComponentContext(this).enableAsyncLoad();
   }
 
@@ -41,7 +41,7 @@ struct HeavyComponent {
 struct Index {
   build() {
     Column() {
-      Text('页面其余内容首个渲染帧正常呈现')
+      Text('页面其余内容首帧正常呈现')
       HeavyComponent()
     }
   }
