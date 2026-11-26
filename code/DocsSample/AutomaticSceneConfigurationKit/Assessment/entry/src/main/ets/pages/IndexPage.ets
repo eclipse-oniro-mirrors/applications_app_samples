@@ -13,11 +13,11 @@
  * limitations under the License.
  */
 // [Start import_module]
-import { AssessmentConstants } from '../common/constants/AssessmentConstants';
+import { assessment } from '@kit.AutomaticSceneConfigurationKit';
 // [StartExclude import_module]
 import { common } from '@kit.AbilityKit';
-import { AppStorageV2, router, window } from '@kit.ArkUI';
-import { assessment } from '@kit.AutomaticSceneConfigurationKit';
+import { AppStorageV2, router } from '@kit.ArkUI';
+import { AssessmentConstants } from '../common/constants/AssessmentConstants';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { ContextUtil } from '../common/utils/ContextUtil';
 import Logger from '../common/utils/Logger';
