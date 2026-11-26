@@ -120,11 +120,26 @@ This sample requires the following permissions:
 - [ohos.permission.PRIVACY_WINDOW](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionprivacy_window): allows an app to set its window to privacy mode, disabling screenshots and screen recording. It is used for app-side hardening on the exam page. The permission level is normal, and the authorization mode is system authorization (system_grant).
 
 
+## Dependencies
+
+None
+
 ## Constraints and Limitations
-1. This sample can run only on standard systems. Supported devices: phones, tablets, and PCs.
 
-2. HarmonyOS: HarmonyOS 6.0.1 Release and later.
+1. This sample can run only on standard systems. Supported devices: Phone | PC/2in1 | Tablet.
+2. The assessment APIs involved in this sample start from version 26.0.1. Build and run the sample with an SDK of API 26.0.1 or later; the compatibleSdkVersion of the project is set to 26.0.1.
+3. This sample can be used only in the Stage model.
+4. The assessment management capability depends on the device-side assessment configuration service. If the device does not support the capability, the APIs throw error code 801 (Capability not supported). In this case, the home page still displays properly, and the callback event records log the corresponding error code.
+5. Only one assessment can be in progress on a device at a time; calling the begin API repeatedly throws an error. Only the app that started the assessment can end it.
 
-3. DevEco Studio: DevEco Studio 6.1.0 Release and later.
+## Download
 
-4. HarmonyOS SDK: HarmonyOS SDK 6.1.0 Release and later.
+To download this project separately, run the following commands:
+
+```text
+git init
+git config core.sparsecheckout true
+echo code/DocsSample/AutomaticSceneConfigurationKit/Assessment/ > .git/info/sparse-checkout
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
+git pull origin master
+```

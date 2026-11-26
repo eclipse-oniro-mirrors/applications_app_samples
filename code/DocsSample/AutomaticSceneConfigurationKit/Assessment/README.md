@@ -120,11 +120,26 @@ entry/src/main/ets/
 - [ohos.permission.PRIVACY_WINDOW](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionprivacy_window)：允许应用将窗口设置为隐私窗口，禁止截屏录屏，用于答题页面的应用侧加固。权限级别为normal，授权方式为系统授权（system_grant）。
 
 
+## 依赖
+
+无
+
 ## 约束与限制
-1. 本示例仅支持标准系统上运行，支持设备：直板机、平板、电脑。
 
-2. HarmonyOS系统：HarmonyOS 6.0.1 Release及以上。
+1. 本示例仅支持标准系统上运行，支持设备：Phone | PC/2in1 | Tablet。
+2. 本示例涉及的评估管理接口起始版本为26.0.1，需使用API 26.0.1及以上版本SDK编译运行，工程compatibleSdkVersion配置为26.0.1。
+3. 本示例仅可在Stage模型下使用。
+4. 评估管理能力依赖设备侧的评估配置服务，若设备不支持，接口会抛出错误码801（Capability not supported），此时主页面仍可正常展示，回调事件记录中会记录对应的错误码。
+5. 同一设备同一时间仅允许存在一个进行中的评估，重复调用begin接口会报错；仅开启评估的应用可以结束该评估。
 
-3. DevEco Studio版本：DevEco Studio 6.1.0 Release及以上。
+## 下载
 
-4. HarmonyOS SDK版本：HarmonyOS 6.1.0 Release SDK及以上。
+如需单独下载本工程，执行如下命令：
+
+```text
+git init
+git config core.sparsecheckout true
+echo code/DocsSample/AutomaticSceneConfigurationKit/Assessment/ > .git/info/sparse-checkout
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
+git pull origin master
+```
