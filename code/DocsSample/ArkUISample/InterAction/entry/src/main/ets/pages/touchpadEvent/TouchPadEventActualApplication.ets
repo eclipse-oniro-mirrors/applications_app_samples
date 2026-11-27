@@ -19,7 +19,7 @@ import { UIContext, display } from '@kit.ArkUI';
 /**
  * TouchPadEvent 实际应用页：
  * childStack 基于触控板双指手势实现跟随：双指滑动实现平移，双指张开/捏合实现缩放，抬手后动画还原。
- * positionX/Y 为触控板归一化坐标，取值范围为[0, 1]。
+ * positionX/Y 为触控板百分比坐标，取值范围为[0, 1]。
  */
 @Entry
 @Component
@@ -39,7 +39,7 @@ struct TouchPadEventActualApplication {
   private lastMidY: number = 0;
   private lastDist: number = 0;
   private hasBaseline: boolean = false;
-  // 增益：触控板归一化坐标[0,1]位移 -> 屏幕 vp，满幅滑动约移动一个屏幕宽/高
+  // 增益：触控板百分比坐标[0, 1]位移转换为屏幕vp，满幅滑动约移动一个屏幕宽/高
   private gainX: number = 360; // 默认值，aboutToAppear 中按屏幕实际尺寸重算
   private gainY: number = 780;
   // 手势诊断信息
@@ -62,7 +62,7 @@ struct TouchPadEventActualApplication {
     }
   }
 
-  // 单位归一化：positionX/Y 规范取值范围为[0,1]；
+  // 坐标转换：positionX/Y 规范取值范围为[0, 1]；
   // 若上报值为百分比(0~100)或毫米坐标(>100)，
   // 通过 deviceWidth/deviceHeight(触控板物理尺寸mm)折算回[0,1]
   static toFraction(v: number, deviceSpanMm: number): number {
@@ -129,7 +129,7 @@ struct TouchPadEventActualApplication {
     }
     const a = event.contacts[0];
     const b = event.contacts[1];
-    // 统一归一化为触控板[0,1]坐标（通过toFraction兼容百分比和毫米坐标格式）
+    // 统一转换为触控板[0, 1]百分比坐标（通过toFraction兼容百分比和毫米坐标格式）
     const ax = TouchPadEventActualApplication.toFraction(a.positionX, event.deviceWidth);
     const ay = TouchPadEventActualApplication.toFraction(a.positionY, event.deviceHeight);
     const bx = TouchPadEventActualApplication.toFraction(b.positionX, event.deviceWidth);
