@@ -64,15 +64,15 @@ struct TouchPadEventActualApplication {
 
   // 坐标转换：positionX/Y 规范取值范围为[0, 1]；
   // 若上报值为百分比(0~100)或毫米坐标(>100)，
-  // 通过 deviceWidth/deviceHeight(触控板物理尺寸mm)折算回[0,1]
+  // 通过 deviceWidth/deviceHeight(触控板物理尺寸mm)折算回[0, 1]
   static toFraction(v: number, deviceSpanMm: number): number {
     if (v >= 0 && v <= 1) {
-      return v; // 规范路径：[0,1]
+      return v; // 规范路径：[0, 1]
     }
     if (v <= 100) {
-      return v / 100; // 百分比格式(0~100)，除以100转换为[0,1]
+      return v / 100; // 百分比格式(0~100)，除以100转换为[0, 1]
     }
-    return deviceSpanMm > 0 ? v / deviceSpanMm : v / 100; // 毫米坐标格式(>100)，按设备尺寸折算为[0,1]
+    return deviceSpanMm > 0 ? v / deviceSpanMm : v / 100; // 毫米坐标格式(>100)，按设备尺寸折算为[0, 1]
   }
 
   appendGestureDebug(line: string): void {
@@ -116,7 +116,7 @@ struct TouchPadEventActualApplication {
       this.appendGestureDebug(`phase=${ph} contacts=${len} 抬手 -> 还原原始位置`);
       return;
     }
-    // 触点集发生增减（BEGIN/CANCEL）时重建基线，防跳变
+    // 触点集发生增减（BEGIN）时重建基线，防跳变
     if (ph !== TouchPadEventPhase.MOVE) {
       this.hasBaseline = false;
     }
@@ -138,7 +138,7 @@ struct TouchPadEventActualApplication {
     const midY = (ay + by) / 2;
     const dist = Math.sqrt((ax - bx) * (ax - bx) + (ay - by) * (ay - by));
     if (this.hasBaseline && this.lastDist > 0) {
-      // 双指滑动：中点位移 -> 平移（[0,1]差值 × 屏幕增益换算为 vp）
+      // 双指滑动：中点位移 -> 平移（[0, 1]差值 × 屏幕增益换算为 vp）
       const dx = midX - this.lastMidX;
       const dy = midY - this.lastMidY;
       this.moveX += dx * this.gainX;
