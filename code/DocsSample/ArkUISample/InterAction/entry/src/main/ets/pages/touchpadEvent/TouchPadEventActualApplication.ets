@@ -63,17 +63,17 @@ struct TouchPadEventActualApplication {
     }
   }
 
-  // 单位归一化：positionX/Y 规范取值范围[0,1]；
-  // 防御性兼容：若设备异常上报百分比(0~100)或毫米绝对坐标(>100)，
-  // 用 deviceWidth/deviceHeight(触控板物理尺寸mm) 一并折算回[0,1]
+  // 单位归一化：positionX/Y 规范取值范围为[0,1]；
+  // 若上报值为百分比(0~100)或毫米坐标(>100)，
+  // 通过 deviceWidth/deviceHeight(触控板物理尺寸mm)折算回[0,1]
   static toFraction(v: number, deviceSpanMm: number): number {
     if (v >= 0 && v <= 1) {
       return v; // 规范路径：[0,1]
     }
     if (v <= 100) {
-      return v / 100; // 兼容异常百分比上报
+      return v / 100; // 百分比格式(0~100)，除以100转换为[0,1]
     }
-    return deviceSpanMm > 0 ? v / deviceSpanMm : v / 100; // 兼容异常毫米上报
+    return deviceSpanMm > 0 ? v / deviceSpanMm : v / 100; // 毫米坐标格式(>100)，按设备尺寸折算为[0,1]
   }
 
   appendGestureDebug(line: string): void {
