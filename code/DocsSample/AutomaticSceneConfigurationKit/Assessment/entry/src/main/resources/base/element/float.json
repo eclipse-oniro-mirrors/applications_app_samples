@@ -29,6 +29,10 @@
       "value": "16vp"
     },
     {
+      "name": "page_bottom_padding",
+      "value": "28vp"
+    },
+    {
       "name": "card_padding",
       "value": "16vp"
     },
@@ -79,10 +83,6 @@
     {
       "name": "popup_width",
       "value": "340vp"
-    },
-    {
-      "name": "sheet_top_padding",
-      "value": "48vp"
     }
   ]
 }

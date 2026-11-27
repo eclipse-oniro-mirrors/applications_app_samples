@@ -40,19 +40,7 @@ export default class EntryAbility extends UIAbility {
         return;
       }
       Logger.info('onWindowStageCreate, content loaded');
-      this.setupImmersiveWindow(windowStage);
     });
-  }
-
-  private async setupImmersiveWindow(windowStage: window.WindowStage): Promise<void> {
-    try {
-      const mainWindow: window.Window = await windowStage.getMainWindow();
-      await mainWindow.setWindowLayoutFullScreen(true);
-      Logger.info('setupImmersiveWindow: setWindowLayoutFullScreen done');
-    } catch (error) {
-      const err: BusinessError = error as BusinessError;
-      Logger.error(`setupImmersiveWindow failed, code: ${err.code}, message: ${err.message}`);
-    }
   }
 
   onWindowStageDestroy(): void {

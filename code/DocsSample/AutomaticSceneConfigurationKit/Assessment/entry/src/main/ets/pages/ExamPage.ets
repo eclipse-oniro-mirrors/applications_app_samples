@@ -15,7 +15,7 @@
 // [Start assessment_page_lifecycle]
 // [StartExclude assessment_page_lifecycle]
 import { common } from '@kit.AbilityKit';
-import { AppStorageV2, window } from '@kit.ArkUI';
+import { AppStorageV2, CustomContentDialogV2 } from '@kit.ArkUI';
 import { assessment } from '@kit.AutomaticSceneConfigurationKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { AssessmentConstants } from '../common/constants/AssessmentConstants';
@@ -26,7 +26,6 @@ import { ScreenRecordUtil } from '../common/utils/ScreenRecordUtil';
 import AssessmentViewModel from '../viewmodel/AssessmentViewModel';
 import ExamViewModel from '../viewmodel/ExamViewModel';
 import SettingModel from '../model/SettingModel';
-import ExamHeaderView from '../view/ExamHeaderView';
 import QuestionCardView from '../view/QuestionCardView';
 import ExamOperationView from '../view/ExamOperationView';
 import OperationView from '../view/OperationView';
@@ -41,6 +40,7 @@ struct ExamPage {
   @Local setting: SettingModel = AppStorageV2.connect(SettingModel, 'SettingModel', () => new SettingModel())!;
   @Local showSheet: boolean = false;
   private screenRecord: ScreenRecordUtil | null = null;
+  private submitDialogId: number = 0;
 
   // [EndExclude assessment_page_lifecycle]
   aboutToAppear(): void {
@@ -88,43 +88,81 @@ struct ExamPage {
   }
 
   build() {
-    Column({ space: 12 }) {
-      ExamHeaderView({
-        examViewModel: this.examVM,
-        examDuration: this.assessmentVM.duration
-      })
+    Navigation() {
+      Column({ space: 12 }) {
+        QuestionCardView({
+          examViewModel: this.examVM
+        })
 
-      QuestionCardView({
-        examViewModel: this.examVM
-      })
+        ExamOperationView({
+          examViewModel: this.examVM,
+          onSubmit: () => {
+            this.onSubmitClick();
+          }
+        })
 
-      ExamOperationView({
-        examViewModel: this.examVM,
-        onSubmit: () => {
-          this.onSubmitClick();
+        this.DebugPanel()
+      }
+      .width('100%')
+      .height('100%')
+      .padding({
+        top: $r('app.float.page_padding'),
+        bottom: $r('app.float.page_bottom_padding'),
+        left: $r('app.float.page_padding'),
+        right: $r('app.float.page_padding')
+      })
+      .justifyContent(FlexAlign.Start)
+      .bindSheet(this.showSheet, this.sheetContent, {
+        title: { title: $r('app.string.debug_panel_title')   },
+        detents: [SheetSize.MEDIUM, SheetSize.LARGE],
+        preferType: SheetType.BOTTOM,
+        onDisappear: () => {
+          this.showSheet = false;
         }
       })
+    }
+    .title(this.examTitle)
+    .titleMode(NavigationTitleMode.Mini)
+    .mode(NavigationMode.Stack)
+    .hideBackButton(true)
+    .width('100%')
+    .height('100%')
+    .backgroundColor($r('app.color.page_background'))
+    .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
+  }
 
-      this.DebugPanel()
+  @Builder
+  examTitle() {
+    Row() {
+      Text($r('app.string.exam_title'))
+        .fontSize($r('app.float.font_size_title'))
+        .fontWeight(FontWeight.Bold)
+        .fontColor($r('app.color.title_font'))
+        .id('assessment_exam_title')
+      Blank()
+      Text($r('app.string.exam_remaining_label'))
+        .fontSize($r('app.float.font_size_caption'))
+        .fontColor($r('app.color.secondary_font'))
+        .margin({ right: $r('app.float.space_medium') })
+      if (this.assessmentVM.duration === AssessmentConstants.DURATION_DEFAULT) {
+        Text($r('app.string.duration_default'))
+          .fontSize($r('app.float.font_size_body'))
+          .fontWeight(FontWeight.Medium)
+          .fontColor($r('app.color.body_font'))
+      } else {
+        Text(this.examVM.formattedRemaining)
+          .fontSize($r('app.float.font_size_body'))
+          .fontWeight(FontWeight.Medium)
+          .fontColor(this.examVM.isRemainingCritical ? $r('app.color.warning') : $r('app.color.brand'))
+      }
     }
     .width('100%')
     .height('100%')
     .padding({
-      top: $r('app.float.page_padding'),
-      bottom: $r('app.float.page_padding'),
       left: $r('app.float.page_padding'),
       right: $r('app.float.page_padding')
     })
-    .backgroundColor($r('app.color.page_background'))
-    .justifyContent(FlexAlign.Start)
-    .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
-    .bindSheet(this.showSheet, this.sheetContent, {
-      detents: [SheetSize.MEDIUM, SheetSize.LARGE],
-      preferType: SheetType.BOTTOM,
-      onDisappear: () => {
-        this.showSheet = false;
-      }
-    })
+    .alignItems(VerticalAlign.Center)
   }
 
   @Builder
@@ -181,7 +219,6 @@ struct ExamPage {
     }
     .width('100%')
     .padding({
-      top: $r('app.float.sheet_top_padding'),
       bottom: $r('app.float.page_padding'),
       left: $r('app.float.page_padding'),
       right: $r('app.float.page_padding')
@@ -193,24 +230,69 @@ struct ExamPage {
     const answered: number = this.examVM.answeredCount;
     const total: number = this.examVM.questionCount;
     Logger.info(`onSubmitClick, answered: ${answered}/${total}`);
-    this.getUIContext().showAlertDialog({
-      title: $r('app.string.exam_submit_confirm_title'),
-      message: $r('app.string.exam_submit_confirm_message', answered, total),
-      autoCancel: false,
-      alignment: DialogAlignment.Center,
-      primaryButton: {
-        value: $r('app.string.exam_submit_confirm_no'),
-        action: () => {
-        }
+    this.getUIContext().getPromptAction().openCustomDialog({
+      builder: () => {
+        this.submitConfirmDialog();
       },
-      secondaryButton: {
-        value: $r('app.string.exam_submit_confirm_yes'),
-        fontColor: $r('app.color.warning'),
-        action: () => {
-          this.doSubmit();
-        }
-      }
+      autoCancel: false,
+      alignment: DialogAlignment.Center
+    }).then((dialogId: number) => {
+      this.submitDialogId = dialogId;
+    }).catch((error: BusinessError) => {
+      Logger.error(`openCustomDialog failed, code: ${error.code}, message: ${error.message}`);
     });
+  }
+
+  @Builder
+  submitConfirmDialog() {
+    CustomContentDialogV2({
+      primaryTitle: $r('app.string.exam_submit_confirm_title'),
+      contentBuilder: () => {
+        this.submitConfirmContent();
+      }
+    })
+  }
+
+  @Builder
+  submitConfirmContent() {
+    Column({ space: 12 }) {
+      Text($r('app.string.exam_submit_confirm_message', this.examVM.answeredCount, this.examVM.questionCount))
+        .fontSize($r('app.float.font_size_body'))
+        .fontColor($r('app.color.secondary_font'))
+        .textAlign(TextAlign.Center)
+      Row({ space: 12 }) {
+        Button($r('app.string.exam_submit_confirm_no'))
+          .layoutWeight(1)
+          .height($r('app.float.button_height'))
+          .fontSize($r('app.float.font_size_caption'))
+          .backgroundColor($r('app.color.page_background'))
+          .fontColor($r('app.color.body_font'))
+          .onClick(() => {
+            this.closeSubmitDialog();
+          })
+        Button($r('app.string.exam_submit_confirm_yes'))
+          .layoutWeight(1)
+          .height($r('app.float.button_height'))
+          .fontSize($r('app.float.font_size_caption'))
+          .backgroundColor($r('app.color.success'))
+          .onClick(() => {
+            this.closeSubmitDialog();
+            this.doSubmit();
+          })
+      }
+      .width('100%')
+    }
+    .width('100%')
+    .alignItems(HorizontalAlign.Center)
+  }
+
+  private closeSubmitDialog(): void {
+    try {
+      this.getUIContext().getPromptAction().closeCustomDialog(this.submitDialogId);
+    } catch (error) {
+      const businessError: BusinessError = error as BusinessError;
+      Logger.error(`closeCustomDialog failed, code: ${businessError.code}, message: ${businessError.message}`);
+    }
   }
 
   private doSubmit(): void {

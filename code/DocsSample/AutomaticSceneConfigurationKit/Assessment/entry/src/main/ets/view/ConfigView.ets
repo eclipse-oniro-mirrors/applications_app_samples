@@ -51,10 +51,15 @@ export default struct ConfigView {
             Text(this.formatDuration(obj.item))
               .fontSize($r('app.float.font_size_caption'))
               .fontColor(this.durationIndex === obj.index ?
-              $r('app.color.card_background') : $r('app.color.body_font'))
+                $r('app.color.card_background') : $r('app.color.body_font'))
               .backgroundColor(this.durationIndex === obj.index ?
-              $r('app.color.brand') : $r('app.color.page_background'))
-              .padding({ left: $r('app.float.chip_padding_h'), right: $r('app.float.chip_padding_h'), top: $r('app.float.chip_padding_v'), bottom: $r('app.float.chip_padding_v') })
+                $r('app.color.brand') : $r('app.color.page_background'))
+              .padding({
+                left: $r('app.float.chip_padding_h'),
+                right: $r('app.float.chip_padding_h'),
+                top: $r('app.float.chip_padding_v'),
+                bottom: $r('app.float.chip_padding_v')
+              })
               .borderRadius($r('app.float.card_radius'))
               .margin({ right: $r('app.float.space_medium'), bottom: $r('app.float.space_medium') })
               .onClick(() => {
@@ -164,6 +169,25 @@ export default struct ConfigView {
   }
 
   @Builder
+  WitheListTel(descr: ResourceStr, bundleName: ResourceStr) {
+    Row({ space: 6 }) {
+      Text('•')
+        .fontSize($r('app.float.font_size_caption'))
+        .fontColor($r('app.color.secondary_font'))
+      Text(descr)
+        .fontSize($r('app.float.font_size_caption'))
+        .fontColor($r('app.color.body_font'))
+      Text(bundleName)
+        .fontSize($r('app.float.font_size_caption'))
+        .fontColor($r('app.color.secondary_font'))
+        .maxLines(1)
+        .textOverflow({ overflow: TextOverflow.Ellipsis })
+        .layoutWeight(1)
+    }
+    .width('100%')
+  }
+
+  @Builder
   whitelistPopupBuilder() {
     Column({ space: 8 }) {
       Text($r('app.string.whitelist_popup_description'))
@@ -180,165 +204,16 @@ export default struct ConfigView {
         .fontColor($r('app.color.title_font'))
 
       Column({ space: 4 }) {
-        Row({ space: 6 }) {
-          Text('•')
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.secondary_font'))
-          Text($r('app.string.whitelist_app_self'))
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.body_font'))
-          Text(AssessmentConstants.DEFAULT_ALLOWED_APP)
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.secondary_font'))
-            .maxLines(1)
-            .textOverflow({ overflow: TextOverflow.Ellipsis })
-            .layoutWeight(1)
-        }
-        .width('100%')
-
-        Row({ space: 6 }) {
-          Text('•')
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.secondary_font'))
-          Text($r('app.string.whitelist_app_emergency'))
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.body_font'))
-          Text(AssessmentConstants.EMERGENCY_ALLOWED_APP)
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.secondary_font'))
-            .maxLines(1)
-            .textOverflow({ overflow: TextOverflow.Ellipsis })
-            .layoutWeight(1)
-        }
-        .width('100%')
-
-        Row({ space: 6 }) {
-          Text('•')
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.secondary_font'))
-          Text($r('app.string.whitelist_app_screenreader'))
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.body_font'))
-          Text(AssessmentConstants.SCREEN_READER_ALLOWED_APP)
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.secondary_font'))
-            .maxLines(1)
-            .textOverflow({ overflow: TextOverflow.Ellipsis })
-            .layoutWeight(1)
-        }
-        .width('100%')
-
-        Row({ space: 6 }) {
-          Text('•')
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.secondary_font'))
-          Text($r('app.string.whitelist_app_privacy_center'))
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.body_font'))
-          Text(AssessmentConstants.PRIVACY_CENTER_ALLOWED_APP)
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.secondary_font'))
-            .maxLines(1)
-            .textOverflow({ overflow: TextOverflow.Ellipsis })
-            .layoutWeight(1)
-        }
-        .width('100%')
-
-        Row({ space: 6 }) {
-          Text('•')
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.secondary_font'))
-          Text($r('app.string.whitelist_app_scene_board'))
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.body_font'))
-          Text(AssessmentConstants.SCENE_BOARD_ALLOWED_APP)
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.secondary_font'))
-            .maxLines(1)
-            .textOverflow({ overflow: TextOverflow.Ellipsis })
-            .layoutWeight(1)
-        }
-        .width('100%')
-
-        Row({ space: 6 }) {
-          Text('•')
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.secondary_font'))
-          Text($r('app.string.whitelist_app_screen_recorder'))
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.body_font'))
-          Text(AssessmentConstants.SCREEN_RECORDER_ALLOWED_APP)
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.secondary_font'))
-            .maxLines(1)
-            .textOverflow({ overflow: TextOverflow.Ellipsis })
-            .layoutWeight(1)
-        }
-        .width('100%')
-
-        Row({ space: 6 }) {
-          Text('•')
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.secondary_font'))
-          Text($r('app.string.whitelist_app_calculator'))
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.body_font'))
-          Text(AssessmentConstants.CALCULATOR_ALLOWED_APP)
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.secondary_font'))
-            .maxLines(1)
-            .textOverflow({ overflow: TextOverflow.Ellipsis })
-            .layoutWeight(1)
-        }
-        .width('100%')
-
-        Row({ space: 6 }) {
-          Text('•')
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.secondary_font'))
-          Text($r('app.string.whitelist_app_calendar'))
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.body_font'))
-          Text(AssessmentConstants.CALENDAR_ALLOWED_APP)
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.secondary_font'))
-            .maxLines(1)
-            .textOverflow({ overflow: TextOverflow.Ellipsis })
-            .layoutWeight(1)
-        }
-        .width('100%')
-
-        Row({ space: 6 }) {
-          Text('•')
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.secondary_font'))
-          Text($r('app.string.whitelist_app_call_log'))
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.body_font'))
-          Text(AssessmentConstants.CALL_LOG_ABILITY_ALLOWED_APP)
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.secondary_font'))
-            .maxLines(1)
-            .textOverflow({ overflow: TextOverflow.Ellipsis })
-            .layoutWeight(1)
-        }
-        .width('100%')
-
-        Row({ space: 6 }) {
-          Text('•')
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.secondary_font'))
-          Text($r('app.string.whitelist_app_form_render'))
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.body_font'))
-          Text(AssessmentConstants.FORM_RENDER_SERVICE_ALLOWED_APP)
-            .fontSize($r('app.float.font_size_caption'))
-            .fontColor($r('app.color.secondary_font'))
-            .maxLines(1)
-            .textOverflow({ overflow: TextOverflow.Ellipsis })
-            .layoutWeight(1)
-        }
-        .width('100%')
+        this.WitheListTel($r('app.string.whitelist_app_self'), AssessmentConstants.DEFAULT_ALLOWED_APP)
+        this.WitheListTel($r('app.string.whitelist_app_emergency'), AssessmentConstants.EMERGENCY_ALLOWED_APP)
+        this.WitheListTel($r('app.string.whitelist_app_screenreader'), AssessmentConstants.SCREEN_READER_ALLOWED_APP)
+        this.WitheListTel($r('app.string.whitelist_app_privacy_center'), AssessmentConstants.PRIVACY_CENTER_ALLOWED_APP)
+        this.WitheListTel($r('app.string.whitelist_app_scene_board'), AssessmentConstants.SCENE_BOARD_ALLOWED_APP)
+        this.WitheListTel($r('app.string.whitelist_app_screen_recorder'), AssessmentConstants.SCREEN_RECORDER_ALLOWED_APP)
+        this.WitheListTel($r('app.string.whitelist_app_calculator'), AssessmentConstants.CALCULATOR_ALLOWED_APP)
+        this.WitheListTel($r('app.string.whitelist_app_calendar'), AssessmentConstants.CALENDAR_ALLOWED_APP)
+        this.WitheListTel($r('app.string.whitelist_app_call_log'), AssessmentConstants.CALL_LOG_ABILITY_ALLOWED_APP)
+        this.WitheListTel($r('app.string.whitelist_app_form_render'), AssessmentConstants.FORM_RENDER_SERVICE_ALLOWED_APP)
       }
       .width('100%')
     }
