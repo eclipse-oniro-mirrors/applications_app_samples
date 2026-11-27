@@ -12,6 +12,7 @@ The following packages are used:
 - [@kit.ArkUI](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/reference/apis-arkui/Readme.md): provides router and promptAction for page navigation and result prompts, and window for setting the immersive and privacy modes of the window.
 - [@kit.IMEKit](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/reference/apis-ime-kit/Readme.md): provides inputMethod for enabling simple keyboard mode.
 - [@kit.PerformanceAnalysisKit](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/reference/apis-performance-analysis-kit/Readme.md): provides hilog for printing sample logs.
+- [@kit.TestKit](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/reference/apis-test-kit/Readme.md): provides Driver and abilityDelegatorRegistry for UI automation test cases.
 
 
 ## Screenshots

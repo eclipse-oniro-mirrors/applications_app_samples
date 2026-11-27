@@ -12,6 +12,7 @@
 - [@kit.ArkUI](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/Readme-CN.md)：提供router和promptAction用于页面跳转与结果提示，提供window用于设置窗口沉浸式与隐私模式。
 - [@kit.IMEKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ime-kit/Readme-CN.md)：提供inputMethod，用于开启简单键盘模式。
 - [@kit.PerformanceAnalysisKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-performance-analysis-kit/Readme-CN.md)：提供hilog，用于打印示例日志。
+- [@kit.TestKit](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-test-kit/Readme-CN.md)：提供Driver与abilityDelegatorRegistry，用于UI自动化用例。
 
 
 ## 效果预览
