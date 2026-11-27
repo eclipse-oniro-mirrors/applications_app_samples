@@ -19,7 +19,7 @@ import { UIContext, display } from '@kit.ArkUI';
 /**
  * TouchPadEvent实际应用页：
  * childStack基于触控板双指手势实现跟随：双指滑动实现平移，双指张开/捏合实现缩放，抬手后动画还原。
- * positionX/Y为触控板百分比坐标，取值范围为[0, 1]。
+ * positionX/positionY为触控板百分比坐标，取值范围为[0, 1]。
  */
 @Entry
 @Component
@@ -62,7 +62,7 @@ struct TouchPadEventActualApplication {
     }
   }
 
-  // 坐标转换：positionX/Y规范取值范围为[0, 1]；
+  // 坐标转换：positionX/positionY规范取值范围为[0, 1]；
   // 若上报值为百分比(0~100)或毫米坐标(>100)，
   // 通过deviceWidth/deviceHeight(触控板物理尺寸mm)折算回[0, 1]
   static toFraction(v: number, deviceSpanMm: number): number {
