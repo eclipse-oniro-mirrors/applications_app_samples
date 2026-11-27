@@ -102,11 +102,7 @@ static int CreateDemoSession(OH_QoS_GewuSession &session)
 {
     json attrJson = {
         /* 模型文件位置，根据实际情况修改 */
-        {"model", "/data/storage/el2/base/files/Qwen2_5_0_5B_CPU_Q4"},
-        {"eval_settings", {
-            {"backend", "cpu"},
-            {"max_ctx", 8192}
-        }}
+        {"model", "/data/storage/el2/base/files/Qwen2_5_0_5B_CPU_Q4"}
     };
     std::string attrStr = attrJson.dump(4);
 
@@ -122,7 +118,6 @@ static int CreateDemoSession(OH_QoS_GewuSession &session)
 static int SubmitDemoRequest(OH_QoS_GewuSession session, ChatContext &context, OH_QoS_GewuRequest &request)
 {
     json requestJson = {
-        {"type", "chat"},
         {"messages", json::array({
             {{"role", "developer"}, {"content", "You are a helpful assistant"}},
             {{"role", "user"}, {"content", "What is LLM?"}},
@@ -269,11 +264,7 @@ static void CreateExecute(napi_env env, void *data)
 {
     CreateWork *work = static_cast<CreateWork *>(data);
     json attrJson = {
-        {"model", work->modelPath},
-        {"eval_settings", {
-            {"backend", "cpu"},
-            {"max_ctx", 8192}
-        }}
+        {"model", work->modelPath}
     };
     std::string attrStr = attrJson.dump();
     OH_QoS_GewuCreateSessionResult createResult = OH_QoS_GewuCreateSession(attrStr.c_str());
@@ -385,7 +376,6 @@ static OH_QoS_GewuErrorCode ParseMessagesJson(napi_env env, size_t argc, napi_va
 static std::string BuildRequestJson(const json &messagesArr)
 {
     json requestJson = {
-        {"type", "chat"},
         {"messages", messagesArr},
         {"stream", false},
     };
