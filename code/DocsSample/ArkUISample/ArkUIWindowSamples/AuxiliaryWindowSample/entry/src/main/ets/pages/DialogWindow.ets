@@ -23,7 +23,7 @@ struct DialogWindow {
     let dialogWindowClass: window.Window | undefined = undefined;
     dialogWindowClass = window.findWindow('dialogWindow');
     if (!dialogWindowClass) {
-      console.error('dailog_windowClass is null');
+      console.error('Failed to destroy the window. Cause: dialogWindowClass is null');
       return;
     }
     // [Start destroy_dialog_window]
