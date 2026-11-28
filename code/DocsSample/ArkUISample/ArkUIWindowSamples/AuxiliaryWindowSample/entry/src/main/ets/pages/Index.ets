@@ -40,7 +40,7 @@ struct Index {
   async createSubWindow() {
     try {
       // [EndExclude create_subWindow]
-      // 获取windowStage
+      // 获取windowStage（EntryAbility已在onWindowStageCreate中将windowStage存入AppStorage）。
       windowStage_ = AppStorage.get('windowStage');
       // 创建应用子窗口。
       if (windowStage_ == null) {
@@ -53,7 +53,7 @@ struct Index {
           }
           subWindowClass = data;
           if (!subWindowClass) {
-            console.error('subWindowClass is null');
+            console.error('Failed to create the subwindow. Cause: subWindowClass is null');
             return;
           }
           console.info('Succeeded in creating the subwindow. Data: ' + JSON.stringify(data));
@@ -66,17 +66,14 @@ struct Index {
               return;
             }
             console.info('Succeeded in moving the window.');
-            if (!subWindowClass) {
-              console.error('subWindowClass is null');
+          });
+
+          subWindowClass.resize(600, 600, (err) => {
+            if (err?.code) {
+              console.error(`Failed to change the window size. Cause code: ${err.code}, message: ${err.message}`);
               return;
             }
-            subWindowClass.resize(600, 600, (err) => {
-              if (err?.code) {
-                console.error(`Failed to change the window size. Cause code: ${err.code}, message: ${err.message}`);
-                return;
-              }
-              console.info('Succeeded in changing the window size.');
-            });
+            console.info('Succeeded in changing the window size.');
           });
           // 3.为子窗口加载对应的目标页面。
           subWindowClass.setUIContent('pages/SubWindow', (err) => {
@@ -85,12 +82,8 @@ struct Index {
               return;
             }
             console.info('Succeeded in loading the content.');
-            if (!subWindowClass) {
-              console.error('subWindowClass is null');
-              return;
-            }
             // 显示子窗口。
-            subWindowClass.showWindow((err) => {
+            (subWindowClass as window.Window).showWindow((err) => {
               if (err?.code) {
                 console.error(`Failed to show the window. Cause code: ${err.code}, message: ${err.message}`);
                 return;
@@ -104,13 +97,13 @@ struct Index {
       }
       // [End create_subWindow]
     } catch(e) {
-      console.error('TAG', `OnCreateSubWindowWithOptions failed ${JSON.stringify(e)}`);
+      console.error(`Failed to create the subwindow. Cause: ${JSON.stringify(e)}`);
     }
   }
 
   destroySubWindow() {
     if (!subWindowClass) {
-      console.error('subWindowClass is null');
+      console.error('Failed to destroy the window. Cause: subWindowClass is null');
       return;
     }
     // 4.销毁子窗口。当不再需要子窗口时，可根据具体实现逻辑，使用destroyWindow对其进行销毁。
@@ -126,7 +119,7 @@ struct Index {
   // 使用createSubWindowWithOptions接口创建独立子窗，仅自由多窗模式下支持
   createIndependentSubWindow() {
     // [EndExclude create_independent_subWindow]
-    // 获取windowStage
+    // 获取windowStage（EntryAbility已在onWindowStageCreate中将windowStage存入AppStorage）。
     windowStage_ = AppStorage.get('windowStage');
     // 1.创建独立子窗口。
     // [StartExclude create_independent_subWindow]
@@ -144,7 +137,7 @@ struct Index {
         promise.then((data: window.Window | undefined) => {
           independentWindowClass = data;
           if (!independentWindowClass) {
-            console.error('independentSubWindowClass is null');
+            console.error('Failed to create the subwindow. Cause: independentWindowClass is null');
             return;
           }
           console.info(`Succeeded in creating the subwindow. Data: ${JSON.stringify(data)}`);
@@ -157,17 +150,14 @@ struct Index {
               return;
             }
             console.info('Succeeded in moving the window.');
-            if (!independentWindowClass) {
-              console.error('independentWindowClass is null');
+          });
+
+          independentWindowClass.resize(1000, 500, (err) => {
+            if (err?.code) {
+              console.error(`Failed to change the window size. Cause code: ${err.code}, message: ${err.message}`);
               return;
             }
-            independentWindowClass.resize(1000, 500, (err) => {
-              if (err?.code) {
-                console.error(`Failed to change the window size. Cause code: ${err.code}, message: ${err.message}`);
-                return;
-              }
-              console.info('Succeeded in changing the window size.');
-            });
+            console.info('Succeeded in changing the window size.');
           });
           // [End independent_subWindow_properties]
           // [Start independent_subWindow_uiContent]
@@ -178,26 +168,21 @@ struct Index {
               return;
             }
             console.info('Succeeded in loading the content.');
-            if (!independentWindowClass) {
-              console.error('independentWindowClass is null');
-              return;
-            }
             // 显示子窗口。
-            independentWindowClass.showWindow((err) => {
+            (independentWindowClass as window.Window).showWindow((err) => {
               if (err?.code) {
                 console.error(`Failed to show the window. Cause code: ${err.code}, message: ${err.message}`);
                 return;
               }
               console.info('Succeeded in showing the window.');
             });
-            // [EndExclude create_independent_subWindow]
           });
           // [End independent_subWindow_uiContent]
-          // [End create_independent_subWindow]
-        }).catch((err: Error) => {
-          let businessError = err as BusinessError;
-          console.error(`Failed to create the subwindow. Cause code: ${businessError.code}, message: ${businessError.message}`);
+          // [EndExclude create_independent_subWindow]
+        }).catch((err: BusinessError) => {
+          console.error(`Failed to create the subwindow. Cause code: ${err.code}, message: ${err.message}`);
         });
+        // [End create_independent_subWindow]
       } catch (exception) {
         console.error(`Failed to create the subwindow. Cause code: ${exception.code}, message: ${exception.message}`);
       }
@@ -206,7 +191,7 @@ struct Index {
 
   destroyIndependentSubWindow() {
     if (!independentWindowClass) {
-      console.error('independentWindowClass is null');
+      console.error('Failed to destroy the window. Cause: independentWindowClass is null');
       return;
     }
     // [Start destroy_independent_subWindow]
@@ -245,17 +230,14 @@ struct Index {
             return;
           }
           console.info('Succeeded in moving the window.');
-          if (!floatWindowClass) {
-            console.error('float_windowClass is null');
+        });
+
+        floatWindowClass.resize(600, 900, (err) => {
+          if (err?.code) {
+            console.error(`Failed to change the window size. Cause code: ${err.code}, message: ${err.message}`);
             return;
           }
-          floatWindowClass.resize(600, 900, (err) => {
-            if (err?.code) {
-              console.error(`Failed to change the window size. Cause code: ${err.code}, message: ${err.message}`);
-              return;
-            }
-            console.info('Succeeded in changing the window size.');
-          });
+          console.info('Succeeded in changing the window size.');
         });
         // [End floating_window_properties]
         // [Start floating_window_uiContent]
@@ -280,13 +262,13 @@ struct Index {
       });
       // [End floating_window]
     } catch (exception) {
-      console.error(`[getInfo] Failed to unregister callback. Cause code: ${exception.code}, message: ${exception.message}`);
+      console.error(`Failed to create the floatWindow. Cause code: ${exception.code}, message: ${exception.message}`);
     }
   }
 
   destroyFloatingWindow() {
     if (!floatWindowClass) {
-      console.error('float_windowClass is null');
+      console.error('Failed to destroy the window. Cause: floatWindowClass is null');
       return;
     }
     // [Start destroy_floating_window]
@@ -325,17 +307,14 @@ struct Index {
           return;
         }
         console.info('Succeeded in moving the window.');
-        if (!dialogWindowClass) {
-          console.error('dialogWindowClass is null');
+      });
+
+      dialogWindowClass.resize(500, 500, (err) => {
+        if (err?.code) {
+          console.error(`Failed to change the window size. Cause code: ${err.code}, message: ${err.message}`);
           return;
         }
-        dialogWindowClass.resize(500, 500, (err) => {
-          if (err?.code) {
-            console.error(`Failed to change the window size. Cause code: ${err.code}, message: ${err.message}`);
-            return;
-          }
-          console.info('Succeeded in changing the window size.');
-        });
+        console.info('Succeeded in changing the window size.');
       });
       // [End dialog_window_properties]
       // [Start dialog_window_uiContent]
