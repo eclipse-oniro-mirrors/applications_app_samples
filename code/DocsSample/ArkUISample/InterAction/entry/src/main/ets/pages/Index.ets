@@ -118,6 +118,13 @@ struct ComponentExtension {
         { name: 'NewJoystick', label: $r('app.string.NewJoystick') },
         { name: 'GamepadSample', label: $r('app.string.GamepadSample') }
       ]
+    },
+    {
+      name: 'touchpadEvent',
+      label: $r('app.string.touchpadEvent'),
+      children: [
+        { name: 'TouchPadEventActualApplication', label: $r('app.string.touchpadEventExample') },
+      ]
     }
   ];
   @State selection: string | null = null;

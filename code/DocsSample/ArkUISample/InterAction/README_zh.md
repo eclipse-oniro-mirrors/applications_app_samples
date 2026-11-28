@@ -9,6 +9,7 @@
 [交互基础机制说明](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/arkts-interaction-basic-principles.md)
 [支持鼠标输入事件](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/arkts-interaction-development-guide-mouse.md)
 [支持触屏输入事件](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/arkts-interaction-development-guide-touch-screen.md)
+[支持触控板输入事件](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/arkts-interaction-development-guide-touchpad.md)
 
 ### 效果预览
 
@@ -50,7 +51,9 @@ entry/src/main/ets/
 |   |---sampling                          //采样和历史点
 |   |       |---Sampling.ets        
 |   |---stopPropagation                          //阻止鼠标冒泡事件
-|   |       |---StopPropagation.ets                    
+|   |       |---StopPropagation.ets
+|   |---touchpadEvent                          //触控板原始事件
+|   |       |---TouchPadEventActualApplication.ets
 |   |---gamepad                          //游戏手柄操作
 |   |       |---CommonKey.ets                    
 |   |       |---DirectionKey.ets                    
